@@ -7,20 +7,20 @@ const model: EffectType<{
 }>  = {
     definition: {
         id: "firebot:create-stream-marker",
-        name: "Create Stream Marker",
-        description: "Create a stream marker in your Twitch VOD",
+        name: "ストリームマーカーの作成",
+        description: "Twitch VODにストリームマーカーを作成する",
         icon: "fad fa-map-pin",
         categories: [ EffectCategory.COMMON, EffectCategory.TWITCH ],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container header="Create Stream Marker">
-            <firebot-input input-title="Description" model="effect.description" placeholder-text="Enter description" />
+            <firebot-input input-title="Description" model="effect.description" placeholder-text="説明を入力" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You must be live and VODs must be enabled for this effect to work.
+                注：この効果を有効にするには、ライブであり、VODが有効である必要があります。
             </div>
         </eos-container>
     `,

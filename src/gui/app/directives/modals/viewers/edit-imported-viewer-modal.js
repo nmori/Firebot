@@ -6,12 +6,12 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Edit Viewer</h4>
+                    <h4 class="modal-title">視聴者の編集</h4>
                 </div>
                 <div class="modal-body">
                     <form name="importedViewer">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('username')}">
-                            <label for="username" class="control-label">Username</label>
+                            <label for="username" class="control-label">視聴者名</label>
                             <input
                                 type="text"
                                 id="username"
@@ -19,12 +19,12 @@
                                 class="form-control input-lg"
                                 ng-model="$ctrl.viewer.name"
                                 ui-validate="'$value != null && $value.length > 0'"
-                                required
+                                必須
                             />
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('viewHours')}">
-                            <label for="viewHours" class="control-label">View Hours</label>
+                            <label for="viewHours" class="control-label">視聴時間</label>
                             <input
                                 type="number"
                                 id="viewHours"
@@ -32,16 +32,16 @@
                                 class="form-control input-lg"
                                 ng-model="$ctrl.viewer.viewHours"
                                 ui-validate="'$value != null'"
-                                required
+                                必須
                             />
                         </div>
 
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()">Delete</button>
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()">削除</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {

@@ -9,11 +9,11 @@ const utils = require("../../../utility");
 const model = {
     definition: {
         id: "firebot:create-marker",
-        name: "Create Stream Marker",
+        name: "配信マーカーを打つ",
         active: true,
         trigger: "!marker",
-        usage: "[marker name]",
-        description: "Create a stream marker.",
+        usage: "[marker マーカー名]",
+        description: "配信マーカーを打つ",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         minArgs: 1,
@@ -46,13 +46,13 @@ const model = {
                 .createStreamMarker(streamer.userId, args.join(" "));
 
             if (marker == null) {
-                await chat.sendChatMessage(`Unable to create a stream marker.`);
+                await chat.sendChatMessage(`配信マーカーを付与できません`);
                 return;
             }
-            await chat.sendChatMessage(`Marker created at ${utils.formattedSeconds(marker.positionInSeconds, true)}`);
+            await chat.sendChatMessage(`マーカを付与しました： ${utils.formattedSeconds(marker.positionInSeconds, true)}`);
         } catch (error) {
             logger.error(error);
-            await chat.sendChatMessage(`Failed to create a stream marker.`);
+            await chat.sendChatMessage(`配信マーカーの付与に失敗しました`);
         }
     }
 };

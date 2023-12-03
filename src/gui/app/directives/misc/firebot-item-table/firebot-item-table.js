@@ -107,7 +107,7 @@
 
                         const hasEffectQueue = item.effects.queue != null && item.effects.queue !== "";
                         children.push({
-                            html: `<a href><i class="${!hasEffectQueue ? 'fas fa-check' : ''}" style="margin-right: ${!hasEffectQueue ? '10' : '27'}px;"></i> None</a>`,
+                            html: `<a href><i class="${!hasEffectQueue ? 'fas fa-check' : ''}" style="margin-right: ${!hasEffectQueue ? '10' : '27'}px;"></i> なし</a>`,
                             click: () => {
                                 $ctrl.clearEffectQueue(item);
                             },
@@ -115,7 +115,7 @@
                         });
 
                         menuItems.push({
-                            text: `Effect Queues...`,
+                            text: `演出キュー...`,
                             children: children,
                             hasTopDivider: true
                         });

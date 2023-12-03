@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
                 <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.saveText}}</button>
             </div>
             `,
@@ -41,15 +41,16 @@
                 const $ctrl = this;
 
                 const isUSLocale = electron.remote.app.getLocale() === "en-US";
-                $ctrl.dateFormat = isUSLocale ? "MM/dd/yyyy" : "dd/MM/yyyy";
+                const isJPLocale = electron.remote.app.getLocale() === "ja-JP";
+                $ctrl.dateFormat = isUSLocale ? "MM/dd/yyyy" : (isJPLocale ? "yyyy/MM/dd" : "dd/MM/yyyy" );
 
                 $ctrl.model = "";
 
-                $ctrl.label = "Enter Text";
-                $ctrl.inputPlaceholder = "Enter Text";
-                $ctrl.saveText = "Save";
+                $ctrl.label = "テキストを入力";
+                $ctrl.inputPlaceholder = "テキストを入力";
+                $ctrl.saveText = "保存";
                 $ctrl.validationFn = (value) => value != null;
-                $ctrl.validationText = "Please provide a date.";
+                $ctrl.validationText = "日付を入力してください.";
                 $ctrl.hasValidationError = false;
                 $ctrl.inputType = "text";
 

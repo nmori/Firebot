@@ -6,16 +6,16 @@
 
             <div ng-if="us.majorUpdate != null">
                 <div class="update-alert alert alert-info" style="display: inline-block;">
-                    <p><i class="fas fa-birthday-cake"></i> Great news! A major update ({{us.majorUpdate.gitVersion}}) is available! Check out the update notes to view all the new features and changes. <a class="github-link" href ng-click="openLinkExternally(release.gitLink)"><button class="btn btn-primary">View update</button></a></p>
+                    <p><i class="fas fa-birthday-cake"></i> 嬉しいお知らせです。メジャーアップデート({{us.majorUpdate.gitVersion}}) が公開されました。すべての新機能と変更点については、アップデートノートをご覧ください。<a class="github-link" href ng-click="openLinkExternally(release.gitLink)"><button class="btn btn-primary">更新を見る</button></a></p>
                 </div>
             </div>
 
             <div ng-if="us.majorUpdate == null && !getUpdateData().updateIsAvailable" class="update-alert alert alert-info" style="display: inline-block;">
-                <p><i class="fas fa-check-circle"></i> Firebot is up-to-date.</p>
+                <p><i class="fas fa-check-circle"></i> お使いのFirebotは最新版です</p>
             </div>
           
             <div class="update-alert alert alert-warning" style="display: inline-block;" ng-if="getUpdateData().updateIsAvailable">
-                <p>Hey! It looks like there was an update released!</p>
+                <p>アップデートがリリースされたようです</p>
             </div>
             
             <div class="latest-update" style="font-size:30px;font-weight:200;">
@@ -35,7 +35,7 @@
         
         <div ng-if="getUpdateData() == null">
             <div class="update-alert alert alert-info" style="display: inline-block;">
-                <p>Release data unavailable.</p>
+                <p>リリース情報は不明です</p>
             </div>
         </div>
     </div>

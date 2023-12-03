@@ -12,7 +12,7 @@
                 <div class="sort-tags p-px">
                     <span ng-repeat="tag in sts.getSortTagsForItem($ctrl.context, $ctrl.item.sortTags) track by tag.id" class="sort-tag mr-2">
                         <span class="mb-px">{{tag.name}}</span>
-                        <button role="button" ng-click="$ctrl.removeSortTag(tag.id)" aria-label="Remove tag" class="mb-px">
+                        <button role="button" ng-click="$ctrl.removeSortTag(tag.id)" aria-label="タグを外す" class="mb-px">
                             <i class="far fa-times"></i>
                         </button>
                     </span>

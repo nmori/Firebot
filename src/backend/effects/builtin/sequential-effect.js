@@ -10,8 +10,8 @@ const model = {
    */
     definition: {
         id: "firebot:sequentialeffect",
-        name: "Run Sequential Effect",
-        description: "Run a single effect sequentially from a list of effects",
+        name: "演出を順番に実行",
+        description: "演出リストから1つの演出を順次実行する",
         icon: "fad fa-list-ol",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
@@ -28,7 +28,7 @@ const model = {
 
 
     <eos-container>
-        <p>This effect will run a single effect sequentially from the list below. Particularly useful in Timers!</p>
+        <p>この演出は下のリストから1つの演出トを順次実行します。特にタイマーで便利です</p>
     </eos-container>
 
     <eos-container pad-top="true">

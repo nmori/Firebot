@@ -8,7 +8,7 @@ const model = {
     definition: {
         id: "firebot:ad-break",
         name: "Ad Break",
-        description: "Trigger an ad-break",
+        description: "ad-breakをトリガーする",
         hidden: !accountAccess.getAccounts().streamer.loggedIn,
         icon: "fad fa-ad",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
@@ -23,29 +23,29 @@ const model = {
                 </button>
                 <ul class="dropdown-menu ad-effect-dropdown">
                     <li ng-click="effect.adLength = 30">
-                        <a href>30 sec</a>
+                        <a href>30 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 60">
-                        <a href>60 sec</a>
+                        <a href>60 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 90">
-                        <a href>90 sec</a>
+                        <a href>90 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 120">
-                        <a href>120 sec</a>
+                        <a href>120 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 150">
-                        <a href>150 sec</a>
+                        <a href>150 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 180">
-                        <a href>180 sec</a>
+                        <a href>180 秒</a>
                     </li>
                 </ul>
             </div>
         </eos-container>
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You must be an affiliate or partner to use this effect.
+                注：この効果を使用するには、アフィリエイトまたはパートナーである必要があります。
             </div>
         </eos-container>
     `,

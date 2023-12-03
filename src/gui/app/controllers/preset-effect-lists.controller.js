@@ -47,9 +47,9 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Preset Effect List",
-                                    question: `Are you sure you want to delete the Preset Effect List "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "プリセット演出リストを消す",
+                                    question: `本当に削除しますか "${item.name}"?`,
+                                    confirmLabel: "削除する",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then(confirmed => {

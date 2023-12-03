@@ -73,17 +73,17 @@
                 copiedTimer.id = null;
 
                 while (service.timerNameExists(copiedTimer.name)) {
-                    copiedTimer.name += " copy";
+                    copiedTimer.name += " 複製";
                 }
 
                 service.saveTimer(copiedTimer).then(successful => {
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Successfully duplicated a timer!'
+                            content: 'タイマーを複製しました'
                         });
                     } else {
-                        ngToast.create("Unable to duplicate timer.");
+                        ngToast.create("タイマーの複製に失敗");
                     }
                 });
             };

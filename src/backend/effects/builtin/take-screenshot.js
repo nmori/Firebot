@@ -16,8 +16,8 @@ const logger = require('../../logwrapper');
 const clip = {
     definition: {
         id: "firebot:screenshot",
-        name: "Take Screenshot",
-        description: "Takes a screenshot of the selected screen.",
+        name: "スクリーンショットを取る",
+        description: "選択した画面のスクリーンショットを撮る",
         icon: "fad fa-camera",
         categories: [EffectCategory.FUN],
         dependencies: []
@@ -30,7 +30,7 @@ const clip = {
 
         <eos-container header="Options" pad-top="true">
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Save screenshot to folder
+                <label class="control-fb control--checkbox"> スクリーンショットをフォルダに保存する
                     <input type="checkbox" ng-model="effect.saveLocally">
                     <div class="control__indicator"></div>
                 </label>
@@ -40,7 +40,7 @@ const clip = {
             </div>
 
             <div style="padding-top:15px" ng-show="hasChannels">
-                <label class="control-fb control--checkbox"> Post screenshot in Discord channel
+                <label class="control-fb control--checkbox"> スクリーンショットをDiscordチャンネルに投稿する
                     <input type="checkbox" ng-model="effect.postInDiscord">
                     <div class="control__indicator"></div>
                 </label>
@@ -51,7 +51,7 @@ const clip = {
             </div>
 
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Show screenshot in overlay
+                <label class="control-fb control--checkbox"> スクリーンショットをオーバーレイで表示
                     <input type="checkbox" ng-model="effect.showInOverlay">
                     <div class="control__indicator"></div>
                 </label>
@@ -63,12 +63,12 @@ const clip = {
                 <firebot-input model="effect.duration" input-type="number" disable-variables="true" input-title="Secs" />
             </eos-container>
             <eos-container header="Overlay Dimensions" pad-top="true">
-                <label class="control-fb control--checkbox"> Force 16:9 Ratio
+                <label class="control-fb control--checkbox"> アスペクト比を 16:9 に強制する
                     <input type="checkbox" ng-click="forceRatioToggle();" ng-checked="forceRatio">
                     <div class="control__indicator"></div>
                 </label>
                 <div class="input-group">
-                    <span class="input-group-addon">Width (in pixels)</span>
+                    <span class="input-group-addon">幅 (pixels)</span>
                     <input
                         type="text"
                         class="form-control"
@@ -76,7 +76,7 @@ const clip = {
                         type="number"
                         ng-change="calculateSize('Width', effect.width)"
                         ng-model="effect.width">
-                    <span class="input-group-addon">Height (in pixels)</span>
+                    <span class="input-group-addon">高さ (pixels)</span>
                     <input
                         type="text"
                         class="form-control"
@@ -93,7 +93,7 @@ const clip = {
         </div>
         <eos-container pad-top="true">
             <div class="effect-info alert alert-info">
-                Note: Screenshots will capture the entirety of the selected display.
+            注：スクリーンショットは、選択したディスプレイ全体をキャプチャします。
             </div>
         </eos-container>
     `,
@@ -171,7 +171,7 @@ const clip = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.postInDiscord && effect.discordChannelId == null) {
-            errors.push("Please select Discord channel.");
+            errors.push("Discordチャンネルを選択してください。");
         }
         return errors;
     },
@@ -201,10 +201,10 @@ const clip = {
                 const files = [{
                     file: Buffer.from(base64ImageData, 'base64'),
                     name: filename,
-                    description: "Screenshot by Firebot"
+                    description: "Firebotによってスクリーンショットが取られました"
                 }];
                 const screenshotEmbed = await discordEmbedBuilder.buildScreenshotEmbed(`attachment://${filename}`);
-                await discord.sendDiscordMessage(effect.discordChannelId, "A new screenshot was taken!", screenshotEmbed, files);
+                await discord.sendDiscordMessage(effect.discordChannelId, "新しいスクリーンショットが撮影された", screenshotEmbed, files);
             }
 
             if (effect.showInOverlay) {

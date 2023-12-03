@@ -10,13 +10,13 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:pause-effect-queue",
-        name: "Pause/Resume Effect Queue",
-        description: "Pauses or resumes an effect queue. Effects sent to a paused queue will run once the queue is resumed.",
+        name: "演出キューの一時停止／再開",
+        description: "演出キューを一時停止または再開します。一時停止されたキューに送られた演出は、キューが再開されると実行されます。",
         icon: "fad fa-pause-circle",
         categories: [ EffectCategory.SCRIPTING ]
     },
     optionsTemplate: `
-        <eos-container header="Effect Queue">
+        <eos-container header="演出キュー">
             <div class="btn-group" ng-if="effectQueues.length">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="list-effect-type">{{effectQueueName ? effectQueueName : 'Pick one'}}</span> <span class="caret"></span>
@@ -28,7 +28,7 @@ const model: EffectType<{
                 </ul>
             </div>
             <div ng-if="!effectQueues.length">
-                You have no effect queues saved.
+                演出キューが保存されていない。 
             </div>
         </eos-container>
         
@@ -39,13 +39,13 @@ const model: EffectType<{
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.action = 'Pause'">
-                        <a href>Pause</a>
+                        <a href>一時停止</a>
                     </li>
                     <li ng-click="effect.action = 'Resume'">
-                        <a href>Resume</a>
+                        <a href>再開</a>
                     </li>
                     <li ng-click="effect.action = 'Toggle'">
-                        <a href>Toggle</a>
+                        <a href>切り替え</a>
                     </li>
                 </ul>
             </div>
@@ -73,9 +73,9 @@ const model: EffectType<{
         const errors: string[] = [];
 
         if (effect.effectQueue == null) {
-            errors.push("You must select an effect queue");
+            errors.push("演出キューを指定してください");
         } else if (effect.action == null) {
-            errors.push("You must select an action");
+            errors.push("アクションを選んでください");
         }
 
         return errors;

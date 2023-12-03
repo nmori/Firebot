@@ -99,10 +99,10 @@
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Successfully duplicated a channel reward!'
+                            content: 'チャネル報酬の複製に成功!'
                         });
                     } else {
-                        ngToast.create("Unable to duplicate channel reward.");
+                        ngToast.create("チャンネル報酬を複製できません");
                     }
                 });
             };

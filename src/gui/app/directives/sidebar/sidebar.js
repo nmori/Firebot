@@ -24,12 +24,12 @@
                             <nav-link page="Channel Rewards" name="{{'SIDEBAR.OTHER.CHANNELREWARDS' | translate }}" icon="fa-gifts"></nav-link>
                             <nav-link page="Preset Effect Lists" name="{{ 'SIDEBAR.OTHER.PRESET_EFFECT_LISTS' | translate }}" icon="fa-magic"></nav-link>
                             <nav-link page="Hotkeys" name="{{'SIDEBAR.OTHER.HOTKEYS' | translate }}" icon="fa-keyboard"></nav-link>
-                            <nav-link page="Counters" name="Counters" icon="fa-tally"></nav-link>
+                            <nav-link page="Counters" name="{{'SIDEBAR.OTHER.COUNTERS' | translate }}" icon="fa-tally"></nav-link>
 
                             <nav-category name="{{'SIDEBAR.MANAGEMENT' | translate }}" pad-top="true"></nav-category>
                             <nav-link page="Effect Queues" name="{{ 'SIDEBAR.OTHER.EFFECT_QUEUES' | translate }}" icon="fa-stream"></nav-link>
-                            <nav-link page="Games" name="Games" icon="fa-dice"></nav-link>
-                            <nav-link page="Moderation" name="Moderation" icon="fa-gavel"></nav-link>
+                            <nav-link page="Games" name="{{'SIDEBAR.MANAGEMENT.GAMES' | translate }}" icon="fa-dice"></nav-link>
+                            <nav-link page="Moderation" name="{{'SIDEBAR.MANAGEMENT.MODERATION' | translate }}" icon="fa-gavel"></nav-link>
                             <nav-link page="Currency" name="{{'SIDEBAR.MANAGEMENT.CURRENCY' | translate }}" icon="fa-money-bill" ng-if="$ctrl.isViewerDBOn()"></nav-link>
                             <nav-link page="Quotes" name="{{'SIDEBAR.MANAGEMENT.QUOTES' | translate }}" icon="fa-quote-right"></nav-link>
                             <nav-link page="Viewers" name="{{'SIDEBAR.MANAGEMENT.VIEWERS' | translate }}" icon="fa-users" ng-if="$ctrl.isViewerDBOn()"></nav-link>
@@ -57,7 +57,7 @@
                                 <div style="cursor:pointer;" ng-click="$ctrl.showConnectionPanelModal()">
                                     <div class="interactive-status-text">
                                         <div class="interative-status-title" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">
-                                            <span>Connections</span>
+                                            <span>{{'SIDEBAR.CONNECTIONS.CONNECTIONS' | translate }}</span>
                                         </div>
                                         <div class="interative-status-subtitle" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">
                                             <span style="width: 100%;display: flex;justify-content: space-between;margin-top: 5px;">
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
 
-                                <div class="connection-panel-btn" ng-class="{'contracted': !$ctrl.sbm.navExpanded}" uib-tooltip="Open Connection Panel" tooltip-append-to-body="true"
+                                <div class="connection-panel-btn" ng-class="{'contracted': !$ctrl.sbm.navExpanded}" uib-tooltip="{{'SIDEBAR.CONNECTIONS.OPEN_CONNECTION_PANNEL' | translate }}" tooltip-append-to-body="true"
                                     ng-click="$ctrl.showConnectionPanelModal()">
                                     <span><i class="fal fa-external-link-alt"></i></span>
                                 </div>

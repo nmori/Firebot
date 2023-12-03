@@ -5,17 +5,17 @@ const { EffectCategory, EffectDependency } = require('../../../shared/effect-con
 const effect = {
     definition: {
         id: "firebot:chat-feed-alert",
-        name: "Chat Feed Alert",
-        description: "Display an alert in Firebot's chat feed",
+        name: "チャットフィード警告",
+        description: "Firebotのチャットフィードにアラートを表示する",
         icon: "fad fa-comment-exclamation",
         categories: [EffectCategory.COMMON, EffectCategory.CHAT_BASED],
         dependencies: [EffectDependency.CHAT]
     },
     optionsTemplate: `
     <eos-container>
-        <p>Use this effect to send yourself alerts in Firebot's chat feed without using actual chat messages. This means the alerts are only visible to you.</p>
+        <p>このエフェクトを使うと、実際のチャットメッセージを使わずにFirebotのチャットフィードにアラートを送ることができます。つまり、アラートはあなただけに表示されます。</p>
     </eos-container>
-    <eos-container header="Alert Message" pad-top="true">
+    <eos-container header="アラート" pad-top="true">
         <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
     </eos-container>
 
@@ -24,7 +24,7 @@ const effect = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.message == null || effect.message === "") {
-            errors.push("Alert message can't be blank.");
+            errors.push("アラートメッセージは空白にはできません");
         }
         return errors;
     },

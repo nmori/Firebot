@@ -45,9 +45,9 @@
 
                 $ctrl.model = null;
 
-                $ctrl.label = "Enter Text";
-                $ctrl.inputPlaceholder = "Search Twitch for a viewer...";
-                $ctrl.saveText = "Save";
+                $ctrl.label = "テキストを入力";
+                $ctrl.inputPlaceholder = "Twitchの視聴者を検索...";
+                $ctrl.saveText = "保存";
                 $ctrl.validationFn = () => true;
                 $ctrl.validationText = "";
                 $ctrl.hasValidationError = false;

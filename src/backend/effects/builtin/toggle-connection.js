@@ -5,8 +5,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const toggleConnection = {
     definition: {
         id: "firebot:toggleconnection",
-        name: "Toggle Connection",
-        description: "Toggle connection to Twitch and any linked Integrations",
+        name: "接続状態を切り替え",
+        description: "Twitchとリンクされた連携接続状態を切り替える",
         icon: "fad fa-plug",
         categories: [EffectCategory.ADVANCED],
         dependencies: []
@@ -15,22 +15,22 @@ const toggleConnection = {
     optionsTemplate: `
         <eos-container header="Mode">
             <div style="padding-left: 10px;">
-                <label class="control-fb control--radio">All Connections <span class="muted"><br />Update all connections (Twitch and any linked integrations)</span>
+                <label class="control-fb control--radio">全接続<span class="muted"><br />すべての接続を更新する（Twitchとリンクされた連携機能）</span>
                     <input type="radio" ng-model="effect.mode" value="all"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >Custom Connections <span class="muted"><br />Pick and choose which connections to update</span>
+                <label class="control-fb control--radio" >いくつかの接続 <span class="muted"><br />更新する接続を選択する</span>
                     <input type="radio" ng-model="effect.mode" value="custom"/>
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container ng-show="effect.mode === 'all'" header="Action" pad-top="true">
+        <eos-container ng-show="effect.mode === 'all'" header="アクション" pad-top="true">
             <dropdown-select options="{ toggle: 'Toggle', true: 'Connect', false: 'Disconnect'}" selected="effect.allAction"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="effect.mode === 'custom'" header="Connections" pad-top="true">
+        <eos-container ng-show="effect.mode === 'custom'" header="接続" pad-top="true">
             <div ng-repeat="service in services">
                 <label class="control-fb control--checkbox">{{service.name}}
                     <input type="checkbox" ng-click="toggleServiceSelected(service.id)" ng-checked="serviceIsSelected(service.id)"  aria-label="Toggle {{service.name}}" >
@@ -108,12 +108,12 @@ const toggleConnection = {
             }
 
             if (service.action === "toggle") {
-                return "Toggle";
+                return "切り替え";
             }
             if (service.action === true) {
-                return "Connect";
+                return "接続";
             }
-            return "Disconnect";
+            return "切断";
         };
 
 
@@ -121,9 +121,9 @@ const toggleConnection = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.mode == null) {
-            errors.push("Please select a mode.");
+            errors.push("モードを選択してください。");
         } else if (effect.mode === "custom" && (effect.services == null || effect.services.length < 1)) {
-            errors.push("Please select at least one connection to update");
+            errors.push("更新する接続を少なくとも1つ選択してください。");
         }
 
         return errors;

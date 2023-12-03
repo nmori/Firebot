@@ -14,15 +14,15 @@ const currency = {
    */
     definition: {
         id: "firebot:currency",
-        name: "Update Currency",
-        description: "Update a viewers currency.",
+        name: "通貨を更新",
+        description: "視聴者の通貨を更新",
         icon: "fad fa-money-bill",
         categories: [EffectCategory.COMMON, EffectCategory.FUN],
         dependencies: [],
         outputs: [
             {
-                label: "Currency Amount",
-                description: "The amount of currency given. Useful if you use a random amount",
+                label: "通貨金額",
+                description: "ランダムな金額を使用する場合に便利。",
                 defaultName: "currencyAmount"
             }
         ]
@@ -59,13 +59,13 @@ const currency = {
                 </button>
                 <ul class="dropdown-menu currency-action-dropdown">
                     <li ng-click="effect.action = 'Add'">
-                        <a href>Add</a>
+                        <a href>追加</a>
                     </li>
                     <li ng-click="effect.action = 'Remove'">
-                        <a href>Remove</a>
+                        <a href>削除</a>
                     </li>
                     <li ng-click="effect.action = 'Set'">
-                        <a href>Set</a>
+                        <a href>設定</a>
                     </li>
                 </ul>
             </div>
@@ -78,19 +78,19 @@ const currency = {
             <eos-container header="Target" pad-top="true">
 
                 <div class="permission-type controls-fb">
-                    <label class="control-fb control--radio">Single User
+                    <label class="control-fb control--radio">ユーザ
                         <input type="radio" ng-model="effect.target" value="individual"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">Online Users in Role
+                    <label class="control-fb control--radio">オンライン状態の役割
                         <input type="radio" ng-model="effect.target" value="group"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">All Online Users
+                    <label class="control-fb control--radio">全オンライン視聴者
                         <input type="radio" ng-model="effect.target" value="allOnline"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">All Viewers
+                    <label class="control-fb control--radio">全視聴者
                         <input type="radio" ng-model="effect.target" value="allViewers"/>
                         <div class="control__indicator"></div>
                     </label>
@@ -99,7 +99,7 @@ const currency = {
                 <div class="settings-permission" style="padding-bottom:1em">
                     <div class=" viewer-group-list" ng-if="effect.target === 'group'">
                         <div ng-show="hasCustomRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Custom</div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">カスタム</div>
                             <label ng-repeat="customRole in getCustomRoles()" class="control-fb control--checkbox">{{customRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(customRole)" ng-checked="isRoleChecked(customRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -113,7 +113,7 @@ const currency = {
                             </label>
                         </div>
                         <div ng-show="hasTeamRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Teams</div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">チーム</div>
                             <label ng-repeat="teamRole in getTeamRoles()" class="control-fb control--checkbox">{{teamRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(teamRole)" ng-checked="isRoleChecked(teamRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -128,7 +128,7 @@ const currency = {
                         </div>
                     </div>
                     <div ng-if="effect.target === 'individual'" class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">Username</span>
+                        <span class="input-group-addon" id="basic-addon3">視聴者名</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.userTarget" replace-variables>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ const currency = {
 
             <eos-container header="Amount" ng-if="effect.target != null" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon" id="currency-units-type">Amount</span>
+                    <span class="input-group-addon" id="currency-units-type">金額</span>
                     <input type="text" ng-model="effect.amount" class="form-control" id="currency-units-setting" aria-describedby="currency-units-type" type="text" replace-variables="number">
                 </div>
             </eos-container>
@@ -145,7 +145,7 @@ const currency = {
         </div>
 
         <div ng-if="effect.target">
-            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> Send Chat Message
+            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> 送るチャットメッセージ
                 <input type="checkbox" ng-model="effect.sendChat">
                 <div class="control__indicator"></div>
             </label>
@@ -155,9 +155,9 @@ const currency = {
 
                 <eos-container header="Message To Send" pad-top="true">
                     <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
-                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">Chat messages cannot be longer than 360 characters. This message will get automatically trimmed if the length is still too long after all replace variables have been populated.</div>
+                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">チャットメッセージは360文字を超えることはできません。すべての置換変数が入力された後でも長すぎる場合、このメッセージは自動的にトリミングされます。</div>
                     <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
-                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Whisper
+                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> ささやく
                             <input type="checkbox" ng-init="whisper = (effect.whisper != null && effect.whisper !== '')" ng-model="whisper" ng-click="effect.whisper = ''">
                             <div class="control__indicator"></div>
                         </label>
@@ -217,7 +217,7 @@ const currency = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.currency == null) {
-            errors.push("Please select a currency to use.");
+            errors.push("使用する通貨を選択してください。");
         }
         return errors;
     },
@@ -239,7 +239,7 @@ const currency = {
             if (isNaN(amount)) {
                 return resolve({
                     success: false,
-                    reason: "Amount not a number: " + amount
+                    reason: "数字ではない金額： " + amount
                 });
             }
 

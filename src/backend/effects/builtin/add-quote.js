@@ -8,26 +8,26 @@ const moment = require("moment");
 const addQuoteEffect = {
     definition: {
         id: "firebot:add-quote",
-        name: "Add Quote",
-        description: "Adds a quote to the quote database.",
+        name: "引用文の追加",
+        description: "引用文をデータベースに追加します",
         icon: "fad fa-quote-right",
         categories: [EffectCategory.FUN],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `    
-        <eos-container header="Quote Creator">
-            <p class="muted">This is the name of the person who is creating the quote entry.</p>
+        <eos-container header="引用の作成">
+            <p class="muted">引用エントリーを作成する人の名前です。</p>
             <input ng-model="effect.creator" type="text" class="form-control" id="chat-text-setting" placeholder="Enter quote creator" replace-variables/>
         </eos-container>
 
-        <eos-container header="Quote Originator" pad-top="true">
-            <p class="muted">This is the name of the person who actually said the quote.</p>
+        <eos-container header="引用元" pad-top="true">
+            <p class="muted">実際の引用元</p>
             <input ng-model="effect.originator" type="text" class="form-control" id="chat-text-setting" placeholder="Enter quote originator" replace-variables/>
         </eos-container>
 
-        <eos-container header="Quote Text" pad-top="true">
-            <p class="muted">This is the actual quote text.</p>
+        <eos-container header="引用文" pad-top="true">
+            <p class="muted">実際の引用文</p>
             <input ng-model="effect.text" type="text" class="form-control" id="chat-text-setting" placeholder="Enter quote text" replace-variables/>
         </eos-container>
     `,
@@ -35,15 +35,15 @@ const addQuoteEffect = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.creator == null || effect.creator === "") {
-            errors.push("Please provide a quote creator.");
+            errors.push("引用の作成者を教えてください");
         }
 
         if (effect.originator == null || effect.originator === "") {
-            errors.push("Please provide a quote originator.");
+            errors.push("引用元を教えてください");
         }
 
         if (effect.text == null || effect.text === "") {
-            errors.push("Please provide a value for quote text.");
+            errors.push("引用文を教えてください");
         }
         return errors;
     },
@@ -52,7 +52,7 @@ const addQuoteEffect = {
 
         const channelData = await TwitchApi.channels.getChannelInformation();
 
-        const currentGameName = channelData && channelData.gameName ? channelData.gameName : "Unknown game";
+        const currentGameName = channelData && channelData.gameName ? channelData.gameName : "不明なゲーム";
 
         const newQuote = {
             text: effect.text,

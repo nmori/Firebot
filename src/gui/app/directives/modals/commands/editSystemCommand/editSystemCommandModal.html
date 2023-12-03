@@ -8,14 +8,14 @@
     <span aria-hidden="true">&times;</span>
   </button>
   <h4 class="modal-title">
-    <div class="text-4xl">Edit System Command:</div>
+    <div class="text-4xl">編集:</div>
     <div class="text-4xl font-bold">{{$ctrl.command.name}}</div>
   </h4>
 </div>
 <div class="modal-body general-button-settings">
   <setting-container header="Trigger">
     <div class="input-group pb-5">
-      <span class="input-group-addon" id="basic-addon3">Trigger</span>
+      <span class="input-group-addon" id="basic-addon3">トリガー</span>
       <input
         type="text"
         class="form-control"
@@ -27,9 +27,9 @@
 
     <div class="controls-fb-inline">
       <label class="control-fb control--checkbox"
-        >Auto Delete Trigger
+        >トリガーを自動消去
         <tooltip
-          text="'Have Firebot automatically delete the message that triggers this command to keep chat cleaner.'"
+          text="'チャットをクリーンに保つため Firebot はコマンドをトリガーするメッセージを自動的に削除します。'"
         ></tooltip>
         <input
           type="checkbox"
@@ -40,9 +40,9 @@
       </label>
 
       <label class="control-fb control--checkbox"
-        >Scan Whole Message
+        >メッセージ全体をスキャン
         <tooltip
-          text="'Scan the whole message for the trigger instead just the first word'"
+          text="'最初の単語だけではなく、メッセージ全体をみてトリガー判断します'"
         ></tooltip>
         <input
           type="checkbox"
@@ -63,8 +63,8 @@
   </setting-container>
 
   <setting-container
-    header="Restrictions"
-    description="Permissions, currency costs, and more"
+    header="制限"
+    description="権限、通貨、コストなど"
     pad-top="true"
   >
     <restrictions-list
@@ -124,10 +124,10 @@
     pad-top="true"
   >
     <div ng-if="$ctrl.command.subCommands != null && $ctrl.command.subCommands.length > 0" style="margin-bottom: 20px;font-weight: 100;">
-      This is only triggered when the user does not provide any arguments.
+      ユーザーが引数を指定しない場合にのみトリガーされます。
     </div>
     <effect-list
-      header="What should this command do?"
+      header="このコマンドは何をしたらよいですか？"
       effects="$ctrl.command.effects"
       trigger="command"
       update="$ctrl.effectListUpdated(effects)"
@@ -136,19 +136,19 @@
   </setting-container>
 
   <setting-container
-    header="Subcommands"
+    header="サブコマンド"
     ng-if="$ctrl.command.subCommands != null && $ctrl.command.subCommands.length > 0"
     pad-top="true"
   >
     <div class="flex text-lg font-bold pb-4">
       <div class="muted pl-8" style="flex-basis: 30%;">
-        <i class="fas fa-tag"></i> ARG
+        <i class="fas fa-tag"></i> 引数
       </div>
       <div class="muted" style="width: 25%">
-        <i class="fas fa-clock"></i> COOLDOWNS
+        <i class="fas fa-clock"></i> クールダウン
       </div>
       <div class="muted" style="width: 25%">
-        <i class="fas fa-lock-alt"></i> PERMISSIONS
+        <i class="fas fa-lock-alt"></i> 権限
       </div>
       <div class="muted" style="width: 25%"></div>
       <div
@@ -170,16 +170,16 @@
     class="btn btn-danger pull-left"
     ng-click="$ctrl.reset()"
   >
-    Reset To Default
+    初期値に戻す
   </button>
   <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">
-    Cancel
+    キャンセル
   </button>
   <button
     type="button"
     class="btn btn-primary add-new-board-save"
     ng-click="$ctrl.save()"
   >
-    Save Changes
+    保存
   </button>
 </div>

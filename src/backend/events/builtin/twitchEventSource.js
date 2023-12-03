@@ -374,7 +374,7 @@ module.exports = {
         },
         {
             id: "whisper",
-            name: "Whisper",
+            name: "ささやく",
             description: "When someone sends you a whisper.",
             cached: true,
             manualMetadata: {

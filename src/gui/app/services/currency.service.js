@@ -66,7 +66,7 @@
                 // Uh Oh! We have a currency with this name already.
                 if (dupe) {
                     utilityService.showErrorModal(
-                        "You cannot create a currency with the same name as another currency!"
+                        "他の通貨と同じ名前の通貨を作成することはできません"
                     );
                     logger.error('User tried to create currency with the same name as another currency: ' + currency.name + '.');
                     return;

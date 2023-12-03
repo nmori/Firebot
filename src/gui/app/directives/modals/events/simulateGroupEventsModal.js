@@ -8,12 +8,12 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Simulate Event</h4>
+                    <h4 class="modal-title">イベントを模擬</h4>
                 </div>
                 <div class="modal-body">
-                    <p class="muted">Select an event to simulate to test any effects you have saved.</p>
+                    <p class="muted">保存した演出をテストするために、模擬するイベントを選択します。</p>
                     <div class="form-group" ng-class="{'has-error': $ctrl.eventError}">
-                        <label class="control-label">Event</label>
+                        <label class="control-label">イベント</label>
                         <searchable-event-dropdown
                             selected="{ eventId: $ctrl.event.eventId, sourceId: $ctrl.event.sourceId }"
                             style="width:100%"
@@ -22,7 +22,7 @@
                     </div>
 
                     <div>
-                        <label class="control-fb control--checkbox"> Force event to run <tooltip text="'This will ensure that the simulated event will run, even if a similar event was recently triggered.'"></tooltip>
+                        <label class="control-fb control--checkbox"> イベントの強制実行 <tooltip text="'模擬されたイベントは確実に実行します'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.eventData.forceRetrigger">
                             <div class="control__indicator"></div>
                         </label>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.simulate()">Simulate</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.simulate()">模擬実行</button>
                 </div>
             `,
             bindings: {
@@ -124,7 +124,7 @@
                     backendCommunicator.fireEventSync("simulateEvent", $ctrl.eventData);
                     ngToast.create({
                         className: 'success',
-                        content: "Event simulated!"
+                        content: "イベントの模擬を実行しました"
                     });
                     $ctrl.close();
                 };

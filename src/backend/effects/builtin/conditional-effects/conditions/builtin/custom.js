@@ -2,8 +2,8 @@
 
 module.exports = {
     id: "firebot:custom",
-    name: "Custom",
-    description: "Condition based on custom values (useful with $variables)",
+    name: "カスタム",
+    description: "カスタム値に基づく条件 ($variables を使うと便利)",
     comparisonTypes: ["is", "is not", "is strictly", "is not strictly", "is less than", "is less than or equal to", "is greater than", "is greater than or equal to", "contains", "does not contain", "matches regex", "does not match regex"],
     leftSideValueType: "text",
     rightSideValueType: "text",

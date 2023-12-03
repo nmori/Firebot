@@ -3,7 +3,7 @@
 (function() {
     angular.module("firebotApp").component("eosReplaceVariables", {
         template: `
-            <eos-collapsable-panel show-label="Show Text Variables" hide-label="Hide Text Variables">
+            <eos-collapsable-panel show-label="テキスト変数を表示" hide-label="テキスト変数を隠す">
                 <div>
                     <div class="searchbar-wrapper">
                         <input type="text" class="form-control" placeholder="Search variables" ng-model="variableSearch" style="padding-left: 27px;">

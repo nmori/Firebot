@@ -106,16 +106,16 @@
                         if (data.moderator) {
                             modName = data.moderator.user_name;
                         }
-                        message.eventInfo = `Purged by ${modName}.`;
+                        message.eventInfo = `${modName}によって削除されました.`;
 
                     }
                 });
 
                 if (data.cause && cachedUserName) {
                     if (data.cause.type === "timeout") {
-                        service.chatAlertMessage(`${cachedUserName} was timed out by ${data.moderator.user_name} for ${data.cause.durationString}.`);
+                        service.chatAlertMessage(`${cachedUserName} は ${data.moderator.user_name} から ${data.cause.durationString} という理由でタイムアウトになりました`);
                     } else if (data.cause.type === "ban") {
-                        service.chatAlertMessage(`${cachedUserName} was banned by ${data.moderator.user_name}.`);
+                        service.chatAlertMessage(`${cachedUserName} は ${data.moderator.user_name} によって追放(BAN)されています`);
                     }
                 }
             };
@@ -152,7 +152,7 @@
                     logger.info("Chat cleared");
                     service.clearChatQueue();
 
-                    service.chatAlertMessage('Chat has been cleared by ' + data.clearer.user_name + '.');
+                    service.chatAlertMessage('チャットは ' + data.clearer.user_name + 'によってクリアされました');
                     break;
                 case "PurgeMessage":
                     logger.info("Chat message purged");
@@ -182,7 +182,7 @@
                     // We disconnected. Clear messages, post alert, and then let the reconnect handle repopulation.
                     logger.info("Chat Disconnected!");
                     service.clearChatQueue();
-                    service.chatAlertMessage("Chat has been disconnected.");
+                    service.chatAlertMessage("チャットから切断されました");
                     break;
                 case "UsersRefresh":
                     logger.info("Chat userlist refreshed.");
@@ -337,7 +337,7 @@
             backendCommunicator.on("twitch:chat:automod-update", ({messageId, newStatus, resolverName, flaggedPhrases}) => {
                 if (newStatus === "ALLOWED") {
                     service.chatQueue = service.chatQueue.filter(i => i?.data?.id !== messageId);
-                    service.chatAlertMessage(`${resolverName} approved a message that contains: ${flaggedPhrases.join(", ")}`);
+                    service.chatAlertMessage(`${resolverName} は次のメッセージを承認： ${flaggedPhrases.join(", ")}`);
                 } else {
                     const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
 
@@ -358,7 +358,7 @@
                     return;
                 }
 
-                messageItem.data.autoModErrorMessage = `There was an error acting on this message. ${likelyExpired ? "The time to act likely have expired." : "You may need to reauth your Streamer account."}`;
+                messageItem.data.autoModErrorMessage = `エラー発生： ${likelyExpired ? "対応手段なし" : "配信者アカウントを再認証する必要があるかもしれません。"}`;
             });
 
             backendCommunicator.on("twitch:chat:clear-feed", (modUsername) => {

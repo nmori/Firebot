@@ -10,8 +10,8 @@ triggers[EffectTrigger.MANUAL] = true;
 
 module.exports = {
     id: "firebot:command-args-count",
-    name: "Command Args Count",
-    description: "Condition based on number of command args",
+    name: "コマンド引数カウント",
+    description: "コマンドの引数の数に基づく条件",
     triggers: triggers,
     comparisonTypes: ["is", "is not", "is less than", "is greater than"],
     leftSideValueType: "none",

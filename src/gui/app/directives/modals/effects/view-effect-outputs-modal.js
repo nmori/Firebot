@@ -5,10 +5,10 @@
         template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Outputs of {{$ctrl.effectDefinition.name}}</h4>
+                    <h4 class="modal-title">{{$ctrl.effectDefinition.name}}の出力設定</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="well-dark well-sm">Some effects output data that can be referenced in other effects down the chain via a $variable.</div>
+                    <div class="well-dark well-sm">いくつかの演出は、$variableを介して、連動された他の演出で参照できるデータを出力します。</div>
                     <div style="margin-top: 25px;">
                         <div
                             ng-repeat="output in $ctrl.effectDefinition.outputs"
@@ -41,8 +41,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">{{$ctrl.hasMadeEdits ? 'Cancel' : 'Close'}}</button>
-                    <button ng-if="$ctrl.hasMadeEdits" type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">{{$ctrl.hasMadeEdits ? 'キャンセル' : '閉じる'}}</button>
+                    <button ng-if="$ctrl.hasMadeEdits" type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
         bindings: {
@@ -63,9 +63,9 @@
                 utilityService.openGetInputModal(
                     {
                         model: $ctrl.effect.outputNames[output.defaultName],
-                        label: "Rename Output",
-                        saveText: "Save",
-                        descriptionText: "Ensure that your output names are unique within an effect list. If two effects output to the same name, unexpected behavior may occur.",
+                        label: "名前を変更する",
+                        saveText: "保存する",
+                        descriptionText: "演出リスト内で出力名に重複がないことを確認してください。2つの演出が同じ名前で出力されると、予期せぬ動作が起こる可能性があります。",
                         validationFn: (value) => {
                             return new Promise(resolve => {
                                 if (value?.trim().length < 1) {
@@ -75,7 +75,7 @@
                                 }
                             });
                         },
-                        validationText: "Name cannot be empty."
+                        validationText: "名前を入力してください."
                     },
                     (newName) => {
                         $ctrl.effect.outputNames[output.defaultName] = newName;
@@ -90,7 +90,7 @@
 
                 ngToast.create({
                     className: 'success',
-                    content: `Copied '${variable}'!`
+                    content: `コピーしました： '${variable}'!`
                 });
             };
 

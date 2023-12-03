@@ -6,25 +6,25 @@
             template: `
                 <div class="modal-header sticky-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Chat Settings</h4>
+                    <h4 class="modal-title">チャット設定</h4>
                 </div>
                 <div class="modal-body">
                     <div class="py-0 px-4">
 
                         <!-- Main Chat Settings -->
                         <div class="mt-8 chat-settings-group">
-                            <div class="display-1 mb-2 font-black">Main Settings</div>
+                            <div class="display-1 mb-2 font-black"メイン設定</div>
 
                             <chat-settings-toggle
                             setting="settings.getShowChatViewerList()"
-                            title="Show Chat User List"
+                            title="チャットユーザーリストの表示"
                             input-id="chatUserList"
                             on-update="settings.setShowChatViewerList(setting)"
                             ></chat-settings-toggle>
 
                             <chat-settings-toggle
                                 setting="settings.showActivityFeed()"
-                                title="Show Activity Feed"
+                                title="アクティビティフィードの表示"
                                 input-id="activityFeed"
                                 on-update="settings.setShowActivityFeed(setting)"
                             ></chat-settings-toggle>
@@ -33,9 +33,9 @@
 
                         <!-- Sound Settings -->
                         <div class="mt-8 chat-settings-group">
-                            <div class="display-1 mb-2 font-black">Sound Settings</div>
+                            <div class="display-1 mb-2 font-black">サウンド設定</div>
 
-                            <div class="mb-2 font-black">Tag Notification Sound</div>
+                            <div class="mb-2 font-black">タグ通知音</div>
                             <span class="btn-group mb-2.5" uib-dropdown>
                                 <button type="button" class="btn btn-primary" uib-dropdown-toggle>
                                     {{selectedNotificationSound.name}} <span class="caret"></span>
@@ -51,7 +51,7 @@
                             </span>
                             <file-chooser ng-show="selectedNotificationSound.name === 'Custom'"
                                 model="selectedNotificationSound.path"
-                                options="{title: 'Select Sound File', filters: [{name: 'Audio', extensions: ['mp3', 'ogg', 'wav', 'flac']}]}"
+                                options="{title: 'サウンドファイルを選択', filters: [{name: 'Audio', extensions: ['mp3', 'ogg', 'wav', 'flac']}]}"
                                 on-update="setCustomNotiPath(filepath)"></file-chooser>
                             <div class="volume-slider-wrapper" ng-hide="selectedNotificationSound.name === 'None'">
                                 <i class="fal fa-volume-down volume-low pb-2 text-4xl"></i>
@@ -62,7 +62,7 @@
 
                         <!-- Display Style Settings -->
                         <div class="mt-8 chat-settings-group">
-                            <div class="display-1 mb-2 font-black">Display Settings</div>
+                            <div class="display-1 mb-2 font-black"表示設定</div>
 
                             <div class="font-black">Display Style</div>
                             <div class="permission-type controls-fb-inline">
@@ -78,28 +78,28 @@
 
                             <chat-settings-toggle
                                 setting="settings.chatAlternateBackgrounds()"
-                                title="Alternate Backgrounds"
+                                title="代替の背景"
                                 input-id="alternateBackgrounds"
                                 on-update="settings.setChatAlternateBackgrounds(setting)"
                             ></chat-settings-toggle>
 
                             <chat-settings-toggle
                                 setting="settings.getShowAvatars()"
-                                title="Show Avatars"
+                                title="アバターを表示"
                                 input-id="showAvatars"
                                 on-update="settings.setShowAvatars(setting)"
                             ></chat-settings-toggle>
 
                             <chat-settings-toggle
                                 setting="settings.getShowTimestamps()"
-                                title="Show Timestamps"
+                                title="タイムスタンプの表示"
                                 input-id="showTimestamps"
                                 on-update="settings.setShowTimestamps(setting)"
                             ></chat-settings-toggle>
 
                             <chat-settings-toggle
                                 setting="settings.getShowPronouns()"
-                                title="Show Pronouns"
+                                title="代名詞を表示"
                                 external-link="https://pronouns.alejo.io/"
                                 input-id="showPronouns"
                                 on-update="settings.setShowPronouns(setting)"
@@ -107,7 +107,7 @@
 
                             <chat-settings-toggle
                                 setting="settings.getChatCustomFontSizeEnabled()"
-                                title="Show Custom Font Size"
+                                title="カスタムフォントサイズを表示"
                                 input-id="showCustomFontSize"
                                 on-update="toggleCustomFontEnabled()"
                             ></chat-settings-toggle>
@@ -119,11 +119,11 @@
 
                         <!-- Emote Settings -->
                         <div class="mt-8 chat-settings-group">
-                            <div class="display-1 mb-2 font-black">Emote Settings</div>
+                            <div class="display-1 mb-2 font-black">エモート設定</div>
 
                             <chat-settings-toggle
                                 setting="settings.getShowBttvEmotes()"
-                                title="Show BTTV Emotes"
+                                title="BTTVエモートを表示"
                                 external-link="https://betterttv.com/"
                                 input-id="bttvEmotes"
                                 on-update="setShowThirdPartyEmotes('bttv')"
@@ -131,7 +131,7 @@
 
                             <chat-settings-toggle
                                 setting="settings.getShowFfzEmotes()"
-                                title="Show FFZ Emotes"
+                                title="FFZエモートを表示""
                                 external-link="https://frankerfacez.com/"
                                 input-id="ffzEmotes"
                                 on-update="setShowThirdPartyEmotes('ffz')"
@@ -139,7 +139,7 @@
 
                             <chat-settings-toggle
                                 setting="settings.getShowSevenTvEmotes()"
-                                title="Show 7TV Emotes"
+                                title="7TVエモートを表示"
                                 external-link="https://7tv.app/"
                                 input-id="sevenTvEmotes"
                                 on-update="setShowThirdPartyEmotes('7tv')"
@@ -148,10 +148,10 @@
 
                         <!-- Filter Settings -->
                         <div class="mt-8">
-                            <div class="display-1 mb-2 font-black">Filter Settings</div>
+                            <div class="display-1 mb-2 font-black">フィルタ設定</div>
 
                             <div>
-                                <div class="mb-2 font-black" id="showCustomFontSize">Clear Chat Feed</div>
+                                <div class="mb-2 font-black" id="showCustomFontSize">チャットクリア</div>
                                 <dropdown-select
                                     options="clearChatFeedOptions"
                                     selected="chatFeedMode"
@@ -161,15 +161,15 @@
                         
                             <chat-settings-toggle
                                 setting="settings.chatHideDeletedMessages()"
-                                title="Hide Deleted Messages"
-                                tooltip="'Turning this on will cover deleted messages with a blackbox. Hovering over the message will reveal it. Great for letting your mods hide spoilers!'"
+                                title="削除されたメッセージを隠す"
+                                tooltip="'これをオンにすると、削除されたメッセージがブラックボックスで覆われます。メッセージの上にカーソルを置くと現れます。MODがネタバレを隠すのに最適です'"
                                 input-id="hideDeletedMessages"
                                 on-update="settings.setChatHideDeletedMessages(setting)"
                             ></chat-settings-toggle>
 
                             <chat-settings-toggle
                                 setting="settings.chatHideBotAccountMessages()"
-                                title="Hide messages from Bot account"
+                                title=”Botアカウントからのメッセージを隠す"
                                 input-id="hideBotMessages"
                                 on-update="settings.setChatHideBotAccountMessages(setting)"
                             ></chat-settings-toggle>
@@ -190,9 +190,9 @@
                 $scope.settings = settingsService;
 
                 $scope.clearChatFeedOptions = {
-                    never: "Never",
-                    onlyStreamer: "Only when I /clear",
-                    always: "When I or mods /clear"
+                    never: "なし",
+                    onlyStreamer: "私が/clearを実行したときのみ",
+                    always: "/clearを実行したとき"
                 };
                 $scope.chatFeedMode = settingsService.getClearChatFeedMode();
                 $scope.setChatFeedMode = (mode) => settingsService.setClearChatFeedMode(mode);

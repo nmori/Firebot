@@ -15,7 +15,7 @@
             template: `
                 <div>
                     <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;">
-                        <span>Only trigger when </span>
+                        <span>トリガー条件 </span>
 
                         <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                             <div class="noselect pointer ddtext" style="font-size: 12px;">
@@ -27,15 +27,15 @@
                             <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'all'">
-                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">all restrictions pass</a>
+                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">すべての制限を適用</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'any'">
-                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">any restriction pass</a>
+                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">いくつかの制限を適用</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'none'">
-                                    <a href style="padding-left: 10px;" aria-label="no restrictions pass">no restrictions pass</a>
+                                    <a href style="padding-left: 10px;" aria-label="no restrictions pass">制限なし</a>
                                 </li>
                             </ul>
                         </div>
@@ -60,14 +60,14 @@
                         </div>
                     </div>
                     <div class="ml-3.5" ng-show="$ctrl.restrictionData.restrictions.length > 0">
-                        <label class="control-fb control--checkbox"> Send chat message when restrictions not met
+                        <label class="control-fb control--checkbox"> 制限が満たされていない場合にチャット メッセージを送信する
                             <input type="checkbox" ng-model="$ctrl.restrictionData.sendFailMessage">
                             <div class="control__indicator"></div>
                         </label>
 
                         <div ng-show="$ctrl.restrictionData.sendFailMessage">
                             <label class="control-fb control--checkbox">
-                                Use custom restrictions message
+                                自作したメッセージを使用する
                                 <input
                                     type="checkbox"
                                     ng-model="$ctrl.restrictionData.useCustomFailMessage"
@@ -81,7 +81,7 @@
                                     disable-variables="true"
                                     input-title="Message"
                                 />
-                                <p class="muted">Available variables: {user}, {reason}</p>
+                                <p class="muted">使用可能な変数: {user}, {reason}</p>
                             </div>
                         </div>
                     </div>
@@ -125,7 +125,7 @@
                             mode: "all",
                             sendFailMessage: true,
                             useCustomFailMessage: false,
-                            failMessage: "Sorry, you cannot use this command because: {reason}"
+                            failMessage: "このコマンドは使用できません: {reason}"
                         };
                     }
 
@@ -142,7 +142,7 @@
                     }
 
                     if ($ctrl.restrictionData.failMessage == null) {
-                        $ctrl.restrictionData.failMessage = "Sorry, you cannot use this command because: {reason}";
+                        $ctrl.restrictionData.failMessage = "このコマンドは使用できません: {reason}";
                     }
 
                     updateCanAddMoreRestrictions();
@@ -177,10 +177,10 @@
 
                     utilityService.openSelectModal(
                         {
-                            label: "Add Restriction",
+                            label: "制限の追加",
                             options: options,
                             saveText: "Add",
-                            validationText: "Please select a restriction type."
+                            validationText: "追加する制限の種類を選んでください"
 
                         },
                         (selectedId) => {

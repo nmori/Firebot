@@ -87,7 +87,7 @@ const model = {
 
         const currency = currencyService.getCurrency(currencyId);
 
-        const currencyName = currency ? currency.name : "[None Selected]";
+        const currencyName = currency ? currency.name : "[未選択]";
 
         return `${currencyName} is ${comparisonDisplay} ${amount}`;
     },
@@ -113,9 +113,9 @@ const model = {
 
         if (!passed) {
             const currency = currencyDatabase.getCurrencyById(selectedCurrency);
-            const currencyName = currency ? currency.name.toLowerCase() : "Unknown currency";
+            const currencyName = currency ? currency.name.toLowerCase() : "不明な通貨";
             const amountText = comparison !== "equal" ? `${comparison} than ${currencyAmount}` : `${currencyAmount}`;
-            throw new Error(`you need ${amountText} ${currencyName}`);
+            throw new Error(`以下が必要です：${amountText} ${currencyName}`);
         }
     },
     onSuccessful: async ({ metadata }, {

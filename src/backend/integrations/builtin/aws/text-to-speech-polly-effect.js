@@ -146,7 +146,7 @@ const playSound = {
         </eos-container>
 
         <eos-container header="Text">
-            <textarea ng-model="effect.text" class="form-control" name="text" placeholder="Enter text" rows="4" cols="40" replace-variables menu-position="under"></textarea>
+            <textarea ng-model="effect.text" class="form-control" name="text" placeholder="テキストを入力" rows="4" cols="40" replace-variables menu-position="under"></textarea>
 
             <div style="padding-top:10px">
                 <label class="control-fb control--checkbox"> Enable
@@ -202,8 +202,8 @@ const playSound = {
 
         <eos-container header="Maximum Duration" pad-top="true">
             <div class="input-group">
-                <span class="input-group-addon" id="delay-length-effect-type">Seconds</span>
                 <input ng-model="effect.maxSoundLength" type="text" class="form-control" aria-describedby="delay-length-effect-type" type="text" replace-variables="number">
+                <span class="input-group-addon" id="delay-length-effect-type">秒</span>
             </div>
         </eos-container>
 

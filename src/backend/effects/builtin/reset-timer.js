@@ -6,8 +6,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const chat = {
     definition: {
         id: "firebot:reset-timer",
-        name: "Reset Timer",
-        description: "Force a timer to restart it's interval",
+        name: "タイマーをリセット",
+        description: "タイマーのインターバルを強制的に再開させる",
         icon: "fad fa-stopwatch",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -15,14 +15,14 @@ const chat = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>This effect let's you force a timer to restart it's interval.</p>
+            <p>この演出を使うと、タイマーの間隔を強制的に再開させることができます。</p>
         </eos-container>
 
         <eos-container ng-hide="hasTimers" pad-top="true">
-            <span class="muted">No Timers created yet! You can create them in the <b>Timers</b> tab.</span>
+            <span class="muted">タイマーはまだ作成されていません！作成は<b>タイマー</b>タブからどうぞ</span>
         </eos-container>
 
-        <eos-container ng-show="hasTimers" header="Timer" pad-top="true">
+        <eos-container ng-show="hasTimers" header="タイマー" pad-top="true">
             <dropdown-select options="timerOptions" selected="effect.selectedTimerId"></dropdown-select>
         </eos-container>
     `,
@@ -45,7 +45,7 @@ const chat = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.selectedTimerId == null) {
-            errors.push("Please select a timer.");
+            errors.push("タイマーを選択してください");
         }
         return errors;
     },

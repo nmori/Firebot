@@ -7,8 +7,8 @@ const twitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:block",
-        name: "Block User",
-        description: "block or unblock a user on Twitch.",
+        name: "視聴者をブロック",
+        description: "Twitchでユーザーをブロックまたはブロック解除する",
         icon: "fad fa-user-slash",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: []
@@ -21,17 +21,17 @@ const model = {
                 </button>
                 <ul class="dropdown-menu celebrate-effect-dropdown">
                     <li ng-click="effect.action = 'Block'">
-                        <a href>Block</a>
+                        <a href>ブロック</a>
                     </li>
                     <li ng-click="effect.action = 'Unblock'">
-                        <a href>Unblock</a>
+                        <a href>ブロック解除</a>
                     </li>
                 </ul>
             </div>
         </eos-container>
         <eos-container header="Target" pad-top="true" ng-show="effect.action != null">
             <div class="input-group">
-                <span class="input-group-addon" id="username-type">Username</span>
+                <span class="input-group-addon" id="username-type">視聴者名</span>
                 <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables>
             </div>
         </eos-container>
@@ -40,10 +40,10 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.action == null) {
-            errors.push("Please choose a block action.");
+            errors.push("ブロックアクションを選択してください。");
         }
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please put in a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         return errors;
     },

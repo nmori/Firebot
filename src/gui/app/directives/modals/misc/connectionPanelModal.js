@@ -4,7 +4,7 @@
     angular.module("firebotApp").component("connectionPanelModal", {
         template: `
             <div class="modal-header" style="text-align: center">
-                <h4 class="modal-title">Connection Panel</h4>
+                <h4 class="modal-title">接続パネル</h4>
             </div>
             <div class="modal-body" style="padding-bottom: 30px;">
                 <div style="display: flex;justify-content: space-around">
@@ -14,14 +14,14 @@
                     </div>
                     <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
                         <div class="connection-tile">
-                            <span class="connection-title">Chat & Events <tooltip text="'Used for commands, chat effects, chat feed, events, etc.'"></tooltip></span>
+                            <span class="connection-title">チャット&イベント<tooltip text="'コマンド、チャット演出、チャットフィード、イベントなどのためのセット'"></tooltip></span>
                             <connection-button
                                 connected="$ctrl.conn.connections['chat'] === 'connected'"
                                 connecting="$ctrl.conn.connections['chat'] === 'connecting'"
                                 connection-name="Chat"
                                 on-connection-click="$ctrl.conn.toggleConnectionToService('chat')"></connection-button>
                             <div class="sub-title">
-                                <div style="padding-bottom: 4px;">Sidebar controlled <tooltip text="'Check this to have Chat be controlled by the sidebar connect button.'"></tooltip></div>
+                                <div style="padding-bottom: 4px;">サイドバーで制御<tooltip text="'チャットをサイドバーの接続ボタンで制御するには、このチェックボックスをオンにします。.'"></tooltip></div>
                                 <label class="control-fb control--checkbox" style="position: relative;height: 20px;padding: 0;margin: 0;width: 20px;">
                                     <input type="checkbox" ng-checked="$ctrl.serviceIsChecked('chat')" ng-click="$ctrl.toggledServiceIsChecked('chat')">
                                     <div class="control__indicator"></div>
@@ -115,13 +115,13 @@
 
                 if (connectionStatus === "connected") {
                     overlayStatusId = 1;
-                    return "Connected";
+                    return "接続済";
                 } else if (connectionStatus === "warning") {
                     overlayStatusId = 0;
-                    return "Ready, but nothing is connected at this time.";
+                    return "準備ができました。接続を待っています";
                 }
                 overlayStatusId = -1;
-                return "Error starting web server. App restart required.";
+                return "エラー発生。再起動が必要です";
             };
 
             $ctrl.getOverlayStatusId = function() {

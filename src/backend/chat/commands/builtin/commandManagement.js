@@ -127,7 +127,7 @@ const commandManagement = {
         name: "Command Management",
         active: true,
         trigger: "!command",
-        description: "Allows custom command management via chat.",
+        description: "チャットによるコマンド管理を許可",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -151,59 +151,59 @@ const commandManagement = {
             {
                 arg: "add",
                 usage: "add [!trigger or \"phrase\"] [message]",
-                description: "Adds a new command with a given response message."
+                description: "指定された応答メッセージを含む新しいコマンドを追加."
             },
             {
                 arg: "response",
                 usage: "response [!trigger or \"phrase\"] [message]",
-                description: "Updates the response message for a command. Only works for commands that have 1 or less chat effects."
+                description: "コマンドの応答メッセージを更新（チャット演出が 1 以下のコマンドのみ有効）"
             },
             {
                 arg: "setcount",
                 usage: "setcount [!trigger or \"phrase\"] count#",
-                description: "Updates the commands usage count.",
+                description: "コマンドの使用回数を更新",
                 minArgs: 3
             },
             {
                 arg: "cooldown",
                 usage: "cooldown [!trigger or \"phrase\"] [globalCooldownSecs] [userCooldownSecs]",
-                description: "Change the cooldown for a command."
+                description: "コマンドのクールダウン時間を変更"
             },
             {
                 arg: "restrict",
                 usage: "restrict [!trigger or \"phrase\"] [All/Sub/Mod/Streamer/Custom Group]",
-                description: "Update permissions for a command."
+                description: "コマンドの権限を更新"
             },
             {
                 arg: "remove",
                 usage: "remove [!trigger or \"phrase\"]",
-                description: "Removes the given command."
+                description: "指定されたコマンドを削除."
             },
             {
                 arg: "description",
                 usage: "description [!trigger or \"phrase\"]",
-                description: "Updates the description for a command.",
+                description: "コマンドの説明を更新",
                 minArgs: 3
             },
             {
                 arg: "enable",
                 usage: "enable [!trigger or \"phrase\"]",
-                description: "Enables the given custom command."
+                description: "コマンドを有効化"
             },
             {
                 arg: "disable",
                 usage: "disable [!trigger or \"phrase\"]",
-                description: "Disables the given custom command."
+                description: "コマンドを無効化"
             },
             {
                 arg: "addalias",
                 usage: "addalias [!trigger or \"phrase\"] !alias",
-                description: "Adds the specified alias to the given custom command."
+                description: "別名を追加"
             },
             {
                 arg: "removealias",
                 usage: "removealias [!trigger or \"phrase\"] !alias",
-                description: "Removed the specified alias from the given custom command."
+                description: "指定された別名を削除"
             }
         ]
     },
@@ -236,7 +236,7 @@ const commandManagement = {
 
             if (args.length < 2) {
                 await chat.sendChatMessage(
-                    `Invalid command. Usage: ${event.command.trigger} ${usage}`);
+                    `無効な命令. 使用方法: ${event.command.trigger} ${usage}`);
                 return resolve();
             }
 
@@ -244,7 +244,7 @@ const commandManagement = {
 
             if (trigger == null || trigger === "") {
                 await chat.sendChatMessage(
-                    `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                    `無効な命令. 使用方法: ${event.command.trigger} ${usage}`
                 );
                 return resolve();
             }
@@ -253,14 +253,14 @@ const commandManagement = {
             case "add": {
                 if (args.length < 3 || remainingData == null || remainingData === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効な命令. 使用方法: ${event.command.trigger} ${usage}`
                     );
                     return resolve();
                 }
 
                 if (commandManager.triggerIsTaken(trigger)) {
                     await chat.sendChatMessage(
-                        `The trigger '${trigger}' is already in use, please try again.`
+                        `トリガー名 '${trigger}' はすでに使われています。`
                     );
                     return resolve();
                 }
@@ -290,7 +290,7 @@ const commandManagement = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Added command '${trigger}'!`
+                    `コマンド '${trigger}' を追加しました`
                 );
 
                 break;
@@ -298,7 +298,7 @@ const commandManagement = {
             case "response": {
                 if (args.length < 3 || remainingData == null || remainingData === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効な命令. 使用方法: ${event.command.trigger} ${usage}`
                     );
                     return resolve();
                 }
@@ -306,7 +306,7 @@ const commandManagement = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        ` '${trigger}'は見つかりません`
                     );
                     return resolve();
                 }
@@ -315,7 +315,7 @@ const commandManagement = {
 
                 if (chatEffectsCount > 1) {
                     await chat.sendChatMessage(
-                        `The command '${trigger}' has more than one Chat Effect, preventing the response from being editable via chat.`
+                        `コマンド名 '${trigger}' は 演出が複数設定されているため、チャットからは編集できません`
                     );
                     return resolve();
                 }
@@ -334,7 +334,7 @@ const commandManagement = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
                 await chat.sendChatMessage(
-                    `Updated '${trigger}' with response: ${remainingData}`
+                    `'${trigger}' の応答を更新しました: ${remainingData}`
                 );
 
                 break;
@@ -343,7 +343,7 @@ const commandManagement = {
                 const countArg = remainingData.trim();
                 if (countArg === "" || isNaN(countArg)) {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効な命令. 使用方法: ${event.command.trigger} ${usage}`
                     );
                     return resolve();
                 }
@@ -351,7 +351,7 @@ const commandManagement = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `'${trigger}'は見つかりません`
                     );
                     return resolve();
                 }
@@ -366,7 +366,7 @@ const commandManagement = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
                 await chat.sendChatMessage(
-                    `Updated usage count for '${trigger}' to: ${newCount}`
+                    ` '${trigger}' の使用回数を${newCount}回に設定しました`
                 );
 
                 break;
@@ -376,14 +376,14 @@ const commandManagement = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `'${trigger}'は見つかりません`
                     );
                     return resolve();
                 }
 
                 if (remainingData == null || remainingData.length < 1) {
                     await chat.sendChatMessage(
-                        `Please provided a description for '${trigger}'!`
+                        ` '${trigger}' に付いての概要を提供してください`
                     );
                     return resolve();
                 }
@@ -393,7 +393,7 @@ const commandManagement = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
                 await chat.sendChatMessage(
-                    `Updated description for '${trigger}' to: ${remainingData}`
+                    ` '${trigger}' の概要を次の値にしました： ${remainingData}`
                 );
 
                 break;
@@ -403,7 +403,7 @@ const commandManagement = {
                 if (args.length < 3 || remainingData === "" || cooldownArgs.length < 2 || isNaN(cooldownArgs[0])
                     || isNaN(cooldownArgs[1])) {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効な命令. 使用方法: ${event.command.trigger} ${usage}`
                     );
                     return resolve();
                 }
@@ -411,7 +411,7 @@ const commandManagement = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `'${trigger}'は見つかりません`
                     );
                     return resolve();
                 }
@@ -435,7 +435,7 @@ const commandManagement = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
                 await chat.sendChatMessage(
-                    `Updated '${trigger}' with cooldowns: ${userCooldown}s (user), ${globalCooldown}s (global)`
+                    `'${trigger}' のクルーダウン設定を更新しました: ${userCooldown}秒 (ユーザ), ${globalCooldown}秒 (全体)`
                 );
 
                 break;
@@ -443,7 +443,7 @@ const commandManagement = {
             case "restrict": {
                 if (args.length < 3 || remainingData === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効な命令. 使用方法: ${event.command.trigger} ${usage}`
                     );
                     return resolve();
                 }
@@ -451,7 +451,7 @@ const commandManagement = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `'${trigger}'は見つかりません`
                     );
                     return resolve();
                 }
@@ -462,7 +462,7 @@ const commandManagement = {
 
                 if (roleIds === false) {
                     await chat.sendChatMessage(
-                        `Please provide a valid group name: All, Sub, Mod, Streamer, or a custom group's name`
+                        `有効な設定値を指定してください: All, Sub, Mod, Streamer,もしくはグループ名`
                     );
                     return resolve();
                 }
@@ -480,7 +480,7 @@ const commandManagement = {
 
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
-                await chat.sendChatMessage(`Updated '${trigger}' restrictions to: ${remainingData}`);
+                await chat.sendChatMessage(`'${trigger}' の制限設定を更新: ${remainingData}`);
 
                 break;
             }
@@ -489,14 +489,14 @@ const commandManagement = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `'${trigger}'は見つかりません`
                     );
                     return resolve();
                 }
 
                 commandManager.removeCustomCommandByTrigger(trigger);
 
-                await chat.sendChatMessage(`Successfully removed command '${trigger}'.`);
+                await chat.sendChatMessage(`'${trigger}'を削除しました`);
                 break;
             }
             case "disable":
@@ -505,7 +505,7 @@ const commandManagement = {
 
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `'${trigger}'は見つかりません`
                     );
                     return resolve();
                 }
@@ -514,7 +514,7 @@ const commandManagement = {
 
                 if (command.active === newActiveStatus) {
                     await chat.sendChatMessage(
-                        `${trigger} is already ${triggeredArg}d.`
+                        `${trigger} はすでに次の値に設定されています： ${triggeredArg}`
                     );
                     return resolve();
                 }
@@ -535,7 +535,7 @@ const commandManagement = {
 
                 if (args.length < 3 || alias === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効な命令. 使用方法: ${event.command.trigger} ${usage}`
                     );
                     return resolve();
                 }
@@ -544,7 +544,7 @@ const commandManagement = {
 
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `'${trigger}'は見つかりません`
                     );
                     return resolve();
                 }
@@ -554,7 +554,7 @@ const commandManagement = {
 
                 if (aliasIndex > -1) {
                     await chat.sendChatMessage(
-                        `Alias '${alias}' already exists for command with the trigger '${trigger}'.`
+                        `'${trigger}'を使う別名'${alias}' はすでに存在します.`
                     );
                     return resolve();
                 }
@@ -563,7 +563,7 @@ const commandManagement = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Added alias '${alias}' to custom command '${trigger}'!`
+                    `'${trigger}'の別名として '${alias}' を追加しました`
                 );
 
                 break;
@@ -573,7 +573,7 @@ const commandManagement = {
 
                 if (args.length < 3 || alias === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効な命令. 使用方法: ${event.command.trigger} ${usage}`
                     );
                     return resolve();
                 }
@@ -582,7 +582,7 @@ const commandManagement = {
 
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `'${trigger}' は見つかりません`
                     );
                     return resolve();
                 }
@@ -592,7 +592,7 @@ const commandManagement = {
 
                 if (aliasIndex === -1) {
                     await chat.sendChatMessage(
-                        `Alias '${alias}' does not exist for command with the trigger '${trigger}'.`
+                        `'${trigger}'の別名 '${alias}' は存在しません`
                     );
                     return resolve();
                 }
@@ -601,7 +601,7 @@ const commandManagement = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Removed alias '${alias}' from custom command '${trigger}'!`
+                    `'${trigger}'の別名 ${alias}' を削除しました`
                 );
 
                 break;

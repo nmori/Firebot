@@ -687,7 +687,7 @@
 
             service.getTaggedNotificationSound = function() {
                 const sound = getDataFromFile("/settings/chat/tagged/sound");
-                return sound != null ? sound : { name: "None" };
+                return sound != null ? sound : { name: "なし" };
             };
 
             service.setTaggedNotificationSound = function(sound) {

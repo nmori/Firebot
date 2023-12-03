@@ -16,8 +16,8 @@
           <div>{{$ctrl.metadata.type != 'boolean' ? $ctrl.metadata.description ? $ctrl.metadata.description : $ctrl.name : ""}}</div>
           <div ng-if="$ctrl.metadata.type != 'boolean' && $ctrl.metadata.secondaryDescription" style="padding-bottom: 5px;font-size: 14px;font-weight: 300;">{{$ctrl.metadata.secondaryDescription}}</div>
           <div ng-switch-when="string">
-            <textarea ng-if="$ctrl.metadata.useTextArea" ng-model="$ctrl.metadata.value" class="form-control" placeholder="Enter text" rows="5" style="width:100%"></textarea>
-            <input ng-if="!$ctrl.metadata.useTextArea" class="form-control" type="text" placeholder="Enter text" ng-model="$ctrl.metadata.value">
+            <textarea ng-if="$ctrl.metadata.useTextArea" ng-model="$ctrl.metadata.value" class="form-control" placeholder="テキストを入力" rows="5" style="width:100%"></textarea>
+            <input ng-if="!$ctrl.metadata.useTextArea" class="form-control" type="text" placeholder="テキストを入力" ng-model="$ctrl.metadata.value">
           </div>
           <div ng-switch-when="password">
             <input class="form-control" type="password" placeholder="Enter password" ng-model="$ctrl.metadata.value">

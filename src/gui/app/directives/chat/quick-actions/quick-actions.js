@@ -41,18 +41,18 @@
                         append-tooltip-to-body="true"
                         tooltip-placement="right"
                         ng-click="quickActionsService.showAddOrEditCustomQuickActionModal()"
-                        aria-label="Add Custom Quick Action"
+                        aria-label="クイックアクションの追加"
                     >
                         <i class="fas fa-plus"></i>
                     </button>
 
                     <button
                         class="quick-action-btn p-0 mt-4"
-                        uib-tooltip="Quick Action Settings"
+                        uib-tooltip="クイックアクション設定"
                         append-tooltip-to-body="true"
                         tooltip-placement="right"
                         ng-click="$ctrl.openQuickActionSettingsModal()"
-                        aria-label="Quick Action Settings"
+                        aria-label="クイックアクション設定"
                     >
                         <i class="fas fa-cog"></i>
                     </button>
@@ -93,19 +93,19 @@
                 $ctrl.customQuickActionsContextMenu = (customQuickAction) => {
                     const options = [
                         {
-                            html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                            html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                             click: () => {
                                 quickActionsService.showAddOrEditCustomQuickActionModal(customQuickAction);
                             }
                         },
                         {
-                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                             click: () => {
                                 utilityService
                                     .showConfirmationModal({
-                                        title: "Delete Custom Quick Action",
-                                        question: `Are you sure you want to delete the Custom Quick Action "${customQuickAction.name}"?`,
-                                        confirmLabel: "Delete",
+                                        title: "クイックアクションの削除",
+                                        question: `クイックアクション「"${customQuickAction.name}"」を削除しますか?`,
+                                        confirmLabel: "削除する",
                                         confirmBtnType: "btn-danger"
                                     })
                                     .then(confirmed => {

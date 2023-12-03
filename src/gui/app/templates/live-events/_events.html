@@ -15,16 +15,16 @@
               ng-class="{'transparent': !es.tabIsSelected('mainevents')}"
             ></div>
             <div>
-              General Events
+              基本的なイベント
               <tooltip
-                text="'A collection of events that are always active, regardless of which event sets are active.'"
+                text="'どのイベントセットがアクティブであるかにかかわらず、常にアクティブであるイベントリスト'"
               ></tooltip>
             </div>
           </div>
           <div class="flex-row-center jspacebetween">
             <span
               class="status-dot active"
-              uib-tooltip="Main events are always active."
+              uib-tooltip="メインイベントは常にアクティブ状態となります"
               tooltip-append-to-body="true"
             ></span>
             <div
@@ -48,14 +48,14 @@
               ></span>
               <ul class="dropdown-menu" uib-dropdown-menu>
                 <li ng-click="copyEvents('mainevents')">
-                  <a href><i class="far fa-copy mr-4"></i> Copy events</a>
+                  <a href><i class="far fa-copy mr-4"></i> イベントをコピー</a>
                 </li>
                 <li
                   ng-class="{'disabled': !hasCopiedEvents()}"
                   ng-click="pasteEvents('mainevents')"
                   ng-disabled="!hasCopiedEvents()"
                 >
-                  <a href><i class="far fa-paste mr-4"></i> Paste event(s)</a>
+                  <a href><i class="far fa-paste mr-4"></i> 貼り付け</a>
                 </li>
               </ul>
             </div>
@@ -72,12 +72,12 @@
           style="flex-shrink: 0"
         >
           <span
-            >Event Sets
+            >イベントセット
             <tooltip
               text="'Event Sets allow you to create different sets of events (ie for specific games or holiday themes) and selectively activate them.'"
             ></tooltip
           ></span>
-          <div class="clickable" ng-click="showCreateEventGroupModal()" aria-label="New Event Set">
+          <div class="clickable" ng-click="showCreateEventGroupModal()" aria-label="新規イベントセット">
             <i class="fas fa-plus-circle"></i>
           </div>
         </div>
@@ -88,7 +88,7 @@
             ng-if="es.getEventGroups().length < 1"
             style="font-size: 12px"
           >
-            No sets created.
+            イベントセットはありません
           </div>
 
           <div
@@ -147,7 +147,7 @@
         >
           <fb-item-table-toolbar>
             <button ng-click="simulateEventsByType()" class="btn btn-default">
-              <i class="fas fa-play-circle ml-2"></i> Simulate Event
+              <i class="fas fa-play-circle ml-2"></i> 模擬イベントを発生させる
             </button>
           </fb-item-table-toolbar>
         </firebot-item-table>

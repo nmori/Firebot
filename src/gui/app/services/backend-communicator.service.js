@@ -41,7 +41,7 @@
             service.on = function(eventName, callback, async = false) {
 
                 if (typeof callback !== "function") {
-                    throw new Error("Can't register an event without a callback.");
+                    throw new Error("コールバックなしでイベントを登録できない");
                 }
 
                 const id = uuidv1(),

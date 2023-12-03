@@ -58,16 +58,16 @@
                                     youtubeId: videoId
                                 };
                                 if (event.data === "2") {
-                                    error.error = "The request contains an invalid parameter value.";
+                                    error.error = "リクエストに無効なパラメータ値が含まれています。";
                                 }
                                 if (event.data === "5") {
-                                    error.error = "The requested content cannot be played in an HTML5 player or another error related to the HTML5 player has occurred.";
+                                    error.error = "要求されたコンテンツは HTML5 プレーヤーで再生できないか、HTML5 プレーヤーに関連する別のエラーが発生しました。";
                                 }
                                 if (event.data === "100") {
-                                    error.error = "The video requested was not found. This error occurs when a video has been removed (for any reason) or has been marked as private.";
+                                    error.error = "要求された動画が見つかりません。このエラーは、動画が（何らかの理由で）削除されているか、非公開に設定されている場合に発生します。";
                                 }
                                 if (event.data === "101" || event.data === "150") {
-                                    error.error = "The owner of the requested video does not allow it to be played in embedded players.";
+                                    error.error = "要求されたビデオの所有者は、埋め込みプレーヤーでの再生を許可していません。";
                                 }
                                 resolve(error);
                                 document.getElementById(id).remove();

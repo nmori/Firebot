@@ -7,7 +7,7 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewArg ? 'Add' : 'Edit'}} Subcommand</h4>
+                <h4 class="modal-title">{{$ctrl.isNewArg ? 'Add' : 'Edit'}} サブコマンド</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -24,13 +24,13 @@
                                 </div>
                             </ui-select-choices>
                         </ui-select>
-                        <div id="helpBlock2" class="help-block" ng-show="$ctrl.kindError">Please select an arg type.</div>
+                        <div id="helpBlock2" class="help-block" ng-show="$ctrl.kindError">引数のタイプを選択してください.</div>
                     </div>
                 </div>
 
                 <div ng-show="$ctrl.arg.type === 'Custom'" style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Arg Trigger Text <tooltip text="'The text that should trigger this subcommand'">
+                        Arg Trigger Text <tooltip text="'このサブコマンドをトリガーするテキスト'">
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.nameError}">
@@ -41,8 +41,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.isNewArg ? 'Add' : 'Save'}}</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.isNewArg ? '追加' : '保存'}}</button>
             </div>
             `,
             bindings: {
@@ -53,7 +53,7 @@
             controller: function($timeout) {
                 const $ctrl = this;
 
-                $ctrl.nameErrorText = 'Please provide trigger text.';
+                $ctrl.nameErrorText = 'トリガー用テキストを入力してください.';
 
                 $timeout(() => {
                     angular.element("#nameField").trigger("focus");
@@ -78,7 +78,7 @@
                 $ctrl.argTypes = [
                     {
                         type: "Custom",
-                        description: "An arg that triggers on specific text"
+                        description: "特定のテキストでトリガーされる引数"
                     }
                 ];
 
@@ -89,11 +89,11 @@
 
                     const triggerText = $ctrl.arg.arg;
                     if (triggerText == null || triggerText.length < 1) {
-                        $ctrl.nameErrorText = 'Please provide trigger text.';
+                        $ctrl.nameErrorText = 'トリガー用テキストを入力してください';
                         return false;
                     }
                     if ($ctrl.resolve.otherArgNames.some(a => a === triggerText.toLowerCase())) {
-                        $ctrl.nameErrorText = 'This trigger text already exists.';
+                        $ctrl.nameErrorText = 'このトリガー用テキストはすでに存在します.';
                         return false;
                     }
                     return true;
@@ -159,7 +159,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.arg === numberRegex)) {
                         $ctrl.argTypes.push({
                             type: "Number",
-                            description: "An arg that triggers on any number"
+                            description: "任意のトリガーをしたい数字"
                         });
                     }
 
@@ -167,7 +167,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.arg === usernameRegex)) {
                         $ctrl.argTypes.push({
                             type: "Username",
-                            description: "An arg that triggers on text that starts with an @ symbol"
+                            description: "@で始まるトリガーにしたいユーザ名、テキスト"
                         });
                     }
 
@@ -175,7 +175,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.fallback)) {
                         $ctrl.argTypes.push({
                             type: "Fallback",
-                            description: "An arg that triggers if none of the other args are matched"
+                            description: "他の引数がどれも一致しない場合にトリガーされる引数"
                         });
                     }
 

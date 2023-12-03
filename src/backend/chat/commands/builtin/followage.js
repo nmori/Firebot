@@ -11,10 +11,10 @@ const util = require("../../../utility");
 const followage = {
     definition: {
         id: "firebot:followage",
-        name: "Follow Age",
+        name: "フォロー期間",
         active: true,
         trigger: "!followage",
-        description: "Displays how long the user has been following the channel.",
+        description: "ユーザーがチャンネルをフォローしている期間を表示します",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -24,10 +24,10 @@ const followage = {
         options: {
             displayTemplate: {
                 type: "string",
-                title: "Output Template",
-                description: "How the followage message is formatted",
-                tip: "Variables: {user}, {followage}, {followdate}",
-                default: `{user} followed {followage} ago on {followdate} UTC`,
+                title: "出力テンプレート",
+                description: "フォローメッセージのフォーマット",
+                tip: "変数: {user}, {followage}, {followdate}",
+                default: `{user} は {followage} 前 ( {followdate} (UTC) )よりフォローしています`,
                 useTextArea: true
             }
         }
@@ -42,7 +42,7 @@ const followage = {
         const followDate = await twitchApi.users.getFollowDateForUser(commandSender);
 
         if (followDate === null) {
-            await chat.sendChatMessage(`${commandSender} is not following the channel.`);
+            await chat.sendChatMessage(`${commandSender} はこのチャンネルをフォローしていません.`);
         } else {
             const followDateMoment = moment(followDate),
                 nowMoment = moment();
@@ -55,7 +55,7 @@ const followage = {
             await chat.sendChatMessage(commandOptions.displayTemplate
                 .replace("{user}", commandSender)
                 .replace("{followage}", followAgeString)
-                .replace("{followdate}", followDateMoment.format("DD MMMM YYYY HH:mm"))
+                .replace("{followdate}", followDateMoment.format("YYYY/MMMM/DD HH:mm"))
             );
         }
     }

@@ -27,8 +27,8 @@
             service.openBackupZipFilePicker = function() {
                 return $q.when(backendCommunicator.fireEventAsync("open-file-browser", {
                     options: {
-                        title: "Select backup zip",
-                        buttonLabel: "Select Backup",
+                        title: "バックアップデータ(zip)の選択",
+                        buttonLabel: "バックアップデータの選択",
                         filters: [{ name: "Zip", extensions: ["zip"] }]
                     },
                     currentPath: BACKUPS_FOLDER_PATH
@@ -133,13 +133,13 @@
                     if (!valid) {
                         return {
                             success: false,
-                            reason: "Provided zip is not a valid Firebot V5 backup."
+                            reason: "このzipファイルは有効なFirebot V5のバックアップではありません。"
                         };
                     }
                 } catch (error) {
                     return {
                         success: false,
-                        reason: "Failed to validate the backup zip."
+                        reason: "zipファイルの検証に失敗しました。ファイルが壊れているかもしれません"
                     };
                 }
 
@@ -155,7 +155,7 @@
                 } catch (error) {
                     return {
                         success: false,
-                        reason: "Failed to clear profiles folder."
+                        reason: "プロファイルフォルダのクリアに失敗しました"
                     };
                 }
 
@@ -164,7 +164,7 @@
                 } catch (error) {
                     return {
                         success: false,
-                        reason: "Failed to copy restore files to user data."
+                        reason: "バックアップデータを書き戻すのに失敗しました"
                     };
                 }
 

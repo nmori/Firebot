@@ -114,7 +114,7 @@ async function runHeist() {
             .map(s => `${s.username} (${util.commafy(s.winnings)})`)
             .join(", ");
     } else {
-        winningsString = "None";
+        winningsString = "なし";
     }
 
     const winningsMessage = heistSettings.settings.generalMessages.heistWinnings

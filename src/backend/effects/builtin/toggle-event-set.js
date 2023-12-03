@@ -6,8 +6,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const chat = {
     definition: {
         id: "firebot:toggle-event-set",
-        name: "Toggle Event Set",
-        description: "Toggle an event sets active status",
+        name: "イベントセットを切り替え",
+        description: "イベントをアクティブ状態に切り替える",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -15,18 +15,18 @@ const chat = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>This effect let's you automatically toggle the active status of Event Sets (which you can create in the Events tab).</p>
+            <p>この演出により、イベントセット（イベントタブで作成可能）のアクティブステータスを自動的に切り替えることができます。</p>
         </eos-container>
 
         <eos-container ng-hide="hasEventSets" pad-top="true">
-            <span class="muted">No Event Sets created yet! You can create them in the <b>Events</b> tab.</span>
+            <span class="muted">イベントセットはまだ作成されていません！<b>イベント</b>タブで作成できます。</span>
         </eos-container>
 
-        <eos-container ng-show="hasEventSets" header="Event Set" pad-top="true">
+        <eos-container ng-show="hasEventSets" header="イベントセット" pad-top="true">
             <dropdown-select options="eventSetOptions" selected="effect.selectedEventGroupId"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="hasEventSets" header="Toggle Action" pad-top="true">
+        <eos-container ng-show="hasEventSets" header="切り替え" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,
@@ -47,8 +47,8 @@ const chat = {
         }
 
         $scope.toggleOptions = {
-            disable: "Deactivate",
-            enable: "Activate"
+            disable: "非アクティブ",
+            enable: "アクティブ"
         };
 
         if ($scope.effect.toggleType == null) {
@@ -58,7 +58,7 @@ const chat = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.selectedEventGroupId == null) {
-            errors.push("Please select an event set.");
+            errors.push("イベントセットを選択してください");
         }
         return errors;
     },

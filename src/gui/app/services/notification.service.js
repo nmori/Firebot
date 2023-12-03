@@ -11,15 +11,15 @@
             let notifications = [];
 
             const NotificationType = {
-                EXTERNAL: "external",
-                INTERNAL: "internal"
+                EXTERNAL: "外部",
+                INTERNAL: "内部"
             };
 
             const NotificationIconType = {
-                UPDATE: "update",
-                INFO: "info",
-                TIP: "tip",
-                ALERT: "alert"
+                UPDATE: "更新",
+                INFO: "情報",
+                TIP: "ヒント",
+                ALERT: "警告"
             };
             /* Helpers */
             function getNotificationsFile() {

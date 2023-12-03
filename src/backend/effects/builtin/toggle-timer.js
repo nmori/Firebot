@@ -6,8 +6,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const chat = {
     definition: {
         id: "firebot:toggle-timer",
-        name: "Toggle Timer",
-        description: "Toggle a timer's active status",
+        name: "タイマー状態を切替",
+        description: "タイマーのアクティブ状態を切り替える",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -15,18 +15,18 @@ const chat = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>This effect let's you automatically toggle the active status of Timers.</p>
+            <p>この効果により、タイマーのアクティブステータスを自動的に切り替えることができます。</p>
         </eos-container>
 
         <eos-container ng-hide="hasTimers" pad-top="true">
-            <span class="muted">No Timers created yet! You can create them in the <b>Timers</b> tab.</span>
+            <span class="muted">タイマーはまだ作成されていません！<b>タイマー</b>タブで作成できます。</span>
         </eos-container>
 
-        <eos-container ng-show="hasTimers" header="Timer" pad-top="true">
+        <eos-container ng-show="hasTimers" header="タイマー" pad-top="true">
             <dropdown-select options="timerOptions" selected="effect.selectedTimerId"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="hasTimers" header="Toggle Action" pad-top="true">
+        <eos-container ng-show="hasTimers" header="切り替え" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,
@@ -47,9 +47,9 @@ const chat = {
         }
 
         $scope.toggleOptions = {
-            disable: "Deactivate",
-            enable: "Activate",
-            toggle: "Toggle"
+            disable: "非アクティブ",
+            enable: "アクティブ",
+            toggle: "切り替え"
         };
 
         if ($scope.effect.toggleType == null) {
@@ -59,7 +59,7 @@ const chat = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.selectedTimerId == null) {
-            errors.push("Please select a timer.");
+            errors.push("タイマーを選んでください");
         }
         return errors;
     },

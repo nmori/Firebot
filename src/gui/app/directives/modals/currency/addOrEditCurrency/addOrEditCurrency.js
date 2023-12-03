@@ -40,7 +40,7 @@
                         const modalElement = $("." + modalId).children();
                         return {
                             element: modalElement,
-                            name: "Edit Currency",
+                            name: "通貨の編集",
                             id: modalId,
                             instance: $ctrl.modalInstance
                         };
@@ -90,9 +90,9 @@
             $ctrl.showCurrencyDeleteModal = function(currency) {
                 utilityService
                     .showConfirmationModal({
-                        title: "Delete Currency",
-                        question: "Are you sure you'd like to delete this currency?",
-                        confirmLabel: "Delete"
+                        title: "通貨の削除",
+                        question: "この通貨を削除してもよろしいですか？",
+                        confirmLabel: "削除する"
                     })
                     .then(confirmed => {
                         if (confirmed) {
@@ -112,10 +112,10 @@
             $ctrl.showCurrencyPurgeModal = function(currency) {
                 utilityService
                     .showConfirmationModal({
-                        title: "Purge Currency",
+                        title: "通貨のリセット",
                         question:
-              "Are you sure you'd like to purge this currency? This currency will be set to 0 for all users.",
-                        confirmLabel: "Purge"
+              "本当にこの通貨をリセットしますか？この通貨はすべてのユーザーに対して0に設定されます。.",
+                        confirmLabel: "リセット"
                     })
                     .then(confirmed => {
                         if (confirmed) {

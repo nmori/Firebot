@@ -11,7 +11,7 @@
             template: `
             <div>
                 <div style="margin: 5px 0 10px 0px;">
-                    <button class="btn btn-default" ng-click="$ctrl.openAddRoleModal()"><i class="far fa-plus-circle"></i> Add Role</button>
+                    <button class="btn btn-default" ng-click="$ctrl.openAddRoleModal()"><i class="far fa-plus-circle"></i> 役割の追加</button>
                 </div>
 
                 <div ui-sortable="$ctrl.sortableOptions" ng-model="$ctrl.model.roles">
@@ -69,10 +69,10 @@
                         });
                     utilityService.openSelectModal(
                         {
-                            label: "Add Role",
+                            label: "役割の追加",
                             options: options,
-                            saveText: "Add",
-                            validationText: "Please select a role."
+                            saveText: "追加する",
+                            validationText: "役割を選んでください"
 
                         },
                         (roleId) => {

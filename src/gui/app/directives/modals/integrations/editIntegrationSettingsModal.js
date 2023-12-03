@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">
-                    <div style="font-size: 22px;">Configure Integration:</div>
+                    <div style="font-size: 22px;">連携の設定:</div>
                     <div style="font-weight:bold;font-size: 24px;">{{$ctrl.integration.name}}</div>
                 </h4>
             </div>
@@ -21,8 +21,8 @@
             </div>
             <div class="modal-footer sticky-footer edit-integration-footer" style="margin-top:15px">
                 <!--<button ng-show="$ctrl.integration != null" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.resetToDefaults()">Reset to default</button>-->
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button ng-show="$ctrl.integration != null" type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button ng-show="$ctrl.integration != null" type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             <scroll-sentinel element-class="edit-integration-footer"></scroll-sentinel>
             `,
@@ -60,9 +60,9 @@
             $ctrl.resetToDefaults = () => {
                 utilityService
                     .showConfirmationModal({
-                        title: `Reset To Defaults`,
-                        question: `Are you sure you want reset ${$ctrl.integration.name} to default settings?`,
-                        confirmLabel: "Reset",
+                        title: `初期設定に戻す`,
+                        question: `${$ctrl.integration.name} の設定を初期にもどしますか？`,
+                        confirmLabel: "リセットする",
                         confirmBtnType: "btn-danger"
                     })
                     .then(confirmed => {
@@ -84,23 +84,23 @@
                             if (setting.validation) {
                                 if (setting.validation.required) {
                                     if (setting.type === 'string' && setting.value === "") {
-                                        ngToast.create(`Please input a value for the ${setting.title} option`);
+                                        ngToast.create(`値を設定して下さい： ${setting.title} `);
                                         return false;
                                     } else if (setting.type === 'editable-list' && (setting.value == null || setting.value.length === 0)) {
-                                        ngToast.create(`Please input some text for the ${setting.title} option`);
+                                        ngToast.create(`値を設定して下さい： ${setting.title} `);
                                         return false;
                                     } else if (setting.value === null || setting.value === undefined) {
-                                        ngToast.create(`Please select/input a value for the ${setting.title} option`);
+                                        ngToast.create(`値を選択して下さい： ${setting.title} `);
                                         return false;
                                     }
                                 }
                                 if (setting.type === "number") {
                                     if (!isNaN(setting.validation.min) && setting.value < setting.validation.min) {
-                                        ngToast.create(`The value for the ${setting.title} option must be at least ${setting.validation.min}`);
+                                        ngToast.create(`${setting.title} の設定は ${setting.validation.min}以上にしてください`);
                                         return false;
                                     }
                                     if (!isNaN(setting.validation.max) && setting.value > setting.validation.max) {
-                                        ngToast.create(`The value for the ${setting.title} option must be no more than ${setting.validation.max}`);
+                                        ngToast.create(`${setting.title}  の設定は ${setting.validation.max}以下にしてください`);
                                         return false;
                                     }
                                 }

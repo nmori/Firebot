@@ -135,7 +135,7 @@ module.exports = {
                     description: "Sent when a user joins the heist (leave empty for no message).",
                     useTextArea: true,
                     default: "{user} has joined the heist with {wager} {currency}!",
-                    tip: "Available variables: {user}, {wager}, {currency}",
+                    tip: "変数: {user}, {wager}, {currency}",
                     sortRank: 1
                 },
                 alreadyJoined: {
@@ -144,7 +144,7 @@ module.exports = {
                     description: "Sent when a user has already joined the heist (leave empty for no message).",
                     useTextArea: true,
                     default: "{user}, you've already joined the heist team!",
-                    tip: "Available variables: {user}",
+                    tip: "変数: {user}",
                     sortRank: 2
                 },
                 noWagerAmount: {
@@ -153,7 +153,7 @@ module.exports = {
                     description: "Sent when a user leaves out the wager amount (leave empty for no message).",
                     useTextArea: true,
                     default: "{user}, please include a wager amount!",
-                    tip: "Available variables: {user}",
+                    tip: "変数: {user}",
                     sortRank: 3
                 },
                 invalidWagerAmount: {
@@ -162,7 +162,7 @@ module.exports = {
                     description: "Sent when a user uses an invalid wager amount (leave empty for no message).",
                     useTextArea: true,
                     default: "{user}, please include a valid wager amount!",
-                    tip: "Available variables: {user}",
+                    tip: "変数: {user}",
                     sortRank: 4
                 },
                 wagerAmountTooLow: {
@@ -171,7 +171,7 @@ module.exports = {
                     description: "Sent when a user uses a wager amount below the minimum (leave empty for no message).",
                     useTextArea: true,
                     default: "{user}, the wager amount must be at least {minWager}!",
-                    tip: "Available variables: {user}, {minWager}",
+                    tip: "変数: {user}, {minWager}",
                     sortRank: 5
                 },
                 wagerAmountTooHigh: {
@@ -180,7 +180,7 @@ module.exports = {
                     description: "Sent when a user uses a wager amount above the maximum (leave empty for no message).",
                     useTextArea: true,
                     default: "{user}, the wager amount can be no more than {maxWager}!",
-                    tip: "Available variables: {user}, {maxWager}",
+                    tip: "変数: {user}, {maxWager}",
                     sortRank: 6
                 },
                 notEnoughToWager: {
@@ -189,146 +189,146 @@ module.exports = {
                     description: "Sent when a user tries to wager more than they have (leave empty for no message).",
                     useTextArea: true,
                     default: "{user}, you don't have enough to wager this amount!",
-                    tip: "Available variables: {user}",
+                    tip: "変数: {user}",
                     sortRank: 7
                 }
             }
         },
         generalMessages: {
-            title: "General Messages",
+            title: "一般メッセージ",
             sortRank: 5,
             settings: {
                 teamCreation: {
                     type: "string",
-                    title: "Team Creation",
-                    description: "Sent when a heist is triggered by someone (leave empty for no message).",
+                    title: "チーム結成",
+                    description: "強盗が誰かによってトリガーされたときに送信される（メッセージなしの場合は空白にする）.",
                     useTextArea: true,
                     default: "@{user} is looking to put a team together for a heist! To join the team, type {command} [amount]",
-                    tip: "Available variables: {user}, {command}, {maxWager}, {minWager}, {minimumUsers}"
+                    tip: "変数: {user}, {command}, {maxWager}, {minWager}, {minimumUsers}"
                 },
                 onCooldown: {
                     type: "string",
-                    title: "When On Cooldown",
-                    description: "Sent when someone tries to trigger the heist and it's on cooldown (leave empty for no message).",
+                    title: "クールダウン時",
+                    description: "誰かが強盗を引き起こそうとして、それがクールダウンしているときに送信されます（メッセージなしの場合は空白にしてください）",
                     useTextArea: true,
-                    default: "The area is still too hot! Better wait awhile. Cooldown: {cooldown}",
-                    tip: "Available variables: {cooldown}"
+                    default: "この地域はまだ暑すぎる！しばらく待った方がいい。クールダウン： {cooldown}",
+                    tip: "変数: {cooldown}"
                 },
                 cooldownOver: {
                     type: "string",
-                    title: "Cooldown Over",
-                    description: "Sent when the cooldown is over (leave empty for no message).",
+                    title: "クールダウン終了",
+                    description: "クールダウンが終わると送信される（メッセージなしの場合は空白のまま）。",
                     useTextArea: true,
-                    default: "The coast is clear! Time to get a team together for another heist, type {command} [amount]",
-                    tip: "Available variables: {command}"
+                    default: "海岸はクリア！別の強盗のためにチームを編成する時が来た。 {command} [amount]",
+                    tip: "変数: {command}"
                 },
                 startMessage: {
                     type: "string",
-                    title: "Heist Started",
-                    description: "Sent when the heist has started (leave empty for no message).",
+                    title: "強盗開始",
+                    description: "強盗が開始されたときに送信されます。.",
                     useTextArea: true,
-                    default: "It's time! Everyone checks their weapons and equipment before jumping out of the getaway car and running into the bank."
+                    default: "時間だ！全員が武器と装備をチェックし、逃走用の車から飛び降りて銀行に駆け込む。"
                 },
                 teamTooSmall: {
                     type: "string",
-                    title: "Team Too Small",
-                    description: "Sent when the start delay has ended and team size doesn't mean the Required Users count (leave empty for no message).",
+                    title: "小さすぎるチーム",
+                    description: "開始ディレイが終了し、チームサイズが必要ユーザー数に達していない場合に送信されます。",
                     useTextArea: true,
-                    default: "Unfortunately @{user} wasn't able to get a team together in time and the heist has been canceled.",
-                    tip: "Available variables: {user}"
+                    default: "残念ながら、@{user}はチームの結成が間に合わず、強盗は中止となりました。",
+                    tip: "変数: {user}"
                 },
                 heistWinnings: {
                     type: "string",
-                    title: "Heist Winnings",
-                    description: "Sent at the completion of the heist, lists those who survived and their winnings (leave empty for no message).",
+                    title: "ハイスト賞金",
+                    description: "強盗の完了時に送信され、生存者と賞金のリストが表示される。",
                     useTextArea: true,
-                    default: "Winnings: {winnings}",
-                    tip: "Available variables: {winnings}"
+                    default: "勝利: {winnings}",
+                    tip: "変数: {winnings}"
                 }
             }
         },
         groupOutcomeMessages: {
-            title: "Group Outcome Messages",
+            title: "グループ成果メッセージ",
             sortRank: 7,
             settings: {
                 hundredPercent: {
                     type: "editable-list",
-                    title: "100% Victory",
+                    title: "100% 勝利",
                     default: [
-                        "The heist was a complete success and everyone escaped in the getaway car!"
+                        "強盗は完全に成功し、全員が逃走用の車で脱出した！"
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "この中からランダムに1つ選ばれる。",
                     sortRank: 5,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "新規",
+                        editLabel: "編集",
+                        noneAddedText: "未保存"
                     }
                 },
                 top25Percent: {
                     type: "editable-list",
-                    title: "75-99% Victory",
+                    title: "75-99% 勝利",
                     default: [
-                        "A few went down as they exited the bank, but most of the team made it!"
+                        "銀行を出るときに何人かが倒れたが、チームのほとんどは無事だった！"
                     ],
                     description: "One of these will be chosen at random.",
                     sortRank: 4,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "新規",
+                        editLabel: "編集",
+                        noneAddedText: "未保存"
                     }
                 },
                 mid50Percent: {
                     type: "editable-list",
-                    title: "25-74% Victory",
+                    title: "25-74% 勝利",
                     default: [
-                        "The security was tighter than expected and many were lost in the gunfire, but some made it out with cash."
+                        "警備は予想以上に厳しく、銃撃戦に巻き込まれた者も多かったが、現金を持って脱出した者もいた。"
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "この中からランダムに1つ選ばれる。",
                     sortRank: 3,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "新規",
+                        editLabel: "編集",
+                        noneAddedText: "未保存"
                     }
                 },
                 bottom25Percent: {
                     type: "editable-list",
-                    title: "1-24% Victory",
+                    title: "1-24% 勝利",
                     default: [
-                        "Just about everybody died, a lucky few made it to the boat with what cash was left..."
+                        "ほぼ全員が死亡し、幸運な数人が残された現金を持ってボートにたどり着いた......。"
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "この中からランダムに1つ選ばれる.",
                     sortRank: 2,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "新規",
+                        editLabel: "編集",
+                        noneAddedText: "未保存"
                     }
                 },
                 zeroPercent: {
                     type: "editable-list",
-                    title: "0% Victory",
+                    title: "0% 勝利",
                     default: [
-                        "Despite your best efforts, the entire team was lost..."
+                        "あなたの最善の努力にもかかわらず、チーム全体が失われてしまった...。"
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "この中からランダムに1つ選ばれる。",
                     sortRank: 1,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "新規",
+                        editLabel: "編集",
+                        noneAddedText: "未保存"
                     }
                 }
             }
@@ -339,47 +339,47 @@ module.exports = {
             settings: {
                 soloSuccess: {
                     type: "editable-list",
-                    title: "Solo Success",
-                    description: "Sent when a heist is successful with a solo team (One message is chosen at random)",
+                    title: "単独で成功",
+                    description: "ソロチームでの強盗成功時に送られる（ランダムで1通選ばれる）",
                     default: [
-                        "@{user} managed to complete the heist on their own and made out with a huge bag of money!"
+                        "@{user} は自分たちだけで強盗をやり遂げ、大金を手にした！"
                     ],
-                    tip: "Available variables: {user}",
+                    tip: "変数: {user}",
                     sortRank: 1,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "新規",
+                        editLabel: "編集",
+                        noneAddedText: "未保存"
                     }
                 },
                 soloFail: {
                     type: "editable-list",
-                    title: "Solo Fail",
-                    description: "Sent when a heist fails with a solo team (One message is chosen at random)",
+                    title: "単独で失敗",
+                    description: "ソロチームでの強盗失敗時に送信（ランダムで1通が選ばれる）",
                     default: [
-                        "Nothing went right for @{user} and they were apprehended!"
+                        "@{user} はうまくいかず、逮捕された！"
                     ],
-                    tip: "Available variables: {user}",
+                    tip: "変数: {user}",
                     sortRank: 2,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "新規",
+                        editLabel: "編集",
+                        noneAddedText: "未保存"
                     }
                 }
             }
         },
         chatSettings: {
-            title: "Chat Settings",
+            title: "チャット設定",
             sortRank: 9,
             settings: {
                 chatter: {
                     type: "chatter-select",
-                    title: "Chat As"
+                    title: "チャットの内容"
                 }
             }
         }

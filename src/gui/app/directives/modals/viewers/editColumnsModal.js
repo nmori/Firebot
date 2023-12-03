@@ -5,10 +5,10 @@
         template: `
             <div class="modal-header" style="text-align: center">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Edit Viewer Columns</h4>
+                <h4 class="modal-title">列の編集</h4>
             </div>
             <div class="modal-body" style="text-align: center; padding: 0 35px">
-              <p>Select which columns you'd like to show in the main table</p>
+              <p>表示する列を選択</p>
               <div class="viewer-db-switches">
                 <div ng-repeat="column in $ctrl.columns">
                   <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom:5px;">
@@ -24,8 +24,8 @@
               </div>
             </div>
             <div class="modal-footer" style="text-align: center">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
         bindings: {

@@ -22,8 +22,8 @@
                 </div>
 
                 <div>
-                    <h3>Arguments</h3>
-                    <p>Allow data to be passed to this preset effect list.</p>
+                    <h3>引数</h3>
+                    <p>このプリセット演出リストにデータを渡せるようにします</p>
 
                     <div class="role-bar" ng-repeat="arg in $ctrl.presetList.args track by $index">
                         <span uib-tooltip="Access via $presetListArg[{{arg.name}}]" tooltip-append-to-body="true">{{arg.name}}</span>
@@ -41,20 +41,20 @@
                 </div>
 
                 <div style="margin-top: 20px;">
-                    <collapsable-panel header="How to trigger from StreamDeck">
+                    <collapsable-panel header="StreamDeckからのトリガー方法">
                         <p>Steps:</p>
                         <ol>
-                            <li>Add "Website" Action to a StreamDeck button</li>
-                            <li>Set URL to <b>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</b></li>
-                            <li>Check "Access in background"</li>
+                            <li>StreamDeckボタンに "ウェブサイト "アクションを追加します</li>
+                            <li>URL枠に次のアドレスを設定します。<b>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</b></li>
+                            <li>"背景でGETリクエストを実行 "にチェックを入れる</li>
                         </ol>
                     </collapsable-panel>
                 </div>
             </div>
 
             <div class="modal-footer sticky-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">実行</button>
             </div>
             `,
         bindings: {

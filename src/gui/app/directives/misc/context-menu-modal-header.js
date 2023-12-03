@@ -31,7 +31,7 @@
                     </span>
                 </div>
                 <h4 class="modal-title">
-                    <div class="action text-4xl">{{$ctrl.triggerName ? 'Edit' : 'Add New'}} {{$ctrl.triggerType}}<span ng-if="$ctrl.triggerName">:</span></div>
+                    <div class="action text-4xl">{{$ctrl.triggerName ? '編集' : '追加'}} {{$ctrl.triggerType}}<span ng-if="$ctrl.triggerName">:</span></div>
                     <div class="text-4xl font-semibold" ng-if="$ctrl.triggerName && $ctrl.showTriggerName">{{$ctrl.triggerName}}</div>
                 </h4>
             </div>

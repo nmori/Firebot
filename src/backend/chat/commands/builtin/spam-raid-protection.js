@@ -7,11 +7,11 @@ const raidMessageChecker = require("../../moderation/raid-message-checker");
 const spamRaidProtection = {
     definition: {
         id: "firebot:spamRaidProtection",
-        name: "Spam Raid Protection",
+        name: "SPAM レイド 制限",
         active: true,
         hidden: false,
         trigger: "!spamraidprotection",
-        description: "Toggles protective measures such as follow-only mode, slow mode, etc.",
+        description: "フォロー限定モード、スローモードなどの保護手段へ切り替える.",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -34,63 +34,63 @@ const spamRaidProtection = {
         options: {
             displayTemplate: {
                 type: "string",
-                title: "Output Template",
-                description: "A message that will tell the users what is going on",
-                default: `We are currently experiencing a spam raid, and have therefore temporarily turned on protective measures.`,
+                title: "出力テンプレート",
+                description: "何が起こっているかをユーザーに伝えるメッセージ",
+                default: `現在SPAMが来たため、一時的に保護手段をONにしています。`,
                 useTextArea: true
             },
             enableFollowerOnly: {
                 type: "boolean",
-                title: "Follower only mode",
-                description: "Allows you to restrict chat to all or some of your followers, based on how long they’ve followed (0 minutes to 3 months).",
+                title: "フォロワー限定モード",
+                description: "フォロワーのフォロー期間（0分～3ヶ月）に基づいて、フォロワーの全員または一部にチャットを制限することができます。.",
                 default: false
             },
             enableFollowerOnlyDuration: {
                 type: "string",
-                title: "Follower only mode duration (formats: 1m / 1h / 1d / 1w / 1mo)",
-                description: "Allows you to restrict chat to all or some of your followers, based on how long they’ve followed (0 minutes to 3 months).",
+                title: "フォロワーのみモード時間(フォーマット: 1m / 1h / 1d / 1w / 1mo)",
+                description: "フォロー期間（0分～3ヶ月）に応じて、フォロワー全員または一部にチャットを制限することができます。",
                 default: "15m"
             },
             enableEmoteOnly: {
                 type: "boolean",
-                title: "Emote only mode",
-                description: "Chatters can only chat with Twitch emotes.",
+                title: "エモート専用モード",
+                description: "チャットはTwitchのエモートでのみ可能",
                 default: false
             },
             enableSubscriberOnly: {
                 type: "boolean",
-                title: "Subscriber only mode",
-                description: "Only subscribers to the channel are allowed to chat.",
+                title: "チャンネル登録者専用モード",
+                description: "チャンネル登録者のみがチャットを許可されます。.",
                 default: false
             },
             enableSlowMode: {
                 type: "boolean",
-                title: "Slow mode",
-                description: "In slow mode, users can only post one chat message every x seconds.",
+                title: "スローモード",
+                description: "スローモードでは、ユーザーは n秒に1回しかチャットメッセージを投稿できません",
                 default: false
             },
             enableSlowModeDelay: {
                 type: "number",
-                title: "Slow mode delay in seconds",
-                description: "In slow mode, users can only post one chat message every x seconds.",
+                title: "スローモードの遅延時間(秒)",
+                description: "スローモードでは、ユーザーは n秒に1回しかチャットメッセージを投稿できません",
                 default: 30
             },
             clearChat: {
                 type: "boolean",
-                title: "Clear chat",
-                description: "The chat will be cleared.",
+                title: "チャットをクリア",
+                description: "チャットをクリアします",
                 default: true
             },
             blockRaiders: {
                 type: "boolean",
-                title: "Block raiders",
-                description: "Block every user that posted the raid message.",
+                title: "Raidした人をブロック",
+                description: "Raid メッセージを投稿したすべてのユーザーをブロックします",
                 default: true
             },
             banRaiders: {
                 type: "boolean",
-                title: "Ban raiders",
-                description: "Ban every user that posted the raid message from your channel.",
+                title: "Raidした人を追放(BAN)する",
+                description: "襲撃メッセージを投稿したすべてのユーザーをチャンネルから追放(BAN)します",
                 default: true
             }
         },
@@ -98,7 +98,7 @@ const spamRaidProtection = {
             {
                 arg: "off",
                 usage: "off",
-                description: "Turn off the protection command.",
+                description: "保護コマンドをOFFにします",
                 restrictionData: {
                     restrictions: [
                         {
@@ -158,7 +158,7 @@ const spamRaidProtection = {
 
             raidMessageChecker.disable();
 
-            await chat.sendChatMessage("Protection turned off.");
+            await chat.sendChatMessage("保護機能をOFFにしました.");
         }
     }
 };

@@ -4,11 +4,11 @@ const { viewerHasRoles } = require("../../../../../roles/role-helpers");
 
 module.exports = {
     id: "firebot:viewerroles",
-    name: "Viewer's Roles",
-    description: "Condition based on a given viewer role",
+    name: "視聴者の役割",
+    description: "与えられた視聴者の役割に基づく条件",
     comparisonTypes: ["has role", "doesn't have role"],
     leftSideValueType: "text",
-    leftSideTextPlaceholder: "Enter username",
+    leftSideTextPlaceholder: "ユーザ名を入力",
     rightSideValueType: "preset",
     getRightSidePresetValues: viewerRolesService => {
         return viewerRolesService.getAllRoles()

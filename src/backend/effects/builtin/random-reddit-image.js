@@ -11,8 +11,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const model = {
     definition: {
         id: "firebot:randomReddit",
-        name: "Random Reddit Image",
-        description: "Pulls a random image from a selected subreddit.",
+        name: "Redditのランダム画像",
+        description: "選択されたsubredditsからランダムな画像を取り出します。",
         icon: "fab fa-reddit-alien",
         categories: [EffectCategory.FUN, EffectCategory.CHAT_BASED, EffectCategory.OVERLAY],
         dependencies: []
@@ -28,15 +28,15 @@ const model = {
 
     <eos-container header="Output Location" pad-top="true" ng-if="effect.reddit !== null && effect.reddit !== 'Pick one'">
         <div class="controls-fb-inline" style="padding-bottom: 5px;">
-            <label class="control-fb control--radio">Chat
+            <label class="control-fb control--radio">チャット
                 <input type="radio" ng-model="effect.show" value="chat"/>
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--radio">Overlay
+            <label class="control-fb control--radio">オーバーレイ
                 <input type="radio" ng-model="effect.show" value="overlay"/>
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--radio">Both
+            <label class="control-fb control--radio">両方
                 <input type="radio" ng-model="effect.show" value="both"/>
                 <div class="control__indicator"></div>
             </label>
@@ -44,7 +44,7 @@ const model = {
     </eos-container>
 
     <div class="effect-reddit-settings" ng-if="effect.show === 'chat' || effect.show ==='both'">
-        <eos-chatter-select effect="effect" title="Chatter" class="setting-padtop"></eos-chatter-select>
+        <eos-chatter-select effect="effect" title="チャット" class="setting-padtop"></eos-chatter-select>
     </div>
 
     <div class="effect-reddit-settings" ng-if="effect.show === 'overlay' || effect.show ==='both'">
@@ -54,7 +54,7 @@ const model = {
             <div class="effect-specific-title"><h4>Dimensions</h4></div>
             <div class="effect-setting-content">
                 <div class="input-group">
-                    <span class="input-group-addon">Width</span>
+                    <span class="input-group-addon">幅</span>
                     <input
                         type="number"
                         class="form-control"
@@ -62,7 +62,7 @@ const model = {
                         type="number"
                         ng-model="effect.width"
                         placeholder="px">
-                    <span class="input-group-addon">Height</span>
+                    <span class="input-group-addon">高さ</span>
                     <input
                         type="number"
                         class="form-control"
@@ -74,16 +74,16 @@ const model = {
             </div>
         </div>
         <div class="effect-setting-container setting-padtop">
-            <div class="effect-specific-title"><h4>Duration</h4></div>
+            <div class="effect-specific-title"><h4>長さ</h4></div>
             <div class="effect-setting-content">
                 <div class="input-group">
-                    <span class="input-group-addon">Seconds</span>
                     <input
                     type="text"
                     class="form-control"
                     aria-describedby="image-length-effect-type"
                     type="number"
                     ng-model="effect.length">
+                    <span class="input-group-addon">秒</span>
                 </div>
             </div>
         </div>
@@ -92,8 +92,7 @@ const model = {
 
     <eos-container pad-top="true">
         <div class="effect-info alert alert-danger">
-        Warning: This effect pulls random images from subreddits. Highly moderated subreddits are fairly safe, but there is always the chance of naughty pictures. Just a warning!
-        </div>
+        警告 この演出はRedditからランダムな画像を取り出します。高度にモデレートされたsubredditsはかなり安全ですが、常にエッチな画像の可能性があります。警告です</div>
     </eos-container>
 
     `,
@@ -107,11 +106,11 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.reddit == null) {
-            errors.push("Please enter a subreddit.");
+            errors.push("subredditを入力してください");
         }
 
         if (effect.show == null) {
-            errors.push("Please select a place to show the reddit image.");
+            errors.push("redditの画像を表示する場所を選択してください");
         }
         return errors;
     },
@@ -161,7 +160,7 @@ const model = {
         } catch (err) {
             renderWindow.webContents.send(
                 "error",
-                "There was an error sending a reddit picture."
+                "redditの画像を送信する際にエラーが発生しました。"
             );
         }
 

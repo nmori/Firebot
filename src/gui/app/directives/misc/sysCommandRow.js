@@ -11,17 +11,17 @@
           <div style="flex-basis: 25%;padding-left: 20px;">{{$ctrl.command.name}}</div>
           <div style="width: 20%">{{$ctrl.command.trigger}}</div>
           <div style="width: 20%">
-            <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
+            <span style="min-width: 51px; display: inline-block;" uib-tooltip="クールダウン(全般)">
                 <i class="far fa-globe-americas"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
             </span>
-            <span uib-tooltip="User cooldown">
+            <span uib-tooltip="クールダウン(ユーザ)">
                 <i class="far fa-user"></i> {{$ctrl.command.cooldown.user ? $ctrl.command.cooldown.user + "s" : "-" }}
             </span>
           </div>
           <div style="width: 20%"><span style="text-transform: capitalize;">{{$ctrl.getPermissionType($ctrl.command)}}</span> <tooltip type="info" text="$ctrl.getPermissionTooltip($ctrl.command)"></tooltip></div>
           <div style="width: 20%">
             <div style="min-width: 75px">
-                <span class="status-dot" ng-class="{'active': $ctrl.command.active, 'notactive': !$ctrl.command.active}"></span> {{$ctrl.command.active ? "Enabled" : "Disabled"}}
+                <span class="status-dot" ng-class="{'active': $ctrl.command.active, 'notactive': !$ctrl.command.active}"></span> {{$ctrl.command.active ? "有効" : "無効"}}
             </div> 
           </div>
           <div style="flex-basis:30px; flex-shrink: 0;">
@@ -30,10 +30,10 @@
         </div>
         <div uib-collapse="hidePanel" class="sys-command-expanded">
           <div style="padding: 15px 20px 10px 20px;">
-            <div class="muted" style="font-weight:bold; font-size: 12px;">DESCRIPTION</div>
+            <div class="muted" style="font-weight:bold; font-size: 12px;">説明</div>
             <p style="font-size: 18px">{{$ctrl.command.description}}</p>
             <div>
-              <div class="muted" style="font-weight:bold; font-size: 12px;">USAGE</div>
+              <div class="muted" style="font-weight:bold; font-size: 12px;">使い方</div>
               <p ng-if="!$ctrl.command.subCommands || $ctrl.command.subCommands.length < 1" style="font-size: 15px;font-weight: 600;">{{$ctrl.command.trigger}} {{$ctrl.command.usage ? $ctrl.command.usage : ''}}</p>
             </div>
             
@@ -46,7 +46,7 @@
                 <span style="font-weight: 600;">{{$ctrl.command.trigger}} {{subCmd.usage}}</span>  —  <span style="font-size: 13px;">{{subCmd.description}}</span>
                 <!--<div style="padding-left:15px;">
                     <div style="display: inline-block; margin-right: 25px;">
-                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> COOLDOWNS</span></div>
+                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> クールダウン</span></div>
                         <div>
                             <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
                                 <i class="fal fa-globe"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
@@ -57,15 +57,15 @@
                         </div>
                     </div>
                     <div style="display: inline-block;">
-                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> PERMISSIONS</span></div>
+                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> 権限</span></div>
                         <div><span style="text-transform: capitalize;">{{$ctrl.getPermissionType(subCmd, true)}}</span> <tooltip type="info" text="$ctrl.getPermissionTooltip(subCmd, true)"></tooltip></div>
                     </div>
                 </div>-->                
               </div>
             </div>
             <div style="padding-top: 10px">
-              <button class="btn btn-primary" ng-click="$ctrl.openEditSystemCommandModal()">Edit</button>
-              <button class="btn btn-default" ng-click="$ctrl.toggleCommandActiveState()">Toggle Enabled</button>
+              <button class="btn btn-primary" ng-click="$ctrl.openEditSystemCommandModal()">編集</button>
+              <button class="btn btn-default" ng-click="$ctrl.toggleCommandActiveState()">有効化の切り替え</button>
             </div>  
           </div>
         </div>
@@ -111,15 +111,15 @@
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
-                        return "Roles";
+                        return "役割";
                     } else if (permissions.mode === "viewer") {
-                        return "Viewer";
+                        return "視聴者";
                     }
                 } else {
                     if (isSub) {
-                        return "Inherited";
+                        return "継承";
                     }
-                    return "None";
+                    return "なし";
                 }
             };
 
@@ -131,22 +131,22 @@
                 if (permissions) {
                     if (permissions.mode === "roles") {
                         const roleIds = permissions.roleIds;
-                        let output = "None selected";
+                        let output = "選択なし";
                         if (roleIds.length > 0) {
                             output = roleIds
                                 .filter(id => viewerRolesService.getRoleById(id) != null)
                                 .map(id => viewerRolesService.getRoleById(id).name)
                                 .join(", ");
                         }
-                        return `Roles (${output})`;
+                        return `役割 (${output})`;
                     } else if (permissions.mode === "viewer") {
-                        return `Viewer (${permissions.username ? permissions.username : 'No name'})`;
+                        return `視聴者 (${permissions.username ? permissions.username : '名無し'})`;
                     }
                 } else {
                     if (isSub) {
-                        return "This subcommand will use the permissions of the base command.";
+                        return "ベースコマンドの権限を採用します";
                     }
-                    return "This command is available to everyone";
+                    return "誰でも利用できる";
                 }
             };
 
@@ -177,13 +177,13 @@
 
             $ctrl.sysCommandMenuOptions = [
                 {
-                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                     click: function () {
                         $ctrl.openEditSystemCommandModal();
                     }
                 },
                 {
-                    html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> Toggle Enabled</a>`,
+                    html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
                     click: function () {
                         $ctrl.command.active = !$ctrl.command.active;
                         commandsService.saveSystemCommandOverride($ctrl.command);

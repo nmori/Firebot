@@ -6,7 +6,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Run {{$ctrl.presetEffectList.name}}</h4>
+                    <h4 class="modal-title">{{$ctrl.presetEffectList.name}} を実行</h4>
                 </div>
                 <div class="modal-body">
                     <div style="margin-top: 10px;">
@@ -28,7 +28,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.run()">Run</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.run()">実行</button>
                 </div>
             `,
             bindings: {
@@ -59,7 +59,7 @@
                     );
                     ngToast.create({
                         className: 'success',
-                        content: `Ran "${$ctrl.presetEffectList.name}"!`
+                        content: `"${$ctrl.presetEffectList.name}"を実行しました`
                     });
                     $ctrl.close();
                 };

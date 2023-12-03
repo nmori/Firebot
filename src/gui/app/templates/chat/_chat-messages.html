@@ -56,14 +56,14 @@
           z-index: 100;
         "
       >
-        Chat Paused Due to Scroll
+        スクロールされたので一時停止中
       </button>
       <div
         class="chat-window"
         ng-init="scrollGlued = true"
         scroll-glue="scrollGlued"
-        style="{{customFontSizeStyle}}"
-      >
+        chat-size-style="{{customFontSizeStyle}}"
+        >
         <div
           ng-repeat="chatItem in cms.chatQueue | hideBotMessages | limitTo:messageDisplayLimit track by chatItem.id"
           class="chat-item"
@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="chat-autodisconnected" ng-show="cms.autodisconnected">
-        Disconnected from chat, trying to reconnect...
+        チャットから切断されました...再接続中
       </div>
     </div>
     <div class="text-input-wrapper">
@@ -120,7 +120,7 @@
             <div class="fb-arrow down mx-4 mb-1"></div>
           </span>
           <ul class="dropdown-menu">
-            <li ng-click="chatSender = 'Streamer'"><a href>Streamer</a></li>
+            <li ng-click="chatSender = 'Streamer'"><a href>配信者</a></li>
             <li ng-click="chatSender = 'Bot'" ng-show="botLoggedIn">
               <a href>Bot</a>
             </li>
@@ -130,7 +130,7 @@
         <input
           id="chatMessageInput"
           type="text"
-          placeholder="Message the stream"
+          placeholder="チャット入力"
           class="text-input-field"
           style="height: 100%"
           ng-maxlength="360"
@@ -145,7 +145,7 @@
         <button
           class="settings-btn"
           ng-click="showChatSettingsModal()"
-          aria-label="Chat Settings"
+          aria-label="チャット設定"
         >
           <i class="fas fa-cog"></i>
         </button>
@@ -166,7 +166,7 @@
   >
     <div class="activity-feed-header">
       <div style="display: flex; align-items: center">
-        <span>ACTIVITY FEED</span>
+        <span>アクティブフィード</span>
         <span
           ng-show="afs.unacknowledgedCount() > 0"
           uib-tooltip="Unacknowledged events"
@@ -191,7 +191,7 @@
           uib-dropdown-toggle
           class="clickable"
           style="color: white; font-size: 20px; line-height: 1"
-          aria-label="Activity feed options"
+          aria-label="アクティブフィードのオプション"
         >
           <i class="far fa-ellipsis-v"></i>
         </a>
@@ -200,16 +200,16 @@
             <a href ng-click="afs.toggleMarkAllAcknowledged()"
               ><i
                 class="far fa-check-square mr-4"
-                aria-label="Mark all events as acknowledged"
+                aria-label="すべてのイベントに承認マークを付ける"
               ></i>
-              Mark all as {{afs.allAcknowledged() ? 'Unacknowledged' :
-              'Acknowledged'}}</a
+              すべてを {{afs.allAcknowledged() ? '未承認' :
+              '承認済'}}</a
             >
           </li>
           <li>
             <a href ng-click="afs.showEditActivityFeedEventsModal()"
-              ><i class="far fa-toggle-off mr-4" aria-label="Edit events"></i>
-              Edit events</a
+              ><i class="far fa-toggle-off mr-4" aria-label="イベント編集"></i>
+              イベント編集</a
             >
           </li>
           <!-- <li class="divider"></li> -->
@@ -253,20 +253,20 @@
           <i
             class="clickable far fa-redo mr-4"
             ng-click="afs.retriggerEvent(activity.id)"
-            uib-tooltip="Retrigger event"
+            uib-tooltip="イベントを再起動"
             tooltip-placement="top-right"
             tooltip-append-to-body="true"
-            aria-label="Retrigger {{activity.event.name}}"
+            aria-label="再起動 {{activity.event.name}}"
           ></i>
 
           <i
             class="clickable far"
             ng-class="activity.acknowledged ? 'fa-check-square' : 'fa-square'"
             ng-click="activity.acknowledged = !activity.acknowledged"
-            uib-tooltip="{{activity.acknowledged ? 'Acknowledged' : 'Acknowledge'}}"
+            uib-tooltip="{{activity.acknowledged ? '承認済' : '承認まち'}}"
             tooltip-placement="top-right"
             tooltip-append-to-body="true"
-            aria-label="Acknowledge {{activity.event.name}}"
+            aria-label="承認する {{activity.event.name}}"
           ></i>
         </div>
       </div>

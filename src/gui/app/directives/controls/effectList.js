@@ -21,21 +21,21 @@
             <div class="effect-list">
                 <div class="flex-row-center jspacebetween effect-list-header">
                     <div class="flex items-center">
-                        <h3 class="{{$ctrl.headerClasses}} m-0" style="display:inline;font-weight: 100;">EFFECTS</h3>
+                        <h3 class="{{$ctrl.headerClasses}} m-0" style="display:inline;font-weight: 100;">演出</h3>
                         <span class="ml-1" style="font-size: 11px;"><tooltip text="$ctrl.header" ng-if="$ctrl.header"></tooltip></span>
                     </div>
 
                     <div class="flex items-center">
                         <div class="mr-7" ng-if="$ctrl.getSelectedQueueModeIsCustom()">
-                            <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="Effects duration: The total duration in seconds the queue should wait after triggering this effect list before running the next one">
-                                EFFECTS DURATION
-                                <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'The total duration (in secs) the queue should wait after triggering this effect list before running the next one'"></tooltip>
+                            <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="演出の持続時間： キューがこの演出リストをトリガーした後、次の演出を実行するまでに待つべき合計時間 (秒)。">
+                                演出の持続時間
+                                <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'この演出リストをトリガーしてキューにいれた後、次の演出リストを実行するまでの合計時間（秒）。'"></tooltip>
                             </div>
                             <div
                                 class="flex justify-end items-center"
                                 style="font-size: 12px;"
                                 ng-click="$ctrl.openEditQueueDurationModal()"
-                                aria-label="Effects duration: {{$ctrl.effectsData.queueDuration || 0}} seconds"
+                                aria-label="演出の持続時間: {{$ctrl.effectsData.queueDuration || 0}} 秒"
                                 role="button"
                             >
                                 <b>{{$ctrl.effectsData.queueDuration || 0}}</b>s<span class="muted ml-2" style="font-size: 9px;"><i class="fal fa-edit"></i></span>
@@ -44,19 +44,19 @@
 
                         <div class="mr-7" ng-if="$ctrl.validQueueSelected()">
                             <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="Queue Priority: If an effect list has priority, it will get added in front of other lists in the queue that do not have priority.">
-                                QUEUE PRIORITY
-                                <tooltip role="tooltip" aria-label="If an effect list has priority, it will get added in front of other lists in the queue that do not have priority." text="'If an effect list has priority, it will get added in front of other lists in the queue that do not have priority.'"></tooltip>
+                                キューの優先順位
+                                <tooltip role="tooltip" aria-label="If an effect list has priority, it will get added in front of other lists in the queue that do not have priority." text="'演出リストに優先順位がある場合、キュー内の優先順位を持たない他のリストの前に追加されます。'"></tooltip>
                             </div>
                             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
-                                <a href role="button" class="ddtext" style="font-size: 12px;" aria-label="Selected: {{$ctrl.getSelectedQueuePriority() === 'Yes' ? 'high queue priority' : 'no queue priority'}}">
+                                <a href role="button" class="ddtext" style="font-size: 12px;" aria-label="Selected: {{$ctrl.getSelectedQueuePriority() === 'Yes' ? '高' : 'なし'}}">
                                     {{$ctrl.getSelectedQueuePriority()}}<span class="fb-arrow down ddtext"></span>
                                 </a>
                                 <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                                     <li role="none">
-                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'high'" class="pl-4" role="menuitem" aria-label="High priority">Yes</a>
+                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'high'" class="pl-4" role="menuitem" aria-label="高">Yes</a>
                                     </li>
                                     <li role="none">
-                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'none'" class="pl-4" role="menuitem" aria-label="No priority">No</a>
+                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'none'" class="pl-4" role="menuitem" aria-label="なし">No</a>
                                     </li>
                                 </ul>
                             </div>
@@ -64,8 +64,8 @@
 
                         <div class="flex flex-col items-end mr-8">
                             <div style="font-size: 10px;opacity: 0.8;text-align: right;">
-                                QUEUE
-                                <tooltip role="tooltip" aria-label="Effect queues allow you to queue up effects so they don't overlap each other. Particularly useful for events." text="'Effect queues allow you to queue up effects so they don\\'t overlap each other. Particularly useful for events!'"></tooltip>
+                                キュー
+                                <tooltip role="tooltip" aria-label="Effect queues allow you to queue up effects so they don't overlap each other. Particularly useful for events." text="'演出キューは、演出が重ならないようにキューに入れることができます。特にイベントに役立ちます'"></tooltip>
                             </div>
                             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                                 <a href role="button" class="ddtext" style="font-size: 12px;">{{$ctrl.getSelectedEffectQueueName()}}<span class="fb-arrow down ddtext"></span></a>
@@ -77,7 +77,7 @@
                                             ng-click="$ctrl.effectsData.queue = null"
                                             role="menuitem"
                                         >
-                                            Unset <tooltip role="tooltip" aria-label="Effects will always play immediately when triggered" text="'Effects will always play immediately when triggered.'"></tooltip>
+                                            解除 <tooltip role="tooltip" aria-label="Effects will always play immediately when triggered" text="'演出はトリガーされると即座に再生されます'"></tooltip>
                                             <span ng-show="$ctrl.effectsData.queue == null" style="color:green;display: inline-block;"><i class="fas fa-check"></i></span>
                                         </a>
                                     </li>
@@ -90,20 +90,20 @@
                                     </li>
 
                                     <li ng-show="$ctrl.eqs.getEffectQueues().length < 1" role="none">
-                                        <a class="muted pl-4" role="menuitem">No queues created.</a>
+                                        <a class="muted pl-4" role="menuitem">キューは作成されていません.</a>
                                     </li>
 
                                     <li role="separator" class="divider"></li>
                                     <li role="none">
-                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal()" role="menuitem">Create new queue</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal()" role="menuitem">キューを作成</a>
                                     </li>
 
                                     <li role="none" ng-show="$ctrl.validQueueSelected()">
-                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">Edit "{{$ctrl.getSelectedEffectQueueName()}}"</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">編集："{{$ctrl.getSelectedEffectQueueName()}}"</a>
                                     </li>
 
                                     <li role="none" ng-show="$ctrl.validQueueSelected()">
-                                        <a href class="pl-4" ng-click="$ctrl.showDeleteEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">Delete "{{$ctrl.getSelectedEffectQueueName()}}"</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showDeleteEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">削除："{{$ctrl.getSelectedEffectQueueName()}}"</a>
                                     </li>
                                 </ul>
                             </div>
@@ -116,11 +116,11 @@
                         <div>
                             <a
                                 href role="button"
-                                aria-label="Open effects menu"
+                                aria-label="演出メニューを開く"
                                 class="effects-actions-btn"
                                 context-menu="$ctrl.allEffectsMenuOptions"
                                 context-menu-on="click"
-                                uib-tooltip="Open effects menu"
+                                uib-tooltip="演出メニューを開く"
                                 tooltip-append-to-body="true"
                             >
                                 <i class="fal fa-ellipsis-v"></i>
@@ -172,8 +172,8 @@
                     </div>
 
                     <div class="add-more-functionality mt-7 ml-5">
-                        <a href role="button" class="clickable" ng-click="$ctrl.openNewEffectModal($ctrl.effectsData.list.length)" aria-label="Add new effect">
-                            <i class="far fa-plus-circle"></i>Add New Effect
+                        <a href role="button" class="clickable" ng-click="$ctrl.openNewEffectModal($ctrl.effectsData.list.length)" aria-label="演出の追加">
+                            <i class="far fa-plus-circle"></i>演出の追加
                         </a>
                     </div>
                 </div>
@@ -213,28 +213,28 @@
                 const createAllEffectsMenuOptions = () => {
                     ctrl.allEffectsMenuOptions = [
                         {
-                            html: `<a href role="menuitem"><i class="far fa-copy mr-4"></i> Copy all effects</a>`,
+                            html: `<a href role="menuitem"><i class="far fa-copy mr-4"></i> コピー</a>`,
                             click: () => {
                                 ctrl.copyEffects();
                             },
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
-                            html: `<a href role="menuitem"><i class="far fa-paste mr-4"></i> Paste effects</a>`,
+                            html: `<a href role="menuitem"><i class="far fa-paste mr-4"></i> ・ペースト</a>`,
                             click: function () {
                                 ctrl.pasteEffects(true);
                             },
                             enabled: ctrl.hasCopiedEffects()
                         },
                         {
-                            html: `<a href role="menuitem" style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i>  Delete all effects</a>`,
+                            html: `<a href role="menuitem" style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i>  すべて削除</a>`,
                             click: function () {
                                 ctrl.removeAllEffects();
                             },
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
-                            html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> Share effects</a>`,
+                            html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> 共有</a>`,
                             click: function () {
                                 ctrl.shareEffects();
                             },
@@ -242,7 +242,7 @@
                             hasTopDivider: true
                         },
                         {
-                            html: `<a href ><i class="far fa-cloud-download-alt mr-4"></i> Import shared effect</a>`,
+                            html: `<a href ><i class="far fa-cloud-download-alt mr-4"></i> 共有演出を取り込み</a>`,
                             click: function () {
                                 ctrl.importSharedEffects();
                             }
@@ -253,14 +253,14 @@
                 const createEffectMenuOptions = () => {
                     ctrl.effectMenuOptions = [
                         {
-                            html: `<a href ><i class="far fa-tag mr-4"></i> Edit Label</a>`,
+                            html: `<a href ><i class="far fa-tag mr-4"></i> ラベルを編集</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.editLabelForEffectAtIndex($index);
                             }
                         },
                         {
-                            html: `<a href ><i class="far fa-edit mr-4"></i> Edit Effect</a>`,
+                            html: `<a href ><i class="far fa-edit mr-4"></i> 演出を編集</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 const effect = $itemScope.effect;
@@ -268,40 +268,40 @@
                             }
                         },
                         {
-                            html: `<a href ><i class="fal fa-toggle-off mr-4"></i>  Toggle Enabled</a>`,
+                            html: `<a href ><i class="fal fa-toggle-off mr-4"></i> 有効化の切り替え</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.toggleEffectActiveState($index);
                             }
                         },
                         {
-                            html: `<a href ><i class="far fa-clone mr-4"></i> Duplicate</a>`,
+                            html: `<a href ><i class="far fa-clone mr-4"></i> 複製</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.duplicateEffectAtIndex($index);
                             }
                         },
                         {
-                            html: `<a href ><i class="far fa-copy mr-4"></i> Copy</a>`,
+                            html: `<a href ><i class="far fa-copy mr-4"></i> コピー</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.copyEffectAtIndex($index);
                             }
                         },
                         {
-                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> Delete</a>`,
+                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> 削除</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.removeEffectAtIndex($index);
                             }
                         },
                         {
-                            text: "Paste...",
+                            text: "貼り付け...",
                             hasTopDivider: true,
                             enabled: ctrl.hasCopiedEffects(),
                             children: [
                                 {
-                                    html: `<a href><i class="far fa-paste mr-4"></i> Before</a>`,
+                                    html: `<a href><i class="far fa-paste mr-4"></i> 前に</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         if (ctrl.hasCopiedEffects()) {
@@ -310,7 +310,7 @@
                                     }
                                 },
                                 {
-                                    html: `<a href><i class="far fa-paste mr-4"></i> After</a>`,
+                                    html: `<a href><i class="far fa-paste mr-4"></i> 後に</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         if (ctrl.hasCopiedEffects()) {
@@ -321,17 +321,17 @@
                             ]
                         },
                         {
-                            text: "Add new...",
+                            text: "新規...",
                             children: [
                                 {
-                                    html: `<a href><i class="far fa-plus mr-4"></i> Before</a>`,
+                                    html: `<a href><i class="far fa-plus mr-4"></i> 前に</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         ctrl.openNewEffectModal($index - 1);
                                     }
                                 },
                                 {
-                                    html: `<a href><i class="far fa-plus mr-4"></i> After</a>`,
+                                    html: `<a href><i class="far fa-plus mr-4"></i> 後に</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         ctrl.openNewEffectModal($index);
@@ -350,15 +350,15 @@
                 ctrl.shareEffects = async () => {
                     const shareCode = await backendCommunicator.fireEventAsync("getEffectsShareCode", ctrl.effectsData.list);
                     if (shareCode == null) {
-                        ngToast.create("Unable to share effects.");
+                        ngToast.create("共有演出を有効にできません");
                     } else {
                         utilityService.showModal({
                             component: "copyShareCodeModal",
                             size: 'sm',
                             resolveObj: {
                                 shareCode: () => shareCode,
-                                title: () => "Effects Share Code",
-                                message: () => "Share the below code so others can import these effects."
+                                title: () => "演出の共有コード",
+                                message: () => "他の人がこれらの演出を取り込むには、以下のコードを共有してください。"
                             }
                         });
                     }
@@ -380,9 +380,9 @@
                     utilityService.openGetInputModal(
                         {
                             model: "",
-                            label: "Enter Effects Share Code",
-                            saveText: "Add",
-                            inputPlaceholder: "Enter code",
+                            label: "共有演出を受信するためのコードを入力",
+                            saveText: "追加する",
+                            inputPlaceholder: "コードの入力",
                             validationFn: (shareCode) => {
                                 return new Promise(async resolve => {
                                     if (shareCode == null || shareCode.trim().length < 1) {
@@ -398,7 +398,7 @@
                                     }
                                 });
                             },
-                            validationText: "Not a valid effects share code."
+                            validationText: "有効な演出コードではない."
 
                         },
                         async (shareCode) => {
@@ -442,9 +442,9 @@
 
                 ctrl.getLabelButtonTextForLabel = function(labelModel) {
                     if (labelModel == null || labelModel.length === 0) {
-                        return "Add Label";
+                        return "ラベルの追加";
                     }
-                    return "Edit Label";
+                    return "ラベルの編集";
                 };
 
                 ctrl.editLabelForEffectAtIndex = function(index) {
@@ -454,7 +454,7 @@
                         {
                             model: label,
                             label: ctrl.getLabelButtonTextForLabel(label),
-                            saveText: "Save Label"
+                            saveText: "ラベルを保存"
                         },
                         (newLabel) => {
                             if (newLabel == null || newLabel.length === 0) {
@@ -583,7 +583,7 @@
                 ctrl.eqs = effectQueuesService;
 
                 ctrl.getSelectedEffectQueueName = () => {
-                    const unsetDisplay = "Not set";
+                    const unsetDisplay = "未設定";
                     if (ctrl.effectsData.queue == null) {
                         return unsetDisplay;
                     }
@@ -598,7 +598,7 @@
 
                 ctrl.getSelectedQueuePriority = () => {
                     const priority = ctrl.effectsData.queuePriority;
-                    return priority === 'high' ? 'Yes' : 'No';
+                    return priority === 'high' ? 'はい' : 'いいえ';
                 };
 
                 ctrl.getSelectedQueueModeIsCustom = () => {
@@ -651,9 +651,9 @@
                     utilityService.openGetInputModal(
                         {
                             model: ctrl.effectsData.queueDuration || 0,
-                            label: "Edit Effects Duration",
-                            saveText: "Save",
-                            inputPlaceholder: "Enter secs",
+                            label: "時間の編集",
+                            saveText: "保存",
+                            inputPlaceholder: "秒数を入力",
                             validationFn: (value) => {
                                 return new Promise(resolve => {
                                     if (value == null || value < 0) {
@@ -662,7 +662,7 @@
                                     resolve(true);
                                 });
                             },
-                            validationText: "Value must be greater than 0."
+                            validationText: "数字は０より大きい必要があります."
 
                         },
                         (newDuration) => {

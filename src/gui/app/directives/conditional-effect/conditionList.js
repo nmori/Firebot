@@ -30,21 +30,21 @@
                                 </li>
                             </ul>
                         </div>
-                        <span> of the following conditions pass:</span>
+                        <span> 以下の条件のいずれかを満たすとき：</span>
                     </div>
                     <div style="display:flex;flex-wrap: wrap;">
                         <button ng-repeat="condition in $ctrl.conditionData.conditions track by $index" class="filter-bar" style="max-width: 100%;" ng-click="$ctrl.openAddOrEditConditionModal($index)">
                             <condition-display condition="condition" condition-type="$ctrl.getConditionType(condition.type)" style="width: 94%"></condition-display>
-                            <a class="filter-remove-btn clickable" style="margin-left: 10px; flex-shrink: 0;" ng-click="$event.stopPropagation();$ctrl.removeConditionAtIndex($index)" uib-tooltip="Remove condition" tooltip-append-to-body="true">
+                            <a class="filter-remove-btn clickable" style="margin-left: 10px; flex-shrink: 0;" ng-click="$event.stopPropagation();$ctrl.removeConditionAtIndex($index)" uib-tooltip="条件を解除" tooltip-append-to-body="true">
                                 <i class="far fa-times"></i>
                             </a>
                         </button>
 
-                        <button class="filter-bar" ng-show="$ctrl.hasConditionsAvailable()" ng-click="$ctrl.openAddOrEditConditionModal()" uib-tooltip="Add new condition" tooltip-append-to-body="true">
+                        <button class="filter-bar" ng-show="$ctrl.hasConditionsAvailable()" ng-click="$ctrl.openAddOrEditConditionModal()" uib-tooltip="条件を追加" tooltip-append-to-body="true">
                             <i class="far fa-plus"></i>
                         </button>
                     </div>
-                    <div ng-if="!$ctrl.hasConditionsAvailable()" class="muted">There are no conditions available for this trigger.</div>
+                    <div ng-if="!$ctrl.hasConditionsAvailable()" class="muted">このトリガーに使用可能な条件はありません</div>
                 </div>
             </div>
             `,
@@ -99,7 +99,7 @@
                 function reloadConditions() {
                     if ($ctrl.conditionData == null) {
                         $ctrl.conditionData = {
-                            mode: "exclusive",
+                            mode: "排他的",
                             conditions: []
                         };
                     }
@@ -114,7 +114,7 @@
                 }
 
                 $ctrl.getConditionModeDisplay = function() {
-                    return $ctrl.conditionData.mode === "inclusive" ? "any" : "all";
+                    return $ctrl.conditionData.mode === "inclusive" ? "いずれか" : "すべて";
                 };
 
                 $ctrl.getConditionType = function(typeId) {

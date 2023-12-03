@@ -9,8 +9,8 @@
                 <div>
 
                     <firebot-setting
-                        name="TTS Voice"
-                        description="The voice that is used for the TTS."
+                        name="合成音声(Text to Speech)"
+                        description="使用される合成音声"
                     >
                         <firebot-select
                             options="ttsVoiceOptions"
@@ -22,8 +22,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="TTS Volume"
-                        description="The volume at which the TTS speaks."
+                        name="読み上げ音量"
+                        description="TTSが話す音量"
                     >
                         <div class="volume-slider-wrapper"  style="width: 75%">
                             <i class="fal fa-volume-down volume-low" style="font-size: 25px"></i>
@@ -36,8 +36,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="TTS Speak Rate"
-                        description="The rate at which the TTS speaks: 1 is normal. 0.5 is half as fast. 2 is 2x as fast, etc."
+                        name="読み上げスピード"
+                        description="合成音声が話す速度： 1は通常。0.5は半分の速さ。2は2倍など。"
                     >
                         <div class="volume-slider-wrapper" style="width: 75%">
                             <i class="fal fa-turtle volume-low" style="font-size: 25px"></i>
@@ -51,11 +51,11 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Test TTS"
-                        description="Test the current TTS settings."
+                        name="読み上げテスト"
+                        description="現在の設定でテスト読み上げします"
                     >
                         <firebot-button
-                            text="Speak Test Message"
+                            text="テストで読み上げる"
                             ng-click="testTTS()"
                         />
                     </firebot-setting>
@@ -68,7 +68,7 @@
                 $scope.getSelectedVoiceName = () => {
                     const selectedVoiceId = settingsService.getDefaultTtsVoiceId();
                     const voice = ttsService.getVoiceById(selectedVoiceId);
-                    return voice ? voice.name : "Unknown Voice";
+                    return voice ? voice.name : "不明な音声";
                 };
 
                 $scope.ttsVoices = ttsService.getVoices();
@@ -76,7 +76,7 @@
                 $scope.getSelectedVoiceName = () => {
                     const selectedVoiceId = settingsService.getDefaultTtsVoiceId();
                     const voice = ttsService.getVoiceById(selectedVoiceId);
-                    return voice ? voice.name : "Unknown Voice";
+                    return voice ? voice.name : "不明な音声";
                 };
 
                 $scope.ttsVoiceOptions = ttsService.getVoices().reduce((acc, v) => {
@@ -116,12 +116,12 @@
                 const streamerName = accountAccess.accounts.streamer.username;
 
                 const testTTSMessages = [
-                    "I hope you are having a nice day.",
-                    "It sure is nice to be able to talk.",
-                    "I think you are awesome.",
-                    "When do you go to the dentist? Tooth hurty. Ha ha.",
-                    "This is a test message. Beep boop.",
-                    `I'm sorry, ${streamerName}. I'm afraid I can't do that.`
+                    "良い一日をお過ごしください。",
+                    "話ができてとてもうれしい",
+                    "あなたは素晴らしい",
+                    "歯医者にはいつ行く？歯が痛い。ははは。",
+                    "これはテストメッセージです。ピーピーピー。",
+                    `ごめんね、 ${streamerName}さん。 残念ながら、それはできません。`
                 ];
 
                 $scope.testTTS = () => {

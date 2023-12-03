@@ -14,14 +14,14 @@
         ng-class="{'active' : activeTimerTab === 0}"
         ng-click="activeTimerTab = 0"
       >
-        <a href>TIMERS</a>
+        <a href>タイマー</a>
       </li>
       <li
         role="presentation"
         ng-class="{'active' : activeTimerTab === 1}"
         ng-click="activeTimerTab = 1"
       >
-        <a href>SCHEDULED EFFECT LISTS</a>
+        <a href>効果予定リスト</a>
       </li>
     </ul>
   </div>
@@ -37,9 +37,9 @@
       add-new-button-text="New Timer"
       on-add-new-clicked="timerService.showAddEditTimerModal()"
       context-menu-options="timerOptions(item)"
-      no-data-message="No timers saved. You should make one! :)"
-      none-found-message="No timers found."
-      search-placeholder="Search timers"
+      no-data-message="タイマーは作成されていません"
+      none-found-message="タイマーは見つかりません"
+      search-placeholder="タイマーを検索"
       test-button="false"
       status-field="active"
     ></firebot-item-table>
@@ -48,14 +48,14 @@
       items="scheduledTaskService.scheduledTasks"
       on-items-update="onScheduledTasksUpdated(items)"
       headers="scheduledTaskHeaders"
-      sort-tag-context="scheduled effect lists"
+      sort-tag-context="効果予定リスト"
       orderable="true"
-      add-new-button-text="New Scheduled Effect List"
+      add-new-button-text="新しい効果予定リスト"
       on-add-new-clicked="scheduledTaskService.showAddEditScheduledTaskModal()"
       context-menu-options="scheduledTaskOptions(item)"
-      no-data-message="No scheduled effect lists saved. You should make one! :)"
-      none-found-message="No scheduled effect lists found."
-      search-placeholder="Search scheduled effect lists"
+      no-data-message="効果予定リストは作成されていません"
+      none-found-message="効果予定リストは見つかりません"
+      search-placeholder="効果予定リストを検索"
       test-button="false"
       status-field="enabled"
     ></firebot-item-table>
