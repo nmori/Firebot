@@ -167,7 +167,7 @@ const commandManagement = {
             {
                 arg: "cooldown",
                 usage: "cooldown [!trigger or \"phrase\"] [globalCooldownSecs] [userCooldownSecs]",
-                description: "コマンドのクールダウン時間を変更"
+                description: "コマンドが再実行可能になるまでの時間を変更"
             },
             {
                 arg: "restrict",
@@ -260,7 +260,7 @@ const commandManagement = {
 
                 if (commandManager.triggerIsTaken(trigger)) {
                     await chat.sendChatMessage(
-                        `トリガー名 '${trigger}' はすでに使われています。`
+                        `起動名 '${trigger}' はすでに使われています。`
                     );
                     return resolve();
                 }

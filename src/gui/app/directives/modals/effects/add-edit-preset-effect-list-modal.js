@@ -18,7 +18,7 @@
             <div class="modal-body">
                 <div>
                     <h3>Name</h3>
-                    <input type="text" class="form-control" placeholder="Enter name" ng-model="$ctrl.presetList.name">
+                    <input type="text" class="form-control" placeholder="名前を入れる" ng-model="$ctrl.presetList.name">
                 </div>
 
                 <div>
@@ -41,7 +41,7 @@
                 </div>
 
                 <div style="margin-top: 20px;">
-                    <collapsable-panel header="StreamDeckからのトリガー方法">
+                    <collapsable-panel header="StreamDeckからの起動方法">
                         <p>Steps:</p>
                         <ol>
                             <li>StreamDeckボタンに "ウェブサイト "アクションを追加します</li>
@@ -84,7 +84,7 @@
                     {
                         model: "",
                         label: "Add Argument",
-                        inputPlaceholder: "Enter name",
+                        inputPlaceholder: "名前を入れる",
                         saveText: "Save",
                         validationFn: (value) => {
                             return new Promise(resolve => {

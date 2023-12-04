@@ -9,7 +9,7 @@ const NodeCache = require("node-cache");
 const restrictionsManager = require("../../restrictions/restriction-manager");
 const { TriggerType } = require("../../common/EffectType");
 
-const DEFAULT_COOLDOWN_MESSAGE = "このコマンドはクールダウン中: {timeLeft}";
+const DEFAULT_COOLDOWN_MESSAGE = "このコマンドを実行するには {timeLeft} 秒待つ必要があります";
 const DEFAULT_RESTRICTION_MESSAGE = "このコマンドは使用できません。: {reason}";
 
 // commandaccess

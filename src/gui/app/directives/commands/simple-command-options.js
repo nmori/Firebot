@@ -8,18 +8,18 @@
         template: `
         <div class="simple-command p-4">
             <div class="form-group">
-                <label for="trigger" class="form-label"><i class="fad fa-exclamation"></i> トリガー <tooltip styles="opacity:0.7;font-size:11px;" text="'トリガーするチャットメッセージの先頭につけるテキスト。通常は、!などの特殊文字で始まります。'"/></label>
-                <input type="text" class="form-control input-lg" id="trigger" placeholder="!something" ng-model="$ctrl.command.trigger" />
+                <label for="trigger" class="form-label"><i class="fad fa-exclamation"></i> 起動コマンド <tooltip styles="opacity:0.7;font-size:11px;" text="'起動するチャットメッセージの先頭につけるテキスト。通常は、!などの特殊文字で始まります。'"/></label>
+                <input type="text" class="form-control input-lg" id="trigger" placeholder="!something のような !から始まるフレーズ" ng-model="$ctrl.command.trigger" />
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-stopwatch"></i> クールダウン <tooltip styles="opacity:0.7;font-size:11px;" text="'コマンドがスパム送信されるのを防ぎます。全体に適用することも、ユーザーごとに適用することもできます。'"/></label>
+                <label class="form-label"><i class="fad fa-stopwatch"></i> 再実行待ち <tooltip styles="opacity:0.7;font-size:11px;" text="'コマンドがスパム送信されるのを防ぎます。全体に適用することも、ユーザーごとに適用することもできます。'"/></label>
                 <command-cooldown-settings command="$ctrl.command" message-setting-disabled="true"></command-cooldown-settings>
                 <p class="help-block">任意</p>
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-lock-alt"></i> 権限 <tooltip styles="opacity:0.7;font-size:11px;" text="'権限を使用すると、このコマンドをトリガーできる人を制限できます。'" /></label>
+                <label class="form-label"><i class="fad fa-lock-alt"></i> 権限 <tooltip styles="opacity:0.7;font-size:11px;" text="'権限を使用すると、このコマンドを起動できる人を制限できます。'" /></label>
                 <div>
                     <div class="btn-group">
                         <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'everyone'">全員</label>

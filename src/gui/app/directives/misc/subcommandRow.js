@@ -21,10 +21,10 @@
                     </div>
 
                     <div style="width: 25%">
-                        <span style="min-width: 51px; display: inline-block;" uib-tooltip="クールダウン(全般)">
+                        <span style="min-width: 51px; display: inline-block;" uib-tooltip="再実行可能になるまでの待ち時間(全般)">
                             <i class="fal fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "s" : "-" }}
                         </span>
-                        <span uib-tooltip="クールダウン(ユーザ)">
+                        <span uib-tooltip="再実行可能になるまでの待ち時間(ユーザ)">
                             <i class="fal fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "s" : "-" }}
                         </span>
                     </div>
@@ -94,7 +94,7 @@
 
                         <div class="mt-10" ng-hide="$ctrl.subcommand.hideCooldowns">
                             <div class="settings-title">
-                                <h4 class="font-semibold">クールダウン</h4>
+                                <h4 class="font-semibold">再実行可能になるまでの待ち時間</h4>
                             </div>
                             <command-cooldown-settings command="$ctrl.subcommand" message-setting-disabled="true"></command-cooldown-settings>
                         </div>

@@ -20,13 +20,14 @@
             <div class="general-event-settings">
 
                 <div class="effect-setting-container">
-                    <h3>トリガー：</h3>
+                    <h3>イベントの起
+                    動条件：</h3>
                     <searchable-event-dropdown selected="{ eventId: $ctrl.event.eventId, sourceId: $ctrl.event.sourceId }" style="width:100%" update="$ctrl.eventChanged(event)"></searchable-event-dropdown>
                 </div>
 
                 <div class="effect-setting-container">
                     <h3>名前</h3>
-                    <input type="text" class="form-control event-id" aria-describedby="basic-addon3" placeholder="Enter name" ng-model="$ctrl.event.name" ng-change="$ctrl.nameChanged()">
+                    <input type="text" class="form-control event-id" aria-describedby="basic-addon3" placeholder="名前を入れる" ng-model="$ctrl.event.name" ng-change="$ctrl.nameChanged()">
                 </div>
 
                 <div ng-if="$ctrl.event.eventId != null">
@@ -47,13 +48,13 @@
                 </div>
                 <div class="cooldown-title">
                     <div class="controls-fb-inline effect-custom-cooldown-container">
-                        <label class="control-fb control--checkbox">クールダウン
+                        <label class="control-fb control--checkbox">再実行可能になるまでの待ち時間
                             <input type="checkbox" ng-model="$ctrl.event.customCooldown" aria-label="..." >
                             <div class="control__indicator"></div>
                         </label>
                         <div id="cooldown-options" ng-if="$ctrl.event.customCooldown" class="nav-body-wrapper" style="padding-left: 29px;">
-                            <input type="number" class="form-control event-id" aria-describedby="basic-addon3" placeholder="Enter time in seconds" ng-model="$ctrl.event.customCooldownSecs" style="margin-bottom: 6px;">
-                            <label class="control-fb control--checkbox">ユーザー毎にクールダウンを適用
+                            <input type="number" class="form-control event-id" aria-describedby="basic-addon3" placeholder="秒数を入れる" ng-model="$ctrl.event.customCooldownSecs" style="margin-bottom: 6px;">
+                            <label class="control-fb control--checkbox">ユーザー毎に待ち時間を適用
                                 <input type="checkbox" ng-model="$ctrl.event.customCooldownPerUser" aria-label="..." >
                                 <div class="control__indicator"></div>
                             </label>

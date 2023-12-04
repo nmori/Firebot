@@ -32,7 +32,7 @@
                     ng-show="!$ctrl.messageSettingDisabled && ($ctrl.command.cooldown.global > 0 || $ctrl.command.cooldown.user > 0)"
                 >
                     <label class="control-fb control--checkbox">
-                        クールダウン中に送るメッセージ
+                        再実行可能になるまでの待ち時間中に送るメッセージ
                         <input
                             type="checkbox"
                             ng-model="$ctrl.command.sendCooldownMessage"
@@ -42,7 +42,7 @@
 
                     <div ng-show="$ctrl.command.sendCooldownMessage">
                         <label class="control-fb control--checkbox">
-                            クールダウンメッセージをカスタムする
+                            再実行可能になるまでの待ち時間メッセージをカスタムする
                             <input
                                 type="checkbox"
                                 ng-model="$ctrl.command.useCustomCooldownMessage"

@@ -11,10 +11,10 @@
           <div style="flex-basis: 25%;padding-left: 20px;">{{$ctrl.command.name}}</div>
           <div style="width: 20%">{{$ctrl.command.trigger}}</div>
           <div style="width: 20%">
-            <span style="min-width: 51px; display: inline-block;" uib-tooltip="クールダウン(全般)">
+            <span style="min-width: 51px; display: inline-block;" uib-tooltip="再実行可能になるまでの待ち時間(全般)">
                 <i class="far fa-globe-americas"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
             </span>
-            <span uib-tooltip="クールダウン(ユーザ)">
+            <span uib-tooltip="再実行可能になるまでの待ち時間(ユーザ)">
                 <i class="far fa-user"></i> {{$ctrl.command.cooldown.user ? $ctrl.command.cooldown.user + "s" : "-" }}
             </span>
           </div>
@@ -46,7 +46,7 @@
                 <span style="font-weight: 600;">{{$ctrl.command.trigger}} {{subCmd.usage}}</span>  —  <span style="font-size: 13px;">{{subCmd.description}}</span>
                 <!--<div style="padding-left:15px;">
                     <div style="display: inline-block; margin-right: 25px;">
-                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> クールダウン</span></div>
+                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> 再実行可能になるまでの待ち時間</span></div>
                         <div>
                             <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
                                 <i class="fal fa-globe"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}

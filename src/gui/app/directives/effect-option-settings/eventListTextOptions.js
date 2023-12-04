@@ -34,7 +34,7 @@
                                     <li><b>$(user)</b> - ボタンを実行している人、またはコマンドを使用している人の名前に置換</li>
                                     <li><b>$(text)</b> - 対話ボタンのテキストまたはチャットコマンドIDに置換</li>
                                     <li><b>$(cost)</b> - コマンドまたはボタンのコストに置換</li>
-                                    <li><b>$(cooldown)</b> - コマンドまたはボタンのクールダウンに置換</li>
+                                    <li><b>$(cooldown)</b> - コマンドまたはボタンの待ち時間に置換</li>
                                 </ul>
                             </eos-collapsable-panel>
                         </eos-container>

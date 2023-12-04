@@ -12,11 +12,11 @@
             <div class="modal-body">
                 <div>
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Arg Type
+                        引数の種類
                     </div>
                     <div ng-class="{'has-error': $ctrl.kindError}">
                         <ui-select ng-model="$ctrl.arg.type" ng-change="$ctrl.onTypeChange()" theme="bootstrap" class="control-type-list">
-                            <ui-select-match placeholder="Select arg type">{{$select.selected.type}}</ui-select-match>
+                            <ui-select-match placeholder="引数の種類を選ぶ">{{$select.selected.type}}</ui-select-match>
                             <ui-select-choices repeat="arg.type as arg in $ctrl.argTypes | filter: { type: $select.search }" style="position:relative;">
                                 <div style="padding: 5px;">
                                     <div ng-bind-html="arg.type | highlight: $select.search"></div>
@@ -30,7 +30,7 @@
 
                 <div ng-show="$ctrl.arg.type === 'Custom'" style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Arg Trigger Text <tooltip text="'このサブコマンドをトリガーするテキスト'">
+                        Arg Trigger Text <tooltip text="'このサブコマンドを起動するテキスト'">
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.nameError}">
@@ -53,7 +53,7 @@
             controller: function($timeout) {
                 const $ctrl = this;
 
-                $ctrl.nameErrorText = 'トリガー用テキストを入力してください.';
+                $ctrl.nameErrorText = '起動用テキストを入力してください.';
 
                 $timeout(() => {
                     angular.element("#nameField").trigger("focus");
@@ -78,7 +78,7 @@
                 $ctrl.argTypes = [
                     {
                         type: "Custom",
-                        description: "特定のテキストでトリガーされる引数"
+                        description: "特定のテキストで起動される引数"
                     }
                 ];
 
@@ -89,11 +89,11 @@
 
                     const triggerText = $ctrl.arg.arg;
                     if (triggerText == null || triggerText.length < 1) {
-                        $ctrl.nameErrorText = 'トリガー用テキストを入力してください';
+                        $ctrl.nameErrorText = '起動用テキストを入力してください';
                         return false;
                     }
                     if ($ctrl.resolve.otherArgNames.some(a => a === triggerText.toLowerCase())) {
-                        $ctrl.nameErrorText = 'このトリガー用テキストはすでに存在します.';
+                        $ctrl.nameErrorText = 'この起動用テキストはすでに存在します.';
                         return false;
                     }
                     return true;
@@ -159,7 +159,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.arg === numberRegex)) {
                         $ctrl.argTypes.push({
                             type: "Number",
-                            description: "任意のトリガーをしたい数字"
+                            description: "任意の起動をしたい数字"
                         });
                     }
 
@@ -167,7 +167,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.arg === usernameRegex)) {
                         $ctrl.argTypes.push({
                             type: "Username",
-                            description: "@で始まるトリガーにしたいユーザ名、テキスト"
+                            description: "@で始まる起動にしたいユーザ名、テキスト"
                         });
                     }
 
@@ -175,7 +175,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.fallback)) {
                         $ctrl.argTypes.push({
                             type: "Fallback",
-                            description: "他の引数がどれも一致しない場合にトリガーされる引数"
+                            description: "他の引数がどれも一致しない場合に起動される引数"
                         });
                     }
 

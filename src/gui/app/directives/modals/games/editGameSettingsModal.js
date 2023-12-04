@@ -23,7 +23,7 @@
                             <div class="control__indicator"></div>
                         </label>
                     </div>
-                    <p class="muted" style="margin-top: 20px;">注意: 有効にすると、このゲームに関連するコマンドの表示、トリガー編集、権限調整ができます。</p>
+                    <p class="muted" style="margin-top: 20px;">注意: 有効にすると、このゲームに関連するコマンドの表示、起動条件の編集、権限調整ができます。</p>
                 </setting-container>
 
                 <setting-container ng-if="$ctrl.game.settingCategories != null" ng-repeat="categoryMeta in $ctrl.settingCategoriesArray | orderBy:'sortRank'"  header="{{categoryMeta.title}}" description="{{categoryMeta.description}}" pad-top="$index > 0 ? true : false" collapsed="true">

@@ -58,7 +58,7 @@ const model = {
                 <div id="username" class="modal-subheader" style="padding: 0 0 4px 0">
                     Username
                 </div>
-                <input type="text" class="form-control" aria-describedby="username" ng-model="restriction.username" placeholder="Enter name">
+                <input type="text" class="form-control" aria-describedby="username" ng-model="restriction.username" placeholder="名前を入れる">
             </div>
         </div>
     `,

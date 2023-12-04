@@ -21,7 +21,7 @@
                 active: true,
                 simple: !settingsService.getDefaultToAdvancedCommandMode(),
                 sendCooldownMessage: true,
-                cooldownMessage: "クールダウン中: 残り {timeLeft} 秒",
+                cooldownMessage: "再実行可能になるまでの待ち時間: 残り {timeLeft} 秒",
                 cooldown: {},
                 effects: {
                     id: uuid(),
@@ -129,7 +129,7 @@
                 }
 
                 if ($ctrl.command.cooldownMessage == null) {
-                    $ctrl.command.cooldownMessage = "クールダウン中: 残り {timeLeft} 秒";
+                    $ctrl.command.cooldownMessage = "再実行可能になるまでの待ち時間: 残り {timeLeft} 秒";
                 }
 
                 if ($ctrl.command.aliases == null) {
@@ -235,7 +235,7 @@
 
             $ctrl.save = function() {
                 if ($ctrl.command.trigger == null || $ctrl.command.trigger === "") {
-                    ngToast.create("トリガーをセットしてください.");
+                    ngToast.create("起動をセットしてください.");
                     return;
                 }
 
@@ -248,7 +248,7 @@
                 }
 
                 if (commandsService.triggerExists($ctrl.command.trigger, $ctrl.command.id)) {
-                    ngToast.create("このトリガーを使うコマンドはすでに存在します");
+                    ngToast.create("この起動コマンドはすでに存在します");
                     return;
                 }
 

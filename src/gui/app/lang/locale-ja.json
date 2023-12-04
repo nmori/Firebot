@@ -6,7 +6,7 @@
   "SIDEBAR": {
     "CHAT": {
       "CHAT": "チャット",
-      "TRIGGER": "トリガー",
+      "TRIGGER": "起動条件",
       "COMMANDS": "コマンド",
       "CHAT_FEED": "ダッシュボード"
     },

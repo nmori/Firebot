@@ -103,7 +103,7 @@
                         >
                             <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
                                 <div>
-                                    <label class="control-label" style="margin:0;">クールダウン</label>
+                                    <label class="control-label" style="margin:0;">再実行可能になるまでの待ち時間</label>
                                     <p class="help-block">付与までの期間(最長7日間)</p>
                                 </div>
                                 <div>

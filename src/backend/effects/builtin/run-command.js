@@ -51,7 +51,7 @@ const model = {
             <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.args" placeholder="Enter some arguments..." replace-variables>
         </eos-container>
 
-        <eos-container header="コマンドをトリガーする視聴者（任意）" pad-top="true">
+        <eos-container header="コマンドを起動する視聴者（任意）" pad-top="true">
             <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.username" placeholder="Enter a username..." replace-variables>
         </eos-container>
 

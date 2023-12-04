@@ -15,7 +15,7 @@
             template: `
                 <div>
                     <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;">
-                        <span>トリガー条件 </span>
+                        <span>起動条件 </span>
 
                         <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                             <div class="noselect pointer ddtext" style="font-size: 12px;">
@@ -27,11 +27,11 @@
                             <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'all'">
-                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">すべての制限を適用</a>
+                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">すべて</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'any'">
-                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">いくつかの制限を適用</a>
+                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">いずれか</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'none'">
@@ -102,12 +102,12 @@
 
                 $ctrl.getRestrictionModeDisplay = function() {
                     if ($ctrl.restrictionData.mode === "any") {
-                        return "any restriction passes";
+                        return "いずれか";
                     }
                     if ($ctrl.restrictionData.mode === "none") {
-                        return "no restrictions pass";
+                        return "適用なし";
                     }
-                    return "all restrictions pass";
+                    return "すべて";
                 };
 
                 $ctrl.canAddMoreRestrictions = true;

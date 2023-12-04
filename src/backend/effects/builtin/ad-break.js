@@ -8,7 +8,7 @@ const model = {
     definition: {
         id: "firebot:ad-break",
         name: "Ad Break",
-        description: "ad-breakをトリガーする",
+        description: "ad-breakを起動する",
         hidden: !accountAccess.getAccounts().streamer.loggedIn,
         icon: "fad fa-ad",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],

@@ -6,15 +6,15 @@ export const ChangeSceneEffectType: EffectType<{
 }> = {
   definition: {
     id: "ebiggz:obs-change-scene",
-    name: "Change OBS Scene",
-    description: "Change the active OBS Scene",
+    name: "OBSシーン切替",
+    description: "OBSシーンに切替える",
     icon: "fad fa-tv",
     categories: ["common"],
   },
   optionsTemplate: `
     <eos-container header="New Scene">
         <ui-select ng-model="selected" on-select="selectScene($select.selected)">
-          <ui-select-match placeholder="Select a Scene...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="切替先...>{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="scene in scenes | filter: {name: $select.search}">
             <li ng-show="scene.custom === true" role="separator" class="divider"></li>
             <div ng-bind-html="scene.name | highlight: $select.search"></div>
@@ -22,11 +22,11 @@ export const ChangeSceneEffectType: EffectType<{
         </ui-select>
         
         <p ng-hide="effect.custom === true">
-            <button class="btn btn-link" ng-click="getScenes()">Refresh Scenes</button>
-            <span class="muted">(Make sure OBS is running)</span>
+            <button class="btn btn-link" ng-click="getScenes()">再読み込み</button>
+            <span class="muted">(OBS Studioは起動していますか？)</span>
         </p>
         <div ng-show="effect.custom === true" style="margin-top:10px;">
-            <firebot-input input-title="Custom Scene" model="effect.sceneName"></firebot-input>
+            <firebot-input input-title="カスタムシーン" model="effect.sceneName"></firebot-input>
         </div>
     </eos-container>
   `,
@@ -65,7 +65,7 @@ export const ChangeSceneEffectType: EffectType<{
   },
   optionsValidator: (effect) => {
     if (effect.sceneName == null) {
-      return ["Please select a scene."];
+      return ["シーンを選んでください"];
     }
     return [];
   },

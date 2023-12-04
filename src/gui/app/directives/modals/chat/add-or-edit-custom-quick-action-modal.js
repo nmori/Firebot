@@ -14,7 +14,7 @@
                     <div class="mb-6">
                         <h3>名前</h3>
                         <p class="muted">名前は、クイックアクションにカーソルを合わせたときのヒントにもなります。</p>
-                        <input type="text" class="form-control" placeholder="Enter name" ng-model="$ctrl.quickAction.name" required>
+                        <input type="text" class="form-control" placeholder="名前を入れる" ng-model="$ctrl.quickAction.name" required>
                     </div>
                     <div class="mb-6">
                         <h3>アイコン</h3>
@@ -23,7 +23,7 @@
                     </div>
                     <div>
                         <h3>演出リスト</h3>
-                        <p class="muted">クイックアクションがトリガーされたときに実行される演出リスト。</p>
+                        <p class="muted">クイックアクションが起動されたときに実行される演出リスト。</p>
                         <dropdown-select options="{ custom: 'Custom', preset: 'Preset'}" selected="$ctrl.listType"></dropdown-select>
                         <div ng-if="$ctrl.listType === 'preset'" class="mt-8">
                             <ui-select ng-model="$ctrl.quickAction.presetListId" theme="bootstrap" on-select="$ctrl.presetListSelected($item)">

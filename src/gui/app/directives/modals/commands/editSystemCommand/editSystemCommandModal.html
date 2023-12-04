@@ -15,21 +15,21 @@
 <div class="modal-body general-button-settings">
   <setting-container header="Trigger">
     <div class="input-group pb-5">
-      <span class="input-group-addon" id="basic-addon3">トリガー</span>
+      <span class="input-group-addon" id="basic-addon3">起動</span>
       <input
         type="text"
         class="form-control"
         aria-describedby="basic-addon3"
         ng-model="$ctrl.command.trigger"
-        placeholder="!something"
+        placeholder="!something のような !から始まるフレーズ"
       />
     </div>
 
     <div class="controls-fb-inline">
       <label class="control-fb control--checkbox"
-        >トリガーを自動消去
+        >起動メッセージを自動消去
         <tooltip
-          text="'チャットをクリーンに保つため Firebot はコマンドをトリガーするメッセージを自動的に削除します。'"
+          text="'チャットをクリーンに保つため Firebot はコマンドを起動するメッセージを自動的に削除します。'"
         ></tooltip>
         <input
           type="checkbox"
@@ -40,9 +40,9 @@
       </label>
 
       <label class="control-fb control--checkbox"
-        >メッセージ全体をスキャン
+        >チャット内のどこかで一致すれば起動できるようにする
         <tooltip
-          text="'最初の単語だけではなく、メッセージ全体をみてトリガー判断します'"
+          text="'初の単語だけではなく、メッセージ全体を起動対象にします'"
         ></tooltip>
         <input
           type="checkbox"
@@ -88,8 +88,8 @@
         <div class="control__indicator"></div>
       </label>
       <label class="control-fb control--checkbox"
-        >Hidden
-        <tooltip text="'Hide this command from the !commands list'"></tooltip>
+        >コマンドリストで表示しない
+        <tooltip text="'!commandsリストに表示しないようにします'"></tooltip>
         <input
           type="checkbox"
           ng-model="$ctrl.command.hidden"
@@ -124,7 +124,7 @@
     pad-top="true"
   >
     <div ng-if="$ctrl.command.subCommands != null && $ctrl.command.subCommands.length > 0" style="margin-bottom: 20px;font-weight: 100;">
-      ユーザーが引数を指定しない場合にのみトリガーされます。
+      ユーザーが引数を指定しない場合にのみ起動されます。
     </div>
     <effect-list
       header="このコマンドは何をしたらよいですか？"
@@ -145,7 +145,7 @@
         <i class="fas fa-tag"></i> 引数
       </div>
       <div class="muted" style="width: 25%">
-        <i class="fas fa-clock"></i> クールダウン
+        <i class="fas fa-clock"></i> 再実行待ち
       </div>
       <div class="muted" style="width: 25%">
         <i class="fas fa-lock-alt"></i> 権限

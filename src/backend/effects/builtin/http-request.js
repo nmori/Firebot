@@ -87,7 +87,7 @@ const effect = {
             <div class="control__indicator"></div>
         </label>
         <div ng-if="effect.options.putResponseInVariable" style="padding-left: 15px;">
-            <firebot-input input-title="Variable Name" model="effect.options.variableName" placeholder-text="Enter name" />
+            <firebot-input input-title="Variable Name" model="effect.options.variableName" placeholder-text="名前を入れる" />
             <firebot-input style="margin-top: 10px;" input-title="変数の継続時間" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="Enter secs | 任意" />
             <firebot-input style="margin-top: 10px;" input-title="変数のパス" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="任意" />
         </div>

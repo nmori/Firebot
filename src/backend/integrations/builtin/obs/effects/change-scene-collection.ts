@@ -6,15 +6,15 @@ export const ChangeSceneCollectionEffectType: EffectType<{
 }> = {
   definition: {
     id: "ebiggz:obs-change-scene-collection",
-    name: "Change OBS Scene Collection",
-    description: "Change the active OBS Scene Collection",
+    name: "OBSシーンコレクション切替",
+    description: "OBSのアクティブシーンコレクションを切り替える",
     icon: "fad fa-th-list",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="New Scene Collection">
+    <eos-container header="新しいシーンコレクション">
         <ui-select ng-model="selected" on-select="selectSceneCollection($select.selected)">
-          <ui-select-match placeholder="Select a Scene Collection...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="シーンコレクションを選ぶ">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="collection in sceneCollections | filter: {name: $select.search}">
             <li ng-show="collection.custom === true" role="separator" class="divider"></li>
             <div ng-bind-html="collection.name | highlight: $select.search"></div>
@@ -22,11 +22,11 @@ export const ChangeSceneCollectionEffectType: EffectType<{
         </ui-select>
         
         <p ng-hide="effect.custom === true">
-            <button class="btn btn-link" ng-click="getSceneCollections()">Refresh Scene Collections</button>
-            <span class="muted">(Make sure OBS is running)</span>
+            <button class="btn btn-link" ng-click="getSceneCollections()">シーンコレクションを読み込む</button>
+            <span class="muted">(OBS Studioは起動していますか？)</span>
         </p>
         <div ng-show="effect.custom === true" style="margin-top:10px;">
-            <firebot-input input-title="Custom Scene Collection" model="effect.sceneCollectionName"></firebot-input>
+            <firebot-input input-title="シーンコレクション" model="effect.sceneCollectionName"></firebot-input>
         </div>
     </eos-container>
   `,
@@ -66,7 +66,7 @@ export const ChangeSceneCollectionEffectType: EffectType<{
   },
   optionsValidator: (effect) => {
     if (effect.sceneCollectionName == null) {
-      return ["Please select a scene collection."];
+      return ["シーンコレクションを選んでください"];
     }
     return [];
   },

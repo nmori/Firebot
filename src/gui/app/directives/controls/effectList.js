@@ -27,9 +27,9 @@
 
                     <div class="flex items-center">
                         <div class="mr-7" ng-if="$ctrl.getSelectedQueueModeIsCustom()">
-                            <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="演出の持続時間： キューがこの演出リストをトリガーした後、次の演出を実行するまでに待つべき合計時間 (秒)。">
+                            <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="演出の持続時間： キューがこの演出リストを起動した後、次の演出を実行するまでに待つべき合計時間 (秒)。">
                                 演出の持続時間
-                                <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'この演出リストをトリガーしてキューにいれた後、次の演出リストを実行するまでの合計時間（秒）。'"></tooltip>
+                                <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'この演出リストを起動してキューにいれた後、次の演出リストを実行するまでの合計時間（秒）。'"></tooltip>
                             </div>
                             <div
                                 class="flex justify-end items-center"
@@ -65,10 +65,10 @@
                         <div class="flex flex-col items-end mr-8">
                             <div style="font-size: 10px;opacity: 0.8;text-align: right;">
                                 キュー
-                                <tooltip role="tooltip" aria-label="Effect queues allow you to queue up effects so they don't overlap each other. Particularly useful for events." text="'演出キューは、演出が重ならないようにキューに入れることができます。特にイベントに役立ちます'"></tooltip>
+                                <tooltip role="tooltip" aria-label="演出キューでは、演出が重ならないようにキューに入れて順番に実行することができます。特にイベントに便利です。" text="'演出キューは、演出が重ならないようにキューに入れて順番に実行することができます。特にイベントに役立ちます'"></tooltip>
                             </div>
                             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
-                                <a href role="button" class="ddtext" style="font-size: 12px;">{{$ctrl.getSelectedEffectQueueName()}}<span class="fb-arrow down ddtext"></span></a>
+                                <a href role="button" class="ddtext" style="font-size: 12px;"> "{{$ctrl.getSelectedEffectQueueName()}}" <span class="fb-arrow down ddtext"></span></a>
                                 <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                                     <li role="none">
                                         <a
@@ -77,7 +77,7 @@
                                             ng-click="$ctrl.effectsData.queue = null"
                                             role="menuitem"
                                         >
-                                            解除 <tooltip role="tooltip" aria-label="Effects will always play immediately when triggered" text="'演出はトリガーされると即座に再生されます'"></tooltip>
+                                            解除 <tooltip role="tooltip" aria-label="Effects will always play immediately when triggered" text="'演出は起動されると即座に再生されます'"></tooltip>
                                             <span ng-show="$ctrl.effectsData.queue == null" style="color:green;display: inline-block;"><i class="fas fa-check"></i></span>
                                         </a>
                                     </li>

@@ -201,7 +201,7 @@ module.exports = {
                 teamCreation: {
                     type: "string",
                     title: "チーム結成",
-                    description: "強盗が誰かによってトリガーされたときに送信される（メッセージなしの場合は空白にする）.",
+                    description: "強盗が誰かによって開始されたときに送信される（メッセージなしの場合は空白にする）.",
                     useTextArea: true,
                     default: "@{user} is looking to put a team together for a heist! To join the team, type {command} [amount]",
                     tip: "変数: {user}, {command}, {maxWager}, {minWager}, {minimumUsers}"

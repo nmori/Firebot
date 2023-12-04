@@ -5,8 +5,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const model = {
     definition: {
         id: "firebot:cooldown-command",
-        name: "クールダウン",
-        description: "コマンドのクールダウンを手動で追加または削除します",
+        name: "再実行可能になるまでの時間",
+        description: "コマンドが再実行可能になるまでの時間を手動で追加または削除します",
         icon: "fad fa-hourglass-half",
         categories: [EffectCategory.COMMON, EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
@@ -40,11 +40,11 @@ const model = {
             </ui-select>
 
             <div ng-show="subcommands && !!subcommands.length" class="mt-4 pl-4">
-                <label class="control-fb control--radio">クールダウンの基本コマンド
+                <label class="control-fb control--radio">再実行可能になるまでの時間（基本コマンド）
                     <input type="radio" ng-model="showSubcommands" ng-value="false" ng-click="effect.subcommandId = null"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >クールダウンのサブコマンド
+                <label class="control-fb control--radio" >再実行可能になるまでの時間（サブコマンド）
                     <input type="radio" ng-model="showSubcommands" ng-value="true"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -104,13 +104,13 @@ const model = {
         </eos-container>
         <eos-container header="Cooldowns" pad-top="true" ng-show="effect.action === 'Clear'">
             <div class="mt-2">
-                <label class="control-fb control--checkbox">グローバルのクールダウンを解除
+                <label class="control-fb control--checkbox"> 再実行可能になるまでの待ち時間設定を解除(全員)
                     <input type="checkbox" ng-model="effect.clearGlobalCooldown">
                     <div class="control__indicator"></div>
                 </label>
             </div>
             <div class="mt-2">
-                <label class="control-fb control--checkbox"> ユーザのクールダウンを解除
+                <label class="control-fb control--checkbox"> 再実行可能になるまでの待ち時間設定を解除(ユーザ)
                     <input type="checkbox" ng-model="effect.clearUserCooldown">
                     <div class="control__indicator"></div>
                 </label>
@@ -177,10 +177,10 @@ const model = {
             errors.push("コマンドまたはタグを選択してください");
         }
         if (effect.userCooldownSecs != null && (effect.username == null || effect.username === '')) {
-            errors.push("クールダウンのユーザー名を入力してください。");
+            errors.push("再実行可能になるまでの待ち時間を設定するユーザー名を入力してください。");
         }
         if (effect.clearUserCooldown != null && (effect.clearUsername == null || effect.clearUsername === '')) {
-            errors.push("ユーザークールダウンをクリアするためのユーザ名を入力してください。");
+            errors.push("再実行可能になるまでの待ち時間を解除するユーザ名を入力してください。");
         }
         return errors;
     },

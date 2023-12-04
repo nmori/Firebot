@@ -73,7 +73,7 @@
                 backendCommunicator.send("retrigger-event", activityId);
                 ngToast.create({
                     className: 'success',
-                    content: "イベントの再トリガーに成功",
+                    content: "イベントの再起動に成功",
                     timeout: 5000
                 });
             };

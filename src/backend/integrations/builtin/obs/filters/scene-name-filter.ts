@@ -3,11 +3,11 @@ import { OBS_EVENT_SOURCE_ID, OBS_SCENE_CHANGED_EVENT_ID } from "../constants";
 
 export const SceneNameEventFilter: EventFilter = {
   id: "ebiggz:obs-scene-name",
-  name: "Scene Name",
+  name: "シーン名",
   events: [
     { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_CHANGED_EVENT_ID },
   ],
-  description: "Filter on the name of the now active OBS scene",
+  description: "現在アクティブなOBSシーンにフィルタをかける",
   valueType: "preset",
   comparisonTypes: ["is", "is not"],
   presetValues: (backendCommunicator, $q) => {

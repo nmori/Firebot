@@ -45,7 +45,7 @@ function createMainWindow() {
         show: false,
         titleBarStyle: "hiddenInset",
         backgroundColor: "#1E2023",
-        frame: false,
+        frame: true,
         webPreferences: {
             nodeIntegration: true,
             nativeWindowOpen: true,

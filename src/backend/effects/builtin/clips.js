@@ -59,7 +59,7 @@ const clip = {
                     <div class="control__indicator"></div>
                 </label>
                 <div ng-if="effect.options.putClipUrlInVariable" style="padding-left: 15px;">
-                    <firebot-input input-title="変数" model="effect.options.variableName" placeholder-text="Enter name" />
+                    <firebot-input input-title="変数" model="effect.options.variableName" placeholder-text="名前を入れる" />
                     <firebot-input style="margin-top: 10px;" input-title="変数の生存期間" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="秒数を入力 | 任意" />
                     <firebot-input style="margin-top: 10px;" input-title="変数のパス" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="任意" />
                 </div>

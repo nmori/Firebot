@@ -44,7 +44,7 @@
                             <i class="far fa-plus"></i>
                         </button>
                     </div>
-                    <div ng-if="!$ctrl.hasConditionsAvailable()" class="muted">このトリガーに使用可能な条件はありません</div>
+                    <div ng-if="!$ctrl.hasConditionsAvailable()" class="muted">使用可能な条件はありません</div>
                 </div>
             </div>
             `,
