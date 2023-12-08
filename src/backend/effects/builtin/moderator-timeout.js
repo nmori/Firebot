@@ -7,8 +7,8 @@ const twitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:modTimeout",
-        name: "Timeout",
-        description: "Timeout a user.",
+        name: "タイムアウト",
+        description: "ユーザのタイムアウトを設定します",
         icon: "fad fa-user-clock",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
         dependencies: [EffectDependency.CHAT]
@@ -16,14 +16,14 @@ const model = {
     optionsTemplate: `
     <eos-container header="Target" pad-top="true">
         <div class="input-group">
-            <span class="input-group-addon" id="username-type">Username</span>
+            <span class="input-group-addon" id="username-type">視聴者名</span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables menu-position="below">
         </div>
     </eos-container>
-    <eos-container header="Time" pad-top="true">
+    <eos-container header="時間" pad-top="true">
         <div class="input-group">
-            <span class="input-group-addon" id="time-type">Time (Seconds)</span>
             <input ng-model="effect.time" type="text" class="form-control" id="list-username-setting" aria-describedby="list-time-type" placeholder="Seconds" replace-variables="number">
+            <span class="input-group-addon" id="time-type"> 秒</span>
         </div>
     </eos-container>
     `,
@@ -31,10 +31,10 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please enter a username.");
+            errors.push("視聴者名を指定してください");
         }
         if (effect.time == null && (effect.time !== "" || effect.time < 0)) {
-            errors.push("Please enter an amount of time.");
+            errors.push("時間を指定してください");
         }
         return errors;
     },

@@ -9,41 +9,41 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNewQuote ? 'Add New Quote' : 'Edit Quote ID ' + $ctrl.quote._id}}</h4>
+                    <h4 class="modal-title">{{$ctrl.isNewQuote ? '引用IDの追加' : '引用IDの編集 ' + $ctrl.quote._id}}</h4>
                 </div>
                 <div class="modal-body">
                     <div>
                         <div class="modal-subheader" style="padding: 0 0 4px 0">
-                            QUOTE TEXT
+                            引用文
                         </div>
                         <div style="width: 100%; position: relative;">
                             <div class="form-group" ng-class="{'has-error': $ctrl.textError}">
-                                <textarea id="textField" ng-model="$ctrl.quote.text" class="form-control" name="text" placeholder="Enter text" rows="4" cols="40" aria-describedby="textHelpBlock"></textarea>
-                                <span id="textHelpBlock" class="help-block" ng-show="$ctrl.textError">Please provide some quote text.</span>
+                                <textarea id="textField" ng-model="$ctrl.quote.text" class="form-control" name="text" placeholder="テキストを入力" rows="4" cols="40" aria-describedby="textHelpBlock"></textarea>
+                                <span id="textHelpBlock" class="help-block" ng-show="$ctrl.textError">引用文をいれてください</span>
                             </div>
                         </div>
                     </div>
 
                     <div>
                         <div class="modal-subheader" style="padding: 0 0 4px 0">
-                            AUTHOR
+                            作成者
                         </div>
                         <div style="width: 100%; position: relative;">
                             <div class="form-group" ng-class="{'has-error': $ctrl.authorError}">
-                                <input type="text" id="authorField" class="form-control" ng-model="$ctrl.quote.originator" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="authorHelpBlock" placeholder="Enter username">
-                                <span id="authorHelpBlock" class="help-block" ng-show="$ctrl.authorError">Please provide an author username.</span>
+                                <input type="text" id="authorField" class="form-control" ng-model="$ctrl.quote.originator" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="authorHelpBlock" placeholder="ユーザ名を入力">
+                                <span id="authorHelpBlock" class="help-block" ng-show="$ctrl.authorError">ユーザ名を入れてください.</span>
                             </div>
                         </div>
                     </div>
 
                     <div>
                         <div class="modal-subheader" style="padding: 0 0 4px 0">
-                            CREATED DATE
+                            作成日
                         </div>
                         <div style="width: 100%; position: relative;">
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.dateFormat}}" ng-model="$ctrl.createdAtDate" is-open="$ctrl.datePickerOpen" datepicker-options="$ctrl.dateOptions" ng-required="true" show-button-bar="false" placeholder="Enter created date" aria-describedby="dateHelpBlock"/>
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.dateFormat}}" ng-model="$ctrl.createdAtDate" is-open="$ctrl.datePickerOpen" datepicker-options="$ctrl.dateOptions" ng-required="true" show-button-bar="false" placeholder="作成日を入力" aria-describedby="dateHelpBlock"/>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="$ctrl.datePickerOpen = true"><i class="fas fa-calendar"></i></button>
                                     </span>
@@ -54,20 +54,20 @@
 
                     <div>
                         <div class="modal-subheader" style="padding: 0 0 4px 0">
-                            CATEGORY/GAME
+                            カテゴリ/ゲーム
                         </div>
                         <div style="width: 100%; position: relative;">
                             <div class="form-group" ng-class="{'has-error': $ctrl.gameError}">
-                                <input type="text" id="gameField" class="form-control" ng-model="$ctrl.quote.game" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="gameHelpBlock" placeholder="Enter game">
-                                <span id="gameHelpBlock" class="help-block" ng-show="$ctrl.gameError">Please provide a category/game name.</span>
+                                <input type="text" id="gameField" class="form-control" ng-model="$ctrl.quote.game" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="gameHelpBlock" placeholder="ゲーム名を入力">
+                                <span id="gameHelpBlock" class="help-block" ng-show="$ctrl.gameError">カテゴリかゲーム名を入れてください</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-hide="$ctrl.isNewQuote">Delete</button>
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-hide="$ctrl.isNewQuote">削除</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {
@@ -81,7 +81,8 @@
                 $ctrl.isNewQuote = true;
 
                 const isUSLocale = firebotAppDetails.locale === "en-US";
-                $ctrl.dateFormat = isUSLocale ? "MM/dd/yyyy" : "dd/MM/yyyy";
+                const isJPLocale = firebotAppDetails.locale === "ja-JP";
+                $ctrl.dateFormat = isUSLocale ? "MM/dd/yyyy" : (isJPLocale ? "yyyy/MM/dd" : "dd/MM/yyyy");
 
                 $ctrl.quote = {
                     text: "",

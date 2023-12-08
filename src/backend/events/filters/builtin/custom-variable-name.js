@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:custom-variable-name",
-    name: "Custom Variable Name",
-    description: "Filter to a Custom Variable by Name",
+    name: "カスタム変数名",
+    description: "カスタム変数名でフィルタをかける",
     events: [
         { eventSourceId: "firebot", eventId: "custom-variable-set" },
         { eventSourceId: "firebot", eventId: "custom-variable-expired" }

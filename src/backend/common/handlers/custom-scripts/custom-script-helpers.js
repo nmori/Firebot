@@ -55,7 +55,7 @@ function mapV4EffectToV5(effect) {
 }
 
 function buildModules(scriptManifest) {
-    const streamerName = accountAccess.getAccounts().streamer.username || "Unknown Streamer";
+    const streamerName = accountAccess.getAccounts().streamer.username || "不明な配信者";
     const appVersion = app.getVersion();
 
     const request = require("request");

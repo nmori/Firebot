@@ -9,10 +9,10 @@ const chat = require("../../twitch-chat");
 const model = {
     definition: {
         id: "firebot:uptime",
-        name: "Uptime",
+        name: "配信時間",
         active: true,
         trigger: "!uptime",
-        description: "Displays how long the stream has been live in chat.",
+        description: "チャットに配信している時間を表示します。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -22,10 +22,10 @@ const model = {
         options: {
             uptimeDisplayTemplate: {
                 type: "string",
-                title: "Output Template",
-                description: "How the uptime message is formatted",
-                tip: "Variables: {uptime}",
-                default: `Broadcasting time: {uptime}`,
+                title: "出力テンプレート",
+                description: "updtimeの表示フォーマット",
+                tip: "変数: {uptime}",
+                default: `放送時間: {uptime}`,
                 useTextArea: true
             }
         }

@@ -7,33 +7,33 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNewQuestion ? 'Add' : 'Edit'}} Setup Import Question</h4>
+                    <h4 class="modal-title">セットアップ・インポートに関する質問の{{$ctrl.isNewQuestion ? '追加' : '編集'}} </h4>
                 </div>
                 <div class="modal-body">
-                    <h3>Question <tooltip text="'This is the question that will be asked when a user imports. Ie, What should be the default bet amount?'"/></h3>
-                    <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.question.question" placeholder="Enter question"></textarea>
+                    <h3>質問 <tooltip text="'これはユーザーがインポートする際に尋ねられる質問です'"/></h3>
+                    <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.question.question" placeholder="質問を入れてください"></textarea>
                     
-                    <h3>Replace Token <tooltip text="'Firebot will replace any instances of this token with the users answer to this question. A token can be anything but you might want to use uncommon characters. Ie %WagerAmount%'"/></h3>
-                    <input type="text" class="form-control" ng-model="$ctrl.question.replaceToken" placeholder="Enter text" />
+                    <h3>置換タグ <tooltip text="'Firebotは、タグをユーザーの返答に置換します。タグは何でもかまいませんが、一般的でない文字を使用することをお勧めします。 例： %WagerAmount%'"/></h3>
+                    <input type="text" class="form-control" ng-model="$ctrl.question.replaceToken" placeholder="テキストを入力" />
 
-                    <h3>Tooltip Text <tooltip text="'This is extra text that will showup in a tooltip (Just like this!) Optional.'"/></h3>
-                    <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.question.helpText" placeholder="Optional"></textarea>
+                    <h3>ヒント<tooltip text="'これはツールチップに表示される追加テキストです。（任意）'"/></h3>
+                    <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.question.helpText" placeholder="任意"></textarea>
 
-                    <h3>Answer Type</h3>
+                    <h3>回答の種類</h3>
                     <select 
                         class="fb-select" 
                         ng-model="$ctrl.question.answerType"
                         ng-change="$ctrl.question.defaultAnswer = undefined"; 
                         ng-options="answerType.id as answerType.name for answerType in $ctrl.answerTypes">
-                        <option value="" disabled selected>Select answer type...</option>
+                        <option value="" disabled selected>返答の種類を選択...</option>
                     </select>
 
-                    <h3>Default Answer <tooltip text="'This is a default answer that will be initially set in the answer text field. Optional.'"/></h3>
-                    <input type="{{$ctrl.question.answerType}}" class="form-control" ng-model="$ctrl.question.defaultAnswer" placeholder="Optional" />
+                    <h3>回答の初期値 <tooltip text="'これは、回答テキストフィールドに初期設定されるデフォルトの回答です。 (任意).'"/></h3>
+                    <input type="{{$ctrl.question.answerType}}" class="form-control" ng-model="$ctrl.question.defaultAnswer" placeholder="任意" />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {
@@ -49,10 +49,10 @@
                 $ctrl.answerTypes = [
                     {
                         id: "text",
-                        name: "Text"
+                        name: "テキスト"
                     }, {
                         id: "number",
-                        name: "Number"
+                        name: "数値"
                     }
                 ];
 
@@ -77,12 +77,12 @@
 
                 $ctrl.save = () => {
                     if ($ctrl.question.question == null || $ctrl.question.question === "") {
-                        ngToast.create("Please include a question!");
+                        ngToast.create("質問も入力してください");
                         return;
                     }
 
                     if ($ctrl.question.replaceToken == null || $ctrl.question.replaceToken === "") {
-                        ngToast.create("Please include a replace token!");
+                        ngToast.create("置換トークンも入力してください");
                         return;
                     }
 

@@ -10,13 +10,13 @@
                 <div class="hotkey-capture" ng-class="{ 'capturing': $ctrl.isCapturingKey }">
                     <span class="hotkey-display grayscale" ng-click="$ctrl.startKeyCapture()">
                         <span ng-if="$ctrl.keyDisplay == null || $ctrl.keyDisplay === ''" class="muted" style="font-weight: 500;">
-                            {{ $ctrl.isCapturingKey ? 'Press a key...' : 'No key set.' }}
+                            {{ $ctrl.isCapturingKey ? 'キーを押してください...' : '設定されていません.' }}
                         </span>
                         <span>{{$ctrl.keyDisplay}}</span>
                     </span>
-                    <button ng-click="$ctrl.startKeyCapture()" class="btn" ng-class="$ctrl.isCapturingKey ? 'btn-danger' : 'btn-default'">{{$ctrl.isCapturingKey ? 'Stop recording' : 'Record'}}</button>
+                    <button ng-click="$ctrl.startKeyCapture()" class="btn" ng-class="$ctrl.isCapturingKey ? 'btn-danger' : 'btn-default'">{{$ctrl.isCapturingKey ? 'キーの記録を中止' : 'キーの記録'}}</button>
 
-                    <span class="clickable" style="margin-left: 10px;" uib-tooltip="Clear current key" tooltip-append-to-body="true" ng-click="$ctrl.clearKey()" ng-show="!$ctrl.isCapturingKey && $ctrl.keyDisplay != null && $ctrl.keyDisplay.length > 0"><i class="far fa-times-circle"></i></span>
+                    <span class="clickable" style="margin-left: 10px;" uib-tooltip="現在のキーを消去" tooltip-append-to-body="true" ng-click="$ctrl.clearKey()" ng-show="!$ctrl.isCapturingKey && $ctrl.keyDisplay != null && $ctrl.keyDisplay.length > 0"><i class="far fa-times-circle"></i></span>
                 </div>
             `,
             controller: function(keyHelper, logger) {

@@ -6,16 +6,16 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Import Quotes</h4>
+                    <h4 class="modal-title">引用文の取り込み</h4>
                 </div>
                 <div class="modal-body pb-0">
                     <div ng-hide="$ctrl.quotes">
                         <h4>Import from</h5>
-                        <p class="muted mb-12">Currently only quotes from Streamlabs Chatbot (desktop bot) and Mix It Up can be imported.</p>
+                        <p class="muted mb-12">現在取り込みできるのは、Streamlabs Chatbot（デスクトップBOT）とMix It Upからの引用のみです。</p>
 
                         <h4>Choose file</h4>
-                        <p class="muted mb-2">To get the export file in Streamlabs Chatbot, go to Connections -> Cloud -> Create Split Excel and find the file called Quotes.xlsx.</p>
-                        <p class="muted mb-8">To get the export file in Mix It Up, go to Quotes -> Export Quotes and find the file called Quotes.txt.</p>
+                        <p class="muted mb-2">Streamlabs Chatbotで取り込み用ファイルを取得するには、Connections -> Cloud -> Create Split ExcelでQuotes.xlsxというファイルを見つけます。</p>
+                        <p class="muted mb-8"Mix It Upで取り込み用ファイルを入手するには、Quotes -> Export Quotesと進み、Quotes.txtというファイルを見つけます。</p>
                         <file-chooser
                             model="$ctrl.importFilePath"
                             on-update="$ctrl.onFileSelected(filepath)"
@@ -23,13 +23,13 @@
                             hide-manual-edit="true"
                         >
                         </file-chooser>
-                        <p ng-if="$ctrl.fileError" style="color: #f96f6f;" class="mt-4">Cannot read this file. Please follow the instructions above.</p>
+                        <p ng-if="$ctrl.fileError" style="color: #f96f6f;" class="mt-4">このファイルを読み込めません。上記の指示に従ってください。</p>
                     </div>
                     <div ng-show="$ctrl.quotes">
                         <div style="margin: 0 0 25px;display: flex;flex-direction: row;justify-content: space-between;align-items: flex-end;">
-                            <div>Found {{$ctrl.quotes.length}} quotes to import.</div>
+                            <div>{{$ctrl.quotes.length}} 件の引用文がみつかりました。</div>
                             <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                                <searchbar placeholder-text="Search quotes..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
+                                <searchbar placeholder-text="引用文を検索中..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
                             </div>
                         </div>
                         <sortable-table
@@ -39,14 +39,14 @@
                             clickable="false"
                             track-by-field="_id"
                             starting-sort-field="_id"
-                            no-data-message="No quotes found"
+                            no-data-message="引用文が見つかりません"
                         >
                         </sortable-table>
                     </div>
                 </div>
                 <div class="modal-footer pt-0">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button ng-show="$ctrl.quotes" ng-click="$ctrl.importQuotes()" class="btn btn-primary">Import</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button ng-show="$ctrl.quotes" ng-click="$ctrl.importQuotes()" class="btn btn-primary">取り込み開始</button>
                 </div>
             `,
             bindings: {

@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
                 <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.saveText}}</button>
             </div>
             `,
@@ -43,10 +43,10 @@
                 $ctrl.model = null;
                 $ctrl.options = [];
 
-                $ctrl.label = "Enter Text";
-                $ctrl.selectPlaceholder = "Select one";
-                $ctrl.saveText = "Save";
-                $ctrl.validationText = "Please select an item from the list.";
+                $ctrl.label = "テキストを入力";
+                $ctrl.selectPlaceholder = "１つ選ぶ";
+                $ctrl.saveText = "保存";
+                $ctrl.validationText = "リストから１つ選んでください";
                 $ctrl.hasValidationError = false;
 
                 $ctrl.$onInit = function () {

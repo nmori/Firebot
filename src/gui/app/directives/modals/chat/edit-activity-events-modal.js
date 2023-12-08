@@ -6,16 +6,16 @@
             template: `
             <div class="modal-header" style="text-align: center">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Edit Activity Events</h4>
+                <h4 class="modal-title">アクティビティイベントの編集</h4>
             </div>
             <div class="modal-body" style="padding: 0 35px">
-              <p>Select which events you want to see in the activity feed</p>
+              <p>アクティビティフィードで見たいイベントを選択します。</p>
               <div class="viewer-db-switches">
                 <div style="margin-bottom: 10px;">
                     <searchbar placeholder-text="Search events" query="eventSearch" />
                 </div>
                 <div ng-hide="eventSearch && !!eventSearch.length" style="display: flex;align-items: center;justify-content: space-between;margin-bottom:10px;padding-bottom: 5px; border-bottom: 1px solid #585858;">
-                        <span style="font-weight: 900;" id="selectAllLabel">Select All</span>
+                        <span style="font-weight: 900;" id="selectAllLabel">すべてを選ぶ</span>
                         <span>
                             <input class="tgl tgl-light sr-only" id="select-all" type="checkbox" aria-labelledby="selectAllLabel"
                             ng-checked="$ctrl.allEventsChecked()" 
@@ -37,8 +37,8 @@
               </div>
             </div>
             <div class="modal-footer sticky-footer edit-activity-events-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             <scroll-sentinel element-class="edit-activity-events-footer"></scroll-sentinel>
             `,

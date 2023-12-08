@@ -65,7 +65,7 @@
 
             ctrl.getDependencyString = function(dependencies) {
                 if (dependencies.length < 1) {
-                    return "None";
+                    return "なし";
                 }
 
                 const capitalize = ([first, ...rest]) =>

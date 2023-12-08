@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
                 <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.saveText}}</button>
             </div>
             `,
@@ -64,8 +64,8 @@
 
                 $ctrl.model = "";
 
-                $ctrl.label = "Enter Text";
-                $ctrl.inputPlaceholder = "Enter Text";
+                $ctrl.label = "テキストを入力";
+                $ctrl.inputPlaceholder = "テキストを入力";
                 $ctrl.saveText = "Save";
                 $ctrl.validationFn = () => true;
                 $ctrl.validationText = "";

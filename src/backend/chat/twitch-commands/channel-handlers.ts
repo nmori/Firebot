@@ -10,7 +10,7 @@ export const commercialHandler: TwitchSlashCommandHandler<[number]> = {
         if (parsedDuration == null) {
             return {
                 success: false,
-                errorMessage: "Please provide a valid duration"
+                errorMessage: "期間を入力してください"
             };
         }
 
@@ -30,7 +30,7 @@ export const raidHandler: TwitchSlashCommandHandler<[string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
   

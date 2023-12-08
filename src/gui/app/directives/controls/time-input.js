@@ -15,7 +15,7 @@
             template: `
                 <div ng-class="{ 'has-error': $ctrl.validationError }">
                     <div class="input-group">
-                        <input type="number" ng-disabled="$ctrl.disabled" ng-model="$ctrl.display" ng-change="$ctrl.valueChange()" class="form-control {{$ctrl.large ? 'input-lg' : ''}}" placeholder="Enter #">
+                        <input type="number" ng-disabled="$ctrl.disabled" ng-model="$ctrl.display" ng-change="$ctrl.valueChange()" class="form-control {{$ctrl.large ? 'input-lg' : ''}}" placeholder="数値を入力">
                         <div class="input-group-btn">
                             <button type="button" style="height: 42px;" ng-disabled="$ctrl.disabled" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{$ctrl.selectedTimeUnit}} <span class="caret"></span></button>
                             <ul class="dropdown-menu dropdown-menu-right">
@@ -31,10 +31,10 @@
                 $ctrl.display = null;
 
                 $ctrl.timeUnits = [
-                    "Seconds",
-                    "Minutes",
-                    "Hours",
-                    "Days"
+                    "秒",
+                    "分",
+                    "時間",
+                    "日"
                 ];
 
                 // units of time in secs
@@ -58,15 +58,15 @@
 
                 function determineTimeUnit(seconds) {
                     if (seconds % DAY === 0) {
-                        return "Days";
+                        return "日";
                     }
                     if (seconds % HOUR === 0) {
-                        return "Hours";
+                        return "時間";
                     }
                     if (seconds % MINUTE === 0) {
-                        return "Minutes";
+                        return "分";
                     }
-                    return "Seconds";
+                    return "秒";
                 }
 
                 $ctrl.valueChange = () => {

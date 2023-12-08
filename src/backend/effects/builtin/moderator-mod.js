@@ -7,8 +7,8 @@ const twitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:modmod",
-        name: "Mod",
-        description: "Mod or unmod a user",
+        name: "モデレータ",
+        description: "視聴者にモデレータ設定を設定、もしくは解除します",
         icon: "fad fa-crown",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
         dependencies: [EffectDependency.CHAT]
@@ -21,17 +21,17 @@ const model = {
             </button>
             <ul class="dropdown-menu celebrate-effect-dropdown">
                 <li ng-click="effect.action = 'Mod'">
-                    <a href>Mod</a>
+                    <a href>モデレータ設定</a>
                 </li>
                 <li ng-click="effect.action = 'Unmod'">
-                    <a href>Unmod</a>
+                    <a href>モデレータ解除</a>
                 </li>
             </ul>
         </div>
     </eos-container>
     <eos-container header="Target" pad-top="true" ng-show="effect.action != null">
         <div class="input-group">
-            <span class="input-group-addon" id="username-type">Username</span>
+            <span class="input-group-addon" id="username-type">視聴者名</span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables>
         </div>
     </eos-container>
@@ -40,10 +40,10 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.action == null) {
-            errors.push("Please choose an action.");
+            errors.push("アクションを設定してください");
         }
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please put in a username.");
+            errors.push("視聴者名を指定してください");
         }
         return errors;
     },

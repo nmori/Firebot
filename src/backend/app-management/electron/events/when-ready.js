@@ -1,6 +1,5 @@
 "use strict";
 
-
 const {checkForFirebotSetupPath} = require("../../file-open-helpers");
 
 exports.whenReady = async () => {

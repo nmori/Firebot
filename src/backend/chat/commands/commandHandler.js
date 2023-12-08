@@ -9,8 +9,8 @@ const NodeCache = require("node-cache");
 const restrictionsManager = require("../../restrictions/restriction-manager");
 const { TriggerType } = require("../../common/EffectType");
 
-const DEFAULT_COOLDOWN_MESSAGE = "This command is still on cooldown for: {timeLeft}";
-const DEFAULT_RESTRICTION_MESSAGE = "Sorry, you cannot use this command because: {reason}";
+const DEFAULT_COOLDOWN_MESSAGE = "このコマンドを実行するには {timeLeft} 秒待つ必要があります";
+const DEFAULT_RESTRICTION_MESSAGE = "このコマンドは使用できません。: {reason}";
 
 // commandaccess
 const commandManager = require("./CommandManager");
@@ -434,7 +434,7 @@ async function handleChatMessage(firebotChatMessage) {
     }
 
     if (userCmd.isInvalidSubcommandTrigger === true) {
-        await twitchChat.sendChatMessage(`Invalid Command: unknown arg used.`);
+        await twitchChat.sendChatMessage(`無効なコマンド：不明な引数が使用されました。`);
         return false;
     }
 
@@ -447,7 +447,7 @@ async function handleChatMessage(firebotChatMessage) {
     const minArgs = triggeredSubcmd ? triggeredSubcmd.minArgs || 0 : command.minArgs || 0;
     if (userCmd.args.length < minArgs) {
         const usage = triggeredSubcmd ? triggeredSubcmd.usage : command.usage;
-        await twitchChat.sendChatMessage(`Invalid command. Usage: ${command.trigger} ${usage || ""}`);
+        await twitchChat.sendChatMessage(`無効なコマンドです。使用方法: ${command.trigger} ${usage || ""}`);
         return false;
     }
 

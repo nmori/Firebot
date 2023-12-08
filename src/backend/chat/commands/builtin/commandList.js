@@ -6,10 +6,10 @@
 const commandList = {
     definition: {
         id: "firebot:commandlist",
-        name: "Command List",
+        name: "コマンドリスト",
         active: true,
         trigger: "!commands",
-        description: "Displays link to your profile page with all available commands.",
+        description: "利用可能なすべてのコマンドを含むプロフィールページへのリンクを表示します",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -34,10 +34,10 @@ const commandList = {
 
         if (binId == null) {
             await twitchChat.sendChatMessage(
-                `${event.chatMessage.username}, there are no commands that you are allowed to run.`, null, "Bot");
+                `${event.chatMessage.username}, 実行が許可されているコマンドはありません`, null, "Bot");
         } else {
             await twitchChat.sendChatMessage(
-                `You can view the list of commands here: https://firebot.app/profile?id=${binId}`, null, "Bot");
+                `コマンドのリストはここで見ることができます： https://firebot.app/profile?id=${binId}`, null, "Bot");
         }
     }
 };

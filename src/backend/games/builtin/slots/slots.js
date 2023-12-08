@@ -29,7 +29,7 @@ module.exports = {
                     type: "number",
                     title: "Default Wager Amount",
                     description: "The default wager amount to use if a viewer doesn't specify one.",
-                    placeholder: "Enter amount",
+                    placeholder: "金額を入れる",
                     tip: "Optional",
                     sortRank: 2,
                     validation: {
@@ -39,7 +39,7 @@ module.exports = {
                 minWager: {
                     type: "number",
                     title: "Min Wager Amount",
-                    placeholder: "Enter amount",
+                    placeholder: "金額を入れる",
                     tip: "Optional",
                     sortRank: 3,
                     validation: {
@@ -49,7 +49,7 @@ module.exports = {
                 maxWager: {
                     type: "number",
                     title: "Max Wager Amount",
-                    placeholder: "Enter amount",
+                    placeholder: "金額を入れる",
                     tip: "Optional",
                     sortRank: 4,
                     validation: {

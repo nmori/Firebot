@@ -83,10 +83,10 @@
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Successfully duplicated a counter!'
+                            content: 'カウンタの複製に成功'
                         });
                     } else {
-                        ngToast.create("Unable to duplicate counter.");
+                        ngToast.create("カウンタの複製はできません");
                     }
                 });
             };

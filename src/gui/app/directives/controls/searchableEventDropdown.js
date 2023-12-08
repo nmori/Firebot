@@ -9,11 +9,11 @@
         },
         template: `
       <ui-select ng-model="$ctrl.selectedEvent" on-select="$ctrl.selectOption($item, $model)" theme="bootstrap">
-        <ui-select-match placeholder="Select or search for an event... ">{{$select.selected.name}}</ui-select-match>
+        <ui-select-match placeholder="イベントの選択や検索... ">{{$select.selected.name}}</ui-select-match>
         <ui-select-choices repeat="option in $ctrl.options | filter: { name: $select.search }" style="position:relative;">
           <div>
             <div ng-bind-html="option.name | highlight: $select.search" style="display: inline-block"></div>
-            <tooltip ng-if="option.isIntegration" text="$ctrl.getSourceName(option.sourceId) + ' needs to be linked in Settings -> Integrations for this event to work.'"></tooltip>
+            <tooltip ng-if="option.isIntegration" text="$ctrl.getSourceName(option.sourceId) +'このイベントが機能するためには、設定->連携でリンクされている必要があります。'"></tooltip>
           </div>
           <small class="muted"><strong>{{$ctrl.getSourceName(option.sourceId)}}</strong> | {{option.description}}</small>
         </ui-select-choices>

@@ -89,7 +89,7 @@ const getSteamGameDetails = async (requestedGame) => {
     }
 
     const gameDetails = {
-        name: foundGame.name || "Unknown Name",
+        name: foundGame.name || "不明",
         price: null,
         score: null,
         releaseDate: null,

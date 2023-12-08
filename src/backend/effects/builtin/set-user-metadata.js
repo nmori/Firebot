@@ -24,7 +24,7 @@ const effect = {
 
         <eos-container header="Data" pad-top="true">
             <p class="muted">This is the data that will be saved under the above key in the user's data. Can be text or another replace phrase.</p>
-            <textarea ng-model="effect.data" rows="3" class="form-control" id="data" placeholder="Enter text/data" replace-variables></textarea>
+            <textarea ng-model="effect.data" rows="3" class="form-control" id="data" placeholder="テキストを入力/data" replace-variables></textarea>
             <p class="muted" style="font-size: 11px;"><b>Note:</b> If data is a valid JSON string, it will be parsed into an object or array.</p>
 
             <div style="margin-top: 10px;">

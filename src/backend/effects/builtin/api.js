@@ -12,15 +12,15 @@ const api = {
    */
     definition: {
         id: "firebot:api",
-        name: "API Effect",
-        description: "Pulls info from a pre-selected api.",
+        name: "API 演出",
+        description: "事前に選択したAPIから情報を引き出す",
         icon: "fad fa-chart-network",
         categories: [EffectCategory.FUN, EffectCategory.CHAT_BASED, EffectCategory.OVERLAY],
         dependencies: [EffectDependency.CHAT],
         outputs: [
             {
-                label: "API Response",
-                description: "The raw response from the API",
+                label: "APIレスポンス",
+                description: "APIからの生のレスポンス",
                 defaultName: "apiResponse"
             }
         ]
@@ -51,15 +51,15 @@ const api = {
         <div ng-if="effect.api != null && effect.api !== 'Pick one'">
             <eos-container  header="Display Location" pad-top="true">
                 <div class="controls-fb-inline" style="padding-bottom: 5px;">
-                    <label class="control-fb control--radio">Chat
+                    <label class="control-fb control--radio">チャット
                         <input type="radio" ng-model="effect.show" value="chat"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio" ng-if="effect.imageAvailable">Overlay
+                    <label class="control-fb control--radio" ng-if="effect.imageAvailable">オーバーレイ
                         <input type="radio" ng-model="effect.show" value="overlay"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio" ng-if="effect.imageAvailable">Both
+                    <label class="control-fb control--radio" ng-if="effect.imageAvailable">両方
                         <input type="radio" ng-model="effect.show" value="both"/>
                         <div class="control__indicator"></div>
                     </label>
@@ -78,7 +78,7 @@ const api = {
 
             <eos-container header="Dimensions" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon">Width</span>
+                    <span class="input-group-addon">幅</span>
                     <input
                     type="number"
                     class="form-control"
@@ -86,7 +86,7 @@ const api = {
                     type="number"
                     ng-model="effect.width"
                     placeholder="px">
-                    <span class="input-group-addon">Height</span>
+                    <span class="input-group-addon">高さ</span>
                     <input
                     type="number"
                     class="form-control"
@@ -99,7 +99,7 @@ const api = {
 
             <eos-container header="Duration" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon">Seconds</span>
+                    <span class="input-group-addon">秒</span>
                     <input
                     type="text"
                     class="form-control"
@@ -114,7 +114,7 @@ const api = {
 
         <eos-container>
             <div class="effect-info alert alert-danger">
-                Warning: These API's pull from a third party and we have no control over the quality or content.
+                警告：これらのAPIは第三者から取得したものであり、その品質や内容については一切管理しておりません。
             </div>
         </eos-container>
     `,
@@ -144,11 +144,11 @@ const api = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.api == null) {
-            errors.push("Please select an API from the list.");
+            errors.push("リストからAPIを選択してください。");
         }
 
         if (effect.show == null) {
-            errors.push("Please select a places to show the API results.");
+            errors.push("APIの結果を表示する場所を選択してください。");
         }
         return errors;
     },

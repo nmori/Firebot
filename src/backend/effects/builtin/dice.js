@@ -6,8 +6,8 @@ const { EffectCategory, EffectDependency } = require('../../../shared/effect-con
 const model = {
     definition: {
         id: "firebot:dice",
-        name: "Roll Dice",
-        description: "Specify an amount of dice to roll in chat.",
+        name: "サイコロを振る",
+        description: "チャットでサイコロの目を指定する",
         icon: "fad fa-dice",
         categories: [EffectCategory.FUN, EffectCategory.CHAT_BASED],
         dependencies: [EffectDependency.CHAT]
@@ -21,7 +21,7 @@ const model = {
             />
         </eos-container>
 
-        <eos-container header="Display Mode" pad-top="true">
+        <eos-container header="ディスプレイモード" pad-top="true">
             <firebot-radios
                 options="displayModeOptions"
                 model="effect.resultType"
@@ -32,7 +32,7 @@ const model = {
 
         <eos-container pad-top="true">
             <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
-                <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Whisper
+                <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> ささやく
                     <input type="checkbox" ng-init="whisper = (effect.whisper != null && effect.whisper !== '')" ng-model="whisper" ng-click="effect.whisper = ''">
                     <div class="control__indicator"></div>
                 </label>
@@ -47,8 +47,8 @@ const model = {
     `,
     optionsController: $scope => {
         $scope.displayModeOptions = {
-            sum: { text: "Just the sum", description: "Ex: 'ebiggz rolled a 7 on 2d6.'" },
-            individual: { text: "Include each roll", description: "Ex: 'ebiggz rolled a 7 (4, 3) on 2d6.'"}
+            sum: { text: "合計", description: "Ex: 'ebiggz rolled a 7 on 2d6.'" },
+            individual: { text: "各役割を含む", description: "Ex: 'ebiggz rolled a 7 (4, 3) on 2d6.'"}
         };
 
         $scope.effect.resultType = $scope.effect.resultType
@@ -58,7 +58,7 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (!effect.dice) {
-            errors.push("Please input the number of dice you'd like to roll.");
+            errors.push("振りたいサイコロの目を入力してください。");
         }
         return errors;
     },

@@ -121,7 +121,7 @@ const model = {
 
         if (restriction.mode === "days") {
             const days = restriction.days;
-            let output = "None selected";
+            let output = "未選択";
             if (days.length > 0) {
                 const sortedDays = days.sort(daySorter);
                 output = sortedDays.join(", ");

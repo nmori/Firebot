@@ -21,7 +21,7 @@ const JsonDbManager = require("../../database/json-db-manager");
  */
 class PresetEffectListManager extends JsonDbManager {
     constructor() {
-        super("Preset Effect List", "/effects/preset-effect-lists");
+        super("プリセット演出リスト", "/effects/preset-effect-lists");
     }
 
     /**

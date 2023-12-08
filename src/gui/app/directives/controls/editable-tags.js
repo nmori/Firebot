@@ -19,14 +19,14 @@
                         <span
                             class="tag-name clickable"
                             ng-click="$ctrl.editItem($index)"
-                            aria-label="{{item + ' (Click to edit)'}}"
+                            aria-label="{{item + ' (クリックして編集)'}}"
                         >
                             {{item}}
                         </span>
                         <span
                             class="tag-remove clickable"
                             ng-click="$ctrl.removeItem($index)"
-                            aria-label="Remove item"
+                            aria-label="アイテムを削除"
                         >
                             <i class="far fa-times"></i>
                         </span>
@@ -47,9 +47,9 @@
                 const $ctrl = this;
 
                 const defaultSettings = {
-                    addLabel: "Add",
-                    editLabel: "Edit",
-                    validationText: "Text cannot be empty",
+                    addLabel: "追加",
+                    editLabel: "編集",
+                    validationText: "空欄にはできません",
                     noDuplicates: false
                 };
 
@@ -71,7 +71,7 @@
                             model: model,
                             label: isNew ? $ctrl.settings.addLabel : $ctrl.settings.editLabel,
                             useTextArea: $ctrl.settings.useTextArea,
-                            saveText: "Save",
+                            saveText: "保存",
                             validationFn: (value) => {
                                 return new Promise(resolve => {
                                     if (value == null || value.trim().length < 1) {
@@ -92,7 +92,7 @@
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model[index] = newItem;
                         } else {
-                            ngToast.create("Cannot edit: Duplicate found");
+                            ngToast.create("追加できません。複製がすでにあります");
                         }
                     });
                 };
@@ -103,7 +103,7 @@
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model.push(newItem);
                         } else {
-                            ngToast.create("Cannot add: Duplicate found");
+                            ngToast.create("追加できません。複製がすでにあります");
                         }
                     });
                 };

@@ -34,8 +34,8 @@ async function handleDiceEffect(effect, trigger) {
     const username = trigger.metadata.username;
 
     const message = output != null ?
-        `Dice Roll: ${username} rolled a ${output} on ${dice}.` :
-        `Unable to roll "${dice}" as it's not in the correct format.`;
+        `サイコロ: ${username}は${dice}で${output}を出しました。` :
+        `正しいフォーマットでないため、"${dice}"を振ることができません`;
 
     await twitchChat.sendChatMessage(message, whisper, chatter);
 }

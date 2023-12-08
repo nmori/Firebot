@@ -45,7 +45,7 @@ async function randomImageFromSubReddit(subreddit) {
         logger.error("Couldn't find any valid posts in the subreddit.");
         renderWindow.webContents.send(
             "error",
-            "Couldn't find any valid posts in the subreddit."
+            "subredditには有効な投稿が見つかりません"
         );
         return "";
     }
@@ -56,7 +56,7 @@ async function randomImageFromSubReddit(subreddit) {
         logger.error("Couldn't find any valid posts in the subreddit.");
         renderWindow.webContents.send(
             "error",
-            "Couldn't find any valid posts in the subreddit."
+            "subredditには有効な投稿が見つかりません"
         );
         return "";
     }

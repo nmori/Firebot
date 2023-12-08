@@ -15,8 +15,8 @@ const delay = {
    */
     definition: {
         id: "firebot:clear-effects",
-        name: "Clear Effects",
-        description: "Remove overlay effects, stop sounds, or clear effect queues",
+        name: "演出クリア",
+        description: "オーバーレイ演出の削除、サウンドの停止、演出キューのクリア",
         icon: "fad fa-minus-circle",
         categories: [EffectCategory.COMMON, EffectCategory.OVERLAY],
         dependencies: []
@@ -31,10 +31,10 @@ const delay = {
    */
     optionsTemplate: `
         <eos-container>
-            <p>This effect clears currently running effects. Useful, for example, if you are entering a cutscene. You can also use it to purge effect queues.</p>
+            <p>この演出は、現在実行中の演出をクリアします。カットシーンに入るときなどに便利です。また、演出キューを削除するのにも使えます。</p>
         </eos-container>
         <eos-container header="Effects To Clear">
-            <label class="control-fb control--checkbox"> Overlay Effects
+            <label class="control-fb control--checkbox"> オーバーレイ効果
                 <input type="checkbox" ng-model="effect.overlay">
                 <div class="control__indicator"></div>
             </label>
@@ -51,11 +51,11 @@ const delay = {
                     </ul>
                 </div>
             </div>
-            <label class="control-fb control--checkbox"> Sounds
+            <label class="control-fb control--checkbox"> サウンド
                 <input type="checkbox" ng-model="effect.sounds">
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--checkbox"> Effect Queues
+            <label class="control-fb control--checkbox"> 演出キュー
                 <input type="checkbox" ng-model="effect.queues">
                 <div class="control__indicator"></div>
             </label>
@@ -89,11 +89,11 @@ const delay = {
 
         $scope.getSelectedOverlayDisplay = () => {
             if ($scope.effect.overlayInstance == null) {
-                return "Default";
+                return "既定値";
             }
 
             if ($scope.effect.overlayInstance === "all") {
-                return "All";
+                return "すべて";
             }
 
             const overlayInstance = $scope.overlayInstances.find(oi => oi === $scope.effect.overlayInstance);
@@ -113,18 +113,18 @@ const delay = {
 
         $scope.getSelectedEffectQueueDisplay = () => {
             if (!$scope.effect.queues) {
-                return "None";
+                return "なし";
             }
 
             if ($scope.effect.queueId === "all") {
-                return "All";
+                return "すべて";
             }
 
             const effectQueue = $scope.effectQueues.find(q => q.id === $scope.effect.queueId);
             if (effectQueue) {
                 return effectQueue.name;
             }
-            return "None";
+            return "なし";
         };
     },
     /**

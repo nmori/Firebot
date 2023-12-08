@@ -150,7 +150,7 @@ const uuidv1 = require("uuid/v1");
             service.startHotkeyCapture = function(callback) {
                 if (service.isCapturingHotkey) {
                     throw new Error(
-                        "Attempted to start a hotkey capture when capturing is already in progress."
+                        "キャプチャがすでに実行されているときに、ホットキーキャプチャを開始しようとしました。"
                     );
                 }
 

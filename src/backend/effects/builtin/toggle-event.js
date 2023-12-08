@@ -6,8 +6,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const chat = {
     definition: {
         id: "firebot:toggle-event",
-        name: "Toggle Event",
-        description: "Toggle an event's active status",
+        name: "イベントを切り替え",
+        description: "イベントのアクティブ・ステータスを切り替える",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -15,18 +15,18 @@ const chat = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>This effect let's you automatically toggle the active status of an Event (which you can create in the Events tab).</p>
+            <p>この演出を使うと、イベント（イベントタブで作成できます）のアクティブステータスを自動的に切り替えることができます。</p>
         </eos-container>
 
-        <eos-container header="Event Group" pad-top="true">
+        <eos-container header="イベントグループ" pad-top="true">
             <dropdown-select options="eventGroupNames" selected="effect.selectedGroupName"></dropdown-select>
         </eos-container>
 
-        <eos-container header="Event" pad-top="true" ng-show="effect.selectedGroupName">
+        <eos-container header="イベント" pad-top="true" ng-show="effect.selectedGroupName">
             <dropdown-select options="eventOptions[effect.selectedGroupName]" selected="effect.selectedEventId"></dropdown-select>
         </eos-container>
 
-        <eos-container header="Toggle Action" pad-top="true">
+        <eos-container header="切り替え" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,

@@ -5,8 +5,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const model = {
     definition: {
         id: "firebot:stop-effect-execution",
-        name: "Stop Effect Execution",
-        description: "Stop the execution of the current effect list.",
+        name: "演出の実行停止",
+        description: "現在の演出リストの実行を停止する。",
         icon: "fad fa-stop-circle",
         categories: [EffectCategory.SCRIPTING],
         dependencies: []
@@ -14,10 +14,10 @@ const model = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>This effect will stop effect execution for the current effect list.</p>
+            <p>現在の演出リストのうち、演出中のものを実行停止します。</p>
 
             <div style="margin-top:15px">
-                <label class="control-fb control--checkbox"> Bubble stop effect execution to parent effect lists <tooltip text="'Bubble the stop effect execution request to all parent effect lists (useful if this effect is nested within a conditional effect, etc)'"></tooltip>
+                <label class="control-fb control--checkbox"> 親演出リストへ停止演出の実行<tooltip text="'演出の実行停止要求をすべての親演出リストにバブルします (この演出が条件付き演出の中にネストされている場合などに便利です)。'"></tooltip>
                     <input type="checkbox" ng-model="effect.bubbleStop">
                     <div class="control__indicator"></div>
                 </label>

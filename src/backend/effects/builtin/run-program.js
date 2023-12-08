@@ -34,40 +34,40 @@ const splitArgumentsText = (argsString) => {
 const model = {
     definition: {
         id: "firebot:run-program",
-        name: "Run Program",
-        description: "Run a program or executable",
+        name: "プログラムの実行",
+        description: "プログラムまたは実行ファイルを実行する",
         icon: "fad fa-terminal",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-        <eos-container header="Program File Path">
+        <eos-container header="プログラムのパス">
             <file-chooser model="effect.programPath" options="{ filters: [ { name:'Program', extensions:['exe', 'bat', 'cmd'] }, { name:'All Files', extensions:['*'] } ] }"></file-chooser>
         </eos-container>
-        <eos-container header="Program Arguments (Optional)" pad-top="true">
+        <eos-container header="引数 (オプション)" pad-top="true">
             <div class="input-group">
                 <span class="input-group-addon" id="delay-length-effect-type">Args</span>
                 <input ng-model="effect.programArgs" type="text" class="form-control" type="text" replace-variables menu-position="bottom">
             </div>
         </eos-container>
-        <eos-container header="Options" pad-top="true">
+        <eos-container header="オプション" pad-top="true">
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Wait for program to finish
+                <label class="control-fb control--checkbox"> プログラムの終了を待つ
                     <input type="checkbox" ng-model="effect.waitForFinish">
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Hide windows
+                <label class="control-fb control--checkbox"> ウィンドウを隠す
                     <input type="checkbox" ng-model="effect.hideWindow">
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Run detached
+                <label class="control-fb control--checkbox"> 切り離して実行する
                     <input type="checkbox" ng-model="effect.runDetached">
                     <div class="control__indicator"></div>
                 </label>
@@ -85,7 +85,7 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.programPath == null) {
-            errors.push("Please select a program executable");
+            errors.push("プログラムの実行形式を選択してください。");
         }
         return errors;
     },

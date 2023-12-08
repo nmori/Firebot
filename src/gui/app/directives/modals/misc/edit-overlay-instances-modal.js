@@ -12,28 +12,28 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>名前</th>
                             <th>URL</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Default</td>
-                            <td><a href ng-click="$ctrl.showViewUrlModal()">View URL</a></td>
+                            <td>デフォルト</td>
+                            <td><a href ng-click="$ctrl.showViewUrlModal()">閲覧用 URL</a></td>
                             <td></td>
                         </tr>
                         <tr ng-repeat="instanceName in $ctrl.getOverlayInstances()">
                             <td>{{instanceName}}</td>
-                            <td><a href ng-click="$ctrl.showViewUrlModal(instanceName)">View URL</a></td>
+                            <td><a href ng-click="$ctrl.showViewUrlModal(instanceName)">閲覧用 URL</a></td>
                             <td><span class="effect-delete-btn clickable pull-right" ng-click="$ctrl.deleteOverlayInstanceAtIndex($index)"><i class="far fa-trash-alt"></i></span></td>
                         </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-default btn-sm" ng-click="$ctrl.showCreateInstanceModal()">+ Create Instance</button>
+                    <button class="btn btn-default btn-sm" ng-click="$ctrl.showCreateInstanceModal()">+ インスタンスを作成</button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.dismiss()">Done</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.dismiss()">完了</button>
                 </div>
             `,
             bindings: {

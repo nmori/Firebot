@@ -31,7 +31,7 @@
                     >
                     </div>
                     <div ng-if="$ctrl.message.isAnnouncement" style="background: #00000014;padding: 5px 10px;margin-top:5px">
-                        <i class="fad fa-bullhorn"></i> Announcement
+                        <i class="fad fa-bullhorn"></i> アナウンス
                     </div>
                     <div class="chat-message"
                         ng-class="{
@@ -232,22 +232,22 @@
                     const actions = [];
 
                     actions.push({
-                        name: "Details",
+                        name: "概要",
                         icon: "fa-info-circle"
                     });
 
                     actions.push({
-                        name: "Delete This Message",
+                        name: "メッセージを消す",
                         icon: "fa-trash-alt"
                     });
 
                     actions.push({
-                        name: "Mention",
+                        name: "メンション",
                         icon: "fa-at"
                     });
 
                     actions.push({
-                        name: "Quote This Message",
+                        name: "メッセージを引用",
                         icon: "fa-quote-right"
                     });
 
@@ -255,51 +255,51 @@
                         message.username.toLowerCase() !== connectionService.accounts.bot.username.toLowerCase()) {
 
                         actions.push({
-                            name: "Whisper",
+                            name: "ささやく",
                             icon: "fa-envelope"
                         });
 
                         actions.push({
-                            name: "Highlight This Message",
+                            name: "このメッセージを強調",
                             icon: "fa-eye"
                         });
 
                         actions.push({
-                            name: "Shoutout",
+                            name: "シャウトアウト",
                             icon: "fa-megaphone"
                         });
 
                         if (message.roles.includes("mod")) {
                             actions.push({
-                                name: "Unmod",
+                                name: "モデレータ解除",
                                 icon: "fa-user-times"
                             });
                         } else {
                             actions.push({
-                                name: "Mod",
+                                name: "モデレータ指名",
                                 icon: "fa-user-plus"
                             });
 
                             if (message.roles.includes("vip")) {
                                 actions.push({
-                                    name: "Remove VIP",
+                                    name: "VIP解除",
                                     icon: "fa-gem"
                                 });
                             } else {
                                 actions.push({
-                                    name: "Add as VIP",
+                                    name: "VIP設定",
                                     icon: "fa-gem"
                                 });
                             }
                         }
 
                         actions.push({
-                            name: "Timeout",
+                            name: "タイムアウト",
                             icon: "fa-clock"
                         });
 
                         actions.push({
-                            name: "Ban",
+                            name: "追放",
                             icon: "fa-ban"
                         });
                     }
@@ -314,7 +314,7 @@
                         },
                         ...actions.map(a => {
                             let html = "";
-                            if (a.name === "Remove VIP") {
+                            if (a.name === "VIP解除") {
                                 html = `
                                     <div class="message-action">
                                         <span class="fa-stack fa-1x mr-3" style="width: 18px">
@@ -343,17 +343,17 @@
 
                 $ctrl.messageActionSelected = (action, userName, userId, msgId, rawText) => {
                     switch (action.toLowerCase()) {
-                    case "delete this message":
+                    case "メッセージを消す":
                         chatMessagesService.deleteMessage(msgId);
                         break;
-                    case "timeout":
+                    case "タイムアウト":
                         updateChatField(`/timeout @${userName} 300`);
                         break;
-                    case "ban":
+                    case "追放":
                         utilityService
                             .showConfirmationModal({
-                                title: "Ban User",
-                                question: `Are you sure you want to ban ${userName}?`,
+                                title: "視聴者を追放",
+                                question: `本当に ${userName} さんを追放しますか?`,
                                 confirmLabel: "Ban",
                                 confirmBtnType: "btn-danger"
                             })
@@ -363,15 +363,15 @@
                                 }
                             });
                         break;
-                    case "mod":
+                    case "モデレータ指名":
                         chatMessagesService.changeModStatus(userName, true);
                         break;
-                    case "unmod":
+                    case "モデレータ解除":
                         utilityService
                             .showConfirmationModal({
-                                title: "Mod User",
-                                question: `Are you sure you want to unmod ${userName}?`,
-                                confirmLabel: "Unmod",
+                                title: "モデレータ指名",
+                                question: `モデレータの${userName}さんを解任しますか?`,
+                                confirmLabel: "モデレータ解除",
                                 confirmBtnType: "btn-danger"
                             })
                             .then(confirmed => {
@@ -380,28 +380,28 @@
                                 }
                             });
                         break;
-                    case "add as vip":
+                    case "VIP設定":
                         backendCommunicator.fireEvent("update-user-vip-status", { username: userName, shouldBeVip: true });
                         break;
-                    case "remove vip":
+                    case "VIP解除":
                         backendCommunicator.fireEvent("update-user-vip-status", { username: userName, shouldBeVip: false });
                         break;
-                    case "whisper":
+                    case "ささやく":
                         updateChatField(`/w @${userName} `);
                         break;
-                    case "mention":
+                    case "メンション":
                         updateChatField(`@${userName} `);
                         break;
-                    case "quote this message":
+                    case "メッセージを引用":
                         updateChatField(`!quote add @${userName} ${rawText}`);
                         break;
-                    case "highlight this message":
+                    case "このメッセージを強調":
                         chatMessagesService.highlightMessage(userName, rawText);
                         break;
-                    case "shoutout":
+                    case "シャウトアウト":
                         updateChatField(`!so @${userName}`);
                         break;
-                    case "details": {
+                    case "概要": {
                         $ctrl.showUserDetailsModal(userId);
                         break;
                     }

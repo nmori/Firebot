@@ -13,8 +13,8 @@ const fileWriter = {
    */
     definition: {
         id: "firebot:customscript",
-        name: "Run Custom Script",
-        description: "Run a custom JS script.",
+        name: "カスタムスクリプトの実行",
+        description: "カスタムJSスクリプトを実行する。",
         icon: "fad fa-code",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
@@ -50,7 +50,7 @@ const fileWriter = {
                     resolve(result != null ? result : true);
                 })
                 .catch(err => {
-                    renderWindow.webContents.send('error', "Oops! There was an error processing the custom script. Error: " + err.message);
+                    renderWindow.webContents.send('error', "カスタムスクリプトの処理にエラーが発生しました。 " + err.message);
                     logger.error(err);
                     resolve(false);
                 });

@@ -82,29 +82,29 @@
                 switch (ctrl.type) {
                 case ConnectionType.CHAT:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>Twitch:</b> Connected";
+                        ctrl.tooltip = "<b>Twitch:</b> 接続済";
                     } else {
-                        ctrl.tooltip = "<b>Twitch:</b> Disconnected";
+                        ctrl.tooltip = "<b>Twitch:</b> 未接続";
                     }
                     break;
 
                 case ConnectionType.OVERLAY:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>Overlay:</b> Connected";
+                        ctrl.tooltip = "<b>オーバーレイ</b>:</b> 接続済";
                     } else if (ctrl.connectionStatus === ConnectionStatus.WARNING) {
-                        ctrl.tooltip = "<b>Overlay:</b> Ready, but nothing is connected at this time.";
+                        ctrl.tooltip = "<b>オーバーレイ:</b> 準備は出来ているが未接続";
                     } else {
-                        ctrl.tooltip = "<b>Overlay:</b> Error starting web server. App restart required.";
+                        ctrl.tooltip = "<b>オーバーレイ:</b> サーバの起動に失敗、アプリの再起動が必要";
                     }
                     break;
 
                 case ConnectionType.INTEGRATIONS:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>Overlay:</b> Connected";
+                        ctrl.tooltip = "<b>オーバーレイ</b>:</b> 接続済";
                     } else if (ctrl.connectionStatus === ConnectionStatus.WARNING) {
-                        ctrl.tooltip = "<b>Overlay:</b> Running, but nothing connected";
+                        ctrl.tooltip = "<b>オーバーレイ:</b> 準備は出来ているが未接続";
                     } else {
-                        ctrl.tooltip = "<b>Overlay:</b> Error starting web server. App restart required.";
+                        ctrl.tooltip = "<b>オーバーレイ:</b> サーバの起動に失敗、アプリの再起動が必要";
                     }
                     integrations = integrationService
                         .getIntegrations()
@@ -115,7 +115,7 @@
                         if (count !== 0) {
                             intTooltip += "<br/>";
                         }
-                        const connectionStatus = i.connected ? "Connected" : "Disconnected";
+                        const connectionStatus = i.connected ? "接続済" : "未接続";
                         intTooltip += `<b>${i.name}</b>: ${connectionStatus}`;
                         count++;
                     });

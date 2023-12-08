@@ -70,6 +70,8 @@
                     suffix: ".json"
                 })
                 .preferredLanguage("en");
+            $translateProvider.preferredLanguage('ja');
+            $translateProvider.fallbackLanguage('en');
         }
     ]);
 

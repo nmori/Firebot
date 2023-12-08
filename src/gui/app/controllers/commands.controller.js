@@ -35,12 +35,12 @@
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
-                        return "Roles";
+                        return "役割";
                     } else if (permissions.mode === "viewer") {
-                        return "Viewer";
+                        return "視聴者";
                     }
                 } else {
-                    return "None";
+                    return "なし";
                 }
             };
 
@@ -52,19 +52,19 @@
                 if (permissions) {
                     if (permissions.mode === "roles") {
                         const roleIds = permissions.roleIds;
-                        let output = "None selected";
+                        let output = "未選択";
                         if (roleIds.length > 0) {
                             output = roleIds
                                 .filter(id => viewerRolesService.getRoleById(id) != null)
                                 .map(id => viewerRolesService.getRoleById(id).name)
                                 .join(", ");
                         }
-                        return `Roles (${output})`;
+                        return `役割 (${output})`;
                     } else if (permissions.mode === "viewer") {
-                        return `Viewer (${permissions.username ? permissions.username : 'No name'})`;
+                        return `視聴者 (${permissions.username ? permissions.username : '名無し'})`;
                     }
                 } else {
-                    return "This command is available to everyone";
+                    return "このコマンドは誰でも利用できます";
                 }
             };
 
@@ -87,8 +87,8 @@
 
             $scope.deleteCustomCommand = command => {
                 utilityService.showConfirmationModal({
-                    title: "Delete Command",
-                    question: `Are you sure you want to delete the command '${command.trigger}'?`,
+                    title: "コマンドの削除",
+                    question: `コマンド「'${command.trigger}'」を削除しますか？`,
                     confirmLabel: "Delete",
                     confirmBtnType: "btn-danger"
                 }).then(confirmed => {
@@ -188,7 +188,7 @@
 
                     const hasEffectQueue = command.effects.queue != null && command.effects.queue !== "";
                     children.push({
-                        html: `<a href><i class="${!hasEffectQueue ? 'fas fa-check' : ''}" style="margin-right: ${!hasEffectQueue ? '10' : '27'}px;"></i> None</a>`,
+                        html: `<a href><i class="${!hasEffectQueue ? 'fas fa-check' : ''}" style="margin-right: ${!hasEffectQueue ? '10' : '27'}px;"></i> なし</a>`,
                         click: () => {
                             $scope.clearEffectQueue(command);
                         },
@@ -202,35 +202,35 @@
             $scope.commandMenuOptions = (command) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.openAddOrEditCustomCommandModal(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> Toggle Enabled</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.toggleCustomCommandActiveState(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.duplicateCustomCommand(command);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.deleteCustomCommand(command);
                         }
                     },
                     {
-                        text: `Effect Queues...`,
+                        text: `キュー...`,
                         children: $scope.getEffectQueueMenuOptions(command),
                         hasTopDivider: true
                     }

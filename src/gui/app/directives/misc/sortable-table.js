@@ -41,7 +41,7 @@
               </tbody>
             </table>
             <div ng-show="$ctrl.tableDataSet.length < 1" class="fb-table-row">
-                <span class="muted">{{$ctrl.noDataMessage ? $ctrl.noDataMessage : "No data available yet"}}</span>
+                <span class="muted">{{$ctrl.noDataMessage ? $ctrl.noDataMessage : "データはありません"}}</span>
             </div>
             <div style="display: grid;grid-template-columns: 1fr max-content 1fr;">
               <div></div>

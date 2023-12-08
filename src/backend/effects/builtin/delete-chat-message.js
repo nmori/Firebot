@@ -9,8 +9,8 @@ triggers[EffectTrigger.EVENT] = ["twitch:chat-message"];
 const model = {
     definition: {
         id: "firebot:delete-chat-message",
-        name: "Delete Chat Message",
-        description: "Delete the associated chat message",
+        name: "チャットを削除",
+        description: "関連するチャットメッセージを削除する",
         icon: "fad fa-comment-times",
         categories: [EffectCategory.CHAT_BASED, EffectCategory.ADVANCED, EffectCategory.TWITCH],
         dependencies: [EffectDependency.CHAT],
@@ -19,7 +19,7 @@ const model = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>This effect deletes the associated chat message (for a Command or Chat Message Event)</p>
+            <p>この演出は関連するチャットメッセージを削除します。</p>
         </eos-container>
     `,
     optionsController: () => {},

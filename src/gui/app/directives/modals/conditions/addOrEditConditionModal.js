@@ -86,8 +86,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-hide="$ctrl.isNewCondition">Delete</button>
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
         `,
             bindings: {
@@ -132,7 +132,7 @@
                             return presetValue.display;
                         }
                     }
-                    return "Select one";
+                    return "1つ選択";
                 };
 
                 $ctrl.getSelectedLeftSidePresetValueDisplay = function() {
@@ -144,7 +144,7 @@
                             return presetValue.display;
                         }
                     }
-                    return "Select one";
+                    return "1つ選択";
                 };
 
 

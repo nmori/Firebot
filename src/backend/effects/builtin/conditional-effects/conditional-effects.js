@@ -10,8 +10,8 @@ builtinConditionTypeLoader.registerConditionTypes();
 const model = {
     definition: {
         id: "firebot:conditional-effects",
-        name: "Conditional Effects",
-        description: "Conditionally run effects",
+        name: "条件付き演出",
+        description: "条件付き演出",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         icon: "fad fa-question-circle",
         dependencies: []
@@ -38,13 +38,13 @@ const model = {
             </div>
         </div>
 
-            <button class="btn btn-link" ng-click="addIf()"><i class="fal fa-plus-circle"></i> Add <strong>{{effect.ifs.length === 0 ? 'If' : 'Else If'}}</strong> Clause</button>
+            <button class="btn btn-link" ng-click="addIf()"><i class="fal fa-plus-circle"></i> Add <strong>{{effect.ifs.length === 0 ? 'If' : 'Else If'}}</strong> 条件</button>
 
             <div style="margin-top: 15px;">
 
                 <condition-section header="Otherwise" label="effect.otherwiseLabel" draggable="false">
                     <div style="padding-bottom: 10px;padding-left: 2px;font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;">
-                        <span>If none of the above conditions pass, run the following effects:</span>
+                        <span>上記のいずれの条件もパスしない場合は、以下の演出を実行する：</span>
                     </div>
                     <effect-list effects="effect.otherwiseEffectData"
                         trigger="{{trigger}}"
@@ -59,8 +59,8 @@ const model = {
         <eos-container header="Options" pad-top="true">
             <firebot-checkbox
                 model="effect.bubbleOutputs"
-                label="Apply effect outputs to parent list"
-                tooltip="Whether or not you want any effect outputs to be made available to the parent effect list."
+                label="親リストに演出出力を適用する"
+                tooltip="演出出力を親演出リストで利用可能にするかどうか"
             />
         </eos-container>
     `,
@@ -89,9 +89,9 @@ const model = {
 
         $scope.deleteClauseAtIndex = $index => {
             utilityService.showConfirmationModal({
-                title: "Remove Clause",
-                question: `Are you sure you want to remove this ${$index === 0 ? 'IF' : 'IF ELSE'} clause?`,
-                confirmLabel: "Remove",
+                title: "条件を削除",
+                question: `本当に削除しますか？ ${$index === 0 ? 'IF' : 'IF ELSE'} ?`,
+                confirmLabel: "削除する",
                 confirmBtnType: "btn-danger"
             }).then(confirmed => {
                 if (confirmed) {

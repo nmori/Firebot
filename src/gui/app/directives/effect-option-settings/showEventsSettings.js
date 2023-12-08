@@ -6,7 +6,7 @@
         },
         template: `
                 <div>
-                    <eos-container header="Display Style">
+                    <eos-container header="表示スタイル">
                         <div class="controls-fb-inline">
                             <label class="control-fb control--radio">List
                                 <input type="radio" ng-model="$ctrl.model.textType" value="list"/> 
@@ -21,7 +21,7 @@
                         
                     <eos-overlay-position effect="$ctrl.model" class="setting-padtop" hide-random="true"></eos-overlay-position>
                         
-                        <eos-container header="Dimensions" class="setting-padtop">
+                        <eos-container header="寸法" class="setting-padtop">
                             <div class="input-group">
                                 <span class="input-group-addon">Width</span>
                                 <input 

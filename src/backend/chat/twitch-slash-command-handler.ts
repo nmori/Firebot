@@ -87,7 +87,7 @@ export function validateChatCommand(message: string): TwitchSlashCommandValidati
         return {
             success: false,
             foundCommand: false,
-            errorMessage: "No matching command"
+            errorMessage: "コマンドがみつかりません"
         };
     }
 

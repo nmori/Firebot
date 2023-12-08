@@ -58,7 +58,7 @@ const model = {
                 <div id="username" class="modal-subheader" style="padding: 0 0 4px 0">
                     Username
                 </div>
-                <input type="text" class="form-control" aria-describedby="username" ng-model="restriction.username" placeholder="Enter name">
+                <input type="text" class="form-control" aria-describedby="username" ng-model="restriction.username" placeholder="名前を入れる">
             </div>
         </div>
     `,
@@ -91,16 +91,16 @@ const model = {
     optionsValueDisplay: (restriction, viewerRolesService) => {
         if (restriction.mode === "roles") {
             const roleIds = restriction.roleIds;
-            let output = "None selected";
+            let output = "未選択";
             if (roleIds.length > 0) {
                 output = roleIds
                     .filter(id => viewerRolesService.getRoleById(id) != null)
                     .map(id => viewerRolesService.getRoleById(id).name)
                     .join(", ");
             }
-            return `Roles (${output})`;
+            return `役割 (${output})`;
         } else if (restriction.mode === "viewer") {
-            return `Viewer (${restriction.username ? restriction.username : 'No name'})`;
+            return `視聴者 (${restriction.username ? restriction.username : '名無し'})`;
         }
         return "";
     },

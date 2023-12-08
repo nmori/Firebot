@@ -170,7 +170,7 @@ function addCurrencyToUserGroupOnlineUsers(roleIds = [], currencyId, value, igno
 
         // Run our checks. Stop if we have a bad value, currency, or roles.
         value = parseInt(value);
-        if (roleIds === [] || currencyId === null || value === null || (value === 0 && adjustType.toLowerCase() !== "set") || isNaN(value)) {
+        if (roleIds.length === 0 || currencyId === null || value === null || (value === 0 && adjustType.toLowerCase() !== "set") || isNaN(value)) {
             return resolve();
         }
 

@@ -28,8 +28,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
             bindings: {
@@ -56,7 +56,7 @@
                     utilityService.openGetInputModal(
                         {
                             model: tag ? tag.name : "",
-                            label: tag ? "Edit Tag Name" : "Add Tag",
+                            label: tag ? "タグを編集" : "タグを追加",
                             saveText: "OK",
                             validationFn: (value) => {
                                 return new Promise(resolve => {
@@ -67,7 +67,7 @@
                                     }
                                 });
                             },
-                            validationText: "Tag name cannot be empty"
+                            validationText: "タグ名を入力してください"
                         },
                         (name) => {
                             if (tag != null) {

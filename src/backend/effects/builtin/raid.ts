@@ -9,8 +9,8 @@ const model: EffectType<{
 }>  = {
     definition: {
         id: "firebot:raid",
-        name: "Raid/Unraid Twitch Channel",
-        description: "Start or cancel a raid to another Twitch channel",
+        name: "Twitch チャネルへのRaid/Unraid",
+        description: "他のTwitchチャンネルへのレイドを開始またはキャンセルする",
         icon: "fad fa-rocket-launch",
         categories: [ EffectCategory.COMMON, EffectCategory.TWITCH ],
         dependencies: []
@@ -23,10 +23,10 @@ const model: EffectType<{
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.action = 'Raid Channel'">
-                        <a href>Raid Channel</a>
+                        <a href>レイドする</a>
                     </li>
                     <li ng-click="effect.action = 'Cancel Raid'">
-                        <a href>Cancel Raid</a>
+                        <a href>レイドをやめる</a>
                     </li>
                 </ul>
             </div>
@@ -41,9 +41,9 @@ const model: EffectType<{
         const username = effect.username?.trim();
 
         if (effect.action == null) {
-            errors.push("You must select a raid action");
+            errors.push("レイドをどうするか選ぶ必要があります");
         } else if (effect.action === "Raid Channel" && !username?.length) {
-            errors.push("You must specify a channel to raid");
+            errors.push("レイド先チャンネルを指定する必要があります。");
         }
 
         return errors;

@@ -50,10 +50,10 @@ function refreshCommandCache(retry = 1) {
                 cmdData = commandsDb.getData("/");
             } catch (err) {
                 logger.info(
-                    "Command cache update failed. Retrying. (Try " + retry + "/3)"
+                    "コマンドキャッシュの更新に失敗. 再試行中... (再試行回数 " + retry + "/3)"
                 );
                 retry = retry + 1;
-                logger.error("error getting command data", err);
+                logger.error("コマンドデータ取得エラー", err);
                 refreshCommandCache(retry);
                 return;
             }
@@ -71,11 +71,11 @@ function refreshCommandCache(retry = 1) {
                 });
             }
 
-            logger.info("Updated Command cache.");
+            logger.info("コマンドキャッシュを更新しました");
         } else {
             renderWindow.webContents.send(
                 "error",
-                "Could not sync up command cache. Reconnect to try resyncing."
+                "コマンドキャッシュを同期できませんでした。再接続して再同期を試みてください。"
             );
         }
     }
@@ -124,7 +124,7 @@ function deleteCustomCommand(commandId) {
     try {
         commandDb.delete("/customCommands/" + commandId);
     } catch (err) {
-        logger.warn("error when deleting command", err);
+        logger.warn("コマンド削除時のエラー", err);
     }
 }
 

@@ -13,8 +13,8 @@
                 <div>
 
                     <firebot-setting
-                        name="Max Backups"
-                        description="The maximum number of backups to keep. When Firebot makes a new backup, it will delete the oldest if this number has been reached."
+                        name="バックアップ上限"
+                        description="保持するバックアップの最大数。Firebot が新しいバックアップを作成する際、この数に達した場合は最も古いバックアップを削除します。"
                     >
                         <dropdown-select
                             ng-init="currentMaxBackups = settings.maxBackupCount()"
@@ -25,14 +25,14 @@
                     </firebot-setting>
                     
                     <firebot-setting
-                        name="Automatic Backup Options"
-                        description="Choose what Firebot should ignore in automatic backups."
+                        name="自動バックアップオプション"
+                        description="自動バックアップでFirebotが無視する項目を選択します。"
                     >
                         <div>
                         <label class="control-fb control--checkbox"
-                            >Don't include overlay resource folder
+                            >オーバーレイのデータフォルダを含まない
                             <tooltip
-                                text="'If your overlay-resource folder has become quite large, and slowing down the backup system turn this on. Note: Manual backups are not affected .'"
+                                text="'overlay-resourceフォルダが非常に大きいためにバックアップシステムの速度が低下している場合は、バックアップ対象から外すことで高速化できます。使う場合はこの機能をオンにしてください。注：手動バックアップは影響を受けません'"
                             ></tooltip>
                             <input
                                 type="checkbox"
@@ -46,12 +46,12 @@
                     </firebot-setting>
                     
                     <firebot-setting
-                        name="Automatic Backups"
-                        description="Choose when Firebot should make automatic backups."
+                        name="自動バックアップ"
+                        description="Firebotが自動バックアップを作成するタイミングを選択します。"
                     >
                         <div>
                         <label class="control-fb control--checkbox"
-                            >When Firebot closes
+                            >Firebotが終了するとき
                             <input
                                 type="checkbox"
                                 ng-click="settings.setBackupOnExit(!settings.backupOnExit())"
@@ -61,7 +61,7 @@
                             <div class="control__indicator"></div>
                         </label>
                         <label class="control-fb control--checkbox"
-                            >Once a day
+                            >毎日
                             <input
                                 type="checkbox"
                                 ng-click="settings.setBackupOnceADay(!settings.backupOnceADay())"
@@ -71,9 +71,9 @@
                             <div class="control__indicator"></div>
                         </label>
                         <label class="control-fb control--checkbox"
-                            >Before viewer purges
+                            >視聴者データを消す前
                             <tooltip
-                                text="'Firebot will always backup before you do viewer purges (Database > View Purge Options)'"
+                                text="'Firebotは、視聴者データの削除を行う前に常にバックアップを行います。'"
                             ></tooltip>
                             <input
                                 type="checkbox"
@@ -84,9 +84,9 @@
                             <div class="control__indicator" disabled></div>
                         </label>
                         <label class="control-fb control--checkbox"
-                            >Before updates
+                            >アップデート前
                             <tooltip
-                                text="'Firebot will always back up before updates. This cannot be turned off. Its for your own good <3'"
+                                text="'Firebotはアップデート前に必ずバックアップを取ります。これをオフにすることはできません。これはあなたのためです。'"
                             ></tooltip>
                             <input
                                 type="checkbox"
@@ -100,21 +100,21 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Manual Backup"
-                        description="Trigger a manual back up now."
+                        name="手動バックアップ"
+                        description="バックアップを手動で開始します"
                     >
                         <div>
                             <span
                                 ng-if="isBackingUp || backupCompleted"
                                 style="padding-left: 10px"
                             >
-                                <span ng-if="isBackingUp"> Backing up... </span>
+                                <span ng-if="isBackingUp"> バックアップ中... </span>
                                 <span ng-if="backupCompleted" style="color: green">
-                                    <i class="fal fa-check-circle"></i> Backup successful!
+                                    <i class="fal fa-check-circle"></i> バックアップ完了
                                 </span>
                             </span>
                             <firebot-button
-                                text="Backup Now"
+                                text="バックアップ開始"
                                 ng-click="startBackup()"
                                 ng-disabled="isBackingUp"
                             />
@@ -122,12 +122,12 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Backup Management"
-                        description="View, restore, and delete previous backups."
+                        name="バックアップ管理"
+                        description="管理状態リストを見たり、データ削除、バックアップから復元する指示ができます。"
                     >
                         <div>
                             <firebot-button
-                                text="Manage Backups"
+                                text="バックアップの管理"
                                 ng-click="showBackupListModal()"
                             />
                         </div>
@@ -186,7 +186,7 @@
                                                     const fileStats = fs.statSync(backupFolderPath + v);
                                                     const backupDate = moment(fileStats.birthtime);
 
-                                                    let version = "Unknown Version";
+                                                    let version = "不明なバージョン";
                                                     const versionRe = /_(v?\d+\.\d+\.\d+(?:-[a-zA-Z0-9]+(?:\.\d+)?)?)(?:_|\b)/;
                                                     const match = v.match(versionRe);
                                                     if (match != null) {
@@ -197,10 +197,10 @@
                                                         name: v.replace(".zip", ""),
                                                         backupTime: backupDate.toDate().getTime(),
                                                         backupDateDisplay: backupDate.format(
-                                                            "MMM Do, h:mm A"
+                                                            "MMM Do, A h:mm"
                                                         ),
                                                         backupDateFull: backupDate.format(
-                                                            "ddd, MMM Do YYYY, h:mm:ss A"
+                                                            "YYYY/MMM/ddd Do, A h:mm:ss"
                                                         ),
                                                         fromNowDisplay: utilityService.capitalize(
                                                             backupDate.fromNow()
@@ -241,9 +241,9 @@
                             $scope.deleteBackup = function(index, backup) {
                                 utilityService
                                     .showConfirmationModal({
-                                        title: "Delete Backup",
-                                        question: "Are you sure you'd like to delete this backup?",
-                                        confirmLabel: "Delete"
+                                        title: "バックアップ削除",
+                                        question: "このバックアップデータを削除しますか?",
+                                        confirmLabel: "削除実行"
                                     })
                                     .then(confirmed => {
                                         if (confirmed) {
@@ -256,9 +256,9 @@
                             $scope.restoreBackup = function(backup) {
                                 utilityService
                                     .showConfirmationModal({
-                                        title: "Restore From Backup",
-                                        question: "Are you sure you'd like to restore from this backup?",
-                                        confirmLabel: "Restore"
+                                        title: "バックアップから復元",
+                                        question: "バックアップデータから復元をしますか?",
+                                        confirmLabel: "復元開始"
                                     })
                                     .then(confirmed => {
                                         if (confirmed) {

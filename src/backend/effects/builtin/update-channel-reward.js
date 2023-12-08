@@ -58,7 +58,7 @@ const toggleConnection = {
                 </div>
             </div>
 
-            <label class="control-fb control--checkbox">Update Name
+            <label class="control-fb control--checkbox">アップデート名
                 <input
                     type="checkbox"
                     ng-click="effect.rewardSettings.name.update = !effect.rewardSettings.name.update"
@@ -68,7 +68,7 @@ const toggleConnection = {
                 <div class="control__indicator"></div>
             </label>
             <div ng-show="effect.rewardSettings.name.update" style="margin-bottom: 15px;">
-                <firebot-input model="effect.rewardSettings.name.newValue" placeholder-text="Enter text" />
+                <firebot-input model="effect.rewardSettings.name.newValue" placeholder-text="テキストを入力" />
             </div>
 
             <label class="control-fb control--checkbox">Update Description
@@ -81,7 +81,7 @@ const toggleConnection = {
                 <div class="control__indicator"></div>
             </label>
             <div ng-show="effect.rewardSettings.description.update" style="margin-bottom: 15px;">
-                <firebot-input model="effect.rewardSettings.description.newValue" use-text-area="true" placeholder-text="Enter text" />
+                <firebot-input model="effect.rewardSettings.description.newValue" use-text-area="true" placeholder-text="テキストを入力" />
             </div>
 
             <label class="control-fb control--checkbox">Update Cost

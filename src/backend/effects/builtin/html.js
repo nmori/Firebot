@@ -13,8 +13,8 @@ const html = {
    */
     definition: {
         id: "firebot:html",
-        name: "Show HTML",
-        description: "Show an HTML snippet in the overlay.",
+        name: "HTMLを表示する",
+        description: "オーバーレイにHTMLを表示する.",
         icon: "fab fa-html5",
         categories: [EffectCategory.ADVANCED, EffectCategory.OVERLAY],
         dependencies: [EffectDependency.OVERLAY]
@@ -38,16 +38,16 @@ const html = {
         </div>
     </eos-container>
 
-    <eos-container header="Show Duration" pad-top="true">
+    <eos-container header="表示継続時間" pad-top="true">
         <div class="input-group">
-            <span class="input-group-addon" id="html-length-effect-type">Seconds</span>
             <input ng-model="effect.length" type="text" class="form-control" id="html-length-setting" aria-describedby="html-length-effect-type" replace-variables="number">
+            <span class="input-group-addon" id="html-length-effect-type">秒</span>
         </div>
-        <eos-collapsable-panel show-label="Advanced" hide-label="Hide Advanced">
-            <h4>Custom Removal CSS Selector</h4>
-            <p style="margin-bottom:10px">Optionally define which element(s) to be removed after the given duration via a CSS class as a selector. Leave blank to have Firebot always remove all the html above (Recommended).</p>
+        <eos-collapsable-panel show-label="応用" hide-label="応用を隠す">
+            <h4>カスタム除去CSSセレクタ</h4>
+            <p style="margin-bottom:10px">CSSクラスをセレクタとして指定することで、指定した時間経過後に削除する要素を定義することができます。空白のままにしておくと、Firebotは常に上記のすべてのhtmlを削除します（推奨）。</p>
             <div class="input-group">
-                <span class="input-group-addon" id="html-selector-effect-type">CSS Class</span>
+                <span class="input-group-addon" id="html-selector-effect-type">CSSクラス</span>
                 <input ng-model="effect.removal" type="text" class="form-control" aria-describedby="html-selector-effect-type">
             </div>
         </eos-collapsable-panel>
@@ -59,11 +59,11 @@ const html = {
 
     <eos-container>
         <div class="effect-info alert alert-warning">
-            This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">Learn more</a>
+            この演出を使用するには、Firebotオーバーレイが配信ソフトにロードされている必要があります。<a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">いますぐ学ぶ</a>
             <br /><br />
-            Please be aware that this effect is <i>extremely</i> prone to errors due to it's open-ended nature.
+            このエフェクトは<i>非常に</i>自由度が高いため、エラーになりやすいことに注意してください。
             <br /><br />
-            When using variables that are derived from user provided content, it is recommended to escape the value using <code>$encodeForHtml[$variable]</code>.
+            ユーザーが提供したコンテンツに由来する変数を使用する場合は、<code>$encodeForHtml[$variable]</code>を使用して値をエスケープすることをお勧めします。
         </div>
     </eos-container>
     `,
@@ -102,10 +102,10 @@ const html = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.html == null) {
-            errors.push("Please enter some HTML to show in the overlay.");
+            errors.push("オーバーレイに表示するHTMLを入力してください。");
         }
         if (effect.length == null) {
-            errors.push("Please input a show duration.");
+            errors.push("上映時間を入力してください。");
         }
         return errors;
     },

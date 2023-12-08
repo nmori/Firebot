@@ -28,6 +28,7 @@ exports.mainWindow = null;
  */
 let splashscreenWindow;
 
+
 function createMainWindow() {
     const mainWindowState = windowStateKeeper({
         defaultWidth: 1280,
@@ -307,7 +308,6 @@ function createMainWindow() {
     // wait for the main window's content to load, then show it
     mainWindow.webContents.on("did-finish-load", () => {
 
-
         createTray(mainWindow);
 
         // mainWindow.webContents.openDevTools();
@@ -336,10 +336,10 @@ function createMainWindow() {
         if (!settings.hasJustUpdated() && connectionManager.chatIsConnected() && connectionManager.streamerIsOnline()) {
             event.preventDefault();
             dialog.showMessageBox(mainWindow, {
-                message: "Are you sure you want to close Firebot while connected to Twitch?",
-                title: "Close Firebot",
+                message: "Twitch接続中ですがFirebotを終了してもよろしいですか？",
+                title: "Firebotを閉じる",
                 type: "question",
-                buttons: ["Close Firebot", "Cancel"]
+                buttons: ["Firebotを閉じる", "やめる"]
 
             }).then(({response}) => {
                 if (response === 0) {

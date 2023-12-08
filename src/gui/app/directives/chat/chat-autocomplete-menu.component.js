@@ -100,142 +100,142 @@
                             items: [
                                 {
                                     display: "/announce [message]",
-                                    description: "Send an announcement to chat in the channel's branding color",
+                                    description: "チャンネル規定色のアナウンスを送信",
                                     text: "/announce"
                                 },
                                 {
                                     display: "/announceblue [message]",
-                                    description: "Send an announcement to chat in blue",
+                                    description: "青色のアナウンスを送信",
                                     text: "/announceblue"
                                 },
                                 {
                                     display: "/announcegreen [message]",
-                                    description: "Send an announcement to chat in green",
+                                    description: "緑色のアナウンスを送信",
                                     text: "/announcegreen"
                                 },
                                 {
                                     display: "/announceorange [message]",
-                                    description: "Send an announcement to chat in orange",
+                                    description: "オレンジ色のアナウンスを送信",
                                     text: "/announceorange"
                                 },
                                 {
                                     display: "/announcepurple [message]",
-                                    description: "Send an announcement to chat in purple",
+                                    description: "紫色のアナウンスを送信",
                                     text: "/announcepurple"
                                 },
                                 {
                                     display: "/ban @username",
-                                    description: "Ban a user",
+                                    description: "ユーザを追放する(BAN)",
                                     text: "/ban"
                                 },
                                 {
                                     display: "/unban @username",
-                                    description: "Unban a user",
+                                    description: "ユーザの追放を解除",
                                     text: "/unban"
                                 },
                                 {
                                     display: "/clear",
-                                    description: "Clear the chat feed",
+                                    description: "チャットを消す",
                                     text: "/clear"
                                 },
                                 {
                                     display: "/mod @username",
-                                    description: "Mod a user",
+                                    description: "ユーザをモデレータ役に任命",
                                     text: "/mod"
                                 },
                                 {
                                     display: "/unmod @username",
-                                    description: "Unmod a user",
+                                    description: "ユーザをモデレータ役から解任",
                                     text: "/unmod"
                                 },
                                 {
                                     display: "/timeout @username [duration] [reason]",
-                                    description: "Temporarily ban a user from Chat",
+                                    description: "ユーザを時限追放",
                                     text: "/timeout"
                                 },
                                 {
                                     display: "/untimeout @username",
-                                    description: "Remove a timeout on a user",
+                                    description: "ユーザを時限追放を解除",
                                     text: "/untimeout"
                                 },
                                 {
                                     display: "/vip @username",
-                                    description: "Grant VIP status to a user",
+                                    description: "ユーザをVIP設定",
                                     text: "/vip"
                                 },
                                 {
                                     display: "/unvip @username",
-                                    description: "Revoke VIP status from a user",
+                                    description: "ユーザをVIP解除",
                                     text: "/unvip"
                                 },
                                 {
                                     display: "/followers [1m / 1h / 1d / 1w / 1mo]",
-                                    description: "Restrict Chat to followers based on their follow duration",
+                                    description: "フォロー期間に基づくチャット制限を設定",
                                     text: "/followers"
                                 },
                                 {
                                     display: "/followersoff",
-                                    description: "Turn off followers-only mode",
+                                    description: "フォロー期間に基づくチャット制限を解除",
                                     text: "/followersoff"
                                 },
                                 {
                                     display: "/raid @username",
-                                    description: "Send viewers to another channel when your stream ends",
+                                    description: "レイドを実行",
                                     text: "/raid"
                                 },
                                 {
                                     display: "/shoutout @username",
-                                    description: "Send a shoutout to another channel",
+                                    description: "ユーザを紹介（シャウトアウト）する",
                                     text: "/shoutout"
                                 },
                                 {
                                     display: "/unraid",
-                                    description: "Cancel an ongoing Raid",
+                                    description: "レイドを解除する",
                                     text: "/unraid"
                                 },
                                 {
                                     display: "/subscribers",
-                                    description: "Restrict Chat to subscribers",
+                                    description: "チャットをサブスクライバー限定にする",
                                     text: "/subscribers"
                                 },
                                 {
                                     display: "/subscribersoff",
-                                    description: "Turn off subscribers-only mode",
+                                    description: "チャットのサブスクライバー限定を解除",
                                     text: "/subscribersoff"
                                 },
                                 {
                                     display: "/slow [seconds]",
-                                    description: "Limit how frequently users can send messages in Chat",
+                                    description: "チャット送信周期制限を設定する",
                                     text: "/slow"
                                 },
                                 {
                                     display: "/slowoff",
-                                    description: "Turn off slow mode",
+                                    description: "チャット送信周期制限を解除する",
                                     text: "/slowoff"
                                 },
                                 {
                                     display: "/emoteonly",
-                                    description: "Restrict chat to emote-only messages",
+                                    description: "チャットをエモート限定する",
                                     text: "/emoteonly"
                                 },
                                 {
                                     display: "/emoteonlyoff",
-                                    description: "Turn off emote-only mode",
+                                    description: "チャットのエモート限定を解除する",
                                     text: "/emoteonlyoff"
                                 },
                                 {
                                     display: "/uniquechat",
-                                    description: "Restrict chat to unique messages",
+                                    description: "重複するメッセージのチャンネルへの投稿を禁止",
                                     text: "/uniquechat"
                                 },
                                 {
                                     display: "/uniquechatoff",
-                                    description: "Turn off unique mode",
+                                    description: "重複するメッセージのチャンネルへの投稿禁止を解除",
                                     text: "/uniquechatoff"
                                 },
                                 {
                                     display: "/commercial [30, 60, 90, 120, 150, 180]",
-                                    description: "Runs a commercial on the channel for the specified number of seconds",
+                                    description: "全視聴者に向けて指定時間毎にCMを流します（単位：分）",
                                     text: "/commercial"
                                 }
                             ]
@@ -379,7 +379,7 @@
 
                     const menu = angular.element(`
                         <div class="chat-autocomplete-menu" ng-show="menuOpen" ng-class="menuPosition">
-                            <div class="tip">Press <b>Tab</b> to accept the highlighted option</div>
+                            <div class="tip"><b>Tab</b> を押すと強調表示されたオプションを受け入れます</div>
                             <div class="completions">
                                 <div ng-click="selectItem($index)" class="autocomplete-menu-item" ng-class="{ selected: selectedIndex == $index }" ng-repeat="item in menuItems track by item.text">
                                     <div class="item-image" ng-show="item.url != null">

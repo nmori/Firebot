@@ -8,11 +8,11 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Remove Setup</h4>
+                    <h4 class="modal-title">セットアップの削除</h4>
                 </div>
                 <div class="modal-body">
                     <div ng-hide="$ctrl.setupSelected">
-                        <p class="muted">After selecting a Setup file, Firebot will find all matching components (commands, events, etc) and remove them.</p>
+                        <p class="muted">セットアップファイルを選択すると、Firebotは一致するすべての構成部品（コマンド、イベントなど）を検索し、それらを削除します。</p>
                         <file-chooser
                             model="$ctrl.setupFilePath"
                             on-update="$ctrl.onFileSelected(filepath)"
@@ -25,10 +25,10 @@
                         <div style="padding: 15px;background: #242529;border-radius: 5px;">
                             <div class="script-name" style="font-size: 30px;font-weight: 100;">{{$ctrl.setup.name || "Unnamed Setup"}} <span class="script-version muted">v{{$ctrl.setup.version}}</span></div>
                             <div style="font-size: 13px;">by <span class="script-author">{{$ctrl.setup.author}}</span></div>
-                            <button ng-show="$ctrl.allowCancel" class="btn-sm btn-link" ng-click="$ctrl.resetSelectedFile()" style="margin-top: 3px;">Cancel</button>
+                            <button ng-show="$ctrl.allowCancel" class="btn-sm btn-link" ng-click="$ctrl.resetSelectedFile()" style="margin-top: 3px;">キャンセル</button>
                         </div>
                         <div style="margin-top: 25px;" ng-show="$ctrl.hasComponentsToRemove">
-                            <h4 class="muted">The following will be removed:</h4>
+                            <h4 class="muted">これらが削除されます:</h4>
                             <div ng-repeat="(key, name) in $ctrl.componentTypes">
                                 <div ng-repeat="component in $ctrl.componentsToRemove[key]">
                                     <div style="display: flex;align-items: center;">
@@ -40,11 +40,11 @@
                         </div>
 
                         <p ng-hide="$ctrl.hasComponentsToRemove" style="margin-top: 15px;">
-                            None of the components in this Setup are currently saved for you and so nothing needs to be removed.
+                            このセットアップに含まれる構成部品は保存されていないため、削除する必要はありません。
                         </p>
 
                         <div style="display:flex; justify-content: center;margin-top: 25px;">
-                            <button ng-show="$ctrl.hasComponentsToRemove" type="button" class="btn btn-primary" ng-click="$ctrl.removeSetup()">Remove Setup</button>
+                            <button ng-show="$ctrl.hasComponentsToRemove" type="button" class="btn btn-primary" ng-click="$ctrl.removeSetup()">セットアップの削除</button>
                         </div>
                     </div>
                 </div>
@@ -65,17 +65,17 @@
                 $ctrl.allowCancel = true;
 
                 $ctrl.componentTypes = {
-                    commands: "Command",
-                    counters: "Counter",
-                    currencies: "Currency",
-                    effectQueues: "Effect Queue",
-                    events: "Event",
-                    eventGroups: "Event Set",
-                    hotkeys: "Hotkey",
-                    presetEffectLists: "Preset Effect List",
-                    timers: "Timer",
-                    viewerRoles: "Viewer Role",
-                    quickActions: "Quick Action"
+                    commands: "コマンド",
+                    counters: "カウンタ",
+                    currencies: "通貨",
+                    effectQueues: "演出キュー",
+                    events: "イベント",
+                    eventGroups: "イベントセット",
+                    hotkeys: "ホットキー",
+                    presetEffectLists: "プリセット演出リスト",
+                    timers: "タイマー",
+                    viewerRoles: "視聴者の役割",
+                    quickActions: "クイックアクション"
                 };
 
                 $ctrl.componentsToRemove = {
@@ -126,7 +126,7 @@
                     $q.when(fs.readJson(filepath))
                         .then(setup => {
                             if (setup == null || setup.components == null) {
-                                $ctrl.resetSelectedFile("Unable to load setup file: file is invalid");
+                                $ctrl.resetSelectedFile("セットアップファイルをロードできません: 対応していないファイルです。");
                                 return;
                             }
                             $ctrl.setup = setup;
@@ -148,7 +148,7 @@
                         }, (reason) => {
                             logger.error("Failed to load setup file", reason);
                             $ctrl.allowCancel = true;
-                            $ctrl.resetSelectedFile("Failed to load setup file: file is invalid");
+                            $ctrl.resetSelectedFile("セットアップファイルをロードできません: 対応していないファイルです。");
                             return;
                         });
                 };
@@ -164,11 +164,11 @@
                             if (successful) {
                                 ngToast.create({
                                     className: 'success',
-                                    content: `Successfully removed components for Setup: ${$ctrl.setup.name}`
+                                    content: `構成部品を削除しました: ${$ctrl.setup.name}`
                                 });
                                 $ctrl.dismiss();
                             } else {
-                                ngToast.create(`Failed to remove components for Setup: ${$ctrl.setup.name}`);
+                                ngToast.create(`構成部品を削除に失敗しました: ${$ctrl.setup.name}`);
                             }
                         });
                 };

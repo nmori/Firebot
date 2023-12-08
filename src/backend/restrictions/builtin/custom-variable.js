@@ -12,7 +12,7 @@ const model = {
             <div id="customVariableName" class="modal-subheader" style="padding: 0 0 4px 0">
                 Custom Variable Name
             </div>
-            <input type="text" class="form-control" placeholder="Enter name" ng-model="restriction.name">
+            <input type="text" class="form-control" placeholder="名前を入れる" ng-model="restriction.name">
 
             <div id="customVariableName" class="modal-subheader" style="padding: 0 0 4px 0">
                 Value

@@ -6,39 +6,39 @@ const effectManager = require("../../../effects/effectManager");
 const integrationDefinition = {
     id: "discord",
     name: "Discord",
-    description: "Send messages to Discord channels.",
+    description: "Discord チャンネルにメッセージを送る",
     linkType: "none",
     connectionToggle: false,
     configurable: true,
     settingCategories: {
         webhookSettings: {
-            title: "Channel Setup",
+            title: "チャンネル設定",
             sortRank: 2,
             settings: {
                 channels: {
-                    title: "Saved Channels",
-                    description: "The collection of channel names and webhook urls that Firebot can post messages to.",
+                    title: "チャンネルを保存",
+                    description: "Firebotがメッセージを投稿できるチャンネル名とWebhook URLのコレクション",
                     type: "discord-channel-webhooks",
                     sortRank: 1
                 }
             }
         },
         botOverrides: {
-            title: "Bot Overrides",
+            title: "Bot設定の上書き",
             sortRank: 1,
             settings: {
                 botName: {
-                    title: "Bot Name",
-                    description: "This overrides the bot name set for a webhook in Discord. If left empty, whatever name you set in Discord for the webhook will be used.",
+                    title: "Botの名前",
+                    description: "これは Discord で webhook に設定したボット名を上書きします。空のままだと、Discord で webhook に設定した名前が使用されます。",
                     type: "string",
-                    tip: "Optional.",
+                    tip: "任意",
                     sortRank: 1
                 },
                 botImageUrl: {
-                    title: "Bot Image URL",
-                    description: "This overrides the avatar image of bot posting images. If left empty, whatever profile pic you set in Discord for the webhook will be used.",
+                    title: "BotのイメージURL",
+                    description: "これはボットの投稿画像のアバター画像を上書きします。空のままだと、Discord で webhook 用に設定したプロフィール画像が使用されます。",
                     type: "string",
-                    tip: "Optional.",
+                    tip: "任意",
                     sortRank: 2
                 }
             }
