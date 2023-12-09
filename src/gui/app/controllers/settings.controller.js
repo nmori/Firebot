@@ -98,7 +98,7 @@
             $scope.getSelectedVoiceName = () => {
                 const selectedVoiceId = settingsService.getDefaultTtsVoiceId();
                 const voice = ttsService.getVoiceById(selectedVoiceId);
-                return voice ? voice.name : "Unknown Voice";
+                return voice ? voice.name : "不明な音声";
             };
 
             $scope.ttsVoiceOptions = ttsService.getVoices().reduce((acc, v) => {
@@ -150,7 +150,7 @@
                 ttsService.readText(testTTSMessages[Math.floor(Math.random() * testTTSMessages.length)], "default");
             };
 
-            $scope.refreshSliders = function() {
+                $scope.refreshSliders = function() {
                 $timeout(function() {
                     $scope.$broadcast('rzSliderForceRender');
                 });
@@ -252,9 +252,9 @@
                 deviceList = deviceList
                     .filter(
                         d =>
-                            d.kind === "audiooutput" &&
-                            d.deviceId !== "communications" &&
-                            d.deviceId !== "default"
+                        d.kind === "audiooutput" &&
+                        d.deviceId !== "communications" &&
+                        d.deviceId !== "default"
                     )
                     .map(d => {
                         return { label: d.label, deviceId: d.deviceId };
@@ -299,12 +299,12 @@
                     },
                     ticksTooltip: function(index) {
                         switch (index) {
-                        case 0:
-                            return "バグを修正したり、機能を追加したりするアップデート。(例：v1.0からv1.1.1)";
-                        case 1:
-                            return "メジャーな新バージョンであるアップデート。破壊的な変更を含む可能性があります。(例：v1.0からv2.0へ）";
-                        default:
-                            return "";
+                            case 0:
+                                return "バグを修正したり、機能を追加したりするアップデート。(例：v1.0からv1.1.1)";
+                            case 1:
+                                return "メジャーな新バージョンであるアップデート。破壊的な変更を含む可能性があります。(例：v1.0からv2.0へ）";
+                            default:
+                                return "";
                         }
                     },
                     getSelectionBarColor: function() {
@@ -321,24 +321,24 @@
 
             $scope.getAutoUpdateLevelString = function(level) {
                 switch (level) {
-                case 0:
-                    return "Off";
-                case 2:
-                    return "既定値";
-                case 3:
-                    return "安定版アップデート";
-                case 4:
-                    return "開発版アップデート";
-                default:
-                    return "";
+                    case 0:
+                        return "Off";
+                    case 2:
+                        return "既定値";
+                    case 3:
+                        return "安定版アップデート";
+                    case 4:
+                        return "開発版アップデート";
+                    default:
+                        return "";
                 }
             };
 
             $scope.currentPort = settingsService.getWebSocketPort();
 
             /**
-            * Modals
-            */
+             * Modals
+             */
 
             $scope.openStartupScriptsModal = function() {
                 utilityService.showModal({
@@ -497,9 +497,9 @@
                             const newPort = $scope.newPort;
                             if (
                                 newPort == null ||
-                newPort === "" ||
-                newPort <= 1024 ||
-                newPort >= 49151
+                                newPort === "" ||
+                                newPort <= 1024 ||
+                                newPort >= 49151
                             ) {
                                 $scope.newPortError = true;
                                 return;
