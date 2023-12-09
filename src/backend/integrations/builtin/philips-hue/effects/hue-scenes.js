@@ -16,7 +16,7 @@ const effect = {
     optionsTemplate: `
         <eos-container header="Activate Hue Scene">
             <ui-select ng-model="selectedScene" theme="bootstrap" on-select="sceneSelected($item)" style="margin-bottom:10px;">
-                <ui-select-match placeholder="Search for scene">
+                <ui-select-match placeholder="シーンを探す...">
                     <div style="height: 21px; display:flex; flex-direction: row; align-items: center;">
                         <div style="font-weight: 100;font-size: 17px;">{{$select.selected._data.name}}</div>
                     </div>
@@ -51,7 +51,7 @@ const effect = {
         };
     },
     optionsValidator: () => {},
-    onTriggerEvent: async (event) => {
+    onTriggerEvent: async(event) => {
         const effect = event.effect;
         const sceneId = effect.sceneId;
 

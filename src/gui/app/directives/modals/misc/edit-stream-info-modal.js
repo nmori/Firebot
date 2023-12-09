@@ -6,7 +6,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Edit Stream Info</h4>
+                    <h4 class="modal-title">配信情報を編集</h4>
                 </div>
                 <div class="modal-body">
 
@@ -20,22 +20,22 @@
 
                     <form ng-show="$ctrl.dataLoaded" name="streamInfo">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('title')}">
-                            <label for="title" class="control-label">Stream Title</label>
+                            <label for="title" class="control-label">配信タイトル</label>
                             <input
                                 type="text"
                                 id="title"
                                 name="title"
                                 required
                                 class="form-control input-lg"
-                                placeholder="Give your stream a title"
+                                placeholder="配信タイトルを入力"
                                 ng-model="$ctrl.streamInfo.title"
                             />
                         </div>
 
                         <div class="form-group">
-                            <label for="game" class="control-label">Category</label>
+                            <label for="game" class="control-label">カテゴリ</label>
                             <ui-select ng-model="$ctrl.selectedGame" required input-id="game" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.gameSelected($item)">
-                                <ui-select-match placeholder="Search for category...">
+                                <ui-select-match placeholder="カテゴリを探す...">
                                     <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
                                         <img style="height: 21px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
                                         <div style="font-weight: 100;font-size: 17px;">{{$select.selected.name}}</div>
@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="form-group" style="margin-bottom: 0;">
-                            <label for="tags" class="control-label">Stream Tags</label>
+                            <label for="tags" class="control-label">配信タグ</label>
                             <div style="display: block" role="list">
                                 <div class="role-bar" id="tags" ng-repeat="tag in $ctrl.streamInfo.tags" role="listitem">
                                     <span>{{tag}}</span>
@@ -59,8 +59,8 @@
                                         role="button"
                                         class="clickable"
                                         style="padding-left: 10px;"
-                                        aria-label="Remove {{tag}} tag"
-                                        uib-tooltip="Remove tag"
+                                        aria-label="{{tag}} を削除"
+                                        uib-tooltip="タグを削除"
                                         tooltip-append-to-body="true"
                                         ng-click="$ctrl.removeStreamTag(tag)"
                                     >
@@ -71,8 +71,8 @@
                                     class="role-bar clickable"
                                     ng-show="$ctrl.streamInfo.tags.length < 10"
                                     role="button"
-                                    aria-label="Add tag"
-                                    uib-tooltip="Add tag"
+                                    aria-label="タグの追加"
+                                    uib-tooltip="タグの追加"
                                     tooltip-append-to-body="true"
                                     ng-click="$ctrl.openAddStreamTagsModal()"
                                 >
@@ -110,11 +110,11 @@
                 $ctrl.selectedGame = null;
 
                 $ctrl.formFieldHasError = (fieldName) => {
-                    return ($scope.streamInfo.$submitted || $scope.streamInfo[fieldName].$touched)
-                        && $scope.streamInfo[fieldName].$invalid;
+                    return ($scope.streamInfo.$submitted || $scope.streamInfo[fieldName].$touched) &&
+                        $scope.streamInfo[fieldName].$invalid;
                 };
 
-                $ctrl.$onInit = async () => {
+                $ctrl.$onInit = async() => {
                     $ctrl.streamInfo = await backendCommunicator.fireEventAsync("get-channel-info");
 
                     if ($ctrl.streamInfo) {
@@ -131,8 +131,7 @@
                 };
 
                 $ctrl.openAddStreamTagsModal = function() {
-                    utilityService.openGetInputModal(
-                        {
+                    utilityService.openGetInputModal({
                             label: "Add Stream Tag",
                             saveText: "Add",
                             inputPlaceholder: "Enter a tag",
@@ -179,7 +178,7 @@
                     $ctrl.streamInfo.tags = $ctrl.streamInfo.tags.filter(element => tag.toLowerCase() !== element.toLowerCase());
                 };
 
-                $ctrl.save = async () => {
+                $ctrl.save = async() => {
                     await backendCommunicator.fireEventAsync("set-channel-info", $ctrl.streamInfo);
                     backendCommunicator.fireEvent("category-changed", $ctrl.streamInfo.gameName);
                     ngToast.create({

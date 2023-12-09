@@ -41,11 +41,11 @@ const effect = {
         <firebot-input model="effect.url" placeholder-text="Enter url" menu-position="below"></firebot-input>
     </eos-container>
 
-    <eos-container header="Method" pad-top="true">
+    <eos-container header="通信メソッド" pad-top="true">
         <dropdown-select options="['GET', 'POST', 'PUT', 'PATCH', 'DELETE']" selected="effect.method"></dropdown-select>
     </eos-container>
 
-    <eos-container header="Body (JSON)" pad-top="true" ng-show="['POST', 'PUT', 'PATCH'].includes(effect.method)">
+    <eos-container header="データ (JSON)" pad-top="true" ng-show="['POST', 'PUT', 'PATCH'].includes(effect.method)">
         <div
             ui-codemirror="{onLoad : codemirrorLoaded}"
             ui-codemirror-opts="editorSettings"
@@ -55,7 +55,7 @@ const effect = {
         </div>
     </eos-container>
 
-    <eos-container header="Headers" pad-top="true">
+    <eos-container header="ヘッダ" pad-top="true">
         <div ui-sortable="sortableOptions" ng-model="effect.headers">
             <div ng-repeat="header in effect.headers track by $index" class="list-item selectable" ng-click="showAddOrEditHeaderModal(header)">
                 <span class="dragHandle" style="height: 38px; width: 15px; align-items: center; justify-content: center; display: flex">
@@ -75,7 +75,7 @@ const effect = {
         </div>
     </eos-container>
 
-    <eos-container header="Options" pad-top="true">
+    <eos-container header="オプション" pad-top="true">
         <div style="margin-bottom: 10px;">
             <label class="control-fb control--checkbox"> Include Twitch auth header <tooltip text="'Automatically include an Authorization header with the streamers twitch access token. Only use when calling the Twitch API!'"></tooltip>
                 <input type="checkbox" ng-model="effect.options.useTwitchAuth">
@@ -99,7 +99,7 @@ const effect = {
         </div>
     </eos-container>
 
-    <eos-container header="Error Effects" pad-top="true" ng-if="effect.options.runEffectsOnError">
+    <eos-container header="エラー時の演出" pad-top="true" ng-if="effect.options.runEffectsOnError">
         <effect-list effects="effect.errorEffects"
             trigger="{{trigger}}"
             trigger-meta="triggerMeta"

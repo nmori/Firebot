@@ -25,7 +25,7 @@ const chat = {
 
         <eos-container ng-show="effect.commandType === 'system'" header="システムコマンド" pad-top="true">
             <ui-select ng-model="effect.commandId" theme="bootstrap">
-                <ui-select-match placeholder="Select or search for a command... ">{{$select.selected.trigger}}</ui-select-match>
+                <ui-select-match placeholder="コマンドを探す... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in systemCommands | filter: { trigger: $select.search }" style="position:relative;">
                     <div ng-bind-html="command.trigger | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -34,7 +34,7 @@ const chat = {
 
         <eos-container ng-show="effect.commandType === 'custom'" header="カスタムコマンド" pad-top="true">
             <ui-select ng-model="effect.commandId" theme="bootstrap">
-                <ui-select-match placeholder="Select or search for a command... ">{{$select.selected.trigger}}</ui-select-match>
+                <ui-select-match placeholder="コマンドを探す... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in customCommands | filter: { trigger: $select.search }" style="position:relative;">
                     <div ng-bind-html="command.trigger | highlight: $select.search"></div>
                 </ui-select-choices>

@@ -77,94 +77,94 @@
             $routeProvider
 
                 .when("/viewer-roles", {
-                    templateUrl: "./templates/_viewerroles.html",
-                    controller: "viewerRolesController"
-                })
+                templateUrl: "./templates/_viewerroles.html",
+                controller: "viewerRolesController"
+            })
 
-                .when("/", {
-                    templateUrl: "./templates/chat/_chat-messages.html",
-                    controller: "chatMessagesController"
-                })
+            .when("/", {
+                templateUrl: "./templates/chat/_chat-messages.html",
+                controller: "chatMessagesController"
+            })
 
-                .when("/chat-feed", {
-                    templateUrl: "./templates/chat/_chat-messages.html",
-                    controller: "chatMessagesController"
-                })
+            .when("/chat-feed", {
+                templateUrl: "./templates/chat/_chat-messages.html",
+                controller: "chatMessagesController"
+            })
 
-                .when("/commands", {
-                    templateUrl: "./templates/chat/_commands.html",
-                    controller: "commandsController"
-                })
+            .when("/commands", {
+                templateUrl: "./templates/chat/_commands.html",
+                controller: "commandsController"
+            })
 
-                .when("/preset-effect-lists", {
-                    templateUrl: "./templates/_preset-effect-lists.html",
-                    controller: "presetEffectListsController"
-                })
+            .when("/preset-effect-lists", {
+                templateUrl: "./templates/_preset-effect-lists.html",
+                controller: "presetEffectListsController"
+            })
 
-                .when("/effect-queues", {
-                    templateUrl: "./templates/_effect-queues.html",
-                    controller: "effectQueuesController"
-                })
+            .when("/effect-queues", {
+                templateUrl: "./templates/_effect-queues.html",
+                controller: "effectQueuesController"
+            })
 
-                .when("/channel-rewards", {
-                    templateUrl: "./templates/_channel-rewards.html",
-                    controller: "channelRewardsController"
-                })
+            .when("/channel-rewards", {
+                templateUrl: "./templates/_channel-rewards.html",
+                controller: "channelRewardsController"
+            })
 
-                .when("/moderation", {
-                    templateUrl: "./templates/_moderation.html",
-                    controller: "moderationController"
-                })
+            .when("/moderation", {
+                templateUrl: "./templates/_moderation.html",
+                controller: "moderationController"
+            })
 
-                .when("/settings", {
-                    templateUrl: "./templates/_settings.html",
-                    controller: "settingsController"
-                })
+            .when("/settings", {
+                templateUrl: "./templates/_settings.html",
+                controller: "settingsController"
+            })
 
-                .when("/updates", {
-                    templateUrl: "./templates/_updates.html",
-                    controller: "updatesController"
-                })
+            .when("/updates", {
+                templateUrl: "./templates/_updates.html",
+                controller: "updatesController"
+            })
 
-                .when("/events", {
-                    templateUrl: "./templates/live-events/_events.html",
-                    controller: "eventsController"
-                })
+            .when("/events", {
+                templateUrl: "./templates/live-events/_events.html",
+                controller: "eventsController"
+            })
 
-                .when("/hotkeys", {
-                    templateUrl: "./templates/_hotkeys.html",
-                    controller: "hotkeysController"
-                })
+            .when("/hotkeys", {
+                templateUrl: "./templates/_hotkeys.html",
+                controller: "hotkeysController"
+            })
 
-                .when("/currency", {
-                    templateUrl: "./templates/_currency.html",
-                    controller: "currencyController"
-                })
+            .when("/currency", {
+                templateUrl: "./templates/_currency.html",
+                controller: "currencyController"
+            })
 
-                .when("/timers", {
-                    templateUrl: "./templates/_timers.html",
-                    controller: "timersController"
-                })
+            .when("/timers", {
+                templateUrl: "./templates/_timers.html",
+                controller: "timersController"
+            })
 
-                .when("/viewers", {
-                    templateUrl: "./templates/viewers/_viewers.html",
-                    controller: "viewersController"
-                })
+            .when("/viewers", {
+                templateUrl: "./templates/viewers/_viewers.html",
+                controller: "viewersController"
+            })
 
-                .when("/quotes", {
-                    templateUrl: "./templates/_quotes.html",
-                    controller: "quotesController"
-                })
+            .when("/quotes", {
+                templateUrl: "./templates/_quotes.html",
+                controller: "quotesController"
+            })
 
-                .when("/counters", {
-                    templateUrl: "./templates/_counters.html",
-                    controller: "countersController"
-                })
+            .when("/counters", {
+                templateUrl: "./templates/_counters.html",
+                controller: "countersController"
+            })
 
-                .when("/games", {
-                    templateUrl: "./templates/_games.html",
-                    controller: "gamesController"
-                });
+            .when("/games", {
+                templateUrl: "./templates/_games.html",
+                controller: "gamesController"
+            });
         }
     ]);
 }(window.angular));
