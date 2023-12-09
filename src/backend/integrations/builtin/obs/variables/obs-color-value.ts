@@ -6,7 +6,7 @@ import { VariableCategory } from "../../../../../shared/variable-constants";
 export const ColorValueVariable: ReplaceVariable = {
     definition: {
         handle: "obsColorValue",
-        description: "Returns an OBS color value based on either a hex color code (e.g. #0066FF) or an HTML color name.",
+        description: "16進カラーコード（例：#0066FF）または標準カラー名をもとにOBSカラー値を返します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: ["number"]
     },

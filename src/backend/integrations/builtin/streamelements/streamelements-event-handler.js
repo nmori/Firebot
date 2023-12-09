@@ -11,30 +11,30 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "StreamElements",
-    description: "Donation events from StreamElements",
+    description: "StreamElementsからの寄付イベント",
     events: [
         {
             id: EventId.DONATION,
-            name: "Donation",
-            description: "When someone donates.",
+            name: "ドネーション",
+            description: "誰かが寄付をしたとき.",
             cached: false,
             manualMetadata: {
                 from: "StreamElements",
                 donationAmount: 5,
-                donationMessage: "Test message"
+                donationMessage: "テストメッセージ"
             },
             isIntegration: true,
             activityFeed: {
                 icon: "fad fa-money-bill",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** donated **$${eventData.donationAmount}**${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                    return `**${eventData.from}** からドネートがありました **$${eventData.donationAmount}**${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                 }
             }
         },
         {
             id: EventId.FOLLOW,
-            name: "Follow",
-            description: "When someone follows your Twitch channel (comes from StreamElements)",
+            name: "フォロー",
+            description: "誰かがあなたのTwitchチャンネルをフォローした場合（StreamElementsより）",
             cacheMetaKey: "username",
             cached: true,
             manualMetadata: {

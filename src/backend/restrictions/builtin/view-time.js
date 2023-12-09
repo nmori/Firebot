@@ -3,14 +3,14 @@
 const model = {
     definition: {
         id: "firebot:viewTime",
-        name: "View Time",
-        description: "Restricts to users who have been in the stream for X minutes.",
+        name: "視聴時間",
+        description: "配信にn分間滞在したユーザーに制限する。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div id="viewTimeRestriction" class="modal-subheader" style="padding: 0 0 4px 0">
-                View Time Minimum
+                最低視聴時間
             </div>
             <input type="number" class="form-control" placeholder="Enter minutes" ng-model="restriction.time">
         </div>
@@ -37,7 +37,7 @@ const model = {
             if (passed) {
                 resolve();
             } else {
-                reject("You have not spent enough time in the channel to use this");
+                reject("このチャンネルの視聴時間が足りません");
             }
         });
     }

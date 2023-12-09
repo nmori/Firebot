@@ -7,12 +7,12 @@ const { OutputDataType, VariableCategory } = require("../../../../shared/variabl
 module.exports = {
     definition: {
         handle: "NAND",
-        usage: "NAND[condition, condition, ...]",
-        description: 'Returns true if any of the conditions return false',
+        usage: "NAND[条件, 条件, ...]",
+        description: 'いずれかの条件が不成立の場合にTrueを返す。',
         examples: [
             {
                 usage: 'NAND[a === a, b === c]',
-                description: "Returns true as b does not equals c"
+                description: "b が c に等しくないとき、True を返す"
             }
         ],
         categories: [VariableCategory.ADVANCED],

@@ -6,8 +6,8 @@ const { integration } = require("../elgato");
 const effect = {
     definition: {
         id: "elgato:key-lights",
-        name: "Update Elgato Key Lights",
-        description: "Turn Elgato Key Lights on or off, and change the temperature and brightness.",
+        name: "キーライトの更新",
+        description: "キーライトのオン/オフ、温度と明るさの変更。",
         icon: "fad fa-lamp fa-align-center",
         categories: [EffectCategory.INTEGRATIONS],
         dependencies: []
@@ -15,9 +15,9 @@ const effect = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container ng-if="!hasKeylights">
-            No Key Lights are connected currently.
+        キーライトは接続されていません
         </eos-container>
-        <eos-container ng-if="hasKeylights" header="Key Lights">
+        <eos-container ng-if="hasKeylights" header="キーライト">
             <div ng-repeat="light in keyLights" class="mb-16">
                 <label class="control-fb control--checkbox">{{light.name}}
                     <input type="checkbox" ng-click="selectLight(light)" ng-checked="isLightSelected(light)" aria-label="..." >
@@ -25,7 +25,7 @@ const effect = {
                 </label>
 
                 <div ng-if="isLightSelected(light)" class="ml-6 mb-10">
-                    <label class="control-fb control--checkbox">Update Activated
+                    <label class="control-fb control--checkbox">アップデートの有効化
                         <input type="checkbox" ng-click="selectOption('toggleType', light)" ng-checked="isOptionSelected('toggleType', light)" aria-label="..." >
                         <div class="control__indicator"></div>
                     </label>
@@ -37,7 +37,7 @@ const effect = {
                 </div>
 
                 <div ng-if="isLightSelected(light)" class="ml-6 mb-10">
-                    <label class="control-fb control--checkbox">Update Brightness
+                    <label class="control-fb control--checkbox">明るさの更新
                         <input type="checkbox" ng-click="selectOption('brightness', light)" ng-checked="isOptionSelected('brightness', light)" aria-label="..." >
                         <div class="control__indicator"></div>
                     </label>
@@ -53,12 +53,12 @@ const effect = {
                 </div>
 
                 <div ng-if="isLightSelected(light)" class="ml-6 mb-10">
-                    <label class="control-fb control--checkbox">Update Temperature
+                    <label class="control-fb control--checkbox">色温度の更新
                         <input type="checkbox" ng-click="selectOption('temperature', light)" ng-checked="isOptionSelected('temperature', light)" aria-label="..." >
                         <div class="control__indicator"></div>
                     </label>
                     <div class="input-group" ng-if="isOptionSelected('temperature', light)">
-                        <span class="input-group-addon">Kelvin (2900 - 7000)</span>
+                        <span class="input-group-addon">色温度(2900 - 7000)</span>
                         <input
                             class="form-control"
                             type="number"
@@ -118,15 +118,15 @@ const effect = {
         };
 
         $scope.toggleOptions = {
-            disable: "Deactivate",
-            enable: "Activate",
-            toggle: "Toggle"
+            disable: "無効",
+            enable: "有効",
+            toggle: "切り替え"
         };
     },
     optionsValidator: (effect) => {
         const errors = [];
         if (Object.keys(effect.selectedLights).length === 0) {
-            errors.push("Please select a Key Light.");
+            errors.push("キーライトを選択してください。");
         }
         return errors;
     },

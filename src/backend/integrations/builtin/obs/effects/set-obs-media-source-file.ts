@@ -7,27 +7,27 @@ export const SetOBSMediaSourceFileEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-media-source-file",
-    name: "Set OBS Media Source File",
-    description: "Sets the file of an OBS media source",
+    name: "OBSメディアソースにファイルを設定",
+    description: "OBSメディアソースのファイルを設定する",
     icon: "fad fa-film",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS Media Source">
+    <eos-container header="OBS メディアソース">
         <ui-select ng-model="selected" on-select="selectMediaSource($select.selected.name)">
-          <ui-select-match placeholder="Select a Media Source...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="メディアソースを選択...">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="source in mediaSources | filter: {name: $select.search}">
             <div ng-bind-html="source.name | highlight: $select.search"></div>
           </ui-select-choices>
           <ui-select-no-choice>
-          <b>No media sources found.</b>
+          <b>メディアソースが見つかりません</b>
           </ui-select-no-choice>
         </ui-select>
         <div ng-if="mediaSources == null" class="muted">
-            No sources found. Is OBS running?
+            ソースが見つかりません。OBSは動いていますか？
         </div>
         <p>
-            <button class="btn btn-link" ng-click="getMediaSources()">Refresh Source Data</button>
+            <button class="btn btn-link" ng-click="getMediaSources()">ソースを更新</button>
         </p>
     </eos-container>
 
@@ -56,9 +56,9 @@ export const SetOBSMediaSourceFileEffectType: EffectType<{
     const errors: string[] = [];
 
     if (effect.mediaSourceName == null) {
-      errors.push("Please select a media source");
+      errors.push("メディアソースを設定してください");
     } else if (!(effect.file?.length > 0)) {
-      errors.push("Please select or enter a filename");
+      errors.push("ファイル名を設定してください");
     }
 
     return errors;

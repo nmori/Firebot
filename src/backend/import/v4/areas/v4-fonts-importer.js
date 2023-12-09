@@ -29,7 +29,7 @@ exports.run = async () => {
         try {
             await fse.copy(v4FontsPath, v5FontsPath);
         } catch (err) {
-            incompatibilityWarnings.push("Unable to import V4 Fonts as an error occured.");
+            incompatibilityWarnings.push("エラーが発生したため、V4フォントをインポートできません");
             logger.warn("Unable to copy v4 fonts.", err);
         }
     }

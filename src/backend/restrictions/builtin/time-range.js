@@ -5,8 +5,8 @@ const moment = require("moment");
 const model = {
     definition: {
         id: "firebot:timeRange",
-        name: "Time / Day",
-        description: "Restrict usage to a specific local time or day.",
+        name: "時刻/曜日",
+        description: "特定の現地時間または曜日で使用を制限する。",
         triggers: []
     },
     optionsTemplate: `
@@ -15,11 +15,11 @@ const model = {
                 Mode
             </div>
             <div style="margin-bottom: 10px">
-                <label class="control-fb control--radio">Time <span class="muted"><br />Restrict access to a specific time range</span>
+                <label class="control-fb control--radio">時刻 <span class="muted"><br />特定の時間帯にアクセスを制限する</span>
                     <input type="radio" ng-model="restriction.mode" value="time"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >Days <span class="muted"><br />Restrict access to specific days</span>
+                <label class="control-fb control--radio" >日付 <span class="muted"><br />特定の曜日にアクセスを制限する</span>
                     <input type="radio" ng-model="restriction.mode" value="days"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -27,19 +27,19 @@ const model = {
 
             <div ng-if="restriction.mode === 'time'">
                 <div id="startTime" class="modal-subheader" style="padding: 0 0 4px 0">
-                    Start Time
+                    開始時間
                 </div>
                 <div uib-timepicker ng-model="restriction.startTime" show-spinners="false"></div>
 
                 <div id="endTime" class="modal-subheader" style="padding: 1em 0 4px 0">
-                    End Time
+                    終了時間
                 </div>
                 <div uib-timepicker ng-model="restriction.endTime" show-spinners="false"></div>
             </div>
             
             <div ng-if="restriction.mode === 'days'">
                 <div id="roles" class="modal-subheader" style="padding: 0 0 4px 0">
-                    Days
+                    曜日
                 </div>
                 <div class="viewer-group-list">
                     <label ng-repeat="day in getAllDays()" class="control-fb control--checkbox">{{day}}
@@ -131,7 +131,7 @@ const model = {
             const startTime = formatAMPM(restriction.startTime);
             const endTime = formatAMPM(restriction.endTime);
 
-            return "Between " + startTime + " - " + endTime;
+            return startTime + " - " + endTime + " の間";
         }
 
         return "";
@@ -149,7 +149,7 @@ const model = {
                 if (restrictionDays.includes(currentDayOfWeek)) {
                     resolve();
                 } else {
-                    reject('Day must be ' + restrictionDays.join(", ") + '.');
+                    reject(restrictionDays.join(", ") + 'である必要があります');
                 }
 
             } else if (restrictionData.mode === "time") {
@@ -164,7 +164,7 @@ const model = {
                 if (time.isBetween(startTime, endTime)) {
                     resolve();
                 } else {
-                    reject('Time must be between ' + moment(restrictionData.startTime).format('hh:mm A') + ' and ' + moment(restrictionData.endTime).format('hh:mm A') + '.');
+                    reject(moment(restrictionData.startTime).format('hh:mm A') + ' ～ ' + moment(restrictionData.endTime).format('hh:mm A') + 'の間である必要があります');
                 }
             }
         });

@@ -59,7 +59,7 @@
                         }
                     },
                     {
-                        html: `<a href uib-tooltip="この報奨はFirebotの外部で作成されたもので、有効ステータスを編集することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> Toggle Enabled</a>`,
+                        html: `<a href uib-tooltip="この報奨はFirebotの外部で作成されたもので、有効ステータスを編集することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効状態の切り替え</a>`,
                         click: function () {
                             item.twitchData.isEnabled = !item.twitchData.isEnabled;
                             channelRewardsService.saveChannelReward(item);
@@ -68,7 +68,7 @@
                         enabled: item.manageable
                     },
                     {
-                        html: `<a href uib-tooltip="この報奨はFirebotの外部で作成されたもので、一時停止ステータスを編集することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> Toggle Paused</a>`,
+                        html: `<a href uib-tooltip="この報奨はFirebotの外部で作成されたもので、一時停止ステータスを編集することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 停止状態の切り替え</a>`,
                         click: function () {
                             item.twitchData.isPaused = !item.twitchData.isPaused;
                             channelRewardsService.saveChannelReward(item);

@@ -2,12 +2,12 @@
 
 module.exports = {
     id: "firebot:currency",
-    name: "Currency",
-    description: "Filter to a Currency",
+    name: "通貨",
+    description: "通貨でフィルタ",
     events: [
         { eventSourceId: "firebot", eventId: "currency-update" }
     ],
-    comparisonTypes: ["is", "is not"],
+    comparisonTypes: ["一致", "不一致"],
     valueType: "preset",
     presetValues: currencyService => {
         return currencyService
@@ -20,7 +20,7 @@ module.exports = {
     },
     getSelectedValueDisplay: (filterSettings, currencyService) => {
         return new Promise(resolve => {
-            resolve(currencyService.getCurrencies().find(c => c.id === filterSettings.value)?.name ?? "Unknown Currency");
+            resolve(currencyService.getCurrencies().find(c => c.id === filterSettings.value)?.name ?? "不明な通貨");
         });
     },
     predicate: (filterSettings, eventData) => {
@@ -33,8 +33,10 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
+        case "一致":
             return actual === expected;
         case "is not":
+        case "不一致":
             return actual !== expected;
         default:
             return false;

@@ -12,7 +12,7 @@ const slEffectsLoader = require("./effects/streamlabs-effect-loader");
 const integrationDefinition = {
     id: "streamlabs",
     name: "Streamlabs",
-    description: "Donation and Extra Life Donation events",
+    description: "ドネーション／Extra Lifeドネーション",
     linkType: "auth",
     connectionToggle: true,
     authProviderDetails: {

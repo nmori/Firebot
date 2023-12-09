@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:category-changed",
-    name: "Category",
-    description: "The category that is currently selected to stream to.",
+    name: "カテゴリ",
+    description: "現在選択されているストリーミング先のカテゴリでフィルタ",
     events: [
         { eventSourceId: "firebot", eventId: "category-changed" }
     ],

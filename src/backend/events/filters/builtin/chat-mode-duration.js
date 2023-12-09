@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:chatmodeduration",
-    name: "Duration",
-    description: "Filter by a chat mode's duration (only for Slow (seconds) and Follower (minutes))",
+    name: "継続時間",
+    description: "チャットモードの継続時間でフィルタリング（スロー（秒）とフォロワー（分）のみ）",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],

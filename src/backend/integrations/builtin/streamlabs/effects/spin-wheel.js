@@ -8,8 +8,8 @@ const logger = require("../../../../logwrapper");
 const effect = {
     definition: {
         id: "streamlabs:spin-wheel",
-        name: "Spin The Wheel",
-        description: "Trigger StreamLab's \"Spin the Wheel\" feature",
+        name: "スピンホイール",
+        description: "StreamLabの \"スピンホイール\" を起動",
         icon: "fad fa-tire",
         categories: [EffectCategory.INTEGRATIONS],
         dependencies: []
@@ -18,7 +18,7 @@ const effect = {
     optionsTemplate: `
         <eos-container>
             <div class="effect-info alert alert-info">
-                This will trigger StreamLab's "Spin the Wheel" feature.
+            これにより、StreamLabのの「スピンホイール」機能が作動します。
             </div>
         </eos-container>
     `,

@@ -52,7 +52,7 @@ exports.run = async () => {
             for (const v4Hotkey of v4Hotkeys) {
 
                 if (v4Hotkey.action == null || v4Hotkey.action.type !== "Run Effects") {
-                    incompatibilityWarnings.push(`Could not import hotkey '${v4Hotkey.name}' because: V5 hotkeys have fundementally changed and don't support v4 action type '${v4Hotkey.action.type}'`);
+                    incompatibilityWarnings.push(`ホットキー '${v4Hotkey.name}' を取り込めませんでした： ホットキーの設計変更により、v4のアクションタイプ '${v4Hotkey.action.type}'をサポートしていないためです。`);
                     continue;
                 }
 

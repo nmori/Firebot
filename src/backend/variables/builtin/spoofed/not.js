@@ -7,12 +7,12 @@ const { OutputDataType, VariableCategory } = require("../../../../shared/variabl
 module.exports = {
     definition: {
         handle: "NOT",
-        usage: "NOT[condition]",
-        description: 'Returns the opposite of the condition\'s result. Only works within $if[]',
+        usage: "NOT[条件]",
+        description: '条件と逆の結果を返す。$if[]内でのみ動作する。',
         examples: [
             {
                 usage: 'NOT[1 === 1]',
-                description: "Returns false as the condition is true"
+                description: "条件が成立しているので False を返す"
             }
         ],
         categories: [VariableCategory.ADVANCED],

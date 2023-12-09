@@ -3,28 +3,28 @@
 const model = {
     definition: {
         id: "firebot:channelcurrency",
-        name: "Channel Currency",
-        description: "Restrict based on channel currency amounts.",
+        name: "チャネル通貨",
+        description: "チャネル通貨の金額に基づいて制限する。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div ng-show="hasCurrencies">
                 <div id="channelCurrency" class="modal-subheader" style="padding: 0 0 4px 0">
-                    Channel Currency
+                    チャネル通貨
                 </div>
                 <div class="">
                     <select class="fb-select" ng-model="restriction.selectedCurrency" ng-options="currency.id as currency.name for currency in currencies"></select>
                 </div>
 
                 <div id="channelCurrencyOption" class="modal-subheader" style="padding: 0 0 4px 0">
-                    Comparison
+                    比較
                 </div>
                 <div>
                     <select class="fb-select" ng-model="restriction.comparison">
-                    <option label="Greater than (or equal to)" value="greater">Greater than (or equal to)</option>
-                    <option label="Less than" value="less">Less than</option>
-                    <option label="Equal to" value="equal">Equal to</option>
+                    <option label="Greater than (or equal to)" value="greater">以上</option>
+                    <option label="Less than" value="less">未満</option>
+                    <option label="Equal to" value="equal">同等</option>
                     </select>
                 </div>
 
@@ -32,18 +32,18 @@ const model = {
                     Amount
                 </div>
                 <div class="form-group">
-                    <input type="number" class="form-control" ng-model="restriction.amount" placeholder="Enter currency amount">
+                    <input type="number" class="form-control" ng-model="restriction.amount" placeholder="通貨の金額を入力">
                 </div>
 
                 <div ng-if="showAutoDeduct()" style="margin-top:20px">
-                    <label class="control-fb control--checkbox"> Automatically deduct currency from user if restrictions pass</tooltip>
+                    <label class="control-fb control--checkbox"> 制限を通過した場合、ユーザーから自動的に通貨を差し引く</tooltip>
                         <input type="checkbox" ng-model="restriction.autoDeductCurrency">
                         <div class="control__indicator"></div>
                     </label>
                 </div>
             </div>
             <div ng-show="!hasCurrencies">
-                <p>You have not created any currencies to use with this restriction!</p>
+                <p>あなたはこの制限で使用する通貨を作成していない！</p>
             </div>
         </div>
     `,

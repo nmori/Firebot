@@ -7,12 +7,12 @@ const { OutputDataType, VariableCategory } = require("../../../../shared/variabl
 module.exports = {
     definition: {
         handle: "NALL",
-        usage: "NALL[condition, condition, ...]",
-        description: 'Returns true if any of the conditions return false',
+        usage: "NALL[条件, 条件, ...]",
+        description: 'いずれかの条件が不成立である場合に True を返す。',
         examples: [
             {
                 usage: 'NALL[a === a, b === c]',
-                description: "Returns true as b does not equals c"
+                description: "b が c に等しくないときにTrue を返す"
             }
         ],
         categories: [VariableCategory.ADVANCED],

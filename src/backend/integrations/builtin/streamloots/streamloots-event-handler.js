@@ -13,12 +13,12 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "StreamLoots",
-    description: "Purchase/Redemption events from StreamLoots",
+    description: "StreamLootsからの購入／交換イベント",
     events: [
         {
             id: EventId.PURCHASE,
-            name: "Chest Purchase",
-            description: "When someone purchases or gifts chests.",
+            name: "チェスト購入",
+            description: "誰かがチェストを購入したり贈ったりする場合",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -30,13 +30,13 @@ const eventSourceDefinition = {
         },
         {
             id: EventId.REDEMPTION,
-            name: "Card Redemption",
-            description: "When someone redeems a card.",
+            name: "カード交換",
+            description: "誰かがカードを換金したとき",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                message: "Test message",
-                alertMessage: "Alert Message",
+                message: "テストメッセージ",
+                alertMessage: "アラート",
                 cardRarity: {
                     type: "enum",
                     options: {
@@ -47,7 +47,7 @@ const eventSourceDefinition = {
                     },
                     value: "common"
                 },
-                cardName: "Hidden GIF"
+                cardName: "GIFを隠す"
             },
             isIntegration: true
         }

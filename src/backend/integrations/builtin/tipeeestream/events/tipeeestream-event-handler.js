@@ -11,12 +11,12 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "TipeeeStream",
-    description: "Donation/tip events from tipeeestream",
+    description: "tipeeestreamからの寄付/チップイベント",
     events: [
         {
             id: EventId.DONATION,
-            name: "Donation",
-            description: "When someone donates to you via TipeeeStream.",
+            name: "ドネーション",
+            description: "TipeeeStream経由で誰かがあなたに寄付をした場合",
             cached: false,
             manualMetadata: {
                 from: "TipeeeStream",
@@ -34,8 +34,8 @@ const eventSourceDefinition = {
         },
         {
             id: EventId.FOLLOW,
-            name: "Follow",
-            description: "When someone follows your Twitch channel (comes from TipeeeStream)",
+            name: "フォロー",
+            description: "誰かがあなたのTwitchチャンネルをフォローしたとき（TipeeeStream経由）",
             cacheMetaKey: "username",
             cached: true,
             manualMetadata: {

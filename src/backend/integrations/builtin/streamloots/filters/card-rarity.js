@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../../shared/filter-constants");
 
 module.exports = {
     id: "streamloots:card-rarity",
-    name: "Card Rarity",
-    description: "Filter by the rarity of redeemed Streamloots Cards",
+    name: "カードレアリティ",
+    description: "交換したストリームルーツカードのレアリティで絞り込む",
     events: [
         { eventSourceId: "streamloots", eventId: "redemption" }
     ],
@@ -37,7 +37,7 @@ module.exports = {
             first.toUpperCase() + rest.join("").toLowerCase();
 
         if (filterSettings.value == null) {
-            return "[Not set]";
+            return "[未設定]";
         }
 
         return capitalize(filterSettings.value);

@@ -7,12 +7,12 @@ const { OutputDataType, VariableCategory } = require("../../../../shared/variabl
 module.exports = {
     definition: {
         handle: "NOR",
-        usage: "NOR[condition, condition, ...]",
-        description: 'Returns true if all of the conditions return false',
+        usage: "NOR[条件, 条件, ...]",
+        description: 'すべての条件が不成立であった場合に True を返す。',
         examples: [
             {
                 usage: 'NOR[a === b, b === c]',
-                description: "Returns true as a does not equal be and b does not equals c"
+                description: "a が be と等しくなく、b が c と等しくない場合に True を返す。"
             }
         ],
         categories: [VariableCategory.ADVANCED],

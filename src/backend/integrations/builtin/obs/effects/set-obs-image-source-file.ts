@@ -7,28 +7,28 @@ export const SetOBSImageSourceFileEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-image-source-file",
-    name: "Set OBS Image Source File",
-    description: "Sets the file of an OBS image source",
+    name: "OBS画像ソースにファイルを設定",
+    description: "OBS画像ソースのファイルを設定します。",
     icon: "fad fa-photo-video",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS Image Source">
+    <eos-container header="OBS画像ソース">
         <ui-select ng-model="selected" on-select="selectImageSource($select.selected.name)">
-          <ui-select-match placeholder="Select an Image Source...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="画像ファイルを選ぶ...">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="source in imageSources | filter: {name: $select.search}">
             <div ng-bind-html="source.name | highlight: $select.search"></div>
           </ui-select-choices>
           <ui-select-no-choice>
-          <b>No image sources found.</b>
+          <b>画像ソースが見つかりません</b>
           </ui-select-no-choice>
         </ui-select>
         
         <div ng-if="imageSources == null" class="muted">
-            No sources found. Is OBS running?
+            ソースが見つかりません。OBSは動いていますか？
         </div>
         <p>
-            <button class="btn btn-link" ng-click="getImageSources()">Refresh Source Data</button>
+            <button class="btn btn-link" ng-click="getImageSources()">ソースを更新</button>
         </p>
     </eos-container>
 
@@ -57,9 +57,9 @@ export const SetOBSImageSourceFileEffectType: EffectType<{
     const errors: string[] = [];
 
     if (effect.imageSourceName == null) {
-      errors.push("Please select an image source");
+      errors.push("画像ソースを設定してください");
     } else if (!(effect.file?.length > 0)) {
-      errors.push("Please select or enter a filename");
+      errors.push("ファイル名を設定してください");
     }
 
     return errors;

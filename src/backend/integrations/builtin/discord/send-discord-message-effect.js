@@ -23,20 +23,20 @@ frontEndCommunicator.onAsync("getDiscordChannels", async () => {
 module.exports = {
     definition: {
         id: "discord:send-message",
-        name: "Send Discord Message",
-        description: "Send a message and/or embed to a Discord channel",
+        name: "Discordメッセージを送信",
+        description: "Discordチャンネルにチャットメッセージや埋め込みメッセージを送る",
         icon: "fab fa-discord",
         categories: [EffectCategory.INTEGRATIONS],
         dependencies: [],
         outputs: [
             {
-                label: "Success status",
-                description: "returns true if the message was sent successfully, false otherwise.",
+                label: "送信結果",
+                description: "メッセージが正常に送信された場合はtrueを返し、そうでない場合はfalseを返す。",
                 defaultName: "discordSuccess"
             },
             {
-                label: "Message Output",
-                description: "returns the discord message object if the message was sent successfully, returns an error otherwise.",
+                label: "メッセージ",
+                description: "メッセージが正常に送信された場合は discord メッセージオブジェクトを返し、そうでない場合はエラーを返します。",
                 defaultName: "discordMessage"
             }
         ]
@@ -46,12 +46,12 @@ module.exports = {
         <div>
             <div ng-show="hasChannels">
 
-                <eos-container header="Discord Channel">
+                <eos-container header="Discord チャネル">
                     <dropdown-select options="channelOptions" selected="effect.channelId"></dropdown-select>
                 </eos-container>
 
-                <eos-container header="Message" pad-top="true">
-                    <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
+                <eos-container header="メッセージ" pad-top="true">
+                    <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージを入れる" rows="4" cols="40" replace-variables></textarea>
                 </eos-container>
 
                 <eos-container header="Files ({{effect.files.length}}/10)" pad-top="true">
@@ -59,7 +59,7 @@ module.exports = {
                 </eos-container>
 
                 <eos-container header="Rich Embed" pad-top="true">
-                    <label class="control-fb control--checkbox" style="margin-top:15px"> Include rich embed
+                    <label class="control-fb control--checkbox" style="margin-top:15px"> 情報量を多く埋め込む
                         <input type="checkbox" ng-model="effect.includeEmbed">
                         <div class="control__indicator"></div>
                     </label>
@@ -70,7 +70,7 @@ module.exports = {
                         <div ng-show="effect.embedType === 'custom'">
 
                             <div style="margin-top:10px;">
-                                <firebot-input input-title="Title" model="effect.customEmbed.title"></firebot-input>
+                                <firebot-input input-title="タイトル" model="effect.customEmbed.title"></firebot-input>
                             </div>
 
                             <div style="margin-top:10px;">
@@ -78,15 +78,15 @@ module.exports = {
                             </div>
 
                             <div style="margin-top:10px;">
-                                <firebot-input input-title="Content" use-text-area="true" model="effect.customEmbed.description"></firebot-input>
+                                <firebot-input input-title="コンテンツ" use-text-area="true" model="effect.customEmbed.description"></firebot-input>
                             </div>
 
                             <div style="margin-top:10px;">
-                                <firebot-input input-title="Author Name" model="effect.customEmbed.authorName"></firebot-input>
+                                <firebot-input input-title="投稿者名" model="effect.customEmbed.authorName"></firebot-input>
                             </div>
 
                             <div style="margin-top:10px;">
-                                <firebot-input input-title="Author Icon URL" model="effect.customEmbed.authorIconUrl"></firebot-input>
+                                <firebot-input input-title="投稿者アイコン URL" model="effect.customEmbed.authorIconUrl"></firebot-input>
                             </div>
 
                             <div style="margin-top:10px;">
@@ -96,7 +96,7 @@ module.exports = {
                         </div>
 
                         <div ng-show="effect.embedType === 'channel'">
-                            <br /><b>*</b> Must be live for this to post.
+                            <br /><b>*</b> 配信中のみ投稿できます。
                         </div>
                     </div>
                 </eos-container>
@@ -104,7 +104,7 @@ module.exports = {
             </div>
             <div ng-hide="hasChannels">
                 <eos-container>
-                    <span class="muted">No Discord channels configured yet! You can configure them in <b>Settings</b> > <b>Integrations</b> > <b>Discord</b></span>
+                    <span class="muted">Discordチャンネルはまだ設定されていません。<b>設定</b> > <b>連携</b> > <b>Discord</b>で設定できます</span>
                 </eos-container>
             </div>
         </div>
@@ -134,8 +134,8 @@ module.exports = {
             });
 
         $scope.embedOptions = {
-            channel: "Channel Details",
-            custom: "Custom Embed"
+            channel: "チャンネル詳細",
+            custom: "カスタム埋め込み"
         };
 
         if ($scope.effect.customEmbed == null) {
@@ -145,10 +145,10 @@ module.exports = {
     optionsValidator: (effect) => {
         const errors = [];
         if (!effect.includeEmbed && !(Array.isArray(effect.files) && effect.files.length !== 0) && (effect.message == null || effect.message.trim().length < 1)) {
-            errors.push("Please provide a message, embed or file.");
+            errors.push("メッセージ、埋め込み、またはファイルを入力してください。");
         }
         if (effect.includeEmbed && (effect.embedType == null || effect.embedType === "")) {
-            errors.push("Please select a rich embed type");
+            errors.push("埋め込みタイプを選択してください");
         }
         return errors;
     },

@@ -101,8 +101,8 @@ const shoutoutStyles = `
 const effect = {
     definition: {
         id: "firebot:shoutout",
-        name: "Firebot Shoutout",
-        description: "Display a shoutout graphic for a channel in the overlay.",
+        name: "Firebot シャウトアウト",
+        description: "オーバーレイにチャンネルのシャウト画像を表示する.",
         icon: "fad fa-megaphone",
         categories: [EffectCategory.COMMON, EffectCategory.FUN, EffectCategory.OVERLAY],
         dependencies: [EffectDependency.OVERLAY]
@@ -123,7 +123,7 @@ const effect = {
                                     src="{{defaultAvatar}}"/>
                             </div>
                         </div>
-                        <div class="firebot-shoutout-username" style="padding: 0 10%; color: {{effect.textColor}};font-size: 32px;">SomeUserName</div>
+                        <div class="firebot-shoutout-username" style="padding: 0 10%; color: {{effect.textColor}};font-size: 32px;">ユーザ名</div>
                         <div class="firebot-shoutout-padding">
                             <div
                                 ng-hide="effect.shoutoutText == null || effect.shoutoutText === ''"
@@ -139,7 +139,7 @@ const effect = {
                                 <div class="firebot-shoutout-game-lastseen">
                                 {{effect.lastGameText}}
                                 </div>
-                                Science & Technology
+                                科学とテクノロジー
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@ const effect = {
             </div>
         </eos-container>
         <eos-container header="Customization" pad-top="true">
-            <firebot-input input-title="Shoutout Text" model="effect.shoutoutText" placeholder-text="テキストを入力" />
+            <firebot-input input-title="シャウトアウトするテキスト" model="effect.shoutoutText" placeholder-text="テキストを入力" />
 
             <color-picker-input style="margin-top:10px" model="effect.bgColor1" label="背景色 1"></color-picker-input>
 

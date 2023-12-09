@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:new-view-time",
-    name: "New View Time",
-    description: "Filter a viewers new view time (hours)",
+    name: "今回の表示時間",
+    description: "視聴者の今回の表示時間でフィルタリングする（単位：時間）",
     events: [
         { eventSourceId: "firebot", eventId: "view-time-update" }
     ],

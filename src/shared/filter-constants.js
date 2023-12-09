@@ -6,22 +6,22 @@
  * @enum {string}
  */
 const ComparisonType = Object.freeze({
-    IS: "is",
-    IS_NOT: "is not",
-    GREATER_THAN: "greater than",
-    GREATER_THAN_OR_EQUAL_TO: "greater than or equal to",
-    LESS_THAN: "less than",
-    LESS_THAN_OR_EQUAL_TO: "less than or equal to",
-    CONTAINS: "contains",
-    DOESNT_CONTAIN: "doesn't contain",
-    DOESNT_STARTS_WITH: "doesn't start with",
-    STARTS_WITH: "starts with",
-    DOESNT_END_WITH: "doesn't end with",
-    ENDS_WITH: "ends with",
-    MATCHES_REGEX_CS: "matches regex",
-    DOESNT_MATCH_REGEX_CS: "doesn't matches regex",
-    MATCHES_REGEX: "matches regex (case insensitive)",
-    DOESNT_MATCH_REGEX: "doesn't match regex (case insensitive)"
+    IS: "が一致",
+    IS_NOT: "が不一致",
+    GREATER_THAN: "より大きい",
+    GREATER_THAN_OR_EQUAL_TO: "以上",
+    LESS_THAN: "未満",
+    LESS_THAN_OR_EQUAL_TO: "以下",
+    CONTAINS: "厳格に一致",
+    DOESNT_CONTAIN: "厳格に不一致",
+    DOESNT_STARTS_WITH: "で始まらない",
+    STARTS_WITH: "で始まる",
+    DOESNT_END_WITH: "で終わらない",
+    ENDS_WITH: "で終わる",
+    MATCHES_REGEX_CS: "正規表現に一致",
+    DOESNT_MATCH_REGEX_CS: "正規表現に不一致",
+    MATCHES_REGEX: "正規表現にマッチする",
+    DOESNT_MATCH_REGEX: "正規表現にマッチしない"
 });
 
 exports.ComparisonType = ComparisonType;

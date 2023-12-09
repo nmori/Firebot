@@ -7,12 +7,12 @@ const { OutputDataType, VariableCategory } = require("../../../../shared/variabl
 module.exports = {
     definition: {
         handle: "OR",
-        usage: "OR[condition, condition, ...]",
-        description: 'Returns true if any of the conditions are true. Only works within $if[]',
+        usage: "OR[条件, 条件, ...]",
+        description: '条件のいずれかが成立する場合に true を返します。$if[]内でのみ動作します。',
         examples: [
             {
                 usage: 'OR[a === b, c === c]',
-                description: "Returns true as c equals c"
+                description: "c が c と等しい場合に True を返す"
             }
         ],
         categories: [VariableCategory.ADVANCED],

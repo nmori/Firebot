@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:raid-viewer-count",
-    name: "Raid Viewer Count",
-    description: "Filter by how many viewers have been brought over by the raid.",
+    name: "レイドで連れてきた視聴者数",
+    description: "レイドで連れてきた視聴者の数でフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "raid" }
     ],

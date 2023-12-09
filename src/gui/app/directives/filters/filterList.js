@@ -21,11 +21,11 @@
                   <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                     <li ng-click="$ctrl.filterData.mode = 'exclusive'">
-                      <a style="padding-left: 10px;">all filters pass</a>
+                      <a style="padding-left: 10px;">全フィルタ通過</a>
                     </li>
 
                     <li ng-click="$ctrl.filterData.mode = 'inclusive'">
-                      <a style="padding-left: 10px;">any filter passes</a>
+                      <a style="padding-left: 10px;">一部フィルタ通過</a>
                     </li>
                 </ul>
             </div>
@@ -136,7 +136,7 @@
                 }
 
                 $ctrl.getFilterModeDisplay = function() {
-                    return $ctrl.filterData.mode === "Interactive" ? "一部フィルタ通過" : "全フィルタ通過";
+                    return $ctrl.filterData.mode === "inclusive" ? "any filter passes" : "all filters pass";
                 };
 
                 $ctrl.getFilterType = function(typeId) {

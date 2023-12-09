@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "slootsAlertMessage",
-        description: "The alert message included with a StreamLoots Chest/Card.",
+        description: "StreamLootsチェスト/カードに含まれる警告メッセージ.",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

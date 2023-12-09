@@ -40,18 +40,18 @@ const v4EffectTypeMap = {
 };
 
 const v4IncompatibilityReasonMap = {
-    "Change Group": "V5 handles groups/scenes fundamentally different",
-    "Change Scene": "V5 handles groups/scenes fundamentally different",
-    "Cooldown": "V5 handles control cooldowns fundamentally different",
-    "Run Command": "Impossible to import effect",
-    "Show Event": "Effect is no longer supported",
-    "Clear Effects": "Effect is fundementally different in V5",
-    "Group List": "V5 handles groups/scenes fundamentally different",
-    "Scene List": "V5 handles groups/scenes fundamentally different",
-    "Command List": "Effect doesn't exist in V5 as this functionality now exists as a System Command",
-    "Change User Scene": "V5 handles groups/scenes fundamentally different",
-    "Change Group Scene": "V5 handles groups/scenes fundamentally different",
-    "Update Button": "V5 handles control updates fundamentally different"
+    "Change Group": "V5はグループ／シーンの扱いが根本的に異なります",
+    "Change Scene": "V5はグループ／シーンの扱いが根本的に異なります",
+    "Cooldown": "V5は再実行までの待ち（クールダウン）の扱いが根本的に違う",
+    "Run Command": "この演出は取り込めません",
+    "Show Event": "この演出のサポートは終了しました",
+    "Clear Effects": "V5では演出の考え方が根本的に異なります",
+    "Group List": "V5はグループ／シーンの扱いが根本的に異なります",
+    "Scene List": "V5はグループ／シーンの扱いが根本的に異なります",
+    "Command List": "この機能はシステムコマンドとして存在するため、演出としての設定はありません。",
+    "Change User Scene": "V5はグループ／シーンの扱いが根本的に異なります",
+    "Change Group Scene": "V5はグループ／シーンの扱いが根本的に異なります",
+    "Update Button": "V5ではコントロールの更新の仕方が根本的に異なります"
 };
 
 function updateReplaceVariables(effect) {
@@ -76,13 +76,13 @@ function updateReplaceVariables(effect) {
 
 function mapV4Effect (v4Effect, triggerData, incompatibilityWarnings) {
     if (v4Effect == null || v4Effect.type == null) {
-        throw new IncompatibilityError("v4 effect isn't formatted properly.");
+        throw new IncompatibilityError("v4の演出設定が正しいフォーマットで設定されていません。");
     }
     const v5EffectTypeId = v4EffectTypeMap[v4Effect.type];
 
     // Null signifies we dont support this v4 effect
     if (v5EffectTypeId == null) {
-        const reason = v4IncompatibilityReasonMap[v4Effect.type] || "Unknown effect";
+        const reason = v4IncompatibilityReasonMap[v4Effect.type] || "不明な演出";
         throw new IncompatibilityError(reason);
     }
 
@@ -139,9 +139,9 @@ exports.mapV4EffectList = (v4EffectList, triggerData) => {
                 reason = error.reason;
             } else {
                 logger.warn("Error during v4 effect import", error);
-                reason = "An unexpected error occurred";
+                reason = "予期せぬエラーが発生しました";
             }
-            const message = `Could not import V4 Effect '${v4Effect.type}' in ${triggerData.type} '${triggerData.name}' because: ${reason}`;
+            const message = `V4の演出を取り込めません：  ${triggerData.type} の'${v4Effect.type}' '${triggerData.name}' 。理由: ${reason}`;
             incompatibilityWarnings.push(message);
         }
     }

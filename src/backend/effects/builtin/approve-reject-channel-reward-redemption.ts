@@ -42,7 +42,7 @@ const model: EffectType<{
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                注：Firebotで作成されたチャンネル特典の償還のみ承認/拒否することができます。
+                注：Firebotで作成されたチャンネル特典の交換のみ承認/拒否することができます。
             </div>
         </eos-container>
     `,

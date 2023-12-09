@@ -64,31 +64,31 @@
             $scope.timerOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             timerService.showAddEditTimerModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> Toggle Enabled</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
                         click: function () {
                             timerService.toggleTimerActiveState(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             timerService.duplicateTimer(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Timer",
-                                    question: `Are you sure you want to delete the Timer "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "タイマーの削除",
+                                    question: `タイマー "${item.name}" を削除しますか?`,
+                                    confirmLabel: "削除する",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then(confirmed => {
@@ -141,19 +141,19 @@
             $scope.scheduledTaskOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             scheduledTaskService.showAddEditScheduledTaskModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> Toggle Enabled</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
                         click: function () {
                             scheduledTaskService.toggleScheduledTaskEnabledState(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             scheduledTaskService.duplicateScheduledTask(item.id);
                         }
@@ -163,9 +163,9 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Scheduled Effect List",
-                                    question: `Are you sure you want to delete the Scheduled Effect List "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "予定された演出リストの削除",
+                                    question: `リスト "${item.name}" を削除しますか?`,
+                                    confirmLabel: "削除する",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then(confirmed => {

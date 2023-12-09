@@ -84,7 +84,7 @@ function refreshHotkeyCache(retry = 1) {
         } else {
             renderWindow.webContents.send(
                 "error",
-                "Could not sync up Hotkeys cache."
+                "ホットキーのキャッシュを同期できませんでした。"
             );
         }
     } catch (err) {

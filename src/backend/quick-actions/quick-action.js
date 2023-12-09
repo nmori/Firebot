@@ -20,7 +20,7 @@ class SystemQuickAction {
      * @abstract
      */
     onTriggerEvent() {
-        throw new Error("Please implement this method");
+        throw new Error("この関数を実装してください");
     }
 
     /**

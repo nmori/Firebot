@@ -24,8 +24,8 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
   {
     definition: {
       id: "ebiggz:obs-toggle-source-filter",
-      name: "Toggle OBS Filter",
-      description: "Toggle filters for OBS sources and scenes",
+      name: "OBSフィルターの適用状態を切り替え",
+      description: "BSフィルターの適用状態を切り替えます",
       icon: "fad fa-stars",
       categories: ["common"],
     },
@@ -33,8 +33,8 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
     <eos-container header="Filters">
       <div class="effect-setting-container">
         <div class="input-group">
-          <span class="input-group-addon">Filter</span>
-          <input type="text" class="form-control" ng-change="filterSources(searchText)" ng-model="searchText" placeholder="Enter your search term here..." aria-describeby="obs-visibility-search-box">
+          <span class="input-group-addon">フィルタ</span>
+          <input type="text" class="form-control" ng-change="filterSources(searchText)" ng-model="searchText" placeholder="検索..." aria-describeby="obs-visibility-search-box">
         </div>
       </div>
       <br>
@@ -51,9 +51,9 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
                 {{getFilterActionDisplay(source.name, filter.name)}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, true)"><a href>Enable</a></li>
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, false)"><a href>Disable</a></li>
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, 'toggle')"><a href>Toggle</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, true)"><a href>有効</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, false)"><a href>無効</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, 'toggle')"><a href>切り替え</a></li>
                 </ul>
             </div>
           </div>
@@ -63,7 +63,7 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
         No sources with filters found.
       </div>
       <div ng-if="sourceList == null" class="muted">
-        No sources found. Is OBS running?
+        ソースが見つかりません。OBSは動いていますか？
       </div>
       <p>
           <button class="btn btn-link" ng-click="getSourceList()">Refresh Filter Data</button>
@@ -125,12 +125,12 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
         if (selectedFilter == null) return "";
 
         if (selectedFilter.action === "toggle") {
-          return "Toggle";
+          return "切り替え";
         }
         if (selectedFilter.action === true) {
-          return "Enable";
+          return "有効";
         }
-        return "Disable";
+        return "無効";
       };
 
       const capitalizeWords = (input: string) =>

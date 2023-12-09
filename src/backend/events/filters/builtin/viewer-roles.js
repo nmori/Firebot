@@ -7,8 +7,8 @@ const chatRolesManager = require("../../../roles/chat-roles-manager");
 
 module.exports = {
     id: "firebot:viewerroles",
-    name: "Viewer's Roles",
-    description: "Filter to a given viewer role",
+    name: "視聴者の役割",
+    description: "視聴者の役割でフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },

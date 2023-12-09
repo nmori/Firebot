@@ -19,13 +19,13 @@ export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
   {
     definition: {
       id: "ebiggz:obs-toggle-source-muted",
-      name: "Toggle OBS Audio Source Muted",
-      description: "Toggle an OBS source's muted status",
+      name: "OBS 音声ソースのミュート",
+      description: "OBS音声ソースのミュート状態を切り替える",
       icon: "fad fa-volume-mute",
       categories: ["common"],
     },
     optionsTemplate: `
-    <eos-container header="Audio Sources">
+    <eos-container header="音声ソース">
       <firebot-input model="searchText" input-title="Filter"></firebot-input>
       <br>
       <div ng-if="sourceList != null && sourceList.length > 0" ng-repeat="source in sourceList | filter: {name: searchText}">
@@ -39,21 +39,21 @@ export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
                 {{getSourceActionDisplay(source.name)}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem" ng-click="setSourceAction(source.name, true)"><a href>Mute</a></li>
-                    <li role="menuitem" ng-click="setSourceAction(source.name, false)"><a href>Unmute</a></li>
-                    <li role="menuitem" ng-click="setSourceAction(source.name, 'toggle')"><a href>Toggle</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, true)"><a href>ミュートを設定</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, false)"><a href>ミュートを解除</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, 'toggle')"><a href>ミュート状態を反転</a></li>
                 </ul>
             </div>
           </div>
         </div>
       <div ng-if="sourceList != null && sourceList.length < 1" class="muted">
-        No audio sources found.
+        オーディオソースがみつかりません
       </div>
       <div ng-if="sourceList == null" class="muted">
-        No sources found. Is OBS running?
+        ソースが見つかりません。OBSは動いていますか？
       </div>
       <p>
-          <button class="btn btn-link" ng-click="getSourceList()">Refresh Sources</button>
+          <button class="btn btn-link" ng-click="getSourceList()">再読み込み</button>
       </p>
     </eos-container>
   `,
@@ -102,12 +102,12 @@ export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
         if (selectedSource == null) return "";
 
         if (selectedSource.action === "toggle") {
-          return "Toggle";
+          return "ミュート状態を反転";
         }
         if (selectedSource.action === true) {
-          return "Mute";
+          return "ミュートを設定";
         }
-        return "Unmute";
+        return "ミュートを解除";
       };
 
       const capitalizeWords = (input: string) =>

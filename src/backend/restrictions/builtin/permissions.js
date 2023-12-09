@@ -7,8 +7,8 @@ const twitchRolesManager = require("../../../shared/twitch-roles");
 const model = {
     definition: {
         id: "firebot:permissions",
-        name: "Permissions",
-        description: "Restrict based on viewer roles or username.",
+        name: "役割",
+        description: "視聴者の役割またはユーザー名に基づいて制限する.",
         triggers: []
     },
     optionsTemplate: `
@@ -17,11 +17,11 @@ const model = {
                 Mode
             </div>
             <div style="margin-bottom: 10px">
-                <label class="control-fb control--radio">Roles <span class="muted"><br />Restrict access to select viewer roles</span>
+                <label class="control-fb control--radio">役割 <span class="muted"><br />特定の役割のアクセスを制限する</span>
                     <input type="radio" ng-model="restriction.mode" value="roles"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >Single Viewer <span class="muted"><br />Restrict access to a single viewer name</span>
+                <label class="control-fb control--radio" >視聴者 <span class="muted"><br />個別の視聴者名でアクセスを制限する</span>
                     <input type="radio" ng-model="restriction.mode" value="viewer"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -33,7 +33,7 @@ const model = {
                 </div>
                 <div class="viewer-group-list">
                     <div ng-show="hasCustomRoles" style="margin-bottom: 10px;">
-                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Custom</div>
+                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">カスタム</div>
                         <label ng-repeat="customRole in getCustomRoles()" class="control-fb control--checkbox">{{customRole.name}}
                             <input type="checkbox" ng-click="toggleRole(customRole)" ng-checked="isRoleChecked(customRole)"  aria-label="..." >
                             <div class="control__indicator"></div>
@@ -45,7 +45,7 @@ const model = {
                         <div class="control__indicator"></div>
                     </label>
                     <div ng-show="getTeamRoles().length > 0" style="margin-bottom: 10px;">
-                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Teams</div>
+                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">チーム</div>
                         <label ng-repeat="teamRole in getTeamRoles()" class="control-fb control--checkbox">{{teamRole.name}}
                             <input type="checkbox" ng-click="toggleRole(teamRole)" ng-checked="isRoleChecked(teamRole)"  aria-label="..." >
                             <div class="control__indicator"></div>

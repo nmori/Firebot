@@ -92,7 +92,7 @@ class RestrictionsManager extends EventEmitter {
 
             if (restrictionData.mode === "none") {
                 if (restrictionPassed) {
-                    return Promise.reject(`You don't meet the requirements.`);
+                    return Promise.reject(`あなたは条件を満たしていません`);
                 }
                 return Promise.resolve();
             }

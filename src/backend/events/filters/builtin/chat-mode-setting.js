@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:chatmodesetting",
-    name: "Setting",
-    description: "Filter by a chat mode's setting",
+    name: "設定",
+    description: "チャット設定でフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],
@@ -15,22 +15,22 @@ module.exports = {
         return [
             {
                 value: "enabled",
-                display: "Enabled"
+                display: "有効"
             },
             {
                 value: "disabled",
-                display: "Disabled"
+                display: "無効"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
         case "enabled":
-            return "Enabled";
+            return "有効";
         case "disabled":
-            return "Disabled";
+            return "無効";
         default:
-            return "[Not set]";
+            return "[なし]";
         }
     },
     predicate: async (filterSettings, eventData) => {

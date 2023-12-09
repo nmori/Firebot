@@ -7,8 +7,8 @@ const { OutputDataType, VariableCategory } = require("../../../../shared/variabl
 module.exports = {
     definition: {
         handle: "ANY",
-        usage: "ANY[condition, condition, ...]",
-        description: 'Returns true if any of the conditions are true. Only works within $if[]',
+        usage: "ANY[条件, 条件, ...]",
+        description: '条件のいずれかが成立する場合、Trueを返す。$if[] 内でのみ動作します。',
         examples: [
             {
                 usage: 'ANY[a === b, c === c]',

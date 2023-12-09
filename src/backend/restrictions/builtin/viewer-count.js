@@ -8,8 +8,8 @@ const logger = require("../../logwrapper");
 const model = {
     definition: {
         id: "firebot:channelViewers",
-        name: "Channel Viewer Count",
-        description: "Restricts when channel has a certain number of current viewers.",
+        name: "チャンネル視聴者数",
+        description: "チャンネルに一定の視聴者がいる場合に制限する。",
         triggers: []
     },
     optionsTemplate: `
@@ -19,17 +19,17 @@ const model = {
         </div>
         <div>
             <select class="fb-select" ng-model="restriction.comparison">
-                <option label="Less than (or equal to)" value="less">Less than (or equal to)</option>
-                <option label="Greater than (or equal to)" value="greater">Greater than (or equal to)</option>
-                <option label="Equal to" value="equal">Equal to</option>
+                <option label="Less than (or equal to)" value="less">以下</option>
+                <option label="Greater than (or equal to)" value="greater">以上</option>
+                <option label="Equal to" value="equal">同等</option>
             </select>
         </div>
 
         <div id="numberOfViewers" class="modal-subheader" style="padding: 0 0 4px 0">
-            Amount
+            設定値
         </div>
         <div class="form-group">
-            <input type="number" class="form-control" ng-model="restriction.amount" placeholder="Enter viewer count">
+            <input type="number" class="form-control" ng-model="restriction.amount" placeholder="視聴者数を入力">
         </div>
     </div>
     `,
@@ -81,7 +81,7 @@ const model = {
             }
 
             if (currentViewers) {
-                return reject(`Can't determine the current number of viewers.`);
+                return reject(`現在の視聴者数を把握できません`);
             }
 
             const comparison = restrictionData.comparison;
@@ -110,7 +110,7 @@ const model = {
             if (passed) {
                 resolve();
             } else {
-                reject(`Viewer count must be ${comparisonText} ${numViewers}.`);
+                reject(`視聴者数は${comparisonText} ${numViewers}.`);
             }
         });
     }

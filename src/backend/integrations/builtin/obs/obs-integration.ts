@@ -135,43 +135,43 @@ const integrationConfig: Integration<ObsSettings> = {
     id: "OBS",
     name: "OBS",
     description:
-      "Connect to OBS to allow Firebot to change scenes, toggle sources and filters, and much more. Requires OBS 28+ or the obs-websocket v5 plugin.",
+      "OBSに接続し、Firebotがシーンの変更、ソースやフィルターの切り替えなどを行えるようにします。OBS 28以降に対応しており、obs-websocket v5プラグインの設定が必要です。",
     linkType: "none",
     configurable: true,
     connectionToggle: false,
     settingCategories: {
       websocketSettings: {
-        title: "Websocket Settings",
+        title: "Websocket 設定",
         sortRank: 1,
         settings: {
           ipAddress: {
-            title: "IP Address",
+            title: "IP アドレス",
             description:
-              "The ip address of the computer running OBS. Use 'localhost' for the same computer.",
+              "OBSを実行しているコンピュータのIPアドレス。同じコンピュータの場合は'localhost'を使用してください。",
             type: "string",
             default: "localhost",
           },
           port: {
-            title: "Port",
+            title: "通信ポート",
             description:
-              "Port the OBS Websocket is running on. Default is 4455.",
+              "OBS Websocket が動作しているポート。デフォルトは4455です。",
             type: "number",
             default: 4455,
           },
           password: {
-            title: "Password",
-            description: "The password set for the OBS Websocket.",
+            title: "パスワード",
+            description: "OBS Websocketに設定されたパスワード.",
             type: "password",
             default: "",
           },
         },
       },
       misc: {
-        title: "Misc",
+        title: "一般",
         sortRank: 2,
         settings: {
           logging: {
-            title: "Enable logging for OBS Errors",
+            title: "OBSエラーログの記録を有効にする",
             type: "boolean",
             default: false,
           },

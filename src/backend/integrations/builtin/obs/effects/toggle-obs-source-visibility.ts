@@ -25,17 +25,17 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
 {
   definition: {
     id: "ebiggz:obs-toggle-source-visibility",
-    name: "Toggle OBS Source Visibility",
-    description: "Toggle an OBS source's visibility",
+    name: "OBSソースの表示状態を切り替える",
+    description: "TOBSソースの表示状態を切り替える",
     icon: "fad fa-clone",
     categories: ["common"],
   },
   optionsTemplate: `
-<eos-container header="Sources">
+<eos-container header="ソース">
   <div class="effect-setting-container">
     <div class="input-group">
-      <span class="input-group-addon">Filter</span>
-      <input type="text" class="form-control" ng-change="filterScenes(searchText)" ng-model="searchText" placeholder="Enter your search term here..." aria-describeby="obs-visibility-search-box">
+      <span class="input-group-addon">フィルタ</span>
+      <input type="text" class="form-control" ng-change="filterScenes(searchText)" ng-model="searchText" placeholder="検索..." aria-describeby="obs-visibility-search-box">
     </div>
   </div>
 
@@ -53,19 +53,19 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
               {{getSourceActionDisplay(sceneName, source.id)}} <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, true)"><a href>Show</a></li>
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, false)"><a href>Hide</a></li>
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, 'toggle')"><a href>Toggle</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, true)"><a href>表示</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, false)"><a href>隠す</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, 'toggle')"><a href>切り替え</a></li>
               </ul>
           </div>
         </div>
       </div>
     </div>
     <div ng-if="sourceData == null" class="muted">
-      No sources found. Is OBS running?
+      ソースが見つかりません。OBSは動いていますか？
     </div>
     <p>
-        <button class="btn btn-link" ng-click="getSourceData()">Refresh Source Data</button>
+        <button class="btn btn-link" ng-click="getSourceData()">ソースを更新</button>
     </p>
   </div>
 </eos-container>
@@ -141,12 +141,12 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
       if (selectedSource == null) return "";
 
       if (selectedSource.action === "toggle") {
-        return "Toggle";
+        return "切り替え";
       }
       if (selectedSource.action === true) {
-        return "Show";
+        return "表示";
       }
-      return "Hide";
+      return "隠す";
     };
 
     $scope.getSourceData = () => {

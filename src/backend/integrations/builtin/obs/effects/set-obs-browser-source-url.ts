@@ -7,27 +7,27 @@ export const SetOBSBrowserSourceUrlEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-browser-source-url",
-    name: "Set OBS Browser Source URL",
-    description: "Sets the URL in an OBS browser source",
+    name: "OBSブラウザソースのURLを変更",
+    description: "OBSブラウザソースのURLを変更します",
     icon: "fad fa-browser",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS Browser Source">
+    <eos-container header="OBS ブラウザソース">
         <ui-select ng-model="selected" on-select="selectBrowserSource($select.selected.name)">
-          <ui-select-match placeholder="Select a Browser Source...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="ブラウザソースを選ぶ...">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="source in browserSources | filter: {name: $select.search}">
             <div ng-bind-html="source.name | highlight: $select.search"></div>
           </ui-select-choices>
           <ui-select-no-choice>
-          <b>No browser sources found.</b>
+          <b>ブラウザソースはありません.</b>
           </ui-select-no-choice>
         </ui-select>
         <div ng-if="browserSources == null" class="muted">
-            No sources found. Is OBS running?
+          ソースが見つかりません。OBSは動いていますか？
         </div>
         <p>
-            <button class="btn btn-link" ng-click="getBrowserSources()">Refresh Source Data</button>
+            <button class="btn btn-link" ng-click="getBrowserSources()">ソースを更新</button>
         </p>
     </eos-container>
     <eos-container ng-if="browserSources != null && effect.browserSourceName != null" header="URL" style="margin-top: 10px;">
@@ -53,7 +53,7 @@ export const SetOBSBrowserSourceUrlEffectType: EffectType<{
   },
   optionsValidator: (effect) => {
     if (effect.browserSourceName == null) {
-      return ["Please select a browser source."];
+      return ["ブラウザのソースを選択してください"];
     }
     return [];
   },

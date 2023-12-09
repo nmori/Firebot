@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:donation-amount",
-    name: "Donation Amount",
-    description: "Filter by the amount of donation from StreamLabs/Tipeee/ExtraLife",
+    name: "ドネーション金額",
+    description: "StreamLabs/Tipeee/ExtraLifeからのドネーション金額で絞り込む",
     events: [
         { eventSourceId: "streamlabs", eventId: "donation" },
         { eventSourceId: "streamlabs", eventId: "eldonation" },

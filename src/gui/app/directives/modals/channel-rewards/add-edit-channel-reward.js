@@ -132,7 +132,7 @@
                             >
                                 <div>
                                     <label class="control-label" style="margin:0;">ストリームごとの利用制限</label>
-                                    <p class="help-block">視聴者の最大合計償還額</p>
+                                    <p class="help-block">視聴者の最大合計交換額</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
@@ -161,7 +161,7 @@
                             >
                                 <div>
                                     <label class="control-label" style="margin:0;">1ユーザーあたりの利用回数制限</label>
-                                    <p class="help-block">視聴者1人・1ストリームあたりの最大個人償還額</p>
+                                    <p class="help-block">視聴者1人・1ストリームあたりの最大個人交換額</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>

@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../../shared/filter-constants");
 
 module.exports = {
     id: "streamloots:gift-purchase",
-    name: "Chest Purchase",
-    description: "Filter by whether or not the StreamLoots chest purchase was a gift.",
+    name: "チェスト購入",
+    description: "StreamLootsチェストの購入がギフトかどうかで絞り込む",
     events: [
         { eventSourceId: "streamloots", eventId: "purchase" }
     ],
@@ -15,21 +15,21 @@ module.exports = {
         return [
             {
                 value: "true",
-                display: "A Gift"
+                display: "ギフト"
             },
             {
                 value: "false",
-                display: "Not A Gift"
+                display: "ギフト以外"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
 
         if (filterSettings.value == null) {
-            return "[Not set]";
+            return "[未設定]";
         }
 
-        return filterSettings.value === "true" ? "A Gift" : "Not A Gift";
+        return filterSettings.value === "true" ? "ギフト" : "ギフト以外";
     },
     predicate: (filterSettings, eventData) => {
 

@@ -6,14 +6,14 @@ const TwitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:channelGame",
-        name: "Channel Category/Game",
-        description: "Restricts use to when the category/game is a specific category/game.",
+        name: "チャンネルカテゴリー/ゲーム",
+        description: "カテゴリ/ゲームが特定のカテゴリ/ゲームである場合に使用を制限する。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <ui-select ng-model="selectedGame" theme="bootstrap" spinner-enabled="true" on-select="gameSelected($item)" style="margin-bottom:10px;">
-                <ui-select-match placeholder="Search for category/game">
+                <ui-select-match placeholder="カテゴリー/ゲーム検索">
                     <div style="height: 21px; display:flex; flex-direction: row; align-items: center;">
                         <img style="height: 28px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
                         <div style="font-weight: 100;font-size: 17px;">{{$select.selected.name}}</div>
@@ -60,7 +60,7 @@ const model = {
             if (restriction.name != null) {
                 resolve(restriction.name);
             } else {
-                resolve('[Category/Game Not Set]');
+                resolve('[未設定]');
             }
         });
     },
@@ -76,12 +76,12 @@ const model = {
             const channel = await TwitchApi.channels.getChannelInformation(streamerId);
 
             if (channel == null) {
-                return reject(`Can't get channel information.`);
+                return reject(`チャンネル情報が取得できない.`);
             }
 
             const currentGameId = channel.gameId;
             if (currentGameId == null) {
-                return reject(`Can't determine the category/game being played.`);
+                return reject(`プレイしているカテゴリー／ゲームが特定できない.`);
             }
 
             let passed = false;
@@ -92,7 +92,7 @@ const model = {
             if (passed) {
                 resolve();
             } else {
-                reject(`Channel category/game isn't set to the correct category/game.`);
+                reject(`チャンネルのカテゴリー/ゲームが正しく設定されていない`);
             }
         });
     }

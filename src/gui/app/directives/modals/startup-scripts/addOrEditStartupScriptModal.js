@@ -9,7 +9,7 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewScript ? "Add New" : "Edit"}} 起動時スクリプト</h4>
+                <h4 class="modal-title">起動時スクリプトを{{$ctrl.isNewScript ? "新規追加" : "編集"}} </h4>
             </div>
             <div class="modal-body">
                 <div style="margin-top: 20px;">
