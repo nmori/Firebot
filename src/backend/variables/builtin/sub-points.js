@@ -11,7 +11,7 @@ const logger = require("../../logwrapper");
 const model = {
     definition: {
         handle: "subPoints",
-        description: "The number of sub points you currently have.",
+        description: "現在持っているサブポイントの数。",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

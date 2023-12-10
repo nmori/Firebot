@@ -9,9 +9,9 @@ type SevenTVEmotesResponse = Array<{
 export class SevenTVEmoteProvider extends ThirdPartyEmoteProvider<SevenTVEmotesResponse> {
     providerName = "7TV";
 
-    globalEmoteUrl = "https://api.7tv.app/v2/emotes/global";
+    globalEmoteUrl = "https://7tv.io/v3/emotes/global";
     getChannelEmotesUrl(streamerUserId: number): string {
-        return `https://api.7tv.app/v2/users/${streamerUserId}/emotes`;
+        return `https://7tv.io/v3/users/${streamerUserId}/emotes`;
     }
 
     private emoteMapper(response: SevenTVEmotesResponse): ThirdPartyEmote[] {
