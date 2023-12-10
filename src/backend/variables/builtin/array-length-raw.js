@@ -5,7 +5,7 @@ const model = {
     definition: {
         handle: "rawArrayLength",
         usage: "rawArrayLength[jsonArray]",
-        description: "Returns the length of the input raw array.",
+        description: "入力配列の長さを返す。",
         categories: [VariableCategory.ADVANCED, VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

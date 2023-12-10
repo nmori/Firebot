@@ -11,19 +11,19 @@ const model = {
     definition: {
         handle: "arg",
         usage: "arg[#]",
-        description: "Grabs the command argument (aka a word after the command !trigger) at the given index.",
+        description: "指定されたインデックスのコマンド引数（コマンド!triggerの後の単語）を取得します",
         examples: [
             {
                 usage: "arg[1,2]",
-                description: "Grab a range of args."
+                description: "引数の範囲を取得する"
             },
             {
                 usage: "arg[2,last]",
-                description: "Grab a range of args up to the last arg."
+                description: "最後の引数まで、引数の範囲を取得する。"
             },
             {
                 usage: "arg[all]",
-                description: "Grab all args. This is a good way to grab all text after the !command trigger."
+                description: "すべての引数を取得する。これは、!commandトリガーの後の全てのテキストを取得する良い方法です。"
             }
         ],
         triggers: {
@@ -75,12 +75,12 @@ const model = {
 
         // index needs to either be "all" or a number
         if (String(index).toLowerCase() !== "all" && isNaN(index)) {
-            throw new expressionish.ExpressionArgumentsError("First argument needs to be either 'all' or a number.", 0);
+            throw new expressionish.ExpressionArgumentsError("第一引数には'all'か数字を指定する。", 0);
         }
 
         // upperIndex needs to either be null, "last", or a number
         if (upperIndex != null && String(upperIndex).toLowerCase() !== "last" && isNaN(upperIndex)) {
-            throw new expressionish.ExpressionArgumentsError("Second argument needs to be either 'last' or a number.", 1);
+            throw new expressionish.ExpressionArgumentsError("第2引数には'last'か数字を指定する。", 1);
         }
 
         return true;

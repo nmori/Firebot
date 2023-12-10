@@ -7,14 +7,14 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "commafy",
-        description: "Adds the appropriate commas to a number.",
+        description: "数値に適切なカンマを加える.",
         usage: "commafy[number]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (_, number) => {
         if (isNaN(number)) {
-            return "[Error: not a number]";
+            return "[Error: 数字ではありません]";
         }
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }

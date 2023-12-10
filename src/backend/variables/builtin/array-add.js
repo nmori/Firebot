@@ -12,14 +12,14 @@ const model = {
         examples: [
             {
                 usage: 'arrayAdd["[1,2,3]", 4]',
-                description: "Adds 4 to the end of the array. (1,2,3,4)"
+                description: "配列の末尾に4を加える。(1,2,3,4)"
             },
             {
                 usage: 'arrayAdd["[1,2,3]", 4, true]',
-                description: 'Adds 4 to the beginning of the array. (4,1,2,3)'
+                description: '配列の先頭に4を加える。(4,1,2,3)'
             }
         ],
-        description: "Returns a new array with the added element",
+        description: "要素を追加した新しい配列を返します",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

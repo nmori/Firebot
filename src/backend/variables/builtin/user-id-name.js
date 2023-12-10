@@ -16,11 +16,11 @@ triggers[EffectTrigger.QUICK_ACTION] = true;
 module.exports = {
     definition: {
         handle: "useridname",
-        description: "The associated underlying user identifying name for the given trigger.",
+        description: "指定されたトリガの、関連する基本的なユーザ識別名。（アルファベットのユーザID）",
         triggers: triggers,
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {
-        return trigger.metadata.userIdName ?? trigger.metadata.useridname;
+        return trigger.metadata.eventData.userIdName ?? trigger.metadata.eventData.userIdName;
     }
 };

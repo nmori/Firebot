@@ -5,18 +5,18 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "rawArrayAdd",
-        usage: "rawArrayAdd[array, newElement]",
+        usage: "rawArrayAdd[配列, 新規要素]",
         examples: [
             {
                 usage: 'rawArrayAdd[some_array, 4]',
-                description: "Returns a new raw array after appending 4 to the end of the input raw array"
+                description: "some_arrayの末尾に4つを追加した新しい配列を返します"
             },
             {
                 usage: 'rawArrayAdd[some_array, 4, true]',
-                description: 'Retruns a new raw array after prepending 4 to the start of the input raw array'
+                description: 'some_array配列の先頭に4つを追加した新しい配列を返します'
             }
         ],
-        description: "Returns a new array with the added element",
+        description: "要素を追加した新しい配列を返します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

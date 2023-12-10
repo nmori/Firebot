@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "subCurrentStreak",
-        description: "Number of consecutive months a user has been subscribed to your channel.",
+        description: "ユーザーがあなたのチャンネルに連続して登録した月数。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.NUMBER]

@@ -9,7 +9,7 @@ const currencyDatabase = require("../../database/currencyDatabase");
 const model = {
     definition: {
         handle: "currency",
-        description: "How much of the given currency the given user has.",
+        description: "指定されたユーザーが、指定された通貨をどれだけ持っているか。",
         usage: "currency[currencyName, username]",
         categories: [VariableCategory.USER, VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]

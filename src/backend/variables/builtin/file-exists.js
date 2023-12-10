@@ -10,7 +10,7 @@ const model = {
     definition: {
         handle: "fileExists",
         usage: 'fileExists[path\\to\\file.txt]',
-        description: "Returns 'true' if a file exists, otherwise returns 'false'.",
+        description: "ファイルが存在すれば 'true' を返し、存在しなければ 'false' を返す。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

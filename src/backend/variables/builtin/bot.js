@@ -8,14 +8,14 @@ const { OutputDataType } = require("../../../shared/variable-constants");
 const model = {
     definition: {
         handle: "bot",
-        description: "Outputs the Bot account username.",
+        description: "Botアカウントのユーザー名を出力します。.",
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: () => {
         if (accountAccess.getAccounts().bot.loggedIn) {
             return accountAccess.getAccounts().bot.username;
         }
-        return "Unknown Bot";
+        return "不明なBot";
     }
 };
 

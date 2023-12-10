@@ -15,14 +15,14 @@ const model = {
         examples: [
             {
                 usage: "customVariableKeys[name, 1]",
-                description: "Get the array of keys for an object which is an array item by providing an array index as a second argument."
+                description: "配列のインデックスを第2引数として与えて、配列アイテムであるオブジェクトのキーの配列を取得する。"
             },
             {
                 usage: "customVariableKeys[name, property]",
-                description: "Get the array of keys for an object property by providing a property path (using dot notation) as a second argument."
+                description: "第2引数にプロパティ・パス（ドット記法）を与えて、オブジェクト・プロパティのキーの配列を取得する。"
             }
         ],
-        description: "Get the array of keys for an object saved in the custom variable.",
+        description: "カスタム変数に保存されているオブジェクトのキーの配列を取得します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

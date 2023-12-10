@@ -12,7 +12,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "rawArgArray",
-        description: "Returns the raw array of command arguments",
+        description: "コマンド引数の生の配列を返す",
         triggers: triggers,
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]

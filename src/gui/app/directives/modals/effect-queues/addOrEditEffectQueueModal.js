@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <div class="modal-subheader pb-2 pt-0 px-0">MODE</div>
+                    <div class="modal-subheader pb-2 pt-0 px-0">動作モード</div>
                     <div>
                         <ui-select ng-model="$ctrl.effectQueue.mode" theme="bootstrap" class="control-type-list">
                             <ui-select-match placeholder="Select queue mode">{{$select.selected.display}}</ui-select-match>

@@ -55,7 +55,7 @@
                 },
                 {
                     id: "auto",
-                    display: "順序",
+                    display: "キュー",
                     description: "キュー内の演出リストを順番に実行します。優先度の高いアイテムが、優先度の低いアイテムより先に追加されます（遅延の初期設定は0秒）",
                     iconClass: "fa-arrow-down-1-9"
                 },

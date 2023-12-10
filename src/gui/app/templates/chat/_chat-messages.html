@@ -14,7 +14,7 @@
     ng-style="{'width': layout.dashboardViewerList }"
   >
     <div class="viewer-list-header">
-      <span role="heading" aria-level="2"> CHAT USERS </span>
+      <span role="heading" aria-level="2"> チャットメンバー</span>
     </div>
     <div class="chat-users mt-2">
       <chat-user-category category="Moderators" role-key="mod" />
@@ -110,12 +110,12 @@
           <span
             class="dropdown-toggle chatter-dropdown"
             data-toggle="dropdown"
-            uib-tooltip="Chat as"
+            uib-tooltip="アカウント"
             tooltip-placement="left"
             tooltip-append-to-body="true"
           >
             <span class="ml-4" style="width: 100%; text-align: center"
-              >{{chatSender}}</span
+              >{{chatSender === 'Streamer' ? '配信者':'Bot'}}</span
             >
             <div class="fb-arrow down mx-4 mb-1"></div>
           </span>
@@ -166,7 +166,7 @@
   >
     <div class="activity-feed-header">
       <div style="display: flex; align-items: center">
-        <span>アクティブフィード</span>
+        <span>アクティビティフィード</span>
         <span
           ng-show="afs.unacknowledgedCount() > 0"
           uib-tooltip="Unacknowledged events"
@@ -191,7 +191,7 @@
           uib-dropdown-toggle
           class="clickable"
           style="color: white; font-size: 20px; line-height: 1"
-          aria-label="アクティブフィードのオプション"
+          aria-label="オプション"
         >
           <i class="far fa-ellipsis-v"></i>
         </a>
@@ -200,7 +200,7 @@
             <a href ng-click="afs.toggleMarkAllAcknowledged()"
               ><i
                 class="far fa-check-square mr-4"
-                aria-label="すべてのイベントに承認マークを付ける"
+                aria-label="すべてのアクティビティに承認マークを付ける"
               ></i>
               すべてを {{afs.allAcknowledged() ? '未承認' :
               '承認済'}}</a
@@ -208,8 +208,8 @@
           </li>
           <li>
             <a href ng-click="afs.showEditActivityFeedEventsModal()"
-              ><i class="far fa-toggle-off mr-4" aria-label="イベント編集"></i>
-              イベント編集</a
+              ><i class="far fa-toggle-off mr-4" aria-label="アクティビティ編集"></i>
+              アクティビティ編集</a
             >
           </li>
           <!-- <li class="divider"></li> -->

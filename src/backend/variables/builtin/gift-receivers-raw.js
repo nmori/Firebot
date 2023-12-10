@@ -10,14 +10,14 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "rawGiftReceivers",
-        description: "Returns a raw array containing the recipients' usernamess and months subbed",
+        description: "受信者のユーザー名とサブスク月数を含む生の配列を返します。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.USER, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.ALL]
     },
     evaluator: (trigger) => {
         if (trigger == null || trigger.metadata == null || trigger.metadata.eventData == null || trigger.metadata.eventData.giftReceivers == null) {
-            return "Failed to get gift receiver info";
+            return "ギフトの受取人情報の取得に失敗しました";
         }
 
         return trigger.metadata.eventData.giftReceivers.map(gr => ({

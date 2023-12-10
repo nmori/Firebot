@@ -8,23 +8,23 @@ const model = {
     definition: {
         handle: "categoryImageUrl",
         usage: "categoryImageUrl",
-        description: "Gets the url for the image url of your last streamed category.",
+        description: "最後にストリーミングされたカテゴリの画像のURLを取得します。",
         examples: [
             {
                 usage: "categoryImageUrl[$target]",
-                description: "When in a command, gets the image url of the last streamed category for the target channel."
+                description: "コマンドの場合、ターゲットチャンネルで最後にストリームされたカテゴリの画像のURLを取得します。"
             },
             {
                 usage: "categoryImageUrl[$user]",
-                description: "Gets the image url of the last streamed category for associated user (Ie who triggered command, pressed button, etc)."
+                description: "関連するユーザー(コマンドをトリガーした、ボタンを押したなど)の最後にストリームされたカテゴリの画像のURLを取得します。"
             },
             {
                 usage: "categoryImageUrl[ebiggz]",
-                description: "Gets the image url of the last streamed category for a specific channel."
+                description: "特定のチャンネルで最後にストリームされたカテゴリの画像URLを取得します。"
             },
             {
                 usage: "categoryImageUrl[ebiggz, 285x380]",
-                description: "Get a different image size (use aspect ratio 4:3). Default is 285x380."
+                description: "異なる画像サイズを取得する（アスペクト比4:3を使用）。デフォルトは285x380です。"
             }
         ],
         categories: [VariableCategory.USER],
@@ -39,9 +39,9 @@ const model = {
             const channelInfo = await twitchApi.channels.getChannelInformationByUsername(username);
             const category = await twitchApi.categories.getCategoryById(channelInfo.gameId, size);
 
-            return category.boxArtUrl ? category.boxArtUrl : "[No Category Image Found]";
+            return category.boxArtUrl ? category.boxArtUrl : "[イメージなし]";
         } catch (err) {
-            return "[No Category Image Found]";
+            return "[イメージなし]";
         }
     }
 };

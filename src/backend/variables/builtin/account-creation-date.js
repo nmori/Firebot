@@ -9,19 +9,19 @@ const logger = require("../../logwrapper");
 const model = {
     definition: {
         handle: "accountCreationDate",
-        description: "The creation date of your Twitch account.",
+        description: "Twitchアカウントの作成日",
         examples: [
             {
                 usage: "accountCreationDate[$target]",
-                description: "When in a command, gets the creation date for the target user's Twitch account."
+                description: "コマンドを入力すると、対象ユーザーのTwitchアカウントの作成日を取得します。"
             },
             {
                 usage: "accountCreationDate[$user]",
-                description: "Gets the creation date for associated user's Twitch account (Ie who triggered command, pressed button, etc)."
+                description: "関連するユーザーのTwitchアカウントの作成日を取得します。"
             },
             {
                 usage: "accountCreationDate[ChannelOne]",
-                description: "Gets the creation date for a specific user's Twitch account/channel."
+                description: "特定のユーザーのTwitchアカウント/チャンネルの作成日を取得します。"
             }
         ],
         categories: [VariableCategory.USER],

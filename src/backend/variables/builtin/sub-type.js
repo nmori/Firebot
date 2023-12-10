@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "subType",
-        description: "The type of subscription (Tier 1, Tier 2, Tier 3, Prime)",
+        description: "サブスクリプションの種類（ティア1、ティア2、ティア3、プライム）",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

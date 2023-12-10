@@ -12,7 +12,7 @@ triggers[EffectTrigger.EVENT] = ["twitch:chat-message", "firebot:highlight-messa
 const model = {
     definition: {
         handle: "chatMessage",
-        description: "Outputs the chat message from the associated command or event.",
+        description: "関連するコマンドまたは演出のチャットメッセージを出力します。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]

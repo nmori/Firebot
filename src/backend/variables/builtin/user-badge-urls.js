@@ -15,10 +15,10 @@ const model = {
         examples: [
             {
                 usage: "userBadgeUrls[1]",
-                description: "Get the URL of a chatter's selected badge image."
+                description: "チャッターが選択したバッジ画像の URL を取得します。"
             }
         ],
-        description: "Outputs the URLs of a chatter's selected badge images from the associated command or event.",
+        description: "チャッターが選択したバッジ画像の URL を、関連するコマンドまたはイベントから出力します。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

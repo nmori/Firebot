@@ -36,8 +36,9 @@
                             </a>
                         </div>
                         <div ng-show="$ctrl.isTwitchOrNewUser() && $ctrl.viewerDetails.twitchData" style="display:flex;margin-top:7px;">
-                            <div style="margin-right: 11px;" uib-tooltip="Twitch Age"><i class="fas fa-user-circle"></i> {{$ctrl.getAccountAge($ctrl.viewerDetails.twitchData.creationDate)}}</div>
+                            <div style="margin-right: 11px;" uib-tooltip="Twitch 利用期間"><i class="fas fa-user-circle"></i> {{$ctrl.getAccountAge($ctrl.viewerDetails.twitchData.creationDate)}}</div>
                         </div>
+                        <div style="margin-right: 11px;" uib-tooltip="アカウント"><i class="fas fa-id-card-clip"></i> {{$ctrl.viewerDetails.twitchData.username}}</div>
                         <div ng-show="$ctrl.isTwitchOrNewUser() && $ctrl.viewerDetails.twitchData" style="display:flex;margin-top:10px;">
                             <div ng-repeat="role in $ctrl.roles | orderBy : 'rank'" uib-tooltip="{{role.tooltip}}" ng-style="role.style" style="margin-right: 10px;font-size: 13px;text-transform: uppercase;font-weight: bold;font-family: "Roboto";">{{role.name}}</div>
                         </div>
@@ -50,7 +51,7 @@
 
                     <div ng-if="$ctrl.viewerDbEnabled" style="margin-top: 45px;margin-left: 10px;">
                         <div style="display:flex;margin-bottom:5px;">
-                            <div style="font-size:13px;font-weight: bold;opacity:0.9;">FIREBOT DATA</div>
+                            <div style="font-size:13px;font-weight: bold;opacity:0.9;">FIREBOT データ</div>
                             <span ng-show="$ctrl.hasFirebotData" ng-click="$ctrl.removeViewer()" style="color:#f96f6f;margin-left: 10px;font-size:12px;" class="clickable" uib-tooltip="この視聴者のデータを削除する" aria-label="この視聴者のデータを削除する"><i class="far fa-trash-alt"></i></span>
                         </div>
 
@@ -522,7 +523,7 @@
 
                     const joinDate = $ctrl.viewerDetails.firebotData.joinDate;
                     dataPoints.push(new ViewerDataPoint(
-                        "Join Date",
+                        "始めて来た日",
                         "fa-sign-in",
                         joinDate,
                         value => {
@@ -540,7 +541,7 @@
 
                     const lastSeen = $ctrl.viewerDetails.firebotData.lastSeen;
                     dataPoints.push(new ViewerDataPoint(
-                        "Last Seen",
+                        "最後に来た日",
                         "fa-eye",
                         lastSeen,
                         value => {
@@ -558,7 +559,7 @@
 
                     const minsInChannel = $ctrl.viewerDetails.firebotData.minutesInChannel || 0;
                     dataPoints.push(new ViewerDataPoint(
-                        "View Time",
+                        "視聴時間",
                         "fa-tv",
                         minsInChannel,
                         value => {

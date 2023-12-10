@@ -9,19 +9,19 @@ const model = {
     definition: {
         handle: "followAge",
         usage: "followAge[username]",
-        description: "The time a given viewer has been following the channel, in days by default.",
+        description: "視聴者がチャンネルをフォローしている時間。デフォルトでは日単位。",
         examples: [
             {
                 usage: "followAge[$user]",
-                description: "Gets how long the associated user (i.e. who triggered command, pressed button, etc) has been following the channel (in days)."
+                description: "関連するユーザー（コマンドをトリガーした人、ボタンを押した人など）がチャンネルをフォローしている時間（日単位）を取得する。."
             },
             {
                 usage: "followAge[$target]",
-                description: "Gets how long the target user has been following the channel (in days)."
+                description: "ターゲットユーザがチャンネルをフォローしている日数を取得 (日単位)."
             },
             {
                 usage: "followAge[username, unitOfTime]",
-                description: "Gets how long the specified username has been following the channel in a specific unit of time (in years, months, days, hours, or minutes)."
+                description: "指定したユーザ名がそのチャンネルをフォローしている時間を単位時間 (年、月、日、時間、分) で取得します。"
             }
         ],
         categories: [VariableCategory.NUMBERS, VariableCategory.USER],

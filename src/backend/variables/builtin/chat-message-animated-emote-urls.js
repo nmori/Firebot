@@ -15,10 +15,10 @@ const model = {
         examples: [
             {
                 usage: "chatMessageAnimatedEmoteUrls[1]",
-                description: "Get the URL of a specific animated emote. If the emote isn't animated, the result will return an empty string."
+                description: "特定のアニメーション絵文字のURLを取得します。エモートがアニメーションしていない場合、結果は空の文字列を返します。"
             }
         ],
-        description: "Outputs the URLs of a chat message's animated emotes from the associated command or event. Any emotes that don't have an animated version will return an empty string.",
+        description: "関連するコマンドまたはイベントから、チャットメッセージのアニメーション化されたエモートのURLを出力します。アニメーションバージョンを持たないエモートは空の文字列を返します。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

@@ -23,11 +23,11 @@ const model = {
     definition: {
         handle: "rawReadApi",
         usage: "rawReadApi[url]",
-        description: 'Calls the given url and inserts the response.',
+        description: '与えられた url を呼び出し、レスポンスを挿入します。',
         examples: [
             {
                 usage: 'rawReadApi[url, object.path.here]',
-                description: "Traverse a JSON response object."
+                description: "JSONレスポンスオブジェクトを読み込みます。"
             }
         ],
         categories: [VariableCategory.ADVANCED],
@@ -47,21 +47,21 @@ const model = {
                             if (objToTraverse[node] != null) {
                                 currentObject = objToTraverse[node];
                             } else {
-                                currentObject = "[JSON PARSE ERROR]";
+                                currentObject = "[JSONパースエラー]";
                                 break;
                             }
                         }
                         return currentObject ? currentObject.toString() : "";
                     } catch (err) {
                         logger.warn("error when parsing api json", err);
-                        return "[JSON PARSE ERROR]";
+                        return "[JSONパースエラー]";
                     }
                 }
             }
 
             return content;
         } catch (err) {
-            return "[API ERROR]";
+            return "[API エラー]";
         }
     }
 };

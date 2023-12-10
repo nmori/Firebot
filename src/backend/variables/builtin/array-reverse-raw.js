@@ -5,7 +5,7 @@ const model = {
     definition: {
         handle: "rawArrayReverse",
         usage: "rawArrayReverse[someRawArray]",
-        description: "Returns a new reversed array",
+        description: "反転させた配列を返す",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

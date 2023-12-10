@@ -10,7 +10,7 @@ const model = {
     definition: {
         handle: "chatMessages",
         usage: "chatMessages[username]",
-        description: "Displays the number of chat messages for a viewer (leave blank to use current viewer)",
+        description: "視聴者のチャットメッセージ数を表示します。",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

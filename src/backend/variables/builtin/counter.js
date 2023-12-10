@@ -10,7 +10,7 @@ const model = {
     definition: {
         handle: "counter",
         usage: "counter[name]",
-        description: "Displays the value of the given counter.",
+        description: "指定されたカウンタの値を表示する。",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

@@ -12,18 +12,18 @@ const model = {
         examples: [
             {
                 usage: "date[dddd MMMM Do]",
-                description: "Format with the preferred tokens."
+                description: "日付をフォーマットに沿って出力します"
             },
             {
                 usage: "date[MMM Do YYYY, 2, days]",
-                description: "Adds 2 days to the current date (or use other units i.e. months, years, etc.)."
+                description: "現在の日付に2日足す（月、年など他の単位を使うこともできる）。"
             },
             {
                 usage: "date[MMM Do YYY, -2, days]",
-                description: "Subtract 2 days from the current date (or use other units i.e. months, years, etc.)."
+                description: "現在の日付から2日を引く（または月、年など他の単位を使う）。"
             }
         ],
-        description: "The current date formatted as MMM Do YYYY",
+        description: "MMM Do YYYYでフォーマットされた現在の日付。",
         categories: [VariableCategory.COMMON],
         possibleDataOutput: [OutputDataType.TEXT]
     },

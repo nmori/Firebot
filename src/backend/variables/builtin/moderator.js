@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "moderator",
-        description: "The name of the moderator that performed the action (ban, unban, timeout, or chat mode change).",
+        description: "アクション（禁止、禁止解除、タイムアウト、チャットモードの変更）を実行したモデレーターの名前。",
         triggers: triggers,
         categories: [VariableCategory.USER, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.text]

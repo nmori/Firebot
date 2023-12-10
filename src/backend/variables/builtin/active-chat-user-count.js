@@ -10,7 +10,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "activeChatUserCount",
-        description: "Get the number of active viewers in chat.",
+        description: "チャットでアクティブな視聴者の数を取得します。",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

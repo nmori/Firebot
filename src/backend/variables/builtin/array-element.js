@@ -7,7 +7,7 @@ const model = {
     definition: {
         handle: "arrayElement",
         usage: "arrayElement[jsonArray, index]",
-        description: "Returns the element at the given index of the input JSON array.",
+        description: "入力JSON配列の指定されたインデックスの要素を返す",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT, OutputDataType.NUMBER]
     },

@@ -6,7 +6,7 @@ const { OutputDataType } = require("../../../shared/variable-constants");
 const model = {
     definition: {
         handle: "profilePageBytebinToken",
-        description: "Get bytebin id for streamer profile. Access the json by going to https://bytebin.lucko.me/ID-HERE.",
+        description: "配信者プロファイルのBytebinIDを取得する。jsonを取得には https://bytebin.lucko.me/[ID] へアクセス。",
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: async (trigger, page = "commands") => {

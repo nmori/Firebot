@@ -17,18 +17,18 @@ const model = {
         examples: [
             {
                 usage: "customVariable[name, 1]",
-                description: "Get an array item by providing an array index as a second argument."
+                description: "配列のインデックスを第2引数に与えて、配列の項目を取得する。"
             },
             {
                 usage: "customVariable[name, property]",
-                description: "Get a property by providing a property path (using dot notation) as a second argument."
+                description: "第2引数にプロパティパス（ドット記法）を与えてプロパティを取得する。"
             },
             {
                 usage: "customVariable[name, null, exampleString]",
-                description: "Set a default value in case the custom variable doesn't exist yet."
+                description: "カスタム変数がまだ存在しない場合のデフォルト値を設定する。"
             }
         ],
-        description: "Get the data saved in the custom variable.",
+        description: "カスタム変数に保存されているデータを取得します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
     },

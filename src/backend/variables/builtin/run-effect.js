@@ -10,10 +10,10 @@ const model = {
     definition: {
         handle: "runEffect",
         usage: "runEffect[effectJson]",
-        description: "Run an effect defined as json. Outputs an empty string. Please keep in mind that the power and flexibility afforded by this variable means it is very error prone. Only use if you know what you are doing.",
+        description: "jsonで定義されたエフェクトを実行します。空の文字列を出力します。この変数が持つパワーと柔軟性は、非常にエラーが起こりやすいことを意味することに留意してください。自分が何をしているかわかっている場合にのみ使用してください。",
         examples: [{
             usage: "runEffect[``{\"type\":\"firebot:chat\",\"message\":\"Hello world\"}``]",
-            description: "Runs a chat message effect. You can get an effects JSON data via the UI via the overflow menu in the top right of the Edit Effect modal. (Copy Effect Json > For $runEffect[])"
+            description: "チャットメッセージエフェクトを実行します。エフェクトのJSONデータは、エフェクト編集モーダルの右上にあるオーバーフローメニューからUI経由で取得できます。(エフェクトJsonをコピー > $runEffect[]の場合)"
         }],
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]

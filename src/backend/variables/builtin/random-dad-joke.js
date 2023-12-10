@@ -9,7 +9,7 @@ const model = {
     definition: {
         handle: "randomDadJoke",
         usage: "randomDadJoke",
-        description: "Get a random dad joke!",
+        description: "適当なオヤジギャグを言う！",
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: () => {

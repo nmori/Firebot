@@ -14,19 +14,19 @@ const model = {
     definition: {
         handle: "readFile",
         usage: 'readFile[path\\to\\file.txt]',
-        description: "Read contents of a text file.",
+        description: "テキストファイルの内容を読み込む。",
         examples: [
             {
                 usage: "readFile[path\\to\\file.txt, 1]",
-                description: "Read a specific line number from the file."
+                description: "ファイルから特定の行番号を読み取る。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, last]",
-                description: "Read the last line from the file."
+                description: "ファイルから最後の行を読む。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, random]",
-                description: "Read a random line from the file."
+                description: "ファイルからランダムな行を読み込む。"
             }
         ],
         categories: [VariableCategory.ADVANCED],
@@ -35,7 +35,7 @@ const model = {
     evaluator: (_, filePath, lineOrRandom) => {
 
         if (filePath === null) {
-            return "[File Path Error]";
+            return "[ファイルパスのエラー]";
         }
 
         try {
@@ -73,7 +73,7 @@ const model = {
             return contents;
         } catch (err) {
             logger.error("error reading file", err);
-            return "[Read File Error]";
+            return "[ファイル読み込みエラー］";
         }
     }
 };

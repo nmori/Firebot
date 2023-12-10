@@ -11,11 +11,11 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "quote",
-        description: "Get a random quote",
+        description: "ランダムな引用文",
         examples: [
             {
                 usage: "quote[#]",
-                description: "Get a specific quote id."
+                description: "特定の見積もりIDを取得します。"
             }
         ],
         categories: [VariableCategory.TEXT],
@@ -44,7 +44,7 @@ const model = {
         }
 
         logger.debug("Couldnt find a quote.");
-        return '[Cant find quote]';
+        return '[見つからない]';
     }
 };
 

@@ -9,15 +9,15 @@ const model = {
     definition: {
         handle: "arrayRemove",
         usage: "arrayRemove[jsonArray, index]",
-        description: "Returns a new array with the element at the given index removed",
+        description: "指定したインデックスの要素を取り除いた新しい配列を返します。",
         examples: [
             {
                 usage: 'arrayRemove["[1,2,3]", 0]',
-                description: "Removes the element at the 0 index (2,3)"
+                description: "インデックス0の要素を削除する (2,3)"
             },
             {
                 usage: 'arrayRemove["[1,2,3]", last]',
-                description: 'Removes the element at the last index (1,2)'
+                description: '最後のインデックス(1,2)の要素を削除する。'
             }
         ],
         categories: [VariableCategory.ADVANCED],

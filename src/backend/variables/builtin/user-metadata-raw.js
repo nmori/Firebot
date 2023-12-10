@@ -8,14 +8,14 @@ const model = {
         examples: [
             {
                 usage: "rawUserMetadata[username, metadataKey, defaultValue]",
-                description: "Provide a default value if one doesn't exist for the user."
+                description: "ユーザーにデフォルト値が存在しない場合、デフォルト値を提供する。."
             },
             {
                 usage: "rawUserMetadata[username, metadataKey, null, propertyPath]",
-                description: "Provide a property path (using dot notation) or array index as a second argument."
+                description: "第2引数として、プロパティパス（ドット記法を使用）または配列インデックスを指定します。."
             }
         ],
-        description: "Get the raw metadata associated with the user.",
+        description: "ユーザーに関連付けられている生のメタデータを取得する。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
     },

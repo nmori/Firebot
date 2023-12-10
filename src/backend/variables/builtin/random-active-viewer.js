@@ -12,15 +12,15 @@ const model = {
     definition: {
         handle: "randomActiveViewer",
         usage: "randomActiveViewer",
-        description: "Get a random active chatter.",
+        description: "ランダムにアクティブなおしゃべりをする。",
         examples: [
             {
                 usage: "randomActiveViewer[roleName]",
-                description: "Filter to an active viewer in a specific role."
+                description: "特定の役割のアクティブな視聴者へのフィルター."
             },
             {
                 usage: "randomActiveViewer[null, ignoreUser]",
-                description: "Get a random active user that is NOT the ignore user"
+                description: "無視ユーザーではないランダムなアクティブユーザーを取得する。"
             }
         ],
         categories: [VariableCategory.USER],
@@ -32,28 +32,28 @@ const model = {
         const activeViewerCount = activeUserHandler.getActiveUserCount();
 
         if (activeViewerCount === 0) {
-            return "[Unable to get random active user]";
+            return "[ランダムアクティブユーザーを取得できない]";
         }
 
         if (ignoreUser != null) {
             const randomViewer = activeUserHandler.getRandomActiveUser(ignoreUser);
-            return randomViewer ? randomViewer.username : "[Unable to get random active user]";
+            return randomViewer ? randomViewer.username : "[ランダムアクティブユーザーを取得できない]";
         }
 
         if (roleName != null) {
             const customRole = customRoleManager.getRoleByName(roleName);
             if (customRole == null) {
-                return "[Unable to get random active user]";
+                return "[ランダムアクティブユーザーを取得できない]";
             }
 
             const customRoleUsers = customRole.viewers;
             if (customRoleUsers.length === 0) {
-                return "[Unable to get random active user, customroles]";
+                return "[ランダムなアクティブユーザー、役割を取得できない]";
             }
 
             const usersWithRole = activeUserHandler.getAllActiveUsers().filter(user => customRoleUsers.includes(user.username));
             if (usersWithRole.length === 0) {
-                return "[Unable to get random active users]";
+                return "[ランダムアクティブユーザーを取得できない]";
             }
             const randIndex = util.getRandomInt(0, usersWithRole.length - 1);
             return usersWithRole[randIndex].username;
@@ -61,10 +61,10 @@ const model = {
 
         if (activeViewerCount > 0) {
             const randomViewer = activeUserHandler.getRandomActiveUser();
-            return randomViewer ? randomViewer.username : "[Unable to get random active user]";
+            return randomViewer ? randomViewer.username : "[ランダムアクティブユーザーを取得できない]";
         }
 
-        return "[Unable to get random active user]";
+        return "[ランダムアクティブユーザーを取得できない]";
     }
 };
 

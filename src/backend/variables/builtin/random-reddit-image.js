@@ -9,7 +9,7 @@ const model = {
     definition: {
         handle: "randomRedditImage",
         usage: "randomRedditImage[subredditName]",
-        description: "Get a random image from a subreddit. (We do our best to check for bad images, but content warning none the less.)",
+        description: "サブレディットからランダムに画像を取得する。(悪い画像がないかチェックするよう最善を尽くしますが、内容については警告します)。",
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (_, subreddit) => {

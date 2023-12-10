@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "giftSubType",
-        description: "The type of gifted subs (ie Tier 1, 2, 3).",
+        description: "サブスクギフトの種類（Tier 1、Tier 2、Tier 3など）。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

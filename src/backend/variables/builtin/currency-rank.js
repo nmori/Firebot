@@ -7,7 +7,7 @@ const currencyDatabase = require("../../database/currencyDatabase");
 const model = {
     definition: {
         handle: "currencyRank",
-        description: "Returns the rank of the given user based on how much of the given currency they have.",
+        description: "指定した通貨をどれだけ持っているかに基づいて、指定したユーザーのランクを返します。",
         usage: "currencyRank[currencyName, username]",
         categories: [VariableCategory.USER, VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]

@@ -26,15 +26,15 @@ const model = {
     definition: {
         handle: "arrayFindIndex",
         usage: "arrayFindIndex[jsonArray, matcher, propertyPath]",
-        description: "Finds a matching element in the array and returns it's index, or null if the element is absent",
+        description: "配列からマッチする要素を探し、そのインデックスを返す。",
         examples: [
             {
                 usage: 'arrayFindIndex["[\\"a\\",\\"b\\",\\"c\\"]", b]',
-                description: 'Returns 1 , the index of "b"'
+                description: '1（"b "のインデックス）を返す。'
             },
             {
                 usage: 'arrayFindIndex["[{\\"username\\": \\"alastor\\"},{\\"username\\": \\"ebiggz\\"}]", alastor, username]',
-                description: 'Returns 0, the index of the object where "username"="alastor"'
+                description: 'username"="alastor"のインデックス0を返す。'
             }
         ],
         categories: [VariableCategory.ADVANCED],

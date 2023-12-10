@@ -5,7 +5,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "padNumber",
-        description: "Pads the given number up to the specified number of decimal places.",
+        description: "指定された数値を指定された小数点以下の桁数まで繰り上げる。",
         usage: "padNumber[value, places]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]

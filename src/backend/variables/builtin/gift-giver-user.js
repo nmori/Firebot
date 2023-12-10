@@ -10,14 +10,14 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "giftGiverUsername",
-        description: "The name of the user who gifted a sub(s).",
+        description: "サブスクを贈ったユーザーの名前.",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {
         const gifterUsername = trigger.metadata.eventData.gifterUsername;
-        return gifterUsername || "UnknownUser";
+        return gifterUsername || "不明";
     }
 };
 

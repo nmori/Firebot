@@ -187,7 +187,7 @@ class TwitchChat extends EventEmitter {
                 const firebotChatMessage = await chatHelpers.buildStreamerFirebotChatMessageFromText(message);
                 await activeUserHandler.addActiveUser({
                     userId: firebotChatMessage.userId,
-                    userName: firebotChatMessage.username,
+                    userName: firebotChatMessage.useridname,
                     displayName: firebotChatMessage.username
                 }, true, false);
                 frontendCommunicator.send("twitch:chat:message", firebotChatMessage);

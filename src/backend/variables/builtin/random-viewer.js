@@ -7,7 +7,7 @@ const activeUserHandler = require('../../chat/chat-listeners/active-user-handler
 const model = {
     definition: {
         handle: "randomViewer",
-        description: "Get a random viewer in chat.",
+        description: "チャットにランダムな視聴者を呼び出す。",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },
@@ -17,15 +17,15 @@ const model = {
         const onlineViewerCount = activeUserHandler.getOnlineUserCount();
 
         if (onlineViewerCount === 0) {
-            return "[Unable to get random viewer]";
+            return "[オンラインな視聴者がいません]";
         }
 
         if (onlineViewerCount > 0) {
             const randomViewer = activeUserHandler.getRandomOnlineUser();
-            return randomViewer ? randomViewer.username : "[Unable to get random viewer]";
+            return randomViewer ? randomViewer.username : "[視聴者を取得できない]";
         }
 
-        return "[Unable to get random viewer]";
+        return "[視聴者を取得できない]";
     }
 };
 

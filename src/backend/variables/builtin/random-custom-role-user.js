@@ -8,19 +8,19 @@ module.exports = {
     definition: {
         handle: "randomCustomRoleUser",
         usage: "randomCustomRoleUser[role]",
-        description: "Returns a random user that has the specified custom role.",
+        description: "指定された役割を持つランダムなユーザを返します。",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: async (_, role) => {
         if (role == null || role === '') {
-            return "[No custom role specified]";
+            return "[役割が指定されていない]";
         }
 
         const customRole = customRolesManager.getRoleByName(role);
 
         if (customRole == null) {
-            return `[Custom role ${role} does not exist]`;
+            return `[役割 ${role} が存在しません。]`;
         }
 
         if (customRole.viewers.length === 0) {

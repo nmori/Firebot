@@ -10,7 +10,7 @@ const model = {
     definition: {
         handle: "effectOutput",
         usage: "effectOutput[name]",
-        description: "Get data that was outputted by a prior effect.",
+        description: "先行の演出で出力されたデータを取得する。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
     },

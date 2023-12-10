@@ -4,7 +4,7 @@ const userDatabase = require("../../database/userDatabase");
 const model = {
     definition: {
         handle: "rawTopViewTime",
-        description: "Returns a raw array containing users with the most view time(in hours). Items contain 'username', 'place' and 'minutes' properties",
+        description: "閲覧時間 (時間単位) が最も長いユーザを含む生の配列を返します。項目には 'username'、'place' および 'minutes' プロパティが含まれます。",
         usage: "topViewTime[count]",
         possibleDataOutput: [OutputDataType.TEXT]
     },

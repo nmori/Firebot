@@ -10,15 +10,15 @@ const model = {
     definition: {
         handle: "bitsCheered",
         usage: "bitsCheered[username]",
-        description: "Returns the all-time number of bits the specified user has cheered in the streamer's channel.",
+        description: "指定された視聴者が配信者のチャンネルでCheerしたビッツ数を返す。",
         examples: [
             {
                 usage: "bitsCheered[username, period]",
-                description: "Returns the number of bits the specified user has cheered in the streamer's channel during the current specified period. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "指定した視聴者が、指定した期間中に配信者のチャンネルで応援したビッツ数を返します。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれか。"
             },
             {
                 usage: "bitsCheered[username, period, startDate]",
-                description: "Returns the number of bits the specified user has cheered in the streamer's channel during the specified period that occurred on the specified date. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "指定された日付に発生した配信者のチャンネルで、指定された期間中に指定されたユーザが応援したビッツ数を返します。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれか。"
             }
         ],
         categories: [VariableCategory.COMMON, VariableCategory.ADVANCED],
@@ -28,18 +28,18 @@ const model = {
         period = period ?? "all";
 
         if (username == null || username.length < 1) {
-            throw new expressionish.ExpressionArgumentsError("First argument needs to be a valid username.", 0);
+            throw new expressionish.ExpressionArgumentsError("最初の引数は有効なユーザー名にしてください", 0);
         }
 
         const validPeriods = ["day", "week", "month", "year", "all"];
         period = period.toLowerCase();
 
         if (validPeriods.indexOf(period) === -1) {
-            throw new expressionish.ExpressionArgumentsError("Second argument must be a valid period ('day', 'week', 'month', 'year', or 'all').", 0);
+            throw new expressionish.ExpressionArgumentsError("第2引数には有効な期間（'day'、'week'、'month'、'year'、'all'）を指定してください", 0);
         }
 
         if (startDate != null && !moment(startDate).isValid()) {
-            throw new expressionish.ExpressionArgumentsError("Third argument must be a valid date string.", 0);
+            throw new expressionish.ExpressionArgumentsError("第3引数は有効な日付文字列にしてください", 0);
         }
 
         return true;

@@ -10,15 +10,15 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "giftReceivers",
-        description: "A comma separated list of the usernames of the receivers of a community gift sub.",
+        description: "コミュニティサブスクギフトの受取人名をカンマ区切りにしたリスト。",
         examples: [
             {
                 usage: "giftReceivers[1, username]",
-                description: "Displays the username of a specific gift receiver in the list."
+                description: "リスト内の特定のギフト受取人のユーザー名を表示します。"
             },
             {
                 usage: "giftReceivers[3, months]",
-                description: "Displays the cumulative sub months of a specific gift receiver in the list."
+                description: "リスト内の特定のギフト受取人の累計サブスク月数を表示します。"
             }
         ],
         triggers: triggers,
@@ -27,7 +27,7 @@ const model = {
     },
     evaluator: (trigger, target = null, property) => {
         if (trigger == null || trigger.metadata == null || trigger.metadata.eventData == null || trigger.metadata.eventData.giftReceivers == null) {
-            return "Failed to get gift receiver info";
+            return "ギフトの受取人情報の取得に失敗しました";
         }
 
         const giftReceiverNames = trigger.metadata.eventData.giftReceivers.map(gr => gr.gifteeUsername);
@@ -46,18 +46,18 @@ const model = {
         }
 
         if (isNaN(target) && property != null) {
-            return "The first argument needs to be a number";
+            return "最初の引数は数字でなければならない。";
         }
 
         if (target != null && property == null) {
-            return "Invalid number of arguments";
+            return "無効な引数の数";
         }
 
         if (target != null && property != null) {
-            return "The second argument needs to be either 'username' or 'months'";
+            return "第2引数には'username'または'months'のいずれかを指定する必要がある。";
         }
 
-        return "Invalid use of variable";
+        return "変数の無効な使用";
     }
 };
 

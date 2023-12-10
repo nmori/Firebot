@@ -16,35 +16,35 @@ module.exports = {
     definition: {
         handle: "userRoles",
         usage: "userRoles[username, all|firebot|custom|twitch|team]",
-        description: "Returns all roles of the user",
+        description: "ユーザのすべての役割を返します。",
         examples: [
             {
                 usage: 'userRoles',
-                description: "Returns all roles for the user"
+                description: "ユーザのすべての役割を返します。"
             },
             {
                 usage: 'userRoles[$user]',
-                description: "Returns all roles of the specified user"
+                description: "指定したユーザのすべての役割を返します。"
             },
             {
                 usage: 'userRoles[$user, all]',
-                description: "Returns all roles of the specified user"
+                description: "指定されたユーザのすべての役割を返します。"
             },
             {
                 usage: 'userRoles[$user, firebot]',
-                description: "Returns all firebot roles of the specified user"
+                description: "指定されたユーザのすべてのfirebotでの役割を返します。"
             },
             {
                 usage: 'userRoles[$user, custom]',
-                description: "Returns all custom roles of the specified user"
+                description: "指定されたユーザのすべてのカスタム役割を返します。"
             },
             {
                 usage: 'userRoles[$user, twitch]',
-                description: "Returns all Twitch roles of the specified user"
+                description: "指定したユーザーのすべてのTwitchでの役割を返します。"
             },
             {
                 usage: 'userRoles[$user, team]',
-                description: "Returns all Twitch team roles of the specified user"
+                description: "指定したユーザーのすべてのTwitchチームの役割を返します。"
             }
         ],
         triggers: triggers,

@@ -29,18 +29,18 @@ const model = {
         examples: [
             {
                 usage: 'rawArrayFilter[someRawArray, 1, null, false]',
-                description: "Filter out anything that doesn't equal 1"
+                description: "1に等しくないものを除外する"
             },
             {
                 usage: 'rawArrayFilter[someRawArray, 1, null, true]',
-                description: 'Filter out anything that equals 1'
+                description: '1に等しいものを除外する'
             },
             {
                 usage: 'rawArrayFilter[someRawArray, value, key, true]',
-                description: 'Filter out any item in the array that has a key property twitch equals "value"'
+                description: '配列の中で、"value "に等しいキー・プロパティを持つ項目を除外する'
             }
         ],
-        description: "Returns a new filtered raw array.",
+        description: "フィルタリング済みの新しい配列を返す",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

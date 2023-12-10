@@ -8,7 +8,7 @@ const customRolesManager = require("../../roles/custom-roles-manager");
 const model = {
     definition: {
         handle: "customRoleUserCount",
-        description: "Get the number of people in a custom role.",
+        description: "役職の人数を取得します",
         usage: "customRoleUserCount[roleName]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]

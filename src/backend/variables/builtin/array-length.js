@@ -9,7 +9,7 @@ const model = {
     definition: {
         handle: "arrayLength",
         usage: "arrayLength[jsonArray]",
-        description: "Returns the length of the input JSON array.",
+        description: "入力配列の長さを返します。",
         categories: [VariableCategory.ADVANCED, VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

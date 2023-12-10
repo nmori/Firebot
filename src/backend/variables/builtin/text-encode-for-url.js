@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "encodeForUrl",
-        description: "Encodes input text for use in a URL",
+        description: "URLで使用するために入力テキストをエンコードする",
         usage: "encodeForUrl[text]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

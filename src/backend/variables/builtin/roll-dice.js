@@ -13,18 +13,18 @@ const model = {
         examples: [
             {
                 usage: "rollDice[1d6]",
-                description: "Roll one 6-sided dice, outputs the sum"
+                description: "6面体のサイコロを1つ振り、合計を出力する。"
             },
             {
                 usage: "rollDice[2d10+1d12]",
-                description: "Roll two 10-sided dice and one 12-sided die, outputs the sum"
+                description: "10面ダイス2個と12面ダイス1個を振り、合計を出力する。"
             },
             {
                 usage: "rollDice[2d6, show each]",
-                description: "Outputs text containing both the sum of all roles and the values or each individual roll. IE: '10 (4, 6)"
+                description: "全ロールの合計と各ロールの値を含むテキストを出力する。例: '10 (4, 6)"
             }
         ],
-        description: "Rolls some dice based on the provided config, ie 2d6 or 2d10+1d12 or 1d10+3",
+        description: "2d6、2d10+1d12、1d10+3など、与えられた設定に基づいてサイコロを振る。",
         categories: [VariableCategory.COMMON, VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
     },

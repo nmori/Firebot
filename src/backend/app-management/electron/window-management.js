@@ -222,7 +222,7 @@ function createMainWindow() {
             ]
         },
         {
-            label: 'ヘルプ(&H)',
+            label: 'ヘルプ',
             role: 'help',
             submenu: [{
                     label: '開発Discordに参加',
@@ -466,7 +466,7 @@ function createStreamPreviewWindow() {
     streamPreviewWindowState.manage(streamPreview);
 
     streamPreview.on("close", () => {
-        if (!view.isDestroyed()) {
+        if (!view.isDestroyed) {
             view.destroy();
         }
     });

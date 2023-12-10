@@ -15,12 +15,12 @@ triggers[EffectTrigger.MANUAL] = true;
 const commmandTarget = {
     definition: {
         handle: "target",
-        description: "Similar to the $arg variable but strips out any leading '@' symbols. Useful when the argument is expected to be a username.",
+        description: "arg変数と似ていますが、先頭の'@'記号を取り除きます。引数がユーザ名であると予想される場合に便利。",
         usage: "target",
         examples: [
             {
                 usage: "target[#]",
-                description: "Grab the target at the given index (IE with '!command @ebiggz @TheLastMage', $target[2] would be 'TheLastMage')"
+                description: "指定されたインデックスのターゲットをつかむ (例： '!command @ebiggz @TheLastMage' とすると、$target[2] は 'TheLastMage' となる)"
             }
         ],
         triggers: triggers,
@@ -55,7 +55,7 @@ const commmandTarget = {
 
         // index needs to be a number
         if (isNaN(index)) {
-            throw new SyntaxError("Index needs to be a number.");
+            throw new SyntaxError("インデックスは数字でなければならない。");
         }
 
         return true;

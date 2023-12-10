@@ -15,10 +15,10 @@ const model = {
         examples: [
             {
                 usage: "chatMessageEmoteUrls[1]",
-                description: "Get the url of a specific emote."
+                description: "特定のエモートのURLを取得する。"
             }
         ],
-        description: "Outputs the urls of a chat message's emotes from the associated command or event.",
+        description: "関連するコマンドまたはイベントからチャットメッセージのエモートのURLを出力します。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

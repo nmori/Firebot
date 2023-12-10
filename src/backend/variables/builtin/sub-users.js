@@ -9,7 +9,7 @@ const logger = require("../../logwrapper");
 const model = {
     definition: {
         handle: "subNames",
-        description: "Returns an array of subscriptions you currently have. Items contain 'username', 'tier' and 'isGift' properties",
+        description: "現在保持しているサブスクリプションの配列を返します。項目には 'username'、'tier' および 'isGift' プロパティが含まれます。",
         usage: "subNames",
         examples: [
             {

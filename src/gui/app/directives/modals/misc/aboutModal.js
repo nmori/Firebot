@@ -45,17 +45,17 @@
                     <h5><b>ライセンス</b></h5>
                     <p>
                         Firebot は GPLv3 でライセンスされています<br/>
-                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/blob/master/license.txt')">View License</a>
+                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/blob/master/license.txt')">ライセンスを表示</a>
                     </p>
                 </section>
 
                 <section>
                     <h5><b>サポート</b></h5>
                     <p>
-                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+')">バグレポート</a> |
-                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Enhancement&template=feature_request.md&title=%5BFeature+Request%5D+')">機能リクエスト</a> |
+                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+')">不具合報告</a> |
+                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Enhancement&template=feature_request.md&title=%5BFeature+Request%5D+')">リクエスト</a> |
                         <a href ng-click="$root.openLinkExternally('https://opencollective.com/crowbartools')">寄付</a> |
-                        <a href ng-click="$root.openLinkExternally('https://crowbar-tools.myspreadshop.com')">マーチストア</a> |
+                        <a href ng-click="$root.openLinkExternally('https://crowbar-tools.myspreadshop.com')">ストア</a> |
                         <a href ng-click="$root.openLinkExternally('https://firebot.app/testimonial-submission')">お客様の声</a>
                     </p>
                 </section>
@@ -64,9 +64,9 @@
                 <section>
                     <h5><b>日本語ローカライズ</b></h5>
                     <p>
-                        <a href ng-click="$root.openLinkExternally('https://github.com/nmori/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+')">翻訳不具合報告</a> |
-                        <a href ng-click="$root.openLinkExternally('https://kojipro.live/')">こじプロ</a> |
-                        <a href ng-click="$root.openLinkExternally('https://twitter.com/mikasa231')">翻訳主担当者</a> |
+                        <a href ng-click="$root.openLinkExternally('https://github.com/nmori/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+')">翻訳改善提案</a> |
+                        <a href ng-click="$root.openLinkExternally('https://kojipro.live/')">こじプロ(翻訳企画チーム)</a> |
+                        <a href ng-click="$root.openLinkExternally('https://twitter.com/mikasa231')">主担当</a>
                     </p>
                 </section> 
             </div>

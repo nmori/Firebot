@@ -11,19 +11,19 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "quoteAsObject",
-        description: "Get a random quote in the form of a JSON Object.",
+        description: "JSONオブジェクトの形式でランダムな引用文を取得します。",
         examples: [
             {
                 usage: "quoteAsObject[#]",
-                description: "Get a specific quote id."
+                description: "特定の引用文IDを取得します。"
             },
             {
                 usage: "quoteAsObject[#, property]",
-                description: "Get only a specific property for a specific quote. Valid properties are id, createdAt, creator, originator, text and game."
+                description: "特定の引用文の特定のプロパティのみを取得します。有効なプロパティは、id、createdAt、creator、originator、text、gameです。"
             },
             {
                 usage: "quoteAsObject[null, property]",
-                description: "Get only a specific property for a random quote. Valid properties are id, createdAt, creator, originator, text and game."
+                description: "ランダムな引用文の特定のプロパティのみを取得します。有効なプロパティは、id、createdAt、creator、originator、text、gameです。"
             }
         ],
         categories: [VariableCategory.TEXT],
@@ -61,7 +61,7 @@ const model = {
                     && property !== "text"
                     && property !== "game") {
                     logger.debug("Failed property check for quote: ", property);
-                    return "[Invalid Quote Property]";
+                    return "[不明なプロパティ]";
                 }
                 return quoteObject[property];
             }
@@ -70,7 +70,7 @@ const model = {
         }
 
         logger.debug("Couldnt find a quote.");
-        return '[Cant find quote]';
+        return '[見つからない]';
     }
 };
 
