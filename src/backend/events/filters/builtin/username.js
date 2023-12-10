@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:username",
-    name: "Username",
-    description: "Filter to a specific username",
+    name: "視聴者名",
+    description: "特定の視聴者名にフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "bits-badge-unlocked" },

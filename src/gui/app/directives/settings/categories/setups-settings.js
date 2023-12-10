@@ -9,31 +9,31 @@
                 <div>
 
                     <firebot-setting 
-                        name="Import Setup"
-                        description="Import a Firebot Setup (.firebotsetup file) made by someone else!"
+                        name="セットアップ設定の取り込み"
+                        description="他人が作成したFirebotセットアップ(.firebotsetupファイル)を取り込みします！"
                     >
                         <firebot-button 
-                            text="Import Setup"
+                            text="設定を取り込む"
                             ng-click="showImportSetupModal()"
                         />
                     </firebot-setting>
 
                     <firebot-setting 
-                        name="Create Setup"
-                        description="Create a new Firebot Setup (a collection of commands, events, currencies, etc) and share it with others!"
+                        name="セットアップ設定を作る"
+                        description="新規Firebotセットアップ（コマンド、イベント、通貨などの設定）を作成し、他の人と共有します"
                     >
                         <firebot-button 
-                            text="Create New Setup"
+                            text="新規設定を作る"
                             ng-click="showCreateSetupModal()"
                         />
                     </firebot-setting>
 
                     <firebot-setting 
-                        name="Remove Setup"
-                        description="Select a Setup file to have Firebot find and remove all matching components (commands, events, etc) currently saved for you. Useful if you want to completely remove a previously imported Setup."
+                        name="セットアップ設定を消す"
+                        description="セットアップファイルを選択すると、Firebotが現在保存されているすべての一致する構成部品（コマンド、イベントなど）を検索して削除します。以前に取り込んだセットアップを完全に削除したい場合に便利です。"
                     >
                         <firebot-button 
-                            text="Remove Setup"
+                            text="セットアップ設定を消す"
                             ng-click="showRemoveSetupModal()"
                         />
                     </firebot-setting>

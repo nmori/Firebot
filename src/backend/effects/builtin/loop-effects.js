@@ -11,8 +11,8 @@ const wait = (ms) => new Promise(r => setTimeout(r, ms));
 const model = {
     definition: {
         id: "firebot:loopeffects",
-        name: "Loop Effects",
-        description: "Loop an effect list",
+        name: "ループ演出",
+        description: "演出リストのループ",
         icon: "fad fa-repeat-alt",
         categories: [EffectCategory.SCRIPTING],
         dependencies: []
@@ -20,20 +20,20 @@ const model = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>This effect will loop the below effect list based on the given settings.</p>
+            <p>この演出は、指定された設定に基づき、以下の演出リストをループします。</p>
         </eos-container>
 
-        <eos-container header="Loop Mode" pad-top="true">
+        <eos-container header="ループモード" pad-top="true">
             <div style="padding-left: 10px;">
                 <label class="control-fb control--radio">Set Number <span class="muted"><br />Loop a set number of times.</span>
                     <input type="radio" ng-model="effect.loopMode" value="count" ng-change="loopModeChanged()"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" ng-hide="!whileLoopEnabled && effect.loopMode !== 'conditional'">Conditional <span class="muted"><br />Keep looping while conditions are met</span>
+                <label class="control-fb control--radio" ng-hide="!whileLoopEnabled && effect.loopMode !== 'conditional'">条件 <span class="muted"><br />条件が満たされている間、ループを続ける</span>
                     <input type="radio" ng-model="effect.loopMode" value="conditional" ng-change="loopModeChanged()"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >Iterate Array <span class="muted"><br />Loop through a JSON array. Access the current item with $loopItem</span>
+                <label class="control-fb control--radio" >Iterate Array <span class="muted"><br />JSON配列をループする。$loopItem で現在のアイテムにアクセスする </span>
                     <input type="radio" ng-model="effect.loopMode" value="array" ng-change="loopModeChanged()"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -41,20 +41,20 @@ const model = {
         </eos-container>
 
         <eos-container header="{{effect.loopMode === 'count' ? 'Loop Count' : 'Max Loop Count' }}" ng-hide="effect.loopMode === 'array'">
-            <p ng-show="effect.loopMode === 'count'" class="muted">The number of times the below effect list should loop.</p>
-            <p ng-show="effect.loopMode === 'conditional'" class="muted">The maximum number of loops before forcing the loop to stop, even if conditions are still being met. This is useful for ensuring an infinite loop does not occur. Leave empty to not have a maximum.</p>
-            <input type="text" ng-model="effect.loopCount" class="form-control" replace-variables="number" aria-label="Loop count" placeholder="Enter number">
+            <p ng-show="effect.loopMode === 'count'" class="muted">以下の演出リストがループする回数</p>
+            <p ng-show="effect.loopMode === 'conditional'" class="muted">ループを強制的に停止させるまでの最大ループ回数。無限ループが発生しないようにするのに便利です。最大回数を指定しない場合は、空のままにします。</p>
+            <input type="text" ng-model="effect.loopCount" class="form-control" replace-variables="number" aria-label="Loop count" placeholder="値を入力">
         </eos-container>
 
         <eos-container header="Array To Iterate" ng-show="effect.loopMode === 'array'" pad-top="true">
-            <p class="muted">The JSON array to loop through</p>
-            <input type="text" ng-model="effect.arrayToIterate" class="form-control" replace-variables="text" aria-label="Loop Array" placeholder="Enter JSON array">
+            <p class="muted">ループする JSON 配列</p>
+            <input type="text" ng-model="effect.arrayToIterate" class="form-control" replace-variables="text" aria-label="ループ配列" placeholder="JSON配列を入力">
         </eos-container>
 
-        <eos-container header="Effects To Loop" pad-top="true">
+        <eos-container header="ループする演出" pad-top="true">
             <div ng-show="effect.loopMode === 'conditional'">
                 <condition-list condition-data="effect.conditionData" prefix="While" trigger="trigger" trigger-meta="triggerMeta"></condition-list>
-                <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">Run the following effects:</div>
+                <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">以下の演出を実行する:</div>
             </div>
 
             <effect-list effects="effect.effectList"

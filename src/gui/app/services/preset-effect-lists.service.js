@@ -73,7 +73,7 @@
                     if (!isQuickAction) {
                         ngToast.create({
                             className: 'success',
-                            content: `Ran "${list.name}"!`
+                            content: `"${list.name}"を実行しました`
                         });
                     }
                     return;
@@ -111,17 +111,17 @@
                 copiedPresetEffectList.id = null;
 
                 while (service.presetEffectListNameExists(copiedPresetEffectList.name)) {
-                    copiedPresetEffectList.name += " copy";
+                    copiedPresetEffectList.name += " 複製";
                 }
 
                 service.savePresetEffectList(copiedPresetEffectList).then(successful => {
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Successfully duplicated a preset effect list!'
+                            content: '演出リストの複製に成功しました'
                         });
                     } else {
-                        ngToast.create("Unable to duplicate preset effect list.");
+                        ngToast.create("演出リストの複製に失敗しました");
                     }
                 });
             };

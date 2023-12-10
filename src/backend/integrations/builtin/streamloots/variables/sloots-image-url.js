@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "slootsImageUrl",
-        description: "The image url for the StreamLoots Chest/Card",
+        description: "StreamLootsチェスト/カードの画像URL",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

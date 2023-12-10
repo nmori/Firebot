@@ -3,12 +3,12 @@
 module.exports = {
     id: "twitch",
     name: "Twitch",
-    description: "Events like Follow, Subscribe, and more from Twitch",
+    description: "Twitchのフォロー、サブスクなどのイベント",
     events: [
         {
             id: "raid",
-            name: "Raid",
-            description: "When someone raids your channel.",
+            name: "レイド時",
+            description: "誰かがあなたのチャンネルにレイドしたとき",
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
@@ -18,14 +18,14 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-siren-on",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** raided with **${eventData.viewerCount}** viewer(s)`;
+                    return `**${eventData.username}** が **${eventData.viewerCount}** 人の視聴者とともにレイドしました`;
                 }
             }
         },
         {
             id: "follow",
-            name: "Follow",
-            description: "When someone follows your channel.",
+            name: "フォロー時",
+            description: "誰かがあなたのチャンネルをフォローしたとき",
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
@@ -34,14 +34,14 @@ module.exports = {
             activityFeed: {
                 icon: "fas fa-heart",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** followed`;
+                    return `**${eventData.username}** がフォローしました`;
                 }
             }
         },
         {
             id: "sub",
-            name: "Sub",
-            description: "When someone subscribes (or resubscribes) to your channel.",
+            name: "サブスクライブ時",
+            description: "誰かがあなたのチャンネルをサブスク（または再サブスク）したとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -57,22 +57,22 @@ module.exports = {
                     },
                     value: "1000"
                 },
-                subMessage: "Test message",
+                subMessage: "テストメッセージ",
                 totalMonths: 10,
                 streak: 8
             },
             activityFeed: {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** ${eventData.isResub ? 'resubscribed' : 'subscribed'} for **${eventData.totalMonths} month(s)** ${eventData.subPlan === 'Prime' ?
-                        "with **Twitch Prime**" : "at **Tier " + eventData.subPlan.replace("000", "") + "**"}`;
+                    return `**${eventData.username}** が ${eventData.isResub ? '再サブスク' : 'サブスク'} しました。 **${eventData.totalMonths} ヶ月目** 、${eventData.subPlan === 'Prime' ?
+                        "**Twitch Prime**" : "**Tier " + eventData.subPlan.replace("000", "") + "**"} `;
                 }
             }
         },
         {
             id: "prime-sub-upgraded",
-            name: "Prime Sub Upgraded",
-            description: "When someone upgrades to a paid sub from a Prime sub.",
+            name: "プライム・サブスクのアップグレード時",
+            description: "プライム会員からサブスクにアップグレードした場合",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -89,14 +89,14 @@ module.exports = {
             activityFeed: {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** upgraded their Prime sub at **Tier ${eventData.subPlan.replace("000", "")}!**`;
+                    return `**${eventData.username}** が **Tier ${eventData.subPlan.replace("000", "")}** にアップグレードしました `;
                 }
             }
         },
         {
             id: "subs-gifted",
-            name: "Sub Gifted",
-            description: "When someone gifts a sub to someone else in your channel.",
+            name: "サブスクギフト時",
+            description: "誰かがあなたのチャンネルで誰かにサブスクギフトを送ったとき",
             cached: false,
             manualMetadata: {
                 gifterUsername: "Firebot",
@@ -117,14 +117,14 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-gift",
                 getMessage: (eventData) => {
-                    return `**${eventData.isAnonymous ? "An Anonymous Gifter" : eventData.gifterUsername}** gifted a ${eventData.giftDuration > 1 ? ` **${eventData.giftDuration} month** ` : ''} **Tier ${eventData.subPlan.replace("000", "")}** sub to **${eventData.gifteeUsername}** (Subbed for ${eventData.giftSubMonths} month${eventData.giftSubMonths > 1 ? 's' : ''} total)`;
+                    return `**${eventData.isAnonymous ? "匿名" : eventData.gifterUsername}** さんが ${eventData.giftDuration > 1 ? ` **${eventData.giftDuration} ヶ月の** ` : ''} **Tier ${eventData.subPlan.replace("000", "")}** のサブスクを **${eventData.gifteeUsername}** へ贈りました。( ${eventData.giftSubMonths} ヶ月 )`;
                 }
             }
         },
         {
             id: "community-subs-gifted",
-            name: "Community Subs Gifted",
-            description: "When someone gifts random subs to the community of the channel",
+            name: "コミュニティへのサブスクギフト時",
+            description: "誰かがコミュニティーにサブスクギフトを贈ったとき",
             cached: false,
             manualMetadata: {
                 gifterUsername: "Firebot",
@@ -153,14 +153,14 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-gifts",
                 getMessage: (eventData) => {
-                    return `**${eventData.isAnonymous ? "An Anonymous Gifter" : eventData.gifterUsername}** gifted **${eventData.subCount} Tier ${eventData.subPlan.replace("000", "")}** sub${eventData.subCount > 1 ? 's' : ''} to the community`;
+                    return `**${eventData.isAnonymous ? "匿名" : eventData.gifterUsername}** さんは **${eventData.subCount} つの Tier ${eventData.subPlan.replace("000", "")}** ギフトを贈りました`;
                 }
             }
         },
         {
             id: "gift-sub-upgraded",
-            name: "Gift Sub Upgraded",
-            description: "When someone upgrades to a paid sub from a gift sub.",
+            name: "サブスクギフトのアップグレード時",
+            description: "サブスクギフトからサブスクにアップグレードされた場合",
             cached: false,
             manualMetadata: {
                 username: "CaveMobster",
@@ -179,33 +179,33 @@ module.exports = {
             activityFeed: {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** upgraded their gift sub at **Tier ${eventData.subPlan.replace("000", "")}!**`;
+                    return `**${eventData.username}** さんは サブスクギフトから **Tier ${eventData.subPlan.replace("000", "")}**へアップグレードしました`;
                 }
             }
         },
         {
             id: "cheer",
-            name: "Cheer",
-            description: "When someone cheers in your channel (uses bits).",
+            name: "チア",
+            description: "誰かがあなたのチャンネルで声援を送ったとき（ビッツを使ったとき）",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
                 isAnonymous: false,
                 bits: 100,
                 totalBits: 1200,
-                cheerMessage: "cheer100 Test message"
+                cheerMessage: "cheer100 テストメッセージ"
             },
             activityFeed: {
                 icon: "fad fa-diamond",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** cheered **${eventData.bits}** bits. A total of **${eventData.totalBits}** were cheered by **${eventData.username}** in the channel.`;
+                    return `**${eventData.username}** から **${eventData.bits}** ビッツの声援が届きました。 （トータル：**${eventData.totalBits}** ビッツ、**${eventData.username}** より）`;
                 }
             }
         },
         {
             id: "bits-badge-unlocked",
-            name: "Bits Badge Unlocked",
-            description: "When someone unlocks a new bits badge tier in your channel.",
+            name: "ビッツバッジの実績解除",
+            description: "誰かがあなたのチャンネルで新しいビッツバッジのロックを解除したとき",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -248,14 +248,14 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-diamond",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** unlocked the **${eventData.badgeTier}** bits badge in your channel!`;
+                    return `**${eventData.username}** さんが **${eventData.badgeTier}** ビッツバッチを実績解除しました`;
                 }
             }
         },
         {
             id: "viewer-arrived",
-            name: "Viewer Arrived",
-            description: "When a viewer initially chats in any given stream.",
+            name: "視聴者が来た時",
+            description: "視聴者が配信で最初にチャットをするとき",
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
@@ -264,36 +264,36 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-house-return",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** arrived`;
+                    return `**${eventData.username}** さんが来ました`;
                 }
             }
         },
         {
             id: "chat-message",
-            name: "Chat Message",
-            description: "When someone chats in your channel",
+            name: "チャット時",
+            description: "チャットが来た時",
             cached: false,
             queued: false,
             manualMetadata: {
                 username: "Firebot",
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             }
         },
         {
             id: "announcement",
-            name: "Announcement",
-            description: "When you or a mod sends an announcement in your channel",
+            name: "アナウンス",
+            description: "アナウンスを送信した時",
             cached: false,
             queued: false,
             manualMetadata: {
                 username: "Firebot",
-                messageText: "Test announcement"
+                messageText: "テストアナウンス"
             }
         },
         {
             id: "banned",
-            name: "Viewer Banned",
-            description: "When someone is banned in your channel",
+            name: "視聴者追放時",
+            description: "視聴者を追放した時",
             cached: false,
             queued: false,
             manualMetadata: {
@@ -306,9 +306,9 @@ module.exports = {
                 getMessage: (eventData) => {
                     let message;
                     if (eventData.modReason) {
-                        message = `**${eventData.username}** was banned by **${eventData.moderator}**. Reason: **${eventData.modReason}**`;
+                        message = `**${eventData.username}** が **${eventData.moderator}**によって追放された。 理由は **${eventData.modReason}**`;
                     } else {
-                        message = `**${eventData.username}** was banned by **${eventData.moderator}**.`;
+                        message = `**${eventData.username}** が **${eventData.moderator}** によって追放された。`;
                     }
                     return message;
                 }
@@ -316,8 +316,8 @@ module.exports = {
         },
         {
             id: "unbanned",
-            name: "Viewer Unbanned",
-            description: "When someone is unbanned in your channel",
+            name: "視聴者の追放解除時",
+            description: "視聴者を追放を解除した時",
             cached: false,
             queued: false,
             manualMetadata: {
@@ -327,14 +327,14 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-gavel",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** was unbanned by **${eventData.moderator}**.`;
+                    return `**${eventData.username}** は **${eventData.moderator}** によって追放解除されました`;
                 }
             }
         },
         {
             id: "timeout",
-            name: "Viewer Timeout",
-            description: "When someone is timed out in your channel",
+            name: "視聴者タイムアウト時",
+            description: "あなたのチャンネルで誰かがタイムアウト指示されたとき",
             cached: false,
             queued: false,
             manualMetadata: {
@@ -346,71 +346,71 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-stopwatch",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** was timed out for **${eventData.timeoutDuration} sec(s)** by ${eventData.moderator}. Reason: **${eventData.modReason}**`;
+                    return `**${eventData.username}** は  ${eventData.moderator}によって**${eventData.timeoutDuration} ** 秒タイムアウトされました。 理由は **${eventData.modReason}**`;
                 }
             }
         },
         {
             id: "channel-reward-redemption",
-            name: "Channel Reward Redemption",
-            description: "When someone redeems a CUSTOM channel reward",
+            name: "チャンネル特典交換時",
+            description: "誰かがチャンネル特典を利用した場合",
             cached: true,
             cacheMetaKey: "username",
             cacheTtlInSecs: 1,
             queued: false,
             manualMetadata: {
                 username: "Firebot",
-                rewardName: "Test Reward",
+                rewardName: "テスト特典",
                 rewardImage: "https://static-cdn.jtvnw.net/automatic-reward-images/highlight-1.png",
                 rewardCost: "200",
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             },
             activityFeed: {
                 icon: "fad fa-circle",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** redeemed **${eventData.rewardName}**${eventData.messageText && !!eventData.messageText.length ? `: *${eventData.messageText}*` : ''}`;
+                    return `**${eventData.username}** さんが「**${eventData.rewardName}**」を交換しました。${eventData.messageText && !!eventData.messageText.length ? `: *${eventData.messageText}*` : ''}`;
                 }
             }
         },
         {
             id: "whisper",
-            name: "Whisper",
-            description: "When someone sends you a whisper.",
+            name: "ささやく",
+            description: "誰かがあなたにささやいたとき",
             cached: true,
             manualMetadata: {
                 username: "Firebot",
-                message: "Test whisper"
+                message: "ささやきテスト"
             },
             activityFeed: {
                 icon: "fad fa-comment-alt",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** sent you the following whisper: ${eventData.message}`;
+                    return `**${eventData.username}** さんが、ささやきました: ${eventData.message}`;
                 }
             }
         },
         {
             id: "chat-mode-changed",
-            name: "Chat Mode Changed",
-            description: "When the chat mode settings have been updated by a moderator.",
+            name: "チャットモード変更時",
+            description: "モデレーターによってチャットモードの設定が更新された場合",
             cached: false,
             queued: false,
             manualMetadata: {
                 chatMode: {
                     type: "enum",
                     options: {
-                        "emoteonly": "Emote Only",
-                        "subscribers": "Subscribers Only",
-                        "followers": "Followers",
-                        "slow": "Slow",
-                        "r9kbeta": "Unique Chat"
+                        "emoteonly": "エモートのみ",
+                        "subscribers": "サブスク登録者のみ",
+                        "followers": "フォロワーのみ",
+                        "slow": "スローモード",
+                        "r9kbeta": "ユニークチャットのみ"
                     },
                     value: "emoteonly"
                 },
                 chatModeState: {
                     type: "enum",
                     options: {
-                        "enabled": "Enabled",
-                        "disabled": "Disabled"
+                        "enabled": "有効",
+                        "disabled": "無効"
                     },
                     value: "enabled"
                 },
@@ -420,7 +420,7 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-comment-alt",
                 getMessage: (eventData) => {
-                    return `**${eventData.moderator}** has set the chat mode to **${eventData.chatMode}**.`;
+                    return `**${eventData.moderator}** は**${eventData.chatMode}**を**${eventData.chatModeState}**にしました`;
                 }
             }
         }

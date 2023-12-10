@@ -28,6 +28,7 @@ exports.mainWindow = null;
  */
 let splashscreenWindow;
 
+
 function createMainWindow() {
     const mainWindowState = windowStateKeeper({
         defaultWidth: 1280,
@@ -93,12 +94,10 @@ function createMainWindow() {
 
     const profileManager = require("../../common/profile-manager");
     const dataAccess = require("../../common/data-access");
-    const menuTemplate = [
-        {
-            label: 'File',
-            submenu: [
-                {
-                    label: 'Import Firebot Setup...',
+    const menuTemplate = [{
+            label: 'ファイル',
+            submenu: [{
+                    label: 'Firebot セットアップの取り込み...',
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "importSetupModal"
@@ -109,8 +108,8 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'Open Data Folder',
-                    toolTip: "Open the folder where Firebot data is stored",
+                    label: 'データフォルダを開く',
+                    toolTip: "Firebotのデータが保存されているフォルダを開く",
                     click: () => {
                         const rootFolder = path.resolve(
                             profileManager.getPathInProfile("/")
@@ -119,8 +118,8 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'Open Logs Folder',
-                    toolTip: "Open the folder where logs are stored",
+                    label: 'ログフォルダを開く',
+                    toolTip: "ログが保存されているフォルダを開く",
                     click: () => {
                         const rootFolder = path.resolve(
                             dataAccess.getPathInUserData("/logs/")
@@ -129,8 +128,8 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'Open Backups Folder',
-                    toolTip: "Open the folder where backups are stored",
+                    label: 'バックアップフォルダを開く',
+                    toolTip: "バックアップが保存されているフォルダを開く",
                     click: () => {
                         const backupFolder = path.resolve(
                             dataAccess.getPathInUserData("/backups/")
@@ -142,50 +141,56 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
+                    label: 'アプリを終了',
                     role: 'quit'
                 }
             ]
         },
         {
-            label: 'Edit',
-            submenu: [
-                {
+            label: '編集',
+            submenu: [{
+                    label: '切り取り',
                     role: 'cut'
                 },
                 {
+                    label: 'コピー',
                     role: 'copy'
                 },
                 {
+                    label: '貼り付け',
                     role: 'paste'
                 },
                 {
+                    label: 'やり直し',
                     role: "undo"
                 },
                 {
+                    label: 'やり直しのやり直し',
                     role: "redo"
                 },
                 {
-                    role: "selectAll"
+                    label: 'すべて選択',
+                    role: "selectall"
                 }
             ]
         },
         {
-            label: 'Window',
-            submenu: [
-                {
+            label: 'ウィンドウ',
+            submenu: [{
+                    label: '最小化',
                     role: 'minimize'
                 },
                 {
+                    label: '閉じる',
                     role: 'close'
                 }
             ]
         },
         {
-            label: 'Tools',
-            submenu: [
-                {
-                    label: 'Setup Wizard',
-                    toolTip: "Run the setup wizard again",
+            label: 'ツール',
+            submenu: [{
+                    label: 'セットアップウィザード',
+                    toolTip: "改めて初期セットアップを起動します",
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "setupWizardModal"
@@ -193,15 +198,15 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'Restore from backup...',
-                    toolTip: "Restores Firebot from a backup",
-                    click: async () => {
+                    label: 'バックアップから戻す...',
+                    toolTip: "バックアップからFirebotを復元",
+                    click: async() => {
                         frontendCommunicator.send("restore-backup");
                     }
                 },
                 {
-                    label: 'Custom Variable Inspector',
-                    toolTip: "Open the custom variable inspector",
+                    label: 'カスタム変数一覧',
+                    toolTip: "カスタム変数インスペクタを開く",
                     click: () => {
                         // eslint-disable-next-line no-use-before-define
                         createVariableInspectorWindow();
@@ -211,21 +216,22 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
+                    label: '開発ツールを開く',
                     role: 'toggledevtools'
                 }
             ]
         },
         {
-            role: 'Help',
-            submenu: [
-                {
-                    label: 'Join our Discord',
+            label: 'ヘルプ(&H)',
+            role: 'help',
+            submenu: [{
+                    label: '開発Discordに参加',
                     click: () => {
                         shell.openExternal("https://discord.gg/tTmMbrG");
                     }
                 },
                 {
-                    label: 'Follow @FirebotApp on Twitter',
+                    label: '@FirebotApp をXでフォロー',
                     click: () => {
                         shell.openExternal("https://twitter.com/FirebotApp");
                     }
@@ -234,19 +240,19 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'View Source on GitHub',
+                    label: 'GitHubでソースを見る',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot");
                     }
                 },
                 {
-                    label: 'Report a Bug',
+                    label: '不具合報告をする',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+");
                     }
                 },
                 {
-                    label: 'Request a Feature',
+                    label: '機能リクエストをする',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Enhancement&template=feature_request.md&title=%5BFeature+Request%5D+");
                     }
@@ -255,19 +261,19 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'Merch Store',
+                    label: 'マーチストア',
                     click: () => {
                         shell.openExternal("https://crowbar-tools.myspreadshop.com");
                     }
                 },
                 {
-                    label: 'Donate',
+                    label: '寄付する',
                     click: () => {
                         shell.openExternal("https://opencollective.com/crowbartools");
                     }
                 },
                 {
-                    label: 'Submit a Testimonial',
+                    label: 'お客様の声を書く',
                     click: () => {
                         shell.openExternal("https://firebot.app/testimonial-submission");
                     }
@@ -276,7 +282,7 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'About Firebot...',
+                    label: 'Firebotについて...',
                     click: () => {
                         frontendCommunicator.send("open-about-modal");
                     }
@@ -307,7 +313,6 @@ function createMainWindow() {
     // wait for the main window's content to load, then show it
     mainWindow.webContents.on("did-finish-load", () => {
 
-
         createTray(mainWindow);
 
         // mainWindow.webContents.openDevTools();
@@ -336,12 +341,12 @@ function createMainWindow() {
         if (!settings.hasJustUpdated() && connectionManager.chatIsConnected() && connectionManager.streamerIsOnline()) {
             event.preventDefault();
             dialog.showMessageBox(mainWindow, {
-                message: "Are you sure you want to close Firebot while connected to Twitch?",
-                title: "Close Firebot",
+                message: "Twitch接続中ですがFirebotを終了してもよろしいですか？",
+                title: "Firebotを閉じる",
                 type: "question",
-                buttons: ["Close Firebot", "Cancel"]
+                buttons: ["Firebotを閉じる", "やめる"]
 
-            }).then(({response}) => {
+            }).then(({ response }) => {
                 if (response === 0) {
                     mainWindow.destroy();
                 }
@@ -353,7 +358,7 @@ function createMainWindow() {
 /**
  * Creates the splash screen
  */
-const createSplashScreen = async () => {
+const createSplashScreen = async() => {
     const isLinux = process.platform !== 'win32' && process.platform !== 'darwin';
     const splash = new BrowserWindow({
         width: 240,
@@ -381,11 +386,11 @@ const createSplashScreen = async () => {
 
     logger.debug("...Attempting to load splash screen url");
     return splash.loadURL(
-        url.format({
-            pathname: path.join(__dirname, "../../../gui/splashscreen/splash.html"),
-            protocol: "file:",
-            slashes: true
-        }))
+            url.format({
+                pathname: path.join(__dirname, "../../../gui/splashscreen/splash.html"),
+                protocol: "file:",
+                slashes: true
+            }))
         .then(() => {
             logger.debug("Loaded splash screen");
         }).catch((reason) => {

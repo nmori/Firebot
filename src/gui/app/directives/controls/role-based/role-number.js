@@ -16,7 +16,7 @@
                 <div style="display:flex;flex-direction: row;align-items: center;padding: 0 15px;">
                     <div style="width:85px;overflow: hidden;">{{$ctrl.label}}</div>
                     <div style="flex-grow:1; margin-left: 10px;">
-                        <input type="text" class="form-control" ng-model="$ctrl.model" placeholder="Enter number" ng-blur="$ctrl.onBlur()">
+                        <input type="text" class="form-control" ng-model="$ctrl.model" placeholder="数字を入れる" ng-blur="$ctrl.onBlur()">
                     </div>    
                 </div>
             `,

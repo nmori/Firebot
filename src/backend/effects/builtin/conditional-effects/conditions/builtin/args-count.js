@@ -10,10 +10,10 @@ triggers[EffectTrigger.MANUAL] = true;
 
 module.exports = {
     id: "firebot:command-args-count",
-    name: "Command Args Count",
-    description: "Condition based on number of command args",
+    name: "コマンド引数カウント",
+    description: "コマンドの引数の数に基づく条件",
     triggers: triggers,
-    comparisonTypes: ["is", "is not", "is less than", "is greater than"],
+    comparisonTypes: ["一致", "不一致", "未満", "より上"],
     leftSideValueType: "none",
     rightSideValueType: "number",
     predicate: (conditionSettings, trigger) => {
@@ -26,12 +26,16 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
+        case "一致":
             return argsCount === rightSideValue;
         case "is not":
+        case "不一致":
             return argsCount !== rightSideValue;
         case "is less than":
+        case "未満":
             return argsCount < rightSideValue;
         case "is greater than":
+        case "より上":
             return argsCount > rightSideValue;
         default:
             return false;

@@ -16,7 +16,7 @@ class CommandManager extends EventEmitter {
             this._sysCommandOverrides = {};
         }
 
-        this.CommandType = { SYSTEM: "system", CUSTOM: "custom" };
+        this.CommandType = { SYSTEM: "システム", CUSTOM: "カスタム" };
     }
 
     registerSystemCommand(command) {

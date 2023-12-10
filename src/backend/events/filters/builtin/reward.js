@@ -2,12 +2,12 @@
 
 module.exports = {
     id: "firebot:reward",
-    name: "Reward",
-    description: "Filter to a Custom Channel Reward",
+    name: "特典",
+    description: "チャンネル特典でフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "channel-reward-redemption" }
     ],
-    comparisonTypes: ["is", "is not"],
+    comparisonTypes: ["一致", "不一致"],
     valueType: "preset",
     presetValues: backendCommunicator => {
         return backendCommunicator
@@ -28,7 +28,7 @@ module.exports = {
                 .fireEventAsync("get-channel-rewards").then(rewards => {
                     const reward = rewards.find(r => r.id === filterSettings.value);
 
-                    resolve(reward ? reward.title : "Unknown Reward");
+                    resolve(reward ? reward.title : "不明な特典");
                 });
         });
     },
@@ -43,8 +43,10 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
+        case "一致":
             return actual === expected;
         case "is not":
+        case "不一致":
             return actual !== expected;
         default:
             return false;

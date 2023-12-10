@@ -43,10 +43,10 @@ const deepmerge = require("deepmerge");
 
                 const defaultSettings = {
                     sortable: false,
-                    addLabel: "Add",
-                    editLabel: "Edit",
-                    validationText: "Text cannot be empty",
-                    noneAddedText: "None saved",
+                    addLabel: "追加",
+                    editLabel: "編集",
+                    validationText: "テキストは空欄にできません",
+                    noneAddedText: "保存しない",
                     noDuplicates: false
                 };
 
@@ -69,7 +69,7 @@ const deepmerge = require("deepmerge");
                             model: model,
                             label: isNew ? $ctrl.settings.addLabel : $ctrl.settings.editLabel,
                             useTextArea: $ctrl.settings.useTextArea,
-                            saveText: "Save",
+                            saveText: "保存",
                             validationFn: (value) => {
                                 return new Promise(resolve => {
                                     if (value == null || value.trim().length < 1) {
@@ -90,7 +90,7 @@ const deepmerge = require("deepmerge");
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model[index] = newItem;
                         } else {
-                            ngToast.create("Cannot edit: Duplicate found");
+                            ngToast.create("追加できません。複製がすでにあります");
                         }
                     });
                 };
@@ -101,7 +101,7 @@ const deepmerge = require("deepmerge");
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model.push(newItem);
                         } else {
-                            ngToast.create("Cannot add: Duplicate found");
+                            ngToast.create("追加できません。複製がすでにあります");
                         }
                     });
                 };

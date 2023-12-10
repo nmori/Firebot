@@ -22,15 +22,15 @@ axios.interceptors.response.use(response => {
 const effect = {
     definition: {
         id: "firebot:http-request",
-        name: "HTTP Request",
-        description: "Send an HTTP request to a given url",
+        name: "HTTPリクエスト",
+        description: "与えられたURLにHTTPリクエストを送る",
         icon: "fad fa-terminal",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: [],
         outputs: [
             {
-                label: "Response Body",
-                description: "The raw response from the request",
+                label: "返答本文",
+                description: "リクエストからの生のレスポンス",
                 defaultName: "httpResponse"
             }
         ]
@@ -41,11 +41,11 @@ const effect = {
         <firebot-input model="effect.url" placeholder-text="Enter url" menu-position="below"></firebot-input>
     </eos-container>
 
-    <eos-container header="Method" pad-top="true">
+    <eos-container header="通信メソッド" pad-top="true">
         <dropdown-select options="['GET', 'POST', 'PUT', 'PATCH', 'DELETE']" selected="effect.method"></dropdown-select>
     </eos-container>
 
-    <eos-container header="Body (JSON)" pad-top="true" ng-show="['POST', 'PUT', 'PATCH'].includes(effect.method)">
+    <eos-container header="データ (JSON)" pad-top="true" ng-show="['POST', 'PUT', 'PATCH'].includes(effect.method)">
         <div
             ui-codemirror="{onLoad : codemirrorLoaded}"
             ui-codemirror-opts="editorSettings"
@@ -55,27 +55,27 @@ const effect = {
         </div>
     </eos-container>
 
-    <eos-container header="Headers" pad-top="true">
+    <eos-container header="ヘッダ" pad-top="true">
         <div ui-sortable="sortableOptions" ng-model="effect.headers">
             <div ng-repeat="header in effect.headers track by $index" class="list-item selectable" ng-click="showAddOrEditHeaderModal(header)">
                 <span class="dragHandle" style="height: 38px; width: 15px; align-items: center; justify-content: center; display: flex">
                     <i class="fal fa-bars" aria-hidden="true"></i>
                 </span>
-                <div uib-tooltip="Click to edit"  style="font-weight: 400;width: 100%;margin-left: 20px;" aria-label="{{header.key + ' (Click to edit)'}}"><b>{{header.key}}</b>: {{header.value}}</div>
-                <span class="clickable" style="color: #fb7373;" ng-click="removeHeaderAtIndex($index);$event.stopPropagation();" aria-label="Remove header">
+                <div uib-tooltip="クリックして編集"  style="font-weight: 400;width: 100%;margin-left: 20px;" aria-label="{{header.key + ' (クリックして編集)'}}"><b>{{header.key}}</b>: {{header.value}}</div>
+                <span class="clickable" style="color: #fb7373;" ng-click="removeHeaderAtIndex($index);$event.stopPropagation();" aria-label="ヘッダを削除">
                     <i class="fad fa-trash-alt" aria-hidden="true"></i>
                 </span>
             </div>
-            <p class="muted" ng-show="effect.headers.length < 1">No headers added.</p>
+            <p class="muted" ng-show="effect.headers.length < 1">ヘッダはありません</p>
         </div>
         <div style="margin: 5px 0 10px 0px;">
-            <button class="filter-bar" ng-click="showAddOrEditHeaderModal()" uib-tooltip="Add header" tooltip-append-to-body="true" aria-label="Add header">
+            <button class="filter-bar" ng-click="showAddOrEditHeaderModal()" uib-tooltip="ヘッダを追加" tooltip-append-to-body="true" aria-label="ヘッダを追加">
                 <i class="far fa-plus"></i>
             </button>
         </div>
     </eos-container>
 
-    <eos-container header="Options" pad-top="true">
+    <eos-container header="オプション" pad-top="true">
         <div style="margin-bottom: 10px;">
             <label class="control-fb control--checkbox"> Include Twitch auth header <tooltip text="'Automatically include an Authorization header with the streamers twitch access token. Only use when calling the Twitch API!'"></tooltip>
                 <input type="checkbox" ng-model="effect.options.useTwitchAuth">
@@ -87,19 +87,19 @@ const effect = {
             <div class="control__indicator"></div>
         </label>
         <div ng-if="effect.options.putResponseInVariable" style="padding-left: 15px;">
-            <firebot-input input-title="Variable Name" model="effect.options.variableName" placeholder-text="Enter name" />
-            <firebot-input style="margin-top: 10px;" input-title="Variable TTL" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="Enter secs | Optional" />
-            <firebot-input style="margin-top: 10px;" input-title="Variable Property Path" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="Optional" />
+            <firebot-input input-title="Variable Name" model="effect.options.variableName" placeholder-text="名前を入れる" />
+            <firebot-input style="margin-top: 10px;" input-title="変数の継続時間" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="Enter secs | 任意" />
+            <firebot-input style="margin-top: 10px;" input-title="変数のパス" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="任意" />
         </div>
         <div style="margin-top: 10px;">
-            <label class="control-fb control--checkbox"> Run effects on error <tooltip text="'Run a list of effects if the request fails. Useful for when you want to do clean up or stop effect execution all together.'"></tooltip>
+            <label class="control-fb control--checkbox"> エラー時に演出を実行 <tooltip text="'リクエストが失敗した場合に演出のリストを実行します。演出のクリーンアップや実行を停止したいときに便利です。'"></tooltip>
                 <input type="checkbox" ng-model="effect.options.runEffectsOnError">
                 <div class="control__indicator"></div>
             </label>
         </div>
     </eos-container>
 
-    <eos-container header="Error Effects" pad-top="true" ng-if="effect.options.runEffectsOnError">
+    <eos-container header="エラー時の演出" pad-top="true" ng-if="effect.options.runEffectsOnError">
         <effect-list effects="effect.errorEffects"
             trigger="{{trigger}}"
             trigger-meta="triggerMeta"
@@ -109,7 +109,7 @@ const effect = {
 
     <eos-container pad-top="true">
         <div class="effect-info alert alert-warning">
-            Note: Request errors will be logged to the console, which you can access via Window > Toggle Developer Tools.
+        注意: リクエストエラーはコンソールに記録され、ウィンドウ→開発者ツールの切り替え からアクセスできます。
         </div>
     </eos-container>
 
@@ -174,13 +174,13 @@ const effect = {
 
         $scope.headers = [
             {
-                name: "KEY",
+                name: "キー",
                 icon: "fa-key",
                 cellTemplate: `{{data.key}}`,
                 cellController: () => {}
             },
             {
-                name: "VALUE",
+                name: "値",
                 icon: "fa-tag",
                 cellTemplate: `{{data.value}}`,
                 cellController: () => {}
@@ -190,13 +190,13 @@ const effect = {
         $scope.headerOptions = (item) => {
             const options = [
                 {
-                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                     click: function () {
                         $scope.showAddOrEditHeaderModal(item);
                     }
                 },
                 {
-                    html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                    html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                     click: function () {
                         $scope.effect.headers = $scope.effect.headers.filter(h => h.key !== item.key);
                     }
@@ -208,10 +208,10 @@ const effect = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.method === "" || effect.method == null) {
-            errors.push("Please select an HTTP method");
+            errors.push("HTTPメソッドを選択してください");
         }
         if (effect.url === "" || effect.url == null) {
-            errors.push("Please provide a url");
+            errors.push("URLを教えてください。");
         }
         return errors;
     },

@@ -36,7 +36,7 @@
     ]);
 
     app.factory("$exceptionHandler", function(logger) {
-    // this catches angular exceptions so we can send it to winston
+        // this catches angular exceptions so we can send it to winston
         return function(exception, cause) {
             console.log(exception || "", cause || {});
             logger.error(exception || "", cause || {});
@@ -70,6 +70,8 @@
                     suffix: ".json"
                 })
                 .preferredLanguage("en");
+            $translateProvider.preferredLanguage('ja');
+            $translateProvider.fallbackLanguage('en');
         }
     ]);
 
@@ -246,8 +248,8 @@
         };
 
         /*
-        * MANAGE LOGINS MODAL
-        */
+         * MANAGE LOGINS MODAL
+         */
         $scope.showManageLoginsModal = function() {
             const showManageLoginsModal = {
                 templateUrl: "manageLoginsModal.html",
@@ -276,8 +278,8 @@
         };
 
         /*
-        * New Profile MODAL
-        */
+         * New Profile MODAL
+         */
         $scope.showNewProfileModal = function() {
             const showNewProfileModal = {
                 templateUrl: "newProfileModal.html",
@@ -305,8 +307,8 @@
         };
 
         /*
-        * Rename Profile MODAL
-        */
+         * Rename Profile MODAL
+         */
         $scope.showRenameProfileModal = function() {
             const renameProfileModal = {
                 templateUrl: "renameProfileModal.html",
@@ -341,8 +343,8 @@
 
 
         /*
-        * Delete Profile MODAL
-        */
+         * Delete Profile MODAL
+         */
         $scope.showDeleteProfileModal = function() {
             const deleteProfileModal = {
                 templateUrl: "deleteProfileModal.html",

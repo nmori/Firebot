@@ -16,7 +16,7 @@
                             <label for="currency" class="control-label">Currency</label>
                             <select
                                 id="currency"
-                                name="currency"
+                                name="通貨"
                                 required
                                 class="fb-select form-control input-lg"
                                 ng-model="$ctrl.currencyInfo.currencyId"
@@ -26,13 +26,13 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('username')}">
-                            <label for="targetType" class="control-label">Target</label>
+                            <label for="targetType" class="control-label">対象</label>
                             <div class="permission-type">
-                                <label class="control-fb control--radio">All Online Chat Users
+                                <label class="control-fb control--radio">全オンラインチャットユーザ
                                     <input type="radio" ng-model="$ctrl.currencyInfo.targetType" value="allOnline"/>
                                     <div class="control__indicator"></div>
                                 </label>
-                                <label class="control-fb control--radio">All Online Chat Users In Role
+                                <label class="control-fb control--radio">指定した役割の全オンラインチャットユーザ
                                     <input type="radio" ng-model="$ctrl.currencyInfo.targetType" value="allOnlineInRole"/>
                                     <div class="control__indicator"></div>
                                 </label>
@@ -46,7 +46,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <label class="control-fb control--radio">Single User
+                                <label class="control-fb control--radio">特定の視聴者
                                     <input type="radio" ng-model="$ctrl.currencyInfo.targetType" value="individual"/>
                                     <div class="control__indicator"></div>
                                 </label>
@@ -67,24 +67,24 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('amount')}">
-                            <label for="amount" class="control-label">Amount</label>
+                            <label for="amount" class="control-label">価格</label>
                             <input
                                 type="number"
                                 id="amount"
                                 name="amount"
                                 class="form-control input-lg"
-                                placeholder="Enter amount"
+                                placeholder="価格を入力"
                                 ng-model="$ctrl.currencyInfo.amount"
                                 ui-validate="'$value > 0 || $value < 0'"
                                 required
                             />
-                            <p class="help-block">Tip: You can enter a negative amount to remove currency.</p>
+                            <p class="help-block">ヒント：マイナスの金額を入力すると、通貨を削除できます。</p>
                         </div>
 
                         <div class="form-group flex-row jspacebetween mb-0">
                             <div>
                                 <label class="control-label m-0">Send Chat Message</label>
-                                <p class="help-block">Send a message to chat detailing the currency given</p>
+                                <p class="help-block">チャットに通貨に関する詳細なメッセージを送信する。</p>
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.currencyInfo.sendChatMessage" auto-update-value="true" font-size="32"></toggle-button>
@@ -94,8 +94,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Give</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">送る</button>
                 </div>
             `,
             bindings: {
@@ -146,7 +146,7 @@
 
                     ngToast.create({
                         className: 'success',
-                        content: "Successfully gave currency!"
+                        content: "通貨を渡すことに成功しました"
                     });
 
                     $ctrl.dismiss();

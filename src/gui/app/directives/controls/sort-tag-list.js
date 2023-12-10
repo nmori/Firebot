@@ -44,10 +44,10 @@
 
                     utilityService.openSelectModal(
                         {
-                            label: "Add Tag",
+                            label: "タグの追加",
                             options: remainingTags,
-                            saveText: "Add",
-                            validationText: "Please select a tag."
+                            saveText: "追加する",
+                            validationText: "タグを選んでください"
 
                         },
                         (tagId) => {

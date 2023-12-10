@@ -13,8 +13,8 @@ const permitCommand = {
         name: "Permit",
         active: true,
         trigger: "!permit",
-        usage: "[target]",
-        description: "Permits a viewer to post a url for a set duration (see Moderation -> Url Moderation).",
+        usage: "[ターゲット]",
+        description: "閲覧者が設定された期間だけurlを投稿することを許可する(Moderation → Url Moderationを参照).",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
@@ -34,16 +34,16 @@ const permitCommand = {
         options: {
             permitDuration: {
                 type: "number",
-                title: "Duration in seconds",
+                title: "継続時間(秒)",
                 default: 30,
-                description: "The amount of time the viewer has to post a link after the !permit command is used."
+                description: "permitコマンド使用後、視聴者がリンクを貼るまでの時間。"
             },
             permitDisplayTemplate: {
                 type: "string",
-                title: "Output Template",
-                description: "The chat message shown when the permit command is used (leave empty for no message).",
-                tip: "Variables: {target}, {duration}",
-                default: `{target}, you have {duration} seconds to post your url in the chat.`,
+                title: "出力テンプレート",
+                description: "permitコマンド使用時に表示されるチャットメッセージ。",
+                tip: "変数: {target}, {duration}",
+                default: `{target}、{duration}秒以内にあなたのURLをチャットに投稿してください。`,
                 useTextArea: true
             }
         }
@@ -58,13 +58,13 @@ const permitCommand = {
         }
 
         if (args.length !== 1) {
-            await twitchChat.sendChatMessage("Incorrect command usage!");
+            await twitchChat.sendChatMessage("コマンドの使い方が正しくありません");
             return;
         }
 
         const target = args[0].replace("@", "");
         if (!target) {
-            await twitchChat.sendChatMessage("Please specify a user to permit.");
+            await twitchChat.sendChatMessage("許可するユーザーを指定してください");
             return;
         }
 

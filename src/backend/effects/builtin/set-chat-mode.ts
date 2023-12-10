@@ -20,8 +20,8 @@ const model: EffectType<{
 }>  = {
     definition: {
         id: "firebot:set-chat-mode",
-        name: "Set Chat Mode",
-        description: "Sets the chat mode(s) for your Twitch channel",
+        name: "チャットモードの設定",
+        description: "Twitchチャンネルのチャットモードを設定します",
         icon: "fad fa-comment-check",
         categories: [ EffectCategory.COMMON, EffectCategory.TWITCH ],
         dependencies: []
@@ -30,8 +30,8 @@ const model: EffectType<{
         <eos-container header="Chat Modes">
             <firebot-checkbox
                 model="effect.setFollowersOnly"
-                label="Set Followers-Only Mode"
-                tooltip="Whether or not you want to change the followers-only mode of your Twitch channel chat."
+                label="フォロワー専用モードを設定する"
+                tooltip="Twitchチャンネルチャットのフォロワー限定モードを変更するかどうか"
             />
 
             <div class="btn-group mb-4" ng-if="effect.setFollowersOnly === true">
@@ -40,10 +40,10 @@ const model: EffectType<{
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.enableFollowersOnly = true">
-                        <a href>Enable</a>
+                        <a href>有効</a>
                     </li>
                     <li ng-click="effect.enableFollowersOnly = false">
-                        <a href>Disable</a>
+                        <a href>無効</a>
                     </li>
                 </ul>
             </div>
@@ -52,14 +52,14 @@ const model: EffectType<{
                 style="margin-bottom: 2rem;"
                 ng-if="effect.setFollowersOnly === true && effect.enableFollowersOnly === true"
                 model="effect.followersOnlyDuration"
-                input-title="Follow Duration"
-                placeholder-text="Duration (formats: 1m / 1h / 1d / 1w / 1mo)"
+                input-title="フォロー期間"
+                placeholder-text="期間 (formats: 1m / 1h / 1d / 1w / 1mo)"
             />
             
             <firebot-checkbox
                 model="effect.setSubscribersOnly"
-                label="Set Subscribers-Only Mode"
-                tooltip="Whether or not you want to change the subscribers-only mode of your Twitch channel chat."
+                label="登録者専用モードの設定"
+                tooltip="Twitchチャンネルチャットの登録者限定モードを変更するかどうか"
             />
 
             <div class="btn-group mb-8" ng-if="effect.setSubscribersOnly === true">
@@ -68,18 +68,18 @@ const model: EffectType<{
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.enableSubscribersOnly = true">
-                        <a href>Enable</a>
+                        <a href>有効</a>
                     </li>
                     <li ng-click="effect.enableSubscribersOnly = false">
-                        <a href>Disable</a>
+                        <a href>無効</a>
                     </li>
                 </ul>
             </div>
             
             <firebot-checkbox
                 model="effect.setEmoteOnly"
-                label="Set Emote-Only Mode"
-                tooltip="Whether or not you want to change the emote-only mode of your Twitch channel chat."
+                label="エモート専用モードの設定"
+                tooltip="Twitchチャンネルチャットの絵文字モードを変更するかどうか"
             />
 
             <div class="btn-group mb-8" ng-if="effect.setEmoteOnly === true">
@@ -88,18 +88,18 @@ const model: EffectType<{
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.enableEmoteOnly = true">
-                        <a href>Enable</a>
+                        <a href>有効</a>
                     </li>
                     <li ng-click="effect.enableEmoteOnly = false">
-                        <a href>Disable</a>
+                        <a href>無効</a>
                     </li>
                 </ul>
             </div>
             
             <firebot-checkbox
                 model="effect.setSlowMode"
-                label="Set Slow Mode"
-                tooltip="Whether or not you want to change the slow mode of your Twitch channel chat."
+                label="スローモードの設定"
+                tooltip="Twitchチャンネルチャットのスローモードを変更するかどうか。"
             />
 
             <div class="btn-group mb-4" ng-if="effect.setSlowMode === true">
@@ -108,10 +108,10 @@ const model: EffectType<{
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.enableSlowMode = true">
-                        <a href>Enable</a>
+                        <a href>有効</a>
                     </li>
                     <li ng-click="effect.enableSlowMode = false">
-                        <a href>Disable</a>
+                        <a href>無効</a>
                     </li>
                 </ul>
             </div>
@@ -119,8 +119,8 @@ const model: EffectType<{
             <firebot-input
                 ng-if="effect.setSlowMode === true && effect.enableSlowMode === true"
                 model="effect.slowModeDelay"
-                input-title="Delay (Seconds)"
-                placeholder-text="Optional"
+                input-title="遅延 (秒)"
+                placeholder-text="任意"
             />
         </eos-container>
     `,
@@ -128,11 +128,11 @@ const model: EffectType<{
         const errors: string[] = [];
 
         if (effect.setFollowersOnly === true && effect.enableFollowersOnly == null) {
-            errors.push("You must select a followers-only action");
+            errors.push("フォロワー専用アクションを選択する必要があります");
         } else if (effect.setSubscribersOnly === true && effect.enableSubscribersOnly == null) {
-            errors.push("You must specify a subscribers-only action");
+            errors.push("購読者限定のアクションを指定する必要があります。");
         } else if (effect.setEmoteOnly === true && effect.enableEmoteOnly == null) {
-            errors.push("You must specify an emote-only action");
+            errors.push("エモーションのみのアクションを指定する必要があります。");
         } else if (effect.setSlowMode === true && effect.enableSlowMode == null) {
             errors.push("You must specify a slow mode action");
         }

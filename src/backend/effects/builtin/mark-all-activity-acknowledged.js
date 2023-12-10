@@ -6,15 +6,15 @@ const frontendCommunicator = require("../../common/frontend-communicator");
 const model = {
     definition: {
         id: "firebot:mark-all-activity-acknowledged",
-        name: "Mark All Activity As Acknowledged",
-        description: "Marks all Activity as acknowledged on the Chat page",
+        name: "すべての活動を承認済みとしてマークする",
+        description: "チャットページですべてのアクティビティを承認済みとしてマークします。",
         icon: "fad fa-comment-dots",
         categories: [EffectCategory.COMMON],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container pad-top="true">
-            <p>When this effect is ran, all activity in the Activity Feed on the Chat page will be marked as acknowledged. Useful on a hotkey or hooked up to a StreamDeck to quickly acknowledge all current activity.</p>
+            <p>このエフェクトが実行されると、チャットページのアクティビティフィード内のすべてのアクティビティが確認済みとしてマークされます。ホットキーやStreamDeckに接続することで、現在のすべてのアクティビティを素早く確認することができます。</p>
         </eos-container>
     `,
     optionsController: () => {},

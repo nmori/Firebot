@@ -39,16 +39,16 @@
                         $ctrl.conditionType.leftSideValueType !== 'none') {
                         return $ctrl.leftSideValueDisplay;
                     }
-                    return $ctrl.conditionType ? $ctrl.conditionType.name : "Unknown";
+                    return $ctrl.conditionType ? $ctrl.conditionType.name : "不明";
                 };
 
-                $ctrl.rightSideValueDisplay = "[Not Set]";
-                $ctrl.leftSideValueDisplay = "[Not Set]";
+                $ctrl.rightSideValueDisplay = "[未設定]";
+                $ctrl.leftSideValueDisplay = "[未設定]";
 
                 function getRightSideValueDisplay() {
                     return $q(async resolve => {
                         if ($ctrl.condition == null || $ctrl.condition.rightSideValue == null) {
-                            resolve("[Not Set]");
+                            resolve("[未設定]");
                         } else {
                             const value = await $injector.invoke($ctrl.conditionType.getRightSideValueDisplay, {}, {
                                 condition: $ctrl.condition
@@ -61,7 +61,7 @@
                 function getLeftSideValueDisplay() {
                     return $q(async resolve => {
                         if ($ctrl.condition == null || $ctrl.condition.leftSideValue == null) {
-                            resolve("[Not Set]");
+                            resolve("[未設定]");
                         } else {
                             const value = await $injector.invoke($ctrl.conditionType.getLeftSideValueDisplay, {}, {
                                 condition: $ctrl.condition

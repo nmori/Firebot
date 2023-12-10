@@ -12,8 +12,8 @@ const model = {
    */
     definition: {
         id: "firebot:runcommand",
-        name: "Run Command",
-        description: "Runs effects saved for the selected custom command.",
+        name: "コマンドを実行",
+        description: "選択したカスタムコマンドに保存されている演出を実行します。",
         icon: "fad fa-exclamation-square",
         categories: [EffectCategory.ADVANCED],
         dependencies: []
@@ -27,37 +27,37 @@ const model = {
    * You can alternatively supply a url to a html file via optionTemplateUrl
    */
     optionsTemplate: `
-    <eos-container header="Command Type" pad-top="true">
+    <eos-container header="コマンドの種類" pad-top="true">
         <dropdown-select options="{ system: 'System', custom: 'Custom'}" selected="effect.commandType"></dropdown-select>
     </eos-container>
 
-        <eos-container header="Command To Run" pad-top="true">
+        <eos-container header="実行コマンド" pad-top="true">
             <ui-select ng-model="effect.systemCommandId" theme="bootstrap" ng-show="effect.commandType === 'system'">
-                <ui-select-match placeholder="Select or search for a command... ">{{$select.selected.trigger}}</ui-select-match>
+                <ui-select-match placeholder="コマンドの選択または検索... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in systemCommands | filter: { trigger: $select.search }" style="position:relative;">
                     <div ng-bind-html="command.trigger | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
 
             <ui-select ng-model="effect.commandId" theme="bootstrap" ng-show="effect.commandType === 'custom'">
-                <ui-select-match placeholder="Select or search for a command... ">{{$select.selected.trigger}}</ui-select-match>
+                <ui-select-match placeholder="コマンドの選択または検索... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in customCommands | filter: { trigger: $select.search }" style="position:relative;">
                     <div ng-bind-html="command.trigger | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
         </eos-container>
 
-        <eos-container header="Arguments (optional)" pad-top="true">
+        <eos-container header="引数(任意)" pad-top="true">
             <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.args" placeholder="Enter some arguments..." replace-variables>
         </eos-container>
 
-        <eos-container header="User who triggers the command (optional)" pad-top="true">
+        <eos-container header="コマンドを起動する視聴者（任意）" pad-top="true">
             <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.username" placeholder="Enter a username..." replace-variables>
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-info" pad-top="true">
-                Please keep in mind you may get unexpected results if any effects in the selected command have command specific things (such as $arg variables) when running outside the context of a chat event.
+            選択されたコマンドのエフェクトがコマンド固有のもの($arg変数など)を持っている場合、チャットイベントのコンテキスト外で実行すると、予期しない結果になる可能性があることに留意してください。
             </div>
         </eos-container>
     `,
@@ -80,10 +80,10 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.commandType === "custom" && (effect.commandId == null || effect.commandId === "")) {
-            errors.push("Please select a custom command to run.");
+            errors.push("実行するカスタムコマンドを選択してください。");
         }
         if (effect.commandType === "system" && (effect.systemCommandId == null || effect.systemCommandId === "")) {
-            errors.push("Please select a system command to run.");
+            errors.push("実行するシステムコマンドを選択してください。");
         }
         return errors;
     },

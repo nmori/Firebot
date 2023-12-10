@@ -37,9 +37,9 @@
                         case "delete":
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Hotkey",
-                                    question: `Are you sure you want to delete the Hotkey "${hotkey.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "ホットキーの削除",
+                                    question: `ホットキー「"${hotkey.name}"」を削除しますか?`,
+                                    confirmLabel: "削除する",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then(confirmed => {

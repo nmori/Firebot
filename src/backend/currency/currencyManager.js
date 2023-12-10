@@ -110,10 +110,10 @@ function createCurrencyCommandDefinition(currency) {
     const commandManagement = {
         definition: {
             id: "firebot:currency:" + currencyId,
-            name: currencyName + " Management",
+            name: currencyName + "を管理",
             active: true,
             trigger: "!" + cleanName,
-            description: "Allows management of the \"" + currencyName + "\" currency",
+            description: currencyName + " の管理をします。",
             autoDeleteTrigger: false,
             scanWholeMessage: false,
             currency: {
@@ -124,51 +124,51 @@ function createCurrencyCommandDefinition(currency) {
                 user: 0,
                 global: 0
             },
-            baseCommandDescription: "See your balance",
+            baseCommandDescription: "残高を確認",
             options: {
                 currencyBalanceMessageTemplate: {
                     type: "string",
-                    title: "Currency Balance Message Template",
-                    description: "How the currency balance message appears in chat.",
-                    tip: "Variables: {user}, {currency}, {amount}",
-                    default: `{user}'s {currency} total is {amount}`,
+                    title: "残高メッセージのテンプレート",
+                    description: "チャットに表示される残高メッセージ",
+                    tip: "変数: {user}, {currency}, {amount}",
+                    default: `{user}さんの {currency} 残高は {amount}です`,
                     useTextArea: true
                 },
                 whisperCurrencyBalanceMessage: {
                     type: "boolean",
-                    title: "Whisper Currency Balance Message",
+                    title: "残高メッセージをささやく",
                     default: false
                 },
                 addMessageTemplate: {
                     type: "string",
-                    title: "Add Currency Message Template",
-                    description: "How the !currency add message appears in chat.",
-                    tip: "Variables: {user}, {currency}, {amount}",
-                    default: `Added {amount} {currency} to {user}.`,
+                    title: "通貨メッセージのテンプレートを追加",
+                    description: "通貨追加メッセージがチャットにどのように表示されるか。",
+                    tip: "変数: {user}, {currency}, {amount}",
+                    default: `{user} さんは {amount} {currency} を追加しました `,
                     useTextArea: true
                 },
                 removeMessageTemplate: {
                     type: "string",
-                    title: "Remove Currency Message Template",
-                    description: "How the !currency remove message appears in chat.",
-                    tip: "Variables: {user}, {currency}, {amount}",
-                    default: `Removed {amount} {currency} from {user}.`,
+                    title: "通貨メッセージテンプレートの削除",
+                    description: "!currency メッセージがチャットにどのように表示されるか",
+                    tip: "変数: {user}, {currency}, {amount}",
+                    default: `{user}さんは {amount} {currency} を削除しました `,
                     useTextArea: true
                 },
                 addAllMessageTemplate: {
                     type: "string",
-                    title: "Add All Currency Message Template",
-                    description: "How the !currency addall message appears in chat.",
-                    tip: "Variables: {currency}, {amount}",
-                    default: `Added {amount} {currency} to everyone!`,
+                    title: "全員向け通貨追加メッセージテンプレートの追加",
+                    description: "!currency 追加がチャットに表示される方法",
+                    tip: "変数: {currency}, {amount}",
+                    default: `全員に {amount} {currency} が追加されました`,
                     useTextArea: true
                 },
                 removeAllMessageTemplate: {
                     type: "string",
-                    title: "Remove All Currency Message Template",
-                    description: "How the !currency removeall message appears in chat.",
-                    tip: "Variables: {currency}, {amount}",
-                    default: `Removed {amount} {currency} from everyone!`,
+                    title: "全員向け通貨削除メッセージテンプレートの追加",
+                    description: "!currency 削除がチャットに表示される方法",
+                    tip: "変数: {currency}, {amount}",
+                    default: `全員の {amount} {currency} が削除されました`,
                     useTextArea: true
                 }
             },
@@ -176,7 +176,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "add",
                     usage: "add [@user] [amount]",
-                    description: "Adds currency for a given user.",
+                    description: "指定したユーザーの通貨を追加します",
                     restrictionData: {
                         restrictions: [
                             {
@@ -194,7 +194,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "remove",
                     usage: "remove [@user] [amount]",
-                    description: "Removes currency for a given user.",
+                    description: "指定したユーザーの通貨を削除します",
                     restrictionData: {
                         restrictions: [
                             {
@@ -212,12 +212,12 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "give",
                     usage: "give [@user] [amount]",
-                    description: "Gives currency from one user to another user."
+                    description: "あるユーザーから別のユーザーへ通貨を渡します"
                 },
                 {
                     arg: "addall",
                     usage: "addall [amount]",
-                    description: "Adds currency to all online users.",
+                    description: "すべてのオンラインユーザーに通貨を追加します",
                     restrictionData: {
                         restrictions: [
                             {
@@ -235,7 +235,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "removeall",
                     usage: "removeall [amount]",
-                    description: "Removes currency from all online users.",
+                    description: "すべてのオンラインユーザーの通貨を削除します",
                     restrictionData: {
                         restrictions: [
                             {
@@ -299,7 +299,7 @@ function createCurrencyCommandDefinition(currency) {
                     await twitchChat.sendChatMessage(addMessageTemplate);
                 } else {
                     // Error removing currency.
-                    await twitchChat.sendChatMessage(`Error: Could not add currency to user.`);
+                    await twitchChat.sendChatMessage(`エラー： ユーザーに通貨を追加できませんでした。`);
                     logger.error('Error adding currency for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
                 }
 
@@ -320,7 +320,7 @@ function createCurrencyCommandDefinition(currency) {
                     await twitchChat.sendChatMessage(removeMessageTemplate);
                 } else {
                     // Error removing currency.
-                    await twitchChat.sendChatMessage(`Error: Could not remove currency from user.`);
+                    await twitchChat.sendChatMessage(`エラー： ユーザーの通貨を削除できませんでした。`);
                     logger.error('Error removing currency for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
                 }
 
@@ -335,7 +335,7 @@ function createCurrencyCommandDefinition(currency) {
                 // Does this currency have transfer active?
                 const currencyCheck = currencyDatabase.getCurrencies();
                 if (currencyCheck[currencyId].transfer === "Disallow") {
-                    await twitchChat.sendChatMessage('Transfers are not allowed for this currency.');
+                    await twitchChat.sendChatMessage('この通貨はお取扱いできません');
                     logger.debug(event.userCommand.commandSender + ' tried to give currency, but transfers are turned off for it. ' + currencyId);
                     return false;
                 }
@@ -343,7 +343,7 @@ function createCurrencyCommandDefinition(currency) {
                 // Dont allow person to give themselves currency.
                 if (event.userCommand.commandSender.toLowerCase() === username.toLowerCase()) {
                     await twitchChat.sendChatMessage(
-                        `${event.userCommand.commandSender}, you can't give yourself currency.`);
+                        `${event.userCommand.commandSender}：自分自身に通貨を与えることはできません`);
                     logger.debug(username + ' tried to give themselves currency.');
                     return false;
                 }
@@ -354,13 +354,13 @@ function createCurrencyCommandDefinition(currency) {
 
                 // If we get false, there was an error.
                 if (userAmount === false) {
-                    await twitchChat.sendChatMessage('Error: Could not retrieve currency.');
+                    await twitchChat.sendChatMessage('エラー： 通貨を取得できませんでした');
                     return false;
                 }
 
                 // Check to make sure we have enough currency to give.
                 if (userAmount < currencyAdjust) {
-                    await twitchChat.sendChatMessage('You do not have enough ' + currencyName + ' to do this action.');
+                    await twitchChat.sendChatMessage('このアクションを実行するのに十分な' + currencyName + ' を持っていません');
                     return false;
                 }
 
@@ -376,13 +376,13 @@ function createCurrencyCommandDefinition(currency) {
                     } else {
                         // Error removing currency.
                         await twitchChat.sendChatMessage(
-                            `Error: Could not remove currency to user during give transaction.`);
+                            `エラー： 取引中の通貨を削除できませんでした。`);
                         logger.error('Error removing currency during give transaction for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
                         return false;
                     }
                 } else {
                     // Error removing currency.
-                    await twitchChat.sendChatMessage(`Error: Could not add currency to user. Was there a typo in the username?`);
+                    await twitchChat.sendChatMessage(`エラー： ユーザーに通貨を追加できませんでした。ユーザー名は正しいですか？`);
                     logger.error('Error adding currency during give transaction for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
                     return false;
                 }
@@ -393,7 +393,7 @@ function createCurrencyCommandDefinition(currency) {
                 const currencyAdjust = Math.abs(parseInt(args[1]));
                 if (isNaN(currencyAdjust)) {
                     await twitchChat.sendChatMessage(
-                        `Error: Could not add currency to all online users.`);
+                        `エラー： すべてのオンラインユーザーに通貨を追加できませんでした`);
                     return;
                 }
                 currencyDatabase.addCurrencyToOnlineUsers(currencyId, currencyAdjust, true);
@@ -408,7 +408,7 @@ function createCurrencyCommandDefinition(currency) {
             case "removeall": {
                 const currencyAdjust = -Math.abs(parseInt(args[1]));
                 if (isNaN(currencyAdjust)) {
-                    await twitchChat.sendChatMessage(`Error: Could not remove currency from all online users.`);
+                    await twitchChat.sendChatMessage(`エラー： すべてのオンラインユーザーから通貨を削除できませんでした`);
                     return;
                 }
                 currencyDatabase.addCurrencyToOnlineUsers(currencyId, currencyAdjust, true);

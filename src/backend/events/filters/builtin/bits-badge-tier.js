@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:bits-badge-tier",
-    name: "Bits Badge Tier",
-    description: "Filter by the tier of the bits badge that was unlocked (100, 1000, 5000, etc.).",
+    name: "ビッツバッジ Tier",
+    description: "アンロックされたビッツバッジのTierでフィルタリング（100、1000、5000など）.",
     events: [
         { eventSourceId: "twitch", eventId: "bits-badge-unlocked" }
     ],

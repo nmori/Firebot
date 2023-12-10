@@ -12,20 +12,20 @@
             },
             template: `
         <div>
-          <h3 style="margin-bottom: 5px;">Filters</h3>
+          <h3 style="margin-bottom: 5px;">フィルタ</h3>
           <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;" ng-if="$ctrl.hasFiltersAvailable()">
-            <span>Only trigger this event when</span>
+            <span>以下の場合にのみ、このイベントが発生します。</span>
 
             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                   <div class="noselect pointer ddtext" style="font-size: 12px;">{{$ctrl.getFilterModeDisplay()}}<span class="fb-arrow down ddtext"></span></div>
                   <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                     <li ng-click="$ctrl.filterData.mode = 'exclusive'">
-                      <a style="padding-left: 10px;">all filters pass</a>
+                      <a style="padding-left: 10px;">全フィルタ通過</a>
                     </li>
 
                     <li ng-click="$ctrl.filterData.mode = 'inclusive'">
-                      <a style="padding-left: 10px;">any filter passes</a>
+                      <a style="padding-left: 10px;">一部フィルタ通過</a>
                     </li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@
 
           </div>
 
-            <div ng-if="!$ctrl.hasFiltersAvailable()" class="muted">There are no filters available for this event type.</div>
+            <div ng-if="!$ctrl.hasFiltersAvailable()" class="muted">このイベントタイプで利用可能なフィルターはありません。</div>
         </div>
             `,
             controller: function(utilityService, backendCommunicator, $injector) {

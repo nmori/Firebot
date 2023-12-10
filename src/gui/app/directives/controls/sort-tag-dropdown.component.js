@@ -36,7 +36,7 @@
                         role="menuitem"
                         ng-click="sts.setSelectedSortTag($ctrl.context, null)"
                     >
-                        <a href>All {{$ctrl.context}}</a>
+                        <a href>すべての {{$ctrl.context}}</a>
                     </li>
                     <li
                         class="divider"
@@ -46,7 +46,7 @@
                         class="dropdown-header"
                         ng-show="sts.getSortTags($ctrl.context).length > 0"
                     >
-                        Tags
+                        タグ
                     </li>
                     <li
                         ng-repeat="tag in sts.getSortTags($ctrl.context)"
@@ -60,7 +60,7 @@
                         role="menuitem"
                         ng-click="sts.showEditSortTagsModal($ctrl.context)"
                     >
-                        <a href>Edit tags</a>
+                        <a href>タグの編集</a>
                     </li>
                 </ul>
             </div>

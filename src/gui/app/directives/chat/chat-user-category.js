@@ -22,7 +22,7 @@
                         <span
                             class="chat-user-status"
                             ng-class="{ active: user.active }"
-                            uib-tooltip="{{user.active ? 'Active chat user' : 'Inactive chat user (Lurking)'}}"
+                            uib-tooltip="{{user.active ? 'アクティブユーザ' : '非アクティブユーザ (ROM)'}}"
                             tooltip-append-to-body="true"
                         ></span>
                         </div>

@@ -8,7 +8,7 @@
             <context-menu-modal-header
                 class="edit-effect-queue-header"
                 on-close="$ctrl.dismiss()"
-                trigger-type="effect queue"
+                trigger-type="演出キュー"
                 trigger-name="$ctrl.effectQueue.name"
                 sort-tags="$ctrl.effectQueue.sortTags"
                 show-trigger-name="true"
@@ -16,11 +16,11 @@
             <div class="modal-body">
                 <div>
                     <div class="modal-subheader pb-2 pt-0 px-0">
-                        Name <tooltip text="'A name to help you identify this effect queue'">
+                        名前 <tooltip text="'この演出キューの名前'">
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group">
-                            <input type="text" class="form-control" ng-model="$ctrl.effectQueue.name" placeholder="Enter name">
+                            <input type="text" class="form-control" ng-model="$ctrl.effectQueue.name" placeholder="名前の入力">
                         </div>
                     </div>
                 </div>
@@ -48,18 +48,18 @@
                 </div>
 
                 <div class="mt-6" ng-show="$ctrl.effectQueue.mode != null && ($ctrl.effectQueue.mode ==='interval' || $ctrl.effectQueue.mode ==='auto')">
-                    <div class="modal-subheader pb-2 pt-0 px-0">Interval/Delay (secs)</div>
+                    <div class="modal-subheader pb-2 pt-0 px-0">間隔/遅れ(秒)</div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group">
-                            <input type="number" class="form-control" ng-model="$ctrl.effectQueue.interval" placeholder="Enter interval">
+                            <input type="number" class="form-control" ng-model="$ctrl.effectQueue.interval" placeholder="間隔の入力">
                         </div>
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
         bindings: {
@@ -99,12 +99,12 @@
 
             $ctrl.save = () => {
                 if ($ctrl.effectQueue.name == null || $ctrl.effectQueue.name === "") {
-                    ngToast.create("Please provide a name for this Effect Queue");
+                    ngToast.create("名前を入れてください");
                     return;
                 }
 
                 if ($ctrl.effectQueue.mode === "interval" && $ctrl.effectQueue.interval == null) {
-                    ngToast.create("Please choose an interval for this Effect Queue");
+                    ngToast.create("間隔を入力してください");
                     return;
                 }
 
@@ -116,7 +116,7 @@
                             }
                         });
                     } else {
-                        ngToast.create("Failed to save effect queue. Please try again or view logs for details.");
+                        ngToast.create("保存に失敗しました。再実行するか、詳細をログで確認してください。");
                     }
                 });
             };

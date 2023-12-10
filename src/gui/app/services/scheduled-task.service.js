@@ -145,10 +145,10 @@
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Successfully duplicated scheduled effect list!'
+                            content: '予定された演出リストの複製をしました'
                         });
                     } else {
-                        ngToast.create("Unable to duplicate scheduled effect list.");
+                        ngToast.create("予定された演出リストの複製二失敗しました");
                     }
                 });
             };

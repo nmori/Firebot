@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../../shared/filter-constants");
 
 module.exports = {
     id: "streamloots:card-name",
-    name: "Card Name",
-    description: "Filter by StreamLoots Card name",
+    name: "カード名",
+    description: "StreamLoots のカード名でフィルタ",
     events: [
         { eventSourceId: "streamloots", eventId: "redemption" }
     ],

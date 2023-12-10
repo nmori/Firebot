@@ -11,13 +11,13 @@
                 padTop: "<"
             },
             template: `
-            <eos-container header="{{$ctrl.limitTo ? $ctrl.limitTo + ' Animation' : 'Animations'}}" pad-top="$ctrl.padTop">
+            <eos-container header="{{$ctrl.limitTo ? $ctrl.limitTo + ' アニメーション' : 'アニメーション'}}" pad-top="$ctrl.padTop">
                 <div class="input-group" style="width: 100%" ng-hide="$ctrl.limitTo == 'Exit'">
-                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">ENTER</div>
+                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">開始</div>
                     <select class="fb-select" ng-model="$ctrl.selected.enter" ng-change="$ctrl.enterUpdate()" ng-options="enter.name group by enter.category for enter in $ctrl.animations.enter"></select>
                     <div ng-hide="$ctrl.effect.enterAnimation === 'none'">
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 15px 25px; align-items: center;">
-                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Custom Duration
+                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> 任意の継続時間
                                 <input type="checkbox" ng-init="customEnterDur = ($ctrl.effect.enterDuration != null && $ctrl.effect.enterDuration !== '')" ng-model="customEnterDur" ng-click="$ctrl.toggleEnterDurationStatus()">
                                 <div class="control__indicator"></div>
                             </label>
@@ -27,7 +27,7 @@
                                         <input type="number" class="form-control" ng-model="$ctrl.selected.enterDurationValue" ng-change="$ctrl.enterDurationUpdated()" style="width: 70px;">
                                     </div>
                                     <div class="form-group">
-                                        <dropdown-select options="{s: 'seconds', ms: 'milliseconds'}" selected="$ctrl.selected.enterDurationType" on-update="$ctrl.enterDurationUpdated(option)"></dropdown-select>
+                                        <dropdown-select options="{s: '秒', ms: 'ミリ秒'}" selected="$ctrl.selected.enterDurationType" on-update="$ctrl.enterDurationUpdated(option)"></dropdown-select>
                                     </div>
                                 </form>
                             </div>
@@ -36,24 +36,24 @@
                 </div>
 
                 <div class="input-group" style="width: 100%" ng-hide="$ctrl.limitTo == 'Exit'">
-                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">INBETWEEN</div>
+                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">間隔</div>
                     <select class="fb-select" ng-model="$ctrl.selected.inbetween" ng-change="$ctrl.inbetweenUpdate()" ng-options="inbetween.name for inbetween in $ctrl.animations.inbetween"></select>
                     <div ng-hide="$ctrl.effect.inbetweenAnimation === 'none'">
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 0 25px; align-items: center;">
-                            <span style="margin-right: 5px;width: 85px;">Delay for <tooltip text="'How long to delay after the Enter Animation before running the Inbetween Animation'"></tooltip></span>
+                            <span style="margin-right: 5px;width: 85px;">遅延時間 <tooltip text="'開始アニメーションの後、中間アニメーションを実行するまでの遅延時間'"></tooltip></span>
                             <div>
                                 <form class="form-inline">
                                     <div class="form-group">
                                         <input type="number" class="form-control" ng-model="$ctrl.selected.inbetweenDelayValue" ng-change="$ctrl.inbetweenDelayUpdated()" style="width: 70px;">
                                     </div>
                                     <div class="form-group">
-                                        <dropdown-select options="{s: 'seconds', ms: 'milliseconds'}" selected="$ctrl.selected.inbetweenDelayType" on-update="$ctrl.inbetweenDelayUpdated(option)"></dropdown-select>
+                                        <dropdown-select options="{s: '秒', ms: 'ミリ秒'}" selected="$ctrl.selected.inbetweenDelayType" on-update="$ctrl.inbetweenDelayUpdated(option)"></dropdown-select>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 0 25px; align-items: center;">
-                            <span style="margin-right: 5px;width: 85px;">Repeat <tooltip text="'How many times to repeat. Will get cut short if the total duration is reached and exit animation starts.'"></tooltip></span>
+                            <span style="margin-right: 5px;width: 85px;">繰り返し回数 <tooltip text="'何回繰り返すか。合計継続時間に達して終了アニメーションが始まると短縮される。'"></tooltip></span>
                             <div>
                                 <form class="form-inline">
                                     <div class="form-group">
@@ -65,7 +65,7 @@
                     </div>
                     <div ng-hide="$ctrl.effect.inbetweenAnimation === 'none'">
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 15px 25px; align-items: center;">
-                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Custom Duration
+                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> 任意の継続時間
                                 <input type="checkbox" ng-init="customInbetweenDur = ($ctrl.effect.inbetweenDuration != null && $ctrl.effect.inbetweenDuration !== '')" ng-model="customInbetweenDur" ng-click="$ctrl.toggleInbetweenDurationStatus()">
                                 <div class="control__indicator"></div>
                             </label>
@@ -75,7 +75,7 @@
                                         <input type="number" class="form-control" ng-model="$ctrl.selected.inbetweenDurationValue" ng-change="$ctrl.inbetweenDurationUpdated()" style="width: 70px;">
                                     </div>
                                     <div class="form-group">
-                                        <dropdown-select options="{s: 'seconds', ms: 'milliseconds'}" selected="$ctrl.selected.inbetweenDurationType" on-update="$ctrl.inbetweenDurationUpdated(option)"></dropdown-select>
+                                        <dropdown-select options="{s: '秒', ms: 'ミリ秒'}" selected="$ctrl.selected.inbetweenDurationType" on-update="$ctrl.inbetweenDurationUpdated(option)"></dropdown-select>
                                     </div>
                                 </form>
                             </div>
@@ -84,11 +84,11 @@
                 </div>
 
                 <div class="input-group" style="width: 100%" ng-hide="$ctrl.limitTo == 'Enter'">
-                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">EXIT</div>
+                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">終了</div>
                     <select class="fb-select" ng-model="$ctrl.selected.exit" ng-change="$ctrl.exitUpdate()" ng-options="exit.name group by exit.category for exit in $ctrl.animations.exit"></select>
                     <div ng-hide="$ctrl.effect.exitAnimation === 'none'">
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 15px 25px; align-items: center;">
-                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Custom Duration
+                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> 任意の継続時間
                                 <input type="checkbox" ng-init="customExitDur = ($ctrl.effect.exitDuration != null && $ctrl.effect.exitDuration !== '')" ng-model="customExitDur" ng-click="$ctrl.toggleExitDurationStatus()">
                                 <div class="control__indicator"></div>
                             </label>
@@ -98,7 +98,7 @@
                                         <input type="number" class="form-control" ng-model="$ctrl.selected.exitDurationValue" ng-change="$ctrl.exitDurationUpdated()" style="width: 70px;">
                                     </div>
                                     <div class="form-group">
-                                        <dropdown-select options="{s: 'seconds', ms: 'milliseconds'}" selected="$ctrl.selected.exitDurationType" on-update="$ctrl.exitDurationUpdated(option)"></dropdown-select>
+                                        <dropdown-select options="{s: '秒', ms: 'ミリ秒'}" selected="$ctrl.selected.exitDurationType" on-update="$ctrl.exitDurationUpdated(option)"></dropdown-select>
                                     </div>
                                 </form>
                             </div>
@@ -125,17 +125,17 @@
                 };
 
                 function loadAnimationValues() {
-                    ctrl.effect.enterAnimation = ctrl.effect.enterAnimation ? ctrl.effect.enterAnimation : 'fadeIn';
+                    ctrl.effect.enterAnimation = ctrl.effect.enterAnimation ? ctrl.effect.enterAnimation : 'フェードイン';
                     ctrl.selected.enter = ctrl.animations.enter.filter((ani) => {
                         return ani.class === ctrl.effect.enterAnimation;
                     })[0];
 
-                    ctrl.effect.exitAnimation = ctrl.effect.exitAnimation ? ctrl.effect.exitAnimation : 'fadeOut';
+                    ctrl.effect.exitAnimation = ctrl.effect.exitAnimation ? ctrl.effect.exitAnimation : '・フェードアウト';
                     ctrl.selected.exit = ctrl.animations.exit.filter((ani) => {
                         return ani.class === ctrl.effect.exitAnimation;
                     })[0];
 
-                    ctrl.effect.inbetweenAnimation = ctrl.effect.inbetweenAnimation ? ctrl.effect.inbetweenAnimation : 'none';
+                    ctrl.effect.inbetweenAnimation = ctrl.effect.inbetweenAnimation ? ctrl.effect.inbetweenAnimation : 'なし';
                     ctrl.selected.inbetween = ctrl.animations.inbetween.filter((ani) => {
                         return ani.class === ctrl.effect.inbetweenAnimation;
                     })[0];
@@ -275,373 +275,373 @@
                 ctrl.animations = {
                     enter: [
                         {
-                            name: "Bounce In",
+                            name: "前後に跳ねる",
                             class: "bounceIn",
                             category: "Bouncing"
                         },
                         {
-                            name: "Bounce In Up",
+                            name: "上に跳ねる",
                             class: "bounceInUp",
                             category: "Bouncing"
                         },
                         {
-                            name: "Bounce In Down",
+                            name: "下に跳ねる",
                             class: "bounceInDown",
                             category: "Bouncing"
                         },
                         {
-                            name: "Bounce In Left",
+                            name: "左に跳ねる",
                             class: "bounceInLeft",
                             category: "Bouncing"
                         },
                         {
-                            name: "Bounce In Right",
+                            name: "右に跳ねる",
                             class: "bounceInRight",
                             category: "Bouncing"
                         },
                         {
-                            name: "Fade In",
+                            name: "フェードイン",
                             class: "fadeIn",
                             category: "Fade"
                         },
                         {
-                            name: "Fade In Down",
+                            name: "フェードイン（下、減速あり）",
                             class: "fadeInDown",
                             category: "Fade"
                         },
                         {
-                            name: "Fade In Down Big",
+                            name: "フェードイン（下、減速なし）",
                             class: "fadeInDownBig",
                             category: "Fade"
                         },
                         {
-                            name: "Fade In Up",
+                            name: "フェードイン（上、減速あり）",
                             class: "fadeInUp",
                             category: "Fade"
                         },
                         {
-                            name: "Fade In Up Big",
+                            name: "フェードイン（上、減速なし）",
                             class: "fadeInUpBig",
                             category: "Fade"
                         },
                         {
-                            name: "Fade In Left",
+                            name: "フェードイン（左、減速あり）",
                             class: "fadeInLeft",
                             category: "Fade"
                         },
                         {
-                            name: "Fade In Left Big",
+                            name: "フェードイン（左、減速なし）",
                             class: "fadeInLeftBig",
                             category: "Fade"
                         },
                         {
-                            name: "Fade In Right",
+                            name: "フェードイン（右、減速あり）",
                             class: "fadeInRight",
                             category: "Fade"
                         },
                         {
-                            name: "Fade In Right Big",
+                            name: "フェードイン（右、減速なし）",
                             class: "fadeInRightBig",
                             category: "Fade"
                         },
                         {
-                            name: "Flip In X",
+                            name: "縦に回転",
                             class: "flipInX",
                             category: "Flip"
                         },
                         {
-                            name: "Flip In Y",
+                            name: "横に回転",
                             class: "flipInY",
                             category: "Flip"
                         },
                         {
-                            name: "Rotate In",
+                            name: "時計回り",
                             class: "rotateIn",
                             category: "Rotate"
                         },
                         {
-                            name: "Rotate In Down Left",
+                            name: "左下に回転",
                             class: "rotateInDownLeft",
                             category: "Rotate"
                         },
                         {
-                            name: "Rotate In Down Right",
+                            name: "右下に回転",
                             class: "rotateInDownRight",
                             category: "Rotate"
                         },
                         {
-                            name: "Rotate In Up Left",
+                            name: "左上に回転",
                             class: "rotateInUpLeft",
                             category: "Rotate"
                         },
                         {
-                            name: "Rotate In Up Right",
+                            name: "右上に回転",
                             class: "rotateInUpRight",
                             category: "Rotate"
                         },
                         {
-                            name: "Zoom In",
+                            name: "ズームイン",
                             class: "zoomIn",
                             category: "Zoom"
                         },
                         {
-                            name: "Zoom In Down",
+                            name: "下にズームイン",
                             class: "zoomInDown",
                             category: "Zoom"
                         },
                         {
-                            name: "Zoom In Left",
+                            name: "左にズームイン",
                             class: "zoomInLeft",
                             category: "Zoom"
                         },
                         {
-                            name: "Zoom In Right",
+                            name: "右にズームイン",
                             class: "zoomInRight",
                             category: "Zoom"
                         },
                         {
-                            name: "Zoom In Up",
+                            name: "上にズームイン",
                             class: "zoomInUp",
                             category: "Zoom"
                         },
                         {
-                            name: "Slide In Down",
+                            name: "下へスライド",
                             class: "slideInDown",
                             category: "Slide"
                         },
                         {
-                            name: "Slide In Left",
+                            name: "左へスライド",
                             class: "slideInLeft",
                             category: "Slide"
                         },
                         {
-                            name: "Slide In Right",
+                            name: "右へスライド",
                             class: "slideInRight",
                             category: "Slide"
                         },
                         {
-                            name: "Slide In Up",
+                            name: "上へスライド",
                             class: "slideInUp",
                             category: "Slide"
                         },
                         {
-                            name: "Light Speed In",
+                            name: "加速しながら入る",
                             class: "lightSpeedIn",
                             category: "Misc"
                         },
                         {
-                            name: "Jack In The Box",
+                            name: "びっくり箱",
                             class: "jackInTheBox",
                             category: "Misc"
                         },
                         {
-                            name: "Roll In",
+                            name: "ころがる",
                             class: "rollIn",
                             category: "Misc"
                         },
                         {
-                            name: "None",
+                            name: "なし",
                             class: "none",
                             category: "Misc"
                         }
                     ],
                     exit: [
                         {
-                            name: "Bounce Out",
+                            name: "前後に跳ねる",
                             class: "bounceOut",
                             category: "Bouncing"
                         },
                         {
-                            name: "Bounce Out Up",
+                            name: "上に跳ねる",
                             class: "bounceOutUp",
                             category: "Bouncing"
                         },
                         {
-                            name: "Bounce Out Down",
+                            name: "下に跳ねる",
                             class: "bounceOutDown",
                             category: "Bouncing"
                         },
                         {
-                            name: "Bounce Out Left",
+                            name: "左に跳ねる",
                             class: "bounceOutLeft",
                             category: "Bouncing"
                         },
                         {
-                            name: "Bounce Out Right",
+                            name: "右に跳ねる",
                             class: "bounceOutRight",
                             category: "Bouncing"
                         },
                         {
-                            name: "Fade Out",
+                            name: "フェードアウト",
                             class: "fadeOut",
                             category: "Fade"
                         },
                         {
-                            name: "Fade Out Down",
+                            name: "フェードアウト（下、減速あり）",
                             class: "fadeOutDown",
                             category: "Fade"
                         },
                         {
-                            name: "Fade Out Down Big",
+                            name: "フェードアウト（下、減速なし）",
                             class: "fadeOutDownBig",
                             category: "Fade"
                         },
                         {
-                            name: "Fade Out Up",
+                            name: "フェードアウト（上、減速あり）",
                             class: "fadeOutUp",
                             category: "Fade"
                         },
                         {
-                            name: "Fade Out Up Big",
+                            name: "フェードアウト（上、減速なし）",
                             class: "fadeOutUpBig",
                             category: "Fade"
                         },
                         {
-                            name: "Fade Out Left",
+                            name: "フェードアウト（左、減速あり）",
                             class: "fadeOutLeft",
                             category: "Fade"
                         },
                         {
-                            name: "Fade Out Left Big",
+                            name: "フェードアウト（左、減速なし）",
                             class: "fadeOutLeftBig",
                             category: "Fade"
                         },
                         {
-                            name: "Fade Out Right",
+                            name: "フェードアウト（右、減速あり）",
                             class: "fadeOutRight",
                             category: "Fade"
                         },
                         {
-                            name: "Fade Out Right Big",
+                            name: "フェードアウト（右、減速なし）",
                             class: "fadeOutRightBig",
                             category: "Fade"
                         },
                         {
-                            name: "Rotate Out",
+                            name: "時計回り",
                             class: "rotateOut",
                             category: "Rotate"
                         },
                         {
-                            name: "Rotate Out Down Left",
+                            name: "左下に回転",
                             class: "rotateOutDownLeft",
                             category: "Rotate"
                         },
                         {
-                            name: "Rotate Out Down Right",
+                            name: "右下に回転",
                             class: "rotateOutDownRight",
                             category: "Rotate"
                         },
                         {
-                            name: "Rotate Out Up Left",
+                            name: "左上に回転",
                             class: "rotateOutUpLeft",
                             category: "Rotate"
                         },
                         {
-                            name: "Rotate Out Up Right",
+                            name: "右上に回転",
                             class: "rotateOutUpRight",
                             category: "Rotate"
                         },
                         {
-                            name: "Zoom Out",
+                            name: "ズームアウト",
                             class: "zoomOut",
                             category: "Zoom"
                         },
                         {
-                            name: "Zoom Out Down",
+                            name: "下にズームアウト",
                             class: "zoomOutDown",
                             category: "Zoom"
                         },
                         {
-                            name: "Zoom Out Left",
+                            name: "左にズームアウト",
                             class: "zoomOutLeft",
                             category: "Zoom"
                         },
                         {
-                            name: "Zoom Out Right",
+                            name: "右にズームアウト",
                             class: "zoomOutRight",
                             category: "Zoom"
                         },
                         {
-                            name: "Zoom Out Up",
+                            name: "上にズームアウト",
                             class: "zoomOutUp",
                             category: "Zoom"
                         },
                         {
-                            name: "Slide Out Down",
+                            name: "下へスライド",
                             class: "slideOutDown",
                             category: "Slide"
                         },
                         {
-                            name: "Slide Out Left",
+                            name: "左へスライド",
                             class: "slideOutLeft",
                             category: "Slide"
                         },
                         {
-                            name: "Slide Out Right",
+                            name: "右へスライド",
                             class: "slideOutRight",
                             category: "Slide"
                         },
                         {
-                            name: "Slide Out Up",
+                            name: "上へスライド",
                             class: "slideOutUp",
                             category: "Slide"
                         },
                         {
-                            name: "Light Speed Out",
+                            name: "加速しながら出る",
                             class: "lightSpeedOut",
                             category: "Misc"
                         },
                         {
-                            name: "Hinge",
+                            name: "ヒンジ",
                             class: "hinge",
                             category: "Misc"
                         },
                         {
-                            name: "Roll Out",
+                            name: "ころがる",
                             class: "rollOut",
                             category: "Misc"
                         },
                         {
-                            name: "None",
+                            name: "なし",
                             class: "none",
                             category: "Misc"
                         }
                     ],
                     inbetween: [
                         {
-                            name: "None",
+                            name: "なし",
                             class: "none"
                         },
                         {
-                            name: "Bounce",
+                            name: "跳ねる",
                             class: "bounce"
                         },
                         {
-                            name: "Flash",
+                            name: "光る",
                             class: "flash"
                         },
                         {
-                            name: "Pulse",
+                            name: "点滅",
                             class: "pulse"
                         },
                         {
-                            name: "Shake",
+                            name: "シェイク",
                             class: "shake"
                         },
                         {
-                            name: "Swing",
+                            name: "スイング",
                             class: "swing"
                         },
                         {
-                            name: "Tada",
+                            name: "ジャジャーン",
                             class: "tada"
                         },
                         {
-                            name: "Wobble",
+                            name: "ぐらぐら",
                             class: "wobble"
                         },
                         {
-                            name: "Jello",
+                            name: "ぷるぷる",
                             class: "jello"
                         }
                     ]

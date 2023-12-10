@@ -68,7 +68,7 @@ function refreshCommandCache(retry = 1) {
                 });
             }
 
-            logger.info("Updated Command cache.");
+            logger.info("コマンドキャッシュを更新しました");
 
         } else {
             logger.error("Could not sync up command cache. Reconnect to try resyncing.");

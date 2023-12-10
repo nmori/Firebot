@@ -14,15 +14,15 @@
 
                     <div ng-switch-when="0" class="wave">
                         <div class="welcome-wrapper">
-                            <h3 class="animated fadeIn">Welcome to</h3>
+                            <h3 class="animated fadeIn">{{'SETUP_WIZ.WELCOME' | translate }}</h3>
                             <img style="animation-delay: 0.5s" class="animated rollIn" src="../images/logo_transparent.png">
                         <span style="animation-delay: 1.3s" class="animated bounceIn">Firebot</span>
                         </div>
                         <div style="animation-delay: 2.0s" class="animated fadeIn welcome-subtitle">
-                            <span>A Tool For Twitch Streamers</span>
+                            <span>{{'SETUP_WIZ.TOOLFOR' | translate }}</span>
                         </div>
                         <div style="animation-delay: 3.2s" class="animated fadeInUp">
-                            <a class="btn btn-info hvr-icon-forward" ng-click="$ctrl.handleNext()">Get started <i class="fas fa-arrow-right hvr-icon"></i></a>
+                            <a class="btn btn-info hvr-icon-forward" ng-click="$ctrl.handleNext()">{{'SETUP_WIZ.GETSTART' | translate }}<i class="fas fa-arrow-right hvr-icon"></i></a>
                         </div>
                     </div>
 
@@ -30,44 +30,44 @@
                         <div ng-hide="$ctrl.importStarted || $ctrl.importCompleted" style="display:flex; flex-direction:column; justify-content: space-between;">
                             <div>
                                 <div>
-                                    <p>We have detected Firebot v4 data on your computer.<br><strong>Would you like to import anything?</strong></p>
+                                    <p>{{'SETUP_WIZ.FOUND_V4' | translate }}<br><strong>{{'SETUP_WIZ.REQ_INPORT' | translate }}</strong></p>
 
                                     <div class="muted" style="font-size:12px;padding: 0 65px;margin-top: 0px;">
-                                        <strong>Please note:</strong><br>Due to some changes and fundemental differences in v5, we may not be able to import 100% of your v4 data. Some additional setup may be required.
+                                        {{'SETUP_WIZ.NOTE_IMPORT' | translate }}
                                     </div>
                                 </div>
                                 <div style="margin-top: 10px;">
                                     <div class="modal-subheader" style="padding: 0 0 10px 0; font-size: 17px;">
-                                        IMPORT SETTINGS
+                                    {{'SETUP_WIZ.IMPORT_SETTINGS' | translate }}
                                     </div>
                                     <div style="text-align:left !important;display:flex; justify-content: center;">
                                         <div style="transform: translateX(40px);">
                                             <div style="margin-bottom: 3px">
-                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> Chat Commands
+                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> {{'SETUP_WIZ.CHAT_COMMAND' | translate }}
                                                     <input type="checkbox" ng-model="$ctrl.importSettings.commands">
                                                     <div class="control__indicator"></div>
                                                 </label>
                                             </div>
                                             <div style="margin-bottom: 3px">
-                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> Events
+                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> {{'SETUP_WIZ.EVENT' | translate }}
                                                     <input type="checkbox" ng-model="$ctrl.importSettings.events">
                                                     <div class="control__indicator"></div>
                                                 </label>
                                             </div>
                                             <div style="margin-bottom: 3px">
-                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> Viewer Groups
+                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> {{'SETUP_WIZ.VIEWER_GROUPS' | translate }}
                                                     <input type="checkbox" ng-model="$ctrl.importSettings.viewerGroups">
                                                     <div class="control__indicator"></div>
                                                 </label>
                                             </div>
                                             <div style="margin-bottom: 3px">
-                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> Hotkeys
+                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> {{'SETUP_WIZ.HOTKEYS' | translate }}
                                                     <input type="checkbox" ng-model="$ctrl.importSettings.hotkeys">
                                                     <div class="control__indicator"></div>
                                                 </label>
                                             </div>
                                             <div style="margin-bottom: 3px">
-                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> Extras <span class="muted">(Scripts/Fonts/Overlay Instances)</span>
+                                                <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity:0.9;display:inline-block;"> {{'SETUP_WIZ.EXTRA' | translate }} <span class="muted"> {{'SETUP_WIZ.EXTRA2' | translate }}</span>
                                                     <input type="checkbox" ng-model="$ctrl.importSettings.misc">
                                                     <div class="control__indicator"></div>
                                                 </label>
@@ -77,17 +77,17 @@
                                 </div>
 
                                 <div style="margin-top: 10px;">
-                                    <button class="btn btn-default" ng-click="$ctrl.startImport()" ng-disabled="!$ctrl.canStartImport()"><i class="fad fa-file-import"></i> Import</button>
+                                    <button class="btn btn-default" ng-click="$ctrl.startImport()" ng-disabled="!$ctrl.canStartImport()"><i class="fad fa-file-import"></i> {{'SETUP_WIZ.START_IMPORT' | translate }}</button>
                                 </div>
 
                             </div>
 
                             <div style="margin-top: 15px;">
                                 <div>
-                                    <a class="btn btn-link" style="font-size: 17px;color: #5BC0DE;" ng-click="$ctrl.setCurrentStep(2)">No, don't import for now.</a>
+                                    <a class="btn btn-link" style="font-size: 17px;color: #5BC0DE;" ng-click="$ctrl.setCurrentStep(2)">{{'SETUP_WIZ.NOT_IMPORT' | translate }}</a>
                                 </div>
                                 <div>
-                                    <span style="font-size: 11px; opacity: 0.8; margin-top: 3px;">(You can import later at any time by going to Settings > Open Setup Wizard)</span>
+                                    <span style="font-size: 11px; opacity: 0.8; margin-top: 3px;">{{'SETUP_WIZ.CAN_AFTER_IMPORT' | translate }}</span>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                             <div style="font-size: 200px;">
                                 <i class="fad fa-spinner fa-pulse"></i>
                             </div>
-                            <p ng-show="$ctrl.currentlyImporting"><span style="font-weight: 100;">Currently Importing:</span> <strong>{{$ctrl.currentlyImporting}}</strong></h3>
+                            <p ng-show="$ctrl.currentlyImporting"><span style="font-weight: 100;">{{'SETUP_WIZ.IMPORTING' | translate }}:</span> <strong>{{$ctrl.currentlyImporting}}</strong></h3>
                         </div>
 
 
@@ -106,11 +106,11 @@
                                 <i class="fad fa-check-circle"></i>
                             </div>
 
-                            <h3 style="margin-top:0;">V4 import completed successfully with <strong>{{$ctrl.importIncompatibilityMessages.length}}</strong> incompatibility warning(s)</h3>
+                            <h3 style="margin-top:0;">{{'SETUP_WIZ.FINISH_IMPORT' | translate }} <strong>{{$ctrl.importIncompatibilityMessages.length}}</strong> {{'SETUP_WIZ.FINISH_WARNING_WITH' | translate }}</h3>
 
                             <div style="height: 147px;">
                                 <div ng-hide="$ctrl.importIncompatibilityMessages.length < 1">
-                                    <eos-collapsable-panel show-label="Show incompatibility warnings" hide-label="Hide incompatibility warnings" hide-info-box="true">
+                                    <eos-collapsable-panel show-label="{{'SETUP_WIZ.SHOW_IMPORT_WARNING' | translate }}” hide-label="{{'SETUP_WIZ.HIDE_IMPORT_WARNING' | translate }}" hide-info-box="true">
                                         <div class="incompat-warnings-wrapper">
                                             <ul>
                                                 <li ng-repeat="message in $ctrl.importIncompatibilityMessages track by $index">{{message}}</li>
@@ -120,8 +120,8 @@
                                 </div>
                              </div>
 
-                            <p style="font-size: 18px;font-weight: 100;">You're nearly there! Just a few more steps to go.</p>
-                            <button class="btn btn-info" ng-click="$ctrl.handleNext()">Continue</button>
+                            <p style="font-size: 18px;font-weight: 100;">{{'SETUP_WIZ.YOUARE_THERE' | translate }}</p>
+                            <button class="btn btn-info" ng-click="$ctrl.handleNext()">{{'SETUP_WIZ.CONTINUE' | translate }}</button>
                         </div>
 
 
@@ -129,13 +129,13 @@
 
                     <div ng-switch-when="2" class="wave">
                         <p>
-                            Firebot supports two different accounts:</br></br>
-                            <b>Streamer</b> - the account you stream with <span class="muted">(Required)</span></br>
-                            <b>Bot</b> - a second account that can chat to your viewers  <span class="muted">(Optional)</span>
+                            {{'SETUP_WIZ.DIFFERENT_TWO_ACCOUNT' | translate }}</br></br>
+                            <b>{{'SETUP_WIZ.STREAMER' | translate }}</b> - {{'SETUP_WIZ.STREAMER_DOCUMENT' | translate }} <span class="muted">({{'SETUP_WIZ.REQUIRED' | translate }})</span></br>
+                            <b>{{'SETUP_WIZ.BOT' | translate }}</b> - {{'SETUP_WIZ.BOT_DOCUMENT' | translate }} <span class="muted">({{'SETUP_WIZ.OPTIONAL' | translate }})</span>
                         </p>
                         <div class="wizard-accounts-wrapper">
                             <div class="wizard-accounts-title">
-                                Accounts
+                                {{'SETUP_WIZ.ACCOUNT' | translate }}
                             </div>
                             <table class="table">
                             <tbody>
@@ -154,11 +154,11 @@
                                                 </div>
                                             </div>
                                             <div ng-hide="$ctrl.cs.accounts.streamer.loggedIn">
-                                                    <a class="clickable" ng-click="$ctrl.loginOrLogout('streamer')">+ Add <b>Streamer</b> Account</a><span style="color:red;">*</span>
+                                                    <a class="clickable" ng-click="$ctrl.loginOrLogout('streamer')">+ <b>{{'SETUP_WIZ.STREAMER' | translate }}</b> {{'SETUP_WIZ.ACCOUNT' | translate }}</a> {{'SETUP_WIZ.ADD' | translate }}<span style="color:red;">*</span>
                                             </div>
                                         </td>
                                         <td class="wizard-accounts-td text-right" class="animated fadeIn">
-                                            <a ng-show="$ctrl.cs.accounts.streamer.loggedIn" class="clickable" ng-click="$ctrl.loginOrLogout('streamer')">Logout</a>
+                                            <a ng-show="$ctrl.cs.accounts.streamer.loggedIn" class="clickable" ng-click="$ctrl.loginOrLogout('streamer')">{{'SETUP_WIZ.LOGOUT' | translate }}</a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -176,16 +176,16 @@
                                                 </div>
                                             </div>
                                             <div ng-hide="$ctrl.cs.accounts.bot.loggedIn">
-                                                    <a class="clickable" ng-click="$ctrl.loginOrLogout('bot')">+ Add <b>Bot</b> Account</a> <span class="muted" style="font-size:11px">Optional</span>
+                                                    <a class="clickable" ng-click="$ctrl.loginOrLogout('bot')">+ <b>{{'SETUP_WIZ.BOT' | translate }}</b> {{'SETUP_WIZ.ACCOUNT' | translate }}</a> {{'SETUP_WIZ.ADD' | translate }}<span class="muted" style="font-size:11px">{{'SETUP_WIZ.OPTIONAL' | translate }}</span>
                                             </div>
                                         </td>
                                         <td class="wizard-accounts-td text-right">
-                                            <a ng-show="$ctrl.cs.accounts.bot.loggedIn" class="clickable" ng-click="$ctrl.loginOrLogout('bot')">Logout</a>
+                                            <a ng-show="$ctrl.cs.accounts.bot.loggedIn" class="clickable" ng-click="$ctrl.loginOrLogout('bot')">{{'SETUP_WIZ.LOGOUT' | translate }}</a>
                                         </td>
                                     </tr>
                             </tbody>
                         </table>
-                            <span style="font-size: 12px; opacity: 0.8; margin-top: 3px;">Note: You can manage your logins in the upper-right corner of the app at any time.</span>
+                            <span style="font-size: 12px; opacity: 0.8; margin-top: 3px;">{{'SETUP_WIZ.NOTE_MANAGE' | translate }}</span>
                         </div>
                     </div>
 
@@ -193,24 +193,24 @@
 
                     <div ng-switch-when="3" class="wave">
 
-                        <p>The overlay is what allows Firebot to display images, videos, and more on your stream.</p>
+                        <p>{{'SETUP_WIZ.OVERLAY_NOTE1' | translate }}</p>
 
-                        <p>To setup the overlay, simply copy the path below and add it to the URL field of a new <b>Browser/Webpage Source</b> in your broadcasting software of choice.</p>
+                        <p>{{'SETUP_WIZ.OVERLAY_NOTE2' | translate }}</p>
 
                         <div style="margin: 15px 0;display: flex;justify-content: center;">
                             <div class="input-group" style="width:75%;">
                                 <input type="text" class="form-control" style="cursor:text;" ng-model="$ctrl.overlayPath" disabled>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" ng-click="$ctrl.copyOverlayPath()">Copy</button>
+                                    <button class="btn btn-default" type="button" ng-click="$ctrl.copyOverlayPath()">{{'SETUP_WIZ.COPY' | translate }}</button>
                                 </span>
                             </div>
                         </div>
 
-                        <p class="muted" style="font-size:12px;">Note: Do not check "Local File" and make sure the browser source fills your canvas (ie 1920x1080, 1280x720, etc)</Make>
+                        <p class="muted" style="font-size:12px;">{{'SETUP_WIZ.OVERLAY_NOTE3' | translate }}</Make>
 
                         <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
                             <div class="connection-tile">
-                                <span class="connection-title">Overlay Status</span>
+                                <span class="connection-title">{{'SETUP_WIZ.OVERLAY_STATUS' | translate }}</span>
                                 <div class="overlay-button" ng-class="{ 'connected': $ctrl.getOverlayStatusId() == 1, 'warning': $ctrl.getOverlayStatusId() == 0,'disconnected': $ctrl.getOverlayStatusId() == -1  }">
                                     <i class="fal fa-tv-retro"></i>
                                 </div>
@@ -226,17 +226,17 @@
                         <div style="margin-top: 20px" class="animated fadeIn">
                             <img style="width: 80px; height: 80px" class="jump-infinite" src="../images/logo_transparent.png">
                         </div>
-                        <h1 style="margin-top: 0px;animation-delay: 0.4s" class="animated bounceIn">You're all set!</h1>
+                        <h1 style="margin-top: 0px;animation-delay: 0.4s" class="animated bounceIn">{{'SETUP_WIZ.ALLSET' | translate }}</h1>
                         <br>
                         <p style="animation-delay: 0.8s" class="animated fadeIn">
-                            If you need help or have a suggestion, we'd love to hear from you.<br>Go to <b>Help</b> > <b>About</b> to see where you can find us.
+                            {{'SETUP_WIZ.SUGGESTION1' | translate }}<br>{{'SETUP_WIZ.SUGGESTION2' | translate }}
                         </p>
                         <br>
                         <p style="animation-delay: 1.8s" class="animated fadeIn">
-                            <b>Thank you for using Firebot.</b>
+                            <b>{{'SETUP_WIZ.THANKYOU' | translate }}</b>
                         </p>
                         <div style="animation-delay: 2.3s" class="animated fadeIn">
-                            <a style="margin-top: 5px;" class="btn btn-primary shake-slow" ng-click="$ctrl.handleNext()">I'm so ready!</a>
+                            <a style="margin-top: 5px;" class="btn btn-primary shake-slow" ng-click="$ctrl.handleNext()">{{'SETUP_WIZ.SO_READY' | translate }}</a>
                         </div>
                     </div>
                 </div>
@@ -246,12 +246,12 @@
 
                 <div ng-if="$ctrl.isFirstStep()">
                     <span style="animation-delay: 3.3s;display: flex;flex-direction: row;justify-content: center;align-items: center;" class="animated fadeIn">
-                        <a class="btn btn-link import-settings-btn" ng-click="$ctrl.startBackupRestoreProcess()">Restore from a backup</a>
+                        <a class="btn btn-link import-settings-btn" ng-click="$ctrl.startBackupRestoreProcess()">{{'SETUP_WIZ.RESTORE_FROM'| translate }}</a>
                     </span>
                 </div>
 
                 <div>
-                    <a class="btn btn-default" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()">Back</a>
+                    <a class="btn btn-default" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()">{{'SETUP_WIZ.BACK'| translate }}</a>
                     <a
                         class="btn btn-primary"
                         uib-tooltip="{{$ctrl.getTooltipText()}}"
@@ -263,7 +263,7 @@
                     </a>
                 </div>
                 <div>
-                    <a class="btn btn-link" style="font-size: 10px;" ng-click="$ctrl.handleNext(true)" ng-show="$ctrl.showNextButton() && !$ctrl.canGoToNext()">Skip for now</a>
+                    <a class="btn btn-link" style="font-size: 10px;" ng-click="$ctrl.handleNext(true)" ng-show="$ctrl.showNextButton() && !$ctrl.canGoToNext()">{{'SETUP_WIZ.SKIP_NOW'| translate }}</a>
                 </div>
             </div>
             `,
@@ -280,9 +280,9 @@
 
             $ctrl.stepTitles = [
                 "",
-                "Import V4 Data",
-                "Get Signed In",
-                "Lets Setup The Overlay",
+                "Firebot v4データを取り込む",
+                "ログイン",
+                "オーバーレイのセットアップ",
                 ""
             ];
 
@@ -315,7 +315,7 @@
             $ctrl.getNextLabel = function() {
                 switch ($ctrl.step) {
                 default:
-                    return "Next";
+                    return "次へ";
                 }
             };
 
@@ -436,9 +436,9 @@
             $ctrl.getTooltipText = function() {
                 switch ($ctrl.step) {
                 case 2:
-                    return "Please sign into your Streamer account.";
+                    return "配信者アカウントでログインしてください";
                 case 3:
-                    return "Please add the overlay url to your broadcasting software.";
+                    return "オーバーレイのURLを配信ソフトウェアに設定してください";
                 }
                 return "";
             };
@@ -453,7 +453,7 @@
 
                 ngToast.create({
                     className: 'success',
-                    content: 'Overlay path copied!'
+                    content: "オーバーレイ用のURLをコピーしました"
                 });
             };
 
@@ -463,13 +463,13 @@
                     .getConnectionStatusForService("overlay");
                 if (connectionStatus === "connected") {
                     overlayStatusId = 1;
-                    return "Connected";
+                    return "接続済";
                 } else if (connectionStatus === "warning") {
                     overlayStatusId = 0;
-                    return "Ready, but nothing is connected at this time.";
+                    return "未接続";
                 }
                 overlayStatusId = -1;
-                return "Error starting web server. App restart required.";
+                return "準備は完了しましたが、現時点では未接続です。";
             };
 
             $ctrl.getOverlayStatusId = function() {

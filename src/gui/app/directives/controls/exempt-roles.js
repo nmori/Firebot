@@ -22,7 +22,7 @@
                 <div
                     class="role-bar clickable"
                     ng-click="$ctrl.openAddExemptRoleModal()"
-                    uib-tooltip="Add role"
+                    uib-tooltip="役割の追加"
                     tooltip-append-to-body="true"
                 >
                     <i class="far fa-plus"></i>
@@ -48,13 +48,13 @@
                     const options = roles.filter(r => !$ctrl.model.includes(r.id));
                     utilityService.openSelectModal(
                         {
-                            label: "Add Exempt Role",
+                            label: "高度な役割を追加",
                             options: options.map(r => ({
                                 id: r.id,
                                 name: r.name
                             })),
-                            saveText: "Add",
-                            validationText: "Please select a role."
+                            saveText: "追加",
+                            validationText: "役割を選んでください"
                         },
                         (roleId) => {
                             if (!roleId) {

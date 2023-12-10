@@ -9,18 +9,18 @@ const slootsFilterLoader = require("./filters/streamloots-filter-loader");
 const integrationDefinition = {
     id: "streamloots",
     name: "StreamLoots",
-    description: "Chest purchase/Card redemption events",
+    description: "チェスト購入／カード交換イベント",
     connectionToggle: true,
     linkType: "id",
     idDetails: {
         steps:
-`1. Log in to [StreamLoots](https://www.streamloots.com/).
+`1. [StreamLoots](https://www.streamloots.com/)にログインします.
 
-2. On your Dashboard, head to the **Alerts** section under **Page configuration**.
+2. ダッシュボードで、**ページ設定**の下にある**アラート**セクションに向かいます。
 
-3. In the **Configure your alerts** section, click on the grayed out box that says **Click here to show URL**.
+3. アラートの設定**セクションで、**Click here to show URL**というグレーアウトした枠をクリックします。
 
-4. Copy the value at the **end** of your alerts URL, this is your StreamLoots ID. The format of the URL is: \`https://widgets.streamloots.com/alerts/<ID>\``
+4. アラートURLの**末尾**にある値をコピーしてください。URLの形式は: \`https://widgets.streamloots.com/alerts/<ID>\``
     }
 };
 
@@ -43,7 +43,6 @@ class StreamLootsIntegration extends EventEmitter {
             this.connected = false;
             return;
         }
-        
         accountId = accountId.replace("https://widgets.streamloots.com/alerts/", "").replace("/media-stream", "");
 
         this._eventSource = new EventSource(`https://widgets.streamloots.com/alerts/${accountId}/media-stream`, {

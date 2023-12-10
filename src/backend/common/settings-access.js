@@ -252,7 +252,7 @@ settings.getAudioOutputDevice = function() {
     const device = getDataFromFile("/settings/audioOutputDevice");
     return device != null
         ? device
-        : { label: "System Default", deviceId: "default" };
+        : { label: "システムの規定デバイス", deviceId: "default" };
 };
 
 settings.debugModeEnabled = function() {

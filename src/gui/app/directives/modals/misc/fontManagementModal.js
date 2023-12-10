@@ -6,7 +6,7 @@
         .component("fontManagementModal", {
             template: `
             <div class="modal-header flex-row-center jspacebetween">
-                <h4 class="modal-title" style="display:inline;">Manage Fonts</h4>
+                <h4 class="modal-title" style="display:inline;">フォントを管理</h4>
             </div>
             <div class="modal-body">
                 <div class="list-group" style="margin-bottom: 0;">

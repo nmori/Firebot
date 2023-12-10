@@ -16,7 +16,10 @@
                 quotes.forEach(q => {
                     const dateArray = q.createdAt.split("-");
 
-                    if (parseInt(dateArray[0]) > 12) {
+                    if (parseInt(dateArray[0]) > 1900) {
+                        dateFormat = "YYYY-MM-DD";
+                        return false;
+                    } else if (parseInt(dateArray[0]) > 12) {
                         dateFormat = "DD-MM-YYYY";
                         return false;
                     } else if (parseInt(dateArray[1]) > 12) {

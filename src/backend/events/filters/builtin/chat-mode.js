@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:chatmode",
-    name: "Chat Mode",
-    description: "Filter by a chat mode",
+    name: "チャットモード",
+    description: "チャットモードでフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],
@@ -15,40 +15,40 @@ module.exports = {
         return [
             {
                 value: "emoteonly",
-                display: "Emote Only"
+                display: "エモートのみ"
             },
             {
                 value: "followers",
-                display: "Followers"
+                display: "フォロワーのみ"
             },
             {
                 value: "subscribers",
-                display: "Subscribers Only"
+                display: "サブスクライバーのみ"
             },
             {
                 value: "slow",
-                display: "Slow"
+                display: "スローモード"
             },
             {
                 value: "r9kbeta",
-                display: "Unique Chat"
+                display: "ユニークチャット"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
         case "emoteonly":
-            return "Emote Only";
+            return "エモートのみ";
         case "followers":
-            return "Followers";
+            return "フォロワーのみ";
         case "subscribers":
-            return "Subscribers Only";
+            return "サブスクライバーのみ";
         case "slow":
-            return "Slow";
+            return "スローモード";
         case "r9kbeta":
-            return "Unique Chat";
+            return "ユニークチャット";
         default:
-            return "[Not set]";
+            return "[未設定]";
         }
     },
     predicate: async (filterSettings, eventData) => {
@@ -58,8 +58,10 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
+        case "一致":
             return eventMeta.chatMode.includes(value);
         case "is not":
+        case "不一致":
             return !eventMeta.chatMode.includes(value);
         default:
             return false;

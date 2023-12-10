@@ -101,8 +101,8 @@ const shoutoutStyles = `
 const effect = {
     definition: {
         id: "firebot:shoutout",
-        name: "Firebot Shoutout",
-        description: "Display a shoutout graphic for a channel in the overlay.",
+        name: "Firebot シャウトアウト",
+        description: "オーバーレイにチャンネルのシャウト画像を表示する.",
         icon: "fad fa-megaphone",
         categories: [EffectCategory.COMMON, EffectCategory.FUN, EffectCategory.OVERLAY],
         dependencies: [EffectDependency.OVERLAY]
@@ -123,7 +123,7 @@ const effect = {
                                     src="{{defaultAvatar}}"/>
                             </div>
                         </div>
-                        <div class="firebot-shoutout-username" style="padding: 0 10%; color: {{effect.textColor}};font-size: 32px;">SomeUserName</div>
+                        <div class="firebot-shoutout-username" style="padding: 0 10%; color: {{effect.textColor}};font-size: 32px;">ユーザ名</div>
                         <div class="firebot-shoutout-padding">
                             <div
                                 ng-hide="effect.shoutoutText == null || effect.shoutoutText === ''"
@@ -139,7 +139,7 @@ const effect = {
                                 <div class="firebot-shoutout-game-lastseen">
                                 {{effect.lastGameText}}
                                 </div>
-                                Science & Technology
+                                科学とテクノロジー
                             </div>
                         </div>
                     </div>
@@ -147,43 +147,43 @@ const effect = {
             </div>
         </eos-container>
         <eos-container header="Customization" pad-top="true">
-            <firebot-input input-title="Shoutout Text" model="effect.shoutoutText" placeholder-text="Enter text" />
+            <firebot-input input-title="シャウトアウトするテキスト" model="effect.shoutoutText" placeholder-text="テキストを入力" />
 
-            <color-picker-input style="margin-top:10px" model="effect.bgColor1" label="Background Color 1"></color-picker-input>
+            <color-picker-input style="margin-top:10px" model="effect.bgColor1" label="背景色 1"></color-picker-input>
 
-            <color-picker-input style="margin-top:10px" model="effect.bgColor2" label="Background Color 2"></color-picker-input>
+            <color-picker-input style="margin-top:10px" model="effect.bgColor2" label="背景色 2"></color-picker-input>
 
-            <color-picker-input style="margin-top:10px" model="effect.textColor" label="Text Color"></color-picker-input>
+            <color-picker-input style="margin-top:10px" model="effect.textColor" label="文字色"></color-picker-input>
 
-            <firebot-input style="margin-top:10px" input-title="Scale" model="effect.scale" placeholder-text="Enter number (ie 1, 1.25, 0.75, etc)" input-type="number" disable-variables="true" />
+            <firebot-input style="margin-top:10px" input-title="Scale" model="effect.scale" placeholder-text="番号を入れる(ie 1, 1.25, 0.75, etc)" input-type="number" disable-variables="true" />
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> Show last game/category
+                <label class="control-fb control--checkbox"> 最後のゲーム／カテゴリーを表示
                     <input type="checkbox" ng-model="effect.showLastGame">
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
-            <firebot-input ng-if="effect.showLastGame" input-title="Last Seen Text" model="effect.lastGameText" placeholder-text="Enter text" />
+            <firebot-input ng-if="effect.showLastGame" input-title="最後のテキスト" model="effect.lastGameText" placeholder-text="テキストを入力" />
 
         </eos-container>
-        <eos-container header="Username" pad-top="true">
-            <firebot-input model="effect.username" placeholder-text="Enter username" />
+        <eos-container header="視聴者名" pad-top="true">
+            <firebot-input model="effect.username" placeholder-text="視聴者名を入力" />
             <p ng-show="trigger == 'command'" class="muted" style="font-size:11px;margin-top:6px;">
-                <b>ProTip:</b> Use <b>$target</b> to display the targeted user in a command.
+                <b>情報:</b> <b>$target</b>を使うと、コマンドの中で対象となるユーザーを表示することができます
             </p>
         </eos-container>
-        <eos-container header="Duration" pad-top="true">
-            <firebot-input input-title="Secs" model="effect.duration" placeholder-text="Enter duration" input-type="number" />
+        <eos-container header="継続時間" pad-top="true">
+            <firebot-input input-title="Secs" model="effect.duration" placeholder-text="継続時間をいれる" input-type="number" />
             <p class="muted" style="font-size:11px;margin-top:6px;">
-                <b>Note:</b> The total duration will be an additional 4 seconds (2 second enter animation, 2 second exit animation)
+                <b>情報:</b> 合計時間は4秒追加されます（2秒の入場アニメーション、2秒の退場アニメーション）。
             </p>
         </eos-container>
         <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
         <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
         <eos-container>
             <div class="effect-info alert alert-warning">
-                This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">Learn more</a>
+                この演出を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">今すぐ学ぶ</a>
             </div>
         </eos-container>
     `,
@@ -193,7 +193,7 @@ const effect = {
         $scope.defaultGameBoxArt = "https://static-cdn.jtvnw.net/ttv-boxart/Science%20&%20Technology.jpg";
 
         if ($scope.effect.shoutoutText == null) {
-            $scope.effect.shoutoutText = "They are an amazing streamer. Go give them a follow!";
+            $scope.effect.shoutoutText = "彼らは素晴らしいストリーマーだ。フォローしよう！";
         }
 
         if ($scope.effect.showLastGame == null) {
@@ -235,7 +235,7 @@ const effect = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.username == null || effect.username === "") {
-            errors.push("Please provide a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         return errors;
     },

@@ -9,7 +9,7 @@
                 <div>
                     <firebot-setting
                         name="Theme"
-                        description="Choose your color theme for Firebot!"
+                        description="Firebotのカラーテーマをお選びください"
                     >
                         <firebot-select
                             options="['Light', 'Midnight', 'Obsidian']"
@@ -21,8 +21,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Minimize to Tray"
-                        description="When minimized, Firebot will minimize to tray instead of task bar"
+                        name="最小化時はタスクトレイに入れる"
+                        description="最小化すると、タスクバーではなくトレイの中に最小化します"
                     >
                         <toggle-button
                             toggle-model="settings.getMinimizeToTray()"
@@ -32,9 +32,9 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Beta Notifications"
-                        description="Firebot automatically updates to new stable versions. It does not automatically update to betas or major new
-                        releases however. Enable if you want to be notified of new beta releases."
+                        name="ベータ版通知"
+                        description="Firebot は新しい安定版へ自動更新します。ベータ版やメジャーリリース時は自動更新されません。
+                        新しいベータ版の通知を希望する場合は有効にしてください。"
                     >
                         <toggle-button
                             toggle-model="settings.notifyOnBeta()"
@@ -44,8 +44,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Connection Sounds"
-                        description="Get audible alerts when Firebot connects or disconnects."
+                        name="接続時のサウンド"
+                        description="Firebotの接続・切断を音声でお知らせします。"
                     >
                         <toggle-button
                             toggle-model="settings.soundsEnabled() === 'On'"
@@ -55,8 +55,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Sound Output Device"
-                        description="Change what output device app sounds (ie connect/disconnect sounds) and Play Sound Effects are sent to."
+                        name="サウンドの出力先"
+                        description="アプリのサウンド（接続/切断サウンドなど）やサウンド演出を送信する出力デバイスを変更します。"
                     >
                         <div class="dropdown">
                             <button
@@ -82,19 +82,19 @@
                                     role="menuitem"
                                     ng-click="settings.setAudioOutputDevice({label: 'Send To Overlay', deviceId: 'overlay'})"
                                 >
-                                    <a href>Send To Overlay</a>
+                                    <a href>オーバーレイに送る</a>
                                 </li>
                             </ul>
                         </div>
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Live Stream Stats"
-                        description="Select which stream stats show in the top bar when live."
+                        name="配信統計"
+                        description="配信時に上部に表示される統計内容を選択します。"
                     >
                         <div>
                             <label class="control-fb control--checkbox"
-                                >Uptime
+                                >配信時間
                                 <input
                                     type="checkbox"
                                     ng-click="settings.setShowUptimeStat(!settings.getShowUptimeStat())"
@@ -104,7 +104,7 @@
                                 <div class="control__indicator"></div>
                             </label>
                             <label class="control-fb control--checkbox"
-                                >Viewer count
+                                >視聴者数
                                 <input
                                     type="checkbox"
                                     ng-click="settings.setShowViewerCountStat(!settings.getShowViewerCountStat())"
@@ -117,8 +117,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Inactive Viewer Time"
-                        description="The amount of time it takes for an active viewer to be marked as inactive after their last chat message."
+                        name="非アクティブ視聴時間"
+                        description="アクティブな視聴者が最後のチャットメッセージの後、非アクティブとして記録されるまでの時間."
                     >
                         <firebot-select
                             options="[5,10,15,20,25,30,35,40,45,50,55,60]"
@@ -127,7 +127,7 @@
                             on-update="setActiveChatUserTimeout(option)"
                             right-justify="true"
                         />
-                        <span> minutes</span>
+                        <span> 分</span>
                     </firebot-setting>
                 </div>
           `,
@@ -135,7 +135,7 @@
                 $scope.settings = settingsService;
 
                 $scope.audioOutputDevices = [{
-                    label: "System Default",
+                    label: "システムの既定デバイス",
                     deviceId: "default"
                 }];
 

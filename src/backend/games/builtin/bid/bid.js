@@ -28,7 +28,7 @@ module.exports = {
                 minBid: {
                     type: "number",
                     title: "Minimum Opening Bid",
-                    placeholder: "Enter amount",
+                    placeholder: "金額を入れる",
                     description: "The minimum amount for the opening bid.",
                     tip: "Optional.",
                     default: 1,
@@ -40,7 +40,7 @@ module.exports = {
                 minIncrement: {
                     type: "number",
                     title: "Minimum Bid Raise",
-                    placeholder: "Enter amount",
+                    placeholder: "金額を入れる",
                     description: "User must bid at least this amount over the highest bidder.",
                     tip: "Optional.",
                     default: 1,

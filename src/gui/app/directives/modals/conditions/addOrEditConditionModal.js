@@ -15,7 +15,7 @@
 
                 <div style="display: flex;flex-direction: column;">
                     <div class="modal-subheader muted" style="padding: 0 0 4px 0;">
-                        Type
+                        タイプ
                     </div>
                     <div class="btn-group" style="margin-right: 5px;margin-bottom:5px;" uib-dropdown>
                         <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="modal-subheader muted" style="padding: 0 0 4px 0; margin-top: 12px;">
-                        COMPARATOR
+                        比較
                     </div>
                     <div class="btn-group" style="margin-right: 5px;margin-bottom:5px;" uib-dropdown>
                         <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="modal-subheader muted" style="padding: 0 0 4px 0; margin-top: 12px;">
-                        EXPECTED VALUE
+                        期待値
                     </div>
                     <div ng-switch="$ctrl.currentConditionDef.rightSideValueType" style="flex: 1 1 0;">
                         <div ng-switch-when="preset">
@@ -86,8 +86,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-hide="$ctrl.isNewCondition">Delete</button>
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
         `,
             bindings: {
@@ -132,7 +132,7 @@
                             return presetValue.display;
                         }
                     }
-                    return "Select one";
+                    return "1つ選択";
                 };
 
                 $ctrl.getSelectedLeftSidePresetValueDisplay = function() {
@@ -144,7 +144,7 @@
                             return presetValue.display;
                         }
                     }
-                    return "Select one";
+                    return "1つ選択";
                 };
 
 

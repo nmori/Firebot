@@ -9,7 +9,7 @@ const { OutputDataType } = require("../../../shared/variable-constants");
 const model = {
     definition: {
         handle: "uptime",
-        description: "The current stream uptime",
+        description: "配信時間",
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: async () => {

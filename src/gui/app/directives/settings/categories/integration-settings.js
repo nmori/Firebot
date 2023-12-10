@@ -23,15 +23,15 @@
                   ng-show="integration.configurable"
                   ng-click="integrations.openIntegrationSettings(integration.id)"
                 >
-                  Configure
+                  設定
                 </button>
                 <button
                   class="btn btn-default"
                   ng-show="integration.linkType === 'auth' || integration.linkType === 'id' || integration.linkType === 'other'"
                   ng-click="integrations.toggleLinkforIntegration(integration.id)"
                 >
-                  {{integrations.integrationIsLinked(integration.id) ? 'Unlink'
-                  : 'Link'}}
+                  {{integrations.integrationIsLinked(integration.id) ? 'リンク解除'
+                  : 'リンク'}}
                 </button>
               </div>
             </div>

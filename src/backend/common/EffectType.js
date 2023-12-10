@@ -24,39 +24,39 @@ const effectDefinitions = [
     {
         id: "API_BUTTON",
         v5Id: "firebot:api",
-        name: "API Button",
+        name: "APIボタン",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.CHAT],
-        description: "Pull info from third-party APIs"
+        description: "サードパーティのAPIから情報を引き出す"
     },
     {
         id: "CELEBRATION",
         v5Id: "firebot:celebration",
-        name: "Celebration",
+        name: "お祝い",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "Fun effects in the overlay"
+        description: "オーバーレイの楽しい演出"
     },
     {
         id: "CHAT",
         v5Id: "firebot:chat",
-        name: "Chat",
+        name: "チャット",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.CHAT],
-        description: "Send a message to chat"
+        description: "チャットにメッセージを送る"
     },
     {
         id: "CUSTOM_SCRIPT",
         v5Id: "firebot:customscript",
-        name: "Custom Script",
+        name: "スクリプト",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Run your own script"
+        description: "独自のスクリプトを実行する"
     },
     {
         id: "RUN_COMMAND",
         v5Id: null,
-        name: "Run Command",
+        name: "コマンド実行",
         triggers: [
             Trigger.CUSTOM_SCRIPT,
             Trigger.API,
@@ -64,136 +64,136 @@ const effectDefinitions = [
             Trigger.HOTKEY
         ],
         dependencies: [],
-        description: "Run a command via another trigger"
+        description: "別のトリガーを使ってコマンドを実行する"
     },
     {
         id: "DELAY",
         v5Id: "firebot:delay",
-        name: "Delay",
+        name: "遅延",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Pause between effects"
+        description: "演出間の待ち時間"
     },
     {
         id: "DICE",
         v5Id: "firebot:dice",
-        name: "Dice",
+        name: "サイコロ",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.CHAT],
-        description: "Roll dice in chat"
+        description: "サイコロを振る"
     },
     {
         id: "GAME_CONTROL",
         v5Id: "firebot:controlemulation",
-        name: "Game Control",
+        name: "ゲーム制御",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Emulate keyboard and mouse clicks"
+        description: "キーボードとマウスのクリックを操作"
     },
     {
         id: "HTML",
         v5Id: "firebot:html",
-        name: "HTML",
+        name: "HTMLの表示",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "Display custom HTML in the overlay"
+        description: "オーバーレイにカスタムHTMLを表示する"
     },
     {
         id: "SHOW_EVENTS",
         v5Id: null,
-        name: "Show Event",
+        name: "イベント表示",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "Send an event to the Event List"
+        description: "イベントをイベントリストに送る"
     },
     {
         id: "PLAY_SOUND",
         v5Id: "firebot:playsound",
-        name: "Play Sound",
+        name: "サウンドを再生",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Play a sound for listening pleasure"
+        description: "音を再生する"
     },
     {
         id: "RANDOM_EFFECT",
         v5Id: "firebot:randomeffect",
-        name: "Random Effect",
+        name: "演出をランダム実行",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Run a random effect from a list of effects"
+        description: "効果のリストからランダム効果を実行する"
     },
     {
         id: "EFFECT_GROUP",
         v5Id: "firebot:run-effect-list",
-        name: "Effect Group",
+        name: "演出グループ",
         triggers: ALL_TRIGGERS,
         dependencies: [],
         description:
-      "Group multiple effects to be treated as one (good for Random Effect use)"
+      "複数の演出をグループ化し、1つの演出として扱う（ランダム演出の使用に適している）"
     },
     {
         id: "SHOW_IMAGE",
         v5Id: "firebot:showImage",
-        name: "Show Image",
+        name: "画像を表示",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "Display an image on the overlay"
+        description: "オーバーレイに画像を表示する"
     },
     {
         id: "CREATE_CLIP",
         v5Id: "firebot:clip",
-        name: "Create Clip",
+        name: "クリップを作成",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Triggers a clip to be made on Mixer for a given duration."
+        description: "Mixer上で指定した時間だけクリップを作成する指示をします"
     },
     {
         id: "SHOW_VIDEO",
         v5Id: "firebot:playvideo",
-        name: "Show Video",
+        name: "動作を再生",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "Play a video in the overlay"
+        description: "オーバーレイでビデオを再生する"
     },
     {
         id: "CLEAR_EFFECTS",
         v5Id: null,
-        name: "Clear Effects",
+        name: "演出を消す",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Clear and stop any currently running effects (sounds and overlay effects)."
+        description: "現在実行中の演出（サウンドとオーバーレイ演出）を終了する。"
     },
     {
         id: "TEXT_TO_FILE",
         v5Id: "firebot:filewriter",
-        name: "Write Text To File",
+        name: "テキストをファイルに書き込む",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Write customizable text to a file"
+        description: "テキストをファイルに書き込む"
     },
     {
         id: "COMMAND_LIST",
         v5Id: null,
-        name: "Command List",
+        name: "コマンドリスト",
         triggers: [Trigger.COMMAND],
         dependencies: [Dependency.CHAT],
-        description: "Returns list of chat commands"
+        description: "チャットコマンドリストを返答します"
     },
     {
         id: "TOGGLE_CONNECTION",
         v5Id: "firebot:toggleconnection",
-        name: "Toggle Connection",
+        name: "接続状態を切替える",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Toggles Firebot's connection to Mixer services"
+        description: "Mixerサービスへの接続を切り替えます。"
     },
     {
         id: "SHOW_TEXT",
         v5Id: "firebot:showtext",
-        name: "Show Text",
+        name: "テキストを表示",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "Displays formattable text in the overlay."
+        description: "テキストをオーバーレイに表示します。"
     }
 ];
 

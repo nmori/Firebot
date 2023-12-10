@@ -17,7 +17,7 @@
                             <span class="chat-effect-type">{{$ctrl.effect.chatter}}</span> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu chat-effect-dropdown">
-                            <li ng-click="$ctrl.effect.chatter = 'Streamer'"><a href>Streamer</a></li>
+                            <li ng-click="$ctrl.effect.chatter = 'Streamer'"><a href>配信者</a></li>
                             <li ng-if="$ctrl.botLoggedIn" ng-click="$ctrl.effect.chatter = 'Bot'"><a href>Bot</a></li>
                         </ul>
                     </div>

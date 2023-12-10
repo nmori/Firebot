@@ -32,7 +32,7 @@ module.exports = function setupUpdater() {
             logger.error('Failed to get github releases');
             return {
                 status: "error",
-                message: "Failed to get github releases list"
+                message: "github リリースリストの取得に失敗しました。"
             };
         }
 
@@ -80,7 +80,7 @@ module.exports = function setupUpdater() {
         if (!latestSeries) {
             return {
                 status: 'error',
-                message: 'unable to locate current installations version series info'
+                message: '現在のインストール・バージョンのシリーズ情報が見つからない'
             };
         }
 
@@ -117,13 +117,13 @@ module.exports = function setupUpdater() {
     let updateDownloaded = false;
     ipcMain.handle('preload.updates.download', (event, tag) => {
         if (platform !== 'win32') {
-            return {status: "error", message: "platform does not support auto updates"};
+            return {status: "error", message: "プラットフォームは自動アップデートをサポートしていません"};
         }
         if (isNightly) {
-            return {status: "error", message: "nightlies do not receive auto updates"};
+            return {status: "error", message: "ナイトリービルドは自動更新されれません"};
         }
         if (updaterBusy) {
-            return {status: "error", message: "auto-updater already running"};
+            return {status: "error", message: "自動アップデートはすでに起動中です"};
         }
 
         updaterBusy = true;

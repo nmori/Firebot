@@ -74,7 +74,7 @@
             ctrl.$onInit = () => {
                 loadOptions();
                 if (!ctrl.placeholder) {
-                    ctrl.placeholder = "Please select";
+                    ctrl.placeholder = "選んでください";
                 }
             };
 

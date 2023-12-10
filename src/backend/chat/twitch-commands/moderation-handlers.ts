@@ -9,7 +9,7 @@ export const timeoutHandler: TwitchSlashCommandHandler<[string, number, string]>
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
 
@@ -17,7 +17,7 @@ export const timeoutHandler: TwitchSlashCommandHandler<[string, number, string]>
         if (parsedDuration == null) {
             return {
                 success: false,
-                errorMessage: "Please provide a valid duration"
+                errorMessage: "正しい期間を入力してください"
             };
         }
   
@@ -46,7 +46,7 @@ export const banHandler: TwitchSlashCommandHandler<[string, string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
   
@@ -75,7 +75,7 @@ export const unbanHandler: TwitchSlashCommandHandler<[string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
   
@@ -103,7 +103,7 @@ export const vipHandler: TwitchSlashCommandHandler<[string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
   
@@ -135,7 +135,7 @@ export const unvipHandler: TwitchSlashCommandHandler<[string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
   
@@ -167,7 +167,7 @@ export const modHandler: TwitchSlashCommandHandler<[string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
   
@@ -195,7 +195,7 @@ export const unmodHandler: TwitchSlashCommandHandler<[string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
   

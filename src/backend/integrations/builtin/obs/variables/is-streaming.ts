@@ -5,7 +5,7 @@ export const IsStreamingVariable: ReplaceVariable = {
   definition: {
     handle: "obsIsStreaming",
     description:
-      "Returns 'true' if OBS is currently streaming or 'false' if it is not.",
+      "OBSが現在配信中であれば'true'を、そうでなければ'false'を返す。",
     possibleDataOutput: ["text"],
   },
   evaluator: async () => {

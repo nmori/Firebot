@@ -25,7 +25,7 @@ const sync = async (jsonData) => {
             logger.error('Bytebin rate limit exceeded.');
             renderWindow.webContents.send(
                 "error",
-                "Bytebin rate limit exceeded."
+                "情報共有システムで共有できる情報の上限を超えました"
             );
         } else {
             logger.error('Bytebin sync failed.', error.message);

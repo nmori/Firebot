@@ -7,11 +7,11 @@ const TwitchApi = require("../../../../twitch-api/api");
 const steam = {
     definition: {
         id: "firebot:steam",
-        name: "Steam Search",
+        name: "Steam 検索",
         active: true,
         trigger: "!steam",
         usage: "[game name]",
-        description: "Displays information about a game on steam.",
+        description: "steam上のゲームに関する情報を表示します",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -21,9 +21,9 @@ const steam = {
         options: {
             outputTemplate: {
                 type: "string",
-                title: "Output Template",
-                tip: "Variables: {gameName}, {price}, {releaseDate}, {metaCriticScore}, {steamUrl}, {steamShortDescription}",
-                default: `{gameName} (Price: {price} - Released: {releaseDate} - Metacritic: {metaCriticScore}) {steamUrl}`,
+                title: "出力テンプレート",
+                tip: "変数: {gameName}, {price}, {releaseDate}, {metaCriticScore}, {steamUrl}, {steamShortDescription}",
+                default: `{gameName} (価格: {price} - 発売: {releaseDate} - 制作: {metaCriticScore}) {steamUrl}`,
                 useTextArea: true
             }
         }
@@ -31,7 +31,7 @@ const steam = {
     onTriggerEvent: async event => {
         const { commandOptions } = event;
         let gameName = event.userCommand.args.join(" ").trim();
-        let message = "Couldn't find a Steam game using that name";
+        let message = "その名前のSteamゲームは見つかりません";
 
         if (gameName == null || gameName.length < 1) {
 
@@ -46,11 +46,11 @@ const steam = {
             if (gameDetails !== null) {
                 message = commandOptions.outputTemplate
                     .replace("{gameName}", gameDetails.name)
-                    .replace("{price}", gameDetails.price || "Unknown")
-                    .replace("{releaseDate}", gameDetails.releaseDate || "Unknown")
-                    .replace("{metaCriticScore}", gameDetails.score || "Unknown")
+                    .replace("{price}", gameDetails.price || "不明")
+                    .replace("{releaseDate}", gameDetails.releaseDate || "不明")
+                    .replace("{metaCriticScore}", gameDetails.score || "不明")
                     .replace("{steamUrl}", gameDetails.url)
-                    .replace("{steamShortDescription}", gameDetails.shortDescription || "Unknown");
+                    .replace("{steamShortDescription}", gameDetails.shortDescription || "不明");
             }
         }
 

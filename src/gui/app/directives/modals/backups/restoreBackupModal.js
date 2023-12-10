@@ -9,9 +9,9 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body" style="text-align:center;">
-                <h1>{{$ctrl.restoreComplete ? 'Restore Complete!' : !$ctrl.restoreHasError ? 'Restoring...' : 'Oh no!'}}</h1>
+                <h1>{{$ctrl.restoreComplete ? 'Restore Complete!' : !$ctrl.restoreHasError ? '復元中...' : 'おおっと!'}}</h1>
                 <div style="overflow: hidden;" ng-hide="$ctrl.restoreComplete || $ctrl.restoreHasError">
-                    <div class="loader">Loading...</div>
+                    <div class="loader">読み込み中...</div>
                 </div>
                 <div ng-if="$ctrl.restoreHasError" style="height: 220px;display:flex;justify-content:center;align-items:center;">
                     <i class="fad fa-sad-tear" style="font-size: 150px;"></i>
@@ -24,7 +24,7 @@
                 </p>
                 <p ng-if="$ctrl.restoreHasError" class="muted" style="font-size:12px;">Note: Alternatively, you can manually restore your<br>backup by following <a href="https://github.com/crowbartools/Firebot/wiki/Firebot-V5-Manual-Restore" style="color:#7bddfa;text-decoration:underline;">these steps</a>.</p>
                 <p ng-if="$ctrl.restoreComplete">
-                    The restore has completed successfully! Please click <b>Restart</b> below to restart Firebot, this ensures the restored data is properly loaded.
+                    復元が正常に完了しました！ <b>再起動</b> を押してFirebotを再起動してください。再起動すると復元されたデータが読み込まれます。
                 </p>
             </div>
             <div class="modal-footer" style="text-align:center;">
@@ -58,7 +58,7 @@
             function beginRestore() {
                 if ($ctrl.backupFilePath == null || $ctrl.backupFilePath === "") {
                     $ctrl.restoreHasError = true;
-                    $ctrl.errorMessage = "The provided backup zip path does not appear to be valid.";
+                    $ctrl.errorMessage = "指定されたバックアップZIPのパスが有効でないようです。";
                     return;
                 }
 
@@ -75,7 +75,7 @@
                     } catch (error) {
                         logger.error("Unknown error while attempting to restore backup", error);
                         $ctrl.restoreHasError = true;
-                        $ctrl.errorMessage = "An unknown error occured while attempting to restore the backup. Please reach out on Discord or Twitter. We are happy to help!";
+                        $ctrl.errorMessage = "バックアップを復元しようとして不明なエラーが発生しました。DiscordかX(旧Twitter)でご連絡ください。喜んでお手伝いします！";
                     }
                     resolve();
                 });
@@ -89,7 +89,7 @@
                 $timeout(() => {
                     if (!$ctrl.restoreComplete && !$ctrl.restoreHasError) {
                         $ctrl.restoreHasError = true;
-                        $ctrl.errorMessage = "Restore is taking longer than it should. There is likely an issue. You can close and try again. If you continue having issues, please reach out on Discord or Twitter. We are happy to help!";
+                        $ctrl.errorMessage = "リストアに時間がかかっています。問題がある可能性があります。一度終了し、再度お試しください。問題が解決しない場合は、DiscordまたはX(旧Twitter)でご連絡ください。喜んでお手伝いします！";
                     }
                 }, 30 * 1000);
             };

@@ -41,7 +41,7 @@
 
             service.notificationSoundOptions = [
                 {
-                    name: "None",
+                    name: "なし",
                     path: ""
                 },
                 {

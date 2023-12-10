@@ -8,7 +8,7 @@
         `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewFilter ? 'Create New Filter' : 'Edit Filter'}}</h4>
+                <h4 class="modal-title">{{$ctrl.isNewFilter ? '新規フィルタ' : 'フィルタを編集'}}</h4>
             </div>
             <div class="modal-body">
 
@@ -58,9 +58,9 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-hide="$ctrl.isNewFilter">Delete</button>
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-hide="$ctrl.isNewFilter">削除</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
         `,
         bindings: {
@@ -97,7 +97,7 @@
                         return presetValue.display;
                     }
                 }
-                return "Select one";
+                return "選んでください";
             };
 
 

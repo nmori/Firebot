@@ -11,11 +11,11 @@
                         name="Commands"
                     />
                     <firebot-setting
-                        name="Default Mode For New Commands"
-                        description="The default command mode to use when creating new commands (Simple vs Advanced)"
+                        name="コマンドモード"
+                        description="新しいコマンドを作成するときに使用するデフォルトのコマンドモード（簡易 or 応用）"
                     >
                         <firebot-select
-                            options="{ true: 'Advanced', false: 'Simple' }"
+                            options="{ true: '応用', false: '簡易' }"
                             ng-init="selectedCmdMode = settings.getDefaultToAdvancedCommandMode()"
                             selected="selectedCmdMode"
                             on-update="settings.setDefaultToAdvancedCommandMode(option === 'true')"
@@ -24,15 +24,15 @@
                     </firebot-setting>
 
                     <firebot-setting-category
-                        name="Events"
+                        name="イベント"
                         pad-top="true"
                     />
                     <firebot-setting
-                        name="Ignore Related Gift Sub Events"
-                        description="When this is enabled, Firebot will attempt to ignore subsequent Gift Sub events after a Community Gift Sub event. This means only the Community Sub event would fire instead of the Community Sub event AND an additional Gift Sub event for every recipient."
+                        name="ギフト、サブイベントを無視する"
+                        description="この設定を有効にすると、Firebotはコミュニティギフトサブイベントの後に発生するギフトサブイベントを無視しようとします。つまり、Community Subイベントと受取人ごとのGift Subイベントが同時に発生するのではなく、Community Subイベントのみが発生するようになります。"
                     >
                         <firebot-select
-                            options="{ true: 'Yes', false: 'No' }"
+                            options="{ true: '無視する', false: '無視しない' }"
                             ng-init="ignoreSubEvents = settings.ignoreSubsequentSubEventsAfterCommunitySub()"
                             selected="ignoreSubEvents"
                             on-update="settings.setIgnoreSubsequentSubEventsAfterCommunitySub(option === 'true')"

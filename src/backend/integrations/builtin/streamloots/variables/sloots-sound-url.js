@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "slootsSoundUrl",
-        description: "The sound url for the StreamLoots Chest/Card.",
+        description: "StreamLoots Chest/CardのサウンドURL",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

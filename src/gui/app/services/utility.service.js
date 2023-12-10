@@ -21,9 +21,9 @@
 
             backendCommunicator.on("requestIntegrationAccountId", (data) => {
                 service.openGetIdEntyModal({
-                    label: `Enter ${data.integrationName} ${data.label ? data.label : "ID"}`,
-                    saveText: "Save",
-                    inputPlaceholder: `Enter ${data.label ? data.label : "ID"}`,
+                    label: `${data.integrationName} ${data.label ? data.label : "ID"} を入力`,
+                    saveText: "保存",
+                    inputPlaceholder: `${data.label ? data.label : "ID"} を入力`,
                     idLabel: data.label,
                     steps: data.steps
                 }, (model) => {
@@ -331,6 +331,7 @@
                                 paramCount++;
                             });
 
+
                             $scope.overlayPath = overlayPath;
                         };
                         $scope.buildOverlayPath();
@@ -340,7 +341,7 @@
                             $rootScope.copyTextToClipboard($scope.overlayPath);
                             ngToast.create({
                                 className: 'success',
-                                content: "Overlay path copied!"
+                                content: "オーバーレイのパスをコピーしました"
                             });
                         };
 
@@ -530,14 +531,13 @@
                             if (!$scope.downloadComplete) {
                                 $scope.downloadHasError = true;
                                 $scope.errorMessage =
-                  "Download is taking longer than normal. There may have been an error. You can keep waiting or close this and try again later.";
+                                 "ダウンロードに通常より時間がかかっています。エラーが発生した可能性があります。このままお待ちいただくか、この画面を閉じて後でもう一度お試しください。";
                             }
                         }, 180 * 1000);
 
                         $scope.installUpdate = function() {
                             updatesService.installUpdate();
                         };
-
                         $scope.dismiss = function() {
                             $uibModalInstance.dismiss("cancel");
                         };
@@ -667,27 +667,27 @@
                                     }
                                 },
                                 {
-                                    html: `<a href ><i class="fal fa-copy" style="margin-right: 10px;" aria-hidden="true"></i> Copy</a>`,
+                                    html: `<a href ><i class="fal fa-copy" style="margin-right: 10px;" aria-hidden="true"></i> 複製</a>`,
                                     click: function () {
                                         $scope.copy();
                                     }
                                 },
                                 {
-                                    text: "Copy Effect JSON",
+                                    text: "演出設定データ（JSON）をコピー",
                                     children: [
                                         {
-                                            text: "For Custom Scripts",
+                                            text: "カスタムスクリプト用",
                                             click: () => {
                                                 $rootScope.copyTextToClipboard(angular.toJson($scope.effect));
 
                                                 ngToast.create({
                                                     className: 'success',
-                                                    content: 'Copied effect json to clipboard.'
+                                                    content: '演出設定データ（JSON）をクリップボードにコピーしました'
                                                 });
                                             }
                                         },
                                         {
-                                            text: "For $runEffect[]",
+                                            text: "$runEffect[]向け",
                                             click: () => {
                                                 $rootScope.copyTextToClipboard(
                                                     `$runEffect[\`\`${angular.toJson($scope.effect)}\`\`]`
@@ -695,21 +695,21 @@
 
                                                 ngToast.create({
                                                     className: 'success',
-                                                    content: 'Copied $runEffect with effect json to clipboard.'
+                                                    content: '$runEffect用のデータをクリップボードにコピーしました'
                                                 });
                                             }
                                         }
                                     ]
                                 },
                                 {
-                                    html: `<a href ><i class="fal fa-paste" style="margin-right: 10px;" aria-hidden="true"></i> Paste</a>`,
+                                    html: `<a href ><i class="fal fa-paste" style="margin-right: 10px;" aria-hidden="true"></i> 貼り付け</a>`,
                                     enabled: $scope.hasCopiedEffect(),
                                     click: function () {
                                         $scope.paste();
                                     }
                                 },
                                 {
-                                    html: `<a href style="color: #fb7373;"><i class="fal fa-trash-alt" style="margin-right: 10px;" aria-hidden="true"></i> Delete</a>`,
+                                    html: `<a href style="color: #fb7373;"><i class="fal fa-trash-alt" style="margin-right: 10px;" aria-hidden="true"></i> 削除</a>`,
                                     click: function () {
                                         $scope.delete();
                                     }
@@ -814,7 +814,7 @@
                         async function validateEffect() {
 
                             if ($scope.effect.type === "Nothing") {
-                                ngToast.create("Please select an effect type!");
+                                ngToast.create("演出の種類を選んでください");
                                 return false;
                             }
 
@@ -848,54 +848,54 @@
 
                                     if (firstError.varname) {
                                         errorDetails.push({
-                                            title: "Variable",
+                                            title: "変数",
                                             message: "$" + firstError.varname
                                         });
                                     }
 
                                     if (firstError.message) {
                                         errorDetails.push({
-                                            title: "Error",
+                                            title: "エラー",
                                             message: service.capitalize(firstError.message)
                                         });
                                     }
 
                                     if (firstError.index > -1) {
                                         errorDetails.push({
-                                            title: "Argument Index",
+                                            title: "引数の番号",
                                             message: firstError.index
                                         });
                                     }
 
                                     if (firstError.character) {
                                         errorDetails.push({
-                                            title: "Character",
+                                            title: "文字",
                                             message: "\"" + firstError.character + "\""
                                         });
                                     }
 
                                     if (firstError.position) {
                                         errorDetails.push({
-                                            title: "Character Position",
+                                            title: "文字位置",
                                             message: firstError.position
                                         });
                                     }
 
                                     if (firstError.rawText) {
                                         errorDetails.push({
-                                            title: "Raw Text",
+                                            title: "生のテキスト",
                                             message: "\"" + firstError.rawText + "\""
                                         });
                                     }
 
                                     if (firstError.dataField) {
                                         errorDetails.push({
-                                            title: "UI Field",
+                                            title: "UIフィールド",
                                             message: firstError.dataField
                                         });
                                     }
 
-                                    service.showErrorDetailModal("Replace Variable Error", errorDetails);
+                                    service.showErrorDetailModal("置換変数エラー", errorDetails);
                                     return false;
                                 }
                             } catch (err) {
@@ -940,9 +940,9 @@
 
                         $scope.getLabelButtonTextForLabel = function(labelModel) {
                             if (labelModel == null || labelModel.length === 0) {
-                                return "Add Label";
+                                return "ラベルを追加";
                             }
-                            return "Edit Label";
+                            return "ラベルを編集";
                         };
 
                         $scope.editLabel = () => {
@@ -951,7 +951,7 @@
                                 {
                                     model: label,
                                     label: $scope.getLabelButtonTextForLabel(label),
-                                    saveText: "Save Label"
+                                    saveText: "ラベルを保存"
                                 },
                                 (newLabel) => {
                                     if (newLabel == null || newLabel.length === 0) {
@@ -982,7 +982,7 @@
 
                         $scope.delete = function() {
                             $uibModalInstance.close({
-                                action: "delete",
+                                action: "削除",
                                 effect: $scope.effect,
                                 index: index
                             });

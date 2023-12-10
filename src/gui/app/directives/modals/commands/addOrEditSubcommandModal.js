@@ -7,16 +7,16 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewArg ? 'Add' : 'Edit'}} Subcommand</h4>
+                <h4 class="modal-title">{{$ctrl.isNewArg ? 'Add' : 'Edit'}} サブコマンド</h4>
             </div>
             <div class="modal-body">
                 <div>
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Arg Type
+                        引数の種類
                     </div>
                     <div ng-class="{'has-error': $ctrl.kindError}">
                         <ui-select ng-model="$ctrl.arg.type" ng-change="$ctrl.onTypeChange()" theme="bootstrap" class="control-type-list">
-                            <ui-select-match placeholder="Select arg type">{{$select.selected.type}}</ui-select-match>
+                            <ui-select-match placeholder="引数の種類を選ぶ">{{$select.selected.type}}</ui-select-match>
                             <ui-select-choices repeat="arg.type as arg in $ctrl.argTypes | filter: { type: $select.search }" style="position:relative;">
                                 <div style="padding: 5px;">
                                     <div ng-bind-html="arg.type | highlight: $select.search"></div>
@@ -24,13 +24,13 @@
                                 </div>
                             </ui-select-choices>
                         </ui-select>
-                        <div id="helpBlock2" class="help-block" ng-show="$ctrl.kindError">Please select an arg type.</div>
+                        <div id="helpBlock2" class="help-block" ng-show="$ctrl.kindError">引数のタイプを選択してください.</div>
                     </div>
                 </div>
 
                 <div ng-show="$ctrl.arg.type === 'Custom'" style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Arg Trigger Text <tooltip text="'The text that should trigger this subcommand'">
+                        Arg Trigger Text <tooltip text="'このサブコマンドを起動するテキスト'">
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.nameError}">
@@ -41,8 +41,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.isNewArg ? 'Add' : 'Save'}}</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.isNewArg ? '追加' : '保存'}}</button>
             </div>
             `,
             bindings: {
@@ -53,7 +53,7 @@
             controller: function($timeout) {
                 const $ctrl = this;
 
-                $ctrl.nameErrorText = 'Please provide trigger text.';
+                $ctrl.nameErrorText = '起動用テキストを入力してください.';
 
                 $timeout(() => {
                     angular.element("#nameField").trigger("focus");
@@ -78,7 +78,7 @@
                 $ctrl.argTypes = [
                     {
                         type: "Custom",
-                        description: "An arg that triggers on specific text"
+                        description: "特定のテキストで起動される引数"
                     }
                 ];
 
@@ -89,11 +89,11 @@
 
                     const triggerText = $ctrl.arg.arg;
                     if (triggerText == null || triggerText.length < 1) {
-                        $ctrl.nameErrorText = 'Please provide trigger text.';
+                        $ctrl.nameErrorText = '起動用テキストを入力してください';
                         return false;
                     }
                     if ($ctrl.resolve.otherArgNames.some(a => a === triggerText.toLowerCase())) {
-                        $ctrl.nameErrorText = 'This trigger text already exists.';
+                        $ctrl.nameErrorText = 'この起動用テキストはすでに存在します.';
                         return false;
                     }
                     return true;
@@ -159,7 +159,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.arg === numberRegex)) {
                         $ctrl.argTypes.push({
                             type: "Number",
-                            description: "An arg that triggers on any number"
+                            description: "任意の起動をしたい数字"
                         });
                     }
 
@@ -167,7 +167,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.arg === usernameRegex)) {
                         $ctrl.argTypes.push({
                             type: "Username",
-                            description: "An arg that triggers on text that starts with an @ symbol"
+                            description: "@で始まる起動にしたいユーザ名、テキスト"
                         });
                     }
 
@@ -175,7 +175,7 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.fallback)) {
                         $ctrl.argTypes.push({
                             type: "Fallback",
-                            description: "An arg that triggers if none of the other args are matched"
+                            description: "他の引数がどれも一致しない場合に起動される引数"
                         });
                     }
 

@@ -7,15 +7,15 @@ const { EffectCategory } = require("../../shared/effect-constants");
         template: `
             <div class="modal-header" style="background: #43454A;border-bottom: 2px solid #373C3E;">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Select New Effect</h4>
+                <h4 class="modal-title">新規演出</h4>
             </div>
             <div class="modal-body">
                 <div style="height: 55px;background: #43454A;border-bottom: 2px solid #373C3E;display:flex; align-items: center;padding: 0 13px;">
-                    <searchbar search-id="effectSearch" placeholder-text="Search effects..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
+                    <searchbar search-id="effectSearch" placeholder-text="演出を選ぶ..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
                 </div>
                 <div style="display: flex;flex-direction:row;height: 450px;">
                     <div style="width: 150px;display:flex;flex-direction:column;height: 100%; flex-shrink: 0;background: #27292c;">
-                        <div class="effect-category-header">Categories</div>
+                        <div class="effect-category-header">カテゴリ</div>
                         <div class="effect-category-wrapper" ng-class="{'selected': $ctrl.activeCategory == null}" ng-click="$ctrl.activeCategory = null;">
                             <div class="category-bar"></div>
                             <div class="category-text">All</div>
@@ -27,7 +27,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
                                 <tooltip
                                     style="margin-left: 5px"
                                     ng-if="category === 'integrations'"
-                                    text="'Integrations need to be linked in Settings -> Integrations in order for the effects to work.'"
+                                    text="'効果的に動作させるには、設定 -> 連携で設定をする必要があります。'"
                                 ></tooltip>
                             </div>
                         </div>
@@ -50,12 +50,12 @@ const { EffectCategory } = require("../../shared/effect-constants");
             </div>
             <div style="background:#43454A;display:flex;align-items: center;justify-content: space-between;padding: 20px;border-top: solid 2px #373C3E;">
                 <div>
-                    <div style="font-size: 12px;font-weight: 600;" class="muted">SELECTED EFFECT:</div>
-                    <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "None"}}</div>
+                    <div style="font-size: 12px;font-weight: 600;" class="muted">選択した演出:</div>
+                    <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "なし"}}</div>
                 </div>
                 <div style="display:flex;align-items: center; justify-content: flex-end;">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()" style="margin-right: 10px;">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">Select</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()" style="margin-right: 10px;">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">選択</button>
                 </div>
             </div>
             `,
@@ -99,7 +99,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
                             const modalElement = $("." + modalId).children();
                             return {
                                 element: modalElement,
-                                name: "Select New Effect",
+                                name: "演出を選択",
                                 id: modalId,
                                 instance: $ctrl.modalInstance
                             };
@@ -118,7 +118,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
 
             $ctrl.save = function() {
                 if ($ctrl.selectedEffectDef == null) {
-                    ngToast.create("Please select an effect!");
+                    ngToast.create("演出を選んでください");
                     return;
                 }
 

@@ -12,8 +12,8 @@ const delay = {
    */
     definition: {
         id: "firebot:update-roles",
-        name: "Update Viewer Roles",
-        description: "Add, remove, or clear users from a custom role.",
+        name: "役割の更新",
+        description: "役割からユーザーを追加、削除、クリアします。",
         icon: "fad fa-user-tag",
         categories: [EffectCategory.ADVANCED],
         dependencies: []
@@ -23,7 +23,7 @@ const delay = {
 
     <eos-container header="Custom Role Actions" pad-top="true">
             <div>
-                <label class="control-fb control--checkbox"> Add user to role</tooltip>
+                <label class="control-fb control--checkbox"> ユーザに役割を付与</tooltip>
                     <input type="checkbox" ng-init="shouldAddRole = (effect.addRoleId != null && effect.addRoleId !== '')" ng-model="shouldAddRole" ng-click="effect.addRoleId = undefined">
                     <div class="control__indicator"></div>
                 </label>
@@ -40,7 +40,7 @@ const delay = {
             </div>
 
             <div style="margin-top:5px;">
-                <label class="control-fb control--checkbox"> Remove user from role</tooltip>
+                <label class="control-fb control--checkbox"> ユーザから役割を外す</tooltip>
                     <input type="checkbox" ng-init="shouldRemoveRole = (effect.removeRoleId != null && effect.removeRoleId !== '')" ng-model="shouldRemoveRole" ng-click="effect.removeRoleId = undefined">
                     <div class="control__indicator"></div>
                 </label>
@@ -57,7 +57,7 @@ const delay = {
             </div>
 
             <div style="margin-top:5px;">
-                <label class="control-fb control--checkbox"> Remove all users from role</tooltip>
+                <label class="control-fb control--checkbox"> すべてのユーザーを役割から削除</tooltip>
                     <input type="checkbox" ng-init="shouldRemoveAllRole = (effect.removeAllRoleId != null && effect.removeAllRoleId !== '')" ng-model="shouldRemoveAllRole" ng-click="effect.removeAllRoleId = undefined">
                     <div class="control__indicator"></div>
                 </label>
@@ -76,7 +76,7 @@ const delay = {
 
         <eos-container header="Viewer" ng-show="effect.removeRoleId != null || effect.addRoleId != null">
             <div style="padding: 0 10px 0 0;">
-                <label class="control-fb control--radio">Associated viewer <tooltip text="'The viewer who pressed this button/ran the command/etc.'"></tooltip>
+                <label class="control-fb control--radio">関連視聴者 <tooltip text="'このボタンを押した視聴者、コマンドを実行した視聴者など'"></tooltip>
                     <input type="radio" ng-model="effect.viewerType" value="current"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -85,7 +85,7 @@ const delay = {
                     <div class="control__indicator"></div>
                 </label>
                 <div ng-show="effect.viewerType === 'custom'" style="padding-left: 30px;">
-                    <input class="form-control" type="text" ng-model="effect.customViewer" placeholder="Username" replace-variables></input>
+                    <input class="form-control" type="text" ng-model="effect.customViewer" placeholder="ユーザ名" replace-variables></input>
                 </div>
             </div>
         </eos-container>

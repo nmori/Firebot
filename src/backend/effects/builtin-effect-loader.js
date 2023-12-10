@@ -31,6 +31,7 @@ exports.loadEffects = () => {
         'file-writer',
         'html',
         'http-request',
+        'oneccome-wordparty',
         'log-message',
         'loop-effects',
         'mark-all-activity-acknowledged',

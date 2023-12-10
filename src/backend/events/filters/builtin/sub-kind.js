@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:sub-kind",
-    name: "Kind of Sub",
-    description: "Filter by the kind of sub (resub vs first sub)",
+    name: "サブスク状態",
+    description: "サブスクの種類で絞り込む（再サブスクか初サブスクか）",
     events: [
         { eventSourceId: "twitch", eventId: "sub" }
     ],
@@ -15,22 +15,22 @@ module.exports = {
         return [
             {
                 value: "first",
-                display: "First Sub"
+                display: "初回"
             },
             {
                 value: "resub",
-                display: "Resub"
+                display: "再び"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
         case "first":
-            return "First Sub";
+            return "初回";
         case "resub":
-            return "Resub";
+            return "再び";
         default:
-            return "[Not set]";
+            return "[未設定]";
         }
     },
     predicate: (filterSettings, eventData) => {

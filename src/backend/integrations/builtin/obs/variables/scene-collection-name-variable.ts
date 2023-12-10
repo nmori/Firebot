@@ -5,11 +5,11 @@ export const SceneCollectionNameVariable: ReplaceVariable = {
   definition: {
     handle: "obsSceneCollectionName",
     description:
-      "The name of the current OBS Scene Collection. If OBS isn't running, it returns 'Unknown'.",
+      "現在の OBS シーンコレクション の名前。OBSが起動していない場合は、'不明'を返します。.",
     possibleDataOutput: ["text"],
   },
   evaluator: async () => {
     const currentSceneCollectionName = await getCurrentSceneCollectionName();
-    return currentSceneCollectionName ?? "Unknown";
+    return currentSceneCollectionName ?? "不明";
   },
 };

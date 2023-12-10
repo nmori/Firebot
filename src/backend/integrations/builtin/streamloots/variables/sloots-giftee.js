@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "slootsGiftee",
-        description: "The person who was gifted StreamLoots Chests.",
+        description: "StreamLootsチェストをプレゼントされた方",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

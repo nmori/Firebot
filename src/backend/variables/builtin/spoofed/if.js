@@ -7,16 +7,16 @@ const { OutputDataType, VariableCategory } = require("../../../../shared/variabl
 module.exports = {
     definition: {
         handle: "if",
-        usage: "if[condition, when_true, when_false]",
-        description: 'Returns the parameter based on the condition\'s result.',
+        usage: "if[条件, 成立時, 不成立時]",
+        description: '条件の評価結果で結果を切りかえます。',
         examples: [
             {
                 usage: 'if[$user === Jim, JIM]',
-                description: "Returns JIM if the user is Jim, otherwise returns empty text"
+                description: "ユーザーがJimであればJIMを返し、そうでなければ空文字列を返す。"
             },
             {
                 usage: 'if[$user === Jim, JIM, JOHN]',
-                description: "Returns JIM if the user is Jim, otherwise returns JOHN"
+                description: "ユーザーがJimの場合はJIMを返し、そうでない場合はJOHNを返す。"
             }
         ],
         categories: [VariableCategory.ADVANCED],

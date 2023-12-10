@@ -21,10 +21,10 @@
                     </div>
 
                     <div style="width: 25%">
-                        <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
+                        <span style="min-width: 51px; display: inline-block;" uib-tooltip="再実行可能になるまでの待ち時間(全般)">
                             <i class="fal fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "s" : "-" }}
                         </span>
-                        <span uib-tooltip="User cooldown">
+                        <span uib-tooltip="再実行可能になるまでの待ち時間(ユーザ)">
                             <i class="fal fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "s" : "-" }}
                         </span>
                     </div>
@@ -37,7 +37,7 @@
                     <div style="width: 25%">
                         <div style="min-width: 75px">
                             <span class="status-dot" ng-class="{'active': $ctrl.subcommand.active, 'notactive': !$ctrl.subcommand.active}"></span>
-                            {{$ctrl.subcommand.active ? "Active" : "Disabled"}}
+                            {{$ctrl.subcommand.active ? "アクティブ" : "非アクティブ"}}
                         </div>
                     </div>
 
@@ -50,13 +50,13 @@
                     <div class="sub-command p-8">
                         <div>
                             <div class="settings-title">
-                                <h4 class="font-semibold">Description <tooltip class="text-2xl ml-1" text="'Displayed on the command list webpage'"></tooltip></h4>
+                                <h4 class="font-semibold">説明 <tooltip class="text-2xl ml-1" text="'Displayed on the command list webpage'"></tooltip></h4>
                             </div>
                             <input
                                 ng-show="$ctrl.fullyEditable"
                                 class="form-control"
                                 type="text"
-                                placeholder="Enter description"
+                                placeholder="説明を入力"
                                 ng-model="$ctrl.subcommand.description"
                                 aria-describedby="subcommandDescription"
                             >
@@ -65,28 +65,28 @@
 
                         <div class="mt-10">
                             <div class="settings-title">
-                                <h4 class="font-semibold">Usage</h4>
+                                <h4 class="font-semibold">使用方法</h4>
                             </div>
                             <p ng-show="!$ctrl.fullyEditable">{{$ctrl.cmdTrigger}} {{$ctrl.subcommand.usage ? $ctrl.subcommand.usage : $ctrl.subcommand.arg}}</p>
                             <div class="input-group" ng-hide="!$ctrl.fullyEditable">
                                 <span class="input-group-addon">{{$ctrl.cmdTrigger}}{{!$ctrl.subcommand.regex ? " " + $ctrl.subcommand.arg : ""}}</span>
-                                <input ng-hide="$ctrl.subcommand.regex" class="form-control" type="text" placeholder="Enter text" ng-model="$ctrl.compiledUsage" ng-change="$ctrl.onUsageChange()">
-                                <input ng-show="$ctrl.subcommand.regex" class="form-control" type="text" placeholder="Enter text" ng-model="$ctrl.subcommand.usage">
+                                <input ng-hide="$ctrl.subcommand.regex" class="form-control" type="text" placeholder="テキストを入力" ng-model="$ctrl.compiledUsage" ng-change="$ctrl.onUsageChange()">
+                                <input ng-show="$ctrl.subcommand.regex" class="form-control" type="text" placeholder="テキストを入力" ng-model="$ctrl.subcommand.usage">
                             </div>
                         </div>
 
                         <div class="mt-10" ng-show="$ctrl.fullyEditable">
                             <div class="settings-title">
                                 <h4 class="font-semibold">
-                                    Required Additional Arg Count
-                                    <tooltip class="text-2xl ml-1" text="'The number of additional required args after the subcommands arg. If this number is not met, effects will not be triggered.'" />
+                                    必要な追加引数の数
+                                    <tooltip class="text-2xl ml-1" text="'サブコマンド引数の後に追加で必要な奇数の数。この数に満たない場合、演出は発動しない。'" />
                                 </h4>
                             </div>
                             <input
                                 ng-show="$ctrl.fullyEditable"
                                 class="form-control"
                                 type="number"
-                                placeholder="Enter count"
+                                placeholder="数値を入力"
                                 ng-model="$ctrl.adjustedMinArgs"
                                 ng-change="$ctrl.onMinArgsChange()"
                             >
@@ -94,7 +94,7 @@
 
                         <div class="mt-10" ng-hide="$ctrl.subcommand.hideCooldowns">
                             <div class="settings-title">
-                                <h4 class="font-semibold">Cooldowns</h4>
+                                <h4 class="font-semibold">再実行可能になるまでの待ち時間</h4>
                             </div>
                             <command-cooldown-settings command="$ctrl.subcommand" message-setting-disabled="true"></command-cooldown-settings>
                         </div>
@@ -141,7 +141,7 @@
 
                         <div ng-if="$ctrl.fullyEditable" class="mt-6">
                             <effect-list
-                                header="What should this subcommand do?"
+                                header="このサブコマンドは何をしますか？"
                                 effects="$ctrl.subcommand.effects"
                                 trigger="command"
                                 update="$ctrl.effectListUpdated(effects)"
@@ -153,7 +153,7 @@
                                     <i class="far fa-trash"></i>
                                 </button>
                                 <button ng-hide="$ctrl.subcommand.fallback" class="btn btn-default ml-2" ng-click="$ctrl.edit()" aria-label="Edit subcommand">
-                                    <i class="far fa-edit"></i> Edit Trigger
+                                    <i class="far fa-edit"></i> 編集
                                 </button>
                             </div>
                         </div>
@@ -189,13 +189,13 @@
 
                     if ($ctrl.fullyEditable) {
                         if (!$ctrl.subcommand.regex) {
-                            $ctrl.subcommandTypeTitle = "Custom";
+                            $ctrl.subcommandTypeTitle = "カスタム";
                         } else if ($ctrl.subcommand.fallback) {
-                            $ctrl.subcommandTypeTitle = "Fallback";
+                            $ctrl.subcommandTypeTitle = "フォールバック";
                         } else if ($ctrl.subcommand.arg === '\\d+') {
-                            $ctrl.subcommandTypeTitle = "Number";
+                            $ctrl.subcommandTypeTitle = "数字";
                         } else if ($ctrl.subcommand.arg === '@\\w+') {
-                            $ctrl.subcommandTypeTitle = "Username";
+                            $ctrl.subcommandTypeTitle = "ユーザ名";
                         }
                         console.log($ctrl.subcommand.arg);
                     }
@@ -204,9 +204,9 @@
 
             $ctrl.delete = () => {
                 utilityService.showConfirmationModal({
-                    title: "Delete Subcommand",
-                    question: `Are you sure you want to delete this subcommand?`,
-                    confirmLabel: "Delete",
+                    title: "サブコマンドを削除",
+                    question: `このサブコマンドを削除しますか?`,
+                    confirmLabel: "削除する",
                     confirmBtnType: "btn-danger"
                 }).then(confirmed => {
                     if (confirmed) {
@@ -231,12 +231,12 @@
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
-                        return "Roles";
+                        return "役割";
                     } else if (permissions.mode === "viewer") {
-                        return "Viewer";
+                        return "視聴者";
                     }
                 } else {
-                    return "Inherited";
+                    return "継承";
                 }
             };
 
@@ -248,7 +248,7 @@
                 if (permissions) {
                     if (permissions.mode === "roles") {
                         const roleIds = permissions.roleIds;
-                        let output = "None selected";
+                        let output = "未選択";
                         if (roleIds.length > 0) {
                             output = roleIds
                                 .filter(id => viewerRolesService.getRoleById(id) != null)

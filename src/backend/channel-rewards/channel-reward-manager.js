@@ -283,7 +283,7 @@ frontendCommunicator.on("manuallyTriggerReward", (/** @type {string} */ channelR
     const accountAccess = require("../common/account-access");
 
     triggerChannelReward(channelRewardId, {
-        messageText: "Testing reward",
+        messageText: "特典のテスト",
         redemptionId: "test-redemption-id",
         rewardId: savedReward.id,
         rewardCost: savedReward.twitchData.cost,

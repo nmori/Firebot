@@ -4,15 +4,15 @@ import { saveReplayBuffer } from "../obs-remote";
 export const SaveReplayBufferEffectType: EffectType<{}> = {
   definition: {
     id: "firebot:obs-save-replay-buffer",
-    name: "Save OBS Replay Buffer",
-    description: "Tell OBS to save the replay buffer",
+    name: "OBSリプレイバッファを保存",
+    description: "OBS にリプレイバッファを保存するよう指示します",
     icon: "fad fa-redo-alt",
     categories: ["common"],
   },
   optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>Warning!</b> This will only work if the replay buffer is enabled and active in OBS.
+        <b>警告!</b> OBSでリプレイバッファが有効になっており、準備完了である場合にのみ動作します
       </div>
     </eos-container>
   `,

@@ -41,7 +41,7 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
         }
         customScript = require(scriptFilePath);
     } catch (error) {
-        renderWindow.webContents.send("error", `Error loading the script '${scriptName}' \n\n ${error}`);
+        renderWindow.webContents.send("error", `${scriptName}'を読み込めません \n\n ${error}`);
         logger.error(error);
         return;
     }
@@ -50,14 +50,14 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
     if (typeof customScript.run !== "function") {
         renderWindow.webContents.send(
             "error",
-            `Error running '${scriptName}', script does not contain an exported 'run' function.`
+            `'${scriptName}'を実行できません。スクリプトに 'run' 関数が含まれていません。`
         );
         return;
     }
 
     const manifest = {
-        name: "Unknown Script",
-        version: "Unknown Version",
+        name: "不明なスクリプト",
+        version: "不明なバージョン",
         startupOnly: false
     };
 
@@ -74,7 +74,7 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
     if (manifest.startupOnly && !isStartupScript) {
         renderWindow.webContents.send(
             "error",
-            `Could not run startup-only script "${manifest.name}" as it was executed outside of Firebot startup (Settings > Advanced > Startup Scripts)`
+            `スクリプト「${manifest.name}」はスタートアップ専用スクリプトです。Firebotのスタートアップ以外では実行できません。`
         );
         return;
     }
@@ -96,7 +96,7 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
 
     if (!response.success) {
         logger.error("Script failed with message:", response.errorMessage);
-        renderWindow.webContents.send("error", "Custom script failed with the message: " + response.errorMessage);
+        renderWindow.webContents.send("error", "スクリプトの実行に失敗しました： " + response.errorMessage);
         return;
     }
 
@@ -226,7 +226,7 @@ function runScript(effect, trigger) {
     if (!settings.isCustomScriptsEnabled()) {
         renderWindow.webContents.send(
             "error",
-            "Something attempted to run a custom script but this feature is disabled!"
+            "スクリプトの実行を試みましたが、この機能は無効化されており実行できません"
         );
         return;
     }

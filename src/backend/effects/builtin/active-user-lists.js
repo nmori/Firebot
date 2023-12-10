@@ -8,8 +8,8 @@ const activeUserHandler = require("../../chat/chat-listeners/active-user-handler
 const model = {
     definition: {
         id: "firebot:activeUserLists",
-        name: "Manage Active Chat Users",
-        description: "Add or remove users from the active chat user lists.",
+        name: "アクティブな視聴者の管理",
+        description: "アクティブな視聴者を追加または削除します。",
         icon: "fad fa-users",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION],
         dependencies: []
@@ -22,13 +22,13 @@ const model = {
             </button>
             <ul class="dropdown-menu celebrate-effect-dropdown">
                 <li ng-click="effect.action = 'Add User'">
-                    <a href>Add User</a>
+                    <a href>視聴者を追加</a>
                 </li>
                 <li ng-click="effect.action = 'Remove User'">
-                    <a href>Remove User</a>
+                    <a href>視聴者を削除</a>
                 </li>
                 <li ng-click="effect.action = 'Clear List'">
-                    <a href>Clear List</a>
+                    <a href>リストをクリア</a>
                 </li>
             </ul>
         </div>
@@ -44,10 +44,10 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.action == null || effect.action === "") {
-            errors.push("Please select an action to perform.");
+            errors.push("実行するアクションを選択してください");
         }
         if (effect.username == null && effect.action !== "Clear List" || effect.username === "" && effect.action !== "Clear List") {
-            errors.push("Please enter a username.");
+            errors.push("ユーザ名を入れてください");
         }
         return errors;
     },

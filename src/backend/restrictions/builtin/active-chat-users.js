@@ -3,14 +3,14 @@
 const model = {
     definition: {
         id: "firebot:activeChatUsers",
-        name: "Active Chat Users",
-        description: "Restricts to only active chat users.",
+        name: "アクティブなチャットユーザ数",
+        description: "アクティブなチャットユーザーのみに制限.",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div>
-                <p>Limits to only active chat users (someone who has chatted recently)</p>
+                <p>アクティブなチャットユーザー（最近チャットした人）のみに制限する</p>
             </div>
         </div>
     `,
@@ -25,7 +25,7 @@ const model = {
             if (activeUserHandler.userIsActive(username)) {
                 resolve();
             } else {
-                reject("You haven't sent a chat message recently");
+                reject("最近チャットメッセージを送信していない");
             }
         });
     }

@@ -10,11 +10,11 @@
                 <div class="hotkey-capture" ng-class="{ 'capturing': $ctrl.hks.isCapturingHotkey }">                   
                     <span class="hotkey-display" ng-click="$ctrl.recordKeys()">
                         <span ng-if="$ctrl.hotkeyDisplay == null || $ctrl.hotkeyDisplay === ''" class="muted" style="font-weight: 500;">
-                            {{ $ctrl.hks.isCapturingHotkey ? 'Press any key now...' : 'No hotkey set.' }}
+                            {{ $ctrl.hks.isCapturingHotkey ? 'なにかキーを押してください' : 'ホットキー未設定' }}
                         </span>
                         <span>{{$ctrl.hotkeyDisplay}}</span>                 
                     </span>
-                    <button ng-click="$ctrl.recordKeys()" class="btn" ng-class="$ctrl.hks.isCapturingHotkey ? 'btn-danger' : 'btn-success'">{{$ctrl.hks.isCapturingHotkey ? 'Stop recording' : 'Record'}}</button>
+                    <button ng-click="$ctrl.recordKeys()" class="btn" ng-class="$ctrl.hks.isCapturingHotkey ? 'btn-danger' : 'btn-success'">{{$ctrl.hks.isCapturingHotkey ? 'キーの記録を中止' : 'キーを記録'}}</button>
 
                     <span class="clickable" style="margin-left: 10px;" uib-tooltip="Clear current hotkey" ng-click="$ctrl.clearHotkey()" ng-show="$ctrl.hotkeyDisplay != null && $ctrl.hotkeyDisplay.length > 0"><i class="far fa-times-circle"></i></span>
                 </div>

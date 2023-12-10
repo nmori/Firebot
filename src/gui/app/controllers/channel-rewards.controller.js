@@ -59,7 +59,7 @@
                         }
                     },
                     {
-                        html: `<a href uib-tooltip="This reward was created outside of Firebot, its enabled status cannot be edited." tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> Toggle Enabled</a>`,
+                        html: `<a href uib-tooltip="この報奨はFirebotの外部で作成されたもので、有効ステータスを編集することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効状態の切り替え</a>`,
                         click: function () {
                             item.twitchData.isEnabled = !item.twitchData.isEnabled;
                             channelRewardsService.saveChannelReward(item);
@@ -68,7 +68,7 @@
                         enabled: item.manageable
                     },
                     {
-                        html: `<a href uib-tooltip="This reward was created outside of Firebot, its paused status cannot be edited." tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> Toggle Paused</a>`,
+                        html: `<a href uib-tooltip="この報奨はFirebotの外部で作成されたもので、一時停止ステータスを編集することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 停止状態の切り替え</a>`,
                         click: function () {
                             item.twitchData.isPaused = !item.twitchData.isPaused;
                             channelRewardsService.saveChannelReward(item);
@@ -84,12 +84,12 @@
                         enabled: channelRewardsService.channelRewards.length < 50
                     },
                     {
-                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="This reward was created outside of Firebot, it cannot be deleted from here." tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="この報奨はFirebotの外部で作成されたもので、ここから削除することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Channel Reward",
-                                    question: `Are you sure you want to delete the Channel Reward "${item.twitchData.title}"?`,
+                                    title: "チャンネルの報奨を削除",
+                                    question: `チャンネル報奨「"${item.twitchData.title}"」を消しても良いですか？ ?`,
                                     confirmLabel: "Delete",
                                     confirmBtnType: "btn-danger"
                                 })

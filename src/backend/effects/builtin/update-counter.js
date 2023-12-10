@@ -7,8 +7,8 @@ const logger = require("../../logwrapper");
 const model = {
     definition: {
         id: "firebot:update-counter",
-        name: "Update Counter",
-        description: "Update a counter's value.",
+        name: "カウンタを更新",
+        description: "カウンタの値を更新",
         icon: "fad fa-tally",
         categories: [EffectCategory.COMMON, EffectCategory.ADVANCED],
         dependencies: []
@@ -16,7 +16,7 @@ const model = {
     globalSettings: {},
     optionsTemplate: `
         <div ng-hide="hasCounters">
-            <p>You need to create a Counter to use this effect! Go to the <b>Counters</b> tab to create one.</p>
+            <p>この演出を使用するには、カウンタを作成する必要があります！カウンタを作成するには、<b>カウンタ</b>タブに移動してください</p>
         </div>
         <div ng-show="hasCounters">
             <eos-container header="Counter">
@@ -26,11 +26,11 @@ const model = {
             <div ng-show="effect.counterId">
                 <eos-container header="Mode" pad-top="true">
                     <div class="controls-fb" style="padding-bottom: 5px;">
-                        <label class="control-fb control--radio">Increment <tooltip text="'Increment the counter by the given value (value can be negative to decrement)'"></tooltip>
+                        <label class="control-fb control--radio">増加 <tooltip text="'カウンタを指定された値だけ増加する（減少する場合は負の値を指定できる）'"></tooltip>
                             <input type="radio" ng-model="effect.mode" value="increment"/>
                             <div class="control__indicator"></div>
                         </label>
-                        <label class="control-fb control--radio">Set <tooltip text="'Set the counter to a new value.'"></tooltip>
+                        <label class="control-fb control--radio">Set <tooltip text="'カウンタを新しい値に設定する'"></tooltip>
                             <input type="radio" ng-model="effect.mode" value="set"/>
                             <div class="control__indicator"></div>
                         </label>
@@ -38,9 +38,9 @@ const model = {
                 </eos-container>
             </div>
 
-            <eos-container header="{{effect.mode == 'increment' ? 'Increment Amount' : 'New Value'}}" pad-top="true" ng-show="effect.mode">
+            <eos-container header="{{effect.mode == 'increment' ? '増額' : '新しい値'}}" pad-top="true" ng-show="effect.mode">
                 <div class="input-group">
-                    <span class="input-group-addon" id="delay-length-effect-type">Value</span>
+                    <span class="input-group-addon" id="delay-length-effect-type">値</span>
                     <input ng-model="effect.value" type="text" class="form-control" aria-describedby="delay-length-effect-type" type="text" replace-variables="number">
                 </div>
             </eos-container>
@@ -63,16 +63,16 @@ const model = {
     optionsValidator: (effect, $scope) => {
         const errors = [];
         if (effect.counterId == null) {
-            errors.push("Please select a counter.");
+            errors.push("カウンタを選択してください。");
         } else if (effect.mode == null) {
-            errors.push("Please select an update mode.");
+            errors.push("更新モードを選択してください。");
         } else if (effect.value === undefined || effect.value === "") {
-            errors.push("Please enter an update value.");
+            errors.push("更新値を入力してください。");
         }
 
         if ($scope.triggerType === 'counter') {
             if ($scope.triggerMeta && $scope.triggerMeta.counterEffectListType === 'update' && effect.counterId === $scope.triggerMeta.triggerId) {
-                errors.push("You can't make a counter update itself. Doing so would cause an infinite loop.");
+                errors.push("カウンタを勝手に更新させることはできない。そうすると無限ループになるからだ。");
             }
         }
 

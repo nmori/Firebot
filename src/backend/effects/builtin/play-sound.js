@@ -13,8 +13,8 @@ const { wait } = require("../../utility");
 const playSound = {
     definition: {
         id: "firebot:playsound",
-        name: "Play Sound",
-        description: "Plays a sound effect",
+        name: "サウンドを再生",
+        description: "効果音を再生します",
         icon: "fad fa-waveform",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -31,9 +31,9 @@ const playSound = {
     </eos-container>
 
     <div ng-hide="effect.soundType == null">
-        <eos-container header="Sound" pad-top="true">
+        <eos-container header="音源" pad-top="true">
             <div ng-if="effect.soundType === 'folderRandom'">
-                <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'Select Sound Folder'}"></file-chooser>
+                <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: '音源のフォルダを選択'}"></file-chooser>
             </div>
 
             <div ng-if="effect.soundType === 'local'">
@@ -50,14 +50,14 @@ const playSound = {
             </div>
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> Wait for sound to finish <tooltip text="'Wait for the sound to finish before letting the next effect play.'"></tooltip>
+                <label class="control-fb control--checkbox"> Wait for sound to finish <tooltip text="'音が鳴り終わるのを待ってから、次の効果をかける。'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="Volume" pad-top="true">
+        <eos-container header="音量" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 1, ceil: 10, hideLimitLabels: true, showSelectionBar: true}"></rzslider>
@@ -84,14 +84,14 @@ const playSound = {
 
         if (effect.soundType === "local" || effect.soundType == null) {
             if (effect.filepath == null || effect.filepath.length < 1) {
-                errors.push("Please select a sound file.");
+                errors.push("音源ファイルを指定してください");
             }
         } else if (effect.soundType === "folderRandom") {
             if (effect.folder == null || effect.folder.length < 1) {
-                errors.push("Please select a sound folder.");
+                errors.push("音源フォルダを指定してください");
             }
         } else if (effect.soundType === "url" && (effect.url == null || effect.url.trim() === "")) {
-            errors.push("Please input a url.");
+            errors.push("URLをいれてください");
         }
 
         return errors;

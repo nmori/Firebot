@@ -3,16 +3,16 @@
 const model = {
     definition: {
         id: "firebot:followcheck",
-        name: "Follow Check",
-        description: "Restrict based on if user is following everyone in a comma separated list.",
+        name: "フォローチェック",
+        description: "カンマ区切りのリストで、ユーザが全員をフォローしているかどうかに基づいて制限する.",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div id="userFollowList" class="modal-subheader" style="padding: 0 0 4px 0">
-                User follows
+                フォロー
             </div>
-            <input type="text" class="form-control" placeholder="Enter value" ng-model="restriction.value">
+            <input type="text" class="form-control" placeholder="値を入れる" ng-model="restriction.value">
         </div>
     `,
     optionsValueDisplay: (restriction) => {
@@ -48,7 +48,7 @@ const model = {
                 return resolve();
             }
 
-            return reject("You must be following: " + restrictionData.value);
+            return reject("次の操作が必要です: " + restrictionData.value);
         });
     }
 };

@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:is-anonymous",
-    name: "Anonymous",
-    description: "Filter by whether the event was triggered by an anonymous user",
+    name: "匿名の視聴者",
+    description: "イベントが匿名の視聴者によって起動されたかどうかでフィルタリングする。",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -17,21 +17,21 @@ module.exports = {
         return [
             {
                 value: "true",
-                display: "True"
+                display: "はい"
             },
             {
                 value: "false",
-                display: "False"
+                display: "いいえ"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
 
         if (filterSettings.value == null) {
-            return "False";
+            return "いいえ";
         }
 
-        return filterSettings.value === "true" ? "True" : "False";
+        return filterSettings.value === "true" ? "はい" : "いいえ";
     },
     predicate: (filterSettings, eventData) => {
 

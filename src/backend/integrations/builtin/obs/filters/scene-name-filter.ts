@@ -3,13 +3,13 @@ import { OBS_EVENT_SOURCE_ID, OBS_SCENE_CHANGED_EVENT_ID } from "../constants";
 
 export const SceneNameEventFilter: EventFilter = {
   id: "ebiggz:obs-scene-name",
-  name: "Scene Name",
+  name: "シーン名",
   events: [
     { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_CHANGED_EVENT_ID },
   ],
-  description: "Filter on the name of the now active OBS scene",
+  description: "現在アクティブなOBSシーンにフィルタをかける",
   valueType: "preset",
-  comparisonTypes: ["is", "is not"],
+  comparisonTypes: ["一致", "不一致"],
   presetValues: (backendCommunicator, $q) => {
     return $q
       .when(backendCommunicator.fireEventAsync("obs-get-scene-list"))
@@ -28,9 +28,11 @@ export const SceneNameEventFilter: EventFilter = {
 
     switch (comparisonType) {
       case "is":
+      case "一致":
         return actual === expected;
       case "is not":
-        return actual !== expected;
+      case "不一致":
+          return actual !== expected;
       default:
         return false;
     }

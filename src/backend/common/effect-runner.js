@@ -212,11 +212,11 @@ function runEffectsManually(effects, metadata = {}, triggerType = EffectTrigger.
                 },
                 control: {
                     cost: 10,
-                    text: "Test Button",
+                    text: "テストボタン",
                     cooldown: "30",
                     disabled: false,
                     progress: 0.5,
-                    tooltip: "Test tooltip"
+                    tooltip: "テスト"
                 },
                 inputData: {
                     value: "@Textbox"

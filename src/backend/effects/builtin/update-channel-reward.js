@@ -5,17 +5,17 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const toggleConnection = {
     definition: {
         id: "firebot:update-channel-reward",
-        name: "Update Channel Reward",
-        description: "Update settings for a channel reward",
+        name: "チャンネル特典を更新",
+        description: "チャンネル特典の設定を更新する",
         icon: "fad fa-gifts",
         categories: [EffectCategory.ADVANCED, EffectCategory.TWITCH],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-        <eos-container header="Channel Reward">
+        <eos-container header="チャンネル特典">
             <ui-select ng-model="effect.channelRewardId" theme="bootstrap">
-                <ui-select-match placeholder="Select or search for a channel reward... ">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="チャンネル特典を選択または検索.. ">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="reward.id as reward in manageableRewards | filter: { name: $select.search }" style="position:relative;">
                     <div ng-bind-html="reward.name | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -24,8 +24,8 @@ const toggleConnection = {
 
         <eos-container ng-show="effect.channelRewardId != null" header="Reward Settings" pad-top="true">
 
-            <label class="control-fb control--checkbox">Update Enabled
-                <input type="checkbox" ng-click="effect.rewardSettings.enabled.update = !effect.rewardSettings.enabled.update" ng-checked="effect.rewardSettings.enabled.update"  aria-label="Toggle enabled" >
+            <label class="control-fb control--checkbox">アップデート有効
+                <input type="checkbox" ng-click="effect.rewardSettings.enabled.update = !effect.rewardSettings.enabled.update" ng-checked="effect.rewardSettings.enabled.update"  aria-label="切り替え" >
                 <div class="control__indicator"></div>
             </label>
             <div ng-show="effect.rewardSettings.enabled.update" style="margin-bottom: 15px;">
@@ -34,15 +34,15 @@ const toggleConnection = {
                     {{getToggleEnabledDisplay(effect.rewardSettings.enabled.newValue)}} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = true"><a href>Enable</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = false"><a href>Disable</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = 'toggle'"><a href>Toggle</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = true"><a href>有効</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = false"><a href>無効</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = 'toggle'"><a href>切り替え</a></li>
                     </ul>
                 </div>
             </div>
 
-            <label class="control-fb control--checkbox">Update Paused
-                <input type="checkbox" ng-click="effect.rewardSettings.paused.update = !effect.rewardSettings.paused.update" ng-checked="effect.rewardSettings.paused.update"  aria-label="Toggle paused" >
+            <label class="control-fb control--checkbox">更新を一時停止
+                <input type="checkbox" ng-click="effect.rewardSettings.paused.update = !effect.rewardSettings.paused.update" ng-checked="effect.rewardSettings.paused.update"  aria-label="切り替え" >
                 <div class="control__indicator"></div>
             </label>
             <div ng-show="effect.rewardSettings.paused.update" style="margin-bottom: 15px;">
@@ -51,14 +51,14 @@ const toggleConnection = {
                     {{getTogglePausedDisplay(effect.rewardSettings.paused.newValue)}} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = true"><a href>Paused</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = false"><a href>Unpaused</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = 'toggle'"><a href>Toggle</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = true"><a href>一時停止</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = false"><a href>再開</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = 'toggle'"><a href>切り替え</a></li>
                     </ul>
                 </div>
             </div>
 
-            <label class="control-fb control--checkbox">Update Name
+            <label class="control-fb control--checkbox">アップデート名
                 <input
                     type="checkbox"
                     ng-click="effect.rewardSettings.name.update = !effect.rewardSettings.name.update"
@@ -68,7 +68,7 @@ const toggleConnection = {
                 <div class="control__indicator"></div>
             </label>
             <div ng-show="effect.rewardSettings.name.update" style="margin-bottom: 15px;">
-                <firebot-input model="effect.rewardSettings.name.newValue" placeholder-text="Enter text" />
+                <firebot-input model="effect.rewardSettings.name.newValue" placeholder-text="テキストを入力" />
             </div>
 
             <label class="control-fb control--checkbox">Update Description
@@ -81,7 +81,7 @@ const toggleConnection = {
                 <div class="control__indicator"></div>
             </label>
             <div ng-show="effect.rewardSettings.description.update" style="margin-bottom: 15px;">
-                <firebot-input model="effect.rewardSettings.description.newValue" use-text-area="true" placeholder-text="Enter text" />
+                <firebot-input model="effect.rewardSettings.description.newValue" use-text-area="true" placeholder-text="テキストを入力" />
             </div>
 
             <label class="control-fb control--checkbox">Update Cost
@@ -94,7 +94,7 @@ const toggleConnection = {
                 <div class="control__indicator"></div>
             </label>
             <div ng-show="effect.rewardSettings.cost.update" style="margin-bottom: 15px;">
-                <firebot-input model="effect.rewardSettings.cost.newValue" data-type="number" placeholder-text="Enter number" />
+                <firebot-input model="effect.rewardSettings.cost.newValue" data-type="number" placeholder-text="数字を入力" />
             </div>
 
         </eos-container>
@@ -107,22 +107,22 @@ const toggleConnection = {
 
         $scope.getToggleEnabledDisplay = (action) => {
             if (action === "toggle") {
-                return "Toggle";
+                return "切り替え";
             }
             if (action === true) {
-                return "Enable";
+                return "有効";
             }
-            return "Disable";
+            return "無効";
         };
 
         $scope.getTogglePausedDisplay = (action) => {
             if (action === "toggle") {
-                return "Toggle";
+                return "切り替え";
             }
             if (action === true) {
-                return "Pause";
+                return "一時停止";
             }
-            return "Unpause";
+            return "再開";
         };
 
         if ($scope.effect.rewardSettings == null) {
@@ -153,20 +153,20 @@ const toggleConnection = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.channelRewardId == null) {
-            errors.push("Please select a channel reward to update.");
+            errors.push("更新するチャンネル特典を選択してください。");
         } else if (effect.rewardSettings.name.update &&
             (effect.rewardSettings.name.newValue == null ||
             effect.rewardSettings.name.newValue === "")) {
-            errors.push("Please provide a new name for the reward.");
+            errors.push("特典の新しい名前を記入してください。");
         } else if (effect.rewardSettings.description.update &&
             (effect.rewardSettings.description.newValue == null ||
             effect.rewardSettings.description.newValue === "")) {
-            errors.push("Please provide a new description for the reward.");
+            errors.push("特典の新しい説明をいれてください。");
         } else if (effect.rewardSettings.cost.update &&
             (effect.rewardSettings.cost.newValue == null ||
             effect.rewardSettings.cost.newValue === "" ||
             effect.rewardSettings.cost.newValue < 1)) {
-            errors.push("Please provide a new cost for the reward.");
+            errors.push("特典の新たな価格を設定してください");
         }
 
         return errors;

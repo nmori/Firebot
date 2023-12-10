@@ -10,7 +10,7 @@ const tsEventHandler = require("./events/tipeeestream-event-handler");
 const integrationDefinition = {
     id: "tipeeestream",
     name: "TipeeeStream",
-    description: "Donation events",
+    description: "寄付イベント",
     connectionToggle: true,
     linkType: "auth",
     authProviderDetails: {

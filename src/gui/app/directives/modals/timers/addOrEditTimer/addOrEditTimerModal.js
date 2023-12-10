@@ -7,7 +7,7 @@
         template: `
             <context-menu-modal-header
                 on-close="$ctrl.dismiss()"
-                trigger-type="timer"
+                trigger-type="タイマー"
                 trigger-name="$ctrl.timer.name"
                 sort-tags="$ctrl.timer.sortTags"
                 show-trigger-name="true"
@@ -15,26 +15,26 @@
             <div class="modal-body">
                 <div class="general-button-settings">
                     <div class="settings-title">
-                        <h3>General Settings</h3>
+                        <h3>一般設定</h3>
                     </div>
                     <div class="input-group pb-6 settings-commandGroup-groupName">
-                        <span class="input-group-addon">Name</span>
+                        <span class="input-group-addon">名前</span>
                         <input type="text" class="form-control" ng-model="$ctrl.timer.name">
                     </div>
                     <div class="input-group pb-6 settings-commandGroup-timer">
-                        <span class="input-group-addon">Interval(secs)</span>
-                        <input type="number" class="form-control" ng-model="$ctrl.timer.interval" placeholder="Seconds">
+                        <span class="input-group-addon">間隔(秒)</span>
+                        <input type="number" class="form-control" ng-model="$ctrl.timer.interval" placeholder="秒">
                     </div>
                     <div class="input-group pb-6 settings-commandGroup-timer">
-                        <span class="input-group-addon">Required Chat Lines <tooltip text="'The minimum number of chat lines since the last interval.'"></tooltip></span>
+                        <span class="input-group-addon">必須チャット行数<tooltip text="'起動に必要なチャットの経過行数'"></tooltip></span>
                         <input type="number" class="form-control" ng-model="$ctrl.timer.requiredChatLines" placeholder="">
                     </div>
                     <div class="controls-fb-inline">
-                        <label class="control-fb control--checkbox" ng-hide="$ctrl.isNewTimer">Enabled
+                        <label class="control-fb control--checkbox" ng-hide="$ctrl.isNewTimer">有効
                             <input type="checkbox" ng-model="$ctrl.timer.active" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
-                        <label class="control-fb control--checkbox">Only Run When Live <tooltip text="'Uncheck this if you want this timer to run effects even when you are not live.'"></tooltip>
+                        <label class="control-fb control--checkbox">配信時のみ <tooltip text="'配信中でなくてもタイマーを作動させたい場合は、このチェックを外してください。'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.timer.onlyWhenLive" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
@@ -42,16 +42,16 @@
                 </div>
 
                 <div class="function-button-settings" style="margin-top: 15px;">
-                    <effect-list header="What should this timer do?" effects="$ctrl.timer.effects" trigger="timer" trigger-meta="$ctrl.triggerMeta" update="$ctrl.effectListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
+                    <effect-list header="このタイマーが行う内容" effects="$ctrl.timer.effects" trigger="timer" trigger-meta="$ctrl.triggerMeta" update="$ctrl.effectListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
                 </div>
                 <p class="muted" style="font-size:11px;margin-top:6px;">
-                    <b>ProTip:</b> If you want to have this timer display a single chat message at a time, try the <b>Run Random Effect</b> or <b>Run Sequential Effect</b>
+                    <b>ヒント:</b> このタイマーに一度に一つのチャットメッセージを表示させたい場合は、<b>演出のランダム実行</b>または<b>演出の順番実行</b>をお試しください。
                 </p>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
         `,
         bindings: {
@@ -86,7 +86,7 @@
                         const modalElement = $("." + modalId).children();
                         return {
                             element: modalElement,
-                            name: "Edit Timer",
+                            name: "編集",
                             id: modalId,
                             instance: $ctrl.modalInstance
                         };
@@ -104,10 +104,10 @@
 
             function timerValid() {
                 if ($ctrl.timer.name === "") {
-                    ngToast.create("Please provide a name for the Timer.");
+                    ngToast.create("名前を入れてください");
                     return false;
                 } else if ($ctrl.timer.interval < 1) {
-                    ngToast.create("Timer interval must be greater than 0.");
+                    ngToast.create("間隔は 0より大きい値にしてください");
                     return false;
                 }
                 return true;
@@ -126,7 +126,7 @@
                             }
                         });
                     } else {
-                        ngToast.create("Failed to save timer. Please try again or view logs for details.");
+                        ngToast.create("タイマーの保存に失敗しました。再試行するか、ログを参照してください。");
                     }
                 });
             };

@@ -7,15 +7,15 @@ const twitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:clearchat",
-        name: "Clear Chat",
-        description: "Clear all chat messages.",
+        name: "チャットクリア",
+        description: "すべてのチャットメッセージを消去する",
         icon: "fad fa-eraser",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
         dependencies: [EffectDependency.CHAT]
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect will clear all chat messages from chat, exactly like the Twitch /clear command.</p>
+            <p>このエフェクトは、Twitchの /clearコマンドのように、チャットからすべてのチャットメッセージを消去します。</p>
         </eos-container>
     `,
     optionsController: () => {},

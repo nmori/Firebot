@@ -14,8 +14,8 @@ const showText = {
    */
     definition: {
         id: "firebot:showtext",
-        name: "Show Text",
-        description: "Shows specified text in the overlay.",
+        name: "テキストを表示",
+        description: "指定したテキストをオーバーレイに表示する。",
         icon: "fad fa-text",
         categories: [EffectCategory.COMMON, EffectCategory.OVERLAY],
         dependencies: [EffectDependency.OVERLAY]
@@ -35,11 +35,11 @@ const showText = {
         </div>
         <div style="margin-top: 10px;">
             <div class="form-group">
-                <label class="form-label">Editor Background</label>
+                <label class="form-label">背景</label>
                 <div>
                     <div class="btn-group">
-                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'white'">White</label>
-                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'black'">Black</label>
+                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'white'">白</label>
+                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'black'">黒</label>
                     </div>
                 </div>
             </div>
@@ -47,22 +47,22 @@ const showText = {
     </eos-container>
 
     <eos-container header="Text Settings" pad-top="true">
-        <label class="control-fb control--checkbox"> Drop shadow
+        <label class="control-fb control--checkbox"> ドロップシャドウ
             <input type="checkbox" ng-model="effect.dropShadow" />
             <div class="control__indicator"></div>
         </label>
     </eos-container>
 
     <eos-container header="Container Settings" class="setting-padtop">
-        <p>This defines the size of the (invisible) box that the above text will be placed in.</p>
+        <p>これは、上記のテキストが配置される（見えない）ボックスのサイズを定義します。</p>
         <div class="input-group" style="margin-bottom: 10px;">
-            <span class="input-group-addon">Width (in pixels)</span>
+            <span class="input-group-addon">幅 (pixels)</span>
             <input
                 class="form-control"
                 type="number"
                 min="1" max="10000"
                 ng-model="effect.width">
-            <span class="input-group-addon">Height (in pixels)</span>
+            <span class="input-group-addon">高さ(pixels)</span>
             <input
                 class="form-control"
                 type="number"
@@ -70,40 +70,40 @@ const showText = {
                 ng-model="effect.height">
         </div>
 
-        <label class="control-fb control--checkbox"> Dont Wrap Text
+        <label class="control-fb control--checkbox"> テキストを折り返さない
             <input type="checkbox" ng-model="effect.dontWrap" />
             <div class="control__indicator"></div>
         </label>
 
-        <label class="control-fb control--checkbox"> Show Debug Border <tooltip text="'Show a red border around the text box to make it easier to see its position.'"></tooltip>
+        <label class="control-fb control--checkbox"> デバッグ・ボーダーを表示する<tooltip text="'テキストボックスの位置を見やすくするため、テキストボックスの周囲に赤い枠線を表示します。'"></tooltip>
             <input type="checkbox" ng-model="effect.debugBorder" />
             <div class="control__indicator"></div>
         </label>
 
         <p>Justification</p>
-        <label class="control-fb control--radio">Left
+        <label class="control-fb control--radio">左
             <input type="radio" ng-model="effect.justify" value="flex-start"/>
             <div class="control__indicator"></div>
         </label>
-        <label class="control-fb control--radio" >Center
+        <label class="control-fb control--radio" >中央
             <input type="radio" ng-model="effect.justify" value="center"/>
             <div class="control__indicator"></div>
         </label>
-        <label class="control-fb control--radio" >Right
+        <label class="control-fb control--radio" >右
             <input type="radio" ng-model="effect.justify" value="flex-end"/>
             <div class="control__indicator"></div>
         </label>
 
         <p>Align</p>
-        <label class="control-fb control--radio">Top
+        <label class="control-fb control--radio">上
             <input type="radio" ng-model="effect.align" value="flex-start"/>
             <div class="control__indicator"></div>
         </label>
-        <label class="control-fb control--radio" >Center
+        <label class="control-fb control--radio" >中央
             <input type="radio" ng-model="effect.align" value="center"/>
             <div class="control__indicator"></div>
         </label>
-        <label class="control-fb control--radio" >Bottom
+        <label class="control-fb control--radio" >下
             <input type="radio" ng-model="effect.align" value="flex-end"/>
             <div class="control__indicator"></div>
         </label>
@@ -127,7 +127,7 @@ const showText = {
     <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
 
     <div class="effect-info alert alert-warning">
-    This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
+    この演出を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">今すぐ学ぶ</a>
     </div>
     `,
     /**
@@ -224,7 +224,7 @@ const showText = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.text == null) {
-            errors.push("Please enter some text to show.");
+            errors.push("表示するテキストを入力してください。");
         }
         return errors;
     },

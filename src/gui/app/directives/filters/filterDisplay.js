@@ -15,15 +15,15 @@
                 const $ctrl = this;
 
                 $ctrl.getFilterName = function() {
-                    return $ctrl.filterType ? $ctrl.filterType.name : "Unknown";
+                    return $ctrl.filterType ? $ctrl.filterType.name : "不明";
                 };
 
-                $ctrl.filterValueDisplay = "[Not Set]";
+                $ctrl.filterValueDisplay = "[未設定]";
 
                 function getFilterValueDisplay() {
                     return $q(async resolve => {
                         if ($ctrl.filter == null || $ctrl.filter.value == null) {
-                            resolve("[Not Set]");
+                            resolve("[未設定]");
                         } else {
                             const value = await $injector.invoke($ctrl.filterType.getSelectedValueDisplay, {}, {
                                 filterSettings: $ctrl.filter

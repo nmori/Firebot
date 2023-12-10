@@ -14,8 +14,8 @@ const effect = {
    */
     definition: {
         id: "streamlabs:roll-credits",
-        name: "Roll Credits",
-        description: "Trigger StreamLab's Roll Credits feature",
+        name: "ロールクレジット",
+        description: "StreamLabのロールクレジットを起動する",
         icon: "fad fa-align-center",
         categories: [EffectCategory.INTEGRATIONS],
         dependencies: []
@@ -31,7 +31,7 @@ const effect = {
     optionsTemplate: `
         <eos-container>
             <div class="effect-info alert alert-info">
-                This will trigger StreamLabs Roll Credits feature.
+            これによりStreamLabsのロールクレジット機能が作動します。
             </div>
         </eos-container>
     `,

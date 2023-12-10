@@ -6,21 +6,21 @@ const logger = require("../../../backend/logwrapper");
 const addFirebotLogMessage = {
     definition: {
         id: "firebot:log-message",
-        name: "Log Message",
-        description: "Adds an entry to the Firebot log. This is useful for debugging.",
+        name: "ログメッセージ",
+        description: "Firebot のログにエントリを追加します。これはデバッグに便利です。",
         icon: "fad fa-file-alt",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-        <eos-container header="Message Text">
-            <p class="muted">Enter the message you would like to write to the Firebot log file.</p>
+        <eos-container header="メッセージテキスト">
+            <p class="muted">Firebotのログファイルに書き込みたいメッセージを入力します。</p>
             <input ng-model="effect.logMessage" id="log-message-text" type="text" class="form-control" placeholder="Enter log message text" replace-variables>
         </eos-container>
         
         <eos-container header="Log Level" pad-top="true">
-            <p class="muted">Choose the log level you would like the message written as. Note that <strong>Debug</strong> level messages will ONLY be written when Debug Mode is enabled.</p>
+            <p class="muted">メッセージを書き込むログレベルを選択します。 デバッグ・レベルのメッセージは、デバッグ・モードが有効な場合にのみ書き込まれることに注意してください。</p>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="log-message-type-effect-log-level">{{effect.logLevel ? effect.logLevel : "Pick one"}}</span> <span class="caret"></span>
             </button>
@@ -39,10 +39,10 @@ const addFirebotLogMessage = {
     optionsValidator: effect => {
         const errors = [];
         if (!(effect.logMessage?.length > 0)) {
-            errors.push("Please input a log message.");
+            errors.push("ログメッセージを入力してください");
         }
         if (effect.logLevel == null) {
-            errors.push("Please select a log level.");
+            errors.push("ログレベルを選択してください");
         }
         return errors;
     },

@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:gift-duration",
-    name: "Gift Duration",
-    description: "Filter by the duration of the gift sub (in months)",
+    name: "ギフト期間",
+    description: "ギフト・サブスクの期間（月単位）で絞り込む",
     events: [
         { eventSourceId: "twitch", eventId: "subs-gifted" }
     ],

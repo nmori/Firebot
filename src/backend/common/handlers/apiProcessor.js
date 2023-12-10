@@ -29,7 +29,7 @@ async function randomAdvice() {
             logger.debug(err.message);
             renderWindow.webContents.send(
                 "error",
-                "Couldnt connect to the advice API. It may be down."
+                "アドバイスAPIに接続できませんでした。システムダウンしている可能性があります。"
             );
             return "[Error getting API response]";
         });
@@ -49,9 +49,9 @@ async function randomCatFact() {
             logger.debug(err.message);
             renderWindow.webContents.send(
                 "error",
-                "There was an error sending a cat fact to chat."
+                "チャットに猫の情報を送信する際にエラーが発生しました。"
             );
-            return "[Error getting API response]";
+            return "[API応答エラー]";
         });
 }
 
@@ -69,9 +69,9 @@ async function randomDogFact() {
             logger.debug(err.message);
             renderWindow.webContents.send(
                 "error",
-                "Couldnt conenct to the dog fact api. It may be down."
+                "チャットに犬の情報を送信する際にエラーが発生しました。"
             );
-            return "[Error getting API response]";
+            return "[API応答エラー]";
         });
 }
 
@@ -99,9 +99,9 @@ async function randomPokemon() {
             logger.debug(err.message);
             renderWindow.webContents.send(
                 "error",
-                "Couldnt connect to the pokemon api. It may be down."
+                "チャットにポケモン情報を送信する際にエラーが発生しました。"
             );
-            return "[Error getting API response]";
+            return "[API応答エラー]";
         });
 }
 
@@ -118,9 +118,9 @@ async function numberTrivia() {
             logger.debug(err.message);
             renderWindow.webContents.send(
                 "error",
-                "Couldnt connect to the number trivia api. It may be down."
+                "チャットにトリビア情報を送信する際にエラーが発生しました。"
             );
-            return "[Error getting API response]";
+            return "[API応答エラー]";
         });
 }
 
@@ -143,15 +143,15 @@ async function dadJoke() {
             logger.debug(err.message);
             renderWindow.webContents.send(
                 "error",
-                "Couldnt connect to the dad joke API. It may be down."
+                "チャットにジョーク情報を送信する際にエラーが発生しました。"
             );
-            return "[Error getting API response]";
+            return "[API応答エラー]";
         });
 }
 
 // API Processor
 async function apiProcessor(apiType) {
-    let apiResponse = "[Error getting API response]";
+    let apiResponse = "[API応答エラー]";
 
     if (apiType === "Advice") {
         apiResponse = await randomAdvice();

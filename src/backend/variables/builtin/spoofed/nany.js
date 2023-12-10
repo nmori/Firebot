@@ -7,12 +7,12 @@ const { OutputDataType, VariableCategory } = require("../../../../shared/variabl
 module.exports = {
     definition: {
         handle: "NANY",
-        usage: "NANY[condition, condition, ...]",
-        description: 'Returns true if all of the conditions return false',
+        usage: "NANY[条件, 条件, ...]",
+        description: 'すべての条件が不成立である場合に True を返す。',
         examples: [
             {
                 usage: 'NANY[a === b, b === c]',
-                description: "Returns true as a does not equal be and b does not equals c"
+                description: "a が be と等しくなく、b が c と等しくない場合に True を返す。"
             }
         ],
         categories: [VariableCategory.ADVANCED],

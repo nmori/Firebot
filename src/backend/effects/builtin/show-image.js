@@ -18,8 +18,8 @@ const showImage = {
    */
     definition: {
         id: "firebot:showImage",
-        name: "Show Image/GIF",
-        description: "Shows an image in the overlay.",
+        name: "画像/GIFを表示する",
+        description: "オーバーレイに画像を表示する",
         icon: "fad fa-image",
         categories: [EffectCategory.COMMON, EffectCategory.FUN, EffectCategory.OVERLAY],
         dependencies: [EffectDependency.OVERLAY]
@@ -41,7 +41,7 @@ const showImage = {
             <img ng-hide="showImage" src="{{placeHolderUrl}}" style="height: 100px;width: 175px;object-fit: scale-down;background: #d7d7d7">
         </div>
         <div class="controls-fb-inline" style="padding-bottom: 5px;">
-            <label class="control-fb control--radio">Local file
+            <label class="control-fb control--radio">ローカルファイル
                 <input type="radio" ng-model="effect.imageType" value="local" ng-change="imageTypeUpdated()"/>
                 <div class="control__indicator"></div>
             </label>
@@ -49,29 +49,29 @@ const showImage = {
                 <input type="radio" ng-model="effect.imageType" value="url" ng-change="imageTypeUpdated()"/>
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--radio">Random from folder
+            <label class="control-fb control--radio">フォルダからランダムで選ぶ
                 <input type="radio" ng-model="effect.imageType" value="folderRandom" ng-change="imageTypeUpdated()"/>
                 <div class="control__indicator"></div>
             </label>
         </div>
         <div ng-if="effect.imageType === 'folderRandom'" style="display: flex;flex-direction: row;align-items: center;">
-            <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'Select Image Folder'}"></file-chooser>
+            <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'イメージフォルダを選ぶ}"></file-chooser>
         </div>
         <div ng-if="effect.imageType === 'local'" style="display: flex;flex-direction: row;align-items: center;">
             <file-chooser model="effect.file" options="{ filters: [ {name: 'Image', extensions: ['jpg', 'gif', 'png', 'jpeg']} ]}"></file-chooser>
         </div>
         <div ng-if="effect.imageType === 'url'">
-            <input type="text" class="form-control" ng-model="effect.url" placeholder="Enter url" replace-variables>
+            <input type="text" class="form-control" ng-model="effect.url" placeholder="urlを入れる" replace-variables>
         </div>
     </div>
     </div>
     <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
     <eos-enter-exit-animations effect="effect" class="setting-padtop"></eos-enter-exit-animations>
     <div class="effect-setting-container setting-padtop">
-    <div class="effect-specific-title"><h4>Dimensions</h4></div>
+    <div class="effect-specific-title"><h4>継続時間</h4></div>
     <div class="effect-setting-content">
         <div class="input-group">
-            <span class="input-group-addon">Width</span>
+            <span class="input-group-addon">幅</span>
             <input
                 type="number"
                 class="form-control"
@@ -79,7 +79,7 @@ const showImage = {
                 type="number"
                 ng-model="effect.width"
                 placeholder="px">
-            <span class="input-group-addon">Height</span>
+            <span class="input-group-addon">高さ</span>
             <input
                 type="number"
                 class="form-control"
@@ -91,22 +91,22 @@ const showImage = {
     </div>
     </div>
     <div class="effect-setting-container setting-padtop">
-    <div class="effect-specific-title"><h4>Duration</h4></div>
+    <div class="effect-specific-title"><h4>継続期間</h4></div>
     <div class="effect-setting-content">
         <div class="input-group">
-            <span class="input-group-addon">Seconds</span>
             <input
                 type="text"
                 class="form-control"
                 aria-describedby="image-length-effect-type"
                 replace-variables="number"
                 ng-model="effect.length">
+            <span class="input-group-addon">秒</span>
         </div>
     </div>
     </div>
     <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
     <div class="effect-info alert alert-warning">
-    This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">Learn more</a>
+    この演出を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">今すぐ学ぶ</a>
     </div>
     `,
     /**
@@ -162,10 +162,10 @@ const showImage = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.imageType == null) {
-            errors.push("Please select an image type.");
+            errors.push("画像の種類を選択してください。");
         }
         if (effect.file == null && effect.url == null && effect.folder == null) {
-            errors.push("Please select an image source, either file path, url, or folder.");
+            errors.push("画像ソース（ファイルパス、URL、フォルダ）を選択してください。");
         }
         return errors;
     },

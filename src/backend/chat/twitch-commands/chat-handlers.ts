@@ -8,7 +8,7 @@ export const whisperHandler: TwitchSlashCommandHandler<[string, string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
   
@@ -17,7 +17,7 @@ export const whisperHandler: TwitchSlashCommandHandler<[string, string]> = {
         if (message == null || message.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a whisper message"
+                errorMessage: "ささやくメッセージを入力してください"
             };
         }
 
@@ -43,7 +43,7 @@ export const announceHandler: TwitchSlashCommandHandler<[string]> = {
         if (message == null || message.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a message"
+                errorMessage: "文章を入力してください"
             };
         }
 
@@ -63,7 +63,7 @@ export const announceblueHandler: TwitchSlashCommandHandler<[string]> = {
         if (message == null || message.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a message"
+                errorMessage: "文章を入力してください"
             };
         }
       
@@ -83,7 +83,7 @@ export const announcegreenHandler: TwitchSlashCommandHandler<[string]> = {
         if (message == null || message.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a message"
+                errorMessage: "文章を入力してください"
             };
         }
       
@@ -103,7 +103,7 @@ export const announceorangeHandler: TwitchSlashCommandHandler<[string]> = {
         if (message == null || message.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a message"
+                errorMessage: "文章を入力してください"
             };
         }
       
@@ -123,7 +123,7 @@ export const announcepurpleHandler: TwitchSlashCommandHandler<[string]> = {
         if (message == null || message.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a message"
+                errorMessage: "文章を入力してください"
             };
         }
 
@@ -143,7 +143,7 @@ export const shoutoutHandler: TwitchSlashCommandHandler<[string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "Please provide a username"
+                errorMessage: "文章を入力してください"
             };
         }
 
@@ -212,7 +212,7 @@ export const followersHandler: TwitchSlashCommandHandler<[number]> = {
         if (parsedDuration == null) {
             return {
                 success: false,
-                errorMessage: "Please provide a valid duration"
+                errorMessage: "期間を入力してください"
             };
         }
 
@@ -273,7 +273,7 @@ export const slowHandler: TwitchSlashCommandHandler<[number]> = {
         if (parsedDuration == null) {
             return {
                 success: false,
-                errorMessage: "Please provide a valid duration"
+                errorMessage: "有効な期間を入力してください"
             };
         }
 

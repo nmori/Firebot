@@ -14,11 +14,11 @@
             template: `
             <eos-container header="Overlay Display Location" pad-top="$ctrl.padTop">
                 <div class="controls-fb-inline">
-                    <label class="control-fb control--radio">Preset
+                    <label class="control-fb control--radio">プリセット
                         <input type="radio" ng-model="$ctrl.presetOrCustom" ng-change="$ctrl.togglePresetCustom()" value="preset"/> 
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">Custom
+                    <label class="control-fb control--radio">カスタム
                         <input type="radio" ng-model="$ctrl.presetOrCustom" ng-change="$ctrl.togglePresetCustom()" value="custom"/>
                         <div class="control__indicator"></div>
                     </label>
@@ -28,7 +28,7 @@
                         <label ng-repeat="position in $ctrl.presetPositions" class="btn btn-primary" ng-model="$ctrl.effect.position" ng-disabled="$ctrl.isRandom()" uib-btn-radio="position" uib-tooltip="{{position}}" tooltip-append-to-body="true" tooltip-animation="false"></label>
                     </div>
                     <div class="controls-fb-inline" ng-if="!$ctrl.hideRandom">
-                        <label class="control-fb control--checkbox" style="margin: 5px 0 0 10px;"> Random preset location
+                        <label class="control-fb control--checkbox" style="margin: 5px 0 0 10px;"> ランダムなプリセット位置
                             <input type="checkbox" ng-click="$ctrl.toggleRandomPreset()" ng-checked="$ctrl.isRandom()">
                             <div class="control__indicator"></div>
                         </label>
@@ -37,19 +37,21 @@
                 <div ng-if="$ctrl.effect.position === 'Custom'" style="margin: 5px 0 5px 0px;">
                     <form class="form-inline">
                         <div class="form-group">
-                            <input type="number" class="form-control" ng-model="$ctrl.topOrBottomValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
+                            <dropdown-select options="['top','bottom']" selected="$ctrl.topOrBottom" on-update="$ctrl.updateTopOrBottom(option)"></dropdown-select>
+                            <span> から </span>
                         </div>
                         <div class="form-group">
-                            <span> pixels from the </span>
-                            <dropdown-select options="['top','bottom']" selected="$ctrl.topOrBottom" on-update="$ctrl.updateTopOrBottom(option)"></dropdown-select>
+                            <input type="number" class="form-control" ng-model="$ctrl.topOrBottomValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
+                            <span> ピクセル </span>
                         </div>
                         <div style="margin-top: 15px;">
                             <div class="form-group">
-                                <input type="number" class="form-control" ng-model="$ctrl.leftOrRightValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
+                                <dropdown-select options="['left','right']" selected="$ctrl.leftOrRight" on-update="$ctrl.updateLeftOrRight(option)"></dropdown-select>
+                                <span> から </span>
                             </div>
                             <div class="form-group">
-                                <span> pixels from the </span>
-                                <dropdown-select options="['left','right']" selected="$ctrl.leftOrRight" on-update="$ctrl.updateLeftOrRight(option)"></dropdown-select>
+                                <input type="number" class="form-control" ng-model="$ctrl.leftOrRightValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
+                                <span> ピクセル </span>
                             </div>
                         </div>
                     </form>

@@ -9,7 +9,7 @@ const model = {
     definition: {
         id: "firebot:update-vip-role",
         name: "VIP",
-        description: "Add or remove the VIP role of a user",
+        description: "ユーザーのVIPロールを追加または削除する",
         icon: "far fa-gem",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
         dependencies: [EffectDependency.CHAT]
@@ -22,17 +22,17 @@ const model = {
             </button>
             <ul class="dropdown-menu celebrate-effect-dropdown">
                 <li ng-click="effect.action = 'Add VIP'">
-                    <a href>Add VIP</a>
+                    <a href>VIPに追加</a>
                 </li>
                 <li ng-click="effect.action = 'Remove VIP'">
-                    <a href>Remove VIP</a>
+                    <a href>VIPから外す</a>
                 </li>
             </ul>
         </div>
     </eos-container>
     <eos-container header="Target" pad-top="true" ng-show="effect.action != null">
         <div class="input-group">
-            <span class="input-group-addon" id="username-type">Username</span>
+            <span class="input-group-addon" id="username-type">視聴者名</span></span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables>
         </div>
     </eos-container>
@@ -41,10 +41,10 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.action == null) {
-            errors.push("Please choose an action.");
+            errors.push("アクションを選んでください。");
         }
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please put in a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         return errors;
     },

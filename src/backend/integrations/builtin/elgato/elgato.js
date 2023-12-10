@@ -10,7 +10,7 @@ const colorConvert = require('color-convert');
 const integrationDefinition = {
     id: "elgato",
     name: "Elgato",
-    description: "Interact with Elgato Lights.",
+    description: "Elgato Lightsと対話",
     linkType: "none",
     connectionToggle: false,
     configurable: false

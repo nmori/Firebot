@@ -15,8 +15,8 @@ const randomEffect = {
    */
     definition: {
         id: "firebot:randomeffect",
-        name: "Run Random Effect",
-        description: "Run a random effect from a list of effects",
+        name: "演出をランダムに実行",
+        description: "演出リストからランダムで実行する",
         icon: "fad fa-random",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
@@ -33,10 +33,10 @@ const randomEffect = {
 
 
     <eos-container>
-        <p>This effect will run a random effect from the list below.</p>
+        <p>以下の演出リストからランダム実行する。.</p>
 
         <div style="padding-top: 10px;">
-            <label class="control-fb control--checkbox"> Don't Repeat <tooltip text="'If checked, each effect in this list will be played once before the list is shuffled again, preventing the same effect from repeating successively.'"></tooltip>
+            <label class="control-fb control--checkbox"> 繰り返さない <tooltip text="'チェックした場合、リスト内の各演出は、再度シャッフルされる前に一度だけ再生され、同じ演出が連続して繰り返されるのを防ぎます。'"></tooltip>
                 <input type="checkbox" ng-model="effect.dontRepeat">
                 <div class="control__indicator"></div>
             </label>
@@ -48,16 +48,16 @@ const randomEffect = {
             trigger="{{trigger}}"
             trigger-meta="triggerMeta"
             update="effectListUpdated(effects)"
-            header="Effects"
+            header="演出"
             modalId="{{modalId}}"
             hide-numbers="true"></effect-list>
     </eos-container>
 
-    <eos-container header="Options" pad-top="true">
+    <eos-container header="オプション" pad-top="true">
         <firebot-checkbox
             model="effect.bubbleOutputs"
-            label="Apply effect outputs to parent list"
-            tooltip="Whether or not you want any effect outputs to be made available to the parent effect list."
+            label="親リストに演出出力を適用する"
+            tooltip="演出出力を親演出リストで利用可能にするかどうか"
         />
     </eos-container>
     `,

@@ -7,7 +7,7 @@ class StreamInfoQuickAction extends SystemQuickAction {
     constructor() {
         super({
             id: "firebot:stream-info",
-            name: "Edit Stream Info",
+            name: "ストリーム情報の編集",
             type: "system",
             icon: "far fa-pencil"
         });

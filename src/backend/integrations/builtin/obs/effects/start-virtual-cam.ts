@@ -4,15 +4,15 @@ import { startVirtualCam } from "../obs-remote";
 export const StartVirtualCamEffectType: EffectType<{}> = {
   definition: {
     id: "ebiggz:obs-start-virtual-cam",
-    name: "OBS Start Virtual Camera",
-    description: "Tell OBS to start the virtual camera",
+    name: "OBS 仮想カメラを起動",
+    description: "OBSに仮想カメラを起動するよう指示します",
     icon: "fad fa-camera-home",
     categories: ["common"],
   },
   optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>Warning!</b> When this effect is activated, Firebot will tell OBS to start the virtual camera.
+        <b>警告!</b>この演出が有効になると、FirebotはOBSにバーチャルカメラの起動を指示します。
       </div>
     </eos-container>
   `,

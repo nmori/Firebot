@@ -472,12 +472,12 @@
             };
 
             /*
-            * 0 = off,
-            * 1 = bugfix,
-            * 2 = feature,
-            * 3 = major release,
-            * 4 = betas
-            */
+             * 0 = off,
+             * 1 = bugfix,
+             * 2 = feature,
+             * 3 = major release,
+             * 4 = betas
+             */
             service.getAutoUpdateLevel = function() {
                 const updateLevel = getDataFromFile("/settings/autoUpdateLevel", false, 2);
                 return updateLevel != null ? updateLevel : 2;
@@ -687,7 +687,7 @@
 
             service.getTaggedNotificationSound = function() {
                 const sound = getDataFromFile("/settings/chat/tagged/sound");
-                return sound != null ? sound : { name: "None" };
+                return sound != null ? sound : { name: "なし" };
             };
 
             service.setTaggedNotificationSound = function(sound) {
@@ -759,7 +759,7 @@
                 pushDataToFile('/settings/ttsVoiceRate', rate);
             };
 
-
+            
             service.getWhileLoopEnabled = function() {
                 const enabled = getDataFromFile('/settings/whileLoopEnabled', false, false);
                 return enabled !== undefined ? enabled : false;

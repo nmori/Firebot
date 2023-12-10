@@ -24,8 +24,8 @@ const playVideo = {
      */
     definition: {
         id: "firebot:playvideo",
-        name: "Play Video",
-        description: "Plays a local, Youtube, or Twitch video in the overlay.",
+        name: "ビデオを再生する",
+        description: "オーバーレイでローカル、Youtube、Twitchのビデオを再生する。",
         icon: "fad fa-video",
         categories: [EffectCategory.COMMON, EffectCategory.OVERLAY, EffectCategory.TWITCH],
         dependencies: [EffectDependency.OVERLAY]
@@ -70,19 +70,19 @@ const playVideo = {
             </button>
             <ul class="dropdown-menu">
                 <li ng-click="effect.reset = false">
-                    <a ng-click="setVideoType('Local Video')" href>Local Video</a>
+                    <a ng-click="setVideoType('Local Video')" href>ローカルビデオ</a>
                 </li>
                 <li ng-click="effect.reset = false">
-                    <a ng-click="setVideoType('Random From Folder')" href>Random From Folder</a>
+                    <a ng-click="setVideoType('Random From Folder')" href>フォルダからランダムに選ぶ</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('YouTube Video')" href>YouTube Video</a>
+                    <a ng-click="setVideoType('YouTube Video')" href>YouTube ビデオ</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('Twitch Clip')" href>Twitch Clip</a>
+                    <a ng-click="setVideoType('Twitch Clip')" href>Twitch クリップ</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('Random Twitch Clip')" href>Random Twitch Clip</a>
+                    <a ng-click="setVideoType('Random Twitch Clip')" href>Twitch クリップをランダムに選ぶ</a>
                 </li>
             </ul>
         </div>
@@ -96,7 +96,7 @@ const playVideo = {
         <div ng-show="effect.videoType == 'Random From Folder'" class="input-group">
             <file-chooser
                 model="effect.folder"
-                options="{ directoryOnly: true, filters: [], title: 'Select Video Folder'}"
+                options="{ directoryOnly: true, filters: [], title: '映像フォルダを選ぶ'}"
             />
         </div>
         <div ng-show="effect.videoType == 'YouTube Video'" class="input-group">
@@ -120,7 +120,7 @@ const playVideo = {
 
         <div ng-show="effect.videoType == 'Random Twitch Clip'">
             <firebot-input
-                input-title="Twitch Username"
+                input-title="Twitch ユーザ名"
                 model="effect.twitchClipUsername"
                 placeholder-text="Ex: $streamer, $user, etc"
             />
@@ -131,7 +131,7 @@ const playVideo = {
     <div ng-show="effect.videoType">
 
         <div ng-show="effect.videoType == 'YouTube Video'">
-            <eos-container header="Start Time Position" pad-top="true">
+            <eos-container header="再生開始ポジション" pad-top="true">
                 <div class="input-group">
                     <span class="input-group-addon">Start time location</span>
                     <input
@@ -145,9 +145,8 @@ const playVideo = {
             </eos-container>
         </div>
 
-        <eos-container header="Duration" pad-top="true">
+        <eos-container header="長さ" pad-top="true">
             <div class="input-group">
-                <span class="input-group-addon">Seconds</span>
                 <input
                     type="text"
                     class="form-control"
@@ -155,6 +154,7 @@ const playVideo = {
                     placeholder="Optional"
                     replace-variables="number"
                     ng-model="effect.length">
+                <span class="input-group-addon">秒</span>
             </div>
             <label ng-if="effect.videoType != 'Random Twitch Clip' && effect.videoType != 'Twitch Clip'" class="control-fb control--checkbox" style="margin-top:15px;"> Loop <tooltip text="'Loop the video until the duration is reached.'"></tooltip>
                 <input type="checkbox" ng-model="effect.loop" ng-disabled="effect.wait">
@@ -166,7 +166,7 @@ const playVideo = {
             </label>
         </eos-container>
 
-        <eos-container header="Volume" pad-top="true">
+        <eos-container header="音量" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 0, ceil: 10, hideLimitLabels: true}"></rzslider>
@@ -177,12 +177,12 @@ const playVideo = {
         <eos-overlay-position effect="effect" pad-top="true"></eos-overlay-position>
 
         <eos-container header="Size" pad-top="true">
-            <label class="control-fb control--checkbox"> Force 16:9 Ratio
+            <label class="control-fb control--checkbox"> アスペクト比を 16:9 に強制する
                 <input type="checkbox" ng-click="forceRatioToggle();" ng-checked="forceRatio">
                 <div class="control__indicator"></div>
             </label>
             <div class="input-group">
-                <span class="input-group-addon">Width (in pixels)</span>
+                <span class="input-group-addon">幅 (pixels)</span>
                 <input
                     type="text"
                     class="form-control"
@@ -190,7 +190,7 @@ const playVideo = {
                     type="number"
                     ng-change="calculateSize('Width', effect.width)"
                     ng-model="effect.width">
-                <span class="input-group-addon">Height (in pixels)</span>
+                <span class="input-group-addon">高さ (pixels)</span>
                 <input
                     type="text"
                     class="form-control"
@@ -200,7 +200,7 @@ const playVideo = {
                     ng-model="effect.height">
             </div>
             <div class="effect-info alert alert-info">
-                Just put numbers in the fields (ex: 250). This will set the max width/height of the video and scale it down proportionally.
+                フィールドに数字を入れるだけです（例：250）。これで動画の最大幅/高さが設定され、それに比例して縮小されます。
             </div>
         </eos-container>
 
@@ -210,9 +210,9 @@ const playVideo = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
+                この効果を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。<a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
                 <br>
-                <strong>NOTE</strong>: Streamlabs Desktop (formerly known as SLOBS) does not support mp4 videos in their browser source. If you have mp4 videos that you want to display in Streamlabs Desktop, you will need to convert them to the <strong>.webm</strong> format.
+                <strong>情報</strong>: Streamlabs Desktop（旧称：SLOBS）は、ブラウザのソースでmp4ビデオをサポートしていません。Streamlabs Desktopで表示したいmp4動画をお持ちの場合は、<strong>.webm</strong>形式に変換する必要があります。
             </div>
         </eos-container>
     </div>

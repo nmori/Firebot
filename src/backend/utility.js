@@ -74,28 +74,28 @@ const formattedSeconds = (secs, simpleOutput = false) => {
     let uptimeStr = "";
 
     if (hasHours) {
-        uptimeStr = hours + " hour";
-        if (hours > 0) {
-            uptimeStr = uptimeStr + "s";
-        }
+        uptimeStr = hours + " 時間";
+        // if (hours > 0) {
+        //     uptimeStr = uptimeStr + "s";
+        // }
     }
     if (hasMins) {
-        if (hasHours) {
-            uptimeStr = uptimeStr + ",";
-        }
-        uptimeStr = uptimeStr + " " + minutes + " minute";
-        if (minutes > 0) {
-            uptimeStr = uptimeStr + "s";
-        }
+        // if (hasHours) {
+        //     uptimeStr = uptimeStr + ",";
+        // }
+        uptimeStr = uptimeStr + " " + minutes + " 分";
+        // if (minutes > 0) {
+        //     uptimeStr = uptimeStr + "s";
+        // }
     }
     if (hasSecs) {
-        if (hasHours || hasMins) {
-            uptimeStr = uptimeStr + ",";
-        }
-        uptimeStr = uptimeStr + " " + seconds + " second";
-        if (seconds > 0) {
-            uptimeStr = uptimeStr + "s";
-        }
+        // if (hasHours || hasMins) {
+        //     uptimeStr = uptimeStr + ",";
+        // }
+        uptimeStr = uptimeStr + " " + seconds + " 秒";
+        // if (seconds > 0) {
+        //     uptimeStr = uptimeStr + "s";
+        // }
     }
 
     return uptimeStr;
@@ -129,7 +129,7 @@ const getUptime = async () => {
     const channelData = await client.streams.getStreamByUserId(streamerAccount.userId);
 
     if (channelData == null) {
-        return "Not currently broadcasting";
+        return "今は配信していません";
     }
 
     const startedDate = channelData.startDate;

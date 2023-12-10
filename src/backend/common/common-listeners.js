@@ -202,6 +202,7 @@ exports.setupCommonListeners = () => {
     };
 
     ipcMain.on("downloadUpdate", () => {
+
         const GhReleases = require("electron-gh-releases");
 
         //back up first
@@ -248,3 +249,4 @@ exports.setupCommonListeners = () => {
         updater.autoUpdater;
     });
 };
+

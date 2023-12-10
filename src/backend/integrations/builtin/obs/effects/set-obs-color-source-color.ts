@@ -7,29 +7,29 @@ export const SetOBSColorSourceColorEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-color-source-color",
-    name: "Set OBS Color Source Color",
-    description: "Sets the color in an OBS color source",
+    name: "OBSカラーソースの色を変更",
+    description: "OBSカラーソースの色を変更します",
     icon: "fad fa-palette",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS Color Source">
+    <eos-container header="OBS カラーソース">
         <ui-select ng-model="selected" on-select="selectColorSource($select.selected.name)">
-          <ui-select-match placeholder="Select a Color Source...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="OBS カラーソース...">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="source in colorSources | filter: $select.search">
             <li ng-show="scene.custom === true" role="separator" class="divider"></li>
             <div ng-bind-html="source.name | highlight: $select.search"></div>
             <ui-select-no-choice>
-          <b>No color sources found.</b>
+          <b>OBSカラーソースが見つかりません.</b>
           </ui-select-no-choice>
           </ui-select-choices>
         </ui-select>
         
         <div ng-if="colorSources == null" class="muted">
-            No sources found. Is OBS running?
+        ソースが見つかりません。OBSは動いていますか？ソースが見つかりません。OBSは動いていますか？
         </div>
         <p>
-            <button class="btn btn-link" ng-click="getColorSources()">Refresh Source Data</button>
+            <button class="btn btn-link" ng-click="getColorSources()">ソースを更新</button>
         </p>
     </eos-container>
 

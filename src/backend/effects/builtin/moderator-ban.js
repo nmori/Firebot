@@ -7,8 +7,8 @@ const twitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:modban",
-        name: "Ban",
-        description: "Ban or unban a user.",
+        name: "追放（BAN）",
+        description: "ユーザーを追放(BAN)または追放を解除する。",
         icon: "fad fa-ban",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
         dependencies: []
@@ -21,17 +21,17 @@ const model = {
                 </button>
                 <ul class="dropdown-menu celebrate-effect-dropdown">
                     <li ng-click="effect.action = 'Ban'">
-                        <a href>Ban</a>
+                        <a href>追放</a>
                     </li>
                     <li ng-click="effect.action = 'Unban'">
-                        <a href>Unban</a>
+                        <a href>追放解除</a>
                     </li>
                 </ul>
             </div>
         </eos-container>
         <eos-container header="Target" pad-top="true" ng-show="effect.action != null">
             <div class="input-group">
-                <span class="input-group-addon" id="username-type">Username</span>
+                <span class="input-group-addon" id="username-type">視聴者名</span>
                 <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables>
             </div>
         </eos-container>
@@ -40,10 +40,10 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.action == null) {
-            errors.push("Please choose a ban action.");
+            errors.push("追放アクションを選んでください");
         }
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please put in a username.");
+            errors.push("視聴者名を入れてください");
         }
         return errors;
     },
@@ -52,7 +52,7 @@ const model = {
             const user = await twitchApi.users.getUserByName(event.effect.username);
 
             if (user != null) {
-                const result = await twitchApi.moderation.banUser(user.id, "Banned by Firebot");
+                const result = await twitchApi.moderation.banUser(user.id, "Firebotより追放しました");
 
                 if (result === true) {
                     logger.debug(event.effect.username + " was banned via the Ban effect.");

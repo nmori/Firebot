@@ -7,19 +7,19 @@ const spinCommand = require("./spin-command");
  */
 module.exports = {
     id: "firebot-slots",
-    name: "Slots",
-    subtitle: "Spin to win",
-    description: "This game allows viewers to wager their currency at a Slot Machine. All they need to do is type '!spin [wagerAmount]' in chat to pull the lever! When the lever is pulled, three reels are spun, each of which can HIT or MISS. The number of HITs determines the winnings!",
+    name: "スロット",
+    subtitle: "回して勝つ",
+    description: "Tこのゲームでは、視聴者がスロットマシンで通貨を賭けることができます。必要なのは、チャットで「!spin [wagerAmount]」と入力してレバーを引くだけである！レバーを引くと、3つのリールが回転し、それぞれHITまたはMISSします。HITした数が賞金を決定します！",
     icon: "fa-dice-three",
     settingCategories: {
         currencySettings: {
-            title: "Currency Settings",
+            title: "通貨設定",
             sortRank: 1,
             settings: {
                 currencyId: {
                     type: "currency-select",
-                    title: "Currency",
-                    description: "Which currency to use for this game.",
+                    title: "通貨",
+                    description: "このゲームで使用する通貨",
                     sortRank: 1,
                     validation: {
                         required: true
@@ -27,10 +27,10 @@ module.exports = {
                 },
                 defaultWager: {
                     type: "number",
-                    title: "Default Wager Amount",
-                    description: "The default wager amount to use if a viewer doesn't specify one.",
-                    placeholder: "Enter amount",
-                    tip: "Optional",
+                    title: "デフォルトの賭け金額",
+                    description: "視聴者が賭け金を指定していない場合に使用するデフォルトの賭け金。",
+                    placeholder: "金額を入れる",
+                    tip: "任意",
                     sortRank: 2,
                     validation: {
                         min: 0
@@ -38,9 +38,9 @@ module.exports = {
                 },
                 minWager: {
                     type: "number",
-                    title: "Min Wager Amount",
-                    placeholder: "Enter amount",
-                    tip: "Optional",
+                    title: "最低金額",
+                    placeholder: "金額を入れる",
+                    tip: "任意",
                     sortRank: 3,
                     validation: {
                         min: 0
@@ -48,9 +48,9 @@ module.exports = {
                 },
                 maxWager: {
                     type: "number",
-                    title: "Max Wager Amount",
-                    placeholder: "Enter amount",
-                    tip: "Optional",
+                    title: "最高金額",
+                    placeholder: "金額を入れる",
+                    tip: "任意",
                     sortRank: 4,
                     validation: {
                         min: 0
@@ -59,21 +59,21 @@ module.exports = {
             }
         },
         spinSettings: {
-            title: "Spin Settings",
+            title: "回転設定",
             sortRank: 2,
             settings: {
                 successChances: {
                     type: "role-percentages",
-                    title: "Roll Success Chances",
-                    description: "The chances each roll will be successful (There are 3 rolls per spin)",
-                    tip: "The success chance for the first user role a viewer has in this list is used, so ordering is important!",
+                    title: "グループ別の成功確率",
+                    description: "グループによって成功する確率を変えられます（1回のスピンには3つのグループがあります。）",
+                    tip: "このリストでは、視聴者が最初に持つユーザーグループの成功確率が使用されるため、順番は重要です",
                     sortRank: 1
                 },
                 multiplier: {
                     type: "number",
-                    title: "Winnings Multiplier",
-                    description: "The winnings multiplier for each successful roll",
-                    tip: "The winnings are calculated as: WagerAmount * (SuccessfulHits * Multiplier)",
+                    title: "勝利倍率",
+                    description: "各ロール成功時の賞金倍率",
+                    tip: "賞金は以下のように計算されます： 賭け金額 * (成功数 * 倍率)",
                     sortRank: 2,
                     default: 1,
                     validation: {
@@ -84,14 +84,14 @@ module.exports = {
             }
         },
         cooldownSettings: {
-            title: "Cooldown",
+            title: "再実行までの待ち時間",
             sortRank: 3,
             settings: {
                 cooldown: {
                     type: "number",
-                    title: "Cooldown (secs)",
-                    placeholder: "Enter secs",
-                    tip: "Cooldown is applied per viewer.",
+                    title: "待ち時間 (秒)",
+                    placeholder: "時間を入れる",
+                    tip: "待ち時間は視聴者ごとに適用されます",
                     default: 300,
                     validation: {
                         min: 0
@@ -100,108 +100,108 @@ module.exports = {
             }
         },
         generalMessages: {
-            title: "General Messages",
+            title: "一般メッセージ",
             sortRank: 5,
             settings: {
                 alreadySpinning: {
                     type: "string",
-                    title: "Already Spinning",
-                    description: "When someone tries to spin too fast (leave empty for no message).",
+                    title: "すでに回転中",
+                    description: "回転開始の指示が速すぎる場合（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, your slot machine is actively working!",
-                    tip: "Available variables: {username}",
+                    default: "{username},スロットマシンはすでに動いています",
+                    tip: "有効な変数 variables: {username}",
                     sortRank: 1
                 },
                 onCooldown: {
                     type: "string",
-                    title: "On Cooldown",
-                    description: "When the command is on cooldown for a user (leave empty for no message).",
+                    title: "再実行までの待ち時間中",
+                    description: "ユーザーが待ち時間を満了していない時（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, your slot machine is currently on cooldown. Time remaining: {timeRemaining}",
-                    tip: "Available variables: {username}, {timeRemaining}",
+                    default: "{username}, スロットマシンを回せるまでの残り時間: {timeRemaining}",
+                    tip: "有効な変数: {username}, {timeRemaining}",
                     sortRank: 2
                 },
                 noWagerAmount: {
                     type: "string",
-                    title: "No Wager Amount",
-                    description: "Sent when a user leaves out the wager amount (leave empty for no message).",
+                    title: "賭け金なし",
+                    description: "ユーザーが賭け金額を入力しなかった場合に送信されます。",
                     useTextArea: true,
-                    default: "{user}, please include a wager amount!",
-                    tip: "Available variables: {user}",
+                    default: "{user}, 賭け金の金額をご記入ください",
+                    tip: "有効な変数: {user}",
                     sortRank: 3
                 },
                 invalidWagerAmount: {
                     type: "string",
-                    title: "Invalid Wager Amount",
-                    description: "Sent when a user uses an invalid wager amount (leave empty for no message).",
+                    title: "無効な賭け金",
+                    description: "ユーザーが無効な賭け金を使用した場合に送信されます（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{user}, please include a valid wager amount!",
-                    tip: "Available variables: {user}",
+                    default: "{user}, 有効な賭け金額をご記入ください",
+                    tip: "有効な変数: {user}",
                     sortRank: 4
                 },
                 moreThanZero: {
                     type: "string",
-                    title: "More Than 0",
-                    description: "When the user tries to spin with 0 currency (leave empty for no message).",
+                    title: "0以上",
+                    description: "ユーザーが0通貨でスピンをしようとした場合（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, your wager amount must be more than 0.",
-                    tip: "Available variables: {username}",
+                    default: "{username}, 賭け金は0より上でなければなりません。",
+                    tip: "有効な変数: {username}",
                     sortRank: 5
                 },
                 minWager: {
                     type: "string",
-                    title: "Amount Too Low",
-                    description: "When the wager amount is too low (leave empty for no message).",
+                    title: "金額が低すぎる",
+                    description: "賭け金の額が低すぎる場合（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, your wager amount must be at least {minWager}.",
-                    tip: "Available variables: {username}, {minWager}",
+                    default: "{username}, 掛け金は {minWager} 以上としてください",
+                    tip: "有効な変数: {username}, {minWager}",
                     sortRank: 6
                 },
                 maxWager: {
                     type: "string",
-                    title: "Amount Too High",
-                    description: "When the wager amount is too high (leave empty for no message).",
+                    title: "金額が高すぎる",
+                    description: "賭け金の額が高すぎる場合（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, your wager amount can be no more than {maxWager}.",
-                    tip: "Available variables: {username}, {maxWager}",
+                    default: "{username}, 掛け金は {maxWager} 以下としてください",
+                    tip: "有効な変数: {username}, {maxWager}",
                     sortRank: 7
                 },
                 notEnough: {
                     type: "string",
-                    title: "Not Enough",
-                    description: "When the user doesn't have enough to wager the chosen amount (leave empty for no message).",
+                    title: "不十分",
+                    description: "選択した金額を賭けるだけの十分な資金がない場合（メッセージなしの場合は空欄のまま）。",
                     useTextArea: true,
-                    default: "{username}, you don't have enough to wager this amount!",
-                    tip: "Available variables: {username}",
+                    default: "{username}, この金額を賭けるだけの資金がありません",
+                    tip: "有効な変数: {username}",
                     sortRank: 8
                 },
                 spinInAction: {
                     type: "string",
-                    title: "Spinning In Action",
-                    description: "When the spin is going on (leave empty for no message).",
+                    title: "回転中",
+                    description: "スピンが行われている時（メッセージなしの場合は空欄のまま）",
                     useTextArea: true,
-                    default: "{username} pulls back the lever...",
-                    tip: "Available variables: {username}",
+                    default: "{username}がレバーを引きました...",
+                    tip: "有効な変数: {username}",
                     sortRank: 9
                 },
                 spinSuccessful: {
                     type: "string",
-                    title: "Spin successful",
-                    description: "When the spin is successful (leave empty for no message).",
+                    title: "回転完了",
+                    description: "スピンが終了した時（メッセージなしの場合は空欄のまま）",
                     useTextArea: true,
-                    default: "{username} hit {successfulRolls} out of 3 and won {winningsAmount} {currencyName}!",
-                    tip: "Available variables: {username}, {successfulRolls}, {winningsAmount}, {currencyName}",
+                    default: "{username} は３回中 {successfulRolls} 当たり、{winningsAmount} {currencyName}を獲得！",
+                    tip: "有効な変数: {username}, {successfulRolls}, {winningsAmount}, {currencyName}",
                     sortRank: 10
                 }
             }
         },
         chatSettings: {
-            title: "Chat Settings",
+            title: "チャット設定",
             sortRank: 6,
             settings: {
                 chatter: {
                     type: "chatter-select",
-                    title: "Chat As"
+                    title: "アカウント"
                 }
             }
         }

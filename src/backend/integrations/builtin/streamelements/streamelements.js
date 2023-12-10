@@ -8,19 +8,19 @@ const seEventsHandler = require("./streamelements-event-handler");
 const integrationDefinition = {
     id: "streamelements",
     name: "StreamElements",
-    description: "Donation & Follow events",
+    description: "寄付とフォローイベント",
     connectionToggle: true,
     linkType: "id",
     idDetails: {
         label: "JWT Token",
         steps:
-`1. Log in to [StreamElements](https://www.streamelements.com/).
+`1.[StreamElements](https://www.streamelements.com/)へログインします.
 
-2. Go to your [Account/Channel settings](https://streamelements.com/dashboard/account/channels).
+2. あなたの [アカウント/チャンネル設定](https://streamelements.com/dashboard/account/channels)を開きます.
 
-3. Under the Channels tab, click the **Show Secrets** toggle.
+3. チャンネルタブで, **Show Secrets** をクリックします.
 
-4. Copy the **JWT Token** and paste it here (Don't include the words "JWT Token").`
+4. **JWT Token** をコピーし、ここに貼り付けてください ("JWT Token"の文字は不要です).`
     }
 };
 

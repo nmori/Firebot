@@ -7,8 +7,8 @@ const twitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:modpurge",
-        name: "Purge",
-        description: "Purge a users chat messages from chat.",
+        name: "チャット削除",
+        description: "ユーザーのチャットメッセージを消去する.",
         icon: "fad fa-comment-slash",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
         dependencies: [EffectDependency.CHAT]
@@ -16,7 +16,7 @@ const model = {
     optionsTemplate: `
     <eos-container header="Target" pad-top="true">
         <div class="input-group">
-            <span class="input-group-addon" id="username-type">Username</span>
+            <span class="input-group-addon" id="username-type">視聴者名</span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables menu-position="below">
         </div>
     </eos-container>
@@ -25,7 +25,7 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please enter a username.");
+            errors.push("視聴者名を指定してください");
         }
         return errors;
     },
@@ -33,7 +33,7 @@ const model = {
         const user = await twitchApi.users.getUserByName(event.effect.username);
 
         if (user != null) {
-            const result = await twitchApi.moderation.timeoutUser(user.id, 1, "Chat messages purged via Firebot");
+            const result = await twitchApi.moderation.timeoutUser(user.id, 1, " Firebotがチャットメッセージを削除しました");
 
             if (result === true) {
                 logger.debug(`${event.effect.username} was purged via the Purge effect.`);

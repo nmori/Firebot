@@ -7,7 +7,7 @@ class GiveCurrencyQuickAction extends QuickAction {
     constructor() {
         super({
             id: "firebot:give-currency",
-            name: "Give Currency",
+            name: "通貨を贈る",
             type: "system",
             icon: "far fa-coin"
         });

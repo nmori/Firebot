@@ -5,16 +5,16 @@ const { extraLifePollService } = require("./extralife-poll");
 const integrationDefinition = {
     id: "extralife",
     name: "ExtraLife",
-    description: "ExtraLife Donation events",
+    description: "ExtraLife 寄付イベント",
     connectionToggle: true,
     linkType: "id",
     idDetails: {
         steps:
-`1. Navigate to your ExtraLife Page via the **Your Page** nav link.
+`1. ナビリンクの**Your Page** からExtraLifeページに移動します。
 
-2. Look for your "Participant ID" in the URL bar, it should be the numbers following \`participantID=\`.
+2. URLバーにある「参加者ID」を探してください \`participantID=\`.
 
-3. Paste your Participant ID below.`
+3. 参加者IDを以下に貼り付けてください。`
     }
 };
 
@@ -28,17 +28,17 @@ class ExtraLifeIntegration extends EventEmitter {
         eventManager.registerEventSource({
             id: "extralife",
             name: "ExtraLife",
-            description: "Donation events from ExtraLife",
+            description: "ExtraLife 寄付イベント",
             events: [
                 {
                     id: "donation",
-                    name: "Donation",
-                    description: "When someone donates to your ExtraLife campaign.",
+                    name: "ドネートされたとき",
+                    description: "誰かがあなたのExtraLife キャンペーンに寄付した場合",
                     cached: false,
                     manualMetadata: {
                         from: "ExtraLife",
                         formattedDonationAmount: 5,
-                        donationMessage: "Test message"
+                        donationMessage: "テストメッセージ"
                     },
                     isIntegration: true,
                     queued: true,

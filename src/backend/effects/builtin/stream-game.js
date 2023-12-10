@@ -8,8 +8,8 @@ const eventsManager = require("../../events/EventManager");
 const model = {
     definition: {
         id: "firebot:streamgame",
-        name: "Set Stream Category",
-        description: "Set the stream category/game.",
+        name: "配信カテゴリーの設定",
+        description: "配信ストリームのカテゴリ/ゲームを設定します。",
         icon: "fad fa-gamepad",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
         dependencies: []
@@ -17,11 +17,11 @@ const model = {
     optionsTemplate: `
         <eos-container header="Mode">
             <div class="controls-fb" style="padding-bottom: 5px;">
-                <label class="control-fb control--radio">Set specific category  <tooltip text="'Search for a specific category to set.'"></tooltip>
+                <label class="control-fb control--radio">特定のカテゴリーを設定する <tooltip text="'設定する特定のカテゴリーを検索する'"></tooltip>
                     <input type="radio" ng-model="effect.mode" value="specific"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Custom category <tooltip text="'Input any name and Firebot will set the closest category it finds when effect is ran (useful with replace variables).'"></tooltip>
+                <label class="control-fb control--radio">カテゴリ <tooltip text="'任意の名前を入力すると、Firebotは演出実行時に最も近いカテゴリを設定します。.'"></tooltip>
                     <input type="radio" ng-model="effect.mode" value="custom"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -31,7 +31,7 @@ const model = {
         <eos-container header="Specific Category" pad-top="true" ng-if="effect.mode === 'specific'" >
 
             <ui-select ng-model="selectedGame" theme="bootstrap" spinner-enabled="true" on-select="gameSelected($item)" style="margin-bottom:10px;">
-                <ui-select-match placeholder="Search for category/game">
+                <ui-select-match placeholder="カテゴリ/ゲームを検索">
                     <div style="height: 21px; display:flex; flex-direction: row; align-items: center;">
                         <img style="height: 21px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
                         <div style="font-weight: 100;font-size: 17px;">{{$select.selected.name}}</div>
@@ -47,8 +47,8 @@ const model = {
 
         </eos-container>
 
-        <eos-container header="Custom Category" pad-top="true" ng-if="effect.mode === 'custom'">
-            <input ng-model="effect.gameName" class="form-control" type="text" placeholder="Enter category/game name" replace-variables>
+        <eos-container header="カスタムカテゴリ" pad-top="true" ng-if="effect.mode === 'custom'">
+            <input ng-model="effect.gameName" class="form-control" type="text" placeholder="カテゴリー/ゲーム名を入力" replace-variables>
         </eos-container>
     `,
     optionsController: ($scope, $q, backendCommunicator) => {
@@ -83,9 +83,9 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.mode === "specific" && (effect.gameId == null || effect.gameId === "")) {
-            errors.push("Please search for and select a category/game.");
+            errors.push("カテゴリー/ゲームを検索して選択してください。");
         } else if (effect.mode === "custom" && effect.gameName == null) {
-            errors.push("Please input a title for a category/game.");
+            errors.push("カテゴリー/ゲームのタイトルを入力してください。");
         }
         return errors;
     },

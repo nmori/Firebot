@@ -15,16 +15,16 @@
           <div ng-if="$ctrl.metadata.type != 'boolean' && $ctrl.metadata.description" style="padding-bottom: 5px;font-size: 14px;font-weight: 100;opacity:0.8;">{{$ctrl.metadata.description}}</div>
 
           <div ng-switch-when="string">
-            <textarea ng-if="$ctrl.metadata.useTextArea" ng-model="$ctrl.metadata.value" class="form-control" placeholder="Enter text" rows="5" style="width:100%"></textarea>
-            <input ng-if="!$ctrl.metadata.useTextArea" class="form-control" type="text" placeholder="Enter text" ng-model="$ctrl.metadata.value">
+            <textarea ng-if="$ctrl.metadata.useTextArea" ng-model="$ctrl.metadata.value" class="form-control" placeholder="テキストを入れる" rows="5" style="width:100%"></textarea>
+            <input ng-if="!$ctrl.metadata.useTextArea" class="form-control" type="text" placeholder="テキストを入れる" ng-model="$ctrl.metadata.value">
           </div>
 
           <div ng-switch-when="password">
-            <input class="form-control" type="password" placeholder="Enter password" ng-model="$ctrl.metadata.value">
+            <input class="form-control" type="password" placeholder="パスワードを入れる" ng-model="$ctrl.metadata.value">
           </div>
 
           <div ng-switch-when="number">
-            <input class="form-control" type="number" placeholder="{{$ctrl.metadata.placeholder ? $ctrl.metadata.placeholder : 'Enter a number'}}" ng-model="$ctrl.metadata.value">
+            <input class="form-control" type="number" placeholder="{{$ctrl.metadata.placeholder ? $ctrl.metadata.placeholder : '数字を入れる'}}" ng-model="$ctrl.metadata.value">
           </div>
 
           <div ng-switch-when="boolean" style="padding-top:10px;">

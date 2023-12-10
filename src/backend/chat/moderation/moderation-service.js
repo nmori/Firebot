@@ -18,7 +18,7 @@ function matchesBannedRegex(input) {
         try {
             newArray.push(new RegExp(regex, "gi"));
         } catch (error) {
-            parentPort.postMessage({ type: "logWarn", logMessage: `Unable to parse banned RegEx: ${regex}`, meta: error });
+            parentPort.postMessage({ type: "logWarn", logMessage: `この正規表現は使用できません: ${regex}`, meta: error });
         }
 
         return newArray;

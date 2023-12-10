@@ -102,7 +102,7 @@ class TwitchChat extends EventEmitter {
 
             this._streamerChatClient.irc.onPasswordError((event) => {
                 logger.error("Failed to connect to chat", event);
-                frontendCommunicator.send("error", `Unable to connect to chat. Reason: "${event.message}". Try signing out and back into your streamer/bot account(s).`);
+                frontendCommunicator.send("error", `チャットに接続できません。理由は「${event.message}」です。アカウントを再ログインしてみてください。`);
                 this.disconnect(true);
             });
 
@@ -339,7 +339,7 @@ frontendCommunicator.onAsync("update-user-banned-status", async (data: UserBanRe
     }
 
     if (shouldBeBanned) {
-        await twitchApi.moderation.banUser(user.id, "Banned via Firebot");
+        await twitchApi.moderation.banUser(user.id, "Firebotによって追放されました");
     } else {
         await twitchApi.moderation.unbanUser(user.id);
     }

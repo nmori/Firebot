@@ -7,8 +7,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const chat = {
     definition: {
         id: "firebot:toggle-command",
-        name: "Toggle Command",
-        description: "Toggle a command's active status",
+        name: "コマンドのアクティブ状態を変更",
+        description: "コマンドのアクティブ・ステータスを切り替える",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -16,32 +16,32 @@ const chat = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>This effect lets you automatically toggle the active status of Commands.</p>
+            <p>この演出を使用すると、コマンドのアクティブステータスを自動的に切り替えることができます。</p>
         </eos-container>
 
-        <eos-container header="Command Type" pad-top="true">
+        <eos-container header="コマンド種類" pad-top="true">
             <dropdown-select options="{ system: 'System', custom: 'Custom'}" selected="effect.commandType"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="effect.commandType === 'system'" header="System Commands" pad-top="true">
+        <eos-container ng-show="effect.commandType === 'system'" header="システムコマンド" pad-top="true">
             <ui-select ng-model="effect.commandId" theme="bootstrap">
-                <ui-select-match placeholder="Select or search for a command... ">{{$select.selected.trigger}}</ui-select-match>
+                <ui-select-match placeholder="コマンドを探す... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in systemCommands | filter: { trigger: $select.search }" style="position:relative;">
                     <div ng-bind-html="command.trigger | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
         </eos-container>
 
-        <eos-container ng-show="effect.commandType === 'custom'" header="Custom Commands" pad-top="true">
+        <eos-container ng-show="effect.commandType === 'custom'" header="カスタムコマンド" pad-top="true">
             <ui-select ng-model="effect.commandId" theme="bootstrap">
-                <ui-select-match placeholder="Select or search for a command... ">{{$select.selected.trigger}}</ui-select-match>
+                <ui-select-match placeholder="コマンドを探す... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in customCommands | filter: { trigger: $select.search }" style="position:relative;">
                     <div ng-bind-html="command.trigger | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
         </eos-container>
 
-        <eos-container header="Toggle Action" pad-top="true">
+        <eos-container header="アクションを切り替え" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,
@@ -50,9 +50,9 @@ const chat = {
         $scope.customCommands = commandsService.getCustomCommands();
 
         $scope.toggleOptions = {
-            disable: "Deactivate",
-            enable: "Activate",
-            toggle: "Toggle"
+            disable: "非アクティブ",
+            enable: "アクティブ",
+            toggle: "切り替え"
         };
 
         if ($scope.effect.toggleType == null) {
@@ -62,7 +62,7 @@ const chat = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.commandId == null) {
-            errors.push("Please select a command.");
+            errors.push("コマンドを入れてください");
         }
         return errors;
     },

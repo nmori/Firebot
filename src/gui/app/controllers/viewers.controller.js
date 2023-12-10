@@ -101,7 +101,7 @@
                     cellTemplate: `{{getViewTimeDisplay(data.minutesInChannel)}}`,
                     cellController: ($scope) => {
                         $scope.getViewTimeDisplay = (minutesInChannel) => {
-                            return minutesInChannel < 60 ? 'Less than an hour' : Math.round(minutesInChannel / 60);
+                            return minutesInChannel < 60 ? '1時間以内' : Math.round(minutesInChannel / 60);
                         };
                     }
                 },

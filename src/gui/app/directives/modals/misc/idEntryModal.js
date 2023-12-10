@@ -37,7 +37,7 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
                 <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.saveText}}</button>
             </div>
             `,
@@ -51,11 +51,11 @@
 
                 $ctrl.model = "";
 
-                $ctrl.label = "Enter Text";
-                $ctrl.inputPlaceholder = "Enter Text";
+                $ctrl.label = "テキストを入力";
+                $ctrl.inputPlaceholder = "テキストを入力";
                 $ctrl.saveText = "Save";
                 $ctrl.validationFn = (model) => model != null && model.length > 0;
-                $ctrl.validationText = "Account ID cannot be empty!";
+                $ctrl.validationText = "IDを入力してください";
                 $ctrl.hasValidationError = false;
 
                 $ctrl.hasSteps = false;
@@ -75,7 +75,7 @@
                     if ($ctrl.resolve.idLabel) {
                         $ctrl.idLabel = $ctrl.resolve.idLabel;
                     }
-                    $ctrl.validationText = `${$ctrl.resolve.idLabel} cannot be empty!`;
+                    $ctrl.validationText = `${$ctrl.resolve.idLabel} は空欄にできません`;
 
                     if ($ctrl.resolve.inputPlaceholder) {
                         $ctrl.inputPlaceholder = $ctrl.resolve.inputPlaceholder;

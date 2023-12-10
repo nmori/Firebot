@@ -6,46 +6,46 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const fileWriter = {
     definition: {
         id: "firebot:customvariable",
-        name: "Custom Variable",
-        description: "Save data to a custom variable that you can then use elsewhere.",
+        name: "カスタム変数",
+        description: "データをカスタム変数に保存し、他の場所で使用することができます。",
         icon: "fad fa-value-absolute",
         categories: [EffectCategory.SCRIPTING],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-        <eos-container header="Variable Name">
-            <p class="muted">You'll use this name to reference this elsewhere via $customVariable[name].</p>
-            <input ng-model="effect.name" type="text" class="form-control" id="chat-text-setting" placeholder="Enter name" replace-variables menu-position="below">
+        <eos-container header="変数名">
+            <p class="muted">この名前は、 $customVariable[name] を経由して他の場所で参照する際に使用します</p>
+            <input ng-model="effect.name" type="text" class="form-control" id="chat-text-setting" placeholder="名前を入れる" replace-variables menu-position="below">
         </eos-container>
 
-        <eos-container header="Variable Data" pad-top="true">
-            <p class="muted">This is the data that will be saved to the variable. Can be text or another replace phrase.</p>
-            <textarea ng-model="effect.variableData" rows="3" class="form-control" id="chat-text-setting" placeholder="Enter text/data" replace-variables></textarea>
+        <eos-container header="変数の中身" pad-top="true">
+            <p class="muted">変数に保存されるデータ。テキストまたは別の置換フレーズを指定できます。</p>
+            <textarea ng-model="effect.variableData" rows="3" class="form-control" id="chat-text-setting" placeholder="テキストを入力" replace-variables></textarea>
             <p class="muted" style="font-size: 11px;"><b>Note:</b> If variable data is a valid JSON string, it will be parsed into an object or array.</p>
         </eos-container>
 
-        <eos-container header="Property Path (Optional)" pad-top="true">
-            <p class="muted">If the variable already has data saved in the form of an object or array, you can define a path (using dot notation) to a specific property or index to update with the above data. If nothing is provided, the entire variable is replaced. If there is no existing data and a property path is provided, nothing happens.</p>
+        <eos-container header="プロパティのパス（任意）" pad-top="true">
+            <p class="muted">変数にすでにオブジェクトや配列の形でデータが保存されている場合、上記のデータで更新する特定のプロパティやインデックスへのパス（ドット記法を使用）を定義することができます。何も指定しなければ、変数全体が置き換えられる。既存のデータがなく、プロパティのパスが提供された場合は、何も起こりません。</p>
             <eos-collapsable-panel show-label="Show examples" hide-label="Hide examples" hide-info-box="true">
-                <span>Examples:</span>
+                <span>例:</span>
                 <ul>
                     <li>some.property</li>
                     <li>1</li>
                     <li>1.value</li>
                 </ul>
             </eos-collapsable-panel>
-            <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="Enter path">
+            <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="パスを入力">
         </eos-container>
 
-        <eos-container header="Duration (Optional)" pad-top="true">
-            <p class="muted">Duration (in seconds) this variable should be kept in the cache. Use 0 for indefinite (until Firebot restarts). </p>
-            <input ng-model="effect.ttl" type="number" class="form-control" id="chat-text-setting" placeholder="Enter seconds">
+        <eos-container header="有効期間(オプション)" pad-top="true">
+            <p class="muted">この変数がキャッシュに保持される期間(秒)。無期限(Firebotが再起動するまで)には0を使用します。 </p>
+            <input ng-model="effect.ttl" type="number" class="form-control" id="chat-text-setting" placeholder="秒数を入力">
         </eos-container>
 
         <eos-container pad-top="true">
             <div class="effect-info well">
-                Want to inspect variable values in real-time for debugging purposes? Open the <a ng-click="openVariableInspector()" style="color:#53afff;cursor:pointer;">Custom Variable Inspector</a>
+                デバッグのためにリアルタイムで変数を確認したいですか？ <a ng-click="openVariableInspector()" style="color:#53afff;cursor:pointer;">変数確認画面</a>を開いてみてください。
             </div>
         </eos-container>
     `,
@@ -61,7 +61,7 @@ const fileWriter = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.name == null || effect.name === "") {
-            errors.push("Please provide a variable name.");
+            errors.push("変数名を入れてください");
         }
         return errors;
     },
