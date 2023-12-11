@@ -75,7 +75,7 @@ const currency = {
 
         <div ng-if="effect.action">
 
-            <eos-container header="Target" pad-top="true">
+            <eos-container header="対象" pad-top="true">
 
                 <div class="permission-type controls-fb">
                     <label class="control-fb control--radio">ユーザ

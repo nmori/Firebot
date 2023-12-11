@@ -32,7 +32,7 @@ const model: EffectType<{
             </div>
         </eos-container>
         
-        <eos-container header="Target" pad-top="true" ng-show="effect.action === 'Raid Channel'">
+        <eos-container header="対象" pad-top="true" ng-show="effect.action === 'Raid Channel'">
             <firebot-input model="effect.username" placeholder-text="Enter username" />
         </eos-container>
     `,

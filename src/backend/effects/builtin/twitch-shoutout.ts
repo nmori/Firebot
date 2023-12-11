@@ -15,7 +15,7 @@ const model: EffectType<{
     dependencies: [],
   },
   optionsTemplate: `
-        <eos-container header="Target">
+        <eos-container header="対象">
             <firebot-input model="effect.username" placeholder-text="ユーザ名を入れてください" menu-position="below" />
         </eos-container>
 

@@ -382,7 +382,7 @@ async function handleChatMessage(firebotChatMessage) {
     logger.debug("Checking for command in message...");
 
     // Username of the person that sent the command.
-    const commandSender = firebotChatMessage.username;
+    const commandSender = firebotChatMessage.useridname;
 
     // Check to see if handled message array contains the id of this message already.
     // If it does, that means that one of the logged in accounts has already handled the message.
