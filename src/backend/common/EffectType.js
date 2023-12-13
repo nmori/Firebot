@@ -115,6 +115,22 @@ const effectDefinitions = [
         description: "音を再生する"
     },
     {
+        id: "PLAY_BOUYOMICHAN",
+        v5Id: "firebot:playbouyomichan",
+        name: "棒読みちゃんで再生",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "音を再生する"
+    },    
+    {
+        id: "PLAY_VOICEVOX",
+        v5Id: "firebot:playvoicevox",
+        name: "VOICEVOXで再生",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "音を再生する"
+    },    
+    {
         id: "RANDOM_EFFECT",
         v5Id: "firebot:randomeffect",
         name: "演出をランダム実行",

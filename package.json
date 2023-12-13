@@ -126,6 +126,7 @@
     "sanitize-filename": "^1.6.3",
     "socket.io-client": "^2.3.0",
     "tiny-typed-emitter": "^2.1.0",
+    "tmp": "*",
     "ui-select": "^0.19.8",
     "underscore": "^1.13.1",
     "unzipper": "^0.9.15",

@@ -40,8 +40,10 @@ exports.loadEffects = () => {
         'moderator-purge',
         'moderator-timeout',
         'pause-resume-effect-queue',
+        'play-bouyomichan',
         'play-sound',
         'play-video', // No migration needed.
+        'play-voicevox',
         'raid',
         'random-effect',
         'random-reddit-image',

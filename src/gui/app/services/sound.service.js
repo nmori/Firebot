@@ -188,7 +188,7 @@
                     let selectedOutputDevice = data.audioOutputDevice;
                     if (
                         selectedOutputDevice == null ||
-                        selectedOutputDevice.label === "App Default"
+                        selectedOutputDevice.deviceId === ""
                     ) {
                         selectedOutputDevice = settingsService.getAudioOutputDevice();
                     }
