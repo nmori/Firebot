@@ -50,8 +50,8 @@ const chat = {
         $scope.customCommands = commandsService.getCustomCommands();
 
         $scope.toggleOptions = {
-            disable: "非アクティブ",
-            enable: "アクティブ",
+            disable: "OFF",
+            enable: "ON",
             toggle: "切り替え"
         };
 

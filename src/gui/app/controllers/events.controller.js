@@ -384,7 +384,7 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="fas mr-4 ${group.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> ${group.active ? '非アクティブ' : 'アクティブ'}</a>`,
+                        html: `<a href ><i class="fas mr-4 ${group.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> ${group.active ? 'OFF' : 'ON'}</a>`,
                         click: () => {
                             eventsService.toggleEventGroupActiveStatus(group.id);
                         }

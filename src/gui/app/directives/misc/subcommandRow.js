@@ -37,7 +37,7 @@
                     <div style="width: 25%">
                         <div style="min-width: 75px">
                             <span class="status-dot" ng-class="{'active': $ctrl.subcommand.active, 'notactive': !$ctrl.subcommand.active}"></span>
-                            {{$ctrl.subcommand.active ? "アクティブ" : "非アクティブ"}}
+                            {{$ctrl.subcommand.active ? "ON" : "OFF"}}
                         </div>
                     </div>
 

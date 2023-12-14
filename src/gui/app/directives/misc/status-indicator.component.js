@@ -29,10 +29,10 @@
 
                 $ctrl.$onInit = () => {
                     if ($ctrl.enabledLabel == null) {
-                        $ctrl.enabledLabel = "アクティブ";
+                        $ctrl.enabledLabel = "ON";
                     }
                     if ($ctrl.disabledLabel == null) {
-                        $ctrl.disabledLabel = "非アクティブ";
+                        $ctrl.disabledLabel = "OFF";
                     }
                 };
 
