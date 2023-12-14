@@ -201,7 +201,7 @@ exports.addOnlineUser = async (username) => {
         } else {
             const userDetails = {
                 id: firebotUser._id,
-                username: firebotUser.username,
+                username: firebotUser.name,
                 displayName: firebotUser.displayName,
                 twitchRoles: firebotUser.twitchRoles,
                 profilePicUrl: firebotUser.profilePicUrl,

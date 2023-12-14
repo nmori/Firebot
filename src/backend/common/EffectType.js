@@ -107,6 +107,22 @@ const effectDefinitions = [
         description: "イベントをイベントリストに送る"
     },
     {
+        id: "ONECOMME-WORDPARTY",
+        v5Id: "firebot:oneccome-wordparty",
+        name: "わんコメ WordParty",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "わんコメのWordPartyを起動します"
+    },
+    {
+        id: "ONECOMME-TRANSFER",
+        v5Id: "firebot:oneccome-transfer",
+        name: "わんコメへ転送",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "わんコメのチャット欄に転送します"
+    },
+    {
         id: "PLAY_SOUND",
         v5Id: "firebot:playsound",
         name: "サウンドを再生",
@@ -114,6 +130,22 @@ const effectDefinitions = [
         dependencies: [],
         description: "音を再生する"
     },
+    {
+        id: "PLAY_BOUYOMICHAN",
+        v5Id: "firebot:playbouyomichan",
+        name: "棒読みちゃんで再生",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "音を再生する"
+    },    
+    {
+        id: "PLAY_VOICEVOX",
+        v5Id: "firebot:playvoicevox",
+        name: "VOICEVOXで再生",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "音を再生する"
+    }, 
     {
         id: "RANDOM_EFFECT",
         v5Id: "firebot:randomeffect",

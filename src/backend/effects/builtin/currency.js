@@ -37,10 +37,10 @@ const currency = {
    */
     optionsTemplate: `
 
-    <eos-container header="Currency">
+    <eos-container header="通貨">
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="currency-name">{{effect.currency ? getCurrencyName(effect.currency) : 'Pick one'}}</span> <span class="caret"></span>
+                <span class="currency-name">{{effect.currency ? getCurrencyName(effect.currency) : '選択...'}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu currency-name-dropdown">
                 <li ng-repeat="currency in currencies"
@@ -52,7 +52,7 @@ const currency = {
     </eos-container>
 
     <div ng-if="effect.currency">
-        <eos-container header="Operation" pad-top="true">
+        <eos-container header="操作内容" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="currency-action">{{effect.action ? effect.action : 'Pick one'}}</span> <span class="caret"></span>
@@ -75,7 +75,7 @@ const currency = {
 
         <div ng-if="effect.action">
 
-            <eos-container header="Target" pad-top="true">
+            <eos-container header="対象" pad-top="true">
 
                 <div class="permission-type controls-fb">
                     <label class="control-fb control--radio">ユーザ

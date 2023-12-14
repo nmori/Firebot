@@ -71,7 +71,7 @@ function soundProcessor(effect) {
     let selectedOutputDevice = effect.audioOutputDevice;
     if (
         selectedOutputDevice == null ||
-    selectedOutputDevice.label === "App Default"
+        selectedOutputDevice.deviceId === ""
     ) {
         selectedOutputDevice = settings.getAudioOutputDevice();
     }

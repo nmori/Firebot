@@ -29,7 +29,7 @@ function triggerCooldown() {
     const chatter = heistSettings.settings.chatSettings.chatter;
 
     const cooldownMins = heistSettings.settings.generalSettings.cooldown || 1;
-    const expireTime = moment().add(cooldownMins, 'minutes');
+    const expireTime = moment().add(cooldownMins, '分');
     exports.cooldownExpireTime = expireTime;
 
     const trigger = commandManager.getSystemCommandTrigger("firebot:heist");
@@ -91,7 +91,7 @@ async function runHeist() {
     // this should never happen, but just in case
     if (messages == null || messages.length < 1) {
         messages = [
-            "Heist completed!"
+            "強盗完了!"
         ];
     }
 

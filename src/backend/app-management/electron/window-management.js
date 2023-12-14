@@ -222,7 +222,7 @@ function createMainWindow() {
             ]
         },
         {
-            label: 'ヘルプ(&H)',
+            label: 'ヘルプ',
             role: 'help',
             submenu: [{
                     label: '開発Discordに参加',
@@ -261,7 +261,7 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'マーチストア',
+                    label: 'ストア',
                     click: () => {
                         shell.openExternal("https://crowbar-tools.myspreadshop.com");
                     }
@@ -273,7 +273,7 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'お客様の声を書く',
+                    label: 'お客様の声',
                     click: () => {
                         shell.openExternal("https://firebot.app/testimonial-submission");
                     }

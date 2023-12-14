@@ -5,7 +5,7 @@ const { EffectCategory, EffectDependency } = require('../../../shared/effect-con
 const effect = {
     definition: {
         id: "firebot:chat-feed-alert",
-        name: "チャットフィード警告",
+        name: "チャットアラート",
         description: "Firebotのチャットフィードにアラートを表示する",
         icon: "fad fa-comment-exclamation",
         categories: [EffectCategory.COMMON, EffectCategory.CHAT_BASED],
@@ -13,7 +13,7 @@ const effect = {
     },
     optionsTemplate: `
     <eos-container>
-        <p>このエフェクトを使うと、実際のチャットメッセージを使わずにFirebotのチャットフィードにアラートを送ることができます。つまり、アラートはあなただけに表示されます。</p>
+        <p>この演出を使うと、実際のチャットメッセージを使わずにFirebotのチャットフィードにアラートを送ることができます。つまり、アラートはあなただけに表示されます。</p>
     </eos-container>
     <eos-container header="アラート" pad-top="true">
         <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>

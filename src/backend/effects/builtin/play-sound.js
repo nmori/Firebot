@@ -21,9 +21,9 @@ const playSound = {
     },
     globalSettings: {},
     optionsTemplate: `
-    <eos-container header="Type">
+    <eos-container header="メディアタイプ">
         <firebot-radios 
-            options="{ local: 'Local file', folderRandom: 'Random from folder', url: 'Url' }"
+            options="{ local: 'ローカルファイル', folderRandom: 'フォイル内のファイルをランダム再生', url: 'ネット上のものを再生' }"
             model="effect.soundType"
             inline="true"
             style="padding-bottom: 5px;" 
@@ -50,7 +50,7 @@ const playSound = {
             </div>
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> Wait for sound to finish <tooltip text="'音が鳴り終わるのを待ってから、次の効果をかける。'"></tooltip>
+                <label class="control-fb control--checkbox">再生終了を待つ <tooltip text="'音が鳴り終わるのを待ってから、次の効果に移ります'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>
@@ -132,7 +132,7 @@ const playSound = {
 
         // Set output device.
         let selectedOutputDevice = effect.audioOutputDevice;
-        if (selectedOutputDevice == null || selectedOutputDevice.label === "App Default") {
+        if (selectedOutputDevice == null || selectedOutputDevice.deviceId === "") {
             selectedOutputDevice = settings.getAudioOutputDevice();
         }
         data.audioOutputDevice = selectedOutputDevice;

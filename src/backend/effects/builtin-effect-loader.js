@@ -32,6 +32,7 @@ exports.loadEffects = () => {
         'html',
         'http-request',
         'oneccome-wordparty',
+        'onecomme-transfer',
         'log-message',
         'loop-effects',
         'mark-all-activity-acknowledged',
@@ -40,8 +41,10 @@ exports.loadEffects = () => {
         'moderator-purge',
         'moderator-timeout',
         'pause-resume-effect-queue',
+        'play-bouyomichan',
         'play-sound',
         'play-video', // No migration needed.
+        'play-voicevox',
         'raid',
         'random-effect',
         'random-reddit-image',
