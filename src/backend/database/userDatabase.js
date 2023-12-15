@@ -107,7 +107,13 @@ function getTwitchUserByUsername(username) {
 
         db.findOne({ username: { $regex: searchTerm }, twitch: true }, (err, doc) => {
             if (err) {
-                return resolve(null);
+                //データベースがエラーだとここでアップデートエラーがでるのでフォローアップ
+                db.findOne({ displayName: { $regex: searchTerm }, twitch: true }, (err, doc) => {
+                    if (err) {
+                        return resolve(null);
+                    }
+                    return resolve(doc);
+                });
             }
             return resolve(doc);
         });

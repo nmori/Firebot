@@ -117,7 +117,7 @@
 
             $scope.chatFeedIsEnabled = function() {
                 if (connectionService.connections['chat'] !== 'connected') {
-                    $scope.disabledMessage = "チャットへの接続が完了すると、チャット画面が有効になります。";
+                    $scope.disabledMessage = "チャット接続が完了すると有効になります。";
                     return false;
                 }
                 return true;

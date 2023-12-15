@@ -25,7 +25,7 @@ const effect = {
         name: "棒読みちゃんで発話",
         description: "指定した文章を読み上げます",
         icon: "fad fa-waveform",
-        categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
+        categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []        
     },
     globalSettings: {},

@@ -77,17 +77,17 @@ const effect = {
 
     <eos-container header="オプション" pad-top="true">
         <div style="margin-bottom: 10px;">
-            <label class="control-fb control--checkbox"> Include Twitch auth header <tooltip text="'Automatically include an Authorization header with the streamers twitch access token. Only use when calling the Twitch API!'"></tooltip>
+            <label class="control-fb control--checkbox"> Twitch の認証コードを含む <tooltip text="'Twitch APIを使う時以外は危険なのでONにしないでください!'"></tooltip>
                 <input type="checkbox" ng-model="effect.options.useTwitchAuth">
                 <div class="control__indicator"></div>
             </label>
         </div>
-        <label ng-show="effect.options.putResponseInVariable" class="control-fb control--checkbox"> Put response body in a variable <tooltip text="'Put the response body into a variable so you can use it later'"></tooltip>
+        <label ng-show="effect.options.putResponseInVariable" class="control-fb control--checkbox">結果を変数に格納 <tooltip text="'結果を変数に格納して、後から活用します'"></tooltip>
             <input type="checkbox" ng-model="effect.options.putResponseInVariable">
             <div class="control__indicator"></div>
         </label>
         <div ng-if="effect.options.putResponseInVariable" style="padding-left: 15px;">
-            <firebot-input input-title="Variable Name" model="effect.options.variableName" placeholder-text="名前を入れる" />
+            <firebot-input input-title="変数名" model="effect.options.variableName" placeholder-text="名前を入れる" />
             <firebot-input style="margin-top: 10px;" input-title="変数の継続時間" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="Enter secs | 任意" />
             <firebot-input style="margin-top: 10px;" input-title="変数のパス" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="任意" />
         </div>

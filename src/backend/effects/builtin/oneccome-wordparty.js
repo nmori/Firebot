@@ -25,7 +25,7 @@ const effect = {
         name: "わんコメ WordParty",
         description: "わんコメのWordPartyに起動トリガーを送ります",
         icon: "fad fa-paw",
-        categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
+        categories: [EffectCategory.JP_ORIGINAL],
         dependencies: [],
         outputs: []
     },

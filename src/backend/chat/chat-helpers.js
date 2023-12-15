@@ -464,7 +464,8 @@ exports.buildFirebotChatMessage = async (msg, msgText, whisper = false, action =
     /**@type {FirebotChatMessage} */
     const firebotChatMessage = {
         id: msg.tags.get("id"),
-        username: msg.userInfo.displayName,
+        username: msg.userInfo.userName,
+        displayName:  msg.userInfo.displayName,
         useridname: msg.userInfo.userName,
         userId: msg.userInfo.userId,
         customRewardId: msg.tags.get("custom-reward-id") || undefined,

@@ -107,6 +107,14 @@ const effectDefinitions = [
         description: "イベントをイベントリストに送る"
     },
     {
+        id: "SEND-VRCHAT",
+        v5Id: "firebot:send-vrchat",        
+        name: "VRChatチャットに送付",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "ゆかコネNEO経由でVRChatチャットに送付"
+    },
+    {
         id: "ONECOMME-WORDPARTY",
         v5Id: "firebot:oneccome-wordparty",
         name: "わんコメ WordParty",
@@ -131,7 +139,7 @@ const effectDefinitions = [
         description: "音を再生する"
     },
     {
-        id: "PLAY_BOUYOMICHAN",
+        id: "SPEECH_BOUYOMICHAN",
         v5Id: "firebot:playbouyomichan",
         name: "棒読みちゃんで再生",
         triggers: ALL_TRIGGERS,
@@ -139,13 +147,21 @@ const effectDefinitions = [
         description: "音を再生する"
     },    
     {
-        id: "PLAY_VOICEVOX",
+        id: "SPEECH_VOICEVOX",
         v5Id: "firebot:playvoicevox",
         name: "VOICEVOXで再生",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "音を再生する"
+        description: "VOICEVOXに直接指示し、音声合成で話す"
     }, 
+    {
+        id: "SPEECH_YNCNEO",
+        v5Id: "firebot:play-yncneo",
+        name: "音声を再生",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "ゆかコネNEO経由で音声合成をつかって話す"
+    },
     {
         id: "RANDOM_EFFECT",
         v5Id: "firebot:randomeffect",
@@ -203,6 +219,14 @@ const effectDefinitions = [
         dependencies: [],
         description: "テキストをファイルに書き込む"
     },
+    {
+        id: "TRANSLATE",
+        v5Id: "firebot:translate-yncneo",
+        name: "翻訳を実行",
+        triggers: ALL_TRIGGERS,
+        dependencies: [],
+        description: "ゆかコネNEO経由で翻訳"
+    },    
     {
         id: "COMMAND_LIST",
         v5Id: null,

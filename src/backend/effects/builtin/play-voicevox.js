@@ -35,7 +35,7 @@ const playSound = {
         name: "VOICEVOXで読み上げ",
         description: "VOICEVOXをつかって合成音声を読み上げ",
         icon: "fad fa-waveform",
-        categories: [EffectCategory.COMMON],
+        categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
     globalSettings: {},
@@ -93,9 +93,9 @@ const playSound = {
         if ($scope.effect.voicevoxPort == null) {
             $scope.effect.voicevoxPort = 50021;
         }       
-        if ($scope.effect.voicelists == null) {
-            $scope.effect.voicelists = [];
-        }    
+
+        $scope.effect.voicelists = [];
+
         try {       
             const axiosDefault = require("axios").default;
 

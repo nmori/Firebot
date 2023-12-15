@@ -15,7 +15,8 @@ export type EffectCategory =
     | "fun"
     | "integrations"
     | "advanced"
-    | "scripting";
+    | "scripting"
+    | "JP original";
 
 export type EffectTriggerResponse = {
     success: boolean;

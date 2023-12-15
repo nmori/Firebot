@@ -45,6 +45,9 @@ exports.loadEffects = () => {
         'play-sound',
         'play-video', // No migration needed.
         'play-voicevox',
+        'play-yncneo',
+        'send-vrchat',
+        //'translate-yncneo', //作り込みが甘いのでまだ公開しない
         'raid',
         'random-effect',
         'random-reddit-image',

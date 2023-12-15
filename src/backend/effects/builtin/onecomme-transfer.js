@@ -33,7 +33,7 @@ const onecommeTransfer = {
         name: "わんコメに転送",
         description: "指定した文章をわんコメに転送します",
         icon: "fad fa-paw",
-        categories: [EffectCategory.COMMON],
+        categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
     globalSettings: {},
@@ -54,7 +54,7 @@ const onecommeTransfer = {
     </eos-container>        
 
     <eos-container header="書き込み者名" pad-top="true">
-        <textarea ng-model="effect.writerName" class="form-control" name="text" placeholder="名前の入力" rows="4" cols="40" replace-variables></textarea>
+        <textarea ng-model="effect.writerName" class="form-control" name="text" placeholder="名前の入力" rows="1" cols="40" replace-variables></textarea>
     </eos-container>
     <eos-container header="メッセージ" pad-top="true">
         <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージの入力" rows="4" cols="40" replace-variables></textarea>
@@ -63,9 +63,8 @@ const onecommeTransfer = {
     `,
     optionsController: async($scope) =>  {
 
-        if ($scope.effect.slotnames == null) {
-            $scope.effect.slotnames = [];
-        }    
+        $scope.effect.slotnames = [];
+
         try {       
             const axiosDefault = require("axios").default;
 
