@@ -8,7 +8,7 @@ const userDatabase = require("../../database/userDatabase");
 const model = {
     definition: {
         handle: "rawTopMetadata",
-        description: "Returns a raw array of users with the most of a given metadata key. Items contain 'username', 'place' and 'amount' properties",
+        description: "指定したメタデータのキーが最も多いユーザの生の配列を返します。項目は 'username'、'place' および 'amount' プロパティを含む。",
         usage: "rawTopMetadata[metadataKey]",
         possibleDataOutput: [OutputDataType.TEXT]
     },

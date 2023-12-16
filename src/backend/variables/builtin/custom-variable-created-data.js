@@ -12,7 +12,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "createdCustomVariableData",
-        description: "Data from the created custom variable.",
+        description: "作成されたカスタム変数のデータ。",
         triggers: triggers,
         categories: [VariableCategory.COMMON],
         possibleDataOutput: [OutputDataType.TEXT]

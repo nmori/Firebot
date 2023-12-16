@@ -8,7 +8,7 @@ const model = {
     definition: {
         handle: "rawArrayShuffle",
         usage: "rawArrayShuffle[someRawArray]",
-        description: "Returns a new shuffled array",
+        description: "シャッフルされた新しい配列を返す",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

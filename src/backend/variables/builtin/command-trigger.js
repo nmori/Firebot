@@ -12,7 +12,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "commandTrigger",
-        description: "The trigger of the issued command.",
+        description: "発行されたコマンドのトリガー。",
         triggers: triggers,
         categories: [VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

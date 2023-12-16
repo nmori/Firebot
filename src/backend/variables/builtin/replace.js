@@ -9,16 +9,16 @@ const utils = require("../../utility");
 const model = {
     definition: {
         handle: "replace",
-        description: "Replaces a search value with a replacement value",
+        description: "検索値を置換値で置き換える。",
         usage: "replace[textInput, searchValue, replacement]",
         examples: [
             {
                 usage: "replace[textInput, searchValue, replacement, true]",
-                description: "Allows searching using a regular expression."
+                description: "正規表現を使って検索できるようにする。"
             },
             {
                 usage: "replace[textInput, searchValue, replacement, true, flags]",
-                description: "Add flags when using a regular expression."
+                description: "正規表現使用時にフラグを追加する。"
             }
         ],
         categories: [VariableCategory.TEXT],

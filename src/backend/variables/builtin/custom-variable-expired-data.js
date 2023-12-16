@@ -12,7 +12,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "expiredCustomVariableData",
-        description: "Data from the expired custom variable.",
+        description: "期限切れカスタム変数のデータ。",
         triggers: triggers,
         categories: [VariableCategory.COMMON],
         possibleDataOutput: [OutputDataType.TEXT]

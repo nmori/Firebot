@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "splitText",
-        description: "Splits text with the given separator and returns a JSON array. Useful for Custom Variables.",
+        description: "指定した区切り文字でテキストを分割し、JSON 配列を返します。カスタム変数に便利です。",
         usage: "splitText[text, separator]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

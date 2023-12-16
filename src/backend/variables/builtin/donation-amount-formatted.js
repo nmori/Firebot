@@ -12,7 +12,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "donationAmountFormatted",
-        description: "The amount (w/currency symbol) of a donation from StreamElements/StreamLabs/Tipeee/ExtraLife",
+        description: "StreamElements/StreamLabs/Tipeee/ExtraLifeからの寄付金額(通貨記号付き)",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

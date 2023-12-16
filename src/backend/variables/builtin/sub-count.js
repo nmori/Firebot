@@ -10,7 +10,7 @@ const accountAccess = require("../../common/account-access");
 const model = {
     definition: {
         handle: "subCount",
-        description: "The number of subs you currently have.",
+        description: "現在加入しているサブスクの数。",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

@@ -26,15 +26,15 @@ const model = {
     definition: {
         handle: "rawArrayFindIndex",
         usage: "rawArrayFindIndex[rawarray, matcher, propertyPath]",
-        description: "Finds a matching element in the array and returns it's index, or null if the element is absent",
+        description: "配列からマッチする要素を探し、そのインデックスを返す。",
         examples: [
             {
                 usage: 'rawArrayFindIndex[someRawArray, b]',
-                description: 'Returns 1, the index of "b"'
+                description: 'b "のインデックスである1を返す。'
             },
             {
                 usage: 'rawArrayFindIndex[someRawArray, value, key]',
-                description: 'Searches the array for an item with a key with the value of "value"'
+                description: '"value "の値を持つキーを持つ項目を配列から探す'
             }
         ],
         categories: [VariableCategory.ADVANCED],

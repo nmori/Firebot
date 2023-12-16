@@ -16,15 +16,15 @@ module.exports = {
     definition: {
         handle: "hasRoles",
         usage: "hasRoles[user, any|all, role, role2, ...]",
-        description: "Returns true if the user has the specified roles. Only valid within $if",
+        description: "ユーザが指定したロールを持っている場合に true を返します。$if内でのみ有効です。",
         examples: [
             {
                 usage: 'hasRoles[$user, any, mod, vip]',
-                description: "returns true if $user is a mod OR VIP"
+                description: "userがmodであるかVIPであればtrueを返す。"
             },
             {
                 usage: 'hasRoles[$user, all, mod, vip]',
-                description: "Returns true if $user is a mod AND a VIP"
+                description: "もし$userがmodであり、かつVIPであればtrueを返す。"
             }
         ],
         triggers: triggers,

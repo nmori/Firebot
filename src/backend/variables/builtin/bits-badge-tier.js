@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "bitsBadgeTier",
-        description: "The tier of the bits badge that was unlocked (100, 1000, 5000, etc.).",
+        description: "アンロックされたビッツバッジのティア（100、1000、5000など）。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.NUMBER]

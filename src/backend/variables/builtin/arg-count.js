@@ -12,7 +12,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "argCount",
-        description: "Returns the number of command args.",
+        description: "コマンドの引数の数を返す。",
         triggers: triggers,
         possibleDataOutput: [OutputDataType.NUMBER],
         categories: [VariableCategory.NUMBERS]

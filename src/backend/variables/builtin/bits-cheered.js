@@ -10,15 +10,15 @@ const model = {
     definition: {
         handle: "bitsCheered",
         usage: "bitsCheered[username]",
-        description: "Returns the all-time number of bits the specified user has cheered in the streamer's channel.",
+        description: "指定されたユーザーが配信者のチャンネルで応援したビッツの全時間数を返す。",
         examples: [
             {
                 usage: "bitsCheered[username, period]",
-                description: "Returns the number of bits the specified user has cheered in the streamer's channel during the current specified period. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "指定したユーザが、指定した期間中に配信者のチャンネルで応援したビッツ数を返します。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれか。"
             },
             {
                 usage: "bitsCheered[username, period, startDate]",
-                description: "Returns the number of bits the specified user has cheered in the streamer's channel during the specified period that occurred on the specified date. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "指定された日付に発生した配信者のチャンネルで、指定された期間中に指定されたユーザが応援したビッツ数を返します。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれか。"
             }
         ],
         categories: [VariableCategory.COMMON, VariableCategory.ADVANCED],

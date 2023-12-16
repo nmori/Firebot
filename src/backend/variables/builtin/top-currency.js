@@ -10,7 +10,7 @@ const util = require("../../utility");
 const model = {
     definition: {
         handle: "topCurrency",
-        description: "Comma seperated list of users with the most of the given currency. Defaults to top 10, you can provide a custom number as a second argument.",
+        description: "指定した通貨を最も多く使用しているユーザの一覧をカンマ区切りで返します。デフォルトはトップ 10 で、二番目の引数に任意の数値を指定できます。",
         usage: "topCurrency[currencyName]",
         possibleDataOutput: [OutputDataType.TEXT]
     },

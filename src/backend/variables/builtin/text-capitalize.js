@@ -9,7 +9,7 @@ const util = require("../../utility");
 const model = {
     definition: {
         handle: "capitalize",
-        description: "Capitalizes the given text.",
+        description: "指定されたテキストを大文字にする。",
         usage: "capitalize[text]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

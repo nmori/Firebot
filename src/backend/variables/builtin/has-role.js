@@ -17,7 +17,7 @@ module.exports = {
     definition: {
         handle: "hasRole",
         usage: "hasRole[user, role]",
-        description: "Returns true if the user has the specified role. Only valid within $if",
+        description: "ユーザが指定したロールを持っている場合に true を返します。$if内でのみ有効です。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.USER],
         possibleDataOutput: [OutputDataType.ALL]

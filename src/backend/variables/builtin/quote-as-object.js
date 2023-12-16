@@ -11,19 +11,19 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "quoteAsObject",
-        description: "Get a random quote in the form of a JSON Object.",
+        description: "JSONオブジェクトの形式でランダムな引用を取得します。",
         examples: [
             {
                 usage: "quoteAsObject[#]",
-                description: "Get a specific quote id."
+                description: "特定の見積もりIDを取得します。"
             },
             {
                 usage: "quoteAsObject[#, property]",
-                description: "Get only a specific property for a specific quote. Valid properties are id, createdAt, creator, originator, text and game."
+                description: "特定の見積もりの特定のプロパティのみを取得します。有効なプロパティは、id、createdAt、creator、originator、text、gameです。"
             },
             {
                 usage: "quoteAsObject[null, property]",
-                description: "Get only a specific property for a random quote. Valid properties are id, createdAt, creator, originator, text and game."
+                description: "ランダムな引用の特定のプロパティのみを取得します。有効なプロパティは、id、createdAt、creator、originator、text、gameです。"
             }
         ],
         categories: [VariableCategory.TEXT],

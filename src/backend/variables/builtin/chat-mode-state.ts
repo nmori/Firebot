@@ -8,7 +8,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "chatModeState",
-        description: "The state of the chat mode, either 'enabled' or 'disabled'.",
+        description: "チャットモードの状態。'enabled' か 'disabled'.",
         triggers: triggers,
         categories: [VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

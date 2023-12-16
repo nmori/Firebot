@@ -9,7 +9,7 @@ const currencyDatabase = require("../../database/currencyDatabase");
 const model = {
     definition: {
         handle: "rawTopCurrency",
-        description: "Returns a raw array containing those with the most of the specified currency. Items in the array contain 'place', 'username' and 'amount' properties",
+        description: "指定した通貨の使用率が最も高いものを含む生の配列を返します。配列内の項目には 'place'、'username' および 'amount' プロパティが含まれます。",
         usage: "rawTopCurrency[currencyName]",
         possibleDataOutput: [OutputDataType.TEXT]
     },

@@ -11,7 +11,7 @@ const model = {
     definition: {
         handle: "math",
         usage: "math[expression]",
-        description: 'Evaluate a math equation using <a href="https://mathjs.org/docs/index.html">math.js</a>',
+        description: '<a href="https://mathjs.org/docs/index.html">math.js</a>を使って数式を評価する',
         categories: [VariableCategory.COMMON, VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

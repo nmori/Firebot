@@ -5,12 +5,12 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "rawRegexMatches",
-        description: "Filter a string with a regular expression and return a raw array of all matches",
+        description: "正規表現で文字列をフィルタリングし、マッチしたすべての生の配列を返す",
         usage: "rawRegexMatches[string, expression]",
         examples: [
             {
                 usage: "rawRegexMatches[string, expression, flags]",
-                description: "Add flags to the regex evaluation."
+                description: "Addフラグを正規表現評価に追加する。"
             }
         ],
         categories: [VariableCategory.ADVANCED],

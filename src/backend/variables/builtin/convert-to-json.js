@@ -4,7 +4,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "convertToJSON",
-        description: "Converts a raw value into JSON text",
+        description: "生の値をJSONテキストに変換します。",
         usage: "convertToJSON[raw value]",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]

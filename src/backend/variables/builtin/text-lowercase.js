@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "lowercase",
-        description: "Makes the entire given text string lowercase.",
+        description: "与えられたテキスト文字列全体を小文字にする.",
         usage: "lowercase[text]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

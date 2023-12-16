@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "ensureNumber",
-        description: "Guarantees a number output. If the input is a number, it's passed through. If it's not, the given default number is used instead.",
+        description: "数値出力を保証する。入力が数値の場合、それは通過する。そうでない場合は、与えられたデフォルトの数値が代わりに使われる。",
         usage: "ensureNumber[input, defaultNumber]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]

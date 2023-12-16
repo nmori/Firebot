@@ -8,14 +8,14 @@ const model = {
     definition: {
         handle: "quickStore",
         usage: "quickStore[key]",
-        description: "Retrieves or stores a value until the expression has finished evaluation",
+        description: "式の評価が終了するまで、値を取得または保存する。",
         examples: [
             {
                 usage: 'quickStore[name, value]',
-                description: 'Stores "value" under the key "name"'
+                description: 'キー "name "の下に "value "を格納する。'
             }, {
                 usage: 'quickStore[name]',
-                description: 'Retrieves the value of what was stored under the key of "name"'
+                description: '"name "のキーの下に格納されていた値を取得する。'
 
             }
         ],

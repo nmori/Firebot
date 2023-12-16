@@ -18,7 +18,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "donationMessage",
-        description: "The message from a StreamLabs/Tipeee/StreamElements/ExtraLife donation",
+        description: "StreamLabs/Tipeee/StreamElements/ExtraLife からの寄付メッセージ",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

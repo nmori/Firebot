@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "concat",
-        description: "Appends text together",
+        description: "テキストをまとめて追加する",
         usage: "concat[text, text, ...]",
         categories: [VariableCategory.TEXT],
         possibleDataOuput: [OutputDataType.TEXT]

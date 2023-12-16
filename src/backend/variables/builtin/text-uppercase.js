@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "uppercase",
-        description: "Makes the entire given text string uppercase.",
+        description: "与えられたテキスト文字列全体を大文字にする.",
         usage: "uppercase[text]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

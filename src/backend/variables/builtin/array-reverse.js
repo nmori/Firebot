@@ -7,7 +7,7 @@ const model = {
     definition: {
         handle: "arrayReverse",
         usage: "arrayReverse[jsonArray]",
-        description: "Returns a new reversed array",
+        description: "新しい逆配列を返す",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

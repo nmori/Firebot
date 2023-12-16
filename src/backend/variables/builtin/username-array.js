@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "usernameArray",
-        description: "Returns a JSON array of all usernames saved in the user db",
+        description: "ユーザ DB に保存されているすべてのユーザ名を JSON 配列で返します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

@@ -5,7 +5,7 @@ const model = {
     definition: {
         handle: "rawArrayElement",
         usage: "rawArrayElement[rawArray, index]",
-        description: "Returns the element at the given index of the input raw array.",
+        description: "入力 raw 配列の、指定したインデックスの要素を返します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT, OutputDataType.NUMBER]
     },

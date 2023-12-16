@@ -16,7 +16,7 @@ triggers[EffectTrigger.CHANNEL_REWARD] = true;
 module.exports = {
     definition: {
         handle: "user",
-        description: "The associated user (if there is one) for the given trigger",
+        description: "指定されたトリガに関連するユーザ(存在する場合)",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]

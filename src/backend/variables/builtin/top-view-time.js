@@ -10,7 +10,7 @@ const util = require("../../utility");
 const model = {
     definition: {
         handle: "topViewTime",
-        description: "Comma seperated list of users with the most view time (in hours). Defaults to top 10, you can provide a custom number as a second argument.",
+        description: "カンマで区切られた、最も閲覧時間の長いユーザーのリスト（時間単位）。デフォルトはトップ10で、2番目の引数にカスタムの数値を指定できます。",
         usage: "topViewTime[count]",
         possibleDataOutput: [OutputDataType.TEXT]
     },

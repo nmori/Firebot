@@ -23,11 +23,11 @@ const model = {
     definition: {
         handle: "rawReadApi",
         usage: "rawReadApi[url]",
-        description: 'Calls the given url and inserts the response.',
+        description: '与えられた url を呼び出し、レスポンスを挿入します。',
         examples: [
             {
                 usage: 'rawReadApi[url, object.path.here]',
-                description: "Traverse a JSON response object."
+                description: "JSONレスポンスオブジェクトをトラバースする。"
             }
         ],
         categories: [VariableCategory.ADVANCED],

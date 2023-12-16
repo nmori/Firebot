@@ -10,7 +10,7 @@ const util = require("../../utility");
 const model = {
     definition: {
         handle: "topMetadata",
-        description: "Comma seperated list of users with the most of the given metadata key. Defaults to top 10, you can provide a custom number as a second argument.",
+        description: "指定されたメタデータのキーを最も多く持つユーザーのコンマ区切りリスト。デフォルトはトップ10で、第2引数に任意の数値を指定することができます。",
         usage: "topMetadata[metadataKey]",
         possibleDataOutput: [OutputDataType.TEXT]
     },

@@ -5,11 +5,11 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "rewardDescription",
-        description: "The description of the reward",
+        description: "報酬の説明",
         examples: [
             {
                 usage: "rewardDescription[rewardName]",
-                description: "The description of the given reward. Name must be exact!"
+                description: "与えられた報酬の説明。名前は正確でなければならない！"
             }
         ],
         categories: [VariableCategory.COMMON],

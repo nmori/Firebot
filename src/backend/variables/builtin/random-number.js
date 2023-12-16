@@ -11,7 +11,7 @@ const model = {
     definition: {
         handle: "randomNumber",
         usage: "randomNumber[min, max]",
-        description: "Get a random number between the given range.",
+        description: "指定した範囲の乱数を取得する。",
         categories: [VariableCategory.COMMON, VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

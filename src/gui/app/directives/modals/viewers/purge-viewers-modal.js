@@ -99,7 +99,7 @@
                         .showConfirmationModal({
                             title: "削除を承認",
                             question: `本当に削除しますか？もし必要であれば、最初にプレビューを使用して、何を削除するかを確認することができます。`,
-                            confirmLabel: "Purge",
+                            confirmLabel: "削除を実施",
                             confirmBtnType: "btn-danger"
                         })
                         .then(confirmed => {

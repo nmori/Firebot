@@ -8,7 +8,7 @@ const he = require('he');
 const model = {
     definition: {
         handle: "encodeForHtml",
-        description: "Encodes input text for safe use within HTML templates",
+        description: "HTMLテンプレート内で安全に使用できるように入力テキストをエンコードする",
         usage: "encodeForHtml[text]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

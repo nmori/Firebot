@@ -12,7 +12,7 @@ const model = {
         examples: [
             {
                 usage: "regexExec[string, expression, flags]",
-                description: "Add flags to the regex evaluation."
+                description: "正規表現の評価にフラグを追加する。"
             }
         ],
         categories: [VariableCategory.ADVANCED],

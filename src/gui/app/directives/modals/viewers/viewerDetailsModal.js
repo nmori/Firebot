@@ -117,14 +117,14 @@
                                                 class="fal fa-edit clickable"
                                                 style="margin-right: 10px;"
                                                 ng-click="$ctrl.showAddOrEditMetadataModal({ key: key, value: value })"
-                                                uib-tooltip="Edit"
+                                                uib-tooltip="編集する"
                                                 tooltip-append-to-body="true">
                                             </i>
                                             <i
                                                 class="fal fa-trash-alt clickable"
                                                 style="color:#ff3737;"
                                                 ng-click="$ctrl.deleteMetadata(key)"
-                                                uib-tooltip="Delete"
+                                                uib-tooltip="削除する"
                                                 tooltip-append-to-body="true">
                                             </i>
                                         </td>

@@ -8,7 +8,7 @@ const model = {
     definition: {
         handle: "audioDuration",
         usage: "audioDuration[filePathOrUrl]",
-        description: "Attempts to retrieve audio duration.",
+        description: "オーディオの長さを取得しようとします。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

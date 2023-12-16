@@ -13,7 +13,7 @@ const model = {
     definition: {
         handle: "userId",
         usage: "userId[username]",
-        description: "Gets the user id for the given username. Searches local user db first, then twitch api.",
+        description: "指定されたユーザー名のユーザーIDを取得します。まずローカルのユーザーデータベースを検索し、次にtwitch apiを検索します。",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },

@@ -8,7 +8,7 @@ const model = {
     definition: {
         handle: "evalVars",
         usage: "evalVars[text]",
-        description: "Evaluate $variables in a string of text. Useful for evaluating text $vars from an external source (ie a txt file or API)",
+        description: "文字列の $variables を評価します。外部ソース (txt ファイルや API) からのテキスト $vars を評価する際に便利です。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

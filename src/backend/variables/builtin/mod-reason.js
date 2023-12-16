@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "modReason",
-        description: "The reason why the user was banned or timed out.",
+        description: "ユーザーが禁止された、またはタイムアウトした理由。",
         triggers: triggers,
         categories: [VariableCategory.USER, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.text]
