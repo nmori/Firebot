@@ -6,7 +6,7 @@ export function triggerChatMessage(firebotChatMessage: FirebotChatMessage): void
         userId: firebotChatMessage.userId,
         userIdName: firebotChatMessage.useridname,
         username: firebotChatMessage.useridname,
-        displayName:firebotChatMessage.username,
+        displayName:firebotChatMessage.displayName,
         twitchUserRoles: firebotChatMessage.roles,
         messageText: firebotChatMessage.rawText,
         chatMessage: firebotChatMessage

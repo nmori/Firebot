@@ -372,7 +372,7 @@ function createCurrencyCommandDefinition(currency) {
                     const status = currencyDatabase.adjustCurrencyForUser(event.userCommand.commandSender, currencyId, currencyAdjustNeg);
 
                     if (status) {
-                        await twitchChat.sendChatMessage('Gave ' + util.commafy(currencyAdjust) + ' ' + currencyName + ' to ' + username + '.', null);
+                        await twitchChat.sendChatMessage( util.commafy(currencyAdjust) + ' ' + currencyName + ' を ' + username + 'さんへ贈呈しました.', null);
                     } else {
                         // Error removing currency.
                         await twitchChat.sendChatMessage(

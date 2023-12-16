@@ -15,6 +15,7 @@ const utils = require("../utility");
  * @property {string} id
  * @property {string} username
  * @property {string} useridname
+ * @property {string} displayName 
  * @property {string} profilePicUrl
  * @property {string} userId
  * @property {string[]} roles
@@ -355,6 +356,7 @@ exports.buildFirebotChatMessageFromExtensionMessage = async (text = "", extensio
         id: id,
         username: extensionName,
         useridname: extensionName,
+        displayName: streamer.extensionName,
         userId: extensionName,
         rawText: text,
         profilePicUrl: extensionIconUrl,
@@ -394,7 +396,8 @@ exports.buildViewerFirebotChatMessageFromAutoModMessage = async (msg) => {
     /**@type {FirebotChatMessage} */
     const viewerFirebotChatMessage = {
         id: msg.messageId,
-        username: msg.senderDisplayName,
+        username: msg.senderName,
+        displayName: streamer.senderDisplayName,
         useridname: msg.senderName,
         userId: msg.senderId,
         rawText: msg.messageContent,
@@ -429,8 +432,9 @@ exports.buildStreamerFirebotChatMessageFromText = async (text = "") => {
     /**@type {FirebotChatMessage} */
     const streamerFirebotChatMessage = {
         id: uuid(),
-        username: streamer.displayName,
+        username: streamer.username,
         useridname: streamer.username,
+        displayName: streamer.displayName,
         userId: streamer.userId,
         rawText: text,
         profilePicUrl: streamer.avatar,

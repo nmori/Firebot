@@ -158,7 +158,7 @@
                     </div>
                     <div class="automod-tag" ng-show="$ctrl.message.isAutoModHeld">
                         <div ng-if="$ctrl.message.autoModStatus === 'PENDING' && !$ctrl.message.autoModErrorMessage">
-                            <span>Flagged by AutoMod ({{$ctrl.message.autoModReason}}): </span>
+                            <span>FAutoModによって自動マーク： ({{$ctrl.message.autoModReason}}): </span>
                             <span ng-if="!$ctrl.respondedToAutoMod">
                                 <a href style="font-weight: 700;" ng-click="$ctrl.allowAutoModMessage()">Allow</a>
                                 <span> • </span>

@@ -10,7 +10,8 @@ export function triggerAnnouncement(
     eventManager.triggerEvent("twitch", "announcement", {
         userIdName: userName,
         userId,
-        username: userDisplayName,
+        username: userName,
+        displayName: userDisplayName,
         twitchUserRoles,
         messageText
     });

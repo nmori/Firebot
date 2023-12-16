@@ -262,7 +262,8 @@ const effect = {
             return;
         }
 
-        effect.username = user.displayName;
+        effect.username = user.username;
+        effect.displayName = user.displayName;
 
         const channelInfo = await twitchApi.channels.getChannelInformation(user.id);
         if (channelInfo == null) {
@@ -323,7 +324,7 @@ const effect = {
                         <div style="padding: 0 10%;">
                             <div>
                                 <div>
-                                    <div id="${fittyId}" class="firebot-shoutout-username" style="color: ${data.textColor}">${data.username}</div>
+                                    <div id="${fittyId}" class="firebot-shoutout-username" style="color: ${data.textColor}">${data.displayName}</div>
                                 </div>
                             </div>
                         </div>
@@ -336,7 +337,7 @@ const effect = {
                             <div class="firebot-shoutout-game-dimmer" />
                             <div class="firebot-shoutout-game-text-wrapper">
                                 <div class="firebot-shoutout-game-lastseen">
-                                    ${data.lastGameText || "LAST SEEN STREAMING"}
+                                    ${data.lastGameText || "最後に見た配信"}
                                 </div>
                                 ${data.gameName}
                             </div>

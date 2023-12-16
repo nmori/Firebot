@@ -124,6 +124,7 @@ exports.getAllOnlineUsers = () => {
         return {
             id: parseInt(id),
             username: onlineUsers.get(id).username,
+            displayName: onlineUsers.get(id).displayName,
             twitchRoles: onlineUsers.get(id).twitchRoles
         };
     });
@@ -154,7 +155,8 @@ async function updateUserOnlineStatus(userDetails, updateDb = false) {
 
         frontendCommunicator.send("twitch:chat:user-joined", {
             id: userDetails.id,
-            username: userDetails.displayName,
+            username: userDetails.username,
+            displayName: userDetails.displayName,
             roles: roles,
             profilePicUrl: userDetails.profilePicUrl,
             active: exports.userIsActive(userDetails.id),
