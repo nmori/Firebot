@@ -258,10 +258,16 @@ const effect = {
 
         var user = await twitchApi.users.getUserByName(effect.username);
         if (user == null) {            
+            user = await twitchApi.users.getUserByName(effect.displayName);
+        }
+        if (user == null) {            
             user = await twitchApi.users.getUserById(effect.username);
         }
         if (user == null) {
-            return;
+            logger.error(
+                `User not found． Twitch user ${effect.username} does not exist.`
+              );
+              return;
         }
 
         effect.username = user.username;

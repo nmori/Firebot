@@ -37,8 +37,19 @@ const model: EffectType<{
   },
   optionsController: () => {},
   onTriggerEvent: async ({ effect }) => {
-    const targetUserId = (await twitchApi.users.getUserByName(effect.username))
-      ?.id;
+
+    var user = await twitchApi.users.getUserByName(effect.username);
+    if (user == null) {            
+        user = await twitchApi.users.getUserById(effect.username);
+    }
+    if (user == null) {
+      logger.error(
+        `User not found． Twitch user ${effect.username} does not exist.`
+      );
+      return;
+    }
+
+    const targetUserId = user.id;
 
     if (targetUserId == null) {
       logger.error(
