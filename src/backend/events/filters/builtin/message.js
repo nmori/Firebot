@@ -14,6 +14,7 @@ module.exports = {
         ComparisonType.IS,
         ComparisonType.IS_NOT,
         ComparisonType.CONTAINS,
+        ComparisonType.INCLUDING,
         ComparisonType.DOESNT_CONTAIN,
         ComparisonType.STARTS_WITH,
         ComparisonType.DOESNT_STARTS_WITH,
@@ -42,6 +43,8 @@ module.exports = {
             return chatMessage !== value;
         case ComparisonType.CONTAINS:
             return chatMessage.includes(value);
+        case  ComparisonType.INCLUDING:
+            return chatMessage.indexOf(value)>=0;
         case ComparisonType.DOESNT_CONTAIN:
             return !chatMessage.includes(value);
         case ComparisonType.STARTS_WITH:

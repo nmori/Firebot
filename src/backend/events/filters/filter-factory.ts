@@ -24,6 +24,7 @@ export function createTextFilter({
       ComparisonType.IS,
       ComparisonType.IS_NOT,
       ComparisonType.CONTAINS,
+      ComparisonType.INCLUDING,
       ComparisonType.MATCHES_REGEX,
     ],
     valueType: "text",
@@ -45,6 +46,8 @@ export function createTextFilter({
           return eventValue !== filterValue;
         case ComparisonType.CONTAINS:
           return eventValue.includes(filterValue);
+        case  ComparisonType.INCLUDING:
+          return eventValue.indexOf(filterValue)>=0;
         case ComparisonType.MATCHES_REGEX: {
           const regex = new RegExp(filterValue, "gi");
           return regex.test(eventValue);

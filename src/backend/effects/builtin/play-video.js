@@ -114,7 +114,7 @@ const playVideo = {
             <firebot-input
                 input-title="Twitch Clip Url/ID"
                 model="effect.twitchClipUrl"
-                placeholder-text="Ex: HealthyBlazingLyrebirdTinyFace"
+                placeholder-text="例: HealthyBlazingLyrebirdTinyFace"
             />
         </div>
 
@@ -122,7 +122,7 @@ const playVideo = {
             <firebot-input
                 input-title="Twitch ユーザ名"
                 model="effect.twitchClipUsername"
-                placeholder-text="Ex: $streamer, $user, etc"
+                placeholder-text="例: $streamer, $user, etc"
             />
         </div>
 

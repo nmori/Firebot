@@ -193,7 +193,7 @@ const effect = {
         $scope.defaultGameBoxArt = "https://static-cdn.jtvnw.net/ttv-boxart/Science%20&%20Technology.jpg";
 
         if ($scope.effect.shoutoutText == null) {
-            $scope.effect.shoutoutText = "彼らは素晴らしいストリーマーだ。フォローしよう！";
+            $scope.effect.shoutoutText = "みんな、ぜひフォローしよう！";
         }
 
         if ($scope.effect.showLastGame == null) {
@@ -225,7 +225,7 @@ const effect = {
         }
 
         if ($scope.effect.lastGameText == null) {
-            $scope.effect.lastGameText = "Last seen streaming";
+            $scope.effect.lastGameText = "最後の配信テーマ";
         }
 
         $scope.showOverlayInfoModal = function(overlayInstance) {
@@ -256,8 +256,10 @@ const effect = {
             }
         }
 
-        const user = await twitchApi.users.getUserByName(effect.username);
-
+        var user = await twitchApi.users.getUserByName(effect.username);
+        if (user == null) {            
+            user = await twitchApi.users.getUserById(effect.username);
+        }
         if (user == null) {
             return;
         }

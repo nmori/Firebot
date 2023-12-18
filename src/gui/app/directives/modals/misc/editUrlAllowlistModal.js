@@ -28,7 +28,7 @@
                     </div>
 
                     <div style="display: flex;flex-direction: row;justify-content: space-between;margin-left: auto;">
-                        <searchbar placeholder-text="Search URLs..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
+                        <searchbar placeholder-text="検索..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
                     </div>
                 </div>
                 <div>

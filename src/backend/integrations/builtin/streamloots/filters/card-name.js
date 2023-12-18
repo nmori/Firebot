@@ -9,7 +9,7 @@ module.exports = {
     events: [
         { eventSourceId: "streamloots", eventId: "redemption" }
     ],
-    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT, ComparisonType.CONTAINS, ComparisonType.MATCHES_REGEX],
+    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT, ComparisonType.CONTAINS, ComparisonType.INCLUDING, ComparisonType.MATCHES_REGEX],
     valueType: "text",
     predicate: (filterSettings, eventData) => {
 
@@ -33,6 +33,8 @@ module.exports = {
             return cardName !== filterCardName;
         case ComparisonType.CONTAINS:
             return cardName.includes(filterCardName);
+        case  ComparisonType.INCLUDING:
+            return cardName.indexOf(filterCardName)>=0;
         case ComparisonType.MATCHES_REGEX: {
             const regex = new RegExp(filterCardName, "gi");
             return regex.test(cardName);

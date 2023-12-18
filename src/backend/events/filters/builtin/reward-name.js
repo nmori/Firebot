@@ -9,7 +9,7 @@ module.exports = {
     events: [
         { eventSourceId: "twitch", eventId: "channel-reward-redemption" }
     ],
-    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT, ComparisonType.CONTAINS, ComparisonType.MATCHES_REGEX],
+    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT, ComparisonType.CONTAINS, ComparisonType.INCLUDING,ComparisonType.MATCHES_REGEX],
     valueType: "text",
     predicate: (filterSettings, eventData) => {
 
@@ -27,6 +27,8 @@ module.exports = {
             return actual !== expected;
         case ComparisonType.CONTAINS:
             return actual.includes(expected);
+        case  ComparisonType.INCLUDING:
+            return actual.indexOf(expected)>=0;
         case ComparisonType.MATCHES_REGEX: {
             const regex = new RegExp(expected, "gi");
             return regex.test(actual);

@@ -38,7 +38,7 @@ const effect = {
     globalSettings: {},
     optionsTemplate: `
     <eos-container header="URL">
-        <firebot-input model="effect.url" placeholder-text="Enter url" menu-position="below"></firebot-input>
+        <firebot-input model="effect.url" placeholder-text="urlを入れる" menu-position="below"></firebot-input>
     </eos-container>
 
     <eos-container header="通信メソッド" pad-top="true">
@@ -88,7 +88,7 @@ const effect = {
         </label>
         <div ng-if="effect.options.putResponseInVariable" style="padding-left: 15px;">
             <firebot-input input-title="変数名" model="effect.options.variableName" placeholder-text="名前を入れる" />
-            <firebot-input style="margin-top: 10px;" input-title="変数の継続時間" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="Enter secs | 任意" />
+            <firebot-input style="margin-top: 10px;" input-title="変数の継続時間" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="秒数を入れる | 任意" />
             <firebot-input style="margin-top: 10px;" input-title="変数のパス" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="任意" />
         </div>
         <div style="margin-top: 10px;">

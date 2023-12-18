@@ -147,6 +147,7 @@ async function updateUserOnlineStatus(userDetails, updateDb = false) {
         logger.debug(`Marking user ${userDetails.displayName} as online with ttl of ${ONLINE_TIMEOUT} secs`);
         onlineUsers.set(userDetails.id, {
             username: userDetails.username,
+            displayName: userDetails.displayName,
             online: true,
             twitchRoles: userDetails.twitchRoles
         }, ONLINE_TIMEOUT);

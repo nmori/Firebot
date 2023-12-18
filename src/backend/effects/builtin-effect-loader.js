@@ -11,6 +11,7 @@ exports.loadEffects = () => {
         'api',
         'approve-reject-channel-reward-redemption',
         'block-unblock',
+        'call-layna',
         'celebration',
         'chat-feed-alert',
         'chat',

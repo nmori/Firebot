@@ -12,7 +12,7 @@
               <p>アクティビティフィードで見たいイベントを選択します。</p>
               <div class="viewer-db-switches">
                 <div style="margin-bottom: 10px;">
-                    <searchbar placeholder-text="Search events" query="eventSearch" />
+                    <searchbar placeholder-text="検索" query="eventSearch" />
                 </div>
                 <div ng-hide="eventSearch && !!eventSearch.length" style="display: flex;align-items: center;justify-content: space-between;margin-bottom:10px;padding-bottom: 5px; border-bottom: 1px solid #585858;">
                         <span style="font-weight: 900;" id="selectAllLabel">すべてを選ぶ</span>

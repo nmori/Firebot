@@ -21,11 +21,11 @@
                   <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                     <li ng-click="$ctrl.filterData.mode = 'exclusive'">
-                      <a style="padding-left: 10px;">全フィルタ通過</a>
+                      <a style="padding-left: 10px;">すべて一致</a>
                     </li>
 
                     <li ng-click="$ctrl.filterData.mode = 'inclusive'">
-                      <a style="padding-left: 10px;">一部フィルタ通過</a>
+                      <a style="padding-left: 10px;">いずれか一致</a>
                     </li>
                 </ul>
             </div>
@@ -35,7 +35,7 @@
 
             <button ng-repeat="filter in $ctrl.filterData.filters track by $index" class="filter-bar" ng-click="$ctrl.openAddOrEditFilterModal($index)">
                 <filter-display filter="filter" filter-type="$ctrl.getFilterType(filter.type)"></filter-display>
-                <a class="filter-remove-btn clickable" style="padding-left: 10px;" ng-click="$event.stopPropagation();$ctrl.removeFilterAtIndex($index)" uib-tooltip="Remove filter" tooltip-append-to-body="true">
+                <a class="filter-remove-btn clickable" style="padding-left: 10px;" ng-click="$event.stopPropagation();$ctrl.removeFilterAtIndex($index)" uib-tooltip="フィルターを削除" tooltip-append-to-body="true">
                     <i class="far fa-times"></i>
                 </a>
             </button>
@@ -136,7 +136,7 @@
                 }
 
                 $ctrl.getFilterModeDisplay = function() {
-                    return $ctrl.filterData.mode === "inclusive" ? "any filter passes" : "all filters pass";
+                    return $ctrl.filterData.mode === "inclusive" ? "いずれか成立時" : "すべて成立時";
                 };
 
                 $ctrl.getFilterType = function(typeId) {

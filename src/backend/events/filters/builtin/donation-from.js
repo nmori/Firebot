@@ -13,7 +13,7 @@ module.exports = {
         { eventSourceId: "tipeeestream", eventId: "donation" },
         { eventSourceId: "streamelements", eventId: "donation" }
     ],
-    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT, ComparisonType.CONTAINS, ComparisonType.MATCHES_REGEX],
+    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT, ComparisonType.CONTAINS, ComparisonType.INCLUDING, ComparisonType.MATCHES_REGEX],
     valueType: "text",
     /*presetValues: () => {
         return new Promise(resolve => {
@@ -36,6 +36,8 @@ module.exports = {
             return eventUsername !== filterUsername;
         case ComparisonType.CONTAINS:
             return eventUsername.includes(filterUsername);
+        case  ComparisonType.INCLUDING:
+            return eventUsername.indexOf(filterUsername)>=0;            
         case ComparisonType.MATCHES_REGEX: {
             const regex = new RegExp(filterUsername, "gi");
             return regex.test(eventUsername);

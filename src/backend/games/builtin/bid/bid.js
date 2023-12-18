@@ -7,19 +7,19 @@ const bidCommand = require("./bid-command");
  */
 module.exports = {
     id: "firebot-bid",
-    name: "Bid",
-    subtitle: "Put something up for auction",
-    description: "This allows the Streamer (or mods) to start an auction for something which users can then place bids for. Useful as a giveaway tool that uses channel currency! Once bidding has started, users can type '!bid [bidAmount]' in chat. When a user is outbid they get their currency back. The winner will lose whatever currency they bid.",
+    name: "入札",
+    subtitle: "オークションに出品する",
+    description: "配信者（またはMOD）がオークションを開始し、視聴者が入札できます。景品ツールとして便利です！入札が始まったら、視聴者はチャットで'!bid [金額]'と入力できます。落札できなかったら通貨が戻ります。落札したら通貨を支払います。",
     icon: "fa-gavel",
     settingCategories: {
         currencySettings: {
-            title: "Currency Settings",
+            title: "通貨設定",
             sortRank: 1,
             settings: {
                 currencyId: {
                     type: "currency-select",
-                    title: "Currency",
-                    description: "Which currency to use for bidding.",
+                    title: "通貨",
+                    description: "入札に使用する通貨。",
                     sortRank: 1,
                     validation: {
                         required: true
@@ -27,10 +27,10 @@ module.exports = {
                 },
                 minBid: {
                     type: "number",
-                    title: "Minimum Opening Bid",
+                    title: "最低開札価格",
                     placeholder: "金額を入れる",
-                    description: "The minimum amount for the opening bid.",
-                    tip: "Optional.",
+                    description: "入札開始の最低金額",
+                    tip: "任意",
                     default: 1,
                     sortRank: 2,
                     validation: {
@@ -39,10 +39,10 @@ module.exports = {
                 },
                 minIncrement: {
                     type: "number",
-                    title: "Minimum Bid Raise",
+                    title: "最低入札額引き上げ",
                     placeholder: "金額を入れる",
-                    description: "User must bid at least this amount over the highest bidder.",
-                    tip: "Optional.",
+                    description: "視聴者は最低でもこの金額以上の入札が必要になります",
+                    tip: "任意",
                     default: 1,
                     sortRank: 4,
                     validation: {
@@ -52,15 +52,15 @@ module.exports = {
             }
         },
         timeSettings: {
-            title: "Time Settings",
+            title: "時間設定",
             sortRank: 2,
             settings: {
                 timeLimit: {
                     type: "number",
-                    title: "Time Limit (min)",
-                    placeholder: "Enter minutes",
-                    description: "Whoever is the highest bidder after this time will win.",
-                    tip: "Optional.",
+                    title: "制限時間（分）",
+                    placeholder: "分を入力",
+                    description: "時間経過後、最高額で入札した者が落札します",
+                    tip: "任意",
                     default: 2,
                     sortRank: 1,
                     validation: {
@@ -70,15 +70,15 @@ module.exports = {
             }
         },
         cooldownSettings: {
-            title: "Cooldown",
+            title: "開始間隔",
             sortRank: 3,
             settings: {
                 cooldown: {
                     type: "number",
-                    title: "Cooldown (secs)",
-                    placeholder: "Enter secs",
-                    description: "Cooldown is applied per viewer. A user can only place a bid this often.",
-                    tip: "Optional.",
+                    title: "間隔 (秒)",
+                    placeholder: "秒数を入力",
+                    description: "間隔は視聴者ごとに適用されます。視聴者はこの間入札できません。",
+                    tip: "任意",
                     default: 5,
                     validation: {
                         min: 0
@@ -87,12 +87,12 @@ module.exports = {
             }
         },
         chatSettings: {
-            title: "Chat Settings",
+            title: "チャット先",
             sortRank: 4,
             settings: {
                 chatter: {
                     type: "chatter-select",
-                    title: "Chat As"
+                    title: "アカウント"
                 }
             }
         }

@@ -75,6 +75,7 @@ exports.loadReplaceVariables = () => {
         'custom-variable-raw',
         'custom-variable',
         'date',
+        'displayname',
         'discord-timestamp',
         'donation-amount-formatted',
         'donation-amount',

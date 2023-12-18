@@ -9,7 +9,7 @@ module.exports = {
     events: [
         { eventSourceId: "firebot", eventId: "category-changed" }
     ],
-    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT, ComparisonType.CONTAINS, ComparisonType.MATCHES_REGEX],
+    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT, ComparisonType.CONTAINS, ComparisonType.INCLUDING, ComparisonType.MATCHES_REGEX],
     valueType: "text",
     predicate: (filterSettings, eventData) => {
         const { comparisonType, value } = filterSettings;
@@ -25,6 +25,8 @@ module.exports = {
             return eventCategory !== filterCategory;
         case ComparisonType.CONTAINS:
             return eventCategory.includes(filterCategory);
+        case  ComparisonType.INCLUDING:
+            return eventCategory.indexOf(filterCategory)>=0;
         case ComparisonType.MATCHES_REGEX: {
             const regex = new RegExp(filterCategory, "gi");
             return regex.test(eventCategory);

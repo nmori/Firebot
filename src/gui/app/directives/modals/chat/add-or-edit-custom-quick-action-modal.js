@@ -66,7 +66,7 @@
                                     model="$ctrl.quickAction.presetArgValues[arg.name]" 
                                     input-type="string" 
                                     disable-variables="true" 
-                                    placeholder-text="Enter value" 
+                                    placeholder-text="値を入れる" 
                                 />
                             </div>
                         </div>
