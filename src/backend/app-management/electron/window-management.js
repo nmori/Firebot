@@ -466,7 +466,7 @@ function createStreamPreviewWindow() {
     streamPreviewWindowState.manage(streamPreview);
 
     streamPreview.on("close", () => {
-        if (!view.isDestroyed()) {
+        if (!view.isDestroyed) {
             view.destroy();
         }
     });

@@ -35,7 +35,7 @@ const model = {
     evaluator: (_, filePath, lineOrRandom) => {
 
         if (filePath === null) {
-            return "[File Path Error]";
+            return "[ファイルパスのエラー]";
         }
 
         try {
@@ -73,7 +73,7 @@ const model = {
             return contents;
         } catch (err) {
             logger.error("error reading file", err);
-            return "[Read File Error]";
+            return "[ファイル読み込みエラー］";
         }
     }
 };

@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "regexExec",
-        description: "Filter a string with a regular expression",
+        description: "正規表現で文字列をフィルタリングする",
         usage: "regexExec[string, expression]",
         examples: [
             {

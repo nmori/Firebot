@@ -33,9 +33,9 @@ const model = {
             </ul>
         </div>
     </eos-container>
-    <eos-container header="Target" pad-top="true" ng-show="effect.action != null && effect.action !== 'Clear List'">
+    <eos-container header="対象" pad-top="true" ng-show="effect.action != null && effect.action !== 'Clear List'">
         <div class="input-group">
-            <span class="input-group-addon" id="username-type">Username</span>
+            <span class="input-group-addon" id="username-type">視聴者名</span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables>
         </div>
     </eos-container>

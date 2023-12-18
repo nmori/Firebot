@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:cheerbitsamount",
-    name: "チアビッツ額",
-    description: "チアしてくれたビッツの金額でフィルタします",
+    name: "Cheerビッツ額",
+    description: "Cheerしてくれたビッツの金額でフィルタします",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" }
     ],

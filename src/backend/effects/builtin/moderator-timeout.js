@@ -14,7 +14,7 @@ const model = {
         dependencies: [EffectDependency.CHAT]
     },
     optionsTemplate: `
-    <eos-container header="Target" pad-top="true">
+    <eos-container header="対象" pad-top="true">
         <div class="input-group">
             <span class="input-group-addon" id="username-type">視聴者名</span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables menu-position="below">

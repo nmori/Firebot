@@ -29,7 +29,7 @@ const model = {
             const channelRewardId = channelRewardManager.getChannelRewardIdByName(rewardName);
 
             if (channelRewardId == null) {
-                return "[Can't find reward by name]";
+                return "[報酬を名前で検索できない]";
             }
 
             const reward = await twitchApi.streamerClient.channelPoints.getCustomRewardById(
@@ -47,7 +47,7 @@ const model = {
         }
 
         if (rewardData == null) {
-            return "[No reward found]";
+            return "[報酬なし]";
         }
 
         return rewardData.rewardDescription;

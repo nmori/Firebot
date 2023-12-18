@@ -17,7 +17,7 @@ const model = {
     evaluator: async (_, metadataKey, count = 10) => {
 
         if (metadataKey == null) {
-            return "[Invalid metadata key]";
+            return "[無効なメタデータ・キー]";
         }
 
         // limit to max of 50
@@ -46,7 +46,7 @@ const model = {
 
         // no one in list: output none
         if (topUsersDisplay === '') {
-            return '(none)';
+            return '(なし)';
         }
 
         // return list

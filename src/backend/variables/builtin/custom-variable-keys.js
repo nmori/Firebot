@@ -22,7 +22,7 @@ const model = {
                 description: "第2引数にプロパティ・パス（ドット記法）を与えて、オブジェクト・プロパティのキーの配列を取得する。"
             }
         ],
-        description: "Get the array of keys for an object saved in the custom variable.",
+        description: "カスタム変数に保存されているオブジェクトのキーの配列を取得します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

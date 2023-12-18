@@ -31,18 +31,18 @@ const model = {
         period = period ?? "all";
 
         if (Number.isNaN(count) || count < 1 || count > 100) {
-            throw new expressionish.ExpressionArgumentsError("First argument needs to be either null or a number.", 0);
+            throw new expressionish.ExpressionArgumentsError("第一引数にはNULLか数値を指定する。", 0);
         }
 
         const validPeriods = ["day", "week", "month", "year", "all"];
         period = period.toLowerCase();
 
         if (validPeriods.indexOf(period) === -1) {
-            throw new expressionish.ExpressionArgumentsError("Second argument must be a valid period ('day', 'week', 'month', 'year', or 'all').", 0);
+            throw new expressionish.ExpressionArgumentsError("第2引数には有効な期間（'day'、'week'、'month'、'year'、'all'）を指定する。", 0);
         }
 
         if (startDate != null && !moment(startDate).isValid()) {
-            throw new expressionish.ExpressionArgumentsError("Third argument must be a valid date string.", 0);
+            throw new expressionish.ExpressionArgumentsError("第3引数は有効な日付文字列でなければならない。", 0);
         }
 
         return true;

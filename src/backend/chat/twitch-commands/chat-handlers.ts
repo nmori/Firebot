@@ -143,7 +143,7 @@ export const shoutoutHandler: TwitchSlashCommandHandler<[string]> = {
         if (targetUsername == null || targetUsername.length < 1) {
             return {
                 success: false,
-                errorMessage: "文章を入力してください"
+                errorMessage: "ユーザ名を入力してください"
             };
         }
 

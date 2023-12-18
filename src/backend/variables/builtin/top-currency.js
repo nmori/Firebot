@@ -17,7 +17,7 @@ const model = {
     evaluator: async (_, currencyName, count = 10) => {
 
         if (currencyName == null) {
-            return "[Invalid currency name]";
+            return "[無効な通貨名]";
         }
 
         // limit to max of 50
@@ -31,7 +31,7 @@ const model = {
         const currencyData = currencyDatabase.getCurrencies();
 
         if (currencyData == null) {
-            return "[No currencies created]";
+            return "[通貨発行なし]";
         }
 
         const currencies = Object.values(currencyData);
@@ -39,7 +39,7 @@ const model = {
         const currency = currencies.find(c => c.name.toLowerCase() === currencyName.toLowerCase());
 
         if (currency == null) {
-            return "[Invalid currency name]";
+            return "[無効な通貨名]";
         }
 
         const topCurrencyHolders = await currencyDatabase.getTopCurrencyHolders(currency.id, count);

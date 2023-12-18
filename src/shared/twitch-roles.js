@@ -3,11 +3,11 @@
 const twitchRoles = [
     {
         id: "broadcaster",
-        name: "Streamer"
+        name: "配信者"
     },
     {
         id: "mod",
-        name: "Moderator"
+        name: "モデレータ"
     },
     {
         id: "vip",
@@ -15,23 +15,23 @@ const twitchRoles = [
     },
     {
         id: "sub",
-        name: "Subscriber"
+        name: "サブスクライバー"
     },
     {
         id: "tier1",
-        name: "Tier 1 Sub"
+        name: "Tier 1 サブスク"
     },
     {
         id: "tier2",
-        name: "Tier 2 Sub"
+        name: "Tier 2 サブスク"
     },
     {
         id: "tier3",
-        name: "Tier 3 Sub"
+        name: "Tier 3 サブスク"
     },
     {
         id: "viewerlistbot",
-        name: "Known Bot"
+        name: "Bot"
     }
 ];
 

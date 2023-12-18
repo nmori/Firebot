@@ -39,7 +39,7 @@ const model = {
     argsCheck: (exp) => {
 
         if (exp == null || exp.length < 1) {
-            throw new SyntaxError("A math expression must be included!");
+            throw new SyntaxError("数式が含まれていなければならない！");
         }
 
         return true;

@@ -63,7 +63,7 @@ exports.setupChatListeners = (streamerChatClient) => {
                 },
                 reward: {
                     id: HIGHLIGHT_MESSAGE_REWARD_ID,
-                    name: "Highlight Message",
+                    name: "ハイライト",
                     cost: 0,
                     imageUrl: "https://static-cdn.jtvnw.net/automatic-reward-images/highlight-4.png"
                 }

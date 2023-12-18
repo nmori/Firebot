@@ -6,10 +6,10 @@
             template: `
             <div class="modal-header" style="text-align: center">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">アクティビティイベントの編集</h4>
+                <h4 class="modal-title">イベント履歴の編集</h4>
             </div>
             <div class="modal-body" style="padding: 0 35px">
-              <p>アクティビティフィードで見たいイベントを選択します。</p>
+              <p>履歴に表示したいイベントを選択します</p>
               <div class="viewer-db-switches">
                 <div style="margin-bottom: 10px;">
                     <searchbar placeholder-text="検索" query="eventSearch" />

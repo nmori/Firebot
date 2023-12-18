@@ -185,7 +185,7 @@ module.exports = {
         },
         {
             id: "cheer",
-            name: "チア",
+            name: "Cheer",
             description: "誰かがあなたのチャンネルで声援を送ったとき（ビッツを使ったとき）",
             cached: false,
             manualMetadata: {

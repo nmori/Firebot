@@ -35,7 +35,7 @@ const model = {
 
         const channelInfo = await TwitchApi.channels.getChannelInformationByUsername(username);
 
-        return channelInfo != null ? channelInfo.title : "[No channel found]";
+        return channelInfo != null ? channelInfo.title : "[チャンネルが見つかりません］";
     }
 };
 

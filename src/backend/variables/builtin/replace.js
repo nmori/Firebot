@@ -27,7 +27,7 @@ const model = {
     evaluator: (_, input, search, replacement = "", searchIsRegex = false, flags = "g") => {
 
         if (input == null) {
-            return "[Missing input]";
+            return "[不足している入力]";
         }
 
         if (search == null) {

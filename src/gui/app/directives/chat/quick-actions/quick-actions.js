@@ -37,11 +37,11 @@
                 <div class="quick-action-settings flex flex-col items-center mb-4">
                     <button
                         class="quick-action-btn p-0"
-                        uib-tooltip="Add Custom Quick Action"
+                        uib-tooltip="クイックアクションを追加"
                         append-tooltip-to-body="true"
                         tooltip-placement="right"
                         ng-click="quickActionsService.showAddOrEditCustomQuickActionModal()"
-                        aria-label="クイックアクションの追加"
+                        aria-label="クイックアクションを追加"
                     >
                         <i class="fas fa-plus"></i>
                     </button>

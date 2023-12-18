@@ -27,13 +27,13 @@ const model = {
     evaluator: async (_, metadataKey, position = 1, usernameOrPosition = "username") => {
 
         if (metadataKey == null) {
-            return "[Invalid metadata name]";
+            return "[無効なメタデータ名]";
         }
 
         const userAtPosition = await userDatabase.getTopMetadataPosition(metadataKey, position);
 
         if (userAtPosition == null) {
-            return "[Can't find user at position]";
+            return "[ユーザーが見つからない]";
         }
 
         if (usernameOrPosition === "username") {
