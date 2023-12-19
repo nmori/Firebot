@@ -8,6 +8,7 @@ export function triggerTimeout(
 ): void {
     eventManager.triggerEvent("twitch", "timeout", {
         username: userDisplayName,
+        displayName: userDisplayName,
         timeoutDuration,
         moderator,
         modReason

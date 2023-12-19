@@ -7,6 +7,7 @@ export function triggerBanned(
 ): void {
     eventManager.triggerEvent("twitch", "banned", {
         username: userDisplayName,
+        displayName: userDisplayName,
         moderator,
         modReason
     });
@@ -18,6 +19,7 @@ export function triggerUnbanned(
 ) {
     eventManager.triggerEvent("twitch", "unbanned", {
         username: userDisplayName,
+        displayName: userDisplayName,
         moderator
     });
 };

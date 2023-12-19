@@ -54,10 +54,11 @@ export function triggerSubGift(
                         communitySubCache.set<CommunityGiftSubCache>(cacheKey, {subCount: newCount, giftReceivers: giftReceivers});
                     } else {
                         eventManager.triggerEvent("twitch", "community-subs-gifted", {
-                            username: gifterDisplayName,
+                            username: gifterUserName,
+                            displayName:gifterDisplayName,
                             userIdName: gifterUserName,
                             userId: gifterUserId,
-                            subCount: giftReceivers.length,
+                            subCount: giftReceivers.length,                        
                             subPlan,
                             isAnonymous,
                             gifterUsername: gifterDisplayName,

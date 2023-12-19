@@ -1,7 +1,7 @@
 "use strict";
 
 const { EffectTrigger } = require("../../../shared/effect-constants");
-const { OutputDataType } = require("../../../shared/variable-constants");
+const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -18,6 +18,7 @@ module.exports = {
         handle: "displayName",
         description: "指定されたトリガの関連ユーザ(存在する場合)。表示名。",
         triggers: triggers,
+        categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {

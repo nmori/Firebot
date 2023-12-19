@@ -35,7 +35,8 @@ export function handleRewardRedemption(
 
     setTimeout(() => {
         const redemptionMeta = {
-            username: userDisplayName,
+            username: userName,
+            displayName: userDisplayName,
             userIdName: userName,
             userId: userId,
             messageText,

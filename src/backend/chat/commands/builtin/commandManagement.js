@@ -124,7 +124,7 @@ const mapPermArgToRoleIds = async (permArg) => {
 const commandManagement = {
     definition: {
         id: "firebot:commandmanagement",
-        name: "Command Management",
+        name: "コマンド管理",
         active: true,
         trigger: "!command",
         description: "チャットによるコマンド管理を許可",

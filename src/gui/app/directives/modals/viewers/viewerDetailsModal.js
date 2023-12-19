@@ -132,7 +132,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="role-bar clickable" style="margin-top: 5px;" ng-click="$ctrl.showAddOrEditMetadataModal()" uib-tooltip="Add metadata" tooltip-append-to-body="true">
+                        <div class="role-bar clickable" style="margin-top: 5px;" ng-click="$ctrl.showAddOrEditMetadataModal()" uib-tooltip="メタデータの追加" tooltip-append-to-body="true">
                             <i class="far fa-plus"></i>
                         </div>
                     </div>

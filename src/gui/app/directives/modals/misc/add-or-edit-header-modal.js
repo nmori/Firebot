@@ -6,7 +6,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNew ? 'Add' : 'Edit'}} Header</h4>
+                    <h4 class="modal-title">ヘッダーの{{$ctrl.isNew ? '追加' : '編集'}}</h4>
                 </div>
                 <div class="modal-body">
 
@@ -19,7 +19,7 @@
                                 id="key" 
                                 name="key" 
                                 class="form-control input-lg" 
-                                placeholder="Enter key"
+                                placeholder="キーを入力"
                                 ng-model="$ctrl.header.key"
                                 ui-validate="'$value != null && $value.length > 0'" 
                                 required
@@ -35,7 +35,7 @@
                                 id="value" 
                                 name="value" 
                                 class="form-control input-lg" 
-                                placeholder="Enter value"
+                                placeholder="値の入力"
                                 ng-model="$ctrl.header.value"
                                 ui-validate="'$value != null && $value.length > 0'" 
                                 required

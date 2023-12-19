@@ -155,7 +155,7 @@ async function runEffects(runEffectsContext) {
                 }
             }
         } catch (err) {
-            logger.error(`There was an error running effect of type ${effect.type} with id ${effect.id}`, err);
+            logger.error(`There was an error running effect of type ${effect.type} with id ${effect.id} , data -> ${JSON.stringify(trigger)}`, err);
         }
     }
 

@@ -39,9 +39,6 @@ const model: EffectType<{
   onTriggerEvent: async ({ effect }) => {
 
     var user = await twitchApi.users.getUserByName(effect.username);
-    if (user == null) {            
-        user = await twitchApi.users.getUserById(effect.username);
-    }
     if (user == null) {
       logger.error(
         `User not found． Twitch user ${effect.username} does not exist.`

@@ -94,6 +94,28 @@ function getUserByUsername(username) {
 
 /**
  *
+ * @param {string} displayName
+ * @returns {Promise<FirebotUser>}
+ */
+function getUserByDisplayName(displayName) {
+    return new Promise(resolve => {
+        if (!isViewerDBOn()) {
+            return resolve(false);
+        }
+
+        const searchTerm = new RegExp(`^${displayName}$`, 'i');
+
+        db.findOne({ displayName: { $regex: searchTerm }, twitch: true }, (err, doc) => {
+            if (err) {
+                return resolve(false);
+            }
+            return resolve(doc);
+        });
+    });
+}
+
+/**
+ *
  * @param {string} username
  * @returns {Promise<FirebotUser>}
  */

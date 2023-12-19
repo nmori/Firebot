@@ -13,7 +13,8 @@ export function triggerSub(
 ): void {
     eventManager.triggerEvent("twitch", "sub", {
         userIdName: userName,
-        username: userDisplayName,
+        username: userName,
+        displayName:userDisplayName,
         userId,
         subPlan,
         totalMonths,
