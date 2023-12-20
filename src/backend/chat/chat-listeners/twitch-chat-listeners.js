@@ -38,7 +38,7 @@ exports.setupChatListeners = (streamerChatClient) => {
         twitchEventsHandler.announcement.triggerAnnouncement(
             firebotChatMessage.useridname,
             firebotChatMessage.userId,
-            firebotChatMessage.username,
+            firebotChatMessage.displayName,
             firebotChatMessage.roles,
             firebotChatMessage.rawText
         );
@@ -59,7 +59,7 @@ exports.setupChatListeners = (streamerChatClient) => {
                     id: firebotChatMessage.userId,
                     userIdName: firebotChatMessage.useridname,
                     username: firebotChatMessage.useridname,
-                    displayName:firebotChatMessage.username
+                    displayName:firebotChatMessage.displayName
                 },
                 reward: {
                     id: HIGHLIGHT_MESSAGE_REWARD_ID,
@@ -143,6 +143,7 @@ exports.setupChatListeners = (streamerChatClient) => {
 
     streamerChatClient.onCommunitySub((_channel, _user, subInfo) => {
         twitchEventsHandler.giftSub.triggerCommunitySubGift(
+            subInfo.gifterUserName ?? "anonymous",
             subInfo.gifterDisplayName ?? "匿名",
             subInfo.plan,
             subInfo.count
@@ -151,6 +152,7 @@ exports.setupChatListeners = (streamerChatClient) => {
 
     streamerChatClient.onSubGift((_channel, _user, subInfo) => {
         twitchEventsHandler.giftSub.triggerSubGift(
+            subInfo.gifterUserName ?? "anonymous",
             subInfo.gifterDisplayName ?? "匿名",
             subInfo.gifter,
             subInfo.gifterUserId,

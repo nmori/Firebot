@@ -13,9 +13,9 @@ const model = {
         dependencies: [EffectDependency.CHAT]
     },
     optionsTemplate: `
-        <eos-container header="Roll">
+        <eos-container header="サイコロ設定">
             <firebot-input
-                input-title="Dice"
+                input-title="サイコロの仕様"
                 model="effect.dice"
                 placeholder-text="2d20 or 2d10+1d12 or 1d10+3"
             />
@@ -28,7 +28,7 @@ const model = {
             />
         </eos-container>
 
-        <eos-chatter-select effect="effect" title="Announce Roll As" pad-top="true"></eos-chatter-select>
+        <eos-chatter-select effect="effect" title="アカウント" pad-top="true"></eos-chatter-select>
 
         <eos-container pad-top="true">
             <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">

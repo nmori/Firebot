@@ -32,8 +32,9 @@ export function triggerPrimeUpgrade(
     subPlan: string
  ): void {
     eventManager.triggerEvent("twitch", "prime-sub-upgraded", {
-        username: userDisplayName,
+        username: username,
         userIdName: username,
+        userDisplayName:userDisplayName,
         userId,
         subPlan
     });

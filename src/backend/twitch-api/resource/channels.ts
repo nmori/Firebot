@@ -104,7 +104,7 @@ export class TwitchChannelsApi {
             return true;
         } catch (error) {
             /** @ts-ignore */
-            renderWindow.webContents.send("error", `Failed to trigger ad-break because: ${error.message}`);
+            renderWindow.webContents.send("error", `AdBreakの起動に失敗しました。: ${error.message}`);
             return false;
         }
     }

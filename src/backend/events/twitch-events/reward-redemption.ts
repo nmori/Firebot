@@ -23,7 +23,8 @@ export function handleRewardRedemption(
         messageText,
         user: {
             id: userId,
-            username: userName
+            username: userName,
+            displayName: userDisplayName
         },
         reward: {
             id: rewardId,
