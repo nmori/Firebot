@@ -76,11 +76,6 @@ jobs:
         with:
           node-version: '18.17.1'
 
-      - name: Setup Python(fix for appdmg)
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-          
       - name: Install correct npm version
         run: npm install -g npm@10.2.4
 
@@ -88,11 +83,15 @@ jobs:
         if: runner.os == 'linux'
         run: sudo apt-get install libx11-dev libxtst-dev libpng-dev
 
+      - name: MacOS Build Prep (appdmg)
+        if: runner.os == 'macOS'
+        run: npm install appdmg
+
       - name: MacOS Build Prep
         if: runner.os == 'macOS'
         # Force install this dep until node-appdmg then electron-installer-dmg gets updated
         run: npm install github:SReject/electron-installer-dmg#9bdb5217b078c724918271549f34d362aecbf6bb
-
+        
       - name: Install Global Dependencies
         run: npm install --global --production --omit=dev grunt-cli
 
