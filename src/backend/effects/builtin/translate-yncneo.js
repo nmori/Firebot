@@ -113,10 +113,12 @@ const playSound = {
         }
         return errors;
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent:  async ({ effect, trigger}) => {
 
         const chatHelpers = require("../../chat/chat-helpers");        
         const commandHandler = require("../../chat/commands/commandHandler");
+        const twitchChat = require("../../chat/twitch-chat");
+        const { EffectTrigger } = require("../../../shared/effect-constants");
 
         let messageId = null;
         if (trigger.type === EffectTrigger.COMMAND) {
@@ -125,7 +127,6 @@ const playSound = {
             messageId = trigger.metadata.eventData?.chatMessage?.id;
         }
 
-        const { effect, trigger } = event;
         try {
             // HTTP header
             var headers = {
@@ -154,7 +155,7 @@ const playSound = {
                 header: headers
             });
 
-            const message = effect.message
+            var message = effect.message
                 .replace("{lang}", response.detect_language);
 
             response.result.forEach( function( value ) {

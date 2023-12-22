@@ -356,7 +356,7 @@ exports.buildFirebotChatMessageFromExtensionMessage = async (text = "", extensio
         id: id,
         username: extensionName,
         useridname: extensionName,
-        displayName: streamer.extensionName,
+        displayName: extensionName,
         userId: extensionName,
         rawText: text,
         profilePicUrl: extensionIconUrl,
@@ -397,7 +397,7 @@ exports.buildViewerFirebotChatMessageFromAutoModMessage = async (msg) => {
     const viewerFirebotChatMessage = {
         id: msg.messageId,
         username: msg.senderName,
-        displayName: streamer.senderDisplayName,
+        displayName: msg.senderDisplayName,
         useridname: msg.senderName,
         userId: msg.senderId,
         rawText: msg.messageContent,

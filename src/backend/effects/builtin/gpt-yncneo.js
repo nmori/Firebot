@@ -10,6 +10,7 @@ const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
 const { wait } = require("../../utility");
 const axiosDefault = require("axios").default;
+const twitchChat = require("../../chat/twitch-chat");
 
 const axios = axiosDefault.create({
     headers: {
@@ -124,10 +125,13 @@ const playSound = {
 
         return errors;
     },
-    onTriggerEvent: async event => {
-        const effect = event.effect;
+    onTriggerEvent:  async ({ effect, trigger})  => {
 
         try {
+            const { EffectTrigger } = require("../../../shared/effect-constants");
+            const chatHelpers = require("../../chat/chat-helpers");
+            const commandHandler = require("../../chat/commands/commandHandler");
+
             // HTTP header
             var headers = {
                 'Content-Type': 'application/json'
@@ -158,6 +162,13 @@ const playSound = {
 
             if(effect.status==='success')
             {
+                let messageId = null;
+                if (trigger.type === EffectTrigger.COMMAND) {
+                    messageId = trigger.metadata.chatMessage.id;
+                } else if (trigger.type === EffectTrigger.EVENT) {
+                    messageId = trigger.metadata.eventData?.chatMessage?.id;
+                }
+
                 const message = effect.message
                     .replace("{replyMessage}", response.text);
 

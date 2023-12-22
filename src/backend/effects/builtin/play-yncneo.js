@@ -72,7 +72,6 @@ const playSound = {
                 required
                 min="0" 
                 style="width: 50%;" 
-                update="successEffectsUpdated(effects)"
             />
             <p class="help-block">ゆかりネットコネクターNEO v2.1～の翻訳/発話連携プラグインと読み上げ連携プラグインが必要です。</p>
         </div>
@@ -97,22 +96,6 @@ const playSound = {
             return response;
         });
 
-        $scope.successEffectsUpdated = async(effects) =>{
-
-            $scope.effect.voicelists = [];
-            const response = await axios({
-                method:'post',
-                url: '  http://127.0.0.1:'+String($scope.effect.port), 
-                data : JSON.stringify(voiceQuery),
-                header: headers
-            });
-
-            for (const voicecast of response.data.voice) 
-            {
-                $scope.effect.voicelists.push( { name:voicecast });
-            }
-        };
-
         if ($scope.effect.port == null) {
             $scope.effect.port = 8080;
         }       
@@ -120,7 +103,6 @@ const playSound = {
         $scope.effect.voicelists = [];
 
         try {       
-
 
             const headers = {
                 'Content-Type': 'application/json'
