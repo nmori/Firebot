@@ -25,7 +25,7 @@ module.exports = {
         { eventSourceId: "streamloots", eventId: "redemption" },
         { eventSourceId: "firebot", eventId: "view-time-update" }
     ],
-    comparisonTypes: ["include", "doesn't include"],
+    comparisonTypes: ["に属している", "に属していない"],
     valueType: "preset",
     presetValues: viewerRolesService => {
         return viewerRolesService
@@ -89,9 +89,11 @@ module.exports = {
 
         switch (comparisonType) {
         case "include":
-            return hasRole;
+        case "に属している":
+                return hasRole;
         case "doesn't include":
-            return !hasRole;
+        case "に属していない":
+                return !hasRole;
         default:
             return false;
         }

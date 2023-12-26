@@ -153,7 +153,7 @@ const currency = {
             <div ng-show="effect.sendChat">
                 <eos-chatter-select effect="effect" title="Chat as"></eos-chatter-select>
 
-                <eos-container header="Message To Send" pad-top="true">
+                <eos-container header="メッセージの送信" pad-top="true">
                     <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
                     <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">チャットメッセージは360文字を超えることはできません。すべての置換変数が入力された後でも長すぎる場合、このメッセージは自動的にトリミングされます。</div>
                     <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
@@ -163,7 +163,7 @@ const currency = {
                         </label>
                         <div ng-show="whisper">
                             <div class="input-group">
-                                <span class="input-group-addon" id="chat-whisper-effect-type">To</span>
+                                <span class="input-group-addon" id="chat-whisper-effect-type">宛先</span>
                                 <input ng-model="effect.whisper" type="text" class="form-control" id="chat-whisper-setting" aria-describedby="chat-text-effect-type" placeholder="Username">
                             </div>
                         </div>

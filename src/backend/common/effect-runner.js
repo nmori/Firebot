@@ -194,18 +194,25 @@ async function processEffects(processEffectsRequest) {
     return runEffects(runEffectsContext);
 }
 
-function runEffectsManually(effects, metadata = {}, triggerType = EffectTrigger.MANUAL) {
+async function runEffectsManually(effects, metadata = {}, triggerType = EffectTrigger.MANUAL) {
     if (effects == null) {
         return;
     }
-
+    const twitchApi = require("../twitch-api/api");
     const streamerName = accountAccess.getAccounts().streamer.username || "";
-
+    var user =[];
+    try {
+        user = await twitchApi.users.getUserByName(streamerName);
+    } catch (error) {
+        logger.debug("Failed to get account creation date", error);
+    }
     const processEffectsRequest = {
         trigger: {
             type: triggerType,
             metadata: {
                 username: streamerName,
+                useridname: user.useridname??"",
+                displayName: user.displayName?? streamerName,    
                 eventData: {
                     shared: true,
                     totalMonths: 6

@@ -25,7 +25,7 @@ const effect = {
             </label>
             <div ng-show="whisper">
                 <div class="input-group">
-                    <span class="input-group-addon" id="chat-whisper-effect-type">To</span>
+                    <span class="input-group-addon" id="chat-whisper-effect-type">宛先</span>
                     <input ng-model="effect.whisper" type="text" class="form-control" id="chat-whisper-setting" aria-describedby="chat-text-effect-type" placeholder="Username" replace-variables>
                 </div>
             </div>
@@ -40,7 +40,8 @@ const effect = {
     </eos-container>
 
     `,
-    optionsController: () => {},
+    optionsController: () => {
+    },
     optionsValidator: effect => {
         const errors = [];
         if (effect.message == null || effect.message === "") {
@@ -70,6 +71,7 @@ const effect = {
 
         return true;
     }
+
 };
 
 module.exports = effect;

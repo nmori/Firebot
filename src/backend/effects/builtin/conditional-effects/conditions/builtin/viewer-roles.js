@@ -6,7 +6,7 @@ module.exports = {
     id: "firebot:viewerroles",
     name: "視聴者の役割",
     description: "与えられた視聴者の役割に基づく条件",
-    comparisonTypes: ["役割を担当", "役割を担当していない"],
+    comparisonTypes: ["に属している", "に属していない"],
     leftSideValueType: "text",
     leftSideTextPlaceholder: "ユーザ名を入力",
     rightSideValueType: "preset",
@@ -48,13 +48,13 @@ module.exports = {
         case "include":
         case "is in role":
         case "has role":
-        case "役割を担当":
+        case "に属している":
             return hasRole;
         case "doesn't include":
         case "isn't in role":
         case "doesn't have role":
-        case "役割を担当していない":
-            return !hasRole;
+        case "に属していない":
+                return !hasRole;
         default:
             return false;
         }

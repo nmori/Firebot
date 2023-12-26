@@ -34,7 +34,7 @@ const showImage = {
    */
     optionsTemplate: `
   <div class="effect-setting-container">
-    <div class="effect-specific-title"><h4>Image</h4></div>
+    <div class="effect-specific-title"><h4>画像</h4></div>
     <div class="effect-setting-content">
         <div style="padding-bottom: 10px;width: 100%;" ng-hide="effect.imageType === 'folderRandom'">
             <img ng-show="showImage" ng-src="{{getImagePreviewSrc()}}" imageonload="imageLoaded" style="height: 100px;width: 175px;object-fit: scale-down;background: #d7d7d7">
@@ -55,7 +55,7 @@ const showImage = {
             </label>
         </div>
         <div ng-if="effect.imageType === 'folderRandom'" style="display: flex;flex-direction: row;align-items: center;">
-            <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'イメージフォルダを選ぶ}"></file-chooser>
+            <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'イメージフォルダを選ぶ' }"></file-chooser>
         </div>
         <div ng-if="effect.imageType === 'local'" style="display: flex;flex-direction: row;align-items: center;">
             <file-chooser model="effect.file" options="{ filters: [ {name: 'Image', extensions: ['jpg', 'gif', 'png', 'jpeg']} ]}"></file-chooser>

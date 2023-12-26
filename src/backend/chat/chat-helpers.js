@@ -209,8 +209,8 @@ function parseMessageParts(firebotChatMessage, parts) {
     return parts.flatMap(p => {
         if (p.type === "text" && p.text != null) {
 
-            if (firebotChatMessage.username !== streamer.displayName &&
-                (!bot.loggedIn || firebotChatMessage.username !== bot.displayName)) {
+            if (firebotChatMessage.username !== streamer.username &&
+                (!bot.loggedIn || firebotChatMessage.username !== bot.username)) {
                 if (!firebotChatMessage.whisper &&
                 !firebotChatMessage.tagged &&
                 streamer.loggedIn &&
