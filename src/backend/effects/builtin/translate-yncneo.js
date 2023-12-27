@@ -156,11 +156,11 @@ const playSound = {
             });
 
             var message = effect.message
-                .replace("{lang}", response.detect_language);
+                .replace("{lang}", response.data.detect_language);
 
-            response.result.forEach( function( value ) {
-                message =message.replace("{"+value.lang+"}", value.text);                
-            });
+            for(var i=0;i<response.data.result.length;i++){
+                message =message.replace("{"+response.data.result[i].lang+"}", response.data.result[i].text);          
+            } 
 
             await twitchChat.sendChatMessage(message, effect.whisper, effect.chatter, !effect.whisper && effect.sendAsReply ? messageId : undefined);
 

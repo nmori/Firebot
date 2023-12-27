@@ -22,7 +22,8 @@ const VariableCategory = Object.freeze({
     USER: "user based",
     TEXT: "text",
     NUMBERS: "numbers",
-    ADVANCED: "advanced"
+    ADVANCED: "advanced",
+    JP: "jp"
 });
 
 exports.OutputDataType = OutputDataType;
