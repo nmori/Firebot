@@ -2,6 +2,7 @@
 
 const { EffectTrigger } = require("../../../shared/effect-constants");
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
+const logger = require("../../logwrapper");
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;

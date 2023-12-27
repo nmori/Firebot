@@ -2,6 +2,7 @@
 
 const { EffectTrigger } = require("../../../shared/effect-constants");
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
+const logger = require("../../logwrapper");
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -92,9 +93,9 @@ module.exports = {
                 message =message.replace("{from}", from_lang);     
                 message =message.replace("{to}", to_lang);     
                 
-                for(var i=0;i<response.data.result.length;i++){
-                    if(response.data.result[i].lang === to_lang){
-                        message =message.replace("{message}", response.data.result[i].text);                
+                for(var j=0;j<response.data.result.length;j++){
+                    if(response.data.result[j].lang === to_lang){
+                        message =message.replace("{message}", response.data.result[j].text);                
                     }
                 } 
             }
