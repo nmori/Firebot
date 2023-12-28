@@ -26,7 +26,7 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
   definition: {
     id: "ebiggz:obs-toggle-source-visibility",
     name: "OBSソースの表示状態を切り替える",
-    description: "TOBSソースの表示状態を切り替える",
+    description: "OBSソースの表示状態を切り替える",
     icon: "fad fa-clone",
     categories: ["common"],
   },
