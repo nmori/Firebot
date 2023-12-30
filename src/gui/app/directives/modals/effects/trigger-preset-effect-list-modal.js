@@ -21,7 +21,7 @@
                                 model="$ctrl.arguments[arg.name]" 
                                 input-type="string" 
                                 disable-variables="true" 
-                                placeholder-text="Enter value" 
+                                placeholder-text="値を入力" 
                             />
                         </div>
                     </div>

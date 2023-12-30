@@ -6,7 +6,7 @@ const chat = require("../../twitch-chat");
 const model = {
     definition: {
         id: "firebot:role-management",
-        name: "Custom Role Management",
+        name: "役割を管理",
         active: true,
         trigger: "!role",
         description: "チャットから視聴者の役割を管理できるようにする",

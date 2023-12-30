@@ -6,7 +6,7 @@ const model = {
     definition: {
         handle: "loopItem",
         usage: "loopItem",
-        description: "The item for current loop iteration inside of a Loop Effects effect using Array loop mode",
+        description: "Arrayループモードを使用するLoop Effect効果内の現在のループ反復の項目",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
     },

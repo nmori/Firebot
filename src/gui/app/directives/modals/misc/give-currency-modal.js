@@ -6,7 +6,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Give Currency</h4>
+                    <h4 class="modal-title">通貨を送る</h4>
                 </div>
                 <div class="modal-body">
 
@@ -15,13 +15,13 @@
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('currency')}">
                             <label for="currency" class="control-label">Currency</label>
                             <select
-                                id="currency"
+                                id="通貨"
                                 name="通貨"
                                 required
                                 class="fb-select form-control input-lg"
                                 ng-model="$ctrl.currencyInfo.currencyId"
                                 ng-options="currency.id as currency.name for currency in $ctrl.currencies">
-                                <option value="" disabled selected>Select currency...</option>
+                                <option value="" disabled selected>通貨を選択...</option>
                             </select>
                         </div>
 
@@ -83,7 +83,7 @@
 
                         <div class="form-group flex-row jspacebetween mb-0">
                             <div>
-                                <label class="control-label m-0">Send Chat Message</label>
+                                <label class="control-label m-0">チャットを送信</label>
                                 <p class="help-block">チャットに通貨に関する詳細なメッセージを送信する。</p>
                             </div>
                             <div>

@@ -10,7 +10,7 @@ const model = {
     definition: {
         handle: "viewTime",
         usage: "viewTime[username]",
-        description: "Displays the view time (in hours) of a given viewer (leave blank to use current viewer)",
+        description: "指定された視聴者の表示時間（時間単位）を表示します（現在の視聴者を使用する場合は空白のままにします）。",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

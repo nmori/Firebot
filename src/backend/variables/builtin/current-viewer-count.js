@@ -11,7 +11,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "currentViewerCount",
-        description: "Get the number of people viewing your stream.",
+        description: "あなたの配信を視聴している人数を取得します。",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

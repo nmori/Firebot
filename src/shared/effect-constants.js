@@ -14,7 +14,8 @@ const EffectCategory = Object.freeze({
     FUN: "fun",
     INTEGRATIONS: "integrations",
     ADVANCED: "advanced",
-    SCRIPTING: "scripting"
+    SCRIPTING: "scripting",
+    JP_ORIGINAL: "JP original"
 });
 
 /**

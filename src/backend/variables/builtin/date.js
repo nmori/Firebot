@@ -12,23 +12,23 @@ const model = {
         examples: [
             {
                 usage: "date[dddd MMMM Do]",
-                description: "Format with the preferred tokens."
+                description: "優先トークンを使ったフォーマット."
             },
             {
-                usage: "date[MMM Do YYYY, 2, days]",
-                description: "Adds 2 days to the current date (or use other units i.e. months, years, etc.)."
+                usage: "date[MMM Do YYYY, 2, days,locale]",
+                description: "現在の日付に2日足す（月、年など他の単位を使うこともできる）。"
             },
             {
-                usage: "date[MMM Do YYY, -2, days]",
-                description: "Subtract 2 days from the current date (or use other units i.e. months, years, etc.)."
+                usage: "date[MMM Do YYY, -2, days,locale]",
+                description: "現在の日付から2日を引く（または月、年など他の単位を使う）。"
             }
         ],
-        description: "The current date formatted as MMM Do YYYY",
+        description: "MMM Do YYYYとしてフォーマットされた現在の日付。 (日本語版拡張:localeに ja,en などの国を指定できます）",
         categories: [VariableCategory.COMMON],
         possibleDataOutput: [OutputDataType.TEXT]
     },
-    evaluator: (_, template = 'MMM Do YYYY', steps = 0, key) => {
-        const now = moment();
+    evaluator: (_, template = 'MMM Do YYYY', steps = 0, key = 'days', locale = 'ja') => {
+        const now = moment().locale(locale);
 
         if (steps > 0 && key !== null) {
             now.add(steps, key);
@@ -38,7 +38,7 @@ const model = {
             now.subtract(Math.abs(steps), key);
         }
 
-        return now.format(template.toString());
+        return now.format(template);
     }
 };
 

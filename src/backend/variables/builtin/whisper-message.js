@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "whisperMessage",
-        description: "The message included with the whisper.",
+        description: "ささやき声に込められたメッセージ.",
         triggers: triggers,
         categories: [VariableCategory.COMMON],
         possibleDataOutput: [OutputDataType.TEXT]

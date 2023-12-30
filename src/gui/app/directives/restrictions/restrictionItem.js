@@ -38,7 +38,7 @@
                                 restriction-mode="$ctrl.restrictionMode"
                             ></restriction-options>
                             <div style="padding-top: 10px">
-                                <button class="btn btn-danger" ng-click="$ctrl.delete()" aria-label="Delete restriction"><i class="far fa-trash"></i></button>
+                                <button class="btn btn-danger" ng-click="$ctrl.delete()" aria-label="制限の削除"><i class="far fa-trash"></i></button>
                             </div>
                         </div>
                     </div>

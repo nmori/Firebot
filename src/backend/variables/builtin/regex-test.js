@@ -7,12 +7,12 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "regexTest",
-        description: "Check whether a string matches a regular expression",
+        description: "文字列が正規表現にマッチするかどうかを調べる",
         usage: "regexTest[string, expression]",
         examples: [
             {
                 usage: "regexTest[string, expression, flags]",
-                description: "Add flags to the regex evaluation."
+                description: "正規表現の評価にフラグを追加する。"
             }
         ],
         categories: [VariableCategory.ADVANCED],

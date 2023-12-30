@@ -8,7 +8,7 @@ module.exports = {
     definition: {
         handle: "randomCustomRoleUser",
         usage: "randomCustomRoleUser[role]",
-        description: "Returns a random user that has the specified custom role.",
+        description: "指定されたカスタム・ロールを持つランダムなユーザを返します。",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },

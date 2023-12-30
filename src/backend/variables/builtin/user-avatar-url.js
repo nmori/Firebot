@@ -7,15 +7,15 @@ const model = {
     definition: {
         handle: "userAvatarUrl",
         usage: "userAvatarUrl",
-        description: "Gets the url for the avatar of the associated user (Ie who triggered command, pressed button, etc).",
+        description: "関連するユーザー（コマンドを実行したユーザー、ボタンを押したユーザーなど）のアバターのURLを取得します。",
         examples: [
             {
                 usage: "userAvatarUrl[$target]",
-                description: "When in a command, gets the the url for the avatar of the target user."
+                description: "コマンドの中で、ターゲットユーザーのアバターのURLを取得します。"
             },
             {
                 usage: "userAvatarUrl[ebiggz]",
-                description: "Gets the url for the avatar of a specific user."
+                description: "特定のユーザーのアバターのURLを取得します。"
             }
         ],
         categories: [VariableCategory.USER],

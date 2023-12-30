@@ -7,7 +7,7 @@ module.exports = {
     definition: {
         handle: "customRoleUsers",
         usage: "customRoleUsers[role]",
-        description: "Returns an array of all the users in the specified custom role.",
+        description: "指定された役割に属するすべてのユーザの配列を返します。",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },

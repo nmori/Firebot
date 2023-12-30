@@ -22,7 +22,7 @@
                     clickable="false"
                     track-by-field="_id"
                     starting-sort-field="username"
-                    no-data-message="基準を満たした視聴者はいません”>
+                    no-data-message="基準を満たした視聴者はいません" >
                 </sortable-table>
             </div>
             <div class="modal-footer" style="text-align:center;">

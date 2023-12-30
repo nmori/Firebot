@@ -11,19 +11,19 @@ const model = {
     definition: {
         handle: "arg",
         usage: "arg[#]",
-        description: "Grabs the command argument (aka a word after the command !trigger) at the given index.",
+        description: "指定されたインデックスのコマンド引数（コマンド!triggerの後の単語）をつかむ。",
         examples: [
             {
                 usage: "arg[1,2]",
-                description: "Grab a range of args."
+                description: "引数の範囲を取得する。"
             },
             {
                 usage: "arg[2,last]",
-                description: "Grab a range of args up to the last arg."
+                description: "最後の引数までの引数の範囲を取得する。"
             },
             {
                 usage: "arg[all]",
-                description: "Grab all args. This is a good way to grab all text after the !command trigger."
+                description: "すべての引数を取得する。これは、!commandトリガーの後の全てのテキストを取得する良い方法である。"
             }
         ],
         triggers: {

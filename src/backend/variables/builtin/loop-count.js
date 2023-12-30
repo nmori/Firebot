@@ -8,7 +8,7 @@ const model = {
     definition: {
         handle: "loopCount",
         usage: "loopCount",
-        description: "0 based count for the current loop iteration inside of a Loop Effects effect",
+        description: "ループ・エフェクトの内部で、現在のループ反復を0ベースでカウントする。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

@@ -5,7 +5,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "decodeFromUrl",
-        description: "Decodes input text from a URL-encoded string",
+        description: "URLエンコードされた文字列から入力テキストをデコードする",
         usage: "decodeFromUrl[text]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

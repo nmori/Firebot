@@ -67,7 +67,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "USERNAME",
+                    name: "視聴者名",
                     icon: "fa-user",
                     dataField: "username",
                     headerStyles: {
@@ -78,7 +78,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "JOIN DATE",
+                    name: "参加日",
                     icon: "fa-sign-in",
                     dataField: "joinDate",
                     sortable: true,
@@ -86,7 +86,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "LAST SEEN",
+                    name: "最終視聴",
                     icon: "fa-eye",
                     dataField: "lastSeen",
                     sortable: true,
@@ -94,7 +94,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "VIEW TIME (hours)",
+                    name: "視聴時間(Hr)",
                     icon: "fa-tv",
                     dataField: "minutesInChannel",
                     sortable: true,
@@ -106,7 +106,7 @@
                     }
                 },
                 {
-                    name: "CHAT MESSAGES",
+                    name: "チャットメッセージ",
                     icon: "fa-comments",
                     dataField: "chatMessages",
                     sortable: true,

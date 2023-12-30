@@ -9,15 +9,15 @@ const model = {
     definition: {
         handle: "rawBitsLeaderboard",
         usage: "rawBitsLeaderboard[count]",
-        description: "Returns a raw array of the all-time bits leaderboard of the streamer's channel, up to the specified count. Each item in the array has a `username` and `amount` property",
+        description: "配信者チャンネルの全ビッツのリーダーボードを、指定されたカウントまでの生の配列で返す。配列の各項目は `username` と `amount` プロパティを持つ。",
         examples: [
             {
                 usage: "rawBitsLeaderboard[count, period]",
-                description: "Returns a raw array of the bits leaderboard of the streamer's channel during the current specified period, up to the specified count. Each object in the array has a `username` and `amount`. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "現在の指定された期間における、指定された回数までの配信者チャンネルのビッツのリーダーボードの生の配列を返す。配列の各オブジェクトは `username` と `amount` を持つ。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれかである。"
             },
             {
                 usage: "rawBitsLeaderboard[count, period, startDate]",
-                description: "Returns a raw array of the bits leaderboard of the streamer's channel during the specified period that occurred on the specified date, up to the specified count. Each object in the array has a `username` and `amount`. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "指定された日付に発生した、指定された期間中の配信者のチャンネルのビッツリーダーボードを、指定されたカウントまで生の配列で返す。配列の各オブジェクトは `username` と `amount` を持つ。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれかである。"
             }
         ],
         categories: [VariableCategory.COMMON, VariableCategory.ADVANCED],
@@ -31,18 +31,18 @@ const model = {
         period = period ?? "all";
 
         if (Number.isNaN(count) || count < 1 || count > 100) {
-            throw new expressionish.ExpressionArgumentsError("First argument needs to be either null or a number.", 0);
+            throw new expressionish.ExpressionArgumentsError("第一引数にはNULLか数値を指定する。", 0);
         }
 
         const validPeriods = ["day", "week", "month", "year", "all"];
         period = period.toLowerCase();
 
         if (validPeriods.indexOf(period) === -1) {
-            throw new expressionish.ExpressionArgumentsError("Second argument must be a valid period ('day', 'week', 'month', 'year', or 'all').", 0);
+            throw new expressionish.ExpressionArgumentsError("第2引数には有効な期間（'day'、'week'、'month'、'year'、'all'）を指定する。", 0);
         }
 
         if (startDate != null && !moment(startDate).isValid()) {
-            throw new expressionish.ExpressionArgumentsError("Third argument must be a valid date string.", 0);
+            throw new expressionish.ExpressionArgumentsError("第3引数は有効な日付文字列でなければならない。", 0);
         }
 
         return true;

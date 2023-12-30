@@ -439,8 +439,8 @@ function createNewUser(userId, username, displayName, profilePicUrl, twitchRoles
 
         /**@type {FirebotUser} */
         let user = {
-            username: username,
             _id: userId,
+            username: username,
             displayName: displayName,
             profilePicUrl: profilePicUrl,
             twitch: true,

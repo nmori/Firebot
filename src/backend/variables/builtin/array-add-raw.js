@@ -9,14 +9,14 @@ const model = {
         examples: [
             {
                 usage: 'rawArrayAdd[some_array, 4]',
-                description: "Returns a new raw array after appending 4 to the end of the input raw array"
+                description: "入力raw配列の末尾に4を追加した新しいraw配列を返す。"
             },
             {
                 usage: 'rawArrayAdd[some_array, 4, true]',
-                description: 'Retruns a new raw array after prepending 4 to the start of the input raw array'
+                description: '入力raw配列の先頭に4を付加した後、新しいraw配列を再実行する。'
             }
         ],
-        description: "Returns a new array with the added element",
+        description: "要素を追加した新しい配列を返します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

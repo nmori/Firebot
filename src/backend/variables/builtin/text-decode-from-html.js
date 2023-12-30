@@ -6,7 +6,7 @@ const he = require('he');
 const model = {
     definition: {
         handle: "decodeFromHtml",
-        description: "Decodes input text from an HTML-encoded string",
+        description: "HTMLエンコードされた文字列から入力テキストをデコードする。",
         usage: "decodeFromHtml[text]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

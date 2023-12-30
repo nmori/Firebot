@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "max",
-        description: "Returns the highest-value numbered passed",
+        description: "渡された番号のうち、最も大きい番号を返す。",
         usage: "max[num1, num2, ...]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]

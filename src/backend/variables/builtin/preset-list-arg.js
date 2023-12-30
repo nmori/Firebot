@@ -14,7 +14,7 @@ const model = {
     definition: {
         handle: "presetListArg",
         usage: "presetListArg[name]",
-        description: "Represents the given argument passed to this preset effect list.",
+        description: "このプリセット演出リストに渡された与えられた引数を表す。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]

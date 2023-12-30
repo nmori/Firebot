@@ -11,7 +11,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "raidViewerCount",
-        description: "Get the number of viewers brought over by a raid",
+        description: "襲撃によってもたらされた視聴者数の取得",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.NUMBER]

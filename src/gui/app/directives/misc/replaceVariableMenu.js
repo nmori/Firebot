@@ -125,7 +125,7 @@
                     const compiled = $compile(wrapper)(scope);
                     element.wrap(compiled);
 
-                    const button = angular.element(`<span class="variables-btn ${scope.buttonPosition ? scope.buttonPosition : ''}" ng-click="toggleMenu()">$vars</span>`);
+                    const button = angular.element(`<span class="variables-btn ${scope.buttonPosition ? scope.buttonPosition : ''}" ng-click="toggleMenu()">$変数</span>`);
                     $compile(button)(scope);
 
                     if (!scope.disableVariableMenu) {
@@ -140,7 +140,7 @@
                         <div class="variable-menu" ng-show="showMenu" ng-class="menuPosition">
                             <div style="padding:10px;border-bottom: 1px solid #48474a;">
                                 <div style="position: relative;">
-                                    <input id="variable-search" type="text" class="form-control" placeholder="Search variables..." ng-model="variableSearchText" ng-change="searchUpdated()" style="padding-left: 27px;">
+                                    <input id="variable-search" type="text" class="form-control" placeholder="検索..." ng-model="variableSearchText" ng-change="searchUpdated()" style="padding-left: 27px;">
                                     <span class="searchbar-icon"><i class="far fa-search"></i></span>
                                 </div>
                             </div>
@@ -157,10 +157,10 @@
                                 </div>
                                 <div style="padding: 10px;overflow-y: auto; height: 250px;width: 100%;">
                                     <div ng-repeat="variable in variables | orderBy:'handle' | variableCategoryFilter:activeCategory | variableSearch:variableSearchText" style="margin-bottom: 8px;">
-                                        <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
+                                        <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="追加する" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
                                         <div class="muted" ng-bind-html="variable.description"></div>
                                         <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
-                                            <collapsable-section show-text="Other examples" hide-text="Other examples" text-color="#0b8dc6">
+                                            <collapsable-section show-text="使用例" hide-text="使用例" text-color="#0b8dc6">
                                                 <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
                                                     <div style="font-weight: 900;">\${{example.usage}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="addVariable(example)"></i></div>
                                                     <div class="muted" ng-bind-html="example.description"></div>
@@ -190,7 +190,7 @@
 
                     scope.$on("$destroy", function() {
                         $document.unbind("mousedown", documentClick);
-                    });
+                    });                    
                 }
             };
         });

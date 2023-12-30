@@ -16,7 +16,7 @@ triggers[EffectTrigger.QUICK_ACTION] = true;
 module.exports = {
     definition: {
         handle: "username",
-        description: "The associated user (if there is one) for the given trigger. Alternative to $user",
+        description: "指定されたトリガの関連ユーザ(存在する場合)。userの代替",
         triggers: triggers,
         possibleDataOutput: [OutputDataType.TEXT]
     },

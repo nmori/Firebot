@@ -6,7 +6,7 @@ const logger = require('../../logwrapper');
 const model = {
     definition: {
         handle: "rawSetObjectProperty",
-        description: "Adds or updates a property's value in the raw object. For nested properties, you can use dot notation (e.g. some.property). Set value to null to remove property.",
+        description: "生のオブジェクトにプロパティの値を追加または更新します。ネストされたプロパティの場合、ドット記法を使用できます（例：some.property）。プロパティを削除するには、値をnullに設定します。",
         usage: "rawSetObjectProperty[object, propertyPath, value]",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]

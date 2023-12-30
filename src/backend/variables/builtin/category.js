@@ -7,19 +7,19 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "category",
-        description: "Gets the current category/game set for your channel",
+        description: "あなたのチャンネルに設定されている現在のカテゴリ/ゲームを取得します。",
         examples: [
             {
                 usage: "category[$target]",
-                description: "When in a command, gets the category/game set for the target user."
+                description: "コマンドの場合、ターゲットユーザーに設定されているカテゴリ/ゲームを取得します。"
             },
             {
                 usage: "category[$user]",
-                description: "Gets the category/game set for associated user (i.e. who triggered command, pressed button, etc)."
+                description: "関連するユーザー（コマンドをトリガーした人、ボタンを押した人など）に設定されているカテゴリー/ゲームを取得します。"
             },
             {
                 usage: "category[ChannelOne]",
-                description: "Gets the category/game set for a specific channel."
+                description: "特定のチャンネルに設定されているカテゴリ/ゲームを取得します。"
             }
         ],
         categories: [VariableCategory.COMMON, VariableCategory.USER],

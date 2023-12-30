@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>Custom Variable Inspector</title>
+    <title>カスタム変数一覧</title>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
     <style>
@@ -253,7 +253,7 @@
             color: rgba(255, 255, 255, 0.653);
             font-size: 12px;
           "
-          >Watching for variable changes...</span
+          >変数が変更されたか確認しています...</span
         >
       </div>
       <div style="position: relative; margin-bottom: 10px">
@@ -289,7 +289,7 @@
       </div>
       <div style="color: white; margin-bottom: 20px">
         <input type="checkbox" id="show-expired" v-model="showExpired" />
-        <label for="show-expired">Show expired variables</label>
+        <label for="show-expired">期限切れの変数も表示</label>
       </div>
       <div
         style="
@@ -315,7 +315,7 @@
         v-if="filteredVariables.length < 1"
         style="opacity: 0.5; color: white; padding: 10px"
       >
-        No variables found.
+        変数は見つかりません.
       </div>
     </div>
     <script>
@@ -344,10 +344,10 @@
           },
           updateSecondsDisplay() {
             if (this.secondsLeft < 1) {
-              this.display = "-";
+              this.display = "期限切れ";
             } else {
               this.secondsLeft -= 1;
-              this.display = `in ${this.secondsLeft}s`;
+              this.display = `のこり ${this.secondsLeft}秒`;
               this.timeoutId = setTimeout(this.updateSecondsDisplay, 1000);
             }
           },
@@ -361,9 +361,9 @@
             this.display = "";
 
             if (this.action === "expired" || this.ttl < 0) {
-              this.display = "-";
+              this.display = "期限切れ";
             } else if (this.ttl === 0) {
-              this.display = "Never";
+              this.display = "∞";
             } else if (this.ttl > 0) {
               const diffInSeconds = Math.ceil((this.ttl - Date.now()) / 1000);
               this.secondsLeft = diffInSeconds;
@@ -418,7 +418,7 @@
                             <div style="height: 1px; background: #807676; flex: 1;"></div>
                             <div style="margin: 0 13px; font-size: 12px; color: #909090;">History</div>
                             <div style="height: 1px; background: #807676; flex: 1;"></div>
-                            <button class="delete-button" @click.stop="deleteVariable" title="Delete Variable"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg></a>
+                            <button class="delete-button" @click.stop="deleteVariable" title="変数を削除"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg></a>
                         </div>
                         <div v-for="h in history" style="display:flex; color: white;">
                             <div class="var-cell"></div>
@@ -427,7 +427,7 @@
                             <div class="var-cell">{{h.action}}</div>
                             <div style="width: 15px;"></div>
                         </div>
-                        <div v-if="history.length < 1" style="opacity: 0.75;">No changes captured yet.</div>
+                        <div v-if="history.length < 1" style="opacity: 0.75;">変更履歴はまだありません.</div>
                     </div>
                 </div>
             `,

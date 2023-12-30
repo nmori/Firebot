@@ -9,16 +9,16 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Edit URL Allowlist</h4>
+                <h4 class="modal-title">URL許可リストを編集</h4>
             </div>
             <div class="modal-body">
-                <p class="muted" style="margin-bottom:10px;">URLs found in messages containing any URL parts listed here will be automatically allowed.</p>
-                <p class="muted" style="margin-bottom:20px;">NOTE: If multiple URLs are found in a message and ANY of them are not allowed, the entire message will be deleted.</p>
+                <p class="muted" style="margin-bottom:10px;">ここに記載されているURL部分を含むメッセージのURLは、自動的に許可されます。</p>
+                <p class="muted" style="margin-bottom:20px;">NOTE: メッセージ内に複数のURLが見つかり、そのうちのどれかが許可されていない場合、メッセージ全体が削除されます。</p>
                 <div style="margin: 0 0 25px;display: flex;flex-direction: row;">
 
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="add-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="dropdown-text"><i class="fas fa-plus-circle"></i> Add URL(s)</span>
+                            <span class="dropdown-text"><i class="fas fa-plus-circle"></i> 追加するURL(s)</span>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="add-options">
@@ -28,7 +28,7 @@
                     </div>
 
                     <div style="display: flex;flex-direction: row;justify-content: space-between;margin-left: auto;">
-                        <searchbar placeholder-text="Search URLs..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
+                        <searchbar placeholder-text="検索..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
                     </div>
                 </div>
                 <div>
@@ -40,12 +40,12 @@
                         starting-sort-field="createdAt"
                         sort-initially-reversed="true"
                         page-size="5"
-                        no-data-message="No allowed URLs have been saved.">
+                        no-data-message="許可されたURLが保存されていない.">
                     </sortable-table>
                 </div>
             </div>
             <div class="modal-footer">
-                <button ng-show="$ctrl.cms.chatModerationData.urlAllowlist.length > 0" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.deleteAllUrls()">Delete All Allowed URLs</button>
+                <button ng-show="$ctrl.cms.chatModerationData.urlAllowlist.length > 0" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.deleteAllUrls()">許可URLを全削除</button>
             </div>
             `,
             bindings: {
@@ -94,7 +94,7 @@
                             'width': '15px'
                         },
                         sortable: false,
-                        cellTemplate: `<i class="fal fa-trash-alt clickable" style="color:#ff3737;" ng-click="clicked()" uib-tooltip="Delete" tooltip-append-to-body="true"></i>`,
+                        cellTemplate: `<i class="fal fa-trash-alt clickable" style="color:#ff3737;" ng-click="clicked()" uib-tooltip="削除" tooltip-append-to-body="true"></i>`,
                         cellController: ($scope, chatModerationService) => {
                             $scope.clicked = () => {
                                 chatModerationService.removeAllowedUrlByText($scope.data.text);
@@ -107,9 +107,9 @@
                     utilityService.openGetInputModal(
                         {
                             model: "",
-                            label: "Add allowed URL",
-                            saveText: "Add",
-                            inputPlaceholder: "Enter allowed URL",
+                            label: "許可されたURLを追加する",
+                            saveText: "追加",
+                            inputPlaceholder: "URLを入力",
                             validationFn: (value) => {
                                 return new Promise(resolve => {
                                     if (value == null || value.trim().length < 1 || value.trim().length > 359) {
@@ -122,7 +122,7 @@
                                     }
                                 });
                             },
-                            validationText: "Allowed URL can't be empty and can't already exist."
+                            validationText: "許可されたURLが空か、すでに存在しています。"
 
                         },
                         (newUrl) => {
@@ -165,9 +165,9 @@
 
                 $ctrl.deleteAllUrls = function() {
                     utilityService.showConfirmationModal({
-                        title: "Delete All Allowed URLs",
-                        question: `Are you sure you want to delete all allowed URLs?`,
-                        confirmLabel: "Delete",
+                        title: "すべての許可されたURLを削除する",
+                        question: `許可されたURLをすべて削除してもよろしいですか？`,
+                        confirmLabel: "削除する",
                         confirmBtnType: "btn-danger"
                     }).then(confirmed => {
                         if (confirmed) {

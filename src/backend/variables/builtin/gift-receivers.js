@@ -10,15 +10,15 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "giftReceivers",
-        description: "A comma separated list of the usernames of the receivers of a community gift sub.",
+        description: "コミュニティ・ギフトの受取人のユーザー名をカンマ区切りにしたリスト。",
         examples: [
             {
                 usage: "giftReceivers[1, username]",
-                description: "Displays the username of a specific gift receiver in the list."
+                description: "リスト内の特定のギフト受取人のユーザー名を表示します。"
             },
             {
                 usage: "giftReceivers[3, months]",
-                description: "Displays the cumulative sub months of a specific gift receiver in the list."
+                description: "リスト内の特定のギフト受取人の累計サブスク月数を表示します。"
             }
         ],
         triggers: triggers,

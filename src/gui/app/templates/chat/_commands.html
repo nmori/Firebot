@@ -69,7 +69,7 @@
 
           <searchbar
             ng-show="commandsService.getCustomCommands().length > 0"
-            placeholder-text="Search commands"
+            placeholder-text="検索..."
             query="commandsService.customCommandSearch"
             style="flex-basis: 250px"
           ></searchbar>
@@ -120,7 +120,7 @@
                 <span
                   style="color: #16809c; font-size: 20px"
                   ng-click="manuallyTriggerCommand(command.id)"
-                  uib-tooltip="Test Effects"
+                  uib-tooltip="演出のテスト実行"
                   tooltip-append-to-body="true"
                 >
                   <i class="fas fa-play-circle clickable"></i>
@@ -235,7 +235,7 @@
         "
       >
         <searchbar
-          placeholder-text="Search system commands"
+          placeholder-text="検索..."
           query="sysCommandSearch"
           style="flex-basis: 250px"
         ></searchbar>

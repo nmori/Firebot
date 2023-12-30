@@ -8,7 +8,7 @@ module.exports = {
     definition: {
         handle: "textSubstring",
         usage: "textSubstring[text, start, end]",
-        description: "Returns a substring of the provided text based on the range",
+        description: "指定されたテキストの部分文字列を、以下の範囲に基づいて返します。",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]
     },

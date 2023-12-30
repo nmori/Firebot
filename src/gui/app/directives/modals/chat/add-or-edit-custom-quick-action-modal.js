@@ -8,7 +8,7 @@
             template: `
                 <div class="modal-header" style="text-align: center">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Edit Quick Action</h4>
+                    <h4 class="modal-title">クイックアクションを編集</h4>
                 </div>
                 <div class="modal-body py-8 px-14">
                     <div class="mb-6">
@@ -66,7 +66,7 @@
                                     model="$ctrl.quickAction.presetArgValues[arg.name]" 
                                     input-type="string" 
                                     disable-variables="true" 
-                                    placeholder-text="Enter value" 
+                                    placeholder-text="値を入れる" 
                                 />
                             </div>
                         </div>

@@ -7,7 +7,7 @@ const activeUserHandler = require('../../chat/chat-listeners/active-user-handler
 const model = {
     definition: {
         handle: "randomViewer",
-        description: "Get a random viewer in chat.",
+        description: "ランダムに視聴者を取得",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },

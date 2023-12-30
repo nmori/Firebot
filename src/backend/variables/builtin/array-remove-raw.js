@@ -5,15 +5,15 @@ const model = {
     definition: {
         handle: "rawArrayRemove",
         usage: "rawArrayRemove[someRawArray, index]",
-        description: "Returns a new array with the element at the given index removed",
+        description: "指定したインデックスの要素を取り除いた新しい配列を返します。",
         examples: [
             {
                 usage: 'rawArrayRemove[someRawArray, 0]',
-                description: "Removes the element at the 0 index"
+                description: "インデックス0の要素を削除する"
             },
             {
                 usage: 'rawArrayRemove[someRawArray, last]',
-                description: 'Removes the element at the last index'
+                description: '最後のインデックスの要素を削除する'
             }
         ],
         categories: [VariableCategory.ADVANCED],

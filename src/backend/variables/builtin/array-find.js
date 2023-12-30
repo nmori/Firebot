@@ -26,15 +26,15 @@ const model = {
     definition: {
         handle: "arrayFind",
         usage: "arrayFind[jsonArray, matcher, propertyPath]",
-        description: "Finds a matching element in the array or null",
+        description: "配列からマッチする要素を見つけるか、あるいは null",
         examples: [
             {
                 usage: 'arrayFind["[1,2,3]", 1]',
-                description: "Finds 1 in the array"
+                description: "配列から1を見つける"
             },
             {
                 usage: 'arrayFind["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"MageEnclave\\"}]", ebiggz, username]',
-                description: 'Finds object with username of "ebiggz"'
+                description: 'ユーザー名が "ebiggz "のオブジェクトを探す'
             }
         ],
         categories: [VariableCategory.ADVANCED],

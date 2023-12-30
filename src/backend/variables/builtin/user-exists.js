@@ -8,7 +8,7 @@ const model = {
     definition: {
         handle: "userExists",
         usage: "userExists[username]",
-        description: "Outputs 'true' if a user exists in Firebot's database, 'false' if not",
+        description: "Firebotのデータベースにユーザーが存在する場合は'true'を、存在しない場合は'false'を出力します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

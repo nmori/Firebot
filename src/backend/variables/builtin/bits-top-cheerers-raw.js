@@ -8,19 +8,19 @@ const twitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         handle: "rawTopBitsCheerers",
-        description: "Returns a raw array containing the username of the top user who has cheered the most bits in the streamer's channel all-time.",
+        description: "その配信者チャンネルで最も多くのビッツを応援したトップユーザのユーザ名を含む生の配列を返します。",
         examples: [
             {
                 usage: "rawTopBitsCheerers[count]",
-                description: "Returns a raw array of the usernames up to the specified count, of the users who have cheered the most bits in the streamer's channel all-time."
+                description: "その配信者チャンネルで最も多くのビッツを応援したユーザの、 指定されたカウントまでのユーザ名を生の配列で返します。"
             },
             {
                 usage: "rawTopBitsCheerers[count, period]",
-                description: "Returns a raw array of the usernames up to the specified count, of the users who have cheered the most bits in the streamer's channel during the current specified period. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "現在指定されている期間中、配信者チャンネルで最も多くのビッツを応援したユーザの、 指定されたカウントまでのユーザ名の生の配列を返します。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれかです。"
             },
             {
                 usage: "rawTopBitsCheerers[count, period, startDate]",
-                description: "Returns a raw array of the usernames up to the specified count, of the users who have cheered the most bits in the streamer's channel during the specified period that occurred on the specified date. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "指定した日付に発生した配信者チャンネルで、 指定した期間中に最も多くのビッツを応援したユーザのユーザ名を、 指定したカウント数までの生の配列で返します。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれかです。"
             }
         ],
         categories: [VariableCategory.COMMON, VariableCategory.USER],

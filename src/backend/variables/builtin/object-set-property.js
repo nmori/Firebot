@@ -6,7 +6,7 @@ const logger = require('../../logwrapper');
 const model = {
     definition: {
         handle: "setObjectProperty",
-        description: "Adds or updates a property's value in the given JSON object. For nested properties, you can use dot notation (e.g. some.property). Set value to null to remove property.",
+        description: "与えられたJSONオブジェクトにプロパティの値を追加または更新します。ネストされたプロパティの場合は、ドット記法を使用できます（例：some.property）。プロパティを削除するには、値をnullに設定します。",
         usage: "setObjectProperty[object, propertyPath, value]",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]

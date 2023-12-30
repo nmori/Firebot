@@ -10,19 +10,19 @@ const accountAccess = require("../../common/account-access");
 const model = {
     definition: {
         handle: "followCount",
-        description: "The number of follows you currently have.",
+        description: "現在のフォロー数",
         examples: [
             {
                 usage: "followCount[$target]",
-                description: "When in a command, gets the follow count for the target user."
+                description: "コマンドの場合、対象ユーザーのフォロー数を取得する。"
             },
             {
                 usage: "followCount[$user]",
-                description: "Gets the follow count for associated user (Ie who triggered command, pressed button, etc)."
+                description: "関連するユーザーのフォローカウントを取得します。"
             },
             {
                 usage: "followCount[ChannelOne]",
-                description: "Gets the follow count for a specific channel."
+                description: "特定のチャンネルのフォローカウントを取得します。"
             }
         ],
         categories: [VariableCategory.NUMBERS, VariableCategory.USER],

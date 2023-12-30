@@ -10,14 +10,14 @@ const util = require("../../utility");
 const model = {
     definition: {
         handle: "topMetadata",
-        description: "Comma seperated list of users with the most of the given metadata key. Defaults to top 10, you can provide a custom number as a second argument.",
+        description: "指定されたメタデータのキーを最も多く持つユーザーのコンマ区切りリスト。デフォルトはトップ10で、第2引数に任意の数値を指定することができます。",
         usage: "topMetadata[metadataKey]",
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: async (_, metadataKey, count = 10) => {
 
         if (metadataKey == null) {
-            return "[Invalid metadata key]";
+            return "[無効なメタデータ・キー]";
         }
 
         // limit to max of 50
@@ -46,7 +46,7 @@ const model = {
 
         // no one in list: output none
         if (topUsersDisplay === '') {
-            return '(none)';
+            return '(なし)';
         }
 
         // return list

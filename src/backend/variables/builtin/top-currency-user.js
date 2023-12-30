@@ -9,15 +9,15 @@ const currencyDatabase = require("../../database/currencyDatabase");
 const model = {
     definition: {
         handle: "topCurrencyUser",
-        description: "Get the username or amount for a specific position in the top currency",
+        description: "特定のポジションのユーザー名または金額を上位通貨で取得する",
         examples: [
             {
                 usage: "topCurrencyUser[Points, 1, username]",
-                description: "Get the top Points username"
+                description: "トップポイントユーザー名を取得"
             },
             {
                 usage: "topCurrencyUser[Points, 5, amount]",
-                description: "Get the top Points amount at 5th position"
+                description: "5位でトップポイントを獲得"
             }
         ],
         usage: "topCurrencyUser[currencyName, position, username/amount]",

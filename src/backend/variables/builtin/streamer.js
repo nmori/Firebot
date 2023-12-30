@@ -9,7 +9,7 @@ const { OutputDataType } = require("../../../shared/variable-constants");
 const model = {
     definition: {
         handle: "streamer",
-        description: "Outputs the Streamer account username.",
+        description: "Streamer アカウントのユーザー名を出力する。",
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: () => {

@@ -11,6 +11,7 @@ export function triggerCheer(
 ): void {
     eventManager.triggerEvent("twitch", "cheer", {
         username: userName,
+        displayName: displayName,
         userId,
         displayName: displayName,
         isAnonymous,

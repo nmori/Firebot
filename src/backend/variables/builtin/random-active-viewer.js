@@ -12,15 +12,15 @@ const model = {
     definition: {
         handle: "randomActiveViewer",
         usage: "randomActiveViewer",
-        description: "Get a random active chatter.",
+        description: "アクティブユーザをランダムに取得します",
         examples: [
             {
                 usage: "randomActiveViewer[roleName]",
-                description: "Filter to an active viewer in a specific role."
+                description: "特定の役割のアクティブな視聴者にフィルターをかける。"
             },
             {
                 usage: "randomActiveViewer[null, ignoreUser]",
-                description: "Get a random active user that is NOT the ignore user"
+                description: "無視ユーザーではないランダムなアクティブユーザーを取得する。"
             }
         ],
         categories: [VariableCategory.USER],

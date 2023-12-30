@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "rawGiftReceivers",
-        description: "Returns a raw array containing the recipients' usernamess and months subbed",
+        description: "受信者のユーザ名とサブセットを行った月を含む生の配列を返します。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.USER, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.ALL]

@@ -11,11 +11,11 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "quote",
-        description: "Get a random quote",
+        description: "ランダム見積もり",
         examples: [
             {
                 usage: "quote[#]",
-                description: "Get a specific quote id."
+                description: "特定の見積もりIDを取得します。"
             }
         ],
         categories: [VariableCategory.TEXT],

@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "min",
-        description: "Returns the lowest-value numbered passed",
+        description: "渡された番号のうち、最も小さい値を返す",
         usage: "min[num1, num2, ...]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]

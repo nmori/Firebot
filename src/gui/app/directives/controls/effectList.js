@@ -109,7 +109,7 @@
                             </div>
                         </div>
 
-                        <div class="test-effects-btn clickable" uib-tooltip="Test Effects" aria-label="Test effects" ng-click="$ctrl.testEffects()" role="button">
+                        <div class="test-effects-btn clickable" uib-tooltip="演出のテスト実行" aria-label="Test effects" ng-click="$ctrl.testEffects()" role="button">
                             <i class="far fa-play-circle"></i>
                         </div>
 

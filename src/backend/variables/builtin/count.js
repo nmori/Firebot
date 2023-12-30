@@ -14,7 +14,7 @@ const model = {
     definition: {
         handle: "count",
         usage: "count",
-        description: "Displays the number of times the given command has been run.",
+        description: "指定されたコマンドの実行回数を表示する。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, OutputDataType.NUMBER],
         possibleDataOutput: [OutputDataType.NUMBER]

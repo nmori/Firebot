@@ -9,15 +9,15 @@ const model = {
     definition: {
         handle: "bitsLeaderboard",
         usage: "bitsLeaderboard[count]",
-        description: "Returns a JSON array of the all-time bits leaderboard of the streamer's channel, up to the specified count. Each object in the array has a `username` and `amount`.",
+        description: "配信者のチャンネルの全ビッツリーダーボードを、指定されたカウントまで JSON 配列で返す。配列の各オブジェクトは `username` と `amount` を持つ。",
         examples: [
             {
                 usage: "bitsLeaderboard[count, period]",
-                description: "Returns a JSON array of the bits leaderboard of the streamer's channel during the current specified period, up to the specified count. Each object in the array has a `username` and `amount`. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "指定された期間中の、指定された回数までの配信者チャンネルのビッツリーダーボードの JSON 配列を返す。配列の各オブジェクトは `username` と `amount` を持つ。期間には 'day'、'week'、'month'、'year' あるいは 'all' を指定できる。"
             },
             {
                 usage: "bitsLeaderboard[count, period, startDate]",
-                description: "Returns a JSON array of the bits leaderboard of the streamer's channel during the specified period that occurred on the specified date, up to the specified count. Each object in the array has a `username` and `amount`. Period can be 'day', 'week', 'month', 'year', or 'all'."
+                description: "指定された日付に発生した、指定された期間中の配信者チャンネルのビッツリーダーボードを、指定されたカウントまで JSON 配列で返す。配列の各オブジェクトは `username` と `amount` を持つ。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれかである。"
             }
         ],
         categories: [VariableCategory.COMMON, VariableCategory.ADVANCED],

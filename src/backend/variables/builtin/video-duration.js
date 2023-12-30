@@ -9,7 +9,7 @@ const model = {
     definition: {
         handle: "videoDuration",
         usage: "videoDuration[filePathOrUrl]",
-        description: "Attempts to retrieve video duration.",
+        description: "ビデオの再生時間を取得しようとします。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

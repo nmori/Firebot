@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "ceil",
-        description: "Rounds up the given number to the nearest whole number.",
+        description: "指定された数を最も近い整数に切り上げます。",
         usage: "ceil[num]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]

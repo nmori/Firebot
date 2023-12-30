@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "trim",
-        description: "Removes any whitespace from the beginning and end of input text.",
+        description: "入力テキストの先頭と末尾の空白を削除する。.",
         usage: "trim[text]",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]

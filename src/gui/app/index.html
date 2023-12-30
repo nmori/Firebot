@@ -478,12 +478,12 @@
               <div class="col-sm-6 streamer-login top-padding">
                 <img class="login-pic" ng-src="{{getAccountAvatar('streamer')}}">
                 <h2>{{cs.accounts.streamer.username}}</h2>
-                <button type="button" class="btn" ng-class="cs.accounts.streamer.loggedIn ? 'btn-danger' : 'btn-success'" aria-label="cs.accounts.streamer.loggedIn ? 'Log Out Streamer Account' : 'Log In Streamer Account'" ng-click="loginOrLogout('streamer')">{{cs.accounts.streamer.loggedIn ? "Logout" : "Login"}}</button>
+                <button type="button" class="btn" ng-class="cs.accounts.streamer.loggedIn ? 'btn-danger' : 'btn-success'" aria-label="cs.accounts.streamer.loggedIn ? '配信者ログアウト' : '配信者ログイン'" ng-click="loginOrLogout('streamer')">{{cs.accounts.streamer.loggedIn ? "ログアウト" : "ログイン"}}</button>
               </div>
               <div class="col-sm-6 bot-login top-padding">
                 <img class="login-pic" ng-src="{{getAccountAvatar('bot')}}">
                 <h2>{{cs.accounts.bot.username}}</h2>
-                <button type="button" class="btn" ng-class="cs.accounts.bot.loggedIn ? 'btn-danger' : 'btn-success'" aria-label="cs.accounts.bot.loggedIn ? 'Log Out Bot Account' : 'Log In Bot Account'" ng-click="loginOrLogout('bot')">{{cs.accounts.bot.loggedIn ? "Logout" : "Login"}}</button>
+                <button type="button" class="btn" ng-class="cs.accounts.bot.loggedIn ? 'btn-danger' : 'btn-success'" aria-label="cs.accounts.bot.loggedIn ? 'Botログアウト' : 'Botログイン'" ng-click="loginOrLogout('bot')">{{cs.accounts.bot.loggedIn ? "・ログアウト" : "ログイン"}}</button>
               </div>
             </div>
       </div>
@@ -683,7 +683,7 @@
     <!-- Download Modal -->
     <script type="text/ng-template" id="downloadModal.html">
       <div class="modal-header">
-        <h2 ng-if="!installing">{{downloadComplete ? 'Download complete!' : 'Downloading update...'}}</h2>
+        <h2 ng-if="!installing">{{downloadComplete ? 'ダウンロード完了!' : '更新をダウンロード中...'}}</h2>
         <h2 ng-if="installing">更新中...</h2>
       </div>
       <div class="modal-body" style="text-align:center;">

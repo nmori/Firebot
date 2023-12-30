@@ -8,7 +8,7 @@ module.exports = {
     definition: {
         handle: "textContains",
         usage: "textContains[text, search]",
-        description: "Returns true if text contains search, otherwise returns false",
+        description: "テキストが検索を含んでいれば真を、そうでなければ偽を返します。",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]
     },

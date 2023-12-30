@@ -12,7 +12,7 @@ triggers[EffectTrigger.EVENT] = ["twitch:timeout"];
 const model = {
     definition: {
         handle: "timeoutDuration",
-        description: "How long the user is timed out for in minus",
+        description: "ユーザーのタイムアウト時間（マイナス値）",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.NUMBER]

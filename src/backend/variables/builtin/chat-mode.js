@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "chatMode",
-        description: "The mode to which the chat has been updated.",
+        description: "チャットが更新されたモード。",
         triggers: triggers,
         categories: [VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.text]

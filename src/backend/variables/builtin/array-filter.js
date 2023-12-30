@@ -29,18 +29,18 @@ const model = {
         examples: [
             {
                 usage: 'arrayFilter["[1,2,3]", 1, null, false]',
-                description: "Filter out anything that doesn't equal 1 (new array: [1])"
+                description: "1に等しくないものを除外する（新しい配列：[1]）。"
             },
             {
                 usage: 'arrayFilter["[1,2,3]", 1, null, true]',
-                description: 'Filter out anything that equals 1 (new array: [2,3])'
+                description: '1に等しいものを除外する（新しい配列：[2,3]）。'
             },
             {
                 usage: 'arrayFilter["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"MageEnclave\\"}]", ebiggz, username, true]',
-                description: 'Filter out anything that has a username property which equals "ebiggz" (new array: [{\\"username\\": \\"MageEnclave\\"}])'
+                description: 'ユーザー名プロパティが "ebiggz "に等しいものを除外する。(新しい配列: [{\\"username\\": \\"MageEnclave\\"}])'
             }
         ],
-        description: "Returns a new filtered array.",
+        description: "フィルタリングされた新しい配列を返す。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

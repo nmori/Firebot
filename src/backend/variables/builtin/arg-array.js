@@ -12,7 +12,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "argArray",
-        description: "Returns a JSON array of command arguments",
+        description: "コマンド引数のJSON配列を返す",
         triggers: triggers,
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]

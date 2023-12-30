@@ -7,12 +7,12 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "round",
-        description: "Rounds the given number to the nearest whole number.",
+        description: "指定された数値を最も近い整数に丸めます。",
         usage: "round[num]",
         examples: [
             {
                 usage: "round[num, places]",
-                description: "Rounds the given number to the specified number of decimal places."
+                description: "指定された数値を指定された小数点以下の桁数に丸めます。"
             }
         ],
         categories: [VariableCategory.NUMBERS],

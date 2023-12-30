@@ -5,7 +5,7 @@ const model = {
     definition: {
         handle: "rawArrayFrom",
         usage: "rawArrayFrom[...values]",
-        description: "Returns a raw array containing the listed values",
+        description: "リストされた値を含む生の配列を返す",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

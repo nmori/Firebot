@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "bitsBadgeUnlockedMessage",
-        description: "The message included when someone shares that they unlocked a new bits badge.",
+        description: "このメッセージには、誰かが新しいビッツバッジのロックを解除したことをシェアしたときのものも含まれている。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

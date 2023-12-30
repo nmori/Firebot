@@ -7,7 +7,7 @@ const nth = n => ["st", "nd", "rd"][(((n < 0 ? -n : n) + 90) % 100 - 10) % 10 - 
 const model = {
     definition: {
         handle: "ordinalIndicator",
-        description: "Adds an ordinal indicator suffix to a number (ie 'st', 'nd', 'rd')",
+        description: "数値に序数を表す接尾辞を付加する（'st'、'nd'、'rd'など）。",
         usage: "ordinalIndicator[number]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.TEXT]

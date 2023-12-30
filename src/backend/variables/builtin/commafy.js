@@ -7,7 +7,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "commafy",
-        description: "Adds the appropriate commas to a number.",
+        description: "数値に適切なカンマを追加する。",
         usage: "commafy[number]",
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.TEXT]

@@ -6,7 +6,7 @@ const logger = require('../../logwrapper');
 const model = {
     definition: {
         handle: "rawObjectWalkPath",
-        description: "Returns the raw value from a raw object at the given dot-noated path",
+        description: "与えられたドット・ノートのパスにある生オブジェクトから生値を返す",
         usage: "rawObjectWalkPath[rawobject, path.to.value]",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]

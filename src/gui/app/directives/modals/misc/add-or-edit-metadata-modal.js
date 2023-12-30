@@ -6,7 +6,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNew ? 'Add' : 'Edit'}} Metadata</h4>
+                    <h4 class="modal-title">メタデータの{{$ctrl.isNew ? '追加' : '編集'}}</h4>
                 </div>
                 <div class="modal-body">
 
@@ -20,7 +20,7 @@
                                 id="key" 
                                 name="key" 
                                 class="form-control input-lg" 
-                                placeholder="Enter key"
+                                placeholder="キーを入力"
                                 ng-model="$ctrl.metadata.key"
                                 ui-validate="'$value != null && $value.length > 0'" 
                                 required
@@ -37,7 +37,7 @@
                                 id="value" 
                                 name="value" 
                                 class="form-control input-lg" 
-                                placeholder="Enter value"
+                                placeholder="値を入力"
                                 ng-model="$ctrl.metadata.value"
                                 disable-variables="true"
                             />
@@ -51,9 +51,9 @@
                         </div>
 
                         <div ng-show="$ctrl.isNew">
-                            <div>Data Editor Type</div>
+                            <div>データの種類</div>
                             <dropdown-select 
-                                options="{ string: 'Text', number: 'Number', json: 'JSON' }" 
+                                options="{ string: '文字', number: '数字', json: 'JSON' }" 
                                 selected="expectedValueType"
                             >
                             </dropdown-select>

@@ -590,7 +590,7 @@ const playSound = {
 
         // Set output device.
         let selectedOutputDevice = effect.audioOutputDevice;
-        if (selectedOutputDevice == null || selectedOutputDevice.label === "App Default") {
+        if (selectedOutputDevice == null || selectedOutputDevice.deviceId === "") {
             selectedOutputDevice = settings.getAudioOutputDevice();
         }
         data.audioOutputDevice = selectedOutputDevice;

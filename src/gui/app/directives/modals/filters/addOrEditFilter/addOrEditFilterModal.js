@@ -24,17 +24,6 @@
                         </ul>
                     </div>
 
-                    <div class="btn-group" style="margin-right: 5px;margin-bottom:5px;" uib-dropdown>
-                        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
-                        {{$ctrl.selectedFilter.comparisonType}} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                            <li role="menuitem" ng-repeat="comparisonType in $ctrl.currentFilterDef.comparisonTypes" ng-click="$ctrl.selectedFilter.comparisonType = comparisonType">
-                                <a href>{{comparisonType}}</a>
-                            </li>
-                        </ul>
-                    </div>
-
                     <div ng-switch="$ctrl.currentFilterDef.valueType" style="flex: 1 1 0;">
                         <div ng-switch-when="preset">
 
@@ -54,6 +43,17 @@
                             <input type="{{$ctrl.currentFilterDef.valueType}}" class="form-control" style="min-width: 100px;" ng-model="$ctrl.selectedFilter.value" placeholder="Value">
                         </div>
                     </div>
+
+                    <div class="btn-group" style="margin-right: 5px;margin-bottom:5px;" uib-dropdown>
+                        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
+                        {{$ctrl.selectedFilter.comparisonType}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem" ng-repeat="comparisonType in $ctrl.currentFilterDef.comparisonTypes" ng-click="$ctrl.selectedFilter.comparisonType = comparisonType">
+                                <a href>{{comparisonType}}</a>
+                            </li>
+                        </ul>
+                    </div>                    
                 </div>
 
             </div>

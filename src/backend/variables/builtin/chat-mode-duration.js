@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "chatModeDuration",
-        description: "The duration relevant to either follower (minutes) or slow (seconds) mode.",
+        description: "フォロワー（分）またはスロー（秒）モードに関連する持続時間。",
         triggers: triggers,
         categories: [VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.number]

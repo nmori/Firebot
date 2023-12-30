@@ -40,7 +40,8 @@ const effect = {
     </eos-container>
 
     `,
-    optionsController: () => {},
+    optionsController: () => {
+    },
     optionsValidator: effect => {
         const errors = [];
         if (effect.message == null || effect.message === "") {
@@ -60,6 +61,7 @@ const effect = {
 
         return true;
     }
+
 };
 
 module.exports = effect;

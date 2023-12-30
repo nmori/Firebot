@@ -8,7 +8,7 @@ const model = {
     definition: {
         handle: "scrambleText",
         usage: "scrambleText[text]",
-        description: "Scrambles the input text",
+        description: "入力テキストをスクランブルする",
         categories: [VariableCategory.TEXT],
         possibleDataOutput: [OutputDataType.TEXT]
     },

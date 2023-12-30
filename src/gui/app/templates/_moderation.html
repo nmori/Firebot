@@ -2,7 +2,7 @@
     <div class="p-6">
       <div class="content-block moderation-feature-block">
         <div class="content-block-body">
-          <div class="font-semibold text-3xl">この制約を受けない役職 <tooltip text="'これらの役割の人は、すべてのモデレーション機能から除外されます。'" /></div>
+          <div class="font-semibold text-3xl">この制約を受けない役職 <tooltip text="'これらの役割の人は、すべての自動管理機能から除外されます。'" /></div>
 
           <div class="mt-6">
             <exempt-roles model="cms.chatModerationData.settings.exemptRoles" on-update="cms.saveChatModerationSettings()"></exempt-roles>
@@ -125,7 +125,7 @@
           <div style="display: block;width: 100%;" class="my-8" ng-show="cms.chatModerationData.settings.urlModeration.enabled">
             <div class="my-8">
               <div class="mb-4 text-2xl font-semibold">
-                この制約を受けない役職 <tooltip text="'この役職の人はURLモデレーションの制約を受けません'" />
+                この制約を受けない役職 <tooltip text="'この役職の人はURL自動管理の制約を受けません'" />
               </div>
               <exempt-roles model="cms.chatModerationData.settings.urlModeration.exemptRoles" on-update="cms.saveChatModerationSettings()"></exempt-roles>
             </div>

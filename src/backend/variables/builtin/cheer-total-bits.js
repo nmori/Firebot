@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "cheerTotalBits",
-        description: "The total amount of bits cheered by a viewer in the channel.",
+        description: "視聴者がチャンネル内でCheerしたビッツ総額。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.NUMBER]

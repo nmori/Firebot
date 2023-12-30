@@ -9,15 +9,15 @@ const userDatabase = require("../../database/userDatabase");
 const model = {
     definition: {
         handle: "topMetadataUser",
-        description: "Get the username or amount for a specific position in the top metadata list",
+        description: "トップメタデータリストの特定の位置のユーザー名または金額を取得する",
         examples: [
             {
                 usage: "topMetadataUser[slaps, 1, username]",
-                description: "Get the username for the top slapper"
+                description: "トップ・スラッパーのユーザー名を取得"
             },
             {
                 usage: "topMetadataUser[slaps, 5, amount]",
-                description: "Get the number of slaps for the top 5th slapper"
+                description: "トップ5スラッパーのスラップ数を取得"
             }
         ],
         usage: "topMetadataUser[metadataKey, position, username/amount]",
@@ -27,13 +27,13 @@ const model = {
     evaluator: async (_, metadataKey, position = 1, usernameOrPosition = "username") => {
 
         if (metadataKey == null) {
-            return "[Invalid metadata name]";
+            return "[無効なメタデータ名]";
         }
 
         const userAtPosition = await userDatabase.getTopMetadataPosition(metadataKey, position);
 
         if (userAtPosition == null) {
-            return "[Can't find user at position]";
+            return "[ユーザーが見つからない]";
         }
 
         if (usernameOrPosition === "username") {

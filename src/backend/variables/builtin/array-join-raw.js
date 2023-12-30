@@ -5,7 +5,7 @@ const model = {
     definition: {
         handle: "rawArrayJoin",
         usage: "rawArrayJoin[raw, separator]",
-        description: "Returns a string with each array item joined together with the given separator",
+        description: "配列の各項目を、指定した区切り文字で連結した文字列を返します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

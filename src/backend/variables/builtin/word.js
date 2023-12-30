@@ -5,12 +5,12 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "word",
-        description: "Get a word at the specified position in a given sentence",
+        description: "指定された文の指定された位置にある単語を取得する",
         usage: "word[text, #]",
         examples: [
             {
                 usage: 'word[This is a test, 4]',
-                description: "Get the 4th word. In this example: 'test'"
+                description: "4番目の単語を取得します。この例では「テスト」"
             }
         ],
         categories: [VariableCategory.TEXT],

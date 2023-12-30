@@ -74,9 +74,11 @@
                 $ctrl.isAnon = (isAnon) => {
                     if ($ctrl.eventData.eventId === 'subs-gifted' || $ctrl.eventData.eventId === 'community-subs-gifted') {
                         $ctrl.changeUsername('gifterUsername', 'Gifter', isAnon);
+                        $ctrl.changeUsername('gifterDisplayName', 'Gifter', isAnon);
                         return;
                     } else if ($ctrl.eventData.eventId === 'cheer') {
                         $ctrl.changeUsername('username', 'Cheerer', isAnon);
+                        $ctrl.changeUsername('displayName', 'Cheerer', isAnon);
                     }
                 };
 

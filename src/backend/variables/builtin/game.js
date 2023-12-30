@@ -11,15 +11,15 @@ const model = {
         examples: [
             {
                 usage: "game[$target]",
-                description: "When in a command, gets the category/game set for the target user."
+                description: "コマンドの場合、ターゲットユーザーに設定されているカテゴリ/ゲームを取得します。"
             },
             {
                 usage: "game[$user]",
-                description: "Gets the category/game set for associated user (i.e. who triggered command, pressed button, etc)."
+                description: "関連するユーザー（コマンドをトリガーした人、ボタンを押した人など）に設定されているカテゴリー/ゲームを取得します。"
             },
             {
                 usage: "game[ChannelOne]",
-                description: "Gets the category/game set for a specific channel."
+                description: "特定のチャンネルに設定されているカテゴリ/ゲームを取得します。"
             }
         ],
         categories: category.definition.categories,
