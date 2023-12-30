@@ -13,7 +13,6 @@ export function triggerCheer(
         username: userName,
         displayName: displayName,
         userId,
-        displayName: displayName,
         isAnonymous,
         bits,
         totalBits,
