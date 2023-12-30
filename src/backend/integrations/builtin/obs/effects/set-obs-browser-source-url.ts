@@ -7,15 +7,15 @@ export const SetOBSBrowserSourceUrlEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-browser-source-url",
-    name: "OBSƒuƒ‰ƒEƒUƒ\[ƒX‚ÌURL‚ğ•ÏX",
-    description: "OBSƒuƒ‰ƒEƒUƒ\[ƒX‚ÌURL‚ğ•ÏX‚µ‚Ü‚·",
+    name: "OBSãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹ã®URLã‚’å¤‰æ›´",
+    description: "OBSãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹ã®URLã‚’å¤‰æ›´ã—ã¾ã™",
     icon: "fad fa-browser",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS ƒuƒ‰ƒEƒUƒ\[ƒX">
+    <eos-container header="OBS ãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹">
         <div>
-            <button class="btn btn-link" ng-click="getBrowserSources()">Ä“Ç‚İ‚İ/button>
+            <button class="btn btn-link" ng-click="getBrowserSources()">å†èª­ã¿è¾¼ã¿/button>
         </div>
 
         <ui-select ng-if="browserSources != null" ng-model="selected" on-select="selectBrowserSource($select.selected.name)">
@@ -24,12 +24,12 @@ export const SetOBSBrowserSourceUrlEffectType: EffectType<{
                 <div ng-bind-html="source.name | highlight: $select.search"></div>
             </ui-select-choices>
             <ui-select-no-choice>
-                <b>ƒuƒ‰ƒEƒUƒ\[ƒX‚Í‚ ‚è‚Ü‚¹‚ñ.</b>
+                <b>ãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹ã¯ã‚ã‚Šã¾ã›ã‚“.</b>
             </ui-select-no-choice>
         </ui-select>
 
         <div ng-if="browserSources == null" class="muted">
-            ƒ\[ƒX‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB {{ isObsConfigured ? "OBS‚Í“®‚¢‚Ä‚¢‚Ü‚·‚©H" : "Have you configured the OBS integration?" }}
+            ã‚½ãƒ¼ã‚¹ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚ {{ isObsConfigured ? "OBSã¯å‹•ã„ã¦ã„ã¾ã™ã‹ï¼Ÿ" : "Have you configured the OBS integration?" }}
         </div>
     </eos-container>
     <eos-container ng-if="browserSources != null && effect.browserSourceName != null" header="URL" style="margin-top: 10px;">

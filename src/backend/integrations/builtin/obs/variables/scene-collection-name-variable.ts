@@ -5,11 +5,11 @@ export const SceneCollectionNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneCollectionName",
         description:
-      "Œ»İ‚Ì OBS ƒV[ƒ“ƒRƒŒƒNƒVƒ‡ƒ“ ‚Ì–¼‘OBOBS‚ª‹N“®‚µ‚Ä‚¢‚È‚¢ê‡‚ÍA'•s–¾'‚ğ•Ô‚µ‚Ü‚·B.",
+      "ç¾åœ¨ã® OBS ã‚·ãƒ¼ãƒ³ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ ã®åå‰ã€‚OBSãŒèµ·å‹•ã—ã¦ã„ãªã„å ´åˆã¯ã€'ä¸æ˜'ã‚’è¿”ã—ã¾ã™ã€‚.",
     possibleDataOutput: ["text"],
   },
   evaluator: async () => {
     const currentSceneCollectionName = await getCurrentSceneCollectionName();
-    return currentSceneCollectionName ?? "•s–¾";
+    return currentSceneCollectionName ?? "ä¸æ˜";
   },
 };

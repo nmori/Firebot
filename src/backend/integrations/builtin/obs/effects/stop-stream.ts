@@ -4,15 +4,15 @@ import { stopStreaming } from "../obs-remote";
 export const StopStreamEffectType: EffectType<{}> = {
   definition: {
     id: "ebiggz:obs-stop-stream",
-    name: "”zM‚ğ’â~",
-    description: "OBS‚É”zM‚ğI—¹‚·‚é‚æ‚¤w¦‚µ‚Ü‚·",
+    name: "é…ä¿¡ã‚’åœæ­¢",
+    description: "OBSã«é…ä¿¡ã‚’çµ‚äº†ã™ã‚‹ã‚ˆã†æŒ‡ç¤ºã—ã¾ã™",
     icon: "fad fa-stop-circle",
     categories: ["common"],
   },
   optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>Œx!</b> ‚±‚Ì‰‰o‚ª—LŒø‚É‚È‚é‚ÆAFirebot‚ÍOBS‚É”zM‚ğ’â~‚·‚é‚æ‚¤w¦‚µ‚Ü‚·
+        <b>è­¦å‘Š!</b> ã“ã®æ¼”å‡ºãŒæœ‰åŠ¹ã«ãªã‚‹ã¨ã€Firebotã¯OBSã«é…ä¿¡ã‚’åœæ­¢ã™ã‚‹ã‚ˆã†æŒ‡ç¤ºã—ã¾ã™
       </div>
     </eos-container>
   `,

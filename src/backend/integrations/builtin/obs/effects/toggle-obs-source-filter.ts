@@ -24,8 +24,8 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
   {
     definition: {
       id: "ebiggz:obs-toggle-source-filter",
-      name: "OBSƒtƒBƒ‹ƒ^[‚Ì“K—pó‘Ô‚ğØ‚è‘Ö‚¦",
-      description: "BSƒtƒBƒ‹ƒ^[‚Ì“K—pó‘Ô‚ğØ‚è‘Ö‚¦‚Ü‚·",
+      name: "OBSãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ã®é©ç”¨çŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆ",
+      description: "BSãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ã®é©ç”¨çŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆã¾ã™",
       icon: "fad fa-stars",
       categories: ["common"],
     },
@@ -33,8 +33,8 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
     <eos-container header="Filters">
       <div class="effect-setting-container">
         <div class="input-group">
-          <span class="input-group-addon">ƒtƒBƒ‹ƒ^</span>
-          <input type="text" class="form-control" ng-change="filterSources(searchText)" ng-model="searchText" placeholder="ŒŸõ..." aria-describeby="obs-visibility-search-box">
+          <span class="input-group-addon">ãƒ•ã‚£ãƒ«ã‚¿</span>
+          <input type="text" class="form-control" ng-change="filterSources(searchText)" ng-model="searchText" placeholder="æ¤œç´¢..." aria-describeby="obs-visibility-search-box">
         </div>
       </div>
       <div>
@@ -53,9 +53,9 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
                 {{getFilterActionDisplay(source.name, filter.name)}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, true)"><a href>—LŒø</a></li>
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, false)"><a href>–³Œø</a></li>
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, 'toggle')"><a href>Ø‚è‘Ö‚¦</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, true)"><a href>æœ‰åŠ¹</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, false)"><a href>ç„¡åŠ¹</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, 'toggle')"><a href>åˆ‡ã‚Šæ›¿ãˆ</a></li>
                 </ul>
             </div>
           </div>

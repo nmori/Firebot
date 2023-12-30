@@ -127,7 +127,7 @@ const commandManagement = {
         name: "Command Management",
         active: true,
         trigger: "!command",
-        description: "ƒ`ƒƒƒbƒg‚É‚æ‚éƒRƒ}ƒ“ƒhŠÇ—‚ğ‹–‰Â",
+        description: "ãƒãƒ£ãƒƒãƒˆã«ã‚ˆã‚‹ã‚³ãƒãƒ³ãƒ‰ç®¡ç†ã‚’è¨±å¯",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -151,59 +151,59 @@ const commandManagement = {
             {
                 arg: "add",
                 usage: "add [!trigger or \"phrase\"] [message]",
-                description: "w’è‚³‚ê‚½‰“šƒƒbƒZ[ƒW‚ğŠÜ‚ŞV‚µ‚¢ƒRƒ}ƒ“ƒh‚ğ’Ç‰Á."
+                description: "æŒ‡å®šã•ã‚ŒãŸå¿œç­”ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å«ã‚€æ–°ã—ã„ã‚³ãƒãƒ³ãƒ‰ã‚’è¿½åŠ ."
             },
             {
                 arg: "response",
                 usage: "response [!trigger or \"phrase\"] [message]",
-                description: "ƒRƒ}ƒ“ƒh‚Ì‰“šƒƒbƒZ[ƒW‚ğXViƒ`ƒƒƒbƒg‰‰o‚ª 1 ˆÈ‰º‚ÌƒRƒ}ƒ“ƒh‚Ì‚İ—LŒøj"
+                description: "ã‚³ãƒãƒ³ãƒ‰ã®å¿œç­”ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æ›´æ–°ï¼ˆãƒãƒ£ãƒƒãƒˆæ¼”å‡ºãŒ 1 ä»¥ä¸‹ã®ã‚³ãƒãƒ³ãƒ‰ã®ã¿æœ‰åŠ¹ï¼‰"
             },
             {
                 arg: "setcount",
                 usage: "setcount [!trigger or \"phrase\"] count#",
-                description: "ƒRƒ}ƒ“ƒh‚Ìg—p‰ñ”‚ğXV",
+                description: "ã‚³ãƒãƒ³ãƒ‰ã®ä½¿ç”¨å›æ•°ã‚’æ›´æ–°",
                 minArgs: 3
             },
             {
                 arg: "cooldown",
                 usage: "cooldown [!trigger or \"phrase\"] [globalCooldownSecs] [userCooldownSecs]",
-                description: "ƒRƒ}ƒ“ƒh‚ªÄÀs‰Â”\‚É‚È‚é‚Ü‚Å‚ÌŠÔ‚ğ•ÏX"
+                description: "ã‚³ãƒãƒ³ãƒ‰ãŒå†å®Ÿè¡Œå¯èƒ½ã«ãªã‚‹ã¾ã§ã®æ™‚é–“ã‚’å¤‰æ›´"
             },
             {
                 arg: "restrict",
                 usage: "restrict [!trigger or \"phrase\"] [All/Sub/Mod/Streamer/Custom Group]",
-                description: "ƒRƒ}ƒ“ƒh‚ÌŒ ŒÀ‚ğXV"
+                description: "ã‚³ãƒãƒ³ãƒ‰ã®æ¨©é™ã‚’æ›´æ–°"
             },
             {
                 arg: "remove",
                 usage: "remove [!trigger or \"phrase\"]",
-                description: "w’è‚³‚ê‚½ƒRƒ}ƒ“ƒh‚ğíœ."
+                description: "æŒ‡å®šã•ã‚ŒãŸã‚³ãƒãƒ³ãƒ‰ã‚’å‰Šé™¤."
             },
             {
                 arg: "description",
                 usage: "description [!trigger or \"phrase\"]",
-                description: "ƒRƒ}ƒ“ƒh‚Ìà–¾‚ğXV",
+                description: "ã‚³ãƒãƒ³ãƒ‰ã®èª¬æ˜ã‚’æ›´æ–°",
                 minArgs: 3
             },
             {
                 arg: "enable",
                 usage: "enable [!trigger or \"phrase\"]",
-                description: "ƒRƒ}ƒ“ƒh‚ğ—LŒø‰»"
+                description: "ã‚³ãƒãƒ³ãƒ‰ã‚’æœ‰åŠ¹åŒ–"
             },
             {
                 arg: "disable",
                 usage: "disable [!trigger or \"phrase\"]",
-                description: "ƒRƒ}ƒ“ƒh‚ğ–³Œø‰»"
+                description: "ã‚³ãƒãƒ³ãƒ‰ã‚’ç„¡åŠ¹åŒ–"
             },
             {
                 arg: "addalias",
                 usage: "addalias [!trigger or \"phrase\"] !alias",
-                description: "•Ê–¼‚ğ’Ç‰Á"
+                description: "åˆ¥åã‚’è¿½åŠ "
             },
             {
                 arg: "removealias",
                 usage: "removealias [!trigger or \"phrase\"] !alias",
-                description: "w’è‚³‚ê‚½•Ê–¼‚ğíœ"
+                description: "æŒ‡å®šã•ã‚ŒãŸåˆ¥åã‚’å‰Šé™¤"
             }
         ]
     },
@@ -236,7 +236,7 @@ const commandManagement = {
 
             if (args.length < 2) {
                 await chat.sendChatMessage(
-                    `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`);
+                    `ç„¡åŠ¹ãªå‘½ä»¤. ä½¿ç”¨æ–¹æ³•: ${event.command.trigger} ${usage}`);
                 return resolve();
             }
 
@@ -244,68 +244,61 @@ const commandManagement = {
 
             if (trigger == null || trigger === "") {
                 await chat.sendChatMessage(
-                    `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`
+                    `ç„¡åŠ¹ãªå‘½ä»¤. ä½¿ç”¨æ–¹æ³•: ${event.command.trigger} ${usage}`
                 );
                 return resolve();
             }
 
             switch (triggeredArg) {
-            case "add": {
-                if (args.length < 3 || remainingData == null || remainingData === "") {
-                    await chat.sendChatMessage(
-                        `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`
-                    );
-                    return resolve();
-                }
-
-                if (commandManager.triggerIsTaken(trigger)) {
-                    await chat.sendChatMessage(
-                        `‹N“®–¼ '${trigger}' ‚Í‚·‚Å‚Ég‚í‚ê‚Ä‚¢‚Ü‚·B`
-                    );
-                    return resolve();
+                case "add": {
+                    if (args.length < 3 || remainingData == null || remainingData === "") {
+                        await chat.sendChatMessage(
+                            `ç„¡åŠ¹ãªå‘½ä»¤. ä½¿ç”¨æ–¹æ³•: ${event.command.trigger} ${usage}`
+                        );
+                        return resolve();
                     }
 
-                    const command = {
-                        trigger: trigger,
-                        autoDeleteTrigger: false,
-                        ignoreBot: true,
-                        active: true,
-                        scanWholeMessage: !trigger.startsWith("!"),
-                        cooldown: {
-                            user: 0,
-                            global: 0
-                        },
-                        effects: {
-                            id: uuidv1(),
-                            list: [
-                                {
-                                    id: uuidv1(),
-                                    type: "firebot:chat",
-                                    message: remainingData
-                                }
-                            ]
+                    if (commandManager.triggerIsTaken(trigger)) {
+                        await chat.sendChatMessage(
+                            `èµ·å‹•å '${trigger}' ã¯ã™ã§ã«ä½¿ã‚ã‚Œã¦ã„ã¾ã™ã€‚`
+                        );
+                        return resolve();
                         }
-                    };
 
-                await chat.sendChatMessage(
-                    `ƒRƒ}ƒ“ƒh '${trigger}' ‚ğ’Ç‰Á‚µ‚Ü‚µ‚½`
-                );
+                        const command = {
+                            trigger: trigger,
+                            autoDeleteTrigger: false,
+                            ignoreBot: true,
+                            active: true,
+                            scanWholeMessage: !trigger.startsWith("!"),
+                            cooldown: {
+                                user: 0,
+                                global: 0
+                            },
+                            effects: {
+                                id: uuidv1(),
+                                list: [
+                                    {
+                                        id: uuidv1(),
+                                        type: "firebot:chat",
+                                        message: remainingData
+                                    }
+                                ]
+                            }
+                        };
 
-                    await chat.sendChatMessage(
-                        `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`
-                    );
+                        commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
-                const command = activeCustomCommands.find(c => c.trigger === trigger);
-                if (command == null) {
-                    await chat.sendChatMessage(
-                        ` '${trigger}'‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ`
-                    );
-                    return resolve();
-                }
+                        await chat.sendChatMessage(
+                            `ã‚³ãƒãƒ³ãƒ‰ã‚’è¿½åŠ ã—ã¾ã—ãŸ '${trigger}'!`
+                        );
+
+                        break;
+                }                    
                 case "response": {
                     if (args.length < 3 || remainingData == null || remainingData === "") {
                         await chat.sendChatMessage(
-                            `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                            `ç„¡åŠ¹ãªå‘½ä»¤. ä½¿ç”¨æ–¹æ³•: ${event.command.trigger} ${usage}`
                         );
                         return resolve();
                     }
@@ -313,33 +306,16 @@ const commandManagement = {
                     const command = activeCustomCommands.find(c => c.trigger === trigger);
                     if (command == null) {
                         await chat.sendChatMessage(
-                            `Could not find a command with the trigger '${trigger}', please try again.`
+                            `'${trigger}'ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“`
                         );
                         return resolve();
                     }
 
                     const chatEffectsCount = command.effects ? command.effects.list.filter(e => e.type === "firebot:chat").length : 0;
-                if (chatEffectsCount > 1) {
-                    await chat.sendChatMessage(
-                        `ƒRƒ}ƒ“ƒh–¼ '${trigger}' ‚Í ‰‰o‚ª•¡”İ’è‚³‚ê‚Ä‚¢‚é‚½‚ßAƒ`ƒƒƒbƒg‚©‚ç‚Í•ÒW‚Å‚«‚Ü‚¹‚ñ`
-                    );
-                    return resolve();
-                }
-                if (chatEffectsCount === 1) {
-                    const chatEffect = command.effects.list.find(e => e.type === "firebot:chat");
-                    chatEffect.message = remainingData;
-                } else {
-                    const chatEffect = {
-                        id: uuidv1(),
-                        type: "firebot:chat",
-                        message: remainingData
-                    };
-                    command.effects.list.push(chatEffect);
-                }
 
                     if (chatEffectsCount > 1) {
                         await chat.sendChatMessage(
-                            `The command '${trigger}' has more than one Chat Effect, preventing the response from being editable via chat.`
+                            `ã‚³ãƒãƒ³ãƒ‰å '${trigger}' ã¯ æ¼”å‡ºãŒè¤‡æ•°è¨­å®šã•ã‚Œã¦ã„ã‚‹ãŸã‚ã€ãƒãƒ£ãƒƒãƒˆã‹ã‚‰ã¯ç·¨é›†ã§ãã¾ã›ã‚“`
                         );
                         return resolve();
                     }
@@ -355,20 +331,13 @@ const commandManagement = {
                         command.effects.list.push(chatEffect);
                     }
 
-                await chat.sendChatMessage(
-                    `'${trigger}' ‚Ì‰“š‚ğXV‚µ‚Ü‚µ‚½: ${remainingData}`
-                );
-
+                    commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
+                        
                     await chat.sendChatMessage(
-                        `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`
+                        `'${trigger}' ã®å¿œç­”ã‚’æ›´æ–°ã—ã¾ã—ãŸ: ${remainingData}`
                     );
 
-                const command = activeCustomCommands.find(c => c.trigger === trigger);
-                if (command == null) {
-                    await chat.sendChatMessage(
-                        `'${trigger}'‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ`
-                    );
-                    return resolve();
+                    break;
                 }
                 case "setcount": {
                     const countArg = remainingData.trim();
@@ -394,20 +363,13 @@ const commandManagement = {
 
                     command.count = parseInt(newCount);
 
-                await chat.sendChatMessage(
-                    ` '${trigger}' ‚Ìg—p‰ñ”‚ğ${newCount}‰ñ‚Éİ’è‚µ‚Ü‚µ‚½`
-                );
                     commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
                     await chat.sendChatMessage(
-                        `'${trigger}'‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ`
-                    );
-
-                if (remainingData == null || remainingData.length < 1) {
-                    await chat.sendChatMessage(
-                        ` '${trigger}' ‚É•t‚¢‚Ä‚ÌŠT—v‚ğ’ñ‹Ÿ‚µ‚Ä‚­‚¾‚³‚¢`
-                    );
-                    return resolve();
+                        `'${trigger}' ã®å€¤ã‚’æ¬¡ã®å€¤ã«ã—ã¾ã—ãŸï¼š ${newCount}`
+                        );
+                        
+                    break;
                 }
                 case "description": {
 
@@ -426,22 +388,15 @@ const commandManagement = {
                         return resolve();
                     }
 
-                await chat.sendChatMessage(
-                    ` '${trigger}' ‚ÌŠT—v‚ğŸ‚Ì’l‚É‚µ‚Ü‚µ‚½F ${remainingData}`
-                );
+                    command.description = remainingData;
 
                     commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
                     await chat.sendChatMessage(
-                        `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`
+                        `'${trigger}' ã®æ¦‚è¦ã‚’æ¬¡ã®å€¤ã«ã—ã¾ã—ãŸï¼š  ${remainingData}`
                     );
 
-                const command = activeCustomCommands.find(c => c.trigger === trigger);
-                if (command == null) {
-                    await chat.sendChatMessage(
-                        `'${trigger}'‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ`
-                    );
-                    return resolve();
+                    break;
                 }
                 case "cooldown": {
                     const cooldownArgs = remainingData.trim().split(" ");
@@ -477,25 +432,18 @@ const commandManagement = {
                         global: globalCooldown
                     };
 
-                await chat.sendChatMessage(
-                    `'${trigger}' ‚ÌƒNƒ‹[ƒ_ƒEƒ“İ’è‚ğXV‚µ‚Ü‚µ‚½: ${userCooldown}•b (ƒ†[ƒU), ${globalCooldown}•b (‘S‘Ì)`
-                );
+                    commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
                     await chat.sendChatMessage(
-                        `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`
-                    );
+                        `'${trigger}' ã®å®Ÿè¡Œã¾ã¡è¨­å®šã‚’æ›´æ–°ã—ã¾ã—ãŸ: ${userCooldown}ç§’ (ãƒ¦ãƒ¼ã‚¶), ${globalCooldown}ç§’ (å…¨ä½“)`
+                    );                    
 
-                const command = activeCustomCommands.find(c => c.trigger === trigger);
-                if (command == null) {
-                    await chat.sendChatMessage(
-                        `'${trigger}'‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ`
-                    );
-                    return resolve();
+                    break;
                 }
                 case "restrict": {
                     if (args.length < 3 || remainingData === "") {
                         await chat.sendChatMessage(
-                            `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                            `ç„¡åŠ¹ãªå‘½ä»¤ã§ã™. Usage: ${event.command.trigger} ${usage}`
                         );
                         return resolve();
                     }
@@ -503,7 +451,7 @@ const commandManagement = {
                     const command = activeCustomCommands.find(c => c.trigger === trigger);
                     if (command == null) {
                         await chat.sendChatMessage(
-                            `Could not find a command with the trigger '${trigger}', please try again.`
+                            `æ¬¡ã®ãƒˆãƒªã‚¬ãƒ¼ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ '${trigger}', please try again.`
                         );
                         return resolve();
                     }
@@ -511,16 +459,10 @@ const commandManagement = {
                     const restrictions = [];
                     const roleIds = await mapPermArgToRoleIds(remainingData);
 
-                if (roleIds === false) {
-                    await chat.sendChatMessage(
-                        `—LŒø‚Èİ’è’l‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢: All, Sub, Mod, Streamer,‚à‚µ‚­‚ÍƒOƒ‹[ƒv–¼`
-                    );
-                    return resolve();
-                }
 
                     if (roleIds === false) {
                         await chat.sendChatMessage(
-                            `Please provide a valid group name: All, Sub, Mod, Streamer, or a custom group's name`
+                            `æœ‰åŠ¹ãªè¨­å®šå€¤ã‚’æŒ‡å®šã—ã¦ãã ã•ã„: All, Sub, Mod, Streamer,ã‚‚ã—ãã¯ã‚°ãƒ«ãƒ¼ãƒ—å`
                         );
                         return resolve();
                     }
@@ -535,31 +477,26 @@ const commandManagement = {
                     }
 
                     command.restrictionData = { restrictions: restrictions };
+                    
+                    commandManager.saveCustomCommand(command, event.userCommand.commandSender, false);
 
-                await chat.sendChatMessage(`'${trigger}' ‚Ì§ŒÀİ’è‚ğXV: ${remainingData}`);
+                    await chat.sendChatMessage(`'${trigger}' ã®åˆ¶é™ã‚’è¨­å®šã—ã¾ã—ãŸ: ${remainingData}`);
 
-                    await chat.sendChatMessage(`Updated '${trigger}' restrictions to: ${remainingData}`);
-
-                const command = activeCustomCommands.find(c => c.trigger === trigger);
-                if (command == null) {
-                    await chat.sendChatMessage(
-                        `'${trigger}'‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ`
-                    );
-                    return resolve();
+                    break;
                 }
                 case "remove": {
 
                     const command = activeCustomCommands.find(c => c.trigger === trigger);
                     if (command == null) {
                         await chat.sendChatMessage(
-                            `Could not find a command with the trigger '${trigger}', please try again.`
+                            `'${trigger}'ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚`
                         );
                         return resolve();
                     }
 
                     commandManager.removeCustomCommandByTrigger(trigger);
 
-                    await chat.sendChatMessage(`Successfully removed command '${trigger}'.`);
+                    await chat.sendChatMessage(`ã‚³ãƒãƒ³ãƒ‰ã‹ã‚‰ '${trigger}'ã‚’å‰Šé™¤ã—ã¾ã—ãŸ.`);
                     break;
                 }
                 case "disable":
@@ -573,16 +510,11 @@ const commandManagement = {
                         return resolve();
                     }
 
-                if (command.active === newActiveStatus) {
-                    await chat.sendChatMessage(
-                        `${trigger} ‚Í‚·‚Å‚ÉŸ‚Ì’l‚Éİ’è‚³‚ê‚Ä‚¢‚Ü‚·F ${triggeredArg}`
-                    );
-                    return resolve();
-                }
+                const newActiveStatus = triggeredArg === "enable";
 
                     if (command.active === newActiveStatus) {
                         await chat.sendChatMessage(
-                            `${trigger} is already ${triggeredArg}d.`
+                            `${trigger} ã¯ã™ã§ã«æ¬¡ã®å€¤ã«è¨­å®šã•ã‚Œã¦ã„ã¾ã™ï¼š ${triggeredArg}`
                         );
                         return resolve();
                     }
@@ -594,7 +526,7 @@ const commandManagement = {
                     frontendCommunicator.send("custom-commands-updated");
 
                     await chat.sendChatMessage(
-                        `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`
+                        `ç„¡åŠ¹ãªå‘½ä»¤. ä½¿ç”¨æ–¹æ³•: ${event.command.trigger} ${usage}`
                     );
                     break;
                 }
@@ -603,17 +535,50 @@ const commandManagement = {
 
                     if (args.length < 3 || alias === "") {
                         await chat.sendChatMessage(
-                            `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                            `ç„¡åŠ¹ãªã‚³ãƒãƒ³ãƒ‰ã§ã™. Usage: ${event.command.trigger} ${usage}`
                         );
                         return resolve();
                     }
 
-                if (command == null) {
+                const command = commandManager.getAllCustomCommands().find(c => c.trigger === trigger);
+
+                    if (command == null) {
+                        await chat.sendChatMessage(
+                            `'${trigger}'ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“`
+                        );
+                        return resolve();
+                    }
+
+                    const aliasIndex = command.aliases.findIndex((a) =>
+                        a.toLowerCase() === alias.toLowerCase());
+
+                    if (aliasIndex > -1) {
+                        await chat.sendChatMessage(
+                            `'${trigger}'ã‚’æŒã¤ã‚³ãƒãƒ³ãƒ‰ã¨ã—ã¦'${alias}'ãŒæ—¢ã«å­˜åœ¨ã—ã¾ã™ã€‚ .`
+                        );
+                        return resolve();
+                    }
+
+                    command.aliases.push(alias);
+                    commandManager.saveCustomCommand(command, event.userCommand.commandSender);
+
                     await chat.sendChatMessage(
-                        `'${trigger}'‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ`
+                        `'${trigger}'ã‚’ä½¿ã†åˆ¥å'${alias}' ã¯ã™ã§ã«å­˜åœ¨ã—ã¾ã™.`
                     );
-                    return resolve();
+
+                    break;
                 }
+                case "removealias": {
+                    const alias = remainingData.trim();
+
+                    if (args.length < 3 || alias === "") {
+                        await chat.sendChatMessage(
+                            `ç„¡åŠ¹ãªå‘½ä»¤. ä½¿ç”¨æ–¹æ³•: ${event.command.trigger} ${usage}`
+                        );
+                        return resolve();
+                    }
+
+                    const command = commandManager.getAllCustomCommands().find(c => c.trigger === trigger);
 
                     if (command == null) {
                         await chat.sendChatMessage(
@@ -625,53 +590,9 @@ const commandManagement = {
                     const aliasIndex = command.aliases.findIndex((a) =>
                         a.toLowerCase() === alias.toLowerCase());
 
-                    if (aliasIndex > -1) {
-                        await chat.sendChatMessage(
-                            `Alias '${alias}' already exists for command with the trigger '${trigger}'.`
-                        );
-                        return resolve();
-                    }
-
-                    command.aliases.push(alias);
-                    commandManager.saveCustomCommand(command, event.userCommand.commandSender);
-
-                    await chat.sendChatMessage(
-                        `'${trigger}'‚ğg‚¤•Ê–¼'${alias}' ‚Í‚·‚Å‚É‘¶İ‚µ‚Ü‚·.`
-                    );
-
-                    break;
-                }
-                case "removealias": {
-                    const alias = remainingData.trim();
-
-                    if (args.length < 3 || alias === "") {
-                        await chat.sendChatMessage(
-                            `Invalid command. Usage: ${event.command.trigger} ${usage}`
-                        );
-                        return resolve();
-                    }
-
-                await chat.sendChatMessage(
-                    `'${trigger}'‚Ì•Ê–¼‚Æ‚µ‚Ä '${alias}' ‚ğ’Ç‰Á‚µ‚Ü‚µ‚½`
-                );
-
-                    if (command == null) {
-                        await chat.sendChatMessage(
-                            `Could not find a command with the trigger '${trigger}', please try again.`
-                        );
-                        return resolve();
-                    }
-
-                if (args.length < 3 || alias === "") {
-                    await chat.sendChatMessage(
-                        `–³Œø‚È–½—ß. g—p•û–@: ${event.command.trigger} ${usage}`
-                    );
-                    return resolve();
-                }
-
                     if (aliasIndex === -1) {
                         await chat.sendChatMessage(
-                            `Alias '${alias}' does not exist for command with the trigger '${trigger}'.`
+                            `'${trigger}'ã®åˆ¥å '${alias}' ã¯å­˜åœ¨ã—ã¾ã›ã‚“`
                         );
                         return resolve();
                     }
@@ -680,28 +601,12 @@ const commandManagement = {
                     commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                     await chat.sendChatMessage(
-                        `'${trigger}' ‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ`
+                        `'${trigger}'ã®åˆ¥å ${alias}' ã‚’å‰Šé™¤ã—ã¾ã—ãŸ`
                     );
 
-                const aliasIndex = command.aliases.findIndex((a) =>
-                    a.toLowerCase() === alias.toLowerCase());
-
-                if (aliasIndex === -1) {
-                    await chat.sendChatMessage(
-                        `'${trigger}'‚Ì•Ê–¼ '${alias}' ‚Í‘¶İ‚µ‚Ü‚¹‚ñ`
-                    );
-                    return resolve();
                     break;
                 }
-
-                command.aliases.splice(aliasIndex, 1);
-                commandManager.saveCustomCommand(command, event.userCommand.commandSender);
-
-                await chat.sendChatMessage(
-                    `'${trigger}'‚Ì•Ê–¼ ${alias}' ‚ğíœ‚µ‚Ü‚µ‚½`
-                );
-
-                break;
+                default:
             }
 
             resolve();

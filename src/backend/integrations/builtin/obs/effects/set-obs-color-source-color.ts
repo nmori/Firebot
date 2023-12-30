@@ -7,13 +7,13 @@ export const SetOBSColorSourceColorEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-color-source-color",
-    name: "OBSƒJƒ‰[ƒ\[ƒX‚ÌF‚ğ•ÏX",
-    description: "OBSƒJƒ‰[ƒ\[ƒX‚ÌF‚ğ•ÏX‚µ‚Ü‚·",
+    name: "OBSã‚«ãƒ©ãƒ¼ã‚½ãƒ¼ã‚¹ã®è‰²ã‚’å¤‰æ›´",
+    description: "OBSã‚«ãƒ©ãƒ¼ã‚½ãƒ¼ã‚¹ã®è‰²ã‚’å¤‰æ›´ã—ã¾ã™",
     icon: "fad fa-palette",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS ƒJƒ‰[ƒ\[ƒX">
+    <eos-container header="OBS ã‚«ãƒ©ãƒ¼ã‚½ãƒ¼ã‚¹">
         <div>
             <button class="btn btn-link" ng-click="getColorSources()">Refresh Source Data</button>
         </div>
@@ -30,7 +30,7 @@ export const SetOBSColorSourceColorEffectType: EffectType<{
         </ui-select>
 
         <div ng-if="colorSources == null" class="muted">
-             ƒ\[ƒX‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB {{ isObsConfigured ? "OBS‚Í“®‚¢‚Ä‚¢‚Ü‚·‚©H" : "Have you configured the OBS integration?" }}
+             ã‚½ãƒ¼ã‚¹ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚ {{ isObsConfigured ? "OBSã¯å‹•ã„ã¦ã„ã¾ã™ã‹ï¼Ÿ" : "Have you configured the OBS integration?" }}
         </div>
     </eos-container>
 

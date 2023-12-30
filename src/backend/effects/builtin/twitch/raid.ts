@@ -35,7 +35,7 @@ const model: EffectType<{
         </eos-container>
 
         <eos-container header="Target" pad-top="true" ng-show="effect.action === 'Raid Channel'">
-            <firebot-input model="effect.username" placeholder-text="Enter username" />
+            <firebot-input model="effect.username" placeholder-text="ユーザ名を入れる" />
         </eos-container>
     `,
     optionsValidator: (effect) => {

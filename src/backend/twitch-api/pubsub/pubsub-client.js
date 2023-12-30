@@ -70,6 +70,7 @@ async function createClient() {
         const whisperListener = pubSubClient.onWhisper(streamer.userId, (message) => {
             twitchEventsHandler.whisper.triggerWhisper(
                 message.senderName,
+                message.senderDisplayName,
                 message.text
             );
         });

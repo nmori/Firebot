@@ -31,14 +31,15 @@ export const SceneNameEventFilter: EventFilter = {
         const expected = value;
         const actual = eventMeta.sceneName;
 
-    switch (comparisonType) {
-      case "is":
-      case "ˆê’v":
-        return actual === expected;
-      case "is not":
-      case "•sˆê’v":
-          return actual !== expected;
-      default:
-        return false;
+        switch (comparisonType) {
+            case "is":
+            case "ä¸€è‡´":
+                return actual === expected;
+            case "is not":
+            case "ä¸ä¸€è‡´":
+                return actual !== expected;
+            default:
+                return false;
+        }
     }
 };

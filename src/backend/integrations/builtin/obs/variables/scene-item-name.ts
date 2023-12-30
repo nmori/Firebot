@@ -12,7 +12,7 @@ export const SceneItemNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneItemName",
         description:
-      "The name of the OBS scene item that triggered the event.",
+      "イベントをトリガーしたOBSシーンアイテムの名前。",
         possibleDataOutput: ["number"],
         triggers: triggers
     },
@@ -21,6 +21,6 @@ export const SceneItemNameVariable: ReplaceVariable = {
             trigger.metadata?.eventData?.sceneName as string,
             trigger.metadata?.eventData?.sceneItemId as number
         );
-        return sceneItem?.name ?? "Unknown";
+        return sceneItem?.name ?? "不明";
     }
 };

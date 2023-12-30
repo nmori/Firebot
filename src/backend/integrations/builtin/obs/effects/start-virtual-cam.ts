@@ -4,15 +4,15 @@ import { startVirtualCam } from "../obs-remote";
 export const StartVirtualCamEffectType: EffectType<{}> = {
   definition: {
     id: "ebiggz:obs-start-virtual-cam",
-    name: "OBS ‰¼‘zƒJƒƒ‰‚ğ‹N“®",
-    description: "OBS‚É‰¼‘zƒJƒƒ‰‚ğ‹N“®‚·‚é‚æ‚¤w¦‚µ‚Ü‚·",
+    name: "OBS ä»®æƒ³ã‚«ãƒ¡ãƒ©ã‚’èµ·å‹•",
+    description: "OBSã«ä»®æƒ³ã‚«ãƒ¡ãƒ©ã‚’èµ·å‹•ã™ã‚‹ã‚ˆã†æŒ‡ç¤ºã—ã¾ã™",
     icon: "fad fa-camera-home",
     categories: ["common"],
   },
   optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>Œx!</b>‚±‚Ì‰‰o‚ª—LŒø‚É‚È‚é‚ÆAFirebot‚ÍOBS‚Éƒo[ƒ`ƒƒƒ‹ƒJƒƒ‰‚Ì‹N“®‚ğw¦‚µ‚Ü‚·B
+        <b>è­¦å‘Š!</b>ã“ã®æ¼”å‡ºãŒæœ‰åŠ¹ã«ãªã‚‹ã¨ã€Firebotã¯OBSã«ãƒãƒ¼ãƒãƒ£ãƒ«ã‚«ãƒ¡ãƒ©ã®èµ·å‹•ã‚’æŒ‡ç¤ºã—ã¾ã™ã€‚
       </div>
     </eos-container>
   `,

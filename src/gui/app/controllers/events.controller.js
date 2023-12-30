@@ -24,7 +24,7 @@
 
             $scope.tableConfig = [
                 {
-                    name: "–¼‘O",
+                    name: "åå‰",
                     icon: "fa-tag",
                     headerStyles: {
                         'min-width': '150px'
@@ -33,13 +33,13 @@
                     cellController: () => {}
                 },
                 {
-                    name: "í—Ş",
+                    name: "ç¨®é¡",
                     icon: "fa-exclamation-square",
                     headerStyles: {
                         'min-width': '100px'
                     },
                     cellTemplate: `{{data.eventId && data.sourceId ?
-                        friendlyEventTypeName(data.sourceId, data.eventId) : "‚È‚µ"}}`,
+                        friendlyEventTypeName(data.sourceId, data.eventId) : "ãªã—"}}`,
                     cellController: ($scope) => {
                         $scope.friendlyEventTypeName = friendlyEventTypeName;
                     }
@@ -95,8 +95,8 @@
                 utilityService.openGetInputModal(
                     {
                         model: "",
-                        label: "V‹KƒCƒxƒ“ƒgƒZƒbƒg‚Ìì¬",
-                        saveText: "ì¬",
+                        label: "æ–°è¦ã‚¤ãƒ™ãƒ³ãƒˆã‚»ãƒƒãƒˆã®ä½œæˆ",
+                        saveText: "ä½œæˆ",
                         validationFn: (value) => {
                             return new Promise(resolve => {
                                 if (value == null || value.trim().length < 1) {
@@ -106,7 +106,7 @@
                                 }
                             });
                         },
-                        validationText: "ƒCƒxƒ“ƒgƒZƒbƒg–¼‚Í‹ó—“‚É‚Å‚«‚Ü‚¹‚ñ."
+                        validationText: "ã‚¤ãƒ™ãƒ³ãƒˆã‚»ãƒƒãƒˆåã¯ç©ºæ¬„ã«ã§ãã¾ã›ã‚“."
 
                     },
                     (name) => {
@@ -118,8 +118,8 @@
                 utilityService.openGetInputModal(
                     {
                         model: group.name,
-                        label: "ƒCƒxƒ“ƒgƒZƒbƒg‚Ì–¼‘O‚ğ•Ï‚¦‚é",
-                        saveText: "•Û‘¶",
+                        label: "ã‚¤ãƒ™ãƒ³ãƒˆã‚»ãƒƒãƒˆã®åå‰ã‚’å¤‰ãˆã‚‹",
+                        saveText: "ä¿å­˜",
                         validationFn: (value) => {
                             return new Promise(resolve => {
                                 if (value == null || value.trim().length < 1) {
@@ -129,7 +129,7 @@
                                 }
                             });
                         },
-                        validationText: "ƒCƒxƒ“ƒgƒZƒbƒg–¼‚Í‹ó—“‚É‚Å‚«‚Ü‚¹‚ñ."
+                        validationText: "ã‚¤ãƒ™ãƒ³ãƒˆã‚»ãƒƒãƒˆåã¯ç©ºæ¬„ã«ã§ãã¾ã›ã‚“."
 
                     },
                     (name) => {
@@ -141,8 +141,8 @@
             $scope.showDeleteGroupModal = function(group) {
                 utilityService
                     .showConfirmationModal({
-                        title: "ƒCƒxƒ“ƒgƒZƒbƒg‚Ìíœ",
-                        question: `ƒCƒxƒ“ƒgƒZƒbƒgu"${group.name}"v‚ğíœ‚µ‚Ü‚·‚©? iƒCƒxƒ“ƒgƒZƒbƒg“à‚É“o˜^‚µ‚½ƒCƒxƒ“ƒg‚ÍÁ‚¦‚Ü‚·j`,
+                        title: "ã‚¤ãƒ™ãƒ³ãƒˆã‚»ãƒƒãƒˆã®å‰Šé™¤",
+                        question: `ã‚¤ãƒ™ãƒ³ãƒˆã‚»ãƒƒãƒˆã€Œ"${group.name}"ã€ã‚’å‰Šé™¤ã—ã¾ã™ã‹? ï¼ˆã‚¤ãƒ™ãƒ³ãƒˆã‚»ãƒƒãƒˆå†…ã«ç™»éŒ²ã—ãŸã‚¤ãƒ™ãƒ³ãƒˆã¯æ¶ˆãˆã¾ã™ï¼‰`,
                         confirmLabel: "Delete",
                         confirmBtnType: "btn-danger"
                     })
@@ -197,9 +197,9 @@
             $scope.showDeleteEventModal = function(eventId, name) {
                 utilityService
                     .showConfirmationModal({
-                        title: "ƒCƒxƒ“ƒg‚Ìíœ",
-                        question: `ƒCƒxƒ“ƒgu"${name}"v‚ğÁ‚µ‚Ü‚·‚©?`,
-                        confirmLabel: "íœ‚·‚é",
+                        title: "ã‚¤ãƒ™ãƒ³ãƒˆã®å‰Šé™¤",
+                        question: `ã‚¤ãƒ™ãƒ³ãƒˆã€Œ"${name}"ã€ã‚’æ¶ˆã—ã¾ã™ã‹?`,
+                        confirmLabel: "å‰Šé™¤ã™ã‚‹",
                         confirmBtnType: "btn-danger"
                     })
                     .then(confirmed => {
@@ -322,43 +322,43 @@
 
                 const currentGroupId = eventsService.getSelectedTab();
                 const availableGroups = [
-                    { id: 'mainevents', name: "ƒƒCƒ“ƒCƒxƒ“ƒg"},
+                    { id: 'mainevents', name: "ãƒ¡ã‚¤ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆ"},
                     ...eventsService.getEventGroups().map(g => ({ id: g.id, name: g.name }))
                 ].filter(g => g.id !== currentGroupId);
 
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> •ÒW</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ç·¨é›†</a>`,
                         click: () => {
                             $scope.showAddOrEditEventModal(event.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> —LŒø‰»‚ÌØ‚è‘Ö‚¦</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> æœ‰åŠ¹åŒ–ã®åˆ‡ã‚Šæ›¿ãˆ</a>`,
                         click: () => {
                             $scope.toggleEventActiveStatus(event.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-copy" style="margin-right: 10px;"></i> ƒRƒs[</a>`,
+                        html: `<a href ><i class="far fa-copy" style="margin-right: 10px;"></i> ã‚³ãƒ”ãƒ¼</a>`,
                         click: () => {
                             $scope.copyEvent(event.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> •¡»</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> è¤‡è£½</a>`,
                         click: () => {
                             $scope.duplicateEvent(event.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> íœ</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> å‰Šé™¤</a>`,
                         click: () => {
-                            $scope.showDeleteEventModal(event.id, event.name ? event.name : '–¼–³‚µ');
+                            $scope.showDeleteEventModal(event.id, event.name ? event.name : 'åç„¡ã—');
                         }
                     },
                     {
-                        text: "ˆÚ“®æ...",
+                        text: "ç§»å‹•å…ˆ...",
                         children: availableGroups.map(g => {
                             return {
                                 html: `<a href>${g.name}</a>`,
@@ -378,38 +378,38 @@
 
                 return [
                     {
-                        html: `<a href ><i class="far fa-pen mr-4"></i> –¼‘O‚Ì•ÏX</a>`,
+                        html: `<a href ><i class="far fa-pen mr-4"></i> åå‰ã®å¤‰æ›´</a>`,
                         click: () => {
                             $scope.showRenameEventGroupModal(group);
                         }
                     },
                     {
-                        html: `<a href ><i class="fas mr-4 ${group.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> ${group.active ? '”ñƒAƒNƒeƒBƒu' : 'ƒAƒNƒeƒBƒu'}</a>`,
+                        html: `<a href ><i class="fas mr-4 ${group.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> ${group.active ? 'OFF' : 'ON'}</a>`,
                         click: () => {
                             eventsService.toggleEventGroupActiveStatus(group.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone mr-4"></i> •¡»</a>`,
+                        html: `<a href ><i class="far fa-clone mr-4"></i> è¤‡è£½</a>`,
                         click: () => {
                             eventsService.duplicateEventGroup(group);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373"><i class="far fa-trash-alt mr-4"></i> íœ</a>`,
+                        html: `<a href style="color: #fb7373"><i class="far fa-trash-alt mr-4"></i> å‰Šé™¤</a>`,
                         click: () => {
                             $scope.showDeleteGroupModal(group);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-copy mr-4"></i> ƒRƒs[</a>`,
+                        html: `<a href ><i class="far fa-copy mr-4"></i> ã‚³ãƒ”ãƒ¼</a>`,
                         click: () => {
                             $scope.copyEvents(group.id);
                         },
                         hasTopDivider: true
                     },
                     {
-                        html: `<a href><i class="far fa-paste mr-4" ng-class="{'disabled': !hasCopiedEvents()}"></i> “\‚è•t‚¯</a>`,
+                        html: `<a href><i class="far fa-paste mr-4" ng-class="{'disabled': !hasCopiedEvents()}"></i> è²¼ã‚Šä»˜ã‘</a>`,
                         click: () => {
                             $scope.pasteEvents(group.id);
                         },

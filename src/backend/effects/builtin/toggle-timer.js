@@ -47,8 +47,8 @@ const chat = {
         }
 
         $scope.toggleOptions = {
-            disable: "非アクティブ",
-            enable: "アクティブ",
+            disable: "OFF",
+            enable: "ON",
             toggle: "切り替え"
         };
 

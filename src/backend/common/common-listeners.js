@@ -197,7 +197,7 @@ exports.setupCommonListeners = () => {
     });
 
     const updaterOptions = {
-        repo: "crowbartools/firebot",
+        repo: "nmori/firebot",
         currentVersion: app.getVersion()
     };
 

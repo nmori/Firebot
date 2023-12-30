@@ -110,10 +110,10 @@ function createCurrencyCommandDefinition(currency) {
     const commandManagement = {
         definition: {
             id: `firebot:currency:${currencyId}`,
-            name: currencyName + "‚ğŠÇ—",
+            name: currencyName + "ã‚’ç®¡ç†",
             active: true,
             trigger: `!${cleanName}`,
-            description: `"${currencyName}" ‚ÌŠÇ—‚ğ‚µ‚Ü‚·B`,
+            description: `"${currencyName}" ã®ç®¡ç†ã‚’ã—ã¾ã™ã€‚`,
             autoDeleteTrigger: false,
             scanWholeMessage: false,
             currency: {
@@ -124,51 +124,51 @@ function createCurrencyCommandDefinition(currency) {
                 user: 0,
                 global: 0
             },
-            baseCommandDescription: "c‚‚ğŠm”F",
+            baseCommandDescription: "æ®‹é«˜ã‚’ç¢ºèª",
             options: {
                 currencyBalanceMessageTemplate: {
                     type: "string",
-                    title: "c‚ƒƒbƒZ[ƒW‚Ìƒeƒ“ƒvƒŒ[ƒg",
-                    description: "ƒ`ƒƒƒbƒg‚É•\¦‚³‚ê‚éc‚ƒƒbƒZ[ƒW",
-                    tip: "•Ï”: {user}, {currency}, {amount}",
-                    default: `{user}‚³‚ñ‚Ì {currency} c‚‚Í {amount}‚Å‚·`,
+                    title: "æ®‹é«˜ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ",
+                    description: "ãƒãƒ£ãƒƒãƒˆã«è¡¨ç¤ºã•ã‚Œã‚‹æ®‹é«˜ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸",
+                    tip: "å¤‰æ•°: {user}, {currency}, {amount}",
+                    default: `{user}ã•ã‚“ã® {currency} æ®‹é«˜ã¯ {amount}ã§ã™`,
                     useTextArea: true
                 },
                 whisperCurrencyBalanceMessage: {
                     type: "boolean",
-                    title: "c‚ƒƒbƒZ[ƒW‚ğ‚³‚³‚â‚­",
+                    title: "æ®‹é«˜ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ã•ã•ã‚„ã",
                     default: false
                 },
                 addMessageTemplate: {
                     type: "string",
-                    title: "’Ê‰İƒƒbƒZ[ƒW‚Ìƒeƒ“ƒvƒŒ[ƒg‚ğ’Ç‰Á",
-                    description: "’Ê‰İ’Ç‰ÁƒƒbƒZ[ƒW‚ªƒ`ƒƒƒbƒg‚É‚Ç‚Ì‚æ‚¤‚É•\¦‚³‚ê‚é‚©B",
-                    tip: "•Ï”: {user}, {currency}, {amount}",
-                    default: `{user} ‚³‚ñ‚Í {amount} {currency} ‚ğ’Ç‰Á‚µ‚Ü‚µ‚½ `,
+                    title: "é€šè²¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’è¿½åŠ ",
+                    description: "é€šè²¨è¿½åŠ ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒãƒãƒ£ãƒƒãƒˆã«ã©ã®ã‚ˆã†ã«è¡¨ç¤ºã•ã‚Œã‚‹ã‹ã€‚",
+                    tip: "å¤‰æ•°: {user}, {currency}, {amount}",
+                    default: `{user} ã•ã‚“ã¯ {amount} {currency} ã‚’è¿½åŠ ã—ã¾ã—ãŸ `,
                     useTextArea: true
                 },
                 removeMessageTemplate: {
                     type: "string",
-                    title: "’Ê‰İƒƒbƒZ[ƒWƒeƒ“ƒvƒŒ[ƒg‚Ìíœ",
-                    description: "!currency ƒƒbƒZ[ƒW‚ªƒ`ƒƒƒbƒg‚É‚Ç‚Ì‚æ‚¤‚É•\¦‚³‚ê‚é‚©",
-                    tip: "•Ï”: {user}, {currency}, {amount}",
-                    default: `{user}‚³‚ñ‚Í {amount} {currency} ‚ğíœ‚µ‚Ü‚µ‚½ `,
+                    title: "é€šè²¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®å‰Šé™¤",
+                    description: "!currency ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒãƒãƒ£ãƒƒãƒˆã«ã©ã®ã‚ˆã†ã«è¡¨ç¤ºã•ã‚Œã‚‹ã‹",
+                    tip: "å¤‰æ•°: {user}, {currency}, {amount}",
+                    default: `{user}ã•ã‚“ã¯ {amount} {currency} ã‚’å‰Šé™¤ã—ã¾ã—ãŸ `,
                     useTextArea: true
                 },
                 addAllMessageTemplate: {
                     type: "string",
-                    title: "‘SˆõŒü‚¯’Ê‰İ’Ç‰ÁƒƒbƒZ[ƒWƒeƒ“ƒvƒŒ[ƒg‚Ì’Ç‰Á",
-                    description: "!currency ’Ç‰Á‚ªƒ`ƒƒƒbƒg‚É•\¦‚³‚ê‚é•û–@",
-                    tip: "•Ï”: {currency}, {amount}",
-                    default: `‘Sˆõ‚É {amount} {currency} ‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½`,
+                    title: "å…¨å“¡å‘ã‘é€šè²¨è¿½åŠ ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®è¿½åŠ ",
+                    description: "!currency è¿½åŠ ãŒãƒãƒ£ãƒƒãƒˆã«è¡¨ç¤ºã•ã‚Œã‚‹æ–¹æ³•",
+                    tip: "å¤‰æ•°: {currency}, {amount}",
+                    default: `å…¨å“¡ã« {amount} {currency} ãŒè¿½åŠ ã•ã‚Œã¾ã—ãŸ`,
                     useTextArea: true
                 },
                 removeAllMessageTemplate: {
                     type: "string",
-                    title: "‘SˆõŒü‚¯’Ê‰İíœƒƒbƒZ[ƒWƒeƒ“ƒvƒŒ[ƒg‚Ì’Ç‰Á",
-                    description: "!currency íœ‚ªƒ`ƒƒƒbƒg‚É•\¦‚³‚ê‚é•û–@",
-                    tip: "•Ï”: {currency}, {amount}",
-                    default: `‘Sˆõ‚Ì {amount} {currency} ‚ªíœ‚³‚ê‚Ü‚µ‚½`,
+                    title: "å…¨å“¡å‘ã‘é€šè²¨å‰Šé™¤ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®è¿½åŠ ",
+                    description: "!currency å‰Šé™¤ãŒãƒãƒ£ãƒƒãƒˆã«è¡¨ç¤ºã•ã‚Œã‚‹æ–¹æ³•",
+                    tip: "å¤‰æ•°: {currency}, {amount}",
+                    default: `å…¨å“¡ã® {amount} {currency} ãŒå‰Šé™¤ã•ã‚Œã¾ã—ãŸ`,
                     useTextArea: true
                 }
             },
@@ -176,7 +176,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "add",
                     usage: "add [@user] [amount]",
-                    description: "w’è‚µ‚½ƒ†[ƒU[‚Ì’Ê‰İ‚ğ’Ç‰Á‚µ‚Ü‚·",
+                    description: "æŒ‡å®šã—ãŸãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é€šè²¨ã‚’è¿½åŠ ã—ã¾ã™",
                     restrictionData: {
                         restrictions: [
                             {
@@ -194,7 +194,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "remove",
                     usage: "remove [@user] [amount]",
-                    description: "w’è‚µ‚½ƒ†[ƒU[‚Ì’Ê‰İ‚ğíœ‚µ‚Ü‚·",
+                    description: "æŒ‡å®šã—ãŸãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é€šè²¨ã‚’å‰Šé™¤ã—ã¾ã™",
                     restrictionData: {
                         restrictions: [
                             {
@@ -212,12 +212,12 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "give",
                     usage: "give [@user] [amount]",
-                    description: "‚ ‚éƒ†[ƒU[‚©‚ç•Ê‚Ìƒ†[ƒU[‚Ö’Ê‰İ‚ğ“n‚µ‚Ü‚·"
+                    description: "ã‚ã‚‹ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‹ã‚‰åˆ¥ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ã¸é€šè²¨ã‚’æ¸¡ã—ã¾ã™"
                 },
                 {
                     arg: "addall",
                     usage: "addall [amount]",
-                    description: "‚·‚×‚Ä‚ÌƒIƒ“ƒ‰ƒCƒ“ƒ†[ƒU[‚É’Ê‰İ‚ğ’Ç‰Á‚µ‚Ü‚·",
+                    description: "ã™ã¹ã¦ã®ã‚ªãƒ³ãƒ©ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«é€šè²¨ã‚’è¿½åŠ ã—ã¾ã™",
                     restrictionData: {
                         restrictions: [
                             {
@@ -235,7 +235,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "removeall",
                     usage: "removeall [amount]",
-                    description: "‚·‚×‚Ä‚ÌƒIƒ“ƒ‰ƒCƒ“ƒ†[ƒU[‚Ì’Ê‰İ‚ğíœ‚µ‚Ü‚·",
+                    description: "ã™ã¹ã¦ã®ã‚ªãƒ³ãƒ©ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é€šè²¨ã‚’å‰Šé™¤ã—ã¾ã™",
                     restrictionData: {
                         restrictions: [
                             {
@@ -320,7 +320,7 @@ function createCurrencyCommandDefinition(currency) {
                         await twitchChat.sendChatMessage(removeMessageTemplate);
                     } else {
                     // Error removing currency.
-                    await twitchChat.sendChatMessage(`ƒGƒ‰[F ƒ†[ƒU[‚Ì’Ê‰İ‚ğíœ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B`);
+                    await twitchChat.sendChatMessage(`ã‚¨ãƒ©ãƒ¼ï¼š ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é€šè²¨ã‚’å‰Šé™¤ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚`);
                         logger.error(`Error removing currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
                     }
 
@@ -335,7 +335,7 @@ function createCurrencyCommandDefinition(currency) {
                 // Does this currency have transfer active?
                 const currencyCheck = currencyDatabase.getCurrencies();
                 if (currencyCheck[currencyId].transfer === "Disallow") {
-                    await twitchChat.sendChatMessage('‚±‚Ì’Ê‰İ‚Í‚¨æˆµ‚¢‚Å‚«‚Ü‚¹‚ñ');
+                    await twitchChat.sendChatMessage('ã“ã®é€šè²¨ã¯ãŠå–æ‰±ã„ã§ãã¾ã›ã‚“');
                     logger.debug(event.userCommand.commandSender + ' tried to give currency, but transfers are turned off for it. ' + currencyId);
                     return false;
                 }
@@ -343,7 +343,7 @@ function createCurrencyCommandDefinition(currency) {
                 // Dont allow person to give themselves currency.
                 if (event.userCommand.commandSender.toLowerCase() === username.toLowerCase()) {
                     await twitchChat.sendChatMessage(
-                        `${event.userCommand.commandSender}F©•ª©g‚É’Ê‰İ‚ğ—^‚¦‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ`);
+                        `${event.userCommand.commandSender}ï¼šè‡ªåˆ†è‡ªèº«ã«é€šè²¨ã‚’ä¸ãˆã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“`);
                     logger.debug(username + ' tried to give themselves currency.');
                     return false;
                 }
@@ -354,13 +354,13 @@ function createCurrencyCommandDefinition(currency) {
 
                 // If we get false, there was an error.
                 if (userAmount === false) {
-                    await twitchChat.sendChatMessage('ƒGƒ‰[F ’Ê‰İ‚ğæ“¾‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½');
+                    await twitchChat.sendChatMessage('ã‚¨ãƒ©ãƒ¼ï¼š é€šè²¨ã‚’å–å¾—ã§ãã¾ã›ã‚“ã§ã—ãŸ');
                     return false;
                 }
 
                 // Check to make sure we have enough currency to give.
                 if (userAmount < currencyAdjust) {
-                    await twitchChat.sendChatMessage('‚±‚ÌƒAƒNƒVƒ‡ƒ“‚ğÀs‚·‚é‚Ì‚É\•ª‚È' + currencyName + ' ‚ğ‚Á‚Ä‚¢‚Ü‚¹‚ñ');
+                    await twitchChat.sendChatMessage('ã“ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹ã®ã«ååˆ†ãª' + currencyName + ' ã‚’æŒã£ã¦ã„ã¾ã›ã‚“');
                     return false;
                 }
 
@@ -382,15 +382,8 @@ function createCurrencyCommandDefinition(currency) {
                         }
                     } else {
                         // Error removing currency.
-                        await twitchChat.sendChatMessage(
-                            `ƒGƒ‰[F æˆø’†‚Ì’Ê‰İ‚ğíœ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B`);
-                        logger.error('Error removing currency during give transaction for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
-                        return false;
-                    }
-                } else {
-                    // Error removing currency.
-                    await twitchChat.sendChatMessage(`ƒGƒ‰[F ƒ†[ƒU[‚É’Ê‰İ‚ğ’Ç‰Á‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½Bƒ†[ƒU[–¼‚Í³‚µ‚¢‚Å‚·‚©H`);
-                    logger.error('Error adding currency during give transaction for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
+                        await twitchChat.sendChatMessage(`ã‚¨ãƒ©ãƒ¼ï¼š ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«é€šè²¨ã‚’è¿½åŠ ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ãƒ¦ãƒ¼ã‚¶ãƒ¼åã¯æ­£ã—ã„ã§ã™ã‹ï¼Ÿ`);
+                        logger.error('Error adding currency during give transaction for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
                     return false;
                 }
 

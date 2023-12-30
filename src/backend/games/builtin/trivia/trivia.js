@@ -5,19 +5,19 @@ const triviaCommand = require("./trivia-command");
  */
 module.exports = {
     id: "firebot-trivia",
-    name: "Trivia",
-    subtitle: "Knowledge is power",
-    description: "Users can wager currency to answer a random trivia question. Trivia questions are sourced from https://opentdb.com/",
+    name: "トリビア",
+    subtitle: "知識は力なり",
+    description: "ユーザーは通貨を賭けてランダムなトリビアの問に答えることができる。トリビアの問題は https://opentdb.com/から取得しています",
     icon: "fa-head-side-brain",
     settingCategories: {
         currencySettings: {
-            title: "Currency Settings",
+            title: "通貨設定",
             sortRank: 1,
             settings: {
                 currencyId: {
                     type: "currency-select",
-                    title: "Currency",
-                    description: "Which currency to use for bidding.",
+                    title: "通貨",
+                    description: "入札に使用する通貨",
                     sortRank: 1,
                     validation: {
                         required: true
@@ -25,10 +25,10 @@ module.exports = {
                 },
                 defaultWager: {
                     type: "number",
-                    title: "Default Wager Amount",
-                    description: "The default wager amount to use if a viewer doesn't specify one.",
+                    title: "デフォルトの賭け金額",
+                    description: "視聴者が賭け金を指定していない場合に使用する賭け金の初期値。",
                     placeholder: "金額を入れる",
-                    tip: "Optional",
+                    tip: "任意",
                     sortRank: 2,
                     validation: {
                         min: 1
@@ -36,7 +36,7 @@ module.exports = {
                 },
                 minWager: {
                     type: "number",
-                    title: "Min Wager Amount",
+                    title: "最低賭け金額",
                     placeholder: "金額を入れる",
                     default: 1,
                     sortRank: 3,
@@ -46,9 +46,9 @@ module.exports = {
                 },
                 maxWager: {
                     type: "number",
-                    title: "Max Wager Amount",
+                    title: "最大賭け金額",
                     placeholder: "金額を入れる",
-                    tip: "Optional",
+                    tip: "任意",
                     sortRank: 4,
                     validation: {
                         min: 1
@@ -57,111 +57,111 @@ module.exports = {
             }
         },
         questionSettings: {
-            title: "Question Settings",
+            title: "質問設定",
             sortRank: 2,
             settings: {
                 enabledCategories: {
                     type: "multiselect",
-                    title: "Enabled Categories",
-                    description: "Categories of questions that are enabled",
+                    title: "有効なカテゴリ",
+                    description: "有効な質問カテゴリ",
                     default: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32],
                     settings: {
                         options: [
                             {
                                 "id": 9,
-                                "name": "General Knowledge"
+                                "name": "一般常識"
                             },
                             {
                                 "id": 10,
-                                "name": "Entertainment: Books"
+                                "name": "エンタメ：書籍"
                             },
                             {
                                 "id": 11,
-                                "name": "Entertainment: Film"
+                                "name": "エンタメ：映画"
                             },
                             {
                                 "id": 12,
-                                "name": "Entertainment: Music"
+                                "name": "エンタメ：音楽"
                             },
                             {
                                 "id": 13,
-                                "name": "Entertainment: Musicals & Theatres"
+                                "name": "エンタメ：ミュージカル＆劇場"
                             },
                             {
                                 "id": 14,
-                                "name": "Entertainment: Television"
+                                "name": "エンタメ：テレビ"
                             },
                             {
                                 "id": 15,
-                                "name": "Entertainment: Video Games"
+                                "name": "エンタメ：ゲーム"
                             },
                             {
                                 "id": 16,
-                                "name": "Entertainment: Board Games"
+                                "name": "エンタメ：ボードゲーム"
                             },
                             {
                                 "id": 17,
-                                "name": "Science & Nature"
+                                "name": "科学と自然"
                             },
                             {
                                 "id": 18,
-                                "name": "Science: Computers"
+                                "name": "科学：コンピューター"
                             },
                             {
                                 "id": 19,
-                                "name": "Science: Mathematics"
+                                "name": "科学：数学"
                             },
                             {
                                 "id": 20,
-                                "name": "Mythology"
+                                "name": "神話"
                             },
                             {
                                 "id": 21,
-                                "name": "Sports"
+                                "name": "スポーツ"
                             },
                             {
                                 "id": 22,
-                                "name": "Geography"
+                                "name": "地理"
                             },
                             {
                                 "id": 23,
-                                "name": "History"
+                                "name": "歴史"
                             },
                             {
                                 "id": 24,
-                                "name": "Politics"
+                                "name": "政治"
                             },
                             {
                                 "id": 25,
-                                "name": "Art"
+                                "name": "アート"
                             },
                             {
                                 "id": 26,
-                                "name": "Celebrities"
+                                "name": "セレブリティ"
                             },
                             {
                                 "id": 27,
-                                "name": "Animals"
+                                "name": "動物"
                             },
                             {
                                 "id": 28,
-                                "name": "Vehicles"
+                                "name": "車両"
                             },
                             {
                                 "id": 29,
-                                "name": "Entertainment: Comics"
+                                "name": "エンタメ：コミック"
                             },
                             {
                                 "id": 30,
-                                "name": "Science: Gadgets"
+                                "name": "サイエンス：ガジェット"
                             },
                             {
                                 "id": 31,
-                                "name": "Entertainment: Japanese Anime & Manga"
+                                "name": "エンタメ：日本のアニメとマンガ"
                             },
                             {
                                 "id": 32,
-                                "name": "Entertainment: Cartoon & Animations"
+                                "name": "エンタメ：漫画・アニメ"
                             }
                         ]
                     },
@@ -172,21 +172,21 @@ module.exports = {
                 },
                 enabledDifficulties: {
                     type: "multiselect",
-                    title: "Enabled Difficulties",
+                    title: "可能な困難",
                     default: ["easy", "medium", "hard"],
                     settings: {
                         options: [
                             {
                                 id: "easy",
-                                name: "Easy"
+                                name: "かんたん"
                             },
                             {
                                 id: "medium",
-                                name: "Medium"
+                                name: "普通"
                             },
                             {
                                 id: "hard",
-                                name: "Hard"
+                                name: "難しい"
                             }
                         ]
                     },
@@ -197,17 +197,17 @@ module.exports = {
                 },
                 enabledTypes: {
                     type: "multiselect",
-                    title: "Enabled Question Types",
+                    title: "回答形式",
                     default: ["multiple", "boolean"],
                     settings: {
                         options: [
                             {
                                 id: "boolean",
-                                name: "True/False"
+                                name: "はい・いいえ"
                             },
                             {
                                 id: "multiple",
-                                name: "Multiple Choice"
+                                name: "複数選択"
                             }
                         ]
                     },
@@ -218,9 +218,9 @@ module.exports = {
                 },
                 answerTime: {
                     type: "number",
-                    title: "Answer Time (secs)",
-                    description: "The amount of time in seconds users have to answer a question.",
-                    placeholder: "Enter secs",
+                    title: "回答秒数（秒）",
+                    description: "視聴者が質問に答えるのに要する時間（秒）。",
+                    placeholder: "秒数を入力",
                     default: 30,
                     sortRank: 4,
                     validation: {
@@ -231,14 +231,14 @@ module.exports = {
             }
         },
         multiplierSettings: {
-            title: "Winnings Multipliers",
+            title: "勝利倍率",
             sortRank: 3,
             settings: {
                 easyMultipliers: {
-                    title: "Easy Multiplier",
+                    title: "複数選択（かんたん）",
                     type: "role-numbers",
-                    description: "The winnings multiplier per user role for Easy questions",
-                    tip: "The winnings are calculated as: WagerAmount * Multiplier",
+                    description: "ユーザーの役割ごとの当選倍率",
+                    tip: "賞金は以下のように計算されます：賭け金額 * 乗数",
                     sortRank: 1,
                     settings: {
                         defaultBase: 1.50,
@@ -248,10 +248,10 @@ module.exports = {
                     }
                 },
                 mediumMultipliers: {
-                    title: "Medium Multiplier",
+                    title: "複数選択（普通）",
                     type: "role-numbers",
-                    description: "The winnings multiplier per user role for Medium questions",
-                    tip: "The winnings are calculated as: WagerAmount * Multiplier",
+                    description: "視聴者の役割ごとの当選倍率",
+                    tip: "賞金は以下のように計算されます：賭け金額 * 乗数",
                     sortRank: 2,
                     settings: {
                         defaultBase: 2.00,
@@ -261,10 +261,10 @@ module.exports = {
                     }
                 },
                 hardMultipliers: {
-                    title: "Hard Multiplier",
+                    title: "複数選択（難しい）",
                     type: "role-numbers",
-                    description: "The winnings multiplier per user role for Hard questions",
-                    tip: "The winnings are calculated as: WagerAmount * Multiplier",
+                    description: "視聴者の役割ごとの当選倍率",
+                    tip: "賞金は以下のように計算されます：賭け金額 * 乗数",
                     sortRank: 3,
                     settings: {
                         defaultBase: 3,
@@ -276,15 +276,15 @@ module.exports = {
             }
         },
         cooldownSettings: {
-            title: "Cooldown",
+            title: "開催間隔",
             sortRank: 4,
             settings: {
                 cooldown: {
                     type: "number",
-                    title: "Cooldown (secs)",
-                    placeholder: "Enter secs",
-                    description: "Cooldown is applied per viewer.",
-                    tip: "Optional.",
+                    title: "間隔 (秒)",
+                    placeholder: "秒数を入れる",
+                    description: "間隔は視聴者ごとに適用されます",
+                    tip: "任意",
                     default: 300,
                     validation: {
                         min: 0
@@ -293,20 +293,20 @@ module.exports = {
             }
         },
         chatSettings: {
-            title: "Chat Settings",
+            title: "書き込み先",
             sortRank: 5,
             settings: {
                 chatter: {
                     type: "chatter-select",
-                    title: "Chat As",
+                    title: "アカウント",
                     sortRank: 1
                 },
                 noWagerMessage: {
                     type: "string",
-                    title: "No Wager Message",
+                    title: "賭け金なしのメッセージ",
                     useTextArea: true,
-                    default: "Incorrect trivia usage: !trivia [wager]",
-                    tip: "Available variables: {user}",
+                    default: "入力に誤りがあります。使用例） !trivia [wager]",
+                    tip: "利用可能な変数: {user}",
                     sortRank: 2,
                     validation: {
                         required: true

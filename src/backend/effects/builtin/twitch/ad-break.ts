@@ -8,12 +8,10 @@ const model: EffectType<{
     definition: {
         id: "firebot:ad-break",
         name: "Ad Break",
-        description: "ad-break���N������",
-        hidden: !accountAccess.getAccounts().streamer.loggedIn,
+        description: "ad breakを起動します",
         icon: "fad fa-ad",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
-        dependencies: [EffectDependency.CHAT]
-        dependencies: {
+                dependencies: {
             twitch: true
         }
     },
@@ -25,29 +23,29 @@ const model: EffectType<{
                 </button>
                 <ul class="dropdown-menu ad-effect-dropdown">
                     <li ng-click="effect.adLength = 30">
-                        <a href>30 �b</a>
+                        <a href>30 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 60">
-                        <a href>60 �b</a>
+                        <a href>60 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 90">
-                        <a href>90 �b</a>
+                        <a href>90 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 120">
-                        <a href>120 �b</a>
+                        <a href>120 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 150">
-                        <a href>150 �b</a>
+                        <a href>150 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 180">
-                        <a href>180 �b</a>
+                        <a href>180 秒</a>
                     </li>
                 </ul>
             </div>
         </eos-container>
         <eos-container>
             <div class="effect-info alert alert-warning">
-                ���F���̌��ʂ��g�p����ɂ́A�A�t�B���G�C�g�܂��̓p�[�g�i�[�ł���K�v������܂��B
+                注：この効果を使用するには、アフィリエイトまたはパートナーである必要があります。
             </div>
         </eos-container>
     `,

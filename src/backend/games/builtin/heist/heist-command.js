@@ -19,21 +19,21 @@ const HEIST_COMMAND_ID = "firebot:heist";
 const heistCommand = {
     definition: {
         id: HEIST_COMMAND_ID,
-        name: "Heist",
+        name: "強盗",
         active: true,
         trigger: "!heist",
-        description: "Allows viewers to play the Heist game.",
+        description: "視聴者が強盗ゲームをプレイできるようにする。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
-        baseCommandDescription: "Starts/joins the heist with the default wager amount, if one is set.",
+        baseCommandDescription: "デフォルトの賭け金額が設定されている場合、その金額で強盗を開始／参加する」",
         subCommands: [
             {
                 id: "wagerAmount",
                 arg: "\\d+",
                 regex: true,
                 usage: "[wagerAmount]",
-                description: "Starts/joins the heist with the given amount.",
+                description: "指定された金額で強盗を開始/参加する。",
                 hideCooldowns: true
             }
         ]
@@ -52,14 +52,14 @@ const heistCommand = {
 
         // make sure the currency still exists
         if (currency == null) {
-            await twitchChat.sendChatMessage("Unable to start a Heist game as the selected currency appears to not exist anymore.", null, chatter);
+            await twitchChat.sendChatMessage("STOP:選択した通貨が存在しない", null, chatter);
             await twitchApi.chat.deleteChatMessage(chatEvent.id);
         }
 
         // see if the heist is on cooldown before doing anything else
         if (heistRunner.cooldownExpireTime && moment().isBefore(heistRunner.cooldownExpireTime)) {
             if (heistSettings.settings.generalMessages.onCooldown) {
-                const timeRemainingDisplay = util.secondsForHumans(Math.abs(moment().diff(heistRunner.cooldownExpireTime, 'seconds')));
+                const timeRemainingDisplay = util.secondsForHumans(Math.abs(moment().diff(heistRunner.cooldownExpireTime, '秒')));
                 const cooldownMsg = heistSettings.settings.generalMessages.onCooldown
                     .replace("{cooldown}", timeRemainingDisplay);
 

@@ -167,10 +167,10 @@ const effect = {
             <firebot-input ng-if="effect.showLastGame" input-title="最後のテキスト" model="effect.lastGameText" placeholder-text="テキストを入力" />
 
         </eos-container>
-        <eos-container header="視聴者名" pad-top="true">
-            <firebot-input model="effect.username" placeholder-text="視聴者名を入力" />
+        <eos-container header="視聴者のID" pad-top="true">
+            <firebot-input model="effect.username" placeholder-text="視聴者IDを入力" />
             <p ng-show="trigger == 'command'" class="muted" style="font-size:11px;margin-top:6px;">
-                <b>情報:</b> <b>$target</b>を使うと、コマンドの中で対象となるユーザーを表示することができます
+                <b>情報:</b> 一般的には <b>$user</b> 、<b>$userIdName</b> あたりをつかいます 
             </p>
         </eos-container>
         <eos-container header="継続時間" pad-top="true">
@@ -193,7 +193,7 @@ const effect = {
         $scope.defaultGameBoxArt = "https://static-cdn.jtvnw.net/ttv-boxart/Science%20&%20Technology.jpg";
 
         if ($scope.effect.shoutoutText == null) {
-            $scope.effect.shoutoutText = "彼らは素晴らしいストリーマーだ。フォローしよう！";
+            $scope.effect.shoutoutText = "みんな、ぜひフォローしよう！";
         }
 
         if ($scope.effect.showLastGame == null) {
@@ -225,7 +225,7 @@ const effect = {
         }
 
         if ($scope.effect.lastGameText == null) {
-            $scope.effect.lastGameText = "Last seen streaming";
+            $scope.effect.lastGameText = "最後の配信テーマ";
         }
 
         $scope.showOverlayInfoModal = function(overlayInstance) {
@@ -262,7 +262,8 @@ const effect = {
             return;
         }
 
-        effect.username = user.displayName;
+        effect.username = user.username;
+        effect.displayName = user.displayName;
 
         const channelInfo = await twitchApi.channels.getChannelInformation(user.id);
         if (channelInfo == null) {
@@ -323,7 +324,7 @@ const effect = {
                         <div style="padding: 0 10%;">
                             <div>
                                 <div>
-                                    <div id="${fittyId}" class="firebot-shoutout-username" style="color: ${data.textColor}">${data.username}</div>
+                                    <div id="${fittyId}" class="firebot-shoutout-username" style="color: ${data.textColor}">${data.displayName}</div>
                                 </div>
                             </div>
                         </div>
@@ -336,7 +337,7 @@ const effect = {
                             <div class="firebot-shoutout-game-dimmer" />
                             <div class="firebot-shoutout-game-text-wrapper">
                                 <div class="firebot-shoutout-game-lastseen">
-                                    ${data.lastGameText || "LAST SEEN STREAMING"}
+                                    ${data.lastGameText || "最後に見た配信"}
                                 </div>
                                 ${data.gameName}
                             </div>

@@ -29,62 +29,62 @@
 
             $scope.categories = [
                 {
-                    name: "���",
-                    description: "�O�ς�x�[�^�Œʒm�ȂǁA���܂��܂Ȑݒ肪�\�ł�",
+                    name: "一般",
+                    description: "外観やベータ版通知など、さまざまな設定が可能です",
                     icon: "fa-sliders-v-square",
                     template: "<general-settings />"
                 },
                 {
-                    name: "�Z�b�g�A�b�v",
-                    description: "���Ȃ��̐ݒ�𑼂̐l�Ƌ��L������A���̐l�̐ݒ����荞�߂܂�",
+                    name: "セットアップ",
+                    description: "あなたの設定を他の人と共有したり、他の人の設定を取り込めます",
                     icon: "fa-box-full",
                     template: "<setups-settings />"
                 },
                 {
-                    name: "�N������",
-                    description: "�l�X�ȋN�������i�R�}���h�A�C�x���g�Ȃǁj�̓������������܂�",
+                    name: "起動条件",
+                    description: "様々な起動条件（コマンド、イベントなど）の動作を微調整します",
                     icon: "fa-bolt",
                     template: "<trigger-settings />"
                 },
                 {
-                    name: "�f�[�^�x�[�X",
-                    description: "�����҃f�[�^�x�[�X�̃I�v�V�����ƃc�[��",
+                    name: "データベース",
+                    description: "視聴者データベースのオプションとツール",
                     icon: "fa-database",
                     template: "<database-settings />"
                 },
                 {
-                    name: "�I�[�o�[���C",
-                    description: "�V�����t�H���g�̒ǉ��A�V�����C���X�^���X�̍쐬�A���̑��̃I�[�o�[���C�ݒ�����܂�",
+                    name: "オーバーレイ",
+                    description: "新しいフォントの追加、新しいインスタンスの作成、その他のオーバーレイ設定をします",
                     icon: "fa-tv",
                     template: "<overlay-settings />"
                 },
                 {
-                    name: "�A�g",
-                    description: "�T�[�h�p�[�e�B���c�[����A�v����Firebot�������N�����܂�",
+                    name: "連携",
+                    description: "サードパーティ製ツールやアプリとFirebotをリンクさせます",
                     icon: "fa-globe",
                     template: "<integration-settings />"
                 },
                 {
-                    name: "���������iText To Speech�j",
-                    description: "�ǂݏグ�����̐ݒ��ς����܂�",
+                    name: "合成音声（Text To Speech）",
+                    description: "読み上げ音声の設定を変えられます",
                     icon: "fa-volume",
                     template: "<tts-settings />"
                 },
                 {
-                    name: "�o�b�N�A�b�v",
-                    description: "�o�b�N�A�b�v�ƃo�b�N�A�b�v�ݒ���Ǘ����A�f�[�^�������Ȃ��悤�ɂ��܂�",
+                    name: "バックアップ",
+                    description: "バックアップとバックアップ設定を管理し、データが失われないようにします",
                     icon: "fa-file-archive",
                     template: "<backups-settings />"
                 },
                 {
-                    name: "�X�N���v�g",
-                    description: "�X�N���v�g�̐ݒ�A�X�^�[�g�A�b�v�X�N���v�g�̒ǉ��Ȃǂ����܂�",
+                    name: "スクリプト",
+                    description: "スクリプトの設定、スタートアップスクリプトの追加などをします",
                     icon: "fa-code",
                     template: "<scripts-settings />"
                 },
                 {
-                    name: "���p",
-                    description: "�f�o�b�O���[�h�Awhile���[�v�A���̑��̃c�[���ȂǁA�l�X�ȍ��x�Ȑݒ�����܂�",
+                    name: "応用",
+                    description: "デバッグモード、whileループ、その他のツールなど、様々な高度な設定をします",
                     icon: "fa-tools",
                     template: "<advanced-settings />"
                 }
@@ -98,7 +98,7 @@
             $scope.getSelectedVoiceName = () => {
                 const selectedVoiceId = settingsService.getDefaultTtsVoiceId();
                 const voice = ttsService.getVoiceById(selectedVoiceId);
-                return voice ? voice.name : "�s���ȉ���";
+                return voice ? voice.name : "不明な音声";
             };
 
             $scope.ttsVoiceOptions = ttsService.getVoices().reduce((acc, v) => {
@@ -138,12 +138,12 @@
             const streamerName = accountAccess.accounts.streamer.username;
 
             const testTTSMessages = [
-                "�ǂ���������߂�����������",
-                "�b���ł���̂͂������Ƃł���",
-                "���Ȃ��͑f���炵���Ǝv��",
-                "����҂ɂ͂��s���H�����ɂ��B�͂͂́B",
-                "����̓e�X�g���b�Z�[�W�ł��B�r�[�v�u�[�v",
-                `�\���󂠂�܂���A${streamerName}����B�\���󂠂�܂��񂪁A����͂ł��܂���B`
+                "良い一日をお過ごしください",
+                "話ができるのはいいことですね",
+                "あなたは素晴らしいと思う",
+                "歯医者にはいつ行く？歯が痛い。ははは。",
+                "これはテストメッセージです。ビープブープ",
+                `申し訳ありません、${streamerName}さん。申し訳ありませんが、それはできません。`
             ];
 
             $scope.testTTS = () => {
@@ -196,9 +196,9 @@
             $scope.recalculateQuoteIds = () => {
                 utilityService
                     .showConfirmationModal({
-                        title: "���pID�̍Čv�Z",
-                        question: `�{����ID��t�^���Ȃ����Ă悢�ł����H`,
-                        confirmLabel: "���s",
+                        title: "引用IDの再計算",
+                        question: `本当にIDを付与しなおしてよいですか？`,
+                        confirmLabel: "実行",
                         confirmBtnType: "btn-danger"
                     })
                     .then(confirmed => {
@@ -216,9 +216,9 @@
                 } else {
                     utilityService
                         .showConfirmationModal({
-                            title: "���[�v�̗L����",
-                            question: "���̋@�\��L���ɂ���Ƃ������Ƃ́AWhile Loops�̌�p�ɂ��p�t�H�[�}���X��̖�肪��������AFirebot���t���[�Y�����肷��\�������邱�Ƃ𗝉��������ƂɂȂ�܂�",
-                            confirmLabel: "����������ŗL��������",
+                            title: "ループの有効化",
+                            question: "この機能を有効にするということは、While Loopsの誤用によりパフォーマンス上の問題が生じたり、Firebotがフリーズしたりする可能性があることを理解したことになります",
+                            confirmLabel: "理解した上で有効化する",
                             confirmBtnType: "btn-primary"
                         })
                         .then(confirmed => {
@@ -244,7 +244,7 @@
             };
 
             $scope.audioOutputDevices = [{
-                label: "����̃f�o�C�X",
+                label: "既定のデバイス",
                 deviceId: "default"
             }];
 
@@ -300,9 +300,9 @@
                     ticksTooltip: function(index) {
                         switch (index) {
                             case 0:
-                                return "�o�O���C��������A�@�\��ǉ������肷��A�b�v�f�[�g�B(��Fv1.0����v1.1.1)";
+                                return "バグを修正したり、機能を追加したりするアップデート。(例：v1.0からv1.1.1)";
                             case 1:
-                                return "���W���[�ȐV�o�[�W�����ł���A�b�v�f�[�g�B�j��I�ȕύX���܂މ\��������܂��B(��Fv1.0����v2.0�ցj";
+                                return "メジャーな新バージョンであるアップデート。破壊的な変更を含む可能性があります。(例：v1.0からv2.0へ）";
                             default:
                                 return "";
                         }
@@ -324,11 +324,11 @@
                     case 0:
                         return "Off";
                     case 2:
-                        return "����l";
+                        return "既定値";
                     case 3:
-                        return "����ŃA�b�v�f�[�g";
+                        return "安定版アップデート";
                     case 4:
-                        return "�J���ŃA�b�v�f�[�g";
+                        return "開発版アップデート";
                     default:
                         return "";
                 }
@@ -439,9 +439,9 @@
                         $scope.deleteBackup = function(index, backup) {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "�o�b�N�A�b�v�̍폜",
-                                    question: "���̃o�b�N�A�b�v���폜���Ă��悢�ł����H",
-                                    confirmLabel: "�폜����"
+                                    title: "バックアップの削除",
+                                    question: "このバックアップを削除してもよいですか？",
+                                    confirmLabel: "削除する"
                                 })
                                 .then(confirmed => {
                                     if (confirmed) {
@@ -454,9 +454,9 @@
                         $scope.restoreBackup = function(backup) {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "�o�b�N�A�b�v����̕���",
-                                    question: "���̃o�b�N�A�b�v���g���Đݒ�𕜌����Ă��悢�ł����H",
-                                    confirmLabel: "�������J�n"
+                                    title: "バックアップからの復元",
+                                    question: "このバックアップを使って設定を復元してもよいですか？",
+                                    confirmLabel: "復元を開始"
                                 })
                                 .then(confirmed => {
                                     if (confirmed) {

@@ -13,7 +13,8 @@ export function triggerSub(
 ): void {
     eventManager.triggerEvent("twitch", "sub", {
         userIdName: userName,
-        username: userDisplayName,
+        username: userName,
+        displayName:userDisplayName,
         userId,
         subPlan,
         totalMonths,
@@ -31,7 +32,8 @@ export function triggerPrimeUpgrade(
     subPlan: string
  ): void {
     eventManager.triggerEvent("twitch", "prime-sub-upgraded", {
-        username: userDisplayName,
+        username: username,
+        displayName:userDisplayName,
         userIdName: username,
         userId,
         subPlan

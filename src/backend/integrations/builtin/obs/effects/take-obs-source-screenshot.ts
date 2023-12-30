@@ -14,13 +14,13 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
 }> = {
     definition: {
         id: "firebot:obs-source-screenshot",
-        name: "OBSƒ\[ƒX‚ÌƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg‚ğB‚é",
-        description: "OBSƒ\[ƒX‚ÌƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg‚ğB‚Á‚Ä•Û‘¶‚µ‚Ü‚·",
+        name: "OBSã‚½ãƒ¼ã‚¹ã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’æ’®ã‚‹",
+        description: "OBSã‚½ãƒ¼ã‚¹ã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’æ’®ã£ã¦ä¿å­˜ã—ã¾ã™",
         icon: "fad fa-camera-retro",
         categories: ["common"]
     },
     optionsTemplate: `
-        <eos-container header="OBS ƒ\[ƒX">
+        <eos-container header="OBS ã‚½ãƒ¼ã‚¹">
             <div>
                 <button class="btn btn-link" ng-click="getSources()">Refresh Source Data</button>
             </div>
@@ -45,10 +45,10 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
         </eos-container>
 
         <div class="effect-setting-container setting-padtop">
-    <div class="effect-specific-title"><h4>ƒCƒ[ƒW‚Ìİ’è</h4></div>
+    <div class="effect-specific-title"><h4>ã‚¤ãƒ¡ãƒ¼ã‚¸ã®è¨­å®š</h4></div>
     <div class="effect-setting-content">
     <div class="input-group">
-            <span class="input-group-addon">ƒtƒH[ƒ}ƒbƒg</span>
+            <span class="input-group-addon">ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ</span>
             <div class="btn-group" uib-dropdown>
         <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
             {{effect.imageFormat}} <span class="caret"></span>
@@ -59,7 +59,7 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
             </li>
         </ul>
     </div>
-    <span class="input-group-addon">ƒtƒ@ƒCƒ‹</span>
+    <span class="input-group-addon">ãƒ•ã‚¡ã‚¤ãƒ«</span>
             <file-chooser model="effect.file" options="{ filters: [ {name: 'Images', extensions: ['bmp','jpeg','jpg','pbm','pgm','png','ppm','xbm','xpm']} ]}"></file-chooser>
                 </div>
             </div>
@@ -131,13 +131,13 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!effect.useActiveScene && effect.source == null) {
-            errors.push("ƒ\[ƒX‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
+            errors.push("ã‚½ãƒ¼ã‚¹ã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
         }
         if (effect.format == null) {
-            errors.push("ƒtƒH[ƒ}ƒbƒg‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
+            errors.push("ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
         }
         if (effect.file == null) {
-            errors.push("ƒtƒ@ƒCƒ‹‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
+            errors.push("ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
         }
         return errors;
     },

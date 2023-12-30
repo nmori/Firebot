@@ -9,18 +9,18 @@ const slootsFilterLoader = require("./filters/streamloots-filter-loader");
 const integrationDefinition = {
     id: "streamloots",
     name: "StreamLoots",
-    description: "ƒ`ƒFƒXƒgw“ü^ƒJ[ƒhŒğŠ·ƒCƒxƒ“ƒg",
+    description: "ãƒã‚§ã‚¹ãƒˆè³¼å…¥ï¼ã‚«ãƒ¼ãƒ‰äº¤æ›ã‚¤ãƒ™ãƒ³ãƒˆ",
     connectionToggle: true,
     linkType: "id",
     idDetails: {
         steps:
-`1. [StreamLoots](https://www.streamloots.com/)‚ÉƒƒOƒCƒ“‚µ‚Ü‚·.
+`1. [StreamLoots](https://www.streamloots.com/)ã«ãƒ­ã‚°ã‚¤ãƒ³ã—ã¾ã™.
 
-2. ƒ_ƒbƒVƒ…ƒ{[ƒh‚ÅA**ƒy[ƒWİ’è**‚Ì‰º‚É‚ ‚é**ƒAƒ‰[ƒg**ƒZƒNƒVƒ‡ƒ“‚ÉŒü‚©‚¢‚Ü‚·B
+2. ãƒ€ãƒƒã‚·ãƒ¥ãƒœãƒ¼ãƒ‰ã§ã€**ãƒšãƒ¼ã‚¸è¨­å®š**ã®ä¸‹ã«ã‚ã‚‹**ã‚¢ãƒ©ãƒ¼ãƒˆ**ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã«å‘ã‹ã„ã¾ã™ã€‚
 
-3. ƒAƒ‰[ƒg‚Ìİ’è**ƒZƒNƒVƒ‡ƒ“‚ÅA**Click here to show URL**‚Æ‚¢‚¤ƒOƒŒ[ƒAƒEƒg‚µ‚½˜g‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B
+3. ã‚¢ãƒ©ãƒ¼ãƒˆã®è¨­å®š**ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã§ã€**Click here to show URL**ã¨ã„ã†ã‚°ãƒ¬ãƒ¼ã‚¢ã‚¦ãƒˆã—ãŸæ ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¾ã™ã€‚
 
-4. ƒAƒ‰[ƒgURL‚Ì**––”ö**‚É‚ ‚é’l‚ğƒRƒs[‚µ‚Ä‚­‚¾‚³‚¢BURL‚ÌŒ`®‚Í: \`https://widgets.streamloots.com/alerts/<ID>\``
+4. ã‚¢ãƒ©ãƒ¼ãƒˆURLã®**æœ«å°¾**ã«ã‚ã‚‹å€¤ã‚’ã‚³ãƒ”ãƒ¼ã—ã¦ãã ã•ã„ã€‚URLã®å½¢å¼ã¯: \`https://widgets.streamloots.com/alerts/<ID>\``
     }
 };
 

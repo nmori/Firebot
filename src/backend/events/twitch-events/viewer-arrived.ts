@@ -9,7 +9,8 @@ export function triggerViewerArrived(
     chatMessage: FirebotChatMessage
 ) {
     eventManager.triggerEvent("twitch", "viewer-arrived", {
-        username: userDisplayName,
+        username: userName,
+        displayName:userDisplayName,
         userIdName: userName,
         userId,
         messageText,

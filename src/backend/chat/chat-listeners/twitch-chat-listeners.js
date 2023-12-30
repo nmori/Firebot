@@ -38,7 +38,7 @@ exports.setupChatListeners = (streamerChatClient) => {
         twitchEventsHandler.announcement.triggerAnnouncement(
             firebotChatMessage.useridname,
             firebotChatMessage.userId,
-            firebotChatMessage.username,
+            firebotChatMessage.displayName,
             firebotChatMessage.roles,
             firebotChatMessage.rawText
         );
@@ -57,11 +57,13 @@ exports.setupChatListeners = (streamerChatClient) => {
                 messageText: firebotChatMessage.rawText,
                 user: {
                     id: firebotChatMessage.userId,
-                    username: firebotChatMessage.username
+                    userIdName: firebotChatMessage.useridname,
+                    username: firebotChatMessage.useridname,
+                    displayName:firebotChatMessage.displayName
                 },
                 reward: {
                     id: HIGHLIGHT_MESSAGE_REWARD_ID,
-                    name: "Highlight Message",
+                    name: "ハイライト",
                     cost: 0,
                     imageUrl: "https://static-cdn.jtvnw.net/automatic-reward-images/highlight-4.png"
                 }
@@ -159,7 +161,8 @@ exports.setupChatListeners = (streamerChatClient) => {
 
     streamerChatClient.onCommunitySub((_channel, _user, subInfo) => {
         twitchEventsHandler.giftSub.triggerCommunitySubGift(
-            subInfo.gifterDisplayName ?? "An Anonymous Gifter",
+            subInfo.gifterUserName ?? "anonymous",
+            subInfo.gifterDisplayName ?? "匿名",
             subInfo.plan,
             subInfo.count
         );
@@ -167,11 +170,13 @@ exports.setupChatListeners = (streamerChatClient) => {
 
     streamerChatClient.onSubGift((_channel, _user, subInfo) => {
         twitchEventsHandler.giftSub.triggerSubGift(
-            subInfo.gifterDisplayName ?? "An Anonymous Gifter",
+            subInfo.gifterUserName ?? "anonymous",
+            subInfo.gifterDisplayName ?? "匿名",
             subInfo.gifter,
             subInfo.gifterUserId,
             !subInfo.gifterUserId,
             subInfo.displayName,
+            subInfo.userName,
             subInfo.plan,
             subInfo.giftDuration,
             subInfo.months,
@@ -184,6 +189,7 @@ exports.setupChatListeners = (streamerChatClient) => {
             msg.userInfo.userName,
             subInfo.displayName,
             subInfo.userId,
+            subInfo.gifterUserName,
             subInfo.gifterDisplayName,
             subInfo.plan
         );

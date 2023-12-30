@@ -15,7 +15,7 @@
             // factory/service object
             const service = {};
 
-            const FIREBOT_RELEASES_URL = "https://api.github.com/repos/crowbartools/Firebot/releases";
+            const FIREBOT_RELEASES_URL = "https://api.github.com/repos/nmori/Firebot/releases";
 
             const APP_VERSION = firebotAppDetails.version;
             const isDev = !firebotAppDetails.isPackaged;

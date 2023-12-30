@@ -5,7 +5,7 @@ export const IsStreamingVariable: ReplaceVariable = {
     definition: {
         handle: "obsIsStreaming",
         description:
-      "OBS‚ªŒ»Ý”zM’†‚Å‚ ‚ê‚Î'true'‚ðA‚»‚¤‚Å‚È‚¯‚ê‚Î'false'‚ð•Ô‚·B",
+      "OBSãŒç¾åœ¨é…ä¿¡ä¸­ã§ã‚ã‚Œã°'true'ã‚’ã€ãã†ã§ãªã‘ã‚Œã°'false'ã‚’è¿”ã™ã€‚",
         possibleDataOutput: ["text"]
     },
     evaluator: async () => {

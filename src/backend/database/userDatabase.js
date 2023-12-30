@@ -94,6 +94,28 @@ function getUserByUsername(username) {
 
 /**
  *
+ * @param {string} displayName
+ * @returns {Promise<FirebotUser>}
+ */
+function getUserByDisplayName(displayName) {
+    return new Promise(resolve => {
+        if (!isViewerDBOn()) {
+            return resolve(false);
+        }
+
+        const searchTerm = new RegExp(`^${displayName}$`, 'i');
+
+        db.findOne({ displayName: { $regex: searchTerm }, twitch: true }, (err, doc) => {
+            if (err) {
+                return resolve(false);
+            }
+            return resolve(doc);
+        });
+    });
+}
+
+/**
+ *
  * @param {string} username
  * @returns {Promise<FirebotUser>}
  */
@@ -107,12 +129,19 @@ function getTwitchUserByUsername(username) {
 
         db.findOne({ username: { $regex: searchTerm }, twitch: true }, (err, doc) => {
             if (err) {
-                return resolve(null);
+                //データベースがエラーだとここでアップデートエラーがでるのでフォローアップ
+                db.findOne({ displayName: { $regex: searchTerm }, twitch: true }, (err, doc) => {
+                    if (err) {
+                        return resolve(null);
+                    }
+                    return resolve(doc);
+                });
             }
             return resolve(doc);
         });
     });
 }
+
 
 /**
  *
@@ -440,7 +469,8 @@ function createNewUser(userId, username, displayName, profilePicUrl, twitchRoles
                 resolve(null);
             } else {
                 eventManager.triggerEvent("firebot", "viewer-created", {
-                    username: displayName,
+                    username: username,
+                    displayName:displayName,
                     userIdName: username,
                     userId
                 });

@@ -167,43 +167,43 @@ const integrationConfig: Integration<ObsSettings> = {
         id: "OBS",
         name: "OBS",
         description:
-      "OBS‚ÉÚ‘±‚µAFirebot‚ªƒV[ƒ“‚Ì•ÏXAƒ\[ƒX‚âƒtƒBƒ‹ƒ^[‚ÌØ‚è‘Ö‚¦‚È‚Ç‚ğs‚¦‚é‚æ‚¤‚É‚µ‚Ü‚·BOBS 28ˆÈ~‚É‘Î‰‚µ‚Ä‚¨‚èAobs-websocket v5ƒvƒ‰ƒOƒCƒ“‚Ìİ’è‚ª•K—v‚Å‚·B",
+      "OBSã«æ¥ç¶šã—ã€FirebotãŒã‚·ãƒ¼ãƒ³ã®å¤‰æ›´ã€ã‚½ãƒ¼ã‚¹ã‚„ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ã®åˆ‡ã‚Šæ›¿ãˆãªã©ã‚’è¡Œãˆã‚‹ã‚ˆã†ã«ã—ã¾ã™ã€‚OBS 28ä»¥é™ã«å¯¾å¿œã—ã¦ãŠã‚Šã€obs-websocket v5ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è¨­å®šãŒå¿…è¦ã§ã™ã€‚",
     linkType: "none",
     configurable: true,
     connectionToggle: false,
     settingCategories: {
       websocketSettings: {
-        title: "Websocket İ’è",
+        title: "Websocket è¨­å®š",
         sortRank: 1,
         settings: {
           ipAddress: {
-            title: "IP ƒAƒhƒŒƒX",
+            title: "IP ã‚¢ãƒ‰ãƒ¬ã‚¹",
             description:
-              "OBS‚ğÀs‚µ‚Ä‚¢‚éƒRƒ“ƒsƒ…[ƒ^‚ÌIPƒAƒhƒŒƒXB“¯‚¶ƒRƒ“ƒsƒ…[ƒ^‚Ìê‡‚Í'localhost'‚ğg—p‚µ‚Ä‚­‚¾‚³‚¢B",
+              "OBSã‚’å®Ÿè¡Œã—ã¦ã„ã‚‹ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã®IPã‚¢ãƒ‰ãƒ¬ã‚¹ã€‚åŒã˜ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã®å ´åˆã¯'localhost'ã‚’ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚",
             type: "string",
             default: "localhost",
           },
           port: {
-            title: "’ÊMƒ|[ƒg",
+            title: "é€šä¿¡ãƒãƒ¼ãƒˆ",
             description:
-              "OBS Websocket ‚ª“®ì‚µ‚Ä‚¢‚éƒ|[ƒgBƒfƒtƒHƒ‹ƒg‚Í4455‚Å‚·B",
+              "OBS Websocket ãŒå‹•ä½œã—ã¦ã„ã‚‹ãƒãƒ¼ãƒˆã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯4455ã§ã™ã€‚",
             type: "number",
             default: 4455,
           },
           password: {
-            title: "ƒpƒXƒ[ƒh",
-            description: "OBS Websocket‚Éİ’è‚³‚ê‚½ƒpƒXƒ[ƒh.",
+            title: "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰",
+            description: "OBS Websocketã«è¨­å®šã•ã‚ŒãŸãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰.",
             type: "password",
             default: "",
           },
         },
       },
       misc: {
-        title: "ˆê”Ê",
+        title: "ä¸€èˆ¬",
         sortRank: 2,
         settings: {
           logging: {
-            title: "OBSƒGƒ‰[ƒƒO‚Ì‹L˜^‚ğ—LŒø‚É‚·‚é",
+            title: "OBSã‚¨ãƒ©ãƒ¼ãƒ­ã‚°ã®è¨˜éŒ²ã‚’æœ‰åŠ¹ã«ã™ã‚‹",
             type: "boolean",
             default: false,
           },

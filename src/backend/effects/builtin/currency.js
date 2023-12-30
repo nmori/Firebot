@@ -14,15 +14,15 @@ const currency = {
    */
     definition: {
         id: "firebot:currency",
-        name: "’Ê‰İ‚ğXV",
-        description: "‹’®Ò‚Ì’Ê‰İ‚ğXV",
+        name: "é€šè²¨ã‚’æ›´æ–°",
+        description: "è¦–è´è€…ã®é€šè²¨ã‚’æ›´æ–°",
         icon: "fad fa-money-bill",
         categories: [EffectCategory.COMMON, EffectCategory.FUN],
         dependencies: [],
         outputs: [
             {
-                label: "’Ê‰İ‹àŠz",
-                description: "ƒ‰ƒ“ƒ_ƒ€‚È‹àŠz‚ğg—p‚·‚éê‡‚É•Ö—˜B",
+                label: "é€šè²¨é‡‘é¡",
+                description: "ãƒ©ãƒ³ãƒ€ãƒ ãªé‡‘é¡ã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã«ä¾¿åˆ©ã€‚",
                 defaultName: "currencyAmount"
             }
         ]
@@ -37,10 +37,10 @@ const currency = {
    */
     optionsTemplate: `
 
-    <eos-container header="Currency">
+    <eos-container header="é€šè²¨">
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="currency-name">{{effect.currency ? getCurrencyName(effect.currency) : 'Pick one'}}</span> <span class="caret"></span>
+                <span class="currency-name">{{effect.currency ? getCurrencyName(effect.currency) : 'é¸æŠ...'}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu currency-name-dropdown">
                 <li ng-repeat="currency in currencies"
@@ -52,20 +52,20 @@ const currency = {
     </eos-container>
 
     <div ng-if="effect.currency">
-        <eos-container header="Operation" pad-top="true">
+        <eos-container header="æ“ä½œå†…å®¹" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="currency-action">{{effect.action ? effect.action : 'Pick one'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu currency-action-dropdown">
                     <li ng-click="effect.action = 'Add'">
-                        <a href>’Ç‰Á</a>
+                        <a href>è¿½åŠ </a>
                     </li>
                     <li ng-click="effect.action = 'Remove'">
-                        <a href>íœ</a>
+                        <a href>å‰Šé™¤</a>
                     </li>
                     <li ng-click="effect.action = 'Set'">
-                        <a href>İ’è</a>
+                        <a href>è¨­å®š</a>
                     </li>
                 </ul>
             </div>
@@ -75,22 +75,22 @@ const currency = {
 
         <div ng-if="effect.action">
 
-            <eos-container header="Target" pad-top="true">
+            <eos-container header="å¯¾è±¡" pad-top="true">
 
                 <div class="permission-type controls-fb">
-                    <label class="control-fb control--radio">ƒ†[ƒU
+                    <label class="control-fb control--radio">ãƒ¦ãƒ¼ã‚¶
                         <input type="radio" ng-model="effect.target" value="individual"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">ƒIƒ“ƒ‰ƒCƒ“ó‘Ô‚Ì–ğŠ„
+                    <label class="control-fb control--radio">ã‚ªãƒ³ãƒ©ã‚¤ãƒ³çŠ¶æ…‹ã®å½¹å‰²
                         <input type="radio" ng-model="effect.target" value="group"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">‘SƒIƒ“ƒ‰ƒCƒ“‹’®Ò
+                    <label class="control-fb control--radio">å…¨ã‚ªãƒ³ãƒ©ã‚¤ãƒ³è¦–è´è€…
                         <input type="radio" ng-model="effect.target" value="allOnline"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">‘S‹’®Ò
+                    <label class="control-fb control--radio">å…¨è¦–è´è€…
                         <input type="radio" ng-model="effect.target" value="allViewers"/>
                         <div class="control__indicator"></div>
                     </label>
@@ -99,7 +99,7 @@ const currency = {
                 <div class="settings-permission" style="padding-bottom:1em">
                     <div class=" viewer-group-list" ng-if="effect.target === 'group'">
                         <div ng-show="hasCustomRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">ƒJƒXƒ^ƒ€</div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">ã‚«ã‚¹ã‚¿ãƒ </div>
                             <label ng-repeat="customRole in getCustomRoles()" class="control-fb control--checkbox">{{customRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(customRole)" ng-checked="isRoleChecked(customRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -113,7 +113,7 @@ const currency = {
                             </label>
                         </div>
                         <div ng-show="hasTeamRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">ƒ`[ƒ€</div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">ãƒãƒ¼ãƒ </div>
                             <label ng-repeat="teamRole in getTeamRoles()" class="control-fb control--checkbox">{{teamRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(teamRole)" ng-checked="isRoleChecked(teamRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -128,7 +128,7 @@ const currency = {
                         </div>
                     </div>
                     <div ng-if="effect.target === 'individual'" class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">‹’®Ò–¼</span>
+                        <span class="input-group-addon" id="basic-addon3">è¦–è´è€…å</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.userTarget" replace-variables>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ const currency = {
 
             <eos-container header="Amount" ng-if="effect.target != null" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon" id="currency-units-type">‹àŠz</span>
+                    <span class="input-group-addon" id="currency-units-type">é‡‘é¡</span>
                     <input type="text" ng-model="effect.amount" class="form-control" id="currency-units-setting" aria-describedby="currency-units-type" type="text" replace-variables="number">
                 </div>
             </eos-container>
@@ -145,7 +145,7 @@ const currency = {
         </div>
 
         <div ng-if="effect.target">
-            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> ‘—‚éƒ`ƒƒƒbƒgƒƒbƒZ[ƒW
+            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> é€ã‚‹ãƒãƒ£ãƒƒãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
                 <input type="checkbox" ng-model="effect.sendChat">
                 <div class="control__indicator"></div>
             </label>
@@ -153,18 +153,18 @@ const currency = {
             <div ng-show="effect.sendChat">
                 <eos-chatter-select effect="effect" title="Chat as"></eos-chatter-select>
 
-                <eos-container header="Message To Send" pad-top="true">
+                <eos-container header="é€ä¿¡ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸" pad-top="true">
                     <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
-                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">ƒ`ƒƒƒbƒgƒƒbƒZ[ƒW‚Í360•¶š‚ğ’´‚¦‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB‚·‚×‚Ä‚Ì’uŠ·•Ï”‚ª“ü—Í‚³‚ê‚½Œã‚Å‚à’·‚·‚¬‚éê‡A‚±‚ÌƒƒbƒZ[ƒW‚Í©“®“I‚ÉƒgƒŠƒ~ƒ“ƒO‚³‚ê‚Ü‚·B</div>
+                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">ãƒãƒ£ãƒƒãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯360æ–‡å­—ã‚’è¶…ãˆã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚ã™ã¹ã¦ã®ç½®æ›å¤‰æ•°ãŒå…¥åŠ›ã•ã‚ŒãŸå¾Œã§ã‚‚é•·ã™ãã‚‹å ´åˆã€ã“ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯è‡ªå‹•çš„ã«ãƒˆãƒªãƒŸãƒ³ã‚°ã•ã‚Œã¾ã™ã€‚</div>
                     <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
-                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> ‚³‚³‚â‚­
+                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> ã•ã•ã‚„ã
                             <input type="checkbox" ng-init="whisper = (effect.whisper != null && effect.whisper !== '')" ng-model="whisper" ng-click="effect.whisper = ''">
                             <div class="control__indicator"></div>
                         </label>
                         <div ng-show="whisper">
                             <div class="input-group">
-                                <span class="input-group-addon" id="chat-whisper-effect-type">To</span>
-                                <input ng-model="effect.whisper" type="text" class="form-control" id="chat-whisper-setting" aria-describedby="chat-text-effect-type" placeholder="Username">
+                                <span class="input-group-addon" id="chat-whisper-effect-type">å®›å…ˆ</span>
+                                <input ng-model="effect.whisper" type="text" class="form-control" id="chat-whisper-setting" aria-describedby="chat-text-effect-type" placeholder="ãƒ¦ãƒ¼ã‚¶å">
                             </div>
                         </div>
                     </div>
@@ -217,7 +217,7 @@ const currency = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.currency == null) {
-            errors.push("g—p‚·‚é’Ê‰İ‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢B");
+            errors.push("ä½¿ç”¨ã™ã‚‹é€šè²¨ã‚’é¸æŠã—ã¦ãã ã•ã„ã€‚");
         }
         return errors;
     },
@@ -239,7 +239,7 @@ const currency = {
             if (isNaN(amount)) {
                 return resolve({
                     success: false,
-                    reason: "”š‚Å‚Í‚È‚¢‹àŠzF " + amount
+                    reason: "æ•°å­—ã§ã¯ãªã„é‡‘é¡ï¼š " + amount
                 });
             }
 

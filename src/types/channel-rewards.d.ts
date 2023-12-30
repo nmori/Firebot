@@ -10,6 +10,7 @@ export type SavedChannelReward = {
 
 export type RewardRedemptionMetadata = {
     username: string,
+    displayName: string,
     messageText: string,
     redemptionId: string,
     rewardId: string,

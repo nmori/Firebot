@@ -7,8 +7,8 @@ const twitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:modmod",
-        name: "モデレータ",
-        description: "視聴者にモデレータ設定を設定、もしくは解除します",
+        name: "自動管理",
+        description: "視聴者に自動管理を設定、もしくは解除します",
         icon: "fad fa-crown",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION, EffectCategory.TWITCH],
         dependencies: [EffectDependency.CHAT]
@@ -21,15 +21,15 @@ const model = {
             </button>
             <ul class="dropdown-menu celebrate-effect-dropdown">
                 <li ng-click="effect.action = 'Mod'">
-                    <a href>モデレータ設定</a>
+                    <a href>自動管理の設定</a>
                 </li>
                 <li ng-click="effect.action = 'Unmod'">
-                    <a href>モデレータ解除</a>
+                    <a href>自動管理の解除</a>
                 </li>
             </ul>
         </div>
     </eos-container>
-    <eos-container header="Target" pad-top="true" ng-show="effect.action != null">
+    <eos-container header="対象" pad-top="true" ng-show="effect.action != null">
         <div class="input-group">
             <span class="input-group-addon" id="username-type">視聴者名</span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables>

@@ -254,7 +254,7 @@ async function triggerChannelReward(rewardId, metadata, manual = false) {
 frontendCommunicator.onAsync("getChannelRewardCount",
     twitchApi.channelRewards.getTotalChannelRewardCount);
 
-frontendCommunicator.onAsync("getChannelRewards", async () => Object.values(channelRewards));
+frontendCommunicator.onAsync("getChannelRewards", async () => channelRewards ? Object.values(channelRewards) : []);
 
 frontendCommunicator.onAsync("saveChannelReward",
     (/** @type {SavedChannelReward} */ channelReward) => saveChannelReward(channelReward));
@@ -265,7 +265,7 @@ frontendCommunicator.onAsync("saveAllChannelRewards",
 
 frontendCommunicator.onAsync("syncChannelRewards", async () => {
     await loadChannelRewards();
-    return Object.values(channelRewards);
+    return channelRewards ? Object.values(channelRewards) : [];
 });
 
 frontendCommunicator.onAsync("deleteChannelReward", async (/** @type {string} */ channelRewardId) => {

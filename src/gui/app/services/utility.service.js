@@ -21,9 +21,9 @@
 
             backendCommunicator.on("requestIntegrationAccountId", (data) => {
                 service.openGetIdEntyModal({
-                    label: `${data.integrationName} ${data.label ? data.label : "ID"} ‚ğ“ü—Í`,
-                    saveText: "•Û‘¶",
-                    inputPlaceholder: `${data.label ? data.label : "ID"} ‚ğ“ü—Í`,
+                    label: `${data.integrationName} ${data.label ? data.label : "ID"} ã‚’å…¥åŠ›`,
+                    saveText: "ä¿å­˜",
+                    inputPlaceholder: `${data.label ? data.label : "ID"} ã‚’å…¥åŠ›`,
                     idLabel: data.label,
                     steps: data.steps
                 }, (model) => {
@@ -353,7 +353,7 @@
                             $rootScope.copyTextToClipboard($scope.overlayPath);
                             ngToast.create({
                                 className: 'success',
-                                content: "ƒI[ƒo[ƒŒƒC‚ÌƒpƒX‚ğƒRƒs[‚µ‚Ü‚µ‚½"
+                                content: "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ã®ãƒ‘ã‚¹ã‚’ã‚³ãƒ”ãƒ¼ã—ã¾ã—ãŸ"
                             });
                         };
 
@@ -543,7 +543,7 @@
                             if (!$scope.downloadComplete) {
                                 $scope.downloadHasError = true;
                                 $scope.errorMessage =
-                                 "ƒ_ƒEƒ“ƒ[ƒh‚É’Êí‚æ‚èŠÔ‚ª‚©‚©‚Á‚Ä‚¢‚Ü‚·BƒGƒ‰[‚ª”­¶‚µ‚½‰Â”\«‚ª‚ ‚è‚Ü‚·B‚±‚Ì‚Ü‚Ü‚¨‘Ò‚¿‚¢‚½‚¾‚­‚©A‚±‚Ì‰æ–Ê‚ğ•Â‚¶‚ÄŒã‚Å‚à‚¤ˆê“x‚¨‚µ‚­‚¾‚³‚¢B";
+                                 "ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã«é€šå¸¸ã‚ˆã‚Šæ™‚é–“ãŒã‹ã‹ã£ã¦ã„ã¾ã™ã€‚ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚ã“ã®ã¾ã¾ãŠå¾…ã¡ã„ãŸã ãã‹ã€ã“ã®ç”»é¢ã‚’é–‰ã˜ã¦å¾Œã§ã‚‚ã†ä¸€åº¦ãŠè©¦ã—ãã ã•ã„ã€‚";
                             }
                         }, 180 * 1000);
 
@@ -679,27 +679,27 @@
                                     }
                                 },
                                 {
-                                    html: `<a href ><i class="fal fa-copy" style="margin-right: 10px;" aria-hidden="true"></i> •¡»</a>`,
+                                    html: `<a href ><i class="fal fa-copy" style="margin-right: 10px;" aria-hidden="true"></i> è¤‡è£½</a>`,
                                     click: function () {
                                         $scope.copy();
                                     }
                                 },
                                 {
-                                    text: "‰‰oİ’èƒf[ƒ^iJSONj‚ğƒRƒs[",
+                                    text: "æ¼”å‡ºè¨­å®šãƒ‡ãƒ¼ã‚¿ï¼ˆJSONï¼‰ã‚’ã‚³ãƒ”ãƒ¼",
                                     children: [
                                         {
-                                            text: "ƒJƒXƒ^ƒ€ƒXƒNƒŠƒvƒg—p",
+                                            text: "ã‚«ã‚¹ã‚¿ãƒ ã‚¹ã‚¯ãƒªãƒ—ãƒˆç”¨",
                                             click: () => {
                                                 $rootScope.copyTextToClipboard(angular.toJson($scope.effect));
 
                                                 ngToast.create({
                                                     className: 'success',
-                                                    content: '‰‰oİ’èƒf[ƒ^iJSONj‚ğƒNƒŠƒbƒvƒ{[ƒh‚ÉƒRƒs[‚µ‚Ü‚µ‚½'
+                                                    content: 'æ¼”å‡ºè¨­å®šãƒ‡ãƒ¼ã‚¿ï¼ˆJSONï¼‰ã‚’ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã«ã‚³ãƒ”ãƒ¼ã—ã¾ã—ãŸ'
                                                 });
                                             }
                                         },
                                         {
-                                            text: "$runEffect[]Œü‚¯",
+                                            text: "$runEffect[]å‘ã‘",
                                             click: () => {
                                                 $rootScope.copyTextToClipboard(
                                                     `$runEffect[\`\`${angular.toJson($scope.effect)}\`\`]`
@@ -707,21 +707,21 @@
 
                                                 ngToast.create({
                                                     className: 'success',
-                                                    content: '$runEffect—p‚Ìƒf[ƒ^‚ğƒNƒŠƒbƒvƒ{[ƒh‚ÉƒRƒs[‚µ‚Ü‚µ‚½'
+                                                    content: '$runEffectç”¨ã®ãƒ‡ãƒ¼ã‚¿ã‚’ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã«ã‚³ãƒ”ãƒ¼ã—ã¾ã—ãŸ'
                                                 });
                                             }
                                         }
                                     ]
                                 },
                                 {
-                                    html: `<a href ><i class="fal fa-paste" style="margin-right: 10px;" aria-hidden="true"></i> “\‚è•t‚¯</a>`,
+                                    html: `<a href ><i class="fal fa-paste" style="margin-right: 10px;" aria-hidden="true"></i> è²¼ã‚Šä»˜ã‘</a>`,
                                     enabled: $scope.hasCopiedEffect(),
                                     click: function () {
                                         $scope.paste();
                                     }
                                 },
                                 {
-                                    html: `<a href style="color: #fb7373;"><i class="fal fa-trash-alt" style="margin-right: 10px;" aria-hidden="true"></i> íœ</a>`,
+                                    html: `<a href style="color: #fb7373;"><i class="fal fa-trash-alt" style="margin-right: 10px;" aria-hidden="true"></i> å‰Šé™¤</a>`,
                                     click: function () {
                                         $scope.delete();
                                     }
@@ -826,7 +826,7 @@
                         async function validateEffect() {
 
                             if ($scope.effect.type === "Nothing") {
-                                ngToast.create("‰‰o‚Ìí—Ş‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢");
+                                ngToast.create("æ¼”å‡ºã®ç¨®é¡ã‚’é¸ã‚“ã§ãã ã•ã„");
                                 return false;
                             }
 
@@ -860,54 +860,54 @@
 
                                     if (firstError.varname) {
                                         errorDetails.push({
-                                            title: "•Ï”",
+                                            title: "å¤‰æ•°",
                                             message: `$${firstError.varname}`
                                         });
                                     }
 
                                     if (firstError.message) {
                                         errorDetails.push({
-                                            title: "ƒGƒ‰[",
+                                            title: "ã‚¨ãƒ©ãƒ¼",
                                             message: service.capitalize(firstError.message)
                                         });
                                     }
 
                                     if (firstError.index > -1) {
                                         errorDetails.push({
-                                            title: "ˆø”‚Ì”Ô†",
+                                            title: "å¼•æ•°ã®ç•ªå·",
                                             message: firstError.index
                                         });
                                     }
 
                                     if (firstError.character) {
                                         errorDetails.push({
-                                            title: "•¶š",
+                                            title: "æ–‡å­—",
                                             message: `"${firstError.character}"`
                                         });
                                     }
 
                                     if (firstError.position) {
                                         errorDetails.push({
-                                            title: "•¶šˆÊ’u",
+                                            title: "æ–‡å­—ä½ç½®",
                                             message: firstError.position
                                         });
                                     }
 
                                     if (firstError.rawText) {
                                         errorDetails.push({
-                                            title: "¶‚ÌƒeƒLƒXƒg",
+                                            title: "ç”Ÿã®ãƒ†ã‚­ã‚¹ãƒˆ",
                                             message: `"${firstError.rawText}"`
                                         });
                                     }
 
                                     if (firstError.dataField) {
                                         errorDetails.push({
-                                            title: "UIƒtƒB[ƒ‹ƒh",
+                                            title: "UIãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰",
                                             message: firstError.dataField
                                         });
                                     }
 
-                                    service.showErrorDetailModal("’uŠ·•Ï”ƒGƒ‰[", errorDetails);
+                                    service.showErrorDetailModal("ç½®æ›å¤‰æ•°ã‚¨ãƒ©ãƒ¼", errorDetails);
                                     return false;
                                 }
                             } catch (err) {
@@ -952,9 +952,9 @@
 
                         $scope.getLabelButtonTextForLabel = function(labelModel) {
                             if (labelModel == null || labelModel.length === 0) {
-                                return "ƒ‰ƒxƒ‹‚ğ’Ç‰Á";
+                                return "ãƒ©ãƒ™ãƒ«ã‚’è¿½åŠ ";
                             }
-                            return "ƒ‰ƒxƒ‹‚ğ•ÒW";
+                            return "ãƒ©ãƒ™ãƒ«ã‚’ç·¨é›†";
                         };
 
                         $scope.editLabel = () => {
@@ -963,7 +963,7 @@
                                 {
                                     model: label,
                                     label: $scope.getLabelButtonTextForLabel(label),
-                                    saveText: "ƒ‰ƒxƒ‹‚ğ•Û‘¶"
+                                    saveText: "ãƒ©ãƒ™ãƒ«ã‚’ä¿å­˜"
                                 },
                                 (newLabel) => {
                                     if (newLabel == null || newLabel.length === 0) {
@@ -994,7 +994,7 @@
 
                         $scope.delete = function() {
                             $uibModalInstance.close({
-                                action: "íœ",
+                                action: "å‰Šé™¤",
                                 effect: $scope.effect,
                                 index: index
                             });

@@ -6,8 +6,8 @@ export const ChangeSceneEffectType: EffectType<{
 }> = {
   definition: {
     id: "ebiggz:obs-change-scene",
-    name: "OBSƒV[ƒ“Ø‘Ö",
-    description: "OBSƒV[ƒ“‚ÉØ‘Ö‚¦‚é",
+    name: "OBSã‚·ãƒ¼ãƒ³åˆ‡æ›¿",
+    description: "OBSã‚·ãƒ¼ãƒ³ã«åˆ‡æ›¿ãˆã‚‹",
     icon: "fad fa-tv",
     categories: ["common"],
   },
@@ -19,7 +19,7 @@ export const ChangeSceneEffectType: EffectType<{
         </div>
 
         <ui-select ng-model="selected" on-select="selectScene($select.selected)">
-          <ui-select-match placeholder="Ø‘Öæ...>{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="åˆ‡æ›¿å…ˆ...>{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="scene in scenes | filter: {name: $select.search}">
             <li ng-show="scene.custom === true" role="separator" class="divider"></li>
             <div ng-bind-html="scene.name | highlight: $select.search"></div>
@@ -27,7 +27,7 @@ export const ChangeSceneEffectType: EffectType<{
         </ui-select>
 
         <div ng-show="effect.custom === true" style="margin-top:10px;">
-            <firebot-input input-title="ƒJƒXƒ^ƒ€ƒV[ƒ“" model="effect.sceneName"></firebot-input>
+            <firebot-input input-title="ã‚«ã‚¹ã‚¿ãƒ ã‚·ãƒ¼ãƒ³" model="effect.sceneName"></firebot-input>
         </div>
     </eos-container>
   `,

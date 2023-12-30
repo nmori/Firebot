@@ -14,7 +14,7 @@ export const VendorEventDataVariable: ReplaceVariable = {
     definition: {
         handle: "obsVendorEventData",
         description:
-      "The vendor-specified raw JSON data from the OBS vendor event.",
+      "OBS のベンダーイベントからベンダーが指定した生の JSON データ。",
         possibleDataOutput: ["text"],
         triggers: triggers
     },

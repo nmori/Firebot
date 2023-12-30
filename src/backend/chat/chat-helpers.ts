@@ -298,7 +298,8 @@ class FirebotChatHelpers {
     async buildFirebotChatMessage(msg: ChatMessage, msgText: string, whisper = false, action = false) {
         const firebotChatMessage: FirebotChatMessage = {
             id: msg.tags.get("id"),
-            username: msg.userInfo.displayName,
+            username: msg.userInfo.userName,
+            displayName: msg.userInfo.displayName,
             useridname: msg.userInfo.userName,
             userId: msg.userInfo.userId,
             customRewardId: msg.tags.get("custom-reward-id") || undefined,
@@ -408,6 +409,7 @@ class FirebotChatHelpers {
             id: id,
             username: extensionName,
             useridname: extensionName,
+            displayName: extensionName,
             userId: extensionName,
             rawText: text,
             profilePicUrl: extensionIconUrl,
@@ -442,7 +444,8 @@ class FirebotChatHelpers {
 
         const viewerFirebotChatMessage: FirebotChatMessage = {
             id: msg.messageId,
-            username: msg.senderDisplayName,
+            username: msg.senderName,
+            displayName: msg.senderDisplayName,
             useridname: msg.senderName,
             userId: msg.senderId,
             rawText: msg.messageContent,

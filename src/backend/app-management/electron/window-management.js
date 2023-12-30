@@ -170,9 +170,9 @@ function createMainWindow() {
     const profileManager = require("../../common/profile-manager");
     const dataAccess = require("../../common/data-access");
     const menuTemplate = [{
-            label: 'ƒtƒ@ƒCƒ‹',
+            label: 'ãƒ•ã‚¡ã‚¤ãƒ«',
             submenu: [{
-                    label: 'Firebot ƒZƒbƒgƒAƒbƒv‚ÌŽæ‚èž‚Ý...',
+                    label: 'Firebot ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã®å–ã‚Šè¾¼ã¿...',
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "importSetupModal"
@@ -183,8 +183,8 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'ƒf[ƒ^ƒtƒHƒ‹ƒ_‚ðŠJ‚­',
-                    toolTip: "Firebot‚Ìƒf[ƒ^‚ª•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚ðŠJ‚­",
+                    label: 'ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã',
+                    toolTip: "Firebotã®ãƒ‡ãƒ¼ã‚¿ãŒä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã",
                     click: () => {
                         const rootFolder = path.resolve(
                             profileManager.getPathInProfile("/")
@@ -193,8 +193,8 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'ƒƒOƒtƒHƒ‹ƒ_‚ðŠJ‚­',
-                    toolTip: "ƒƒO‚ª•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚ðŠJ‚­",
+                    label: 'ãƒ­ã‚°ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã',
+                    toolTip: "ãƒ­ã‚°ãŒä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã",
                     click: () => {
                         const rootFolder = path.resolve(
                             dataAccess.getPathInUserData("/logs/")
@@ -203,8 +203,8 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'ƒoƒbƒNƒAƒbƒvƒtƒHƒ‹ƒ_‚ðŠJ‚­',
-                    toolTip: "ƒoƒbƒNƒAƒbƒv‚ª•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚ðŠJ‚­",
+                    label: 'ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã',
+                    toolTip: "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãŒä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã",
                     click: () => {
                         const backupFolder = path.resolve(
                             dataAccess.getPathInUserData("/backups/")
@@ -216,56 +216,56 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'ƒAƒvƒŠ‚ðI—¹',
+                    label: 'ã‚¢ãƒ—ãƒªã‚’çµ‚äº†',
                     role: 'quit'
                 }
             ]
         },
         {
-            label: '•ÒW',
+            label: 'ç·¨é›†',
             submenu: [{
-                    label: 'Ø‚èŽæ‚è',
+                    label: 'åˆ‡ã‚Šå–ã‚Š',
                     role: 'cut'
                 },
                 {
-                    label: 'ƒRƒs[',
+                    label: 'ã‚³ãƒ”ãƒ¼',
                     role: 'copy'
                 },
                 {
-                    label: '“\‚è•t‚¯',
+                    label: 'è²¼ã‚Šä»˜ã‘',
                     role: 'paste'
                 },
                 {
-                    label: '‚â‚è’¼‚µ',
+                    label: 'ã‚„ã‚Šç›´ã—',
                     role: "undo"
                 },
                 {
-                    label: '‚â‚è’¼‚µ‚Ì‚â‚è’¼‚µ',
+                    label: 'ã‚„ã‚Šç›´ã—ã®ã‚„ã‚Šç›´ã—',
                     role: "redo"
                 },
                 {
-                    label: '‚·‚×‚Ä‘I‘ð',
+                    label: 'ã™ã¹ã¦é¸æŠž',
                     role: "selectall"
                 }
             ]
         },
         {
-            label: 'ƒEƒBƒ“ƒhƒE',
+            label: 'ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦',
             submenu: [{
-                    label: 'Å¬‰»',
+                    label: 'æœ€å°åŒ–',
                     role: 'minimize'
                 },
                 {
-                    label: '•Â‚¶‚é',
+                    label: 'é–‰ã˜ã‚‹',
                     role: 'close'
                 }
             ]
         },
         {
-            label: 'ƒc[ƒ‹',
+            label: 'ãƒ„ãƒ¼ãƒ«',
             submenu: [{
-                    label: 'ƒZƒbƒgƒAƒbƒvƒEƒBƒU[ƒh',
-                    toolTip: "‰ü‚ß‚Ä‰ŠúƒZƒbƒgƒAƒbƒv‚ð‹N“®‚µ‚Ü‚·",
+                    label: 'ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã‚¦ã‚£ã‚¶ãƒ¼ãƒ‰',
+                    toolTip: "æ”¹ã‚ã¦åˆæœŸã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã‚’èµ·å‹•ã—ã¾ã™",
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "setupWizardModal"
@@ -273,15 +273,15 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'ƒoƒbƒNƒAƒbƒv‚©‚ç–ß‚·...',
-                    toolTip: "ƒoƒbƒNƒAƒbƒv‚©‚çFirebot‚ð•œŒ³",
+                    label: 'ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‹ã‚‰æˆ»ã™...',
+                    toolTip: "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‹ã‚‰Firebotã‚’å¾©å…ƒ",
                     click: async() => {
                         frontendCommunicator.send("restore-backup");
                     }
                 },
                 {
-                    label: 'ƒJƒXƒ^ƒ€•Ï”ˆê——',
-                    toolTip: "ƒJƒXƒ^ƒ€•Ï”ƒCƒ“ƒXƒyƒNƒ^‚ðŠJ‚­",
+                    label: 'ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ä¸€è¦§',
+                    toolTip: "ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ã‚’é–‹ã",
                     click: () => {
                         // eslint-disable-next-line no-use-before-define
                         createVariableInspectorWindow();
@@ -291,22 +291,22 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'ŠJ”­ƒc[ƒ‹‚ðŠJ‚­',
+                    label: 'é–‹ç™ºãƒ„ãƒ¼ãƒ«ã‚’é–‹ã',
                     role: 'toggledevtools'
                 }
             ]
         },
         {
-            label: 'ƒwƒ‹ƒv(&H)',
+            label: 'ãƒ˜ãƒ«ãƒ—',
             role: 'help',
             submenu: [{
-                    label: 'ŠJ”­Discord‚ÉŽQ‰Á',
+                    label: 'é–‹ç™ºDiscordã«å‚åŠ ',
                     click: () => {
                         shell.openExternal("https://discord.gg/tTmMbrG");
                     }
                 },
                 {
-                    label: '@FirebotApp ‚ðX‚ÅƒtƒHƒ[',
+                    label: '@FirebotApp ã‚’Xã§ãƒ•ã‚©ãƒ­ãƒ¼',
                     click: () => {
                         shell.openExternal("https://twitter.com/FirebotApp");
                     }
@@ -315,19 +315,19 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'GitHub‚Åƒ\[ƒX‚ðŒ©‚é',
+                    label: 'GitHubã§ã‚½ãƒ¼ã‚¹ã‚’è¦‹ã‚‹',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot");
                     }
                 },
                 {
-                    label: '•s‹ï‡•ñ‚ð‚·‚é',
+                    label: 'ä¸å…·åˆå ±å‘Šã‚’ã™ã‚‹',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+");
                     }
                 },
                 {
-                    label: '‹@”\ƒŠƒNƒGƒXƒg‚ð‚·‚é',
+                    label: 'æ©Ÿèƒ½ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’ã™ã‚‹',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Enhancement&template=feature_request.md&title=%5BFeature+Request%5D+");
                     }
@@ -336,19 +336,19 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'ƒ}[ƒ`ƒXƒgƒA',
+                    label: 'ãƒžãƒ¼ãƒã‚¹ãƒˆã‚¢',
                     click: () => {
                         shell.openExternal("https://crowbar-tools.myspreadshop.com");
                     }
                 },
                 {
-                    label: 'Šñ•t‚·‚é',
+                    label: 'å¯„ä»˜ã™ã‚‹',
                     click: () => {
                         shell.openExternal("https://opencollective.com/crowbartools");
                     }
                 },
                 {
-                    label: '‚¨‹q—l‚Ìº‚ð‘‚­',
+                    label: 'ãŠå®¢æ§˜ã®å£°ã‚’æ›¸ã',
                     click: () => {
                         shell.openExternal("https://firebot.app/testimonial-submission");
                     }
@@ -357,7 +357,7 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'Firebot‚É‚Â‚¢‚Ä...',
+                    label: 'Firebotã«ã¤ã„ã¦...',
                     click: () => {
                         frontendCommunicator.send("open-about-modal");
                     }
@@ -419,10 +419,10 @@ function createMainWindow() {
         if (!settings.hasJustUpdated() && connectionManager.chatIsConnected() && connectionManager.streamerIsOnline()) {
             event.preventDefault();
             dialog.showMessageBox(mainWindow, {
-                message: "TwitchÚ‘±’†‚Å‚·‚ªFirebot‚ðI—¹‚µ‚Ä‚à‚æ‚ë‚µ‚¢‚Å‚·‚©H",
-                title: "Firebot‚ð•Â‚¶‚é",
+                message: "TwitchæŽ¥ç¶šä¸­ã§ã™ãŒFirebotã‚’çµ‚äº†ã—ã¦ã‚‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ",
+                title: "Firebotã‚’é–‰ã˜ã‚‹",
                 type: "question",
-                buttons: ["Firebot‚ð•Â‚¶‚é", "‚â‚ß‚é"]
+                buttons: ["Firebotã‚’é–‰ã˜ã‚‹", "ã‚„ã‚ã‚‹"]
 
             }).then(({ response }) => {
                 if (response === 0) {

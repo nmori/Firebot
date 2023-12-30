@@ -7,24 +7,24 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:send-raw-obs-websocket-request",
-    name: "OBS WebSocket ƒRƒ}ƒ“ƒh‘—M",
-    description: "OBS WebSocket ‚Ì¶ƒŠƒNƒGƒXƒg‚ğ‘—M‚µ‚Ü‚·",
+    name: "OBS WebSocket ã‚³ãƒãƒ³ãƒ‰é€ä¿¡",
+    description: "OBS WebSocket ã®ç”Ÿãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€ä¿¡ã—ã¾ã™",
     icon: "fad fa-plug",
     categories: ["advanced"],
     outputs: [
       {
-        label: "API ‰“š",
-        description: "OBS WebSocket API‚©‚ç‚Ì‰“š",
+        label: "API å¿œç­”",
+        description: "OBS WebSocket APIã‹ã‚‰ã®å¿œç­”",
         defaultName: "apiResponse"
       }
     ]
   },
   optionsTemplate: `
-    <eos-container header="ŠÖ”–¼">
-        <firebot-input model="effect.functionName" placeholder-text="OBS Websocket‚ÌŠÖ”–¼" menu-position="below" disable-variables="true"></firebot-input>
+    <eos-container header="é–¢æ•°å">
+        <firebot-input model="effect.functionName" placeholder-text="OBS Websocketã®é–¢æ•°å" menu-position="below" disable-variables="true"></firebot-input>
     </eos-container>
 
-    <eos-container header="ƒŠƒNƒGƒXƒgƒf[ƒ^" pad-top="true">
+    <eos-container header="ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿" pad-top="true">
         <div
             ui-codemirror="{onLoad : codemirrorLoaded}"
             ui-codemirror-opts="editorSettings"
@@ -36,7 +36,7 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
 
     <eos-container pad-top="true">
       <div class="effect-info alert alert-warning">
-        <b>Œx!</b> ‚±‚ê‚ÍOBS‚É‚¨‚¢‚Ä–]‚Ü‚µ‚­‚È‚¢Œø‰Ê‚ğˆø‚«‹N‚±‚·‰Â”\«‚ª‚ ‚è‚Ü‚·B‚±‚Ì‰‰o‚ğg—p‚·‚éÛ‚Í‚²’ˆÓ‚­‚¾‚³‚¢B
+        <b>è­¦å‘Š!</b> ã“ã‚Œã¯OBSã«ãŠã„ã¦æœ›ã¾ã—ããªã„åŠ¹æœã‚’å¼•ãèµ·ã“ã™å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚ã“ã®æ¼”å‡ºã‚’ä½¿ç”¨ã™ã‚‹éš›ã¯ã”æ³¨æ„ãã ã•ã„ã€‚
       </div>
     </eos-container>
   `,
@@ -62,7 +62,7 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
     },
     optionsValidator: (effect) => {
         if (effect.functionName == null || effect.functionName.length === 0) {
-        return [ "ŠÖ”–¼‚ğ‚¢‚ê‚Ä‚­‚¾‚³‚¢" ]
+        return [ "é–¢æ•°åã‚’ã„ã‚Œã¦ãã ã•ã„" ]
         }
         return [];
     },

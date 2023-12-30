@@ -4,15 +4,15 @@ import { saveReplayBuffer } from "../obs-remote";
 export const SaveReplayBufferEffectType: EffectType<{}> = {
   definition: {
     id: "firebot:obs-save-replay-buffer",
-    name: "OBSƒŠƒvƒŒƒCƒoƒbƒtƒ@‚ğ•Û‘¶",
-    description: "OBS ‚ÉƒŠƒvƒŒƒCƒoƒbƒtƒ@‚ğ•Û‘¶‚·‚é‚æ‚¤w¦‚µ‚Ü‚·",
+    name: "OBSãƒªãƒ—ãƒ¬ã‚¤ãƒãƒƒãƒ•ã‚¡ã‚’ä¿å­˜",
+    description: "OBS ã«ãƒªãƒ—ãƒ¬ã‚¤ãƒãƒƒãƒ•ã‚¡ã‚’ä¿å­˜ã™ã‚‹ã‚ˆã†æŒ‡ç¤ºã—ã¾ã™",
     icon: "fad fa-redo-alt",
     categories: ["common"],
   },
   optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>Œx!</b> OBS‚ÅƒŠƒvƒŒƒCƒoƒbƒtƒ@‚ª—LŒø‚É‚È‚Á‚Ä‚¨‚èA€”õŠ®—¹‚Å‚ ‚éê‡‚É‚Ì‚İ“®ì‚µ‚Ü‚·
+        <b>è­¦å‘Š!</b> OBSã§ãƒªãƒ—ãƒ¬ã‚¤ãƒãƒƒãƒ•ã‚¡ãŒæœ‰åŠ¹ã«ãªã£ã¦ãŠã‚Šã€æº–å‚™å®Œäº†ã§ã‚ã‚‹å ´åˆã«ã®ã¿å‹•ä½œã—ã¾ã™
       </div>
     </eos-container>
   `,

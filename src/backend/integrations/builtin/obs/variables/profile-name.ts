@@ -14,12 +14,12 @@ export const ProfileNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsProfileName",
         description:
-      "The name of the OBS profile that triggered the event.",
+      "イベントをトリガーした OBS プロファイルの名前。",
         possibleDataOutput: ["text"],
         triggers: triggers
     },
     evaluator: async (trigger) => {
         const profileName = trigger.metadata?.eventData?.profileName;
-        return profileName ?? "Unknown";
+        return profileName ?? "不明";
     }
 };

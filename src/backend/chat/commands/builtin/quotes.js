@@ -8,30 +8,30 @@ moment.locale(app.getLocale());
 const quotesManagement = {
     definition: {
         id: "firebot:quotesmanagement",
-        name: "ˆø—pŠÇ—",
+        name: "å¼•ç”¨ç®¡ç†",
         active: true,
         trigger: "!quote",
-        description: "ƒ`ƒƒƒbƒg‚©‚çˆø—pŠÇ—‚ğÀ{.",
+        description: "ãƒãƒ£ãƒƒãƒˆã‹ã‚‰å¼•ç”¨ç®¡ç†ã‚’å®Ÿæ–½.",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
             user: 0,
             global: 0
         },
-        baseCommandDescription: "ƒ‰ƒ“ƒ_ƒ€‚Éˆø—p•\¦‚·‚é",
+        baseCommandDescription: "ãƒ©ãƒ³ãƒ€ãƒ ã«å¼•ç”¨è¡¨ç¤ºã™ã‚‹",
         options: {
             quoteDisplayTemplate: {
                 type: "string",
-                title: "ˆø—pƒeƒ“ƒvƒŒ[ƒg‚ğ•\¦",
-                description: "ƒ`ƒƒƒbƒg‚Å‚Ìˆø—p‚Ì•\¦•û–@.",
-                tip: "•Ï”: {id}, {text}, {author}, {game}, {date}",
+                title: "å¼•ç”¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’è¡¨ç¤º",
+                description: "ãƒãƒ£ãƒƒãƒˆã§ã®å¼•ç”¨ã®è¡¨ç¤ºæ–¹æ³•.",
+                tip: "å¤‰æ•°: {id}, {text}, {author}, {game}, {date}",
                 default: `Quote {id}: "{text}" - @{author} [{game}] [{date}]`,
                 useTextArea: true
             },
             quoteDateFormat: {
                 type: "enum",
-                title: "ˆø—pƒeƒ“ƒvƒŒ[ƒgƒtƒH[ƒ}ƒbƒg",
-                description: "!quote'ƒRƒ}ƒ“ƒh‚Æ'!quote editdate'ƒRƒ}ƒ“ƒh‚Å“ú•t‚ğ‚Ç‚Ì‚æ‚¤‚É•\¦‚·‚é‚©B",
+                title: "å¼•ç”¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ",
+                description: "!quote'ã‚³ãƒãƒ³ãƒ‰ã¨'!quote editdate'ã‚³ãƒãƒ³ãƒ‰ã§æ—¥ä»˜ã‚’ã©ã®ã‚ˆã†ã«è¡¨ç¤ºã™ã‚‹ã‹ã€‚",
                 options: [
                     "YYYY/MM/DD",
                     "MM/DD/YYYY",
@@ -41,8 +41,8 @@ const quotesManagement = {
             },
             useTTS: {
                 type: "boolean",
-                title: "ˆø—p‚ğTTS‚Å“Ç‚İã‚°‚é",
-                description: "ˆø—p‚ªì¬‚³‚ê‚½‚èŒŸõ‚³‚ê‚½‚è‚·‚é‚½‚Ñ‚ÉATTS‚ªˆø—p‚ğ“Ç‚İã‚°‚éB.",
+                title: "å¼•ç”¨ã‚’TTSã§èª­ã¿ä¸Šã’ã‚‹",
+                description: "å¼•ç”¨ãŒä½œæˆã•ã‚ŒãŸã‚Šæ¤œç´¢ã•ã‚ŒãŸã‚Šã™ã‚‹ãŸã³ã«ã€TTSãŒå¼•ç”¨ã‚’èª­ã¿ä¸Šã’ã‚‹ã€‚.",
                 default: false
             }
         },
@@ -51,13 +51,13 @@ const quotesManagement = {
                 id: "quotelookup",
                 arg: "\\d+",
                 regex: true,
-                usage: "[ˆø—pID]",
-                description: "w’è‚³‚ê‚½ID‚Ìˆø—p‚ğ•\¦‚µ‚Ü‚·B"
+                usage: "[å¼•ç”¨ID]",
+                description: "æŒ‡å®šã•ã‚ŒãŸIDã®å¼•ç”¨ã‚’è¡¨ç¤ºã—ã¾ã™ã€‚"
             },
             {
                 arg: "add",
-                usage: "add [@ƒ†[ƒU–¼] [ˆø—p•¶]",
-                description: "ˆø—p‚ğ’Ç‰Á‚µ‚Ü‚·",
+                usage: "add [@ãƒ¦ãƒ¼ã‚¶å] [å¼•ç”¨æ–‡]",
+                description: "å¼•ç”¨ã‚’è¿½åŠ ã—ã¾ã™",
                 restrictionData: {
                     restrictions: [
                         {
@@ -74,8 +74,8 @@ const quotesManagement = {
             },
             {
                 arg: "remove",
-                usage: "remove [ˆø—pID]",
-                description: "ˆø—p‚ğíœ‚µ‚Ü‚·",
+                usage: "remove [å¼•ç”¨ID]",
+                description: "å¼•ç”¨ã‚’å‰Šé™¤ã—ã¾ã™",
                 restrictionData: {
                     restrictions: [
                         {
@@ -92,8 +92,8 @@ const quotesManagement = {
             },
             {
                 arg: "edittext",
-                usage: "edittext [ˆø—pID] [V‹K•¶]",
-                description: "ˆø—p•¶‚ğ•ÒW‚·‚é.",
+                usage: "edittext [å¼•ç”¨ID] [æ–°è¦æ–‡]",
+                description: "å¼•ç”¨æ–‡ã‚’ç·¨é›†ã™ã‚‹.",
                 restrictionData: {
                     restrictions: [
                         {
@@ -110,8 +110,8 @@ const quotesManagement = {
             },
             {
                 arg: "edituser",
-                usage: "edituser [ˆø—pID] [ƒ†[ƒU[–¼]",
-                description: "w’è‚³‚ê‚½ˆø—p‚Ìƒ†[ƒU[–¼‚ğ•ÒW‚·‚é",
+                usage: "edituser [å¼•ç”¨ID] [ãƒ¦ãƒ¼ã‚¶ãƒ¼å]",
+                description: "æŒ‡å®šã•ã‚ŒãŸå¼•ç”¨ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼åã‚’ç·¨é›†ã™ã‚‹",
                 restrictionData: {
                     restrictions: [
                         {
@@ -128,9 +128,9 @@ const quotesManagement = {
             },
             {
                 arg: "editgame",
-                usage: "editgame [ˆø—pID] [ƒQ[ƒ€]",
+                usage: "editgame [å¼•ç”¨ID] [ã‚²ãƒ¼ãƒ ]",
                 minArgs: 3,
-                description: "w’è‚³‚ê‚½ˆø—p‚ÌƒQ[ƒ€‚ğ•ÒW‚µ‚Ü‚·B",
+                description: "æŒ‡å®šã•ã‚ŒãŸå¼•ç”¨ã®ã‚²ãƒ¼ãƒ ã‚’ç·¨é›†ã—ã¾ã™ã€‚",
                 restrictionData: {
                     restrictions: [
                         {
@@ -147,9 +147,9 @@ const quotesManagement = {
             },
             {
                 arg: "editdate",
-                usage: "editdate [ˆø—pID] [V‹K“ú•t]",
+                usage: "editdate [å¼•ç”¨ID] [æ–°è¦æ—¥ä»˜]",
                 minArgs: 3,
-                description: "ˆø—p‚Ì“ú•t‚ğ•ÒW‚·‚é",
+                description: "å¼•ç”¨ã®æ—¥ä»˜ã‚’ç·¨é›†ã™ã‚‹",
                 restrictionData: {
                     restrictions: [
                         {
@@ -167,31 +167,31 @@ const quotesManagement = {
             {
                 arg: "list",
                 usage: "list",
-                description: "‚·‚×‚Ä‚Ìˆø—p‚ğƒŠƒXƒg•\¦‚µ‚Ü‚·"
+                description: "ã™ã¹ã¦ã®å¼•ç”¨ã‚’ãƒªã‚¹ãƒˆè¡¨ç¤ºã—ã¾ã™"
             },
             {
                 arg: "search",
-                usage: "search [ŒŸõ•¶š]",
+                usage: "search [æ¤œç´¢æ–‡å­—]",
                 minArgs: 2,
-                description: "ŒŸõŒê‹å‚ğg—p‚µ‚Äˆø—p‚ğ•\¦‚µ‚Ü‚·"
+                description: "æ¤œç´¢èªå¥ã‚’ä½¿ç”¨ã—ã¦å¼•ç”¨ã‚’è¡¨ç¤ºã—ã¾ã™"
             },
             {
                 arg: "searchuser",
-                usage: "searchuser @ƒ†[ƒU–¼",
+                usage: "searchuser @ãƒ¦ãƒ¼ã‚¶å",
                 minArgs: 2,
-                description: "w’è‚³‚ê‚½ƒ†[ƒU[‚É‚æ‚éˆø—p‚ğ•\¦‚µ‚Ü‚·"
+                description: "æŒ‡å®šã•ã‚ŒãŸãƒ¦ãƒ¼ã‚¶ãƒ¼ã«ã‚ˆã‚‹å¼•ç”¨ã‚’è¡¨ç¤ºã—ã¾ã™"
             },
             {
                 arg: "searchdate",
                 usage: "searchdate DD MM YYYY",
                 minArgs: 3,
-                description: "w’è‚³‚ê‚½“ú•t‚Ìˆø—p‚ğİ’è‚µ‚Ü‚·"
+                description: "æŒ‡å®šã•ã‚ŒãŸæ—¥ä»˜ã®å¼•ç”¨ã‚’è¨­å®šã—ã¾ã™"
             },
             {
                 arg: "searchgame",
-                usage: "searchgame [ŒŸõ•¶š]",
+                usage: "searchgame [æ¤œç´¢æ–‡å­—]",
                 minArgs: 2,
-                description: "w’è‚³‚ê‚½ƒQ[ƒ€‚Ìˆø—p‚ğ•\¦‚µ‚Ü‚·"
+                description: "æŒ‡å®šã•ã‚ŒãŸã‚²ãƒ¼ãƒ ã®å¼•ç”¨ã‚’è¡¨ç¤ºã—ã¾ã™"
             }
         ]
     },
@@ -240,7 +240,7 @@ const quotesManagement = {
 
                     logger.debug(`We pulled a quote by id: ${formattedQuote}`);
                 } else {
-                    await twitchChat.sendChatMessage(`ˆø—p‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½`);
+                    await twitchChat.sendChatMessage(`å¼•ç”¨ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ`);
                 }
                 return resolve();
             }
@@ -257,7 +257,7 @@ const quotesManagement = {
                     logger.debug(`We pulled a quote using an id: ${formattedQuote}`);
                 } else {
                     // If we get here, it's likely the command was used wrong. Tell the sender they done fucked up
-                    await twitchChat.sendChatMessage(`‚»‚ÌID‚Ìˆø—p‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½`);
+                    await twitchChat.sendChatMessage(`ãã®IDã®å¼•ç”¨ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ`);
                 }
                 return resolve();
             }
@@ -265,13 +265,13 @@ const quotesManagement = {
             switch (triggeredArg) {
             case "add": {
                 if (args.length < 3) {
-                    await twitchChat.sendChatMessage(`ˆø—p•¶‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢`);
+                    await twitchChat.sendChatMessage(`å¼•ç”¨æ–‡ã‚’æŒ‡å®šã—ã¦ãã ã•ã„`);
                     return resolve();
                 }
 
                     const channelData = await TwitchApi.channels.getChannelInformation();
 
-                const currentGameName = channelData && channelData.gameName ? channelData.gameName : "•s–¾‚ÈƒQ[ƒ€";
+                const currentGameName = channelData && channelData.gameName ? channelData.gameName : "ä¸æ˜ãªã‚²ãƒ¼ãƒ ";
 
                 const newQuote = {
                     text: args.slice(2, args.length).join(" "),
@@ -284,7 +284,7 @@ const quotesManagement = {
                 const newQuoteText = await quotesManager.getQuote(newQuoteId);
                 const formattedQuote = getFormattedQuoteString(newQuoteText);
                 await twitchChat.sendChatMessage(
-                    `’Ç‰Á‚µ‚Ü‚µ‚½F ${formattedQuote}`
+                    `è¿½åŠ ã—ã¾ã—ãŸï¼š ${formattedQuote}`
                 );
                 sendToTTS(formattedQuote);
                 logger.debug(`Quote #${newQuoteId} added!`);
@@ -299,7 +299,7 @@ const quotesManagement = {
                     return resolve();
                 }
 
-                await twitchChat.sendChatMessage(`‚»‚Ì”Ô†‚Ìˆø—p‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½`);
+                await twitchChat.sendChatMessage(`ãã®ç•ªå·ã®å¼•ç”¨ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ`);
                 logger.error('Quotes: NaN passed to remove quote command.');
                 return resolve();
             }
@@ -315,9 +315,9 @@ const quotesManagement = {
                     const binId = await cloudSync.syncProfileData(profileJSON);
 
                     if (binId == null) {
-                    await twitchChat.sendChatMessage("ˆø—p‚Í‚ ‚è‚Ü‚¹‚");
+                    await twitchChat.sendChatMessage("å¼•ç”¨ã¯ã‚ã‚Šã¾ã›ï½");
                     } else {
-                    await twitchChat.sendChatMessage(`ˆø—p‚ÌƒŠƒXƒg‚Í‚±‚¿‚çF https://firebot.app/profile?id=${binId}`);
+                    await twitchChat.sendChatMessage(`å¼•ç”¨ã®ãƒªã‚¹ãƒˆã¯ã“ã¡ã‚‰ï¼š https://firebot.app/profile?id=${binId}`);
                     }
 
                     return resolve();
@@ -349,7 +349,7 @@ const quotesManagement = {
                         await twitchChat.sendChatMessage(`Sorry! We couldnt find a quote using those terms.`);
                     }
 
-                    await twitchChat.sendChatMessage(`‚±‚ÌŒŸõ•¶š‚ğŠÜ‚Şˆø—p‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B`);
+                    await twitchChat.sendChatMessage(`ã“ã®æ¤œç´¢æ–‡å­—ã‚’å«ã‚€å¼•ç”¨ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚`);
                     return resolve();
                 }
                 case "searchuser": {
@@ -386,7 +386,7 @@ const quotesManagement = {
 
                     if (day == null || month == null || day > 31 || day < 1 ||
                     month > 12 || month < 1) {
-                    await twitchChat.sendChatMessage(`“ú•t‚ª–³Œø‚Å‚·`);
+                    await twitchChat.sendChatMessage(`æ—¥ä»˜ãŒç„¡åŠ¹ã§ã™`);
                     return resolve();
                 }
 
@@ -413,14 +413,14 @@ const quotesManagement = {
 
                 const quoteId = parseInt(args[1]);
                 if (isNaN(quoteId)) {
-                    await twitchChat.sendChatMessage(`ID‚ªˆÙ‚È‚è‚Ü‚·`);
+                    await twitchChat.sendChatMessage(`IDãŒç•°ãªã‚Šã¾ã™`);
                     return resolve();
                 }
 
                     const quote = await quotesManager.getQuote(quoteId);
 
                 if (quote == null) {
-                    await twitchChat.sendChatMessage(`ID ${quoteId} ‚Ìˆø—p‚ªŒ©‚Â‚©‚ç‚È‚¢`);
+                    await twitchChat.sendChatMessage(`ID ${quoteId} ã®å¼•ç”¨ãŒè¦‹ã¤ã‹ã‚‰ãªã„`);
                     return resolve();
                 }
 
@@ -430,14 +430,14 @@ const quotesManagement = {
                 try {
                     await quotesManager.updateQuote(quote);
                 } catch (err) {
-                    await twitchChat.sendChatMessage(`${quoteId} ‚ğXV’†‚ÉƒGƒ‰[‚ª‚¨‚«‚Ü‚µ‚½`);
+                    await twitchChat.sendChatMessage(`${quoteId} ã‚’æ›´æ–°ä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒãŠãã¾ã—ãŸ`);
                     return resolve();
                 }
 
                     const formattedQuote = getFormattedQuoteString(quote);
 
                 await twitchChat.sendChatMessage(
-                    `•ÒW‚µ‚Ü‚µ‚½F ${formattedQuote}`
+                    `ç·¨é›†ã—ã¾ã—ãŸï¼š ${formattedQuote}`
                 );
 
                     // resolve promise
@@ -451,14 +451,14 @@ const quotesManagement = {
 
                 const quoteId = parseInt(args[1]);
                 if (isNaN(quoteId)) {
-                    await twitchChat.sendChatMessage(`–³Œø‚Èˆø—pID`);
+                    await twitchChat.sendChatMessage(`ç„¡åŠ¹ãªå¼•ç”¨ID`);
                     return resolve();
                 }
 
                     const quote = await quotesManager.getQuote(quoteId);
 
                 if (quote == null) {
-                    await twitchChat.sendChatMessage(`${quoteId} ‚ğ‚à‚ÂID‚Ì‚à‚Ì‚ª‚İ‚Â‚©‚ç‚È‚¢`);
+                    await twitchChat.sendChatMessage(`${quoteId} ã‚’ã‚‚ã¤IDã®ã‚‚ã®ãŒã¿ã¤ã‹ã‚‰ãªã„`);
                     return resolve();
                 }
 

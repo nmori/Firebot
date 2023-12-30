@@ -24,8 +24,8 @@ const effect = {
         id: "firebot:oneccome-wordparty",
         name: "わんコメ WordParty",
         description: "わんコメのWordPartyに起動トリガーを送ります",
-        icon: "fad fa-terminal",
-        categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
+        icon: "fad fa-paw",
+        categories: [EffectCategory.JP_ORIGINAL],
         dependencies: [],
         outputs: []
     },

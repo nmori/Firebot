@@ -14,14 +14,14 @@
     ng-style="{'width': layout.dashboardViewerList }"
   >
     <div class="viewer-list-header">
-      <span role="heading" aria-level="2"> CHAT USERS </span>
+      <span role="heading" aria-level="2"> 視聴者 </span>
     </div>
     <div class="chat-users mt-2">
-      <chat-user-category category="Moderators" role-key="mod" />
-      <chat-user-category category="VIPs" role-key="vip" />
-      <chat-user-category category="Viewers" role-key="viewer" />
-      <chat-user-category category="Broadcaster" role-key="broadcaster" />
-      <chat-user-category category="Known Bots" role-key="viewerlistbot" />
+      <chat-user-category category="モデレータ" role-key="mod" />
+      <chat-user-category category="VIP" role-key="vip" />
+      <chat-user-category category="視聴者" role-key="viewer" />
+      <chat-user-category category="配信者" role-key="broadcaster" />
+      <chat-user-category category="Bot" role-key="viewerlistbot" />
     </div>
   </div>
 
@@ -113,8 +113,8 @@
             />
         </div>
         <div class="thread-replying-to" ng-if="threadDetails.replyToMessageId != threadDetails.threadParentMessageId">
-          <span>Replying to <span style="font-weight: 800">@{{threadDetails.replyToUserDisplayName}}</span></span>
-          <button class="btn btn-link" ng-click="threadDetails.replyToMessageId = threadDetails.threadParentMessageId">Cancel</button>
+          <span><span style="font-weight: 800">@{{threadDetails.replyToUserDisplayName}}</span>に返信：</span>
+          <button class="btn btn-link" ng-click="threadDetails.replyToMessageId = threadDetails.threadParentMessageId">キャンセル</button>
         </div>
       </div>
     </div>

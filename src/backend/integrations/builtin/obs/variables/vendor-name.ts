@@ -14,12 +14,12 @@ export const VendorNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsVendorName",
         description:
-      "The name of the vendor that triggered the OBS vendor event.",
+      "OBS のベンダーイベントをトリガーしたベンダーの名前。",
         possibleDataOutput: ["text"],
         triggers: triggers
     },
     evaluator: async (trigger) => {
         const vendorName = trigger.metadata?.eventData?.vendorName;
-        return vendorName ?? "Unknown";
+        return vendorName ?? "不明";
     }
 };

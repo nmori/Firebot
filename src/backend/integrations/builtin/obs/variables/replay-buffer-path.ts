@@ -14,12 +14,12 @@ export const ReplayBufferPathVariable: ReplaceVariable = {
     definition: {
         handle: "obsReplayBufferPath",
         description:
-      "The path of the replay buffer file that OBS saved.",
+      "OBSが保存した再生バッファファイルのパス",
         possibleDataOutput: ["text"],
         triggers: triggers
     },
     evaluator: async (trigger) => {
         const replayBufferPath = trigger.metadata?.eventData?.savedReplayPath;
-        return replayBufferPath ?? "Unknown";
+        return replayBufferPath ?? "不明";
     }
 };

@@ -7,13 +7,13 @@ export const SetOBSImageSourceFileEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-image-source-file",
-    name: "OBS‰æ‘œƒ\[ƒX‚Éƒtƒ@ƒCƒ‹‚ğİ’è",
-    description: "OBS‰æ‘œƒ\[ƒX‚Ìƒtƒ@ƒCƒ‹‚ğİ’è‚µ‚Ü‚·B",
+    name: "OBSç”»åƒã‚½ãƒ¼ã‚¹ã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®š",
+    description: "OBSç”»åƒã‚½ãƒ¼ã‚¹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®šã—ã¾ã™ã€‚",
     icon: "fad fa-photo-video",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS‰æ‘œƒ\[ƒX">
+    <eos-container header="OBSç”»åƒã‚½ãƒ¼ã‚¹">
         <div>
             <button class="btn btn-link" ng-click="getImageSources()">Refresh Source Data</button>
         </div>

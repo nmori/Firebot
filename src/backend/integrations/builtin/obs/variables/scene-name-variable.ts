@@ -5,7 +5,7 @@ export const SceneNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneName",
         description:
-      "Œ»Ý‚Ì OBS ƒV[ƒ“–¼BOBS‚ª‹N“®‚µ‚Ä‚¢‚È‚¢ê‡‚Í'•s–¾'‚ð•Ô‚·B",
+      "ç¾åœ¨ã® OBS ã‚·ãƒ¼ãƒ³åã€‚OBSãŒèµ·å‹•ã—ã¦ã„ãªã„å ´åˆã¯'ä¸æ˜Ž'ã‚’è¿”ã™ã€‚",
         possibleDataOutput: ["text"]
     },
     evaluator: async (trigger) => {

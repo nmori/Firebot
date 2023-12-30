@@ -9,8 +9,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:approve-reject-channel-reward-redemption",
-        name: "ƒ`ƒƒƒ“ƒlƒ‹“Á“TŒğŠ·‚Ì³”F/‹‘”Û",
-        description: "•Û—¯’†‚ÌTwitchƒ`ƒƒƒ“ƒlƒ‹“Á“T‚ÌŒğŠ·‚ğ³”F‚Ü‚½‚Í‹‘”Û‚µ‚Ü‚·B",
+        name: "ãƒãƒ£ãƒ³ãƒãƒ«ç‰¹å…¸äº¤æ›ã®æ‰¿èª/æ‹’å¦",
+        description: "ä¿ç•™ä¸­ã®Twitchãƒãƒ£ãƒ³ãƒãƒ«ç‰¹å…¸ã®äº¤æ›ã‚’æ‰¿èªã¾ãŸã¯æ‹’å¦ã—ã¾ã™ã€‚",
         icon: "fad fa-check-circle",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -18,12 +18,12 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="“Á“T">
-            <firebot-input input-title="“Á“TID" model="effect.rewardId" placeholder-text="ID‚ğ“ü—Í" />
+        <eos-container header="ç‰¹å…¸">
+            <firebot-input input-title="ç‰¹å…¸ID" model="effect.rewardId" placeholder-text="IDã‚’å…¥åŠ›" />
         </eos-container>
 
-        <eos-container header="ˆø‚«Š·‚¦" pad-top="true">
-            <firebot-input input-title="ˆø‚«Š·‚¦ID" model="effect.redemptionId" placeholder-text="ID‚ğ“ü—Í" />
+        <eos-container header="å¼•ãæ›ãˆ" pad-top="true">
+            <firebot-input input-title="å¼•ãæ›ãˆID" model="effect.redemptionId" placeholder-text="IDã‚’å…¥åŠ›" />
         </eos-container>
 
         <eos-container header="Action" pad-top="true">
@@ -33,10 +33,10 @@ const model: EffectType<{
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.approve = true">
-                        <a href>³”F</a>
+                        <a href>æ‰¿èª</a>
                     </li>
                     <li ng-click="effect.approve = false">
-                        <a href>‹p‰º</a>
+                        <a href>å´ä¸‹</a>
                     </li>
                 </ul>
             </div>
@@ -44,7 +44,7 @@ const model: EffectType<{
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                ’FFirebot‚Åì¬‚³‚ê‚½ƒ`ƒƒƒ“ƒlƒ‹“Á“T‚ÌŒğŠ·‚Ì‚İ³”F/‹‘”Û‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
+                æ³¨ï¼šFirebotã§ä½œæˆã•ã‚ŒãŸãƒãƒ£ãƒ³ãƒãƒ«ç‰¹å…¸ã®äº¤æ›ã®ã¿æ‰¿èª/æ‹’å¦ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚
             </div>
         </eos-container>
     `,
@@ -52,11 +52,11 @@ const model: EffectType<{
         const errors: string[] = [];
 
         if (!effect.rewardId?.length) {
-            errors.push("“Á“TID‚ğ“ü—Í‚·‚é•K—v‚ª‚ ‚è‚Ü‚·");
+            errors.push("ç‰¹å…¸IDã‚’å…¥åŠ›ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™");
         } else if (!effect.redemptionId?.length) {
-            errors.push("ˆø‚«Š·‚¦ID‚ğ“ü—Í‚·‚é•K—v‚ª‚ ‚è‚Ü‚·");
+            errors.push("å¼•ãæ›ãˆIDã‚’å…¥åŠ›ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™");
         } else if (effect.approve == null) {
-            errors.push("ƒAƒNƒVƒ‡ƒ“‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢");
+            errors.push("ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’é¸ã‚“ã§ãã ã•ã„");
         }
 
         return errors;

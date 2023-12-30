@@ -110,7 +110,7 @@
 
                             <div style="height: 147px;">
                                 <div ng-hide="$ctrl.importIncompatibilityMessages.length < 1">
-                                    <eos-collapsable-panel show-label="{{'SETUP_WIZ.SHOW_IMPORT_WARNING' | translate }}h hide-label="{{'SETUP_WIZ.HIDE_IMPORT_WARNING' | translate }}" hide-info-box="true">
+                                    <eos-collapsable-panel show-label="{{'SETUP_WIZ.SHOW_IMPORT_WARNING' | translate }}â€ hide-label="{{'SETUP_WIZ.HIDE_IMPORT_WARNING' | translate }}" hide-info-box="true">
                                         <div class="incompat-warnings-wrapper">
                                             <ul>
                                                 <li ng-repeat="message in $ctrl.importIncompatibilityMessages track by $index">{{message}}</li>
@@ -281,9 +281,9 @@
 
             $ctrl.stepTitles = [
                 "",
-                "Firebot v4ƒf[ƒ^‚ğæ‚è‚Ş",
-                "ƒƒOƒCƒ“",
-                "ƒI[ƒo[ƒŒƒC‚ÌƒZƒbƒgƒAƒbƒv",
+                "Firebot v4ãƒ‡ãƒ¼ã‚¿ã‚’å–ã‚Šè¾¼ã‚€",
+                "ãƒ­ã‚°ã‚¤ãƒ³",
+                "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ã®ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—",
                 ""
             ];
 
@@ -316,7 +316,7 @@
             $ctrl.getNextLabel = function() {
                 switch ($ctrl.step) {
                 default:
-                    return "Ÿ‚Ö";
+                    return "æ¬¡ã¸";
                 }
             };
 
@@ -437,9 +437,9 @@
             $ctrl.getTooltipText = function() {
                 switch ($ctrl.step) {
                 case 2:
-                    return "”zMÒƒAƒJƒEƒ“ƒg‚ÅƒƒOƒCƒ“‚µ‚Ä‚­‚¾‚³‚¢";
+                    return "é…ä¿¡è€…ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã§ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ãã ã•ã„";
                 case 3:
-                    return "ƒI[ƒo[ƒŒƒC‚ÌURL‚ğ”zMƒ\ƒtƒgƒEƒFƒA‚Éİ’è‚µ‚Ä‚­‚¾‚³‚¢";
+                    return "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ã®URLã‚’é…ä¿¡ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«è¨­å®šã—ã¦ãã ã•ã„";
                 }
                 return "";
             };
@@ -454,7 +454,7 @@
 
                 ngToast.create({
                     className: 'success',
-                    content: "ƒI[ƒo[ƒŒƒC—p‚ÌURL‚ğƒRƒs[‚µ‚Ü‚µ‚½"
+                    content: "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ç”¨ã®URLã‚’ã‚³ãƒ”ãƒ¼ã—ã¾ã—ãŸ"
                 });
             };
 
@@ -464,13 +464,13 @@
                     .getConnectionStatusForService("overlay");
                 if (connectionStatus === "connected") {
                     overlayStatusId = 1;
-                    return "Ú‘±Ï";
+                    return "æ¥ç¶šæ¸ˆ";
                 } else if (connectionStatus === "warning") {
                     overlayStatusId = 0;
-                    return "–¢Ú‘±";
+                    return "æœªæ¥ç¶š";
                 }
                 overlayStatusId = -1;
-                return "€”õ‚ÍŠ®—¹‚µ‚Ü‚µ‚½‚ªAŒ»“_‚Å‚Í–¢Ú‘±‚Å‚·B";
+                return "æº–å‚™ã¯å®Œäº†ã—ã¾ã—ãŸãŒã€ç¾æ™‚ç‚¹ã§ã¯æœªæ¥ç¶šã§ã™ã€‚";
             };
 
             $ctrl.getOverlayStatusId = function() {

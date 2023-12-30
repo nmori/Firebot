@@ -7,7 +7,7 @@
                 <scroll-sentinel element-class="edit-reward-header"></scroll-sentinel>
                 <div class="modal-header sticky-header edit-reward-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">�`�����l�����T��ҏW</h4>
+                    <h4 class="modal-title">チャンネル特典を編集</h4>
                 </div>
                 <div class="modal-body" style="padding-top: 15px;">
                     <div ng-if="!$ctrl.reward.manageable" style="display: flex; flex-direction: column;">
@@ -30,7 +30,7 @@
                     </div>
                     <form ng-show="$ctrl.reward.manageable" name="rewardSettings">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
-                            <label for="name" class="control-label">�`�����l�����T��</label>
+                            <label for="name" class="control-label">チャンネル特典名</label>
                             <input 
                                 type="text" 
                                 id="name" 
@@ -39,13 +39,13 @@
                                 ui-validate="'!$ctrl.rewardNameExists($value)'"
                                 required 
                                 class="form-control input-lg" 
-                                placeholder="���T�ɖ��O������" 
+                                placeholder="特典に名前をつける" 
                                 ng-model="$ctrl.reward.twitchData.title" 
                             />
                         </div>
 
                         <div class="form-group">
-                            <label for="description" class="control-label">�T�v</label>
+                            <label for="description" class="control-label">概要</label>
                             <textarea 
                                 id="description" 
                                 maxlength="200" 
@@ -53,17 +53,17 @@
                                 class="form-control" 
                                 style="font-size: 16px; padding: 10px 16px;" 
                                 name="text" 
-                                placeholder="�����҂ɉ������N�G�X�g���Ăق������A�ЂƂ��ƓY���Ă�������" 
+                                placeholder="視聴者に何をリクエストしてほしいか、ひとこと添えてください" 
                                 rows="4" 
                                 cols="40"
                             />
-                            <p class="help-block">�C��</p>
+                            <p class="help-block">任意</p>
                         </div>
 
                         <div class="form-group flex-row jspacebetween">
                             <div>
-                                <label class="control-label" style="margin:0;">�����҂Ƀe�L�X�g���͂����߂�</label>
-                                <p class="help-block">�L���ɂ���ƁA���T���󂯎�鎋���҂ɓ��͂����߂�g���\������܂��B</p>
+                                <label class="control-label" style="margin:0;">視聴者にテキスト入力を求める</label>
+                                <p class="help-block">有効にすると、特典を受け取る視聴者に入力を求める枠が表示されます。</p>
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.reward.twitchData.isUserInputRequired" auto-update-value="true" font-size="32"></toggle-button>
@@ -71,23 +71,23 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
-                            <label for="cost" class="control-label">���z</label>
+                            <label for="cost" class="control-label">金額</label>
                             <input 
                                 type="number" 
                                 class="form-control input-lg" 
                                 id="cost" 
                                 name="cost"
-                                placeholder="���z�����" 
+                                placeholder="金額を入力" 
                                 ng-model="$ctrl.reward.twitchData.cost"
                                 required
                                 min="0" 
                                 style="width: 50%;" 
                             />
-                            <p class="help-block">�q���g�F�����҂�1���Ԃ����蕽��220�|�C���g���l���B�T�u�͍ő�2�{�̔{�����l���B</p>
+                            <p class="help-block">ヒント：視聴者は1時間あたり平均220ポイントを獲得。サブは最大2倍の倍率を獲得。</p>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">�w�i�F</label>
+                            <label class="control-label">背景色</label>
                             <div style="margin-top:10px; width: 50%;">
                                 <color-picker-input model="$ctrl.reward.twitchData.backgroundColor" lg-input="true" show-clear="false"></color-picker-input>
                             </div>
@@ -95,8 +95,8 @@
 
                         <div class="form-group flex-row jspacebetween">
                             <div>
-                                <label class="control-label" style="margin:0;">���T�������������҂��ɓ��ꂸ�Ɉ��������ς݂ɂ���</label>
-                                <p class="help-block">�L���ɂ���ƁA���������҂��ɓ��ꂸ���������ς݂ɂ��܂�</p>
+                                <label class="control-label" style="margin:0;">特典を引き換え順待ちに入れずに引き換え済みにする</label>
+                                <p class="help-block">有効にすると、引き換え待ちに入れず引き換え済みにします</p>
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue" auto-update-value="true" font-size="32"></toggle-button>
@@ -109,8 +109,8 @@
                         >
                             <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
                                 <div>
-                                    <label class="control-label" style="margin:0;">�Ď��s�\�ɂȂ�܂ł̑҂�����</label>
-                                    <p class="help-block">�t�^�܂ł̊���(�Œ�7����)</p>
+                                    <label class="control-label" style="margin:0;">再実行可能になるまでの待ち時間</label>
+                                    <p class="help-block">付与までの期間(最長7日間)</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.globalCooldownSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
@@ -137,8 +137,8 @@
                                 style="margin-bottom: 0;"
                             >
                                 <div>
-                                    <label class="control-label" style="margin:0;">�X�g���[�����Ƃ̗��p����</label>
-                                    <p class="help-block">�����҂̍ő升�v�����z</p>
+                                    <label class="control-label" style="margin:0;">ストリームごとの利用制限</label>
+                                    <p class="help-block">視聴者の最大合計交換額</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
@@ -148,7 +148,7 @@
                                 type="number"
                                 class="form-control input-lg" 
                                 name="maxPerStream"
-                                placeholder="���z�����" 
+                                placeholder="金額を入力" 
                                 ng-model="$ctrl.reward.twitchData.maxPerStreamSetting.maxPerStream" 
                                 ng-disabled="!$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled" 
                                 ui-validate="'!$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled || ($value != null && $value > -1)'"
@@ -166,8 +166,8 @@
                                 style="margin-bottom: 0;" 
                             >
                                 <div>
-                                    <label class="control-label" style="margin:0;">1���[�U�[������̗��p�񐔐���</label>
-                                    <p class="help-block">������1�l�E1�X�g���[��������̍ő�l�����z</p>
+                                    <label class="control-label" style="margin:0;">1ユーザーあたりの利用回数制限</label>
+                                    <p class="help-block">視聴者1人・1ストリームあたりの最大個人交換額</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
@@ -177,7 +177,7 @@
                                 type="number" 
                                 class="form-control input-lg" 
                                 name="maxPerUserPerStream" 
-                                placeholder="���z������" 
+                                placeholder="金額を入れる" 
                                 ng-model="$ctrl.reward.twitchData.maxPerUserPerStreamSetting.maxPerUserPerStream" 
                                 ng-disabled="!$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled"
                                 ui-validate="'!$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled || ($value != null && $value > -1)'"
@@ -187,8 +187,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" style="margin:0;">���T�A�C�R��</label>
-                            <p class="help-block"><b>Important</b>: ���T�̃A�C�R����X(��Twitch)�ł̂ݕύX�\</p>
+                            <label class="control-label" style="margin:0;">特典アイコン</label>
+                            <p class="help-block"><b>Important</b>: 特典のアイコンはX(旧Twitch)でのみ変更可能</p>
                             <div>
                                 <div style="display: inline-flex; align-items: center; justify-content: center;padding: 12.5px;border: 2px gray dashed;border-radius: 6px;">
                                     <img 
@@ -206,8 +206,8 @@
 
                 </div>
                 <div class="modal-footer sticky-footer edit-reward-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">�L�����Z��</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">�ۑ�</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
                 <scroll-sentinel element-class="edit-reward-footer"></scroll-sentinel>
             `,

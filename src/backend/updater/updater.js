@@ -127,7 +127,7 @@ module.exports = function setupUpdater() {
         }
 
         updaterBusy = true;
-        const feedURL = `https://github.com/crowbartools/Firebot/releases/download/${tag}`;
+        const feedURL = `https://github.com/nmori/Firebot/releases/download/${tag}`; //for japanese-localization
         return new Promise((resolve, reject) => {
             autoUpdater.once('update-downloaded', (...args) => {
                 updaterBusy = false;

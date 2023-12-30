@@ -14,12 +14,12 @@ export const VendorEventTypeVariable: ReplaceVariable = {
     definition: {
         handle: "obsVendorEventType",
         description:
-      "The vendor-specified type of event that triggered the OBS vendor event.",
+      "OBS ベンダーイベントのトリガーとなったベンダー指定のイベントタイプ。",
         possibleDataOutput: ["text"],
         triggers: triggers
     },
     evaluator: async (trigger) => {
         const eventType = trigger.metadata?.eventData?.eventType;
-        return eventType ?? "Unknown";
+        return eventType ?? "不明";
     }
 };

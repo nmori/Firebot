@@ -20,7 +20,7 @@ const effect = {
 
     <div ng-if="effect.mode == 'typeString'">
         <eos-container header="テキストを打つ" pad-top="true">
-            <firebot-input placeholder-text="Input text" model="effect.text" />
+            <firebot-input placeholder-text="テキストを入れる" model="effect.text" />
         </eos-container>
     </div>
 

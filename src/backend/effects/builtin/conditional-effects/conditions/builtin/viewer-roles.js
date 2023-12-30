@@ -6,7 +6,7 @@ module.exports = {
     id: "firebot:viewerroles",
     name: "‹’®Ò‚Ì–ğŠ„",
     description: "—^‚¦‚ç‚ê‚½‹’®Ò‚Ì–ğŠ„‚ÉŠî‚Ã‚­ğŒ",
-    comparisonTypes: ["–ğŠ„‚ğ’S“–", "–ğŠ„‚ğ’S“–‚µ‚Ä‚¢‚È‚¢"],
+    comparisonTypes: ["‚É‘®‚µ‚Ä‚¢‚é", "‚É‘®‚µ‚Ä‚¢‚È‚¢"],
     leftSideValueType: "text",
     leftSideTextPlaceholder: "ƒ†[ƒU–¼‚ğ“ü—Í",
     rightSideValueType: "preset",

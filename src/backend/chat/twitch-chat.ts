@@ -120,7 +120,7 @@ class TwitchChat extends EventEmitter {
 
             this._streamerIncomingChatClient.irc.onPasswordError((event) => {
                 logger.error("Failed to connect to chat", event);
-                frontendCommunicator.send("error", `ƒ`ƒƒƒbƒg‚ÉÚ‘±‚Å‚«‚Ü‚¹‚ñB——R‚Íu${event.message}v‚Å‚·BƒAƒJƒEƒ“ƒg‚ğÄƒƒOƒCƒ“‚µ‚Ä‚İ‚Ä‚­‚¾‚³‚¢B`);
+                frontendCommunicator.send("error", `ãƒãƒ£ãƒƒãƒˆã«æ¥ç¶šã§ãã¾ã›ã‚“ã€‚ç†ç”±ã¯ã€Œ${event.message}ã€ã§ã™ã€‚ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã‚’å†ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã¿ã¦ãã ã•ã„ã€‚`);
                 this.disconnect(true);
             });
 
@@ -336,7 +336,7 @@ frontendCommunicator.onAsync("update-user-banned-status", async (data: UserBanRe
     }
 
     if (shouldBeBanned) {
-        await twitchApi.moderation.banUser(user.id, "Firebot‚É‚æ‚Á‚Ä’Ç•ú‚³‚ê‚Ü‚µ‚½");
+        await twitchApi.moderation.banUser(user.id, "Firebotã«ã‚ˆã£ã¦è¿½æ”¾ã•ã‚Œã¾ã—ãŸ");
     } else {
         await twitchApi.moderation.unbanUser(user.id);
     }

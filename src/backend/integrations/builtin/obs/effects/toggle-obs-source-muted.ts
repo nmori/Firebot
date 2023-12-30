@@ -19,13 +19,13 @@ export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
   {
     definition: {
       id: "ebiggz:obs-toggle-source-muted",
-      name: "OBS ‰¹ºƒ\[ƒX‚Ìƒ~ƒ…[ƒg",
-      description: "OBS‰¹ºƒ\[ƒX‚Ìƒ~ƒ…[ƒgó‘Ô‚ğØ‚è‘Ö‚¦‚é",
+      name: "OBS éŸ³å£°ã‚½ãƒ¼ã‚¹ã®ãƒŸãƒ¥ãƒ¼ãƒˆ",
+      description: "OBSéŸ³å£°ã‚½ãƒ¼ã‚¹ã®ãƒŸãƒ¥ãƒ¼ãƒˆçŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹",
       icon: "fad fa-volume-mute",
       categories: ["common"],
     },
     optionsTemplate: `
-    <eos-container header="‰¹ºƒ\[ƒX">
+    <eos-container header="éŸ³å£°ã‚½ãƒ¼ã‚¹">
       <firebot-input model="searchText" input-title="Filter"></firebot-input>
       <div>
           <button class="btn btn-link" ng-click="getSourceList()">Refresh Sources</button>
@@ -41,15 +41,15 @@ export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
                 {{getSourceActionDisplay(source.name)}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem" ng-click="setSourceAction(source.name, true)"><a href>ƒ~ƒ…[ƒg‚ğİ’è</a></li>
-                    <li role="menuitem" ng-click="setSourceAction(source.name, false)"><a href>ƒ~ƒ…[ƒg‚ğ‰ğœ</a></li>
-                    <li role="menuitem" ng-click="setSourceAction(source.name, 'toggle')"><a href>ƒ~ƒ…[ƒgó‘Ô‚ğ”½“]</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, true)"><a href>ãƒŸãƒ¥ãƒ¼ãƒˆã‚’è¨­å®š</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, false)"><a href>ãƒŸãƒ¥ãƒ¼ãƒˆã‚’è§£é™¤</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, 'toggle')"><a href>ãƒŸãƒ¥ãƒ¼ãƒˆçŠ¶æ…‹ã‚’åè»¢</a></li>
                 </ul>
             </div>
           </div>
         </div>
       <div ng-if="sourceList != null && sourceList.length < 1" class="muted">
-        ƒI[ƒfƒBƒIƒ\[ƒX‚ª‚İ‚Â‚©‚è‚Ü‚¹‚ñ
+        ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚½ãƒ¼ã‚¹ãŒã¿ã¤ã‹ã‚Šã¾ã›ã‚“
       </div>
       <div ng-if="sourceList == null" class="muted">
         No sources found. {{ isObsConfigured ? "Is OBS running?" : "Have you configured the OBS integration?" }}

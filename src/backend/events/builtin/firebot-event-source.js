@@ -6,24 +6,24 @@
 const firebotEventSource = {
     id: "firebot",
     name: "Firebot",
-    description: "Firebot “à‚Å”­¶‚·‚é‰Â”\«‚Ì‚ ‚éd—v‚ÈƒCƒxƒ“ƒg",
+    description: "Firebot å†…ã§ç™ºç”Ÿã™ã‚‹å¯èƒ½æ€§ã®ã‚ã‚‹é‡è¦ãªã‚¤ãƒ™ãƒ³ãƒˆ",
     events: [
         {
             id: "chat-connected",
-            name: "Twitch Ú‘±",
-            description: "Firebot‚ªTwitch‚ÉÚ‘±‚µ‚½‚Æ‚«",
+            name: "Twitch æ¥ç¶šæ™‚",
+            description: "FirebotãŒTwitchã«æ¥ç¶šã—ãŸã¨ã",
             cached: false,
             activityFeed: {
                 icon: "fad fa-plug",
                 getMessage: () => {
-                    return `Twitch ‚ÉÚ‘±‚µ‚Ü‚µ‚½`;
+                    return `Twitch ã«æ¥ç¶šã—ã¾ã—ãŸ`;
                 }
             }
         },
         {
             id: "view-time-update",
-            name: "ŠÔî•ñXV",
-            description: "‹’®ŠÔ‚ªXV‚³‚ê‚½‚Æ‚«",
+            name: "æ™‚é–“æƒ…å ±æ›´æ–°æ™‚",
+            description: "è¦–è´æ™‚é–“ãŒæ›´æ–°ã•ã‚ŒãŸã¨ã",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -33,20 +33,20 @@ const firebotEventSource = {
         },
         {
             id: "currency-update",
-            name: "’Ê‰İXV",
-            description: "‹’®Ò‚Ì’Ê‰İ‚ª•Ï‚í‚Á‚½‚Æ‚«",
+            name: "é€šè²¨æ›´æ–°æ™‚",
+            description: "è¦–è´è€…ã®é€šè²¨ãŒå¤‰ã‚ã£ãŸã¨ã",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                currencyName: "ƒRƒCƒ“",
+                currencyName: "ã‚³ã‚¤ãƒ³",
                 previousCurrencyAmount: 1,
                 newCurrencyAmount: 2
             }
         },
         {
             id: "viewer-created",
-            name: "‹’®Òî•ñ’Ç‰Á",
-            description: "‹’®Ò‚ªÅ‰‚É‹’®Òƒf[ƒ^ƒx[ƒX‚É•Û‘¶‚³‚ê‚é‚Æ‚«",
+            name: "è¦–è´è€…æƒ…å ±è¿½åŠ æ™‚",
+            description: "è¦–è´è€…ãŒæœ€åˆã«è¦–è´è€…ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«ä¿å­˜ã•ã‚Œã‚‹ã¨ã",
             cached: false,
             manualMetadata: {
                 username: "Firebot"
@@ -54,36 +54,36 @@ const firebotEventSource = {
         },
         {
             id: "firebot-started",
-            name: "Firebot ‹N“®",
-            description: "Firebot‚ª‹N“®‚µ‚½‚Æ‚«",
+            name: "Firebot èµ·å‹•æ™‚",
+            description: "FirebotãŒèµ·å‹•ã—ãŸã¨ã",
             cached: false
         },
         {
             id: "custom-variable-expired",
-            name: "ƒJƒXƒ^ƒ€•Ï”‚Ì—LŒøŠúŒÀØ‚ê",
-            description: "ƒJƒXƒ^ƒ€•Ï”‚Ì—LŒøŠúŒÀ‚ªØ‚ê‚½‚Æ‚«",
+            name: "ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ã®æœ‰åŠ¹æœŸé™åˆ‡ã‚Œæ™‚",
+            description: "ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ã®æœ‰åŠ¹æœŸé™ãŒåˆ‡ã‚ŒãŸã¨ã",
             cached: false
         },
         {
             id: "custom-variable-set",
-            name: "ƒJƒXƒ^ƒ€•Ï”‚Ìì¬",
-            description: "ƒJƒXƒ^ƒ€•Ï”‚ªì¬‚³‚ê‚½‚Æ‚«",
+            name: "ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ã®ä½œæˆæ™‚",
+            description: "ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ãŒä½œæˆã•ã‚ŒãŸã¨ã",
             cached: false
         },
         {
             id: "highlight-message",
-            name: "ƒ`ƒƒƒbƒgƒƒbƒZ[ƒWƒnƒCƒ‰ƒCƒg",
-            description: "ƒI[ƒo[ƒŒƒCã‚ÅƒƒbƒZ[ƒW‚ğƒnƒCƒ‰ƒCƒg‚³‚ê‚½",
+            name: "ãƒãƒ£ãƒƒãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒã‚¤ãƒ©ã‚¤ãƒˆæ™‚",
+            description: "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ä¸Šã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒã‚¤ãƒ©ã‚¤ãƒˆã•ã‚ŒãŸæ™‚",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                messageText: "ƒeƒXƒgƒƒbƒZ[ƒW"
+                messageText: "ãƒ†ã‚¹ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸"
             }
         },
         {
             id: "category-changed",
-            name: "ƒJƒeƒSƒŠ[•ÏX",
-            description: "ƒ_ƒbƒVƒ…ƒ{[ƒh‚Å”zMƒJƒeƒSƒŠ[‚ğ•ÏX‚µ‚½",
+            name: "ã‚«ãƒ†ã‚´ãƒªãƒ¼å¤‰æ›´æ™‚",
+            description: "ãƒ€ãƒƒã‚·ãƒ¥ãƒœãƒ¼ãƒ‰ã§é…ä¿¡ã‚«ãƒ†ã‚´ãƒªãƒ¼ã‚’å¤‰æ›´ã—ãŸæ™‚",
             cached: false,
             manualMetadata: {
                 category: "Just Chatting"

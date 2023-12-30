@@ -119,7 +119,7 @@
                                     ng-click="$root.openLinkExternally('https://pronouns.alejo.io/')"
                                     ng-show="$ctrl.showPronoun && $ctrl.pronouns.pronounCache[$ctrl.message.username] != null"
                                 >{{$ctrl.pronouns.pronounCache[$ctrl.message.username]}}</span>
-                                <b ng-style="{'color': $ctrl.message.color}">{{$ctrl.message.username}}</b>
+                                <b ng-style="{'color': $ctrl.message.color}">{{$ctrl.message.displayName}}({{$ctrl.message.username}})</b>
                                 <span
                                     ng-if="$ctrl.compactDisplay && !$ctrl.message.action"
                                     style="color:white;font-weight:200;"

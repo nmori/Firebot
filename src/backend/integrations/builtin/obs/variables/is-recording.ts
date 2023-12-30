@@ -5,7 +5,7 @@ export const IsRecordingVariable: ReplaceVariable = {
     definition: {
         handle: "obsIsRecording",
         description:
-      "OBS‚ªŒ»Ý˜^‰æ’†‚Å‚ ‚ê‚Î'true'‚ðA˜^‰æ’†‚Å‚È‚¯‚ê‚Î'false'‚ð•Ô‚·B",
+      "OBSãŒç¾åœ¨éŒ²ç”»ä¸­ã§ã‚ã‚Œã°'true'ã‚’ã€éŒ²ç”»ä¸­ã§ãªã‘ã‚Œã°'false'ã‚’è¿”ã™ã€‚",
         possibleDataOutput: ["text"]
     },
     evaluator: async () => {

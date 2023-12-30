@@ -65,9 +65,9 @@ twitchListeners.events.on("chat-message", async data => {
 
         const currency = currencyDatabase.getCurrencyById(currencyId);
 
-        await twitchChat.sendChatMessage(`${username}, that is correct! You have won ${util.commafy(winnings)} ${currency.name}`, null, chatter);
+        await twitchChat.sendChatMessage(`${username}, 正解！ ${util.commafy(winnings)} ${currency.name} を手に入れた`, null, chatter);
     } else {
-        await twitchChat.sendChatMessage(`Sorry ${username}, that is incorrect. Better luck next time!`, null, chatter);
+        await twitchChat.sendChatMessage(`残念! ${username}, 不正解。次回チャレンジしてね`, null, chatter);
     }
     clearCurrentQuestion();
 });
@@ -82,7 +82,7 @@ const triviaCommand = {
         name: "Trivia",
         active: true,
         trigger: "!trivia",
-        description: "Allows viewers to play trivia",
+        description: "トリビアで遊ぶ",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
@@ -92,7 +92,7 @@ const triviaCommand = {
                 arg: "\\d+",
                 regex: true,
                 usage: "[wager]",
-                description: "Triggers trivia for the given wager amount",
+                description: "指定された賭け金額でトリビアの質問を開始する",
                 hideCooldowns: true
             }
         ]
@@ -113,36 +113,36 @@ const triviaCommand = {
 
             if (currentQuestion) {
                 if (currentQuestion.username === username) {
-                    await twitchChat.sendChatMessage(`${username}, you already have a trivia question in progress!`, null, chatter);
+                    await twitchChat.sendChatMessage(`${username}, あなたはすでにトリビアを出題されている！`, null, chatter);
                     return;
                 }
-                await twitchChat.sendChatMessage(`${username}, someone else is currently answering a question. Please wait for them to finish.`, null, chatter);
+                await twitchChat.sendChatMessage(`${username}, 現在、他の方が質問に回答中です。回答が終わるまでお待ちください。`, null, chatter);
                 return;
             }
 
             const cooldownExpireTime = cooldownCache.get(username);
             if (cooldownExpireTime && moment().isBefore(cooldownExpireTime)) {
                 const timeRemainingDisplay = util.secondsForHumans(Math.abs(moment().diff(cooldownExpireTime, 'seconds')));
-                await twitchChat.sendChatMessage(`${username}, trivia is currently on cooldown for you. Time remaining: ${timeRemainingDisplay}`, null, chatter);
+                await twitchChat.sendChatMessage(`${username}, 次の開催までお待ち下さい。残り時間: ${timeRemainingDisplay}`, null, chatter);
                 return;
             }
 
             if (wagerAmount < 1) {
-                await twitchChat.sendChatMessage(`${username}, your wager amount must be more than 0.`, null, chatter);
+                await twitchChat.sendChatMessage(`${username}, 賭け金は0以上でなければなりません。`, null, chatter);
                 return;
             }
 
             const minWager = triviaSettings.settings.currencySettings.minWager;
             if (minWager != null & minWager > 0) {
                 if (wagerAmount < minWager) {
-                    await twitchChat.sendChatMessage(`${username}, your wager amount must be at least ${minWager}.`, null, chatter);
+                    await twitchChat.sendChatMessage(`${username}, 賭け金の額は少なくとも ${minWager} 以上にしてください.`, null, chatter);
                     return;
                 }
             }
             const maxWager = triviaSettings.settings.currencySettings.maxWager;
             if (maxWager != null & maxWager > 0) {
                 if (wagerAmount > maxWager) {
-                    await twitchChat.sendChatMessage(`${username}, your wager amount can be no more than ${maxWager}.`, null, chatter);
+                    await twitchChat.sendChatMessage(`${username}, 賭け金額は ${maxWager} 以下にしてください`, null, chatter);
                     return;
                 }
             }
@@ -157,7 +157,7 @@ const triviaCommand = {
             }
 
             if (userBalance < wagerAmount) {
-                await twitchChat.sendChatMessage(`${username}, you don't have enough to wager this amount!`, null, chatter);
+                await twitchChat.sendChatMessage(`${username}, 手持ち金額が足りません`, null, chatter);
                 return;
             }
 
@@ -168,7 +168,7 @@ const triviaCommand = {
             );
 
             if (question == null) {
-                await twitchChat.sendChatMessage(`Sorry ${username}, there was an issue finding you a trivia question. Your wager has not been deducted.`, null, chatter);
+                await twitchChat.sendChatMessage(`${username}, トリビアの問題が見つかりませんでした。賭け金は返却されました。`, null, chatter);
                 return;
             }
 
@@ -182,7 +182,7 @@ const triviaCommand = {
                 await currencyDatabase.adjustCurrencyForUser(username, currencyId, -Math.abs(wagerAmount));
             } catch (error) {
                 logger.error(error.message);
-                await twitchChat.sendChatMessage(`Sorry ${username}, there was an error deducting currency from your balance so trivia has been canceled.`, null, chatter);
+                await twitchChat.sendChatMessage(`${username}, 残高から通貨を差し引く際にエラーが発生したため、トリビアはキャンセルされました。`, null, chatter);
                 return;
             }
 
@@ -244,14 +244,14 @@ const triviaCommand = {
                 if (currentQuestion == null || currentQuestion.username !== username) {
                     return;
                 }
-                await twitchChat.sendChatMessage(`@${username}, 5 seconds remaining to answer...`, null, chatter);
+                await twitchChat.sendChatMessage(`@${username}, 5秒以内にお答えください...`, null, chatter);
             }, (answerTimeout - 6) * 1000);
 
             answerTimeoutId = setTimeout(async () => {
                 if (currentQuestion == null || currentQuestion.username !== username) {
                     return;
                 }
-                await twitchChat.sendChatMessage(`@${username} did not provide an answer in time!`, null, chatter);
+                await twitchChat.sendChatMessage(`@${username},回答は間に合わなかった！`, null, chatter);
                 clearCurrentQuestion();
             }, answerTimeout * 1000);
         } else {

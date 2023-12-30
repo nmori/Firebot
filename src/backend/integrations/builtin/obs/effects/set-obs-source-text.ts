@@ -9,13 +9,13 @@ export const SetOBSSourceTextEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-source-text",
-    name: "OBSƒeƒLƒXƒgƒ\[ƒX‚ÌƒeƒLƒXƒg‚ğ•ÏX",
-    description: "OBSƒeƒLƒXƒgƒ\[ƒX‚Å•\¦‚·‚éƒeƒLƒXƒg‚ğ•ÏX‚µ‚Ü‚·",
+    name: "OBSãƒ†ã‚­ã‚¹ãƒˆã‚½ãƒ¼ã‚¹ã®ãƒ†ã‚­ã‚¹ãƒˆã‚’å¤‰æ›´",
+    description: "OBSãƒ†ã‚­ã‚¹ãƒˆã‚½ãƒ¼ã‚¹ã§è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚’å¤‰æ›´ã—ã¾ã™",
     icon: "fad fa-font-case",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS ƒeƒLƒXƒgƒ\[ƒX">
+    <eos-container header="OBS ãƒ†ã‚­ã‚¹ãƒˆã‚½ãƒ¼ã‚¹">
         <div>
             <button class="btn btn-link" ng-click="getTextSources()">Refresh Source Data</button>
         </div>

@@ -22,92 +22,92 @@ export const OBSEventSource: EventSource = {
     events: [
         {
             id: OBS_SCENE_CHANGED_EVENT_ID,
-            name: "OBS Scene Changed",
-            description: "When the scene is changed in OBS",
+            name: "OBS のシーンが変更された時",
+            description: "OBSでシーンが変わるとき",
             manualMetadata: {
                 sceneName: "Test Scene Name"
             }
         },
         {
             id: OBS_STREAM_STARTED_EVENT_ID,
-            name: "OBS Stream Started",
-            description: "When the stream has successfully started in OBS",
+            name: "OBSで配信が始まった時",
+            description: "OBSでストリームが正常に開始された場合",
             manualMetadata: {}
         },
         {
             id: OBS_STREAM_STOPPED_EVENT_ID,
-            name: "OBS Stream Stopped",
-            description: "When the stream has stopped in OBS",
+            name: "OBSでの配信が終わった時",
+            description: "OBSでストリームが停止した場合",
             manualMetadata: {}
         },
         {
             id: OBS_RECORDING_STARTED_EVENT_ID,
-            name: "OBS Recording Started",
-            description: "When recording has successfully started in OBS",
+            name: "OBSで録画が始まった時",
+            description: "OBSで録画が正常に開始された場合",
             manualMetadata: {}
         },
         {
             id: OBS_RECORDING_STOPPED_EVENT_ID,
-            name: "OBS Recording Stopped",
+            name: "OBSでの録画が止まった時",
             description: "When recording has stopped in OBS",
             manualMetadata: {}
         },
         {
             id: OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID,
-            name: "OBS Scene Item Enable State Changed",
-            description: "When an item in a scene is enabled/disabled",
+            name: "OBS シーンアイテムの有効状態に変化",
+            description: "シーン内のアイテムが有効／無効になったとき",
             manualMetadata: {}
         },
         {
             id: OBS_SCENE_TRANSITION_STARTED_EVENT_ID,
-            name: "OBS Scene Transition Started",
-            description: "When a scene transition in OBS has started",
+            name: "OBSシーン切り替え開始",
+            description: "OBSのシーン遷移が始まったとき",
             manualMetadata: {
                 transitionName: "Test Transition"
             }
         },
         {
             id: OBS_SCENE_TRANSITION_ENDED_EVENT_ID,
-            name: "OBS Scene Transition Ended",
-            description: "When a scene transition in OBS has ended",
+            name: "OBSシーン切り替え終了",
+            description: "OBSのシーン遷移が終了した場合",
             manualMetadata: {
                 transitionName: "Test Transition"
             }
         },
         {
             id: OBS_CURRENT_SCENE_TRANSITION_CHANGED_EVENT_ID,
-            name: "OBS Current Scene Transition Changed",
-            description: "When the current scene transition in OBS has changed",
+            name: "現在のOBSシーントランジションを変更",
+            description: "OBSの現在のシーントランジションが変わったとき",
             manualMetadata: {
                 transitionName: "Test Transition"
             }
         },
         {
             id: OBS_CURRENT_SCENE_TRANSITION_DURATION_CHANGED_EVENT_ID,
-            name: "OBS Current Scene Transition Duration Changed",
-            description: "When the current scene transition duration in OBS has changed",
+            name: "OBS 現在のシーン切り替え時間が変更",
+            description: "OBSの現在のシーン遷移時間が変更された場合",
             manualMetadata: {
                 transitionDuration: 1000
             }
         },
         {
             id: OBS_REPLAY_BUFFER_SAVED_EVENT_ID,
-            name: "OBS Replay Buffer Saved",
-            description: "When OBS saves the replay buffer",
+            name: "OBSリプレイバッファが保存されたとき",
+            description: "OBSがリプレーバッファを保存するとき",
             manualMetadata: {}
         },
         {
             id: OBS_CURRENT_PROFILE_CHANGED_EVENT_ID,
-            name: "OBS Current Profile Changed",
-            description: "When the current profile is changed in OBS",
+            name: "OBS現在のプロファイルが変更された時",
+            description: "OBSで現在のプロファイルが変更された場合",
             manualMetadata: {
                 profileName: "Test Profile"
             }
         },
         {
             id: OBS_VENDOR_EVENT_EVENT_ID,
-            name: "OBS Vendor Event",
-            description: "When a third-party plugin or script emits an event in OBS",
+            name: "OBS ベンダーイベントが発生",
+            description: "サードパーティのプラグインやスクリプトがOBSでイベントを発する場合",
             manualMetadata: {
                 vendorName: "Test Vendor",
                 eventType: "Test Event Type"

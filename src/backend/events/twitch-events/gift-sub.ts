@@ -17,6 +17,7 @@ interface CommunityGiftSubCache {
 }
 
 export function triggerCommunitySubGift(
+    gifterUserName: string,
     gifterDisplayName: string,
     subPlan: string,
     subCount: number
@@ -31,6 +32,7 @@ export function triggerSubGift(
     gifterUserId: string,
     isAnonymous: boolean,
     gifteeDisplayName: string,
+    gifteeUserName: string,
     subPlan: string,
     giftDuration: number,
     giftSubMonths: number,
@@ -60,7 +62,10 @@ export function triggerSubGift(
                             subCount: giftReceivers.length,
                             subPlan,
                             isAnonymous,
-                            gifterUsername: gifterDisplayName,
+                            gifteeUsername: gifteeUserName,
+                            gifteeDisplayName: gifteeDisplayName,
+                            gifterUsername: gifterUserName,
+                            gifterDisplayName: gifterDisplayName,
                             giftReceivers: giftReceivers
                         });
 
@@ -83,8 +88,10 @@ export function triggerSubGift(
         userIdName: gifterUserName,
         userId: gifterUserId,
         giftSubMonths,
-        gifteeUsername: gifteeDisplayName,
-        gifterUsername: gifterDisplayName,
+        gifteeUsername: gifteeUserName,
+        gifteeDisplayName: gifteeDisplayName,
+        gifterUsername: gifterUserName,
+        gifterDisplayName: gifterDisplayName,
         subPlan,
         isAnonymous,
         giftDuration
@@ -96,6 +103,7 @@ export function triggerSubGiftUpgrade(
     gifteeUserName: string,
     gifteeDisplayName: string,
     gifteeUserId: string,
+    gifterUserName: string,
     gifterDisplayName: string,
     subPlan: string
 ): void {
@@ -103,8 +111,10 @@ export function triggerSubGiftUpgrade(
         username: gifteeDisplayName,
         userIdName: gifteeUserName,
         userId: gifteeUserId,
-        gifterUsername: gifterDisplayName,
-        gifteeUsername: gifteeDisplayName,
+        gifteeUsername: gifteeUserName,
+        gifteeDisplayName: gifteeDisplayName,
+        gifterUsername: gifterUserName,
+        gifterDisplayName: gifterDisplayName,
         subPlan
     });
 }

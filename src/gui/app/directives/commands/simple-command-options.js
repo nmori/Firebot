@@ -8,32 +8,32 @@
         template: `
         <div class="simple-command p-4">
             <div class="form-group">
-                <label for="trigger" class="form-label"><i class="fad fa-exclamation"></i> �N���R�}���h <tooltip styles="opacity:0.7;font-size:11px;" text="'�N������`���b�g���b�Z�[�W�̐擪�ɂ���e�L�X�g�B�ʏ�́A!�Ȃǂ̓��ꕶ���Ŏn�܂�܂��B'"/></label>
-                <input type="text" class="form-control input-lg" id="trigger" placeholder="!something �̂悤�� !����n�܂�t���[�Y" ng-model="$ctrl.command.trigger" />
+                <label for="trigger" class="form-label"><i class="fad fa-exclamation"></i> 起動コマンド <tooltip styles="opacity:0.7;font-size:11px;" text="'起動するチャットメッセージの先頭につけるテキスト。通常は、!などの特殊文字で始まります。'"/></label>
+                <input type="text" class="form-control input-lg" id="trigger" placeholder="!something のような !から始まるフレーズ" ng-model="$ctrl.command.trigger" />
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-stopwatch"></i> �Ď��s�҂� <tooltip styles="opacity:0.7;font-size:11px;" text="'�R�}���h���X�p�����M�����̂�h���܂��B�S�̂ɓK�p���邱�Ƃ��A���[�U�[���ƂɓK�p���邱�Ƃ��ł��܂��B'"/></label>
+                <label class="form-label"><i class="fad fa-stopwatch"></i> 再実行待ち <tooltip styles="opacity:0.7;font-size:11px;" text="'コマンドがスパム送信されるのを防ぎます。全体に適用することも、ユーザーごとに適用することもできます。'"/></label>
                 <command-cooldown-settings command="$ctrl.command" message-setting-disabled="true"></command-cooldown-settings>
-                <p class="help-block">�C��</p>
+                <p class="help-block">任意</p>
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-lock-alt"></i> ���� <tooltip styles="opacity:0.7;font-size:11px;" text="'�������g�p����ƁA���̃R�}���h���N���ł���l�𐧌��ł��܂��B'" /></label>
+                <label class="form-label"><i class="fad fa-lock-alt"></i> 権限 <tooltip styles="opacity:0.7;font-size:11px;" text="'権限を使用すると、このコマンドを起動できる人を制限できます。'" /></label>
                 <div>
                     <div class="btn-group">
-                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'everyone'">�S��</label>
-                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'subs'">�T�u�X�N���C�o�[����</label>
-                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'mods'">���f���[�^����</label>
+                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'everyone'">全員</label>
+                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'subs'">サブスクライバー限定</label>
+                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'mods'">モデレータ限定</label>
                     </div>
                 </div>
                 <p class="help-block">{{$ctrl.getPermissionText()}}</p>
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-reply"></i> �ԓ�����e�L�X�g<tooltip styles="opacity:0.7;font-size:11px;" text="'This is what Firebot should say in response when this command is triggered.'" /></label>
-                <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="���b�Z�[�W������" rows="4" cols="40" replace-variables></textarea>
-                <p class="help-block">���b�Z�[�W�����ȊO���������ł���? Firebot �̉��o�V�X�e�����ő���Ɋ��p����ɂ́A<b>���p���[�h</b> �ɐ؂�ւ��Ă��������B</p>
+                <label class="form-label"><i class="fad fa-reply"></i> 返答するテキスト<tooltip styles="opacity:0.7;font-size:11px;" text="'This is what Firebot should say in response when this command is triggered.'" /></label>
+                <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="メッセージを入れる" rows="4" cols="40" replace-variables></textarea>
+                <p class="help-block">メッセージ応答以外をしたいですか? Firebot の演出システムを最大限に活用するには、<b>応用モード</b> に切り替えてください。</p>
             </div>
         </div>
        `,
@@ -45,11 +45,11 @@
             $ctrl.getPermissionText = () => {
                 switch ($ctrl.selectedPermissionType) {
                 case "everyone":
-                    return "�S�������̃R�}���h���N���ł��܂��B";
+                    return "全員がこのコマンドを起動できます。";
                 case "subs":
-                    return "�T�u�X�N���C�o�[�ƃ��f���[�^�����̃R�}���h���N���ł��܂�";
+                    return "サブスクライバーとモデレータがこのコマンドを起動できます";
                 case "mods":
-                    return "���f���[�^���������̃R�}���h���N���ł��܂�";
+                    return "モデレータだけがこのコマンドを起動できます";
                 }
             };
 

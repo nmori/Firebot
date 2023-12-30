@@ -23,11 +23,11 @@
         },
         template: `
       <ui-select ng-model="$ctrl.selectedEvent" on-select="$ctrl.selectOption($item, $model)" theme="bootstrap">
-        <ui-select-match placeholder="ƒCƒxƒ“ƒg‚Ì‘I‘ð‚âŒŸõ... ">{{$select.selected.name}}</ui-select-match>
+        <ui-select-match placeholder="ã‚¤ãƒ™ãƒ³ãƒˆã®é¸æŠžã‚„æ¤œç´¢... ">{{$select.selected.name}}</ui-select-match>
         <ui-select-choices repeat="option in $ctrl.options | filter: { name: $select.search }" style="position:relative;">
           <div>
             <div ng-bind-html="option.name | highlight: $select.search" style="display: inline-block"></div>
-            <tooltip ng-if="option.isIntegration" text="$ctrl.getSourceName(option.sourceId) +'‚±‚ÌƒCƒxƒ“ƒg‚ª‹@”\‚·‚é‚½‚ß‚É‚ÍAÝ’è->˜AŒg‚ÅƒŠƒ“ƒN‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B'"></tooltip>
+            <tooltip ng-if="option.isIntegration" text="$ctrl.getSourceName(option.sourceId) +'ã“ã®ã‚¤ãƒ™ãƒ³ãƒˆãŒæ©Ÿèƒ½ã™ã‚‹ãŸã‚ã«ã¯ã€è¨­å®š->é€£æºã§ãƒªãƒ³ã‚¯ã•ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚'"></tooltip>
           </div>
           <small class="muted"><strong>{{option.source.name}}</strong> | {{option.description}}</small>
         </ui-select-choices>

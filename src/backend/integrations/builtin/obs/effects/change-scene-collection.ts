@@ -6,20 +6,20 @@ export const ChangeSceneCollectionEffectType: EffectType<{
 }> = {
   definition: {
     id: "ebiggz:obs-change-scene-collection",
-    name: "OBSƒV[ƒ“ƒRƒŒƒNƒVƒ‡ƒ“Ø‘Ö",
-    description: "OBS‚ÌƒAƒNƒeƒBƒuƒV[ƒ“ƒRƒŒƒNƒVƒ‡ƒ“‚ðØ‚è‘Ö‚¦‚é",
+    name: "OBSã‚·ãƒ¼ãƒ³ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³åˆ‡æ›¿",
+    description: "OBSã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚·ãƒ¼ãƒ³ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹",
     icon: "fad fa-th-list",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="V‹KƒV[ƒ“ƒRƒŒƒNƒVƒ‡ƒ“">
+    <eos-container header="æ–°è¦ã‚·ãƒ¼ãƒ³ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³">
         <div ng-hide="effect.custom === true">
             <button class="btn btn-link" ng-click="getSceneCollections()">Refresh Scene Collections</button>
             <span class="muted">(Make sure {{ isObsConfigured ? "" : "the OBS integration is configured and " }}OBS is running)</span>
         </div>
 
         <ui-select ng-model="selected" on-select="selectSceneCollection($select.selected)">
-          <ui-select-match placeholder="ƒV[ƒ“ƒRƒŒƒNƒVƒ‡ƒ“‚ð‘I‚Ô">{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="ã‚·ãƒ¼ãƒ³ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’é¸ã¶">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="collection in sceneCollections | filter: {name: $select.search}">
             <li ng-show="collection.custom === true" role="separator" class="divider"></li>
             <div ng-bind-html="collection.name | highlight: $select.search"></div>
@@ -27,7 +27,7 @@ export const ChangeSceneCollectionEffectType: EffectType<{
         </ui-select>
 
         <div ng-show="effect.custom === true" style="margin-top:10px;">
-            <firebot-input input-title="ƒV[ƒ“ƒRƒŒƒNƒVƒ‡ƒ“" model="effect.sceneCollectionName"></firebot-input>
+            <firebot-input input-title="ã‚·ãƒ¼ãƒ³ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³" model="effect.sceneCollectionName"></firebot-input>
         </div>
     </eos-container>
   `,

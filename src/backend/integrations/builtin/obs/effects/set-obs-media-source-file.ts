@@ -7,13 +7,13 @@ export const SetOBSMediaSourceFileEffectType: EffectType<{
 }> = {
   definition: {
     id: "firebot:obs-set-media-source-file",
-    name: "OBSƒƒfƒBƒAƒ\[ƒX‚Éƒtƒ@ƒCƒ‹‚ğİ’è",
-    description: "OBSƒƒfƒBƒAƒ\[ƒX‚Ìƒtƒ@ƒCƒ‹‚ğİ’è‚·‚é",
+    name: "OBSãƒ¡ãƒ‡ã‚£ã‚¢ã‚½ãƒ¼ã‚¹ã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®š",
+    description: "OBSãƒ¡ãƒ‡ã‚£ã‚¢ã‚½ãƒ¼ã‚¹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®šã™ã‚‹",
     icon: "fad fa-film",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS ƒƒfƒBƒAƒ\[ƒX">
+    <eos-container header="OBS ãƒ¡ãƒ‡ã‚£ã‚¢ã‚½ãƒ¼ã‚¹">
         <div>
             <button class="btn btn-link" ng-click="getMediaSources()">Refresh Source Data</button>
         </div>

@@ -18,12 +18,12 @@ export const TransitionNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsTransitionName",
         description:
-      "The name of the OBS transition that triggered the event.",
+      "イベントをトリガーした OBS トランジションの名前。",
         possibleDataOutput: ["text"],
         triggers: triggers
     },
     evaluator: async (trigger) => {
         const transitionName = trigger.metadata?.eventData?.transitionName;
-        return transitionName ?? "Unknown";
+        return transitionName ?? "不明";
     }
 };

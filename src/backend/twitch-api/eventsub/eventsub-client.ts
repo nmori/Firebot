@@ -61,7 +61,8 @@ class TwitchEventSubClient {
                 const totalBits = (await TwitchApi.bits.getChannelBitsLeaderboard(1, "all", new Date(), event.userId))[0]?.amount ?? 0;
 
                 twitchEventsHandler.cheer.triggerCheer(
-                    event.userDisplayName ?? "An Anonymous Cheerer",
+                    event.userName ?? "Anonymous",
+                    event.userDisplayName ?? "匿名のCheer",
                     event.userId,
                     event.isAnonymous,
                     event.bits,
@@ -308,15 +309,19 @@ class TwitchEventSubClient {
                 if (event.endDate) {
                     const timeoutDuration = (event.endDate.getTime() - event.startDate.getTime()) / 1000;
                     twitchEventsHandler.viewerTimeout.triggerTimeout(
+                        event.userName,
                         event.userDisplayName,
                         timeoutDuration,
                         event.moderatorName,
+                        event.moderatorDisplayName,
                         event.reason
                     );
                 } else {
                     twitchEventsHandler.viewerBanned.triggerBanned(
+                        event.userName,
                         event.userDisplayName,
                         event.moderatorName,
+                        event.moderatorDisplayName,
                         event.reason
                     );
                 }
@@ -329,7 +334,9 @@ class TwitchEventSubClient {
             const unbanSubscription = this._eventSubListener.onChannelUnban(streamer.userId, (event) => {
                 twitchEventsHandler.viewerBanned.triggerUnbanned(
                     event.userName,
-                    event.moderatorName
+                    event.userDisplayName,
+                    event.moderatorName,
+                    event.moderatorDisplayName
                 );
             });
             this._subscriptions.push(unbanSubscription);

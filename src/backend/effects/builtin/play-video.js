@@ -39,7 +39,7 @@ const playVideo = {
      * You can alternatively supply a url to a html file via optionTemplateUrl
      */
     optionsTemplate: `
-    <eos-container header="Video">
+    <eos-container header="ビデオ">
         <div style="padding-bottom: 10px">
             <div ng-if="shouldShowVideoPlaceholder()" >
                 <img src="../images/placeholders/video.png" style="width: 350px;object-fit: scale-down;background: #d7d7d7">
@@ -114,7 +114,7 @@ const playVideo = {
             <firebot-input
                 input-title="Twitch Clip Url/ID"
                 model="effect.twitchClipUrl"
-                placeholder-text="Ex: HealthyBlazingLyrebirdTinyFace"
+                placeholder-text="例: HealthyBlazingLyrebirdTinyFace"
             />
         </div>
 
@@ -122,7 +122,7 @@ const playVideo = {
             <firebot-input
                 input-title="Twitch ユーザ名"
                 model="effect.twitchClipUsername"
-                placeholder-text="Ex: $streamer, $user, etc"
+                placeholder-text="例: $streamer, $user, etc"
             />
         </div>
 
