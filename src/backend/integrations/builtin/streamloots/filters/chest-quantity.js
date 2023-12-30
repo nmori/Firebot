@@ -2,12 +2,12 @@
 
 module.exports = {
     id: "streamloots:chest-quantity",
-    name: "ãƒã‚§ã‚¹ãƒˆã®æ•°é‡",
-    description: "è³¼å…¥/è´ˆä¸ã•ã‚ŒãŸStreamLootsãƒã‚§ã‚¹ãƒˆã®æ•°ã§çµã‚Šè¾¼ã‚€",
+    name: "ƒ`ƒFƒXƒg‚Ì”—Ê",
+    description: "w“ü/‘¡—^‚³‚ê‚½StreamLootsƒ`ƒFƒXƒg‚Ì”‚Åi‚è‚Ş",
     events: [
         { eventSourceId: "streamloots", eventId: "purchase" }
     ],
-    comparisonTypes: ["ä¸€è‡´", "ä¸ä¸€è‡´", "æœªæº€", "ä»¥ä¸Š"],
+    comparisonTypes: ["ˆê’v", "•sˆê’v", "–¢–", "ˆÈã"],
     valueType: "number",
     predicate: (filterSettings, eventData) => {
 
@@ -22,19 +22,19 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
-        case "ä¸€è‡´": {
+        case "ˆê’v": {
             return quantity === value;
         }
         case "is not":
-        case "ä¸ä¸€è‡´": {
+        case "•sˆê’v": {
             return quantity !== value;
         }
         case "less than":
-        case "æœªæº€": {
+        case "–¢–": {
             return quantity < value;
         }
         case "greater than":
-        case "ä»¥ä¸Š": {
+        case "ˆÈã": {
             return quantity > value;
         }
         default:

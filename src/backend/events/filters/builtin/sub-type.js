@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:sub-type",
-    name: "ã‚µãƒ–ã‚¹ã‚¯ãƒ¬ãƒ™ãƒ«",
-    description: "ã‚µãƒ–ã‚¹ã‚¯ã®Tierãƒ¬ãƒ™ãƒ«ã§ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°ï¼ˆãƒ—ãƒ©ã‚¤ãƒ ã€ãƒ†ã‚£ã‚¢1ã€2ã€3ãªã©ï¼‰",
+    name: "ƒTƒuƒXƒNƒŒƒxƒ‹",
+    description: "ƒTƒuƒXƒN‚ÌTierƒŒƒxƒ‹‚ÅƒtƒBƒ‹ƒ^ƒŠƒ“ƒOiƒvƒ‰ƒCƒ€AƒeƒBƒA1A2A3‚È‚Çj",
     events: [
         { eventSourceId: "twitch", eventId: "sub" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -46,7 +46,7 @@ module.exports = {
         case "3000":
             return "Tier 3";
         default:
-            return "[æœªè¨­å®š]";
+            return "[–¢Ý’è]";
         }
     },
     predicate: (filterSettings, eventData) => {

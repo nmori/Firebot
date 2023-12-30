@@ -11,8 +11,83 @@ const logger = require("../../logwrapper");
 const { setupTitlebar, attachTitlebarToWindow } = require("custom-electron-titlebar/main");
 const screenHelpers = require("./screen-helpers");
 const frontendCommunicator = require("../../common/frontend-communicator");
+const { settings } = require("../../common/settings-access");
 
 setupTitlebar();
+
+/**
+ * The stream preview popout window.
+ * Keeps a global reference of the window object, if you don't, the window will
+ * be closed automatically when the JavaScript object is garbage collected.
+ *@type {Electron.BrowserWindow}
+ */
+let streamPreview = null;
+
+function createStreamPreviewWindow() {
+
+    if (streamPreview != null && !streamPreview.isDestroyed()) {
+        if (streamPreview.isMinimized()) {
+            streamPreview.restore();
+        }
+        streamPreview.focus();
+        return;
+    }
+
+    const accountAccess = require("../../common/account-access");
+    const streamer = accountAccess.getAccounts().streamer;
+
+    if (!streamer.loggedIn) {
+        return;
+    }
+
+    const streamPreviewWindowState = windowStateKeeper({
+        defaultWidth: 815,
+        defaultHeight: 480,
+        file: "stream-preview-window-state.json"
+    });
+
+    streamPreview = new BrowserWindow({
+        frame: true,
+        alwaysOnTop: true,
+        backgroundColor: "#1E2023",
+        title: "Stream Preview",
+        parent: exports.mainWindow,
+        width: streamPreviewWindowState.width,
+        height: streamPreviewWindowState.height,
+        x: streamPreviewWindowState.x,
+        y: streamPreviewWindowState.y,
+        javascript: false,
+        webPreferences: {},
+        icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png")
+    });
+    streamPreview.setMenu(null);
+
+    const view = new BrowserView();
+    streamPreview.setBrowserView(view);
+    view.setBounds({
+        x: 0,
+        y: 0,
+        width: streamPreview.getContentSize()[0],
+        height: streamPreview.getContentSize()[1]
+    });
+    view.setAutoResize({
+        width: true,
+        height: true
+    });
+    view.webContents.on('new-window', (vEvent) => {
+        vEvent.preventDefault();
+    });
+
+    view.webContents.loadURL(`https://player.twitch.tv/?channel=${streamer.username}&parent=firebot&muted=true`);
+
+    streamPreviewWindowState.manage(streamPreview);
+
+    streamPreview.on("close", () => {
+        if (!view.isDestroyed()) {
+            view.destroy();
+        }
+    });
+}
 
 /**
  * Firebot's main window
@@ -95,9 +170,9 @@ function createMainWindow() {
     const profileManager = require("../../common/profile-manager");
     const dataAccess = require("../../common/data-access");
     const menuTemplate = [{
-            label: 'ãƒ•ã‚¡ã‚¤ãƒ«',
+            label: 'ƒtƒ@ƒCƒ‹',
             submenu: [{
-                    label: 'Firebot ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã®å–ã‚Šè¾¼ã¿...',
+                    label: 'Firebot ƒZƒbƒgƒAƒbƒv‚ÌŽæ‚èž‚Ý...',
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "importSetupModal"
@@ -108,8 +183,8 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã',
-                    toolTip: "Firebotã®ãƒ‡ãƒ¼ã‚¿ãŒä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã",
+                    label: 'ƒf[ƒ^ƒtƒHƒ‹ƒ_‚ðŠJ‚­',
+                    toolTip: "Firebot‚Ìƒf[ƒ^‚ª•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚ðŠJ‚­",
                     click: () => {
                         const rootFolder = path.resolve(
                             profileManager.getPathInProfile("/")
@@ -118,8 +193,8 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'ãƒ­ã‚°ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã',
-                    toolTip: "ãƒ­ã‚°ãŒä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã",
+                    label: 'ƒƒOƒtƒHƒ‹ƒ_‚ðŠJ‚­',
+                    toolTip: "ƒƒO‚ª•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚ðŠJ‚­",
                     click: () => {
                         const rootFolder = path.resolve(
                             dataAccess.getPathInUserData("/logs/")
@@ -128,8 +203,8 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã',
-                    toolTip: "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãŒä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã",
+                    label: 'ƒoƒbƒNƒAƒbƒvƒtƒHƒ‹ƒ_‚ðŠJ‚­',
+                    toolTip: "ƒoƒbƒNƒAƒbƒv‚ª•Û‘¶‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚ðŠJ‚­",
                     click: () => {
                         const backupFolder = path.resolve(
                             dataAccess.getPathInUserData("/backups/")
@@ -141,56 +216,56 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'ã‚¢ãƒ—ãƒªã‚’çµ‚äº†',
+                    label: 'ƒAƒvƒŠ‚ðI—¹',
                     role: 'quit'
                 }
             ]
         },
         {
-            label: 'ç·¨é›†',
+            label: '•ÒW',
             submenu: [{
-                    label: 'åˆ‡ã‚Šå–ã‚Š',
+                    label: 'Ø‚èŽæ‚è',
                     role: 'cut'
                 },
                 {
-                    label: 'ã‚³ãƒ”ãƒ¼',
+                    label: 'ƒRƒs[',
                     role: 'copy'
                 },
                 {
-                    label: 'è²¼ã‚Šä»˜ã‘',
+                    label: '“\‚è•t‚¯',
                     role: 'paste'
                 },
                 {
-                    label: 'ã‚„ã‚Šç›´ã—',
+                    label: '‚â‚è’¼‚µ',
                     role: "undo"
                 },
                 {
-                    label: 'ã‚„ã‚Šç›´ã—ã®ã‚„ã‚Šç›´ã—',
+                    label: '‚â‚è’¼‚µ‚Ì‚â‚è’¼‚µ',
                     role: "redo"
                 },
                 {
-                    label: 'ã™ã¹ã¦é¸æŠž',
+                    label: '‚·‚×‚Ä‘I‘ð',
                     role: "selectall"
                 }
             ]
         },
         {
-            label: 'ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦',
+            label: 'ƒEƒBƒ“ƒhƒE',
             submenu: [{
-                    label: 'æœ€å°åŒ–',
+                    label: 'Å¬‰»',
                     role: 'minimize'
                 },
                 {
-                    label: 'é–‰ã˜ã‚‹',
+                    label: '•Â‚¶‚é',
                     role: 'close'
                 }
             ]
         },
         {
-            label: 'ãƒ„ãƒ¼ãƒ«',
+            label: 'ƒc[ƒ‹',
             submenu: [{
-                    label: 'ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã‚¦ã‚£ã‚¶ãƒ¼ãƒ‰',
-                    toolTip: "æ”¹ã‚ã¦åˆæœŸã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã‚’èµ·å‹•ã—ã¾ã™",
+                    label: 'ƒZƒbƒgƒAƒbƒvƒEƒBƒU[ƒh',
+                    toolTip: "‰ü‚ß‚Ä‰ŠúƒZƒbƒgƒAƒbƒv‚ð‹N“®‚µ‚Ü‚·",
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "setupWizardModal"
@@ -198,15 +273,15 @@ function createMainWindow() {
                     }
                 },
                 {
-                    label: 'ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‹ã‚‰æˆ»ã™...',
-                    toolTip: "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‹ã‚‰Firebotã‚’å¾©å…ƒ",
+                    label: 'ƒoƒbƒNƒAƒbƒv‚©‚ç–ß‚·...',
+                    toolTip: "ƒoƒbƒNƒAƒbƒv‚©‚çFirebot‚ð•œŒ³",
                     click: async() => {
                         frontendCommunicator.send("restore-backup");
                     }
                 },
                 {
-                    label: 'ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ä¸€è¦§',
-                    toolTip: "ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ã‚’é–‹ã",
+                    label: 'ƒJƒXƒ^ƒ€•Ï”ˆê——',
+                    toolTip: "ƒJƒXƒ^ƒ€•Ï”ƒCƒ“ƒXƒyƒNƒ^‚ðŠJ‚­",
                     click: () => {
                         // eslint-disable-next-line no-use-before-define
                         createVariableInspectorWindow();
@@ -216,22 +291,22 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'é–‹ç™ºãƒ„ãƒ¼ãƒ«ã‚’é–‹ã',
+                    label: 'ŠJ”­ƒc[ƒ‹‚ðŠJ‚­',
                     role: 'toggledevtools'
                 }
             ]
         },
         {
-            label: 'ãƒ˜ãƒ«ãƒ—(&H)',
+            label: 'ƒwƒ‹ƒv(&H)',
             role: 'help',
             submenu: [{
-                    label: 'é–‹ç™ºDiscordã«å‚åŠ ',
+                    label: 'ŠJ”­Discord‚ÉŽQ‰Á',
                     click: () => {
                         shell.openExternal("https://discord.gg/tTmMbrG");
                     }
                 },
                 {
-                    label: '@FirebotApp ã‚’Xã§ãƒ•ã‚©ãƒ­ãƒ¼',
+                    label: '@FirebotApp ‚ðX‚ÅƒtƒHƒ[',
                     click: () => {
                         shell.openExternal("https://twitter.com/FirebotApp");
                     }
@@ -240,19 +315,19 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'GitHubã§ã‚½ãƒ¼ã‚¹ã‚’è¦‹ã‚‹',
+                    label: 'GitHub‚Åƒ\[ƒX‚ðŒ©‚é',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot");
                     }
                 },
                 {
-                    label: 'ä¸å…·åˆå ±å‘Šã‚’ã™ã‚‹',
+                    label: '•s‹ï‡•ñ‚ð‚·‚é',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+");
                     }
                 },
                 {
-                    label: 'æ©Ÿèƒ½ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’ã™ã‚‹',
+                    label: '‹@”\ƒŠƒNƒGƒXƒg‚ð‚·‚é',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Enhancement&template=feature_request.md&title=%5BFeature+Request%5D+");
                     }
@@ -261,19 +336,19 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'ãƒžãƒ¼ãƒã‚¹ãƒˆã‚¢',
+                    label: 'ƒ}[ƒ`ƒXƒgƒA',
                     click: () => {
                         shell.openExternal("https://crowbar-tools.myspreadshop.com");
                     }
                 },
                 {
-                    label: 'å¯„ä»˜ã™ã‚‹',
+                    label: 'Šñ•t‚·‚é',
                     click: () => {
                         shell.openExternal("https://opencollective.com/crowbartools");
                     }
                 },
                 {
-                    label: 'ãŠå®¢æ§˜ã®å£°ã‚’æ›¸ã',
+                    label: '‚¨‹q—l‚Ìº‚ð‘‚­',
                     click: () => {
                         shell.openExternal("https://firebot.app/testimonial-submission");
                     }
@@ -282,7 +357,7 @@ function createMainWindow() {
                     type: 'separator'
                 },
                 {
-                    label: 'Firebotã«ã¤ã„ã¦...',
+                    label: 'Firebot‚É‚Â‚¢‚Ä...',
                     click: () => {
                         frontendCommunicator.send("open-about-modal");
                     }
@@ -331,20 +406,23 @@ function createMainWindow() {
             username: "Firebot"
         });
 
+        if (settings.getOpenStreamPreviewOnLaunch() === true) {
+            createStreamPreviewWindow();
+        }
+
         fileOpenHelpers.setWindowReady(true);
     });
 
 
     mainWindow.on("close", (event) => {
         const connectionManager = require("../../common/connection-manager");
-        const { settings } = require("../../common/settings-access");
         if (!settings.hasJustUpdated() && connectionManager.chatIsConnected() && connectionManager.streamerIsOnline()) {
             event.preventDefault();
             dialog.showMessageBox(mainWindow, {
-                message: "TwitchæŽ¥ç¶šä¸­ã§ã™ãŒFirebotã‚’çµ‚äº†ã—ã¦ã‚‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ",
-                title: "Firebotã‚’é–‰ã˜ã‚‹",
+                message: "TwitchÚ‘±’†‚Å‚·‚ªFirebot‚ðI—¹‚µ‚Ä‚à‚æ‚ë‚µ‚¢‚Å‚·‚©H",
+                title: "Firebot‚ð•Â‚¶‚é",
                 type: "question",
-                buttons: ["Firebotã‚’é–‰ã˜ã‚‹", "ã‚„ã‚ã‚‹"]
+                buttons: ["Firebot‚ð•Â‚¶‚é", "‚â‚ß‚é"]
 
             }).then(({ response }) => {
                 if (response === 0) {
@@ -359,13 +437,12 @@ function createMainWindow() {
  * Creates the splash screen
  */
 const createSplashScreen = async() => {
-    const isLinux = process.platform !== 'win32' && process.platform !== 'darwin';
-    const splash = new BrowserWindow({
-        width: 240,
-        height: 325,
+    splashscreenWindow = new BrowserWindow({
+        width: 375,
+        height: 420,
         icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png"),
-        transparent: !isLinux,
-        backgroundColor: isLinux ? "#34363C" : undefined,
+        transparent: true,
+        backgroundColor: undefined,
         frame: false,
         closable: false,
         fullscreenable: false,
@@ -374,18 +451,17 @@ const createSplashScreen = async() => {
         center: true,
         show: false,
         webPreferences: {
-            nodeIntegration: true
+            preload: path.join(__dirname, "../../../gui/splashscreen/preload.js")
         }
     });
-    splashscreenWindow = splash;
 
-    splash.on("ready-to-show", () => {
+    splashscreenWindow.once("ready-to-show", () => {
         logger.debug("...Showing splash screen");
-        splash.show();
+        splashscreenWindow.show();
     });
 
     logger.debug("...Attempting to load splash screen url");
-    return splash.loadURL(
+    return splashscreenWindow.loadURL(
             url.format({
                 pathname: path.join(__dirname, "../../../gui/splashscreen/splash.html"),
                 protocol: "file:",
@@ -398,78 +474,12 @@ const createSplashScreen = async() => {
         });
 };
 
-/**
- * Firebot's main window
- * Keeps a global reference of the window object, if you don't, the window will
- * be closed automatically when the JavaScript object is garbage collected.
- *@type {Electron.BrowserWindow}
- */
-let streamPreview = null;
-
-function createStreamPreviewWindow() {
-
-    if (streamPreview != null && !streamPreview.isDestroyed()) {
-        if (streamPreview.isMinimized()) {
-            streamPreview.restore();
-        }
-        streamPreview.focus();
+function updateSplashScreenStatus(newStatus) {
+    if (splashscreenWindow == null || splashscreenWindow.isDestroyed()) {
         return;
     }
 
-    const accountAccess = require("../../common/account-access");
-    const streamer = accountAccess.getAccounts().streamer;
-
-    if (!streamer.loggedIn) {
-        return;
-    }
-
-    const streamPreviewWindowState = windowStateKeeper({
-        defaultWidth: 815,
-        defaultHeight: 480,
-        file: "stream-preview-window-state.json"
-    });
-
-    streamPreview = new BrowserWindow({
-        frame: true,
-        alwaysOnTop: true,
-        backgroundColor: "#1E2023",
-        title: "Stream Preview",
-        parent: exports.mainWindow,
-        width: streamPreviewWindowState.width,
-        height: streamPreviewWindowState.height,
-        x: streamPreviewWindowState.x,
-        y: streamPreviewWindowState.y,
-        javascript: false,
-        webPreferences: {},
-        icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png")
-    });
-    streamPreview.setMenu(null);
-
-    const view = new BrowserView();
-    streamPreview.setBrowserView(view);
-    view.setBounds({
-        x: 0,
-        y: 0,
-        width: streamPreview.getContentSize()[0],
-        height: streamPreview.getContentSize()[1]
-    });
-    view.setAutoResize({
-        width: true,
-        height: true
-    });
-    view.webContents.on('new-window', (vEvent) => {
-        vEvent.preventDefault();
-    });
-
-    view.webContents.loadURL(`https://player.twitch.tv/?channel=${streamer.username}&parent=firebot&muted=true`);
-
-    streamPreviewWindowState.manage(streamPreview);
-
-    streamPreview.on("close", () => {
-        if (!view.isDestroyed()) {
-            view.destroy();
-        }
-    });
+    splashscreenWindow.webContents.send("update-splash-screen-status", newStatus);
 }
 
 /**
@@ -573,6 +583,7 @@ frontendCommunicator.on("takeScreenshot", (displayId) => {
     return screenHelpers.takeScreenshot(displayId);
 });
 
+exports.updateSplashScreenStatus = updateSplashScreenStatus;
 exports.createVariableInspectorWindow = createVariableInspectorWindow;
 exports.sendVariableCreateToInspector = sendVariableCreateToInspector;
 exports.sendVariableExpireToInspector = sendVariableExpireToInspector;

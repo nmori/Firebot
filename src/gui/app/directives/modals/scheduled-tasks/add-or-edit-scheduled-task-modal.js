@@ -106,7 +106,7 @@
                 $ctrl.modalId = modalId;
                 utilityService.addSlidingModal(
                     $ctrl.modalInstance.rendered.then(() => {
-                        const modalElement = $("." + modalId).children();
+                        const modalElement = $(`.${modalId}`).children();
                         return {
                             element: modalElement,
                             name: "予定された演出リストの編集",

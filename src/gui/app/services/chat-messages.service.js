@@ -106,16 +106,16 @@
                         if (data.moderator) {
                             modName = data.moderator.user_name;
                         }
-                        message.eventInfo = `${modName}ã«ã‚ˆã£ã¦å‰Šé™¤ã•ã‚Œã¾ã—ãŸ.`;
+                        message.eventInfo = `${modName}‚É‚æ‚Á‚Äíœ‚³‚ê‚Ü‚µ‚½.`;
 
                     }
                 });
 
                 if (data.cause && cachedUserName) {
                     if (data.cause.type === "timeout") {
-                        service.chatAlertMessage(`${cachedUserName} ã¯ ${data.moderator.user_name} ã‹ã‚‰ ${data.cause.durationString} ã¨ã„ã†ç†ç”±ã§ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã«ãªã‚Šã¾ã—ãŸ`);
+                        service.chatAlertMessage(`${cachedUserName} ‚Í ${data.moderator.user_name} ‚©‚ç ${data.cause.durationString} ‚Æ‚¢‚¤——R‚Åƒ^ƒCƒ€ƒAƒEƒg‚É‚È‚è‚Ü‚µ‚½`);
                     } else if (data.cause.type === "ban") {
-                        service.chatAlertMessage(`${cachedUserName} ã¯ ${data.moderator.user_name} ã«ã‚ˆã£ã¦è¿½æ”¾(BAN)ã•ã‚Œã¦ã„ã¾ã™`);
+                        service.chatAlertMessage(`${cachedUserName} ‚Í ${data.moderator.user_name} ‚É‚æ‚Á‚Ä’Ç•ú(BAN)‚³‚ê‚Ä‚¢‚Ü‚·`);
                     }
                 }
             };
@@ -148,11 +148,11 @@
             // This will only work when chat feed is turned on in the settings area.
             service.chatUpdateHandler = function(data) {
                 switch (data.fbEvent) {
-                case "ClearMessages":
-                    logger.info("Chat cleared");
-                    service.clearChatQueue();
+                    case "ClearMessages":
+                        logger.info("Chat cleared");
+                        service.clearChatQueue();
 
-                    service.chatAlertMessage('ãƒãƒ£ãƒƒãƒˆã¯ ' + data.clearer.user_name + 'ã«ã‚ˆã£ã¦ã‚¯ãƒªã‚¢ã•ã‚Œã¾ã—ãŸ');
+                    service.chatAlertMessage('ƒ`ƒƒƒbƒg‚Í ' + data.clearer.user_name + '‚É‚æ‚Á‚ÄƒNƒŠƒA‚³‚ê‚Ü‚µ‚½');
                     break;
                 case "PurgeMessage":
                     logger.info("Chat message purged");
@@ -161,28 +161,28 @@
                 case "UserJoin":
                     logger.debug("Chat User Joined");
 
-                    // Standardize user roles naming.
+                        // Standardize user roles naming.
                     data.user_roles = data.roles; // eslint-disable-line
 
-                    service.chatUserJoined(data);
-                    break;
-                case "UserLeave":
-                    logger.debug("Chat User Left");
+                        service.chatUserJoined(data);
+                        break;
+                    case "UserLeave":
+                        logger.debug("Chat User Left");
 
-                    // Standardize user roles naming.
+                        // Standardize user roles naming.
                     data.user_roles = data.roles; // eslint-disable-line
 
-                    service.chatUserLeft(data);
-                    break;
-                case "UserUpdate":
-                    logger.debug("User updated");
-                    service.chatUserUpdated(data);
-                    break;
-                case "Disconnected":
+                        service.chatUserLeft(data);
+                        break;
+                    case "UserUpdate":
+                        logger.debug("User updated");
+                        service.chatUserUpdated(data);
+                        break;
+                    case "Disconnected":
                     // We disconnected. Clear messages, post alert, and then let the reconnect handle repopulation.
                     logger.info("Chat Disconnected!");
                     service.clearChatQueue();
-                    service.chatAlertMessage("ãƒãƒ£ãƒƒãƒˆã‹ã‚‰åˆ‡æ–­ã•ã‚Œã¾ã—ãŸ");
+                    service.chatAlertMessage("ƒ`ƒƒƒbƒg‚©‚çØ’f‚³‚ê‚Ü‚µ‚½");
                     break;
                 case "UsersRefresh":
                     logger.info("Chat userlist refreshed.");
@@ -194,7 +194,7 @@
                     break;
                 default:
                     // Nothing
-                    logger.warn("Unknown chat event sent", data);
+                        logger.warn("Unknown chat event sent", data);
                 }
             };
 
@@ -225,10 +225,11 @@
 
 
             // This submits a chat message to Twitch.
-            service.submitChat = function(sender, message) {
+            service.submitChat = function(sender, message, replyToMessageId) {
                 backendCommunicator.send("send-chat-message", {
                     message: message,
-                    accountType: sender
+                    accountType: sender,
+                    replyToMessageId: replyToMessageId
                 });
             };
 
@@ -337,7 +338,7 @@
             backendCommunicator.on("twitch:chat:automod-update", ({messageId, newStatus, resolverName, flaggedPhrases}) => {
                 if (newStatus === "ALLOWED") {
                     service.chatQueue = service.chatQueue.filter(i => i?.data?.id !== messageId);
-                    service.chatAlertMessage(`${resolverName} ã¯æ¬¡ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æ‰¿èªï¼š ${flaggedPhrases.join(", ")}`);
+                    service.chatAlertMessage(`${resolverName} ‚ÍŽŸ‚ÌƒƒbƒZ[ƒW‚ð³”FF ${flaggedPhrases.join(", ")}`);
                 } else {
                     const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
 
@@ -358,7 +359,7 @@
                     return;
                 }
 
-                messageItem.data.autoModErrorMessage = `ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿï¼š ${likelyExpired ? "å¯¾å¿œæ‰‹æ®µãªã—" : "é…ä¿¡è€…ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã‚’å†èªè¨¼ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚"}`;
+                messageItem.data.autoModErrorMessage = `ƒGƒ‰[”­¶F ${likelyExpired ? "‘Î‰žŽè’i‚È‚µ" : "”zMŽÒƒAƒJƒEƒ“ƒg‚ðÄ”FØ‚·‚é•K—v‚ª‚ ‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB"}`;
             });
 
             backendCommunicator.on("twitch:chat:clear-feed", (modUsername) => {
@@ -442,20 +443,24 @@
             service.allEmotes = [];
             service.filteredEmotes = [];
             service.refreshEmotes = () => {
+                const showBttvEmotes = settingsService.getShowBttvEmotes();
+                const showFfzEmotes = settingsService.getShowFfzEmotes();
+                const showSevenTvEmotes = settingsService.getShowSevenTvEmotes();
+
                 service.filteredEmotes = service.allEmotes.filter(e => {
-                    if (settingsService.getShowBttvEmotes() && e.origin === "BTTV") {
-                        return true;
+                    if (showBttvEmotes !== true && e.origin === "BTTV") {
+                        return false;
                     }
 
-                    if (settingsService.getShowFfzEmotes() && e.origin === "FFZ") {
-                        return true;
+                    if (showFfzEmotes !== true && e.origin === "FFZ") {
+                        return false;
                     }
 
-                    if (settingsService.getShowSevenTvEmotes() && e.origin === "7TV") {
-                        return true;
+                    if (showSevenTvEmotes !== true && e.origin === "7TV") {
+                        return false;
                     }
 
-                    return false;
+                    return true;
                 });
             };
 

@@ -2,14 +2,14 @@ import { ReplaceVariable } from "../../../../../types/variables";
 import { isRecording } from "../obs-remote";
 
 export const IsRecordingVariable: ReplaceVariable = {
-  definition: {
-    handle: "obsIsRecording",
-    description:
-      "OBSãŒç¾åœ¨éŒ²ç”»ä¸­ã§ã‚ã‚Œã°'true'ã‚’ã€éŒ²ç”»ä¸­ã§ãªã‘ã‚Œã°'false'ã‚’è¿”ã™ã€‚",
-    possibleDataOutput: ["text"],
-  },
-  evaluator: async () => {
-    const recordState = await isRecording();
-    return recordState ?? false;
-  },
+    definition: {
+        handle: "obsIsRecording",
+        description:
+      "OBS‚ªŒ»Ý˜^‰æ’†‚Å‚ ‚ê‚Î'true'‚ðA˜^‰æ’†‚Å‚È‚¯‚ê‚Î'false'‚ð•Ô‚·B",
+        possibleDataOutput: ["text"]
+    },
+    evaluator: async () => {
+        const recordState = await isRecording();
+        return recordState ?? false;
+    }
 };

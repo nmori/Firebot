@@ -29,8 +29,8 @@
                                 ng-click="$ctrl.openLink('https://twitch.tv/' + $ctrl.viewerDetails.twitchData.username)"
                                 class="clickable"
                                 style="line-height: 1;margin-left: 5px;background: #9147FF;padding: 5px;border-radius: 100%;color: white;font-size: 15px;"
-                                uib-tooltip="プロフィールを見る"
-                                aria-label="プロフィールを見る"
+                                uib-tooltip="�v���t�B�[��������"
+                                aria-label="�v���t�B�[��������"
                                 tooltip-append-to-body="true">
                                     <i class="fab fa-twitch" style="transform: translateY(2px);" />
                             </a>
@@ -51,11 +51,11 @@
                     <div ng-if="$ctrl.viewerDbEnabled" style="margin-top: 45px;margin-left: 10px;">
                         <div style="display:flex;margin-bottom:5px;">
                             <div style="font-size:13px;font-weight: bold;opacity:0.9;">FIREBOT DATA</div>
-                            <span ng-show="$ctrl.hasFirebotData" ng-click="$ctrl.removeViewer()" style="color:#f96f6f;margin-left: 10px;font-size:12px;" class="clickable" uib-tooltip="この視聴者のデータを削除する" aria-label="この視聴者のデータを削除する"><i class="far fa-trash-alt"></i></span>
+                            <span ng-show="$ctrl.hasFirebotData" ng-click="$ctrl.removeViewer()" style="color:#f96f6f;margin-left: 10px;font-size:12px;" class="clickable" uib-tooltip="���̎����҂̃f�[�^���폜����" aria-label="���̎����҂̃f�[�^���폜����"><i class="far fa-trash-alt"></i></span>
                         </div>
 
                         <div class="viewer-detail-data" ng-show="$ctrl.hasFirebotData" style="margin-top: 10px;">
-                            <div class="detail-data clickable" ng-repeat="dataPoint in $ctrl.dataPoints" ng-click="dataPoint.onClick()" aria-label="編集 {{dataPoint.name}}">
+                            <div class="detail-data clickable" ng-repeat="dataPoint in $ctrl.dataPoints" ng-click="dataPoint.onClick()" aria-label="�ҏW {{dataPoint.name}}">
                                 <div class="data-title">
                                     <i class="far" ng-class="dataPoint.icon"></i> {{dataPoint.name}}
                                 </div>
@@ -64,40 +64,40 @@
                         </div>
 
                         <div ng-show="$ctrl.hasFirebotData" style="margin-top:20px; margin-bottom: 30px;">
-                            <label class="control-fb control--checkbox"> 統計の自動加算を無効にする <tooltip text="'この視聴者が通貨、視聴時間、その他の統計値を自動的に増加しないようにします。これらの値は手動編集できます。'"></tooltip>
+                            <label class="control-fb control--checkbox"> ���v�̎������Z�𖳌��ɂ��� <tooltip text="'���̎����҂��ʉ݁A�������ԁA���̑��̓��v�l�������I�ɑ������Ȃ��悤�ɂ��܂��B�����̒l�͎蓮�ҏW�ł��܂��B'"></tooltip>
                                 <input type="checkbox" ng-model="$ctrl.viewerDetails.firebotData.disableAutoStatAccrual" ng-change="$ctrl.disableAutoStatAccuralChange()">
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
 
                         <div ng-show="$ctrl.hasFirebotData" style="margin-top:20px; margin-bottom: 30px;">
-                            <label class="control-fb control--checkbox"> アクティブユーザーリストで許可しない <tooltip text="'randomActiveViewer変数などのアクティブなユーザリストにユーザが表示されないようにします。'"></tooltip>
+                            <label class="control-fb control--checkbox"> �A�N�e�B�u���[�U�[���X�g�ŋ����Ȃ� <tooltip text="'randomActiveViewer�ϐ��Ȃǂ̃A�N�e�B�u�ȃ��[�U���X�g�Ƀ��[�U���\������Ȃ��悤�ɂ��܂��B'"></tooltip>
                                 <input type="checkbox" ng-model="$ctrl.viewerDetails.firebotData.disableActiveUserList" ng-change="$ctrl.disableActiveUserListChange()">
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
 
                         <div ng-show="$ctrl.hasFirebotData" style="margin-top:20px; margin-bottom: 30px;">
-                            <label class="control-fb control--checkbox"> 視聴者リストに表示しない <tooltip text="'チャットの隣のビューアリストにユーザーが表示されないようにします。'"></tooltip>
+                            <label class="control-fb control--checkbox"> �����҃��X�g�ɕ\�����Ȃ� <tooltip text="'�`���b�g�ׂ̗̃r���[�A���X�g�Ƀ��[�U�[���\������Ȃ��悤�ɂ��܂��B'"></tooltip>
                                 <input type="checkbox" ng-model="$ctrl.viewerDetails.firebotData.disableViewerList" ng-change="$ctrl.disableViewerListChange()">
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
 
                         <div ng-hide="$ctrl.hasFirebotData" style="padding: left: 15px;">
-                            <p class="muted">このTwitchユーザーのFirebotデータは保存されていません。</p>
-                            <button type="button" class="btn btn-default" ng-click="$ctrl.saveUser()">この視聴者を保存</button>
+                            <p class="muted">����Twitch���[�U�[��Firebot�f�[�^�͕ۑ�����Ă��܂���B</p>
+                            <button type="button" class="btn btn-default" ng-click="$ctrl.saveUser()">���̎����҂�ۑ�</button>
                         </div>
                     </div>
 
                     <div ng-if="$ctrl.hasFirebotData && $ctrl.viewerDetails.firebotData.metadata" style="margin: 20px 10px;">
-                        <div style="font-size:13px;font-weight: bold;opacity:0.9;margin-bottom:5px;">メタデータ</div>
+                        <div style="font-size:13px;font-weight: bold;opacity:0.9;margin-bottom:5px;">���^�f�[�^</div>
                         <div style="margin-top: 10px" ng-show="$ctrl.userHasMetadata()">
                             <table class="fb-table-alt" style="width:100%;">
                                 <thead>
                                     <tr style="font-size: 11px;">
-                                        <th class="not-clickable">キー</th>
-                                        <th class="not-clickable">データ</th>
+                                        <th class="not-clickable">�L�[</th>
+                                        <th class="not-clickable">�f�[�^</th>
                                         <th style="width: 70px;"></th>
                                     </tr>
                                 </thead>
@@ -135,14 +135,14 @@
                     </div>
 
                     <div style="margin: 10px 10px 0;" ng-show="$ctrl.hasCustomRoles && $ctrl.viewerDetails.twitchData != null">
-                        <div style="font-size:13px;font-weight: bold;opacity:0.9;margin-bottom:5px;">役割</div>
+                        <div style="font-size:13px;font-weight: bold;opacity:0.9;margin-bottom:5px;">����</div>
                         <div class="role-bar" ng-repeat="customRole in $ctrl.customRoles track by customRole.id">
                             <span>{{customRole.name}}</span>
-                            <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeUserFromRole(customRole.id, customRole.name)" uib-tooltip="役割を外す" tooltip-append-to-body="true">
+                            <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeUserFromRole(customRole.id, customRole.name)" uib-tooltip="�������O��" tooltip-append-to-body="true">
                                 <i class="far fa-times"></i>
                             </span>
                         </div>
-                        <div class="role-bar clickable" ng-if="$ctrl.hasCustomRolesAvailable" ng-click="$ctrl.openAddCustomRoleModal()" uib-tooltip="役割を付与" tooltip-append-to-body="true">
+                        <div class="role-bar clickable" ng-if="$ctrl.hasCustomRolesAvailable" ng-click="$ctrl.openAddCustomRoleModal()" uib-tooltip="������t�^" tooltip-append-to-body="true">
                             <i class="far fa-plus"></i>
                         </div>
                     </div>
@@ -200,9 +200,9 @@
                 $ctrl.deleteMetadata = (key) => {
 
                     utilityService.showConfirmationModal({
-                        title: "メタデータを削除",
-                        question: `メタデータ "${key}" を削除しますか?`,
-                        confirmLabel: "削除する",
+                        title: "���^�f�[�^���폜",
+                        question: `���^�f�[�^ "${key}" ���폜���܂���?`,
+                        confirmLabel: "�폜����",
                         confirmBtnType: "btn-danger"
                     }).then(confirmed => {
                         if (confirmed) {
@@ -223,12 +223,12 @@
                 $ctrl.roles = [];
 
                 const bannedRole = {
-                    name: "追放(BAN)",
+                    name: "�Ǖ�(BAN)",
                     style: {color: 'red'},
                     rank: -1
                 };
                 const modRole = {
-                    name: "モデレータ",
+                    name: "���f���[�^",
                     style: {color: '#37ED3B'},
                     rank: 3
                 };
@@ -246,7 +246,7 @@
                     const roles = [];
                     if (userFollowsStreamer) {
                         roles.push({
-                            name: "フォロワー",
+                            name: "�t�H�����[",
                             tooltip: followDateDisplay ? `Since ${followDateDisplay}` : undefined,
                             style: {color: '#47AED2'},
                             rank: 2
@@ -257,51 +257,51 @@
                     }
                     for (const role of twitchRoles) {
                         switch (role) {
-                        case "vip":
-                            roles.push({
-                                name: "VIP",
-                                style: {color: '#E175FF'},
-                                rank: 4
-                            });
-                            continue;
-                        case "mod":
-                            roles.push(modRole);
-                            continue;
-                        case "sub":
-                            roles.push({
-                                name: "サブスクライバー",
-                                style: {color: '#C9CCDB'},
-                                rank: 5
-                            });
-                            continue;
-                        case "broadcaster":
-                            roles.push({
-                                name: "オーナー",
-                                style: {color: 'white'},
-                                rank: 0
-                            });
-                            continue;
-                        case "tier1":
-                            roles.push({
-                                name: "Tier 1 サブスクライバー",
-                                style: {color: '#d6d7dc'},
-                                rank: 6
-                            });
-                            continue;
-                        case "tier2":
-                            roles.push({
-                                name: "Tier 2 サブスクライバー",
-                                style: {color: '#b1c5d4'},
-                                rank: 7
-                            });
-                            continue;
-                        case "tier3":
-                            roles.push({
-                                name: "Tier 3 サブスクライバー",
-                                style: {color: '#71879a'},
-                                rank: 8
-                            });
-                            continue;
+                            case "vip":
+                                roles.push({
+                                    name: "VIP",
+                                    style: {color: '#E175FF'},
+                                    rank: 4
+                                });
+                                continue;
+                            case "mod":
+                                roles.push(modRole);
+                                continue;
+                            case "sub":
+                                roles.push({
+                                    name: "Subscriber",
+                                    style: {color: '#C9CCDB'},
+                                    rank: 5
+                                });
+                                continue;
+                            case "broadcaster":
+                                roles.push({
+                                    name: "Channel Owner",
+                                    style: {color: 'white'},
+                                    rank: 0
+                                });
+                                continue;
+                            case "tier1":
+                                roles.push({
+                                    name: "Tier 1 Sub",
+                                    style: {color: '#d6d7dc'},
+                                    rank: 6
+                                });
+                                continue;
+                            case "tier2":
+                                roles.push({
+                                    name: "Tier 2 Sub",
+                                    style: {color: '#b1c5d4'},
+                                    rank: 7
+                                });
+                                continue;
+                            case "tier3":
+                                roles.push({
+                                    name: "Tier 3 Sub",
+                                    style: {color: '#71879a'},
+                                    rank: 8
+                                });
+                                continue;
                         }
                     }
 
@@ -339,7 +339,7 @@
                         utilityService
                             .showConfirmationModal({
                                 title: this.name,
-                                question: `変更しますか？ ${this.name.toLowerCase()} ${$ctrl.viewerDetails.twitchData.displayName}?`,
+                                question: `�ύX���܂����H ${this.name.toLowerCase()} ${$ctrl.viewerDetails.twitchData.displayName}?`,
                                 confirmLabel: this.name,
                                 confirmBtnType: this._confirmBtnType
                             })
@@ -461,9 +461,9 @@
                             utilityService.openGetInputModal(
                                 {
                                     model: valueToEdit,
-                                    label: "編集 " + this.name,
-                                    saveText: "保存",
-                                    inputPlaceholder: this.name.toLowerCase() + "を入力",
+                                    label: "�ҏW " + this.name,
+                                    saveText: "�ۑ�",
+                                    inputPlaceholder: this.name.toLowerCase() + "�����",
                                     validationFn: (value) => {
                                         return new Promise(resolve => {
                                             if (typeof value === 'string') {
@@ -474,7 +474,7 @@
                                             resolve(true);
                                         });
                                     },
-                                    validationText: "値を入力してください"
+                                    validationText: "�l����͂��Ă�������"
 
                                 },
                                 (editedValue) => {
@@ -487,9 +487,9 @@
                             utilityService.openDateModal(
                                 {
                                     model: valueToEdit,
-                                    label: this.name + " を編集",
-                                    saveText: "保存",
-                                    inputPlaceholder: this.name.toLowerCase() + " を入力"
+                                    label: this.name + " ��ҏW",
+                                    saveText: "�ۑ�",
+                                    inputPlaceholder: this.name.toLowerCase() + " �����"
                                 },
                                 (editedValue) => {
                                     this.value = this._afterEditFunc(editedValue);
@@ -526,7 +526,7 @@
                         "fa-sign-in",
                         joinDate,
                         value => {
-                            return value ? moment(value).format("L") : "未保存";
+                            return value ? moment(value).format("L") : "���ۑ�";
                         },
                         "joinDate",
                         "date",
@@ -544,7 +544,7 @@
                         "fa-eye",
                         lastSeen,
                         value => {
-                            return value ? moment(value).format("L") : "未保存";
+                            return value ? moment(value).format("L") : "���ۑ�";
                         },
                         "lastSeen",
                         "date",
@@ -562,7 +562,7 @@
                         "fa-tv",
                         minsInChannel,
                         value => {
-                            return value < 60 ? '１時間未満' : parseInt(value / 60) + " 時間";
+                            return value < 60 ? '�P���Ԗ���' : parseInt(value / 60) + " ����";
                         },
                         "minutesInChannel",
                         "number",
@@ -578,7 +578,7 @@
 
                     const chatMessages = $ctrl.viewerDetails.firebotData.chatMessages || 0;
                     dataPoints.push(new ViewerDataPoint(
-                        "チャット",
+                        "�`���b�g",
                         "fa-comments",
                         chatMessages,
                         value => value,
@@ -600,7 +600,7 @@
                             "fa-money-bill",
                             $ctrl.viewerDetails.firebotData.currency[currency.id] || 0,
                             value => value,
-                            "currency." + currency.id,
+                            `currency.${currency.id}`,
                             "number",
                             value => {
                                 return value ? parseInt(value) : 0;
@@ -638,10 +638,10 @@
                         });
                     utilityService.openSelectModal(
                         {
-                            label: "役割の追加",
+                            label: "�����̒ǉ�",
                             options: options,
-                            saveText: "追加",
-                            validationText: "役割を選択してください"
+                            saveText: "�ǉ�",
+                            validationText: "������I�����Ă�������"
 
                         },
                         (roleId) => {
@@ -659,9 +659,9 @@
                 $ctrl.removeUserFromRole = (roleId, roleName) => {
                     const username = $ctrl.viewerDetails.twitchData.displayName;
                     utilityService.showConfirmationModal({
-                        title: "役割を外す",
-                        question: `視聴者に付与されている役割 ${roleName} を外しますか?`,
-                        confirmLabel: "外す",
+                        title: "�������O��",
+                        question: `�����҂ɕt�^����Ă������ ${roleName} ���O���܂���?`,
+                        confirmLabel: "�O��",
                         confirmBtnType: "btn-danger"
                     }).then(confirmed => {
                         if (confirmed) {
@@ -699,9 +699,9 @@
 
                     utilityService
                         .showConfirmationModal({
-                            title: `視聴者データを消す`,
-                            question: `視聴者 ${displayName} のデータを削除しますか?`,
-                            confirmLabel: "削除",
+                            title: `�����҃f�[�^������`,
+                            question: `������ ${displayName} �̃f�[�^���폜���܂���?`,
+                            confirmLabel: "�폜",
                             confirmBtnType: "btn-danger"
                         })
                         .then(confirmed => {

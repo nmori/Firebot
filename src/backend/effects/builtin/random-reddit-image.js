@@ -120,9 +120,9 @@ const model = {
         const imageUrl = await redditProcessor.getRandomImage(subName);
 
         try {
-            logger.debug("Random Reddit: " + imageUrl);
+            logger.debug(`Random Reddit: ${imageUrl}`);
             if (event.effect.show === "chat" || event.effect.show === "both") {
-                await twitchChat.sendChatMessage("Random Reddit: " + imageUrl, null, chatter);
+                await twitchChat.sendChatMessage(`Random Reddit: ${imageUrl}`, null, chatter);
             }
 
             if (event.effect.show === "overlay" || event.effect.show === "both") {
@@ -133,8 +133,8 @@ const model = {
                     url: imageUrl,
                     imageType: "url",
                     imagePosition: position,
-                    imageHeight: event.effect.height ? event.effect.height + "px" : "auto",
-                    imageWidth: event.effect.width ? event.effect.width + "px" : "auto",
+                    imageHeight: event.effect.height ? `${event.effect.height}px` : "auto",
+                    imageWidth: event.effect.width ? `${event.effect.width}px` : "auto",
                     imageDuration: event.effect.length,
                     enterAnimation: event.effect.enterAnimation,
                     exitAnimation: event.effect.exitAnimation,

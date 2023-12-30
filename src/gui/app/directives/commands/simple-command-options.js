@@ -8,32 +8,32 @@
         template: `
         <div class="simple-command p-4">
             <div class="form-group">
-                <label for="trigger" class="form-label"><i class="fad fa-exclamation"></i> èµ·å‹•ã‚³ãƒãƒ³ãƒ‰ <tooltip styles="opacity:0.7;font-size:11px;" text="'èµ·å‹•ã™ã‚‹ãƒãƒ£ãƒƒãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å…ˆé ­ã«ã¤ã‘ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã€‚é€šå¸¸ã¯ã€!ãªã©ã®ç‰¹æ®Šæ–‡å­—ã§å§‹ã¾ã‚Šã¾ã™ã€‚'"/></label>
-                <input type="text" class="form-control input-lg" id="trigger" placeholder="!something ã®ã‚ˆã†ãª !ã‹ã‚‰å§‹ã¾ã‚‹ãƒ•ãƒ¬ãƒ¼ã‚º" ng-model="$ctrl.command.trigger" />
+                <label for="trigger" class="form-label"><i class="fad fa-exclamation"></i> ‹N“®ƒRƒ}ƒ“ƒh <tooltip styles="opacity:0.7;font-size:11px;" text="'‹N“®‚·‚éƒ`ƒƒƒbƒgƒƒbƒZ[ƒW‚Ìæ“ª‚É‚Â‚¯‚éƒeƒLƒXƒgB’Êí‚ÍA!‚È‚Ç‚Ì“Áê•¶š‚Ån‚Ü‚è‚Ü‚·B'"/></label>
+                <input type="text" class="form-control input-lg" id="trigger" placeholder="!something ‚Ì‚æ‚¤‚È !‚©‚çn‚Ü‚éƒtƒŒ[ƒY" ng-model="$ctrl.command.trigger" />
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-stopwatch"></i> å†å®Ÿè¡Œå¾…ã¡ <tooltip styles="opacity:0.7;font-size:11px;" text="'ã‚³ãƒãƒ³ãƒ‰ãŒã‚¹ãƒ‘ãƒ é€ä¿¡ã•ã‚Œã‚‹ã®ã‚’é˜²ãã¾ã™ã€‚å…¨ä½“ã«é©ç”¨ã™ã‚‹ã“ã¨ã‚‚ã€ãƒ¦ãƒ¼ã‚¶ãƒ¼ã”ã¨ã«é©ç”¨ã™ã‚‹ã“ã¨ã‚‚ã§ãã¾ã™ã€‚'"/></label>
+                <label class="form-label"><i class="fad fa-stopwatch"></i> ÄÀs‘Ò‚¿ <tooltip styles="opacity:0.7;font-size:11px;" text="'ƒRƒ}ƒ“ƒh‚ªƒXƒpƒ€‘—M‚³‚ê‚é‚Ì‚ğ–h‚¬‚Ü‚·B‘S‘Ì‚É“K—p‚·‚é‚±‚Æ‚àAƒ†[ƒU[‚²‚Æ‚É“K—p‚·‚é‚±‚Æ‚à‚Å‚«‚Ü‚·B'"/></label>
                 <command-cooldown-settings command="$ctrl.command" message-setting-disabled="true"></command-cooldown-settings>
-                <p class="help-block">ä»»æ„</p>
+                <p class="help-block">”CˆÓ</p>
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-lock-alt"></i> æ¨©é™ <tooltip styles="opacity:0.7;font-size:11px;" text="'æ¨©é™ã‚’ä½¿ç”¨ã™ã‚‹ã¨ã€ã“ã®ã‚³ãƒãƒ³ãƒ‰ã‚’èµ·å‹•ã§ãã‚‹äººã‚’åˆ¶é™ã§ãã¾ã™ã€‚'" /></label>
+                <label class="form-label"><i class="fad fa-lock-alt"></i> Œ ŒÀ <tooltip styles="opacity:0.7;font-size:11px;" text="'Œ ŒÀ‚ğg—p‚·‚é‚ÆA‚±‚ÌƒRƒ}ƒ“ƒh‚ğ‹N“®‚Å‚«‚él‚ğ§ŒÀ‚Å‚«‚Ü‚·B'" /></label>
                 <div>
                     <div class="btn-group">
-                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'everyone'">å…¨å“¡</label>
-                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'subs'">ã‚µãƒ–ã‚¹ã‚¯ãƒ©ã‚¤ãƒãƒ¼é™å®š</label>
-                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'mods'">ãƒ¢ãƒ‡ãƒ¬ãƒ¼ã‚¿é™å®š</label>
+                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'everyone'">‘Sˆõ</label>
+                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'subs'">ƒTƒuƒXƒNƒ‰ƒCƒo[ŒÀ’è</label>
+                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'mods'">ƒ‚ƒfƒŒ[ƒ^ŒÀ’è</label>
                     </div>
                 </div>
                 <p class="help-block">{{$ctrl.getPermissionText()}}</p>
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-reply"></i> è¿”ç­”ã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ<tooltip styles="opacity:0.7;font-size:11px;" text="'This is what Firebot should say in response when this command is triggered.'" /></label>
-                <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å…¥ã‚Œã‚‹" rows="4" cols="40" replace-variables></textarea>
-                <p class="help-block">ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å¿œç­”ä»¥å¤–ã‚’ã—ãŸã„ã§ã™ã‹? Firebot ã®æ¼”å‡ºã‚·ã‚¹ãƒ†ãƒ ã‚’æœ€å¤§é™ã«æ´»ç”¨ã™ã‚‹ã«ã¯ã€<b>å¿œç”¨ãƒ¢ãƒ¼ãƒ‰</b> ã«åˆ‡ã‚Šæ›¿ãˆã¦ãã ã•ã„ã€‚</p>
+                <label class="form-label"><i class="fad fa-reply"></i> •Ô“š‚·‚éƒeƒLƒXƒg<tooltip styles="opacity:0.7;font-size:11px;" text="'This is what Firebot should say in response when this command is triggered.'" /></label>
+                <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="ƒƒbƒZ[ƒW‚ğ“ü‚ê‚é" rows="4" cols="40" replace-variables></textarea>
+                <p class="help-block">ƒƒbƒZ[ƒW‰“šˆÈŠO‚ğ‚µ‚½‚¢‚Å‚·‚©? Firebot ‚Ì‰‰oƒVƒXƒeƒ€‚ğÅ‘åŒÀ‚ÉŠˆ—p‚·‚é‚É‚ÍA<b>‰—pƒ‚[ƒh</b> ‚ÉØ‚è‘Ö‚¦‚Ä‚­‚¾‚³‚¢B</p>
             </div>
         </div>
        `,
@@ -45,35 +45,35 @@
             $ctrl.getPermissionText = () => {
                 switch ($ctrl.selectedPermissionType) {
                 case "everyone":
-                    return "å…¨å“¡ãŒã“ã®ã‚³ãƒãƒ³ãƒ‰ã‚’èµ·å‹•ã§ãã¾ã™ã€‚";
+                    return "‘Sˆõ‚ª‚±‚ÌƒRƒ}ƒ“ƒh‚ğ‹N“®‚Å‚«‚Ü‚·B";
                 case "subs":
-                    return "ã‚µãƒ–ã‚¹ã‚¯ãƒ©ã‚¤ãƒãƒ¼ã¨ãƒ¢ãƒ‡ãƒ¬ãƒ¼ã‚¿ãŒã“ã®ã‚³ãƒãƒ³ãƒ‰ã‚’èµ·å‹•ã§ãã¾ã™";
+                    return "ƒTƒuƒXƒNƒ‰ƒCƒo[‚Æƒ‚ƒfƒŒ[ƒ^‚ª‚±‚ÌƒRƒ}ƒ“ƒh‚ğ‹N“®‚Å‚«‚Ü‚·";
                 case "mods":
-                    return "ãƒ¢ãƒ‡ãƒ¬ãƒ¼ã‚¿ã ã‘ãŒã“ã®ã‚³ãƒãƒ³ãƒ‰ã‚’èµ·å‹•ã§ãã¾ã™";
+                    return "ƒ‚ƒfƒŒ[ƒ^‚¾‚¯‚ª‚±‚ÌƒRƒ}ƒ“ƒh‚ğ‹N“®‚Å‚«‚Ü‚·";
                 }
             };
 
             $ctrl.permissionTypeChanged = () => {
                 switch ($ctrl.selectedPermissionType) {
-                case "everyone":
-                    $ctrl.command.restrictionData.restrictions = [];
-                    break;
-                case "subs":
-                    $ctrl.command.restrictionData.restrictions = [{
-                        id: uuid(),
-                        type: "firebot:permissions",
-                        mode: "roles",
-                        roleIds: ["sub", "mod", "broadcaster"]
-                    }];
-                    break;
-                case "mods":
-                    $ctrl.command.restrictionData.restrictions = [{
-                        id: uuid(),
-                        type: "firebot:permissions",
-                        mode: "roles",
-                        roleIds: ["mod", "broadcaster"]
-                    }];
-                    break;
+                    case "everyone":
+                        $ctrl.command.restrictionData.restrictions = [];
+                        break;
+                    case "subs":
+                        $ctrl.command.restrictionData.restrictions = [{
+                            id: uuid(),
+                            type: "firebot:permissions",
+                            mode: "roles",
+                            roleIds: ["sub", "mod", "broadcaster"]
+                        }];
+                        break;
+                    case "mods":
+                        $ctrl.command.restrictionData.restrictions = [{
+                            id: uuid(),
+                            type: "firebot:permissions",
+                            mode: "roles",
+                            roleIds: ["mod", "broadcaster"]
+                        }];
+                        break;
                 }
             };
 

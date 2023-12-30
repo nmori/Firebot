@@ -8,7 +8,7 @@
             bindings: {},
             template: `
        <div class="notifications-wrapper">
-          <div aria-label="„ÅäÁü•„Çâ„Åõ" uib-popover-template="$ctrl.templateUrl" popover-placement="bottom-right" popover-trigger="'outsideClick'" popover-append-to-body="true" popover-class="notification-popover">
+          <div aria-label="Ç®ímÇÁÇπ" uib-popover-template="$ctrl.templateUrl" popover-placement="bottom-right" popover-trigger="'outsideClick'" popover-append-to-body="true" popover-class="notification-popover">
             <i class="far fa-bell clickable noti-bell-icon" style="cursor:pointer;"></i>
           </div>
           <div ng-if="$ctrl.unreadCount() > 0" class="notification-badge noselect animated bounceIn">{{getBadgeText()}}</div>
@@ -17,7 +17,7 @@
        <script type="text/ng-template" id="notificationCenterPopupTemplate.html">
 
           <div class="notification-popover-header">
-            <span>„ÅäÁü•„Çâ„Åõ</span>
+            <span>Ç®ímÇÁÇπ</span>
           </div>
           <div class="noti-preview-wrapper">
             <div ng-repeat="notification in $ctrl.getNotifications() | orderBy: 'created_at':true track by $index" class="notification-card" ng-click="$ctrl.openNotification(notification)" aria-label="Notification: {{notification.title}}">
@@ -32,12 +32,12 @@
               <div class="noti-action" uib-dropdown uib-dropdown-toggle ng-click="$event.stopPropagation();" dropdown-append-to-body="true">
                 <span class="noselect pointer"><i class="fal fa-ellipsis-v"></i></span>
                 <ul class="dropdown-menu" uib-dropdown-menu>
-                  <li><a href ng-click="deleteNotification(notification)" style="color:red;"><i class="far fa-trash-alt"></i> „ÅäÁü•„Çâ„Åõ„ÅÆÂâäÈô§/a></li>
+                  <li><a href ng-click="deleteNotification(notification)" style="color:red;"><i class="far fa-trash-alt"></i> Ç®ímÇÁÇπÇÃçÌèú/a></li>
                 </ul>
               </div>
             </div>
             <div ng-if="$ctrl.getNotifications().length < 1" class="no-notifications-card">
-              <span class="muted">„ÅäÁü•„Çâ„Åõ„ÅØ„ÅÇ„Çä„Åæ„Åõ„Çì</span>
+              <span class="muted">Ç®ímÇÁÇπÇÕÇ†ÇËÇ‹ÇπÇÒ</span>
             </div>
           </div>
         </script>
@@ -85,14 +85,14 @@
                     const NotificationIconType = notificationService.NotificationIconType;
                     switch (iconType) {
                     case NotificationIconType.UPDATE:
-                        return "„Ç¢„ÉÉ„Éó„Éá„Éº„Éà";
+                        return "ÉAÉbÉvÉfÅ[Ég";
                     case NotificationIconType.ALERT:
-                        return "ÈÄöÁü•";
+                        return "í ím";
                     case NotificationIconType.TIP:
-                        return "„Éí„É≥„Éà";
+                        return "ÉqÉìÉg";
                     case NotificationIconType.INFO:
                     default:
-                        return "ÊÉÖÂ†±";
+                        return "èÓïÒ";
                     }
                 };
 
@@ -100,18 +100,18 @@
                     const NotificationIconType = notificationService.NotificationIconType;
                     let iconClass = "";
                     switch (iconType) {
-                    case NotificationIconType.UPDATE:
-                        iconClass = "download";
-                        break;
-                    case NotificationIconType.ALERT:
-                        iconClass = "exclamation-circle";
-                        break;
-                    case NotificationIconType.TIP:
-                        iconClass = "question-circle";
-                        break;
-                    case NotificationIconType.INFO:
-                    default:
-                        iconClass = "info-circle";
+                        case NotificationIconType.UPDATE:
+                            iconClass = "download";
+                            break;
+                        case NotificationIconType.ALERT:
+                            iconClass = "exclamation-circle";
+                            break;
+                        case NotificationIconType.TIP:
+                            iconClass = "question-circle";
+                            break;
+                        case NotificationIconType.INFO:
+                        default:
+                            iconClass = "info-circle";
                     }
                     return `fa-${iconClass}`;
                 };

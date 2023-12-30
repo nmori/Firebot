@@ -13,7 +13,7 @@ const model: EffectType<{
         name: "演出キューの一時停止／再開",
         description: "演出キューを一時停止または再開します。一時停止されたキューに送られた演出は、キューが再開されると実行されます。",
         icon: "fad fa-pause-circle",
-        categories: [ EffectCategory.SCRIPTING ]
+        categories: [EffectCategory.SCRIPTING]
     },
     optionsTemplate: `
         <eos-container header="演出キュー">
@@ -31,7 +31,7 @@ const model: EffectType<{
                 演出キューが保存されていない。 
             </div>
         </eos-container>
-        
+
         <eos-container header="Action" ng-if="effect.effectQueue != null" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,15 +86,15 @@ const model: EffectType<{
         if (queue == null) {
             logger.debug(`Effect queue ${effect.effectQueue} not found`);
             return false;
-        } else {
-            if (effect.action === "Pause") {
-                effectQueueManager.pauseQueue(effect.effectQueue);
-            } else if (effect.action === "Resume") {
-                effectQueueManager.resumeQueue(effect.effectQueue);
-            } else {
-                effectQueueManager.toggleQueue(effect.effectQueue);
-            }
         }
+        if (effect.action === "Pause") {
+            effectQueueManager.pauseQueue(effect.effectQueue);
+        } else if (effect.action === "Resume") {
+            effectQueueManager.resumeQueue(effect.effectQueue);
+        } else {
+            effectQueueManager.toggleQueue(effect.effectQueue);
+        }
+
 
         return true;
     }

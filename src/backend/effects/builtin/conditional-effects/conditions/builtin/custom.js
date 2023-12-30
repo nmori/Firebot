@@ -2,9 +2,9 @@
 
 module.exports = {
     id: "firebot:custom",
-    name: "ã‚«ã‚¹ã‚¿ãƒ ",
-    description: "ã‚«ã‚¹ã‚¿ãƒ å€¤ã«åŸºã¥ãæ¡ä»¶ ($variables ã‚’ä½¿ã†ã¨ä¾¿åˆ©)",
-    comparisonTypes: ["ä¸€è‡´", "ä¸ä¸€è‡´", "å³å¯†ã«ä¸€è‡´", "å³å¯†ã«ä¸ä¸€è‡´", "æœªæº€", "ä»¥ä¸‹", "ã‚ˆã‚Šä¸Š", "ä»¥ä¸Š", "å«ã‚€", "å«ã¾ãªã„", "æ­£è¦è¡¨ç¾ã§ä¸€è‡´", "æ­£è¦è¡¨ç¾ã§ä¸ä¸€è‡´"],
+    name: "ƒJƒXƒ^ƒ€",
+    description: "ƒJƒXƒ^ƒ€’l‚ÉŠî‚Ã‚­ğŒ ($variables ‚ğg‚¤‚Æ•Ö—˜)",
+    comparisonTypes: ["ˆê’v", "•sˆê’v", "Œµ–§‚Éˆê’v", "Œµ–§‚É•sˆê’v", "–¢–", "ˆÈ‰º", "‚æ‚èã", "ˆÈã", "ŠÜ‚Ş", "ŠÜ‚Ü‚È‚¢", "³‹K•\Œ»‚Åˆê’v", "³‹K•\Œ»‚Å•sˆê’v"],
     leftSideValueType: "text",
     rightSideValueType: "text",
     predicate: (conditionSettings) => {
@@ -23,42 +23,42 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
-        case "ä¸€è‡´":
+        case "ˆê’v":
             return leftSideValue == rightSideValue; //eslint-disable-line eqeqeq
         case "is not":
-        case "ä¸ä¸€è‡´":
+        case "•sˆê’v":
             return leftSideValue != rightSideValue; //eslint-disable-line eqeqeq
         case "is strictly":
-        case "å³å¯†ã«ä¸€è‡´":
+        case "Œµ–§‚Éˆê’v":
             return leftSideValue === rightSideValue;
         case "is not strictly":
-        case "å³å¯†ã«ä¸ä¸€è‡´":
+        case "Œµ–§‚É•sˆê’v":
             return leftSideValue !== rightSideValue;
         case "is less than":
-        case "æœªæº€":
+        case "–¢–":
             return leftSideValue < rightSideValue;
         case "is less than or equal to":
-        case "ä»¥ä¸‹":
+        case "ˆÈ‰º":
             return leftSideValue <= rightSideValue;
         case "is greater than":
-        case "ã‚ˆã‚Šä¸Š":
+        case "‚æ‚èã":
             return leftSideValue > rightSideValue;
         case "is greater than or equal to":
-        case "ä»¥ä¸Š":
+        case "ˆÈã":
             return leftSideValue >= rightSideValue;
         case "contains":
-        case "å«ã‚€":
+        case "ŠÜ‚Ş":
             return leftSideValue.toString().includes(rightSideValue);
         case "does not contain":
-        case "å«ã¾ãªã„":
+        case "ŠÜ‚Ü‚È‚¢":
             return !leftSideValue.toString().includes(rightSideValue);
         case "matches regex":
-        case "æ­£è¦è¡¨ç¾ã§ä¸€è‡´": {
+        case "³‹K•\Œ»‚Åˆê’v": {
             const regex = new RegExp(rightSideValue, "gi");
             return regex.test(leftSideValue);
         }
         case "does not match regex":
-        case "æ­£è¦è¡¨ç¾ã§ä¸ä¸€è‡´": {
+        case "³‹K•\Œ»‚Å•sˆê’v": {
             const regex = new RegExp(rightSideValue, "gi");
             return !regex.test(leftSideValue);
         }

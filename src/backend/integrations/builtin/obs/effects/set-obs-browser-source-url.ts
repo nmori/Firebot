@@ -2,65 +2,71 @@ import { EffectType } from "../../../../../types/effects";
 import { OBSSource, setBrowserSourceSettings } from "../obs-remote";
 
 export const SetOBSBrowserSourceUrlEffectType: EffectType<{
-  browserSourceName: string;
-  url: string;
+    browserSourceName: string;
+    url: string;
 }> = {
   definition: {
     id: "firebot:obs-set-browser-source-url",
-    name: "OBSãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹ã®URLã‚’å¤‰æ›´",
-    description: "OBSãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹ã®URLã‚’å¤‰æ›´ã—ã¾ã™",
+    name: "OBSƒuƒ‰ƒEƒUƒ\[ƒX‚ÌURL‚ğ•ÏX",
+    description: "OBSƒuƒ‰ƒEƒUƒ\[ƒX‚ÌURL‚ğ•ÏX‚µ‚Ü‚·",
     icon: "fad fa-browser",
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="OBS ãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹">
-        <ui-select ng-model="selected" on-select="selectBrowserSource($select.selected.name)">
-          <ui-select-match placeholder="ãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹ã‚’é¸ã¶...">{{$select.selected.name}}</ui-select-match>
-          <ui-select-choices repeat="source in browserSources | filter: {name: $select.search}">
-            <div ng-bind-html="source.name | highlight: $select.search"></div>
-          </ui-select-choices>
-          <ui-select-no-choice>
-          <b>ãƒ–ãƒ©ã‚¦ã‚¶ã‚½ãƒ¼ã‚¹ã¯ã‚ã‚Šã¾ã›ã‚“.</b>
-          </ui-select-no-choice>
-        </ui-select>
-        <div ng-if="browserSources == null" class="muted">
-          ã‚½ãƒ¼ã‚¹ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚OBSã¯å‹•ã„ã¦ã„ã¾ã™ã‹ï¼Ÿ
+    <eos-container header="OBS ƒuƒ‰ƒEƒUƒ\[ƒX">
+        <div>
+            <button class="btn btn-link" ng-click="getBrowserSources()">Ä“Ç‚İ‚İ/button>
         </div>
-        <p>
-            <button class="btn btn-link" ng-click="getBrowserSources()">ã‚½ãƒ¼ã‚¹ã‚’æ›´æ–°</button>
-        </p>
+
+        <ui-select ng-if="browserSources != null" ng-model="selected" on-select="selectBrowserSource($select.selected.name)">
+            <ui-select-match placeholder="Select a Browser Source...">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="source in browserSources | filter: {name: $select.search}">
+                <div ng-bind-html="source.name | highlight: $select.search"></div>
+            </ui-select-choices>
+            <ui-select-no-choice>
+                <b>ƒuƒ‰ƒEƒUƒ\[ƒX‚Í‚ ‚è‚Ü‚¹‚ñ.</b>
+            </ui-select-no-choice>
+        </ui-select>
+
+        <div ng-if="browserSources == null" class="muted">
+            ƒ\[ƒX‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB {{ isObsConfigured ? "OBS‚Í“®‚¢‚Ä‚¢‚Ü‚·‚©H" : "Have you configured the OBS integration?" }}
+        </div>
     </eos-container>
     <eos-container ng-if="browserSources != null && effect.browserSourceName != null" header="URL" style="margin-top: 10px;">
         <firebot-input model="effect.url"></firebot-input>
     </eos-container>
   `,
-  optionsController: ($scope: any, backendCommunicator: any, $q: any) => {
-    $scope.browserSources = [];
+    optionsController: ($scope: any, backendCommunicator: any, $q: any) => {
+        $scope.isObsConfigured = false;
 
-    $scope.selectBrowserSource = (browserSourceName: string) => {
-      $scope.effect.browserSourceName = browserSourceName;
-    };
+        $scope.browserSources = [];
 
-    $scope.getBrowserSources = () => {
-      $q.when(
-        backendCommunicator.fireEventAsync("obs-get-browser-sources")
-      ).then((browserSources: OBSSource[]) => {
-        $scope.browserSources = browserSources ?? [];
-        $scope.selected = $scope.browserSources.find(source => source.name === $scope.effect.browserSourceName);
-      });
-    };
-    $scope.getBrowserSources();
-  },
-  optionsValidator: (effect) => {
-    if (effect.browserSourceName == null) {
-      return ["ãƒ–ãƒ©ã‚¦ã‚¶ã®ã‚½ãƒ¼ã‚¹ã‚’é¸æŠã—ã¦ãã ã•ã„"];
+        $scope.selectBrowserSource = (browserSourceName: string) => {
+            $scope.effect.browserSourceName = browserSourceName;
+        };
+
+        $scope.getBrowserSources = () => {
+            $scope.isObsConfigured = backendCommunicator.fireEventSync("obs-is-configured");
+
+            $q.when(
+                backendCommunicator.fireEventAsync("obs-get-browser-sources")
+            ).then((browserSources: OBSSource[]) => {
+                $scope.browserSources = browserSources;
+                $scope.selected = $scope.browserSources?.find(source => source.name === $scope.effect.browserSourceName);
+            });
+        };
+        $scope.getBrowserSources();
+    },
+    optionsValidator: (effect) => {
+        if (effect.browserSourceName == null) {
+            return ["Please select a browser source."];
+        }
+        return [];
+    },
+    onTriggerEvent: async ({ effect }) => {
+        await setBrowserSourceSettings(effect.browserSourceName, {
+            url: effect.url
+        });
+        return true;
     }
-    return [];
-  },
-  onTriggerEvent: async ({ effect }) => {
-    await setBrowserSourceSettings(effect.browserSourceName, {
-      url: effect.url
-    });
-    return true;
-  },
 };

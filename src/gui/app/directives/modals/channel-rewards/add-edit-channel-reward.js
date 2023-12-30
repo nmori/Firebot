@@ -7,7 +7,7 @@
                 <scroll-sentinel element-class="edit-reward-header"></scroll-sentinel>
                 <div class="modal-header sticky-header edit-reward-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">ãƒãƒ£ãƒ³ãƒãƒ«ç‰¹å…¸ã‚’ç·¨é›†</h4>
+                    <h4 class="modal-title">ƒ`ƒƒƒ“ƒlƒ‹“Á“T‚ğ•ÒW</h4>
                 </div>
                 <div class="modal-body" style="padding-top: 15px;">
                     <div ng-if="!$ctrl.reward.manageable" style="display: flex; flex-direction: column;">
@@ -20,11 +20,17 @@
                             />
                         </div>
                         
-                        <p class="help-block" style="text-align: center;">ã“ã®ç‰¹å…¸ã¯Firebotã®å¤–éƒ¨ã§ä½œæˆã•ã‚Œã¦ã„ã‚‹ç‚ºã€ã“ã“ã§è¨­å®šã‚’å¤‰æ›´ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚ã—ã‹ã—ã€æ¼”å‡ºã‚’ä½œæˆã™ã‚‹ã“ã¨ã¯ã§ãã¾ã™ã€‚ã“ã®ç‰¹å…¸è¨­å®šã‚’æ›´æ–°ã—ãŸã„å ´åˆã¯ã€Twitchä¸Šã§è¡Œã†ã“ã¨ãŒã§ãã¾ã™ã€‚</p>
+                        <p class="help-block" style="text-align: center;">
+                            This reward was either created outside of Firebot, or by an older version of Firebot, so its settings cannot be changed here. You can however still create effects for it. If you want to update settings for this reward, you can do so on Twitch.
+                        </p>
+                        <collapsable-panel header="How to enable editing/Update Channel Reward">
+                            <p>If you would like to be able to edit this channel reward in Firebot or use the <strong>Update Channel Reward</strong> effect, you can <strong>Duplicate</strong> it from the <strong>Channel Rewards</strong> screen. This will preserve any effects and settings (except the image) you already have setup.</p>
+                            <p>You can then delete the old reward from your Twitch dashboard. You will also need to update any existing <strong>Update Channel Reward</strong> effects to reference the newly created reward.</p>
+                        </collapsable-panel>
                     </div>
                     <form ng-show="$ctrl.reward.manageable" name="rewardSettings">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
-                            <label for="name" class="control-label">ãƒãƒ£ãƒ³ãƒãƒ«ç‰¹å…¸å</label>
+                            <label for="name" class="control-label">ƒ`ƒƒƒ“ƒlƒ‹“Á“T–¼</label>
                             <input 
                                 type="text" 
                                 id="name" 
@@ -33,13 +39,13 @@
                                 ui-validate="'!$ctrl.rewardNameExists($value)'"
                                 required 
                                 class="form-control input-lg" 
-                                placeholder="ç‰¹å…¸ã«åå‰ã‚’ã¤ã‘ã‚‹" 
+                                placeholder="“Á“T‚É–¼‘O‚ğ‚Â‚¯‚é" 
                                 ng-model="$ctrl.reward.twitchData.title" 
                             />
                         </div>
 
                         <div class="form-group">
-                            <label for="description" class="control-label">æ¦‚è¦</label>
+                            <label for="description" class="control-label">ŠT—v</label>
                             <textarea 
                                 id="description" 
                                 maxlength="200" 
@@ -47,17 +53,17 @@
                                 class="form-control" 
                                 style="font-size: 16px; padding: 10px 16px;" 
                                 name="text" 
-                                placeholder="è¦–è´è€…ã«ä½•ã‚’ãƒªã‚¯ã‚¨ã‚¹ãƒˆã—ã¦ã»ã—ã„ã‹ã€ã²ã¨ã“ã¨æ·»ãˆã¦ãã ã•ã„" 
+                                placeholder="‹’®Ò‚É‰½‚ğƒŠƒNƒGƒXƒg‚µ‚Ä‚Ù‚µ‚¢‚©A‚Ğ‚Æ‚±‚Æ“Y‚¦‚Ä‚­‚¾‚³‚¢" 
                                 rows="4" 
                                 cols="40"
                             />
-                            <p class="help-block">ä»»æ„</p>
+                            <p class="help-block">”CˆÓ</p>
                         </div>
 
                         <div class="form-group flex-row jspacebetween">
                             <div>
-                                <label class="control-label" style="margin:0;">è¦–è´è€…ã«ãƒ†ã‚­ã‚¹ãƒˆå…¥åŠ›ã‚’æ±‚ã‚ã‚‹</label>
-                                <p class="help-block">æœ‰åŠ¹ã«ã™ã‚‹ã¨ã€ç‰¹å…¸ã‚’å—ã‘å–ã‚‹è¦–è´è€…ã«å…¥åŠ›ã‚’æ±‚ã‚ã‚‹æ ãŒè¡¨ç¤ºã•ã‚Œã¾ã™ã€‚</p>
+                                <label class="control-label" style="margin:0;">‹’®Ò‚ÉƒeƒLƒXƒg“ü—Í‚ğ‹‚ß‚é</label>
+                                <p class="help-block">—LŒø‚É‚·‚é‚ÆA“Á“T‚ğó‚¯æ‚é‹’®Ò‚É“ü—Í‚ğ‹‚ß‚é˜g‚ª•\¦‚³‚ê‚Ü‚·B</p>
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.reward.twitchData.isUserInputRequired" auto-update-value="true" font-size="32"></toggle-button>
@@ -65,23 +71,23 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
-                            <label for="cost" class="control-label">é‡‘é¡</label>
+                            <label for="cost" class="control-label">‹àŠz</label>
                             <input 
                                 type="number" 
                                 class="form-control input-lg" 
                                 id="cost" 
                                 name="cost"
-                                placeholder="é‡‘é¡ã‚’å…¥åŠ›" 
+                                placeholder="‹àŠz‚ğ“ü—Í" 
                                 ng-model="$ctrl.reward.twitchData.cost"
                                 required
                                 min="0" 
                                 style="width: 50%;" 
                             />
-                            <p class="help-block">ãƒ’ãƒ³ãƒˆï¼šè¦–è´è€…ã¯1æ™‚é–“ã‚ãŸã‚Šå¹³å‡220ãƒã‚¤ãƒ³ãƒˆã‚’ç²å¾—ã€‚ã‚µãƒ–ã¯æœ€å¤§2å€ã®å€ç‡ã‚’ç²å¾—ã€‚</p>
+                            <p class="help-block">ƒqƒ“ƒgF‹’®Ò‚Í1ŠÔ‚ ‚½‚è•½‹Ï220ƒ|ƒCƒ“ƒg‚ğŠl“¾BƒTƒu‚ÍÅ‘å2”{‚Ì”{—¦‚ğŠl“¾B</p>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">èƒŒæ™¯è‰²</label>
+                            <label class="control-label">”wŒiF</label>
                             <div style="margin-top:10px; width: 50%;">
                                 <color-picker-input model="$ctrl.reward.twitchData.backgroundColor" lg-input="true" show-clear="false"></color-picker-input>
                             </div>
@@ -89,8 +95,8 @@
 
                         <div class="form-group flex-row jspacebetween">
                             <div>
-                                <label class="control-label" style="margin:0;">ç‰¹å…¸ã‚’å¼•ãæ›ãˆé †å¾…ã¡ã«å…¥ã‚Œãšã«å¼•ãæ›ãˆæ¸ˆã¿ã«ã™ã‚‹</label>
-                                <p class="help-block">æœ‰åŠ¹ã«ã™ã‚‹ã¨ã€å¼•ãæ›ãˆå¾…ã¡ã«å…¥ã‚Œãšå¼•ãæ›ãˆæ¸ˆã¿ã«ã—ã¾ã™</p>
+                                <label class="control-label" style="margin:0;">“Á“T‚ğˆø‚«Š·‚¦‡‘Ò‚¿‚É“ü‚ê‚¸‚Éˆø‚«Š·‚¦Ï‚İ‚É‚·‚é</label>
+                                <p class="help-block">—LŒø‚É‚·‚é‚ÆAˆø‚«Š·‚¦‘Ò‚¿‚É“ü‚ê‚¸ˆø‚«Š·‚¦Ï‚İ‚É‚µ‚Ü‚·</p>
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue" auto-update-value="true" font-size="32"></toggle-button>
@@ -103,8 +109,8 @@
                         >
                             <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
                                 <div>
-                                    <label class="control-label" style="margin:0;">å†å®Ÿè¡Œå¯èƒ½ã«ãªã‚‹ã¾ã§ã®å¾…ã¡æ™‚é–“</label>
-                                    <p class="help-block">ä»˜ä¸ã¾ã§ã®æœŸé–“(æœ€é•·7æ—¥é–“)</p>
+                                    <label class="control-label" style="margin:0;">ÄÀs‰Â”\‚É‚È‚é‚Ü‚Å‚Ì‘Ò‚¿ŠÔ</label>
+                                    <p class="help-block">•t—^‚Ü‚Å‚ÌŠúŠÔ(Å’·7“úŠÔ)</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.globalCooldownSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
@@ -131,8 +137,8 @@
                                 style="margin-bottom: 0;"
                             >
                                 <div>
-                                    <label class="control-label" style="margin:0;">ã‚¹ãƒˆãƒªãƒ¼ãƒ ã”ã¨ã®åˆ©ç”¨åˆ¶é™</label>
-                                    <p class="help-block">è¦–è´è€…ã®æœ€å¤§åˆè¨ˆäº¤æ›é¡</p>
+                                    <label class="control-label" style="margin:0;">ƒXƒgƒŠ[ƒ€‚²‚Æ‚Ì—˜—p§ŒÀ</label>
+                                    <p class="help-block">‹’®Ò‚ÌÅ‘å‡ŒvŒğŠ·Šz</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
@@ -142,7 +148,7 @@
                                 type="number"
                                 class="form-control input-lg" 
                                 name="maxPerStream"
-                                placeholder="é‡‘é¡ã‚’å…¥åŠ›" 
+                                placeholder="‹àŠz‚ğ“ü—Í" 
                                 ng-model="$ctrl.reward.twitchData.maxPerStreamSetting.maxPerStream" 
                                 ng-disabled="!$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled" 
                                 ui-validate="'!$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled || ($value != null && $value > -1)'"
@@ -160,8 +166,8 @@
                                 style="margin-bottom: 0;" 
                             >
                                 <div>
-                                    <label class="control-label" style="margin:0;">1ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚ãŸã‚Šã®åˆ©ç”¨å›æ•°åˆ¶é™</label>
-                                    <p class="help-block">è¦–è´è€…1äººãƒ»1ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚ãŸã‚Šã®æœ€å¤§å€‹äººäº¤æ›é¡</p>
+                                    <label class="control-label" style="margin:0;">1ƒ†[ƒU[‚ ‚½‚è‚Ì—˜—p‰ñ”§ŒÀ</label>
+                                    <p class="help-block">‹’®Ò1lE1ƒXƒgƒŠ[ƒ€‚ ‚½‚è‚ÌÅ‘åŒÂlŒğŠ·Šz</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
@@ -171,7 +177,7 @@
                                 type="number" 
                                 class="form-control input-lg" 
                                 name="maxPerUserPerStream" 
-                                placeholder="é‡‘é¡ã‚’å…¥ã‚Œã‚‹" 
+                                placeholder="‹àŠz‚ğ“ü‚ê‚é" 
                                 ng-model="$ctrl.reward.twitchData.maxPerUserPerStreamSetting.maxPerUserPerStream" 
                                 ng-disabled="!$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled"
                                 ui-validate="'!$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled || ($value != null && $value > -1)'"
@@ -181,8 +187,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" style="margin:0;">ç‰¹å…¸ã‚¢ã‚¤ã‚³ãƒ³</label>
-                            <p class="help-block"><b>Important</b>: ç‰¹å…¸ã®ã‚¢ã‚¤ã‚³ãƒ³ã¯X(æ—§Twitch)ã§ã®ã¿å¤‰æ›´å¯èƒ½</p>
+                            <label class="control-label" style="margin:0;">“Á“TƒAƒCƒRƒ“</label>
+                            <p class="help-block"><b>Important</b>: “Á“T‚ÌƒAƒCƒRƒ“‚ÍX(‹ŒTwitch)‚Å‚Ì‚İ•ÏX‰Â”\</p>
                             <div>
                                 <div style="display: inline-flex; align-items: center; justify-content: center;padding: 12.5px;border: 2px gray dashed;border-radius: 6px;">
                                     <img 
@@ -200,8 +206,8 @@
 
                 </div>
                 <div class="modal-footer sticky-footer edit-reward-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">ã‚­ãƒ£ãƒ³ã‚»ãƒ«</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">ä¿å­˜</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">ƒLƒƒƒ“ƒZƒ‹</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">•Û‘¶</button>
                 </div>
                 <scroll-sentinel element-class="edit-reward-footer"></scroll-sentinel>
             `,
@@ -236,7 +242,7 @@
 
 
                 /**
-                 * @type {import('../../../../../backend/channel-rewards/channel-reward-manager').SavedChannelReward}
+                 * @type {import('../../../../../types/channel-rewards').SavedChannelReward}
                  */
                 $ctrl.reward = {
                     id: null,

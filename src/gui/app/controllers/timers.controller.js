@@ -64,31 +64,31 @@
             $scope.timerOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ç·¨é›†</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> •ÒW</a>`,
                         click: function () {
                             timerService.showAddEditTimerModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> æœ‰åŠ¹åŒ–ã®åˆ‡ã‚Šæ›¿ãˆ</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> —LŒø‰»‚ÌØ‚è‘Ö‚¦</a>`,
                         click: function () {
                             timerService.toggleTimerActiveState(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> è¤‡è£½</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> •¡»</a>`,
                         click: function () {
                             timerService.duplicateTimer(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> å‰Šé™¤</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> íœ</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "ã‚¿ã‚¤ãƒãƒ¼ã®å‰Šé™¤",
-                                    question: `ã‚¿ã‚¤ãƒãƒ¼ "${item.name}" ã‚’å‰Šé™¤ã—ã¾ã™ã‹?`,
-                                    confirmLabel: "å‰Šé™¤ã™ã‚‹",
+                                    title: "ƒ^ƒCƒ}[‚Ìíœ",
+                                    question: `ƒ^ƒCƒ}[ "${item.name}" ‚ğíœ‚µ‚Ü‚·‚©?`,
+                                    confirmLabel: "íœ‚·‚é",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then(confirmed => {
@@ -141,19 +141,19 @@
             $scope.scheduledTaskOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ç·¨é›†</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> •ÒW</a>`,
                         click: function () {
                             scheduledTaskService.showAddEditScheduledTaskModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> æœ‰åŠ¹åŒ–ã®åˆ‡ã‚Šæ›¿ãˆ</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> —LŒø‰»‚ÌØ‚è‘Ö‚¦</a>`,
                         click: function () {
                             scheduledTaskService.toggleScheduledTaskEnabledState(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> è¤‡è£½</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> •¡»</a>`,
                         click: function () {
                             scheduledTaskService.duplicateScheduledTask(item.id);
                         }
@@ -163,9 +163,9 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "äºˆå®šã•ã‚ŒãŸæ¼”å‡ºãƒªã‚¹ãƒˆã®å‰Šé™¤",
-                                    question: `ãƒªã‚¹ãƒˆ "${item.name}" ã‚’å‰Šé™¤ã—ã¾ã™ã‹?`,
-                                    confirmLabel: "å‰Šé™¤ã™ã‚‹",
+                                    title: "—\’è‚³‚ê‚½‰‰oƒŠƒXƒg‚Ìíœ",
+                                    question: `ƒŠƒXƒg "${item.name}" ‚ğíœ‚µ‚Ü‚·‚©?`,
+                                    confirmLabel: "íœ‚·‚é",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then(confirmed => {

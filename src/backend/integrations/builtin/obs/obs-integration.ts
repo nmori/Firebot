@@ -2,10 +2,10 @@ import { initRemote } from "./obs-remote";
 import { TypedEmitter } from "tiny-typed-emitter";
 import eventManager from "../../../events/EventManager";
 import {
-  Integration,
-  IntegrationController,
-  IntegrationData,
-  IntegrationEvents,
+    Integration,
+    IntegrationController,
+    IntegrationData,
+    IntegrationEvents
 } from "@crowbartools/firebot-custom-scripts-types";
 import { EventManager } from "@crowbartools/firebot-custom-scripts-types/types/modules/event-manager";
 import logger from "../../../logwrapper";
@@ -33,6 +33,16 @@ import { SceneCollectionNameVariable } from "./variables/scene-collection-name-v
 import { IsStreamingVariable } from "./variables/is-streaming";
 import { IsRecordingVariable } from "./variables/is-recording";
 import { ColorValueVariable } from "./variables/obs-color-value";
+import { SceneItemIdVariable } from "./variables/scene-item-id";
+import { SceneItemNameVariable } from "./variables/scene-item-name";
+import { SceneItemEnabledVariable } from "./variables/scene-item-enabled";
+import { TransitionNameVariable } from "./variables/transition-name";
+import { TransitionDurationVariable } from "./variables/transition-duration";
+import { ReplayBufferPathVariable } from "./variables/replay-buffer-path";
+import { ProfileNameVariable } from "./variables/profile-name";
+import { VendorNameVariable } from "./variables/vendor-name";
+import { VendorEventTypeVariable } from "./variables/vendor-event-type";
+import { VendorEventDataVariable } from "./variables/vendor-event-data";
 import { setupFrontendListeners } from "./communicator";
 import effectManager from "../../../effects/effectManager";
 import eventFilterManager from "../../../events/filters/filter-manager";
@@ -40,146 +50,168 @@ import replaceVariableManager from "../../../variables/replace-variable-manager"
 import * as frontendCommunicator from "../../../common/frontend-communicator";
 
 type ObsSettings = {
-  websocketSettings: {
-    ipAddress: string;
-    port: number;
-    password: string;
-  };
-  misc: {
-    logging: boolean;
-  };
+    websocketSettings: {
+        ipAddress: string;
+        port: number;
+        password: string;
+    };
+    misc: {
+        logging: boolean;
+    };
 };
 
 class IntegrationEventEmitter extends TypedEmitter<IntegrationEvents> {}
 
 class ObsIntegration
-  extends IntegrationEventEmitter
-  implements IntegrationController<ObsSettings>
-{
-  connected = false;
+    extends IntegrationEventEmitter
+    implements IntegrationController<ObsSettings> {
+    connected = false;
+    private _isConfigured = false;
 
-  constructor(private readonly eventManager: EventManager) {
-    super();
-  }
+    constructor(private readonly eventManager: EventManager) {
+        super();
 
-  private setupConnection(settings?: ObsSettings) {
-    if (!settings) {
-      return;
+        frontendCommunicator.on(
+            "obs-is-configured",
+            () => this._isConfigured
+        );
     }
-    const {
-      websocketSettings: { ipAddress, password, port },
-      misc: { logging },
-    } = settings;
-    initRemote(
-      {
-        ip: ipAddress,
-        port,
-        password,
-        logging,
-        forceConnect: true,
-      },
-      {
-        eventManager: this.eventManager,
-      }
-    );
-  }
 
-  init(
-    linked: boolean,
-    integrationData: IntegrationData<ObsSettings>
-  ): void | PromiseLike<void> {
-    logger.info("Starting OBS Control...");
+    private setupConnection(settings?: ObsSettings) {
+        if (!settings) {
+            this._isConfigured = false;
+            return;
+        }
+        const {
+            websocketSettings: { ipAddress, password, port },
+            misc: { logging }
+        } = settings;
 
-    setupFrontendListeners(frontendCommunicator);
+        this._isConfigured = (
+            ipAddress != null && ipAddress !== ""
+            && port != null
+            && password != null && password !== ""
+        );
+        initRemote(
+            {
+                ip: ipAddress,
+                port,
+                password,
+                logging,
+                forceConnect: true
+            },
+            {
+                eventManager: this.eventManager
+            }
+        );
+    }
 
-    effectManager.registerEffect(ChangeSceneEffectType);
-    effectManager.registerEffect(ChangeSceneCollectionEffectType);
-    effectManager.registerEffect(ToggleSourceVisibilityEffectType);
-    effectManager.registerEffect(ToggleSourceFilterEffectType);
-    effectManager.registerEffect(ToggleSourceMutedEffectType);
-    effectManager.registerEffect(StartStreamEffectType);
-    effectManager.registerEffect(StopStreamEffectType);
-    effectManager.registerEffect(StartVirtualCamEffectType);
-    effectManager.registerEffect(StopVirtualCamEffectType);
-    effectManager.registerEffect(SaveReplayBufferEffectType);
-    effectManager.registerEffect(SetOBSSourceTextEffectType);
-    effectManager.registerEffect(SetOBSBrowserSourceUrlEffectType);
-    effectManager.registerEffect(SetOBSImageSourceFileEffectType);
-    effectManager.registerEffect(SetOBSMediaSourceFileEffectType);
-    effectManager.registerEffect(SetOBSColorSourceColorEffectType);
-    effectManager.registerEffect(SendRawOBSWebSocketRequestEffectType);
-    effectManager.registerEffect(TakeOBSSourceScreenshotEffectType);
+    init(
+        linked: boolean,
+        integrationData: IntegrationData<ObsSettings>
+    ): void | PromiseLike<void> {
+        logger.info("Starting OBS Control...");
 
-    eventManager.registerEventSource(OBSEventSource);
+        setupFrontendListeners(frontendCommunicator);
 
-    eventFilterManager.registerFilter(SceneNameEventFilter);
+        effectManager.registerEffect(ChangeSceneEffectType);
+        effectManager.registerEffect(ChangeSceneCollectionEffectType);
+        effectManager.registerEffect(ToggleSourceVisibilityEffectType);
+        effectManager.registerEffect(ToggleSourceFilterEffectType);
+        effectManager.registerEffect(ToggleSourceMutedEffectType);
+        effectManager.registerEffect(StartStreamEffectType);
+        effectManager.registerEffect(StopStreamEffectType);
+        effectManager.registerEffect(StartVirtualCamEffectType);
+        effectManager.registerEffect(StopVirtualCamEffectType);
+        effectManager.registerEffect(SaveReplayBufferEffectType);
+        effectManager.registerEffect(SetOBSSourceTextEffectType);
+        effectManager.registerEffect(SetOBSBrowserSourceUrlEffectType);
+        effectManager.registerEffect(SetOBSImageSourceFileEffectType);
+        effectManager.registerEffect(SetOBSMediaSourceFileEffectType);
+        effectManager.registerEffect(SetOBSColorSourceColorEffectType);
+        effectManager.registerEffect(SendRawOBSWebSocketRequestEffectType);
+        effectManager.registerEffect(TakeOBSSourceScreenshotEffectType);
 
-    replaceVariableManager.registerReplaceVariable(SceneNameVariable);
-    replaceVariableManager.registerReplaceVariable(SceneCollectionNameVariable);
-    replaceVariableManager.registerReplaceVariable(IsStreamingVariable);
-    replaceVariableManager.registerReplaceVariable(IsRecordingVariable);
-    replaceVariableManager.registerReplaceVariable(ColorValueVariable);
+        eventManager.registerEventSource(OBSEventSource);
 
-    this.setupConnection(integrationData.userSettings);
-  }
+        eventFilterManager.registerFilter(SceneNameEventFilter);
 
-  onUserSettingsUpdate?(
-    integrationData: IntegrationData<ObsSettings>
-  ): void | PromiseLike<void> {
-    this.setupConnection(integrationData.userSettings);
-  }
+        replaceVariableManager.registerReplaceVariable(SceneNameVariable);
+        replaceVariableManager.registerReplaceVariable(SceneCollectionNameVariable);
+        replaceVariableManager.registerReplaceVariable(IsStreamingVariable);
+        replaceVariableManager.registerReplaceVariable(IsRecordingVariable);
+        replaceVariableManager.registerReplaceVariable(ColorValueVariable);
+        replaceVariableManager.registerReplaceVariable(SceneItemIdVariable);
+        replaceVariableManager.registerReplaceVariable(SceneItemNameVariable);
+        replaceVariableManager.registerReplaceVariable(SceneItemEnabledVariable);
+        replaceVariableManager.registerReplaceVariable(TransitionNameVariable);
+        replaceVariableManager.registerReplaceVariable(TransitionDurationVariable);
+        replaceVariableManager.registerReplaceVariable(ReplayBufferPathVariable);
+        replaceVariableManager.registerReplaceVariable(ProfileNameVariable);
+        replaceVariableManager.registerReplaceVariable(VendorNameVariable);
+        replaceVariableManager.registerReplaceVariable(VendorEventTypeVariable);
+        replaceVariableManager.registerReplaceVariable(VendorEventDataVariable);
+
+        this.setupConnection(integrationData.userSettings);
+    }
+
+    onUserSettingsUpdate?(
+        integrationData: IntegrationData<ObsSettings>
+    ): void | PromiseLike<void> {
+        this.setupConnection(integrationData.userSettings);
+    }
 }
 
 const integrationConfig: Integration<ObsSettings> = {
-  definition: {
-    id: "OBS",
-    name: "OBS",
-    description:
-      "OBSã«æ¥ç¶šã—ã€FirebotãŒã‚·ãƒ¼ãƒ³ã®å¤‰æ›´ã€ã‚½ãƒ¼ã‚¹ã‚„ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ã®åˆ‡ã‚Šæ›¿ãˆãªã©ã‚’è¡Œãˆã‚‹ã‚ˆã†ã«ã—ã¾ã™ã€‚OBS 28ä»¥é™ã«å¯¾å¿œã—ã¦ãŠã‚Šã€obs-websocket v5ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è¨­å®šãŒå¿…è¦ã§ã™ã€‚",
+    definition: {
+        id: "OBS",
+        name: "OBS",
+        description:
+      "OBS‚ÉÚ‘±‚µAFirebot‚ªƒV[ƒ“‚Ì•ÏXAƒ\[ƒX‚âƒtƒBƒ‹ƒ^[‚ÌØ‚è‘Ö‚¦‚È‚Ç‚ğs‚¦‚é‚æ‚¤‚É‚µ‚Ü‚·BOBS 28ˆÈ~‚É‘Î‰‚µ‚Ä‚¨‚èAobs-websocket v5ƒvƒ‰ƒOƒCƒ“‚Ìİ’è‚ª•K—v‚Å‚·B",
     linkType: "none",
     configurable: true,
     connectionToggle: false,
     settingCategories: {
       websocketSettings: {
-        title: "Websocket è¨­å®š",
+        title: "Websocket İ’è",
         sortRank: 1,
         settings: {
           ipAddress: {
-            title: "IP ã‚¢ãƒ‰ãƒ¬ã‚¹",
+            title: "IP ƒAƒhƒŒƒX",
             description:
-              "OBSã‚’å®Ÿè¡Œã—ã¦ã„ã‚‹ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã®IPã‚¢ãƒ‰ãƒ¬ã‚¹ã€‚åŒã˜ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã®å ´åˆã¯'localhost'ã‚’ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚",
+              "OBS‚ğÀs‚µ‚Ä‚¢‚éƒRƒ“ƒsƒ…[ƒ^‚ÌIPƒAƒhƒŒƒXB“¯‚¶ƒRƒ“ƒsƒ…[ƒ^‚Ìê‡‚Í'localhost'‚ğg—p‚µ‚Ä‚­‚¾‚³‚¢B",
             type: "string",
             default: "localhost",
           },
           port: {
-            title: "é€šä¿¡ãƒãƒ¼ãƒˆ",
+            title: "’ÊMƒ|[ƒg",
             description:
-              "OBS Websocket ãŒå‹•ä½œã—ã¦ã„ã‚‹ãƒãƒ¼ãƒˆã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯4455ã§ã™ã€‚",
+              "OBS Websocket ‚ª“®ì‚µ‚Ä‚¢‚éƒ|[ƒgBƒfƒtƒHƒ‹ƒg‚Í4455‚Å‚·B",
             type: "number",
             default: 4455,
           },
           password: {
-            title: "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰",
-            description: "OBS Websocketã«è¨­å®šã•ã‚ŒãŸãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰.",
+            title: "ƒpƒXƒ[ƒh",
+            description: "OBS Websocket‚Éİ’è‚³‚ê‚½ƒpƒXƒ[ƒh.",
             type: "password",
             default: "",
           },
         },
       },
       misc: {
-        title: "ä¸€èˆ¬",
+        title: "ˆê”Ê",
         sortRank: 2,
         settings: {
           logging: {
-            title: "OBSã‚¨ãƒ©ãƒ¼ãƒ­ã‚°ã®è¨˜éŒ²ã‚’æœ‰åŠ¹ã«ã™ã‚‹",
+            title: "OBSƒGƒ‰[ƒƒO‚Ì‹L˜^‚ğ—LŒø‚É‚·‚é",
             type: "boolean",
             default: false,
           },
         },
       },
+        }
     },
-  },
-  integration: new ObsIntegration(eventManager),
+    integration: new ObsIntegration(eventManager)
 };
 
 export const definition = integrationConfig.definition;

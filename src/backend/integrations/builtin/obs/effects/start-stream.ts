@@ -4,24 +4,24 @@ import { startStreaming } from "../obs-remote";
 export const StartStreamEffectType: EffectType<{}> = {
   definition: {
     id: "ebiggz:obs-start-stream",
-    name: "é…ä¿¡ã‚’é–‹å§‹",
-    description: "OBSã«é…ä¿¡é–‹å§‹ã‚’æŒ‡ç¤ºã—ã¾ã™",
+    name: "”zM‚ğŠJn",
+    description: "OBS‚É”zMŠJn‚ğw¦‚µ‚Ü‚·",
     icon: "fad fa-play-circle",
     categories: ["common"],
   },
   optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>è­¦å‘Š!</b> ã“ã®æ¼”å‡ºãŒæœ‰åŠ¹ã«ãªã‚‹ã¨ã€Firebotã¯OBSã«ã‚¹ãƒˆãƒªãƒ¼ãƒŸãƒ³ã‚°ã‚’é–‹å§‹ã™ã‚‹ã‚ˆã†æŒ‡ç¤ºã—ã¾ã™ã€‚èª¤é…ä¿¡ã«æ³¨æ„ã—ã¦ãã ã•ã„ã€‚
+        <b>Œx!</b> ‚±‚Ì‰‰o‚ª—LŒø‚É‚È‚é‚ÆAFirebot‚ÍOBS‚ÉƒXƒgƒŠ[ƒ~ƒ“ƒO‚ğŠJn‚·‚é‚æ‚¤w¦‚µ‚Ü‚·BŒë”zM‚É’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢B
       </div>
     </eos-container>
   `,
-  optionsController: () => {},
-  optionsValidator: () => {
-    return [];
-  },
-  onTriggerEvent: async () => {
-    startStreaming();
-    return true;
-  },
+    optionsController: () => {},
+    optionsValidator: () => {
+        return [];
+    },
+    onTriggerEvent: async () => {
+        startStreaming();
+        return true;
+    }
 };

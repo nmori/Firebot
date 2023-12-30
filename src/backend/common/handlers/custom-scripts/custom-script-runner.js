@@ -41,7 +41,7 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
         }
         customScript = require(scriptFilePath);
     } catch (error) {
-        renderWindow.webContents.send("error", `${scriptName}'ã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ \n\n ${error}`);
+        renderWindow.webContents.send("error", `${scriptName}'‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñ \n\n ${error}`);
         logger.error(error);
         return;
     }
@@ -50,14 +50,14 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
     if (typeof customScript.run !== "function") {
         renderWindow.webContents.send(
             "error",
-            `'${scriptName}'ã‚’å®Ÿè¡Œã§ãã¾ã›ã‚“ã€‚ã‚¹ã‚¯ãƒªãƒ—ãƒˆã« 'run' é–¢æ•°ãŒå«ã¾ã‚Œã¦ã„ã¾ã›ã‚“ã€‚`
+            `'${scriptName}'‚ğÀs‚Å‚«‚Ü‚¹‚ñBƒXƒNƒŠƒvƒg‚É 'run' ŠÖ”‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñB`
         );
         return;
     }
 
     const manifest = {
-        name: "ä¸æ˜ãªã‚¹ã‚¯ãƒªãƒ—ãƒˆ",
-        version: "ä¸æ˜ãªãƒãƒ¼ã‚¸ãƒ§ãƒ³",
+        name: "•s–¾‚ÈƒXƒNƒŠƒvƒg",
+        version: "•s–¾‚Èƒo[ƒWƒ‡ƒ“",
         startupOnly: false
     };
 
@@ -74,7 +74,7 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
     if (manifest.startupOnly && !isStartupScript) {
         renderWindow.webContents.send(
             "error",
-            `ã‚¹ã‚¯ãƒªãƒ—ãƒˆã€Œ${manifest.name}ã€ã¯ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—å°‚ç”¨ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ã™ã€‚Firebotã®ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—ä»¥å¤–ã§ã¯å®Ÿè¡Œã§ãã¾ã›ã‚“ã€‚`
+            `ƒXƒNƒŠƒvƒgu${manifest.name}v‚ÍƒXƒ^[ƒgƒAƒbƒvê—pƒXƒNƒŠƒvƒg‚Å‚·BFirebot‚ÌƒXƒ^[ƒgƒAƒbƒvˆÈŠO‚Å‚ÍÀs‚Å‚«‚Ü‚¹‚ñB`
         );
         return;
     }
@@ -96,7 +96,7 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
 
     if (!response.success) {
         logger.error("Script failed with message:", response.errorMessage);
-        renderWindow.webContents.send("error", "ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®å®Ÿè¡Œã«å¤±æ•—ã—ã¾ã—ãŸï¼š " + response.errorMessage);
+        renderWindow.webContents.send("error", "ƒXƒNƒŠƒvƒg‚ÌÀs‚É¸”s‚µ‚Ü‚µ‚½F " + response.errorMessage);
         return;
     }
 
@@ -162,7 +162,7 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
  */
 async function runStartUpScript(startUpScriptConfig) {
     const { scriptName } = startUpScriptConfig;
-    logger.debug("running startup script: " + scriptName);
+    logger.debug(`running startup script: ${scriptName}`);
 
     if (!settings.isCustomScriptsEnabled()) {
         logger.warn("Attempted to run startup script but custom scripts are disabled.");
@@ -221,12 +221,12 @@ async function startUpScriptDeleted(startUpScriptConfig) {
 function runScript(effect, trigger) {
     const { scriptName } = effect;
 
-    logger.debug("running script: " + scriptName);
+    logger.debug(`running script: ${scriptName}`);
 
     if (!settings.isCustomScriptsEnabled()) {
         renderWindow.webContents.send(
             "error",
-            "ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®å®Ÿè¡Œã‚’è©¦ã¿ã¾ã—ãŸãŒã€ã“ã®æ©Ÿèƒ½ã¯ç„¡åŠ¹åŒ–ã•ã‚Œã¦ãŠã‚Šå®Ÿè¡Œã§ãã¾ã›ã‚“"
+            "ƒXƒNƒŠƒvƒg‚ÌÀs‚ğ‚İ‚Ü‚µ‚½‚ªA‚±‚Ì‹@”\‚Í–³Œø‰»‚³‚ê‚Ä‚¨‚èÀs‚Å‚«‚Ü‚¹‚ñ"
         );
         return;
     }

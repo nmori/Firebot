@@ -9,7 +9,7 @@ const model = {
         name: "Custom Role Management",
         active: true,
         trigger: "!role",
-        description: "ãƒãƒ£ãƒƒãƒˆã‹ã‚‰è¦–è´è€…ã®å½¹å‰²ã‚’ç®¡ç†ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹",
+        description: "ƒ`ƒƒƒbƒg‚©‚ç‹’®Ò‚Ì–ğŠ„‚ğŠÇ—‚Å‚«‚é‚æ‚¤‚É‚·‚é",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -32,19 +32,19 @@ const model = {
             {
                 arg: "add",
                 usage: "add @viewer roleName",
-                description: "è¦–è´è€…ã®å½¹å‰²ã‚’è¿½åŠ ä»˜ä¸ã™ã‚‹",
+                description: "‹’®Ò‚Ì–ğŠ„‚ğ’Ç‰Á•t—^‚·‚é",
                 minArgs: 3
             },
             {
                 arg: "remove",
                 usage: "remove @viewer roleName",
-                description: "è¦–è´è€…ã®å½¹å‰²ã‚’å¤–ã™",
+                description: "‹’®Ò‚Ì–ğŠ„‚ğŠO‚·",
                 minArgs: 3
             },
             {
                 arg: "list",
                 usage: "list [@viewer]",
-                description: "è¦–è´è€…ã®å½¹å‰²ã‚’ãƒªã‚¹ãƒˆè¡¨ç¤ºã™ã‚‹"
+                description: "‹’®Ò‚Ì–ğŠ„‚ğƒŠƒXƒg•\¦‚·‚é"
             }
         ]
     },
@@ -56,7 +56,7 @@ const model = {
         const { args, triggeredArg } = event.userCommand;
 
         if (args.length < 1) {
-            await chat.sendChatMessage("ã‚³ãƒãƒ³ãƒ‰ã®ä½¿ã„æ–¹ãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“");
+            await chat.sendChatMessage("ƒRƒ}ƒ“ƒh‚Ìg‚¢•û‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ");
             return;
         }
 
@@ -65,48 +65,49 @@ const model = {
             const roleName = args.slice(2);
             const role = customRoleManager.getRoleByName(roleName);
             if (role == null) {
-                await chat.sendChatMessage("ãã®å½¹å‰²åã¯ã¿ã¤ã‹ã‚Šã¾ã›ã‚“");
+                await chat.sendChatMessage("‚»‚Ì–ğŠ„–¼‚Í‚İ‚Â‚©‚è‚Ü‚¹‚ñ");
             } else {
                 const username = args[1].replace("@", "");
                 customRoleManager.addViewerToRole(role.id, username);
-                await chat.sendChatMessage(`${username} ã«å½¹å‰² ${role.name} ã‚’ä»˜ä¸ã—ã¾ã—ãŸ `);
+                await chat.sendChatMessage(`${username} ‚É–ğŠ„ ${role.name} ‚ğ•t—^‚µ‚Ü‚µ‚½ `);
             }
-            break;
-        }
-        case "remove": {
-            const roleName = args.slice(2);
-            const role = customRoleManager.getRoleByName(roleName);
-            if (role == null) {
-                await chat.sendChatMessage("ãã®å½¹å‰²åã¯ã¿ã¤ã‹ã‚Šã¾ã›ã‚“");
-            } else {
-                const username = args[1].replace("@", "");
-                customRoleManager.removeViewerFromRole(role.id, username);
-                await chat.sendChatMessage(`${username} ã®å½¹å‰² ${role.name} ã‚’å¤–ã—ã¾ã—ãŸ`);
-            }
-            break;
-        }
-        case "list": {
-            if (args.length > 1) {
-                const username = args[1].replace("@", "");
-                const roleNames = customRoleManager.getAllCustomRolesForViewer(username).map(r => r.name);
-                if (roleNames.length < 1) {
-                    await chat.sendChatMessage(`${username} ã«ã¯å½¹å‰²ãŒä»˜ä¸ã•ã‚Œã¦ã„ã¾ã›ã‚“`);
+            case "remove": {
+                const roleName = args.slice(2);
+                const role = customRoleManager.getRoleByName(roleName);
+                if (role == null) {
+                    await chat.sendChatMessage("Can't find a role by that name.");
                 } else {
-                    await chat.sendChatMessage(`${username}' ã®å½¹å‰²: ${roleNames.join(", ")}`);
+                    const username = args[1].replace("@", "");
+                    customRoleManager.removeViewerFromRole(role.id, username);
+                    await chat.sendChatMessage(`Removed role ${role.name} from ${username}`);
                 }
+                break;
+            }
+            case "list": {
+                if (args.length > 1) {
+                    const username = args[1].replace("@", "");
+                    const roleNames = customRoleManager.getAllCustomRolesForViewer(username).map(r => r.name);
+                    if (roleNames.length < 1) {
+                        await chat.sendChatMessage(`${username} has no custom roles assigned.`);
+                    } else {
+                        await chat.sendChatMessage(`${username}'s custom roles: ${roleNames.join(", ")}`);
+                    }
 
-            } else {
-                const roleNames = customRoleManager.getCustomRoles().map(r => r.name);
-                if (roleNames.length < 1) {
-                    await chat.sendChatMessage(`å½¹å‰²ã®å‰²å½“ã¯ã‚ã‚Šã¾ã›ã‚“`);
                 } else {
-                    await chat.sendChatMessage(`åˆ©ç”¨å¯èƒ½ãªå½¹å‰²å: ${roleNames.join(", ")}`);
+                    const roleNames = customRoleManager.getCustomRoles().map(r => r.name);
+                    if (roleNames.length < 1) {
+                        await chat.sendChatMessage(`There are no custom roles available.`);
+                    } else {
+                        await chat.sendChatMessage(`Available custom roles: ${roleNames.join(", ")}`);
+                    }
                 }
+                break;
             }
-            break;
+            default:
+                await chat.sendChatMessage("Incorrect command usage!");
         }
         default:
-            await chat.sendChatMessage("ã‚³ãƒãƒ³ãƒ‰ã®ä½¿ã„æ–¹ãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“");
+            await chat.sendChatMessage("ƒRƒ}ƒ“ƒh‚Ìg‚¢•û‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ");
         }
     }
 };

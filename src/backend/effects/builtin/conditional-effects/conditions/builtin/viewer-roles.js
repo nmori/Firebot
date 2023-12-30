@@ -4,11 +4,11 @@ const { viewerHasRoles } = require("../../../../../roles/role-helpers");
 
 module.exports = {
     id: "firebot:viewerroles",
-    name: "è¦–è´è€…ã®å½¹å‰²",
-    description: "ä¸ãˆã‚‰ã‚ŒãŸè¦–è´è€…ã®å½¹å‰²ã«åŸºã¥ãæ¡ä»¶",
-    comparisonTypes: ["å½¹å‰²ã‚’æ‹…å½“", "å½¹å‰²ã‚’æ‹…å½“ã—ã¦ã„ãªã„"],
+    name: "‹’®Ò‚Ì–ğŠ„",
+    description: "—^‚¦‚ç‚ê‚½‹’®Ò‚Ì–ğŠ„‚ÉŠî‚Ã‚­ğŒ",
+    comparisonTypes: ["–ğŠ„‚ğ’S“–", "–ğŠ„‚ğ’S“–‚µ‚Ä‚¢‚È‚¢"],
     leftSideValueType: "text",
-    leftSideTextPlaceholder: "ãƒ¦ãƒ¼ã‚¶åã‚’å…¥åŠ›",
+    leftSideTextPlaceholder: "ƒ†[ƒU–¼‚ğ“ü—Í",
     rightSideValueType: "preset",
     getRightSidePresetValues: viewerRolesService => {
         return viewerRolesService.getAllRoles()
@@ -35,10 +35,10 @@ module.exports = {
     },
     predicate: async (conditionSettings, trigger) => {
 
-        const { comparisonType, leftSideValue, rightSideValue } = conditionSettings;
+        const { comparisonType, leftSideValue, rightSideValue, rawLeftSideValue } = conditionSettings;
 
         let username = leftSideValue;
-        if (username == null || username === "") {
+        if ((username == null || username === "") && (rawLeftSideValue == null || rawLeftSideValue === "")) {
             username = trigger.metadata.username;
         }
 
@@ -48,12 +48,12 @@ module.exports = {
         case "include":
         case "is in role":
         case "has role":
-        case "å½¹å‰²ã‚’æ‹…å½“":
+        case "–ğŠ„‚ğ’S“–":
             return hasRole;
         case "doesn't include":
         case "isn't in role":
         case "doesn't have role":
-        case "å½¹å‰²ã‚’æ‹…å½“ã—ã¦ã„ãªã„":
+        case "–ğŠ„‚ğ’S“–‚µ‚Ä‚¢‚È‚¢":
             return !hasRole;
         default:
             return false;

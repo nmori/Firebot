@@ -10,10 +10,10 @@ triggers[EffectTrigger.MANUAL] = true;
 
 module.exports = {
     id: "firebot:command-args-count",
-    name: "ã‚³ãƒãƒ³ãƒ‰å¼•æ•°ã‚«ã‚¦ãƒ³ãƒˆ",
-    description: "ã‚³ãƒãƒ³ãƒ‰ã®å¼•æ•°ã®æ•°ã«åŸºã¥ãæ¡ä»¶",
+    name: "ƒRƒ}ƒ“ƒhˆø”ƒJƒEƒ“ƒg",
+    description: "ƒRƒ}ƒ“ƒh‚Ìˆø”‚Ì”‚ÉŠî‚Ã‚­ğŒ",
     triggers: triggers,
-    comparisonTypes: ["ä¸€è‡´", "ä¸ä¸€è‡´", "æœªæº€", "ã‚ˆã‚Šä¸Š"],
+    comparisonTypes: ["ˆê’v", "•sˆê’v", "–¢–", "‚æ‚èã"],
     leftSideValueType: "none",
     rightSideValueType: "number",
     predicate: (conditionSettings, trigger) => {
@@ -26,16 +26,16 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
-        case "ä¸€è‡´":
+        case "ˆê’v":
             return argsCount === rightSideValue;
         case "is not":
-        case "ä¸ä¸€è‡´":
+        case "•sˆê’v":
             return argsCount !== rightSideValue;
         case "is less than":
-        case "æœªæº€":
+        case "–¢–":
             return argsCount < rightSideValue;
         case "is greater than":
-        case "ã‚ˆã‚Šä¸Š":
+        case "‚æ‚èã":
             return argsCount > rightSideValue;
         default:
             return false;

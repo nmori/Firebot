@@ -1,7 +1,7 @@
 "use strict";
 
 (function() {
-    const fs = require("fs-extra");
+    const fs = require("fs");
 
     angular
         .module('firebotApp')
@@ -17,7 +17,7 @@
             <eos-container header="Script">
 
                 <div class="effect-info alert alert-info">
-                    Place scripts in the <a id="scriptFolderBtn" ng-click="openScriptsFolder()" style="text-decoration:underline;color:#53afff;cursor:pointer;">ã‚¹ã‚¯ãƒªãƒ—ãƒˆãƒ•ã‚©ãƒ«ãƒ€</a>ã«ã‚ã‚‹ã€Firebotã®ãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šæ ã§ã€é¸æŠè‚¢ã‚’æ›´æ–°ã—ã¦ãã ã•ã„ã€‚
+                    Place scripts in the <a id="scriptFolderBtn" ng-click="openScriptsFolder()" style="text-decoration:underline;color:#53afff;cursor:pointer;">ƒXƒNƒŠƒvƒgƒtƒHƒ‹ƒ_</a>‚É‚ ‚éAFirebot‚Ìƒ†[ƒU[İ’è˜g‚ÅA‘I‘ğˆ‚ğXV‚µ‚Ä‚­‚¾‚³‚¢B
                 </div>
 
                 <div class="btn-group">
@@ -27,7 +27,7 @@
                     <a ng-click="getNewScripts()" id="refreshScriptList" style="padding-left:5px;height:100%;cursor:pointer;"><i class="far fa-sync" id="refreshIcon" style="margin-top:10px;" aria-hidden="true"></i></a>
                     <ul class="dropdown-menu script-dropdown">
                         <li ng-show="scriptArray.length == 0" class="muted">
-                            <a href>ã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒã‚ã‚Šã¾ã›ã‚“</a>
+                            <a href>ƒXƒNƒŠƒvƒg‚ª‚ ‚è‚Ü‚¹‚ñ</a>
                         </li>
                         <li ng-repeat="script in scriptArray" ng-click="selectScript(script)">
                             <a href>{{script}}</a>
@@ -38,18 +38,18 @@
 
             <eos-container ng-show="effect.scriptName != null" pad-top="true">
                 <div ng-if="scriptManifest != null" style="padding-bottom:10px;">
-                    <div class="script-name">{{scriptManifest.name ? scriptManifest.name : "åç„¡ã—"}} <span class="script-version muted">{{scriptManifest.version ? scriptManifest.version : "ä¸æ˜"}}</span></div>
-                    <div style="font-size: 13px;">by <span class="script-author">{{scriptManifest.author ? scriptManifest.author : "ä¸æ˜"}}</span><span ng-if="scriptManifest.website" class="script-website"> (<a ng-click="openScriptsWebsite()" class="clickable">{{scriptManifest.website}}</a>)</span><span></span></div>
+                    <div class="script-name">{{scriptManifest.name ? scriptManifest.name : "–¼–³‚µ"}} <span class="script-version muted">{{scriptManifest.version ? scriptManifest.version : "•s–¾"}}</span></div>
+                    <div style="font-size: 13px;">by <span class="script-author">{{scriptManifest.author ? scriptManifest.author : "•s–¾"}}</span><span ng-if="scriptManifest.website" class="script-website"> (<a ng-click="openScriptsWebsite()" class="clickable">{{scriptManifest.website}}</a>)</span><span></span></div>
                     <div class="script-description">{{scriptManifest.description}}</div>
                 </div>
             </eos-container>
 
             <eos-container header="Script Options" ng-show="effect.scriptName != null">
                 <div ng-show="isLoadingParameters">
-                    è¨­å®šã‚’èª­è¾¼ä¸­...
+                    İ’è‚ğ“Ç’†...
                 </div>
                 <div ng-hide="isLoadingParameters">
-                    <span ng-hide="scriptHasParameters()" class="muted">ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã«ã¯è¨­å®šãŒã‚ã‚Šã¾ã›ã‚“.</span>
+                    <span ng-hide="scriptHasParameters()" class="muted">‚±‚ÌƒXƒNƒŠƒvƒg‚É‚Íİ’è‚ª‚ ‚è‚Ü‚¹‚ñ.</span>
                     <div ng-show="scriptHasParameters()">
                         <script-parameter-option ng-repeat="(parameterName, parameterMetadata) in effect.parameters"
                         name="parameterName"
@@ -63,7 +63,7 @@
 
             <eos-container>
                 <div class="effect-info alert alert-danger">
-                    <strong>æ³¨æ„:</strong> ã‚ãªãŸãŒä¿¡é ¼ã§ãã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆä»¥å¤–ã€ä½¿ç”¨ã—ã¦ã¯ã„ã‘ã¾ã›ã‚“
+                    <strong>’ˆÓ:</strong> ‚ ‚È‚½‚ªM—Š‚Å‚«‚éƒXƒNƒŠƒvƒgˆÈŠOAg—p‚µ‚Ä‚Í‚¢‚¯‚Ü‚¹‚ñ
                 </div>
             </eos-container>
             `,
@@ -93,7 +93,7 @@
                         }
 
                         if ($scope.scriptManifest != null && $scope.scriptManifest.startupOnly && !$ctrl.allowStartup) {
-                            utilityService.showInfoModal(`ã‚¹ã‚¯ãƒªãƒ—ãƒˆ '${$scope.effect.scriptName}' ã‚’ãƒ­ãƒ¼ãƒ‰ã§ãã¾ã›ã‚“ã€‚ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¯èµ·å‹•æ™‚ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¨ã—ã¦ã®ã¿åˆ©ç”¨å¯èƒ½ã§ã™ã€‚ (è¨­å®š > å¿œç”¨ > èµ·å‹•æ™‚ã‚¹ã‚¯ãƒªãƒ—ãƒˆ`);
+                            utilityService.showInfoModal(`ƒXƒNƒŠƒvƒg '${$scope.effect.scriptName}' ‚ğƒ[ƒh‚Å‚«‚Ü‚¹‚ñB‚±‚ÌƒXƒNƒŠƒvƒg‚Í‹N“®ƒXƒNƒŠƒvƒg‚Æ‚µ‚Ä‚Ì‚İ—˜—p‰Â”\‚Å‚·B (İ’è > ‰—p > ‹N“®ƒXƒNƒŠƒvƒg`);
                             $scope.effect.scriptName = undefined;
                             $scope.effect.parameters = undefined;
                             $scope.scriptManifest = undefined;
@@ -105,7 +105,7 @@
                         }
 
                         if (!initialLoad && ($scope.scriptManifest == null || $scope.scriptManifest.firebotVersion !== "5")) {
-                            utilityService.showInfoModal("ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¯Firebot V5ç”¨ã«è¨­è¨ˆã•ã‚Œã¦ã„ãªã„ãŸã‚ã€æœŸå¾…é€šã‚Šã«æ©Ÿèƒ½ã—ãªã„å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚ã‚µãƒãƒ¼ãƒˆãŒå¿…è¦ãªå ´åˆã¯ã€Discordã¾ãŸã¯X(æ—§Twitter)ã§ã”ç›¸è«‡ãã ã•ã„ã€‚");
+                            utilityService.showInfoModal("‚±‚ÌƒXƒNƒŠƒvƒg‚ÍFirebot V5—p‚ÉİŒv‚³‚ê‚Ä‚¢‚È‚¢‚½‚ßAŠú‘Ò’Ê‚è‚É‹@”\‚µ‚È‚¢‰Â”\«‚ª‚ ‚è‚Ü‚·BƒTƒ|[ƒg‚ª•K—v‚Èê‡‚ÍADiscord‚Ü‚½‚ÍX(‹ŒTwitter)‚Å‚²‘Š’k‚­‚¾‚³‚¢B");
                         }
 
                         const currentParameters = $scope.effect.parameters;
@@ -154,7 +154,7 @@
                             $scope.isLoadingParameters = false;
                         }
                     } catch (err) {
-                        utilityService.showErrorModal("ã‚¹ã‚¯ãƒªãƒ—ãƒˆ '" + scriptName + "'ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚\n\n" + err);
+                        utilityService.showErrorModal("ƒXƒNƒŠƒvƒg '" + scriptName + "'‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½B\n\n" + err);
                         logger.error(err);
                     }
                 }

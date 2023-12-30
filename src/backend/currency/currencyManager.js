@@ -52,7 +52,7 @@ function applyCurrency() {
         const chatConnected = twitchChat.chatIsConnected;
         if (intervalMod === 0 && currency.active && chatConnected) {
             // do payout
-            logger.info("Currency: Paying out " + basePayout + " " + currency.name + ".");
+            logger.info(`Currency: Paying out ${basePayout} ${currency.name}.`);
 
             processCurrencyTimer(currency, basePayout);
         } else if (!chatConnected) {
@@ -109,11 +109,11 @@ function createCurrencyCommandDefinition(currency) {
     // Define our command.
     const commandManagement = {
         definition: {
-            id: "firebot:currency:" + currencyId,
-            name: currencyName + "ã‚’ç®¡ç†",
+            id: `firebot:currency:${currencyId}`,
+            name: currencyName + "‚ğŠÇ—",
             active: true,
-            trigger: "!" + cleanName,
-            description: currencyName + " ã®ç®¡ç†ã‚’ã—ã¾ã™ã€‚",
+            trigger: `!${cleanName}`,
+            description: `"${currencyName}" ‚ÌŠÇ—‚ğ‚µ‚Ü‚·B`,
             autoDeleteTrigger: false,
             scanWholeMessage: false,
             currency: {
@@ -124,51 +124,51 @@ function createCurrencyCommandDefinition(currency) {
                 user: 0,
                 global: 0
             },
-            baseCommandDescription: "æ®‹é«˜ã‚’ç¢ºèª",
+            baseCommandDescription: "c‚‚ğŠm”F",
             options: {
                 currencyBalanceMessageTemplate: {
                     type: "string",
-                    title: "æ®‹é«˜ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ",
-                    description: "ãƒãƒ£ãƒƒãƒˆã«è¡¨ç¤ºã•ã‚Œã‚‹æ®‹é«˜ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸",
-                    tip: "å¤‰æ•°: {user}, {currency}, {amount}",
-                    default: `{user}ã•ã‚“ã® {currency} æ®‹é«˜ã¯ {amount}ã§ã™`,
+                    title: "c‚ƒƒbƒZ[ƒW‚Ìƒeƒ“ƒvƒŒ[ƒg",
+                    description: "ƒ`ƒƒƒbƒg‚É•\¦‚³‚ê‚éc‚ƒƒbƒZ[ƒW",
+                    tip: "•Ï”: {user}, {currency}, {amount}",
+                    default: `{user}‚³‚ñ‚Ì {currency} c‚‚Í {amount}‚Å‚·`,
                     useTextArea: true
                 },
                 whisperCurrencyBalanceMessage: {
                     type: "boolean",
-                    title: "æ®‹é«˜ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ã•ã•ã‚„ã",
+                    title: "c‚ƒƒbƒZ[ƒW‚ğ‚³‚³‚â‚­",
                     default: false
                 },
                 addMessageTemplate: {
                     type: "string",
-                    title: "é€šè²¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’è¿½åŠ ",
-                    description: "é€šè²¨è¿½åŠ ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒãƒãƒ£ãƒƒãƒˆã«ã©ã®ã‚ˆã†ã«è¡¨ç¤ºã•ã‚Œã‚‹ã‹ã€‚",
-                    tip: "å¤‰æ•°: {user}, {currency}, {amount}",
-                    default: `{user} ã•ã‚“ã¯ {amount} {currency} ã‚’è¿½åŠ ã—ã¾ã—ãŸ `,
+                    title: "’Ê‰İƒƒbƒZ[ƒW‚Ìƒeƒ“ƒvƒŒ[ƒg‚ğ’Ç‰Á",
+                    description: "’Ê‰İ’Ç‰ÁƒƒbƒZ[ƒW‚ªƒ`ƒƒƒbƒg‚É‚Ç‚Ì‚æ‚¤‚É•\¦‚³‚ê‚é‚©B",
+                    tip: "•Ï”: {user}, {currency}, {amount}",
+                    default: `{user} ‚³‚ñ‚Í {amount} {currency} ‚ğ’Ç‰Á‚µ‚Ü‚µ‚½ `,
                     useTextArea: true
                 },
                 removeMessageTemplate: {
                     type: "string",
-                    title: "é€šè²¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®å‰Šé™¤",
-                    description: "!currency ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒãƒãƒ£ãƒƒãƒˆã«ã©ã®ã‚ˆã†ã«è¡¨ç¤ºã•ã‚Œã‚‹ã‹",
-                    tip: "å¤‰æ•°: {user}, {currency}, {amount}",
-                    default: `{user}ã•ã‚“ã¯ {amount} {currency} ã‚’å‰Šé™¤ã—ã¾ã—ãŸ `,
+                    title: "’Ê‰İƒƒbƒZ[ƒWƒeƒ“ƒvƒŒ[ƒg‚Ìíœ",
+                    description: "!currency ƒƒbƒZ[ƒW‚ªƒ`ƒƒƒbƒg‚É‚Ç‚Ì‚æ‚¤‚É•\¦‚³‚ê‚é‚©",
+                    tip: "•Ï”: {user}, {currency}, {amount}",
+                    default: `{user}‚³‚ñ‚Í {amount} {currency} ‚ğíœ‚µ‚Ü‚µ‚½ `,
                     useTextArea: true
                 },
                 addAllMessageTemplate: {
                     type: "string",
-                    title: "å…¨å“¡å‘ã‘é€šè²¨è¿½åŠ ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®è¿½åŠ ",
-                    description: "!currency è¿½åŠ ãŒãƒãƒ£ãƒƒãƒˆã«è¡¨ç¤ºã•ã‚Œã‚‹æ–¹æ³•",
-                    tip: "å¤‰æ•°: {currency}, {amount}",
-                    default: `å…¨å“¡ã« {amount} {currency} ãŒè¿½åŠ ã•ã‚Œã¾ã—ãŸ`,
+                    title: "‘SˆõŒü‚¯’Ê‰İ’Ç‰ÁƒƒbƒZ[ƒWƒeƒ“ƒvƒŒ[ƒg‚Ì’Ç‰Á",
+                    description: "!currency ’Ç‰Á‚ªƒ`ƒƒƒbƒg‚É•\¦‚³‚ê‚é•û–@",
+                    tip: "•Ï”: {currency}, {amount}",
+                    default: `‘Sˆõ‚É {amount} {currency} ‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½`,
                     useTextArea: true
                 },
                 removeAllMessageTemplate: {
                     type: "string",
-                    title: "å…¨å“¡å‘ã‘é€šè²¨å‰Šé™¤ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®è¿½åŠ ",
-                    description: "!currency å‰Šé™¤ãŒãƒãƒ£ãƒƒãƒˆã«è¡¨ç¤ºã•ã‚Œã‚‹æ–¹æ³•",
-                    tip: "å¤‰æ•°: {currency}, {amount}",
-                    default: `å…¨å“¡ã® {amount} {currency} ãŒå‰Šé™¤ã•ã‚Œã¾ã—ãŸ`,
+                    title: "‘SˆõŒü‚¯’Ê‰İíœƒƒbƒZ[ƒWƒeƒ“ƒvƒŒ[ƒg‚Ì’Ç‰Á",
+                    description: "!currency íœ‚ªƒ`ƒƒƒbƒg‚É•\¦‚³‚ê‚é•û–@",
+                    tip: "•Ï”: {currency}, {amount}",
+                    default: `‘Sˆõ‚Ì {amount} {currency} ‚ªíœ‚³‚ê‚Ü‚µ‚½`,
                     useTextArea: true
                 }
             },
@@ -176,7 +176,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "add",
                     usage: "add [@user] [amount]",
-                    description: "æŒ‡å®šã—ãŸãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é€šè²¨ã‚’è¿½åŠ ã—ã¾ã™",
+                    description: "w’è‚µ‚½ƒ†[ƒU[‚Ì’Ê‰İ‚ğ’Ç‰Á‚µ‚Ü‚·",
                     restrictionData: {
                         restrictions: [
                             {
@@ -194,7 +194,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "remove",
                     usage: "remove [@user] [amount]",
-                    description: "æŒ‡å®šã—ãŸãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é€šè²¨ã‚’å‰Šé™¤ã—ã¾ã™",
+                    description: "w’è‚µ‚½ƒ†[ƒU[‚Ì’Ê‰İ‚ğíœ‚µ‚Ü‚·",
                     restrictionData: {
                         restrictions: [
                             {
@@ -212,12 +212,12 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "give",
                     usage: "give [@user] [amount]",
-                    description: "ã‚ã‚‹ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‹ã‚‰åˆ¥ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ã¸é€šè²¨ã‚’æ¸¡ã—ã¾ã™"
+                    description: "‚ ‚éƒ†[ƒU[‚©‚ç•Ê‚Ìƒ†[ƒU[‚Ö’Ê‰İ‚ğ“n‚µ‚Ü‚·"
                 },
                 {
                     arg: "addall",
                     usage: "addall [amount]",
-                    description: "ã™ã¹ã¦ã®ã‚ªãƒ³ãƒ©ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«é€šè²¨ã‚’è¿½åŠ ã—ã¾ã™",
+                    description: "‚·‚×‚Ä‚ÌƒIƒ“ƒ‰ƒCƒ“ƒ†[ƒU[‚É’Ê‰İ‚ğ’Ç‰Á‚µ‚Ü‚·",
                     restrictionData: {
                         restrictions: [
                             {
@@ -235,7 +235,7 @@ function createCurrencyCommandDefinition(currency) {
                 {
                     arg: "removeall",
                     usage: "removeall [amount]",
-                    description: "ã™ã¹ã¦ã®ã‚ªãƒ³ãƒ©ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é€šè²¨ã‚’å‰Šé™¤ã—ã¾ã™",
+                    description: "‚·‚×‚Ä‚ÌƒIƒ“ƒ‰ƒCƒ“ƒ†[ƒU[‚Ì’Ê‰İ‚ğíœ‚µ‚Ü‚·",
                     restrictionData: {
                         restrictions: [
                             {
@@ -283,59 +283,59 @@ function createCurrencyCommandDefinition(currency) {
 
             // Arguments passed, what are we even doing?!?
             switch (triggeredArg) {
-            case "add": {
+                case "add": {
                 // Get username and make sure our currency amount is a positive integer.
-                const username = args[1].replace(/^@/, ''),
-                    currencyAdjust = Math.abs(parseInt(args[2]));
+                    const username = args[1].replace(/^@/, ''),
+                        currencyAdjust = Math.abs(parseInt(args[2]));
 
-                // Adjust currency, it will return true on success and false on failure.
-                const status = await currencyDatabase.adjustCurrencyForUser(username, currencyId, currencyAdjust);
+                    // Adjust currency, it will return true on success and false on failure.
+                    const status = await currencyDatabase.adjustCurrencyForUser(username, currencyId, currencyAdjust);
 
-                if (status) {
-                    const addMessageTemplate = commandOptions.addMessageTemplate
-                        .replace("{user}", username)
-                        .replace("{currency}", currencyName)
-                        .replace("{amount}", util.commafy(currencyAdjust));
-                    await twitchChat.sendChatMessage(addMessageTemplate);
-                } else {
+                    if (status) {
+                        const addMessageTemplate = commandOptions.addMessageTemplate
+                            .replace("{user}", username)
+                            .replace("{currency}", currencyName)
+                            .replace("{amount}", util.commafy(currencyAdjust));
+                        await twitchChat.sendChatMessage(addMessageTemplate);
+                    } else {
                     // Error removing currency.
-                    await twitchChat.sendChatMessage(`ã‚¨ãƒ©ãƒ¼ï¼š ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«é€šè²¨ã‚’è¿½åŠ ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚`);
-                    logger.error('Error adding currency for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
-                }
+                        await twitchChat.sendChatMessage(`Error: Could not add currency to user.`);
+                        logger.error(`Error adding currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
+                    }
 
-                break;
-            }
-            case "remove": {
+                    break;
+                }
+                case "remove": {
                 // Get username and make sure our currency amount is a negative integer.
-                const username = args[1].replace(/^@/, ''),
-                    currencyAdjust = -Math.abs(parseInt(args[2]));
+                    const username = args[1].replace(/^@/, ''),
+                        currencyAdjust = -Math.abs(parseInt(args[2]));
 
-                // Adjust currency, it will return true on success and false on failure.
-                const adjustSuccess = await currencyDatabase.adjustCurrencyForUser(username, currencyId, currencyAdjust);
-                if (adjustSuccess) {
-                    const removeMessageTemplate = commandOptions.removeMessageTemplate
-                        .replace("{user}", username)
-                        .replace("{currency}", currencyName)
-                        .replace("{amount}", util.commafy(parseInt(args[2])));
-                    await twitchChat.sendChatMessage(removeMessageTemplate);
-                } else {
+                    // Adjust currency, it will return true on success and false on failure.
+                    const adjustSuccess = await currencyDatabase.adjustCurrencyForUser(username, currencyId, currencyAdjust);
+                    if (adjustSuccess) {
+                        const removeMessageTemplate = commandOptions.removeMessageTemplate
+                            .replace("{user}", username)
+                            .replace("{currency}", currencyName)
+                            .replace("{amount}", util.commafy(parseInt(args[2])));
+                        await twitchChat.sendChatMessage(removeMessageTemplate);
+                    } else {
                     // Error removing currency.
-                    await twitchChat.sendChatMessage(`ã‚¨ãƒ©ãƒ¼ï¼š ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®é€šè²¨ã‚’å‰Šé™¤ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚`);
-                    logger.error('Error removing currency for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
-                }
+                    await twitchChat.sendChatMessage(`ƒGƒ‰[F ƒ†[ƒU[‚Ì’Ê‰İ‚ğíœ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B`);
+                        logger.error(`Error removing currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
+                    }
 
-                break;
-            }
-            case "give": {
+                    break;
+                }
+                case "give": {
                 // Get username and make sure our currency amount is a positive integer.
-                const username = args[1].replace(/^@/, ''),
-                    currencyAdjust = Math.abs(parseInt(args[2])),
-                    currencyAdjustNeg = -Math.abs(parseInt(args[2]));
+                    const username = args[1].replace(/^@/, ''),
+                        currencyAdjust = Math.abs(parseInt(args[2])),
+                        currencyAdjustNeg = -Math.abs(parseInt(args[2]));
 
                 // Does this currency have transfer active?
                 const currencyCheck = currencyDatabase.getCurrencies();
                 if (currencyCheck[currencyId].transfer === "Disallow") {
-                    await twitchChat.sendChatMessage('ã“ã®é€šè²¨ã¯ãŠå–æ‰±ã„ã§ãã¾ã›ã‚“');
+                    await twitchChat.sendChatMessage('‚±‚Ì’Ê‰İ‚Í‚¨æˆµ‚¢‚Å‚«‚Ü‚¹‚ñ');
                     logger.debug(event.userCommand.commandSender + ' tried to give currency, but transfers are turned off for it. ' + currencyId);
                     return false;
                 }
@@ -343,96 +343,103 @@ function createCurrencyCommandDefinition(currency) {
                 // Dont allow person to give themselves currency.
                 if (event.userCommand.commandSender.toLowerCase() === username.toLowerCase()) {
                     await twitchChat.sendChatMessage(
-                        `${event.userCommand.commandSender}ï¼šè‡ªåˆ†è‡ªèº«ã«é€šè²¨ã‚’ä¸ãˆã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“`);
+                        `${event.userCommand.commandSender}F©•ª©g‚É’Ê‰İ‚ğ—^‚¦‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ`);
                     logger.debug(username + ' tried to give themselves currency.');
                     return false;
                 }
 
-                // eslint-disable-next-line no-warning-comments
-                // Need to check to make sure they have enough currency before continuing.
-                const userAmount = await currencyDatabase.getUserCurrencyAmount(event.userCommand.commandSender, currencyId);
+                    // eslint-disable-next-line no-warning-comments
+                    // Need to check to make sure they have enough currency before continuing.
+                    const userAmount = await currencyDatabase.getUserCurrencyAmount(event.userCommand.commandSender, currencyId);
 
                 // If we get false, there was an error.
                 if (userAmount === false) {
-                    await twitchChat.sendChatMessage('ã‚¨ãƒ©ãƒ¼ï¼š é€šè²¨ã‚’å–å¾—ã§ãã¾ã›ã‚“ã§ã—ãŸ');
+                    await twitchChat.sendChatMessage('ƒGƒ‰[F ’Ê‰İ‚ğæ“¾‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½');
                     return false;
                 }
 
                 // Check to make sure we have enough currency to give.
                 if (userAmount < currencyAdjust) {
-                    await twitchChat.sendChatMessage('ã“ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹ã®ã«ååˆ†ãª' + currencyName + ' ã‚’æŒã£ã¦ã„ã¾ã›ã‚“');
+                    await twitchChat.sendChatMessage('‚±‚ÌƒAƒNƒVƒ‡ƒ“‚ğÀs‚·‚é‚Ì‚É\•ª‚È' + currencyName + ' ‚ğ‚Á‚Ä‚¢‚Ü‚¹‚ñ');
                     return false;
                 }
 
-                // Okay, try to add to user first. User is not guaranteed to be in the DB because of possible typos.
-                // So we check this first, then remove from the command sender if this succeeds.
-                const adjustCurrencySuccess = await currencyDatabase.adjustCurrencyForUser(username, currencyId, currencyAdjust);
-                if (adjustCurrencySuccess) {
+                    // Okay, try to add to user first. User is not guaranteed to be in the DB because of possible typos.
+                    // So we check this first, then remove from the command sender if this succeeds.
+                    const adjustCurrencySuccess = await currencyDatabase.adjustCurrencyForUser(username, currencyId, currencyAdjust);
+                    if (adjustCurrencySuccess) {
                     // Subtract currency from command user now.
-                    const status = currencyDatabase.adjustCurrencyForUser(event.userCommand.commandSender, currencyId, currencyAdjustNeg);
+                        const status = currencyDatabase.adjustCurrencyForUser(event.userCommand.commandSender, currencyId, currencyAdjustNeg);
 
-                    if (status) {
-                        await twitchChat.sendChatMessage('Gave ' + util.commafy(currencyAdjust) + ' ' + currencyName + ' to ' + username + '.', null);
+                        if (status) {
+                            await twitchChat.sendChatMessage(`Gave ${util.commafy(currencyAdjust)} ${currencyName} to ${username}.`, null);
+                        } else {
+                        // Error removing currency.
+                            await twitchChat.sendChatMessage(
+                                `Error: Could not remove currency to user during give transaction.`);
+                            logger.error(`Error removing currency during give transaction for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
+                            return false;
+                        }
                     } else {
                         // Error removing currency.
                         await twitchChat.sendChatMessage(
-                            `ã‚¨ãƒ©ãƒ¼ï¼š å–å¼•ä¸­ã®é€šè²¨ã‚’å‰Šé™¤ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚`);
+                            `ƒGƒ‰[F æˆø’†‚Ì’Ê‰İ‚ğíœ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B`);
                         logger.error('Error removing currency during give transaction for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
                         return false;
                     }
                 } else {
                     // Error removing currency.
-                    await twitchChat.sendChatMessage(`ã‚¨ãƒ©ãƒ¼ï¼š ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«é€šè²¨ã‚’è¿½åŠ ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚ãƒ¦ãƒ¼ã‚¶ãƒ¼åã¯æ­£ã—ã„ã§ã™ã‹ï¼Ÿ`);
+                    await twitchChat.sendChatMessage(`ƒGƒ‰[F ƒ†[ƒU[‚É’Ê‰İ‚ğ’Ç‰Á‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½Bƒ†[ƒU[–¼‚Í³‚µ‚¢‚Å‚·‚©H`);
                     logger.error('Error adding currency during give transaction for user (' + username + ') via chat command. Currency: ' + currencyId + '. Value: ' + currencyAdjust);
                     return false;
                 }
 
-                break;
-            }
-            case "addall": {
-                const currencyAdjust = Math.abs(parseInt(args[1]));
-                if (isNaN(currencyAdjust)) {
-                    await twitchChat.sendChatMessage(
-                        `ã‚¨ãƒ©ãƒ¼ï¼š ã™ã¹ã¦ã®ã‚ªãƒ³ãƒ©ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«é€šè²¨ã‚’è¿½åŠ ã§ãã¾ã›ã‚“ã§ã—ãŸ`);
-                    return;
+                    break;
                 }
-                currencyDatabase.addCurrencyToOnlineUsers(currencyId, currencyAdjust, true);
+                case "addall": {
+                    const currencyAdjust = Math.abs(parseInt(args[1]));
+                    if (isNaN(currencyAdjust)) {
+                        await twitchChat.sendChatMessage(
+                            `Error: Could not add currency to all online users.`);
+                        return;
+                    }
+                    currencyDatabase.addCurrencyToOnlineUsers(currencyId, currencyAdjust, true);
 
-                const addAllMessageTemplate = commandOptions.addAllMessageTemplate
-                    .replace("{currency}", currencyName)
-                    .replace("{amount}", util.commafy(currencyAdjust));
-                await twitchChat.sendChatMessage(addAllMessageTemplate);
-
-                break;
-            }
-            case "removeall": {
-                const currencyAdjust = -Math.abs(parseInt(args[1]));
-                if (isNaN(currencyAdjust)) {
-                    await twitchChat.sendChatMessage(`ã‚¨ãƒ©ãƒ¼ï¼š ã™ã¹ã¦ã®ã‚ªãƒ³ãƒ©ã‚¤ãƒ³ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‹ã‚‰é€šè²¨ã‚’å‰Šé™¤ã§ãã¾ã›ã‚“ã§ã—ãŸ`);
-                    return;
-                }
-                currencyDatabase.addCurrencyToOnlineUsers(currencyId, currencyAdjust, true);
-
-                const removeAllMessageTemplate = commandOptions.removeAllMessageTemplate
-                    .replace("{currency}", currencyName)
-                    .replace("{amount}", util.commafy(parseInt(args[1])));
-                await twitchChat.sendChatMessage(removeAllMessageTemplate);
-
-                break;
-            }
-            default: {
-                const amount = await currencyDatabase.getUserCurrencyAmount(event.userCommand.commandSender, currencyId);
-                if (!isNaN(amount)) {
-                    const balanceMessage = commandOptions.currencyBalanceMessageTemplate
-                        .replace("{user}", event.userCommand.commandSender)
+                    const addAllMessageTemplate = commandOptions.addAllMessageTemplate
                         .replace("{currency}", currencyName)
-                        .replace("{amount}", util.commafy(amount));
+                        .replace("{amount}", util.commafy(currencyAdjust));
+                    await twitchChat.sendChatMessage(addAllMessageTemplate);
 
-                    await twitchChat.sendChatMessage(balanceMessage, commandOptions.whisperCurrencyBalanceMessage ? event.userCommand.commandSender : null);
-                } else {
-                    logger.log('Error while trying to show currency amount to user via chat command.');
+                    break;
                 }
-            }
+                case "removeall": {
+                    const currencyAdjust = -Math.abs(parseInt(args[1]));
+                    if (isNaN(currencyAdjust)) {
+                        await twitchChat.sendChatMessage(`Error: Could not remove currency from all online users.`);
+                        return;
+                    }
+                    currencyDatabase.addCurrencyToOnlineUsers(currencyId, currencyAdjust, true);
+
+                    const removeAllMessageTemplate = commandOptions.removeAllMessageTemplate
+                        .replace("{currency}", currencyName)
+                        .replace("{amount}", util.commafy(parseInt(args[1])));
+                    await twitchChat.sendChatMessage(removeAllMessageTemplate);
+
+                    break;
+                }
+                default: {
+                    const amount = await currencyDatabase.getUserCurrencyAmount(event.userCommand.commandSender, currencyId);
+                    if (!isNaN(amount)) {
+                        const balanceMessage = commandOptions.currencyBalanceMessageTemplate
+                            .replace("{user}", event.userCommand.commandSender)
+                            .replace("{currency}", currencyName)
+                            .replace("{amount}", util.commafy(amount));
+
+                        await twitchChat.sendChatMessage(balanceMessage, commandOptions.whisperCurrencyBalanceMessage ? event.userCommand.commandSender : null);
+                    } else {
+                        logger.log('Error while trying to show currency amount to user via chat command.');
+                    }
+                }
             }
         }
     };
@@ -453,29 +460,29 @@ function refreshCurrencyCommands(action = false, currency = false) {
     }
 
     // Log our action for logger.
-    logger.debug('Currency "' + currency.name + '" action "' + action + '" triggered. Updating currency system commands.');
+    logger.debug(`Currency "${currency.name}" action "${action}" triggered. Updating currency system commands.`);
 
     // Decide what we want to do based on the action that was passed to us.
     switch (action) {
-    case "update":
-        CommandManager.unregisterSystemCommand("firebot:currency:" + currency.id);
-        CommandManager.registerSystemCommand(
-            createCurrencyCommandDefinition(currency)
-        );
-        break;
-    case "delete":
+        case "update":
+            CommandManager.unregisterSystemCommand(`firebot:currency:${currency.id}`);
+            CommandManager.registerSystemCommand(
+                createCurrencyCommandDefinition(currency)
+            );
+            break;
+        case "delete":
         // Delete the system command for this currency.
-        CommandManager.unregisterSystemCommand("firebot:currency:" + currency.id);
-        break;
-    case "create":
+            CommandManager.unregisterSystemCommand(`firebot:currency:${currency.id}`);
+            break;
+        case "create":
         // Build a new system command def and register it.
-        CommandManager.registerSystemCommand(
-            createCurrencyCommandDefinition(currency)
-        );
-        break;
-    default:
-        logger.error('Invalid action passed to refresh currency commands.');
-        return;
+            CommandManager.registerSystemCommand(
+                createCurrencyCommandDefinition(currency)
+            );
+            break;
+        default:
+            logger.error('Invalid action passed to refresh currency commands.');
+            return;
     }
 }
 

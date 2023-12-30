@@ -35,12 +35,12 @@
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
-                        return "ÂΩπÂâ≤";
+                        return "ñäÑ";
                     } else if (permissions.mode === "viewer") {
-                        return "Ë¶ñËÅ¥ËÄÖ";
+                        return "éãíÆé“";
                     }
                 } else {
-                    return "„Å™„Åó";
+                    return "Ç»Çµ";
                 }
             };
 
@@ -52,19 +52,19 @@
                 if (permissions) {
                     if (permissions.mode === "roles") {
                         const roleIds = permissions.roleIds;
-                        let output = "Êú™ÈÅ∏Êäû";
+                        let output = "ñ¢ëIë";
                         if (roleIds.length > 0) {
                             output = roleIds
                                 .filter(id => viewerRolesService.getRoleById(id) != null)
                                 .map(id => viewerRolesService.getRoleById(id).name)
                                 .join(", ");
                         }
-                        return `ÂΩπÂâ≤ (${output})`;
+                        return `ñäÑ (${output})`;
                     } else if (permissions.mode === "viewer") {
-                        return `Ë¶ñËÅ¥ËÄÖ (${permissions.username ? permissions.username : 'ÂêçÁÑ°„Åó'})`;
+                        return `éãíÆé“ (${permissions.username ? permissions.username : 'ñºñ≥Çµ'})`;
                     }
                 } else {
-                    return "„Åì„ÅÆ„Ç≥„Éû„É≥„Éâ„ÅØË™∞„Åß„ÇÇÂà©Áî®„Åß„Åç„Åæ„Åô";
+                    return "Ç±ÇÃÉRÉ}ÉìÉhÇÕíNÇ≈Ç‡óòópÇ≈Ç´Ç‹Ç∑";
                 }
             };
 
@@ -87,8 +87,8 @@
 
             $scope.deleteCustomCommand = command => {
                 utilityService.showConfirmationModal({
-                    title: "„Ç≥„Éû„É≥„Éâ„ÅÆÂâäÈô§",
-                    question: `„Ç≥„Éû„É≥„Éâ„Äå'${command.trigger}'„Äç„ÇíÂâäÈô§„Åó„Åæ„Åô„ÅãÔºü`,
+                    title: "ÉRÉ}ÉìÉhÇÃçÌèú",
+                    question: `ÉRÉ}ÉìÉhÅu'${command.trigger}'ÅvÇçÌèúÇµÇ‹Ç∑Ç©ÅH`,
                     confirmLabel: "Delete",
                     confirmBtnType: "btn-danger"
                 }).then(confirmed => {
@@ -126,13 +126,13 @@
                             command = resp.command;
 
                         switch (action) {
-                        case "add":
-                        case "update":
-                            commandsService.saveCustomCommand(command);
-                            break;
-                        case "delete":
-                            commandsService.deleteCustomCommand(command);
-                            break;
+                            case "add":
+                            case "update":
+                                commandsService.saveCustomCommand(command);
+                                break;
+                            case "delete":
+                                commandsService.deleteCustomCommand(command);
+                                break;
                         }
 
                         // Refresh Commands
@@ -188,7 +188,7 @@
 
                     const hasEffectQueue = command.effects.queue != null && command.effects.queue !== "";
                     children.push({
-                        html: `<a href><i class="${!hasEffectQueue ? 'fas fa-check' : ''}" style="margin-right: ${!hasEffectQueue ? '10' : '27'}px;"></i> „Å™„Åó</a>`,
+                        html: `<a href><i class="${!hasEffectQueue ? 'fas fa-check' : ''}" style="margin-right: ${!hasEffectQueue ? '10' : '27'}px;"></i> Ç»Çµ</a>`,
                         click: () => {
                             $scope.clearEffectQueue(command);
                         },
@@ -202,35 +202,35 @@
             $scope.commandMenuOptions = (command) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Á∑®ÈõÜ</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ï“èW</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.openAddOrEditCustomCommandModal(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ÊúâÂäπÂåñ„ÅÆÂàá„ÇäÊõø„Åà</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> óLå¯âªÇÃêÿÇËë÷Ç¶</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.toggleCustomCommandActiveState(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Ë§áË£Ω</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> ï°êª</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.duplicateCustomCommand(command);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> ÂâäÈô§</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> çÌèú</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.deleteCustomCommand(command);
                         }
                     },
                     {
-                        text: `„Ç≠„É•„Éº...`,
+                        text: `ÉLÉÖÅ[...`,
                         children: $scope.getEffectQueueMenuOptions(command),
                         hasTopDivider: true
                     }

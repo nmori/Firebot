@@ -2,7 +2,7 @@
 (function() {
     //This handles the Settings tab
 
-    const fs = require("fs-extra");
+    const fs = require("fs");
     const path = require("path");
     const dataAccess = require("../../backend/common/data-access");
     const moment = require("moment");
@@ -29,62 +29,62 @@
 
             $scope.categories = [
                 {
-                    name: "ä¸€èˆ¬",
-                    description: "å¤–è¦³ã‚„ãƒ™ãƒ¼ã‚¿ç‰ˆé€šçŸ¥ãªã©ã€ã•ã¾ã–ã¾ãªè¨­å®šãŒå¯èƒ½ã§ã™",
+                    name: "ˆê”Ê",
+                    description: "ŠOŠÏ‚âƒx[ƒ^”Å’Ê’m‚È‚ÇA‚³‚Ü‚´‚Ü‚Èİ’è‚ª‰Â”\‚Å‚·",
                     icon: "fa-sliders-v-square",
                     template: "<general-settings />"
                 },
                 {
-                    name: "ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—",
-                    description: "ã‚ãªãŸã®è¨­å®šã‚’ä»–ã®äººã¨å…±æœ‰ã—ãŸã‚Šã€ä»–ã®äººã®è¨­å®šã‚’å–ã‚Šè¾¼ã‚ã¾ã™",
+                    name: "ƒZƒbƒgƒAƒbƒv",
+                    description: "‚ ‚È‚½‚Ìİ’è‚ğ‘¼‚Ìl‚Æ‹¤—L‚µ‚½‚èA‘¼‚Ìl‚Ìİ’è‚ğæ‚è‚ß‚Ü‚·",
                     icon: "fa-box-full",
                     template: "<setups-settings />"
                 },
                 {
-                    name: "èµ·å‹•æ¡ä»¶",
-                    description: "æ§˜ã€…ãªèµ·å‹•æ¡ä»¶ï¼ˆã‚³ãƒãƒ³ãƒ‰ã€ã‚¤ãƒ™ãƒ³ãƒˆãªã©ï¼‰ã®å‹•ä½œã‚’å¾®èª¿æ•´ã—ã¾ã™",
+                    name: "‹N“®ğŒ",
+                    description: "—lX‚È‹N“®ğŒiƒRƒ}ƒ“ƒhAƒCƒxƒ“ƒg‚È‚Çj‚Ì“®ì‚ğ”÷’²®‚µ‚Ü‚·",
                     icon: "fa-bolt",
                     template: "<trigger-settings />"
                 },
                 {
-                    name: "ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹",
-                    description: "è¦–è´è€…ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã¨ãƒ„ãƒ¼ãƒ«",
+                    name: "ƒf[ƒ^ƒx[ƒX",
+                    description: "‹’®Òƒf[ƒ^ƒx[ƒX‚ÌƒIƒvƒVƒ‡ƒ“‚Æƒc[ƒ‹",
                     icon: "fa-database",
                     template: "<database-settings />"
                 },
                 {
-                    name: "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤",
-                    description: "æ–°ã—ã„ãƒ•ã‚©ãƒ³ãƒˆã®è¿½åŠ ã€æ–°ã—ã„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆã€ãã®ä»–ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤è¨­å®šã‚’ã—ã¾ã™",
+                    name: "ƒI[ƒo[ƒŒƒC",
+                    description: "V‚µ‚¢ƒtƒHƒ“ƒg‚Ì’Ç‰ÁAV‚µ‚¢ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬A‚»‚Ì‘¼‚ÌƒI[ƒo[ƒŒƒCİ’è‚ğ‚µ‚Ü‚·",
                     icon: "fa-tv",
                     template: "<overlay-settings />"
                 },
                 {
-                    name: "é€£æº",
-                    description: "ã‚µãƒ¼ãƒ‰ãƒ‘ãƒ¼ãƒ†ã‚£è£½ãƒ„ãƒ¼ãƒ«ã‚„ã‚¢ãƒ—ãƒªã¨Firebotã‚’ãƒªãƒ³ã‚¯ã•ã›ã¾ã™",
+                    name: "˜AŒg",
+                    description: "ƒT[ƒhƒp[ƒeƒB»ƒc[ƒ‹‚âƒAƒvƒŠ‚ÆFirebot‚ğƒŠƒ“ƒN‚³‚¹‚Ü‚·",
                     icon: "fa-globe",
                     template: "<integration-settings />"
                 },
                 {
-                    name: "åˆæˆéŸ³å£°ï¼ˆText To Speechï¼‰",
-                    description: "èª­ã¿ä¸Šã’éŸ³å£°ã®è¨­å®šã‚’å¤‰ãˆã‚‰ã‚Œã¾ã™",
+                    name: "‡¬‰¹ºiText To Speechj",
+                    description: "“Ç‚İã‚°‰¹º‚Ìİ’è‚ğ•Ï‚¦‚ç‚ê‚Ü‚·",
                     icon: "fa-volume",
                     template: "<tts-settings />"
                 },
                 {
-                    name: "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—",
-                    description: "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã¨ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—è¨­å®šã‚’ç®¡ç†ã—ã€ãƒ‡ãƒ¼ã‚¿ãŒå¤±ã‚ã‚Œãªã„ã‚ˆã†ã«ã—ã¾ã™",
+                    name: "ƒoƒbƒNƒAƒbƒv",
+                    description: "ƒoƒbƒNƒAƒbƒv‚ÆƒoƒbƒNƒAƒbƒvİ’è‚ğŠÇ—‚µAƒf[ƒ^‚ª¸‚í‚ê‚È‚¢‚æ‚¤‚É‚µ‚Ü‚·",
                     icon: "fa-file-archive",
                     template: "<backups-settings />"
                 },
                 {
-                    name: "ã‚¹ã‚¯ãƒªãƒ—ãƒˆ",
-                    description: "ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®è¨­å®šã€ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®è¿½åŠ ãªã©ã‚’ã—ã¾ã™",
+                    name: "ƒXƒNƒŠƒvƒg",
+                    description: "ƒXƒNƒŠƒvƒg‚Ìİ’èAƒXƒ^[ƒgƒAƒbƒvƒXƒNƒŠƒvƒg‚Ì’Ç‰Á‚È‚Ç‚ğ‚µ‚Ü‚·",
                     icon: "fa-code",
                     template: "<scripts-settings />"
                 },
                 {
-                    name: "å¿œç”¨",
-                    description: "ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ã€whileãƒ«ãƒ¼ãƒ—ã€ãã®ä»–ã®ãƒ„ãƒ¼ãƒ«ãªã©ã€æ§˜ã€…ãªé«˜åº¦ãªè¨­å®šã‚’ã—ã¾ã™",
+                    name: "‰—p",
+                    description: "ƒfƒoƒbƒOƒ‚[ƒhAwhileƒ‹[ƒvA‚»‚Ì‘¼‚Ìƒc[ƒ‹‚È‚ÇA—lX‚È‚“x‚Èİ’è‚ğ‚µ‚Ü‚·",
                     icon: "fa-tools",
                     template: "<advanced-settings />"
                 }
@@ -98,7 +98,7 @@
             $scope.getSelectedVoiceName = () => {
                 const selectedVoiceId = settingsService.getDefaultTtsVoiceId();
                 const voice = ttsService.getVoiceById(selectedVoiceId);
-                return voice ? voice.name : "ä¸æ˜ãªéŸ³å£°";
+                return voice ? voice.name : "•s–¾‚È‰¹º";
             };
 
             $scope.ttsVoiceOptions = ttsService.getVoices().reduce((acc, v) => {
@@ -138,12 +138,12 @@
             const streamerName = accountAccess.accounts.streamer.username;
 
             const testTTSMessages = [
-                "è‰¯ã„ä¸€æ—¥ã‚’ãŠéã”ã—ãã ã•ã„",
-                "è©±ãŒã§ãã‚‹ã®ã¯ã„ã„ã“ã¨ã§ã™ã­",
-                "ã‚ãªãŸã¯ç´ æ™´ã‚‰ã—ã„ã¨æ€ã†",
-                "æ­¯åŒ»è€…ã«ã¯ã„ã¤è¡Œãï¼Ÿæ­¯ãŒç—›ã„ã€‚ã¯ã¯ã¯ã€‚",
-                "ã“ã‚Œã¯ãƒ†ã‚¹ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã§ã™ã€‚ãƒ“ãƒ¼ãƒ—ãƒ–ãƒ¼ãƒ—",
-                `ç”³ã—è¨³ã‚ã‚Šã¾ã›ã‚“ã€${streamerName}ã•ã‚“ã€‚ç”³ã—è¨³ã‚ã‚Šã¾ã›ã‚“ãŒã€ãã‚Œã¯ã§ãã¾ã›ã‚“ã€‚`
+                "—Ç‚¢ˆê“ú‚ğ‚¨‰ß‚²‚µ‚­‚¾‚³‚¢",
+                "˜b‚ª‚Å‚«‚é‚Ì‚Í‚¢‚¢‚±‚Æ‚Å‚·‚Ë",
+                "‚ ‚È‚½‚Í‘f°‚ç‚µ‚¢‚Æv‚¤",
+                "•ˆãÒ‚É‚Í‚¢‚Âs‚­H•‚ª’É‚¢B‚Í‚Í‚ÍB",
+                "‚±‚ê‚ÍƒeƒXƒgƒƒbƒZ[ƒW‚Å‚·Bƒr[ƒvƒu[ƒv",
+                `\‚µ–ó‚ ‚è‚Ü‚¹‚ñA${streamerName}‚³‚ñB\‚µ–ó‚ ‚è‚Ü‚¹‚ñ‚ªA‚»‚ê‚Í‚Å‚«‚Ü‚¹‚ñB`
             ];
 
             $scope.testTTS = () => {
@@ -196,9 +196,9 @@
             $scope.recalculateQuoteIds = () => {
                 utilityService
                     .showConfirmationModal({
-                        title: "å¼•ç”¨IDã®å†è¨ˆç®—",
-                        question: `æœ¬å½“ã«IDã‚’ä»˜ä¸ã—ãªãŠã—ã¦ã‚ˆã„ã§ã™ã‹ï¼Ÿ`,
-                        confirmLabel: "å®Ÿè¡Œ",
+                        title: "ˆø—pID‚ÌÄŒvZ",
+                        question: `–{“–‚ÉID‚ğ•t—^‚µ‚È‚¨‚µ‚Ä‚æ‚¢‚Å‚·‚©H`,
+                        confirmLabel: "Às",
                         confirmBtnType: "btn-danger"
                     })
                     .then(confirmed => {
@@ -216,9 +216,9 @@
                 } else {
                     utilityService
                         .showConfirmationModal({
-                            title: "ãƒ«ãƒ¼ãƒ—ã®æœ‰åŠ¹åŒ–",
-                            question: "ã“ã®æ©Ÿèƒ½ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨ã„ã†ã“ã¨ã¯ã€While Loopsã®èª¤ç”¨ã«ã‚ˆã‚Šãƒ‘ãƒ•ã‚©ãƒ¼ãƒãƒ³ã‚¹ä¸Šã®å•é¡ŒãŒç”Ÿã˜ãŸã‚Šã€FirebotãŒãƒ•ãƒªãƒ¼ã‚ºã—ãŸã‚Šã™ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã“ã¨ã‚’ç†è§£ã—ãŸã“ã¨ã«ãªã‚Šã¾ã™",
-                            confirmLabel: "ç†è§£ã—ãŸä¸Šã§æœ‰åŠ¹åŒ–ã™ã‚‹",
+                            title: "ƒ‹[ƒv‚Ì—LŒø‰»",
+                            question: "‚±‚Ì‹@”\‚ğ—LŒø‚É‚·‚é‚Æ‚¢‚¤‚±‚Æ‚ÍAWhile Loops‚ÌŒë—p‚É‚æ‚èƒpƒtƒH[ƒ}ƒ“ƒXã‚Ì–â‘è‚ª¶‚¶‚½‚èAFirebot‚ªƒtƒŠ[ƒY‚µ‚½‚è‚·‚é‰Â”\«‚ª‚ ‚é‚±‚Æ‚ğ—‰ğ‚µ‚½‚±‚Æ‚É‚È‚è‚Ü‚·",
+                            confirmLabel: "—‰ğ‚µ‚½ã‚Å—LŒø‰»‚·‚é",
                             confirmBtnType: "btn-primary"
                         })
                         .then(confirmed => {
@@ -244,7 +244,7 @@
             };
 
             $scope.audioOutputDevices = [{
-                label: "æ—¢å®šã®ãƒ‡ãƒã‚¤ã‚¹",
+                label: "Šù’è‚ÌƒfƒoƒCƒX",
                 deviceId: "default"
             }];
 
@@ -300,9 +300,9 @@
                     ticksTooltip: function(index) {
                         switch (index) {
                             case 0:
-                                return "ãƒã‚°ã‚’ä¿®æ­£ã—ãŸã‚Šã€æ©Ÿèƒ½ã‚’è¿½åŠ ã—ãŸã‚Šã™ã‚‹ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã€‚(ä¾‹ï¼šv1.0ã‹ã‚‰v1.1.1)";
+                                return "ƒoƒO‚ğC³‚µ‚½‚èA‹@”\‚ğ’Ç‰Á‚µ‚½‚è‚·‚éƒAƒbƒvƒf[ƒgB(—áFv1.0‚©‚çv1.1.1)";
                             case 1:
-                                return "ãƒ¡ã‚¸ãƒ£ãƒ¼ãªæ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã‚ã‚‹ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã€‚ç ´å£Šçš„ãªå¤‰æ›´ã‚’å«ã‚€å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚(ä¾‹ï¼šv1.0ã‹ã‚‰v2.0ã¸ï¼‰";
+                                return "ƒƒWƒƒ[‚ÈVƒo[ƒWƒ‡ƒ“‚Å‚ ‚éƒAƒbƒvƒf[ƒgB”j‰ó“I‚È•ÏX‚ğŠÜ‚Ş‰Â”\«‚ª‚ ‚è‚Ü‚·B(—áFv1.0‚©‚çv2.0‚Öj";
                             default:
                                 return "";
                         }
@@ -324,11 +324,11 @@
                     case 0:
                         return "Off";
                     case 2:
-                        return "æ—¢å®šå€¤";
+                        return "Šù’è’l";
                     case 3:
-                        return "å®‰å®šç‰ˆã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ";
+                        return "ˆÀ’è”ÅƒAƒbƒvƒf[ƒg";
                     case 4:
-                        return "é–‹ç™ºç‰ˆã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ";
+                        return "ŠJ”­”ÅƒAƒbƒvƒf[ƒg";
                     default:
                         return "";
                 }
@@ -370,7 +370,7 @@
                     ) => {
                         $scope.backups = [];
 
-                        const backupFolderPath = path.resolve(dataAccess.getUserDataPath() + path.sep + "backups") + path.sep;
+                        const backupFolderPath = path.resolve(`${dataAccess.getUserDataPath() + path.sep}backups`) + path.sep;
 
                         $scope.loadingBackups = true;
                         $q
@@ -425,28 +425,28 @@
 
                         $scope.togglePreventDeletion = function(backup) {
                             backup.neverDelete = !backup.neverDelete;
-                            const oldName = backup.name + ".zip";
+                            const oldName = `${backup.name}.zip`;
                             backup.name = backup.neverDelete
                                 ? (backup.name += "_NODELETE")
                                 : backup.name.replace("_NODELETE", "");
 
                             fs.renameSync(
                                 backupFolderPath + oldName,
-                                backupFolderPath + backup.name + ".zip"
+                                `${backupFolderPath + backup.name}.zip`
                             );
                         };
 
                         $scope.deleteBackup = function(index, backup) {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã®å‰Šé™¤",
-                                    question: "ã“ã®ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‚’å‰Šé™¤ã—ã¦ã‚‚ã‚ˆã„ã§ã™ã‹ï¼Ÿ",
-                                    confirmLabel: "å‰Šé™¤ã™ã‚‹"
+                                    title: "ƒoƒbƒNƒAƒbƒv‚Ìíœ",
+                                    question: "‚±‚ÌƒoƒbƒNƒAƒbƒv‚ğíœ‚µ‚Ä‚à‚æ‚¢‚Å‚·‚©H",
+                                    confirmLabel: "íœ‚·‚é"
                                 })
                                 .then(confirmed => {
                                     if (confirmed) {
                                         $scope.backups.splice(index, 1);
-                                        fs.unlink(backupFolderPath + backup.name + ".zip");
+                                        fs.unlinkSync(`${backupFolderPath + backup.name}.zip`);
                                     }
                                 });
                         };
@@ -454,9 +454,9 @@
                         $scope.restoreBackup = function(backup) {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‹ã‚‰ã®å¾©å…ƒ",
-                                    question: "ã“ã®ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‚’ä½¿ã£ã¦è¨­å®šã‚’å¾©å…ƒã—ã¦ã‚‚ã‚ˆã„ã§ã™ã‹ï¼Ÿ",
-                                    confirmLabel: "å¾©å…ƒã‚’é–‹å§‹"
+                                    title: "ƒoƒbƒNƒAƒbƒv‚©‚ç‚Ì•œŒ³",
+                                    question: "‚±‚ÌƒoƒbƒNƒAƒbƒv‚ğg‚Á‚Äİ’è‚ğ•œŒ³‚µ‚Ä‚à‚æ‚¢‚Å‚·‚©H",
+                                    confirmLabel: "•œŒ³‚ğŠJn"
                                 })
                                 .then(confirmed => {
                                     if (confirmed) {

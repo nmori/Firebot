@@ -55,22 +55,22 @@
             function setBubbleClasses() {
                 const connectionStatus = ctrl.connectionStatus;
 
-                ctrl.bubbleClass = connectionStatus + " animated bounceIn";
+                ctrl.bubbleClass = `${connectionStatus} animated bounceIn`;
 
                 $timeout(() => {
                     ctrl.bubbleClass = ctrl.bubbleClass.replace(" animated bounceIn", "");
                 }, 1000);
 
                 switch (connectionStatus) {
-                case ConnectionStatus.CONNECTED:
-                    ctrl.bubbleIconClass = BubbleIcon.CONNECTED;
-                    break;
-                case ConnectionStatus.DISCONNECTED:
-                    ctrl.bubbleIconClass = BubbleIcon.DISCONNECTED;
-                    break;
-                case ConnectionStatus.WARNING:
-                    ctrl.bubbleIconClass = BubbleIcon.WARNING;
-                    break;
+                    case ConnectionStatus.CONNECTED:
+                        ctrl.bubbleIconClass = BubbleIcon.CONNECTED;
+                        break;
+                    case ConnectionStatus.DISCONNECTED:
+                        ctrl.bubbleIconClass = BubbleIcon.DISCONNECTED;
+                        break;
+                    case ConnectionStatus.WARNING:
+                        ctrl.bubbleIconClass = BubbleIcon.WARNING;
+                        break;
                 }
             }
 
@@ -82,29 +82,29 @@
                 switch (ctrl.type) {
                 case ConnectionType.CHAT:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>Twitch:</b> æ¥ç¶šæ¸ˆ";
+                        ctrl.tooltip = "<b>Twitch:</b> Ú‘±Ï";
                     } else {
-                        ctrl.tooltip = "<b>Twitch:</b> æœªæ¥ç¶š";
+                        ctrl.tooltip = "<b>Twitch:</b> –¢Ú‘±";
                     }
                     break;
 
                 case ConnectionType.OVERLAY:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤</b>:</b> æ¥ç¶šæ¸ˆ";
+                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC</b>:</b> Ú‘±Ï";
                     } else if (ctrl.connectionStatus === ConnectionStatus.WARNING) {
-                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤:</b> æº–å‚™ã¯å‡ºæ¥ã¦ã„ã‚‹ãŒæœªæ¥ç¶š";
+                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC:</b> €”õ‚Ío—ˆ‚Ä‚¢‚é‚ª–¢Ú‘±";
                     } else {
-                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤:</b> ã‚µãƒ¼ãƒã®èµ·å‹•ã«å¤±æ•—ã€ã‚¢ãƒ—ãƒªã®å†èµ·å‹•ãŒå¿…è¦";
+                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC:</b> ƒT[ƒo‚Ì‹N“®‚É¸”sAƒAƒvƒŠ‚ÌÄ‹N“®‚ª•K—v";
                     }
                     break;
 
                 case ConnectionType.INTEGRATIONS:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤</b>:</b> æ¥ç¶šæ¸ˆ";
+                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC</b>:</b> Ú‘±Ï";
                     } else if (ctrl.connectionStatus === ConnectionStatus.WARNING) {
-                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤:</b> æº–å‚™ã¯å‡ºæ¥ã¦ã„ã‚‹ãŒæœªæ¥ç¶š";
+                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC:</b> €”õ‚Ío—ˆ‚Ä‚¢‚é‚ª–¢Ú‘±";
                     } else {
-                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤:</b> ã‚µãƒ¼ãƒã®èµ·å‹•ã«å¤±æ•—ã€ã‚¢ãƒ—ãƒªã®å†èµ·å‹•ãŒå¿…è¦";
+                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC:</b> ƒT[ƒo‚Ì‹N“®‚É¸”sAƒAƒvƒŠ‚ÌÄ‹N“®‚ª•K—v";
                     }
                     integrations = integrationService
                         .getIntegrations()
@@ -115,15 +115,15 @@
                         if (count !== 0) {
                             intTooltip += "<br/>";
                         }
-                        const connectionStatus = i.connected ? "æ¥ç¶šæ¸ˆ" : "æœªæ¥ç¶š";
+                        const connectionStatus = i.connected ? "Ú‘±Ï" : "–¢Ú‘±";
                         intTooltip += `<b>${i.name}</b>: ${connectionStatus}`;
                         count++;
                     });
 
-                    ctrl.tooltip = intTooltip;
-                    break;
-                default:
-                    return "";
+                        ctrl.tooltip = intTooltip;
+                        break;
+                    default:
+                        return "";
                 }
             }
 
@@ -157,14 +157,14 @@
 
             ctrl.$onInit = function() {
                 switch (ctrl.type) {
-                case ConnectionType.CHAT:
-                    ctrl.connectionIcon = ConnectionIcon.CHAT;
-                    break;
-                case ConnectionType.OVERLAY:
-                    ctrl.connectionIcon = ConnectionIcon.OVERLAY;
-                    break;
-                case ConnectionType.INTEGRATIONS:
-                    ctrl.connectionIcon = ConnectionIcon.INTEGRATIONS;
+                    case ConnectionType.CHAT:
+                        ctrl.connectionIcon = ConnectionIcon.CHAT;
+                        break;
+                    case ConnectionType.OVERLAY:
+                        ctrl.connectionIcon = ConnectionIcon.OVERLAY;
+                        break;
+                    case ConnectionType.INTEGRATIONS:
+                        ctrl.connectionIcon = ConnectionIcon.INTEGRATIONS;
                 }
 
                 if (ctrl.type === ConnectionType.OVERLAY) {

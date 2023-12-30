@@ -59,7 +59,7 @@
                         }
                     },
                     {
-                        html: `<a href uib-tooltip="ã“ã®å ±å¥¨ã¯Firebotã®å¤–éƒ¨ã§ä½œæˆã•ã‚ŒãŸã‚‚ã®ã§ã€æœ‰åŠ¹ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç·¨é›†ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> æœ‰åŠ¹çŠ¶æ…‹ã®åˆ‡ã‚Šæ›¿ãˆ</a>`,
+                        html: `<a href uib-tooltip="‚±‚Ì•ñ§‚ÍFirebot‚ÌŠO•”‚Åì¬‚³‚ê‚½‚à‚Ì‚ÅA—LŒøƒXƒe[ƒ^ƒX‚ğ•ÒW‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> —LŒøó‘Ô‚ÌØ‚è‘Ö‚¦</a>`,
                         click: function () {
                             item.twitchData.isEnabled = !item.twitchData.isEnabled;
                             channelRewardsService.saveChannelReward(item);
@@ -68,7 +68,7 @@
                         enabled: item.manageable
                     },
                     {
-                        html: `<a href uib-tooltip="ã“ã®å ±å¥¨ã¯Firebotã®å¤–éƒ¨ã§ä½œæˆã•ã‚ŒãŸã‚‚ã®ã§ã€ä¸€æ™‚åœæ­¢ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç·¨é›†ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> åœæ­¢çŠ¶æ…‹ã®åˆ‡ã‚Šæ›¿ãˆ</a>`,
+                        html: `<a href uib-tooltip="‚±‚Ì•ñ§‚ÍFirebot‚ÌŠO•”‚Åì¬‚³‚ê‚½‚à‚Ì‚ÅAˆê’â~ƒXƒe[ƒ^ƒX‚ğ•ÒW‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ’â~ó‘Ô‚ÌØ‚è‘Ö‚¦</a>`,
                         click: function () {
                             item.twitchData.isPaused = !item.twitchData.isPaused;
                             channelRewardsService.saveChannelReward(item);
@@ -84,12 +84,12 @@
                         enabled: channelRewardsService.channelRewards.length < 50
                     },
                     {
-                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="ã“ã®å ±å¥¨ã¯Firebotã®å¤–éƒ¨ã§ä½œæˆã•ã‚ŒãŸã‚‚ã®ã§ã€ã“ã“ã‹ã‚‰å‰Šé™¤ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚" tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="‚±‚Ì•ñ§‚ÍFirebot‚ÌŠO•”‚Åì¬‚³‚ê‚½‚à‚Ì‚ÅA‚±‚±‚©‚çíœ‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB" tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "ãƒãƒ£ãƒ³ãƒãƒ«ã®å ±å¥¨ã‚’å‰Šé™¤",
-                                    question: `ãƒãƒ£ãƒ³ãƒãƒ«å ±å¥¨ã€Œ"${item.twitchData.title}"ã€ã‚’æ¶ˆã—ã¦ã‚‚è‰¯ã„ã§ã™ã‹ï¼Ÿ ?`,
+                                    title: "ƒ`ƒƒƒ“ƒlƒ‹‚Ì•ñ§‚ğíœ",
+                                    question: `ƒ`ƒƒƒ“ƒlƒ‹•ñ§u"${item.twitchData.title}"v‚ğÁ‚µ‚Ä‚à—Ç‚¢‚Å‚·‚©H ?`,
                                     confirmLabel: "Delete",
                                     confirmBtnType: "btn-danger"
                                 })

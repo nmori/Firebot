@@ -1,4 +1,4 @@
-import { FirebotChatMessage } from "../../chat/chat-helpers";
+import { FirebotChatMessage } from "../../../types/chat";
 import eventManager from "../../events/EventManager";
 
 export function triggerChatMessage(firebotChatMessage: FirebotChatMessage): void {
@@ -10,4 +10,15 @@ export function triggerChatMessage(firebotChatMessage: FirebotChatMessage): void
         messageText: firebotChatMessage.rawText,
         chatMessage: firebotChatMessage
     });
-};
+}
+
+export function triggerFirstTimeChat(firebotChatMessage: FirebotChatMessage): void {
+    eventManager.triggerEvent("twitch", "first-time-chat", {
+        userId: firebotChatMessage.userId,
+        userIdName: firebotChatMessage.useridname,
+        username: firebotChatMessage.username,
+        twitchUserRoles: firebotChatMessage.roles,
+        messageText: firebotChatMessage.rawText,
+        chatMessage: firebotChatMessage
+    });
+}

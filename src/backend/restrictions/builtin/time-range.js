@@ -5,8 +5,8 @@ const moment = require("moment");
 const model = {
     definition: {
         id: "firebot:timeRange",
-        name: "æ™‚åˆ»/æ›œæ—¥",
-        description: "ç‰¹å®šã®ç¾åœ°æ™‚é–“ã¾ãŸã¯æ›œæ—¥ã§ä½¿ç”¨ã‚’åˆ¶é™ã™ã‚‹ã€‚",
+        name: "/—j“ú",
+        description: "“Á’è‚ÌŒ»’nŠÔ‚Ü‚½‚Í—j“ú‚Åg—p‚ğ§ŒÀ‚·‚éB",
         triggers: []
     },
     optionsTemplate: `
@@ -15,11 +15,11 @@ const model = {
                 Mode
             </div>
             <div style="margin-bottom: 10px">
-                <label class="control-fb control--radio">æ™‚åˆ» <span class="muted"><br />ç‰¹å®šã®æ™‚é–“å¸¯ã«ã‚¢ã‚¯ã‚»ã‚¹ã‚’åˆ¶é™ã™ã‚‹</span>
+                <label class="control-fb control--radio"> <span class="muted"><br />“Á’è‚ÌŠÔ‘Ñ‚ÉƒAƒNƒZƒX‚ğ§ŒÀ‚·‚é</span>
                     <input type="radio" ng-model="restriction.mode" value="time"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >æ—¥ä»˜ <span class="muted"><br />ç‰¹å®šã®æ›œæ—¥ã«ã‚¢ã‚¯ã‚»ã‚¹ã‚’åˆ¶é™ã™ã‚‹</span>
+                <label class="control-fb control--radio" >“ú•t <span class="muted"><br />“Á’è‚Ì—j“ú‚ÉƒAƒNƒZƒX‚ğ§ŒÀ‚·‚é</span>
                     <input type="radio" ng-model="restriction.mode" value="days"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -27,19 +27,19 @@ const model = {
 
             <div ng-if="restriction.mode === 'time'">
                 <div id="startTime" class="modal-subheader" style="padding: 0 0 4px 0">
-                    é–‹å§‹æ™‚é–“
+                    ŠJnŠÔ
                 </div>
                 <div uib-timepicker ng-model="restriction.startTime" show-spinners="false"></div>
 
                 <div id="endTime" class="modal-subheader" style="padding: 1em 0 4px 0">
-                    çµ‚äº†æ™‚é–“
+                    I—¹ŠÔ
                 </div>
                 <div uib-timepicker ng-model="restriction.endTime" show-spinners="false"></div>
             </div>
             
             <div ng-if="restriction.mode === 'days'">
                 <div id="roles" class="modal-subheader" style="padding: 0 0 4px 0">
-                    æ›œæ—¥
+                    —j“ú
                 </div>
                 <div class="viewer-group-list">
                     <label ng-repeat="day in getAllDays()" class="control-fb control--checkbox">{{day}}
@@ -93,7 +93,7 @@ const model = {
             const ampm = hours >= 12 ? 'pm' : 'am';
             hours = hours % 12;
             hours = hours ? hours : 12; // the hour '0' should be '12'
-            minutes = minutes < 10 ? '0' + minutes : minutes;
+            minutes = minutes < 10 ? `0${minutes}` : minutes;
 
             if (isNaN(hours)) {
                 hours = 12;
@@ -103,7 +103,7 @@ const model = {
                 minutes = "00";
             }
 
-            return hours + ':' + minutes + ' ' + ampm;
+            return `${hours}:${minutes} ${ampm}`;
         }
 
         function daySorter(a, b) {
@@ -121,7 +121,7 @@ const model = {
 
         if (restriction.mode === "days") {
             const days = restriction.days;
-            let output = "æœªé¸æŠ";
+            let output = "–¢‘I‘ğ";
             if (days.length > 0) {
                 const sortedDays = days.sort(daySorter);
                 output = sortedDays.join(", ");
@@ -131,7 +131,7 @@ const model = {
             const startTime = formatAMPM(restriction.startTime);
             const endTime = formatAMPM(restriction.endTime);
 
-            return startTime + " - " + endTime + " ã®é–“";
+            return startTime + " - " + endTime + " ‚ÌŠÔ";
         }
 
         return "";
@@ -149,7 +149,7 @@ const model = {
                 if (restrictionDays.includes(currentDayOfWeek)) {
                     resolve();
                 } else {
-                    reject(restrictionDays.join(", ") + 'ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™');
+                    reject(restrictionDays.join(", ") + '‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·');
                 }
 
             } else if (restrictionData.mode === "time") {
@@ -164,7 +164,7 @@ const model = {
                 if (time.isBetween(startTime, endTime)) {
                     resolve();
                 } else {
-                    reject(moment(restrictionData.startTime).format('hh:mm A') + ' ï½ ' + moment(restrictionData.endTime).format('hh:mm A') + 'ã®é–“ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™');
+                    reject(moment(restrictionData.startTime).format('hh:mm A') + ' ` ' + moment(restrictionData.endTime).format('hh:mm A') + '‚ÌŠÔ‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·');
                 }
             }
         });

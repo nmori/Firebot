@@ -28,7 +28,7 @@ const HIGHLIGHT_MESSAGE_REWARD_ID = "highlight-message";
 exports.setupChatListeners = (streamerChatClient) => {
 
     streamerChatClient.onAnnouncement(async (_channel, _user, announcementInfo, msg) => {
-        const firebotChatMessage = await chatHelpers.buildFirebotChatMessage(msg, msg.message.value);
+        const firebotChatMessage = await chatHelpers.buildFirebotChatMessage(msg, msg.text);
 
         firebotChatMessage.isAnnouncement = true;
         firebotChatMessage.announcementColor = announcementInfo.color ?? "PRIMARY";
@@ -74,7 +74,13 @@ exports.setupChatListeners = (streamerChatClient) => {
 
         activeUserHandler.addActiveUser(msg.userInfo, true);
 
-        twitchEventsHandler.viewerArrived.triggerViewerArrived(msg.userInfo.displayName, msg.userInfo.userName, msg.userInfo.userId, messageText);
+        twitchEventsHandler.viewerArrived.triggerViewerArrived(
+            msg.userInfo.displayName,
+            msg.userInfo.userName,
+            msg.userInfo.userId,
+            messageText,
+            firebotChatMessage
+        );
 
         const { streamer, bot } = accountAccess.getAccounts();
         if (user !== streamer.username && user !== bot.username) {
@@ -83,6 +89,9 @@ exports.setupChatListeners = (streamerChatClient) => {
         }
 
         twitchEventsHandler.chatMessage.triggerChatMessage(firebotChatMessage);
+        if (firebotChatMessage.isFirstChat) {
+            twitchEventsHandler.chatMessage.triggerFirstTimeChat(firebotChatMessage);
+        }
         await raidMessageChecker.sendMessageToCache(firebotChatMessage);
     });
 
@@ -99,8 +108,17 @@ exports.setupChatListeners = (streamerChatClient) => {
         frontendCommunicator.send("twitch:chat:message", firebotChatMessage);
 
         twitchEventsHandler.chatMessage.triggerChatMessage(firebotChatMessage);
+        if (firebotChatMessage.isFirstChat) {
+            twitchEventsHandler.chatMessage.triggerFirstTimeChat(firebotChatMessage);
+        }
 
-        twitchEventsHandler.viewerArrived.triggerViewerArrived(msg.userInfo.displayName, msg.userInfo.userName, msg.userInfo.userId, messageText);
+        twitchEventsHandler.viewerArrived.triggerViewerArrived(
+            msg.userInfo.displayName,
+            msg.userInfo.userName,
+            msg.userInfo.userId,
+            messageText,
+            firebotChatMessage
+        );
     });
 
     streamerChatClient.onMessageRemove((_channel, messageId) => {
@@ -177,15 +195,6 @@ exports.setupChatListeners = (streamerChatClient) => {
             subInfo.displayName,
             subInfo.userId,
             subInfo.plan
-        );
-    });
-
-    streamerChatClient.onRaid((_channel, _username, raidInfo, msg) => {
-        twitchEventsHandler.raid.triggerRaid(
-            msg.userInfo.userName,
-            msg.userInfo.userId,
-            raidInfo.displayName,
-            raidInfo.viewerCount
         );
     });
 };

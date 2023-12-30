@@ -2,12 +2,12 @@
 
 module.exports = {
     id: "firebot:currency",
-    name: "é€šè²¨",
-    description: "é€šè²¨ã§ãƒ•ã‚£ãƒ«ã‚¿",
+    name: "’Ê‰İ",
+    description: "’Ê‰İ‚ÅƒtƒBƒ‹ƒ^",
     events: [
         { eventSourceId: "firebot", eventId: "currency-update" }
     ],
-    comparisonTypes: ["ä¸€è‡´", "ä¸ä¸€è‡´"],
+    comparisonTypes: ["ˆê’v", "•sˆê’v"],
     valueType: "preset",
     presetValues: currencyService => {
         return currencyService
@@ -20,7 +20,7 @@ module.exports = {
     },
     getSelectedValueDisplay: (filterSettings, currencyService) => {
         return new Promise(resolve => {
-            resolve(currencyService.getCurrencies().find(c => c.id === filterSettings.value)?.name ?? "ä¸æ˜ãªé€šè²¨");
+            resolve(currencyService.getCurrencies().find(c => c.id === filterSettings.value)?.name ?? "•s–¾‚È’Ê‰İ");
         });
     },
     predicate: (filterSettings, eventData) => {
@@ -33,10 +33,10 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
-        case "ä¸€è‡´":
+        case "ˆê’v":
             return actual === expected;
         case "is not":
-        case "ä¸ä¸€è‡´":
+        case "•sˆê’v":
             return actual !== expected;
         default:
             return false;

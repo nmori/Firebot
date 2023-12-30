@@ -21,21 +21,21 @@
             <div class="effect-list">
                 <div class="flex-row-center jspacebetween effect-list-header">
                     <div class="flex items-center">
-                        <h3 class="{{$ctrl.headerClasses}} m-0" style="display:inline;font-weight: 100;">ÊºîÂá∫</h3>
+                        <h3 class="{{$ctrl.headerClasses}} m-0" style="display:inline;font-weight: 600;">ââèo</h3>
                         <span class="ml-1" style="font-size: 11px;"><tooltip text="$ctrl.header" ng-if="$ctrl.header"></tooltip></span>
                     </div>
 
                     <div class="flex items-center">
                         <div class="mr-7" ng-if="$ctrl.getSelectedQueueModeIsCustom()">
-                            <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="ÊºîÂá∫„ÅÆÊåÅÁ∂öÊôÇÈñìÔºö „Ç≠„É•„Éº„Åå„Åì„ÅÆÊºîÂá∫„É™„Çπ„Éà„ÇíËµ∑Âãï„Åó„ÅüÂæå„ÄÅÊ¨°„ÅÆÊºîÂá∫„ÇíÂÆüË°å„Åô„Çã„Åæ„Åß„Å´ÂæÖ„Å§„Åπ„ÅçÂêàË®àÊôÇÈñì (Áßí)„ÄÇ">
-                                ÊºîÂá∫„ÅÆÊåÅÁ∂öÊôÇÈñì
-                                <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'„Åì„ÅÆÊºîÂá∫„É™„Çπ„Éà„ÇíËµ∑Âãï„Åó„Å¶„Ç≠„É•„Éº„Å´„ÅÑ„Çå„ÅüÂæå„ÄÅÊ¨°„ÅÆÊºîÂá∫„É™„Çπ„Éà„ÇíÂÆüË°å„Åô„Çã„Åæ„Åß„ÅÆÂêàË®àÊôÇÈñìÔºàÁßíÔºâ„ÄÇ'"></tooltip>
+                            <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="ââèoÇÃéùë±éûä‘ÅF ÉLÉÖÅ[Ç™Ç±ÇÃââèoÉäÉXÉgÇãNìÆÇµÇΩå„ÅAéüÇÃââèoÇé¿çsÇ∑ÇÈÇ‹Ç≈Ç…ë“Ç¬Ç◊Ç´çáåvéûä‘ (ïb)ÅB">
+                                ââèoÇÃéùë±éûä‘
+                                <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'Ç±ÇÃââèoÉäÉXÉgÇãNìÆÇµÇƒÉLÉÖÅ[Ç…Ç¢ÇÍÇΩå„ÅAéüÇÃââèoÉäÉXÉgÇé¿çsÇ∑ÇÈÇ‹Ç≈ÇÃçáåvéûä‘ÅiïbÅjÅB'"></tooltip>
                             </div>
                             <div
                                 class="flex justify-end items-center"
                                 style="font-size: 12px;"
                                 ng-click="$ctrl.openEditQueueDurationModal()"
-                                aria-label="ÊºîÂá∫„ÅÆÊåÅÁ∂öÊôÇÈñì: {{$ctrl.effectsData.queueDuration || 0}} Áßí"
+                                aria-label="ââèoÇÃéùë±éûä‘: {{$ctrl.effectsData.queueDuration || 0}} ïb"
                                 role="button"
                             >
                                 <b>{{$ctrl.effectsData.queueDuration || 0}}</b>s<span class="muted ml-2" style="font-size: 9px;"><i class="fal fa-edit"></i></span>
@@ -44,19 +44,19 @@
 
                         <div class="mr-7" ng-if="$ctrl.validQueueSelected()">
                             <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="Queue Priority: If an effect list has priority, it will get added in front of other lists in the queue that do not have priority.">
-                                „Ç≠„É•„Éº„ÅÆÂÑ™ÂÖàÈ†Ü‰Ωç
-                                <tooltip role="tooltip" aria-label="If an effect list has priority, it will get added in front of other lists in the queue that do not have priority." text="'ÊºîÂá∫„É™„Çπ„Éà„Å´ÂÑ™ÂÖàÈ†Ü‰Ωç„Åå„ÅÇ„ÇãÂ†¥Âêà„ÄÅ„Ç≠„É•„ÉºÂÜÖ„ÅÆÂÑ™ÂÖàÈ†Ü‰Ωç„ÇíÊåÅ„Åü„Å™„ÅÑ‰ªñ„ÅÆ„É™„Çπ„Éà„ÅÆÂâç„Å´ËøΩÂä†„Åï„Çå„Åæ„Åô„ÄÇ'"></tooltip>
+                                ÉLÉÖÅ[ÇÃóDêÊèáà 
+                                <tooltip role="tooltip" aria-label="If an effect list has priority, it will get added in front of other lists in the queue that do not have priority." text="'ââèoÉäÉXÉgÇ…óDêÊèáà Ç™Ç†ÇÈèÍçáÅAÉLÉÖÅ[ì‡ÇÃóDêÊèáà ÇéùÇΩÇ»Ç¢ëºÇÃÉäÉXÉgÇÃëOÇ…í«â¡Ç≥ÇÍÇ‹Ç∑ÅB'"></tooltip>
                             </div>
                             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
-                                <a href role="button" class="ddtext" style="font-size: 12px;" aria-label="Selected: {{$ctrl.getSelectedQueuePriority() === 'Yes' ? 'È´ò' : '„Å™„Åó'}}">
+                                <a href role="button" class="ddtext" style="font-size: 12px;" aria-label="Selected: {{$ctrl.getSelectedQueuePriority() === 'Yes' ? 'çÇ' : 'Ç»Çµ'}}">
                                     {{$ctrl.getSelectedQueuePriority()}}<span class="fb-arrow down ddtext"></span>
                                 </a>
                                 <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                                     <li role="none">
-                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'high'" class="pl-4" role="menuitem" aria-label="È´ò">Yes</a>
+                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'high'" class="pl-4" role="menuitem" aria-label="çÇ">Yes</a>
                                     </li>
                                     <li role="none">
-                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'none'" class="pl-4" role="menuitem" aria-label="„Å™„Åó">No</a>
+                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'none'" class="pl-4" role="menuitem" aria-label="Ç»Çµ">No</a>
                                     </li>
                                 </ul>
                             </div>
@@ -64,8 +64,8 @@
 
                         <div class="flex flex-col items-end mr-8">
                             <div style="font-size: 10px;opacity: 0.8;text-align: right;">
-                                „Ç≠„É•„Éº
-                                <tooltip role="tooltip" aria-label="ÊºîÂá∫„Ç≠„É•„Éº„Åß„ÅØ„ÄÅÊºîÂá∫„ÅåÈáç„Å™„Çâ„Å™„ÅÑ„Çà„ÅÜ„Å´„Ç≠„É•„Éº„Å´ÂÖ•„Çå„Å¶È†ÜÁï™„Å´ÂÆüË°å„Åô„Çã„Åì„Å®„Åå„Åß„Åç„Åæ„Åô„ÄÇÁâπ„Å´„Ç§„Éô„É≥„Éà„Å´‰æøÂà©„Åß„Åô„ÄÇ" text="'ÊºîÂá∫„Ç≠„É•„Éº„ÅØ„ÄÅÊºîÂá∫„ÅåÈáç„Å™„Çâ„Å™„ÅÑ„Çà„ÅÜ„Å´„Ç≠„É•„Éº„Å´ÂÖ•„Çå„Å¶È†ÜÁï™„Å´ÂÆüË°å„Åô„Çã„Åì„Å®„Åå„Åß„Åç„Åæ„Åô„ÄÇÁâπ„Å´„Ç§„Éô„É≥„Éà„Å´ÂΩπÁ´ã„Å°„Åæ„Åô'"></tooltip>
+                                ÉLÉÖÅ[
+                                <tooltip role="tooltip" aria-label="ââèoÉLÉÖÅ[Ç≈ÇÕÅAââèoÇ™èdÇ»ÇÁÇ»Ç¢ÇÊÇ§Ç…ÉLÉÖÅ[Ç…ì¸ÇÍÇƒèáî‘Ç…é¿çsÇ∑ÇÈÇ±Ç∆Ç™Ç≈Ç´Ç‹Ç∑ÅBì¡Ç…ÉCÉxÉìÉgÇ…ï÷óòÇ≈Ç∑ÅB" text="'ââèoÉLÉÖÅ[ÇÕÅAââèoÇ™èdÇ»ÇÁÇ»Ç¢ÇÊÇ§Ç…ÉLÉÖÅ[Ç…ì¸ÇÍÇƒèáî‘Ç…é¿çsÇ∑ÇÈÇ±Ç∆Ç™Ç≈Ç´Ç‹Ç∑ÅBì¡Ç…ÉCÉxÉìÉgÇ…ñóßÇøÇ‹Ç∑'"></tooltip>
                             </div>
                             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                                 <a href role="button" class="ddtext" style="font-size: 12px;"> "{{$ctrl.getSelectedEffectQueueName()}}" <span class="fb-arrow down ddtext"></span></a>
@@ -77,7 +77,7 @@
                                             ng-click="$ctrl.effectsData.queue = null"
                                             role="menuitem"
                                         >
-                                            Ëß£Èô§ <tooltip role="tooltip" aria-label="Effects will always play immediately when triggered" text="'ÊºîÂá∫„ÅØËµ∑Âãï„Åï„Çå„Çã„Å®Âç≥Â∫ß„Å´ÂÜçÁîü„Åï„Çå„Åæ„Åô'"></tooltip>
+                                            âèú <tooltip role="tooltip" aria-label="Effects will always play immediately when triggered" text="'ââèoÇÕãNìÆÇ≥ÇÍÇÈÇ∆ë¶ç¿Ç…çƒê∂Ç≥ÇÍÇ‹Ç∑'"></tooltip>
                                             <span ng-show="$ctrl.effectsData.queue == null" style="color:green;display: inline-block;"><i class="fas fa-check"></i></span>
                                         </a>
                                     </li>
@@ -90,20 +90,20 @@
                                     </li>
 
                                     <li ng-show="$ctrl.eqs.getEffectQueues().length < 1" role="none">
-                                        <a class="muted pl-4" role="menuitem">„Ç≠„É•„Éº„ÅØ‰ΩúÊàê„Åï„Çå„Å¶„ÅÑ„Åæ„Åõ„Çì.</a>
+                                        <a class="muted pl-4" role="menuitem">ÉLÉÖÅ[ÇÕçÏê¨Ç≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ.</a>
                                     </li>
 
                                     <li role="separator" class="divider"></li>
                                     <li role="none">
-                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal()" role="menuitem">„Ç≠„É•„Éº„Çí‰ΩúÊàê</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal()" role="menuitem">ÉLÉÖÅ[ÇçÏê¨</a>
                                     </li>
 
                                     <li role="none" ng-show="$ctrl.validQueueSelected()">
-                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">Á∑®ÈõÜÔºö"{{$ctrl.getSelectedEffectQueueName()}}"</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">ï“èWÅF"{{$ctrl.getSelectedEffectQueueName()}}"</a>
                                     </li>
 
                                     <li role="none" ng-show="$ctrl.validQueueSelected()">
-                                        <a href class="pl-4" ng-click="$ctrl.showDeleteEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">ÂâäÈô§Ôºö"{{$ctrl.getSelectedEffectQueueName()}}"</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showDeleteEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">çÌèúÅF"{{$ctrl.getSelectedEffectQueueName()}}"</a>
                                     </li>
                                 </ul>
                             </div>
@@ -116,11 +116,11 @@
                         <div>
                             <a
                                 href role="button"
-                                aria-label="ÊºîÂá∫„É°„Éã„É•„Éº„ÇíÈñã„Åè"
+                                aria-label="ââèoÉÅÉjÉÖÅ[ÇäJÇ≠"
                                 class="effects-actions-btn"
-                                context-menu="$ctrl.allEffectsMenuOptions"
+                                context-menu="$ctrl.createAllEffectsMenuOptions()"
                                 context-menu-on="click"
-                                uib-tooltip="ÊºîÂá∫„É°„Éã„É•„Éº„ÇíÈñã„Åè"
+                                uib-tooltip="ââèoÉÅÉjÉÖÅ[ÇäJÇ≠"
                                 tooltip-append-to-body="true"
                             >
                                 <i class="fal fa-ellipsis-v"></i>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="{{$ctrl.effectContainerClasses}} mx-6 pb-6">
                     <div ui-sortable="$ctrl.sortableOptions" ng-model="$ctrl.effectsData.list">
-                        <div ng-repeat="effect in $ctrl.effectsData.list track by $index" context-menu="$ctrl.effectMenuOptions">
+                        <div ng-repeat="effect in $ctrl.effectsData.list track by $index" context-menu="$ctrl.createEffectMenuOptions(effect)">
                             <div
                                 role="button"
                                 class="effect-bar clickable-dark"
@@ -159,7 +159,7 @@
                                                 uib-tooltip="Open effect menu"
                                                 tooltip-append-to-body="true"
                                                 role="button"
-                                                context-menu="$ctrl.effectMenuOptions"
+                                                context-menu="$ctrl.createEffectMenuOptions(effect)"
                                                 context-menu-on="click"
                                                 context-menu-orientation="top"
                                             >
@@ -172,8 +172,8 @@
                     </div>
 
                     <div class="add-more-functionality mt-7 ml-5">
-                        <a href role="button" class="clickable" ng-click="$ctrl.openNewEffectModal($ctrl.effectsData.list.length)" aria-label="ÊºîÂá∫„ÅÆËøΩÂä†">
-                            <i class="far fa-plus-circle"></i>ÊºîÂá∫„ÅÆËøΩÂä†
+                        <a href role="button" class="clickable" ng-click="$ctrl.openNewEffectModal($ctrl.effectsData.list.length)" aria-label="Add new effect">
+                            <i class="far fa-plus-circle mr-2"></i>ââèoÇÃí«â¡
                         </a>
                     </div>
                 </div>
@@ -210,31 +210,31 @@
                     ctrl.effectsUpdate();
                 }
 
-                const createAllEffectsMenuOptions = () => {
-                    ctrl.allEffectsMenuOptions = [
+                ctrl.createAllEffectsMenuOptions = () => {
+                    const allEffectsMenuOptions = [
                         {
-                            html: `<a href role="menuitem"><i class="far fa-copy mr-4"></i> „Ç≥„Éî„Éº</a>`,
+                            html: `<a href role="menuitem"><i class="far fa-copy mr-4"></i> ÉRÉsÅ[</a>`,
                             click: () => {
                                 ctrl.copyEffects();
                             },
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
-                            html: `<a href role="menuitem"><i class="far fa-paste mr-4"></i> „Éª„Éö„Éº„Çπ„Éà</a>`,
+                            html: `<a href role="menuitem"><i class="far fa-paste mr-4"></i> ÅEÉyÅ[ÉXÉg</a>`,
                             click: function () {
                                 ctrl.pasteEffects(true);
                             },
                             enabled: ctrl.hasCopiedEffects()
                         },
                         {
-                            html: `<a href role="menuitem" style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i>  „Åô„Åπ„Å¶ÂâäÈô§</a>`,
+                            html: `<a href role="menuitem" style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i>  Ç∑Ç◊ÇƒçÌèú</a>`,
                             click: function () {
                                 ctrl.removeAllEffects();
                             },
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
-                            html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> ÂÖ±Êúâ</a>`,
+                            html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> ã§óL</a>`,
                             click: function () {
                                 ctrl.shareEffects();
                             },
@@ -242,25 +242,27 @@
                             hasTopDivider: true
                         },
                         {
-                            html: `<a href ><i class="far fa-cloud-download-alt mr-4"></i> ÂÖ±ÊúâÊºîÂá∫„ÇíÂèñ„ÇäËæº„Åø</a>`,
+                            html: `<a href ><i class="far fa-cloud-download-alt mr-4"></i> ã§óLââèoÇéÊÇËçûÇ›</a>`,
                             click: function () {
                                 ctrl.importSharedEffects();
                             }
                         }
                     ];
+
+                    return allEffectsMenuOptions;
                 };
 
-                const createEffectMenuOptions = () => {
-                    ctrl.effectMenuOptions = [
+                ctrl.createEffectMenuOptions = (effect) => {
+                    const effectMenuOptions = [
                         {
-                            html: `<a href ><i class="far fa-tag mr-4"></i> „É©„Éô„É´„ÇíÁ∑®ÈõÜ</a>`,
+                            html: `<a href ><i class="far fa-tag mr-4"></i> ÉâÉxÉãÇï“èW</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.editLabelForEffectAtIndex($index);
                             }
                         },
                         {
-                            html: `<a href ><i class="far fa-edit mr-4"></i> ÊºîÂá∫„ÇíÁ∑®ÈõÜ</a>`,
+                            html: `<a href ><i class="far fa-edit mr-4"></i> ââèoÇï“èW</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 const effect = $itemScope.effect;
@@ -268,40 +270,40 @@
                             }
                         },
                         {
-                            html: `<a href ><i class="fal fa-toggle-off mr-4"></i> ÊúâÂäπÂåñ„ÅÆÂàá„ÇäÊõø„Åà</a>`,
+                            html: `<a href ><i class="fal fa-toggle-off mr-4"></i> óLå¯âªÇÃêÿÇËë÷Ç¶</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.toggleEffectActiveState($index);
                             }
                         },
                         {
-                            html: `<a href ><i class="far fa-clone mr-4"></i> Ë§áË£Ω</a>`,
+                            html: `<a href ><i class="far fa-clone mr-4"></i> ï°êª</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.duplicateEffectAtIndex($index);
                             }
                         },
                         {
-                            html: `<a href ><i class="far fa-copy mr-4"></i> „Ç≥„Éî„Éº</a>`,
+                            html: `<a href ><i class="far fa-copy mr-4"></i> ÉRÉsÅ[</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.copyEffectAtIndex($index);
                             }
                         },
                         {
-                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> ÂâäÈô§</a>`,
+                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> çÌèú</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.removeEffectAtIndex($index);
                             }
                         },
                         {
-                            text: "Ë≤º„Çä‰ªò„Åë...",
+                            text: "ì\ÇËïtÇØ...",
                             hasTopDivider: true,
                             enabled: ctrl.hasCopiedEffects(),
                             children: [
                                 {
-                                    html: `<a href><i class="far fa-paste mr-4"></i> Ââç„Å´</a>`,
+                                    html: `<a href><i class="far fa-paste mr-4"></i> ëOÇ…</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         if (ctrl.hasCopiedEffects()) {
@@ -310,7 +312,7 @@
                                     }
                                 },
                                 {
-                                    html: `<a href><i class="far fa-paste mr-4"></i> Âæå„Å´</a>`,
+                                    html: `<a href><i class="far fa-paste mr-4"></i> å„Ç…</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         if (ctrl.hasCopiedEffects()) {
@@ -321,17 +323,17 @@
                             ]
                         },
                         {
-                            text: "Êñ∞Ë¶è...",
+                            text: "êVãK...",
                             children: [
                                 {
-                                    html: `<a href><i class="far fa-plus mr-4"></i> Ââç„Å´</a>`,
+                                    html: `<a href><i class="far fa-plus mr-4"></i> ëOÇ…</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         ctrl.openNewEffectModal($index - 1);
                                     }
                                 },
                                 {
-                                    html: `<a href><i class="far fa-plus mr-4"></i> Âæå„Å´</a>`,
+                                    html: `<a href><i class="far fa-plus mr-4"></i> å„Ç…</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         ctrl.openNewEffectModal($index);
@@ -340,25 +342,22 @@
                             ]
                         }
                     ];
-                };
 
-                const rebuildEffectMenus = () => {
-                    createEffectMenuOptions();
-                    createAllEffectsMenuOptions();
+                    return effectMenuOptions;
                 };
 
                 ctrl.shareEffects = async () => {
                     const shareCode = await backendCommunicator.fireEventAsync("getEffectsShareCode", ctrl.effectsData.list);
                     if (shareCode == null) {
-                        ngToast.create("ÂÖ±ÊúâÊºîÂá∫„ÇíÊúâÂäπ„Å´„Åß„Åç„Åæ„Åõ„Çì");
+                        ngToast.create("ã§óLââèoÇóLå¯Ç…Ç≈Ç´Ç‹ÇπÇÒ");
                     } else {
                         utilityService.showModal({
                             component: "copyShareCodeModal",
                             size: 'sm',
                             resolveObj: {
                                 shareCode: () => shareCode,
-                                title: () => "ÊºîÂá∫„ÅÆÂÖ±Êúâ„Ç≥„Éº„Éâ",
-                                message: () => "‰ªñ„ÅÆ‰∫∫„Åå„Åì„Çå„Çâ„ÅÆÊºîÂá∫„ÇíÂèñ„ÇäËæº„ÇÄ„Å´„ÅØ„ÄÅ‰ª•‰∏ã„ÅÆ„Ç≥„Éº„Éâ„ÇíÂÖ±Êúâ„Åó„Å¶„Åè„Å†„Åï„ÅÑ„ÄÇ"
+                                title: () => "ââèoÇÃã§óLÉRÅ[Éh",
+                                message: () => "ëºÇÃêlÇ™Ç±ÇÍÇÁÇÃââèoÇéÊÇËçûÇﬁÇ…ÇÕÅAà»â∫ÇÃÉRÅ[ÉhÇã§óLÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB"
                             }
                         });
                     }
@@ -380,9 +379,9 @@
                     utilityService.openGetInputModal(
                         {
                             model: "",
-                            label: "ÂÖ±ÊúâÊºîÂá∫„ÇíÂèó‰ø°„Åô„Çã„Åü„ÇÅ„ÅÆ„Ç≥„Éº„Éâ„ÇíÂÖ•Âäõ",
-                            saveText: "ËøΩÂä†„Åô„Çã",
-                            inputPlaceholder: "„Ç≥„Éº„Éâ„ÅÆÂÖ•Âäõ",
+                            label: "ã§óLââèoÇéÛêMÇ∑ÇÈÇΩÇﬂÇÃÉRÅ[ÉhÇì¸óÕ",
+                            saveText: "í«â¡Ç∑ÇÈ",
+                            inputPlaceholder: "ÉRÅ[ÉhÇÃì¸óÕ",
                             validationFn: (shareCode) => {
                                 return new Promise(async resolve => {
                                     if (shareCode == null || shareCode.trim().length < 1) {
@@ -398,7 +397,7 @@
                                     }
                                 });
                             },
-                            validationText: "ÊúâÂäπ„Å™ÊºîÂá∫„Ç≥„Éº„Éâ„Åß„ÅØ„Å™„ÅÑ."
+                            validationText: "óLå¯Ç»ââèoÉRÅ[ÉhÇ≈ÇÕÇ»Ç¢."
 
                         },
                         async (shareCode) => {
@@ -425,12 +424,10 @@
 
                 ctrl.$onChanges = function() {
                     createEffectsData();
-                    rebuildEffectMenus();
                 };
 
                 ctrl.effectsUpdate = function() {
                     ctrl.update({ effects: ctrl.effectsData });
-                    rebuildEffectMenus();
                 };
 
                 ctrl.effectTypeChanged = function(effectType, index) {
@@ -442,9 +439,9 @@
 
                 ctrl.getLabelButtonTextForLabel = function(labelModel) {
                     if (labelModel == null || labelModel.length === 0) {
-                        return "„É©„Éô„É´„ÅÆËøΩÂä†";
+                        return "ÉâÉxÉãÇÃí«â¡";
                     }
-                    return "„É©„Éô„É´„ÅÆÁ∑®ÈõÜ";
+                    return "ÉâÉxÉãÇÃï“èW";
                 };
 
                 ctrl.editLabelForEffectAtIndex = function(index) {
@@ -454,7 +451,7 @@
                         {
                             model: label,
                             label: ctrl.getLabelButtonTextForLabel(label),
-                            saveText: "„É©„Éô„É´„Çí‰øùÂ≠ò"
+                            saveText: "ÉâÉxÉãÇï€ë∂"
                         },
                         (newLabel) => {
                             if (newLabel == null || newLabel.length === 0) {
@@ -524,13 +521,10 @@
 
                 ctrl.copyEffectAtIndex = function(index) {
                     objectCopyHelper.copyEffects([ctrl.effectsData.list[index]]);
-                    createEffectMenuOptions();
-                    rebuildEffectMenus();
                 };
 
                 ctrl.copyEffects = function() {
                     objectCopyHelper.copyEffects(ctrl.effectsData.list);
-                    rebuildEffectMenus();
                 };
 
                 ctrl.openNewEffectModal = index => {
@@ -583,7 +577,7 @@
                 ctrl.eqs = effectQueuesService;
 
                 ctrl.getSelectedEffectQueueName = () => {
-                    const unsetDisplay = "Êú™Ë®≠ÂÆö";
+                    const unsetDisplay = "ñ¢ê›íË";
                     if (ctrl.effectsData.queue == null) {
                         return unsetDisplay;
                     }
@@ -598,7 +592,7 @@
 
                 ctrl.getSelectedQueuePriority = () => {
                     const priority = ctrl.effectsData.queuePriority;
-                    return priority === 'high' ? '„ÅØ„ÅÑ' : '„ÅÑ„ÅÑ„Åà';
+                    return priority === 'high' ? 'ÇÕÇ¢' : 'Ç¢Ç¢Ç¶';
                 };
 
                 ctrl.getSelectedQueueModeIsCustom = () => {
@@ -651,9 +645,9 @@
                     utilityService.openGetInputModal(
                         {
                             model: ctrl.effectsData.queueDuration || 0,
-                            label: "ÊôÇÈñì„ÅÆÁ∑®ÈõÜ",
-                            saveText: "‰øùÂ≠ò",
-                            inputPlaceholder: "ÁßíÊï∞„ÇíÂÖ•Âäõ",
+                            label: "éûä‘ÇÃï“èW",
+                            saveText: "ï€ë∂",
+                            inputPlaceholder: "ïbêîÇì¸óÕ",
                             validationFn: (value) => {
                                 return new Promise(resolve => {
                                     if (value == null || value < 0) {
@@ -662,7 +656,7 @@
                                     resolve(true);
                                 });
                             },
-                            validationText: "Êï∞Â≠ó„ÅØÔºê„Çà„ÇäÂ§ß„Åç„ÅÑÂøÖË¶Å„Åå„ÅÇ„Çä„Åæ„Åô."
+                            validationText: "êîéöÇÕÇOÇÊÇËëÂÇ´Ç¢ïKóvÇ™Ç†ÇËÇ‹Ç∑."
 
                         },
                         (newDuration) => {

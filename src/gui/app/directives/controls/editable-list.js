@@ -26,7 +26,15 @@ const deepmerge = require("deepmerge");
                         <p class="muted" ng-show="$ctrl.model.length < 1">{{$ctrl.settings.noneAddedText}}</p>
                     </div>
                     <div style="margin: 5px 0 10px 0px;">
-                        <button class="filter-bar" ng-click="$ctrl.addItem()" uib-tooltip="{{$ctrl.settings.addLabel}}" tooltip-append-to-body="true" aria-label="{{$ctrl.settings.addLabel}}">
+                        <button
+                            ng-click="$ctrl.addItem()"
+                            ng-disabled="$ctrl.maxItemsReached()"
+                            class="filter-bar"
+                            ng-class="{ muted: $ctrl.maxItemsReached() }"
+                            uib-tooltip="{{!$ctrl.maxItemsReached() ? $ctrl.settings.addLabel : 'Maximum reached' }}"
+                            tooltip-append-to-body="true"
+                            aria-label="{{$ctrl.settings.addLabel}}"
+                        >
                             <i class="far fa-plus"></i>
                         </button>
                     </div>
@@ -43,11 +51,14 @@ const deepmerge = require("deepmerge");
 
                 const defaultSettings = {
                     sortable: false,
-                    addLabel: "è¿½åŠ ",
-                    editLabel: "ç·¨é›†",
-                    validationText: "ãƒ†ã‚­ã‚¹ãƒˆã¯ç©ºæ¬„ã«ã§ãã¾ã›ã‚“",
-                    noneAddedText: "ä¿å­˜ã—ãªã„",
-                    noDuplicates: false
+                    addLabel: "’Ç‰Á",
+                    editLabel: "•ÒW",
+                    validationText: "ƒeƒLƒXƒg‚Í‹ó—“‚É‚Å‚«‚Ü‚¹‚ñ",
+                    noneAddedText: "•Û‘¶‚µ‚È‚¢",
+                    noDuplicates: false,
+                    maxItems: undefined,
+                    trigger: undefined,
+                    triggerMeta: undefined
                 };
 
 
@@ -63,13 +74,17 @@ const deepmerge = require("deepmerge");
                     }
                 };
 
+                $ctrl.maxItemsReached = () => {
+                    return $ctrl.settings.maxItems != null && $ctrl.model.length >= $ctrl.settings.maxItems;
+                };
+
                 function openGetInputModal(model, isNew = true, cb) {
                     utilityService.openGetInputModal(
                         {
                             model: model,
                             label: isNew ? $ctrl.settings.addLabel : $ctrl.settings.editLabel,
                             useTextArea: $ctrl.settings.useTextArea,
-                            saveText: "ä¿å­˜",
+                            saveText: "•Û‘¶",
                             validationFn: (value) => {
                                 return new Promise(resolve => {
                                     if (value == null || value.trim().length < 1) {
@@ -79,7 +94,9 @@ const deepmerge = require("deepmerge");
                                     }
                                 });
                             },
-                            validationText: $ctrl.settings.validationText
+                            validationText: $ctrl.settings.validationText,
+                            trigger: $ctrl.settings.trigger,
+                            triggerMeta: $ctrl.settings.triggerMeta
                         },
                         cb);
                 }
@@ -90,7 +107,7 @@ const deepmerge = require("deepmerge");
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model[index] = newItem;
                         } else {
-                            ngToast.create("è¿½åŠ ã§ãã¾ã›ã‚“ã€‚è¤‡è£½ãŒã™ã§ã«ã‚ã‚Šã¾ã™");
+                            ngToast.create("’Ç‰Á‚Å‚«‚Ü‚¹‚ñB•¡»‚ª‚·‚Å‚É‚ ‚è‚Ü‚·");
                         }
                     });
                 };
@@ -101,7 +118,7 @@ const deepmerge = require("deepmerge");
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model.push(newItem);
                         } else {
-                            ngToast.create("è¿½åŠ ã§ãã¾ã›ã‚“ã€‚è¤‡è£½ãŒã™ã§ã«ã‚ã‚Šã¾ã™");
+                            ngToast.create("’Ç‰Á‚Å‚«‚Ü‚¹‚ñB•¡»‚ª‚·‚Å‚É‚ ‚è‚Ü‚·");
                         }
                     });
                 };

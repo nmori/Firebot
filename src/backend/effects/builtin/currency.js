@@ -14,15 +14,15 @@ const currency = {
    */
     definition: {
         id: "firebot:currency",
-        name: "é€šè²¨ã‚’æ›´æ–°",
-        description: "è¦–è´è€…ã®é€šè²¨ã‚’æ›´æ–°",
+        name: "’Ê‰İ‚ğXV",
+        description: "‹’®Ò‚Ì’Ê‰İ‚ğXV",
         icon: "fad fa-money-bill",
         categories: [EffectCategory.COMMON, EffectCategory.FUN],
         dependencies: [],
         outputs: [
             {
-                label: "é€šè²¨é‡‘é¡",
-                description: "ãƒ©ãƒ³ãƒ€ãƒ ãªé‡‘é¡ã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã«ä¾¿åˆ©ã€‚",
+                label: "’Ê‰İ‹àŠz",
+                description: "ƒ‰ƒ“ƒ_ƒ€‚È‹àŠz‚ğg—p‚·‚éê‡‚É•Ö—˜B",
                 defaultName: "currencyAmount"
             }
         ]
@@ -59,13 +59,13 @@ const currency = {
                 </button>
                 <ul class="dropdown-menu currency-action-dropdown">
                     <li ng-click="effect.action = 'Add'">
-                        <a href>è¿½åŠ </a>
+                        <a href>’Ç‰Á</a>
                     </li>
                     <li ng-click="effect.action = 'Remove'">
-                        <a href>å‰Šé™¤</a>
+                        <a href>íœ</a>
                     </li>
                     <li ng-click="effect.action = 'Set'">
-                        <a href>è¨­å®š</a>
+                        <a href>İ’è</a>
                     </li>
                 </ul>
             </div>
@@ -78,19 +78,19 @@ const currency = {
             <eos-container header="Target" pad-top="true">
 
                 <div class="permission-type controls-fb">
-                    <label class="control-fb control--radio">ãƒ¦ãƒ¼ã‚¶
+                    <label class="control-fb control--radio">ƒ†[ƒU
                         <input type="radio" ng-model="effect.target" value="individual"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">ã‚ªãƒ³ãƒ©ã‚¤ãƒ³çŠ¶æ…‹ã®å½¹å‰²
+                    <label class="control-fb control--radio">ƒIƒ“ƒ‰ƒCƒ“ó‘Ô‚Ì–ğŠ„
                         <input type="radio" ng-model="effect.target" value="group"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">å…¨ã‚ªãƒ³ãƒ©ã‚¤ãƒ³è¦–è´è€…
+                    <label class="control-fb control--radio">‘SƒIƒ“ƒ‰ƒCƒ“‹’®Ò
                         <input type="radio" ng-model="effect.target" value="allOnline"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">å…¨è¦–è´è€…
+                    <label class="control-fb control--radio">‘S‹’®Ò
                         <input type="radio" ng-model="effect.target" value="allViewers"/>
                         <div class="control__indicator"></div>
                     </label>
@@ -99,7 +99,7 @@ const currency = {
                 <div class="settings-permission" style="padding-bottom:1em">
                     <div class=" viewer-group-list" ng-if="effect.target === 'group'">
                         <div ng-show="hasCustomRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">ã‚«ã‚¹ã‚¿ãƒ </div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">ƒJƒXƒ^ƒ€</div>
                             <label ng-repeat="customRole in getCustomRoles()" class="control-fb control--checkbox">{{customRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(customRole)" ng-checked="isRoleChecked(customRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -113,7 +113,7 @@ const currency = {
                             </label>
                         </div>
                         <div ng-show="hasTeamRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">ãƒãƒ¼ãƒ </div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">ƒ`[ƒ€</div>
                             <label ng-repeat="teamRole in getTeamRoles()" class="control-fb control--checkbox">{{teamRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(teamRole)" ng-checked="isRoleChecked(teamRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -128,7 +128,7 @@ const currency = {
                         </div>
                     </div>
                     <div ng-if="effect.target === 'individual'" class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">è¦–è´è€…å</span>
+                        <span class="input-group-addon" id="basic-addon3">‹’®Ò–¼</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.userTarget" replace-variables>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ const currency = {
 
             <eos-container header="Amount" ng-if="effect.target != null" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon" id="currency-units-type">é‡‘é¡</span>
+                    <span class="input-group-addon" id="currency-units-type">‹àŠz</span>
                     <input type="text" ng-model="effect.amount" class="form-control" id="currency-units-setting" aria-describedby="currency-units-type" type="text" replace-variables="number">
                 </div>
             </eos-container>
@@ -145,7 +145,7 @@ const currency = {
         </div>
 
         <div ng-if="effect.target">
-            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> é€ã‚‹ãƒãƒ£ãƒƒãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> ‘—‚éƒ`ƒƒƒbƒgƒƒbƒZ[ƒW
                 <input type="checkbox" ng-model="effect.sendChat">
                 <div class="control__indicator"></div>
             </label>
@@ -155,9 +155,9 @@ const currency = {
 
                 <eos-container header="Message To Send" pad-top="true">
                     <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
-                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">ãƒãƒ£ãƒƒãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯360æ–‡å­—ã‚’è¶…ãˆã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚ã™ã¹ã¦ã®ç½®æ›å¤‰æ•°ãŒå…¥åŠ›ã•ã‚ŒãŸå¾Œã§ã‚‚é•·ã™ãã‚‹å ´åˆã€ã“ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯è‡ªå‹•çš„ã«ãƒˆãƒªãƒŸãƒ³ã‚°ã•ã‚Œã¾ã™ã€‚</div>
+                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">ƒ`ƒƒƒbƒgƒƒbƒZ[ƒW‚Í360•¶š‚ğ’´‚¦‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB‚·‚×‚Ä‚Ì’uŠ·•Ï”‚ª“ü—Í‚³‚ê‚½Œã‚Å‚à’·‚·‚¬‚éê‡A‚±‚ÌƒƒbƒZ[ƒW‚Í©“®“I‚ÉƒgƒŠƒ~ƒ“ƒO‚³‚ê‚Ü‚·B</div>
                     <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
-                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> ã•ã•ã‚„ã
+                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> ‚³‚³‚â‚­
                             <input type="checkbox" ng-init="whisper = (effect.whisper != null && effect.whisper !== '')" ng-model="whisper" ng-click="effect.whisper = ''">
                             <div class="control__indicator"></div>
                         </label>
@@ -217,7 +217,7 @@ const currency = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.currency == null) {
-            errors.push("ä½¿ç”¨ã™ã‚‹é€šè²¨ã‚’é¸æŠã—ã¦ãã ã•ã„ã€‚");
+            errors.push("g—p‚·‚é’Ê‰İ‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢B");
         }
         return errors;
     },
@@ -239,7 +239,7 @@ const currency = {
             if (isNaN(amount)) {
                 return resolve({
                     success: false,
-                    reason: "æ•°å­—ã§ã¯ãªã„é‡‘é¡ï¼š " + amount
+                    reason: "”š‚Å‚Í‚È‚¢‹àŠzF " + amount
                 });
             }
 
@@ -249,45 +249,45 @@ const currency = {
             // PEOPLE GONNA GET PAID
             try {
                 switch (event.effect.target) {
-                case "individual":
+                    case "individual":
                     // Give currency to one person.
-                    await currencyDatabase.adjustCurrencyForUser(
-                        userTarget,
-                        event.effect.currency,
-                        currency,
-                        adjustType
-                    );
-                    break;
-                case "allOnline":
+                        await currencyDatabase.adjustCurrencyForUser(
+                            userTarget,
+                            event.effect.currency,
+                            currency,
+                            adjustType
+                        );
+                        break;
+                    case "allOnline":
                     // Give currency to all online.
-                    await currencyDatabase.addCurrencyToOnlineUsers(
-                        event.effect.currency,
-                        currency,
-                        true,
-                        adjustType
-                    );
-                    break;
-                case "allViewers":
+                        await currencyDatabase.addCurrencyToOnlineUsers(
+                            event.effect.currency,
+                            currency,
+                            true,
+                            adjustType
+                        );
+                        break;
+                    case "allViewers":
                     // Give currency to all viewers.
-                    await currencyDatabase.adjustCurrencyForAllUsers(
-                        event.effect.currency,
-                        currency,
-                        true,
-                        adjustType
-                    );
-                    break;
-                case "group":
+                        await currencyDatabase.adjustCurrencyForAllUsers(
+                            event.effect.currency,
+                            currency,
+                            true,
+                            adjustType
+                        );
+                        break;
+                    case "group":
                     // Give currency to group.
-                    await currencyDatabase.addCurrencyToUserGroupOnlineUsers(
-                        event.effect.roleIds,
-                        event.effect.currency,
-                        currency,
-                        true,
-                        adjustType
-                    );
-                    break;
-                default:
-                    logger.error("Invalid target passed to currency effect. currency.js");
+                        await currencyDatabase.addCurrencyToUserGroupOnlineUsers(
+                            event.effect.roleIds,
+                            event.effect.currency,
+                            currency,
+                            true,
+                            adjustType
+                        );
+                        break;
+                    default:
+                        logger.error("Invalid target passed to currency effect. currency.js");
                 }
 
                 // Send chat if we have it.

@@ -3,16 +3,16 @@
 const model = {
     definition: {
         id: "firebot:followcheck",
-        name: "ãƒ•ã‚©ãƒ­ãƒ¼ãƒã‚§ãƒƒã‚¯",
-        description: "ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Šã®ãƒªã‚¹ãƒˆã§ã€ãƒ¦ãƒ¼ã‚¶ãŒå…¨å“¡ã‚’ãƒ•ã‚©ãƒ­ãƒ¼ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã«åŸºã¥ã„ã¦åˆ¶é™ã™ã‚‹.",
+        name: "ƒtƒHƒ[ƒ`ƒFƒbƒN",
+        description: "ƒJƒ“ƒ}‹æØ‚è‚ÌƒŠƒXƒg‚ÅAƒ†[ƒU‚ª‘Sˆõ‚ğƒtƒHƒ[‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ÉŠî‚Ã‚¢‚Ä§ŒÀ‚·‚é.",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div id="userFollowList" class="modal-subheader" style="padding: 0 0 4px 0">
-                ãƒ•ã‚©ãƒ­ãƒ¼
+                ƒtƒHƒ[
             </div>
-            <input type="text" class="form-control" placeholder="å€¤ã‚’å…¥ã‚Œã‚‹" ng-model="restriction.value">
+            <input type="text" class="form-control" placeholder="’l‚ğ“ü‚ê‚é" ng-model="restriction.value">
         </div>
     `,
     optionsValueDisplay: (restriction) => {
@@ -48,7 +48,7 @@ const model = {
                 return resolve();
             }
 
-            return reject("æ¬¡ã®æ“ä½œãŒå¿…è¦ã§ã™: " + restrictionData.value);
+            return reject("Ÿ‚Ì‘€ì‚ª•K—v‚Å‚·: " + restrictionData.value);
         });
     }
 };

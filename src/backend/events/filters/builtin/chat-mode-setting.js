@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:chatmodesetting",
-    name: "è¨­å®š",
-    description: "ãƒãƒ£ãƒƒãƒˆè¨­å®šã§ãƒ•ã‚£ãƒ«ã‚¿",
+    name: "Ý’è",
+    description: "ƒ`ƒƒƒbƒgÝ’è‚ÅƒtƒBƒ‹ƒ^",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],
@@ -15,22 +15,22 @@ module.exports = {
         return [
             {
                 value: "enabled",
-                display: "æœ‰åŠ¹"
+                display: "—LŒø"
             },
             {
                 value: "disabled",
-                display: "ç„¡åŠ¹"
+                display: "–³Œø"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
         case "enabled":
-            return "æœ‰åŠ¹";
+            return "—LŒø";
         case "disabled":
-            return "ç„¡åŠ¹";
+            return "–³Œø";
         default:
-            return "[ãªã—]";
+            return "[‚È‚µ]";
         }
     },
     predicate: async (filterSettings, eventData) => {
@@ -41,14 +41,14 @@ module.exports = {
         const chatModeStateEnabled = eventMeta.chatModeState === "enabled";
 
         switch (value) {
-        case "enabled": {
-            return chatModeStateEnabled;
-        }
-        case "disabled": {
-            return !chatModeStateEnabled;
-        }
-        default:
-            return !chatModeStateEnabled;
+            case "enabled": {
+                return chatModeStateEnabled;
+            }
+            case "disabled": {
+                return !chatModeStateEnabled;
+            }
+            default:
+                return !chatModeStateEnabled;
         }
     }
 };

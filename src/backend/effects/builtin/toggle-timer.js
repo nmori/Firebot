@@ -6,8 +6,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const chat = {
     definition: {
         id: "firebot:toggle-timer",
-        name: "ã‚¿ã‚¤ãƒãƒ¼çŠ¶æ…‹ã‚’åˆ‡æ›¿",
-        description: "ã‚¿ã‚¤ãƒãƒ¼ã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹",
+        name: "ƒ^ƒCƒ}[ó‘Ô‚ğØ‘Ö",
+        description: "ƒ^ƒCƒ}[‚ÌƒAƒNƒeƒBƒuó‘Ô‚ğØ‚è‘Ö‚¦‚é",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -15,18 +15,18 @@ const chat = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>ã“ã®åŠ¹æœã«ã‚ˆã‚Šã€ã‚¿ã‚¤ãƒãƒ¼ã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è‡ªå‹•çš„ã«åˆ‡ã‚Šæ›¿ãˆã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚</p>
+            <p>‚±‚ÌŒø‰Ê‚É‚æ‚èAƒ^ƒCƒ}[‚ÌƒAƒNƒeƒBƒuƒXƒe[ƒ^ƒX‚ğ©“®“I‚ÉØ‚è‘Ö‚¦‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B</p>
         </eos-container>
 
         <eos-container ng-hide="hasTimers" pad-top="true">
-            <span class="muted">ã‚¿ã‚¤ãƒãƒ¼ã¯ã¾ã ä½œæˆã•ã‚Œã¦ã„ã¾ã›ã‚“ï¼<b>ã‚¿ã‚¤ãƒãƒ¼</b>ã‚¿ãƒ–ã§ä½œæˆã§ãã¾ã™ã€‚</span>
+            <span class="muted">ƒ^ƒCƒ}[‚Í‚Ü‚¾ì¬‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI<b>ƒ^ƒCƒ}[</b>ƒ^ƒu‚Åì¬‚Å‚«‚Ü‚·B</span>
         </eos-container>
 
-        <eos-container ng-show="hasTimers" header="ã‚¿ã‚¤ãƒãƒ¼" pad-top="true">
+        <eos-container ng-show="hasTimers" header="ƒ^ƒCƒ}[" pad-top="true">
             <dropdown-select options="timerOptions" selected="effect.selectedTimerId"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="hasTimers" header="åˆ‡ã‚Šæ›¿ãˆ" pad-top="true">
+        <eos-container ng-show="hasTimers" header="Ø‚è‘Ö‚¦" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,
@@ -47,9 +47,9 @@ const chat = {
         }
 
         $scope.toggleOptions = {
-            disable: "éã‚¢ã‚¯ãƒ†ã‚£ãƒ–",
-            enable: "ã‚¢ã‚¯ãƒ†ã‚£ãƒ–",
-            toggle: "åˆ‡ã‚Šæ›¿ãˆ"
+            disable: "”ñƒAƒNƒeƒBƒu",
+            enable: "ƒAƒNƒeƒBƒu",
+            toggle: "Ø‚è‘Ö‚¦"
         };
 
         if ($scope.effect.toggleType == null) {
@@ -59,7 +59,7 @@ const chat = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.selectedTimerId == null) {
-            errors.push("ã‚¿ã‚¤ãƒãƒ¼ã‚’é¸ã‚“ã§ãã ã•ã„");
+            errors.push("ƒ^ƒCƒ}[‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢");
         }
         return errors;
     },

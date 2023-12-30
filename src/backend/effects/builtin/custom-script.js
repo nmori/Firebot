@@ -13,8 +13,8 @@ const fileWriter = {
    */
     definition: {
         id: "firebot:customscript",
-        name: "ã‚«ã‚¹ã‚¿ãƒ ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®å®Ÿè¡Œ",
-        description: "ã‚«ã‚¹ã‚¿ãƒ JSã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å®Ÿè¡Œã™ã‚‹ã€‚",
+        name: "ƒJƒXƒ^ƒ€ƒXƒNƒŠƒvƒg‚ÌÀs",
+        description: "ƒJƒXƒ^ƒ€JSƒXƒNƒŠƒvƒg‚ğÀs‚·‚éB",
         icon: "fad fa-code",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
@@ -50,7 +50,7 @@ const fileWriter = {
                     resolve(result != null ? result : true);
                 })
                 .catch(err => {
-                    renderWindow.webContents.send('error', "ã‚«ã‚¹ã‚¿ãƒ ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®å‡¦ç†ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚ " + err.message);
+                    renderWindow.webContents.send('error', "ƒJƒXƒ^ƒ€ƒXƒNƒŠƒvƒg‚Ìˆ—‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B " + err.message);
                     logger.error(err);
                     resolve(false);
                 });

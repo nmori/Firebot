@@ -4,30 +4,32 @@ import { OBSSource, setSourceMuted, toggleSourceMuted } from "../obs-remote";
 type SourceAction = boolean | "toggle";
 
 type EffectProperties = {
-  selectedSources: Array<{
-    sourceName: string;
-    action: SourceAction;
-  }>;
+    selectedSources: Array<{
+        sourceName: string;
+        action: SourceAction;
+    }>;
 };
 
 type Scope = {
-  effect: EffectProperties;
-  [x: string]: any;
+    effect: EffectProperties;
+    [x: string]: any;
 };
 
 export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
   {
     definition: {
       id: "ebiggz:obs-toggle-source-muted",
-      name: "OBS éŸ³å£°ã‚½ãƒ¼ã‚¹ã®ãƒŸãƒ¥ãƒ¼ãƒˆ",
-      description: "OBSéŸ³å£°ã‚½ãƒ¼ã‚¹ã®ãƒŸãƒ¥ãƒ¼ãƒˆçŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹",
+      name: "OBS ‰¹ºƒ\[ƒX‚Ìƒ~ƒ…[ƒg",
+      description: "OBS‰¹ºƒ\[ƒX‚Ìƒ~ƒ…[ƒgó‘Ô‚ğØ‚è‘Ö‚¦‚é",
       icon: "fad fa-volume-mute",
       categories: ["common"],
     },
     optionsTemplate: `
-    <eos-container header="éŸ³å£°ã‚½ãƒ¼ã‚¹">
+    <eos-container header="‰¹ºƒ\[ƒX">
       <firebot-input model="searchText" input-title="Filter"></firebot-input>
-      <br>
+      <div>
+          <button class="btn btn-link" ng-click="getSourceList()">Refresh Sources</button>
+      </div>
       <div ng-if="sourceList != null && sourceList.length > 0" ng-repeat="source in sourceList | filter: {name: searchText}">
           <label  class="control-fb control--checkbox">{{source.name}}
               <input type="checkbox" ng-click="toggleSourceSelected(source.name)" ng-checked="sourceIsSelected(source.name)"  aria-label="..." >
@@ -39,113 +41,118 @@ export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
                 {{getSourceActionDisplay(source.name)}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem" ng-click="setSourceAction(source.name, true)"><a href>ãƒŸãƒ¥ãƒ¼ãƒˆã‚’è¨­å®š</a></li>
-                    <li role="menuitem" ng-click="setSourceAction(source.name, false)"><a href>ãƒŸãƒ¥ãƒ¼ãƒˆã‚’è§£é™¤</a></li>
-                    <li role="menuitem" ng-click="setSourceAction(source.name, 'toggle')"><a href>ãƒŸãƒ¥ãƒ¼ãƒˆçŠ¶æ…‹ã‚’åè»¢</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, true)"><a href>ƒ~ƒ…[ƒg‚ğİ’è</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, false)"><a href>ƒ~ƒ…[ƒg‚ğ‰ğœ</a></li>
+                    <li role="menuitem" ng-click="setSourceAction(source.name, 'toggle')"><a href>ƒ~ƒ…[ƒgó‘Ô‚ğ”½“]</a></li>
                 </ul>
             </div>
           </div>
         </div>
       <div ng-if="sourceList != null && sourceList.length < 1" class="muted">
-        ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚½ãƒ¼ã‚¹ãŒã¿ã¤ã‹ã‚Šã¾ã›ã‚“
+        ƒI[ƒfƒBƒIƒ\[ƒX‚ª‚İ‚Â‚©‚è‚Ü‚¹‚ñ
       </div>
       <div ng-if="sourceList == null" class="muted">
-        ã‚½ãƒ¼ã‚¹ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚OBSã¯å‹•ã„ã¦ã„ã¾ã™ã‹ï¼Ÿ
+        No sources found. {{ isObsConfigured ? "Is OBS running?" : "Have you configured the OBS integration?" }}
       </div>
-      <p>
-          <button class="btn btn-link" ng-click="getSourceList()">å†èª­ã¿è¾¼ã¿</button>
-      </p>
     </eos-container>
   `,
-    optionsController: ($scope: Scope, backendCommunicator: any, $q: any) => {
-      $scope.sourceList = null;
+      optionsController: ($scope: Scope, backendCommunicator: any, $q: any) => {
+          $scope.isObsConfigured = false;
 
-      if ($scope.effect.selectedSources == null) {
-        $scope.effect.selectedSources = [];
+          $scope.sourceList = null;
+
+          if ($scope.effect.selectedSources == null) {
+              $scope.effect.selectedSources = [];
+          }
+
+          $scope.sourceIsSelected = (sourceName: string) => {
+              return $scope.effect.selectedSources.some(
+                  (s) => s.sourceName === sourceName
+              );
+          };
+
+          $scope.toggleSourceSelected = (sourceName: string) => {
+              if ($scope.sourceIsSelected(sourceName)) {
+                  $scope.effect.selectedSources = $scope.effect.selectedSources.filter(
+                      (s) => !(s.sourceName === sourceName)
+                  );
+              } else {
+                  $scope.effect.selectedSources.push({
+                      sourceName,
+                      action: true
+                  });
+              }
+          };
+
+          $scope.setSourceAction = (
+              sourceName: string,
+              action: "toggle" | boolean
+          ) => {
+              const selectedSource = $scope.effect.selectedSources.find(
+                  (s) => s.sourceName === sourceName
+              );
+              if (selectedSource != null) {
+                  selectedSource.action = action;
+              }
+          };
+
+          $scope.getSourceActionDisplay = (sourceName: string) => {
+              const selectedSource = $scope.effect.selectedSources.find(
+                  (s) => s.sourceName === sourceName
+              );
+              if (selectedSource == null) {
+                  return "";
+              }
+
+              if (selectedSource.action === "toggle") {
+                  return "Toggle";
+              }
+              if (selectedSource.action === true) {
+                  return "Mute";
+              }
+              return "Unmute";
+          };
+
+          const capitalizeWords = (input: string) =>
+              input
+                  .split(" ")
+                  .map(
+                      (w) => w[0].toLocaleUpperCase() + w.substr(1).toLocaleLowerCase()
+                  )
+                  .join(" ");
+
+          $scope.formatSourceType = (type: string) => {
+              return capitalizeWords((type ?? "").replace(/_/, " "));
+          };
+
+          $scope.getSourceList = () => {
+              $scope.isObsConfigured = backendCommunicator.fireEventSync("obs-is-configured");
+
+              $q.when(
+                  backendCommunicator.fireEventAsync("obs-get-audio-sources")
+              ).then((sourceList: Array<OBSSource>) => {
+                  $scope.sourceList = sourceList ?? null;
+              });
+          };
+
+          $scope.getSourceList();
+      },
+      optionsValidator: () => {
+          return [];
+      },
+      onTriggerEvent: async ({ effect }) => {
+          if (effect.selectedSources == null) {
+              return true;
+          }
+
+          for (const { sourceName, action } of effect.selectedSources) {
+              if (action === "toggle") {
+                  await toggleSourceMuted(sourceName);
+              } else {
+                  await setSourceMuted(sourceName, action);
+              }
+          }
+
+          return true;
       }
-
-      $scope.sourceIsSelected = (sourceName: string) => {
-        return $scope.effect.selectedSources.some(
-          (s) => s.sourceName === sourceName
-        );
-      };
-
-      $scope.toggleSourceSelected = (sourceName: string) => {
-        if ($scope.sourceIsSelected(sourceName)) {
-          $scope.effect.selectedSources = $scope.effect.selectedSources.filter(
-            (s) => !(s.sourceName === sourceName)
-          );
-        } else {
-          $scope.effect.selectedSources.push({
-            sourceName,
-            action: true,
-          });
-        }
-      };
-
-      $scope.setSourceAction = (
-        sourceName: string,
-        action: "toggle" | boolean
-      ) => {
-        const selectedSource = $scope.effect.selectedSources.find(
-          (s) => s.sourceName === sourceName
-        );
-        if (selectedSource != null) {
-          selectedSource.action = action;
-        }
-      };
-
-      $scope.getSourceActionDisplay = (sourceName: string) => {
-        const selectedSource = $scope.effect.selectedSources.find(
-          (s) => s.sourceName === sourceName
-        );
-        if (selectedSource == null) return "";
-
-        if (selectedSource.action === "toggle") {
-          return "ãƒŸãƒ¥ãƒ¼ãƒˆçŠ¶æ…‹ã‚’åè»¢";
-        }
-        if (selectedSource.action === true) {
-          return "ãƒŸãƒ¥ãƒ¼ãƒˆã‚’è¨­å®š";
-        }
-        return "ãƒŸãƒ¥ãƒ¼ãƒˆã‚’è§£é™¤";
-      };
-
-      const capitalizeWords = (input: string) =>
-        input
-          .split(" ")
-          .map(
-            (w) => w[0].toLocaleUpperCase() + w.substr(1).toLocaleLowerCase()
-          )
-          .join(" ");
-
-      $scope.formatSourceType = (type: string) => {
-        return capitalizeWords((type ?? "").replace(/_/, " "));
-      };
-
-      $scope.getSourceList = () => {
-        $q.when(
-          backendCommunicator.fireEventAsync("obs-get-audio-sources")
-        ).then((sourceList: Array<OBSSource>) => {
-          $scope.sourceList = sourceList ?? null;
-        });
-      };
-
-      $scope.getSourceList();
-    },
-    optionsValidator: () => {
-      return [];
-    },
-    onTriggerEvent: async ({ effect }) => {
-      if (effect.selectedSources == null) return true;
-
-      for (const { sourceName, action } of effect.selectedSources) {
-        if (action === "toggle") {
-          await toggleSourceMuted(sourceName);
-        } else {
-          await setSourceMuted(sourceName, action);
-        }
-      }
-
-      return true;
-    },
   };

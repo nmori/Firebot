@@ -1,6 +1,6 @@
 import { EffectType } from "../../../../../types/effects";
-import {OBSSource, OBSSourceScreenshotSettings, takeSourceScreenshot} from "../obs-remote";
-import * as fs from "fs";
+import {getCurrentSceneName, OBSSource, OBSSourceScreenshotSettings, takeSourceScreenshot} from "../obs-remote";
+import fs from "fs";
 import logger from "../../../../logwrapper";
 
 export const TakeOBSSourceScreenshotEffectType: EffectType<{
@@ -10,30 +10,45 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
     height: number;
     width: number;
     quality: number;
+    useActiveScene: boolean;
 }> = {
     definition: {
         id: "firebot:obs-source-screenshot",
-        name: "OBSã‚½ãƒ¼ã‚¹ã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’æ’®ã‚‹",
-        description: "OBSã‚½ãƒ¼ã‚¹ã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’æ’®ã£ã¦ä¿å­˜ã—ã¾ã™",
+        name: "OBSƒ\[ƒX‚ÌƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg‚ğB‚é",
+        description: "OBSƒ\[ƒX‚ÌƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg‚ğB‚Á‚Ä•Û‘¶‚µ‚Ü‚·",
         icon: "fad fa-camera-retro",
-        categories: ["common"],
+        categories: ["common"]
     },
     optionsTemplate: `
-        <eos-container header="OBS ã‚½ãƒ¼ã‚¹">
-            <ui-select ng-model="effect.source" theme="bootstrap">
+        <eos-container header="OBS ƒ\[ƒX">
+            <div>
+                <button class="btn btn-link" ng-click="getSources()">Refresh Source Data</button>
+            </div>
+            <ui-select ng-if="sources != null" ng-hide="effect.useActiveScene" ng-model="effect.source" theme="bootstrap">
                 <ui-select-match>{{$select.selected.name}} ({{$select.selected.type}})</ui-select-match>
                 <ui-select-choices repeat="item.name as item in sources | filter: $select.search">
                     <div ng-bind-html="item.name | highlight: $select.search"></div>
                     <small ng-bind-html="item.type | highlight: $select.search"></small>
                 </ui-select-choices>
             </ui-select>
+
+            <div ng-if="sources == null" ng-hide="effect.useActiveScene" class="muted">
+                No sources found. {{ isObsConfigured ? "Is OBS running?" : "Have you configured the OBS integration?" }}
+            </div>
+
+            <div style="padding-top:20px">
+                <label class="control-fb control--checkbox"> Use Active Scene <tooltip text="'Take a screenshot of the active scene.'"></tooltip>
+                    <input type="checkbox" ng-model="effect.useActiveScene">
+                    <div class="control__indicator"></div>
+                </label>
+            </div>
         </eos-container>
-        
+
         <div class="effect-setting-container setting-padtop">
-    <div class="effect-specific-title"><h4>ã‚¤ãƒ¡ãƒ¼ã‚¸ã®è¨­å®š</h4></div>
+    <div class="effect-specific-title"><h4>ƒCƒ[ƒW‚Ìİ’è</h4></div>
     <div class="effect-setting-content">
     <div class="input-group">
-            <span class="input-group-addon">ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ</span>
+            <span class="input-group-addon">ƒtƒH[ƒ}ƒbƒg</span>
             <div class="btn-group" uib-dropdown>
         <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
             {{effect.imageFormat}} <span class="caret"></span>
@@ -44,69 +59,66 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
             </li>
         </ul>
     </div>
-    <span class="input-group-addon">ãƒ•ã‚¡ã‚¤ãƒ«</span>
+    <span class="input-group-addon">ƒtƒ@ƒCƒ‹</span>
             <file-chooser model="effect.file" options="{ filters: [ {name: 'Images', extensions: ['bmp','jpeg','jpg','pbm','pgm','png','ppm','xbm','xpm']} ]}"></file-chooser>
-        </div>
-    </div>
-        
-    <div class="effect-setting-container setting-padtop">
-    <div class="effect-specific-title"><h4>è¿½åŠ è¨­å®š</h4></div>
-    <div class="effect-setting-content">
-            <div class="input-group">
-            <span class="input-group-addon">ç”»åƒã®åœ§ç¸®åº¦</span>
-            <input
-                type="number"
-                class="form-control"
-                aria-describeby="image-compression-setting-type"
-                ng-model="effect.quality"
-                uib-tooltip="100ã¯éåœ§ç¸®ã€0ã¯æœ€åœ§ç¸®ã€‚"
-                tooltip-append-to-body="true"
-                aria-label="åœ§ç¸®è¨­å®š"
-                placeholder="100"
-                min="-1"
-                max="100"
-                style="width: 100px;">
-            <span class="input-group-addon">å¹…</span>
-            <input
-                type="number"
-                class="form-control"
-                aria-describeby="image-width-setting-type"
-                ng-model="effect.width"
-                uib-tooltip="å¹…ã‚’æŒ‡å®š(pixel)ã€‚ç©ºã®å ´åˆã€ã‚½ãƒ¼ã‚¹ã®å¹…ã‚’ä½¿ç”¨ã—ã¾ã™ã€‚"
-                tooltip-append-to-body="true"
-                placeholder="px">
-            <span class="input-group-addon">Height</span>
-            <input
-                type="number"
-                class="form-control"
-                aria-describeby="image-height-setting-type"
-                ng-model="effect.height"
-                uib-tooltip="é«˜ã•ã‚’æŒ‡å®š(pixel)ã€‚ç©ºã®å ´åˆã€ã‚½ãƒ¼ã‚¹ã®é«˜ã•ã‚’ä½¿ç”¨ã—ã¾ã™ã€‚"
-                tooltip-append-to-body="true"
-                placeholder="px">
+                </div>
             </div>
-            </div>
-    </div>
-        <div ng-if="sources == null" class="muted">
-            ã‚½ãƒ¼ã‚¹ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚OBSã¯å‹•ã„ã¦ã„ã¾ã™ã‹ï¼Ÿ
         </div>
-        <p>
-            <button class="btn btn-link" ng-click="getSources()">ã‚½ãƒ¼ã‚¹ã‚’æ›´æ–°</button>
-        </p>
-    <eos-container ng-if="sources != null && effect.sourceName != null" header="Text" style="margin-top: 10px;">
 
-    </eos-container>
+        <div class="effect-setting-container setting-padtop">
+            <div class="effect-specific-title"><h4>Optional Image Settings</h4></div>
+            <div class="effect-setting-content">
+                <div class="input-group">
+                    <span class="input-group-addon">Quality</span>
+                    <input
+                        type="number"
+                        class="form-control"
+                        aria-describeby="image-compression-setting-type"
+                        ng-model="effect.quality"
+                        uib-tooltip="100 is uncompressed, 0 is most compressed."
+                        tooltip-append-to-body="true"
+                        aria-label="Compression Setting"
+                        placeholder="100"
+                        min="-1"
+                        max="100"
+                        style="width: 100px;">
+                    <span class="input-group-addon">Width</span>
+                    <input
+                        type="number"
+                        class="form-control"
+                        aria-describeby="image-width-setting-type"
+                        ng-model="effect.width"
+                        uib-tooltip="Amount of pixels to scale the width to. Uses the source width if left empty"
+                        tooltip-append-to-body="true"
+                        placeholder="px">
+                    <span class="input-group-addon">Height</span>
+                    <input
+                        type="number"
+                        class="form-control"
+                        aria-describeby="image-height-setting-type"
+                        ng-model="effect.height"
+                        uib-tooltip="Amount of pixels to scale the height to. Uses the source height if left empty"
+                        tooltip-append-to-body="true"
+                        placeholder="px">
+                    </div>
+                </div>
+            </div>
+        </div>
   `,
     optionsController: ($scope: any, backendCommunicator: any, $q: any) => {
+        $scope.isObsConfigured = false;
+
         if ($scope.effect.format == null) {
             $scope.effect.format = "png";
         }
 
         $scope.getSources = () => {
+            $scope.isObsConfigured = backendCommunicator.fireEventSync("obs-is-configured");
+
             $q.when(
                 backendCommunicator.fireEventAsync("obs-get-all-sources")
             ).then(
-                (sources: OBSSource[]) => $scope.sources = sources ?? []
+                (sources: OBSSource[]) => $scope.sources = sources
             );
             $q.when(
                 backendCommunicator.fireEventAsync("obs-get-supported-image-formats")
@@ -117,35 +129,35 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
         $scope.getSources();
     },
     optionsValidator: (effect) => {
-        let errors: string[] = [];
-        if (effect.source == null) {
-            errors.push("ã‚½ãƒ¼ã‚¹ã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
+        const errors: string[] = [];
+        if (!effect.useActiveScene && effect.source == null) {
+            errors.push("ƒ\[ƒX‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
         }
         if (effect.format == null) {
-            errors.push("ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
+            errors.push("ƒtƒH[ƒ}ƒbƒg‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
         }
         if (effect.file == null) {
-            errors.push("ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
+            errors.push("ƒtƒ@ƒCƒ‹‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
         }
         return errors;
     },
     onTriggerEvent: async ({ effect }) => {
-        let screenshotSettings: OBSSourceScreenshotSettings = {
-            sourceName: effect.source,
+        const screenshotSettings: OBSSourceScreenshotSettings = {
+            sourceName: effect.useActiveScene ? await getCurrentSceneName() : effect.source,
             imageFormat: effect.format,
             imageHeight: effect.height,
             imageWidth: effect.width,
             imageCompressionQuality: effect.quality
-        }
+        };
 
-        let screenshot = await takeSourceScreenshot(screenshotSettings);
+        const screenshot = await takeSourceScreenshot(screenshotSettings);
 
         if (screenshot == null) {
             logger.error("Source screenshot is null, ignoring.");
             return true;
         }
 
-        fs.writeFileSync(effect.file, screenshot.split("base64,")[1], "base64");
+        fs.writeFileSync(effect.file, screenshot.split("base64,")[1], { encoding: "base64" });
         return true;
-    },
+    }
 };

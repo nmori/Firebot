@@ -18,7 +18,7 @@ const addFirebotLogMessage = {
             <p class="muted">Firebotのログファイルに書き込みたいメッセージを入力します。</p>
             <input ng-model="effect.logMessage" id="log-message-text" type="text" class="form-control" placeholder="Enter log message text" replace-variables>
         </eos-container>
-        
+
         <eos-container header="Log Level" pad-top="true">
             <p class="muted">メッセージを書き込むログレベルを選択します。 デバッグ・レベルのメッセージは、デバッグ・モードが有効な場合にのみ書き込まれることに注意してください。</p>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,22 +48,22 @@ const addFirebotLogMessage = {
     },
     onTriggerEvent: async ({ effect }) => {
         switch (effect.logLevel) {
-        case "Error":
-            logger.error(effect.logMessage);
-            break;
+            case "Error":
+                logger.error(effect.logMessage);
+                break;
 
-        case "Warning":
-            logger.warn(effect.logMessage);
-            break;
+            case "Warning":
+                logger.warn(effect.logMessage);
+                break;
 
-        case "Debug":
-            logger.debug(effect.logMessage);
-            break;
+            case "Debug":
+                logger.debug(effect.logMessage);
+                break;
 
             // Use Info as default
-        default:
-            logger.info(effect.logMessage);
-            break;
+            default:
+                logger.info(effect.logMessage);
+                break;
         }
     }
 };

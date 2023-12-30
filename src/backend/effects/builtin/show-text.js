@@ -3,7 +3,7 @@
 const { settings } = require("../../common/settings-access");
 const webServer = require("../../../server/http-server-manager");
 const logger = require("../../logwrapper");
-const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
+const { EffectCategory } = require('../../../shared/effect-constants');
 
 /**
  * The Show Text effect
@@ -18,7 +18,7 @@ const showText = {
         description: "指定したテキストをオーバーレイに表示する。",
         icon: "fad fa-text",
         categories: [EffectCategory.COMMON, EffectCategory.OVERLAY],
-        dependencies: [EffectDependency.OVERLAY]
+        dependencies: []
     },
     /**
    * Global settings that will be available in the Settings tab
@@ -188,7 +188,7 @@ const showText = {
             $scope.editor.summernote("focus");
             $timeout(() => {
                 const display = variable.usage ? variable.usage : variable.handle;
-                $scope.editor.summernote("insertText", "$" + display);
+                $scope.editor.summernote("insertText", `$${display}`);
             }, 100);
 
         };
@@ -205,8 +205,8 @@ const showText = {
                 ['misc', ['undo', 'redo', 'codeview']]
             ],
             fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36', '48', '64', '82', '88', '96', '110', '124', '136', '150', '200', '250', '300'],
-            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana', 'Open Sans', 'Roboto'],
-            fontNamesIgnoreCheck: ['Open Sans', 'Roboto']
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana', 'Inter', 'Open Sans', 'Roboto'],
+            fontNamesIgnoreCheck: ['Inter', 'Open Sans', 'Roboto']
         };
 
         const installedFontNames = fontManager.getInstalledFonts().map(f => f.name);

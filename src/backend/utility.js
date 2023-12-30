@@ -1,5 +1,6 @@
 "use strict";
 
+const { randomInt } = require('node:crypto');
 const moment = require("moment");
 const replaceVariableManager = require("./variables/replace-variable-manager");
 const accountAccess = require("./common/account-access");
@@ -7,9 +8,10 @@ const twitchApi = require("./twitch-api/api");
 
 const getRandomInt = (min, max) => {
     min = Math.ceil(min);
-    max = Math.floor(max);
+    max = Math.max(Math.floor(max), min); // Ensure max is at least equal to min
 
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    // randomInt is max exclusive, so we add 1 to make inclusive
+    return randomInt(min, max + 1);
 };
 
 const escapeRegExp = (str) => {
@@ -41,12 +43,12 @@ const secondsForHumans = (seconds) => {
             continue;
         }
         returntext +=
-      " " +
-      levels[i][0] +
-      " " +
-      (levels[i][0] === 1
-          ? levels[i][1].substr(0, levels[i][1].length - 1)
-          : levels[i][1]);
+      ` ${
+          levels[i][0]
+      } ${
+          levels[i][0] === 1
+              ? levels[i][1].substr(0, levels[i][1].length - 1)
+              : levels[i][1]}`;
     }
     return returntext.trim();
 };
@@ -74,7 +76,7 @@ const formattedSeconds = (secs, simpleOutput = false) => {
     let uptimeStr = "";
 
     if (hasHours) {
-        uptimeStr = hours + " æ™‚é–“";
+        uptimeStr = hours + " ŠÔ";
         // if (hours > 0) {
         //     uptimeStr = uptimeStr + "s";
         // }
@@ -83,7 +85,7 @@ const formattedSeconds = (secs, simpleOutput = false) => {
         // if (hasHours) {
         //     uptimeStr = uptimeStr + ",";
         // }
-        uptimeStr = uptimeStr + " " + minutes + " åˆ†";
+        uptimeStr = uptimeStr + " " + minutes + " •ª";
         // if (minutes > 0) {
         //     uptimeStr = uptimeStr + "s";
         // }
@@ -92,7 +94,7 @@ const formattedSeconds = (secs, simpleOutput = false) => {
         // if (hasHours || hasMins) {
         //     uptimeStr = uptimeStr + ",";
         // }
-        uptimeStr = uptimeStr + " " + seconds + " ç§’";
+        uptimeStr = uptimeStr + " " + seconds + " •b";
         // if (seconds > 0) {
         //     uptimeStr = uptimeStr + "s";
         // }
@@ -129,7 +131,7 @@ const getUptime = async () => {
     const channelData = await client.streams.getStreamByUserId(streamerAccount.userId);
 
     if (channelData == null) {
-        return "ä»Šã¯é…ä¿¡ã—ã¦ã„ã¾ã›ã‚“";
+        return "¡‚Í”zM‚µ‚Ä‚¢‚Ü‚¹‚ñ";
     }
 
     const startedDate = channelData.startDate;
@@ -158,11 +160,11 @@ const getDateDiffString = (date1, date2) => {
         if (diff === 1) {
             interval = interval.slice(0, -1);
         }
-        out.push(diff + " " + interval);
+        out.push(`${diff} ${interval}`);
     }
     if (out.length > 1) {
         const last = out[out.length - 1];
-        out[out.length - 1] = "and " + last;
+        out[out.length - 1] = `and ${last}`;
     }
     return out.length === 2 ? out.join(" ") : out.join(", ");
 };

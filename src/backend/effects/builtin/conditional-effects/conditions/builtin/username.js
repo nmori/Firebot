@@ -2,9 +2,9 @@
 
 module.exports = {
     id: "firebot:username",
-    name: "ãƒ¦ãƒ¼ã‚¶å",
-    description: "ãƒ¦ãƒ¼ã‚¶ãƒ¼åã«åŸºã¥ãæ¡ä»¶",
-    comparisonTypes: ["ä¸€è‡´", "ä¸ä¸€è‡´", "å«ã‚€", "æ­£è¦è¡¨ç¾"],
+    name: "ƒ†[ƒU–¼",
+    description: "ƒ†[ƒU[–¼‚ÉŠî‚Ã‚­ğŒ",
+    comparisonTypes: ["ˆê’v", "•sˆê’v", "ŠÜ‚Ş", "³‹K•\Œ»"],
     leftSideValueType: "none",
     rightSideValueType: "text",
     predicate: (conditionSettings, trigger) => {
@@ -17,21 +17,18 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
-        case "ä¸€è‡´":
+        case "ˆê’v":
             return triggerUsername === conditionUsername;
         case "is not":
-        case "ä¸ä¸€è‡´":
+        case "•sˆê’v":
             return triggerUsername !== conditionUsername;
         case "contains":
-        case "å«ã‚€":
+        case "ŠÜ‚Ş":
             return triggerUsername.includes(conditionUsername);
         case "matches regex":
-        case "æ­£è¦è¡¨ç¾": {
+        case "³‹K•\Œ»": {
             const regex = new RegExp(conditionUsername, "gi");
             return regex.test(triggerUsername);
-        }
-        default:
-            return false;
         }
     }
 };

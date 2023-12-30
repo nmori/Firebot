@@ -110,7 +110,7 @@
 
                             <div style="height: 147px;">
                                 <div ng-hide="$ctrl.importIncompatibilityMessages.length < 1">
-                                    <eos-collapsable-panel show-label="{{'SETUP_WIZ.SHOW_IMPORT_WARNING' | translate }}â€ hide-label="{{'SETUP_WIZ.HIDE_IMPORT_WARNING' | translate }}" hide-info-box="true">
+                                    <eos-collapsable-panel show-label="{{'SETUP_WIZ.SHOW_IMPORT_WARNING' | translate }}h hide-label="{{'SETUP_WIZ.HIDE_IMPORT_WARNING' | translate }}" hide-info-box="true">
                                         <div class="incompat-warnings-wrapper">
                                             <ul>
                                                 <li ng-repeat="message in $ctrl.importIncompatibilityMessages track by $index">{{message}}</li>
@@ -251,15 +251,16 @@
                 </div>
 
                 <div>
-                    <a class="btn btn-default" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()">{{'SETUP_WIZ.BACK'| translate }}</a>
+                    <a class="btn btn-default hvr-icon-back" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()"><i class="fas fa-arrow-left hvr-icon"></i> Back</a>
                     <a
-                        class="btn btn-primary"
+                        class="btn btn-primary hvr-icon-forward"
                         uib-tooltip="{{$ctrl.getTooltipText()}}"
                         tooltip-enable="!$ctrl.canGoToNext()"
                         ng-click="$ctrl.handleNext()"
                         ng-show="$ctrl.showNextButton()"
                         ng-disabled="!$ctrl.canGoToNext()">
                             {{$ctrl.getNextLabel()}}
+                            <i class="fas fa-arrow-right hvr-icon"></i>
                     </a>
                 </div>
                 <div>
@@ -280,9 +281,9 @@
 
             $ctrl.stepTitles = [
                 "",
-                "Firebot v4ãƒ‡ãƒ¼ã‚¿ã‚’å–ã‚Šè¾¼ã‚€",
-                "ãƒ­ã‚°ã‚¤ãƒ³",
-                "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ã®ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—",
+                "Firebot v4ƒf[ƒ^‚ğæ‚è‚Ş",
+                "ƒƒOƒCƒ“",
+                "ƒI[ƒo[ƒŒƒC‚ÌƒZƒbƒgƒAƒbƒv",
                 ""
             ];
 
@@ -315,17 +316,17 @@
             $ctrl.getNextLabel = function() {
                 switch ($ctrl.step) {
                 default:
-                    return "æ¬¡ã¸";
+                    return "Ÿ‚Ö";
                 }
             };
 
             $ctrl.handlePrevious = function() {
                 switch ($ctrl.step) {
-                case 2:
-                    $ctrl.step = 0;
-                    break;
-                default:
-                    $ctrl.step -= $ctrl.isFirstStep() ? 0 : 1;
+                    case 2:
+                        $ctrl.step = 0;
+                        break;
+                    default:
+                        $ctrl.step -= $ctrl.isFirstStep() ? 0 : 1;
                 }
             };
 
@@ -348,12 +349,12 @@
 
             $ctrl.canGoToNext = function() {
                 switch ($ctrl.step) {
-                case 2:
-                    return connectionService.accounts.streamer.loggedIn;
-                case 3: {
-                    const overlayStatus = connectionManager.getOverlayStatus();
-                    return !overlayStatus.serverStarted || overlayStatus.clientsConnected;
-                }
+                    case 2:
+                        return connectionService.accounts.streamer.loggedIn;
+                    case 3: {
+                        const overlayStatus = connectionManager.getOverlayStatus();
+                        return !overlayStatus.serverStarted || overlayStatus.clientsConnected;
+                    }
                 }
                 return true;
             };
@@ -409,25 +410,25 @@
                     $ctrl.close();
                 } else {
                     switch ($ctrl.step) {
-                    case 0:
-                        if ($ctrl.v4DataDetected) {
-                            $ctrl.step = 1;
-                        } else {
-                            $ctrl.step = 2;
-                        }
-                        return;
-                    case 1:
-                        $ctrl.step = 2;
-                        $ctrl.importCompleted = false;
-                        return;
-                    case 2:
-                    case 3: {
-                        if (!$ctrl.canGoToNext() && !forceNext) {
+                        case 0:
+                            if ($ctrl.v4DataDetected) {
+                                $ctrl.step = 1;
+                            } else {
+                                $ctrl.step = 2;
+                            }
                             return;
-                        }
+                        case 1:
+                            $ctrl.step = 2;
+                            $ctrl.importCompleted = false;
+                            return;
+                        case 2:
+                        case 3: {
+                            if (!$ctrl.canGoToNext() && !forceNext) {
+                                return;
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                     }
                     $ctrl.step += 1;
                 }
@@ -436,9 +437,9 @@
             $ctrl.getTooltipText = function() {
                 switch ($ctrl.step) {
                 case 2:
-                    return "é…ä¿¡è€…ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã§ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ãã ã•ã„";
+                    return "”zMÒƒAƒJƒEƒ“ƒg‚ÅƒƒOƒCƒ“‚µ‚Ä‚­‚¾‚³‚¢";
                 case 3:
-                    return "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ã®URLã‚’é…ä¿¡ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«è¨­å®šã—ã¦ãã ã•ã„";
+                    return "ƒI[ƒo[ƒŒƒC‚ÌURL‚ğ”zMƒ\ƒtƒgƒEƒFƒA‚Éİ’è‚µ‚Ä‚­‚¾‚³‚¢";
                 }
                 return "";
             };
@@ -453,7 +454,7 @@
 
                 ngToast.create({
                     className: 'success',
-                    content: "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ç”¨ã®URLã‚’ã‚³ãƒ”ãƒ¼ã—ã¾ã—ãŸ"
+                    content: "ƒI[ƒo[ƒŒƒC—p‚ÌURL‚ğƒRƒs[‚µ‚Ü‚µ‚½"
                 });
             };
 
@@ -463,13 +464,13 @@
                     .getConnectionStatusForService("overlay");
                 if (connectionStatus === "connected") {
                     overlayStatusId = 1;
-                    return "æ¥ç¶šæ¸ˆ";
+                    return "Ú‘±Ï";
                 } else if (connectionStatus === "warning") {
                     overlayStatusId = 0;
-                    return "æœªæ¥ç¶š";
+                    return "–¢Ú‘±";
                 }
                 overlayStatusId = -1;
-                return "æº–å‚™ã¯å®Œäº†ã—ã¾ã—ãŸãŒã€ç¾æ™‚ç‚¹ã§ã¯æœªæ¥ç¶šã§ã™ã€‚";
+                return "€”õ‚ÍŠ®—¹‚µ‚Ü‚µ‚½‚ªAŒ»“_‚Å‚Í–¢Ú‘±‚Å‚·B";
             };
 
             $ctrl.getOverlayStatusId = function() {

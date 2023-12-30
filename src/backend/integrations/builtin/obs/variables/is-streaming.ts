@@ -2,14 +2,14 @@ import { ReplaceVariable } from "../../../../../types/variables";
 import { isStreaming } from "../obs-remote";
 
 export const IsStreamingVariable: ReplaceVariable = {
-  definition: {
-    handle: "obsIsStreaming",
-    description:
-      "OBSãŒç¾åœ¨é…ä¿¡ä¸­ã§ã‚ã‚Œã°'true'ã‚’ã€ãã†ã§ãªã‘ã‚Œã°'false'ã‚’è¿”ã™ã€‚",
-    possibleDataOutput: ["text"],
-  },
-  evaluator: async () => {
-    const streamState = await isStreaming();
-    return streamState ?? false;
-  },
+    definition: {
+        handle: "obsIsStreaming",
+        description:
+      "OBS‚ªŒ»İ”zM’†‚Å‚ ‚ê‚Î'true'‚ğA‚»‚¤‚Å‚È‚¯‚ê‚Î'false'‚ğ•Ô‚·B",
+        possibleDataOutput: ["text"]
+    },
+    evaluator: async () => {
+        const streamState = await isStreaming();
+        return streamState ?? false;
+    }
 };

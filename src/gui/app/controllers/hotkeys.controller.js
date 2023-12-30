@@ -37,9 +37,9 @@
                         case "delete":
                             utilityService
                                 .showConfirmationModal({
-                                    title: "ãƒ›ãƒƒãƒˆã‚­ãƒ¼ã®å‰Šé™¤",
-                                    question: `ãƒ›ãƒƒãƒˆã‚­ãƒ¼ã€Œ"${hotkey.name}"ã€ã‚’å‰Šé™¤ã—ã¾ã™ã‹?`,
-                                    confirmLabel: "å‰Šé™¤ã™ã‚‹",
+                                    title: "ƒzƒbƒgƒL[‚Ìíœ",
+                                    question: `ƒzƒbƒgƒL[u"${hotkey.name}"v‚ðíœ‚µ‚Ü‚·‚©?`,
+                                    confirmLabel: "íœ‚·‚é",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then(confirmed => {

@@ -4,24 +4,24 @@ import { stopVirtualCam } from "../obs-remote";
 export const StopVirtualCamEffectType: EffectType<{}> = {
   definition: {
     id: "ebiggz:obs-stop-virtual-cam",
-    name: "OBS ä»®æƒ³ã‚«ãƒ¡ãƒ©ã‚’åœæ­¢",
-    description: "OBSã«ä»®æƒ³ã‚«ãƒ¡ãƒ©ã‚’çµ‚äº†ã™ã‚‹ã‚ˆã†æŒ‡ç¤ºã—ã¾ã™",
+    name: "OBS ‰¼‘zƒJƒƒ‰‚ğ’â~",
+    description: "OBS‚É‰¼‘zƒJƒƒ‰‚ğI—¹‚·‚é‚æ‚¤w¦‚µ‚Ü‚·",
     icon: "fad fa-camera-home",
     categories: ["common"],
   },
   optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>è­¦å‘Š!</b> ã“ã®æ¼”å‡ºãŒæœ‰åŠ¹ã«ãªã‚‹ã¨ã€Firebotã¯OBSã«ä»®æƒ³ã‚«ãƒ¡ãƒ©ã‚’åœæ­¢ã™ã‚‹ã‚ˆã†æŒ‡ç¤ºã—ã¾ã™
+        <b>Œx!</b> ‚±‚Ì‰‰o‚ª—LŒø‚É‚È‚é‚ÆAFirebot‚ÍOBS‚É‰¼‘zƒJƒƒ‰‚ğ’â~‚·‚é‚æ‚¤w¦‚µ‚Ü‚·
       </div>
     </eos-container>
   `,
-  optionsController: () => {},
-  optionsValidator: () => {
-    return [];
-  },
-  onTriggerEvent: async () => {
-    stopVirtualCam();
-    return true;
-  },
+    optionsController: () => {},
+    optionsValidator: () => {
+        return [];
+    },
+    onTriggerEvent: async () => {
+        stopVirtualCam();
+        return true;
+    }
 };

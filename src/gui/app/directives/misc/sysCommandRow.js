@@ -6,7 +6,7 @@
             command: "<"
         },
         template: `
-      <div style="margin-bottom: 20px" context-menu="$ctrl.sysCommandMenuOptions">
+      <div style="margin-bottom: 20px" context-menu="$ctrl.sysCommandMenuOptions($ctrl.command)">
         <div class="sys-command-row" ng-init="hidePanel = true" ng-click="hidePanel = !hidePanel" ng-class="{'expanded': !hidePanel}">
           <div style="flex-basis: 25%;padding-left: 20px;">{{$ctrl.command.name}}</div>
           <div style="width: 20%">{{$ctrl.command.trigger}}</div>
@@ -175,21 +175,25 @@
                 commandsService.saveSystemCommandOverride($ctrl.command);
             };
 
-            $ctrl.sysCommandMenuOptions = [
-                {
-                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
-                    click: function () {
-                        $ctrl.openEditSystemCommandModal();
+            $ctrl.sysCommandMenuOptions = () => {
+                const options = [
+                    {
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        click: function () {
+                            $ctrl.openEditSystemCommandModal();
+                        }
+                    },
+                    {
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${$ctrl.command.active ? "Disable Command" : "Enable Command"}</a>`,
+                        click: function () {
+                            $ctrl.command.active = !$ctrl.command.active;
+                            commandsService.saveSystemCommandOverride($ctrl.command);
+                        }
                     }
-                },
-                {
-                    html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
-                    click: function () {
-                        $ctrl.command.active = !$ctrl.command.active;
-                        commandsService.saveSystemCommandOverride($ctrl.command);
-                    }
-                }
-            ];
+                ];
+
+                return options;
+            };
         }
     });
 }());

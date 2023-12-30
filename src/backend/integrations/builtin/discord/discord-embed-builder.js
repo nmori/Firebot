@@ -31,9 +31,7 @@ async function buildChannelEmbed() {
     /**@type {import('@twurple/api').HelixStream} */
     let currentStream;
     try {
-        currentStream = await twitchApi.streamerClient.asUser(streamer.userId, async ctx => {
-            return await ctx.streams.getStreamByUserId(streamer.userId);
-        });
+        currentStream = await twitchApi.streamerClient.streams.getStreamByUserId(streamer.userId);
     } catch (error) {
         // stream not running
     }
@@ -130,21 +128,21 @@ async function buildScreenshotEmbed(imageUrl) {
 
 async function buildEmbed(embedType, customEmbedData) {
     switch (embedType) {
-    case "channel": {
-        const channelEmbed = await buildChannelEmbed();
-        if (channelEmbed) {
-            channelEmbed.allowed_mentions = { //eslint-disable-line camelcase
-                parse: ["users", "roles", "everyone"]
-            };
-            return channelEmbed;
+        case "channel": {
+            const channelEmbed = await buildChannelEmbed();
+            if (channelEmbed) {
+                channelEmbed.allowed_mentions = { //eslint-disable-line camelcase
+                    parse: ["users", "roles", "everyone"]
+                };
+                return channelEmbed;
+            }
+            return null;
         }
-        return null;
-    }
-    case "custom": {
-        return buildCustomEmbed(customEmbedData);
-    }
-    default:
-        return null;
+        case "custom": {
+            return buildCustomEmbed(customEmbedData);
+        }
+        default:
+            return null;
     }
 }
 
