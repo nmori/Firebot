@@ -391,7 +391,7 @@ module.exports = {
         {
             id: "chat-mode-changed",
             name: "チャットモード変更時",
-            description: "モデレーターによってチャットモードの設定が更新された場合",
+            description: "モデレータによってチャットモードの設定が更新された場合",
             cached: false,
             queued: false,
             manualMetadata: {

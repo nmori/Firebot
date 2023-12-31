@@ -145,10 +145,10 @@
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: '予定された演出リストの複製をしました'
+                            content: '演出予定リストの複製をしました'
                         });
                     } else {
-                        ngToast.create("予定された演出リストの複製二失敗しました");
+                        ngToast.create("演出予定リストの複製二失敗しました");
                     }
                 });
             };

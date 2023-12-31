@@ -163,7 +163,7 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "予定された演出リストの削除",
+                                    title: "演出予定リストの削除",
                                     question: `リスト "${item.name}" を削除しますか?`,
                                     confirmLabel: "削除する",
                                     confirmBtnType: "btn-danger"

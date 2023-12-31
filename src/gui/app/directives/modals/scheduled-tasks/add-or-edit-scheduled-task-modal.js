@@ -5,7 +5,7 @@
         template: `
             <context-menu-modal-header
                 on-close="$ctrl.dismiss()"
-                trigger-type="予定された演出リスト"
+                trigger-type=""演出予定リスト"
                 trigger-name="$ctrl.scheduledTask.name"
                 sort-tags="$ctrl.scheduledTask.sortTags"
                 show-trigger-name="true"
@@ -43,7 +43,7 @@
                             <input type="checkbox" ng-model="$ctrl.scheduledTask.enabled" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
-                        <label class="control-fb control--checkbox">配信中のときのみ <tooltip text="'この予定された演出リストで、あなたが配信中でなくても演出を実行したい場合は、このチェックを外してください。'"></tooltip>
+                        <label class="control-fb control--checkbox">配信中のときのみ <tooltip text="'この演出予定リストで、あなたが配信中でなくても演出を実行したい場合は、このチェックを外してください。'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.scheduledTask.onlyWhenLive" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
@@ -54,7 +54,7 @@
                     <effect-list header="この予定で何をしますか？" effects="$ctrl.scheduledTask.effects" trigger="scheduledTask" trigger-meta="$ctrl.triggerMeta" update="$ctrl.effectListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
                 </div>
                 <p class="muted" style="font-size:11px;margin-top:6px;">
-                    <b>ヒント:</b>この予定された演出リストに、一度に1つのチャットメッセージを表示させたい場合,  <b>演出のランダム実行</b> か <b>演出の順番実行</b>をお試しください。
+                    <b>ヒント:</b>この演出予定リストに、一度に1つのチャットメッセージを表示させたい場合,  <b>演出のランダム実行</b> か <b>演出の順番実行</b>をお試しください。
                 </p>
             </div>
 
@@ -109,7 +109,7 @@
                         const modalElement = $(`.${modalId}`).children();
                         return {
                             element: modalElement,
-                            name: "予定された演出リストの編集",
+                            name: "演出予定リストの編集",
                             id: modalId,
                             instance: $ctrl.modalInstance
                         };
@@ -141,10 +141,10 @@
 
             function scheduledTaskValid() {
                 if ($ctrl.scheduledTask.name === "") {
-                    ngToast.create("予定された演出リストの名称をご記入ください。");
+                    ngToast.create("演出予定リストの名称をご記入ください。");
                     return false;
                 } else if ($ctrl.scheduledTask.schedule.length < 1 || isScheduleValid($ctrl.scheduledTask.schedule) !== true) {
-                    ngToast.create("予定された演出リストには、有効な書き方（cron形式）で入力してください。");
+                    ngToast.create("演出予定リストには、有効な書き方（cron形式）で入力してください。");
                     return false;
                 }
                 return true;
@@ -181,7 +181,7 @@
                             }
                         });
                     } else {
-                        ngToast.create("予定された演出リストの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
+                        ngToast.create("演出予定リストの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
                     }
                 });
             };

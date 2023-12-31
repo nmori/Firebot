@@ -21,7 +21,7 @@
         ng-class="{'active' : activeTimerTab === 1}"
         ng-click="activeTimerTab = 1"
       >
-        <a href>予定された演出リスト</a>
+        <a href>演出予定リスト</a>
       </li>
     </ul>
   </div>
@@ -48,14 +48,14 @@
       items="scheduledTaskService.scheduledTasks"
       on-items-update="onScheduledTasksUpdated(items)"
       headers="scheduledTaskHeaders"
-      sort-tag-context="予定された演出リスト"
+      sort-tag-context="演出予定リスト"
       orderable="true"
-      add-new-button-text="新しい予定された演出リスト"
+      add-new-button-text="新しい演出予定リスト"
       on-add-new-clicked="scheduledTaskService.showAddEditScheduledTaskModal()"
       context-menu-options="scheduledTaskOptions(item)"
-      no-data-message="予定された演出リストは作成されていません"
-      none-found-message="予定された演出リストは見つかりません"
-      search-placeholder="予定された演出リストを検索"
+      no-data-message="演出予定リストは作成されていません"
+      none-found-message="演出予定リストは見つかりません"
+      search-placeholder="演出予定リストを検索"
       test-button="false"
       status-field="enabled"
     ></firebot-item-table>

@@ -8,26 +8,26 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:toggle-scheduled-task",
-        name: "Toggle Scheduled Effect List",
-        description: "Toggle a scheduled effect list's enabled status",
+        name: "演出予定リストを切り替え",
+        description: "演出予定リストの状態を切り替える",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect let's you automatically toggle the enabled status of Scheduled Effect Lists.</p>
+            <p>この演出は、"演出予定リストの有効状態を切り替えます。</p>
         </eos-container>
 
         <eos-container ng-hide="hasScheduledTasks" pad-top="true">
-            <span class="muted">No Scheduled Effect Lists created yet! You can create them in the <b>Time-Based</b> tab.</span>
+            <span class="muted">"演出予定リストはまだ作成されていません！作成は <b>予定</b> タブから作成します</span>
         </eos-container>
 
-        <eos-container ng-show="hasScheduledTasks" header="Scheduled Effect List" pad-top="true">
+        <eos-container ng-show="hasScheduledTasks" header=""演出予定リスト" pad-top="true">
             <dropdown-select options="scheduledTaskOptions" selected="effect.scheduledTaskId"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="hasScheduledTasks" header="Toggle Action" pad-top="true">
+        <eos-container ng-show="hasScheduledTasks" header="切り替え" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,

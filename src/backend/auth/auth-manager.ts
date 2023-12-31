@@ -185,8 +185,8 @@ frontendCommunicator.onAsync("begin-device-auth", async (providerId: string): Pr
                     !windowManagement.mainWindow.isFocused()
                 ) {
                     const successfulAuthNotification = new Notification({
-                        title: "Successfully authenticated with Twitch!",
-                        body: "You can return to Firebot now."
+                        title: "Twitch認証が完了しました",
+                        body: "Firebotに戻って作業を続けて大丈夫です。"
                     });
                     successfulAuthNotification.show();
                     successfulAuthNotification.on("click", () => {

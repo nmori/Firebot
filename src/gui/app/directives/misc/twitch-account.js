@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-danger" ng-click="$ctrl.connectDisconnectClick({ type : $ctrl.type })">未接続</button>
+                        <button class="btn btn-danger" ng-click="$ctrl.connectDisconnectClick({ type : $ctrl.type })">ログアウト</button>
                     </div>
                 </div>
             </div>
