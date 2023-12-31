@@ -10,8 +10,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:create-prediction",
-        name: "Create Twitch Prediction",
-        description: "Creates a Twitch prediction",
+        name: "Twitch予想を作成する",
+        description: "Twitch予測の作成",
         icon: "fad fa-question-circle",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -19,21 +19,21 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Prediction Title">
-            <firebot-input input-title="Title" model="effect.title" placeholder-text="Enter prediction title" />
+        <eos-container header="予想タイトル">
+            <firebot-input input-title="Title" model="effect.title" placeholder-text="予想タイトルを入力" />
         </eos-container>
 
-        <eos-container header="Prediction Duration" pad-top="true">
-            <firebot-input input-title="Duration" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="Enter duration in seconds" />
+        <eos-container header="予測期間" pad-top="true">
+            <firebot-input input-title="Duration" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="継続時間を秒単位で入力" />
         </eos-container>
 
-        <eos-container header="Outcomes" pad-top="true">
+        <eos-container header="成果" pad-top="true">
             <editable-list settings="optionSettings" model="effect.outcomes" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You may only have one prediction running at a time.
+                注：一度に実行できる予測は1つだけです。
             </div>
         </eos-container>
     `,

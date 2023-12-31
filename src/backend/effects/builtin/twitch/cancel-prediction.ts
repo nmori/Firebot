@@ -6,8 +6,8 @@ import twitchApi from "../../../twitch-api/api";
 const model: EffectType = {
     definition: {
         id: "twitch:cancel-prediction",
-        name: "Cancel Twitch Prediction",
-        description: "Cancels the currently active Twitch prediction and refunds all channel points wagered",
+        name: "Twitch予想をキャンセル",
+        description: "現在アクティブなTwitch予想をキャンセルし、賭けられたすべてのチャンネルポイントを払い戻します。",
         icon: "fad fa-ban",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -17,7 +17,7 @@ const model: EffectType = {
     optionsTemplate: `
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: If there is no prediction currently running, this will take no action.
+                注：現在実行中の予想がない場合、これは何のアクションも起こしません。
             </div>
         </eos-container>
     `,

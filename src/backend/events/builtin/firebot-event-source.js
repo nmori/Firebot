@@ -91,8 +91,8 @@ const firebotEventSource = {
         },
         {
             id: "effect-queue-cleared",
-            name: "Effect Queue Cleared",
-            description: "When an effect queue finishes running and is cleared.",
+            name: "演出キューがクリアされたとき",
+            description: "演出キューの実行が終了し、クリアされたとき",
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting"

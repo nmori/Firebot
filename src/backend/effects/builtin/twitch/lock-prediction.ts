@@ -6,8 +6,8 @@ import twitchApi from "../../../twitch-api/api";
 const model: EffectType = {
     definition: {
         id: "twitch:lock-prediction",
-        name: "Lock Twitch Prediction",
-        description: "Locks the currently active Twitch prediction so that no more predictions can be made",
+        name: "Twitch予想をロック",
+        description: "現在アクティブなTwitch予想をロックし、それ以上予想ができないようにします。",
         icon: "fad fa-lock",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -17,7 +17,7 @@ const model: EffectType = {
     optionsTemplate: `
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: If there is no prediction currently running, this will take no action.
+                注：現在実行中の予想がない場合、これは何のアクションも起こしません。
             </div>
         </eos-container>
     `,

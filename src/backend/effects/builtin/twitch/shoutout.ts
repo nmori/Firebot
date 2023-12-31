@@ -8,8 +8,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:twitch-shoutout",
-        name: "Twitch Shoutout",
-        description: "Send a Twitch shoutout to another channel",
+        name: "Twitch シャウトアウト",
+        description: "Twitchのシャウトアウトを送る",
         icon: "fad fa-bullhorn",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -17,13 +17,13 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Target">
-            <firebot-input model="effect.username" placeholder-text="Enter username" menu-position="below" />
+        <eos-container header="シャウト対象">
+            <firebot-input model="effect.username" placeholder-text="名前を入力" menu-position="below" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You must be live for this effect to work. Per Twitch limits, you may only send a shoutout every two minutes and to the same user once per hour.
+                注意：この演出を使用するには、配信中である必要があります。Twitchの制限により、シャウトアウトを送信できるのは2分に1回、同じユーザーには1時間に1回までとなります。
             </div>
         </eos-container>
     `,

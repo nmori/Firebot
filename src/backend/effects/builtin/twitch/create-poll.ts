@@ -12,8 +12,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:create-poll",
-        name: "Create Twitch Poll",
-        description: "Creates a Twitch poll",
+        name: "Twitch投票を作成する",
+        description: "Twitch投票を作成する",
         icon: "fad fa-poll-h",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -21,26 +21,26 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Poll Title">
-            <firebot-input input-title="Title" model="effect.title" placeholder-text="Enter poll title" />
+        <eos-container header="投票タイトル">
+            <firebot-input input-title="Title" model="effect.title" placeholder-text="投票タイトルを入れる" />
         </eos-container>
 
-        <eos-container header="Poll Duration" pad-top="true">
-            <firebot-input input-title="Duration" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="Enter duration in seconds" />
+        <eos-container header="投票期間" pad-top="true">
+            <firebot-input input-title="Duration" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="秒数を入れる" />
         </eos-container>
 
-        <eos-container header="Channel Point Voting" pad-top="true">
-            <firebot-checkbox model="effect.allowChannelPointVoting" label="Allow Channel Point Voting" />
-            <firebot-input ng-if="effect.allowChannelPointVoting" input-title="Channel Points Per Vote" input-type="number" disable-variables="true" model="effect.channelPointsPerVote" placeholder-text="Enter channel points per vote" />
+        <eos-container header="チャンネルポイント投票" pad-top="true">
+            <firebot-checkbox model="effect.allowChannelPointVoting" label="チャンネルポイント投票を許可する" />
+            <firebot-input ng-if="effect.allowChannelPointVoting" input-title="1票あたりのチャンネル・ポイント" input-type="number" disable-variables="true" model="effect.channelPointsPerVote" placeholder-text="チャンネルポイント数を入力" />
         </eos-container>
 
-        <eos-container header="Choices" pad-top="true">
+        <eos-container header="選択肢" pad-top="true">
             <editable-list settings="optionSettings" model="effect.choices" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You may only have one poll running at a time.
+                注：一度に実行できる投票は1つだけです。
             </div>
         </eos-container>
     `,

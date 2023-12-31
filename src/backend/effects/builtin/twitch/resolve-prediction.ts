@@ -8,9 +8,9 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:resolve-prediction",
-        name: "Resolve Twitch Prediction",
+        name: "Twitch予想を決定",
         description:
-            "Resolves the currently active Twitch prediction by selecting an outcome and pays out channel points to the winners",
+            "現在アクティブなTwitch予想の結果を選択することで決定し、勝者にチャンネルポイントを支払う。",
         icon: "fad fa-trophy-alt",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -18,13 +18,13 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Prediction Outcome">
-            <firebot-input model="effect.outcome" input-title="Outcome" input-type="number" disable-variables="true" placeholder-text="Outcome number" />
+        <eos-container header="予想結果">
+            <firebot-input model="effect.outcome" input-title="成果" input-type="number" disable-variables="true" placeholder-text="番号" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: If there is no prediction currently running, this will take no action.
+                注：現在実行中の予想がない場合、これは何のアクションも起こしません。
             </div>
         </eos-container>
     `,

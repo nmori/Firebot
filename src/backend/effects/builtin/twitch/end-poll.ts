@@ -8,8 +8,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:end-poll",
-        name: "End Twitch Poll",
-        description: "Ends the currently active Twitch poll",
+        name: "Twitch投票終了",
+        description: "現在アクティブなTwitch投票を終了する",
         icon: "fad fa-stop-circle",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -17,13 +17,13 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Archive Poll">
-            <firebot-checkbox model="effect.archivePoll" label="Archive (hide) poll after closing" />
+        <eos-container header="アーカイブ">
+            <firebot-checkbox model="effect.archivePoll" label="投票終了後、保存（非表示）" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: If there is no poll currently running, this will take no action.
+                注：現在実行中の投票がない場合、これは何もしません。
             </div>
         </eos-container>
     `,
