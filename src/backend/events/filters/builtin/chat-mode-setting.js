@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:chatmodesetting",
-    name: "Ý’è",
-    description: "ƒ`ƒƒƒbƒgÝ’è‚ÅƒtƒBƒ‹ƒ^",
+    name: "è¨­å®š",
+    description: "ãƒãƒ£ãƒƒãƒˆè¨­å®šã§ãƒ•ã‚£ãƒ«ã‚¿",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],
@@ -15,22 +15,22 @@ module.exports = {
         return [
             {
                 value: "enabled",
-                display: "—LŒø"
+                display: "æœ‰åŠ¹"
             },
             {
                 value: "disabled",
-                display: "–³Œø"
+                display: "ç„¡åŠ¹"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
         case "enabled":
-            return "—LŒø";
+            return "æœ‰åŠ¹";
         case "disabled":
-            return "–³Œø";
+            return "ç„¡åŠ¹";
         default:
-            return "[‚È‚µ]";
+            return "[ãªã—]";
         }
     },
     predicate: async (filterSettings, eventData) => {

@@ -4,11 +4,11 @@ const { viewerHasRoles } = require("../../../../../roles/role-helpers");
 
 module.exports = {
     id: "firebot:viewerroles",
-    name: "‹’®Ò‚Ì–ğŠ„",
-    description: "—^‚¦‚ç‚ê‚½‹’®Ò‚Ì–ğŠ„‚ÉŠî‚Ã‚­ğŒ",
-    comparisonTypes: ["‚É‘®‚µ‚Ä‚¢‚é", "‚É‘®‚µ‚Ä‚¢‚È‚¢"],
+    name: "è¦–è´è€…ã®å½¹å‰²",
+    description: "ä¸ãˆã‚‰ã‚ŒãŸè¦–è´è€…ã®å½¹å‰²ã«åŸºã¥ãæ¡ä»¶",
+    comparisonTypes: ["ã«å±ã—ã¦ã„ã‚‹", "ã«å±ã—ã¦ã„ãªã„"],
     leftSideValueType: "text",
-    leftSideTextPlaceholder: "ƒ†[ƒU–¼‚ğ“ü—Í",
+    leftSideTextPlaceholder: "ãƒ¦ãƒ¼ã‚¶åã‚’å…¥åŠ›",
     rightSideValueType: "preset",
     getRightSidePresetValues: viewerRolesService => {
         return viewerRolesService.getAllRoles()
@@ -48,12 +48,12 @@ module.exports = {
         case "include":
         case "is in role":
         case "has role":
-        case "–ğŠ„‚ğ’S“–":
+        case "å½¹å‰²ã‚’æ‹…å½“":
             return hasRole;
         case "doesn't include":
         case "isn't in role":
         case "doesn't have role":
-        case "–ğŠ„‚ğ’S“–‚µ‚Ä‚¢‚È‚¢":
+        case "å½¹å‰²ã‚’æ‹…å½“ã—ã¦ã„ãªã„":
             return !hasRole;
         default:
             return false;

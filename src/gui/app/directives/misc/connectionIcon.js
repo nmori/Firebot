@@ -82,29 +82,29 @@
                 switch (ctrl.type) {
                 case ConnectionType.CHAT:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>Twitch:</b> Ú‘±Ï";
+                        ctrl.tooltip = "<b>Twitch:</b> æ¥ç¶šæ¸ˆ";
                     } else {
-                        ctrl.tooltip = "<b>Twitch:</b> –¢Ú‘±";
+                        ctrl.tooltip = "<b>Twitch:</b> æœªæ¥ç¶š";
                     }
                     break;
 
                 case ConnectionType.OVERLAY:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC</b>:</b> Ú‘±Ï";
+                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤</b>:</b> æ¥ç¶šæ¸ˆ";
                     } else if (ctrl.connectionStatus === ConnectionStatus.WARNING) {
-                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC:</b> €”õ‚Ío—ˆ‚Ä‚¢‚é‚ª–¢Ú‘±";
+                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤:</b> æº–å‚™ã¯å‡ºæ¥ã¦ã„ã‚‹ãŒæœªæ¥ç¶š";
                     } else {
-                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC:</b> ƒT[ƒo‚Ì‹N“®‚É¸”sAƒAƒvƒŠ‚ÌÄ‹N“®‚ª•K—v";
+                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤:</b> ã‚µãƒ¼ãƒã®èµ·å‹•ã«å¤±æ•—ã€ã‚¢ãƒ—ãƒªã®å†èµ·å‹•ãŒå¿…è¦";
                     }
                     break;
 
                 case ConnectionType.INTEGRATIONS:
                     if (ctrl.connectionStatus === ConnectionStatus.CONNECTED) {
-                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC</b>:</b> Ú‘±Ï";
+                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤</b>:</b> æ¥ç¶šæ¸ˆ";
                     } else if (ctrl.connectionStatus === ConnectionStatus.WARNING) {
-                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC:</b> €”õ‚Ío—ˆ‚Ä‚¢‚é‚ª–¢Ú‘±";
+                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤:</b> æº–å‚™ã¯å‡ºæ¥ã¦ã„ã‚‹ãŒæœªæ¥ç¶š";
                     } else {
-                        ctrl.tooltip = "<b>ƒI[ƒo[ƒŒƒC:</b> ƒT[ƒo‚Ì‹N“®‚É¸”sAƒAƒvƒŠ‚ÌÄ‹N“®‚ª•K—v";
+                        ctrl.tooltip = "<b>ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤:</b> ã‚µãƒ¼ãƒã®èµ·å‹•ã«å¤±æ•—ã€ã‚¢ãƒ—ãƒªã®å†èµ·å‹•ãŒå¿…è¦";
                     }
                     integrations = integrationService
                         .getIntegrations()
@@ -115,7 +115,7 @@
                         if (count !== 0) {
                             intTooltip += "<br/>";
                         }
-                        const connectionStatus = i.connected ? "Ú‘±Ï" : "–¢Ú‘±";
+                        const connectionStatus = i.connected ? "æ¥ç¶šæ¸ˆ" : "æœªæ¥ç¶š";
                         intTooltip += `<b>${i.name}</b>: ${connectionStatus}`;
                         count++;
                     });

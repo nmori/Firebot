@@ -51,10 +51,10 @@ const deepmerge = require("deepmerge");
 
                 const defaultSettings = {
                     sortable: false,
-                    addLabel: "’Ç‰Á",
-                    editLabel: "•ÒW",
-                    validationText: "ƒeƒLƒXƒg‚Í‹ó—“‚É‚Å‚«‚Ü‚¹‚ñ",
-                    noneAddedText: "•Û‘¶‚µ‚È‚¢",
+                    addLabel: "è¿½åŠ ",
+                    editLabel: "ç·¨é›†",
+                    validationText: "ãƒ†ã‚­ã‚¹ãƒˆã¯ç©ºæ¬„ã«ã§ãã¾ã›ã‚“",
+                    noneAddedText: "ä¿å­˜ã—ãªã„",
                     noDuplicates: false,
                     maxItems: undefined,
                     trigger: undefined,
@@ -84,7 +84,7 @@ const deepmerge = require("deepmerge");
                             model: model,
                             label: isNew ? $ctrl.settings.addLabel : $ctrl.settings.editLabel,
                             useTextArea: $ctrl.settings.useTextArea,
-                            saveText: "•Û‘¶",
+                            saveText: "ä¿å­˜",
                             validationFn: (value) => {
                                 return new Promise(resolve => {
                                     if (value == null || value.trim().length < 1) {
@@ -107,7 +107,7 @@ const deepmerge = require("deepmerge");
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model[index] = newItem;
                         } else {
-                            ngToast.create("’Ç‰Á‚Å‚«‚Ü‚¹‚ñB•¡»‚ª‚·‚Å‚É‚ ‚è‚Ü‚·");
+                            ngToast.create("è¿½åŠ ã§ãã¾ã›ã‚“ã€‚è¤‡è£½ãŒã™ã§ã«ã‚ã‚Šã¾ã™");
                         }
                     });
                 };
@@ -118,7 +118,7 @@ const deepmerge = require("deepmerge");
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model.push(newItem);
                         } else {
-                            ngToast.create("’Ç‰Á‚Å‚«‚Ü‚¹‚ñB•¡»‚ª‚·‚Å‚É‚ ‚è‚Ü‚·");
+                            ngToast.create("è¿½åŠ ã§ãã¾ã›ã‚“ã€‚è¤‡è£½ãŒã™ã§ã«ã‚ã‚Šã¾ã™");
                         }
                     });
                 };

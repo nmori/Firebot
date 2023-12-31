@@ -76,7 +76,7 @@ const formattedSeconds = (secs, simpleOutput = false) => {
     let uptimeStr = "";
 
     if (hasHours) {
-        uptimeStr = hours + " ŠÔ";
+        uptimeStr = hours + " æ™‚é–“";
         // if (hours > 0) {
         //     uptimeStr = uptimeStr + "s";
         // }
@@ -85,7 +85,7 @@ const formattedSeconds = (secs, simpleOutput = false) => {
         // if (hasHours) {
         //     uptimeStr = uptimeStr + ",";
         // }
-        uptimeStr = uptimeStr + " " + minutes + " •ª";
+        uptimeStr = uptimeStr + " " + minutes + " åˆ†";
         // if (minutes > 0) {
         //     uptimeStr = uptimeStr + "s";
         // }
@@ -94,7 +94,7 @@ const formattedSeconds = (secs, simpleOutput = false) => {
         // if (hasHours || hasMins) {
         //     uptimeStr = uptimeStr + ",";
         // }
-        uptimeStr = uptimeStr + " " + seconds + " •b";
+        uptimeStr = uptimeStr + " " + seconds + " ç§’";
         // if (seconds > 0) {
         //     uptimeStr = uptimeStr + "s";
         // }
@@ -131,7 +131,7 @@ const getUptime = async () => {
     const channelData = await client.streams.getStreamByUserId(streamerAccount.userId);
 
     if (channelData == null) {
-        return "¡‚Í”zM‚µ‚Ä‚¢‚Ü‚¹‚ñ";
+        return "ä»Šã¯é…ä¿¡ã—ã¦ã„ã¾ã›ã‚“";
     }
 
     const startedDate = channelData.startDate;

@@ -2,12 +2,12 @@
 
 module.exports = {
     id: "firebot:reward",
-    name: "“Á“T",
-    description: "ƒ`ƒƒƒ“ƒlƒ‹“Á“T‚ÅƒtƒBƒ‹ƒ^",
+    name: "ç‰¹å…¸",
+    description: "ãƒãƒ£ãƒ³ãƒãƒ«ç‰¹å…¸ã§ãƒ•ã‚£ãƒ«ã‚¿",
     events: [
         { eventSourceId: "twitch", eventId: "channel-reward-redemption" }
     ],
-    comparisonTypes: ["ˆê’v", "•sˆê’v"],
+    comparisonTypes: ["ä¸€è‡´", "ä¸ä¸€è‡´"],
     valueType: "preset",
     presetValues: backendCommunicator => {
         return backendCommunicator
@@ -28,7 +28,7 @@ module.exports = {
                 .fireEventAsync("get-channel-rewards").then(rewards => {
                     const reward = rewards.find(r => r.id === filterSettings.value);
 
-                    resolve(reward ? reward.title : "•s–¾‚È“Á“T");
+                    resolve(reward ? reward.title : "ä¸æ˜ãªç‰¹å…¸");
                 });
         });
     },
@@ -43,10 +43,10 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
-        case "ˆê’v":
+        case "ä¸€è‡´":
             return actual === expected;
         case "is not":
-        case "•sˆê’v":
+        case "ä¸ä¸€è‡´":
             return actual !== expected;
         default:
             return false;

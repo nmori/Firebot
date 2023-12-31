@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:chatmode",
-    name: "ƒ`ƒƒƒbƒgƒ‚[ƒh",
-    description: "ƒ`ƒƒƒbƒgƒ‚[ƒh‚ÅƒtƒBƒ‹ƒ^",
+    name: "ãƒãƒ£ãƒƒãƒˆãƒ¢ãƒ¼ãƒ‰",
+    description: "ãƒãƒ£ãƒƒãƒˆãƒ¢ãƒ¼ãƒ‰ã§ãƒ•ã‚£ãƒ«ã‚¿",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],
@@ -15,40 +15,40 @@ module.exports = {
         return [
             {
                 value: "emoteonly",
-                display: "ƒGƒ‚[ƒg‚Ì‚İ"
+                display: "ã‚¨ãƒ¢ãƒ¼ãƒˆã®ã¿"
             },
             {
                 value: "followers",
-                display: "ƒtƒHƒƒ[‚Ì‚İ"
+                display: "ãƒ•ã‚©ãƒ­ãƒ¯ãƒ¼ã®ã¿"
             },
             {
                 value: "subscribers",
-                display: "ƒTƒuƒXƒNƒ‰ƒCƒo[‚Ì‚İ"
+                display: "ã‚µãƒ–ã‚¹ã‚¯ãƒ©ã‚¤ãƒãƒ¼ã®ã¿"
             },
             {
                 value: "slow",
-                display: "ƒXƒ[ƒ‚[ƒh"
+                display: "ã‚¹ãƒ­ãƒ¼ãƒ¢ãƒ¼ãƒ‰"
             },
             {
                 value: "r9kbeta",
-                display: "ƒ†ƒj[ƒNƒ`ƒƒƒbƒg"
+                display: "ãƒ¦ãƒ‹ãƒ¼ã‚¯ãƒãƒ£ãƒƒãƒˆ"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
         case "emoteonly":
-            return "ƒGƒ‚[ƒg‚Ì‚İ";
+            return "ã‚¨ãƒ¢ãƒ¼ãƒˆã®ã¿";
         case "followers":
-            return "ƒtƒHƒƒ[‚Ì‚İ";
+            return "ãƒ•ã‚©ãƒ­ãƒ¯ãƒ¼ã®ã¿";
         case "subscribers":
-            return "ƒTƒuƒXƒNƒ‰ƒCƒo[‚Ì‚İ";
+            return "ã‚µãƒ–ã‚¹ã‚¯ãƒ©ã‚¤ãƒãƒ¼ã®ã¿";
         case "slow":
-            return "ƒXƒ[ƒ‚[ƒh";
+            return "ã‚¹ãƒ­ãƒ¼ãƒ¢ãƒ¼ãƒ‰";
         case "r9kbeta":
-            return "ƒ†ƒj[ƒNƒ`ƒƒƒbƒg";
+            return "ãƒ¦ãƒ‹ãƒ¼ã‚¯ãƒãƒ£ãƒƒãƒˆ";
         default:
-            return "[–¢İ’è]";
+            return "[æœªè¨­å®š]";
         }
     },
     predicate: async (filterSettings, eventData) => {
@@ -58,10 +58,10 @@ module.exports = {
 
         switch (comparisonType) {
         case "is":
-        case "ˆê’v":
+        case "ä¸€è‡´":
             return eventMeta.chatMode.includes(value);
         case "is not":
-        case "•sˆê’v":
+        case "ä¸ä¸€è‡´":
             return !eventMeta.chatMode.includes(value);
         default:
             return false;

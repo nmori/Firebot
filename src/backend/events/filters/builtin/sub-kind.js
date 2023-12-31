@@ -4,8 +4,8 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:sub-kind",
-    name: "僒僽僗僋忬懺",
-    description: "僒僽僗僋偺庬椶偱峣傝崬傓乮嵞僒僽僗僋偐弶僒僽僗僋偐乯",
+    name: "銈点儢銈广偗鐘舵厠",
+    description: "銈点儢銈广偗銇ó椤炪仹绲炪倞杈笺個锛堝啀銈点儢銈广偗銇嬪垵銈点儢銈广偗銇嬶級",
     events: [
         { eventSourceId: "twitch", eventId: "sub" }
     ],
@@ -15,22 +15,22 @@ module.exports = {
         return [
             {
                 value: "first",
-                display: "弶夞"
+                display: "鍒濆洖"
             },
             {
                 value: "resub",
-                display: "嵞傃"
+                display: "鍐嶃伋"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
         case "first":
-            return "弶夞";
+            return "鍒濆洖";
         case "resub":
-            return "嵞傃";
+            return "鍐嶃伋";
         default:
-            return "[枹愝掕]";
+            return "[鏈ō瀹歖";
         }
     },
     predicate: (filterSettings, eventData) => {

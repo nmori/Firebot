@@ -106,16 +106,16 @@
                         if (data.moderator) {
                             modName = data.moderator.user_name;
                         }
-                        message.eventInfo = `${modName}‚É‚æ‚Á‚Äíœ‚³‚ê‚Ü‚µ‚½.`;
+                        message.eventInfo = `${modName}ã«ã‚ˆã£ã¦å‰Šé™¤ã•ã‚Œã¾ã—ãŸ.`;
 
                     }
                 });
 
                 if (data.cause && cachedUserName) {
                     if (data.cause.type === "timeout") {
-                        service.chatAlertMessage(`${cachedUserName} ‚Í ${data.moderator.user_name} ‚©‚ç ${data.cause.durationString} ‚Æ‚¢‚¤——R‚Åƒ^ƒCƒ€ƒAƒEƒg‚É‚È‚è‚Ü‚µ‚½`);
+                        service.chatAlertMessage(`${cachedUserName} ã¯ ${data.moderator.user_name} ã‹ã‚‰ ${data.cause.durationString} ã¨ã„ã†ç†ç”±ã§ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã«ãªã‚Šã¾ã—ãŸ`);
                     } else if (data.cause.type === "ban") {
-                        service.chatAlertMessage(`${cachedUserName} ‚Í ${data.moderator.user_name} ‚É‚æ‚Á‚Ä’Ç•ú(BAN)‚³‚ê‚Ä‚¢‚Ü‚·`);
+                        service.chatAlertMessage(`${cachedUserName} ã¯ ${data.moderator.user_name} ã«ã‚ˆã£ã¦è¿½æ”¾(BAN)ã•ã‚Œã¦ã„ã¾ã™`);
                     }
                 }
             };
@@ -152,7 +152,7 @@
                         logger.info("Chat cleared");
                         service.clearChatQueue();
 
-                    service.chatAlertMessage('ƒ`ƒƒƒbƒg‚Í ' + data.clearer.user_name + '‚É‚æ‚Á‚ÄƒNƒŠƒA‚³‚ê‚Ü‚µ‚½');
+                    service.chatAlertMessage('ãƒãƒ£ãƒƒãƒˆã¯ ' + data.clearer.user_name + 'ã«ã‚ˆã£ã¦ã‚¯ãƒªã‚¢ã•ã‚Œã¾ã—ãŸ');
                     break;
                 case "PurgeMessage":
                     logger.info("Chat message purged");
@@ -182,7 +182,7 @@
                     // We disconnected. Clear messages, post alert, and then let the reconnect handle repopulation.
                     logger.info("Chat Disconnected!");
                     service.clearChatQueue();
-                    service.chatAlertMessage("ƒ`ƒƒƒbƒg‚©‚çØ’f‚³‚ê‚Ü‚µ‚½");
+                    service.chatAlertMessage("ãƒãƒ£ãƒƒãƒˆã‹ã‚‰åˆ‡æ–­ã•ã‚Œã¾ã—ãŸ");
                     break;
                 case "UsersRefresh":
                     logger.info("Chat userlist refreshed.");
@@ -338,7 +338,7 @@
             backendCommunicator.on("twitch:chat:automod-update", ({messageId, newStatus, resolverName, flaggedPhrases}) => {
                 if (newStatus === "ALLOWED") {
                     service.chatQueue = service.chatQueue.filter(i => i?.data?.id !== messageId);
-                    service.chatAlertMessage(`${resolverName} ‚ÍŽŸ‚ÌƒƒbƒZ[ƒW‚ð³”FF ${flaggedPhrases.join(", ")}`);
+                    service.chatAlertMessage(`${resolverName} ã¯æ¬¡ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æ‰¿èªï¼š ${flaggedPhrases.join(", ")}`);
                 } else {
                     const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
 
@@ -359,7 +359,7 @@
                     return;
                 }
 
-                messageItem.data.autoModErrorMessage = `ƒGƒ‰[”­¶F ${likelyExpired ? "‘Î‰žŽè’i‚È‚µ" : "”zMŽÒƒAƒJƒEƒ“ƒg‚ðÄ”FØ‚·‚é•K—v‚ª‚ ‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB"}`;
+                messageItem.data.autoModErrorMessage = `ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿï¼š ${likelyExpired ? "å¯¾å¿œæ‰‹æ®µãªã—" : "é…ä¿¡è€…ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã‚’å†èªè¨¼ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚"}`;
             });
 
             backendCommunicator.on("twitch:chat:clear-feed", (modUsername) => {

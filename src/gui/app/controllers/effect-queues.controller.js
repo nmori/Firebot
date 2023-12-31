@@ -15,35 +15,35 @@
 
             $scope.getQueueModeName = (modeId) => {
                 const mode = effectQueuesService.queueModes.find(m => m.id === modeId);
-                return mode ? mode.display : "•s–¾";
+                return mode ? mode.display : "ä¸æ˜";
             };
 
             $scope.headers = [
                 {
-                    name: "–¼‘O",
+                    name: "åå‰",
                     icon: "fa-user",
                     cellTemplate: `{{data.name}}`,
                     cellController: () => {}
                 },
                 {
-                    name: "ƒ‚[ƒh",
+                    name: "ãƒ¢ãƒ¼ãƒ‰",
                     icon: "fa-bring-forward",
                     cellTemplate: `{{getQueueModeName(data.mode)}}`,
                     cellController: ($scope) => {
                         $scope.getQueueModeName = (modeId) => {
                             const mode = effectQueuesService.queueModes.find(m => m.id === modeId);
-                            return mode ? mode.display : "•s–¾";
+                            return mode ? mode.display : "ä¸æ˜";
                         };
                     }
                 },
                 {
-                    name: "üŠú/’x‰„",
+                    name: "å‘¨æœŸ/é…å»¶",
                     icon: "fa-clock",
                     cellTemplate: `{{(data.mode === 'interval' || data.mode === 'auto') ? (data.interval || 0) + 's' : 'n/a'}}`,
                     cellController: () => {}
                 },
                 {
-                    name: "ƒLƒ…[‚Ì’·‚³",
+                    name: "ã‚­ãƒ¥ãƒ¼ã®é•·ã•",
                     icon: "fa-tally",
                     cellTemplate: `{{data.length || 0}}`,
                     cellController: () => {}
@@ -53,36 +53,36 @@
             $scope.effectQueueOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen mr-4"></i> •ÒW</a>`,
+                        html: `<a href ><i class="far fa-pen mr-4"></i> ç·¨é›†</a>`,
                         click: function () {
                             effectQueuesService.showAddEditEffectQueueModal(item.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> —LŒø‰»‚ÌØ‚è‘Ö‚¦</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> æœ‰åŠ¹åŒ–ã®åˆ‡ã‚Šæ›¿ãˆ</a>`,
                         click: function () {
                             effectQueuesService.toggleEffectQueue(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="fad fa-minus-circle mr-4"></i> ƒNƒŠƒA</a>`,
+                        html: `<a href ><i class="fad fa-minus-circle mr-4"></i> ã‚¯ãƒªã‚¢</a>`,
                         click: function () {
                             effectQueuesService.clearEffectQueue(item.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone mr-4"></i> •¡»</a>`,
+                        html: `<a href ><i class="far fa-clone mr-4"></i> è¤‡è£½</a>`,
                         click: function () {
                             effectQueuesService.duplicateEffectQueue(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> íœ</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> å‰Šé™¤</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "‰‰oƒLƒ…[‚Ìíœ",
-                                    question: `‰‰oƒLƒ…[u"${item.name}"v‚ğíœ‚µ‚Ü‚·‚©?`,
+                                    title: "æ¼”å‡ºã‚­ãƒ¥ãƒ¼ã®å‰Šé™¤",
+                                    question: `æ¼”å‡ºã‚­ãƒ¥ãƒ¼ã€Œ"${item.name}"ã€ã‚’å‰Šé™¤ã—ã¾ã™ã‹?`,
                                     confirmLabel: "Delete",
                                     confirmBtnType: "btn-danger"
                                 })

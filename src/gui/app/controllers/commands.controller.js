@@ -35,12 +35,12 @@
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
-                        return "–ğŠ„";
+                        return "å½¹å‰²";
                     } else if (permissions.mode === "viewer") {
-                        return "‹’®Ò";
+                        return "è¦–è´è€…";
                     }
                 } else {
-                    return "‚È‚µ";
+                    return "ãªã—";
                 }
             };
 
@@ -52,19 +52,19 @@
                 if (permissions) {
                     if (permissions.mode === "roles") {
                         const roleIds = permissions.roleIds;
-                        let output = "–¢‘I‘ğ";
+                        let output = "æœªé¸æŠ";
                         if (roleIds.length > 0) {
                             output = roleIds
                                 .filter(id => viewerRolesService.getRoleById(id) != null)
                                 .map(id => viewerRolesService.getRoleById(id).name)
                                 .join(", ");
                         }
-                        return `–ğŠ„ (${output})`;
+                        return `å½¹å‰² (${output})`;
                     } else if (permissions.mode === "viewer") {
-                        return `‹’®Ò (${permissions.username ? permissions.username : '–¼–³‚µ'})`;
+                        return `è¦–è´è€… (${permissions.username ? permissions.username : 'åç„¡ã—'})`;
                     }
                 } else {
-                    return "‚±‚ÌƒRƒ}ƒ“ƒh‚Í’N‚Å‚à—˜—p‚Å‚«‚Ü‚·";
+                    return "ã“ã®ã‚³ãƒãƒ³ãƒ‰ã¯èª°ã§ã‚‚åˆ©ç”¨ã§ãã¾ã™";
                 }
             };
 
@@ -87,8 +87,8 @@
 
             $scope.deleteCustomCommand = command => {
                 utilityService.showConfirmationModal({
-                    title: "ƒRƒ}ƒ“ƒh‚Ìíœ",
-                    question: `ƒRƒ}ƒ“ƒhu'${command.trigger}'v‚ğíœ‚µ‚Ü‚·‚©H`,
+                    title: "ã‚³ãƒãƒ³ãƒ‰ã®å‰Šé™¤",
+                    question: `ã‚³ãƒãƒ³ãƒ‰ã€Œ'${command.trigger}'ã€ã‚’å‰Šé™¤ã—ã¾ã™ã‹ï¼Ÿ`,
                     confirmLabel: "Delete",
                     confirmBtnType: "btn-danger"
                 }).then(confirmed => {
@@ -188,7 +188,7 @@
 
                     const hasEffectQueue = command.effects.queue != null && command.effects.queue !== "";
                     children.push({
-                        html: `<a href><i class="${!hasEffectQueue ? 'fas fa-check' : ''}" style="margin-right: ${!hasEffectQueue ? '10' : '27'}px;"></i> ‚È‚µ</a>`,
+                        html: `<a href><i class="${!hasEffectQueue ? 'fas fa-check' : ''}" style="margin-right: ${!hasEffectQueue ? '10' : '27'}px;"></i> ãªã—</a>`,
                         click: () => {
                             $scope.clearEffectQueue(command);
                         },
@@ -202,35 +202,35 @@
             $scope.commandMenuOptions = (command) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> •ÒW</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ç·¨é›†</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.openAddOrEditCustomCommandModal(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> —LŒø‰»‚ÌØ‚è‘Ö‚¦</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> æœ‰åŠ¹åŒ–ã®åˆ‡ã‚Šæ›¿ãˆ</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.toggleCustomCommandActiveState(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> •¡»</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> è¤‡è£½</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.duplicateCustomCommand(command);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> íœ</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> å‰Šé™¤</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.deleteCustomCommand(command);
                         }
                     },
                     {
-                        text: `ƒLƒ…[...`,
+                        text: `ã‚­ãƒ¥ãƒ¼...`,
                         children: $scope.getEffectQueueMenuOptions(command),
                         hasTopDivider: true
                     }

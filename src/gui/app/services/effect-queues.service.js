@@ -49,20 +49,20 @@
             service.queueModes = [
                 {
                     id: "custom",
-                    display: "ƒJƒXƒ^ƒ€",
-                    description: "ŒÂX‚Ì‰‰oƒŠƒXƒg‚²‚Æ‚É’è‹`‚³‚ê‚½ƒJƒXƒ^ƒ€ŽžŠÔ‚ð‘Ò‚Â",
+                    display: "ã‚«ã‚¹ã‚¿ãƒ ",
+                    description: "å€‹ã€…ã®æ¼”å‡ºãƒªã‚¹ãƒˆã”ã¨ã«å®šç¾©ã•ã‚ŒãŸã‚«ã‚¹ã‚¿ãƒ æ™‚é–“ã‚’å¾…ã¤",
                     iconClass: "fa-clock"
                 },
                 {
                     id: "auto",
-                    display: "‡˜",
-                    description: "ƒLƒ…[“à‚Ì‰‰oƒŠƒXƒg‚ð‡”Ô‚ÉŽÀs‚µ‚Ü‚·B—Dæ“x‚Ì‚‚¢ƒAƒCƒeƒ€‚ªA—Dæ“x‚Ì’á‚¢ƒAƒCƒeƒ€‚æ‚èæ‚É’Ç‰Á‚³‚ê‚Ü‚·i’x‰„‚Ì‰ŠúÝ’è‚Í0•bj",
+                    display: "é †åº",
+                    description: "ã‚­ãƒ¥ãƒ¼å†…ã®æ¼”å‡ºãƒªã‚¹ãƒˆã‚’é †ç•ªã«å®Ÿè¡Œã—ã¾ã™ã€‚å„ªå…ˆåº¦ã®é«˜ã„ã‚¢ã‚¤ãƒ†ãƒ ãŒã€å„ªå…ˆåº¦ã®ä½Žã„ã‚¢ã‚¤ãƒ†ãƒ ã‚ˆã‚Šå…ˆã«è¿½åŠ ã•ã‚Œã¾ã™ï¼ˆé…å»¶ã®åˆæœŸè¨­å®šã¯0ç§’ï¼‰",
                     iconClass: "fa-sort-numeric-down"
                 },
                 {
                     id: "interval",
-                    display: "ŠÔŠu",
-                    description: "Ý’è‚µ‚½ŠÔŠu‚Å‰‰oƒŠƒXƒg‚ðŽÀs",
+                    display: "é–“éš”",
+                    description: "è¨­å®šã—ãŸé–“éš”ã§æ¼”å‡ºãƒªã‚¹ãƒˆã‚’å®Ÿè¡Œ",
                     iconClass: "fa-stopwatch"
                 }
             ];
@@ -115,17 +115,17 @@
                 copiedEffectQueue.id = null;
 
                 while (service.effectQueueNameExists(copiedEffectQueue.name)) {
-                    copiedEffectQueue.name += " •¡»";
+                    copiedEffectQueue.name += " è¤‡è£½";
                 }
 
                 service.saveEffectQueue(copiedEffectQueue).then(successful => {
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: '‰‰oƒLƒ…[‚ð•¡»‚µ‚Ü‚µ‚½'
+                            content: 'æ¼”å‡ºã‚­ãƒ¥ãƒ¼ã‚’è¤‡è£½ã—ã¾ã—ãŸ'
                         });
                     } else {
-                        ngToast.create("‰‰oƒLƒ…[‚Ì•¡»‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+                        ngToast.create("æ¼”å‡ºã‚­ãƒ¥ãƒ¼ã®è¤‡è£½ã«å¤±æ•—ã—ã¾ã—ãŸ");
                     }
                 });
             };
@@ -169,9 +169,9 @@
 
                     return utilityService
                         .showConfirmationModal({
-                            title: "‰‰oƒLƒ…[‚Ìíœ",
-                            question: `ŽŸ‚Ì‰‰oƒLƒ…[‚ðíœ‚µ‚Ü‚·‚©H "${queue.name}"`,
-                            confirmLabel: "íœ‚·‚é",
+                            title: "æ¼”å‡ºã‚­ãƒ¥ãƒ¼ã®å‰Šé™¤",
+                            question: `æ¬¡ã®æ¼”å‡ºã‚­ãƒ¥ãƒ¼ã‚’å‰Šé™¤ã—ã¾ã™ã‹ï¼Ÿ "${queue.name}"`,
+                            confirmLabel: "å‰Šé™¤ã™ã‚‹",
                             confirmBtnType: "btn-danger"
                         })
                         .then(confirmed => {
