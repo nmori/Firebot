@@ -17,7 +17,7 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container header="Create Stream Marker">
-            <firebot-input input-title="Description" model="effect.description" placeholder-text="説明を入力" />
+            <firebot-input input-title="Description" model="effect.description" placeholder-text="説明を入力" menu-position="under" />
         </eos-container>
 
         <eos-container>

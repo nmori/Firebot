@@ -182,19 +182,24 @@
               <div class="control__indicator"></div>
             </label>
             <label class="control-fb control--checkbox"
-              >Botは対象外
+              >引用テキストを単一引数として扱う
               <tooltip
-                text="'Botアカウントがこのコマンドを起動できるかどうか'"
+                text="'このオプションを有効にすると、二重引用符で囲まれたテキストは、引用符を除いた単一の引数として扱われます。例: !command &quot;This is an argument&quot;は、単一の値「This is an argument」という引数になります：'"
               ></tooltip>
               <input
                 type="checkbox"
-                ng-model="$ctrl.command.ignoreBot"
+                ng-model="$ctrl.command.treatQuotedTextAsSingleArg"
                 aria-label="..."
               />
               <div class="control__indicator"></div>
             </label>
+          </div>
+          <div class="controls-fb-inline mt-4">
+            <div class="settings-title">
+              <h3>Ignore</h3>
+            </div>
             <label class="control-fb control--checkbox"
-              >配信者アカウントは対象外
+              >配信者アカウント
               <tooltip
                 text="'Whether or not the streamer account should be able to trigger this command.'"
               ></tooltip>
@@ -206,19 +211,30 @@
               <div class="control__indicator"></div>
             </label>
             <label class="control-fb control--checkbox"
-              >引用されたテキストを単一の引数として扱う
+              >Bot アカウント
               <tooltip
-                text="'このオプションを有効にすると、二重引用符で囲まれたテキストは、引用符を除いた単一の引数として扱われます。例: !command &quot;This is an argument&quot; will have a single argument with the value: This is an argument'"
+                text="'Botアカウントがこのコマンドを起動できるかどうか'"
               ></tooltip>
               <input
                 type="checkbox"
-                ng-model="$ctrl.command.treatQuotedTextAsSingleArg"
+                ng-model="$ctrl.command.ignoreBot"
+                aria-label="..."
+              />
+              <div class="control__indicator"></div>
+            </label>
+            <label class="control-fb control--checkbox"
+              >Whispers
+              <tooltip
+                text="'Whether or not whispers should be able to trigger this command.'"
+              ></tooltip>
+              <input
+                type="checkbox"
+                ng-model="$ctrl.command.ignoreWhispers"
                 aria-label="..."
               />
               <div class="control__indicator"></div>
             </label>
           </div>
-          <div class="controls-fb-inline mt-4"></div>
         </div>
       </div>
       <div class="mt-10">
@@ -262,7 +278,7 @@
               <i class="fas fa-tag"></i> 引数
             </div>
             <div class="muted" style="width: 25%">
-              <i class="fas fa-clock"></i> 再実行待ち
+              <i class="fas fa-clock"></i> 再実行待ち時間
             </div>
             <div class="muted" style="width: 25%">
               <i class="fas fa-lock-alt"></i> 権限

@@ -44,14 +44,14 @@
               ></span>
               <ul class="dropdown-menu" uib-dropdown-menu>
                 <li ng-click="copyEvents('mainevents')">
-                  <a href><i class="far fa-copy mr-4"></i> イベントをコピー</a>
+                  <a href><span class="iconify mr-4" data-icon="mdi:content-copy"></span> コピー</a>
                 </li>
                 <li
                   ng-class="{'disabled': !hasCopiedEvents()}"
                   ng-click="pasteEvents('mainevents')"
                   ng-disabled="!hasCopiedEvents()"
                 >
-                  <a href><i class="far fa-paste mr-4"></i> 貼り付け</a>
+                  <a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 貼り付け</a>
                 </li>
               </ul>
             </div>

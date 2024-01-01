@@ -323,6 +323,7 @@ class FirebotChatHelpers {
 
             rawText: msgText,
             whisper: whisper,
+            whisperTarget: whisper === true ? msg.target : null,
             action: action,
             tagged: false,
             isCheer: msg.isCheer,

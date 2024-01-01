@@ -377,9 +377,18 @@ module.exports = {
             name: "ささやく",
             description: "誰かがあなたにささやいたとき",
             cached: true,
+            cacheMetaKey: "sentTo",
             manualMetadata: {
                 username: "Firebot",
-                message: "ささやきテスト"
+                message: "ささやきテスト",
+                sentTo: {
+                    type: "enum",
+                    options: {
+                        streamer: "Streamer",
+                        bot: "Bot"
+                    },
+                    value: "streamer"
+                }
             },
             activityFeed: {
                 icon: "fad fa-comment-alt",

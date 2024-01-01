@@ -132,6 +132,7 @@ exports.loadReplaceVariables = () => {
         'object-walk-path-raw',
         'object-walk-path',
         'ordinal-indicator',
+        'overlay-instance',
         'poll-winning-choice-name',
         'prediction-winning-outcome-name',
         'preset-list-arg',
@@ -227,6 +228,7 @@ exports.loadReplaceVariables = () => {
         'view-time',
         'viewer-count',
         'whisper-message',
+        'whisper-recipient',
         'word',
 
         'twitch/channel-goal-current-amount',

@@ -21,6 +21,21 @@ const firebotEventSource = {
             }
         },
         {
+            id: "overlay-connected",
+            name: "Overlay Connected",
+            description: "When a Firebot overlay is connected.",
+            cached: false,
+            manualMetadata: {
+                instanceName: "Default"
+            },
+            activityFeed: {
+                icon: "fad fa-tv-alt",
+                getMessage: (eventData) => {
+                    return `**${eventData.instanceName}** overlay connected`;
+                }
+            }
+        },
+        {
             id: "view-time-update",
             name: "時間情報更新時",
             description: "視聴時間が更新されたとき",

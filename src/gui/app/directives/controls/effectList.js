@@ -213,14 +213,14 @@
                 ctrl.createAllEffectsMenuOptions = () => {
                     const allEffectsMenuOptions = [
                         {
-                            html: `<a href role="menuitem"><i class="far fa-copy mr-4"></i> コピー</a>`,
+                            html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-copy"></span> コピー</a>`,
                             click: () => {
                                 ctrl.copyEffects();
                             },
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
-                            html: `<a href role="menuitem"><i class="far fa-paste mr-4"></i> ・ペースト</a>`,
+                            html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 貼り付け</a>`,
                             click: function () {
                                 ctrl.pasteEffects(true);
                             },
@@ -234,7 +234,7 @@
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
-                            html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> 共有</a>`,
+                            html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> 演出を共有</a>`,
                             click: function () {
                                 ctrl.shareEffects();
                             },
@@ -284,7 +284,7 @@
                             }
                         },
                         {
-                            html: `<a href ><i class="far fa-copy mr-4"></i> コピー</a>`,
+                            html: `<a href ><span class="iconify mr-4" data-icon="mdi:content-copy"></span> コピー</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.copyEffectAtIndex($index);
@@ -303,7 +303,7 @@
                             enabled: ctrl.hasCopiedEffects(),
                             children: [
                                 {
-                                    html: `<a href><i class="far fa-paste mr-4"></i> 前に</a>`,
+                                    html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 前に</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         if (ctrl.hasCopiedEffects()) {
@@ -312,7 +312,7 @@
                                     }
                                 },
                                 {
-                                    html: `<a href><i class="far fa-paste mr-4"></i> 後に</a>`,
+                                    html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 後に</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         if (ctrl.hasCopiedEffects()) {

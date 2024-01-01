@@ -9,7 +9,7 @@ export const SceneCollectionNameVariable: ReplaceVariable = {
     possibleDataOutput: ["text"],
   },
   evaluator: async () => {
-    const currentSceneCollectionName = await getCurrentSceneCollectionName();
+        const currentSceneCollectionName = trigger.metadata?.eventData?.sceneCollectionName ?? await getCurrentSceneCollectionName();
     return currentSceneCollectionName ?? "不明";
   },
 };

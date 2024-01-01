@@ -16,7 +16,7 @@ const addFirebotLogMessage = {
     optionsTemplate: `
         <eos-container header="メッセージテキスト">
             <p class="muted">Firebotのログファイルに書き込みたいメッセージを入力します。</p>
-            <input ng-model="effect.logMessage" id="log-message-text" type="text" class="form-control" placeholder="Enter log message text" replace-variables>
+            <input ng-model="effect.logMessage" id="log-message-text" type="text" class="form-control" placeholder="Enter log message text" menu-position="under" replace-variables>
         </eos-container>
 
         <eos-container header="Log Level" pad-top="true">

@@ -25,6 +25,7 @@ export type FirebotChatMessage = {
     rawText: string;
     parts: FirebotParsedMessagePart[];
     whisper: boolean;
+    whisperTarget?: string;
     action: boolean;
     isAnnouncement?: boolean;
     announcementColor?: "PRIMARY" | "BLUE" | "GREEN" | "ORANGE" | "PURPLE";

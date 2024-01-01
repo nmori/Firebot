@@ -15,7 +15,7 @@ const model = {
     optionsTemplate: `
         <eos-container header="継続時間">
             <div class="input-group">
-                <input ng-model="effect.delay" type="text" class="form-control" aria-describedby="delay-length-effect-type" type="text" replace-variables="number">
+                <input ng-model="effect.delay" type="text" class="form-control" aria-describedby="delay-length-effect-type" type="text" menu-position="under" replace-variables="number">
                 <span class="input-group-addon" id="delay-length-effect-type">秒</span>
             </div>
         </eos-container>
