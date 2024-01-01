@@ -340,8 +340,7 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-copy" style="margin-right: 10px;"></i> コピー</a>`,
-                        html: `<a href ><span class="iconify" data-icon="mdi:content-copy" style="margin-right: 10px;"></span> Copy</a>`,
+                        html: `<a href ><span class="iconify" data-icon="mdi:content-copy" style="margin-right: 10px;"></span> コピー</a>`,
                         click: () => {
                             $scope.copyEvent(event.id);
                         }
