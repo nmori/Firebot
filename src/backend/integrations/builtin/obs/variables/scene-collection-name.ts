@@ -8,7 +8,7 @@ export const SceneCollectionNameVariable: ReplaceVariable = {
       "現在の OBS シーンコレクション の名前。OBSが起動していない場合は、'不明'を返します。.",
     possibleDataOutput: ["text"],
   },
-  evaluator: async () => {
+  evaluator: async (trigger) => {
         const currentSceneCollectionName = trigger.metadata?.eventData?.sceneCollectionName ?? await getCurrentSceneCollectionName();
     return currentSceneCollectionName ?? "不明";
   },
