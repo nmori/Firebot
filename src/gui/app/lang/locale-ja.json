@@ -37,7 +37,8 @@
       "MIXER_TOGGLE": "クリックで接続変更",
       "OPEN_CONNECTION_PANNEL": "接続パネルを開く"
     },
-    "ABOUT": "ツールについて"
+    "ABOUT": "ツールについて",
+    "TRIGGER": "起動条件"
   },
   "BUTTONS": {
     "BUTTONS": "ボタン",

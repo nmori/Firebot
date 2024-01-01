@@ -5,6 +5,7 @@
             "type": "node",
             "request": "launch",
             "name": "Electron: Main",
+            "env": {"NODE_ENV": "development"},
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "runtimeArgs": [
                 ".",
@@ -14,6 +15,7 @@
                 "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
             },
             "outputCapture": "std",
+            "sourceMaps": true,
             "preLaunchTask": "grunt-prep"
         },
         {

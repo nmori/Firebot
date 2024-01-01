@@ -17,7 +17,7 @@
                         <ul class="pl-0">
                             <nav-link page="Chat Feed" name="{{'SIDEBAR.CHAT.CHAT_FEED' | translate }}" icon="fa-signal-stream"></nav-link>
 
-                            <nav-category name="Triggers" pad-top="true"></nav-category>
+                            <nav-category name="{{'SIDEBAR.TRIGGER' | translate }}" pad-top="true"></nav-category>
                             <nav-link page="Commands" name="{{'SIDEBAR.CHAT.COMMANDS' | translate }}" icon="fa-exclamation"></nav-link>
                             <nav-link page="Events" name="{{'SIDEBAR.OTHER.EVENTS' | translate }}" icon="fa-list"></nav-link>
                             <nav-link page="Timers" name="{{'SIDEBAR.OTHER.TIME_BASED' | translate }}" icon="fa-stopwatch"></nav-link>

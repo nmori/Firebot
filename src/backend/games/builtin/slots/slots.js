@@ -9,7 +9,7 @@ module.exports = {
     id: "firebot-slots",
     name: "スロット",
     subtitle: "回して勝つ",
-    description: "Tこのゲームでは、視聴者がスロットマシンで通貨を賭けることができます。必要なのは、チャットで「!spin [wagerAmount]」と入力してレバーを引くだけである！レバーを引くと、3つのリールが回転し、それぞれHITまたはMISSします。HITした数が賞金を決定します！",
+    description: "このゲームでは、視聴者がスロットマシンで通貨を賭けることができます。必要なのは、チャットで「!spin [wagerAmount]」と入力してレバーを引くだけである！レバーを引くと、3つのリールが回転し、それぞれHITまたはMISSします。HITした数が賞金を決定します！",
     icon: "fa-dice-three",
     settingCategories: {
         currencySettings: {
