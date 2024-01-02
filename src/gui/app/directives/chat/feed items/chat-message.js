@@ -182,7 +182,7 @@
                     </div>
                     <div class="automod-tag" ng-show="$ctrl.message.isAutoModHeld">
                         <div ng-if="$ctrl.message.autoModStatus === 'PENDING' && !$ctrl.message.autoModErrorMessage">
-                            <span>FAutoModによって自動マーク： ({{$ctrl.message.autoModReason}}): </span>
+                            <span>AutoModによって自動マーク： ({{$ctrl.message.autoModReason}}): </span>
                             <span ng-if="!$ctrl.respondedToAutoMod">
                                 <a href style="font-weight: 700;" ng-click="$ctrl.allowAutoModMessage()">Allow</a>
                                 <span> • </span>
@@ -283,12 +283,12 @@
                     });
 
                     actions.push({
-                        name: "Reply To Message",
+                        name: "返信",
                         icon: "fa-reply"
                     });
 
                     actions.push({
-                        name: "Quote Message",
+                        name: "引用",
                         icon: "fa-quote-right"
                     });
 

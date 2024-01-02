@@ -78,7 +78,7 @@ async function createClient() {
 
         const bitsBadgeUnlockListener = pubSubClient.onBitsBadgeUnlock(streamer.userId, (message) => {
             twitchEventsHandler.cheer.triggerBitsBadgeUnlock(
-                message.userName ?? "An Anonymous Cheerer",
+                message.userName ?? "匿名のCheer",
                 message.message ?? "",
                 message.badgeTier
             );

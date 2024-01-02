@@ -108,8 +108,8 @@ module.exports = {
                     title: "すでに回転中",
                     description: "回転開始の指示が速すぎる場合（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username},スロットマシンはすでに動いています",
-                    tip: "有効な変数 variables: {username}",
+                    default: "{displayName}さん,スロットマシンはすでに動いています",
+                    tip: "有効な変数 variables: {username}, {displayName}",
                     sortRank: 1
                 },
                 onCooldown: {
@@ -117,8 +117,8 @@ module.exports = {
                     title: "再実行までの待ち時間中",
                     description: "ユーザーが待ち時間を満了していない時（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, スロットマシンを回せるまでの残り時間: {timeRemaining}",
-                    tip: "有効な変数: {username}, {timeRemaining}",
+                    default: "{displayName}さん, スロットマシンを回せるまでの残り時間: {timeRemaining}",
+                    tip: "有効な変数: {username}, {displayName}, {timeRemaining}",
                     sortRank: 2
                 },
                 noWagerAmount: {
@@ -126,8 +126,8 @@ module.exports = {
                     title: "賭け金なし",
                     description: "ユーザーが賭け金額を入力しなかった場合に送信されます。",
                     useTextArea: true,
-                    default: "{user}, 賭け金の金額をご記入ください",
-                    tip: "有効な変数: {user}",
+                    default: "{displayName}さん, 賭け金の金額をご記入ください",
+                    tip: "有効な変数: {user}, {displayName}",
                     sortRank: 3
                 },
                 invalidWagerAmount: {
@@ -135,8 +135,8 @@ module.exports = {
                     title: "無効な賭け金",
                     description: "ユーザーが無効な賭け金を使用した場合に送信されます（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{user}, 有効な賭け金額をご記入ください",
-                    tip: "有効な変数: {user}",
+                    default: "{displayName}さん, 有効な賭け金額をご記入ください",
+                    tip: "有効な変数: {user}, {displayName}",
                     sortRank: 4
                 },
                 moreThanZero: {
@@ -144,8 +144,8 @@ module.exports = {
                     title: "0以上",
                     description: "ユーザーが0通貨でスピンをしようとした場合（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, 賭け金は0より上でなければなりません。",
-                    tip: "有効な変数: {username}",
+                    default: "{displayName}さん, 賭け金は0より上でなければなりません。",
+                    tip: "有効な変数: {username}, {displayName}",
                     sortRank: 5
                 },
                 minWager: {
@@ -153,8 +153,8 @@ module.exports = {
                     title: "金額が低すぎる",
                     description: "賭け金の額が低すぎる場合（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, 掛け金は {minWager} 以上としてください",
-                    tip: "有効な変数: {username}, {minWager}",
+                    default: "{displayName}さん, 掛け金は {minWager} 以上としてください",
+                    tip: "有効な変数: {username}, {displayName}, {minWager}",
                     sortRank: 6
                 },
                 maxWager: {
@@ -162,8 +162,8 @@ module.exports = {
                     title: "金額が高すぎる",
                     description: "賭け金の額が高すぎる場合（メッセージが不要な場合は空白にします）",
                     useTextArea: true,
-                    default: "{username}, 掛け金は {maxWager} 以下としてください",
-                    tip: "有効な変数: {username}, {maxWager}",
+                    default: "{displayName}さん, 掛け金は {maxWager} 以下としてください",
+                    tip: "有効な変数: {username}, {displayName}, {maxWager}",
                     sortRank: 7
                 },
                 notEnough: {
@@ -171,8 +171,8 @@ module.exports = {
                     title: "不十分",
                     description: "選択した金額を賭けるだけの十分な資金がない場合（メッセージなしの場合は空欄のまま）。",
                     useTextArea: true,
-                    default: "{username}, この金額を賭けるだけの資金がありません",
-                    tip: "有効な変数: {username}",
+                    default: "{displayName}さん, この金額を賭けるだけの資金がありません",
+                    tip: "有効な変数: {username}, {displayName}",
                     sortRank: 8
                 },
                 spinInAction: {
@@ -180,7 +180,7 @@ module.exports = {
                     title: "回転中",
                     description: "スピンが行われている時（メッセージなしの場合は空欄のまま）",
                     useTextArea: true,
-                    default: "{username}がレバーを引きました...",
+                    default: "{displayName}さんがレバーを引きました...",
                     tip: "有効な変数: {username}",
                     sortRank: 9
                 },
@@ -189,8 +189,8 @@ module.exports = {
                     title: "回転完了",
                     description: "スピンが終了した時（メッセージなしの場合は空欄のまま）",
                     useTextArea: true,
-                    default: "{username} は３回中 {successfulRolls} 当たり、{winningsAmount} {currencyName}を獲得！",
-                    tip: "有効な変数: {username}, {successfulRolls}, {winningsAmount}, {currencyName}",
+                    default: "{displayName} さんの結果...当たりは {successfulRolls} / 3 、{winningsAmount} {currencyName}を獲得！",
+                    tip: "有効な変数: {username}, {displayName}, {successfulRolls}, {winningsAmount}, {currencyName}",
                     sortRank: 10
                 }
             }

@@ -8,7 +8,7 @@ const currencyDatabase = require("../../../database/currencyDatabase");
 const customRolesManager = require("../../../roles/custom-roles-manager");
 const teamRolesManager = require("../../../roles/team-roles-manager");
 const twitchRolesManager = require("../../../../shared/twitch-roles");
-const omikujiMachine = require("./omikuji-machine");
+const otoshidamaMachine = require("./otoshidama-machine");
 const logger = require("../../../logwrapper");
 const moment = require("moment");
 const NodeCache = require("node-cache");
@@ -16,15 +16,15 @@ const NodeCache = require("node-cache");
 const activeOmikuji = new NodeCache({checkperiod: 2});
 const cooldownCache = new NodeCache({checkperiod: 5});
 
-const OMIKUJI_COMMAND_ID = "firebot:omikuji";
+const OTOSHIDAMA_COMMAND_ID = "firebot:otoshidama";
 
-const omikujiCommand = {
+const otoshidamaCommand = {
     definition: {
-        id: OMIKUJI_COMMAND_ID,
-        name: "おみくじをひく",
+        id: OTOSHIDAMA_COMMAND_ID,
+        name: "お年玉をもらう",
         active: true,
-        trigger: "!omikuji",
-        description: "おみくじを開始します",
+        trigger: "!otoshidama",
+        description: "お年玉をもらいます",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
@@ -35,16 +35,16 @@ const omikujiCommand = {
 
         const { userCommand,chatMessage } = event;
 
-        const omikujiSettings = gameManager.getGameSettings("firebot-omikuji");
-        const chatter = omikujiSettings.settings.chatSettings.chatter;
+        const otoshidamaSettings = gameManager.getGameSettings("firebot-otoshidama");
+        const chatter = otoshidamaSettings.settings.chatSettings.chatter;
         const username = userCommand.commandSender;
         const displayName = chatMessage.displayName;
 
-        let wagerAmount = omikujiSettings.settings.currencySettings.defaultWager;
+        let wagerAmount = otoshidamaSettings.settings.currencySettings.defaultWager;
 
         if (activeOmikuji.get(username)) {
-            if (omikujiSettings.settings.generalMessages.alreadyOmikujining) {
-                const alreadyOmikujiningMsg = omikujiSettings.settings.generalMessages.alreadyOmikujining
+            if (otoshidamaSettings.settings.generalMessages.alreadyOmikujining) {
+                const alreadyOmikujiningMsg = otoshidamaSettings.settings.generalMessages.alreadyOmikujining
                     .replace("{username}", username)
                     .replace("{displayName}", displayName);
 
@@ -56,9 +56,9 @@ const omikujiCommand = {
 
         const cooldownExpireTime = cooldownCache.get(username);
         if (cooldownExpireTime && moment().isBefore(cooldownExpireTime)) {
-            if (omikujiSettings.settings.generalMessages.onCooldown) {
+            if (otoshidamaSettings.settings.generalMessages.onCooldown) {
                 const timeRemainingDisplay = util.secondsForHumans(Math.abs(moment().diff(cooldownExpireTime, 'seconds')));
-                const cooldownMsg = omikujiSettings.settings.generalMessages.onCooldown
+                const cooldownMsg = otoshidamaSettings.settings.generalMessages.onCooldown
                     .replace("{username}", username)
                     .replace("{timeRemaining}", timeRemainingDisplay)
                     .replace("{displayName}", displayName);
@@ -70,8 +70,9 @@ const omikujiCommand = {
         }
 
 
-        const currencyId = omikujiSettings.settings.currencySettings.currencyId;
+        const currencyId = otoshidamaSettings.settings.currencySettings.currencyId;
         let userBalance;
+
         try {
             userBalance = await currencyDatabase.getUserCurrencyAmount(username, currencyId);
         } catch (error) {
@@ -79,47 +80,32 @@ const omikujiCommand = {
             userBalance = 0;
         }
 
-        if (userBalance < wagerAmount) {
-            if (omikujiSettings.settings.generalMessages.notEnough) {
-                const notEnoughMsg = omikujiSettings.settings.generalMessages.notEnough
-                    .replace("{username}", username)
-                    .replace("{displayName}", displayName);
-
-                await twitchChat.sendChatMessage(notEnoughMsg, null, chatter);
-            }
-
-            return;
-        }
-
         activeOmikuji.set(username, true);
 
-        const cooldownSecs = omikujiSettings.settings.cooldownSettings.cooldown;
+        const cooldownSecs = otoshidamaSettings.settings.cooldownSettings.cooldown;
         if (cooldownSecs && cooldownSecs > 0) {
             const expireTime = moment().add(cooldownSecs, 'seconds');
             cooldownCache.set(username, expireTime, cooldownSecs);
         }
 
-        try {
-            await currencyDatabase.adjustCurrencyForUser(username, currencyId, -Math.abs(wagerAmount));
-        } catch (error) {
-            logger.error(error);
-            await twitchChat.sendChatMessage(`${displayName}さん, 通貨処理にエラーが発生したため、おみくじはキャンセルされました。`, null, chatter);
-            activeOmikuji.del(username);
-            return;
-        }
+        const otoshidamaList = otoshidamaSettings.settings.currencySettings.OmikujiSpec;
+        const successfulResult = await otoshidamaMachine.otoshidama(otoshidamaList, chatter);
 
-        const OmikujiInActionMsg = omikujiSettings.settings.generalMessages.OmikujiInAction
-            .replace("{username}", username)
-            .replace("{displayName}", displayName);
-
-        const omikujiList = omikujiSettings.settings.omikujiSettings.OmikujiSpec;
-        const showOmikujiInActionMsg = !!omikujiSettings.settings.generalMessages.OmikujiInAction;
-        const successfulResult = await omikujiMachine.omikuji(showOmikujiInActionMsg, OmikujiInActionMsg, omikujiList, chatter);
-
-        if (omikujiSettings.settings.generalMessages.OmikujiSuccessful) {
-            const OmikujiSuccessfulMsg = omikujiSettings.settings.generalMessages.OmikujiSuccessful
+        if (otoshidamaSettings.settings.generalMessages.OmikujiSuccessful) {
+        
+            try {
+                await currencyDatabase.adjustCurrencyForUser(username, currencyId, (successfulResult));
+            } catch (error) {
+                logger.error(error);
+                await twitchChat.sendChatMessage(`${displayName}さん, 通貨処理にエラーが発生したため、お年玉はキャンセルされました。`, null, chatter);
+                activeOmikuji.del(username);
+                return;
+            }
+            const currencyName = await currencyDatabase.getCurrencyById(currencyId).name;
+            const OmikujiSuccessfulMsg = otoshidamaSettings.settings.generalMessages.OmikujiSuccessful
                 .replace("{username}", username)
-                .replace("{omikujiResult}", successfulResult)
+                .replace("{currencyName}", currencyName)
+                .replace("{otoshidamaResult}", successfulResult)
                 .replace("{displayName}", displayName);
 
             await twitchChat.sendChatMessage(OmikujiSuccessfulMsg, null, chatter);
@@ -131,13 +117,13 @@ const omikujiCommand = {
 };
 
 function registerOmikujiCommand() {
-    if (!commandManager.hasSystemCommand(OMIKUJI_COMMAND_ID)) {
-        commandManager.registerSystemCommand(omikujiCommand);
+    if (!commandManager.hasSystemCommand(OTOSHIDAMA_COMMAND_ID)) {
+        commandManager.registerSystemCommand(otoshidamaCommand);
     }
 }
 
 function unregisterOmikujiCommand() {
-    commandManager.unregisterSystemCommand(OMIKUJI_COMMAND_ID);
+    commandManager.unregisterSystemCommand(OTOSHIDAMA_COMMAND_ID);
 }
 
 function purgeCaches() {

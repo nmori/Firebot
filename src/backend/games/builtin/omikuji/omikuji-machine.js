@@ -2,12 +2,12 @@
 const twitchChat = require("../../../chat/twitch-chat");
 const util = require("../../../utility");
 
-async function omikuji(showSpinInActionMsg, spinInActionMsg, OmikujiSpec, chatter) {
+async function omikuji(showOmikujiInActionMsg, OmikujiInActionMsg, OmikujiSpec, chatter) {
 
     let successCount = 0;
 
-    if (showSpinInActionMsg) {
-        await twitchChat.sendChatMessage(spinInActionMsg, null, chatter);
+    if (showOmikujiInActionMsg) {
+        await twitchChat.sendChatMessage(OmikujiInActionMsg, null, chatter);
     }
 
     await util.wait(2000);

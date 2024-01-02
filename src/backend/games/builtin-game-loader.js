@@ -8,7 +8,8 @@ exports.loadGames = () => {
         'heist/heist',
         'slots/slots',
         'trivia/trivia',
-        'omikuji/omikuji'
+        'omikuji/omikuji',
+        'otoshidama/otoshidama'
     ].forEach(filename => {
         const definition = require(`./builtin/${filename}.js`);
         gameManager.registerGame(definition);
