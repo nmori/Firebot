@@ -169,7 +169,7 @@ function createMainWindow() {
     const profileManager = require("../../common/profile-manager");
     const dataAccess = require("../../common/data-access");
     const menuTemplate = [
-    	{
+        {
             label: 'ファイル',
             submenu: [{
                     label: 'Firebot セットアップの取り込み...',
@@ -229,7 +229,7 @@ function createMainWindow() {
         {
             label: '編集',
             submenu: [
-            	{
+                {
                     label: '切り取り',
                     role: 'cut',
                     icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/content-cut.png")
@@ -318,7 +318,7 @@ function createMainWindow() {
             label: 'ヘルプ',
             role: 'help',
             submenu: [
-            	{
+                {
                     label: '開発Discordに参加',
                     click: () => {
                         shell.openExternal("https://discord.gg/tTmMbrG");
