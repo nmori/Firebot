@@ -136,6 +136,17 @@
                                     <a ng-if="part.type === 'link'" style="{{$ctrl.chatSizeStyle}}" ng-href="{{part.url}}" target="_blank">{{part.text}}</a>
 
                                     <span
+                                        ng-if="part.type === 'cheer'"
+                                        class="chatEmoticon"
+                                        uib-tooltip="{{part.name}}"
+                                        tooltip-append-to-body="true"
+                                    >
+                                        <img ng-if="part.animatedUrl != '' && part.animatedUrl != null" ng-src="{{part.animatedUrl}}" style="height: 100%;">
+                                        <img ng-if="part.animatedUrl == '' || part.animatedUrl == null" ng-src="{{part.url}}" style="height: 100%;">
+                                    </span>
+                                    <span ng-if="part.type === 'cheer'" style="{{$ctrl.chatSizeStyle}}; font-weight: bold;" ng-style="{ color: part.color }" >{{part.amount}}</span>
+
+                                    <span
                                         ng-if="part.type === 'emote'"
                                         class="chatEmoticon"
                                         uib-tooltip="{{part.origin}}: {{part.name}}"
@@ -307,8 +318,8 @@
                         });
 
                         actions.push({
-                            name: "Highlight Message",
-                            label: "このメッセージを強調",
+                            name: "Spotlight Message",
+                            label: "このメッセージにスポットを当てる",
                             icon: "fa-eye"
                         });
 
@@ -452,10 +463,10 @@
                                 threadOrReplyMessageId: $ctrl.message.id
                             });
                             break;
-                        case "quote this message":
+                        case "quote message":
                             updateChatField(`!quote add @${userName} ${rawText}`);
                             break;
-                        case "highlight this message":
+                        case "spotlight message":
                             chatMessagesService.highlightMessage(userName, rawText);
                             break;
                         case "shoutout":

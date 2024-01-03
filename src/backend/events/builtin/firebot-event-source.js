@@ -87,8 +87,8 @@ const firebotEventSource = {
         },
         {
             id: "highlight-message",
-            name: "チャットメッセージハイライト時",
-            description: "オーバーレイ上でメッセージをハイライトされた時",
+            name: "チャットスポットライト時",
+            description: "オーバーレイ表示など、メッセージにスポットライトを当てた時",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
