@@ -64,13 +64,13 @@
                         <div class="mt-8 chat-settings-group">
                             <div class="display-1 mb-2 font-black"表示設定</div>
 
-                            <div class="font-black">Display Style</div>
+                            <div class="font-black">表示スタイル</div>
                             <div class="permission-type controls-fb-inline">
-                                <label class="control-fb control--radio">Modern
+                                <label class="control-fb control--radio">モダン
                                 <input type="radio" ng-model="compactMode" ng-value="false" ng-click="toggleCompactMode()"/>
                                 <div class="control__indicator"></div>
                                 </label>
-                                <label class="control-fb control--radio">Compact
+                                <label class="control-fb control--radio">コンパクト
                                     <input type="radio" ng-model="compactMode" ng-value="true" ng-click="toggleCompactMode()"/>
                                     <div class="control__indicator"></div>
                                 </label>
@@ -176,7 +176,7 @@
 
                             <chat-settings-toggle
                                 setting="settings.getChatHideWhispers()"
-                                title="Hide whispers in chat feed"
+                                title="ささやきメッセージを隠す"
                                 input-id="chatHideWhispers"
                                 on-update="settings.setChatHideWhispers(setting)"
                             ></chat-settings-toggle>

@@ -268,27 +268,32 @@
                     const actions = [];
 
                     actions.push({
-                        name: "概要",
+                        name: "Details",
+                        label: "概要",
                         icon: "fa-info-circle"
                     });
 
                     actions.push({
-                        name: "メッセージを消す",
+                        name: "Delete Message",
+                        label: "メッセージを消す",
                         icon: "fa-trash-alt"
                     });
 
                     actions.push({
-                        name: "メンション",
+                        name: "Mention",
+                        label: "メンション",
                         icon: "fa-at"
                     });
 
                     actions.push({
-                        name: "返信",
+                        name: "Reply To Message",
+                        label: "返信",
                         icon: "fa-reply"
                     });
 
                     actions.push({
-                        name: "引用",
+                        name: "Quote Message",
+                        label: "引用",
                         icon: "fa-quote-right"
                     });
 
@@ -296,51 +301,60 @@
                         message.username.toLowerCase() !== connectionService.accounts.bot.username.toLowerCase()) {
 
                         actions.push({
-                            name: "ささやく",
+                            name: "Whisper",
+                            label: "ささやく",
                             icon: "fa-envelope"
                         });
 
                         actions.push({
-                            name: "このメッセージを強調",
+                            name: "Highlight Message",
+                            label: "このメッセージを強調",
                             icon: "fa-eye"
                         });
 
                         actions.push({
-                            name: "シャウトアウト",
+                            name: "Shoutout",
+                            label: "シャウトアウト",
                             icon: "fa-megaphone"
                         });
 
                         if (message.roles.includes("mod")) {
                             actions.push({
-                                name: "モデレータ解除",
+                                name: "Unmod",
+                                label: "モデレータ解除",
                                 icon: "fa-user-times"
                             });
                         } else {
                             actions.push({
-                                name: "モデレータ指名",
+                                name: "Mod",
+                                label: "モデレータ指名",
                                 icon: "fa-user-plus"
                             });
 
                             if (message.roles.includes("vip")) {
                                 actions.push({
-                                    name: "VIP解除",
+                                    name: "Remove VIP",
+                                    label: "VIP解除",
                                     icon: "fa-gem"
                                 });
                             } else {
                                 actions.push({
-                                    name: "VIP設定",
+                                    name: "Add as VIP",
+                                    label: "VIP設定",
                                     icon: "fa-gem"
                                 });
                             }
                         }
 
                         actions.push({
-                            name: "タイムアウト",
+                            name: "Timeout",
+                            label: "タイムアウト",
                             icon: "fa-clock"
                         });
 
                         actions.push({
-                            name: "追放",
+                            name: "Ban",
+                            label: "追放",
                             icon: "fa-ban"
                         });
                     }
@@ -355,21 +369,21 @@
                         },
                         ...actions.map(a => {
                             let html = "";
-                            if (a.name === "VIP解除") {
+                            if (a.name === "remove vip") {
                                 html = `
                                     <div class="message-action">
                                         <span class="fa-stack fa-1x mr-3" style="width: 18px">
                                             <i class="fad fa-gem fa-stack-1x ml-px mt-1" style="opacity: 0.5"></i>
                                             <i class="far fa-slash fa-stack-1x text-2xl"></i>
                                         </span>
-                                        <span class="action-name">${a.name}</span>
+                                        <span class="action-name">${a.label}</span>
                                     </div>
                                 `;
                             } else {
                                 html = `
                                     <div class="message-action">
                                         <span class="action-icon"><i class="fad ${a.icon}"></i></span>
-                                        <span class="action-name">${a.name}</span>
+                                        <span class="action-name">${a.label}</span>
                                     </div>
                                 `;
                             }
