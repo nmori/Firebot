@@ -5,7 +5,7 @@ const util = require("../../../utility");
 let staredtLottery = false;
 let lotteryAmount=1;
 
-async function lottery(activeLottery, chatter) {
+async function lottery(activeLottery, LotterySuccessful, chatter) {
 
     let successCount = 0;
     let lotteryWinners = [];
@@ -34,10 +34,10 @@ async function lottery(activeLottery, chatter) {
         }        
     }
 
-    if (lotterySettings.settings.generalMessages.LotterySuccessful) {
+    if (LotterySuccessful) {
         lotteryWinners.keys().forEach(async (key) => 
         {
-            const LotterySuccessfulMsg = lotterySettings.settings.generalMessages.LotterySuccessful
+            const LotterySuccessfulMsg = LotterySuccessful
                 .replace("{username}", key.username)
                 .replace("{displayName}", key.displayName);
 
@@ -46,9 +46,4 @@ async function lottery(activeLottery, chatter) {
     }
     return ;
 }
-
-exports.clearCooldowns = () => {
-    usersInLottery = [];
-};
-
 exports.lottery = lottery;

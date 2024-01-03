@@ -5,9 +5,6 @@ const twitchChat = require("../../../chat/twitch-chat");
 const commandManager = require("../../../chat/commands/CommandManager");
 const gameManager = require("../../game-manager");
 const currencyDatabase = require("../../../database/currencyDatabase");
-const customRolesManager = require("../../../roles/custom-roles-manager");
-const teamRolesManager = require("../../../roles/team-roles-manager");
-const twitchRolesManager = require("../../../../shared/twitch-roles");
 const lotteryMachine = require("./lottery-machine");
 const logger = require("../../../logwrapper");
 const moment = require("moment");
@@ -135,9 +132,9 @@ const lotteryCommand = {
                 return;
             }
 
-            if (activeLottery.length < 1) {
+            if (activeLottery.length > 0) {
                 lotteryMachine.staredtLottery =false;
-                await lotteryMachine.lottery(activeLottery,chatter);
+                await lotteryMachine.lottery(activeLottery, lotterySettings.settings.generalMessages.LotterySuccessful,chatter);
             }else{
                 await twitchChat.sendChatMessage(`参加者が居ないので抽選を取りやめました`, null, chatter, chatMessage.id);
             }
@@ -285,7 +282,8 @@ function unregisterLotteryCommand() {
 function purgeCaches() {
     cooldownCache.flushAll();
     activeLottery.flushAll();
-    lotteryMachine.clearCooldowns();
+    lotteryMachine.staredtLottery = false;
+    lotteryMachine.lotteryAmount=1;
 }
 
 exports.purgeCaches = purgeCaches;
