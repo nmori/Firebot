@@ -138,6 +138,7 @@ function createAccessTokenFromData(data: AccessTokenData): AccessToken {
  */
 async function refreshUserToken(
     clientId: string,
+    clientSecret: string,
     refreshToken: string
 ): Promise<AccessToken> {
     return createAccessTokenFromData(
@@ -148,6 +149,7 @@ async function refreshUserToken(
             query: {
                 grant_type: 'refresh_token',
                 client_id: clientId,
+                client_secret: clientSecret,
                 refresh_token: refreshToken
             }
         })
@@ -157,6 +159,7 @@ async function refreshUserToken(
 interface DeviceAuthProviderConfig {
     userId: UserIdResolvable,
     clientId: string,
+    clientSecret: string,
     accessToken: AccessToken
 }
 
@@ -166,6 +169,7 @@ interface DeviceAuthProviderConfig {
 export class DeviceAuthProvider extends EventEmitter implements AuthProvider {
     private _userId: string;
     private readonly _clientId: string;
+    private readonly _clientSecret: string;
     private _accessToken: AccessTokenWithUserId;
     private _tokenFetcher: TokenFetcher<AccessTokenWithUserId>;
     private _refreshPromise: Promise<AccessTokenWithUserId>;
@@ -195,6 +199,7 @@ export class DeviceAuthProvider extends EventEmitter implements AuthProvider {
         super();
 
         this._clientId = deviceAuthConfig.clientId;
+        this._clientSecret = deviceAuthConfig.clientSecret;
         this._userId = extractUserId(deviceAuthConfig.userId);
         this._accessToken = {
             ...deviceAuthConfig.accessToken,
@@ -267,6 +272,9 @@ export class DeviceAuthProvider extends EventEmitter implements AuthProvider {
      */
     get clientId(): string {
         return this._clientId;
+    }
+    get clientSecret(): string {
+        return this._clientSecret;
     }
 
     /**
@@ -395,7 +403,7 @@ export class DeviceAuthProvider extends EventEmitter implements AuthProvider {
 
     private async _refreshUserTokenWithCallback(refreshToken: string): Promise<AccessToken> {
         try {
-            return await refreshUserToken(this.clientId, refreshToken);
+            return await refreshUserToken(this.clientId, this.clientSecret,refreshToken);
         } catch (e) {
             this._cachedRefreshFailures.add(this._userId);
             this.emit(this.onRefreshFailure, this._userId);

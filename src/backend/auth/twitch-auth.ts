@@ -15,12 +15,14 @@ class TwitchAuthProviders {
     readonly botAccountProviderId = "twitch:bot-account";
 
     readonly twitchClientId = secrets.twitchClientId;
+    readonly twitchClientSecret = secrets.twitchClientSecret;
 
     readonly streamerAccountProvider: AuthProviderDefinition = {
         id: this.streamerAccountProviderId,
         name: "Streamer Account",
         client: {
-            id: this.twitchClientId
+            id: this.twitchClientId,
+            secret: this.twitchClientSecret
         },
         auth: {
             tokenHost: this._host,
