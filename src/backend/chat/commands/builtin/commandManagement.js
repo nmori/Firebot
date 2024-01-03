@@ -263,38 +263,38 @@ const commandManagement = {
                             `起動名 '${trigger}' はすでに使われています。`
                         );
                         return resolve();
+                    }
+
+                    const command = {
+                        trigger: trigger,
+                        autoDeleteTrigger: false,
+                        ignoreBot: true,
+                        active: true,
+                        scanWholeMessage: !trigger.startsWith("!"),
+                        cooldown: {
+                            user: 0,
+                            global: 0
+                        },
+                        effects: {
+                            id: uuidv1(),
+                            list: [
+                                {
+                                    id: uuidv1(),
+                                    type: "firebot:chat",
+                                    message: remainingData
+                                }
+                            ]
                         }
+                    };
 
-                        const command = {
-                            trigger: trigger,
-                            autoDeleteTrigger: false,
-                            ignoreBot: true,
-                            active: true,
-                            scanWholeMessage: !trigger.startsWith("!"),
-                            cooldown: {
-                                user: 0,
-                                global: 0
-                            },
-                            effects: {
-                                id: uuidv1(),
-                                list: [
-                                    {
-                                        id: uuidv1(),
-                                        type: "firebot:chat",
-                                        message: remainingData
-                                    }
-                                ]
-                            }
-                        };
+                    commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
-                        commandManager.saveCustomCommand(command, event.userCommand.commandSender);
+                    await chat.sendChatMessage(
+                        `コマンドを追加しました '${trigger}'!`
+                    );
 
-                        await chat.sendChatMessage(
-                            `コマンドを追加しました '${trigger}'!`
-                        );
-
-                        break;
-                }                    
+                    break;
+                }
                 case "response": {
                     if (args.length < 3 || remainingData == null || remainingData === "") {
                         await chat.sendChatMessage(

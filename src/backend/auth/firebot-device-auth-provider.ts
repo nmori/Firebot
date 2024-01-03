@@ -48,7 +48,6 @@ class FirebotDeviceAuthProvider {
             this.streamerProvider = new DeviceAuthProvider({
                 userId: streamerAcccount.userId,
                 clientId: twitchAuth.twitchClientId,
-                clientSecret: twitchAuth.twitchClientSecret,
                 accessToken: {
                     accessToken: streamerAcccount.auth.access_token,
                     refreshToken: streamerAcccount.auth.refresh_token,
@@ -73,7 +72,6 @@ class FirebotDeviceAuthProvider {
             this.botProvider = new DeviceAuthProvider({
                 userId: botAcccount.userId,
                 clientId: twitchAuth.twitchClientId,
-                clientSecret: twitchAuth.twitchClientSecret,
                 accessToken: {
                     accessToken: botAcccount.auth.access_token,
                     refreshToken: botAcccount.auth.refresh_token,

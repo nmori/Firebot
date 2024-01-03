@@ -124,10 +124,6 @@ const getTwitchData = async (accountType) => {
         return account;
     }
 
-    if(data === null) {
-        return account;
-    }
-
     account.avatar = data.profilePictureUrl;
     chatHelpers.setUserProfilePicUrl(account.userId, data.profilePictureUrl, false);
 

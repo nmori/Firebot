@@ -150,7 +150,7 @@
                 ttsService.readText(testTTSMessages[Math.floor(Math.random() * testTTSMessages.length)], "default");
             };
 
-                $scope.refreshSliders = function() {
+            $scope.refreshSliders = function() {
                 $timeout(function() {
                     $scope.$broadcast('rzSliderForceRender');
                 });
@@ -252,9 +252,9 @@
                 deviceList = deviceList
                     .filter(
                         d =>
-                        d.kind === "audiooutput" &&
-                        d.deviceId !== "communications" &&
-                        d.deviceId !== "default"
+                            d.kind === "audiooutput" &&
+                            d.deviceId !== "communications" &&
+                            d.deviceId !== "default"
                     )
                     .map(d => {
                         return { label: d.label, deviceId: d.deviceId };

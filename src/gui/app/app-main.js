@@ -248,8 +248,8 @@
         };
 
         /*
-         * MANAGE LOGINS MODAL
-         */
+        * MANAGE LOGINS MODAL
+        */
         $scope.showManageLoginsModal = function() {
             utilityService.showModal({
                 component: "loginsModal"
@@ -257,8 +257,8 @@
         };
 
         /*
-         * New Profile MODAL
-         */
+        * New Profile MODAL
+        */
         $scope.showNewProfileModal = function() {
             const showNewProfileModal = {
                 templateUrl: "newProfileModal.html",
@@ -286,8 +286,8 @@
         };
 
         /*
-         * Rename Profile MODAL
-         */
+        * Rename Profile MODAL
+        */
         $scope.showRenameProfileModal = function() {
             const renameProfileModal = {
                 templateUrl: "renameProfileModal.html",
@@ -322,8 +322,8 @@
 
 
         /*
-         * Delete Profile MODAL
-         */
+        * Delete Profile MODAL
+        */
         $scope.showDeleteProfileModal = function() {
             const deleteProfileModal = {
                 templateUrl: "deleteProfileModal.html",

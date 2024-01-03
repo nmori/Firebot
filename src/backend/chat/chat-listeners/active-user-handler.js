@@ -82,8 +82,8 @@ exports.getRandomActiveUser = (ignoreUser = "") => {
 
 
 /**
- * @returns {User[]}
- */
+  * @returns {User[]}
+  */
 exports.getAllActiveUsers = () => {
     return activeUsers.keys().filter(v => !isNaN(v)).map(id => {
         return {
@@ -117,8 +117,8 @@ exports.getRandomOnlineUser = (ignoreUser = "") => {
 };
 
 /**
- * @returns {User[]}
- */
+  * @returns {User[]}
+  */
 exports.getAllOnlineUsers = () => {
     return onlineUsers.keys().filter(v => !isNaN(v)).map(id => {
         return {

@@ -103,7 +103,6 @@ exports.mainWindow = null;
  */
 let splashscreenWindow;
 
-
 function createMainWindow() {
     const mainWindowState = windowStateKeeper({
         defaultWidth: 1280,
@@ -169,7 +168,8 @@ function createMainWindow() {
 
     const profileManager = require("../../common/profile-manager");
     const dataAccess = require("../../common/data-access");
-    const menuTemplate = [{
+    const menuTemplate = [
+    	{
             label: 'ファイル',
             submenu: [{
                     label: 'Firebot セットアップの取り込み...',
@@ -228,7 +228,8 @@ function createMainWindow() {
         },
         {
             label: '編集',
-            submenu: [{
+            submenu: [
+            	{
                     label: '切り取り',
                     role: 'cut',
                     icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/content-cut.png")
@@ -316,7 +317,8 @@ function createMainWindow() {
         {
             label: 'ヘルプ',
             role: 'help',
-            submenu: [{
+            submenu: [
+            	{
                     label: '開発Discordに参加',
                     click: () => {
                         shell.openExternal("https://discord.gg/tTmMbrG");
@@ -414,6 +416,7 @@ function createMainWindow() {
     // wait for the main window's content to load, then show it
     mainWindow.webContents.on("did-finish-load", () => {
 
+
         createTray(mainWindow);
 
         // mainWindow.webContents.openDevTools();
@@ -450,7 +453,7 @@ function createMainWindow() {
                 type: "question",
                 buttons: ["Firebotを閉じる", "やめる"]
 
-            }).then(({ response }) => {
+            }).then(({response}) => {
                 if (response === 0) {
                     mainWindow.destroy();
                 }
@@ -462,7 +465,7 @@ function createMainWindow() {
 /**
  * Creates the splash screen
  */
-const createSplashScreen = async() => {
+const createSplashScreen = async () => {
     splashscreenWindow = new BrowserWindow({
         width: 375,
         height: 420,
@@ -488,11 +491,11 @@ const createSplashScreen = async() => {
 
     logger.debug("...Attempting to load splash screen url");
     return splashscreenWindow.loadURL(
-            url.format({
-                pathname: path.join(__dirname, "../../../gui/splashscreen/splash.html"),
-                protocol: "file:",
-                slashes: true
-            }))
+        url.format({
+            pathname: path.join(__dirname, "../../../gui/splashscreen/splash.html"),
+            protocol: "file:",
+            slashes: true
+        }))
         .then(() => {
             logger.debug("Loaded splash screen");
         }).catch((reason) => {

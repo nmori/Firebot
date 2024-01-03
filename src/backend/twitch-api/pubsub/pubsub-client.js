@@ -67,15 +67,6 @@ async function createClient() {
     try {
         const twitchEventsHandler = require('../../events/twitch-events');
 
-        const whisperListener = pubSubClient.onWhisper(streamer.userId, (message) => {
-            twitchEventsHandler.whisper.triggerWhisper(
-                message.senderName,
-                message.senderDisplayName,
-                message.text
-            );
-        });
-        listeners.push(whisperListener);
-
         const bitsBadgeUnlockListener = pubSubClient.onBitsBadgeUnlock(streamer.userId, (message) => {
             twitchEventsHandler.cheer.triggerBitsBadgeUnlock(
                 message.userName ?? "匿名のCheer",
