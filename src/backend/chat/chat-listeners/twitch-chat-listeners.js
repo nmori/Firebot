@@ -116,6 +116,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
 
         twitchEventsHandler.whisper.triggerWhisper(
             msg.userInfo.userName,
+            msg.userInfo.displayName,
             messageText,
             accountType
         );

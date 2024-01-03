@@ -111,7 +111,7 @@ const lotteryCommand = {
 
 
         if (event.userCommand.subcommandId === "lotteryStart") {
-            if (lotteryMachine.staredtLottery !== false) {
+            if (lotteryMachine.startedLottery === true) {
                 await twitchChat.sendChatMessage(`すでに抽選モード開始済みです。 終了するには !lottery stop と入力してください`, null, chatter, chatMessage.id);
                 return;
             }
@@ -123,27 +123,29 @@ const lotteryCommand = {
                 return;
             }
 
-            lotteryMachine.staredtLottery =true;
+            await twitchChat.sendChatMessage(`抽選の受付を開始します`, null, chatter);
+            lotteryMachine.startedLottery =true;
             lotteryMachine.lotteryAmount = lotteryAmount;
+            return;
         }
         else if (event.userCommand.subcommandId === "lotteryStop") {
-            if (lotteryMachine.staredtLottery !== true) {
+            if (lotteryMachine.startedLottery !== true) {
                 await twitchChat.sendChatMessage(`抽選モードを開始していません。 開始するには !lottery start [人数] と入力してください`, null, chatter, chatMessage.id);
                 return;
             }
 
-            if (activeLottery.length > 0) {
-                lotteryMachine.staredtLottery =false;
+            if (activeLottery.keys().length > 0) {
+                lotteryMachine.startedLottery =false;
                 await lotteryMachine.lottery(activeLottery, lotterySettings.settings.generalMessages.LotterySuccessful,chatter);
             }else{
-                await twitchChat.sendChatMessage(`参加者が居ないので抽選を取りやめました`, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`参加者が居ないので当選者はいません`, null, chatter);
             }
             //終了処理
             activeLottery.flushAll();
             return;
         }
         else if (event.userCommand.subcommandId === "lotteryAbort") {
-            if (lotteryMachine.staredtLottery !== true) {
+            if (lotteryMachine.startedLottery !== true) {
                 await twitchChat.sendChatMessage(`抽選モードを開始していません。 開始するには !lottery start [人数] と入力してください`, null, chatter, chatMessage.id);
                 return;
             }
@@ -157,10 +159,10 @@ const lotteryCommand = {
                 }
             });
 
-            await twitchChat.sendChatMessage(`抽選を取りやめました`, null, chatter, chatMessage.id);
+            await twitchChat.sendChatMessage(`抽選を取りやめました`, null, chatter);
 
             //終了処理
-            lotteryMachine.staredtLottery =false;
+            lotteryMachine.startedLottery =false;
             activeLottery.flushAll();
             return;
 
@@ -186,13 +188,13 @@ const lotteryCommand = {
 
         }else{
             //一般ユーザが参加しようとしたとき
-            if (lotteryMachine.staredtLottery !== true) {
+            if (lotteryMachine.startedLottery !== true) {
                 await twitchChat.sendChatMessage(`配信者が抽選を開始するのをお待ち下さい`, null, chatter, chatMessage.id);
                 return;
             }
         }
 
-        if (activeLottery.get(username)) {
+        if (activeLottery.get(username)?.active) {
             if (lotterySettings.settings.generalMessages.alreadyLotteryning) {
                 const alreadyLotteryningMsg = lotterySettings.settings.generalMessages.alreadyLotteryning
                     .replace("{username}", username)
@@ -239,7 +241,7 @@ const lotteryCommand = {
             return;
         }
 
-        activeLottery.set(username, true);
+        activeLottery.set(username,{active:true,username:username,displayName:displayName});
 
         const cooldownSecs = lotterySettings.settings.cooldownSettings.cooldown;
         if (cooldownSecs && cooldownSecs > 0) {
@@ -282,7 +284,7 @@ function unregisterLotteryCommand() {
 function purgeCaches() {
     cooldownCache.flushAll();
     activeLottery.flushAll();
-    lotteryMachine.staredtLottery = false;
+    lotteryMachine.startedLottery = false;
     lotteryMachine.lotteryAmount=1;
 }
 

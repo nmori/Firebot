@@ -377,7 +377,12 @@ class FirebotChatHelpers {
             isCheer: msg.isCheer,
             badges: [],
             parts: [],
-            roles: []
+            roles: [
+                ...(msg.userInfo.isBroadcaster ? ['broadcaster'] : []),
+                ...(msg.userInfo.isFounder || msg.userInfo.isSubscriber ? ['sub'] : []),
+                ...(msg.userInfo.isMod ? ['mod'] : []),
+                ...(msg.userInfo.isVip ? ['vip'] : [])
+            ],
         };
 
         const profilePicUrl = await this.getUserProfilePicUrl(firebotChatMessage.userId);
