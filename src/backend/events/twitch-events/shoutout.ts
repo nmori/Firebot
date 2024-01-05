@@ -1,23 +1,27 @@
 import eventManager from "../../events/EventManager";
 
 export function triggerShoutoutSent(
+    userName: string,
     userDisplayName: string,
-    moderatorDisplayName: string,
+    moderatorName: string,
     viewerCount: number
 ) {
     eventManager.triggerEvent("twitch", "shoutout-sent", {
-        username: userDisplayName,
-        moderator: moderatorDisplayName,
+        username: userName,
+        displayName: userDisplayName,
+        moderator: moderatorName,
         viewerCount
     });
 }
 
 export function triggerShoutoutReceived(
+    userName: string,
     userDisplayName: string,
     viewerCount: number
 ) {
     eventManager.triggerEvent("twitch", "shoutout-received", {
-        username: userDisplayName,
+        username: userName,
+        displayName: userDisplayName,
         viewerCount
     });
 }

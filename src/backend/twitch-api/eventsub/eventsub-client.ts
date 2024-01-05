@@ -110,7 +110,7 @@ class TwitchEventSubClient {
                 twitchEventsHandler.raid.triggerRaid(
                     event.raidedBroadcasterName,
                     event.raidedBroadcasterId,
-                    event.raidingBroadcasterDisplayName,
+                    event.raidingBroadcasterName,
                     event.viewers
                 );
             });
@@ -119,8 +119,9 @@ class TwitchEventSubClient {
             // Shoutout sent to another channel
             const shoutoutSentSubscription = this._eventSubListener.onChannelShoutoutCreate(streamer.userId, streamer.userId, (event) => {
                 twitchEventsHandler.shoutout.triggerShoutoutSent(
+                    event.shoutedOutBroadcasterName,
                     event.shoutedOutBroadcasterDisplayName,
-                    event.moderatorDisplayName,
+                    event.moderatorName,
                     event.viewerCount
                 );
             });
@@ -129,6 +130,7 @@ class TwitchEventSubClient {
             // Shoutout received from another channel
             const shoutoutReceivedSubscription = this._eventSubListener.onChannelShoutoutReceive(streamer.userId, streamer.userId, (event) => {
                 twitchEventsHandler.shoutout.triggerShoutoutReceived(
+                    event.shoutingOutBroadcasterName,
                     event.shoutingOutBroadcasterDisplayName,
                     event.viewerCount
                 );
@@ -359,7 +361,7 @@ class TwitchEventSubClient {
             // Charity Donation
             const charityDonationSubscription = this._eventSubListener.onChannelCharityDonation(streamer.userId, (event) => {
                 twitchEventsHandler.charity.triggerCharityDonation(
-                    event.donorDisplayName,
+                    event.donorName,
                     event.charityName,
                     event.charityDescription,
                     event.charityLogo,

@@ -1,5 +1,6 @@
 import logger from '../../logwrapper';
 import accountAccess from "../../common/account-access";
+import frontendCommunicator from "../../common/frontend-communicator";
 import { ApiClient, HelixChatAnnouncementColor, HelixSendChatAnnouncementParams, HelixUpdateChatSettingsParams } from "@twurple/api";
 
 export class TwitchChatApi {
@@ -29,6 +30,7 @@ export class TwitchChatApi {
             }
         } catch (error) {
             logger.error("Error getting chatter list", error.message);
+            frontendCommunicator.send("error", `チャットリスト取得に失敗。理由:${error.message.body.message}`);
         }
 
         return chatters;
@@ -80,6 +82,8 @@ export class TwitchChatApi {
             return true;
         } catch (error) {
             logger.error("Error sending announcemnt", error.message);
+            frontendCommunicator.send("error", `アナウンスに失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
+
         }
 
         return false;
@@ -97,6 +101,7 @@ export class TwitchChatApi {
             await this._streamerClient.chat.shoutoutUser(streamerId, targetUserId);
         } catch (error) {
             logger.error("Error sending shoutout", error.message);
+            frontendCommunicator.send("error", `シャウトアウトに失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
             return false;
         }
 
@@ -118,6 +123,7 @@ export class TwitchChatApi {
             return true;
         } catch (error) {
             logger.error("Error deleting chat message", error.message);
+            frontendCommunicator.send("error", `チャット削除に失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
         }
 
         return false;
@@ -137,6 +143,7 @@ export class TwitchChatApi {
             return true;
         } catch (error) {
             logger.error("Error clearing chat", error.message);
+            frontendCommunicator.send("error", `チャットクリアに失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
         }
 
         return false;
@@ -161,6 +168,7 @@ export class TwitchChatApi {
             return true;
         } catch (error) {
             logger.error("Error setting emote-only mode", error.message);
+            frontendCommunicator.send("error", `チャットモード変更に失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
         }
 
         return false;
@@ -187,6 +195,7 @@ export class TwitchChatApi {
             return true;
         } catch (error) {
             logger.error("Error setting follower-only mode", error.message);
+            frontendCommunicator.send("error", `チャットモード変更に失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
         }
 
         return false;
@@ -211,6 +220,7 @@ export class TwitchChatApi {
             return true;
         } catch (error) {
             logger.error("Error setting subscriber-only mode", error.message);
+            frontendCommunicator.send("error", `チャットモード変更に失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
         }
 
         return false;
@@ -237,6 +247,7 @@ export class TwitchChatApi {
             return true;
         } catch (error) {
             logger.error("Error setting slow mode", error.message);
+            frontendCommunicator.send("error", `チャットモード変更に失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
         }
 
         return false;
@@ -261,6 +272,7 @@ export class TwitchChatApi {
             return true;
         } catch (error) {
             logger.error("Error setting unique mode", error.message);
+            frontendCommunicator.send("error", `チャットモード変更に失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
         }
 
         return false;
