@@ -340,13 +340,13 @@ function createCurrencyCommandDefinition(currency) {
                     return false;
                 }
 
-                // Dont allow person to give themselves currency.
-                if (event.userCommand.commandSender.toLowerCase() === username.toLowerCase()) {
-                    await twitchChat.sendChatMessage(
-                        `${event.userCommand.commandSender}：自分自身に通貨を与えることはできません`);
-                    logger.debug(username + ' tried to give themselves currency.');
-                    return false;
-                }
+                    // Don't allow person to give themselves currency.
+                    if (event.userCommand.commandSender.toLowerCase() === username.toLowerCase()) {
+                        await twitchChat.sendChatMessage(
+                            `${event.userCommand.commandSender}, ：自分自身に通貨を与えることはできません`);
+                        logger.debug(`${username} tried to give themselves currency.`);
+                        return false;
+                    }
 
                     // eslint-disable-next-line no-warning-comments
                     // Need to check to make sure they have enough currency before continuing.

@@ -1,7 +1,7 @@
 "use strict";
 
 const electron = require("electron");
-const { ipcMain, BrowserWindow, BrowserView, Menu, shell, dialog } = electron;
+const { ipcMain, BrowserWindow, BrowserView, Menu, shell, dialog, nativeImage } = electron;
 const path = require("path");
 const url = require("url");
 const windowStateKeeper = require("electron-window-state");
@@ -89,6 +89,17 @@ function createStreamPreviewWindow() {
     });
 }
 
+async function createIconImage(relativeIconPath) {
+    const iconPath = path.resolve(__dirname, relativeIconPath);
+    if (process.platform === "darwin") {
+        return nativeImage.createThumbnailFromPath(iconPath, {
+            width: 14,
+            height: 14
+        });
+    }
+    return iconPath;
+}
+
 /**
  * Firebot's main window
  * Keeps a global reference of the window object, if you don't, the window will
@@ -103,7 +114,7 @@ exports.mainWindow = null;
  */
 let splashscreenWindow;
 
-function createMainWindow() {
+async function createMainWindow() {
     const mainWindowState = windowStateKeeper({
         defaultWidth: 1280,
         defaultHeight: 720
@@ -178,7 +189,7 @@ function createMainWindow() {
                             component: "importSetupModal"
                         });
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/import.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/import.png")
                 },
                 {
                     type: 'separator'
@@ -186,35 +197,38 @@ function createMainWindow() {
                 {
                     label: 'データフォルダを開く',
                     toolTip: "Firebotのデータが保存されているフォルダを開く",
+                    sublabel: "Open the folder where Firebot data is stored",
                     click: () => {
                         const rootFolder = path.resolve(
                             profileManager.getPathInProfile("/")
                         );
                         shell.openPath(rootFolder);
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/folder-account-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/folder-account-outline.png")
                 },
                 {
                     label: 'ログフォルダを開く',
                     toolTip: "ログが保存されているフォルダを開く",
+                    sublabel: "Open the folder where logs are stored",
                     click: () => {
                         const rootFolder = path.resolve(
                             dataAccess.getPathInUserData("/logs/")
                         );
                         shell.openPath(rootFolder);
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/folder-text-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/folder-text-outline.png")
                 },
                 {
                     label: 'バックアップフォルダを開く',
                     toolTip: "バックアップが保存されているフォルダを開く",
+                    sublabel: "Open the folder where backups are stored",
                     click: () => {
                         const backupFolder = path.resolve(
                             dataAccess.getPathInUserData("/backups/")
                         );
                         shell.openPath(backupFolder);
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/folder-refresh-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/folder-refresh-outline.png")
                 },
                 {
                     type: 'separator'
@@ -222,7 +236,7 @@ function createMainWindow() {
                 {
                     label: 'アプリを終了',
                     role: 'quit',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/exit-run.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/exit-run.png")
                 }
             ]
         },
@@ -232,32 +246,32 @@ function createMainWindow() {
                 {
                     label: '切り取り',
                     role: 'cut',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/content-cut.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/content-cut.png")
                 },
                 {
-                    role: 'copy',
                     label: 'コピー',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/content-copy.png")
+                    role: 'copy',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/content-copy.png")
                 },
                 {
-                    role: 'paste',
                     label: '貼り付け',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/content-paste.png")
+                    role: 'paste',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/content-paste.png")
                 },
                 {
-                    role: "undo",
                     label: 'やり直し',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/undo.png")
+                    role: "undo",
+                    icon: await createIconImage("../../../gui/images/icons/mdi/undo.png")
                 },
                 {
-                    role: "redo",
                     label: 'やり直しのやり直し',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/redo.png")
+                    role: "redo",
+                    icon: await createIconImage("../../../gui/images/icons/mdi/redo.png")
                 },
                 {
-                    role: "selectAll",
                     label: 'すべて選択',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/select-all.png")
+                    role: "selectAll",
+                    icon: await createIconImage("../../../gui/images/icons/mdi/select-all.png")
                 }
             ]
         },
@@ -266,12 +280,12 @@ function createMainWindow() {
             submenu: [{
                     label: '最小化',
                     role: 'minimize',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/window-minimize.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/window-minimize.png")
                 },
                 {
-                    role: 'close',
                     label: '閉じる',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/window-close.png")
+                    role: 'close',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/window-close.png")
                 }
             ]
         },
@@ -280,37 +294,40 @@ function createMainWindow() {
             submenu: [{
                     label: 'セットアップウィザード',
                     toolTip: "改めて初期セットアップを起動します",
+                    sublabel: "Run the setup wizard again",
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "setupWizardModal"
                         });
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/auto-fix.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/auto-fix.png")
                 },
                 {
                     label: 'バックアップから戻す...',
                     toolTip: "バックアップからFirebotを復元",
-                    click: async() => {
+                    sublabel: "バックアップからFirebotを復元",
+                    click: async () => {
                         frontendCommunicator.send("restore-backup");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/backup-restore.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/backup-restore.png")
                 },
                 {
                     label: 'カスタム変数一覧',
                     toolTip: "カスタム変数インスペクタを開く",
+                    sublabel: "Open the custom variable inspector",
                     click: () => {
                         // eslint-disable-next-line no-use-before-define
                         createVariableInspectorWindow();
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/text-search.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/text-search.png")
                 },
                 {
                     type: 'separator'
                 },
                 {
-                    role: 'toggledevtools',
                     label: '開発ツールを開く',
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/tools.png")
+                    role: 'toggledevtools',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/tools.png")
                 }
             ]
         },
@@ -323,14 +340,14 @@ function createMainWindow() {
                     click: () => {
                         shell.openExternal("https://discord.gg/tTmMbrG");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/discord.png")
+                    icon: await createIconImage("../../../gui/images/icons/discord.png")
                 },
                 {
                     label: '@FirebotApp をXでフォロー',
                     click: () => {
                         shell.openExternal("https://twitter.com/FirebotApp");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/twitter.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/twitter.png")
                 },
                 {
                     type: 'separator'
@@ -340,21 +357,21 @@ function createMainWindow() {
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/source-branch.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/source-branch.png")
                 },
                 {
                     label: '不具合報告をする',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/bug-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/bug-outline.png")
                 },
                 {
                     label: '機能リクエストをする',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Enhancement&template=feature_request.md&title=%5BFeature+Request%5D+");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/star-circle-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/star-circle-outline.png")
                 },
                 {
                     type: 'separator'
@@ -364,21 +381,21 @@ function createMainWindow() {
                     click: () => {
                         shell.openExternal("https://crowbar-tools.myspreadshop.com");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/shopping-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/shopping-outline.png")
                 },
                 {
                     label: '寄付する',
                     click: () => {
                         shell.openExternal("https://opencollective.com/crowbartools");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/hand-heart-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/hand-heart-outline.png")
                 },
                 {
                     label: 'お客様の声を書く',
                     click: () => {
                         shell.openExternal("https://firebot.app/testimonial-submission");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/account-heart-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/account-heart-outline.png")
                 },
                 {
                     type: 'separator'
@@ -388,7 +405,7 @@ function createMainWindow() {
                     click: () => {
                         frontendCommunicator.send("open-about-modal");
                     },
-                    icon: path.resolve(__dirname, "../../../gui/images/icons/mdi/information-outline.png")
+                    icon: await createIconImage("../../../gui/images/icons/mdi/information-outline.png")
                 }
             ]
         }

@@ -53,7 +53,6 @@
                                 <h4 class="font-semibold">説明 <tooltip class="text-2xl ml-1" text="'Displayed on the command list webpage'"></tooltip></h4>
                             </div>
                             <input
-                                ng-show="$ctrl.fullyEditable"
                                 class="form-control"
                                 type="text"
                                 placeholder="説明を入力"

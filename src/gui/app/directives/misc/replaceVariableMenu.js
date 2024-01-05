@@ -18,7 +18,7 @@
                     menuPosition: "@",
                     buttonPosition: "@"
                 },
-                controller: function($scope, $element, backendCommunicator, $timeout, $sce) {
+                controller: function($scope, $element, replaceVariableService, $timeout, $sce) {
 
                     const insertAt = (str, sub, pos) => `${str.slice(0, pos)}${sub}${str.slice(pos)}`;
 
@@ -59,7 +59,7 @@
                         const { trigger, triggerMeta } = findTriggerDataScope();
 
                         if (!$scope.disableVariableMenu) {
-                            $scope.variables = backendCommunicator.fireEventSync("getReplaceVariableDefinitions", {
+                            $scope.variables = replaceVariableService.getVariablesForTrigger({
                                 type: trigger,
                                 id: triggerMeta && triggerMeta.triggerId,
                                 dataOutput: $scope.replaceVariables
@@ -119,11 +119,20 @@
                 },
                 link: function(scope, element) {
 
-                    const wrapper = angular.element(`
-                        <div style="position: relative;"></div>`
-                    );
-                    const compiled = $compile(wrapper)(scope);
-                    element.wrap(compiled);
+                    if (scope.disableVariableMenu) {
+                        return;
+                    }
+
+                    const parent = element.parent();
+
+                    let wrapper = parent;
+                    if (!parent.hasClass("input-group")) {
+                        wrapper = angular.element(`
+                            <div style="position: relative;"></div>`
+                        );
+                        const compiled = $compile(wrapper)(scope);
+                        element.wrap(compiled);
+                    }
 
                     const button = angular.element(`<span class="variables-btn ${scope.buttonPosition ? scope.buttonPosition : ''}" ng-click="toggleMenu()">$変数</span>`);
                     $compile(button)(scope);

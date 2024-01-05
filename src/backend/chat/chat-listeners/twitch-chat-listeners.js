@@ -40,7 +40,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         frontendCommunicator.send("twitch:chat:message", firebotChatMessage);
 
         twitchEventsHandler.announcement.triggerAnnouncement(
-            firebotChatMessage.useridname,
+            firebotChatMessage.userIdName,
             firebotChatMessage.userId,
             firebotChatMessage.displayName,
             firebotChatMessage.roles,
@@ -84,7 +84,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
 
         commandHandler.handleChatMessage(firebotChatMessage);
 
-        activeUserHandler.addActiveUser(msg.userInfo, true);
+        await activeUserHandler.addActiveUser(msg.userInfo, true);
 
         twitchEventsHandler.viewerArrived.triggerViewerArrived(
             msg.userInfo.displayName,
@@ -135,6 +135,8 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         }
 
         frontendCommunicator.send("twitch:chat:message", firebotChatMessage);
+
+        await activeUserHandler.addActiveUser(msg.userInfo, true);
 
         twitchEventsHandler.chatMessage.triggerChatMessage(firebotChatMessage);
         if (firebotChatMessage.isFirstChat) {

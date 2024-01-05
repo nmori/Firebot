@@ -124,7 +124,8 @@
         channelRewardsService,
         sortTagsService,
         iconsService,
-        videoService
+        videoService,
+        replaceVariableService
     ) {
         // 'chatMessagesService' and 'videoService' are included so they're instantiated on app start
 
@@ -276,7 +277,7 @@
                         connectionService.createNewProfile($scope.profileName);
                     };
 
-                    // When they hit cancel or click outside the modal, we dont want to do anything
+                    // When they hit cancel or click outside the modal, we don't want to do anything
                     $scope.dismiss = function() {
                         $uibModalInstance.dismiss("cancel");
                     };
@@ -310,7 +311,7 @@
                         connectionService.renameProfile($scope.profileName);
                     };
 
-                    // When they hit cancel or click outside the modal, we dont want to do anything
+                    // When they hit cancel or click outside the modal, we don't want to do anything
                     $scope.dismiss = function() {
                         $uibModalInstance.dismiss("cancel");
                     };
@@ -336,7 +337,7 @@
                         connectionService.deleteProfile();
                     };
 
-                    // When they hit cancel or click outside the modal, we dont want to do anything
+                    // When they hit cancel or click outside the modal, we don't want to do anything
                     $scope.dismiss = function() {
                         $uibModalInstance.dismiss("cancel");
                     };

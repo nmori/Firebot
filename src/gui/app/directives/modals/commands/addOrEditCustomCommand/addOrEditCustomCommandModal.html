@@ -96,20 +96,15 @@
           </div>
         </eos-collapsable-panel>
 
-        <div class="input-group pt-4">
-          <span class="input-group-addon" id="basic-addon3"
-            >概要
-            <tooltip text="'コマンドリストページに表示されます'"></tooltip
-          ></span>
-          <input
-            type="text"
-            class="form-control"
-            aria-describedby="basic-addon3"
-            ng-model="$ctrl.command.description"
-            placeholder="説明を入力"
-          />
-        </div>
-      </div>
+        <firebot-input 
+          input-title="概要"  
+          title-tooltip="コマンドリストページに表示されます"
+          placeholder-text="説明を入力"
+          model="$ctrl.command.description"
+          disable-variables="true"
+          class="pt-4"
+        >
+        </firebot-input>
 
       <div class="mt-10" ng-hide="$ctrl.command.triggerIsRegex">
         <div class="settings-title">

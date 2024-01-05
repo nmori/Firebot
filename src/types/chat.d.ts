@@ -16,7 +16,7 @@ export type FirebotChatMessage = {
     id: string;
     username: string;
     displayName: string;
-    useridname: string;
+    userIdName: string;
     profilePicUrl?: string;
     userId: string;
     isExtension?: boolean;
