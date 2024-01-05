@@ -1,10 +1,10 @@
 ---
-name: Help request
-about: Request help with an issue you are having.
-title: "[Support] "
+name: ヘルプリクエスト
+about: 問題を抱えている場合は、ヘルプをリクエストしてください。
+title: "[サポート] "
 labels: Support
 
 ---
 
-**Help Request**
-Enter a clear and concise explanation of the issue you are having or the thing you would like help with.
+**ヘルプリクエスト**
+あなたが抱えている問題、またはあなたが助けを求めていることについて、明確かつ簡潔に説明してください。
