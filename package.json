@@ -1,6 +1,6 @@
 {
   "name": "firebotv5",
-  "version": "5.60.0",
+  "version": "5.60.1",
   "description": "Twitch 配信者のための高機能な統合BOTツール.",
   "main": "build/main.js",
   "scripts": {
@@ -20,14 +20,12 @@
   "author": "The Streaming Community",
   "license": "GPL-3.0",
   "devDependencies": {
-    "@types/cron": "^2.0.0",
     "@types/express": "^4.17.1",
     "@types/fs-extra": "^11.0.4",
     "@types/luxon": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "copyfiles": "^2.4.1",
-    "electron": "^27.1.2",
+    "electron": "^28.1.1",
     "electron-packager": "^17.1.1",
     "electron-rebuild": "^1.8.6",
     "eslint": "^8.56.0",
@@ -39,8 +37,8 @@
     "grunt-include-source": "^1.1.0",
     "grunt-sass": "^3.1.0",
     "grunt-shell": "^3.0.1",
-    "sass": "^1.58.3",
-    "typescript": "^4.7.2"
+    "sass": "^1.69.7",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@aws-sdk/client-polly": "^3.26.0",
@@ -92,7 +90,7 @@
     "empty-folder": "^2.0.2",
     "eventsource": "^1.0.7",
     "express": "^4.17.1",
-    "expressionish": "github:SReject/expressionish#a3fb9f3ca5f61ba9017283a5227f18138a5eb7d0",
+    "expressionish": "github:SReject/expressionish#87101258cc46c1cee83a0e7d4c3ca58689ccba27",
     "fflate": "^0.8.1",
     "form-data": "^4.0.0",
     "fs-extra": "^11.2.0",
@@ -133,7 +131,7 @@
     "electron-installer-dmg": "github:SReject/electron-installer-dmg#9bdb5217b078c724918271549f34d362aecbf6bb"
   },
   "volta": {
-    "node": "18.17.1",
+    "node": "18.18.2",
     "npm": "10.2.4"
   }
 }
