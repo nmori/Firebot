@@ -12,14 +12,14 @@ export const ChangeSceneEffectType: EffectType<{
     categories: ["common"],
   },
   optionsTemplate: `
-    <eos-container header="New Scene">
+    <eos-container header="切り替え先シーン">
         <div ng-hide="effect.custom === true">
-            <button class="btn btn-link" ng-click="getScenes()">Refresh Scenes</button>
-            <span class="muted">(Make sure {{ isObsConfigured ? "" : "the OBS integration is configured and " }}OBS is running)</span>
+            <button class="btn btn-link" ng-click="getScenes()">リストを更新</button>
+            <span class="muted">({{ isObsConfigured ? "" : "OBSの接続設定と" }}OBSの起動状態を確認してください)</span>
         </div>
 
         <ui-select ng-model="selected" on-select="selectScene($select.selected)">
-          <ui-select-match placeholder="切替先...>{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="切替先...">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="scene in scenes | filter: {name: $select.search}">
             <li ng-show="scene.custom === true" role="separator" class="divider"></li>
             <div ng-bind-html="scene.name | highlight: $select.search"></div>

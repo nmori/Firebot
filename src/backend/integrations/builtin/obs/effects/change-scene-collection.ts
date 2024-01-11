@@ -15,7 +15,7 @@ export const ChangeSceneCollectionEffectType: EffectType<{
     <eos-container header="新規シーンコレクション">
         <div ng-hide="effect.custom === true">
             <button class="btn btn-link" ng-click="getSceneCollections()">Refresh Scene Collections</button>
-            <span class="muted">(Make sure {{ isObsConfigured ? "" : "the OBS integration is configured and " }}OBS is running)</span>
+            <span class="muted">({{ isObsConfigured ? "" : "OBSの接続設定と" }}OBSの起動状態を確認してください)</span>
         </div>
 
         <ui-select ng-model="selected" on-select="selectSceneCollection($select.selected)">

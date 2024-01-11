@@ -37,7 +37,7 @@ const omikujiCommand = {
 
         const omikujiSettings = gameManager.getGameSettings("firebot-omikuji");
         const chatter = omikujiSettings.settings.chatSettings.chatter;
-        const username = userCommand.commandSender;
+        const username = chatMessage.username;
         const displayName = chatMessage.displayName;
 
         let wagerAmount = omikujiSettings.settings.currencySettings.defaultWager;
