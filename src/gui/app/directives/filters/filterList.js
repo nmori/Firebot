@@ -35,7 +35,7 @@
 
             <button ng-repeat="filter in $ctrl.filterData.filters track by $index" class="filter-bar" ng-click="$ctrl.openAddOrEditFilterModal($index)">
                 <filter-display filter="filter" filter-type="$ctrl.getFilterType(filter.type)"></filter-display>
-                <a class="filter-remove-btn clickable" style="padding-left: 10px;" ng-click="$event.stopPropagation();$ctrl.removeFilterAtIndex($index)" uib-tooltip="フィルターを削除" tooltip-append-to-body="true">
+                <a class="filter-remove-btn clickable" style="padding-left: 10px;" ng-click="$event.stopPropagation();$ctrl.removeFilterAtIndex($index)" uib-tooltip="フィルタを削除" tooltip-append-to-body="true">
                     <i class="far fa-times"></i>
                 </a>
             </button>
@@ -46,7 +46,7 @@
 
           </div>
 
-            <div ng-if="!$ctrl.hasFiltersAvailable()" class="muted">このイベントタイプで利用可能なフィルターはありません。</div>
+            <div ng-if="!$ctrl.hasFiltersAvailable()" class="muted">このイベントタイプで利用可能なフィルタはありません。</div>
         </div>
             `,
             controller: function(utilityService, backendCommunicator, $injector) {

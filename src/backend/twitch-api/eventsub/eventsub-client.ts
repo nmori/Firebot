@@ -108,9 +108,9 @@ class TwitchEventSubClient {
             // Raid
             const raidSubscription = this._eventSubListener.onChannelRaidTo(streamer.userId, (event) => {
                 twitchEventsHandler.raid.triggerRaid(
-                    event.raidedBroadcasterName,
-                    event.raidedBroadcasterId,
                     event.raidingBroadcasterName,
+                    event.raidingBroadcasterId,
+                    event.raidingBroadcasterDisplayName,
                     event.viewers
                 );
             });

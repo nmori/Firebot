@@ -167,7 +167,7 @@ const integrationConfig: Integration<ObsSettings> = {
         id: "OBS",
         name: "OBS",
         description:
-      "OBSに接続し、Firebotがシーンの変更、ソースやフィルターの切り替えなどを行えるようにします。OBS 28以降に対応しており、obs-websocket v5プラグインの設定が必要です。",
+      "OBSに接続し、Firebotがシーンの変更、ソースやフィルタの切り替えなどを行えるようにします。OBS 28以降に対応しており、obs-websocket v5プラグインの設定が必要です。",
     linkType: "none",
     configurable: true,
     connectionToggle: false,

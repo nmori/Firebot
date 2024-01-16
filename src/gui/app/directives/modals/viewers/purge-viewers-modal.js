@@ -48,7 +48,7 @@
                                 </div>
                             </form>
                         </div>
-                        <p class="muted">注：視聴者が削除（フィルター）されるには、上記の選択された基準をすべて満たす必要があります。</p>
+                        <p class="muted">注：視聴者が削除（フィルタ）されるには、上記の選択された基準をすべて満たす必要があります。</p>
                     </div>
                 </div>
                 <div class="modal-footer" style="text-align: center;">

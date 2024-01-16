@@ -11,7 +11,11 @@ module.exports = {
 
         let { comparisonType, leftSideValue, rightSideValue } = conditionSettings;
 
-        if (comparisonType !== "is strictly" && comparisonType !== "is not strictly") {
+        if (comparisonType !== "is strictly" && 
+            comparisonType !== "is not strictly" &&
+            comparisonType !== "厳密に一致" &&
+            comparisonType !== "厳密に不一致"
+        ) {
             if (!isNaN(leftSideValue)) {
                 leftSideValue = Number(leftSideValue);
             }

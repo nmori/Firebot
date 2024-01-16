@@ -16,7 +16,7 @@ const model = {
         examples: [
             {
                 usage: "randomActiveViewer[roleName]",
-                description: "特定の役割のアクティブな視聴者にフィルターをかける。"
+                description: "特定の役割のアクティブな視聴者にフィルタをかける。"
             },
             {
                 usage: "randomActiveViewer[null, ignoreUser]",
