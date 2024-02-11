@@ -8,7 +8,7 @@ const model = {
     definition: {
         handle: "categoryImageUrl",
         usage: "categoryImageUrl",
-        description: "最後にス配信されたカテゴリの画像のURLを取得します。",
+        description: "最後に配信されたカテゴリの画像のURLを取得します。",
         examples: [
             {
                 usage: "categoryImageUrl[$target]",

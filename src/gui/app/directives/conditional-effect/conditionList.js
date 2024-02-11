@@ -99,7 +99,7 @@
                 function reloadConditions() {
                     if ($ctrl.conditionData == null) {
                         $ctrl.conditionData = {
-                            mode: "排他的",
+                            mode: "exclusive",
                             conditions: []
                         };
                     }

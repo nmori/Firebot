@@ -22,7 +22,7 @@ const model = {
 
         <div ui-sortable="sortableOptions" ng-model="effect.ifs">
             <div ng-repeat="ifCondition in effect.ifs" style="margin-bottom: 15px;">
-                <condition-section header="{{$index === 0 ? 'If' : 'Else If'}}" label="ifCondition.label" initially-open="$index === 0 && openFirst">
+                <condition-section header="{{$index === 0 ? 'もし' : '上記不成立で、もし'}}" label="ifCondition.label" initially-open="$index === 0 && openFirst">
                     <condition-list condition-data="ifCondition.conditionData" trigger="trigger" trigger-meta="triggerMeta"></condition-list>
                     <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">Then run the following effects:</div>
                     <effect-list effects="ifCondition.effectData"
@@ -38,11 +38,11 @@ const model = {
             </div>
         </div>
 
-            <button class="btn btn-link" ng-click="addIf()"><i class="fal fa-plus-circle"></i> Add <strong>{{effect.ifs.length === 0 ? 'If' : 'Else If'}}</strong> 条件</button>
+            <button class="btn btn-link" ng-click="addIf()"><i class="fal fa-plus-circle"></i> <strong>{{effect.ifs.length === 0 ? '' : '追加で'}}</strong> 分岐条件を追加</button>
 
             <div style="margin-top: 15px;">
 
-                <condition-section header="Otherwise" label="effect.otherwiseLabel" draggable="false">
+                <condition-section header="未成立時" label="effect.otherwiseLabel" draggable="false">
                     <div style="padding-bottom: 10px;padding-left: 2px;font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;">
                         <span>上記のいずれの条件もパスしない場合は、以下の演出を実行する：</span>
                     </div>

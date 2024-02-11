@@ -220,6 +220,7 @@ exports.loadReplaceVariables = () => {
         'user-id',
         'user-is-banned',
         'user-is-timed-out',
+        'user-lastseen',
         'user-metadata-raw',
         'user-metadata',
         'user-roles-raw',

@@ -21,7 +21,12 @@ const model = {
     },
     evaluator: (_, format = 'h:mm a', locale = 'ja') => {
         const now = moment().locale(locale);
-        return now.format(format);
+        if(!isNaN(now.format(format)))
+        {
+            return Number(now.format(format));
+        }else{
+            return now.format(format);
+        }
     }
 };
 

@@ -43,16 +43,16 @@
                         <i class="fad fa-bullhorn"></i> アナウンス
                     </div>
                     <div ng-if="$ctrl.message.isFirstChat" class="chat-message-banner">
-                        <i class="fad fa-sparkles"></i> First Time Chat
+                        <i class="fad fa-sparkles"></i> 初回チャット
                     </div>
                     <div ng-if="$ctrl.message.isReturningChatter" class="chat-message-banner">
-                        <i class="fad fa-repeat"></i> Returning Chatter
+                        <i class="fad fa-repeat"></i> 返事
                     </div>
                     <div ng-if="$ctrl.message.isRaider" class="chat-message-banner">
-                        <i class="fad fa-siren-on"></i> Raider from {{$ctrl.message.raidingFrom}}
+                        <i class="fad fa-siren-on"></i> レイド {{$ctrl.message.raidingFrom}}
                     </div>
                     <div ng-if="$ctrl.message.isSuspiciousUser" class="chat-message-banner">
-                        <i class="fad fa-exclamation-triangle"></i> Suspicious User
+                        <i class="fad fa-exclamation-triangle"></i> 不審なユーザー
                     </div>
                     <div ng-if="$ctrl.message.isReply && !$ctrl.hideReplyBanner" class="chat-message-banner mini-banner muted truncate" ng-click="$ctrl.replyBannerClicked()">
                         <i class="fad fa-comment-alt-dots"></i> Replying to @{{$ctrl.message.replyParentMessageSenderDisplayName}}: {{$ctrl.message.replyParentMessageText}}</span>
