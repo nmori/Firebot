@@ -26,6 +26,7 @@ exports.loadEffects = () => {
         'delete-chat-message',
         'dice',
         'effect-group',
+        'eval-js',
         'file-writer',
         'gpt-yncneo',
         'html',

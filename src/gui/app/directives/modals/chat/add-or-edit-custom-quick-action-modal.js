@@ -40,7 +40,7 @@
                                 update="$ctrl.effectListUpdated(effects)"
                                 modalId="{{modalId}}"
                             ></effect-list>
-                        </div>               
+                        </div>
                     </div>
                     <div ng-if="$ctrl.listType === 'preset' && $ctrl.currentPresetArgs.length > 0">
                         <h3>Arguments</h3>
@@ -56,7 +56,7 @@
                         </div>
                         <div ng-if="!$ctrl.quickAction.promptForArgs">
                             <div
-                                ng-repeat="arg in $ctrl.currentPresetArgs" 
+                                ng-repeat="arg in $ctrl.currentPresetArgs"
                                 style="margin-bottom: 20px;"
                             >
                                 <div style="font-size: 15px;font-weight: 600;margin-bottom:5px;">
@@ -82,11 +82,10 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function(presetEffectListsService, quickActionsService, settingsService, ngToast) {
+            controller: function(presetEffectListsService, quickActionsService, ngToast) {
                 const $ctrl = this;
 
                 $ctrl.presetEffectLists = presetEffectListsService.getPresetEffectLists();
-                $ctrl.settings = settingsService.getQuickActionSettings();
                 $ctrl.listType = "custom";
                 $ctrl.triggerMeta = {};
 
@@ -122,11 +121,6 @@
 
                     if ($ctrl.isNewQuickAction && $ctrl.quickAction.id == null) {
                         $ctrl.quickAction.id = uuidv1();
-
-                        $ctrl.settings[$ctrl.quickAction.id] = {
-                            enabled: true,
-                            position: Object.values($ctrl.settings).length + 1
-                        };
                     }
 
                     $ctrl.listType = $ctrl.quickAction.presetListId != null ? "preset" : "custom";
@@ -165,7 +159,6 @@
 
                     quickActionsService.saveCustomQuickAction($ctrl.quickAction).then(successful => {
                         if (successful) {
-                            settingsService.setQuickActionSettings($ctrl.settings);
                             $ctrl.close();
                         } else {
                             ngToast.create("カスタムクイックアクションの保存に失敗しました。再試行するか、ログを表示して詳細を確認してください。");

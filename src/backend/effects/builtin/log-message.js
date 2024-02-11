@@ -16,7 +16,7 @@ const addFirebotLogMessage = {
     optionsTemplate: `
         <eos-container header="メッセージテキスト">
             <p class="muted">Firebotのログファイルに書き込みたいメッセージを入力します。</p>
-            <input ng-model="effect.logMessage" id="log-message-text" type="text" class="form-control" placeholder="Enter log message text" menu-position="under" replace-variables>
+            <textarea ng-model="effect.logMessage" id="log-message-text" class="form-control" placeholder="Enter log message text" menu-position="under" replace-variables></textarea>
         </eos-container>
 
         <eos-container header="Log Level" pad-top="true">
@@ -36,7 +36,7 @@ const addFirebotLogMessage = {
         $scope.logLevelTypes = ["Info", "Warning", "Error", "Debug"];
         $scope.effect.logLevel = $scope.effect.logLevel ?? "Info";
     },
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (!(effect.logMessage?.length > 0)) {
             errors.push("ログメッセージを入力してください");

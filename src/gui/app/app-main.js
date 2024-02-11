@@ -167,7 +167,6 @@
         //start notification check
         $timeout(() => {
             notificationService.loadAllNotifications();
-            notificationService.startExternalIntervalCheck();
         }, 1000);
 
         //check for updates
@@ -356,7 +355,7 @@
                         confirmLabel: "Switch & Restart App",
                         confirmBtnType: "btn-info"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             connectionService.switchProfiles(profileId);
                         }
@@ -427,7 +426,7 @@
 
         backendCommunicator.on("restore-backup", () => {
             backupService.openBackupZipFilePicker()
-                .then(backupFilePath => {
+                .then((backupFilePath) => {
                     if (backupFilePath != null) {
                         utilityService
                             .showConfirmationModal({
@@ -435,7 +434,7 @@
                                 question: "Are you sure you'd like to restore from this backup?",
                                 confirmLabel: "Restore"
                             })
-                            .then(confirmed => {
+                            .then((confirmed) => {
                                 if (confirmed) {
                                     backupService.initiateBackupRestore(backupFilePath);
                                 }
@@ -481,7 +480,7 @@
             if (elements == null || tag == null) {
                 return elements;
             }
-            return elements.filter(e => {
+            return elements.filter((e) => {
                 if (tag.id === "none" && (e.sortTags == null || e.sortTags.length < 1)) {
                     return true;
                 }
@@ -498,7 +497,7 @@
                 return elements;
             }
             const botAccountName = accountAccess.accounts.bot.username.toLowerCase();
-            return elements.filter(e => {
+            return elements.filter((e) => {
                 if (e.type !== 'message') {
                     return true;
                 }
@@ -514,7 +513,7 @@
             if (!shouldHide) {
                 return elements;
             }
-            return elements.filter(e => {
+            return elements.filter((e) => {
                 if (e.type !== 'message') {
                     return true;
                 }
@@ -529,7 +528,7 @@
             if (users == null || role == null) {
                 return users;
             }
-            return users.filter(u => {
+            return users.filter((u) => {
                 if (role === "broadcaster") {
                     return u.roles.includes("broadcaster");
                 } else if (role === "viewer") {
@@ -573,7 +572,7 @@
             }
             const normalizedQuery = query.toLowerCase();
             return icons
-                .filter(v => {
+                .filter((v) => {
                     const terms = `${v.style} ${v.name} ${v.searchTerms.join(" ")}`;
 
                     return terms.toLowerCase().includes(normalizedQuery);

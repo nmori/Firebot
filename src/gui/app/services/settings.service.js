@@ -169,9 +169,9 @@
                 pushDataToFile("/settings/viewerDB", status);
 
                 if (status === true) {
-                    ipcRenderer.send("viewerDbConnect");
+                    ipcRenderer.send("connect-viewer-db");
                 } else {
-                    ipcRenderer.send("viewerDbDisconnect");
+                    ipcRenderer.send("disconnect-viewer-db");
                 }
             };
 
@@ -432,6 +432,13 @@
             };
             service.setShowViewerCountStat = function(value) {
                 pushDataToFile("/settings/showViewerCountStat", value === true);
+            };
+            service.getShowHypeTrainIndicator = function() {
+                const value = getDataFromFile("/settings/showHypeTrainIndicator", false, true);
+                return value != null ? value : true;
+            };
+            service.setShowHypeTrainIndicator = function(value) {
+                pushDataToFile("/settings/showHypeTrainIndicator", value === true);
             };
 
             service.chatHideDeletedMessages = function() {

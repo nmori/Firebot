@@ -27,6 +27,7 @@ const fileWriter = {
 
         <eos-container header="プロパティのパス（任意）" pad-top="true">
             <p class="muted">変数にすでにオブジェクトや配列の形でデータが保存されている場合、上記のデータで更新する特定のプロパティやインデックスへのパス（ドット記法を使用）を定義することができます。何も指定しなければ、変数全体が置き換えられる。既存のデータがなく、プロパティのパスが提供された場合は、何も起こりません。</p>
+            <p class="muted">If no property path is provided and the existing variable does NOT contain an array, the entire variable is replaced. If the existing variable contains an array and the new value is NOT an array, the new value will be appended to the array.</p>
             <eos-collapsable-panel show-label="Show examples" hide-label="Hide examples" hide-info-box="true">
                 <span>例:</span>
                 <ul>
@@ -58,14 +59,14 @@ const fileWriter = {
             backendCommunicator.fireEvent("show-variable-inspector");
         };
     },
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.name == null || effect.name === "") {
             errors.push("変数名を入れてください");
         }
         return errors;
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         const { effect } = event;
 
         customVariableManager.addCustomVariable(effect.name, effect.variableData, effect.ttl, effect.propertyPath);

@@ -69,11 +69,15 @@ exports.whenReady = async () => {
     const { loadEffects } = require("../../../effects/builtin-effect-loader");
     loadEffects();
 
+    windowManagement.updateSplashScreenStatus("Loading currencies...");
+    const currencyAccess = require("../../../currency/currency-access").default;
+    currencyAccess.refreshCurrencyCache();
+
     // load commands
     logger.debug("Loading sys commands...");
     windowManagement.updateSplashScreenStatus("システムコマンドを読込中...");
-    const { loadCommands } = require("../../../chat/commands/systemCommandLoader");
-    loadCommands();
+    const { loadSystemCommands } = require("../../../chat/commands/system-command-loader");
+    loadSystemCommands();
 
     // load event sources
     logger.debug("Loading event sources...");
@@ -96,7 +100,7 @@ exports.whenReady = async () => {
     // load variables
     logger.debug("Loading variables...");
     windowManagement.updateSplashScreenStatus("変数を読込中...");
-    const { loadReplaceVariables } = require("../../../variables/builtin-variable-loader");
+    const { loadReplaceVariables } = require("../../../variables/variable-loader");
     loadReplaceVariables();
 
     // load restrictions
@@ -122,7 +126,7 @@ exports.whenReady = async () => {
 
     windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
     const chatRolesManager = require("../../../roles/chat-roles-manager");
-    chatRolesManager.cacheViewerListBots();
+    await chatRolesManager.cacheViewerListBots();
 
     windowManagement.updateSplashScreenStatus("演出キューを読込中...");
     const effectQueueManager = require("../../../effects/queues/effect-queue-manager");
@@ -187,10 +191,12 @@ exports.whenReady = async () => {
     // Connect to DBs.
     windowManagement.updateSplashScreenStatus("視聴者データを読込中...");
     logger.info("Creating or connecting user database");
-    const userdb = require("../../../database/userDatabase");
-    userdb.connectUserDatabase();
+    const viewerDatabase = require("../../../viewers/viewer-database");
+    await viewerDatabase.connectViewerDatabase();
+
     // Set users in user db to offline if for some reason they are still set to online. (app crash or something)
-    userdb.setAllUsersOffline();
+    const viewerOnlineStatusManager = require("../../../viewers/viewer-online-status-manager");
+    await viewerOnlineStatusManager.setAllViewersOffline();
 
     windowManagement.updateSplashScreenStatus("ステータスを読込中...");
     logger.info("Creating or connecting stats database");
@@ -232,6 +238,11 @@ exports.whenReady = async () => {
     windowManagement.updateSplashScreenStatus("配信情報を読込中...");
     const streamInfoPoll = require("../../../twitch-api/stream-info-manager");
     streamInfoPoll.startStreamInfoPoll();
+
+    windowManagement.updateSplashScreenStatus("Starting notification manager...");
+    const notificationManager = require("../../../notifications/notification-manager").default;
+    await notificationManager.loadAllNotifications();
+    notificationManager.startExternalNotificationCheck();
 
     logger.debug('...loading main window');
     windowManagement.updateSplashScreenStatus("準備完了、さぁ始めよう！");

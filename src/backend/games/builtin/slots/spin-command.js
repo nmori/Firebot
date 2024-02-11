@@ -2,9 +2,10 @@
 
 const util = require("../../../utility");
 const twitchChat = require("../../../chat/twitch-chat");
-const commandManager = require("../../../chat/commands/CommandManager");
+const commandManager = require("../../../chat/commands/command-manager");
 const gameManager = require("../../game-manager");
-const currencyDatabase = require("../../../database/currencyDatabase");
+const currencyAccess = require("../../../currency/currency-access").default;
+const currencyManager = require("../../../currency/currency-manager");
 const customRolesManager = require("../../../roles/custom-roles-manager");
 const teamRolesManager = require("../../../roles/team-roles-manager");
 const twitchRolesManager = require("../../../../shared/twitch-roles");
@@ -39,7 +40,7 @@ const spinCommand = {
             }
         ]
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
 
         const { userCommand,chatMessage } = event;
 
@@ -152,7 +153,7 @@ const spinCommand = {
         const currencyId = slotsSettings.settings.currencySettings.currencyId;
         let userBalance;
         try {
-            userBalance = await currencyDatabase.getUserCurrencyAmount(username, currencyId);
+            userBalance = await currencyManager.getViewerCurrencyAmount(username, currencyId);
         } catch (error) {
             logger.error(error);
             userBalance = 0;
@@ -179,7 +180,7 @@ const spinCommand = {
         }
 
         try {
-            await currencyDatabase.adjustCurrencyForUser(username, currencyId, -Math.abs(wagerAmount));
+            await currencyManager.adjustCurrencyForViewer(username, currencyId, -Math.abs(wagerAmount));
         } catch (error) {
             logger.error(error);
             await twitchChat.sendChatMessage(`${username}さん, 資金処理にエラーが発生したためキャンセルされました.`, null, chatter);
@@ -227,10 +228,10 @@ const spinCommand = {
 
         const winnings = Math.floor(wagerAmount * (successfulRolls * winMultiplier));
 
-        await currencyDatabase.adjustCurrencyForUser(username, currencyId, winnings);
+        await currencyManager.adjustCurrencyForViewer(username, currencyId, winnings);
 
         if (slotsSettings.settings.generalMessages.spinSuccessful) {
-            const currency = currencyDatabase.getCurrencyById(currencyId);
+            const currency = currencyAccess.getCurrencyById(currencyId);
 
             const spinSuccessfulMsg = slotsSettings.settings.generalMessages.spinSuccessful
                 .replace("{username}", username)

@@ -39,7 +39,7 @@
                     headerStyles: {
                         'min-width': '125px'
                     },
-                    cellTemplate: `{{data.twitchData.title}} <i ng-hide="data.manageable" class="fas fa-lock muted" style="font-size: 12px;" uib-tooltip="This reward was created outside of Firebot, it's settings are locked from changes." />`,
+                    cellTemplate: `{{data.twitchData.title}} <i ng-hide="data.manageable" class="fas fa-lock muted" style="font-size: 12px;" uib-tooltip="This reward was created either outside of Firebot or in an older version. Its settings cannot be changed in Firebot." />`,
                     cellController: () => {}
                 },
                 {

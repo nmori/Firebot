@@ -376,8 +376,7 @@ module.exports = {
             id: "whisper",
             name: "ささやく",
             description: "誰かがあなたにささやいたとき",
-            cached: true,
-            cacheMetaKey: "sentTo",
+            cached: false,
             manualMetadata: {
                 username: "Firebot",
                 message: "ささやきテスト",

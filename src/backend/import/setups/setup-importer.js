@@ -3,8 +3,9 @@
 const logger = require("../../logwrapper");
 const profileManager = require("../../common/profile-manager");
 const frontendCommunicator = require("../../common/frontend-communicator");
+const { settings } = require("../../common/settings-access");
 
-const commandAccess = require("../../chat/commands/command-access");
+const commandManager = require("../../chat/commands/command-manager");
 const countersManager = require("../../counters/counter-manager");
 const effectQueueManager = require("../../effects/queues/effect-queue-manager");
 const eventsAccess = require("../../events/events-access");
@@ -88,9 +89,9 @@ async function importSetup(setup, selectedCurrency) {
     // commands
     const commands = setup.components.commands || [];
     for (const command of commands) {
-        commandAccess.saveImportedCustomCommand(command);
+        commandManager.saveImportedCustomCommand(command);
     }
-    commandAccess.triggerUiRefresh();
+    commandManager.triggerUiRefresh();
 
     // counters
     const counters = setup.components.counters || [];
@@ -172,10 +173,12 @@ async function importSetup(setup, selectedCurrency) {
 
     // quick actions
     const quickActions = setup.components.quickActions || [];
-    for (const action of quickActions) {
-        quickActionManager.saveItem(action);
+    if (quickActions.length > 0) {
+        for (const action of quickActions) {
+            quickActionManager.saveItem(action);
+        }
+        quickActionManager.triggerUiRefresh();
     }
-    quickActionManager.triggerUiRefresh();
 
     return true;
 }
@@ -186,7 +189,7 @@ function removeSetupComponents(components) {
             componentList.forEach(({id, name}) => {
                 switch (componentType) {
                     case "commands":
-                        commandAccess.deleteCustomCommand(id);
+                        commandManager.deleteCustomCommand(id);
                         break;
                     case "counters":
                         countersManager.deleteItem(id);
@@ -216,14 +219,14 @@ function removeSetupComponents(components) {
                         customRolesManager.deleteCustomRole(id);
                         break;
                     case "quickActions":
-                        quickActionManager.deleteItem(id);
+                        quickActionManager.deleteQuickAction(id);
                         break;
                     default:
                     // do nothing
                 }
             });
             if (componentType === "commands") {
-                commandAccess.triggerUiRefresh();
+                commandManager.triggerUiRefresh();
             } else if (componentType === "counters") {
                 countersManager.triggerUiRefresh();
             } else if (componentType === "effectQueues") {
