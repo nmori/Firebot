@@ -158,7 +158,6 @@ async function updateUserOnlineStatus(userDetails, updateDb = false) {
             id: userDetails.id,
             username: userDetails.username,
             displayName: userDetails.displayName,
-            displayName: userDetails.displayName,
             roles: roles,
             profilePicUrl: userDetails.profilePicUrl,
             active: exports.userIsActive(userDetails.id),
