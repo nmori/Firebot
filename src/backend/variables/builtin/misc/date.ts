@@ -26,13 +26,14 @@ const model : ReplaceVariable = {
     },
     evaluator: (_, template = 'MMM Do YYYY', steps = 0, key = 'days', locale = 'ja') => {
         const now = moment().locale(locale);
+        const stepNumber =Number(steps);
 
-        if (steps > 0 && key !== null) {
+        if (stepNumber > 0 && key !== null) {
             now.add(steps, key);
         }
 
-        if (steps < 0 && key !== null) {
-            now.subtract(Math.abs(steps), key);
+        if (stepNumber < 0 && key !== null) {
+            now.subtract(Math.abs(stepNumber), key);
         }
 
         return now.format(template);

@@ -50,7 +50,7 @@ class TwitchAuthProviders {
             'channel:read:polls',
             'channel:read:predictions',
             'channel:read:redemptions',
-            'channel:read:stream_key',
+            //'channel:read:stream_key',
             'channel:read:subscriptions',
             'channel:read:vips',
             'chat:edit',

@@ -2,12 +2,9 @@
 
 const util = require("../../../utility");
 const twitchChat = require("../../../chat/twitch-chat");
-const commandManager = require("../../../chat/commands/CommandManager");
+const commandManager = require("../../../chat/commands/command-manager");
 const gameManager = require("../../game-manager");
 const currencyDatabase = require("../../../database/currencyDatabase");
-const customRolesManager = require("../../../roles/custom-roles-manager");
-const teamRolesManager = require("../../../roles/team-roles-manager");
-const twitchRolesManager = require("../../../../shared/twitch-roles");
 const otoshidamaMachine = require("./otoshidama-machine");
 const logger = require("../../../logwrapper");
 const moment = require("moment");

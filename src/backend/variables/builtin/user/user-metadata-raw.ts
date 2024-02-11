@@ -6,7 +6,7 @@ import userMetadata from './user-metadata';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawUserMetadata",
-        description: "(Deprecated: use $userMetaData) Get the raw metadata associated with the user.",
+        description: "ユーザーに関連付けられている生のメタデータを取得する。(廃止: $userMetaDataを使ってください)",
         usage: "rawUserMetadata[username, metadataKey]",
         examples: [
             {
@@ -18,7 +18,6 @@ const model : ReplaceVariable = {
                 description: "第2引数にプロパティパス（ドット記法）または配列インデックスを指定する。"
             }
         ],
-        description: "ユーザーに関連付けられている生のメタデータを取得する。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT],
         hidden: true

@@ -44,7 +44,8 @@ export const FollowAgeSystemCommand: SystemCommand<{
             await chat.sendChatMessage(`${commandSender} はこのチャンネルをフォローしていません.`);
         } else {
             const followDate = DateTime.fromJSDate(rawFollowDate),
-                now = DateTime.utc();
+                now = DateTime.utc(),
+                nowLocal = DateTime.now();
 
             const followAgeString = util.getDateDiffString(
                 followDate.toJSDate(),
@@ -54,7 +55,7 @@ export const FollowAgeSystemCommand: SystemCommand<{
             await chat.sendChatMessage(commandOptions.displayTemplate
                 .replace("{user}", commandSender)
                 .replace("{followage}", followAgeString)
-                .replace("{followdate}", followDateMoment.format("YYYY/MMMM/DD HH:mm"))
+                .replace("{followdate}", nowLocal.toFormat("YYYY/MMMM/DD HH:mm"))
             );
         }
     }

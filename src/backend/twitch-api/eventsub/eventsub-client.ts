@@ -79,6 +79,7 @@ class TwitchEventSubClient {
             const totalBits = (await TwitchApi.bits.getChannelBitsLeaderboard(1, "all", new Date(), event.userId))[0]?.amount ?? 0;
 
             twitchEventsHandler.cheer.triggerCheer(
+                event.userName ?? "An Anonymous Cheerer",
                 event.userDisplayName ?? "An Anonymous Cheerer",
                 event.userId,
                 event.isAnonymous,
@@ -136,6 +137,7 @@ class TwitchEventSubClient {
         // Shoutout sent to another channel
         const shoutoutSentSubscription = this._eventSubListener.onChannelShoutoutCreate(streamer.userId, streamer.userId, (event) => {
             twitchEventsHandler.shoutout.triggerShoutoutSent(
+                event.shoutedOutBroadcasterId,
                 event.shoutedOutBroadcasterDisplayName,
                 event.moderatorDisplayName,
                 event.viewerCount
@@ -146,6 +148,7 @@ class TwitchEventSubClient {
         // Shoutout received from another channel
         const shoutoutReceivedSubscription = this._eventSubListener.onChannelShoutoutReceive(streamer.userId, streamer.userId, (event) => {
             twitchEventsHandler.shoutout.triggerShoutoutReceived(
+                event.shoutingOutBroadcasterId,
                 event.shoutingOutBroadcasterDisplayName,
                 event.viewerCount
             );
@@ -326,15 +329,19 @@ class TwitchEventSubClient {
             if (event.endDate) {
                 const timeoutDuration = (event.endDate.getTime() - event.startDate.getTime()) / 1000;
                 twitchEventsHandler.viewerTimeout.triggerTimeout(
+                    event.userName,
                     event.userDisplayName,
                     timeoutDuration,
                     event.moderatorName,
+                    event.moderatorDisplayName,
                     event.reason
                 );
             } else {
                 twitchEventsHandler.viewerBanned.triggerBanned(
+                    event.userName,
                     event.userDisplayName,
                     event.moderatorName,
+                    event.moderatorDisplayName,
                     event.reason
                 );
             }
@@ -347,7 +354,9 @@ class TwitchEventSubClient {
         const unbanSubscription = this._eventSubListener.onChannelUnban(streamer.userId, (event) => {
             twitchEventsHandler.viewerBanned.triggerUnbanned(
                 event.userName,
-                event.moderatorName
+                event.userDisplayName,
+                event.moderatorName,
+                event.moderatorDisplayName
             );
         });
         this._subscriptions.push(unbanSubscription);

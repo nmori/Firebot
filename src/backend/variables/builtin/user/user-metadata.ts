@@ -6,7 +6,7 @@ const userDb = require("../../../database/userDatabase");
 const model : ReplaceVariable = {
     definition: {
         handle: "userMetadata",
-        description: "Get the metadata associated with the user.",
+        description: "ユーザーに関連付けられているメタデータを取得します。",
         usage: "userMetadata[username, metadataKey]",
         examples: [
             {
@@ -18,7 +18,6 @@ const model : ReplaceVariable = {
                 description: "第2引数にプロパティパス（ドット記法）または配列インデックスを指定する。"
             }
         ],
-        description: "ユーザーに関連付けられているメタデータを取得します。",
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
     },

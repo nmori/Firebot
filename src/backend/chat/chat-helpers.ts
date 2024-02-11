@@ -349,6 +349,7 @@ class FirebotChatHelpers {
             userIdName: null,
             userId: null,
             username: username,
+            displayName: username,
             rawText: msgText,
             whisper: false,
             action: false,

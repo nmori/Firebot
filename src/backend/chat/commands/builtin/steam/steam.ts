@@ -59,7 +59,7 @@ export const SteamSystemCommand: SystemCommand<{
                     .replace("{gameName}", gameDetails.name)
                     .replace("{price}", gameDetails.price || "不明")
                     .replace("{releaseDate}", gameDetails.releaseDate || "不明")
-                    .replace("{metaCriticScore}", gameDetails.score || "不明")
+                    .replace("{metaCriticScore}", gameDetails.score.toString() || "不明")
                     .replace("{steamUrl}", gameDetails.url)
                     .replace("{steamShortDescription}", gameDetails.shortDescription || "不明");
             }
