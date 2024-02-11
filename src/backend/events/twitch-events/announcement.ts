@@ -11,7 +11,7 @@ export function triggerAnnouncement(
         userIdName: userName,
         userId,
         username: userName,
-        displayName:userDisplayName,
+        displayName: userDisplayName,
         twitchUserRoles,
         messageText
     });

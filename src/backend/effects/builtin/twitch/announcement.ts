@@ -21,12 +21,12 @@ const model: EffectType<{
     optionsTemplate: `
         <eos-chatter-select effect="effect" title="アナウンスの内容"></eos-chatter-select>
 
-        <eos-container header="Message" pad-top="true">
+        <eos-container header="メッセージ" pad-top="true">
             <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージを入力" rows="4" cols="40" replace-variables></textarea>
             <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">アナウンスメッセージは500文字を超えることはできません。このメッセージは、すべての置換変数が入力された後、長すぎる場合は自動的に複数のメッセージに分割されます。</div>
         </eos-container>
 
-        <eos-container header="Color" pad-top="true">
+        <eos-container header="色" pad-top="true">
             <dropdown-select options="announcementColors" selected="effect.color"></dropdown-select>
         </eos-container>
     `,

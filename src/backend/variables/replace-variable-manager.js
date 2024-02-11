@@ -15,11 +15,11 @@ function preeval(options, variable) {
     }
 
     const varTrigger = variable.triggers[options.trigger.type];
-    const display = options.trigger.type ? options.trigger.type.toLowerCase() : "unknown trigger";
+    const display = options.trigger.type ? options.trigger.type.toLowerCase() : "不明なトリガー";
 
     if (varTrigger == null || varTrigger === false) {
         throw new ExpressionVariableError(
-            `$${variable.value} does not support being triggered by: ${display}`,
+            `${display}で使用しようとしている $${variable.value} はサポートしていません `,
             variable.position,
             variable.value
         );
@@ -28,7 +28,7 @@ function preeval(options, variable) {
     if (Array.isArray(varTrigger)) {
         if (!varTrigger.some(id => id === options.trigger.id)) {
             throw new ExpressionVariableError(
-                `$${variable.value} does not support this specific trigger type: ${display}`,
+                `${display} では $${variable.value} を使うことをサポートしていません `,
                 variable.position,
                 variable.value
             );

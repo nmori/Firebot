@@ -8,7 +8,7 @@ export function triggerFollow(
     eventManager.triggerEvent("twitch", "follow", {
         userId,
         username: userName,
-        displayName:userDisplayName,
+        displayName: userDisplayName,
         userIdName: userName
     });
 }

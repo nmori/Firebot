@@ -10,7 +10,7 @@ export function triggerViewerArrived(
 ) {
     eventManager.triggerEvent("twitch", "viewer-arrived", {
         username: userName,
-        displayName:userDisplayName,
+        displayName: userDisplayName,
         userIdName: userName,
         userId,
         messageText,

@@ -69,7 +69,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
                     id: firebotChatMessage.userId,
                     userIdName: firebotChatMessage.useridname,
                     username: firebotChatMessage.useridname,
-                    displayName:firebotChatMessage.displayName
+                    displayName: firebotChatMessage.displayName
                 },
                 reward: {
                     id: HIGHLIGHT_MESSAGE_REWARD_ID,

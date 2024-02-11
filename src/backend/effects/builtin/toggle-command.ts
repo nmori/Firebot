@@ -34,7 +34,7 @@ const effect: EffectType<{
             </ui-select>
         </eos-container>
 
-        <eos-container ng-show="effect.commandType === 'custom'" header="Custom Commands" pad-top="true">
+        <eos-container ng-show="effect.commandType === 'custom'" header="カスタムコマンド" pad-top="true">
             <ui-select ng-model="effect.commandId" theme="bootstrap">
                 <ui-select-match placeholder="Select or search for a command... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in customCommands | filter: { trigger: $select.search }" style="position:relative;">
@@ -43,7 +43,7 @@ const effect: EffectType<{
             </ui-select>
         </eos-container>
 
-        <eos-container ng-show="effect.commandType === 'tag'" header="Custom Command Tags" pad-top="true">
+        <eos-container ng-show="effect.commandType === 'tag'" header="カスタムタグ" pad-top="true">
             <ui-select ng-model="effect.sortTagId" theme="bootstrap">
                 <ui-select-match placeholder="Select or search for a tag... ">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="sortTag.id as sortTag in sortTags | filter: { name: $select.search }" style="position:relative;">
