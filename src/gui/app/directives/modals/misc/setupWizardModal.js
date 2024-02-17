@@ -218,16 +218,16 @@
                     </div>
 
                     <div ng-switch-when="4" class="wave">
-                        <p>We love spotlighting the amazing interactive experiences<br />crafted by our community using Firebot.</p>
-                        <p style="font-weight: 700;margin-top: 20px;">Would you like to be <a href="https:firebot.app/watch">featured on our website</a> during your live streams?</p>
+                        <p>{{'SETUP_WIZ.FEATURE_NOTE1' | translate }}</p>
+                        <p style="font-weight: 700;margin-top: 20px;"><a href='https:firebot.app/watch'>{{'SETUP_WIZ.FEATURE_NOTE2' | translate }}</a>{{'SETUP_WIZ.FEATURE_NOTE3' | translate }}</p>
                         <div style="margin-top: 20px;">
-                            <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 16px;opacity:0.9;display:inline-block;"> Yes, feature my stream!
+                            <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 16px;opacity:0.9;display:inline-block;"> {{'SETUP_WIZ.FEATURE_YES' | translate }}
                                 <input type="checkbox" ng-click="$ctrl.settings.setWebOnlineCheckin(!$ctrl.settings.getWebOnlineCheckin())" ng-checked="$ctrl.settings.getWebOnlineCheckin()" >
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
                         <div style="margin-top: 10px;">
-                            <p class="muted" style="font-size: 12px; opacity: 0.8;">(This can be changed at any time in settings)</p>
+                            <p class="muted" style="font-size: 12px; opacity: 0.8;">{{'SETUP_WIZ.FEATURE_SET' | translate }}</p>
                         </div>
                     </div>
 
@@ -260,7 +260,7 @@
                 </div>
 
                 <div>
-                    <a class="btn btn-default hvr-icon-back" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()"><i class="fas fa-arrow-left hvr-icon"></i> Back</a>
+                    <a class="btn btn-default hvr-icon-back" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()"><i class="fas fa-arrow-left hvr-icon"></i> 戻る</a>
                     <a
                         class="btn btn-primary hvr-icon-forward"
                         uib-tooltip="{{$ctrl.getTooltipText()}}"
@@ -295,7 +295,7 @@
                 "Firebot v4データを取り込む",
                 "ログイン",
                 "オーバーレイのセットアップ",
-                "Feature Your Stream",
+                "私たちのサイトでPRしませんか？",
                 ""
             ];
 
