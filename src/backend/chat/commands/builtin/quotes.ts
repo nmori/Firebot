@@ -353,7 +353,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                         // no matching quote found
                     } else {
 
-                        await twitchChat.sendChatMessage(`Sorry! We couldnt find a quote using those terms.`);
+                        await twitchChat.sendChatMessage(`Sorry! We couldn't find a quote using those terms.`);
                     }
 
                     await twitchChat.sendChatMessage(`この検索文字を含む引用は見つかりませんでした。`);

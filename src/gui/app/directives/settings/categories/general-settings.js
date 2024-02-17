@@ -32,18 +32,6 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="ベータ版通知"
-                        description="Firebot は新しい安定版へ自動更新します。ベータ版やメジャーリリース時は自動更新されません。
-                        新しいベータ版の通知を希望する場合は有効にしてください。"
-                    >
-                        <toggle-button
-                            toggle-model="settings.notifyOnBeta()"
-                            on-toggle="settings.setNotifyOnBeta(!settings.notifyOnBeta())"
-                            font-size="40"
-                        />
-                    </firebot-setting>
-
-                    <firebot-setting
                         name="接続時のサウンド"
                         description="Firebotの接続・切断を音声でお知らせします。"
                     >
@@ -89,8 +77,31 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="配信統計"
-                        description="配信時に上部に表示される統計内容を選択します。"
+                        name="Beta Notifications"
+                        description="Firebot automatically updates to new stable versions. It does not automatically update to betas or major new
+                        releases however. Enable if you want to be notified of new beta releases."
+                    >
+                        <toggle-button
+                            toggle-model="settings.notifyOnBeta()"
+                            on-toggle="settings.setNotifyOnBeta(!settings.notifyOnBeta())"
+                            font-size="40"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="Feature My Stream on Firebot.app"
+                        description="Enable this setting to have your stream displayed on Firebot's website when you're live"
+                    >
+                        <toggle-button
+                            toggle-model="settings.getWebOnlineCheckin()"
+                            on-toggle="settings.setWebOnlineCheckin(!settings.getWebOnlineCheckin())"
+                            font-size="40"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="Live Stream Stats"
+                        description="Select which stream stats show in the top bar when live."
                     >
                         <div>
                             <label class="control-fb control--checkbox"
@@ -163,7 +174,7 @@
 
                 $q
                     .when(navigator.mediaDevices.enumerateDevices())
-                    .then(deviceList => {
+                    .then((deviceList) => {
                         deviceList = deviceList
                             .filter(
                                 d =>
@@ -171,7 +182,7 @@
                                 d.deviceId !== "communications" &&
                                 d.deviceId !== "default"
                             )
-                            .map(d => {
+                            .map((d) => {
                                 return { label: d.label, deviceId: d.deviceId };
                             });
 

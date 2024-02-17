@@ -19,18 +19,18 @@ function preeval(options, variable) {
 
     if (varTrigger == null || varTrigger === false) {
         throw new ExpressionVariableError(
-            `$${variable.value} does not support being triggered by: ${display}`,
+            `$${variable.handle} does not support being triggered by: ${display}`,
             variable.position,
-            variable.value
+            variable.handle
         );
     }
 
     if (Array.isArray(varTrigger)) {
         if (!varTrigger.some(id => id === options.trigger.id)) {
             throw new ExpressionVariableError(
-                `$${variable.value} does not support this specific trigger type: ${display}`,
+                `$${variable.handle} does not support this specific trigger type: ${display}`,
                 variable.position,
-                variable.value
+                variable.handle
             );
         }
     }
@@ -130,20 +130,6 @@ class ReplaceVariableManager extends EventEmitter {
                     const triggerId = util.getTriggerIdFromTriggerData(trigger);
                     try {
                         replacedValue = await this.evaluateText(value, trigger, { type: trigger.type, id: triggerId});
-                        /*
-                        replacedValue = await expressionish({
-                            handlers: this._registeredVariableHandlers,
-                            expression: value,
-                            metadata: trigger,
-                            preeval,
-                            lookups: lookupForCustomVariables,
-                            trigger: {
-                                type: trigger.type,
-                                id: triggerId
-                            }
-                        });
-                        */
-
                     } catch (err) {
                         logger.warn(`Unable to parse variables for value: '${value}'`, err);
                     }
@@ -170,20 +156,7 @@ class ReplaceVariableManager extends EventEmitter {
             if (value && typeof value === "string") {
                 if (value.includes("$") || value.includes('&')) {
                     try {
-                        await this.evaluateText(value, undefined, { type: trigger && trigger.typ, id: trigger & trigger.id}, true);
-                        /*
-                        await expressionish({
-                            handlers: this._registeredVariableHandlers,
-                            expression: value,
-                            preeval,
-                            lookup: lookupForCustomVariables,
-                            trigger: {
-                                type: trigger && trigger.type,
-                                id: trigger && trigger.id
-                            },
-                            onlyValidate: true
-                        });
-                        */
+                        await this.evaluateText(value, undefined, { type: trigger && trigger.type, id: trigger && trigger.id}, true);
 
                     } catch (err) {
                         err.dataField = key;
@@ -225,7 +198,7 @@ frontendCommunicator.on("getReplaceVariableDefinitions", () => {
     return Array.from(manager.getVariableHandlers().values()).map(v => v.definition).filter(v => !v.hidden);
 });
 
-frontendCommunicator.onAsync("validateVariables", async eventData => {
+frontendCommunicator.onAsync("validateVariables", async (eventData) => {
     logger.debug("got 'validateVariables' request");
     const { data, trigger } = eventData;
 
