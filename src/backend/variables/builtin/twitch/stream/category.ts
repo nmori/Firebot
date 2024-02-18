@@ -27,7 +27,7 @@ const model : ReplaceVariable = {
     },
     evaluator: async (trigger, username) => {
         if (username == null) {
-            username = accountAccess.getAccounts().streamer.username;
+            username = accountAccess.getAccounts().streamer.userIdName;
         }
 
         const channelInfo = await TwitchApi.channels.getChannelInformationByUsername(username);

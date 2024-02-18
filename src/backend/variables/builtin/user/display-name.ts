@@ -1,7 +1,6 @@
-"use strict";
-
-const { EffectTrigger } = require("../../../shared/effect-constants");
-const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
+import { ReplaceVariable } from "../../../../types/variables";
+import { OutputDataType } from "../../../../shared/variable-constants";
+import { EffectTrigger } from "../../../../shared/effect-constants";
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -12,13 +11,11 @@ triggers[EffectTrigger.PRESET_LIST] = true;
 triggers[EffectTrigger.CHANNEL_REWARD] = true;
 triggers[EffectTrigger.QUICK_ACTION] = true;
 
-
-module.exports = {
+const model : ReplaceVariable = {
     definition: {
         handle: "displayName",
         description: "指定されたトリガの関連ユーザ(存在する場合)。表示名。",
         triggers: triggers,
-        categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {
@@ -26,3 +23,4 @@ module.exports = {
     }
 };
 
+export default model;
