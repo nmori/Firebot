@@ -210,7 +210,7 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> Clear Cooldowns</a>`,
+                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> 再実行待ちを解除</a>`,
                         click: ($itemScope) => {
                             const command = $itemScope.command;
                             $scope.resetCooldownsForCommand(command);

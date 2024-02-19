@@ -123,7 +123,7 @@
             backendCommunicator.on("active-cooldowns-reset", () => {
                 ngToast.create({
                     className: "success",
-                    content: "All command cooldowns cleared successfully"
+                    content: "全てのコマンドの再実行待ちを解除しました"
                 });
             });
 
@@ -137,8 +137,8 @@
                     : service.commandsCache.systemCommands.find(c => c.id === id);
 
                 const toastMessage = command != null
-                    ? `Cooldowns cleared for <strong>${command.trigger}</strong>`
-                    : `Cooldowns cleared`;
+                    ? `<strong>${command.trigger}</strong>の再実行待ちを解除しました`
+                    : `再実行待ちを解除しました`;
 
                 ngToast.create({
                     className: "success",

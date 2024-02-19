@@ -69,7 +69,7 @@ exports.whenReady = async () => {
     const { loadEffects } = require("../../../effects/builtin-effect-loader");
     loadEffects();
 
-    windowManagement.updateSplashScreenStatus("Loading currencies...");
+    windowManagement.updateSplashScreenStatus("通貨情報を読込中...");
     const currencyAccess = require("../../../currency/currency-access").default;
     currencyAccess.refreshCurrencyCache();
 
@@ -239,7 +239,7 @@ exports.whenReady = async () => {
     const streamInfoPoll = require("../../../twitch-api/stream-info-manager");
     streamInfoPoll.startStreamInfoPoll();
 
-    windowManagement.updateSplashScreenStatus("Starting notification manager...");
+    windowManagement.updateSplashScreenStatus("通知管理を起動中...");
     const notificationManager = require("../../../notifications/notification-manager").default;
     await notificationManager.loadAllNotifications();
     notificationManager.startExternalNotificationCheck();

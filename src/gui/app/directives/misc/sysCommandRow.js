@@ -182,19 +182,19 @@
             $ctrl.sysCommandMenuOptions = () => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             $ctrl.openEditSystemCommandModal();
                         }
                     },
                     {
-                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> Clear Cooldowns</a>`,
+                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> 再実行待ちを解除</a>`,
                         click: () => {
                             $ctrl.resetCooldownsForCommand();
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${$ctrl.command.active ? "Disable Command" : "Enable Command"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${$ctrl.command.active ? "無効化する" : "有効化する"}</a>`,
                         click: function () {
                             $ctrl.command.active = !$ctrl.command.active;
                             commandsService.saveSystemCommandOverride($ctrl.command);

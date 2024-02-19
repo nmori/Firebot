@@ -188,6 +188,7 @@ class ViewerDatabase extends EventEmitter {
             eventManager.triggerEvent("firebot", "viewer-created", {
                 username: displayName,
                 userIdName: username,
+                displayName: displayName,
                 userId
             });
 
