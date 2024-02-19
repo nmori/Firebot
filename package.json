@@ -1,6 +1,6 @@
 {
   "name": "firebotv5",
-  "version": "5.61.2+20240220",
+  "version": "5.61.2",
   "description": "Twitch 配信者のための高機能な統合BOTツール.",
   "main": "build/main.js",
   "scripts": {
