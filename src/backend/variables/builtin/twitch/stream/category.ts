@@ -26,8 +26,12 @@ const model : ReplaceVariable = {
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: async (trigger, username) => {
-        if (username == null) {
-            username = accountAccess.getAccounts().streamer.userIdName;
+        if (username === undefined || username == null) {
+            if (trigger.metadata?.userIdName === undefined || trigger.metadata?.userIdName == null) {
+                username = accountAccess.getAccounts().streamer.userIdName;
+            } else {
+                username = trigger.metadata?.userIdName;
+            }
         }
 
         const channelInfo = await TwitchApi.channels.getChannelInformationByUsername(username);
