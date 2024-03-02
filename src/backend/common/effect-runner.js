@@ -188,7 +188,7 @@ async function runEffectsManually(effects, metadata = {}, triggerType = EffectTr
 
     const twitchApi = require("../twitch-api/api");
     const streamerName = accountAccess.getAccounts().streamer.username || "";
-    var user =[];
+    var user = [];
     try {
         user = await twitchApi.users.getUserByName(streamerName);
     } catch (error) {
@@ -199,8 +199,8 @@ async function runEffectsManually(effects, metadata = {}, triggerType = EffectTr
             type: triggerType,
             metadata: {
                 username: streamerName,
-                useridname: user.useridname??"",
-                displayName: user.displayName?? streamerName,   
+                useridname: user.useridname ?? "",
+                displayName: user.displayName ?? streamerName,
                 eventData: {
                     shared: true,
                     totalMonths: 6

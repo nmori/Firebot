@@ -9,7 +9,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "userDisplayName",
         usage: "userDisplayName[username]",
-        description: "Gets the formatted display name for the given username. Searches local viewer DB first, then Twitch API.",
+        description: "指定されたユーザー名の表示名を取得します。最初にローカルの視聴者DBを検索し、次にTwitch APIを検索します。",
         categories: [VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },

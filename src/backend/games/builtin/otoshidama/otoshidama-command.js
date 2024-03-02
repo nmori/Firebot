@@ -28,17 +28,14 @@ const otoshidamaCommand = {
         subCommands: [
         ]
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
 
-        const { userCommand,chatMessage } = event;
+        const { userCommand, chatMessage } = event;
 
         const otoshidamaSettings = gameManager.getGameSettings("firebot-otoshidama");
         const chatter = otoshidamaSettings.settings.chatSettings.chatter;
         const username = userCommand.commandSender;
-        const displayName = chatMessage.displayName;
-
-        let wagerAmount = otoshidamaSettings.settings.currencySettings.defaultWager;
-
+        const displayName = chatMessage.userDisplayName;
         if (activeOmikuji.get(username)) {
             if (otoshidamaSettings.settings.generalMessages.alreadyOmikujining) {
                 const alreadyOmikujiningMsg = otoshidamaSettings.settings.generalMessages.alreadyOmikujining
@@ -66,17 +63,7 @@ const otoshidamaCommand = {
             return;
         }
 
-
         const currencyId = otoshidamaSettings.settings.currencySettings.currencyId;
-        let userBalance;
-
-        try {
-            userBalance = await currencyDatabase.getUserCurrencyAmount(username, currencyId);
-        } catch (error) {
-            logger.error(error);
-            userBalance = 0;
-        }
-
         activeOmikuji.set(username, true);
 
         const cooldownSecs = otoshidamaSettings.settings.cooldownSettings.cooldown;
@@ -89,7 +76,6 @@ const otoshidamaCommand = {
         const successfulResult = await otoshidamaMachine.otoshidama(otoshidamaList, chatter);
 
         if (otoshidamaSettings.settings.generalMessages.OmikujiSuccessful) {
-        
             try {
                 await currencyDatabase.adjustCurrencyForUser(username, currencyId, (successfulResult));
             } catch (error) {

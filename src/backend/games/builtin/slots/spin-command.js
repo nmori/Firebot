@@ -43,11 +43,12 @@ const spinCommand = {
     },
     onTriggerEvent: async (event) => {
 
-        const { userCommand,chatMessage } = event;
+        const { userCommand, chatMessage} = event;
 
         const slotsSettings = gameManager.getGameSettings("firebot-slots");
         const chatter = slotsSettings.settings.chatSettings.chatter;
         const username = userCommand.commandSender;
+        const displayName = chatMessage.userDisplayName;
         const user = await twitchApi.users.getUserByName(username);
         if (user == null) {
             logger.warn(`Could not process spin command for ${username}. User does not exist.`);

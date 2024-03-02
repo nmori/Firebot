@@ -28,16 +28,15 @@ const omikujiCommand = {
         subCommands: [
         ]
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
 
-        const { userCommand,chatMessage } = event;
+        const { userCommand, chatMessage } = event;
 
         const omikujiSettings = gameManager.getGameSettings("firebot-omikuji");
         const chatter = omikujiSettings.settings.chatSettings.chatter;
-        const username = chatMessage.username;
-        const displayName = chatMessage.displayName;
-
-        let wagerAmount = omikujiSettings.settings.currencySettings.defaultWager;
+        const username = userCommand.commandSender;
+        const displayName = chatMessage.userDisplayName;
+        const wagerAmount = omikujiSettings.settings.currencySettings.defaultWager;
 
         if (activeOmikuji.get(username)) {
             if (omikujiSettings.settings.generalMessages.alreadyOmikujining) {

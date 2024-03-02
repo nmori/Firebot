@@ -11,7 +11,7 @@ module.exports = {
     subtitle: "抽選を行います",
     description: "「!lottery」と入力して、抽選に参加します",
     icon: "fa-solid fa-ticket",
-    settingCategories: {        
+    settingCategories: {
         currencySettings: {
             title: "通貨設定",
             sortRank: 1,
@@ -36,7 +36,7 @@ module.exports = {
                         min: 0,
                         required: true
                     }
-                }                
+                }
             }
         },
         lotterySettings: {

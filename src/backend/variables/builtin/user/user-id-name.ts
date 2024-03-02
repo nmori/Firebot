@@ -16,7 +16,7 @@ triggers[EffectTrigger.QUICK_ACTION] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "useridname",
-        description: "(非推奨: $user か $usernameを使用のこと) 指定されたトリガの、関連する基本的なユーザ識別名。",
+        description: "(非推奨: $user か $usernameを使用) 指定されたトリガの、関連する基本的なユーザ識別名。",
 
         triggers: triggers,
         possibleDataOutput: [OutputDataType.TEXT]

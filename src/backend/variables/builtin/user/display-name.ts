@@ -14,12 +14,12 @@ triggers[EffectTrigger.QUICK_ACTION] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "displayName",
-        description: "指定されたトリガの関連ユーザ(存在する場合)。表示名。",
+        description: "(非推奨:$userDisplayNameを使用）指定されたトリガの関連ユーザ(存在する場合)。表示名。",
         triggers: triggers,
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {
-        return trigger.metadata.displayName ?? trigger.metadata.username ;
+        return trigger.metadata.displayName ?? trigger.metadata.username;
     }
 };
 
