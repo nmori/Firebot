@@ -1,19 +1,24 @@
 import eventManager from "../EventManager";
 
 export function triggerTimeout(
-    userName: string,
+    username: string,
+    userId: string,
     userDisplayName: string,
-    timeoutDuration: string | number,
-    moderatorUserName: string,
+    moderatorUsername: string,
+    moderatorId: string,
     moderatorDisplayName: string,
+    timeoutDuration: string | number,
     modReason: string
 ): void {
     eventManager.triggerEvent("twitch", "timeout", {
-        username: userName,
-        displayName: userDisplayName,
+        username,
+        userId,
+        userDisplayName,
+        moderatorUsername,
+        moderatorId,
+        moderatorDisplayName,
+        moderator: moderatorDisplayName,
         timeoutDuration,
-        moderatorUserName:moderatorUserName,
-        moderatorDisplayName:moderatorDisplayName,
         modReason
     });
 }

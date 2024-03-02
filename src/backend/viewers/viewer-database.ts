@@ -186,10 +186,9 @@ class ViewerDatabase extends EventEmitter {
         // Insert our record into db.
         try {
             eventManager.triggerEvent("firebot", "viewer-created", {
-                username: displayName,
-                userIdName: username,
-                displayName: displayName,
-                userId
+                username,
+                userId,
+                userDisplayName: displayName
             });
 
             const newViewer = await this._db.insertAsync(viewer);

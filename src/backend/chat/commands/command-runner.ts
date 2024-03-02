@@ -117,7 +117,7 @@ class CommandRunner {
                 metadata: {
                     username: userCommand.commandSender,
                     userId: undefined,
-                    userIdName: undefined,
+                    userDisplayName: userCommand.commandSender,
                     displayName: undefined,
                     command: command,
                     userCommand: userCommand,
@@ -129,7 +129,7 @@ class CommandRunner {
 
         if (firebotChatMessage != null) {
             processEffectsRequest.trigger.metadata.userId = firebotChatMessage.userId;
-            processEffectsRequest.trigger.metadata.userIdName = firebotChatMessage.userIdName;
+            processEffectsRequest.trigger.metadata.userDisplayName = firebotChatMessage.userDisplayName;
             processEffectsRequest.trigger.metadata.displayName = firebotChatMessage.displayName;
         }
 

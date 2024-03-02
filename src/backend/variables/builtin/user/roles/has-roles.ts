@@ -1,8 +1,9 @@
 import { ReplaceVariable } from "../../../../../types/variables";
 import { OutputDataType, VariableCategory } from "../../../../../shared/variable-constants";
-import { EffectTrigger } from '../../../../../shared/effect-constants';
+import { EffectTrigger } from "../../../../../shared/effect-constants";
 
-const { getAllRolesForViewer } = require('../../../../roles/role-helpers');
+import twitchApi from "../../../../twitch-api/api";
+import roleHelpers from "../../../../roles/role-helpers";
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -19,11 +20,11 @@ const model : ReplaceVariable = {
         description: "ユーザが指定したロールを持っている場合に true を返します。$if内でのみ有効です。",
         examples: [
             {
-                usage: 'hasRoles[$user, any, mod, vip]',
+                usage: "hasRoles[$user, any, mod, vip]",
                 description: "userがmodであるかVIPであればtrueを返す。"
             },
             {
-                usage: 'hasRoles[$user, all, mod, vip]',
+                usage: "hasRoles[$user, all, mod, vip]",
                 description: "もし$userがmodであり、かつVIPであればtrueを返す。"
             }
         ],
@@ -31,8 +32,8 @@ const model : ReplaceVariable = {
         categories: [VariableCategory.COMMON, VariableCategory.USER],
         possibleDataOutput: [OutputDataType.ALL]
     },
-    evaluator: async (trigger, username, respective, ...roles) => {
-        if (username == null || username === '') {
+    evaluator: async (trigger, username: string, respective, ...roles) => {
+        if (username == null || username === "") {
             return false;
         }
 
@@ -45,19 +46,30 @@ const model : ReplaceVariable = {
         }
 
         respective = (`${respective}`).toLowerCase();
-        if (respective !== 'any' && respective !== 'all') {
+        if (respective !== "any" && respective !== "all") {
             return false;
         }
 
-        const userRoles = await getAllRolesForViewer(username);
-
-        // any
-        if (respective === 'any') {
-            return userRoles.some(r => roles.includes(r.name));
+        try {
+            const user = await twitchApi.users.getUserByName(username);
+            if (user == null) {
+                return false;
+            }
+    
+            const userRoles = await roleHelpers.getAllRolesForViewer(user.id);
+    
+            // any
+            if (respective === "any") {
+                return userRoles.some(r => roles.includes(r.name));
+            }
+    
+            // all
+            return roles.length === userRoles.filter(r => roles.includes(r.name)).length;
+        } catch {
+            // Silently fail
         }
 
-        // all
-        return roles.length === userRoles.filter(r => roles.includes(r.name)).length;
+        return false;
     }
 };
 

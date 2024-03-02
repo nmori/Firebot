@@ -122,7 +122,7 @@ exports.whenReady = async () => {
 
     windowManagement.updateSplashScreenStatus("カスタムの役割を読込中...");
     const customRolesManager = require("../../../roles/custom-roles-manager");
-    customRolesManager.loadCustomRoles();
+    await customRolesManager.loadCustomRoles();
 
     windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
     const chatRolesManager = require("../../../roles/chat-roles-manager");

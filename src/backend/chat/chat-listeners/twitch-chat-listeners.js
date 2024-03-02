@@ -40,9 +40,9 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         frontendCommunicator.send("twitch:chat:message", firebotChatMessage);
 
         twitchEventsHandler.announcement.triggerAnnouncement(
-            firebotChatMessage.userIdName,
+            firebotChatMessage.username,
             firebotChatMessage.userId,
-            firebotChatMessage.displayName,
+            firebotChatMessage.userDisplayName,
             firebotChatMessage.roles,
             firebotChatMessage.rawText
         );
@@ -54,9 +54,13 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         await chatModerationManager.moderateMessage(firebotChatMessage);
 
         if (firebotChatMessage.isVip === true) {
-            chatRolesManager.addVipToVipList(firebotChatMessage.username);
+            chatRolesManager.addVipToVipList({
+                id: msg.userInfo.userId,
+                username: msg.userInfo.userName,
+                displayName: msg.userInfo.displayName
+            });
         } else {
-            chatRolesManager.removeVipFromVipList(firebotChatMessage.username);
+            chatRolesManager.removeVipFromVipList(msg.userInfo.userId);
         }
 
         // send to the frontend
@@ -67,9 +71,8 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
                 messageText: firebotChatMessage.rawText,
                 user: {
                     id: firebotChatMessage.userId,
-                    userIdName: firebotChatMessage.useridname,
-                    username: firebotChatMessage.useridname,
-                    displayName: firebotChatMessage.displayName
+                    username: firebotChatMessage.username,
+                    displayName: firebotChatMessage.userDisplayName
                 },
                 reward: {
                     id: HIGHLIGHT_MESSAGE_REWARD_ID,
@@ -87,9 +90,9 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         await activeUserHandler.addActiveUser(msg.userInfo, true);
 
         twitchEventsHandler.viewerArrived.triggerViewerArrived(
-            msg.userInfo.displayName,
             msg.userInfo.userName,
             msg.userInfo.userId,
+            msg.userInfo.displayName,
             messageText,
             firebotChatMessage
         );
@@ -116,6 +119,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
 
         twitchEventsHandler.whisper.triggerWhisper(
             msg.userInfo.userName,
+            msg.userInfo.userId,
             msg.userInfo.displayName,
             messageText,
             accountType
@@ -129,9 +133,13 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         const firebotChatMessage = await chatHelpers.buildFirebotChatMessage(msg, messageText, false, true);
 
         if (firebotChatMessage.isVip === true) {
-            chatRolesManager.addVipToVipList(firebotChatMessage.username);
+            chatRolesManager.addVipToVipList({
+                id: msg.userInfo.userId,
+                username: msg.userInfo.userName,
+                displayName: msg.userInfo.displayName
+            });
         } else {
-            chatRolesManager.removeVipFromVipList(firebotChatMessage.username);
+            chatRolesManager.removeVipFromVipList(msg.userInfo.userId);
         }
 
         frontendCommunicator.send("twitch:chat:message", firebotChatMessage);
@@ -144,9 +152,9 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         }
 
         twitchEventsHandler.viewerArrived.triggerViewerArrived(
-            msg.userInfo.displayName,
             msg.userInfo.userName,
             msg.userInfo.userId,
+            msg.userInfo.displayName,
             messageText,
             firebotChatMessage
         );
@@ -216,8 +224,8 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     streamerChatClient.onGiftPaidUpgrade((_channel, _user, subInfo, msg) => {
         twitchEventsHandler.giftSub.triggerSubGiftUpgrade(
             msg.userInfo.userName,
-            subInfo.displayName,
             subInfo.userId,
+            subInfo.displayName,
             subInfo.gifterUserName,
             subInfo.gifterDisplayName,
             subInfo.plan
@@ -227,8 +235,8 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     streamerChatClient.onPrimePaidUpgrade((_channel, _user, subInfo, msg) => {
         twitchEventsHandler.sub.triggerPrimeUpgrade(
             msg.userInfo.userName,
-            subInfo.displayName,
             subInfo.userId,
+            subInfo.displayName,
             subInfo.plan
         );
     });

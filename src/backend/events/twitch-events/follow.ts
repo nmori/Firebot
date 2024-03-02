@@ -1,14 +1,13 @@
 import eventManager from "../../events/EventManager";
 
 export function triggerFollow(
+    username: string,
     userId: string,
-    userName: string,
     userDisplayName: string
 ): void {
     eventManager.triggerEvent("twitch", "follow", {
+        username,
         userId,
-        username: userName,
-        displayName:userDisplayName,
-        userIdName: userName
+        userDisplayName
     });
 }

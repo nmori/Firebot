@@ -1,8 +1,9 @@
 import { ReplaceVariable } from "../../../../../types/variables";
 import { OutputDataType, VariableCategory } from "../../../../../shared/variable-constants";
-import { EffectTrigger } from '../../../../../shared/effect-constants';
+import { EffectTrigger } from "../../../../../shared/effect-constants";
 
-import { getAllRolesForViewerNameSpaced } from '../../../../roles/role-helpers';
+import twitchApi from "../../../../twitch-api/api";
+import roleHelpers from "../../../../roles/role-helpers";
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -19,31 +20,31 @@ const model : ReplaceVariable = {
         description: "ユーザのすべての役割を返します。",
         examples: [
             {
-                usage: 'userRoles',
+                usage: "userRoles",
                 description: "ユーザのすべての役割を返します。"
             },
             {
-                usage: 'userRoles[$user]',
+                usage: "userRoles[$user]",
                 description: "指定されたユーザのすべての役割を返します。"
             },
             {
-                usage: 'userRoles[$user, all]',
+                usage: "userRoles[$user, all]",
                 description: "指定されたユーザのすべての役割を返します。"
             },
             {
-                usage: 'userRoles[$user, firebot]',
+                usage: "userRoles[$user, firebot]",
                 description: "指定されたユーザのすべてのfirebot役割を返します。"
             },
             {
-                usage: 'userRoles[$user, custom]',
+                usage: "userRoles[$user, custom]",
                 description: "指定されたユーザのすべてのカスタム役割を返します。"
             },
             {
-                usage: 'userRoles[$user, twitch]',
+                usage: "userRoles[$user, twitch]",
                 description: "指定したユーザーのすべてのTwitch役割を返します。"
             },
             {
-                usage: 'userRoles[$user, team]',
+                usage: "userRoles[$user, team]",
                 description: "指定したユーザーのすべてのTwitchチームの役割を返します。"
             }
         ],
@@ -54,47 +55,57 @@ const model : ReplaceVariable = {
     evaluator: async (trigger, username: null | string, roleType) : Promise<unknown[]> => {
         if (username == null && roleType == null) {
             username = trigger.metadata.username;
-            roleType = 'all';
+            roleType = "all";
         }
 
-        if (username == null || username === '') {
+        if (username == null || username === "") {
             return [];
         }
 
         if (roleType == null || roleType === "") {
-            roleType = 'all';
+            roleType = "all";
         } else {
             roleType = (`${roleType}`).toLowerCase();
         }
 
-        const userRoles = await getAllRolesForViewerNameSpaced(username);
+        try {
+            const user = await twitchApi.users.getUserByName(username);
+            if (user == null) {
+                return [];
+            }
+    
+            const userRoles = await roleHelpers.getAllRolesForViewerNameSpaced(user.id);
+    
+            Object
+                .keys(userRoles)
+                .forEach((key: string) => {
+                    userRoles[key] = userRoles[key].map(r => r.name);
+                });
+    
+            if (roleType === "all") {
+                return [
+                    userRoles.twitchRoles || [],
+                    userRoles.teamRoles || [],
+                    userRoles.firebotRoles || [],
+                    userRoles.customRoles || []
+                ];
+            }
+            if (roleType === "twitch") {
+                return userRoles.twitchRoles;
+            }
+            if (roleType === "team") {
+                return userRoles.teamRoles;
+            }
+            if (roleType === "firebot") {
+                return userRoles.firebotRoles;
+            }
+            if (roleType === "custom") {
+                return userRoles.customRoles;
+            }
+        } catch {
+            // Silently fail
+        }
 
-        Object
-            .keys(userRoles)
-            .forEach((key: string) => {
-                userRoles[key] = userRoles[key].map(r => r.name);
-            });
-
-        if (roleType === 'all') {
-            return [
-                userRoles.twitchRoles || [],
-                userRoles.teamRoles || [],
-                userRoles.firebotRoles || [],
-                userRoles.customRoles || []
-            ];
-        }
-        if (roleType === 'twitch') {
-            return userRoles.twitchRoles;
-        }
-        if (roleType === 'team') {
-            return userRoles.teamRoles;
-        }
-        if (roleType === 'firebot') {
-            return userRoles.firebotRoles;
-        }
-        if (roleType === 'custom') {
-            return userRoles.customRoles;
-        }
         return [];
     }
 };

@@ -1,6 +1,8 @@
+// Deprecated
 import { ReplaceVariable } from "../../../../types/variables";
 import { OutputDataType } from "../../../../shared/variable-constants";
 import { EffectTrigger } from "../../../../shared/effect-constants";
+import user from "../metadata/user";
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -14,18 +16,12 @@ triggers[EffectTrigger.QUICK_ACTION] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "useridname",
-        description: "指定されたトリガの、関連する基本的なユーザ識別名。",
+        description: "(非推奨: $user か $usernameを使用のこと) 指定されたトリガの、関連する基本的なユーザ識別名。",
+
         triggers: triggers,
         possibleDataOutput: [OutputDataType.TEXT]
     },
-    evaluator: (trigger) => {
-        // We have a few places where this might be set, so we check them all
-        // Start with any event data, then we check the regular metadata
-        return trigger.metadata?.eventData?.userIdName ??
-            trigger.metadata?.eventData?.chatMessage?.userIdName ??
-            trigger.metadata?.userIdName ??
-            trigger.metadata?.chatMessage?.userIdName;
-    }
+    evaluator: user.evaluator
 };
 
 export default model;

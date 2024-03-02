@@ -12,12 +12,16 @@ module.exports = {
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 viewerCount: 5
             },
             activityFeed: {
                 icon: "fad fa-siren-on",
                 getMessage: (eventData) => {
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が **${eventData.viewerCount}** 人の視聴者とともにレイドしました`;
                     return `**${eventData.username}** が **${eventData.viewerCount}** 人の視聴者とともにレイドしました`;
                 }
             }
@@ -29,12 +33,15 @@ module.exports = {
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
-                username: "Firebot"
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: ""
             },
             activityFeed: {
                 icon: "fas fa-heart",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** がフォローしました`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** がフォローしました`;
                 }
             }
         },
@@ -44,7 +51,9 @@ module.exports = {
             description: "誰かがあなたのチャンネルをサブスク（または再サブスク）したとき。",
             cached: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 isPrime: false,
                 isResub: false,
                 subPlan: {
@@ -64,8 +73,10 @@ module.exports = {
             activityFeed: {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** が ${eventData.isResub ? '再サブスク' : 'サブスク'} しました。 **${eventData.totalMonths} ヶ月目** 、${eventData.subPlan === 'Prime' ?
-                        "**Twitch Prime**" : "**Tier " + eventData.subPlan.replace("000", "") + "**"} `;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が　${eventData.isResub ? '再サブスク' : 'サブスク'} しました。  **${eventData.totalMonths} ヶ月目** ${eventData.subPlan === 'Prime' ?
+                        " **Twitch Prime**" : `at **Tier ${eventData.subPlan.replace("000", "")}**`}`;
+                    
                 }
             }
         },
@@ -75,7 +86,9 @@ module.exports = {
             description: "プライム会員からサブスクにアップグレードした場合",
             cached: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 subPlan: {
                     type: "enum",
                     options: {
@@ -89,7 +102,9 @@ module.exports = {
             activityFeed: {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** が **Tier ${eventData.subPlan.replace("000", "")}** にアップグレードしました `;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が **Tier ${eventData.subPlan.replace("000", "")}にアップグレードしました!**`;
+
                 }
             }
         },
@@ -163,7 +178,9 @@ module.exports = {
             description: "サブスクギフトからサブスクにアップグレードされた場合",
             cached: false,
             manualMetadata: {
-                username: "CaveMobster",
+                username: "cavemobster",
+                userDisplayName: "CaveMobster",
+                userId: "",
                 gifteeUsername: "CaveMobster",
                 gifterUsername: "Firebot",
                 subPlan: {
@@ -179,7 +196,9 @@ module.exports = {
             activityFeed: {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** さんは サブスクギフトから **Tier ${eventData.subPlan.replace("000", "")}**へアップグレードしました`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんは サブスクギフトから Tier ${eventData.subPlan.replace("000", "")}へアップグレードしました!**`;
+
                 }
             }
         },
@@ -189,7 +208,9 @@ module.exports = {
             description: "誰かがあなたのチャンネルで声援を送ったとき（ビッツを使ったとき）",
             cached: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 isAnonymous: false,
                 bits: 100,
                 totalBits: 1200,
@@ -198,7 +219,9 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-diamond",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** から **${eventData.bits}** ビッツの声援が届きました。 （トータル：**${eventData.totalBits}** ビッツ、**${eventData.username}** より）`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** から  **${eventData.bits}** ビッツの声援が届きました。 （トータル：**${eventData.totalBits}**ビッツ）;
+
                 }
             }
         },
@@ -208,7 +231,9 @@ module.exports = {
             description: "誰かがあなたのチャンネルで新しいビッツバッジのロックを解除したとき",
             cached: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 message: "Test message",
                 badgeTier: {
                     type: "enum",
@@ -248,7 +273,9 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-diamond",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** さんが **${eventData.badgeTier}** ビッツバッチを実績解除しました`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんが **${eventData.badgeTier}** ビッツバッチを実績解除しました`;
+
                 }
             }
         },
@@ -259,12 +286,16 @@ module.exports = {
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
-                username: "Firebot"
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: ""
             },
             activityFeed: {
                 icon: "fad fa-house-return",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** さんが来ました`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんが来ました`;
+
                 }
             }
         },
@@ -275,8 +306,30 @@ module.exports = {
             cached: false,
             queued: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 messageText: "テストメッセージ"
+            }
+        },
+        {
+            id: "first-time-chat",
+            name: "First Time Chat",
+            description: "When someone chats in your channel for the very first time",
+            cached: false,
+            queued: false,
+            manualMetadata: {
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
+                messageText: "Test message"
+            },
+            activityFeed: {
+                icon: "fad fa-sparkles",
+                getMessage: (eventData) => {
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんが初チャットしてくれました`;
+                }
             }
         },
         {
@@ -286,7 +339,9 @@ module.exports = {
             cached: false,
             queued: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 messageText: "テストアナウンス"
             }
         },
@@ -297,18 +352,20 @@ module.exports = {
             cached: false,
             queued: false,
             manualMetadata: {
-                username: "CaveMobster",
+                username: "cavemobster",
+                userDisplayName: "CaveMobster",
+                userId: "",
                 moderator: "Firebot",
                 modReason: "They were extra naughty"
             },
             activityFeed: {
                 icon: "fad fa-gavel",
                 getMessage: (eventData) => {
-                    let message;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    let message = `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** was banned by **${eventData.moderator}**.`;
+
                     if (eventData.modReason) {
-                        message = `**${eventData.username}** が **${eventData.moderator}**によって追放された。 理由は **${eventData.modReason}**`;
-                    } else {
-                        message = `**${eventData.username}** が **${eventData.moderator}** によって追放された。`;
+                        message = `${message} 理由: **${eventData.modReason}**`;
                     }
                     return message;
                 }
@@ -321,13 +378,17 @@ module.exports = {
             cached: false,
             queued: false,
             manualMetadata: {
-                username: "CaveMobster",
+                username: "cavemobster",
+                userDisplayName: "CaveMobster",
+                userId: "",
                 moderator: "Firebot"
             },
             activityFeed: {
                 icon: "fad fa-gavel",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** は **${eventData.moderator}** によって追放解除されました`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんは **${eventData.moderator}** さんによって追放解除されました.`;
+
                 }
             }
         },
@@ -338,7 +399,9 @@ module.exports = {
             cached: false,
             queued: false,
             manualMetadata: {
-                username: "ebiggz",
+                username: "alca",
+                userDisplayName: "Alca",
+                userId: "",
                 timeoutDuration: "1",
                 moderator: "Firebot",
                 modReason: "They were naughty"
@@ -346,7 +409,13 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-stopwatch",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** は  ${eventData.moderator}によって**${eventData.timeoutDuration} ** 秒タイムアウトされました。 理由は **${eventData.modReason}**`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    let message = `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** は **${eventData.timeoutDuration} 秒タイムアウトされます。**  by ${eventData.moderator}.`;
+
+                    if (eventData.modReason) {
+                        message = `${message} 理由: **${eventData.modReason}**`;
+                    }
+                    return message;
                 }
             }
         },
@@ -359,7 +428,9 @@ module.exports = {
             cacheTtlInSecs: 1,
             queued: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 rewardName: "テスト特典",
                 rewardImage: "https://static-cdn.jtvnw.net/automatic-reward-images/highlight-1.png",
                 rewardCost: "200",
@@ -368,7 +439,9 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-circle",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** さんが「**${eventData.rewardName}**」を交換しました。${eventData.messageText && !!eventData.messageText.length ? `: *${eventData.messageText}*` : ''}`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんが「 **${eventData.rewardName}**」を交換しました。${eventData.messageText && !!eventData.messageText.length ? `: *${eventData.messageText}*` : ''}`;
+
                 }
             }
         },
@@ -378,7 +451,9 @@ module.exports = {
             description: "誰かがあなたにささやいたとき",
             cached: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 message: "ささやきテスト",
                 sentTo: {
                     type: "enum",
@@ -392,7 +467,9 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-comment-alt",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** さんが、ささやきました: ${eventData.message}`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんから **${eventData.sentTo}** さんへのささやき: ${eventData.message}`;
+
                 }
             }
         },
@@ -793,12 +870,16 @@ module.exports = {
             manualMetadata: {
                 moderator: "Firebot",
                 username: "zunderscore",
+                userDisplayName: "zunderscore",
+                userId: "",
                 viewerCount: 10
             },
             activityFeed: {
                 icon: "fad fa-bullhorn",
                 getMessage: (eventData) => {
-                    return `**${eventData.moderator}** は **${eventData.username}** をシャウトアウトしました`;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.moderator}** さんは **${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}をシャウトアウトしました**`;
+
                 }
             }
         },
@@ -809,13 +890,17 @@ module.exports = {
             cached: false,
             queued: false,
             manualMetadata: {
-                username: "Firebot",
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
                 viewerCount: 10
             },
             activityFeed: {
                 icon: "fad fa-bullhorn",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** は、あなたの事を ${eventData.viewerCount} 人に紹介しました。 `;
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんは、あなたの事を ${eventData.viewerCount} 人に紹介しました。`;
+
                 }
             }
         },
