@@ -267,7 +267,7 @@ frontendCommunicator.on("manuallyTriggerReward", (channelRewardId: string) => {
         rewardImage: savedReward.twitchData.image ? savedReward.twitchData.image.url4x : savedReward.twitchData.defaultImage.url4x,
         rewardName: savedReward.twitchData.title,
         username: accountAccess.getAccounts().streamer.username,
-        displayName :accountAccess.getAccounts().streamer.displayName
+        userDisplayName :accountAccess.getAccounts().streamer.displayName
     }, true);
 });
 

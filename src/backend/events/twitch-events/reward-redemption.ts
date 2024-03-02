@@ -1,6 +1,7 @@
 import eventManager from "../EventManager";
 import frontendCommunicator from "../../common/frontend-communicator";
 import rewardManager from "../../channel-rewards/channel-reward-manager";
+import { RewardRedemptionMetadata } from "../../../types/channel-rewards";
 
 export function handleRewardRedemption(
     redemptionId: string,
@@ -35,16 +36,14 @@ export function handleRewardRedemption(
     });
 
     setTimeout(() => {
-        const redemptionMeta = {
+        const redemptionMeta:RewardRedemptionMetadata = {
             username,
-            userId,
             userDisplayName,
             messageText,
             redemptionId,
             rewardId,
             rewardImage: rewardImageUrl,
             rewardName: rewardTitle,
-            rewardDescription: rewardPrompt,
             rewardCost: rewardCost
         };
 

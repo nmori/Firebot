@@ -22,7 +22,6 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が **${eventData.viewerCount}** 人の視聴者とともにレイドしました`;
-                    return `**${eventData.username}** が **${eventData.viewerCount}** 人の視聴者とともにレイドしました`;
                 }
             }
         },
@@ -74,9 +73,8 @@ module.exports = {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
-                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が　${eventData.isResub ? '再サブスク' : 'サブスク'} しました。  **${eventData.totalMonths} ヶ月目** ${eventData.subPlan === 'Prime' ?
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が {eventData.isResub ? '再サブスク' : 'サブスク'} しました。  **${eventData.totalMonths} ヶ月目** ${eventData.subPlan === 'Prime' ?
                         " **Twitch Prime**" : `at **Tier ${eventData.subPlan.replace("000", "")}**`}`;
-                    
                 }
             }
         },
@@ -220,7 +218,7 @@ module.exports = {
                 icon: "fad fa-diamond",
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
-                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** から  **${eventData.bits}** ビッツの声援が届きました。 （トータル：**${eventData.totalBits}**ビッツ）;
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** から  **${eventData.bits}** ビッツの声援が届きました。 （トータル：**${eventData.totalBits}**ビッツ）`;
 
                 }
             }

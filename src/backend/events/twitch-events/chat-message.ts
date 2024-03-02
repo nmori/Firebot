@@ -6,7 +6,6 @@ export function triggerChatMessage(firebotChatMessage: FirebotChatMessage): void
         username: firebotChatMessage.username,
         userId: firebotChatMessage.userId,
         userDisplayName: firebotChatMessage.userDisplayName,
-        displayName:firebotChatMessage.displayName,
         twitchUserRoles: firebotChatMessage.roles,
         messageText: firebotChatMessage.rawText,
         chatMessage: firebotChatMessage
@@ -18,7 +17,6 @@ export function triggerFirstTimeChat(firebotChatMessage: FirebotChatMessage): vo
         username: firebotChatMessage.username,
         userId: firebotChatMessage.userId,
         userDisplayName: firebotChatMessage.userDisplayName,
-        displayName:firebotChatMessage.displayName,
         twitchUserRoles: firebotChatMessage.roles,
         messageText: firebotChatMessage.rawText,
         chatMessage: firebotChatMessage

@@ -71,7 +71,7 @@ async function createClient() {
             twitchEventsHandler.cheer.triggerBitsBadgeUnlock(
                 message.userName ?? "匿名のCheer",
                 message.userId,
-                message.userName ?? ""匿名のCheer",
+                message.userName ?? "匿名のCheer",
                 message.message ?? "",
                 message.badgeTier
             );

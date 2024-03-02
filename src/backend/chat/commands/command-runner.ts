@@ -130,7 +130,6 @@ class CommandRunner {
         if (firebotChatMessage != null) {
             processEffectsRequest.trigger.metadata.userId = firebotChatMessage.userId;
             processEffectsRequest.trigger.metadata.userDisplayName = firebotChatMessage.userDisplayName;
-            processEffectsRequest.trigger.metadata.displayName = firebotChatMessage.displayName;
         }
 
         return effectRunner.processEffects(processEffectsRequest).catch((reason) => {

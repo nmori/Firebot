@@ -348,7 +348,7 @@ class FirebotChatHelpers {
             id: null,
             username: username,
             userId: null,
-            displayName: username,
+            userDisplayName: username,
             rawText: msgText,
             whisper: false,
             action: false,
@@ -483,7 +483,6 @@ class FirebotChatHelpers {
         const firebotChatMessage: FirebotChatMessage = {
             id: id,
             username: extensionName,
-            displayName: extensionName,
             userId: extensionName,
             userDisplayName: extensionName,
             rawText: text,

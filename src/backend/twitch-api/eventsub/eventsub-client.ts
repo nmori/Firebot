@@ -311,7 +311,6 @@ class TwitchEventSubClient {
                     event.moderatorId,
                     event.moderatorDisplayName,
                     timeoutDuration,
-                    event.moderatorDisplayName,
                     event.reason
                 );
             } else {

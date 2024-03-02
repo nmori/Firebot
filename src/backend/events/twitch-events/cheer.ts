@@ -2,7 +2,6 @@ import eventManager from "../../events/EventManager";
 
 export function triggerCheer(
     username: string,
-    displayName: string,
     userId: string,
     userDisplayName: string,
     isAnonymous: boolean,
@@ -12,7 +11,6 @@ export function triggerCheer(
 ): void {
     eventManager.triggerEvent("twitch", "cheer", {
         username,
-        displayName: displayName,
         userId,
         userDisplayName,
         isAnonymous,
