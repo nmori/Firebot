@@ -126,7 +126,7 @@ exports.whenReady = async () => {
 
     const chatRolesManager = require("../../../roles/chat-roles-manager");
 
-    windowManagement.updateSplashScreenStatus("BOTリストを読込中..."");
+    windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
     await chatRolesManager.cacheViewerListBots();
 
     windowManagement.updateSplashScreenStatus("モデレータ情報読込中...");

@@ -15,6 +15,7 @@ export type RewardRedemptionMetadata = {
     username: string,
     userDisplayName: string,
     messageText: string,
+    args: string[],
     redemptionId: string,
     rewardId: string,
     rewardImage: string,

@@ -38,7 +38,7 @@
                     "Days",
                     "Weeks",
                     "Months",
-                    "Years"
+                    "Years",
                     "秒",
                     "分",
                     "時間",

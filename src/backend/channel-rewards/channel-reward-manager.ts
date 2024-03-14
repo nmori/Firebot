@@ -51,7 +51,9 @@ class ChannelRewardManager {
                 rewardCost: savedReward.twitchData.cost,
                 rewardImage: savedReward.twitchData.image ? savedReward.twitchData.image.url4x : savedReward.twitchData.defaultImage.url4x,
                 rewardName: savedReward.twitchData.title,
-                username: accountAccess.getAccounts().streamer.displayName
+                username: accountAccess.getAccounts().streamer.username,
+                userDisplayName: accountAccess.getAccounts().streamer.displayName,
+                args: ["Testing", "reward"]
             }, true);
         });
 
@@ -375,17 +377,5 @@ class ChannelRewardManager {
 }
 
 const channelRewardManager = new ChannelRewardManager();
-
-    channelRewardManager.triggerChannelReward(channelRewardId, {
-        messageText: "Testing reward",
-        redemptionId: "test-redemption-id",
-        rewardId: savedReward.id,
-        rewardCost: savedReward.twitchData.cost,
-        rewardImage: savedReward.twitchData.image ? savedReward.twitchData.image.url4x : savedReward.twitchData.defaultImage.url4x,
-        rewardName: savedReward.twitchData.title,
-        username: accountAccess.getAccounts().streamer.username,
-        userDisplayName: accountAccess.getAccounts().streamer.displayName
-    }, true);
-});
 
 export = channelRewardManager;
