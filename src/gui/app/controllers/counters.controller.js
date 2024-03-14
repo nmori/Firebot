@@ -14,21 +14,29 @@
                 {
                     name: "名前",
                     icon: "fa-user",
+                    dataField: "name",
+                    sortable: true,
                     cellTemplate: `{{data.name}}`
                 },
                 {
                     name: "値",
                     icon: "fa-tally",
+                    dataField: "value",
+                    sortable: true,
                     cellTemplate: `{{data.value}}`
                 },
                 {
                     name: "最小",
                     icon: "fa-arrow-to-bottom",
+                    dataField: "minimum",
+                    sortable: true,
                     cellTemplate: `{{data.minimum ? data.minimum : 'n/a'}}`
                 },
                 {
                     name: "最大",
                     icon: "fa-arrow-to-top",
+                    dataField: "maximum",
+                    sortable: true,
                     cellTemplate: `{{data.maximum ? data.maximum : 'n/a'}}`
                 }
             ];

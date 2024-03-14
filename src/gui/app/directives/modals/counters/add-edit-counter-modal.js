@@ -58,19 +58,40 @@
                     <h3>更新時の演出</h3>
                     <p>これらの演出は、<b>カウンタの更新</b>によってカウンタの値が更新されるたびに発生します。</h3>
                     ただし、値が最大値または最小値に達した場合は除きます。{{$ctrl.counter.minimum != null || $ctrl.counter.maximum != null ? ', except when the value hits the maximum or minimum' : ''}}.</p>
-                    <effect-list header="What should this Counter do on every update?" effects="$ctrl.counter.updateEffects" trigger="counter" trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'update'}" update="$ctrl.updateEffectsListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
+                    <effect-list
+                        header="What should this Counter do on every update?"
+                        effects="$ctrl.counter.updateEffects"
+                        trigger="counter"
+                        trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'update', rootEffects: $ctrl.counter.updateEffects}"
+                        update="$ctrl.updateEffectsListUpdated(effects)"
+                        modalId="{{$ctrl.modalId}}"
+                    ></effect-list>
                 </div>
 
                 <div class="mt-12" ng-show="$ctrl.counter.minimum !== undefined && $ctrl.counter.minimum !== null">
                     <h3>最小値</h3>
                     <p>最小値に達したときに発火する。</p>
-                    <effect-list header="カウンタが最小値に達したとき、このカウンタは何をすべきか？" effects="$ctrl.counter.minimumEffects" trigger="counter" trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'minimum'}" update="$ctrl.minimumEffectsListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
+                    <effect-list
+                        header="カウンタが最小値に達したとき、このカウンタは何をすべきか？"
+                        effects="$ctrl.counter.minimumEffects"
+                        trigger="counter"
+                        trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'minimum', rootEffects: $ctrl.counter.minimumEffects}"
+                        update="$ctrl.minimumEffectsListUpdated(effects)"
+                        modalId="{{$ctrl.modalId}}"
+                    ></effect-list>
                 </div>
 
                 <div class="mt-12" ng-show="$ctrl.counter.maximum !== undefined && $ctrl.counter.maximum !== null">
                     <h3>最大値</h3>
-                    <p>最大値に達したときに発火する。.</p>
-                    <effect-list header="カウンタが最大値に達したとき、このカウンタは何をすべきでしょうか？" effects="$ctrl.counter.maximumEffects" trigger="counter" trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'maximum'}" update="$ctrl.maximumEffectsListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
+                    <p>最大値に達したときに発火する。</p>
+                    <effect-list
+                        header="カウンタが最大値に達したとき、このカウンタは何をすべきか？"
+                        effects="$ctrl.counter.maximumEffects"
+                        trigger="counter"
+                        trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'maximum', rootEffects: $ctrl.counter.maximumEffects}"
+                        update="$ctrl.maximumEffectsListUpdated(effects)"
+                        modalId="{{$ctrl.modalId}}"
+                    ></effect-list>
                 </div>
             </div>
 

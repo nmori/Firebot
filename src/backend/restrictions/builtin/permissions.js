@@ -109,15 +109,35 @@ const model = {
     predicate: (triggerData, restrictionData) => {
         return new Promise(async (resolve, reject) => {
             if (restrictionData.mode === "roles") {
-                const username = triggerData.metadata.username;
-                const user = await twitchApi.users.getUserByName(username);
-                if (user == null) {
-                    reject("User does not exist");
+                let userId = triggerData.metadata.userId;
+
+                if (userId == null) {
+                    const username = triggerData.metadata.username;
+                    const user = await twitchApi.users.getUserByName(username);
+
+                    if (user == null) {
+                        reject("User does not exist");
+                    }
+
+                    userId = user.id;
                 }
 
-                const userCustomRoles = customRolesManager.getAllCustomRolesForViewer(user.id) || [];
-                const userTeamRoles = await teamRolesManager.getAllTeamRolesForViewer(user.id) || [];
-                const userTwitchRoles = (await chatRolesManager.getUsersChatRoles(user.id))
+                /** @type {string[]} */
+                let twitchUserRoles = triggerData.metadata.userTwitchRoles;
+
+                // For sub tier-specific/known bot permission checking, we have to get live data
+                if (twitchUserRoles == null
+                    || restrictionData.roleIds.includes("tier1")
+                    || restrictionData.roleIds.includes("tier2")
+                    || restrictionData.roleIds.includes("tier3")
+                    || restrictionData.roleIds.includes("viewerlistbot")
+                ) {
+                    twitchUserRoles = await chatRolesManager.getUsersChatRoles(userId);
+                }
+
+                const userCustomRoles = customRolesManager.getAllCustomRolesForViewer(userId) || [];
+                const userTeamRoles = await teamRolesManager.getAllTeamRolesForViewer(userId) || [];
+                const userTwitchRoles = (twitchUserRoles || [])
                     .map(mr => twitchRolesManager.mapTwitchRole(mr));
 
                 const allRoles = [

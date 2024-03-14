@@ -65,19 +65,40 @@ module.exports = {
         const { eventMeta } = eventData;
 
         const { username } = eventMeta;
-        if (!username) {
+        let { userId } = eventMeta;
+
+        if (!username && !userId) {
             return false;
         }
 
         try {
-            const user = await twitchApi.users.getUserByName(username);
-            if (user == null) {
-                return false;
+            if (userId == null) {
+                const user = await twitchApi.users.getUserByName(username);
+
+                if (user == null) {
+                    return false;
+                }
+
+                userId = user.id;
             }
 
-            const userCustomRoles = customRolesManager.getAllCustomRolesForViewer(user.id) || [];
-            const userTeamRoles = await teamRolesManager.getAllTeamRolesForViewer(user.id) || [];
-            const userTwitchRoles = await chatRolesManager.getUsersChatRoles(user.id);
+            /** @type {string[]} */
+            let twitchUserRoles = eventMeta.twitchUserRoles;
+
+            // For sub tier-specific/known bot permission checking, we have to get live data
+            if (twitchUserRoles == null
+                || value === "tier1"
+                || value === "tier2"
+                || value === "tier3"
+                || value === "viewerlistbot"
+            ) {
+                twitchUserRoles = await chatRolesManager.getUsersChatRoles(userId);
+            }
+
+            const userCustomRoles = customRolesManager.getAllCustomRolesForViewer(userId) || [];
+            const userTeamRoles = await teamRolesManager.getAllTeamRolesForViewer(userId) || [];
+            const userTwitchRoles = (twitchUserRoles || [])
+                .map(twitchRolesManager.mapTwitchRole);
 
             const allRoles = [
                 ...userTwitchRoles,

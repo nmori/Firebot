@@ -38,6 +38,17 @@
                     </firebot-setting>
 
                     <firebot-setting
+                        name="オーバーレイ更新時にエフェクトを強制的に継続させる"
+                        description="オーバーレイをリフレッシュしたり、エフェクトをクリアする場合、オーバーレイ上で再生中のビデオ再生やサウンド再生エフェクトは、待機に設定されていても、次のエフェクトに強制的に続行されます。"
+                    >
+                        <toggle-button
+                            toggle-model="settings.getForceOverlayEffectsToContinueOnRefresh()"
+                            on-toggle="settings.setForceOverlayEffectsToContinueOnRefresh(!settings.getForceOverlayEffectsToContinueOnRefresh())"
+                            font-size="40"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
                         name="フォント管理"
                         description="オーバーレイのテキスト表示演出で使用するフォントを管理します。フォントを変更する場合は、Firebotを再起動し、オーバーレイを更新する必要があります。"
                     >

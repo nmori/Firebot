@@ -15,8 +15,8 @@
                     <div class="pl-8"" style="flex-basis: 30%;">
                         {{$ctrl.subcommand.regex || $ctrl.subcommand.fallback ? ($ctrl.subcommand.usage || "").split(" ")[0] : $ctrl.subcommand.arg}}
                         <span ng-show="$ctrl.fullyEditable">
-                            <i ng-if="$ctrl.subcommandTypeTitle === 'Number'" class="far fa-hashtag muted text-lg" uib-tooltip="Number subcommand"></i>
-                            <i ng-if="$ctrl.subcommandTypeTitle === 'Username'" class="far fa-at muted text-lg" uib-tooltip="Username subcommand"></i>
+                            <i ng-if="$ctrl.subcommandTypeTitle() === 'Number'" class="far fa-hashtag muted text-lg" uib-tooltip="Number subcommand"></i>
+                            <i ng-if="$ctrl.subcommandTypeTitle() === 'Username'" class="far fa-at muted text-lg" uib-tooltip="Username subcommand"></i>
                         </span>
                     </div>
 
@@ -143,6 +143,7 @@
                                 header="このサブコマンドは何をしますか？"
                                 effects="$ctrl.subcommand.effects"
                                 trigger="command"
+                                trigger-meta="{ rootEffects: $ctrl.subcommand.effects }"
                                 update="$ctrl.effectListUpdated(effects)"
                                 is-array="true"
                             ></effect-list>
@@ -160,10 +161,24 @@
                 </div>
             </div>
         `,
-        controller: function(viewerRolesService, utilityService) {
+        controller: function(viewerRolesService) {
             const $ctrl = this;
 
-            $ctrl.subcommandTypeTitle = "";
+            $ctrl.subcommandTypeTitle = () => {
+                if ($ctrl.fullyEditable) {
+                    if (!$ctrl.subcommand.regex) {
+                        return "Custom";
+                    } else if ($ctrl.subcommand.fallback) {
+                        return "Fallback";
+                    } else if ($ctrl.subcommand.arg === '\\d+') {
+                        return "Number";
+                    } else if ($ctrl.subcommand.arg === '@\\w+') {
+                        return "Username";
+                    }
+                }
+
+                return "";
+            };
 
             $ctrl.compiledUsage = "";
             $ctrl.onUsageChange = () => {
@@ -204,16 +219,7 @@
             };
 
             $ctrl.delete = () => {
-                utilityService.showConfirmationModal({
-                    title: "サブコマンドを削除",
-                    question: `このサブコマンドを削除しますか?`,
-                    confirmLabel: "削除する",
-                    confirmBtnType: "btn-danger"
-                }).then((confirmed) => {
-                    if (confirmed) {
-                        $ctrl.onDelete({ id: $ctrl.subcommand.id });
-                    }
-                });
+                $ctrl.onDelete({ id: $ctrl.subcommand.id });
             };
 
             $ctrl.edit = () => {

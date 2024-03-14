@@ -124,9 +124,16 @@ exports.whenReady = async () => {
     const customRolesManager = require("../../../roles/custom-roles-manager");
     await customRolesManager.loadCustomRoles();
 
-    windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
     const chatRolesManager = require("../../../roles/chat-roles-manager");
+
+    windowManagement.updateSplashScreenStatus("BOTリストを読込中..."");
     await chatRolesManager.cacheViewerListBots();
+
+    windowManagement.updateSplashScreenStatus("モデレータ情報読込中...");
+    await chatRolesManager.loadModerators();
+
+    windowManagement.updateSplashScreenStatus("VIP情報読込中...");
+    await chatRolesManager.loadVips();
 
     windowManagement.updateSplashScreenStatus("演出キューを読込中...");
     const effectQueueManager = require("../../../effects/queues/effect-queue-manager");

@@ -119,13 +119,15 @@
                 }
 
                 $ctrl.$onInit = function() {
+                    const DEFAULT_FAIL_MESSAGE = `@{user}さん、すみません。 ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} は使えません。理由: {reason}`;
+
                     if ($ctrl.restrictionData == null) {
                         $ctrl.restrictionData = {
                             restrictions: [],
                             mode: "all",
                             sendFailMessage: true,
                             useCustomFailMessage: false,
-                            failMessage: "このコマンドは使用できません: {reason}"
+                            failMessage: DEFAULT_FAIL_MESSAGE
                         };
                     }
 
@@ -142,7 +144,7 @@
                     }
 
                     if ($ctrl.restrictionData.failMessage == null) {
-                        $ctrl.restrictionData.failMessage = "このコマンドは使用できません: {reason}";
+                        $ctrl.restrictionData.failMessage = DEFAULT_FAIL_MESSAGE;
                     }
 
                     updateCanAddMoreRestrictions();

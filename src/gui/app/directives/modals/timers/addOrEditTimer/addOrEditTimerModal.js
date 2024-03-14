@@ -42,7 +42,14 @@
                 </div>
 
                 <div class="function-button-settings" style="margin-top: 15px;">
-                    <effect-list header="このタイマーが行う内容" effects="$ctrl.timer.effects" trigger="timer" trigger-meta="$ctrl.triggerMeta" update="$ctrl.effectListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
+                    <effect-list
+                        header="このタイマーが行う内容"
+                        effects="$ctrl.timer.effects"
+                        trigger="timer"
+                        trigger-meta="{ rootEffects: $ctrl.timer.effects }"
+                        update="$ctrl.effectListUpdated(effects)"
+                        modalId="{{$ctrl.modalId}}"
+                    ></effect-list>
                 </div>
                 <p class="muted" style="font-size:11px;margin-top:6px;">
                     <b>ヒント:</b> このタイマーに一度に一つのチャットメッセージを表示させたい場合は、<b>演出のランダム実行</b>または<b>演出の順番実行</b>をお試しください。
