@@ -931,6 +931,77 @@ module.exports = {
                     return `配信タイトルを **${eventData.title}** に変更しました`;
                 }
             }
+        },
+        {
+            id: "ad-break-upcoming",
+            name: "Scheduled Ad Break Starting Soon",
+            description: "When a scheduled ad break will be starting soon on your channel.",
+            cached: false,
+            manualMetadata: {
+                adBreakDuration: 60,
+                secondsUntilNextAdBreak: 300
+            },
+            activityFeed: {
+                icon: "fad fa-ad",
+                getMessage: (eventData) => {
+                    const mins = Math.floor(eventData.adBreakDuration / 60);
+                    const remainingSecs = eventData.adBreakDuration % 60;
+
+                    const friendlyDuration = mins > 0
+                        ? `${mins}m${remainingSecs > 0 ? ` ${remainingSecs}s` : ""}`
+                        : `${eventData.adBreakDuration}s`;
+
+                    const minutesUntilNextAdBreak = Math.round(eventData.secondsUntilNextAdBreak / 60);
+
+                    return `**${friendlyDuration}** scheduled ad break starting in about **${minutesUntilNextAdBreak}** minute${minutesUntilNextAdBreak !== 1 ? "s" : ""}`;
+                }
+            }
+        },
+        {
+            id: "ad-break-start",
+            name: "Ad Break Started",
+            description: "When an ad break starts on your channel.",
+            cached: false,
+            manualMetadata: {
+                adBreakDuration: 60,
+                isAdBreakScheduled: true
+            },
+            activityFeed: {
+                icon: "fad fa-ad",
+                getMessage: (eventData) => {
+                    const mins = Math.floor(eventData.adBreakDuration / 60);
+                    const remainingSecs = eventData.adBreakDuration % 60;
+
+                    const friendlyDuration = mins > 0
+                        ? `${mins}m${remainingSecs > 0 ? ` ${remainingSecs}s` : ""}`
+                        : `${eventData.adBreakDuration}s`;
+
+                    return `**${friendlyDuration}** **${eventData.isAdBreakScheduled ? "scheduled" : "manual"}** ad break started`;
+                }
+            }
+        },
+        {
+            id: "ad-break-end",
+            name: "Ad Break Ended",
+            description: "When an ad break ends on your channel.",
+            cached: false,
+            manualMetadata: {
+                adBreakDuration: 60,
+                isAdBreakScheduled: true
+            },
+            activityFeed: {
+                icon: "fad fa-ad",
+                getMessage: (eventData) => {
+                    const mins = Math.floor(eventData.adBreakDuration / 60);
+                    const remainingSecs = eventData.adBreakDuration % 60;
+
+                    const friendlyDuration = mins > 0
+                        ? `${mins}m${remainingSecs > 0 ? ` ${remainingSecs}s` : ""}`
+                        : `${eventData.adBreakDuration}s`;
+
+                    return `**${friendlyDuration}** **${eventData.isAdBreakScheduled ? "scheduled" : "manual"}** ad break ended`;
+                }
+            }
         }
     ]
 };

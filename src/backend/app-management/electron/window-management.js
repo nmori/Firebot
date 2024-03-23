@@ -443,7 +443,7 @@ async function createMainWindow() {
     );
 
     // wait for the main window's content to load, then show it
-    mainWindow.webContents.on("did-finish-load", () => {
+    mainWindow.webContents.on("did-finish-load", async () => {
 
 
         createTray(mainWindow);
@@ -457,7 +457,7 @@ async function createMainWindow() {
         }
 
         const startupScriptsManager = require("../../common/handlers/custom-scripts/startup-scripts-manager");
-        startupScriptsManager.runStartupScripts();
+        await startupScriptsManager.runStartupScripts();
 
         const eventManager = require("../../events/EventManager");
         eventManager.triggerEvent("firebot", "firebot-started", {

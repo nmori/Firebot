@@ -439,6 +439,32 @@ class TwitchEventSubClient {
             chatRolesManager.removeModeratorFromModeratorsList(event.userId);
         });
         this._subscriptions.push(channelModeratorRemoveSubscription);
+
+        // Ad break start/end
+        const channelAdBreakBeginSubscription = this._eventSubListener.onChannelAdBreakBegin(streamer.userId, (event) => {
+            twitchEventsHandler.ad.triggerAdBreakStart(
+                event.requesterName,
+                event.requesterId,
+                event.requesterDisplayName,
+                event.startDate,
+                event.durationSeconds,
+                event.isAutomatic
+            );
+
+            const adBreakEndTime = new Date(event.startDate.getTime());
+            adBreakEndTime.setSeconds(event.startDate.getSeconds() + event.durationSeconds);
+
+            setTimeout(() => {
+                twitchEventsHandler.ad.triggerAdBreakEnd(
+                    event.requesterName,
+                    event.requesterId,
+                    event.requesterDisplayName,
+                    event.durationSeconds,
+                    event.isAutomatic
+                );
+            }, adBreakEndTime.getTime() - (new Date()).getTime());
+        });
+        this._subscriptions.push(channelAdBreakBeginSubscription);
     }
 
     async createClient(): Promise<void> {

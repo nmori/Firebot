@@ -37,6 +37,15 @@
                 commandsService.saveCustomCommand(command);
             };
 
+            $scope.toggleCustomCommandVisibilityState = (command) => {
+                if (command == null) {
+                    return;
+                }
+
+                command.hidden = !command.hidden;
+                commandsService.saveCustomCommand(command);
+            };
+
             $scope.deleteCustomCommand = (command) => {
                 utilityService.showConfirmationModal({
                     title: "コマンドの削除",
@@ -119,6 +128,12 @@
                         html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
                         click: () => {
                             $scope.toggleCustomCommandActiveState(command);
+                        }
+                    },
+                    {
+                        html: `<a href ><i class="${item.hidden ? "fas fa-eye" : "fas fa-eye-slash"}" style="margin-right: 10px;"></i> ${item.hidden ? "コマンドを表示" : "コマンドを隠す"}</a>`,
+                        click: () => {
+                            $scope.toggleCustomCommandVisibilityState(command);
                         }
                     },
                     {

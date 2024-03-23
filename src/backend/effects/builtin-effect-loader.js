@@ -86,6 +86,7 @@ exports.loadEffects = () => {
         'twitch/raid',
         'twitch/set-chat-mode',
         'twitch/shoutout',
+        'twitch/snooze-ad-break',
         'twitch/stream-title',
         'twitch/stream-game',
 
@@ -96,7 +97,7 @@ exports.loadEffects = () => {
         'twitch/create-prediction',
         'twitch/lock-prediction',
         'twitch/resolve-prediction'
-    ].forEach(filename => {
+    ].forEach((filename) => {
         const definition = require(`./builtin/${filename}`);
         effectManager.registerEffect(definition);
     });
