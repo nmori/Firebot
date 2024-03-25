@@ -12,7 +12,8 @@ const NodeCache = require("node-cache");
 let activeBiddingInfo = {
     "active": false,
     "currentBid": 0,
-    "topBidder": ""
+    "topBidder": "",
+    "topBidderDisplayName": ""
 };
 let bidTimer;
 const cooldownCache = new NodeCache({checkperiod: 5});
@@ -30,7 +31,7 @@ function purgeCaches() {
 async function stopBidding(chatter) {
     clearTimeout(bidTimer);
     if (activeBiddingInfo.topBidder) {
-        await twitchChat.sendChatMessage(`${activeBiddingInfo.topBidder} が ${activeBiddingInfo.currentBid} を落札した。`, null, chatter);
+        await twitchChat.sendChatMessage(`${activeBiddingInfo.topBidderDisplayName} が ${activeBiddingInfo.currentBid} を落札した。`, null, chatter);
     } else {
         await twitchChat.sendChatMessage(`誰も入札しなかったので、勝者はいない！`, null, chatter);
     }
@@ -150,6 +151,7 @@ const bidCommand = {
             const triggeredArg = userCommand.args[0];
             const bidAmount = parseInt(triggeredArg);
             const username = userCommand.commandSender;
+            const userDisplayName = chatMessage?.userDisplayName ?? username;
 
             if (activeBiddingInfo.active === false) {
                 await twitchChat.sendChatMessage(`現在、入札は行われていません。`, null, chatter, chatMessage.id);
@@ -203,10 +205,10 @@ const bidCommand = {
 
             await currencyManager.adjustCurrencyForViewer(username, currencyId, -Math.abs(bidAmount));
             const newTopBidWithRaise = bidAmount + raiseMinimum;
-            await twitchChat.sendChatMessage(`${username} が高値を更新しました。${bidAmount} ${currencyName}. 入札するには !bid ${newTopBidWithRaise} か、それ以上の額を入力してください`);
+            await twitchChat.sendChatMessage(`${userDisplayName} が高値を更新しました。${bidAmount} ${currencyName}. 入札するには !bid ${newTopBidWithRaise} か、それ以上の額を入力してください`);
 
             // eslint-disable-next-line no-use-before-define
-            setNewHighBidder(username, bidAmount);
+            setNewHighBidder(username, userDisplayName, bidAmount);
 
             const cooldownSecs = bidSettings.settings.cooldownSettings.cooldown;
             if (cooldownSecs && cooldownSecs > 0) {
@@ -229,9 +231,10 @@ function unregisterBidCommand() {
     commandManager.unregisterSystemCommand(BID_COMMAND_ID);
 }
 
-function setNewHighBidder(username, amount) {
+function setNewHighBidder(username, userDisplayName, amount) {
     activeBiddingInfo.currentBid = amount;
     activeBiddingInfo.topBidder = username;
+    activeBiddingInfo.topBidderDisplayName = userDisplayName;
 }
 
 exports.purgeCaches = purgeCaches;
