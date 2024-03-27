@@ -58,9 +58,9 @@ const effect = {
 
     `,
     optionsController: ($scope) => {
-        $scope.showWhisperInput = $scope.effect.whisper != null && $scope.effect.whisper !== ''
+        $scope.showWhisperInput = $scope.effect.whisper != null && $scope.effect.whisper !== '';
     },
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.message == null || effect.message === "") {
             errors.push("チャットメッセージを空白にすることはできません。");

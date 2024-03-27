@@ -6,8 +6,8 @@ import adManager from "../../../twitch-api/ad-manager";
 const model: EffectType = {
     definition: {
         id: "twitch:snooze-ad-break",
-        name: "Snooze Next Ad Break",
-        description: "Pushes back the next scheduled mid-roll ad break by 5 minutes",
+        name: "広告の延期依頼",
+        description: "差し込み広告を５分延期するよう依頼します",
         icon: "fad fa-snooze",
         categories: [
             EffectCategory.COMMON,
@@ -21,9 +21,9 @@ const model: EffectType = {
     optionsTemplate: `
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You must be an affiliate or partner to use this effect.
-                Also, Twitch limits the number of times you may snooze mid-roll ads.
-                If you have snoozed ads too many times in a short period, Twitch will deny this.
+            注：この演出を使用するには、アフィリエイトユーザまたはパートナーである必要があります。
+            また、Twitchでは広告の延期回数を制限しています。
+            短期間に何度も広告を延期依頼した場合、Twitchは延期を承認しません。
             </div>
         </eos-container>
     `,
