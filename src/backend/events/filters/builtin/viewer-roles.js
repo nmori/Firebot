@@ -5,6 +5,8 @@ const teamRolesManager = require("../../../roles/team-roles-manager");
 const twitchRolesManager = require("../../../../shared/twitch-roles");
 const chatRolesManager = require("../../../roles/chat-roles-manager");
 const twitchApi = require("../../../twitch-api/api");
+const { ComparisonType } = require("../../../../shared/filter-constants");
+const logger = require("../../../logwrapper");
 
 module.exports = {
     id: "firebot:viewerroles",
@@ -26,7 +28,10 @@ module.exports = {
         { eventSourceId: "streamloots", eventId: "redemption" },
         { eventSourceId: "firebot", eventId: "view-time-update" }
     ],
-    comparisonTypes: ["include", "doesn't include"],
+    comparisonTypes: [
+        ComparisonType.INCLUDING,
+        ComparisonType.NOT_INCLUDING
+    ],
     valueType: "preset",
     presetValues: (viewerRolesService) => {
         return viewerRolesService
@@ -109,11 +114,16 @@ module.exports = {
             const hasRole = allRoles.some(r => r.id === value);
 
             switch (comparisonType) {
-                case "include":
+                case ComparisonType.INCLUDING:
+                case ComparisonType.COMPAT_INCLUDING:
+                case ComparisonType.ORG_INCLUDING:
                     return hasRole;
-                case "doesn't include":
+                case ComparisonType.NOT_INCLUDING:
+                case ComparisonType.COMPAT_NOT_INCLUDING:
+                case ComparisonType.ORG_NOT_INCLUDING:
                     return !hasRole;
                 default:
+                    logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
                     return false;
             }
         } catch {

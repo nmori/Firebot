@@ -1,6 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "firebot:chatmode",
@@ -37,18 +38,18 @@ module.exports = {
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
-        case "emoteonly":
-            return "エモートのみ";
-        case "followers":
-            return "フォロワーのみ";
-        case "subscribers":
-            return "サブスクライバーのみ";
-        case "slow":
-            return "スローモード";
-        case "r9kbeta":
-            return "ユニークチャット";
-        default:
-            return "[未設定]";
+            case "emoteonly":
+                return "エモートのみ";
+            case "followers":
+                return "フォロワーのみ";
+            case "subscribers":
+                return "サブスクライバーのみ";
+            case "slow":
+                return "スローモード";
+            case "r9kbeta":
+                return "ユニークチャット";
+            default:
+                return "[未設定]";
         }
     },
     predicate: async (filterSettings, eventData) => {
@@ -57,14 +58,17 @@ module.exports = {
         const { eventMeta } = eventData;
 
         switch (comparisonType) {
-        case "is":
-        case "一致":
-            return eventMeta.chatMode.includes(value);
-        case "is not":
-        case "不一致":
-            return !eventMeta.chatMode.includes(value);
-        default:
-            return false;
+            case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.ORG_IS:
+                return eventMeta.chatMode.includes(value);
+            case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
+                return !eventMeta.chatMode.includes(value);
+            default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
+                return false;
         }
     }
 };

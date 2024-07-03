@@ -27,10 +27,10 @@ const model : ReplaceVariable = {
     },
     evaluator: async (trigger, username) => {
         if (username === undefined || username == null) {
-            if (trigger.metadata?.userIdName === undefined || trigger.metadata?.userIdName == null) {
-                username = accountAccess.getAccounts().streamer.userIdName;
+            if (trigger.metadata?.username === undefined || trigger.metadata?.username == null) {
+                username = accountAccess.getAccounts().streamer.username;
             } else {
-                username = trigger.metadata?.userIdName;
+                username = trigger.metadata?.username;
             }
         }
 

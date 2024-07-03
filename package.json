@@ -1,6 +1,6 @@
 {
   "name": "firebotv5",
-  "version": "5.62.1",
+  "version": "5.62.2-alpha.6",
   "description": "Twitch 配信者のための高機能な統合BOTツール.",
   "main": "build/main.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "electron-rebuild": "^1.8.6",
     "eslint": "^8.56.0",
     "eslint-plugin-angular": "^4.0.1",
-    "grunt": "^1.4.0",
+    "grunt": "^1.6.1",
     "grunt-contrib-compress": "^1.6.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-electron-installer": "^2.1.0",

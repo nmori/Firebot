@@ -170,6 +170,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     streamerChatClient.onResub(async (_channel, _user, subInfo, msg) => {
         try {
             if (subInfo.originalGiftInfo != null) {
+                logger.info(`Gifted sub resub:${JSON.stringify(subInfo)}`);
                 twitchEventsHandler.sub.triggerSub(
                     msg.userInfo.userName,
                     subInfo.userId,
@@ -200,6 +201,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     });
 
     streamerChatClient.onCommunitySub((_channel, _user, subInfo) => {
+        logger.info(`Gifted onCommunitySub :${JSON.stringify(subInfo)}`);
         twitchEventsHandler.giftSub.triggerCommunitySubGift(
             subInfo.gifterUserName ?? "anonymous",
             subInfo.gifterDisplayName ?? "匿名",
@@ -209,10 +211,10 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     });
 
     streamerChatClient.onSubGift((_channel, _user, subInfo) => {
+        logger.info(`Gifted onSubGift :${JSON.stringify(subInfo)}`);
         twitchEventsHandler.giftSub.triggerSubGift(
-            subInfo.gifterUserName ?? "anonymous",
             subInfo.gifterDisplayName ?? "匿名",
-            subInfo.gifter,
+            subInfo.gifterUserName ?? "anonymous",
             subInfo.gifterUserId,
             !subInfo.gifterUserId,
             subInfo.displayName,

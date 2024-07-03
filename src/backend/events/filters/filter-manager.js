@@ -3,7 +3,6 @@
 const { ipcMain } = require("electron");
 const logger = require("../../logwrapper");
 const EventEmitter = require("events");
-
 class FilterManager extends EventEmitter {
     constructor() {
         super();
@@ -90,7 +89,7 @@ const manager = new FilterManager();
 ipcMain.on("getFiltersForEvent", (event, data) => {
     logger.info("got 'get all filters' request");
     const { eventSourceId, eventId } = data;
-    event.returnValue = manager.getFiltersForEvent(eventSourceId, eventId).map(f => {
+    event.returnValue = manager.getFiltersForEvent(eventSourceId, eventId).map(f=> {
         return {
             id: f.id,
             name: f.name,

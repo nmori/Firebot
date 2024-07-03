@@ -33,7 +33,7 @@
                             <div class="control__indicator"></div>
                         </label>
                     </div>
-                </div>
+                </div>       
                 <div ng-if="$ctrl.effect.position === 'Custom'" style="margin: 5px 0 5px 0px;">
                     <form class="form-inline">
                         <div class="form-group">

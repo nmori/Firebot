@@ -1,6 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "firebot:donation-amount",
@@ -30,25 +31,41 @@ module.exports = {
         const donationAmount = eventMeta.donationAmount || 0;
 
         switch (comparisonType) {
-            case ComparisonType.IS: {
+            case ComparisonType.IS:
+            case ComparisonType.COMAPT_IS:
+            case ComparisonType.ORG_IS:
+            {
                 return donationAmount === value;
             }
-            case ComparisonType.IS_NOT: {
+            case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
+            {
                 return donationAmount !== value;
             }
-            case ComparisonType.LESS_THAN: {
+            case ComparisonType.LESS_THAN:
+            case ComparisonType.ORG_LESS_THAN:
+            {
                 return donationAmount < value;
             }
-            case ComparisonType.LESS_THAN_OR_EQUAL_TO: {
+            case ComparisonType.LESS_THAN_OR_EQUAL_TO:
+            case ComparisonType.ORG_LESS_THAN_OR_EQUAL_TO:
+            {
                 return donationAmount <= value;
             }
-            case ComparisonType.GREATER_THAN: {
+            case ComparisonType.GREATER_THAN:
+            case ComparisonType.COMPAT_GREATER_THAN:
+            case ComparisonType.ORG_GREATER_THAN:
+            {
                 return donationAmount > value;
             }
-            case ComparisonType.GREATER_THAN_OR_EQUAL_TO: {
+            case ComparisonType.GREATER_THAN_OR_EQUAL_TO:
+            case ComparisonType.ORG_GREATER_THAN_OR_EQUAL_TO:
+            {
                 return donationAmount >= value;
             }
             default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
                 return false;
         }
     }

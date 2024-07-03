@@ -1,6 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "firebot:username",
@@ -42,16 +43,26 @@ module.exports = {
 
         switch (comparisonType) {
             case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.ORG_IS:
                 return eventUsername === filterUsername;
             case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
                 return eventUsername !== filterUsername;
             case ComparisonType.CONTAINS:
+            case ComparisonType.COMPAT_CONTAINS:
+            case ComparisonType.ORG_CONTAINS:
                 return eventUsername.includes(filterUsername);
-            case ComparisonType.MATCHES_REGEX: {
+            case ComparisonType.MATCHES_REGEX:
+            case ComparisonType.COMPAT_MATCHES_REGEX:
+            case ComparisonType.ORG_MATCHES_REGEX:
+            {
                 const regex = new RegExp(filterUsername, "gi");
                 return regex.test(eventUsername);
             }
             default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
                 return false;
         }
     }

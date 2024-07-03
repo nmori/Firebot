@@ -1,4 +1,6 @@
 "use strict";
+const { ComparisonType } = require("../../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "streamloots:chest-quantity",
@@ -7,7 +9,12 @@ module.exports = {
     events: [
         { eventSourceId: "streamloots", eventId: "purchase" }
     ],
-    comparisonTypes: ["一致", "不一致", "未満", "以上"],
+    comparisonTypes: [
+        ComparisonType.IS,
+        ComparisonType.IS_NOT,
+        ComparisonType.LESS_THAN,
+        ComparisonType.GREATER_THAN_OR_EQUAL_TO
+    ],
     valueType: "number",
     predicate: (filterSettings, eventData) => {
 
@@ -21,24 +28,24 @@ module.exports = {
         }
 
         switch (comparisonType) {
-        case "is":
-        case "一致": {
-            return quantity === value;
-        }
-        case "is not":
-        case "不一致": {
-            return quantity !== value;
-        }
-        case "less than":
-        case "未満": {
-            return quantity < value;
-        }
-        case "greater than":
-        case "以上": {
-            return quantity > value;
-        }
-        default:
-            return false;
+            case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.ORG_IS:
+                return quantity === value;
+            case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
+                return quantity !== value;
+            case ComparisonType.LESS_THAN:
+            case ComparisonType.ORG_LESS_THAN:
+                return quantity < value;
+            case ComparisonType.GREATER_THAN:
+            case ComparisonType.COMPAT_GREATER_THAN:
+            case ComparisonType.ORG_GREATER_THAN:
+                return quantity > value;
+            default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
+                return false;
         }
     }
 };

@@ -170,7 +170,7 @@ const effect = {
         <eos-container header="視聴者のID" pad-top="true">
             <firebot-input model="effect.username" placeholder-text="視聴者IDを入力" />
             <p ng-show="trigger == 'command'" class="muted" style="font-size:11px;margin-top:6px;">
-                <b>情報:</b> 一般的には <b>$user</b> 、<b>$userIdName</b> あたりをつかいます 
+                <b>情報:</b> 一般的には <b>$user</b> 、<b>$username</b> あたりをつかいます 
             </p>
         </eos-container>
         <eos-container header="継続時間" pad-top="true">

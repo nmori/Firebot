@@ -1,6 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "streamloots:card-rarity",
@@ -52,7 +53,18 @@ module.exports = {
         if (!cardRarity) {
             return false;
         }
-
-        return comparisonType === ComparisonType.IS ? value === cardRarity : value !== cardRarity;
+        switch (comparisonType) {
+            case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.ORG_IS:
+                return  value === cardRarity;
+            case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
+                return value !== cardRarity;
+            default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
+                return false;
+        }
     }
 };

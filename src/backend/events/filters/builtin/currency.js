@@ -1,5 +1,8 @@
 "use strict";
 
+const { ComparisonType } = require("../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
+
 module.exports = {
     id: "firebot:currency",
     name: "通貨",
@@ -7,7 +10,10 @@ module.exports = {
     events: [
         { eventSourceId: "firebot", eventId: "currency-update" }
     ],
-    comparisonTypes: ["一致", "不一致"],
+    comparisonTypes: [
+        ComparisonType.IS,
+        ComparisonType.IS_NOT
+    ],
     valueType: "preset",
     presetValues: currencyService => {
         return currencyService
@@ -32,14 +38,17 @@ module.exports = {
         const expected = value;
 
         switch (comparisonType) {
-        case "is":
-        case "一致":
-            return actual === expected;
-        case "is not":
-        case "不一致":
-            return actual !== expected;
-        default:
-            return false;
+            case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.ORG_IS:
+                return actual === expected;
+            case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
+                return actual !== expected;
+            default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
+                return false;
         }
     }
 };

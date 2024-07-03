@@ -2,12 +2,17 @@
 
 const twitchApi = require("../../../../../twitch-api/api");
 const roleHelpers = require("../../../../../roles/role-helpers").default;
+const { ComparisonType } = require("../../../../../../shared/filter-constants");
+const logger = require("../../../../../logwrapper");
 
 module.exports = {
     id: "firebot:viewerroles",
     name: "視聴者の役割",
     description: "与えられた視聴者の役割に基づく条件",
-    comparisonTypes: ["役割を担当", "役割を担当していない", "include", "doesn't include"],
+    comparisonTypes: [
+        ComparisonType.HAS_ROLE,
+        ComparisonType.HAS_NOT_ROLE
+    ],
     leftSideValueType: "text",
     leftSideTextPlaceholder: "ユーザ名を入力",
     rightSideValueType: "preset",
@@ -51,19 +56,14 @@ module.exports = {
         const hasRole = await roleHelpers.viewerHasRoles(user.id, [rightSideValue]);
 
         switch (comparisonType) {
-            case "include":
-            case "is in role":
-            case "has role":
-            case "役割を担当":
+            case ComparisonType.HAS_ROLE:
                 return hasRole;
 
-            case "doesn't include":
-            case "isn't in role":
-            case "doesn't have role":
-            case "役割を担当していない":
+            case ComparisonType.HAS_NOT_ROLE:
                 return !hasRole;
 
             default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
                 return false;
         }
     }

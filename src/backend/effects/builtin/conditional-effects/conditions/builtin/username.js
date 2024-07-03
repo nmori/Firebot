@@ -1,10 +1,17 @@
 "use strict";
+const { ComparisonType } = require("../../../../../../shared/filter-constants");
+const logger = require("../../../../../logwrapper");
 
 module.exports = {
     id: "firebot:username",
     name: "ユーザ名",
     description: "ユーザー名に基づく条件",
-    comparisonTypes: ["一致", "不一致", "含む", "正規表現"],
+    comparisonTypes: [
+        ComparisonType.IS,
+        ComparisonType.IS_NOT,
+        ComparisonType.CONTAINS,
+        ComparisonType.MATCHES_REGEX
+    ],
     leftSideValueType: "none",
     rightSideValueType: "text",
     predicate: (conditionSettings, trigger) => {
@@ -16,21 +23,26 @@ module.exports = {
         const conditionUsername = rightSideValue ? rightSideValue.toLowerCase() : "";
 
         switch (comparisonType) {
-            case "is":
-            case "一致":
+            case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.ORG_IS:
                 return triggerUsername === conditionUsername;
-            case "is not":
-            case "不一致":
+            case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
                 return triggerUsername !== conditionUsername;
-            case "contains":
-            case "含む":
+            case ComparisonType.CONTAINS:
+            case ComparisonType.COMPAT_CONTAINS:
+            case ComparisonType.ORG_CONTAINS:
                 return triggerUsername.includes(conditionUsername);
-            case "matches regex":
-            case "正規表現": {
+            case ComparisonType.MATCHES_REGEX:
+            case ComparisonType.ORG_MATCHES_REGEX:
+            {
                 const regex = new RegExp(conditionUsername, "gi");
                 return regex.test(triggerUsername);
             }
             default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
                 return false;
         }
     }

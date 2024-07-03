@@ -77,9 +77,9 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Beta Notifications"
-                        description="Firebot automatically updates to new stable versions. It does not automatically update to betas or major new
-                        releases however. Enable if you want to be notified of new beta releases."
+                        name="ベータ版の通知"
+                        description="Firebot は自動的に安定版をダウンロードしますが、ベータ版リリースは自動更新の対象外です。
+                        新しいベータ版リリースの通知を受けたい場合は有効にしてください。"
                     >
                         <toggle-button
                             toggle-model="settings.notifyOnBeta()"
@@ -89,8 +89,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Feature My Stream on Firebot.app"
-                        description="Enable this setting to have your stream displayed on Firebot's website when you're live"
+                        name="Firebot ホームページ上の紹介"
+                        description="この設定を有効にすると、配信中にFirebotのウェブサイトに配信が紹介されます。"
                     >
                         <toggle-button
                             toggle-model="settings.getWebOnlineCheckin()"
@@ -100,8 +100,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Live Stream Stats"
-                        description="Select which stream stats show in the top bar when live."
+                        name="ライブ・ストリーム"
+                        description="配信時にトップバーに表示される配信統計を選択します。"
                     >
                         <div>
                             <label class="control-fb control--checkbox"

@@ -90,7 +90,7 @@
 
             $scope.$watchCollection("$ctrl.metadata", (changes) => {
                 if (changes.key === 'isAnonymous') {
-                    ctrl.onUpdate({ value: changes.value });
+                    ctrl.onUpdate({ value: changes.value !== undefined ? changes.value : "" });
                 }
             });
 

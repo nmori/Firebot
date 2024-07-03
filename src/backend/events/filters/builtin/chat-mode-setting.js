@@ -1,6 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "firebot:chatmodesetting",
@@ -25,12 +26,12 @@ module.exports = {
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
-        case "enabled":
-            return "有効";
-        case "disabled":
-            return "無効";
-        default:
-            return "[なし]";
+            case "enabled":
+                return "有効";
+            case "disabled":
+                return "無効";
+            default:
+                return "[なし]";
         }
     },
     predicate: async (filterSettings, eventData) => {
@@ -41,12 +42,10 @@ module.exports = {
         const chatModeStateEnabled = eventMeta.chatModeState === "enabled";
 
         switch (value) {
-            case "enabled": {
+            case "enabled":
                 return chatModeStateEnabled;
-            }
-            case "disabled": {
+            case "disabled":
                 return !chatModeStateEnabled;
-            }
             default:
                 return !chatModeStateEnabled;
         }

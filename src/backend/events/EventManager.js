@@ -65,7 +65,7 @@ class EventManager extends EventEmitter {
 
     async triggerEvent(sourceId, eventId, meta, isManual = false, isRetrigger = false, isSimulation = false) {
         const source = this.getEventSourceById(sourceId);
-        const event = this.getEventById(sourceId, eventId);
+        let event = this.getEventById(sourceId, eventId);
         if (event == null) {
             return;
         }

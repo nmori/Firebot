@@ -3,6 +3,8 @@
 const {
     EffectTrigger
 } = require("../../../../../../shared/effect-constants");
+const { ComparisonType } = require("../../../../../../shared/filter-constants");
+const logger = require("../../../../../logwrapper");
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -13,7 +15,12 @@ module.exports = {
     name: "コマンド引数カウント",
     description: "コマンドの引数の数に基づく条件",
     triggers: triggers,
-    comparisonTypes: ["一致", "不一致", "未満", "より上"],
+    comparisonTypes: [
+        ComparisonType.IS,
+        ComparisonType.IS_NOT,
+        ComparisonType.LESS_THAN,
+        ComparisonType.GREATER_THAN
+    ],
     leftSideValueType: "none",
     rightSideValueType: "number",
     predicate: (conditionSettings, trigger) => {
@@ -25,20 +32,24 @@ module.exports = {
         const argsCount = args.length;
 
         switch (comparisonType) {
-        case "is":
-        case "一致":
-            return argsCount === rightSideValue;
-        case "is not":
-        case "不一致":
-            return argsCount !== rightSideValue;
-        case "is less than":
-        case "未満":
-            return argsCount < rightSideValue;
-        case "is greater than":
-        case "より上":
-            return argsCount > rightSideValue;
-        default:
-            return false;
+            case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.ORG_IS:
+                return argsCount === rightSideValue;
+            case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
+                return argsCount !== rightSideValue;
+            case ComparisonType.LESS_THAN:
+            case ComparisonType.ORG_THAN:
+                return argsCount < rightSideValue;
+            case ComparisonType.GREATER_THAN:
+            case ComparisonType.COMPAT_GREATER_THAN:
+            case ComparisonType.ORG_GREATER_THAN:
+                return argsCount > rightSideValue;
+            default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
+                return false;
         }
     }
 };

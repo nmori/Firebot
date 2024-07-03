@@ -1,6 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "streamloots:gift-purchase",

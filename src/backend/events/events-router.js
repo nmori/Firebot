@@ -1,5 +1,6 @@
 "use strict";
 
+const logger = require("../logwrapper");
 const NodeCache = require("node-cache");
 const { EffectTrigger } = require("../../shared/effect-constants");
 const filterManager = require("./filters/filter-manager");
@@ -82,6 +83,8 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
         es => es.sourceId === source.id && es.eventId === event.id
     );
 
+    logger.info(`call event:${JSON.stringify(event)} meta:${JSON.stringify(meta)}`);
+
     const effectPromises = [];
     for (const eventSetting of eventSettings) {
 
@@ -91,6 +94,8 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
                 eventId: event.id,
                 eventMeta: meta
             });
+            logger.info(`- jugde filter:${JSON.stringify(eventSetting.filterData)}`);
+            logger.info(`- jugde result:${passed}`);
             if (!passed) {
                 continue;
             }
@@ -126,7 +131,9 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
 
     try {
         await Promise.all(effectPromises);
-    } catch (error) {}
+    } catch (error) {
+        logger.error(`event error: ${event.name} in ${source.name}' because: ${JSON.stringify(error)}`);
+    }
 }
 
 // Export Functions

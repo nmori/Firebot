@@ -25,12 +25,12 @@ module.exports = {
     },
     getSelectedValueDisplay: (filterSettings) => {
         switch (filterSettings.value) {
-        case "first":
-            return "初回";
-        case "resub":
-            return "再び";
-        default:
-            return "[未設定]";
+            case "first":
+                return "初回";
+            case "resub":
+                return "再び";
+            default:
+                return "[未設定]";
         }
     },
     predicate: (filterSettings, eventData) => {
@@ -42,7 +42,7 @@ module.exports = {
             return true;
         }
 
-        const isResub = eventMeta.isResub;
+        const isResub = eventMeta.isResub ? "resub" : "first";
         const expectingResub = value === 'resub';
 
         return isResub === expectingResub;

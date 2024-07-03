@@ -45,6 +45,7 @@
                         </label>
                     </div>
                 </div>
+                
                 <div class="cooldown-title">
                     <div class="controls-fb-inline effect-custom-cooldown-container">
                         <label class="control-fb control--checkbox">再実行可能になるまでの待ち時間
@@ -59,7 +60,7 @@
                             </label>
                         </div>
                     </div>
-            </div>
+                </div>
             </div>
             <div ng-if="$ctrl.event.eventId != null" class="effect-setting-container setting-padtop">
                 <effect-list

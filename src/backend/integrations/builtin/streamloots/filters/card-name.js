@@ -1,6 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "streamloots:card-name",
@@ -28,16 +29,26 @@ module.exports = {
 
         switch (comparisonType) {
             case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.ORG_IS:
                 return cardName === filterCardName;
             case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
                 return cardName !== filterCardName;
             case ComparisonType.CONTAINS:
+            case ComparisonType.COMPAT_CONTAINS:
+            case ComparisonType.ORG_CONTAINS:
                 return cardName.includes(filterCardName);
-            case ComparisonType.MATCHES_REGEX: {
+            case ComparisonType.MATCHES_REGEX:
+            case ComparisonType.COMPAT_MATCHES_REGEX:
+            case ComparisonType.ORG_MATCHES_REGEX:
+            {
                 const regex = new RegExp(filterCardName, "gi");
                 return regex.test(cardName);
             }
             default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
                 return false;
         }
     }

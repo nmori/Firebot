@@ -199,7 +199,7 @@ async function runEffectsManually(effects, metadata = {}, triggerType = EffectTr
             type: triggerType,
             metadata: {
                 username: streamerName,
-                useridname: user.useridname ?? "",
+                useridname: user.username ?? "",
                 displayName: user.displayName ?? streamerName,
                 eventData: {
                     shared: true,
