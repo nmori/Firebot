@@ -5,7 +5,7 @@ const moment = require("moment");
 
 const twitchApi = require("../../../twitch-api/api");
 const accountAccess = require("../../../common/account-access");
-const logger = require("../../../logwrapper");
+const logger = require("../../../../backend/logwrapper");
 
 const model : ReplaceVariable = {
     definition: {

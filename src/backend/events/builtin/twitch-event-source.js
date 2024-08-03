@@ -74,7 +74,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が {eventData.isResub ? '再サブスク' : 'サブスク'} しました。  **${eventData.totalMonths} ヶ月目** ${eventData.subPlan.value === 'Prime' ?
-                        " **Twitch Prime**" : `: **Tier ${eventData.subPlan.value.replace("000", "")}**`}`;
+                        " **Twitch Prime**" : `: **Tier ${eventData.subPlan.replace("000", "")}**`}`;
                 }
             }
         },
@@ -101,7 +101,7 @@ module.exports = {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
-                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が **Tier ${eventData.subPlan.value.replace("000", "")}にアップグレードしました!**`;
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が **Tier ${eventData.subPlan.replace("000", "")}にアップグレードしました!**`;
 
                 }
             }
@@ -130,7 +130,7 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-gift",
                 getMessage: (eventData) => {
-                    return `**${eventData.isAnonymous ? "匿名" : eventData.gifterUsername}** さんが ${eventData.giftDuration > 1 ? ` **${eventData.giftDuration} ヶ月の** ` : ''} **Tier ${eventData.subPlan.value.replace("000", "")}** のサブスクを **${eventData.gifteeUsername}** へ贈りました。( ${eventData.giftSubMonths} ヶ月 )`;
+                    return `**${eventData.isAnonymous ? "匿名" : eventData.gifterUsername}** さんが ${eventData.giftDuration > 1 ? ` **${eventData.giftDuration} ヶ月の** ` : ''} **Tier ${eventData.subPlan.replace("000", "")}** のサブスクを **${eventData.gifteeUsername}** へ贈りました。( ${eventData.giftSubMonths} ヶ月 )`;
                 }
             }
         },
@@ -166,7 +166,7 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-gifts",
                 getMessage: (eventData) => {
-                    return `**${eventData.isAnonymous ? "匿名" : eventData.gifterUsername}** さんは **${eventData.subCount} つの Tier ${eventData.subPlan.value.replace("000", "")}** ギフトを贈りました`;
+                    return `**${eventData.isAnonymous ? "匿名" : eventData.gifterUsername}** さんは **${eventData.subCount} つの Tier ${eventData.subPlan.replace("000", "")}** ギフトを贈りました`;
                 }
             }
         },
@@ -195,7 +195,7 @@ module.exports = {
                 icon: "fas fa-star",
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
-                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんは サブスクギフトから Tier ${eventData.subPlan.value.replace("000", "")}へアップグレードしました!**`;
+                    return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** さんは サブスクギフトから Tier ${eventData.subPlan.replace("000", "")}へアップグレードしました!**`;
 
                 }
             }

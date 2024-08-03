@@ -17,7 +17,6 @@ interface CommunityGiftSubCache {
 }
 
 export function triggerCommunitySubGift(
-    gifterUserName: string,
     gifterDisplayName: string,
     subPlan: string,
     subCount: number
@@ -32,7 +31,6 @@ export function triggerSubGift(
     gifterUserId: string,
     isAnonymous: boolean,
     gifteeDisplayName: string,
-    gifteeUserName: string,
     subPlan: string,
     giftDuration: number,
     giftSubMonths: number,
@@ -62,10 +60,7 @@ export function triggerSubGift(
                             subCount: giftReceivers.length,
                             subPlan,
                             isAnonymous,
-                            gifteeUsername: gifteeUserName,
-                            gifteeDisplayName: gifteeDisplayName,
-                            gifterUsername: gifterUserName,
-                            gifterDisplayName: gifterDisplayName,
+                            gifterUsername: gifterDisplayName,
                             giftReceivers: giftReceivers
                         });
 
@@ -88,10 +83,8 @@ export function triggerSubGift(
         userId: gifterUserId,
         userDisplayName: gifterDisplayName,
         giftSubMonths,
-        gifteeUsername: gifteeUserName,
-        gifteeDisplayName: gifteeDisplayName,
-        gifterUsername: gifterUserName,
-        gifterDisplayName: gifterDisplayName,
+        gifteeUsername: gifteeDisplayName,
+        gifterUsername: gifterDisplayName,
         subPlan,
         isAnonymous,
         giftDuration
@@ -103,7 +96,6 @@ export function triggerSubGiftUpgrade(
     gifteeUsername: string,
     gifteeUserId: string,
     gifteeDisplayName: string,
-    gifterUserName: string,
     gifterDisplayName: string,
     subPlan: string
 ): void {

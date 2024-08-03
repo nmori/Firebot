@@ -3,7 +3,7 @@ import { OutputDataType, VariableCategory } from "../../../../../shared/variable
 
 const expressionish = require('expressionish');
 const moment = require("moment");
-const logger = require("../../../../logwrapper");
+const logger = require("../../../../../backend/logwrapper");
 const twitchApi = require("../../../../twitch-api/api");
 
 const model : ReplaceVariable = {

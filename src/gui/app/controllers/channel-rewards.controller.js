@@ -88,7 +88,7 @@
                         enabled: item.manageable
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             channelRewardsService.duplicateChannelReward(item.id);
                         },

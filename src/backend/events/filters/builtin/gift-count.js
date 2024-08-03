@@ -1,7 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
-const logger = require("../../../../logwrapper");
+const logger = require("../../../logwrapper");
 
 module.exports = {
     id: "firebot:gift-count",

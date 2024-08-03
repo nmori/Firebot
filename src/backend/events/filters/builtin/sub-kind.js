@@ -42,7 +42,7 @@ module.exports = {
             return true;
         }
 
-        const isResub = eventMeta.isResub ? "resub" : "first";
+        const isResub = eventMeta.isResub;
         const expectingResub = value === 'resub';
 
         return isResub === expectingResub;

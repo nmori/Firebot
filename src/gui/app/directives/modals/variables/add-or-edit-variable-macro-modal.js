@@ -15,14 +15,14 @@
                         <i class="fal fa-times" aria-hidden="true"></i>
                     </button>
                     <h4 class="modal-title">
-                        <div class="action text-4xl">{{$ctrl.isNewMacro ? 'Add New Macro' : 'Edit Macro:'}}</div>
+                        <div class="action text-4xl">{{$ctrl.isNewMacro ? 'マクロ変数を追加' : 'マクロ変数を編集:'}}</div>
                         <div class="text-4xl font-semibold" ng-show="!$ctrl.isNewMacro">{{$ctrl.macro.name}}</div>
                     </h4>
                 </div>
                 <div class="modal-body">
                     <form name="macroSettings">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
-                            <label for="name" class="control-label">Name</label>
+                            <label for="name" class="control-label">名前</label>
                             <div style="position: relative;">
                                 <input
                                     type="text"
@@ -32,7 +32,7 @@
                                     ui-validate="{valid:'$ctrl.macroNameIsValid($value)', taken:'!$ctrl.macroNameIsTaken($value)'}"
                                     required
                                     class="form-control input-lg"
-                                    placeholder="Give your macro a name"
+                                    placeholder="マクロ変数名"
                                     ng-model="$ctrl.macro.name"
                                     ng-disabled="$ctrl.nameFieldLocked"
                                     ng-style="{'padding-right': $ctrl.nameFieldLocked ? '77px' : ''}"
@@ -45,19 +45,19 @@
                                     <button
                                         class="btn btn-default btn-xs"
                                         ng-click="$ctrl.unlockNameField()"
-                                    ><i class="fas fa-lock"></i> Locked</button>
+                                    ><i class="fas fa-lock"></i> ロック中</button>
                                 </div>
                             </div>
                             <div ng-if="$ctrl.formFieldHasError('name')">
-                                <span ng-if="macroSettings.name.$error.required" class="help-block">Name is required.</span>
-                                <span ng-if="macroSettings.name.$error.minlength" class="help-block">Name must be 3 or more characters.</span>
-                                <span ng-if="macroSettings.name.$error.valid && !macroSettings.name.$error.required && !macroSettings.name.$error.minlength" class="help-block">Invalid name format.</span>
-                                <span ng-if="macroSettings.name.$error.taken" class="help-block">This name is already in use.</span>
+                                <span ng-if="macroSettings.name.$error.required" class="help-block">名前の入力が必要です</span>
+                                <span ng-if="macroSettings.name.$error.minlength" class="help-block">名前は３文字以上でつけてください</span>
+                                <span ng-if="macroSettings.name.$error.valid && !macroSettings.name.$error.required && !macroSettings.name.$error.minlength" class="help-block">名前の形式が不正です</span>
+                                <span ng-if="macroSettings.name.$error.taken" class="help-block">その名前はすでに使われています</span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="expression" class="control-label">Description</label>
+                            <label for="expression" class="control-label">概要</label>
                             <input
                                 type="text"
                                 id="description"
@@ -65,12 +65,12 @@
                                 class="form-control input-lg"
                                 style="font-size: 16px; padding: 10px 16px;"
                                 ng-model="$ctrl.macro.description"
-                                placeholder="Optional"
+                                placeholder="任意"
                             />
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('expression')}">
-                            <label for="expression" class="control-label">Variable Expression</label>
+                            <label for="expression" class="control-label">変数式</label>
                             <textarea
                                 type="text"
                                 id="expression"
@@ -79,7 +79,7 @@
                                 required
                                 class="form-control input-lg"
                                 style="font-size: 16px; padding: 10px 16px; height: 100px;"
-                                placeholder="The variable expression"
+                                placeholder="式を入力"
                                 rows="4"
                                 cols="40"
                                 ng-model="$ctrl.macro.expression"
@@ -89,15 +89,15 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="args" class="control-label">Args</label>
+                            <label for="args" class="control-label">引数</label>
                             <editable-list settings="$ctrl.argListSettings" model="$ctrl.macro.argNames" />
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer sticky-footer edit-macro-footer">
-                    <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-if="!$ctrl.isNewMacro">Delete</button>
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-if="!$ctrl.isNewMacro">削除</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
                 <scroll-sentinel element-class="edit-macro-footer"></scroll-sentinel>
             `,
@@ -132,15 +132,15 @@
                     hintTemplate: "$^{name}",
                     showCopyButton: true,
                     copyTemplate: "$^{name}",
-                    addLabel: "Add Arg",
-                    editLabel: "Edit Arg",
+                    addLabel: "引数を追加",
+                    editLabel: "引数を変数",
                     noDuplicates: true,
                     customValidators: [
                         (argName) => {
                             if (/^\d+$/.test(argName)) {
                                 return {
                                     success: false,
-                                    reason: "Arg name cannot be only numbers."
+                                    reason: "数字のみの名前は使えません"
                                 };
                             }
                             return true;
@@ -149,7 +149,7 @@
                             if (!/^[a-z][a-zA-Z0-9]+$/.test(argName)) {
                                 return {
                                     success: false,
-                                    reason: "Arg name must be alphanumeric with no spaces or special characters."
+                                    reason: "変数名は、空白や特殊文字を含まず、アルファベットから始まる名前にしてください"
                                 };
                             }
                             return true;
@@ -185,9 +185,10 @@
                 $ctrl.unlockNameField = () => {
                     utilityService
                         .showConfirmationModal({
-                            title: "Warning",
-                            question: `If you rename this macro, any references to it in your effects will need to be updated manually. Are you sure you want to rename this macro?`,
-                            confirmLabel: "Yes, rename",
+                            title: "警告",
+                            question: `名前を変更した場合、このマクロ変数を参照している設定を手動ですべて更新する必要があります。このマクロの名前を変更してもよろしいですか?
+`,
+                            confirmLabel: "はい、変更します",
                             confirmBtnType: "btn-default"
                         })
                         .then((confirmed) => {
@@ -218,7 +219,7 @@
                         if (successful) {
                             $ctrl.dismiss();
                         } else {
-                            ngToast.create("Failed to save macro. Please try again or view logs for details.");
+                            ngToast.create("保存に失敗しました。もう一度試すか、詳細についてはログを表示してください。");
                         }
                     });
                 };
@@ -230,9 +231,9 @@
 
                     utilityService
                         .showConfirmationModal({
-                            title: "Delete Macro",
-                            question: `Are you sure you want to delete this macro?`,
-                            confirmLabel: "Delete",
+                            title: "マクロ変数を削除",
+                            question: `削除してもよろしいですか`,
+                            confirmLabel: "削除",
                             confirmBtnType: "btn-danger"
                         })
                         .then((confirmed) => {

@@ -118,7 +118,6 @@ class CommandRunner {
                     username: userCommand.commandSender,
                     userId: undefined,
                     userDisplayName: userCommand.commandSender,
-                    displayName: undefined,
                     command: command,
                     userCommand: userCommand,
                     chatMessage: firebotChatMessage

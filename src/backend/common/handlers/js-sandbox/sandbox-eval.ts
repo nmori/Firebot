@@ -3,7 +3,7 @@ import { BrowserWindow, MessageChannelMain, session } from 'electron';
 
 import type { Trigger } from '../../../../types/triggers';
 
-const logger = require('../../../logwrapper');
+const logger = require('../../../../backend/logwrapper');
 const preloadPath = join(__dirname, 'sandbox-preload.js');
 const htmlPath = join(__dirname, './sandbox.html');
 

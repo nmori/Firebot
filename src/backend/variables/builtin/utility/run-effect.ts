@@ -3,7 +3,7 @@ import { OutputDataType, VariableCategory } from "../../../../shared/variable-co
 
 const uuid = require("uuid/v4");
 
-const logger = require("../../../logwrapper");
+const logger = require("../../../../backend/logwrapper");
 const effectRunner = require("../../../common/effect-runner");
 
 const model : ReplaceVariable = {

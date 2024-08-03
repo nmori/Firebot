@@ -3,7 +3,7 @@ import { OutputDataType, VariableCategory } from "../../../../shared/variable-co
 
 import { getRandomInt } from '../../../utility';
 
-const logger = require("../../../logwrapper");
+const logger = require("../../../../backend/logwrapper");
 const activeUserHandler = require('../../../chat/chat-listeners/active-user-handler');
 const customRoleManager = require('../../../roles/custom-roles-manager');
 

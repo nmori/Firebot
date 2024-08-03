@@ -4,7 +4,7 @@ import axios from "axios";
 import { ReplaceVariable } from "../../../../types/variables";
 import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
 
-import logger from "../../../logwrapper";
+import logger from "../../../../backend/logwrapper";
 
 const callUrl = async (url: string) => {
     try {

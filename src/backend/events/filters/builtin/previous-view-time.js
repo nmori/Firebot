@@ -1,7 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
-const logger = require("../../../../logwrapper");
+const logger = require("../../../../backend/logwrapper");
 
 module.exports = {
     id: "firebot:previous-view-time",

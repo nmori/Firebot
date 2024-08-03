@@ -3,7 +3,7 @@ import { OutputDataType, VariableCategory } from "../../../../shared/variable-co
 
 const fs = require("fs");
 const util = require("../../../utility");
-const logger = require("../../../logwrapper");
+const logger = require("../../../../backend/logwrapper");
 
 const model : ReplaceVariable = {
     definition: {

@@ -1,7 +1,6 @@
 import accountCreationDate from './account-creation-date';
 import chatMessages from './chat-messages';
 import isUserInChat from './is-user-in-chat';
-import displayName from './display-name';
 import pronouns from './pronouns';
 import randomViewer from './random-viewer';
 import randomActiveViewer from './random-active-viewer';
@@ -27,7 +26,6 @@ export default [
     accountCreationDate,
     chatMessages,
     isUserInChat,
-    displayName,
     pronouns,
     randomViewer,
     randomActiveViewer,

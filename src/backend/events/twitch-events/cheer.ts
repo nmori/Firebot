@@ -24,7 +24,6 @@ export function triggerBitsBadgeUnlock(
     username: string,
     userId: string,
     userDisplayName: string,
-    displayName: string,
     message: string,
     badgeTier: number
 ): void {
@@ -32,7 +31,6 @@ export function triggerBitsBadgeUnlock(
         username,
         userId,
         userDisplayName,
-        displayName: displayName,
         message,
         badgeTier
     });

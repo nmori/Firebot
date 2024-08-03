@@ -4,7 +4,7 @@ import accountAccess from "../common/account-access";
 import profileManager from "../common/profile-manager";
 import frontendCommunicator from "../common/frontend-communicator";
 import twitchApi from "../twitch-api/api";
-import activeUserHandler from "../chat/chat-listeners/active-user-handler"
+import activeUserHandler from "../chat/chat-listeners/active-user-handler";
 import { CustomReward, RewardRedemption, RewardRedemptionsApprovalRequest } from "../twitch-api/resource/channel-rewards";
 import { EffectTrigger } from "../../shared/effect-constants";
 import { RewardRedemptionMetadata, SavedChannelReward } from "../../types/channel-rewards";
@@ -293,7 +293,7 @@ class ChannelRewardManager {
             If all user data is present mark user as active
             handles use from src/backend/events/twitch-events/reward-redemption.ts
             the two other uses of triggerChannel reward do not have this data and are initiated by the streamer
-            retrigger-event and manually-trigger-reward and as such should not set a user as active 
+            retrigger-event and manually-trigger-reward and as such should not set a user as active
             */
             await activeUserHandler.addActiveUser({userName: metadata.username, userId: metadata.userId, displayName: metadata.userDisplayName}, true);
         }

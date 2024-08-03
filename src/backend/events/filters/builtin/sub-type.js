@@ -1,7 +1,7 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
-const logger = require("../../../../logwrapper");
+const logger = require("../../../../backend/logwrapper");
 
 module.exports = {
     id: "firebot:sub-type",
@@ -92,7 +92,7 @@ module.exports = {
 
             default:
                 logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
-                return false;
+                return true;
         }
     }
 };

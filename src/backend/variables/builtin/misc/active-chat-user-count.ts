@@ -1,7 +1,7 @@
 import { ReplaceVariable } from "../../../../types/variables";
 import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
 
-const logger = require("../../../logwrapper");
+const logger = require("../../../../backend/logwrapper");
 const activeViewerHandler = require("../../../chat/chat-listeners/active-user-handler");
 
 const model : ReplaceVariable = {

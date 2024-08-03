@@ -3,7 +3,7 @@ import { EffectTrigger } from "../../../../shared/effect-constants";
 import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
 
 const moment = require("moment");
-const logger = require("../../../logwrapper");
+const logger = require("../../../../backend/logwrapper");
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;

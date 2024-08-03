@@ -205,7 +205,6 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     streamerChatClient.onCommunitySub((_channel, _user, subInfo) => {
         logger.info(`Gifted onCommunitySub :${JSON.stringify(subInfo)}`);
         twitchEventsHandler.giftSub.triggerCommunitySubGift(
-            subInfo.gifterUserName ?? "anonymous",
             subInfo.gifterDisplayName ?? "匿名",
             subInfo.plan,
             subInfo.count
@@ -216,11 +215,10 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         logger.info(`Gifted onSubGift :${JSON.stringify(subInfo)}`);
         twitchEventsHandler.giftSub.triggerSubGift(
             subInfo.gifterDisplayName ?? "匿名",
-            subInfo.gifterUserName ?? "anonymous",
+            subInfo.gifter,
             subInfo.gifterUserId,
             !subInfo.gifterUserId,
             subInfo.displayName,
-            subInfo.userName,
             subInfo.plan,
             subInfo.giftDuration,
             subInfo.months,
@@ -233,7 +231,6 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
             msg.userInfo.userName,
             subInfo.userId,
             subInfo.displayName,
-            subInfo.gifterUserName,
             subInfo.gifterDisplayName,
             subInfo.plan
         );

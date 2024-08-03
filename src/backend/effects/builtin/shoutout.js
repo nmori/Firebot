@@ -262,8 +262,7 @@ const effect = {
             return;
         }
 
-        effect.username = user.username;
-        effect.displayName = user.displayName;
+        effect.username = user.displayName;
 
         const channelInfo = await twitchApi.channels.getChannelInformation(user.id);
         if (channelInfo == null) {
@@ -324,7 +323,7 @@ const effect = {
                         <div style="padding: 0 10%;">
                             <div>
                                 <div>
-                                    <div id="${fittyId}" class="firebot-shoutout-username" style="color: ${data.textColor}">${data.displayName}</div>
+                                    <div id="${fittyId}" class="firebot-shoutout-username" style="color: ${data.textColor}">${data.username}</div>
                                 </div>
                             </div>
                         </div>

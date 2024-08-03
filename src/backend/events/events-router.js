@@ -44,7 +44,6 @@ function runEventEffects(effects, event, source, meta, isManual = false) {
             metadata: {
                 username: meta.username,
                 userId: meta.userId,
-                displayName: meta.displayName,
                 event: { id: event.id, name: event.name },
                 eventSource: { id: source.id, name: source.name },
                 eventData: meta

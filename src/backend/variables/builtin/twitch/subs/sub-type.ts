@@ -15,7 +15,7 @@ const model : ReplaceVariable = {
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {
-        switch (trigger.metadata.eventData.subPlan.value) {
+        switch (trigger.metadata.eventData.subPlan) {
             case "Prime":
                 return "Prime";
             case "1000":

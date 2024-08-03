@@ -3,7 +3,7 @@ import { OutputDataType } from "../../../../../shared/variable-constants";
 
 const api = require("../../../../twitch-api/api");
 const accountAccess = require("../../../../common/account-access");
-const logger = require("../../../../logwrapper");
+const logger = require("../../../../../backend/logwrapper");
 
 const model : ReplaceVariable = {
     definition: {
