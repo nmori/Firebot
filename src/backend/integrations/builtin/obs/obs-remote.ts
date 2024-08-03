@@ -28,7 +28,9 @@ import {
     OBS_INPUT_AUDIO_BALANCE_CHANGED_EVENT_ID,
     OBS_INPUT_AUDIO_SYNC_OFFSET_CHANGED_EVENT_ID,
     OBS_INPUT_AUDIO_MONITOR_TYPE_CHANGED_EVENT_ID,
-    OBS_INPUT_AUDIO_TRACKS_CHANGED_EVENT_ID
+    OBS_INPUT_AUDIO_TRACKS_CHANGED_EVENT_ID,
+    OBS_CONNECTED_EVENT_ID,
+    OBS_DISCONNECTED_EVENT_ID
 } from "./constants";
 import logger from "../../../logwrapper";
 
@@ -37,6 +39,8 @@ let eventManager: ScriptModules["eventManager"];
 const obs = new OBSWebSocket();
 
 let connected = false;
+
+const TEXT_SOURCE_IDS = ["text_gdiplus_v2", "text_gdiplus_v3", "text_ft2_source_v2"];
 
 function setupRemoteListeners() {
     obs.on("CurrentProgramSceneChanged", ({ sceneName }) => {
@@ -371,6 +375,7 @@ async function maintainConnection(
             logger.info("Successfully connected to OBS.");
 
             connected = true;
+            eventManager?.triggerEvent(OBS_EVENT_SOURCE_ID, OBS_CONNECTED_EVENT_ID, {});
 
             setupRemoteListeners();
 
@@ -378,7 +383,10 @@ async function maintainConnection(
                 if (!connected) {
                     return;
                 }
+
                 connected = false;
+                eventManager?.triggerEvent(OBS_EVENT_SOURCE_ID, OBS_DISCONNECTED_EVENT_ID, {});
+
                 if (isForceClosing) {
                     return;
                 }
@@ -800,7 +808,7 @@ export async function setSourceMuted(sourceName: string, muted: boolean) {
 
 export async function getTextSources(): Promise<Array<OBSSource>> {
     const sources = await getAllSources();
-    return sources?.filter(s => s.typeId === "text_gdiplus_v2" || s.typeId === "text_ft2_source_v2");
+    return sources?.filter(s => TEXT_SOURCE_IDS.includes(s.typeId));
 }
 
 export async function setTextSourceSettings(sourceName: string, settings: OBSTextSourceSettings) {
@@ -830,6 +838,24 @@ export async function setTextSourceSettings(sourceName: string, settings: OBSTex
         }
     } catch (error) {
         logger.error("Failed to set text for source", error);
+    }
+}
+
+export async function createRecordChapter(chapterName: string) {
+    try {
+        // obs-websockets-js hasn't been updated to include "CreateRecordChapter" yet
+        // @ts-expect-error
+        await obs.call("CreateRecordChapter", {
+            chapterName
+        });
+    } catch (error) {
+        if (error.code === 501) {
+            logger.error("Failed to create OBS Chapter Marker: Output Not Running");
+        } else if (error.code === 204) {
+            logger.error("Failed to create OBS Chapter Marker: Outdated OBS version");
+        } else {
+            logger.error("Failed to create OBS Chapter Marker:", error.message ?? error);
+        }
     }
 }
 
@@ -967,6 +993,8 @@ export async function stopVirtualCam(): Promise<void> {
         return;
     }
 }
+
+export const isConnected = (): boolean => connected;
 
 export async function isStreaming(): Promise<boolean> {
     let isRunning = false;

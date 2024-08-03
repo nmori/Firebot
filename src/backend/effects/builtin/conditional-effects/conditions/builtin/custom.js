@@ -25,7 +25,6 @@ module.exports = {
     leftSideValueType: "text",
     rightSideValueType: "text",
     predicate: (conditionSettings) => {
-
         let { comparisonType, leftSideValue, rightSideValue } = conditionSettings;
 
         if (
@@ -84,6 +83,11 @@ module.exports = {
             case ComparisonType.COMPAT_DOESNT_CONTAIN:
             case ComparisonType.ORG_DOESNT_CONTAIN:
                 return !leftSideValue.toString().includes(rightSideValue);
+            case "contains (case-insensitive)":
+                return `${leftSideValue}`.toLowerCase().includes(`${rightSideValue}`.toLowerCase());
+            case "does not contain (case-insensitive)":
+                return !`${leftSideValue}`.toLowerCase().includes(`${rightSideValue}`.toLowerCase());
+
 
             case ComparisonType.MATCHES_REGEX_CS:
             case ComparisonType.ORG_MATCHES_REGEX_CS:

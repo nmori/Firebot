@@ -104,6 +104,7 @@
         chatMessagesService,
         activityFeedService,
         viewerRolesService,
+        viewerRanksService,
         connectionService,
         notificationService,
         $timeout,
@@ -125,14 +126,16 @@
         sortTagsService,
         iconsService,
         videoService,
-        replaceVariableService
+        replaceVariableService,
+        variableMacroService,
     ) {
         // 'chatMessagesService' and 'videoService' are included so they're instantiated on app start
 
         connectionService.loadProfiles();
 
-        //load viewer roles
+        //load viewer roles and ranks
         viewerRolesService.loadCustomRoles();
+        viewerRanksService.loadRankLadders();
 
         //load commands
         commandsService.refreshCommands();
@@ -164,6 +167,8 @@
         sortTagsService.loadSortTags();
 
         iconsService.loadFontAwesomeIcons();
+
+        variableMacroService.loadMacros();
 
         //start notification check
         $timeout(() => {
@@ -566,7 +571,7 @@
             const normalizedQuery = query.replace("$", "").toLowerCase();
             return variables
                 .filter(v =>
-                    v.handle.toLowerCase().includes(normalizedQuery)
+                    v.handle.toLowerCase().includes(normalizedQuery) || v.aliases?.some(a => a.toLowerCase().includes(normalizedQuery))
                 );
         };
     });

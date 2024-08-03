@@ -73,6 +73,10 @@ exports.whenReady = async () => {
     const currencyAccess = require("../../../currency/currency-access").default;
     currencyAccess.refreshCurrencyCache();
 
+    windowManagement.updateSplashScreenStatus("Loading ranks...");
+    const viewerRanksManager = require("../../../ranks/rank-manager");
+    viewerRanksManager.loadItems();
+
     // load commands
     logger.debug("Loading sys commands...");
     windowManagement.updateSplashScreenStatus("システムコマンドを読込中...");
@@ -102,6 +106,10 @@ exports.whenReady = async () => {
     windowManagement.updateSplashScreenStatus("変数を読込中...");
     const { loadReplaceVariables } = require("../../../variables/variable-loader");
     loadReplaceVariables();
+
+    windowManagement.updateSplashScreenStatus("Loading variable macros...");
+    const macroManager = require("../../../variables/macro-manager");
+    macroManager.loadItems();
 
     // load restrictions
     logger.debug("Loading restrictions...");
@@ -231,6 +239,10 @@ exports.whenReady = async () => {
     windowManagement.updateSplashScreenStatus("Webサーバ起動中...");
     const httpServerManager = require("../../../../server/http-server-manager");
     httpServerManager.start();
+
+    // register websocket event handlers
+    const websocketEventsHandler = require("../../../../server/websocket-events-handler");
+    websocketEventsHandler.createComponentEventListeners();
 
     windowManagement.updateSplashScreenStatus("チャンネル報酬を読込中...");
     const channelRewardManager = require("../../../channel-rewards/channel-reward-manager");

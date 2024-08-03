@@ -49,6 +49,7 @@
                 ];
 
                 // units of time in secs
+                const SECOND = 1;
                 const MINUTE = 60;
                 const HOUR = 3600;
                 const DAY = 86400;
@@ -71,7 +72,7 @@
                         case "Years":
                             return YEAR;
                         default:
-                            return MINUTE;
+                            return SECOND;
                     }
                 }
 

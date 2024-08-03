@@ -1,12 +1,4 @@
-<div
-  style="
-    min-width: 500px;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  "
->
+<div class="fb-tabbed-page">
   <div class="fb-tab-wrapper">
     <ul class="nav nav-tabs fb-tabs">
       <li
@@ -25,39 +17,37 @@
       </li>
     </ul>
   </div>
-  
-  <div style="overflow-y: scroll; height: 100%;">
-    <firebot-item-table
-      ng-if="activeTimerTab === 0"
-      items="timerService.timers"
-      on-items-update="onTimersUpdated(items)"
-      headers="timerHeaders"
-      sort-tag-context="timers"
-      orderable="true"
-      add-new-button-text="新規タイマー"
-      on-add-new-clicked="timerService.showAddEditTimerModal()"
-      context-menu-options="timerOptions(item)"
-      no-data-message="タイマーは作成されていません"
-      none-found-message="タイマーは見つかりません"
-      search-placeholder="タイマーを検索"
-      test-button="false"
-      status-field="active"
-    ></firebot-item-table>
-    <firebot-item-table
-      ng-if="activeTimerTab === 1"
-      items="scheduledTaskService.scheduledTasks"
-      on-items-update="onScheduledTasksUpdated(items)"
-      headers="scheduledTaskHeaders"
-      sort-tag-context="演出予定リスト"
-      orderable="true"
-      add-new-button-text="新しい演出予定リスト"
-      on-add-new-clicked="scheduledTaskService.showAddEditScheduledTaskModal()"
-      context-menu-options="scheduledTaskOptions(item)"
-      no-data-message="演出予定リストは作成されていません"
-      none-found-message="演出予定リストは見つかりません"
-      search-placeholder="演出予定リストを検索"
-      test-button="false"
-      status-field="enabled"
-    ></firebot-item-table>
-  </div>
+
+  <firebot-item-table
+    ng-if="activeTimerTab === 0"
+    items="timerService.timers"
+    on-items-update="onTimersUpdated(items)"
+    headers="timerHeaders"
+    sort-tag-context="timers"
+    orderable="true"
+    add-new-button-text="新規タイマー"
+    on-add-new-clicked="timerService.showAddEditTimerModal()"
+    context-menu-options="timerOptions(item)"
+    no-data-message="タイマーは作成されていません! :)"
+    none-found-message="タイマーは見つかりません"
+    search-placeholder="タイマーを検索"
+    test-button="false"
+    status-field="active"
+  ></firebot-item-table>
+  <firebot-item-table
+    ng-if="activeTimerTab === 1"
+    items="scheduledTaskService.scheduledTasks"
+    on-items-update="onScheduledTasksUpdated(items)"
+    headers="scheduledTaskHeaders"
+    sort-tag-context="演出予定リスト"
+    orderable="true"
+    add-new-button-text="新しい演出予定リスト"
+    on-add-new-clicked="scheduledTaskService.showAddEditScheduledTaskModal()"
+    context-menu-options="scheduledTaskOptions(item)"
+    no-data-message="演出予定リストは作成されていません :)"
+    none-found-message="演出予定リストは見つかりません"
+    search-placeholder="演出予定リストを検索"
+    test-button="false"
+    status-field="enabled"
+  ></firebot-item-table>
 </div>

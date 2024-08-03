@@ -41,6 +41,7 @@
                     "events",
                     "timers",
                     "channel rewards",
+                    "roles and ranks",
                     "moderation",
                     "buttons",
                     "settings",
@@ -49,7 +50,8 @@
                     "effect queues",
                     "currency",
                     "quotes",
-                    "viewers"
+                    "viewers",
+                    "variable macros"
                 ].includes(service.currentTab.toLowerCase());
             };
 
@@ -57,11 +59,14 @@
                 return [
                     "chat feed",
                     "commands",
-                    "preset effect lists",
                     "events",
                     "timers",
                     "channel rewards",
-                    "buttons",
+                    "roles and ranks",
+                    "preset effect lists",
+                    "variable macros",
+                    "counters",
+                    "effect queues",
                     "settings"
                 ].includes(service.currentTab.toLowerCase());
             };
@@ -76,10 +81,10 @@
         function($routeProvider) {
             $routeProvider
 
-                .when("/viewer-roles", {
-                templateUrl: "./templates/_viewerroles.html",
-                controller: "viewerRolesController"
-            })
+                .when("/roles-and-ranks", {
+                    templateUrl: "./templates/_roles-and-ranks.html",
+                    controller: "rolesAndRanksController"
+                })
 
             .when("/", {
                 templateUrl: "./templates/chat/_chat-messages.html",
@@ -161,10 +166,15 @@
                 controller: "countersController"
             })
 
-            .when("/games", {
-                templateUrl: "./templates/_games.html",
-                controller: "gamesController"
-            });
+                .when("/games", {
+                    templateUrl: "./templates/_games.html",
+                    controller: "gamesController"
+                })
+
+                .when("/variable-macros", {
+                    templateUrl: "./templates/_variable-macros.html",
+                    controller: "variableMacrosController"
+                });
         }
     ]);
 }(window.angular));

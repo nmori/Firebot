@@ -14,26 +14,26 @@ module.exports = {
         ComparisonType.IS_NOT
     ],
     valueType: "preset",
-    presetValues: backendCommunicator => {
+    presetValues: (backendCommunicator) => {
         return backendCommunicator
             .fireEventAsync("get-channel-rewards").then(rewards =>
-                rewards.map(r => ({value: r.id, display: r.title})));
+                rewards.map(r => ({value: r.id, display: r.twitchData.title})));
     },
     valueIsStillValid: (filterSettings, backendCommunicator) => {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             backendCommunicator
-                .fireEventAsync("get-channel-rewards").then(rewards => {
+                .fireEventAsync("get-channel-rewards").then((rewards) => {
                     resolve(rewards.some(r => r.id === filterSettings.value));
                 });
         });
     },
     getSelectedValueDisplay: (filterSettings, backendCommunicator) => {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             backendCommunicator
-                .fireEventAsync("get-channel-rewards").then(rewards => {
+                .fireEventAsync("get-channel-rewards").then((rewards) => {
                     const reward = rewards.find(r => r.id === filterSettings.value);
 
-                    resolve(reward ? reward.title : "不明な特典");
+                    resolve(reward ? reward.twitchData.title : "不明な特典");
                 });
         });
     },

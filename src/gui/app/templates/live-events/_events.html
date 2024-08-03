@@ -120,30 +120,28 @@
         </div>
       </div>
 
-      <div style="width: 100%; height: 100%">
-        <firebot-item-table
-          items="getSelectedEvents()"
-          on-items-update="updateEventsForCurrentGroup(items)"
-          headers="tableConfig"
-          sort-tag-context="events"
-          orderable="true"
-          add-new-button-text="新規イベント"
-          on-add-new-clicked="showAddOrEditEventModal()"
-          context-menu-options="eventMenuOptions(item)"
-          no-data-message="まだイベントは作成されていません。作りましょう"
-          none-found-message="イベントは見つかりません"
-          search-placeholder="イベントを探す"
-          test-button="true"
-          on-test-button-clicked="fireEventManually(itemId)"
-          status-field="active"
-        >
-          <fb-item-table-toolbar>
-            <button ng-click="simulateEventsByType()" class="btn btn-default">
-              <i class="fas fa-play-circle ml-2"></i> 模擬イベントを発生させる
-            </button>
-          </fb-item-table-toolbar>
-        </firebot-item-table>
-      </div>
+      <firebot-item-table
+        items="getSelectedEvents()"
+        on-items-update="updateEventsForCurrentGroup(items)"
+        headers="tableConfig"
+        sort-tag-context="events"
+        orderable="true"
+        add-new-button-text="新規イベント"
+        on-add-new-clicked="showAddOrEditEventModal()"
+        context-menu-options="eventMenuOptions(item)"
+        no-data-message="まだイベントは作成されていません。作りましょう :)"
+        none-found-message="イベントは見つかりません."
+        search-placeholder="イベントを探す"
+        test-button="true"
+        on-test-button-clicked="fireEventManually(itemId)"
+        status-field="active"
+      >
+        <fb-item-table-toolbar>
+          <button ng-click="simulateEventsByType()" class="btn btn-default">
+            <i class="fas fa-play-circle ml-2"></i> 模擬イベントを発生させる
+          </button>
+        </fb-item-table-toolbar>
+      </firebot-item-table>
     </div>
   </div>
 </div>

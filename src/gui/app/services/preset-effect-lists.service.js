@@ -47,9 +47,9 @@
                     .then(savedPresetEffectList => {
                         if (savedPresetEffectList) {
                             updatePresetEffectList(savedPresetEffectList);
-                            return true;
+                            return savedPresetEffectList;
                         }
-                        return false;
+                        return null;
                     });
             };
 
@@ -114,8 +114,8 @@
                     copiedPresetEffectList.name += " 複製";
                 }
 
-                service.savePresetEffectList(copiedPresetEffectList).then(successful => {
-                    if (successful) {
+                service.savePresetEffectList(copiedPresetEffectList).then((savedList) => {
+                    if (savedList != null) {
                         ngToast.create({
                             className: 'success',
                             content: '演出リストの複製に成功しました'
@@ -132,15 +132,18 @@
             };
 
             service.showAddEditPresetEffectListModal = function(presetEffectList) {
-                return new Promise(resolve => {
+                return new Promise((resolve) => {
                     utilityService.showModal({
                         component: "addOrEditPresetEffectListModal",
                         size: "md",
                         resolveObj: {
                             presetList: () => presetEffectList
                         },
-                        closeCallback: response => {
+                        closeCallback: (response) => {
                             resolve(response.presetEffectList);
+                        },
+                        dismissCallback: () => {
+                            resolve(null);
                         }
                     });
                 });

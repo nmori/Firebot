@@ -7,7 +7,7 @@
         template: `
             <context-menu-modal-header
                 on-close="$ctrl.dismiss()"
-                trigger-type="タイマー"
+                trigger-type="timer"
                 trigger-name="$ctrl.timer.name"
                 sort-tags="$ctrl.timer.sortTags"
                 show-trigger-name="true"
@@ -15,26 +15,26 @@
             <div class="modal-body">
                 <div class="general-button-settings">
                     <div class="settings-title">
-                        <h3>一般設定</h3>
+                        <h3>General Settings</h3>
                     </div>
                     <div class="input-group pb-6 settings-commandGroup-groupName">
-                        <span class="input-group-addon">名前</span>
+                        <span class="input-group-addon">Name</span>
                         <input type="text" class="form-control" ng-model="$ctrl.timer.name">
                     </div>
                     <div class="input-group pb-6 settings-commandGroup-timer">
-                        <span class="input-group-addon">間隔(秒)</span>
-                        <input type="number" class="form-control" ng-model="$ctrl.timer.interval" placeholder="秒">
+                        <span class="input-group-addon">Interval(secs)</span>
+                        <input type="number" class="form-control" ng-model="$ctrl.timer.interval" placeholder="Seconds">
                     </div>
                     <div class="input-group pb-6 settings-commandGroup-timer">
-                        <span class="input-group-addon">必須チャット行数<tooltip text="'起動に必要なチャットの経過行数'"></tooltip></span>
+                        <span class="input-group-addon">Required Chat Lines <tooltip text="'The minimum number of chat lines since the last interval.'"></tooltip></span>
                         <input type="number" class="form-control" ng-model="$ctrl.timer.requiredChatLines" placeholder="">
                     </div>
                     <div class="controls-fb-inline">
-                        <label class="control-fb control--checkbox" ng-hide="$ctrl.isNewTimer">有効
+                        <label class="control-fb control--checkbox" ng-hide="$ctrl.isNewTimer">Enabled
                             <input type="checkbox" ng-model="$ctrl.timer.active" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
-                        <label class="control-fb control--checkbox">配信時のみ <tooltip text="'配信中でなくてもタイマーを作動させたい場合は、このチェックを外してください。'"></tooltip>
+                        <label class="control-fb control--checkbox">Only Run When Live <tooltip text="'Uncheck this if you want this timer to run effects even when you are not live.'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.timer.onlyWhenLive" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
@@ -43,7 +43,7 @@
 
                 <div class="function-button-settings" style="margin-top: 15px;">
                     <effect-list
-                        header="このタイマーが行う内容"
+                        header="What should this timer do?"
                         effects="$ctrl.timer.effects"
                         trigger="timer"
                         trigger-meta="{ rootEffects: $ctrl.timer.effects }"
@@ -52,13 +52,13 @@
                     ></effect-list>
                 </div>
                 <p class="muted" style="font-size:11px;margin-top:6px;">
-                    <b>ヒント:</b> このタイマーに一度に一つのチャットメッセージを表示させたい場合は、<b>演出のランダム実行</b>または<b>演出の順番実行</b>をお試しください。
+                    <b>ProTip:</b> If you want to have this timer display a single chat message at a time, try the <b>Run Random Effect</b> or <b>Run Sequential Effect</b>
                 </p>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
             </div>
         `,
         bindings: {
@@ -85,24 +85,6 @@
                 } else {
                     $ctrl.timer = JSON.parse(JSON.stringify($ctrl.resolve.timer));
                 }
-
-                const modalId = $ctrl.resolve.modalId;
-                $ctrl.modalId = modalId;
-                utilityService.addSlidingModal(
-                    $ctrl.modalInstance.rendered.then(() => {
-                        const modalElement = $(`.${modalId}`).children();
-                        return {
-                            element: modalElement,
-                            name: "編集",
-                            id: modalId,
-                            instance: $ctrl.modalInstance
-                        };
-                    })
-                );
-
-                $scope.$on("modal.closing", function() {
-                    utilityService.removeSlidingModal();
-                });
             };
 
             $ctrl.effectListUpdated = function(effects) {
@@ -111,10 +93,10 @@
 
             function timerValid() {
                 if ($ctrl.timer.name === "") {
-                    ngToast.create("名前を入れてください");
+                    ngToast.create("Please provide a name for the Timer.");
                     return false;
                 } else if ($ctrl.timer.interval < 1) {
-                    ngToast.create("間隔は 0より大きい値にしてください");
+                    ngToast.create("Timer interval must be greater than 0.");
                     return false;
                 }
                 return true;
@@ -133,7 +115,7 @@
                             }
                         });
                     } else {
-                        ngToast.create("タイマーの保存に失敗しました。再試行するか、ログを参照してください。");
+                        ngToast.create("Failed to save timer. Please try again or view logs for details.");
                     }
                 });
             };

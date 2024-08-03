@@ -59,7 +59,11 @@ const ComparisonType = Object.freeze({
     ORG_MATCHES_REGEX_CS: "matches regex",
     ORG_DOESNT_MATCH_REGEX_CS: "doesn't matches regex",
     ORG_MATCHES_REGEX: "matches regex (case insensitive)",
-    ORG_DOESNT_MATCH_REGEX: "doesn't match regex (case insensitive)"    
+    ORG_DOESNT_MATCH_REGEX: "doesn't match regex (case insensitive)",
+    ORG_INCLUDING: "include",
+    ORG_NOT_INCLUDING: "doesn't include",
+    ORG_HAS_ROLE: "has role",
+    ORG_HAS_NOT_ROLE: "doesn't have role"
 });
 
 exports.ComparisonType = ComparisonType;

@@ -26,7 +26,8 @@ module.exports = {
         { eventSourceId: "twitch", eventId: "whisper" },
         { eventSourceId: "streamloots", eventId: "purchase" },
         { eventSourceId: "streamloots", eventId: "redemption" },
-        { eventSourceId: "firebot", eventId: "view-time-update" }
+        { eventSourceId: "firebot", eventId: "view-time-update" },
+        { eventSourceId: "firebot", eventId: "viewer-rank-updated" }
     ],
     comparisonTypes: [
         ComparisonType.INCLUDING,

@@ -7,12 +7,15 @@ export type SavedChannelReward = {
     twitchData: CustomReward,
     manageable: boolean,
     effects?: EffectList,
+    effectsFulfilled?: EffectList,
+    effectsCanceled?: EffectList,
     restrictionData?: RestrictionData,
     autoApproveRedemptions?: boolean,
 };
 
 export type RewardRedemptionMetadata = {
     username: string,
+    userId: string,
     userDisplayName: string,
     messageText: string,
     args: string[],
@@ -20,5 +23,5 @@ export type RewardRedemptionMetadata = {
     rewardId: string,
     rewardImage: string,
     rewardName: string,
-    rewardCost: number
+    rewardCost: number,
 };

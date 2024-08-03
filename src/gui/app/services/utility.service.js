@@ -14,7 +14,8 @@
             listenerService,
             logger,
             $timeout,
-            backendCommunicator
+            backendCommunicator,
+            ngToast
         ) {
             const service = {};
 
@@ -46,6 +47,10 @@
                 });
             });
 
+            backendCommunicator.on("showToast", (messageOrOptions) => {
+                ngToast.create(messageOrOptions);
+            });
+
             service.openGetIdEntyModal = function(options, callback) {
                 service.showModal({
                     component: "idEntryModal",
@@ -68,13 +73,13 @@
             const shiftAmount = 125;
             service.addSlidingModal = function(promise) {
                 // update previous values
-                slidingModals.forEach(em => {
+                slidingModals.forEach((em) => {
                     const newAmount = em.transform + shiftAmount;
                     em.transform = newAmount;
                     em.element.css("transform", `translate(-${newAmount}px, 0)`);
                 });
 
-                promise.then(data => {
+                promise.then((data) => {
                     data.transform = 0;
                     slidingModals.push(data);
                 });
@@ -84,7 +89,7 @@
                 slidingModals.pop();
 
                 // update previous values
-                slidingModals.forEach(em => {
+                slidingModals.forEach((em) => {
                     const newAmount = em.transform - shiftAmount;
                     em.transform = newAmount;
                     em.element.css("transform", `translate(-${newAmount}px, 0)`);
@@ -95,14 +100,14 @@
                 const minId = modalId.replace("modal", "");
 
                 const closeList = [];
-                slidingModals.forEach(m => {
+                slidingModals.forEach((m) => {
                     const nextId = m.id.replace("modal", "");
                     if (minId < nextId && minId !== nextId) {
                         closeList.push(m);
                     }
                 });
 
-                closeList.forEach(m => {
+                closeList.forEach((m) => {
                     m.instance.dismiss();
                 });
             };
@@ -111,19 +116,19 @@
                 const lastEditModalId = slidingModals[0].id;
 
                 const saveList = [];
-                slidingModals.forEach(m => {
+                slidingModals.forEach((m) => {
                     if (m.id !== lastEditModalId) {
                         saveList.push(m);
                     }
                 });
 
-                saveList.reverse().forEach(m => {
+                saveList.reverse().forEach((m) => {
                     m.onSaveAll();
                 });
             };
 
             service.getSlidingModalNamesAndIds = function() {
-                return slidingModals.map(sm => {
+                return slidingModals.map((sm) => {
                     return { name: sm.name, id: sm.id };
                 });
             };
@@ -184,9 +189,29 @@
                     dismissCallback = () => {};
                 }
 
-                modalInstance.rendered.then(() => {
-                    $(`.${modalId}`).removeClass("animated fadeIn fastest");
+                const renderedPromise = modalInstance.rendered.then(() => {
+                    const modalNode = $(`.${modalId}`);
+                    modalNode.removeClass("animated fadeIn fastest");
+
+                    if (showModalContext.autoSlide !== false) {
+                        angular.element(`.${modalId}`)
+                            .scope()
+                            .$on("modal.closing", function() {
+                                service.removeSlidingModal();
+                            });
+                    }
+
+                    return {
+                        element: modalNode.children(),
+                        name: showModalContext.breadcrumbName ?? "",
+                        id: modalId,
+                        instance: modalInstance
+                    };
                 });
+
+                if (showModalContext.autoSlide !== false) {
+                    service.addSlidingModal(renderedPromise);
+                }
 
                 // Handle when the modal is exited
                 modalInstance.result.then(closeCallback, dismissCallback);
@@ -264,6 +289,7 @@
             service.openViewerSearchModal = function(options, callback) {
                 service.showModal({
                     component: "viewerSearchModal",
+                    breadcrumbName: "Viewer Search",
                     size: "sm",
                     backdrop: true,
                     resolveObj: {
@@ -332,7 +358,7 @@
                             }
 
                             let paramCount = 0;
-                            Object.entries(params).forEach(p => {
+                            Object.entries(params).forEach((p) => {
                                 const key = p[0],
                                     value = p[1];
 
@@ -502,7 +528,7 @@
                             type: listenerService.ListenerType.UPDATE_ERROR,
                             runOnce: true
                         };
-                        listenerService.registerListener(registerRequest, errorMessage => {
+                        listenerService.registerListener(registerRequest, (errorMessage) => {
                             // the autoupdater had an error
                             $scope.downloadHasError = true;
                             $scope.errorMessage = errorMessage;
@@ -644,6 +670,7 @@
                     keyboard: false,
                     backdrop: "static",
                     windowClass: "effect-edit-modal",
+                    autoSlide: false,
                     controllerFunc: function (
                         $scope,
                         $rootScope,
@@ -787,7 +814,7 @@
                                     effectDefinition: () => $scope.effectDefinition.definition,
                                     effect: () => $scope.effect
                                 },
-                                closeCallback: resp => {
+                                closeCallback: (resp) => {
                                     if (resp == null) {
                                         return;
                                     }
@@ -805,6 +832,7 @@
                         $scope.openNewEffectModal = function() {
                             utilityService.showModal({
                                 component: "addNewEffectModal",
+                                breadcrumbName: "Select New Effect",
                                 backdrop: true,
                                 windowClass: "no-padding-modal",
                                 resolveObj: {
@@ -812,7 +840,7 @@
                                     triggerMeta: () => triggerMeta,
                                     selectedEffectTypeId: () => $scope.effect && $scope.effect.type
                                 },
-                                closeCallback: resp => {
+                                closeCallback: (resp) => {
                                     if (resp == null) {
                                         return;
                                     }
@@ -1046,7 +1074,7 @@
             };
 
             service.showConfirmationModal = function(confirmModalRequest) {
-                return new Promise(resolve => {
+                return new Promise((resolve) => {
                     const deleteBoardModalContext = {
                         templateUrl: "./templates/misc-modals/confirmationModal.html",
                         resolveObj: {
@@ -1117,7 +1145,7 @@
                 {
                     type: listenerService.ListenerType.INFO
                 },
-                infoMessage => {
+                (infoMessage) => {
                     service.showInfoModal(infoMessage);
                 }
             );
@@ -1127,7 +1155,7 @@
                 {
                     type: listenerService.ListenerType.ERROR
                 },
-                errorMessage => {
+                (errorMessage) => {
                     service.showErrorModal(errorMessage);
                 }
             );
