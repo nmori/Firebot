@@ -380,7 +380,57 @@
                             category: "Rotate"
                         },
                         {
-                            name: "ズームイン",
+                            name: "Swirl In Forward Bottom",
+                            class: "swirlInFwdBottom",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Forward Center",
+                            class: "swirlInFwdCenter",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Forward Left",
+                            class: "swirlInFwdLeft",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Forward Right",
+                            class: "swirlInFwdRight",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Forward Top",
+                            class: "swirlInFwdTop",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Backward Bottom",
+                            class: "swirlInBckBottom",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Backward Center",
+                            class: "swirlInBckCenter",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Backward Left",
+                            class: "swirlInBckLeft",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Backward Right",
+                            class: "swirlInBckRight",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl In Backward Top",
+                            class: "swirlInBckTop",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Zoom In",
                             class: "zoomIn",
                             category: "Zoom"
                         },
@@ -410,22 +460,42 @@
                             category: "Slide"
                         },
                         {
-                            name: "左へスライド",
+                            name: "Slide In Down Full Screen",
+                            class: "slideInDownFull",
+                            category: "Slide"
+                        },
+                        {
+                            name: "Slide In Left",
                             class: "slideInLeft",
                             category: "Slide"
                         },
                         {
-                            name: "右へスライド",
+                            name: "Slide In Left Full Screen",
+                            class: "slideInLeftFull",
+                            category: "Slide"
+                        },
+                        {
+                            name: "Slide In Right",
                             class: "slideInRight",
                             category: "Slide"
                         },
                         {
-                            name: "上へスライド",
+                            name: "Slide In Right Full Screen",
+                            class: "slideInRightFull",
+                            category: "Slide"
+                        },
+                        {
+                            name: "Slide In Up",
                             class: "slideInUp",
                             category: "Slide"
                         },
                         {
-                            name: "加速しながら入る",
+                            name: "Slide In Up Full Screen",
+                            class: "slideInUpFull",
+                            category: "Slide"
+                        },
+                        {
+                            name: "Light Speed In",
                             class: "lightSpeedIn",
                             category: "Misc"
                         },
@@ -542,7 +612,57 @@
                             category: "Rotate"
                         },
                         {
-                            name: "ズームアウト",
+                            name: "Swirl Out Forward Bottom",
+                            class: "swirlOutFwdBottom",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Forward Center",
+                            class: "swirlOutFwdCenter",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Forward Left",
+                            class: "swirlOutFwdLeft",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Forward Right",
+                            class: "swirlOutFwdRight",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Forward Top",
+                            class: "swirlOutFwdTop",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Backward Bottom",
+                            class: "swirlOutBckBottom",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Backward Center",
+                            class: "swirlOutBckCenter",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Backward Left",
+                            class: "swirlOutBckLeft",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Backward Right",
+                            class: "swirlOutBckRight",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Swirl Out Backward Top",
+                            class: "swirlOutBckTop",
+                            category: "Rotate"
+                        },
+                        {
+                            name: "Zoom Out",
                             class: "zoomOut",
                             category: "Zoom"
                         },
@@ -572,22 +692,42 @@
                             category: "Slide"
                         },
                         {
-                            name: "左へスライド",
+                            name: "Slide Out Down Full Screen",
+                            class: "slideOutDownFull",
+                            category: "Slide"
+                        },
+                        {
+                            name: "Slide Out Left",
                             class: "slideOutLeft",
                             category: "Slide"
                         },
                         {
-                            name: "右へスライド",
+                            name: "Slide Out Left Full Screen",
+                            class: "slideOutLeftFull",
+                            category: "Slide"
+                        },
+                        {
+                            name: "Slide Out Right",
                             class: "slideOutRight",
                             category: "Slide"
                         },
                         {
-                            name: "上へスライド",
+                            name: "Slide Out Right Full Screen",
+                            class: "slideOutRightFull",
+                            category: "Slide"
+                        },
+                        {
+                            name: "Slide Out Up",
                             class: "slideOutUp",
                             category: "Slide"
                         },
                         {
-                            name: "加速しながら出る",
+                            name: "Slide Out Up Full Screen",
+                            class: "slideOutUpFull",
+                            category: "Slide"
+                        },
+                        {
+                            name: "Light Speed Out",
                             class: "lightSpeedOut",
                             category: "Misc"
                         },

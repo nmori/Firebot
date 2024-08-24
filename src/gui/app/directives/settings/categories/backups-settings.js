@@ -93,7 +93,7 @@
                             <input
                                 type="checkbox"
                                 ng-checked="true"
-                                aria-label="Automatic update before updates. This cannot be turned off. Its for your own good <3"
+                                aria-label="Automatic update before updates. This cannot be turned off. It's for your own good <3"
                                 disabled
                             />
                             <div class="control__indicator" disabled></div>

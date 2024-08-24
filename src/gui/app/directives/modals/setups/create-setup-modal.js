@@ -233,7 +233,7 @@
                     /**@type {Electron.SaveDialogOptions} */
                     const saveDialogOptions = {
                         buttonLabel: "セットアップ設定を保存",
-                        defaultPath: sanitizeFileName($ctrl.setup.name),
+                        defaultPath: `${sanitizeFileName($ctrl.setup.name)}.firebotsetup`,
                         title: "セットアップ設定ファイルの保存",
                         filters: [
                             {name: "Firebot Setup Files", extensions: ['firebotsetup']}

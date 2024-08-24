@@ -15,7 +15,8 @@ const model = {
         description: "選択されたsubredditsからランダムな画像を取り出します。",
         icon: "fab fa-reddit-alien",
         categories: [EffectCategory.FUN, EffectCategory.CHAT_BASED, EffectCategory.OVERLAY],
-        dependencies: []
+        dependencies: [],
+        hidden: true
     },
     globalSettings: {},
     optionsTemplate: `
@@ -48,31 +49,6 @@ const model = {
     </div>
 
     <div class="effect-reddit-settings" ng-if="effect.show === 'overlay' || effect.show ==='both'">
-        <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
-        <eos-enter-exit-animations effect="effect" class="setting-padtop"></eos-enter-exit-animations>
-        <div class="effect-setting-container setting-padtop">
-            <div class="effect-specific-title"><h4>大きさ</h4></div>
-            <div class="effect-setting-content">
-                <div class="input-group">
-                    <span class="input-group-addon">幅</span>
-                    <input
-                        type="number"
-                        class="form-control"
-                        aria-describeby="image-width-setting-type"
-                        type="number"
-                        ng-model="effect.width"
-                        placeholder="px">
-                    <span class="input-group-addon">高さ</span>
-                    <input
-                        type="number"
-                        class="form-control"
-                        aria-describeby="image-height-setting-type"
-                        type="number"
-                        ng-model="effect.height"
-                        placeholder="px">
-                </div>
-            </div>
-        </div>
         <div class="effect-setting-container setting-padtop">
             <div class="effect-specific-title"><h4>長さ</h4></div>
             <div class="effect-setting-content">
@@ -87,7 +63,19 @@ const model = {
                 </div>
             </div>
         </div>
+
+        <eos-overlay-dimensions effect="effect" pad-top="true"></eos-overlay-dimensions>
+
+        <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
+
+        <eos-overlay-rotation effect="effect" pad-top="true"></eos-overlay-rotation>
+
+        <eos-enter-exit-animations effect="effect" class="setting-padtop"></eos-enter-exit-animations>
+
         <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
+        <div class="effect-info alert alert-warning">
+            This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">Learn more</a>
+        </div>
     </div>
 
     <eos-container pad-top="true">
@@ -103,7 +91,7 @@ const model = {
         }
 
     },
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.reddit == null) {
             errors.push("subredditを入力してください");
@@ -114,7 +102,7 @@ const model = {
         }
         return errors;
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         const chatter = event.effect.chatter;
         const subName = event.effect.reddit;
         const imageUrl = await redditProcessor.getRandomImage(subName);
@@ -138,7 +126,8 @@ const model = {
                     imageDuration: event.effect.length,
                     enterAnimation: event.effect.enterAnimation,
                     exitAnimation: event.effect.exitAnimation,
-                    customCoords: event.effect.customCoords
+                    customCoords: event.effect.customCoords,
+                    imageRotation: event.effect.rotation ? event.effect.rotation + event.effect.rotType : "0deg"
                 };
 
 

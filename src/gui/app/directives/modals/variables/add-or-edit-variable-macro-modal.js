@@ -36,6 +36,8 @@
                                     ng-model="$ctrl.macro.name"
                                     ng-disabled="$ctrl.nameFieldLocked"
                                     ng-style="{'padding-right': $ctrl.nameFieldLocked ? '77px' : ''}"
+                                    ng-keyup="$event.keyCode == 13 && $ctrl.save()"
+                                    ng-keydown="$event.keyCode != 13 ? $event:$event.preventDefault()"
                                 />
                                 <div
                                     style="width: 67px;size: 16px;position: absolute;top: 50%;transform: translateY(-50%);right: 10px;"
@@ -66,6 +68,8 @@
                                 style="font-size: 16px; padding: 10px 16px;"
                                 ng-model="$ctrl.macro.description"
                                 placeholder="任意"
+                                ng-keyup="$event.keyCode == 13 && $ctrl.save()"
+                                ng-keydown="$event.keyCode != 13 ? $event:$event.preventDefault()"
                             />
                         </div>
 
@@ -134,7 +138,7 @@
                     copyTemplate: "$^{name}",
                     addLabel: "引数を追加",
                     editLabel: "引数を変数",
-                    noDuplicates: true,
+                    inputPlaceholder: "Enter Argument Name",                    noDuplicates: true,
                     customValidators: [
                         (argName) => {
                             if (/^\d+$/.test(argName)) {
@@ -142,6 +146,24 @@
                                     success: false,
                                     reason: "数字のみの名前は使えません"
                                 };
+                            }
+                            return true;
+                        },
+                        (argName) => {
+                            if (!/^.{2,}$/.test(argName)) {
+                                return {
+                                    success: false,
+                                    reason: "Argument Name length must be at least 2 characters."
+                                }
+                            }
+                            return true;
+                        },
+                        (argName) => {
+                            if (!/^[a-z]+/.test(argName)) {
+                                return {
+                                    success: false,
+                                    reason: "Argument Name must start with a lowercase letter."
+                                }
                             }
                             return true;
                         },

@@ -298,6 +298,17 @@ module.exports = {
             }
         },
         {
+            id: "chat-cleared",
+            name: "Chat Cleared",
+            description: "When chat is cleared in your channel",
+            cached: false,
+            queued: false,
+            manualMetadata: {
+                username: "firebot",
+                userId: ""
+            }
+        },
+        {
             id: "chat-message",
             name: "チャット時",
             description: "チャットが来た時",
@@ -308,6 +319,17 @@ module.exports = {
                 userDisplayName: "Firebot",
                 userId: "",
                 messageText: "テストメッセージ"
+            }
+        },
+        {
+            id: "chat-message-deleted",
+            name: "Chat Message Deleted",
+            description: "When a chat message is deleted in your channel",
+            cached: false,
+            queued: false,
+            manualMetadata: {
+                username: "firebot",
+                messageText: "Test message"
             }
         },
         {
@@ -580,7 +602,9 @@ module.exports = {
             cached: false,
             queued: false,
             manualMetadata: {
-                title: "投票名"
+                title: "Poll name",
+                winningChoiceName: "Leading Choice Name",
+                winningChoiceVotes: 11
             },
             activityFeed: {
                 icon: "fad fa-poll-h",
@@ -596,7 +620,9 @@ module.exports = {
             cached: false,
             queued: false,
             manualMetadata: {
-                title: "投票名"
+                title: "投票名",
+                winningChoiceName: "Winning Choice Name",
+                winningChoiceVotes: 12
             },
             activityFeed: {
                 icon: "fad fa-poll-h",

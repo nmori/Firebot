@@ -9,7 +9,8 @@ const model = {
         description: "演出間のポーズ",
         icon: "fad fa-stopwatch",
         categories: [EffectCategory.COMMON, EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
-        dependencies: []
+        dependencies: [],
+        exemptFromTimeouts: true
     },
     globalSettings: {},
     optionsTemplate: `

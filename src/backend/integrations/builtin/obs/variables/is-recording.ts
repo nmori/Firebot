@@ -6,7 +6,7 @@ export const IsRecordingVariable: ReplaceVariable = {
         handle: "obsIsRecording",
         description:
       "OBSが現在録画中であれば'true'を、録画中でなければ'false'を返す。",
-        possibleDataOutput: ["text"]
+        possibleDataOutput: ["bool"]
     },
     evaluator: async () => {
         const recordState = await isRecording();

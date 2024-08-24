@@ -16,8 +16,8 @@ const effect = {
     <eos-chatter-select effect="effect" title="送信アカウント"></eos-chatter-select>
 
     <eos-container header="送信メッセージ" pad-top="true">
-        <firebot-input 
-            model="effect.message" 
+        <firebot-input
+            model="effect.message"
             use-text-area="true"
             placeholder-text="メッセージの入力"
             rows="4"
@@ -31,17 +31,18 @@ const effect = {
                 model="effect.me"
                 style="margin: 0px 15px 0px 0px"
             />
-            <firebot-checkbox 
+            <firebot-checkbox
                 label="ささやく"
                 model="showWhisperInput"
                 style="margin: 0px 15px 0px 0px"
                 ng-click="effect.whisper = ''"
             />
             <div ng-show="showWhisperInput">
-                <firebot-input 
+                <firebot-input
                     input-title="To"
-                    model="effect.whisper" 
+                    model="effect.whisper"
                     placeholder-text="宛先"
+                    force-input="true"
                 />
             </div>
         </div>

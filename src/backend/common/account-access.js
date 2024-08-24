@@ -103,7 +103,7 @@ async function loadAccountData(emitUpdate = true) {
             cache.bot = bot;
         }
     } catch (err) {
-        logger.warn("Couldnt update auth cache");
+        logger.warn("Couldn't update auth cache");
     }
 
     if (emitUpdate) {
