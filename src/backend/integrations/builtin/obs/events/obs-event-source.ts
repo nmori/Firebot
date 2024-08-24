@@ -38,14 +38,14 @@ export const OBSEventSource: EventSource = {
     events: [
         {
             id: OBS_CONNECTED_EVENT_ID,
-            name: "OBS Connected",
-            description: "When OBS websocket is connected",
+            name: "OBSに接続したとき",
+            description: "OBSウェブソケットが接続された場合",
             manualMetadata: {}
         },
         {
             id: OBS_DISCONNECTED_EVENT_ID,
-            name: "OBS Disconnected",
-            description: "When OBS websocket is disconnected",
+            name: "OBSから切断されたとき",
+            description: "OBSのウェブソケットが切断された場合",
             manualMetadata: {}
         },
         {
@@ -104,8 +104,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_CURRENT_PROGRAM_SCENE_CHANGED_EVENT_ID,
-            name: "OBS Current Program Scene Changed",
-            description: "When the current program scene has changed in OBS",
+            name: "OBS 現在の番組シーンが変わりました",
+            description: "OBSで現在の番組シーンが変わったとき",
             manualMetadata: {
                 sceneName: "New Scene"
             }
@@ -134,8 +134,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_CURRENT_SCENE_COLLECTION_CHANGED_EVENT_ID,
-            name: "OBS Current Scene Collection Changed",
-            description: "When the current scene collection is changed in OBS",
+            name: "OBSで現在のシーンコレクションが変更されたとき",
+            description: "OBSで現在のシーンコレクションが変更された場合",
             manualMetadata: {
                 sceneCollectionName: "New Scene Collection"
             }
@@ -159,8 +159,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_CREATED_EVENT_ID,
-            name: "OBS Input Created",
-            description: "When an input has been created in OBS",
+            name: "OBSの入力が作成されたとき",
+            description: "OBSでインプットが作成された場合",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: "",
@@ -169,8 +169,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_REMOVED_EVENT_ID,
-            name: "OBS Input Removed",
-            description: "When an input has been removed in OBS",
+            name: "OBSの入力が削除されたとき",
+            description: "OBSで入力が削除された場合",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: ""
@@ -178,8 +178,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_NAME_CHANGED_EVENT_ID,
-            name: "OBS Input Name Changed",
-            description: "When the name of an input has changed in OBS",
+            name: "OBSの入力名が変更されたとき",
+            description: "OBSで入力名が変更された場合",
             manualMetadata: {
                 oldInputName: "",
                 inputName: "Microphone",
@@ -188,8 +188,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_SETTINGS_CHANGED_EVENT_ID,
-            name: "OBS Input Settings Changed",
-            description: "When an input's settings have changed/updated in OBS",
+            name: "OBSの入力設定が変更されたとき",
+            description: "OBSで入力の設定が変更／更新された場合",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: ""
@@ -197,8 +197,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_ACTIVE_STATE_CHANGED_EVENT_ID,
-            name: "OBS Input Active State Changed",
-            description: "When an input's active state has changed in OBS",
+            name: "OBSの入力有効／無効状態が変化したとき",
+            description: "OBSで入力のアクティブ状態が変化したとき",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: "",
@@ -207,8 +207,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_SHOW_STATE_CHANGED_EVENT_ID,
-            name: "OBS Input Show State Changed",
-            description: "When an input's show state has changed in OBS",
+            name: "OBSの入力表示状態が変更されたとき",
+            description: "OBSで入力の表示状態が変わったとき",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: "",
@@ -217,8 +217,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_MUTE_STATE_CHANGED_EVENT_ID,
-            name: "OBS Input Mute State Changed",
-            description: "When an input's mute state has changed in OBS",
+            name: "OBS 入力ミュート状態が変更されたとき",
+            description: "OBSで入力のミュート状態が変わったとき",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: "",
@@ -227,8 +227,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_VOLUME_CHANGED_EVENT_ID,
-            name: "OBS Input Volume Level Changed",
-            description: "When an input's volume level has changed in OBS",
+            name: "OBS入力音量レベルが変更されたとき",
+            description: "OBSで入力の音量レベルが変化した場合",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: "",
@@ -238,8 +238,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_AUDIO_BALANCE_CHANGED_EVENT_ID,
-            name: "OBS Input Audio Balance Changed",
-            description: "When an input's audio balance has changed in OBS",
+            name: "OBS入力オーディオバランスが変更",
+            description: "OBSで入力のオーディオバランスが変更された場合",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: "",
@@ -248,8 +248,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_AUDIO_SYNC_OFFSET_CHANGED_EVENT_ID,
-            name: "OBS Input Audio Sync Offset Changed",
-            description: "When an input's audio sync offset has changed in OBS",
+            name: "OBS入力オーディオ同期オフセット変更",
+            description: "OBSで入力のオーディオ同期オフセットが変更された場合",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: "",
@@ -258,8 +258,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_AUDIO_TRACKS_CHANGED_EVENT_ID,
-            name: "OBS Input Audio Tracks Changed",
-            description: "When an input's audio tracks have changed in OBS",
+            name: "OBS入力オーディオトラック変更",
+            description: "OBSで入力のオーディオトラックが変更された場合",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: ""
@@ -267,8 +267,8 @@ export const OBSEventSource: EventSource = {
         },
         {
             id: OBS_INPUT_AUDIO_MONITOR_TYPE_CHANGED_EVENT_ID,
-            name: "OBS Input Audio Monitor Type Changed",
-            description: "When an input's audio monitor type has changed in OBS",
+            name: "OBS入力オーディオモニタータイプ変更",
+            description: "OBSで入力のオーディオモニタータイプが変更された場合",
             manualMetadata: {
                 inputName: "Microphone",
                 inputUuid: "",

@@ -15,7 +15,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "rewardMessage",
-        description: "報酬メッセージのテキスト",
+        description: "特典メッセージのテキスト",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

@@ -244,7 +244,7 @@ exports.whenReady = async () => {
     const websocketEventsHandler = require("../../../../server/websocket-events-handler");
     websocketEventsHandler.createComponentEventListeners();
 
-    windowManagement.updateSplashScreenStatus("チャンネル報酬を読込中...");
+    windowManagement.updateSplashScreenStatus("チャンネル特典を読込中...");
     const channelRewardManager = require("../../../channel-rewards/channel-reward-manager");
     await channelRewardManager.loadChannelRewards();
 

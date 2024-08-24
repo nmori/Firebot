@@ -4,11 +4,11 @@ import { OutputDataType, VariableCategory } from "../../../../../shared/variable
 const model : ReplaceVariable = {
     definition: {
         handle: "rewardDescription",
-        description: "報酬の説明",
+        description: "特典の説明",
         examples: [
             {
                 usage: "rewardDescription[rewardName]",
-                description: "与えられた報酬の説明。名前は正確でなければならない！"
+                description: "与えられた特典の説明。名前は正確でなければならない！"
             }
         ],
         categories: [VariableCategory.COMMON],
@@ -28,7 +28,7 @@ const model : ReplaceVariable = {
             const channelRewardId = channelRewardManager.getChannelRewardIdByName(rewardName);
 
             if (channelRewardId == null) {
-                return "[報酬を名前で検索できない]";
+                return "[特典を名前で検索できない]";
             }
 
             const reward = await twitchApi.streamerClient.channelPoints.getCustomRewardById(
@@ -46,7 +46,7 @@ const model : ReplaceVariable = {
         }
 
         if (rewardData == null) {
-            return "[報酬なし]";
+            return "[特典なし]";
         }
 
         return rewardData.rewardDescription;

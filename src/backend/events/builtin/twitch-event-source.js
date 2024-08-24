@@ -312,8 +312,8 @@ module.exports = {
         },
         {
             id: "first-time-chat",
-            name: "First Time Chat",
-            description: "When someone chats in your channel for the very first time",
+            name: "初回チャット",
+            description: "あなたのチャンネルに初めてチャットがあったとき",
             cached: false,
             queued: false,
             manualMetadata: {
@@ -445,8 +445,8 @@ module.exports = {
         },
         {
             id: "channel-reward-redemption-fulfilled",
-            name: "Channel Reward Redemption Approved",
-            description: "When a CUSTOM channel reward redemption is Completed/Approved",
+            name: "チャンネル特典の交換が承認されたとき",
+            description: "カスタムチャネルのリワード交換が完了/承認された場合",
             cached: false,
             cacheMetaKey: "username",
             cacheTtlInSecs: 1,
@@ -470,8 +470,8 @@ module.exports = {
         },
         {
             id: "channel-reward-redemption-canceled",
-            name: "Channel Reward Redemption Rejected",
-            description: "When a CUSTOM channel reward redemption is Rejected/Refunded",
+            name: "チャンネル特典の交換が拒否されたとき",
+            description: "チャネルの特典交換が拒否/返金された場合",
             cached: false,
             cacheMetaKey: "username",
             cacheTtlInSecs: 1,
@@ -984,8 +984,8 @@ module.exports = {
         },
         {
             id: "ad-break-upcoming",
-            name: "Scheduled Ad Break Starting Soon",
-            description: "When a scheduled ad break will be starting soon on your channel.",
+            name: "広告の開始予告を受け取ったとき",
+            description: "広告の予約がきたとき",
             cached: false,
             manualMetadata: {
                 adBreakDuration: 60,
@@ -1009,8 +1009,8 @@ module.exports = {
         },
         {
             id: "ad-break-start",
-            name: "Ad Break Started",
-            description: "When an ad break starts on your channel.",
+            name: "広告が始まったとき",
+            description: "広告が始まった",
             cached: false,
             manualMetadata: {
                 adBreakDuration: 60,
@@ -1032,8 +1032,8 @@ module.exports = {
         },
         {
             id: "ad-break-end",
-            name: "Ad Break Ended",
-            description: "When an ad break ends on your channel.",
+            name: "広告が終了したとき",
+            description: "広告が終了したとき",
             cached: false,
             manualMetadata: {
                 adBreakDuration: 60,

@@ -14,7 +14,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "rewardRedemptionId",
-        description: "チャンネル報酬交換のID",
+        description: "チャンネル特典交換のID",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.TEXT]

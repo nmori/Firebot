@@ -115,14 +115,14 @@ const firebotEventSource = {
         },
         {
             id: "before-firebot-closed",
-            name: "Before Firebot Closed",
-            description: "Just before firebot is closed",
+            name: "Firebotが終了するとき",
+            description: "Firebotが終了するとき",
             cached: false
         },
         {
             id: "viewer-rank-updated",
-            name: "Viewer Rank Updated",
-            description: "When a viewer's rank is updated within a rank ladder.",
+            name: "視聴者ランクが更新されたとき",
+            description: "視聴者のランクが更新されたとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",

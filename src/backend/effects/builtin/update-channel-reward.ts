@@ -38,8 +38,8 @@ function updateRewardEnabledOrPaused(effect: EffectMeta, channelReward: SavedCha
 const model: EffectType<EffectMeta> = {
     definition: {
         id: "firebot:update-channel-reward",
-        name: "Update Channel Reward",
-        description: "Update settings for a channel reward",
+        name: "チャンネル特典の更新",
+        description: "チャンネル特典の設定を更新する",
         icon: "fad fa-gifts",
         categories: [EffectCategory.ADVANCED, EffectCategory.TWITCH],
         dependencies: []
@@ -53,18 +53,18 @@ const model: EffectType<EffectMeta> = {
         </eos-container>
 
 
-        <eos-container ng-hide="effect.useTag" header="Channel Reward">
+        <eos-container ng-hide="effect.useTag" header="チャンネル特典">
             <ui-select ng-model="effect.channelRewardId" theme="bootstrap">
-                <ui-select-match placeholder="Select or search for a channel reward... ">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="チャンネル特典を選択または検索... ">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="reward.id as reward in manageableRewards | filter: { name: $select.search }" style="position:relative;">
                     <div ng-bind-html="reward.name | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
         </eos-container>
 
-        <eos-container ng-show="effect.useTag" header="Channel Reward Tags">
+        <eos-container ng-show="effect.useTag" header="チャンネル特典タグ">
             <ui-select ng-model="effect.sortTagId" theme="bootstrap">
-                <ui-select-match placeholder="Select or search for a tag... ">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="タグの選択または検索... ">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="sortTag.id as sortTag in sortTags | filter: { name: $select.search }" style="position:relative;">
                     <div ng-bind-html="sortTag.name | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -83,14 +83,14 @@ const model: EffectType<EffectMeta> = {
                     {{getToggleEnabledDisplay(effect.rewardSettings.enabled.newValue)}} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = true"><a href>Enable</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = false"><a href>Disable</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = 'toggle'"><a href>Toggle</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = true"><a href>有効</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = false"><a href>無効</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = 'toggle'"><a href>切り替え</a></li>
                     </ul>
                 </div>
             </div>
 
-            <label class="control-fb control--checkbox">Update Paused
+            <label class="control-fb control--checkbox">更新を一時停止する
                 <input type="checkbox" ng-click="effect.rewardSettings.paused.update = !effect.rewardSettings.paused.update" ng-checked="effect.rewardSettings.paused.update"  aria-label="Toggle paused" >
                 <div class="control__indicator"></div>
             </label>
@@ -100,51 +100,51 @@ const model: EffectType<EffectMeta> = {
                     {{getTogglePausedDisplay(effect.rewardSettings.paused.newValue)}} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = true"><a href>Paused</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = false"><a href>Unpaused</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = 'toggle'"><a href>Toggle</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = true"><a href>一時停止</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = false"><a href>停止を解除</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = 'toggle'"><a href>切り替え</a></li>
                     </ul>
                 </div>
             </div>
 
             <div ng-hide="effect.useTag">
-                <label class="control-fb control--checkbox">Update Name
+                <label class="control-fb control--checkbox">更新名
                     <input
                         type="checkbox"
                         ng-click="effect.rewardSettings.name.update = !effect.rewardSettings.name.update"
                         ng-checked="effect.rewardSettings.name.update"
-                        aria-label="Update name"
+                        aria-label="更新名"
                     />
                     <div class="control__indicator"></div>
                 </label>
                 <div ng-show="effect.rewardSettings.name.update" style="margin-bottom: 15px;">
-                    <firebot-input model="effect.rewardSettings.name.newValue" placeholder-text="Enter text" />
+                    <firebot-input model="effect.rewardSettings.name.newValue" placeholder-text="テキストを入力" />
                 </div>
 
-                <label class="control-fb control--checkbox">Update Description
+                <label class="control-fb control--checkbox">更新内容
                     <input
                         type="checkbox"
                         ng-click="effect.rewardSettings.description.update = !effect.rewardSettings.description.update"
                         ng-checked="effect.rewardSettings.description.update"
-                        aria-label="Update description"
+                        aria-label="更新内容"
                     />
                     <div class="control__indicator"></div>
                 </label>
                 <div ng-show="effect.rewardSettings.description.update" style="margin-bottom: 15px;">
-                    <firebot-input model="effect.rewardSettings.description.newValue" use-text-area="true" placeholder-text="Enter text" />
+                    <firebot-input model="effect.rewardSettings.description.newValue" use-text-area="true" placeholder-text="テキストを入力" />
                 </div>
 
-                <label class="control-fb control--checkbox">Update Cost
+                <label class="control-fb control--checkbox">新しい価格
                     <input
                         type="checkbox"
                         ng-click="effect.rewardSettings.cost.update = !effect.rewardSettings.cost.update"
                         ng-checked="effect.rewardSettings.cost.update"
-                        aria-label="Update cost"
+                        aria-label="新しい価格"
                     />
                     <div class="control__indicator"></div>
                 </label>
                 <div ng-show="effect.rewardSettings.cost.update" style="margin-bottom: 15px;">
-                    <firebot-input model="effect.rewardSettings.cost.newValue" placeholder-text="Enter new cost" />
+                    <firebot-input model="effect.rewardSettings.cost.newValue" placeholder-text="新しい価格を入力" />
                 </div>
             </div>
 

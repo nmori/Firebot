@@ -22,14 +22,14 @@ const model: EffectType<{
     optionsTemplate: `
         <eos-container header="特典">
             <firebot-radio-container>
-                <firebot-radio label="Use current reward" model="effect.rewardMode" value="'current'" tooltip="この演出を起動した報酬を使用する" />
+                <firebot-radio label="Use current reward" model="effect.rewardMode" value="'current'" tooltip="この演出を起動した特典を使用する" />
                 <firebot-radio label="Custom" model="effect.rewardMode" value="'custom'" />
                 <firebot-input ng-if="effect.rewardMode === 'custom'" input-title="Reward ID" model="effect.rewardId" placeholder-text="IDを入力" menu-position="below" />
             </firebot-radio-container>
         </eos-container>
 
         <eos-container header="引き換え" pad-top="true">
-            <firebot-radio label="現在の交換を利用する" model="effect.redemptionMode" value="'current'" tooltip="この演出を起動した報酬を使用する" />
+            <firebot-radio label="現在の交換を利用する" model="effect.redemptionMode" value="'current'" tooltip="この演出を起動した特典を使用する" />
             <firebot-radio label="Custom" model="effect.redemptionMode" value="'custom'" />
             <firebot-input ng-if="effect.redemptionMode === 'custom'" input-title="交換ID" model="effect.redemptionId" placeholder-text="IDを入力" />
         </eos-container>

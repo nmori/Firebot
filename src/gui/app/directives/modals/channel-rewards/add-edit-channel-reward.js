@@ -21,11 +21,11 @@
                         </div>
 
                         <p class="help-block" style="text-align: center;">
-                            This reward was either created outside of Firebot, or by an older version of Firebot, so its settings cannot be changed here. You can however still create effects for it. If you want to update settings for this reward, you can do so on Twitch.
+                            この特典はFirebotの外部で作成されたか、Firebotの古いバージョンで作成されたものなので、ここで設定を変更することはできません。ただし、演出を作成することはできます。この特典設定を更新したい場合は、Twitchで行うことができます。
                         </p>
-                        <collapsable-panel header="How to enable editing/Update Channel Reward">
-                            <p>If you would like to be able to edit this channel reward in Firebot or use the <strong>Update Channel Reward</strong> effect, you can <strong>Duplicate</strong> it from the <strong>Channel Rewards</strong> screen. This will preserve any effects and settings (except the image) you already have setup.</p>
-                            <p>You can then delete the old reward from your Twitch dashboard. You will also need to update any existing <strong>Update Channel Reward</strong> effects to reference the newly created reward.</p>
+                        <collapsable-panel header="チャンネル特典の編集・更新を有効にする方法">
+                            <p>このチャンネル特典をFirebotで編集したり、<strong>チャンネル特典の更新</strong>演出を使用したい場合は、<strong>チャンネル特典/strong>画面から<strong>複製</strong>することができます。これにより、すでに設定されている演出や設定（画像を除く）が保持されます。</p>
+                            <p>その後、Twitchダッシュボードから古い特典を削除できます。また、新しく作成した特典を参照するために、既存の<strong>チャンネル特典の更新</strong>演出を更新する必要があります。</p>
                         </collapsable-panel>
                     </div>
                     <form ng-show="$ctrl.reward.manageable" name="rewardSettings" style="padding-left: 15px; padding-right: 15px;">
@@ -95,7 +95,7 @@
 
                         <div class="form-group flex-row jspacebetween">
                             <div>
-                                <label class="control-label" style="margin:0;">Twitch報酬リクエストをスキップする</label>
+                                <label class="control-label" style="margin:0;">Twitch特典リクエストをスキップする</label>
                                 <p class="help-block">If enabled, only future viewer requests will skip the queue for review.</p>
                                 <p class="help-block">リクエストは Twitch によって直ちに承認されます。払い戻しはできません。</p>
                             </div>
