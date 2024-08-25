@@ -60,13 +60,16 @@
 
                 $ctrl.changeUsername = (key, usernameType, isAnon) => {
                     const username = $ctrl.metadata.find(md => md.key === key);
-
-                    if (username && isAnon) {
-                        username.value = `An Anonymous ${usernameType}`;
+                    if (username === undefined)
+                    {
+                        $ctrl.metadata[key] = "";
                     } else {
-                        username.value = "";
+                        if (username && isAnon) {
+                            username.value = `An Anonymous ${usernameType}`;
+                        } else {
+                            username.value = "";
+                        }
                     }
-
                     const index = $ctrl.metadata.findIndex(md => md.key === key);
                     $ctrl.metadata[index] = username;
                 };

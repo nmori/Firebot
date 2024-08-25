@@ -306,11 +306,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                         return resolve();
                     }
 
-<<<<<<< .mine
                     await twitchChat.sendChatMessage(`その番号の引用が見つかりませんでした`);
-=======
-                    await twitchChat.sendChatMessage(`Sorry! We could not find a quote with that id.`);
->>>>>>> .theirs
                     logger.error('Quotes: NaN passed to remove quote command.');
                     return resolve();
                 }
@@ -328,11 +324,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                     if (binId == null) {
                         await twitchChat.sendChatMessage("引用はありませｎ");
                     } else {
-<<<<<<< .mine
                         await twitchChat.sendChatMessage(`引用のリストはこちら： https://firebot.app/profile?id=${binId}`);
-=======
-                        await twitchChat.sendChatMessage(`Here is a list of quotes! https://firebot.app/profile?id=${binId}`);
->>>>>>> .theirs
                     }
 
                     return resolve();
@@ -439,11 +431,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                     const quote = await quotesManager.getQuote(quoteId);
 
                     if (quote == null) {
-<<<<<<< .mine
                         await twitchChat.sendChatMessage(`ID ${quoteId} の引用が見つからない`);
-=======
-                        await twitchChat.sendChatMessage(`Could not find a quote with id ${quoteId}`);
->>>>>>> .theirs
                         return resolve();
                     }
 
@@ -481,11 +469,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                     const quote = await quotesManager.getQuote(quoteId);
 
                     if (quote == null) {
-<<<<<<< .mine
                         await twitchChat.sendChatMessage(`${quoteId} をもつIDのものがみつからない`);
-=======
-                        await twitchChat.sendChatMessage(`Could not find a quote with id ${quoteId}`);
->>>>>>> .theirs
                         return resolve();
                     }
 
