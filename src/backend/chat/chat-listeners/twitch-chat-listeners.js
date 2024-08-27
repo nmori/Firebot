@@ -9,6 +9,7 @@ const chatModerationManager = require("../moderation/chat-moderation-manager");
 const chatRolesManager = require("../../roles/chat-roles-manager");
 const twitchEventsHandler = require("../../events/twitch-events");
 const raidMessageChecker = require(".././moderation/raid-message-checker");
+const viewerDatabase = require("../../viewers/viewer-database");
 const logger = require("../../logwrapper");
 
 const events = require("events");
@@ -202,6 +203,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         } catch (error) {
             logger.error("Failed to parse resub message", error);
         }
+        viewerDatabase.calculateAutoRanks(subInfo.userId);
     });
 
     streamerChatClient.onCommunitySub((_channel, _user, subInfo) => {
@@ -226,6 +228,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
             subInfo.months,
             subInfo.streak ?? 1
         );
+        viewerDatabase.calculateAutoRanks(subInfo.userId);
     });
 
     streamerChatClient.onGiftPaidUpgrade((_channel, _user, subInfo, msg) => {
@@ -236,6 +239,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
             subInfo.gifterDisplayName,
             subInfo.plan
         );
+        viewerDatabase.calculateAutoRanks(subInfo.userId);
     });
 
     streamerChatClient.onPrimePaidUpgrade((_channel, _user, subInfo, msg) => {
@@ -245,5 +249,6 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
             subInfo.displayName,
             subInfo.plan
         );
+        viewerDatabase.calculateAutoRanks(subInfo.userId);
     });
 };
