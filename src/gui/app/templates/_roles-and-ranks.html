@@ -14,14 +14,14 @@
         ng-class="{'active' : activeTab === 0}"
         ng-click="activeTab = 0"
       >
-        <a href>ROLES</a>
+        <a href>役割</a>
       </li>
       <li
         role="presentation"
         ng-class="{'active' : activeTab === 1}"
         ng-click="activeTab = 1"
       >
-        <a href>RANKS</a>
+        <a href>ランク</a>
       </li>
     </ul>
   </div>
@@ -46,11 +46,11 @@
                 </div>
             </div>
         
-            <p ng-if="viewerRolesService.getCustomRoles().length < 1" class="muted">No custom roles saved.</p>
+            <p ng-if="viewerRolesService.getCustomRoles().length < 1" class="muted">役割が保存されていません。</p>
         </div>
         
-        <h3 class="mt-12" style="text-transform: uppercase;font-weight: 200;font-size: 19px;">Twitch Roles</h3>
-        <p class="muted">These roles are predefined by Twitch and cannot be edited.</p>
+        <h3 class="mt-12" style="text-transform: uppercase;font-weight: 200;font-size: 19px;">Twitchでの役割</h3>
+        <p class="muted">これらのロールはTwitchによって事前に定義されており、編集することはできません。</p>
         <div class="new-tile-grid" style="width: 100%">
             <div ng-repeat="role in viewerRolesService.getTwitchRoles() track by $index" class="new-tile gray centered">
                 <div class="content row">
@@ -63,8 +63,8 @@
             </div>
         </div>
         
-        <h3 class="mt-12" style="text-transform: uppercase;font-weight: 200;font-size: 19px;">Firebot Roles</h3>
-        <p class="muted">These roles are predefined by Firebot and cannot be edited.</p>
+        <h3 class="mt-12" style="text-transform: uppercase;font-weight: 200;font-size: 19px;">Firebotでの役割</h3>
+        <p class="muted">これらのロールはFirebotによって事前に定義されており、編集することはできません。</p>
         <div class="new-tile-grid" style="width: 100%">
             <div ng-repeat="role in viewerRolesService.getFirebotRoles() track by $index" class="new-tile gray centered">
                 <div class="content row">
@@ -77,8 +77,8 @@
             </div>
         </div>
         
-        <h3 class="mt-12" style="text-transform: uppercase;font-weight: 200;font-size: 19px;">Team Roles</h3>
-        <p ng-if="viewerRolesService.getTeamRoles().length >= 1" class="muted">These roles are predefined by Twitch and cannot be edited.</p>
+        <h3 class="mt-12" style="text-transform: uppercase;font-weight: 200;font-size: 19px;">チームの役割</h3>
+        <p ng-if="viewerRolesService.getTeamRoles().length >= 1" class="muted">これらのロールはTwitchによって事前に定義されており、編集することはできません。</p>
         <div class="new-tile-grid" style="width: 100%">
             <div ng-repeat="role in viewerRolesService.getTeamRoles() track by $index" class="new-tile gray centered">
                 <div class="content row">
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <p ng-if="viewerRolesService.getTeamRoles().length < 1" class="muted">There are no stream teams you are a part of.</p>
+            <p ng-if="viewerRolesService.getTeamRoles().length < 1" class="muted">あなたが所属している配信チームはありません。</p>
         </div>
     </div>
     <firebot-item-table
@@ -97,14 +97,14 @@
         items="viewerRanksService.rankLadders"
         on-items-update="viewerRanksService.saveAllRankLadders(items)"
         headers="rankLadderHeaders"
-        sort-tag-context="rank ladders"
+        sort-tag-context="ランク"
         orderable="true"
-        add-new-button-text="New Rank Ladder"
+        add-new-button-text="新しいランク"
         on-add-new-clicked="viewerRanksService.showAddOrEditRankLadderModal()"
         context-menu-options="rankLadderMenuOptions(item)"
-        no-data-message="No rank ladders saved. You should make one! :)"
-        none-found-message="No rank ladders found."
-        search-placeholder="Search rank ladders"
+        no-data-message="ランクは設定されていない。作ったほうがいいね！:)"
+        none-found-message="ランクは見つからなかった。"
+        search-placeholder="検索順位"
         test-button="false"
     />
   </div>

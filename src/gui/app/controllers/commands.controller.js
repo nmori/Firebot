@@ -154,7 +154,7 @@
 
             $scope.customCommandHeaders = [
                 {
-                    name: "TRIGGER",
+                    name: "トリガー",
                     icon: "fa-exclamation",
                     dataField: "trigger",
                     sortable: true,
@@ -183,7 +183,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "COOLDOWNS",
+                    name: "再実行時間",
                     icon: "fa-clock",
                     cellTemplate: `
                         <span
@@ -200,7 +200,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "PERMISSIONS",
+                    name: "権限",
                     icon: "lock-alt",
                     cellTemplate: `
                         <span style="text-transform: capitalize">{{getPermissionType(data)}}</span>
