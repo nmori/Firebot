@@ -43,6 +43,17 @@ const ComparisonType = Object.freeze({
     COMPAT_MATCHES_REGEX: "正規表現にマッチする",
     COMPAT_DOESNT_MATCH_REGEX: "正規表現にマッチしない",
 
+    //COMPAT2 : 設定ファイル（過去）互換
+    COMPAT2_IS: "と一致",
+    COMPAT2_IS_NOT: "と不一致",
+    COMPAT2_INCLUDING: "を含む",
+    COMPAT2_CONTAINS: "を配列に含む",
+    COMPAT2_DOESNT_CONTAIN: "を配列に含まない",
+    COMPAT2_MATCHES_REGEX_CS: "という正規表現に一致",
+    COMPAT2_DOESNT_MATCH_REGEX_CS: "という正規表現に不一致",
+    COMPAT2_MATCHES_REGEX: "という正規表現に一致（大小問わず）",
+    COMPAT2_DOESNT_MATCH_REGEX: "という正規表現に不一致（大小問わず）",
+
     //Original : 設定ファイル互換
     ORG_IS: "is",
     ORG_IS_NOT: "is not",

@@ -30,18 +30,22 @@ module.exports = {
         switch (comparisonType) {
             case ComparisonType.IS:
             case ComparisonType.COMPAT_IS:
+            case ComparisonType.COMPAT2_IS:
             case ComparisonType.ORG_IS:
                 return cardName === filterCardName;
             case ComparisonType.IS_NOT:
             case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.COMPAT2_IS_NOT:
             case ComparisonType.ORG_IS_NOT:
                 return cardName !== filterCardName;
             case ComparisonType.CONTAINS:
             case ComparisonType.COMPAT_CONTAINS:
+            case ComparisonType.COMPAT2_CONTAINS:
             case ComparisonType.ORG_CONTAINS:
                 return cardName.includes(filterCardName);
             case ComparisonType.MATCHES_REGEX:
             case ComparisonType.COMPAT_MATCHES_REGEX:
+            case ComparisonType.COMPAT2_MATCHES_REGEX:
             case ComparisonType.ORG_MATCHES_REGEX:
             {
                 const regex = new RegExp(filterCardName, "gi");

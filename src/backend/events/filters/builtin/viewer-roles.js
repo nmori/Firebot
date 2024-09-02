@@ -117,10 +117,12 @@ module.exports = {
             switch (comparisonType) {
                 case ComparisonType.INCLUDING:
                 case ComparisonType.COMPAT_INCLUDING:
+                case ComparisonType.COMPAT2_INCLUDING:
                 case ComparisonType.ORG_INCLUDING:
                     return hasRole;
                 case ComparisonType.NOT_INCLUDING:
                 case ComparisonType.COMPAT_NOT_INCLUDING:
+                case ComparisonType.COMPAT2_NOT_INCLUDING:
                 case ComparisonType.ORG_NOT_INCLUDING:
                     return !hasRole;
                 default:

@@ -44,10 +44,12 @@ module.exports = {
         switch (comparisonType) {
             case ComparisonType.IS:
             case ComparisonType.COMPAT_IS:
+            case ComparisonType.COMPAT2_IS:
             case ComparisonType.ORG_IS:
                 return leftSideValue == rightSideValue; //eslint-disable-line eqeqeq
             case ComparisonType.IS_NOT:
             case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.COMPAT2_IS_NOT:
             case ComparisonType.ORG_IS_NOT:
                 return leftSideValue != rightSideValue; //eslint-disable-line eqeqeq
 
@@ -76,11 +78,13 @@ module.exports = {
 
             case ComparisonType.CONTAINS:
             case ComparisonType.COMPAT_CONTAINS:
+            case ComparisonType.COMPAT2_CONTAINS:
             case ComparisonType.ORG_CONTAINS:
                 return leftSideValue.toString().includes(rightSideValue);
 
             case ComparisonType.DOES_NOT_CONTAIN:
             case ComparisonType.COMPAT_DOESNT_CONTAIN:
+            case ComparisonType.COMPAT2_DOESNT_CONTAIN:
             case ComparisonType.ORG_DOESNT_CONTAIN:
                 return !leftSideValue.toString().includes(rightSideValue);
             case "contains (case-insensitive)":
@@ -90,6 +94,7 @@ module.exports = {
 
 
             case ComparisonType.MATCHES_REGEX_CS:
+            case ComparisonType.COMPAT2_MATCHES_REGEX_CS:
             case ComparisonType.ORG_MATCHES_REGEX_CS:
             {
                 const regex = new RegExp(rightSideValue, "gi");
@@ -97,6 +102,7 @@ module.exports = {
             }
 
             case ComparisonType.DOESNT_MATCH_REGEX_CS:
+            case ComparisonType.COMPAT2_DOESNT_MATCH_REGEX_CS:
             case ComparisonType.ORG_DOESNT_MATCH_REGEX_CS:
             {
                 const regex = new RegExp(rightSideValue, "gi");
@@ -105,6 +111,7 @@ module.exports = {
 
             case ComparisonType.MATCHES_REGEX:
             case ComparisonType.COMPAT_MATCHES_REGEX:
+            case ComparisonType.COMPAT2_MATCHES_REGEX:
             case ComparisonType.ORG_MATCHES_REGEX:
             {
                 const regex = new RegExp(rightSideValue, "g");
@@ -113,6 +120,7 @@ module.exports = {
 
             case ComparisonType.DOESNT_MATCH_REGEX:
             case ComparisonType.COMPAT_DOESNT_MATCH_REGEX:
+            case ComparisonType.COMPAT2_DOESNT_MATCH_REGEX:
             case ComparisonType.ORG_DOESNT_MATCH_REGEX:
             {
                 const regex = new RegExp(rightSideValue, "g");

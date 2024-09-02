@@ -60,10 +60,12 @@ module.exports = {
         switch (comparisonType) {
             case ComparisonType.IS:
             case ComparisonType.COMPAT_IS:
+            case ComparisonType.COMPAT2_IS:
             case ComparisonType.ORG_IS:
                 return eventMeta.chatMode.includes(value);
             case ComparisonType.IS_NOT:
             case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.COMPAT2_IS_NOT:
             case ComparisonType.ORG_IS_NOT:
                 return !eventMeta.chatMode.includes(value);
             default:

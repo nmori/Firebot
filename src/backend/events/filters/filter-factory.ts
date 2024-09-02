@@ -84,18 +84,22 @@ export function createTextFilter({
             switch (comparisonType) {
                 case ComparisonType.IS:
                 case ComparisonType.COMPAT_IS:
+                case ComparisonType.COMPAT2_IS:
                 case ComparisonType.ORG_IS:
                     return eventValue === filterValue;
                 case ComparisonType.IS_NOT:
                 case ComparisonType.COMPAT_IS_NOT:
+                case ComparisonType.COMPAT2_IS_NOT:
                 case ComparisonType.ORG_IS_NOT:
                     return eventValue !== filterValue;
                 case ComparisonType.CONTAINS:
                 case ComparisonType.COMPAT_CONTAINS:
+                case ComparisonType.COMPAT2_CONTAINS:
                 case ComparisonType.ORG_CONTAINS:
                     return eventValue.includes(filterValue);
                 case ComparisonType.MATCHES_REGEX:
                 case ComparisonType.COMPAT_MATCHES_REGEX:
+                case ComparisonType.COMPAT2_MATCHES_REGEX:
                 case ComparisonType.ORG_MATCHES_REGEX: {
                     const regex = new RegExp(filterValue, "gi");
                     return regex.test(eventValue);
@@ -127,12 +131,14 @@ export function createNumberFilter({
             switch (comparisonType) {
                 case ComparisonType.IS:
                 case ComparisonType.COMPAT_IS:
+                case ComparisonType.COMPAT2_IS:
                 case ComparisonType.ORG_IS:
                 {
                     return eventValue === value;
                 }
                 case ComparisonType.IS_NOT:
                 case ComparisonType.COMPAT_IS_NOT:
+                case ComparisonType.COMPAT2_IS_NOT:
                 case ComparisonType.ORG_IS_NOT:
                 {
                     return eventValue !== value;
