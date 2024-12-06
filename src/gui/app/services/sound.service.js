@@ -152,21 +152,32 @@
                     });
             };
 
-            service.getSoundDuration = function(path, format = undefined) {
+            // service.getSoundDuration = function(path, format = undefined) {
+            //     return new Promise(resolve => {
+            //         console.log("duration for", path, format);
+            //         const sound = new Howl({
+            //             src: [path],
+            //             format: format || [],
+            //             onload: () => {
+            //                 resolve(sound.duration());
+            //                 sound.unload();
+            //             },
+            //             onloaderror: () => {
+            //                 resolve(0);
+            //             }
+            //         });
+            //     });
+            // };
+
+            //遅いらしいから、メタデータからの取得にきりかえてみる
+            service.getSoundDuration = function(path) {
                 return new Promise(resolve => {
-
-                    console.log("duration for", path, format);
-
-                    const sound = new Howl({
-                        src: [path],
-                        format: format || [],
-                        onload: () => {
-                            resolve(sound.duration());
-                            sound.unload();
-                        },
-                        onloaderror: () => {
-                            resolve(0);
-                        }
+                    const audio = new Audio(path);
+                    audio.addEventListener('loadedmetadata', () => {
+                        resolve(audio.duration);
+                    });
+                    audio.addEventListener('error', () => {
+                        resolve(0);
                     });
                 });
             };
