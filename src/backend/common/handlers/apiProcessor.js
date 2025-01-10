@@ -4,6 +4,7 @@ const https = require('https');
 
 const axiosDefault = require("axios").default;
 const logger = require("../../logwrapper");
+const frontendCommunicator = require('../frontend-communicator');
 
 const axios = axiosDefault.create({
     httpsAgent: new https.Agent({ rejectUnauthorized: false })
@@ -27,7 +28,7 @@ async function randomAdvice() {
         })
         .catch(function(err) {
             logger.debug(err.message);
-            renderWindow.webContents.send(
+            frontendCommunicator.send(
                 "error",
                 "アドバイスAPIに接続できませんでした。システムダウンしている可能性があります。"
             );
@@ -47,7 +48,7 @@ async function randomCatFact() {
         })
         .catch(function(err) {
             logger.debug(err.message);
-            renderWindow.webContents.send(
+            frontendCommunicator.send(
                 "error",
                 "チャットに猫の情報を送信する際にエラーが発生しました。"
             );
@@ -67,7 +68,7 @@ async function randomDogFact() {
         })
         .catch(function(err) {
             logger.debug(err.message);
-            renderWindow.webContents.send(
+            frontendCommunicator.send(
                 "error",
                 "チャットに犬の情報を送信する際にエラーが発生しました。"
             );
@@ -97,7 +98,7 @@ async function randomPokemon() {
         })
         .catch(function(err) {
             logger.debug(err.message);
-            renderWindow.webContents.send(
+            frontendCommunicator.send(
                 "error",
                 "チャットにポケモン情報を送信する際にエラーが発生しました。"
             );
@@ -116,7 +117,7 @@ async function numberTrivia() {
         })
         .catch(function(err) {
             logger.debug(err.message);
-            renderWindow.webContents.send(
+            frontendCommunicator.send(
                 "error",
                 "チャットにトリビア情報を送信する際にエラーが発生しました。"
             );
@@ -141,7 +142,7 @@ async function dadJoke() {
         })
         .catch(function(err) {
             logger.debug(err.message);
-            renderWindow.webContents.send(
+            frontendCommunicator.send(
                 "error",
                 "チャットにジョーク情報を送信する際にエラーが発生しました。"
             );

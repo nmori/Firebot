@@ -33,7 +33,14 @@
         'color.picker',
         'ngAria',
         'ui.codemirror'
-    ]);
+    ], function($controllerProvider, $compileProvider, $provide, $filterProvider) {
+        global.ngProviders = {
+            $controllerProvider: $controllerProvider,
+            $compileProvider: $compileProvider,
+            $provide: $provide,
+            $filterProvider: $filterProvider
+        };
+    });
 
     app.factory("$exceptionHandler", function(logger) {
         // this catches angular exceptions so we can send it to winston
@@ -82,6 +89,10 @@
         ]);
     });
 
+    app.config(function($animateProvider) {
+        $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
+    });
+
     app.config([
         "ngToastProvider",
         function(ngToast) {
@@ -128,6 +139,7 @@
         videoService,
         replaceVariableService,
         variableMacroService,
+        uiExtensionsService
     ) {
         // 'chatMessagesService' and 'videoService' are included so they're instantiated on app start
 
@@ -184,14 +196,16 @@
         connectionService.validateAccounts();
 
         ttsService.obtainVoices().then(() => {
-            if (settingsService.getDefaultTtsVoiceId() == null) {
-                settingsService.setDefaultTtsVoiceId(ttsService.getOsDefaultVoiceId());
+            if (settingsService.getSetting("DefaultTtsVoiceId") == null) {
+                settingsService.saveSetting("DefaultTtsVoiceId", ttsService.getOsDefaultVoiceId());
             }
         });
+
+        uiExtensionsService.setAsReady();
     });
 
     app.controller("MainController", function($scope, $rootScope, $timeout, connectionService, utilityService,
-        settingsService, backupService, sidebarManager, logger, backendCommunicator) {
+        settingsService, backupService, sidebarManager, logger, backendCommunicator, fontManager) {
         $rootScope.showSpinner = true;
 
         $scope.fontAwesome5KitUrl = `https://kit.fontawesome.com/${secrets.fontAwesome5KitId}.js`;
@@ -378,12 +392,12 @@
         //$scope.accounts = connectionService.accounts;
         //$scope.profiles = connectionService.profiles;
 
-        if (settingsService.hasJustUpdated()) {
+        if (settingsService.getSetting("JustUpdated")) {
             utilityService.showUpdatedModal();
-            settingsService.setJustUpdated(false);
-        } else if (settingsService.isFirstTimeUse()) {
+            settingsService.saveSetting("JustUpdated", false);
+        } else if (settingsService.getSetting("FirstTimeUse")) {
             utilityService.showSetupWizard();
-            settingsService.setFirstTimeUse(false);
+            settingsService.saveSetting("FirstTimeUse", false);
         }
 
         /**
@@ -394,7 +408,12 @@
         const appVersion = firebotAppDetails.version;
         $scope.appTitle = `Firebot v${appVersion}`;
 
-        $scope.customFontCssPath = profileManager.getPathInProfile("/fonts/fonts.css");
+        const url = require("url");
+        $scope.customFontCssPath = url.pathToFileURL(fontManager.getFontCssPath());
+
+        backendCommunicator.on("fonts:reload-font-css", () => {
+            $scope.customFontCssPath = `${url.pathToFileURL(fontManager.getFontCssPath())}?reload=${new Date().getTime()}`;
+        });
 
         //make sure sliders render properly
         $timeout(function() {
@@ -403,7 +422,7 @@
 
         // Apply Theme
         $scope.appTheme = function() {
-            return settingsService.getTheme();
+            return settingsService.getSetting("Theme");
         };
 
         $rootScope.showSpinner = false;
@@ -430,7 +449,7 @@
             });
         });
 
-        backendCommunicator.on("restore-backup", () => {
+        backendCommunicator.on("backups:start-restore-backup", () => {
             backupService.openBackupZipFilePicker()
                 .then((backupFilePath) => {
                     if (backupFilePath != null) {
@@ -504,7 +523,7 @@
 
     app.filter("hideBotMessages", function(settingsService, accountAccess) {
         return function(elements) {
-            const shouldHide = settingsService.chatHideBotAccountMessages();
+            const shouldHide = settingsService.getSetting("ChatHideBotAccountMessages");
             if (!shouldHide) {
                 return elements;
             }
@@ -521,7 +540,7 @@
 
     app.filter("hideWhispers", function(settingsService) {
         return function(elements) {
-            const shouldHide = settingsService.getChatHideWhispers();
+            const shouldHide = settingsService.getSetting("ChatHideWhispers");
             if (!shouldHide) {
                 return elements;
             }

@@ -1,8 +1,8 @@
 "use strict";
 
 const webServer = require("../../../server/http-server-manager");
-const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
-const { settings } = require("../../common/settings-access");
+const { EffectCategory } = require('../../../shared/effect-constants');
+const { SettingsManager } = require("../../common/settings-manager");
 
 /**
  * The Celebration effect
@@ -13,8 +13,8 @@ const celebration = {
    */
     definition: {
         id: "firebot:celebration",
-        name: "ãŠç¥ã„",
-        description: "èŠ±ç«ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤æ¼”å‡ºã§ç¥ã†",
+        name: "‚¨j‚¢",
+        description: "‰Ô‰Î‚ÌƒI[ƒo[ƒŒƒC‰‰o‚Åj‚¤",
         icon: "fad fa-birthday-cake",
         categories: [EffectCategory.FUN, EffectCategory.OVERLAY],
         dependencies: []
@@ -42,18 +42,15 @@ const celebration = {
         </div>
     </eos-container>
 
-    <eos-container header="ç¶™ç¶šæ™‚é–“" pad-top="true">
-        <div class="input-group">
-            <input type="text" ng-model="effect.length" class="form-control" id="celebration-amount-setting" aria-describedby="celebration-length-effect-type" replace-variables="number">
-            <span class="input-group-addon" id="celebration-length-effect-type">ç§’</span>
-        </div>
+    <eos-container header="Œp‘±ŠÔ" pad-top="true">
+        <firebot-input input-title="Seconds" data-type="number" model="effect.length" placeholder-text="5" menu-position="under"/>
     </eos-container>
 
     <eos-overlay-instance effect="effect" pad-top="true"></eos-overlay-instance>
 
     <eos-container>
         <div class="effect-info alert alert-warning">
-        ã“ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ä½¿ç”¨ã™ã‚‹ã«ã¯ã€Firebotã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ãŒé…ä¿¡ã‚½ãƒ•ãƒˆã«èª­ã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚<a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">ã“ã‚Œã«ã¤ã„ã¦å­¦ã¶</a>
+        ‚±‚ÌƒGƒtƒFƒNƒg‚ğg—p‚·‚é‚É‚ÍAFirebotƒI[ƒo[ƒŒƒC‚ª”zMƒ\ƒtƒg‚É“Ç‚İ‚Ü‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B<a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">‚±‚ê‚É‚Â‚¢‚ÄŠw‚Ô</a>
         </div>
     </eos-container>
     `,
@@ -75,17 +72,17 @@ const celebration = {
    * When the effect is triggered by something
    * Used to validate fields in the option template.
    */
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.celebration == null) {
-            errors.push("ãŠç¥ã„ã®æ–¹æ³•ã‚’ãŠé¸ã³ãã ã•ã„");
+            errors.push("‚¨j‚¢‚Ì•û–@‚ğ‚¨‘I‚Ñ‚­‚¾‚³‚¢");
         }
         return errors;
     },
     /**
    * When the effect is triggered by something
    */
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         // What should this do when triggered.
         const effect = event.effect;
 
@@ -100,9 +97,9 @@ const celebration = {
             celebrationDuration: celebrationDuration
         };
 
-        if (settings.useOverlayInstances()) {
+        if (SettingsManager.getSetting("UseOverlayInstances")) {
             if (effect.overlayInstance != null) {
-                if (settings.getOverlayInstances().includes(effect.overlayInstance)) {
+                if (SettingsManager.getSetting("OverlayInstances").includes(effect.overlayInstance)) {
                     data.overlayInstance = effect.overlayInstance;
                 }
             }
@@ -122,7 +119,7 @@ const celebration = {
         },
         event: {
             name: "celebrate",
-            onOverlayEvent: data => {
+            onOverlayEvent: (data) => {
 
                 // Celebrate Packet
                 //{"event": "celebration", "celebrationType": celebrationType, "celebrationDuration":celebrationDuration};
@@ -131,7 +128,7 @@ const celebration = {
 
                 // Generate UUID to use as class name.
                 // eslint-disable-next-line no-undef
-                const divClass = uuidv4();
+                const divClass = uuid();
 
                 if (type === "Fireworks") {
                     const canvas = `<canvas id="fireworks" class="${divClass}-fireworks celebration ${type}" style="display:none; z-index: 99;"></canvas>`;

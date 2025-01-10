@@ -1,18 +1,14 @@
 "use strict";
 const electron = require("electron");
 const { app, ipcMain, dialog, shell } = electron;
-
-const path = require("path");
-
 const logger = require("../logwrapper");
 
 exports.setupCommonListeners = () => {
 
     const frontendCommunicator = require("./frontend-communicator");
-    const dataAccess = require("./data-access");
     const profileManager = require("./profile-manager");
-    const { settings } = require("./settings-access");
-    const backupManager = require("../backup-manager");
+    const { SettingsManager } = require("./settings-manager");
+    const { BackupManager } = require("../backup-manager");
     const webServer = require("../../server/http-server-manager");
 
     frontendCommunicator.on("show-twitch-preview", () => {
@@ -86,63 +82,9 @@ exports.setupCommonListeners = () => {
         }, 100);
     });
 
-    // Opens the firebot root folder
-    ipcMain.on("openRootFolder", () => {
-        const rootFolder = path.resolve(
-            profileManager.getPathInProfile("/")
-        );
-        shell.openPath(rootFolder);
-    });
-
-    // Opens the firebot root folder
-    ipcMain.on("openLogsFolder", () => {
-        const rootFolder = path.resolve(
-            dataAccess.getPathInUserData("/logs/")
-        );
-        shell.openPath(rootFolder);
-    });
-
-    // Get Import Folder Path
-    // This listens for an event from the render media.js file to open a dialog to get a filepath.
-    ipcMain.on("getImportFolderPath", (event, uniqueid) => {
-        const path = dialog.showOpenDialogSync({
-            title: "Select 'user-settings' folder",
-            buttonLabel: "Import 'user-settings'",
-            properties: ["openDirectory"]
-        });
-        event.sender.send("gotImportFolderPath", { path: path, id: uniqueid });
-    });
-
-    // Get Get Backup Zip Path
-    // This listens for an event from the render media.js file to open a dialog to get a filepath.
-    ipcMain.on("getBackupZipPath", (event, uniqueid) => {
-        const backupsFolderPath = path.resolve(
-            `${dataAccess.getUserDataPath() + path.sep}backups${path.sep}`
-        );
-
-        const fs = require("fs");
-        let backupsFolderExists = false;
-        try {
-            backupsFolderExists = fs.existsSync(backupsFolderPath);
-        } catch (err) {
-            logger.warn("cannot check if backup folder exists", err);
-        }
-
-        const zipPath = dialog.showOpenDialogSync({
-            title: "Select backup zp",
-            buttonLabel: "Select Backup",
-            defaultPath: backupsFolderExists ? backupsFolderPath : undefined,
-            filters: [{ name: "Zip", extensions: ["zip"] }]
-        });
-        event.sender.send("gotBackupZipPath", { path: zipPath, id: uniqueid });
-    });
-
     // Opens the firebot backup folder
     ipcMain.on("open-backup-folder", () => {
-        // We include "fakefile.txt" as a workaround to make it open into the 'root' folder instead
-        // of opening to the poarent folder with 'Firebot'folder selected.
-        const backupFolder = path.resolve(`${dataAccess.getUserDataPath() + path.sep}backups${path.sep}`);
-        shell.openPath(backupFolder);
+        shell.openPath(BackupManager.backupFolderPath);
     });
 
     // When we get an event from the renderer to create a new profile.
@@ -164,23 +106,6 @@ exports.setupCommonListeners = () => {
         profileManager.renameProfile(newProfileId);
     });
 
-    // Get Any kind of file Path
-    // This listens for an event from the front end.
-    ipcMain.on("getAnyFilePath", (event, data) => {
-        const uuid = data.uuid,
-            options = data.options || {};
-
-        const path = dialog.showOpenDialogSync({
-            title: options.title ? options.title : undefined,
-            buttonLabel: options.buttonLabel ? options.buttonLabel : undefined,
-            properties: options.directoryOnly ? ["openDirectory"] : ["openFile"],
-            filters: options.filters ? options.filters : undefined,
-            defaultPath: data.currentPath ? data.currentPath : undefined
-        });
-
-        event.sender.send("gotAnyFilePath", { path: path, id: uuid });
-    });
-
     // Change profile when we get event from renderer
     ipcMain.on("sendToOverlay", function(_, data) {
         if (data == null) {
@@ -198,8 +123,8 @@ exports.setupCommonListeners = () => {
         const GhReleases = require("electron-gh-releases");
 
         //back up first
-        if (settings.backupBeforeUpdates()) {
-            await backupManager.startBackup();
+        if (SettingsManager.getSetting("BackupBeforeUpdates")) {
+            await BackupManager.startBackup();
         }
 
         // Download Update
@@ -218,16 +143,16 @@ exports.setupCommonListeners = () => {
         updater.on("update-downloaded", () => {
             logger.info("Updated downloaded.");
             //let the front end know and wait a few secs.
-            renderWindow.webContents.send("updateDownloaded");
+            frontendCommunicator.send("updateDownloaded");
 
             // Prepare for update install on next run
-            settings.setJustUpdated(true);
+            SettingsManager.saveSetting("JustUpdated", true);
         });
     });
 
     ipcMain.on("installUpdate", () => {
         logger.info("Installing update...");
-        renderWindow.webContents.send("installingUpdate");
+        frontendCommunicator.send("installingUpdate");
 
         const GhReleases = require("electron-gh-releases");
 
@@ -241,4 +166,3 @@ exports.setupCommonListeners = () => {
         updater.autoUpdater;
     });
 };
-

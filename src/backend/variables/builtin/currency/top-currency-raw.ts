@@ -7,9 +7,9 @@ import currencyManager from "../../../currency/currency-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "rawTopCurrency",
-        description: "指定した通貨の使用率が最も高いものを含む生の配列を返します。配列内の項目には 'place'、'username' および 'amount' プロパティが含まれます。",
+        description: "Returns a raw array containing those with the most of the specified currency. Items in the array contain `place`, `username` and `amount` properties.",
         usage: "rawTopCurrency[currencyName]",
-        possibleDataOutput: [OutputDataType.TEXT]
+        possibleDataOutput: [OutputDataType.ARRAY]
     },
 
     // eslint-disable-next-line @typescript-eslint/no-inferrable-types

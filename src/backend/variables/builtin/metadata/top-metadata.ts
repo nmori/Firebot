@@ -9,6 +9,12 @@ const model : ReplaceVariable = {
         handle: "topMetadata",
         description: "指定されたメタデータのキーを最も多く持つユーザーのコンマ区切りリスト。デフォルトはトップ10で、第2引数に任意の数値を指定することができます。",
         usage: "topMetadata[metadataKey]",
+        examples: [
+            {
+                usage: "topMetadata[deaths, 5]",
+                description: "Returns comma-separated list of top 5 users with their death counts"
+            }
+        ],
         possibleDataOutput: [OutputDataType.TEXT]
     },
 

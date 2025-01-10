@@ -6,9 +6,9 @@ import viewerOnlineStatusManager from "../../../viewers/viewer-online-status-man
 const model : ReplaceVariable = {
     definition: {
         handle: "rawTopViewTime",
-        description: "視聴時間 (時間単位) が最も長いユーザを含む生の配列を返します。項目には 'username'、'place' および 'minutes' プロパティが含まれます。",
+        description: "Returns a raw array containing users with the most view time (in hours). Items contain `username`, 'place` and `minutes` properties.",
         usage: "rawTopViewTime[count]",
-        possibleDataOutput: [OutputDataType.TEXT]
+        possibleDataOutput: [OutputDataType.ARRAY]
     },
 
     // eslint-disable-next-line @typescript-eslint/no-inferrable-types

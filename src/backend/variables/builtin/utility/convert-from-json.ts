@@ -6,6 +6,12 @@ const model : ReplaceVariable = {
         handle: "convertFromJSON",
         description: "JSONテキストを生のオブジェクト・インスタンスに変換する。",
         usage: "convertFromJSON[json text]",
+        examples: [
+            {
+                usage: `convertFromJSON['{"name": "John", "age": 30}']`,
+                description: "Returns a raw object from JSON string"
+            }
+        ],
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.TEXT]
     },

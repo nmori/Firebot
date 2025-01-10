@@ -12,7 +12,7 @@ const model = {
         handle: "slootsChestQuantity",
         description: "購入したStreamLootsチェストの数",
         triggers: triggers,
-        categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
+        categories: [VariableCategory.COMMON, VariableCategory.INTEGRATION],
         possibleDataOutput: [OutputDataType.NUMBER]
     },
     evaluator: (trigger) => {

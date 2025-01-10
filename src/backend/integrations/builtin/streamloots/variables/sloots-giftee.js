@@ -12,7 +12,7 @@ const model = {
         handle: "slootsGiftee",
         description: "StreamLootsチェストをプレゼントされた方",
         triggers: triggers,
-        categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
+        categories: [VariableCategory.COMMON, VariableCategory.INTEGRATION],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {

@@ -12,7 +12,7 @@ const model = {
         handle: "slootsImageUrl",
         description: "StreamLootsチェスト/カードの画像URL",
         triggers: triggers,
-        categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
+        categories: [VariableCategory.COMMON, VariableCategory.INTEGRATION],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {

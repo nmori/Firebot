@@ -1,10 +1,10 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
+const { SettingsManager } = require("../../common/settings-manager");
+const { ResourceTokenManager } = require("../../resource-token-manager");
 const webServer = require("../../../server/http-server-manager");
 const mediaProcessor = require("../../common/handlers/mediaProcessor");
-const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
+const { EffectCategory } = require('../../../shared/effect-constants');
 const logger = require("../../logwrapper");
 const accountAccess = require("../../common/account-access");
 const util = require("../../utility");
@@ -13,7 +13,7 @@ const path = require("path");
 const frontendCommunicator = require('../../common/frontend-communicator');
 const { wait } = require("../../utility");
 const { parseYoutubeId } = require("../../../shared/youtube-url-parser");
-const uuid = require("uuid");
+const { v4: uuid } = require("uuid");
 
 /**
  * The Play Video effect
@@ -24,8 +24,8 @@ const playVideo = {
      */
     definition: {
         id: "firebot:playvideo",
-        name: "ãƒ“ãƒ‡ã‚ªã‚’å†ç”Ÿã™ã‚‹",
-        description: "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ã§ãƒ­ãƒ¼ã‚«ãƒ«ã€Youtubeã€Twitchã®ãƒ“ãƒ‡ã‚ªã‚’å†ç”Ÿã™ã‚‹ã€‚",
+        name: "ƒrƒfƒI‚ğÄ¶‚·‚é",
+        description: "ƒI[ƒo[ƒŒƒC‚Åƒ[ƒJƒ‹AYoutubeATwitch‚ÌƒrƒfƒI‚ğÄ¶‚·‚éB",
         icon: "fad fa-video",
         categories: [EffectCategory.COMMON, EffectCategory.OVERLAY, EffectCategory.TWITCH],
         dependencies: []
@@ -39,7 +39,7 @@ const playVideo = {
      * You can alternatively supply a url to a html file via optionTemplateUrl
      */
     optionsTemplate: `
-    <eos-container header="ãƒ“ãƒ‡ã‚ª">
+    <eos-container header="ƒrƒfƒI">
         <div style="padding-bottom: 10px">
             <div ng-if="shouldShowVideoPlaceholder()" >
                 <img src="../images/placeholders/video.png" style="width: 350px;object-fit: scale-down;background: #d7d7d7">
@@ -70,19 +70,19 @@ const playVideo = {
             </button>
             <ul class="dropdown-menu">
                 <li ng-click="effect.reset = false">
-                    <a ng-click="setVideoType('Local Video')" href>ãƒ­ãƒ¼ã‚«ãƒ«ãƒ“ãƒ‡ã‚ª</a>
+                    <a ng-click="setVideoType('Local Video')" href>ƒ[ƒJƒ‹ƒrƒfƒI</a>
                 </li>
                 <li ng-click="effect.reset = false">
-                    <a ng-click="setVideoType('Random From Folder')" href>ãƒ•ã‚©ãƒ«ãƒ€ã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã«é¸ã¶</a>
+                    <a ng-click="setVideoType('Random From Folder')" href>ƒtƒHƒ‹ƒ_‚©‚çƒ‰ƒ“ƒ_ƒ€‚É‘I‚Ô</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('YouTube Video')" href>YouTube ãƒ“ãƒ‡ã‚ª</a>
+                    <a ng-click="setVideoType('YouTube Video')" href>YouTube ƒrƒfƒI</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('Twitch Clip')" href>Twitch ã‚¯ãƒªãƒƒãƒ—</a>
+                    <a ng-click="setVideoType('Twitch Clip')" href>Twitch ƒNƒŠƒbƒv</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('Random Twitch Clip')" href>Twitch ã‚¯ãƒªãƒƒãƒ—ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«é¸ã¶</a>
+                    <a ng-click="setVideoType('Random Twitch Clip')" href>Twitch ƒNƒŠƒbƒv‚ğƒ‰ƒ“ƒ_ƒ€‚É‘I‚Ô</a>
                 </li>
             </ul>
         </div>
@@ -96,7 +96,7 @@ const playVideo = {
         <div ng-show="effect.videoType == 'Random From Folder'" class="input-group">
             <file-chooser
                 model="effect.folder"
-                options="{ directoryOnly: true, filters: [], title: 'æ˜ åƒãƒ•ã‚©ãƒ«ãƒ€ã‚’é¸ã¶'}"
+                options="{ directoryOnly: true, filters: [], title: '‰f‘œƒtƒHƒ‹ƒ_‚ğ‘I‚Ô'}"
             />
         </div>
         <div ng-show="effect.videoType == 'YouTube Video'" class="input-group">
@@ -114,19 +114,19 @@ const playVideo = {
             <firebot-input
                 input-title="Twitch Clip Url/ID"
                 model="effect.twitchClipUrl"
-                placeholder-text="ä¾‹: HealthyBlazingLyrebirdTinyFace"
+                placeholder-text="—á: HealthyBlazingLyrebirdTinyFace"
             />
         </div>
 
         <div ng-show="effect.videoType == 'Random Twitch Clip'">
             <firebot-input
-                input-title="Twitch ãƒ¦ãƒ¼ã‚¶å"
+                input-title="Twitch ƒ†[ƒU–¼"
                 model="effect.twitchClipUsername"
-                placeholder-text="ä¾‹: $streamer, $user, etc"
+                placeholder-text="—á: $streamer, $user, etc"
             />
             <div class="mt-10 form-group flex-row jspacebetween" style="margin-bottom: 0;">
-                <firebot-checkbox 
-                    label="Only Featured Clips" 
+                <firebot-checkbox
+                    label="Only Featured Clips"
                     model="effect.isFeatured"
                     style="margin: 0px 15px 0px 0px"
                 />
@@ -136,8 +136,8 @@ const playVideo = {
                 ng-class="{'has-error': $ctrl.formFieldHasError('clipSeconds')}"
             >
                 <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
-                    <firebot-checkbox 
-                        label="Maximum Clip Age" 
+                    <firebot-checkbox
+                        label="Maximum Clip Age"
                         model="effect.useMaxClipAge"
                         style="margin: 0px 15px 0px 0px"
                     />
@@ -161,7 +161,7 @@ const playVideo = {
     <div ng-show="effect.videoType">
 
         <div ng-show="effect.videoType == 'YouTube Video'">
-            <eos-container header="å†ç”Ÿé–‹å§‹ãƒã‚¸ã‚·ãƒ§ãƒ³" pad-top="true">
+            <eos-container header="Ä¶ŠJnƒ|ƒWƒVƒ‡ƒ“" pad-top="true">
                 <div class="input-group">
                     <span class="input-group-addon">Start time location</span>
                     <input
@@ -175,7 +175,7 @@ const playVideo = {
             </eos-container>
         </div>
 
-        <eos-container header="éŸ³é‡" pad-top="true">
+        <eos-container ng-if="effect.videoType != 'Random Twitch Clip' && effect.videoType != 'Twitch Clip'" header="Volume" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 0, ceil: 10, hideLimitLabels: true}"></rzslider>
@@ -192,7 +192,7 @@ const playVideo = {
                     placeholder="Optional"
                     replace-variables="number"
                     ng-model="effect.length">
-                <span class="input-group-addon">ç§’</span>
+                <span class="input-group-addon">•b</span>
             </div>
             <label ng-if="effect.videoType != 'Random Twitch Clip' && effect.videoType != 'Twitch Clip'" class="control-fb control--checkbox" style="margin-top:15px;"> Loop <tooltip text="'Loop the video until the duration is reached.'"></tooltip>
                 <input type="checkbox" ng-model="effect.loop" ng-disabled="effect.wait">
@@ -205,12 +205,12 @@ const playVideo = {
         </eos-container>
 
         <eos-container header="Size" pad-top="true">
-            <label class="control-fb control--checkbox"> ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ã‚’ 16:9 ã«å¼·åˆ¶ã™ã‚‹
+            <label class="control-fb control--checkbox"> ƒAƒXƒyƒNƒg”ä‚ğ 16:9 ‚É‹­§‚·‚é
                 <input type="checkbox" ng-click="forceRatioToggle();" ng-checked="forceRatio">
                 <div class="control__indicator"></div>
             </label>
             <div class="input-group">
-                <span class="input-group-addon">å¹… (pixels)</span>
+                <span class="input-group-addon">• (pixels)</span>
                 <input
                     type="text"
                     class="form-control"
@@ -218,7 +218,7 @@ const playVideo = {
                     type="number"
                     ng-change="calculateSize('Width', effect.width)"
                     ng-model="effect.width">
-                <span class="input-group-addon">é«˜ã• (pixels)</span>
+                <span class="input-group-addon">‚‚³ (pixels)</span>
                 <input
                     type="text"
                     class="form-control"
@@ -228,12 +228,12 @@ const playVideo = {
                     ng-model="effect.height">
             </div>
             <div class="effect-info alert alert-info">
-                ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«æ•°å­—ã‚’å…¥ã‚Œã‚‹ã ã‘ã§ã™ï¼ˆä¾‹ï¼š250ï¼‰ã€‚ã“ã‚Œã§å‹•ç”»ã®æœ€å¤§å¹…/é«˜ã•ãŒè¨­å®šã•ã‚Œã€ãã‚Œã«æ¯”ä¾‹ã—ã¦ç¸®å°ã•ã‚Œã¾ã™ã€‚
+                ƒtƒB[ƒ‹ƒh‚É”š‚ğ“ü‚ê‚é‚¾‚¯‚Å‚·i—áF250jB‚±‚ê‚Å“®‰æ‚ÌÅ‘å•/‚‚³‚ªİ’è‚³‚êA‚»‚ê‚É”ä—á‚µ‚Äk¬‚³‚ê‚Ü‚·B
             </div>
         </eos-container>
 
         <eos-overlay-position effect="effect" pad-top="true"></eos-overlay-position>
-        
+
         <eos-overlay-rotation effect="effect" pad-top="true"></eos-overlay-rotation>
 
         <eos-enter-exit-animations effect="effect" pad-top="true"></eos-enter-exit-animations>
@@ -242,9 +242,9 @@ const playVideo = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                ã“ã®åŠ¹æœã‚’ä½¿ç”¨ã™ã‚‹ã«ã¯ã€Firebotã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ãŒé…ä¿¡ã‚½ãƒ•ãƒˆã«èª­ã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚<a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
+                ‚±‚ÌŒø‰Ê‚ğg—p‚·‚é‚É‚ÍAFirebotƒI[ƒo[ƒŒƒC‚ª”zMƒ\ƒtƒg‚É“Ç‚İ‚Ü‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B<a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
                 <br>
-                <strong>æƒ…å ±</strong>: Streamlabs Desktopï¼ˆæ—§ç§°ï¼šSLOBSï¼‰ã¯ã€ãƒ–ãƒ©ã‚¦ã‚¶ã®ã‚½ãƒ¼ã‚¹ã§mp4ãƒ“ãƒ‡ã‚ªã‚’ã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã¾ã›ã‚“ã€‚Streamlabs Desktopã§è¡¨ç¤ºã—ãŸã„mp4å‹•ç”»ã‚’ãŠæŒã¡ã®å ´åˆã¯ã€<strong>.webm</strong>å½¢å¼ã«å¤‰æ›ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
+                <strong>î•ñ</strong>: Streamlabs Desktopi‹ŒÌFSLOBSj‚ÍAƒuƒ‰ƒEƒU‚Ìƒ\[ƒX‚Åmp4ƒrƒfƒI‚ğƒTƒ|[ƒg‚µ‚Ä‚¢‚Ü‚¹‚ñBStreamlabs Desktop‚Å•\¦‚µ‚½‚¢mp4“®‰æ‚ğ‚¨‚¿‚Ìê‡‚ÍA<strong>.webm</strong>Œ`®‚É•ÏŠ·‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
             </div>
         </eos-container>
     </div>
@@ -397,9 +397,9 @@ const playVideo = {
             }
         }
 
-        if (settings.useOverlayInstances()) {
+        if (SettingsManager.getSetting("UseOverlayInstances")) {
             if (effect.overlayInstance != null) {
-                if (settings.getOverlayInstances().includes(effect.overlayInstance)) {
+                if (SettingsManager.getSetting("OverlayInstances").includes(effect.overlayInstance)) {
                     data.overlayInstance = effect.overlayInstance;
                 }
             }
@@ -408,7 +408,7 @@ const playVideo = {
         const overlayInstance = data.overlayInstance ?? "Default";
 
         async function waitFunction(duration) {
-            if (settings.getForceOverlayEffectsToContinueOnRefresh() === true) {
+            if (SettingsManager.getSetting("ForceOverlayEffectsToContinueOnRefresh") === true) {
                 let currentDuration = 0;
                 let returnNow = false;
 
@@ -486,7 +486,8 @@ const playVideo = {
                 }
             }
 
-            const clipVideoUrl = `${clip.thumbnailUrl.split("-preview-")[0]}.mp4`;
+            //const clipVideoUrl = `${clip.thumbnailUrl.split("-preview-")[0]}.mp4`;
+            const clipVideoUrl = clip.embedUrl;
             const clipDuration = clip.duration;
             const volume = parseInt(effect.volume) / 10;
 
@@ -543,7 +544,7 @@ const playVideo = {
             if (!isNaN(result)) {
                 duration = result;
             }
-            resourceToken = resourceTokenManager.storeResourcePath(data.filepath, duration);
+            resourceToken = ResourceTokenManager.storeResourcePath(data.filepath, duration);
         }
         if ((data.videoDuration == null || data.videoDuration === "" || data.videoDuration === 0) && duration != null) {
             data.videoDuration = duration;
@@ -671,8 +672,8 @@ const playVideo = {
 
                 // Generate UUID to use as id
                 // eslint-disable-next-line no-undef
-                const uuid = uuidv4();
-                const videoPlayerId = `${uuid}-video`;
+                const elementId = uuid();
+                const videoPlayerId = `${elementId}-video`;
 
                 const enterAnimation = data.enterAnimation ? data.enterAnimation : "fadeIn";
                 const exitAnimation = data.exitAnimation ? data.exitAnimation : "fadeIn";
@@ -704,7 +705,7 @@ const playVideo = {
                     `;
 
                     // eslint-disable-next-line no-undef
-                    const wrapperId = uuidv4();
+                    const wrapperId = uuid();
                     const wrappedHtml = getPositionWrappedHTML(wrapperId, positionData, videoElement); // eslint-disable-line no-undef
 
                     $(".wrapper").append(wrappedHtml);
@@ -765,12 +766,12 @@ const playVideo = {
                     };
                 } else {
                     // eslint-disable-next-line no-undef
-                    const ytPlayerId = `yt-${uuidv4()}`;
+                    const ytPlayerId = `yt-${uuid()}`;
 
                     const youtubeElement = `<div id="${ytPlayerId}" style="display:none;${sizeStyles}"></div>`;
 
                     // eslint-disable-next-line no-undef
-                    const wrapperId = uuidv4();
+                    const wrapperId = uuid();
                     const wrappedHtml = getPositionWrappedHTML(wrapperId, positionData, youtubeElement); // eslint-disable-line no-undef
 
                     $(".wrapper").append(wrappedHtml);

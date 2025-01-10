@@ -11,7 +11,7 @@
         .module("firebotApp")
         .factory("backendCommunicator", function($q) {
 
-            const uuidv1 = require("uuid/v1");
+            const { v4: uuid } = require("uuid");
 
             const service = {};
 
@@ -44,7 +44,7 @@
                     throw new Error("コールバックなしでイベントを登録できない");
                 }
 
-                const id = uuidv1(),
+                const id = uuid(),
                     event = {
                         id: id,
                         callback: callback,

@@ -10,6 +10,12 @@ const model : ReplaceVariable = {
         handle: "topCurrency",
         description: "指定した通貨を最も多く使用しているユーザの一覧をカンマ区切りで返します。デフォルトはトップ 10 で、二番目の引数に任意の数値を指定できます。",
         usage: "topCurrency[currencyName]",
+        examples: [
+            {
+                usage: "topCurrency[Points, 5]",
+                description: "Returns comma-separated list of top 5 users with their Points amounts"
+            }
+        ],
         possibleDataOutput: [OutputDataType.TEXT]
     },
 

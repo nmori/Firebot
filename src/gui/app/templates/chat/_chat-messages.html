@@ -14,13 +14,13 @@
     ng-style="{'width': layout.dashboardViewerList }"
   >
     <div class="viewer-list-header">
-      <span role="heading" aria-level="2"> å…¨ãƒªã‚¹ãƒŠãƒ¼ </span>
+      <span role="heading" aria-level="2"> ‘SƒŠƒXƒi[ </span>
     </div>
     <div class="chat-users mt-2">
-      <chat-user-category category="ãƒ¢ãƒ‡ãƒ¬ãƒ¼ã‚¿" role-key="mod" />
+      <chat-user-category category="ƒ‚ƒfƒŒ[ƒ^" role-key="mod" />
       <chat-user-category category="VIP" role-key="vip" />
-      <chat-user-category category="è¦–è´è€…" role-key="viewer" />
-      <chat-user-category category="é…ä¿¡è€…" role-key="broadcaster" />
+      <chat-user-category category="‹’®Ò" role-key="viewer" />
+      <chat-user-category category="”zMÒ" role-key="broadcaster" />
       <chat-user-category category="Bot" role-key="viewerlistbot" />
     </div>
   </div>
@@ -42,11 +42,11 @@
         >
       </div>
       <button
-        ng-hide="scrollGlued || threadDetails != null"
+        ng-hide="scrollGlued || cms.threadDetails != null"
         ng-click="scrollGlued = true"
         class="chat-scroll-paused-btn btn-sm clickable mb-4"
       >
-        ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã•ã‚ŒãŸã®ã§ä¸€æ™‚åœæ­¢ä¸­
+        ƒXƒNƒ[ƒ‹‚³‚ê‚½‚Ì‚Åˆê’â~’†
       </button>
       <div
         class="chat-window"
@@ -87,9 +87,9 @@
         </div>
       </div>
       <div class="chat-autodisconnected" ng-show="cms.autodisconnected">
-        ãƒãƒ£ãƒƒãƒˆã‹ã‚‰åˆ‡æ–­ã•ã‚Œã¾ã—ãŸ...å†æ¥ç¶šä¸­
+        ƒ`ƒƒƒbƒg‚©‚çØ’f‚³‚ê‚Ü‚µ‚½...ÄÚ‘±’†
       </div>
-      <div ng-if="threadDetails != null" class="thread-wrapper" ng-class="{ 'mt-5': alternateBackgrounds}">
+      <div ng-if="cms.threadDetails != null" class="thread-wrapper" ng-class="{ 'mt-5': alternateBackgrounds}">
         <div class="thread-header">
           <h4><i class="fas" ng-class="currentThreadMessages().length < 2 ? 'fa-reply' : 'fa-comment-alt-lines'" style="margin-right: 10px;"></i>{{currentThreadMessages().length < 2 ? "Reply to" : "Thread"}}</h4>
           <button type="button" class="thread-close-btn clickable" aria-label="Close" ng-click="closeThreadPanel()"><i class="far fa-times"></i></button>
@@ -112,9 +112,9 @@
               chat-size-style="{{customFontSizeStyle}}"
             />
         </div>
-        <div class="thread-replying-to" ng-if="threadDetails.replyToMessageId != threadDetails.threadParentMessageId">
-          <span><span style="font-weight: 800">@{{threadDetails.replyToUserDisplayName}}</span>ã«è¿”ä¿¡ï¼š</span>
-          <button class="btn btn-link" ng-click="threadDetails.replyToMessageId = threadDetails.threadParentMessageId">ã‚­ãƒ£ãƒ³ã‚»ãƒ«</button>
+        <div class="thread-replying-to" ng-if="cms.threadDetails.replyToMessageId != cms.threadDetails.threadParentMessageId">
+          <span>Replying to <span style="font-weight: 800">@{{cms.threadDetails.replyToUserDisplayName}}</span></span>
+          <button class="btn btn-link" ng-click="cms.threadDetails.replyToMessageId = cms.threadDetails.threadParentMessageId">Cancel</button>
         </div>
       </div>
     </div>
@@ -122,26 +122,24 @@
       <div
         class="text-input"
         chat-auto-complete-menu
-        ng-model="chatMessage"
+        ng-model="cms.chatMessage"
         input-id="chatMessageInput"
       >
         <div class="dropup">
-          <span
+          <div
             class="dropdown-toggle chatter-dropdown"
             data-toggle="dropdown"
             uib-tooltip="Chat as"
             tooltip-placement="left"
             tooltip-append-to-body="true"
           >
-            <span class="ml-4" style="width: 100%; text-align: center"
-              >{{chatSender}}</span
-            >
+            <span class="ml-4" style="width: 100%; text-align: center">{{cms.chatSender}}</span>
             <div class="fb-arrow down mx-4 mb-1"></div>
-          </span>
+          </div>
           <ul class="dropdown-menu">
-            <li ng-click="chatSender = 'Streamer'"><a href>é…ä¿¡è€…</a></li>
-            <li ng-click="chatSender = 'Bot'" ng-show="botLoggedIn">
-              <a href>Bot</a>
+            <li ng-click="cms.chatSender = 'Streamer'"><a>Streamer</a></li>
+            <li ng-click="cms.chatSender = 'Bot'" ng-show="botLoggedIn">
+              <a>Bot</a>
             </li>
           </ul>
         </div>
@@ -149,11 +147,11 @@
         <input
           id="chatMessageInput"
           type="text"
-          placeholder="ãƒãƒ£ãƒƒãƒˆå…¥åŠ›"
+          placeholder="ƒ`ƒƒƒbƒg“ü—Í"
           class="text-input-field"
           style="height: 100%"
           ng-maxlength="360"
-          ng-model="chatMessage"
+          ng-model="cms.chatMessage"
           ng-change="onMessageFieldUpdate()"
           ng-keydown="onMessageFieldKeypress($event)"
           ng-trim="false"
@@ -164,7 +162,7 @@
         <button
           class="settings-btn"
           ng-click="showChatSettingsModal()"
-          aria-label="ãƒãƒ£ãƒƒãƒˆè¨­å®š"
+          aria-label="ƒ`ƒƒƒbƒgİ’è"
         >
           <i class="fas fa-cog"></i>
         </button>
@@ -174,18 +172,18 @@
 
   <column-resizer
     on-update="updateLayoutSettings(updatedSettings)"
-    ng-show="settings.showActivityFeed()"
+    ng-show="settings.getSetting('ShowActivityFeed')"
   ></column-resizer>
 
   <div
     id="dashboardActivityFeed"
     class="activity-feed-column"
-    ng-show="settings.showActivityFeed()"
+    ng-show="settings.getSetting('ShowActivityFeed')"
     ng-style="{'width': layout.dashboardActivityFeed }"
   >
     <div class="activity-feed-header">
       <div style="display: flex; align-items: center">
-        <span>ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ•ã‚£ãƒ¼ãƒ‰</span>
+        <span>ƒAƒNƒeƒBƒuƒtƒB[ƒh</span>
         <span
           ng-show="afs.unacknowledgedCount() > 0"
           uib-tooltip="Unacknowledged events"
@@ -206,29 +204,28 @@
       </div>
       <div uib-dropdown>
         <a
-          href
           uib-dropdown-toggle
           class="clickable"
           style="color: white; font-size: 20px; line-height: 1"
-          aria-label="ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ•ã‚£ãƒ¼ãƒ‰ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
+          aria-label="ƒAƒNƒeƒBƒuƒtƒB[ƒh‚ÌƒIƒvƒVƒ‡ƒ“"
         >
           <i class="far fa-ellipsis-v"></i>
         </a>
         <ul class="dropdown-menu right-justified-dropdown" uib-dropdown-menu>
           <li ng-class="{'disabled': afs.activities.length < 1}">
-            <a href ng-click="afs.toggleMarkAllAcknowledged()"
+            <a ng-click="afs.toggleMarkAllAcknowledged()"
               ><i
                 class="far fa-check-square mr-4"
-                aria-label="ã™ã¹ã¦ã®ã‚¤ãƒ™ãƒ³ãƒˆã«æ‰¿èªãƒãƒ¼ã‚¯ã‚’ä»˜ã‘ã‚‹"
+                aria-label="‚·‚×‚Ä‚ÌƒCƒxƒ“ƒg‚É³”Fƒ}[ƒN‚ğ•t‚¯‚é"
               ></i>
-              ã™ã¹ã¦ã‚’ {{afs.allAcknowledged() ? 'æœªæ‰¿èª' :
-              'æ‰¿èªæ¸ˆ'}}</a
+              ‚·‚×‚Ä‚ğ {{afs.allAcknowledged() ? '–¢³”F' :
+              '³”FÏ'}}</a
             >
           </li>
           <li>
-            <a href ng-click="afs.showEditActivityFeedEventsModal()"
-              ><i class="far fa-toggle-off mr-4" aria-label="ã‚¤ãƒ™ãƒ³ãƒˆç·¨é›†"></i>
-              ã‚¤ãƒ™ãƒ³ãƒˆç·¨é›†</a
+            <a ng-click="afs.showEditActivityFeedEventsModal()"
+              ><i class="far fa-toggle-off mr-4" aria-label="ƒCƒxƒ“ƒg•ÒW"></i>
+              ƒCƒxƒ“ƒg•ÒW</a
             >
           </li>
           <!-- <li class="divider"></li> -->
@@ -273,20 +270,20 @@
             ng-if="activity.event.canRetrigger !== false"
             class="clickable far fa-redo mr-4"
             ng-click="afs.retriggerEvent(activity.id)"
-            uib-tooltip="ã‚¤ãƒ™ãƒ³ãƒˆã‚’å†èµ·å‹•"
+            uib-tooltip="ƒCƒxƒ“ƒg‚ğÄ‹N“®"
             tooltip-placement="top-right"
             tooltip-append-to-body="true"
-            aria-label="å†èµ·å‹• {{activity.event.name}}"
+            aria-label="Ä‹N“® {{activity.event.name}}"
           ></i>
 
           <i
             class="clickable far"
             ng-class="activity.acknowledged ? 'fa-check-square' : 'fa-square'"
             ng-click="activity.acknowledged = !activity.acknowledged"
-            uib-tooltip="{{activity.acknowledged ? 'æ‰¿èªæ¸ˆ' : 'æ‰¿èªã¾ã¡'}}"
+            uib-tooltip="{{activity.acknowledged ? '³”FÏ' : '³”F‚Ü‚¿'}}"
             tooltip-placement="top-right"
             tooltip-append-to-body="true"
-            aria-label="æ‰¿èªã™ã‚‹ {{activity.event.name}}"
+            aria-label="³”F‚·‚é {{activity.event.name}}"
           ></i>
         </div>
       </div>

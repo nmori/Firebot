@@ -29,13 +29,13 @@ exports.whenReady = async () => {
     ensureRequiredFoldersExist();
 
     // load twitch auth
-    windowManagement.updateSplashScreenStatus("Twitchæ¥ç¶šã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("TwitchÚ‘±‚ğ“Ç’†...");
     require("../../../auth/auth-manager");
     const twitchAuth = require("../../../auth/twitch-auth");
     twitchAuth.registerTwitchAuthProviders();
 
     // load accounts
-    windowManagement.updateSplashScreenStatus("ã‚¢ã‚«ã‚¦ãƒ³ãƒˆè¨­å®šã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒAƒJƒEƒ“ƒgİ’è‚ğ“Ç’†...");
     const accountAccess = require("../../../common/account-access");
     await accountAccess.updateAccountCache(false);
 
@@ -44,34 +44,31 @@ exports.whenReady = async () => {
 
     const connectionManager = require("../../../common/connection-manager");
 
-    windowManagement.updateSplashScreenStatus("ã‚¿ã‚¤ãƒãƒ¼ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒ^ƒCƒ}[‚ğ“Ç’†...");
     const timerManager = require("../../../timers/timer-manager");
     await timerManager.loadItems();
     timerManager.startTimers();
 
-    windowManagement.updateSplashScreenStatus("è¨ˆç”»ã•ã‚ŒãŸæ¼”å‡ºã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("Œv‰æ‚³‚ê‚½‰‰o‚ğ“Ç’†...");
     const scheduledTaskManager = require("../../../timers/scheduled-task-manager");
     scheduledTaskManager.loadItems();
     scheduledTaskManager.start();
 
-    windowManagement.updateSplashScreenStatus("Twitchã¨ãƒ‡ãƒ¼ã‚¿åŒæœŸä¸­...");
+    windowManagement.updateSplashScreenStatus("Twitch‚Æƒf[ƒ^“¯Šú’†...");
     await accountAccess.refreshTwitchData();
 
-    const twitchFrontendListeners = require("../../../twitch-api/frontend-twitch-listeners");
-    twitchFrontendListeners.setupListeners();
-
-    windowManagement.updateSplashScreenStatus("é…ä¿¡ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç›£è¦–ã‚’é–‹å§‹...");
+    windowManagement.updateSplashScreenStatus("”zMƒXƒe[ƒ^ƒXŠÄ‹‚ğŠJn...");
     connectionManager.startOnlineCheckInterval();
 
     // load effects
     logger.debug("Loading effects...");
-    windowManagement.updateSplashScreenStatus("æ¼”å‡ºã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("‰‰o‚ğ“Ç’†...");
     const { loadEffects } = require("../../../effects/builtin-effect-loader");
     loadEffects();
 
-    windowManagement.updateSplashScreenStatus("é€šè²¨æƒ…å ±ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("’Ê‰İî•ñ‚ğ“Ç’†...");
     const currencyAccess = require("../../../currency/currency-access").default;
-    currencyAccess.refreshCurrencyCache();
+    currencyAccess.loadCurrencies();
 
     windowManagement.updateSplashScreenStatus("Loading ranks...");
     const viewerRanksManager = require("../../../ranks/rank-manager");
@@ -79,31 +76,31 @@ exports.whenReady = async () => {
 
     // load commands
     logger.debug("Loading sys commands...");
-    windowManagement.updateSplashScreenStatus("ã‚·ã‚¹ãƒ†ãƒ ã‚³ãƒãƒ³ãƒ‰ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒVƒXƒeƒ€ƒRƒ}ƒ“ƒh‚ğ“Ç’†...");
     const { loadSystemCommands } = require("../../../chat/commands/system-command-loader");
     loadSystemCommands();
 
     // load event sources
     logger.debug("Loading event sources...");
-    windowManagement.updateSplashScreenStatus("ã‚¤ãƒ™ãƒ³ãƒˆã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒCƒxƒ“ƒg‚ğ“Ç’†...");
     const { loadEventSources } = require("../../../events/builtin-event-source-loader");
     loadEventSources();
 
     // load event filters
     logger.debug("Loading event filters...");
-    windowManagement.updateSplashScreenStatus("ãƒ•ã‚£ãƒ«ã‚¿ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒtƒBƒ‹ƒ^‚ğ“Ç’†...");
     const { loadFilters } = require("../../../events/filters/builtin-filter-loader");
     loadFilters();
 
     // load integrations
     logger.debug("Loading integrations...");
-    windowManagement.updateSplashScreenStatus("çµ±åˆæ©Ÿèƒ½ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("“‡‹@”\‚ğ“Ç’†...");
     const { loadIntegrations } = require("../../../integrations/builtin-integration-loader");
     loadIntegrations();
 
     // load variables
     logger.debug("Loading variables...");
-    windowManagement.updateSplashScreenStatus("å¤‰æ•°ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("•Ï”‚ğ“Ç’†...");
     const { loadReplaceVariables } = require("../../../variables/variable-loader");
     loadReplaceVariables();
 
@@ -113,78 +110,81 @@ exports.whenReady = async () => {
 
     // load restrictions
     logger.debug("Loading restrictions...");
-    windowManagement.updateSplashScreenStatus("åˆ¶é™ãƒ‡ãƒ¼ã‚¿ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("§ŒÀƒf[ƒ^‚ğ“Ç’†...");
     const { loadRestrictions } = require("../../../restrictions/builtin-restrictions-loader");
     loadRestrictions();
 
-    const fontManager = require("../../../fontManager");
-    fontManager.generateAppFontCssFile();
+    windowManagement.updateSplashScreenStatus("Loading fonts...");
+    const { FontManager } = require("../../../font-manager");
+    await FontManager.loadInstalledFonts();
 
-    windowManagement.updateSplashScreenStatus("ã‚¤ãƒ™ãƒ³ãƒˆã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒCƒxƒ“ƒg‚ğ“Ç’†...");
     const eventsAccess = require("../../../events/events-access");
     eventsAccess.loadEventsAndGroups();
 
-    windowManagement.updateSplashScreenStatus("ãƒãƒ¼ãƒ ã®å½¹å‰²ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒ`[ƒ€‚Ì–ğŠ„‚ğ“Ç’†...");
     const teamRolesManager = require("../../../roles/team-roles-manager");
     teamRolesManager.loadTeamRoles();
 
-    windowManagement.updateSplashScreenStatus("ã‚«ã‚¹ã‚¿ãƒ ã®å½¹å‰²ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒJƒXƒ^ƒ€‚Ì–ğŠ„‚ğ“Ç’†...");
     const customRolesManager = require("../../../roles/custom-roles-manager");
     await customRolesManager.loadCustomRoles();
 
     const chatRolesManager = require("../../../roles/chat-roles-manager");
 
-    windowManagement.updateSplashScreenStatus("BOTãƒªã‚¹ãƒˆã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("BOTƒŠƒXƒg‚ğ“Ç’†...");
     await chatRolesManager.cacheViewerListBots();
 
-    windowManagement.updateSplashScreenStatus("ãƒ¢ãƒ‡ãƒ¬ãƒ¼ã‚¿æƒ…å ±èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒ‚ƒfƒŒ[ƒ^î•ñ“Ç’†...");
     await chatRolesManager.loadModerators();
 
-    windowManagement.updateSplashScreenStatus("VIPæƒ…å ±èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("VIPî•ñ“Ç’†...");
     await chatRolesManager.loadVips();
 
-    windowManagement.updateSplashScreenStatus("æ¼”å‡ºã‚­ãƒ¥ãƒ¼ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("‰‰oƒLƒ…[‚ğ“Ç’†...");
     const effectQueueManager = require("../../../effects/queues/effect-queue-manager");
     effectQueueManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("ãƒ—ãƒªã‚»ãƒƒãƒˆæ¼”å‡ºãƒªã‚¹ãƒˆã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒvƒŠƒZƒbƒg‰‰oƒŠƒXƒg‚ğ“Ç’†...");
     const presetEffectListManager = require("../../../effects/preset-lists/preset-effect-list-manager");
     presetEffectListManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("ã‚¯ã‚¤ãƒƒã‚¯ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒNƒCƒbƒNƒAƒNƒVƒ‡ƒ“‚ğ“Ç’†...");
     const quickActionManager = require("../../../quick-actions/quick-action-manager");
     quickActionManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—ã‚¹ã‚¯ãƒªãƒ—ãƒˆå®Ÿè¡Œä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒXƒ^[ƒgƒAƒbƒvƒXƒNƒŠƒvƒgÀs’†...");
     const startupScriptsManager = require("../../../common/handlers/custom-scripts/startup-scripts-manager");
     startupScriptsManager.loadStartupConfig();
 
-    windowManagement.updateSplashScreenStatus("ãƒãƒ£ãƒƒãƒˆãƒ¢ãƒ‡ãƒ¬ãƒ¼ãƒˆã‚’èµ·å‹•ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒ`ƒƒƒbƒgƒ‚ƒfƒŒ[ƒg‚ğ‹N“®’†...");
     const chatModerationManager = require("../../../chat/moderation/chat-moderation-manager");
     chatModerationManager.load();
 
-    windowManagement.updateSplashScreenStatus("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã‚’èª­è¾¼ä¸­...");
-    const countersManager = require("../../../counters/counter-manager");
-    countersManager.loadItems();
+    windowManagement.updateSplashScreenStatus("ƒJƒEƒ“ƒ^[‚ğ“Ç’†...");
+    const { CounterManager } = require("../../../counters/counter-manager");
+    CounterManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("ã‚²ãƒ¼ãƒ ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒQ[ƒ€‚ğ“Ç’†...");
     const gamesManager = require("../../../games/game-manager");
     gamesManager.loadGameSettings();
 
     const builtinGameLoader = require("../../../games/builtin-game-loader");
     builtinGameLoader.loadGames();
 
-    windowManagement.updateSplashScreenStatus("ã‚«ã‚¹ã‚¿ãƒ å¤‰æ•°ã‚’èª­è¾¼ä¸­...");
-    const {settings} = require("../../../common/settings-access");
-    if (settings.getPersistCustomVariables()) {
+    windowManagement.updateSplashScreenStatus("ƒJƒXƒ^ƒ€•Ï”‚ğ“Ç’†...");
+    const { SettingsManager } = require("../../../common/settings-manager");
+    if (SettingsManager.getSetting("PersistCustomVariables")) {
         const customVariableManager = require("../../../common/custom-variable-manager");
         customVariableManager.loadVariablesFromFile();
     }
 
+    windowManagement.updateSplashScreenStatus("Loading sort tags...");
+    const { SortTagManager } = require("../../../sort-tags/sort-tag-manager");
+    SortTagManager.loadSortTags();
+
     // get importer in memory
-    windowManagement.updateSplashScreenStatus("ã‚¤ãƒ³ãƒãƒ¼ãƒˆã‚’èª­è¾¼ä¸­...");
-    const v4Importer = require("../../../import/v4/v4-importer");
-    v4Importer.setupListeners();
+    windowManagement.updateSplashScreenStatus("ƒCƒ“ƒ|[ƒg‚ğ“Ç’†...");
 
     const setupImporter = require("../../../import/setups/setup-importer");
     setupImporter.setupListeners();
@@ -195,16 +195,16 @@ exports.whenReady = async () => {
     const { setupCommonListeners } = require("../../../common/common-listeners");
     setupCommonListeners();
 
-    windowManagement.updateSplashScreenStatus("ãƒ›ãƒƒãƒˆã‚­ãƒ¼ã‚’èª­è¾¼ä¸­...");
-    const hotkeyManager = require("../../../hotkeys/hotkey-manager");
-    hotkeyManager.refreshHotkeyCache();
+    windowManagement.updateSplashScreenStatus("ƒzƒbƒgƒL[‚ğ“Ç’†...");
+    const { HotkeyManager } = require("../../../hotkeys/hotkey-manager");
+    HotkeyManager.loadHotkeys();
 
-    windowManagement.updateSplashScreenStatus("é€šè²¨ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("’Ê‰İ‚ğ“Ç’†...");
     const currencyManager = require("../../../currency/currencyManager");
     currencyManager.startTimer();
 
     // Connect to DBs.
-    windowManagement.updateSplashScreenStatus("è¦–è´è€…ãƒ‡ãƒ¼ã‚¿ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("‹’®Òƒf[ƒ^‚ğ“Ç’†...");
     logger.info("Creating or connecting user database");
     const viewerDatabase = require("../../../viewers/viewer-database");
     await viewerDatabase.connectViewerDatabase();
@@ -213,12 +213,12 @@ exports.whenReady = async () => {
     const viewerOnlineStatusManager = require("../../../viewers/viewer-online-status-manager");
     await viewerOnlineStatusManager.setAllViewersOffline();
 
-    windowManagement.updateSplashScreenStatus("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒXƒe[ƒ^ƒX‚ğ“Ç’†...");
     logger.info("Creating or connecting stats database");
     const statsdb = require("../../../database/statsDatabase");
     statsdb.connectStatsDatabase();
 
-    windowManagement.updateSplashScreenStatus("å¼•ç”¨æ–‡ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ˆø—p•¶‚ğ“Ç’†...");
     logger.info("Creating or connecting quotes database");
     const quotesdb = require("../../../quotes/quotes-manager");
     quotesdb.loadQuoteDatabase();
@@ -231,12 +231,12 @@ exports.whenReady = async () => {
     const profileManager = require("../../../common/profile-manager");
     global.SCRIPTS_DIR = profileManager.getPathInProfile("/scripts/");
 
-    windowManagement.updateSplashScreenStatus("ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—å®Ÿè¡Œä¸­...");
-    const backupManager = require("../../../backup-manager");
-    await backupManager.onceADayBackUpCheck();
+    windowManagement.updateSplashScreenStatus("ƒoƒbƒNƒAƒbƒvÀs’†...");
+    const { BackupManager } = require("../../../backup-manager");
+    await BackupManager.onceADayBackUpCheck();
 
     // start the REST api server
-    windowManagement.updateSplashScreenStatus("Webã‚µãƒ¼ãƒèµ·å‹•ä¸­...");
+    windowManagement.updateSplashScreenStatus("WebƒT[ƒo‹N“®’†...");
     const httpServerManager = require("../../../../server/http-server-manager");
     httpServerManager.start();
 
@@ -244,27 +244,29 @@ exports.whenReady = async () => {
     const websocketEventsHandler = require("../../../../server/websocket-events-handler");
     websocketEventsHandler.createComponentEventListeners();
 
-    windowManagement.updateSplashScreenStatus("ãƒãƒ£ãƒ³ãƒãƒ«ç‰¹å…¸ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("ƒ`ƒƒƒ“ƒlƒ‹“Á“T‚ğ“Ç’†...");
     const channelRewardManager = require("../../../channel-rewards/channel-reward-manager");
     await channelRewardManager.loadChannelRewards();
 
     // load activity feed manager
     require("../../../events/activity-feed-manager");
 
-    const iconManager = require("../../../common/icon-manager");
-    iconManager.loadFontAwesomeIcons();
+    const { IconManager } = require("../../../common/icon-manager");
+    await IconManager.loadFontAwesomeIcons();
 
-    windowManagement.updateSplashScreenStatus("é…ä¿¡æƒ…å ±ã‚’èª­è¾¼ä¸­...");
+    windowManagement.updateSplashScreenStatus("”zMî•ñ‚ğ“Ç’†...");
     const streamInfoPoll = require("../../../twitch-api/stream-info-manager");
     streamInfoPoll.startStreamInfoPoll();
 
-    windowManagement.updateSplashScreenStatus("é€šçŸ¥ç®¡ç†ã‚’èµ·å‹•ä¸­...");
+    windowManagement.updateSplashScreenStatus("’Ê’mŠÇ—‚ğ‹N“®’†...");
     const notificationManager = require("../../../notifications/notification-manager").default;
-    await notificationManager.loadAllNotifications();
-    notificationManager.startExternalNotificationCheck();
+    notificationManager.loadNotificationCache();
+
+    // get ui extension manager in memory
+    require("../../../ui-extensions/ui-extension-manager");
 
     logger.debug('...loading main window');
-    windowManagement.updateSplashScreenStatus("æº–å‚™å®Œäº†ã€ã•ãå§‹ã‚ã‚ˆã†ï¼");
+    windowManagement.updateSplashScreenStatus("€”õŠ®—¹A‚³‚Ÿn‚ß‚æ‚¤I");
     await windowManagement.createMainWindow();
 
     // forward backend logs to front end

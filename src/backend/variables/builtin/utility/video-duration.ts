@@ -8,9 +8,19 @@ const model : ReplaceVariable = {
     definition: {
         handle: "videoDuration",
         usage: "videoDuration[filePathOrUrl]",
-        description: "繝薙ョ繧ｪ縺ｮ蜀咲函譎る俣繧貞叙蠕励＠繧医≧縺ｨ縺励∪縺吶�",
+        description: "ビデオの再生時間を取得しようとします。",
+        examples: [
+            {
+                usage: `videoDuration["path/to/video.mp4"]`,
+                description: "Returns the duration of the video file in seconds."
+            },
+            {
+                usage: `videoDuration["https://example.com/video.mp4"]`,
+                description: "Returns the duration of the video file from a URL in seconds."
+            }
+        ],
         categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.TEXT]
+        possibleDataOutput: [OutputDataType.TEXT, OutputDataType.NUMBER]
     },
     evaluator: async (trigger, url) => {
         if (url == null) {

@@ -5,17 +5,17 @@ const { EffectCategory } = require("../../shared/effect-constants");
 (function() {
     angular.module("firebotApp").component("addNewEffectModal", {
         template: `
-            <div class="modal-header" style="background: #43454A;border-bottom: 2px solid #373C3E;border-top-right-radius: 8px;border-top-left-radius: 8px;">
+            <div class="select-effect-header modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">æ–°è¦æ¼”å‡º</h4>
+                <h4 class="modal-title">V‹K‰‰o</h4>
             </div>
             <div class="modal-body">
-                <div style="height: 55px;background: #43454A;border-bottom: 2px solid #373C3E;display:flex; align-items: center;padding: 0 13px;">
-                    <searchbar search-id="effectSearch" placeholder-text="æ¼”å‡ºã‚’é¸ã¶..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
+                <div class="select-effect-search">
+                    <searchbar search-id="effectSearch" placeholder-text="‰‰o‚ğ‘I‚Ô..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
                 </div>
                 <div style="display: flex;flex-direction:row;height: 450px;">
-                    <div style="width: 150px;display:flex;flex-direction:column;height: 100%; flex-shrink: 0;background: #27292c;">
-                        <div class="effect-category-header">ã‚«ãƒ†ã‚´ãƒª</div>
+                    <div class="effect-categories">
+                        <div class="effect-category-header muted">Categories</div>
                         <div class="effect-category-wrapper" ng-class="{'selected': $ctrl.activeCategory == null}" ng-click="$ctrl.activeCategory = null;">
                             <div class="category-text">All</div>
                         </div>
@@ -25,7 +25,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
                                 <tooltip
                                     style="margin-left: 5px"
                                     ng-if="category === 'integrations'"
-                                    text="'åŠ¹æœçš„ã«å‹•ä½œã•ã›ã‚‹ã«ã¯ã€è¨­å®š -> é€£æºã§è¨­å®šã‚’ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚'"
+                                    text="'Integrations need to be linked / configured in Settings -> Integrations in order for the effects to work.'"
                                 ></tooltip>
                             </div>
                         </div>
@@ -46,14 +46,14 @@ const { EffectCategory } = require("../../shared/effect-constants");
                     </div>
                 </div>
             </div>
-            <div style="background:#43454A;display:flex;align-items: center;justify-content: space-between;padding: 20px;border-top: solid 2px #373C3E;border-bottom-right-radius: 8px;border-bottom-left-radius: 8px;">
+            <div class="select-effect-footer">
                 <div>
-                    <div style="font-size: 12px;font-weight: 600;" class="muted">é¸æŠã—ãŸæ¼”å‡º:</div>
-                    <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "ãªã—"}}</div>
+                    <div style="font-size: 12px;font-weight: 600;" class="muted">‘I‘ğ‚µ‚½‰‰o:</div>
+                    <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "‚È‚µ"}}</div>
                 </div>
                 <div style="display:flex;align-items: center; justify-content: flex-end;">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()" style="margin-right: 10px;">ã‚­ãƒ£ãƒ³ã‚»ãƒ«</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">é¸æŠ</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()" style="margin-right: 10px;">ƒLƒƒƒ“ƒZƒ‹</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">‘I‘ğ</button>
                 </div>
             </div>
             `,
@@ -97,7 +97,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
                             const modalElement = $(`.${modalId}`).children();
                             return {
                                 element: modalElement,
-                                name: "æ¼”å‡ºã‚’é¸æŠ",
+                                name: "‰‰o‚ğ‘I‘ğ",
                                 id: modalId,
                                 instance: $ctrl.modalInstance
                             };
@@ -116,7 +116,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
 
             $ctrl.save = function() {
                 if ($ctrl.selectedEffectDef == null) {
-                    ngToast.create("æ¼”å‡ºã‚’é¸ã‚“ã§ãã ã•ã„");
+                    ngToast.create("‰‰o‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢");
                     return;
                 }
 

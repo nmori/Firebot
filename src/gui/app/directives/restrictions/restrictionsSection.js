@@ -1,7 +1,7 @@
 "use strict";
 (function() {
 
-    const uuidv1 = require("uuid/v1");
+    const { v4: uuid } = require("uuid");
 
     angular
         .module('firebotApp')
@@ -15,7 +15,7 @@
             template: `
                 <div>
                     <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;">
-                        <span>èµ·å‹•æ¡ä»¶ </span>
+                        <span>‹N“®ğŒ </span>
 
                         <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                             <div class="noselect pointer ddtext" style="font-size: 12px;">
@@ -27,15 +27,15 @@
                             <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'all'">
-                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">ã™ã¹ã¦</a>
+                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">‚·‚×‚Ä</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'any'">
-                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">ã„ãšã‚Œã‹</a>
+                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">‚¢‚¸‚ê‚©</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'none'">
-                                    <a href style="padding-left: 10px;" aria-label="no restrictions pass">åˆ¶é™ãªã—</a>
+                                    <a href style="padding-left: 10px;" aria-label="no restrictions pass">§ŒÀ‚È‚µ</a>
                                 </li>
                             </ul>
                         </div>
@@ -59,15 +59,22 @@
                                 <i class="far fa-plus"></i>
                         </div>
                     </div>
+
                     <div class="ml-3.5" ng-show="$ctrl.restrictionData.restrictions.length > 0">
-                        <label class="control-fb control--checkbox"> åˆ¶é™ãŒæº€ãŸã•ã‚Œã¦ã„ãªã„å ´åˆã«ãƒãƒ£ãƒƒãƒˆ ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã™ã‚‹
+                        <firebot-checkbox ng-show="$ctrl.trigger.name !== 'channel_reward'"
+                            label="Send as reply"
+                            tooltip="Replying only works within a Command or Chat Message event"
+                            model="$ctrl.restrictionData.sendAsReply"
+                            style="margin: 0px 15px 0px 0px"
+                        />
+                        <label class="control-fb control--checkbox"> Send chat message when restrictions not met
                             <input type="checkbox" ng-model="$ctrl.restrictionData.sendFailMessage">
                             <div class="control__indicator"></div>
                         </label>
 
                         <div ng-show="$ctrl.restrictionData.sendFailMessage">
                             <label class="control-fb control--checkbox">
-                                è‡ªä½œã—ãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ä½¿ç”¨ã™ã‚‹
+                                ©ì‚µ‚½ƒƒbƒZ[ƒW‚ğg—p‚·‚é
                                 <input
                                     type="checkbox"
                                     ng-model="$ctrl.restrictionData.useCustomFailMessage"
@@ -81,7 +88,7 @@
                                     disable-variables="true"
                                     input-title="Message"
                                 />
-                                <p class="muted">ä½¿ç”¨å¯èƒ½ãªå¤‰æ•°: {user}, {reason}</p>
+                                <p class="muted">g—p‰Â”\‚È•Ï”: {user}, {reason}</p>
                             </div>
                         </div>
                     </div>
@@ -91,7 +98,7 @@
                 const $ctrl = this;
 
                 const restrictionDefinitions = backendCommunicator.fireEventSync("getRestrictions")
-                    .map(r => {
+                    .map((r) => {
                         return {
                             definition: r.definition,
                             optionsTemplate: r.optionsTemplate,
@@ -102,12 +109,12 @@
 
                 $ctrl.getRestrictionModeDisplay = function() {
                     if ($ctrl.restrictionData.mode === "any") {
-                        return "ã„ãšã‚Œã‹";
+                        return "‚¢‚¸‚ê‚©";
                     }
                     if ($ctrl.restrictionData.mode === "none") {
-                        return "é©ç”¨ãªã—";
+                        return "“K—p‚È‚µ";
                     }
-                    return "ã™ã¹ã¦";
+                    return "‚·‚×‚Ä";
                 };
 
                 $ctrl.canAddMoreRestrictions = true;
@@ -119,7 +126,7 @@
                 }
 
                 $ctrl.$onInit = function() {
-                    const DEFAULT_FAIL_MESSAGE = `@{user}ã•ã‚“ã€ã™ã¿ã¾ã›ã‚“ã€‚ ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} ã¯ä½¿ãˆã¾ã›ã‚“ã€‚ç†ç”±: {reason}`;
+                    const DEFAULT_FAIL_MESSAGE = `@{user}‚³‚ñA‚·‚İ‚Ü‚¹‚ñB ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} ‚Íg‚¦‚Ü‚¹‚ñB——R: {reason}`;
 
                     if ($ctrl.restrictionData == null) {
                         $ctrl.restrictionData = {
@@ -127,7 +134,8 @@
                             mode: "all",
                             sendFailMessage: true,
                             useCustomFailMessage: false,
-                            failMessage: DEFAULT_FAIL_MESSAGE
+                            failMessage: DEFAULT_FAIL_MESSAGE,
+                            sendAsReply: false
                         };
                     }
 
@@ -145,6 +153,10 @@
 
                     if ($ctrl.restrictionData.failMessage == null) {
                         $ctrl.restrictionData.failMessage = DEFAULT_FAIL_MESSAGE;
+                    }
+
+                    if ($ctrl.restrictionData.sendAsReply == null) {
+                        $ctrl.restrictionData.sendAsReply = false;
                     }
 
                     updateCanAddMoreRestrictions();
@@ -165,7 +177,7 @@
 
                     const options = restrictionDefinitions
                         .filter(r => !r.definition.hidden)
-                        .map(r => {
+                        .map((r) => {
                             return {
                                 id: r.definition.id,
                                 name: r.definition.name,
@@ -179,10 +191,10 @@
 
                     utilityService.openSelectModal(
                         {
-                            label: "åˆ¶é™ã®è¿½åŠ ",
+                            label: "§ŒÀ‚Ì’Ç‰Á",
                             options: options,
                             saveText: "Add",
-                            validationText: "è¿½åŠ ã™ã‚‹åˆ¶é™ã®ç¨®é¡ã‚’é¸ã‚“ã§ãã ã•ã„"
+                            validationText: "’Ç‰Á‚·‚é§ŒÀ‚Ìí—Ş‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢"
 
                         },
                         (selectedId) => {
@@ -191,7 +203,7 @@
                                 .filter(r => r.type !== selectedId);*/
 
                             $ctrl.restrictionData.restrictions.push({
-                                id: uuidv1(),
+                                id: uuid(),
                                 type: selectedId
                             });
 

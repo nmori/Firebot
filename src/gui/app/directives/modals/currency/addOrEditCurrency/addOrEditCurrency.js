@@ -12,12 +12,12 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function($scope, utilityService, currencyService, viewerRolesService, logger) {
-            const uuidv1 = require("uuid/v1");
+        controller: function(utilityService, currencyService, viewerRolesService, logger) {
+            const { v4: uuid } = require("uuid");
             const $ctrl = this;
 
             $ctrl.currency = {
-                id: uuidv1(),
+                id: uuid(),
                 name: "Points",
                 active: true,
                 payout: 5,
@@ -56,6 +56,18 @@
                     return;
                 }
 
+                if ($ctrl.isNewCurrency && currencyService.currencies.some(c => c.name === $ctrl.currency.name)) {
+                    utilityService.showErrorModal(
+                        "You cannot create a currency with the same name as another currency!"
+                    );
+                    logger.error(`User tried to create currency with the same name as another currency: ${$ctrl.currency.name}.`);
+                    return;
+                }
+
+                if (!$ctrl.currency.offline) {
+                    $ctrl.currency.offline = undefined;
+                }
+
                 logger.debug($ctrl.currency);
 
                 const action = $ctrl.isNewCurrency ? "add" : "update";
@@ -77,7 +89,7 @@
                         question: "この通貨を削除してもよろしいですか？",
                         confirmLabel: "削除する"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             currencyService.deleteCurrency(currency);
                             $ctrl.close({
@@ -100,7 +112,7 @@
               "本当にこの通貨をリセットしますか？この通貨はすべてのユーザーに対して0に設定されます。.",
                         confirmLabel: "リセット"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             currencyService.purgeCurrency(currency.id);
                             $ctrl.close({

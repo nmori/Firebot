@@ -12,7 +12,7 @@ const model = {
         handle: "slootsAlertMessage",
         description: "StreamLootsチェスト/カードに含まれる警告メッセージ.",
         triggers: triggers,
-        categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
+        categories: [VariableCategory.COMMON, VariableCategory.INTEGRATION],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {

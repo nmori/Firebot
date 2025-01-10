@@ -12,7 +12,7 @@ const model : ReplaceVariable = {
         description: "受信者のユーザ名とサブセットを行った月を含む生の配列を返します。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.USER, VariableCategory.TRIGGER],
-        possibleDataOutput: [OutputDataType.ALL]
+        possibleDataOutput: [OutputDataType.ARRAY, OutputDataType.TEXT]
     },
     evaluator: (trigger) => {
         if (trigger == null || trigger.metadata == null || trigger.metadata.eventData == null || trigger.metadata.eventData.giftReceivers == null) {

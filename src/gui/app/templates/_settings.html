@@ -59,33 +59,10 @@
   </div>
 </div>
 
-<!-- Modal For Editing Overlay Port -->
-<script type="text/ng-template" id="changePortModal.html">
-  <div class="modal-header">
-    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">Webサーバポートを編集</h4>
-  </div>
-  <div class="modal-body">
-    <div class="mt-6" style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-      <div style="width: 55%; position: relative;">
-        <div class="form-group" ng-class="{'has-error': newPortError}">
-          <label class="control-label" for="newPort">新規ポート</label>
-          <input type="number" class="form-control" id="newPort" ng-model="newPort" aria-describedby="helpBlock">
-          <span id="helpBlock" class="help-block" ng-show="newPortError">この番号は無効です</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-link" ng-click="dismiss()">キャンセル</button>
-    <button type="button" class="btn btn-primary" ng-click="changePort()">ポート番号を変更</button>
-  </div>
-</script>
-
 <!-- View Backups Modal -->
 <script type="text/ng-template" id="backupListModal.html">
   <div class="modal-header flex-row-center jspacebetween">
-    <h4 class="modal-title" style="display:inline;">バックアップ管理</h4>
+    <h4 class="modal-title" style="display:inline;">�o�b�N�A�b�v�Ǘ�</h4>
   </div>
   <div class="modal-body pb-0" style="overflow-y: auto;max-height: 300px;">
     <div class="list-group mb-0">
@@ -103,7 +80,7 @@
     </div>
   </div>
   <div class="modal-footer">
-      <button class="btn btn-default pull-left" ng-click="openBackupFolder()">バックアップフォルダを開く</button>
-      <button class="btn btn-primary" ng-click="dismiss()">閉じる</button>
+      <button class="btn btn-default pull-left" ng-click="openBackupFolder()">�o�b�N�A�b�v�t�H���_���J��</button>
+      <button class="btn btn-primary" ng-click="dismiss()">����</button>
   </div>
 </script>

@@ -1,0 +1,68 @@
+import { EventFilter } from "../../../../../types/events";
+import { ComparisonType } from "../../../../../shared/filter-constants";
+
+const filter: EventFilter = {
+    id: "firebot:chatmode",
+    name: "チャットモード",
+    description: "チャットモードでフィルタ",
+    events: [
+        { eventSourceId: "twitch", eventId: "chat-mode-changed" }
+    ],
+    comparisonTypes: [ComparisonType.IS, ComparisonType.IS_NOT],
+    valueType: "preset",
+    presetValues: async () => {
+        return [
+            {
+                value: "emoteonly",
+                display: "エモートのみ"
+            },
+            {
+                value: "followers",
+                display: "フォロワーのみ"
+            },
+            {
+                value: "subscribers",
+                display: "サブスクライバーのみ"
+            },
+            {
+                value: "slow",
+                display: "スローモード"
+            },
+            {
+                value: "uniquechat",
+                display: "ユニークチャット"
+            }
+        ];
+    },
+    getSelectedValueDisplay: async (filterSettings) => {
+        return (await filter.presetValues())
+            .find(pv => pv.value === filterSettings.value || (filterSettings.value === "r9kbeta" && pv.value === "uniquechat"))?.display ?? "[Not Set]";
+    },
+    predicate: async (filterSettings, eventData) => {
+
+        const { comparisonType, value } = filterSettings;
+        const { eventMeta } = eventData;
+        // Unique chat previously used 'r9kbeta' on PubSub; became 'uniquechat' on EventSub.
+        const ucValue = value === "r9kbeta" ? "uniquechat" : value;
+
+        const chatModes = eventMeta.chatMode as string;
+
+        switch (comparisonType) {
+            case ComparisonType.IS:
+            case ComparisonType.COMPAT_IS:
+            case ComparisonType.COMPAT2_IS:
+            case ComparisonType.ORG_IS:
+                return eventMeta.chatMode.includes(value);
+            case ComparisonType.IS_NOT:
+            case ComparisonType.COMPAT_IS_NOT:
+            case ComparisonType.COMPAT2_IS_NOT:
+            case ComparisonType.ORG_IS_NOT:
+                return !eventMeta.chatMode.includes(value);
+            default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
+                return false;
+        }
+    }
+};
+
+export default filter;

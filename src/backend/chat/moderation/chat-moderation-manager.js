@@ -204,7 +204,12 @@ async function moderateMessage(chatMessage) {
     }
 
     const userExemptForUrlModeration = rolesManager.userIsInRole(chatMessage.userId, chatMessage.roles, chatModerationSettings.urlModeration.exemptRoles);
-    if (chatModerationSettings.urlModeration.enabled && !userExemptForUrlModeration && !permitCommand.hasTemporaryPermission(chatMessage.username)) {
+    if (
+        chatModerationSettings.urlModeration.enabled &&
+        !userExemptForUrlModeration &&
+        !permitCommand.hasTemporaryPermission(chatMessage.username) &&
+        !permitCommand.hasTemporaryPermission(chatMessage.userDisplayName.toLowerCase())
+    ) {
         let shouldDeleteMessage = false;
         const message = chatMessage.rawText;
         const regex = utils.getUrlRegex();
@@ -243,7 +248,7 @@ async function moderateMessage(chatMessage) {
                     const viewerDatabase = require('../../viewers/viewer-database');
                     const viewer = await viewerDatabase.getViewerByUsername(chatMessage.username);
 
-                    const viewerViewTime = viewer.minutesInChannel / 60;
+                    const viewerViewTime = viewer?.minutesInChannel ? viewer?.minutesInChannel / 60 : 0;
                     const minimumViewTime = settings.viewTime.viewTimeInHours;
 
                     if (viewerViewTime <= minimumViewTime) {

@@ -8,15 +8,15 @@ const logger = require("../../../../../backend/logwrapper");
 const model : ReplaceVariable = {
     definition: {
         handle: "subNames",
-        description: "現在保持しているサブスクリプションの配列を返します。項目には 'username'、'tier' および 'isGift' プロパティが含まれます。",
+        description: "Returns an array of subscribers you currently have. Items contain `username`, `tier` and `isGift` properties.",
         usage: "subNames",
         examples: [
             {
                 usage: "subNames",
-                description: "戻り値: [{username:Firebottle,tier:2000,isGift:false},{username:ebiggz,tier:1000,isGift:true},{username:SReject,tier:3000,isGift:false},{username:Perry,tier:1000,isGift:false}] 配列またはカスタム変数で使用できます"
+                description: 'Returns: [{username: "firebottle", displayname: "FireBottle", tier: 2000, isGift:false}, {username: "ebiggz", displayname: "EBiggz", tier: 1000, isGift:true}] To be used with array or custom variables.'
             }
         ],
-        possibleDataOutput: [OutputDataType.TEXT]
+        possibleDataOutput: [OutputDataType.ARRAY]
     },
     evaluator: async () => {
         const { streamer } = accountAccess.getAccounts();

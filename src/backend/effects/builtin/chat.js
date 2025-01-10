@@ -22,6 +22,7 @@ const effect = {
             placeholder-text="メッセージの入力"
             rows="4"
             cols="40"
+            menu-position="under"
         />
         <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">チャットメッセージは500文字を超えることはできません。このメッセージは、すべての置換変数が入力された後、長すぎる場合は自動的に複数のメッセージに分割されます。</div>
         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">

@@ -2,7 +2,7 @@ import axios from "axios";
 import authManager from "./auth-manager";
 import accountAccess, { FirebotAccount } from "../common/account-access";
 import logger from "../logwrapper";
-import { secrets } from "../secrets-manager";
+import { SecretsManager } from "../secrets-manager";
 import { AuthProviderDefinition } from "./auth";
 import { getExpiryDateOfAccessToken } from "@twurple/auth";
 
@@ -14,7 +14,7 @@ class TwitchAuthProviders {
     readonly streamerAccountProviderId = "twitch:streamer-account";
     readonly botAccountProviderId = "twitch:bot-account";
 
-    readonly twitchClientId = secrets.twitchClientId;
+    readonly twitchClientId = SecretsManager.secrets.twitchClientId;
 
     readonly streamerAccountProvider: AuthProviderDefinition = {
         id: this.streamerAccountProviderId,
@@ -67,8 +67,11 @@ class TwitchAuthProviders {
             'moderator:manage:shield_mode',
             'moderator:manage:shoutouts',
             'moderator:manage:unban_requests',
+            'moderator:manage:warnings',
             'moderator:read:automod_settings',
+            'moderator:read:banned_users',
             'moderator:read:blocked_terms',
+            'moderator:read:chat_messages',
             'moderator:read:chat_settings',
             'moderator:read:chatters',
             'moderator:read:followers',
@@ -77,6 +80,7 @@ class TwitchAuthProviders {
             'moderator:read:shoutouts',
             'moderator:read:unban_requests',
             'moderator:read:vips',
+            'moderator:read:warnings',
             'user:edit:broadcast',
             'user:manage:blocked_users',
             'user:manage:whispers',

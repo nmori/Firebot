@@ -1,7 +1,7 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
+const { SettingsManager } = require("../../common/settings-manager");
+const { ResourceTokenManager } = require("../../resource-token-manager");
 const webServer = require("../../../server/http-server-manager");
 const fs = require('fs/promises');
 const logger = require("../../logwrapper");
@@ -13,17 +13,17 @@ const { wait } = require("../../utility");
 const playSound = {
     definition: {
         id: "firebot:playsound",
-        name: "ã‚µã‚¦ãƒ³ãƒ‰ã‚’å†ç”Ÿ",
-        description: "åŠ¹æœéŸ³ã‚’å†ç”Ÿã—ã¾ã™",
+        name: "ƒTƒEƒ“ƒh‚ğÄ¶",
+        description: "Œø‰Ê‰¹‚ğÄ¶‚µ‚Ü‚·",
         icon: "fad fa-waveform",
         categories: [EffectCategory.COMMON],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-    <eos-container header="ãƒ¡ãƒ‡ã‚£ã‚¢ã‚¿ã‚¤ãƒ—">
+    <eos-container header="ƒƒfƒBƒAƒ^ƒCƒv">
         <firebot-radios 
-            options="{ local: 'ãƒ­ãƒ¼ã‚«ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«', folderRandom: 'ãƒ•ã‚©ã‚¤ãƒ«å†…ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ©ãƒ³ãƒ€ãƒ å†ç”Ÿ', url: 'ãƒãƒƒãƒˆä¸Šã®ã‚‚ã®ã‚’å†ç”Ÿ' }"
+            options="{ local: 'ƒ[ƒJƒ‹ƒtƒ@ƒCƒ‹', folderRandom: 'ƒtƒHƒCƒ‹“à‚Ìƒtƒ@ƒCƒ‹‚ğƒ‰ƒ“ƒ_ƒ€Ä¶', url: 'ƒlƒbƒgã‚Ì‚à‚Ì‚ğÄ¶' }"
             model="effect.soundType"
             inline="true"
             style="padding-bottom: 5px;"
@@ -31,14 +31,14 @@ const playSound = {
     </eos-container>
 
     <div ng-hide="effect.soundType == null">
-        <eos-container header="éŸ³æº" pad-top="true">
+        <eos-container header="‰¹Œ¹" pad-top="true">
             <div ng-if="effect.soundType === 'folderRandom'">
-                <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'éŸ³æºã®ãƒ•ã‚©ãƒ«ãƒ€ã‚’é¸æŠ'}"></file-chooser>
+                <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: '‰¹Œ¹‚ÌƒtƒHƒ‹ƒ_‚ğ‘I‘ğ'}"></file-chooser>
             </div>
 
             <div ng-if="effect.soundType === 'local'">
                 <div style="margin-bottom: 10px">
-                    <file-chooser model="effect.filepath" options="{ filters: [ {name: 'Audio', extensions: ['mp3', 'ogg', 'wav', 'flac']} ]}" on-update="soundFileUpdated(filepath)"></file-chooser>
+                    <file-chooser model="effect.filepath" options="{ filters: [ {name: 'Audio', extensions: ['mp3', 'ogg', 'oga', 'wav', 'flac']} ]}" on-update="soundFileUpdated(filepath)"></file-chooser>
                 </div>
                 <div>
                     <sound-player path="effect.filepath" volume="effect.volume" output-device="effect.audioOutputDevice"></sound-player>
@@ -50,14 +50,14 @@ const playSound = {
             </div>
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox">å†ç”Ÿçµ‚äº†ã‚’å¾…ã¤ <tooltip text="'éŸ³ãŒé³´ã‚Šçµ‚ã‚ã‚‹ã®ã‚’å¾…ã£ã¦ã‹ã‚‰ã€æ¬¡ã®åŠ¹æœã«ç§»ã‚Šã¾ã™'"></tooltip>
+                <label class="control-fb control--checkbox">Ä¶I—¹‚ğ‘Ò‚Â <tooltip text="'‰¹‚ª–Â‚èI‚í‚é‚Ì‚ğ‘Ò‚Á‚Ä‚©‚çAŸ‚ÌŒø‰Ê‚ÉˆÚ‚è‚Ü‚·'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="éŸ³é‡" pad-top="true">
+        <eos-container header="‰¹—Ê" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 1, ceil: 10, hideLimitLabels: true, showSelectionBar: true}"></rzslider>
@@ -84,14 +84,14 @@ const playSound = {
 
         if (effect.soundType === "local" || effect.soundType == null) {
             if (effect.filepath == null || effect.filepath.length < 1) {
-                errors.push("éŸ³æºãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
+                errors.push("‰¹Œ¹ƒtƒ@ƒCƒ‹‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
             }
         } else if (effect.soundType === "folderRandom") {
             if (effect.folder == null || effect.folder.length < 1) {
-                errors.push("éŸ³æºãƒ•ã‚©ãƒ«ãƒ€ã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
+                errors.push("‰¹Œ¹ƒtƒHƒ‹ƒ_‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
             }
         } else if (effect.soundType === "url" && (effect.url == null || effect.url.trim() === "")) {
-            errors.push("URLã‚’ã„ã‚Œã¦ãã ã•ã„");
+            errors.push("URL‚ğ‚¢‚ê‚Ä‚­‚¾‚³‚¢");
         }
 
         return errors;
@@ -120,7 +120,7 @@ const playSound = {
                 logger.warn("Unable to read sound folder", err);
             }
 
-            const filteredFiles = files.filter(i => (/\.(mp3|ogg|wav|flac)$/i).test(i));
+            const filteredFiles = files.filter(i => (/\.(mp3|ogg|oga|wav|flac)$/i).test(i));
             const chosenFile = filteredFiles[Math.floor(Math.random() * filteredFiles.length)];
 
             if (filteredFiles.length === 0) {
@@ -133,14 +133,14 @@ const playSound = {
         // Set output device.
         let selectedOutputDevice = effect.audioOutputDevice;
         if (selectedOutputDevice == null || selectedOutputDevice.deviceId === "") {
-            selectedOutputDevice = settings.getAudioOutputDevice();
+            selectedOutputDevice = SettingsManager.getSetting("AudioOutputDevice");
         }
         data.audioOutputDevice = selectedOutputDevice;
 
         // Generate token if going to overlay, otherwise send to gui.
         if (selectedOutputDevice.deviceId === "overlay") {
             if (effect.soundType !== "url") {
-                const resourceToken = resourceTokenManager.storeResourcePath(
+                const resourceToken = ResourceTokenManager.storeResourcePath(
                     data.filepath,
                     30
                 );
@@ -151,7 +151,7 @@ const playSound = {
             webServer.sendToOverlay("sound", data);
         } else {
             // Send data back to media.js in the gui.
-            renderWindow.webContents.send("playsound", data);
+            frontendCommunicator.send("playsound", data);
         }
 
         if (effect.waitForSound) {
@@ -161,7 +161,7 @@ const playSound = {
                 });
 
                 if (selectedOutputDevice.deviceId === "overlay"
-                    && settings.getForceOverlayEffectsToContinueOnRefresh() === true) {
+                    && SettingsManager.getSetting("ForceOverlayEffectsToContinueOnRefresh") === true) {
                     let currentDuration = 0;
                     let returnNow = false;
                     const overlayInstance = effect.overlayInstance ?? "Default";
@@ -211,7 +211,7 @@ const playSound = {
 
                 // Generate UUID to use as class name.
                 // eslint-disable-next-line no-undef
-                const uuid = uuidv4();
+                const elementId = uuid();
 
                 const filepath = data.isUrl ? data.url : data.filepath.toLowerCase();
                 let mediaType;
@@ -219,24 +219,26 @@ const playSound = {
                     mediaType = "audio/mpeg";
                 } else if (filepath.endsWith("ogg")) {
                     mediaType = "audio/ogg";
+                } else if (filepath.endsWith("oga")) {
+                    mediaType = "audio/ogg";
                 } else if (filepath.endsWith("wav")) {
                     mediaType = "audio/wav";
                 } else if (filepath.endsWith("flac")) {
                     mediaType = "audio/flac";
                 }
 
-                const audioElement = `<audio id="${uuid}" src="${data.isUrl ? data.url : resourcePath}" type="${mediaType}"></audio>`;
+                const audioElement = `<audio id="${elementId}" src="${data.isUrl ? data.url : resourcePath}" type="${mediaType}"></audio>`;
 
                 // Throw audio element on page.
                 $("#wrapper").append(audioElement);
 
-                const audio = document.getElementById(uuid);
+                const audio = document.getElementById(elementId);
                 audio.volume = parseFloat(data.volume) / 10;
 
                 audio.oncanplay = () => audio.play();
 
                 audio.onended = () => {
-                    $(`#${uuid}`).remove();
+                    $(`#${elementId}`).remove();
                 };
             }
         }

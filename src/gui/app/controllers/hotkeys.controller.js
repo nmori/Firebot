@@ -1,4 +1,5 @@
 "use strict";
+
 (function() {
     //This handles the Hotkeys tab
 
@@ -24,13 +25,13 @@
                     resolveObj: {
                         hotkey: () => hotkey
                     },
-                    closeCallback: resp => {
+                    closeCallback: (resp) => {
                         const action = resp.action,
                             hotkey = resp.hotkey;
 
                         switch (action) {
                         case "add":
-                            hotkeyService.saveHotkey(hotkey);
+                            hotkeyService.addHotkey(hotkey);
                             break;
                         case "update":
                             hotkeyService.updateHotkey(hotkey);
@@ -38,12 +39,12 @@
                         case "delete":
                             utilityService
                                 .showConfirmationModal({
-                                    title: "ãƒ›ãƒƒãƒˆã‚­ãƒ¼ã®å‰Šé™¤",
-                                    question: `ãƒ›ãƒƒãƒˆã‚­ãƒ¼ã€Œ"${hotkey.name}"ã€ã‚’å‰Šé™¤ã—ã¾ã™ã‹?`,
-                                    confirmLabel: "å‰Šé™¤ã™ã‚‹",
+                                    title: "ƒzƒbƒgƒL[‚Ìíœ",
+                                    question: `ƒzƒbƒgƒL[u"${hotkey.name}"v‚ðíœ‚µ‚Ü‚·‚©?`,
+                                    confirmLabel: "íœ‚·‚é",
                                     confirmBtnType: "btn-danger"
                                 })
-                                .then(confirmed => {
+                                .then((confirmed) => {
                                     if (confirmed) {
                                         hotkeyService.deleteHotkey(hotkey);
                                     }

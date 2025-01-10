@@ -176,7 +176,7 @@ const bidCommand = {
             }
 
             const minBid = bidSettings.settings.currencySettings.minBid;
-            if (minBid != null & minBid > 0) {
+            if (minBid != null && minBid > 0) {
                 if (bidAmount < minBid) {
                     await twitchChat.sendChatMessage(`入札額は少なくとも ${minBid} ${currencyName} 以上必要です.`, null, chatter, chatMessage.id);
                     return;

@@ -125,7 +125,7 @@ const spinCommand = {
         }
 
         const minWager = slotsSettings.settings.currencySettings.minWager;
-        if (minWager != null & minWager > 0) {
+        if (minWager != null && minWager > 0) {
             if (wagerAmount < minWager) {
                 if (slotsSettings.settings.generalMessages.minWager) {
                     const minWagerMsg = slotsSettings.settings.generalMessages.minWager
@@ -139,7 +139,7 @@ const spinCommand = {
             }
         }
         const maxWager = slotsSettings.settings.currencySettings.maxWager;
-        if (maxWager != null & maxWager > 0) {
+        if (maxWager != null && maxWager > 0) {
             if (wagerAmount > maxWager) {
                 if (slotsSettings.settings.generalMessages.maxWager) {
                     const maxWagerMsg = slotsSettings.settings.generalMessages.maxWager
