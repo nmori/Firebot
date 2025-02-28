@@ -50,7 +50,7 @@
         "@twurple/eventsub-ws": "^7.2.1",
         "@twurple/pubsub": "^7.2.1",
         "@types/tinycolor2": "^1.4.6",
-        "@zunderscore/elgato-light-control": "^1.1.2",
+        "@zunderscore/elgato-light-control": "^1.2.0",
         "angular": "^1.8.0",
         "angular-animate": "^1.7.8",
         "angular-aria": "^1.7.9",
@@ -68,7 +68,6 @@
         "angularjs-color-picker": "^3.4.8",
         "angularjs-scroll-glue": "^2.2.0",
         "angularjs-slider": "^6.7.0",
-        "axios": "^0.21.1",
         "body-parser": "^1.19.0",
         "client-oauth2": "^4.3.3",
         "cm-resize": "^1.0.1",
@@ -123,6 +122,8 @@
         "yargs-parser": "^21.1.1"
     },
     "optionalDependencies": {
+        "@dennisrijsdijk/electron-installer-redhat": "^3.5.0",
+        "electron-installer-debian": "^3.2.0",
         "electron-installer-dmg": "github:SReject/electron-installer-dmg#9bdb5217b078c724918271549f34d362aecbf6bb"
     },
     "volta": {

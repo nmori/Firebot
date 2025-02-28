@@ -158,8 +158,8 @@ exports.whenReady = async () => {
     startupScriptsManager.loadStartupConfig();
 
     windowManagement.updateSplashScreenStatus("チャットモデレートを起動中...");
-    const chatModerationManager = require("../../../chat/moderation/chat-moderation-manager");
-    chatModerationManager.load();
+    const { ChatModerationManager } = require("../../../chat/moderation/chat-moderation-manager");
+    ChatModerationManager.load();
 
     windowManagement.updateSplashScreenStatus("カウンターを読込中...");
     const { CounterManager } = require("../../../counters/counter-manager");

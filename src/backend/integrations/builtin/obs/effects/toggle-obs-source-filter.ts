@@ -24,17 +24,39 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
   {
     definition: {
       id: "ebiggz:obs-toggle-source-filter",
-      name: "OBSãƒ•ã‚£ãƒ«ã‚¿ã®é©ç”¨çŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆ",
-      description: "OBSãƒ•ã‚£ãƒ«ã‚¿ã®é©ç”¨çŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆã¾ã™",
+      name: "OBSƒtƒBƒ‹ƒ^‚Ì“K—pó‘Ô‚ğØ‚è‘Ö‚¦",
+      description: "OBSƒtƒBƒ‹ƒ^‚Ì“K—pó‘Ô‚ğØ‚è‘Ö‚¦‚Ü‚·",
       icon: "fad fa-stars",
       categories: ["common"],
     },
     optionsTemplate: `
-    <eos-container header="Filters">
+    <eos-container ng-show="missingSources.length > 0">
+        <div class="effect-info alert alert-warning">
+             <p><b>Warning!</b> 
+                 Cannot find {{missingSources.length}} sources in this effect. Ensure the correct profile or scene collection is loaded in OBS, and OBS is running.
+             </p>
+        </div>
+    </eos-container>
+    <setting-container ng-show="missingSources.length > 0" header="Missing Filters ({{missingSources.length}})" collapsed="true">
+        <div ng-repeat="filterName in missingSources track by $index">
+          <div class="list-item" style="display: flex;border: 2px solid #3e4045;box-shadow: none;border-radius: 8px;padding: 5px 5px;">
+            <div class="pl-5">
+                <span>Source: {{filterName.sourceName}},</span>
+                <span>Name: {{filterName.filterName}},</span>
+                <span>Action: {{getMissingActionDisplay(filterName.action)}}</span>
+            </div>   
+            <div>
+                  <button class="btn btn-danger" ng-click="deleteSceneAtIndex($index)"><i class="far fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+    </setting-container>
+
+    <eos-container header="Filters" pad-top="missingSources.length > 0">
       <div class="effect-setting-container">
         <div class="input-group">
-          <span class="input-group-addon">ãƒ•ã‚£ãƒ«ã‚¿</span>
-          <input type="text" class="form-control" ng-change="filterSources(searchText)" ng-model="searchText" placeholder="æ¤œç´¢..." aria-describeby="obs-visibility-search-box">
+          <span class="input-group-addon">ƒtƒBƒ‹ƒ^</span>
+          <input type="text" class="form-control" ng-change="filterSources(searchText)" ng-model="searchText" placeholder="ŒŸõ..." aria-describeby="obs-visibility-search-box">
         </div>
       </div>
       <div>
@@ -53,9 +75,9 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
                 {{getFilterActionDisplay(source.name, filter.name)}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, true)"><a href>æœ‰åŠ¹</a></li>
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, false)"><a href>ç„¡åŠ¹</a></li>
-                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, 'toggle')"><a href>åˆ‡ã‚Šæ›¿ãˆ</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, true)"><a href>—LŒø</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, false)"><a href>–³Œø</a></li>
+                    <li role="menuitem" ng-click="setFilterAction(source.name, filter.name, 'toggle')"><a href>Ø‚è‘Ö‚¦</a></li>
                 </ul>
             </div>
           </div>
@@ -76,13 +98,15 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
 
           $scope.searchText = "";
 
+          $scope.missingSources = [];
+
           if ($scope.effect.selectedFilters == null) {
               $scope.effect.selectedFilters = [];
           }
 
           $scope.filterIsSelected = (sourceName: string, filterName: string) => {
               return $scope.effect.selectedFilters.some(
-                  (s) => s.sourceName === sourceName && s.filterName === filterName
+                  s => s.sourceName === sourceName && s.filterName === filterName
               );
           };
 
@@ -92,7 +116,7 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
           ) => {
               if ($scope.filterIsSelected(sourceName, filterName)) {
                   $scope.effect.selectedFilters = $scope.effect.selectedFilters.filter(
-                      (s) => !(s.sourceName === sourceName && s.filterName === filterName)
+                      s => !(s.sourceName === sourceName && s.filterName === filterName)
                   );
               } else {
                   $scope.effect.selectedFilters.push({
@@ -109,7 +133,7 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
               action: "toggle" | boolean
           ) => {
               const selectedFilter = $scope.effect.selectedFilters.find(
-                  (s) => s.sourceName === sourceName && s.filterName === filterName
+                  s => s.sourceName === sourceName && s.filterName === filterName
               );
               if (selectedFilter != null) {
                   selectedFilter.action = action;
@@ -121,8 +145,11 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
               filterName: string
           ) => {
               const selectedFilter = $scope.effect.selectedFilters.find(
-                  (s) => s.sourceName === sourceName && s.filterName === filterName
+                  s => s.sourceName === sourceName && s.filterName === filterName
               );
+
+              $scope.missingSources = $scope.missingSources.filter(item => item !== selectedFilter);
+
               if (selectedFilter == null) {
                   return "";
               }
@@ -136,11 +163,27 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
               return "Disable";
           };
 
+          $scope.getMissingActionDisplay = (
+              selectedFilter: unknown
+          ) => {
+              console.log(selectedFilter);
+              if (selectedFilter == null) {
+                  return "";
+              }
+              if (selectedFilter === "toggle") {
+                  return "Toggle";
+              }
+              if (selectedFilter === true) {
+                  return "Enable";
+              }
+              return "Disable";
+          };
+
           const capitalizeWords = (input: string) =>
               input
                   .split(" ")
                   .map(
-                      (w) => w[0].toLocaleUpperCase() + w.substr(1).toLocaleLowerCase()
+                      w => w[0].toLocaleUpperCase() + w.substr(1).toLocaleLowerCase()
                   )
                   .join(" ");
 
@@ -153,10 +196,23 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
                   $scope.searchText = searchText;
               }
               $scope.sourceListFiltered = ($scope.sourceList as Array<OBSSource>).filter((source: OBSSource) => {
-                  return source.filters.some(filter => {
+                  return source.filters.some((filter) => {
                       return filter.name.toLowerCase().includes(searchText.toLowerCase());
                   });
               });
+          };
+
+          $scope.deleteSceneAtIndex = (index: number) => {
+              $scope.effect.selectedFilters = $scope.effect.selectedFilters.filter(
+                  item => item !== $scope.missingSources [index]
+              );
+              $scope.missingSources.splice(index, 1);
+          };
+
+          $scope.getStoredData = () => {
+              for (const filterName of $scope.effect.selectedFilters) {
+                  $scope.missingSources.push(filterName);
+              }
           };
 
           $scope.getSourceList = () => {
@@ -171,6 +227,7 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
           };
 
           $scope.getSourceList();
+          $scope.getStoredData();
       },
       optionsValidator: () => {
           return [];

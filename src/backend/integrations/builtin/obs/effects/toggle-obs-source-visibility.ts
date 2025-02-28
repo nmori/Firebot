@@ -1,4 +1,4 @@
-import { Firebot } from "@crowbartools/firebot-custom-scripts-types";
+import { EffectType } from "../../../../../types/effects";
 import {
     getSourceVisibility,
     setSourceVisibility,
@@ -12,6 +12,7 @@ type EffectProperties = {
         sceneName: string;
         sourceId: number;
         groupName?: string;
+        sourceName?: string;
         action: SourceAction;
     }>;
 };
@@ -21,21 +22,44 @@ type Scope = {
     [x: string]: any;
 };
 
-export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperties> =
+export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
 {
   definition: {
     id: "ebiggz:obs-toggle-source-visibility",
-    name: "OBS„ÇΩ„Éº„Çπ„ÅÆË°®Á§∫Áä∂ÊÖã„ÇíÂàá„ÇäÊõø„Åà„Çã",
-    description: "OBS„ÇΩ„Éº„Çπ„ÅÆË°®Á§∫Áä∂ÊÖã„ÇíÂàá„ÇäÊõø„Åà„Çã",
+    name: "OBSÉ\Å[ÉXÇÃï\é¶èÛë‘ÇêÿÇËë÷Ç¶ÇÈ",
+    description: "OBSÉ\Å[ÉXÇÃï\é¶èÛë‘ÇêÿÇËë÷Ç¶ÇÈ",
     icon: "fad fa-clone",
     categories: ["common"],
   },
   optionsTemplate: `
-<eos-container header="„ÇΩ„Éº„Çπ">
+<eos-container ng-show="missingSources.length > 0">
+        <div class="effect-info alert alert-warning">
+            <p><b>Warning!</b> 
+                Cannot find {{missingSources.length}} sources in this effect. Ensure the correct profile or scene collection is loaded in OBS, and OBS is running.
+            </p>
+        </div>
+</eos-container>
+<setting-container ng-show="missingSources.length > 0" header="Missing Sources ({{missingSources.length}})" collapsed="true">
+    <div ng-repeat="sceneName in missingSources track by $index">
+      <div class="list-item" style="display: flex;border: 2px solid #3e4045;box-shadow: none;border-radius: 8px;padding: 5px 5px;">
+        <div class="pl-5">
+          <span>Scene: {{sceneName.sceneName}},</span>
+            <span>Name: {{sceneName.sourceName || 'Unknown'}},</span>
+            <span ng-if="sceneName.sourceName == null">Id: {{sceneName.sourceId}},</span>
+            <span>Action: {{getMissingActionDisplay(sceneName.action)}}</span>
+        </div>   
+        <div>
+            <button class="btn btn-danger" ng-click="deleteSceneAtIndex($index)"><i class="far fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+</setting-container>
+
+<eos-container header="Sources" pad-top="missingSources.length > 0">
   <div class="effect-setting-container">
     <div class="input-group">
-      <span class="input-group-addon">„Éï„Ç£„É´„Çø</span>
-      <input type="text" class="form-control" ng-change="filterScenes(searchText)" ng-model="searchText" placeholder="Ê§úÁ¥¢..." aria-describeby="obs-visibility-search-box">
+      <span class="input-group-addon">ÉtÉBÉãÉ^</span>
+      <input type="text" class="form-control" ng-change="filterScenes(searchText)" ng-model="searchText" placeholder="åüçı..." aria-describeby="obs-visibility-search-box">
     </div>
   </div>
 
@@ -48,7 +72,7 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
       <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;margin-bottom: 5px;">{{sceneName}}</div>
       <div ng-repeat="source in getSources(sceneName) | filter: {name: searchText}">
         <label  class="control-fb control--checkbox">{{source.name}}
-            <input type="checkbox" ng-click="toggleSourceSelected(sceneName, source.id, source.groupName)" ng-checked="sourceIsSelected(sceneName, source.id)"  aria-label="..." >
+            <input type="checkbox" ng-click="toggleSourceSelected(sceneName, source.id, source.groupName, source.name)" ng-checked="sourceIsSelected(sceneName, source.id)"  aria-label="..." >
             <div class="control__indicator"></div>
         </label>
         <div ng-show="sourceIsSelected(sceneName, source.id)" style="margin-bottom: 15px;">
@@ -57,9 +81,9 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
               {{getSourceActionDisplay(sceneName, source.id)}} <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, true)"><a href>Ë°®Á§∫</a></li>
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, false)"><a href>Èö†„Åô</a></li>
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, 'toggle')"><a href>Âàá„ÇäÊõø„Åà</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, true)"><a href>ï\é¶</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, false)"><a href>âBÇ∑</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, 'toggle')"><a href>êÿÇËë÷Ç¶</a></li>
               </ul>
           </div>
         </div>
@@ -77,6 +101,8 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
         $scope.sourceData = null;
 
         $scope.sceneNames = [];
+
+        $scope.missingSources = [];
 
         if ($scope.effect.selectedSources == null) {
             $scope.effect.selectedSources = [];
@@ -105,20 +131,21 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
 
         $scope.sourceIsSelected = (sceneName: string, sourceId: number) => {
             return $scope.effect.selectedSources.some(
-                (s) => s.sceneName === sceneName && s.sourceId === sourceId
+                s => s.sceneName === sceneName && s.sourceId === sourceId
             );
         };
 
-        $scope.toggleSourceSelected = (sceneName: string, sourceId: number, groupName: string) => {
+        $scope.toggleSourceSelected = (sceneName: string, sourceId: number, groupName: string, sourceName: string) => {
             if ($scope.sourceIsSelected(sceneName, sourceId)) {
                 $scope.effect.selectedSources = $scope.effect.selectedSources.filter(
-                    (s) => !(s.sceneName === sceneName && s.sourceId === sourceId)
+                    s => !(s.sceneName === sceneName && s.sourceId === sourceId)
                 );
             } else {
                 $scope.effect.selectedSources.push({
                     sceneName,
                     sourceId,
                     groupName,
+                    sourceName,
                     action: true
                 });
             }
@@ -130,7 +157,7 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
             action: "toggle" | boolean
         ) => {
             const selectedSource = $scope.effect.selectedSources.find(
-                (s) => s.sceneName === sceneName && s.sourceId === sourceId
+                s => s.sceneName === sceneName && s.sourceId === sourceId
             );
             if (selectedSource != null) {
                 selectedSource.action = action;
@@ -139,8 +166,11 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
 
         $scope.getSourceActionDisplay = (sceneName: string, sourceId: number) => {
             const selectedSource = $scope.effect.selectedSources.find(
-                (s) => s.sceneName === sceneName && s.sourceId === sourceId
+                s => s.sceneName === sceneName && s.sourceId === sourceId
             );
+
+            $scope.missingSources = $scope.missingSources.filter(item => item !== selectedSource);
+
             if (selectedSource == null) {
                 return "";
             }
@@ -154,6 +184,34 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
             return "Hide";
         };
 
+        $scope.getMissingActionDisplay = (
+            selectedFilter: unknown
+        ) => {
+            if (selectedFilter == null) {
+                return "";
+            }
+            if (selectedFilter === "toggle") {
+                return "Toggle";
+            }
+            if (selectedFilter === true) {
+                return "Enable";
+            }
+            return "Disable";
+        };
+
+        $scope.deleteSceneAtIndex = (index: number) => {
+            $scope.effect.selectedSources = $scope.effect.selectedSources.filter(
+                item => item !== $scope.missingSources [index]
+            );
+            $scope.missingSources.splice(index, 1);
+        };
+
+        $scope.getStoredData = () => {
+            for (const sceneName of $scope.effect.selectedSources) {
+                $scope.missingSources.push(sceneName);
+            }
+        };
+
         $scope.getSourceData = () => {
             $scope.isObsConfigured = backendCommunicator.fireEventSync("obs-is-configured");
 
@@ -165,6 +223,7 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
             );
         };
         $scope.getSourceData();
+        $scope.getStoredData();
     },
     optionsValidator: () => {
         return [];

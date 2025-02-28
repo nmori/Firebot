@@ -229,7 +229,7 @@ function runScript(effect, trigger) {
 
     logger.debug(`running script: ${scriptName}`);
 
-    if (SettingsManager.getSetting("RunCustomScripts")) {
+    if (!SettingsManager.getSetting("RunCustomScripts")) {
         frontendCommunicator.send(
             "error",
             "スクリプトの実行を試みましたが、この機能は無効化されており実行できません"
