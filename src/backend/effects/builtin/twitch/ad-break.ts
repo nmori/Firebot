@@ -45,7 +45,7 @@ const model: EffectType<{
         </eos-container>
         <eos-container>
             <div class="effect-info alert alert-warning">
-                注：この効果を使用するには、アフィリエイトまたはパートナーである必要があります。
+                注：この演出を使用するには、アフィリエイトまたはパートナーである必要があります。
             </div>
         </eos-container>
     `,

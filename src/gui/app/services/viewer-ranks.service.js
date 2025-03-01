@@ -1,12 +1,12 @@
 "use strict";
 
-(function() {
+(function () {
     /** @typedef {import("../../../types/ranks").RankLadder} RankLadder */
     /** @typedef {import("../../../types/ranks").Rank} Rank */
 
     angular
         .module("firebotApp")
-        .factory("viewerRanksService", function($q, backendCommunicator, utilityService, objectCopyHelper, ngToast) {
+        .factory("viewerRanksService", function ($q, backendCommunicator, utilityService, objectCopyHelper, ngToast) {
             const service = {};
 
             /** @type {RankLadder[]} */
@@ -68,12 +68,12 @@
                 return false;
             };
 
-            service.saveAllRankLadders = function(ladders) {
+            service.saveAllRankLadders = function (ladders) {
                 service.rankLadders = ladders;
                 backendCommunicator.fireEvent("rank-ladders:save-all", JSON.parse(angular.toJson(ladders)));
             };
 
-            service.deleteRankLadder = function(ladderId) {
+            service.deleteRankLadder = function (ladderId) {
                 service.rankLadders = service.rankLadders.filter(t => t.id !== ladderId);
                 backendCommunicator.fireEvent("rank-ladders:delete", ladderId);
             };
@@ -87,7 +87,7 @@
                 copiedLadder.id = null;
 
                 while (service.rankLadders.some(t => t.name === copiedLadder.name)) {
-                    copiedLadder.name += " copy";
+                    copiedLadder.name += " コピー";
                 }
 
                 service.saveRankLadder(copiedLadder)
@@ -95,10 +95,10 @@
                         if (successful) {
                             ngToast.create({
                                 className: 'success',
-                                content: 'Successfully duplicated rank ladder!'
+                                content: 'ラダーランクのコピーに成功！'
                             });
                         } else {
-                            ngToast.create("Unable to duplicate rank ladder.");
+                            ngToast.create("ラダーランクをコピーできませんでした");
                         }
                     });
             };
@@ -138,14 +138,14 @@
             service.ladderModes = [
                 {
                     id: "auto",
-                    name: "Automated",
-                    description: "Viewers are automatically added to ranks based on view time or currency.",
+                    name: "自動",
+                    description: "視聴者は、視聴時間または通貨に基づいて自動的にランクに追加されます。",
                     iconClass: "fa-magic"
                 },
                 {
                     id: "manual",
-                    name: "Manual",
-                    description: "Viewers must be manually added to ranks in the UI or via the Set Rank effect.",
+                    name: "手動",
+                    description: "視聴者は、UIで手動でランクに追加するか、ランクの設定エフェクトを使用してランクに追加する必要があります。",
                     iconClass: "fa-users-cog"
                 }
             ];

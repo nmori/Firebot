@@ -8,7 +8,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "math",
         usage: "math[expression]",
-        description: '<a href="https://mathjs.org/docs/index.html">math.js</a>‚ğg‚Á‚Ä”®‚ğ•]‰¿‚·‚é',
+        description: '<a href="https://mathjs.org/docs/index.html">math.js</a>ã‚’ä½¿ã£ã¦æ•°å¼ã‚’è©•ä¾¡ã™ã‚‹',
         examples: [
             {
                 usage: "math[2 + 2]",
@@ -48,7 +48,7 @@ const model : ReplaceVariable = {
 
     argsCheck: (exp: string) => {
         if (exp == null || exp.length < 1) {
-            throw new SyntaxError("”®‚ªŠÜ‚Ü‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚È‚ç‚È‚¢I");
+            throw new SyntaxError("æ•°å¼ãŒå«ã¾ã‚Œã¦ã„ãªã‘ã‚Œã°ãªã‚‰ãªã„ï¼");
         }
 
         return true;

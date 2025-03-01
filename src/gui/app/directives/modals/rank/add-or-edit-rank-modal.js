@@ -1,5 +1,5 @@
 "use strict";
-(function() {
+(function () {
 
     const { v4: uuid } = require("uuid");
 
@@ -15,13 +15,13 @@
                     <i class="fal fa-times" aria-hidden="true"></i>
                 </button>
                 <h4 class="modal-title">
-                    <div class="action text-4xl">{{ $ctrl.isNewRank ? 'Add' : 'Edit' }} Rank</div>
+                    <div class="action text-4xl"> ランクの{{ $ctrl.isNewRank ? '追加' : '編集' }}</div>
                 </h4>
             </div>
             <div class="modal-body">
                 <form name="rankSettings">
                     <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
-                        <label for="name" class="control-label">Name</label>
+                        <label for="name" class="control-label">名前</label>
                         <input
                             type="text"
                             id="name"
@@ -30,13 +30,13 @@
                             ui-validate="{taken:'!$ctrl.isNameTaken($value)'}"
                             required
                             class="form-control input-lg"
-                            placeholder="Give the rank a name"
+                            placeholder="ランクに名前をつける"
                             ng-model="$ctrl.rank.name"
                         />
                         <div ng-if="$ctrl.formFieldHasError('name')">
-                            <span ng-if="rankSettings.name.$error.required" class="help-block">Name is required.</span>
-                            <span ng-if="rankSettings.name.$error.minlength" class="help-block">Name must be 3 or more characters.</span>
-                            <span ng-if="rankSettings.name.$error.taken" class="help-block">Name is already taken.</span>
+                            <span ng-if="rankSettings.name.$error.required" class="help-block">名前は必須です。</span>
+                            <span ng-if="rankSettings.name.$error.minlength" class="help-block">名前は3文字以上にしてください。</span>
+                            <span ng-if="rankSettings.name.$error.taken" class="help-block">名前はすでに使われています。</span>
                         </div>
                     </div>
 
@@ -55,8 +55,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
         bindings: {
@@ -65,7 +65,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function($scope) {
+        controller: function ($scope) {
             const $ctrl = this;
 
             $ctrl.isNewRank = true;

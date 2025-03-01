@@ -15,7 +15,7 @@ const model : ReplaceVariable = {
     evaluator: async (_, metadataKey: string, count: number = 10) => {
 
         if (metadataKey == null) {
-            return "[無効なメタデータ・キー]";
+            return "[辟｡蜉ｹ縺ｪ繝｡繧ｿ繝�繝ｼ繧ｿ繝ｻ繧ｭ繝ｼ]";
         }
 
         // limit to max of 50

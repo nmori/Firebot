@@ -1,23 +1,6 @@
 "use strict";
 
 const { EffectCategory } = require('../../../shared/effect-constants');
-const axiosDefault = require("axios").default;
-
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - OneComme Effect'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
 
 const effect = {
     definition: {
@@ -44,7 +27,7 @@ const effect = {
     `,
     optionsController: ($scope, utilityService) => {
 
-        $scope.errorEffectsUpdated = function(effects) {
+        $scope.errorEffectsUpdated = function (effects) {
             $scope.effect.errorEffects = effects;
         };
 
@@ -56,7 +39,7 @@ const effect = {
             showGutter: true
         };
 
-        $scope.codemirrorLoaded = function(_editor) {
+        $scope.codemirrorLoaded = function (_editor) {
             // Editor part
             _editor.refresh();
             const cmResize = require("cm-resize");
@@ -69,7 +52,7 @@ const effect = {
 
         $scope.sortableOptions = {
             handle: ".dragHandle",
-            stop: () => {}
+            stop: () => { }
         };
 
         $scope.showAddOrEditHeaderModal = (header) => {
@@ -117,25 +100,32 @@ const effect = {
         const headers = {
             'Content-Type': `application/json`
         };
-        let responseData;
-        try {
-            const response = await axios({
-                method: 'POST',
-                url: 'http://127.0.0.1:11180/api/reactions',
-                headers,
-                data: sendBodyData
-            });
 
-            responseData = response.data;
+        try {
+
+            const response = await fetch(
+                'http://localhost:11180/api/reactions',
+                {
+                    method: 'POST',
+                    headers: headers,
+                    body: sendBodyData
+                });
+
+            let responseData = await response.text();
+            return {
+                success: true,
+                outputs: {
+                    httpResponse: responseData
+                }
+            };
 
         } catch (error) {
             logger.error("Error running http request", error.message);
         }
 
         return {
-            success: true,
+            success: false,
             outputs: {
-                httpResponse: responseData
             }
         };
     },

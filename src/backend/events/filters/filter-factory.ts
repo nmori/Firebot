@@ -2,6 +2,7 @@ import { EventFilter, FilterSettings, PresetValue } from "../../../types/events"
 import { ComparisonType } from "../../../shared/filter-constants";
 import { extractPropertyWithPath } from "../../utility";
 import { auto } from "angular";
+const logger = require("../../logwrapper");
 
 type EventData = {
     eventSourceId: string;
@@ -163,7 +164,7 @@ export function createTextFilter({
                     return regex.test(eventValue);
                 }
                 default:
-                    logger.warn(`(${this.name})”»’èğŒ‚ª•s³‚Å‚·: :${comparisonType}`);
+                    logger.warn(`(${this.name})åˆ¤å®šæ¡ä»¶ãŒä¸æ­£ã§ã™: :${comparisonType}`);
                     return false;
             }
         }
@@ -223,7 +224,7 @@ export function createNumberFilter({
                     return eventValue >= value;
                 }
                 default:
-                    logger.warn(`(${this.name})”»’èğŒ‚ª•s³‚Å‚·: :${comparisonType}`);
+                    logger.warn(`(${this.name})åˆ¤å®šæ¡ä»¶ãŒä¸æ­£ã§ã™: :${comparisonType}`);
                     return false;
             }
         }

@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     angular.module("firebotApp").component("subcommandRow", {
         bindings: {
             subcommand: "=",
@@ -23,15 +23,15 @@
                     <div style="width: 25%">
                         <div ng-if="!$ctrl.subcommand.inheritBaseCommandCooldown">
                             <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
-                                <i class="fal fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "s" : "-" }}
+                                <i class="fal fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "秒" : "-" }}
                             </span>
                             <span uib-tooltip="User cooldown">
-                                <i class="fal fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "s" : "-" }}
+                                <i class="fal fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "秒" : "-" }}
                             </span>
                         </div>
                         <div ng-if="$ctrl.subcommand.inheritBaseCommandCooldown">
-                            <span style="text-transform: capitalize;">Inherited</span>
-                            <tooltip type="info" text="'This subcommand will use the cooldowns of the base command.'"></tooltip>
+                            <span style="text-transform: capitalize;">継承</span>
+                            <tooltip type="info" text="'このサブコマンドはベースコマンドの再実行待ち時間を使用します。'"></tooltip>
                         </div>
                     </div>
 
@@ -182,7 +182,7 @@
                 </div>
             </div>
         `,
-        controller: function(viewerRolesService) {
+        controller: function (viewerRolesService) {
             const $ctrl = this;
 
             $ctrl.subcommandTypeTitle = () => {
@@ -215,7 +215,7 @@
                 }
             };
 
-            $ctrl.$onInit = function() {
+            $ctrl.$onInit = function () {
                 if ($ctrl.subcommand) {
                     if ((!$ctrl.subcommand.regex && !$ctrl.subcommand.fallback) && $ctrl.subcommand.usage) {
                         $ctrl.compiledUsage = $ctrl.subcommand.usage.replace(`${$ctrl.subcommand.arg} `, "");
@@ -247,7 +247,7 @@
                 $ctrl.onEdit({ id: $ctrl.subcommand.id });
             };
 
-            $ctrl.effectListUpdated = function(effects) {
+            $ctrl.effectListUpdated = function (effects) {
                 $ctrl.subcommand.effects = effects;
             };
 
@@ -255,7 +255,7 @@
                 const command = $ctrl.subcommand;
 
                 const permissions = command.restrictionData && command.restrictionData.restrictions &&
-                command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
+                    command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
@@ -271,7 +271,7 @@
             $ctrl.getPermissionTooltip = () => {
                 const command = $ctrl.subcommand;
                 const permissions = command.restrictionData && command.restrictionData.restrictions &&
-                command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
+                    command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
 
                 if (permissions) {
                     if (permissions.mode === "roles") {

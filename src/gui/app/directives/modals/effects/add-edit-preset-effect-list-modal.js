@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
 
     angular.module("firebotApp").component("addOrEditPresetEffectListModal", {
         template: `
@@ -8,20 +8,20 @@
             <context-menu-modal-header
                 class="edit-preset-effect-list-header"
                 on-close="$ctrl.dismiss()"
-                trigger-type="ƒvƒŠƒZƒbƒg‰‰oƒŠƒXƒg"
+                trigger-type="ãƒ—ãƒªã‚»ãƒƒãƒˆæ¼”å‡ºãƒªã‚¹ãƒˆ"
                 trigger-name="$ctrl.presetList.name"
                 sort-tags="$ctrl.presetList.sortTags"
                 show-trigger-name="true"
             ></context-menu-modal-header>
             <div class="modal-body">
                 <div>
-                    <h3>–¼‘O</h3>
-                    <input type="text" class="form-control" placeholder="–¼‘O‚ğ“ü‚ê‚é" ng-model="$ctrl.presetList.name">
+                    <h3>åå‰</h3>
+                    <input type="text" class="form-control" placeholder="åå‰ã‚’å…¥ã‚Œã‚‹" ng-model="$ctrl.presetList.name">
                 </div>
 
                 <div>
-                    <h3>ˆø”</h3>
-                    <p>‚±‚ÌƒvƒŠƒZƒbƒg‰‰oƒŠƒXƒg‚Éƒf[ƒ^‚ğ“n‚¹‚é‚æ‚¤‚É‚µ‚Ü‚·</p>
+                    <h3>å¼•æ•°</h3>
+                    <p>ã“ã®ãƒ—ãƒªã‚»ãƒƒãƒˆæ¼”å‡ºãƒªã‚¹ãƒˆã«ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã›ã‚‹ã‚ˆã†ã«ã—ã¾ã™</p>
 
                     <div class="role-bar" ng-repeat="arg in $ctrl.presetList.args track by $index">
                         <span uib-tooltip="Access via $presetListArg[{{arg.name}}]" tooltip-append-to-body="true">{{arg.name}}</span>
@@ -44,7 +44,7 @@
                 </div>
 
                 <div style="margin-top: 20px;">
-                    <collapsable-panel header="StreamDeck‚©‚ç‚Ì‹N“®•û–@">
+                    <collapsable-panel header="StreamDeckã‹ã‚‰ã®èµ·å‹•æ–¹æ³•">
                         <p>Steps:</p>
                         <ol>
                             <li>Add "Website" Action to a StreamDeck button</li>
@@ -56,8 +56,8 @@
             </div>
 
             <div class="modal-footer sticky-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">ƒLƒƒƒ“ƒZƒ‹</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Às</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">ã‚­ãƒ£ãƒ³ã‚»ãƒ«</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">å®Ÿè¡Œ</button>
             </div>
             `,
         bindings: {
@@ -66,7 +66,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function(ngToast, utilityService, presetEffectListsService) {
+        controller: function (ngToast, utilityService, presetEffectListsService) {
             const $ctrl = this;
 
             $ctrl.isNewPresetList = true;
@@ -78,7 +78,7 @@
                 sortTags: []
             };
 
-            $ctrl.effectListUpdated = function(effects) {
+            $ctrl.effectListUpdated = function (effects) {
                 $ctrl.presetList.effects = effects;
             };
 
@@ -87,7 +87,7 @@
                     {
                         model: "",
                         label: "Add Argument",
-                        inputPlaceholder: "–¼‘O‚ğ“ü‚ê‚é",
+                        inputPlaceholder: "åå‰ã‚’å…¥ã‚Œã‚‹",
                         saveText: "Save",
                         validationFn: (value) => {
                             return new Promise((resolve) => {
@@ -113,7 +113,7 @@
                 $ctrl.presetList.args.splice(index, 1);
             };
 
-            $ctrl.$onInit = function() {
+            $ctrl.$onInit = function () {
                 if ($ctrl.resolve.presetList) {
                     $ctrl.presetList = JSON.parse(
                         angular.toJson($ctrl.resolve.presetList)
@@ -127,7 +127,7 @@
                 }
             };
 
-            $ctrl.save = function() {
+            $ctrl.save = function () {
                 if ($ctrl.presetList.name == null || $ctrl.presetList.name === "") {
                     ngToast.create("Please provide a name for this Preset List");
                     return;

@@ -1,8 +1,8 @@
 "use strict";
-(function() {
+(function () {
     angular
         .module("firebotApp")
-        .factory("scheduledTaskService", function(backendCommunicator, $q, utilityService, objectCopyHelper, ngToast) {
+        .factory("scheduledTaskService", function (backendCommunicator, $q, utilityService, objectCopyHelper, ngToast) {
             const service = {};
 
             service.scheduledTasks = [];
@@ -24,7 +24,7 @@
                 service.scheduledTasks = scheduledTasks;
             });
 
-            service.loadScheduledTasks = function() {
+            service.loadScheduledTasks = function () {
                 $q.when(backendCommunicator.fireEventAsync("getScheduledTasks"))
                     .then(scheduledTasks => {
                         if (scheduledTasks) {
@@ -35,7 +35,7 @@
 
             service.getScheduledTasks = () => service.scheduledTasks;
 
-            service.saveScheduledTask = function(scheduledTask) {
+            service.saveScheduledTask = function (scheduledTask) {
                 return $q.when(backendCommunicator.fireEventAsync("saveScheduledTask", scheduledTask))
                     .then(savedScheduledTask => {
                         if (savedScheduledTask) {
@@ -111,12 +111,12 @@
                 return null;
             };
 
-            service.saveAllScheduledTasks = function(scheduledTasks) {
+            service.saveAllScheduledTasks = function (scheduledTasks) {
                 service.scheduledTasks = scheduledTasks;
                 backendCommunicator.fireEventAsync("saveAllScheduledTasks", scheduledTasks);
             };
 
-            service.toggleScheduledTaskEnabledState = function(scheduledTask) {
+            service.toggleScheduledTaskEnabledState = function (scheduledTask) {
                 if (scheduledTask == null) {
                     return;
                 }
@@ -154,7 +154,7 @@
             };
 
             // Deletes a scheduled task.
-            service.deleteScheduledTask = function(scheduledTask) {
+            service.deleteScheduledTask = function (scheduledTask) {
                 if (scheduledTask == null) {
                     return;
                 }
@@ -164,11 +164,11 @@
                 backendCommunicator.fireEvent("deleteScheduledTask", scheduledTask.id);
             };
 
-            service.showAddEditScheduledTaskModal = function(scheduledTask) {
+            service.showAddEditScheduledTaskModal = function (scheduledTask) {
                 return new Promise(resolve => {
                     utilityService.showModal({
                         component: "addOrEditScheduledTaskModal",
-                        breadcrumbName: "Edit Scheduled Effect List",
+                        breadcrumbName: "スケジュールされた演出リストの編集",
                         size: "md",
                         resolveObj: {
                             scheduledTask: () => scheduledTask
@@ -180,7 +180,7 @@
                 });
             };
 
-            service.getFriendlyCronSchedule = function(schedule) {
+            service.getFriendlyCronSchedule = function (schedule) {
                 const cronstrue = require("cronstrue");
                 const { CronTime } = require("cron");
                 try {

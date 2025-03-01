@@ -1,12 +1,12 @@
 "use strict";
 
-(function() {
+(function () {
     angular.module("firebotApp")
         .component("addOrEditMetadataModal", {
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">ƒƒ^ƒf[ƒ^‚Ì{{$ctrl.isNew ? '’Ç‰Á' : '•ÒW'}}</h4>
+                    <h4 class="modal-title">ãƒ¡ã‚¿ãƒ‡ãƒ¼ã‚¿ã®{{$ctrl.isNew ? 'è¿½åŠ ' : 'ç·¨é›†'}}</h4>
                 </div>
                 <div class="modal-body">
 
@@ -20,7 +20,7 @@
                                 id="key"
                                 name="key"
                                 class="form-control input-lg"
-                                placeholder="ƒL[‚ğ“ü—Í"
+                                placeholder="ã‚­ãƒ¼ã‚’å…¥åŠ›"
                                 ng-model="$ctrl.metadata.key"
                                 ui-validate="'$value != null && $value.length > 0'"
                                 required
@@ -40,8 +40,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">ƒLƒƒƒ“ƒZƒ‹</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">•Û‘¶</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">ã‚­ãƒ£ãƒ³ã‚»ãƒ«</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">ä¿å­˜</button>
                 </div>
             `,
             bindings: {
@@ -49,7 +49,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($scope) {
+            controller: function ($scope) {
                 const $ctrl = this;
 
                 $scope.$watch("type", (newValue) => {
@@ -77,7 +77,7 @@
                         inputType: "codemirror",
                         disableVariables: true,
                         codeMirrorOptions: {
-                            mode: {name: "javascript", json: true},
+                            mode: { name: "javascript", json: true },
                             theme: 'blackboard',
                             lineNumbers: true,
                             autoRefresh: true,

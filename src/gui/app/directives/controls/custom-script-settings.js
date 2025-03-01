@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     const fs = require("fs");
     const { marked } = require("marked");
     const { sanitize } = require("dompurify");
@@ -19,7 +19,7 @@
             <eos-container header="Script">
 
                 <div class="effect-info alert alert-info">
-                    Place scripts in the <a id="scriptFolderBtn" ng-click="openScriptsFolder()" style="text-decoration:underline;color:#53afff;cursor:pointer;">ƒXƒNƒŠƒvƒgƒtƒHƒ‹ƒ_</a>‚É‚ ‚éAFirebot‚Ìƒ†[ƒU[İ’è˜g‚ÅA‘I‘ğˆ‚ğXV‚µ‚Ä‚­‚¾‚³‚¢B
+                    Place scripts in the <a id="scriptFolderBtn" ng-click="openScriptsFolder()" style="text-decoration:underline;color:#53afff;cursor:pointer;">ã‚¹ã‚¯ãƒªãƒ—ãƒˆãƒ•ã‚©ãƒ«ãƒ€</a>ã«ã‚ã‚‹ã€Firebotã®ãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šæ ã§ã€é¸æŠè‚¢ã‚’æ›´æ–°ã—ã¦ãã ã•ã„ã€‚
                 </div>
 
                 <div class="flex items-center">
@@ -37,8 +37,8 @@
 
             <eos-container ng-show="effect.scriptName != null" pad-top="true">
                 <div ng-if="scriptManifest != null" style="padding-bottom:10px;">
-                    <div class="script-name">{{scriptManifest.name ? scriptManifest.name : "–¼–³‚µ"}} <span class="script-version muted">{{scriptManifest.version ? scriptManifest.version : "•s–¾"}}</span></div>
-                    <div style="font-size: 13px;">by <span class="script-author">{{scriptManifest.author ? scriptManifest.author : "•s–¾"}}</span><span ng-if="scriptManifest.website" class="script-website"> (<a ng-click="openScriptsWebsite()" class="clickable">{{scriptManifest.website}}</a>)</span><span></span></div>
+                    <div class="script-name">{{scriptManifest.name ? scriptManifest.name : "åç„¡ã—"}} <span class="script-version muted">{{scriptManifest.version ? scriptManifest.version : "ä¸æ˜"}}</span></div>
+                    <div style="font-size: 13px;">by <span class="script-author">{{scriptManifest.author ? scriptManifest.author : "ä¸æ˜"}}</span><span ng-if="scriptManifest.website" class="script-website"> (<a ng-click="openScriptsWebsite()" class="clickable">{{scriptManifest.website}}</a>)</span><span></span></div>
                     <div
                         class="script-description markdown-container"
                         ng-bind-html="scriptManifest.description"
@@ -48,10 +48,10 @@
 
             <eos-container header="Settings" ng-show="effect.scriptName != null">
                 <div ng-show="isLoadingParameters">
-                    İ’è‚ğ“Ç’†...
+                    è¨­å®šã‚’èª­è¾¼ä¸­...
                 </div>
                 <div ng-hide="isLoadingParameters">
-                    <span ng-hide="scriptHasParameters()" class="muted">‚±‚ÌƒXƒNƒŠƒvƒg‚É‚Íİ’è‚ª‚ ‚è‚Ü‚¹‚ñ.</span>
+                    <span ng-hide="scriptHasParameters()" class="muted">ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã«ã¯è¨­å®šãŒã‚ã‚Šã¾ã›ã‚“.</span>
                     <div ng-show="scriptHasParameters()">
                         <dynamic-parameter
                             ng-repeat="(parameterName, parameterMetadata) in effect.parameters"
@@ -67,11 +67,11 @@
 
             <eos-container>
                 <div class="effect-info alert alert-danger">
-                    <strong>’ˆÓ:</strong> ‚ ‚È‚½‚ªM—Š‚Å‚«‚éƒXƒNƒŠƒvƒgˆÈŠOAg—p‚µ‚Ä‚Í‚¢‚¯‚Ü‚¹‚ñ
+                    <strong>æ³¨æ„:</strong> ã‚ãªãŸãŒä¿¡é ¼ã§ãã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆä»¥å¤–ã€ä½¿ç”¨ã—ã¦ã¯ã„ã‘ã¾ã›ã‚“
                 </div>
             </eos-container>
             `,
-            controller: function($scope, utilityService, $rootScope, $q, logger,
+            controller: function ($scope, utilityService, $rootScope, $q, logger,
                 $sce, backendCommunicator, profileManager) {
 
                 const $ctrl = this;
@@ -102,7 +102,7 @@
                         }
 
                         if ($scope.scriptManifest != null && $scope.scriptManifest.startupOnly && !$ctrl.allowStartup) {
-                            utilityService.showInfoModal(`ƒXƒNƒŠƒvƒg '${$scope.effect.scriptName}' ‚ğƒ[ƒh‚Å‚«‚Ü‚¹‚ñB‚±‚ÌƒXƒNƒŠƒvƒg‚Í‹N“®ƒXƒNƒŠƒvƒg‚Æ‚µ‚Ä‚Ì‚İ—˜—p‰Â”\‚Å‚·B (İ’è > ‰—p > ‹N“®ƒXƒNƒŠƒvƒg`);
+                            utilityService.showInfoModal(`ã‚¹ã‚¯ãƒªãƒ—ãƒˆ '${$scope.effect.scriptName}' ã‚’ãƒ­ãƒ¼ãƒ‰ã§ãã¾ã›ã‚“ã€‚ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¯èµ·å‹•æ™‚ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¨ã—ã¦ã®ã¿åˆ©ç”¨å¯èƒ½ã§ã™ã€‚ (è¨­å®š > å¿œç”¨ > èµ·å‹•æ™‚ã‚¹ã‚¯ãƒªãƒ—ãƒˆ`);
                             $scope.effect.scriptName = undefined;
                             $scope.effect.parameters = undefined;
                             $scope.scriptManifest = undefined;
@@ -163,7 +163,7 @@
                             $scope.isLoadingParameters = false;
                         }
                     } catch (err) {
-                        utilityService.showErrorModal("ƒXƒNƒŠƒvƒg '" + scriptName + "'‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½B\n\n" + err);
+                        utilityService.showErrorModal("ã‚¹ã‚¯ãƒªãƒ—ãƒˆ '" + scriptName + "'ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚\n\n" + err);
                         logger.error(err);
                     }
                 }
@@ -186,7 +186,7 @@
                 loadScriptFileNames();
 
                 // Grab files in folder on refresh click.
-                $scope.getNewScripts = function() {
+                $scope.getNewScripts = function () {
                     loadScriptFileNames();
                     if ($scope.effect.scriptName != null) {
                         loadParameters($scope.effect.scriptName);
@@ -194,11 +194,11 @@
                 };
 
                 // Open script folder on click.
-                $scope.openScriptsFolder = function() {
+                $scope.openScriptsFolder = function () {
                     backendCommunicator.fireEvent("openScriptsFolder");
                 };
 
-                $scope.openScriptsWebsite = function() {
+                $scope.openScriptsWebsite = function () {
                     if (!$scope.scriptManifest || !$scope.scriptManifest.website) {
                         return;
                     }
@@ -206,7 +206,7 @@
                     $rootScope.openLinkExternally($scope.scriptManifest.website);
                 };
 
-                $scope.selectScript = function(scriptItem) {
+                $scope.selectScript = function (scriptItem) {
                     const scriptName = scriptItem.name;
                     $scope.effect.scriptName = scriptName;
                     $scope.effect.parameters = null;
@@ -214,7 +214,7 @@
                     loadParameters(scriptName, false);
                 };
 
-                $scope.scriptHasParameters = function() {
+                $scope.scriptHasParameters = function () {
                     return ($scope.effect.parameters != null &&
                         Object.keys($scope.effect.parameters).length > 0);
                 };

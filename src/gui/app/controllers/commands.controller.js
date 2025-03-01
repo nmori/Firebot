@@ -1,8 +1,8 @@
 "use strict";
-(function() {
+(function () {
     angular
         .module("firebotApp")
-        .controller("commandsController", function(
+        .controller("commandsController", function (
             $scope,
             commandsService,
             utilityService,
@@ -68,7 +68,7 @@
                 commandsService.saveCustomCommand(copiedCommand);
             };
 
-            $scope.openAddOrEditCustomCommandModal = function(command) {
+            $scope.openAddOrEditCustomCommandModal = function (command) {
                 utilityService.showModal({
                     component: "addOrEditCustomCommandModal",
                     breadcrumbName: command ? "Edit Command" : "Add Command",
@@ -162,19 +162,19 @@
                         >{{data.trigger}}</span>
                         <tooltip
                             ng-if="data.triggerIsRegex"
-                            text="'Description: ' + data.regexDescription"
+                            text="'概要: ' + data.regexDescription"
                         ></tooltip>
                         <span
                             class="muted ml-2"
                             style="font-size: 11px"
                             ng-show="data.hidden"
-                            uib-tooltip="Hidden from !commands list"
+                            uib-tooltip="!commands リストに表示しない"
                             tooltip-append-to-body="true"
                         >
                             <i class="fas fa-eye-slash"></i>
                         </span>
                     `,
-                    cellController: () => {}
+                    cellController: () => { }
                 },
                 {
                     name: "再実行時間",
@@ -182,16 +182,16 @@
                     cellTemplate: `
                         <span
                             style="min-width: 51px; display: inline-block"
-                            uib-tooltip="Global cooldown"
+                            uib-tooltip="再実行時間（全体）"
                         >
                             <i class="far fa-globe-americas"></i>
-                            {{data.cooldown.global ? data.cooldown.global + "s" : "-" }}
+                            {{data.cooldown.global ? data.cooldown.global + "秒" : "-" }}
                         </span>
-                        <span uib-tooltip="User cooldown">
-                            <i class="far fa-user"></i> {{data.cooldown.user ? data.cooldown.user + "s" : "-" }}
+                        <span uib-tooltip="再実行時間（ユーザ）">
+                            <i class="far fa-user"></i> {{data.cooldown.user ? data.cooldown.user + "秒" : "-" }}
                         </span>
                     `,
-                    cellController: () => {}
+                    cellController: () => { }
                 },
                 {
                     name: "権限",
@@ -207,7 +207,7 @@
                         $scope.getPermissionType = (command) => {
 
                             const permissions = command.restrictionData && command.restrictionData.restrictions &&
-                    command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
+                                command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
 
                             if (permissions) {
                                 if (permissions.mode === "roles") {
@@ -223,7 +223,7 @@
                         $scope.getPermissionTooltip = (command) => {
 
                             const permissions = command.restrictionData && command.restrictionData.restrictions &&
-                    command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
+                                command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
 
                             if (permissions) {
                                 if (permissions.mode === "roles") {
@@ -274,7 +274,7 @@
                                     return `Viewer (${permissions.username ? permissions.username : 'No name'})`;
                                 }
                             } else {
-                                return "This command is available to everyone";
+                                return "このコマンドは誰でも利用できます";
                             }
                         };
                     }

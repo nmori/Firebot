@@ -6,15 +6,15 @@ const hueManager = require("../hue-manager");
 const effect = {
     definition: {
         id: "hue:scenes",
-        name: "Activate Hue Scene",
-        description: "Activate a Philips Hue scene",
+        name: "Philips Hueシーンを設定",
+        description: "Philips Hueのシーンをアクティブにする",
         icon: "far fa-house-signal fa-align-center",
         categories: [EffectCategory.INTEGRATIONS],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-        <eos-container header="Activate Hue Scene">
+        <eos-container header="Philips Hueシーンを設定">
             <firebot-searchable-select
                 items="hueScenes"
                 ng-model="effect.sceneId"
@@ -31,7 +31,7 @@ const effect = {
                 $scope.hueScenes = scenes;
             });
     },
-    optionsValidator: () => {},
+    optionsValidator: () => { },
     onTriggerEvent: async ({ effect }) => {
         const sceneId = effect.sceneId;
 

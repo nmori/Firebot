@@ -1,7 +1,7 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
+const { SettingsManager } = require("../../common/settings-manager");
+const { ResourceTokenManager } = require("../../resource-token-manager");
 const webServer = require("../../../server/http-server-manager");
 const fs = require('fs-extra');
 const logger = require("../../logwrapper");
@@ -9,23 +9,6 @@ const path = require("path");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
 const { wait } = require("../../utility");
-const axiosDefault = require("axios").default;
-
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - sendvrchat'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
 
 const voicelists = [];
 
@@ -65,32 +48,17 @@ const playSound = {
         <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
         
     `,
-    optionsController: async($scope) =>  {
-        const axiosDefault = require("axios").default;
-
-        const axios = axiosDefault.create({
-
-        });
-
-        axios.interceptors.request.use(request => {
-            //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-            return request;
-        });
-
-        axios.interceptors.response.use(response => {
-            //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-            return response;
-        });
+    optionsController: async ($scope) => {
 
         if ($scope.effect.port == null) {
             $scope.effect.port = 8080;
-        }       
+        }
 
     },
     optionsValidator: effect => {
         const errors = [];
 
-        if (effect.port == null || effect.port ==="") {
+        if (effect.port == null || effect.port === "") {
             errors.push("ポート番号を指定してください");
         }
 
@@ -100,35 +68,33 @@ const playSound = {
         const effect = event.effect;
 
         try {
-            // HTTP header
-            var headers = {
-                'Content-Type': 'application/json'
-            };
 
             const crypto = require("crypto");
-            const engine = effect.voicecast.name.split('/');
 
-            const voiceQuery={
+            const voiceQuery = {
                 operation: 'chat',
                 params: [
                     {
                         id: crypto.randomUUID(),
                         text: effect.message,
                         talker: effect.username,
-                        target : [
+                        target: [
                             'vrchat',
                         ]
                     }
                 ]
             };
 
-            const response = await axios({
-                method:'post',
-                url: 'http://127.0.0.1:'+String(effect.port)+'/',
-                data : JSON.stringify(voiceQuery),
-                header: headers
-            });
-            
+            const response = await fetch(
+                `http://127.0.0.1:${effect.port}/`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(voiceQuery)
+                });
+
+            const responseData = await response.text();
+
         } catch (error) {
             logger.error("Error running http request", error.message);
         }

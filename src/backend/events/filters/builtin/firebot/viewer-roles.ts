@@ -4,11 +4,12 @@ import twitchRolesManager from "../../../../../shared/twitch-roles";
 import chatRolesManager from "../../../../roles/chat-roles-manager";
 import twitchApi from "../../../../twitch-api/api";
 import { EventFilter } from "../../../../../types/events";
+import { ComparisonType } from "../../../../../shared/filter-constants";
 
 const filter: EventFilter = {
     id: "firebot:viewerroles",
-    name: "Ž‹’®ŽÒ‚Ì–ðŠ„",
-    description: "Ž‹’®ŽÒ‚Ì–ðŠ„‚ÅƒtƒBƒ‹ƒ^",
+    name: "è¦–è´è€…ã®å½¹å‰²",
+    description: "è¦–è´è€…ã®å½¹å‰²ã§ãƒ•ã‚£ãƒ«ã‚¿",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -117,11 +118,9 @@ const filter: EventFilter = {
                     return hasRole;
                 case ComparisonType.NOT_INCLUDING:
                 case ComparisonType.COMPAT_NOT_INCLUDING:
-                case ComparisonType.COMPAT2_NOT_INCLUDING:
                 case ComparisonType.ORG_NOT_INCLUDING:
                     return !hasRole;
                 default:
-                    logger.warn(`(${this.name})”»’èðŒ‚ª•s³‚Å‚·: :${comparisonType}`);
                     return false;
             }
         } catch {

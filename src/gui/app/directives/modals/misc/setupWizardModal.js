@@ -2,7 +2,7 @@
 
 // Basic template for a modal component, copy this and rename to build a modal.
 
-(function() {
+(function () {
     angular.module("firebotApp").component("setupWizardModal", {
         template: `
         <div class="modal-header" style="text-align:center">
@@ -159,7 +159,7 @@
                 </div>
 
                 <div>
-                    <a class="btn btn-default hvr-icon-back" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()"><i class="fas fa-arrow-left hvr-icon"></i> –ß‚é</a>
+                    <a class="btn btn-default hvr-icon-back" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()"><i class="fas fa-arrow-left hvr-icon"></i> æˆ»ã‚‹</a>
                     <a
                         class="btn btn-primary hvr-icon-forward"
                         uib-tooltip="{{$ctrl.getTooltipText()}}"
@@ -181,7 +181,7 @@
             close: "&",
             dismiss: "&"
         },
-        controller: function($rootScope, connectionService, connectionManager,
+        controller: function ($rootScope, connectionService, connectionManager,
             overlayUrlHelper, ngToast, backendCommunicator, backupService, settingsService) {
             const $ctrl = this;
 
@@ -199,53 +199,53 @@
 
             $ctrl.getAccountAvatar = connectionService.getAccountAvatar;
 
-            $ctrl.isFirstStep = function() {
+            $ctrl.isFirstStep = function () {
                 return $ctrl.step === 0;
             };
 
-            $ctrl.isLastStep = function() {
+            $ctrl.isLastStep = function () {
                 return $ctrl.step === $ctrl.stepTitles.length - 1;
             };
 
-            $ctrl.isCurrentStep = function(step) {
+            $ctrl.isCurrentStep = function (step) {
                 return $ctrl.step === step;
             };
 
-            $ctrl.setCurrentStep = function(step) {
+            $ctrl.setCurrentStep = function (step) {
                 $ctrl.step = step;
             };
 
-            $ctrl.getCurrentStep = function() {
+            $ctrl.getCurrentStep = function () {
                 return $ctrl.step;
             };
 
-            $ctrl.getStepTitle = function() {
+            $ctrl.getStepTitle = function () {
                 return $ctrl.stepTitles[$ctrl.step];
             };
 
-            $ctrl.getNextLabel = function() {
+            $ctrl.getNextLabel = function () {
                 return "Next";
             };
 
-            $ctrl.handlePrevious = function() {
+            $ctrl.handlePrevious = function () {
                 $ctrl.step -= $ctrl.isFirstStep() ? 0 : 1;
             };
 
-            $ctrl.showNextButton = function() {
+            $ctrl.showNextButton = function () {
                 if ($ctrl.isFirstStep() || $ctrl.isLastStep()) {
                     return false;
                 }
                 return true;
             };
 
-            $ctrl.showBackButton = function() {
+            $ctrl.showBackButton = function () {
                 if ($ctrl.step === 1) {
                     return false;
                 }
                 return !($ctrl.isFirstStep() || $ctrl.isLastStep());
             };
 
-            $ctrl.canGoToNext = function() {
+            $ctrl.canGoToNext = function () {
                 switch ($ctrl.step) {
                     case 1:
                         return connectionService.accounts.streamer.loggedIn;
@@ -256,7 +256,7 @@
                 }
                 return true;
             };
-            $ctrl.handleNext = async function(forceNext) {
+            $ctrl.handleNext = async function (forceNext) {
                 if ($ctrl.isLastStep()) {
                     $ctrl.close();
                 } else {
@@ -267,12 +267,12 @@
                 }
             };
 
-            $ctrl.getTooltipText = function() {
+            $ctrl.getTooltipText = function () {
                 switch ($ctrl.step) {
                     case 1:
-                        return "”zMŽÒƒAƒJƒEƒ“ƒg‚ÅƒƒOƒCƒ“‚µ‚Ä‚­‚¾‚³‚¢";
+                        return "é…ä¿¡è€…ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã§ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ãã ã•ã„";
                     case 2:
-                        return "ƒI[ƒo[ƒŒƒC‚ÌURL‚ð”zMƒ\ƒtƒgƒEƒFƒA‚ÉÝ’è‚µ‚Ä‚­‚¾‚³‚¢";
+                        return "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ã®URLã‚’é…ä¿¡ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã«è¨­å®šã—ã¦ãã ã•ã„";
                 }
                 return "";
             };
@@ -282,31 +282,31 @@
 
             $ctrl.overlayPath = overlayUrlHelper.getOverlayPath();
 
-            $ctrl.copyOverlayPath = function() {
+            $ctrl.copyOverlayPath = function () {
                 $rootScope.copyTextToClipboard($ctrl.overlayPath);
 
                 ngToast.create({
                     className: 'success',
-                    content: "ƒI[ƒo[ƒŒƒC—p‚ÌURL‚ðƒRƒs[‚µ‚Ü‚µ‚½"
+                    content: "ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ç”¨ã®URLã‚’ã‚³ãƒ”ãƒ¼ã—ã¾ã—ãŸ"
                 });
             };
 
             let overlayStatusId = 0;
-            $ctrl.overlayConnectionMessage = function() {
+            $ctrl.overlayConnectionMessage = function () {
                 const connectionStatus = connectionManager
                     .getConnectionStatusForService("overlay");
                 if (connectionStatus === "connected") {
                     overlayStatusId = 1;
-                    return "Ú‘±Ï";
+                    return "æŽ¥ç¶šæ¸ˆ";
                 } else if (connectionStatus === "warning") {
                     overlayStatusId = 0;
-                    return "–¢Ú‘±";
+                    return "æœªæŽ¥ç¶š";
                 }
                 overlayStatusId = -1;
-                return "€”õ‚ÍŠ®—¹‚µ‚Ü‚µ‚½‚ªAŒ»Žž“_‚Å‚Í–¢Ú‘±‚Å‚·B";
+                return "æº–å‚™ã¯å®Œäº†ã—ã¾ã—ãŸãŒã€ç¾æ™‚ç‚¹ã§ã¯æœªæŽ¥ç¶šã§ã™ã€‚";
             };
 
-            $ctrl.getOverlayStatusId = function() {
+            $ctrl.getOverlayStatusId = function () {
                 return overlayStatusId;
             };
 

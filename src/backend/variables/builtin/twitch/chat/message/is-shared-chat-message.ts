@@ -16,7 +16,7 @@ triggers[EffectTrigger.EVENT] = [
 const model : ReplaceVariable = {
     definition: {
         handle: "isSharedChatMessage",
-        description: "'true' when chat message was sent in another channel during a Shared Chat session, 'false' otherwise.",
+        description: "チャットメッセージが共有チャットセッション中に別のチャネルで送信された場合は'true'、そうでない場合は'false'。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
         possibleDataOutput: [OutputDataType.BOOLEAN]

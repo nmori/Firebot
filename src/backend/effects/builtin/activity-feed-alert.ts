@@ -8,27 +8,27 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:activity-feed-alert",
-        name: "Activity Feed Alert",
-        description: "Display an alert in Firebot's activity feed",
+        name: "アクティビティフィードにアラートを出す",
+        description: "Firebotのアクティビティフィードにアラートを表示する",
         icon: "fad fa-comment-exclamation",
         categories: [EffectCategory.FUN],
         dependencies: []
     },
     optionsTemplate: `
     <eos-container>
-        <p>Use this effect to send yourself alerts in Firebot's activity feed.</p>
+        <p>Firebotのアクティビティフィードでアラートを送信します。</p>
     </eos-container>
     <eos-container header="Message" pad-top="true">
         <firebot-input 
             model="effect.message" 
-            placeholder-text="Enter message"
+            placeholder-text="メッセージ"
             use-text-area="true"
             rows="4"
             cols="40"
             menu-position="under"
         />
     </eos-container> 
-    <eos-container header="Icon" pad-top="true">
+    <eos-container header="アイコン" pad-top="true">
         <input 
 			maxlength="2" 
 			type="text" 
@@ -42,7 +42,7 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.message == null || effect.message === "") {
-            errors.push("Alert message can't be blank.");
+            errors.push("アラートメッセージを空白にすることはできません。");
         }
         return errors;
     },
@@ -54,7 +54,7 @@ const effect: EffectType<{
             },
             {
                 id: "activity-feed-alert",
-                name: "Activity Feed Alert",
+                name: "アクティビティフィードへアラートを送る",
                 activityFeed: {
                     icon: effect.icon || "fad fa-comment-exclamation",
                     getMessage: () => {

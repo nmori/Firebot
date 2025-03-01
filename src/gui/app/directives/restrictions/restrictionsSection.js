@@ -1,5 +1,5 @@
 "use strict";
-(function() {
+(function () {
 
     const { v4: uuid } = require("uuid");
 
@@ -15,7 +15,7 @@
             template: `
                 <div>
                     <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;">
-                        <span>‹N“®ğŒ </span>
+                        <span>èµ·å‹•æ¡ä»¶ </span>
 
                         <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                             <div class="noselect pointer ddtext" style="font-size: 12px;">
@@ -27,15 +27,15 @@
                             <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'all'">
-                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">‚·‚×‚Ä</a>
+                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">ã™ã¹ã¦</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'any'">
-                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">‚¢‚¸‚ê‚©</a>
+                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">ã„ãšã‚Œã‹</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'none'">
-                                    <a href style="padding-left: 10px;" aria-label="no restrictions pass">§ŒÀ‚È‚µ</a>
+                                    <a href style="padding-left: 10px;" aria-label="no restrictions pass">åˆ¶é™ãªã—</a>
                                 </li>
                             </ul>
                         </div>
@@ -74,7 +74,7 @@
 
                         <div ng-show="$ctrl.restrictionData.sendFailMessage">
                             <label class="control-fb control--checkbox">
-                                ©ì‚µ‚½ƒƒbƒZ[ƒW‚ğg—p‚·‚é
+                                è‡ªä½œã—ãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ä½¿ç”¨ã™ã‚‹
                                 <input
                                     type="checkbox"
                                     ng-model="$ctrl.restrictionData.useCustomFailMessage"
@@ -88,13 +88,13 @@
                                     disable-variables="true"
                                     input-title="Message"
                                 />
-                                <p class="muted">g—p‰Â”\‚È•Ï”: {user}, {reason}</p>
+                                <p class="muted">ä½¿ç”¨å¯èƒ½ãªå¤‰æ•°: {user}, {reason}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             `,
-            controller: function(utilityService, backendCommunicator) {
+            controller: function (utilityService, backendCommunicator) {
                 const $ctrl = this;
 
                 const restrictionDefinitions = backendCommunicator.fireEventSync("getRestrictions")
@@ -107,14 +107,14 @@
                         };
                     });
 
-                $ctrl.getRestrictionModeDisplay = function() {
+                $ctrl.getRestrictionModeDisplay = function () {
                     if ($ctrl.restrictionData.mode === "any") {
-                        return "‚¢‚¸‚ê‚©";
+                        return "ã„ãšã‚Œã‹";
                     }
                     if ($ctrl.restrictionData.mode === "none") {
-                        return "“K—p‚È‚µ";
+                        return "é©ç”¨ãªã—";
                     }
-                    return "‚·‚×‚Ä";
+                    return "ã™ã¹ã¦";
                 };
 
                 $ctrl.canAddMoreRestrictions = true;
@@ -125,8 +125,8 @@
                         });*/
                 }
 
-                $ctrl.$onInit = function() {
-                    const DEFAULT_FAIL_MESSAGE = `@{user}‚³‚ñA‚·‚İ‚Ü‚¹‚ñB ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} ‚Íg‚¦‚Ü‚¹‚ñB——R: {reason}`;
+                $ctrl.$onInit = function () {
+                    const DEFAULT_FAIL_MESSAGE = `@{user}ã•ã‚“ã€ã™ã¿ã¾ã›ã‚“ã€‚ ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} ã¯ä½¿ãˆã¾ã›ã‚“ã€‚ç†ç”±: {reason}`;
 
                     if ($ctrl.restrictionData == null) {
                         $ctrl.restrictionData = {
@@ -162,18 +162,18 @@
                     updateCanAddMoreRestrictions();
                 };
 
-                $ctrl.deleteRestriction = function(restrictionId) {
+                $ctrl.deleteRestriction = function (restrictionId) {
                     $ctrl.restrictionData.restrictions = $ctrl.restrictionData.restrictions
                         .filter(r => r.id !== restrictionId);
 
                     updateCanAddMoreRestrictions();
                 };
 
-                $ctrl.getRestrictionDefinition = function(restrictionType) {
+                $ctrl.getRestrictionDefinition = function (restrictionType) {
                     return restrictionDefinitions.find(r => r.definition.id === restrictionType);
                 };
 
-                $ctrl.showAddRestrictionModal = function() {
+                $ctrl.showAddRestrictionModal = function () {
 
                     const options = restrictionDefinitions
                         .filter(r => !r.definition.hidden)
@@ -191,10 +191,10 @@
 
                     utilityService.openSelectModal(
                         {
-                            label: "§ŒÀ‚Ì’Ç‰Á",
+                            label: "åˆ¶é™ã®è¿½åŠ ",
                             options: options,
                             saveText: "Add",
-                            validationText: "’Ç‰Á‚·‚é§ŒÀ‚Ìí—Ş‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢"
+                            validationText: "è¿½åŠ ã™ã‚‹åˆ¶é™ã®ç¨®é¡ã‚’é¸ã‚“ã§ãã ã•ã„"
 
                         },
                         (selectedId) => {

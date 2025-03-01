@@ -1,23 +1,6 @@
 "use strict";
 
 const { EffectCategory } = require('../../../shared/effect-constants');
-const axiosDefault = require("axios").default;
-
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - HTTP Request Effect'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
 
 const effect = {
     definition: {
@@ -26,7 +9,7 @@ const effect = {
         description: "指定した文章を読み上げます",
         icon: "fad fa-waveform",
         categories: [EffectCategory.JP_ORIGINAL],
-        dependencies: []        
+        dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
@@ -70,7 +53,7 @@ const effect = {
     </eos-container>
 
     `,
-    optionsController: ($scope, utilityService) => {
+    optionsController: ($scope) => {
         if ($scope.effect.communicateMode == null) {
             $scope.effect.communicateMode = "HTTP";
         }
@@ -78,7 +61,7 @@ const effect = {
             $scope.effect.port = 50080;
         }
         if ($scope.effect.voiceid == null) {
-            $scope.effect.voiceid = -1;
+            $scope.effect.voiceid = 0;
         }
     },
     optionsValidator: (effect) => {
@@ -94,18 +77,17 @@ const effect = {
     onTriggerEvent: async event => {
 
         const logger = require("../../logwrapper");
-        const twitchAuth = require("../../auth/twitch-auth");
-        const accountAccess = require("../../common/account-access");
-        const customVariableManager = require("../../common/custom-variable-manager");
-        const effectRunner = require("../../common/effect-runner");
-
-        const { effect, trigger } = event;
+        const { effect } = event;
 
         try {
-            const response = await axios({
-                method:'get',
-                url: 'http://127.0.0.1:'+effect.port+'/talk?text=' +encodeURIComponent(effect.message) + '&voice=' +String(effect.voiceid)
-            });
+
+            const response = await fetch(
+                `http://localhost:${effect.port}/talk?text=${encodeURIComponent(effect.message)}&voice=${effect.voiceid}`,
+                {
+                    method: 'GET'
+                });
+
+            let responseData = await response.text();
 
         } catch (error) {
             logger.error("Error running http request", error.message);

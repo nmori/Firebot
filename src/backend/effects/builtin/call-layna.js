@@ -1,7 +1,5 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
 const webServer = require("../../../server/http-server-manager");
 const fs = require('fs-extra');
 const logger = require("../../logwrapper");
@@ -9,23 +7,7 @@ const path = require("path");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
 const { wait } = require("../../utility");
-const axiosDefault = require("axios").default;
 
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - Layna'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
 
 const playSound = {
     definition: {
@@ -80,40 +62,24 @@ const playSound = {
         <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
         
     `,
-    optionsController: async($scope) =>  {
-        
+    optionsController: async ($scope) => {
+
         if ($scope.effect.port == null) {
             $scope.effect.port = 21000;
-        }       
+        }
 
         $scope.effect.actionList = [];
 
-        try {         
+        try {
 
-            const axiosDefault = require("axios").default;
-
-            const axios = axiosDefault.create({
-    
-            });
-    
-            axios.interceptors.request.use(request => {
-                //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-                return request;
-            });
-    
-            axios.interceptors.response.use(response => {
-                //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-                return response;
-            });            
-
-            const response = await axios({
-                method:'get',
-                url: 'http://127.0.0.1:'+String($scope.effect.port)+'/get-actions'
+            const response = await fetch(`http://127.0.0.1:${$scope.effect.port}/get-actions`, {
+                method: 'GET'
             });
 
-            for (const actionItem of response.data) 
-            {
-                $scope.effect.actionList.push( { id: actionItem['id'],name: actionItem['Title'] } );
+            let responseData = JSON.parse(await response.text());
+
+            for (const actionItem of responseData) {
+                $scope.effect.actionList.push({ id: actionItem['id'], name: actionItem['Title'] });
             }
 
         } catch (error) {
@@ -124,7 +90,7 @@ const playSound = {
     optionsValidator: effect => {
         const errors = [];
 
-        if (effect.port == null || effect.port ==="") {
+        if (effect.port == null || effect.port === "") {
             errors.push("ポート番号を指定してください");
         }
 
@@ -134,11 +100,15 @@ const playSound = {
         const effect = event.effect;
 
         try {
-            const response = await axios({
-                method:'get',
-                url: 'http://127.0.0.1:'+String(effect.port)+'/trigger?title='+ encodeURIComponent(effect.actionItem.name)+'&name='+ encodeURIComponent(effect.name)+'&comment='+ encodeURIComponent(effect.message),
-            });
-            
+            const response = await fetch(
+                `http://127.0.0.1:${effect.port}/trigger?title=${encodeURIComponent(effect.actionItem.name)}&name=${encodeURIComponent(effect.name)}&comment=${encodeURIComponent(effect.message)}`,
+                {
+                    method: 'GET'
+                }
+            );
+
+            let responseData = JSON.parse(await response.text());
+
         } catch (error) {
             logger.error("Error running http request", error.message);
         }

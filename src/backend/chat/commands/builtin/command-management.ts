@@ -130,10 +130,10 @@ async function mapPermArgToRoleIds(permArg: string): Promise<string[]> {
 export const CommandManagementSystemCommand: SystemCommand = {
     definition: {
         id: "firebot:commandmanagement",
-        name: "Command Management",
+        name: "コマンド管理",
         active: true,
         trigger: "!command",
-        description: "Allows custom command management via chat.",
+        description: "チャットによるカスタムコマンド管理が可能です。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -157,59 +157,59 @@ export const CommandManagementSystemCommand: SystemCommand = {
             {
                 arg: "add",
                 usage: "add [!trigger or \"phrase\"] [message]",
-                description: "Adds a new command with a given response message."
+                description: "指定された応答メッセージを持つ新しいコマンドを追加します。"
             },
             {
                 arg: "response",
                 usage: "response [!trigger or \"phrase\"] [message]",
-                description: "Updates the response message for a command. Only works for commands that have 1 or less chat effects."
+                description: "コマンドの応答メッセージを更新します。チャットエフェクトが1つ以下のコマンドに対してのみ動作します。"
             },
             {
                 arg: "setcount",
                 usage: "setcount [!trigger or \"phrase\"] count#",
-                description: "Updates the commands usage count.",
+                description: "コマンドの使用数を更新します。",
                 minArgs: 3
             },
             {
                 arg: "cooldown",
                 usage: "cooldown [!trigger or \"phrase\"] [globalCooldownSecs] [userCooldownSecs]",
-                description: "Change the cooldown for a command."
+                description: "コマンドの再応答待ち時間を変更します。"
             },
             {
                 arg: "restrict",
                 usage: "restrict [!trigger or \"phrase\"] [All/Sub/Mod/Streamer/Custom Group]",
-                description: "Update permissions for a command."
+                description: "コマンドのパーミッションを更新します。"
             },
             {
                 arg: "remove",
                 usage: "remove [!trigger or \"phrase\"]",
-                description: "Removes the given command."
+                description: "指定されたコマンドを削除します。"
             },
             {
                 arg: "description",
                 usage: "description [!trigger or \"phrase\"]",
-                description: "Updates the description for a command.",
+                description: "コマンドの説明を更新します。",
                 minArgs: 3
             },
             {
                 arg: "enable",
                 usage: "enable [!trigger or \"phrase\"]",
-                description: "Enables the given custom command."
+                description: "指定されたカスタムコマンドを有効にします。"
             },
             {
                 arg: "disable",
                 usage: "disable [!trigger or \"phrase\"]",
-                description: "Disables the given custom command."
+                description: "指定されたカスタムコマンドを無効にします。"
             },
             {
                 arg: "addalias",
                 usage: "addalias [!trigger or \"phrase\"] !alias",
-                description: "Adds the specified alias to the given custom command."
+                description: "指定されたカスタムコマンドに指定されたエイリアスを追加します。"
             },
             {
                 arg: "removealias",
                 usage: "removealias [!trigger or \"phrase\"] !alias",
-                description: "Removed the specified alias from the given custom command."
+                description: "指定されたカスタムコマンドから指定されたエイリアスを削除します。"
             }
         ]
     },
@@ -237,7 +237,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
         if (args.length < 2) {
             await chat.sendChatMessage(
-                `Invalid command. Usage: ${event.command.trigger} ${usage}`);
+                `無効なコマンドです。使用法： ${event.command.trigger} ${usage}`);
             return;
         }
 
@@ -245,7 +245,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
         if (trigger == null || trigger === "") {
             await chat.sendChatMessage(
-                `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                `無効なコマンドです。使用法： ${event.command.trigger} ${usage}`
             );
             return;
         }
@@ -254,14 +254,14 @@ export const CommandManagementSystemCommand: SystemCommand = {
             case "add": {
                 if (args.length < 3 || remainingData == null || remainingData === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効なコマンドです。使用法： ${event.command.trigger} ${usage}`
                     );
                     return;
                 }
 
                 if (commandManager.triggerIsTaken(trigger) === true) {
                     await chat.sendChatMessage(
-                        `The trigger '${trigger}' is already in use, please try again.`
+                        `トリガー '${trigger}' はすでに使用中です。`
                     );
                     return;
                 }
@@ -291,7 +291,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Added command '${trigger}'!`
+                    `コマンドを追加： '${trigger}'!`
                 );
 
                 break;
@@ -300,7 +300,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
             case "response": {
                 if (args.length < 3 || remainingData == null || remainingData === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効なコマンドです。使用法： ${event.command.trigger} ${usage}`
                     );
                     return;
                 }
@@ -308,7 +308,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
@@ -317,7 +317,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (chatEffectsCount > 1) {
                     await chat.sendChatMessage(
-                        `The command '${trigger}' has more than one Chat Effect, preventing the response from being editable via chat.`
+                        `コマンド'${trigger}'には複数のチャット演出があり、チャットで編集できないようになっています。`
                     );
                     return;
                 }
@@ -347,7 +347,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 const numericCountArg = parseInt(countArg);
                 if (countArg === "" || isNaN(numericCountArg)) {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `Invalid コマンド。使用法： ${event.command.trigger} ${usage}`
                     );
                     return;
                 }
@@ -355,7 +355,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
@@ -370,7 +370,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Updated usage count for '${trigger}' to: ${newCount}`
+                    `'${trigger}' の最新使用回数を ${newCount}回にしました`
                 );
 
                 break;
@@ -380,14 +380,14 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
 
                 if (remainingData == null || remainingData.length < 1) {
                     await chat.sendChatMessage(
-                        `Please provided a description for '${trigger}'!`
+                        `'${trigger}'の概要を入力してください。`
                     );
                     return;
                 }
@@ -397,7 +397,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Updated description for '${trigger}' to: ${remainingData}`
+                    `'${trigger}' の概要を ${remainingData} に設定しました。`
                 );
 
                 break;
@@ -410,7 +410,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 if (args.length < 3 || remainingData === "" || cooldownArgs.length < 2 || isNaN(globalCooldown)
                     || isNaN(userCooldown)) {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効なコマンドです。使用法： ${event.command.trigger} ${usage}`
                     );
                     return;
                 }
@@ -418,7 +418,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
@@ -439,7 +439,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Updated '${trigger}' with cooldowns: ${userCooldown}s (user), ${globalCooldown}s (global)`
+                    `'${trigger}' の再実行待ち時間を更新： ${userCooldown}秒 (ユーザ), ${globalCooldown}秒 (全体)`
                 );
 
                 break;
@@ -448,7 +448,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
             case "restrict": {
                 if (args.length < 3 || remainingData === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効なコマンドです。使用法： ${event.command.trigger} ${usage}`
                     );
                     return;
                 }
@@ -456,7 +456,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
@@ -467,7 +467,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (roleIds == null || roleIds.length === 0) {
                     await chat.sendChatMessage(
-                        `Please provide a valid group name: All, Sub, Mod, Streamer, or a custom group's name`
+                        `有効なグループ名：All、Sub、Mod、Streamer、またはカスタムグループ名を入力してください。`
                     );
                     return;
                 }
@@ -483,7 +483,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
-                await chat.sendChatMessage(`Updated '${trigger}' restrictions to: ${remainingData}`);
+                await chat.sendChatMessage(`'${trigger}' の制限を更新: ${remainingData}`);
 
                 break;
             }
@@ -492,14 +492,14 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 const command = activeCustomCommands.find(c => c.trigger === trigger);
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
 
                 commandManager.removeCustomCommandByTrigger(trigger);
 
-                await chat.sendChatMessage(`Successfully removed command '${trigger}'.`);
+                await chat.sendChatMessage(`コマンドの削除に成功 '${trigger}'.`);
                 break;
             }
 
@@ -509,7 +509,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
@@ -518,7 +518,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (command.active === newActiveStatus) {
                     await chat.sendChatMessage(
-                        `${trigger} is already ${triggeredArg}d.`
+                        `${trigger} はすでに ${triggeredArg} です.`
                     );
                     return;
                 }
@@ -540,7 +540,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (args.length < 3 || alias === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効なコマンドです。使用法： ${event.command.trigger} ${usage}`
                     );
                     return;
                 }
@@ -549,7 +549,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
@@ -563,7 +563,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (aliasIndex > -1) {
                     await chat.sendChatMessage(
-                        `Alias '${alias}' already exists for command with the trigger '${trigger}'.`
+                        `エイリアス '${alias}' は、トリガー '${trigger}'を持つコマンドに既に存在します。`
                     );
                     return;
                 }
@@ -572,7 +572,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Added alias '${alias}' to custom command '${trigger}'!`
+                    `カスタムコマンド'${trigger}'にエイリアス'${alias}'を追加しました`
                 );
 
                 break;
@@ -583,7 +583,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (args.length < 3 || alias === "") {
                     await chat.sendChatMessage(
-                        `Invalid command. Usage: ${event.command.trigger} ${usage}`
+                        `無効なコマンドです。使用法： ${event.command.trigger} ${usage}`
                     );
                     return;
                 }
@@ -592,7 +592,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (command == null) {
                     await chat.sendChatMessage(
-                        `Could not find a command with the trigger '${trigger}', please try again.`
+                        `トリガー'${trigger}'を持つコマンドが見つかりません。`
                     );
                     return;
                 }
@@ -606,7 +606,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (aliasIndex === -1) {
                     await chat.sendChatMessage(
-                        `Alias '${alias}' does not exist for command with the trigger '${trigger}'.`
+                        `トリガー'${trigger}'を持つコマンドにエイリアス'${alias}'が存在しません。`
                     );
                     return;
                 }
@@ -615,7 +615,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
                 commandManager.saveCustomCommand(command, event.userCommand.commandSender);
 
                 await chat.sendChatMessage(
-                    `Removed alias '${alias}' from custom command '${trigger}'!`
+                    `カスタムコマンド '${trigger}' からエイリアス '${alias}' を削除しました。`
                 );
 
                 break;

@@ -10,8 +10,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:announcement",
-        name: "ƒAƒiƒEƒ“ƒX",
-        description: "ƒAƒiƒEƒ“ƒX‚ğ‘—‚è‚Ü‚·",
+        name: "ã‚¢ãƒŠã‚¦ãƒ³ã‚¹",
+        description: "ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã‚’é€ã‚Šã¾ã™",
         icon: "fad fa-bullhorn",
         categories: [EffectCategory.COMMON, EffectCategory.CHAT_BASED, EffectCategory.TWITCH],
         dependencies: {
@@ -19,7 +19,7 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-chatter-select effect="effect" title="ƒAƒiƒEƒ“ƒX‚Ì“à—e"></eos-chatter-select>
+        <eos-chatter-select effect="effect" title="ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã®å†…å®¹"></eos-chatter-select>
 
         <eos-container header="Message" pad-top="true">
             <firebot-input
@@ -33,7 +33,7 @@ const model: EffectType<{
             <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">Announcement messages cannot be longer than 500 characters. This message will get automatically chunked into multiple messages if it is too long after all replace variables have been populated.</div>
         </eos-container>
 
-        <eos-container header="F" pad-top="true">
+        <eos-container header="è‰²" pad-top="true">
             <dropdown-select options="announcementColors" selected="effect.color"></dropdown-select>
         </eos-container>
     `,
@@ -47,7 +47,7 @@ const model: EffectType<{
     optionsValidator: ({ message }) => {
         const errors = [];
         if (message?.length < 1) {
-            errors.push("ƒAƒiƒEƒ“ƒXƒƒbƒZ[ƒW‚ğ‹ó”’‚É‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ.");
+            errors.push("ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ç©ºç™½ã«ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“.");
         }
         return errors;
     },

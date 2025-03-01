@@ -115,8 +115,8 @@ const firebotEventSource = {
         },
         {
             id: "effect-queue-added",
-            name: "Effect Queue Added",
-            description: "When an new entry added to effect queue.",
+            name: "演出キュー追加",
+            description: "演出キューに新しい項目が追加されたとき。",
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting"
@@ -124,8 +124,8 @@ const firebotEventSource = {
         },
         {
             id: "effect-queue-status",
-            name: "Effect Queue Status",
-            description: "When an effect queue status changes.",
+            name: "演出キューのステータス変更",
+            description: "演出キューのステータスが変更されたとき。",
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting",

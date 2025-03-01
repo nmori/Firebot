@@ -26,8 +26,8 @@ export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
 {
   definition: {
     id: "ebiggz:obs-toggle-source-visibility",
-    name: "OBSƒ\[ƒX‚Ì•\¦ó‘Ô‚ğØ‚è‘Ö‚¦‚é",
-    description: "OBSƒ\[ƒX‚Ì•\¦ó‘Ô‚ğØ‚è‘Ö‚¦‚é",
+    name: "OBSã‚½ãƒ¼ã‚¹ã®è¡¨ç¤ºçŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹",
+    description: "OBSã‚½ãƒ¼ã‚¹ã®è¡¨ç¤ºçŠ¶æ…‹ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹",
     icon: "fad fa-clone",
     categories: ["common"],
   },
@@ -58,8 +58,8 @@ export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
 <eos-container header="Sources" pad-top="missingSources.length > 0">
   <div class="effect-setting-container">
     <div class="input-group">
-      <span class="input-group-addon">ƒtƒBƒ‹ƒ^</span>
-      <input type="text" class="form-control" ng-change="filterScenes(searchText)" ng-model="searchText" placeholder="ŒŸõ..." aria-describeby="obs-visibility-search-box">
+      <span class="input-group-addon">ãƒ•ã‚£ãƒ«ã‚¿</span>
+      <input type="text" class="form-control" ng-change="filterScenes(searchText)" ng-model="searchText" placeholder="æ¤œç´¢..." aria-describeby="obs-visibility-search-box">
     </div>
   </div>
 
@@ -81,9 +81,9 @@ export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
               {{getSourceActionDisplay(sceneName, source.id)}} <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, true)"><a href>•\¦</a></li>
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, false)"><a href>‰B‚·</a></li>
-                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, 'toggle')"><a href>Ø‚è‘Ö‚¦</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, true)"><a href>è¡¨ç¤º</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, false)"><a href>éš ã™</a></li>
+                  <li role="menuitem" ng-click="setSourceAction(sceneName, source.id, 'toggle')"><a href>åˆ‡ã‚Šæ›¿ãˆ</a></li>
               </ul>
           </div>
         </div>

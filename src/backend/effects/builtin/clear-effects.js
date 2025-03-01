@@ -36,7 +36,7 @@ const delay = {
         </eos-container>
         <eos-container header="Effects To Clear">
             <firebot-checkbox
-                label="オーバーレイ効果"
+                label="オーバーレイ演出"
                 model="effect.overlay"
             />
             <div class="mt-0 mr-0 mb-6 ml-6" uib-collapse="!effect.overlay || !settings.getSetting('UseOverlayInstances')">

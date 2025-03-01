@@ -2,16 +2,16 @@
 
 const { EffectCategory } = require("../../shared/effect-constants");
 
-(function() {
+(function () {
     angular.module("firebotApp").component("addNewEffectModal", {
         template: `
             <div class="select-effect-header modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">V‹K‰‰o</h4>
+                <h4 class="modal-title">æ–°è¦æ¼”å‡º</h4>
             </div>
             <div class="modal-body">
                 <div class="select-effect-search">
-                    <searchbar search-id="effectSearch" placeholder-text="‰‰o‚ğ‘I‚Ô..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
+                    <searchbar search-id="effectSearch" placeholder-text="æ¼”å‡ºã‚’é¸ã¶..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
                 </div>
                 <div style="display: flex;flex-direction:row;height: 450px;">
                     <div class="effect-categories">
@@ -48,12 +48,12 @@ const { EffectCategory } = require("../../shared/effect-constants");
             </div>
             <div class="select-effect-footer">
                 <div>
-                    <div style="font-size: 12px;font-weight: 600;" class="muted">‘I‘ğ‚µ‚½‰‰o:</div>
-                    <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "‚È‚µ"}}</div>
+                    <div style="font-size: 12px;font-weight: 600;" class="muted">é¸æŠã—ãŸæ¼”å‡º:</div>
+                    <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "ãªã—"}}</div>
                 </div>
                 <div style="display:flex;align-items: center; justify-content: flex-end;">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()" style="margin-right: 10px;">ƒLƒƒƒ“ƒZƒ‹</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">‘I‘ğ</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()" style="margin-right: 10px;">ã‚­ãƒ£ãƒ³ã‚»ãƒ«</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">é¸æŠ</button>
                 </div>
             </div>
             `,
@@ -63,7 +63,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function(ngToast, backendCommunicator, utilityService, $scope, $timeout) {
+        controller: function (ngToast, backendCommunicator, utilityService, $scope, $timeout) {
             const $ctrl = this;
 
             $ctrl.activeCategory = null;
@@ -72,7 +72,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
             $ctrl.selectedEffectDef = null;
 
             $ctrl.effectDefs = [];
-            $ctrl.$onInit = async function() {
+            $ctrl.$onInit = async function () {
                 const effectDefs = await backendCommunicator
                     .fireEventAsync("getEffectDefinitions", {
                         triggerType: $ctrl.resolve.trigger,
@@ -97,14 +97,14 @@ const { EffectCategory } = require("../../shared/effect-constants");
                             const modalElement = $(`.${modalId}`).children();
                             return {
                                 element: modalElement,
-                                name: "‰‰o‚ğ‘I‘ğ",
+                                name: "æ¼”å‡ºã‚’é¸æŠ",
                                 id: modalId,
                                 instance: $ctrl.modalInstance
                             };
                         })
                     );
 
-                    $scope.$on("modal.closing", function() {
+                    $scope.$on("modal.closing", function () {
                         utilityService.removeSlidingModal();
                     });
                 }
@@ -114,9 +114,9 @@ const { EffectCategory } = require("../../shared/effect-constants");
                 }, 50);
             };
 
-            $ctrl.save = function() {
+            $ctrl.save = function () {
                 if ($ctrl.selectedEffectDef == null) {
-                    ngToast.create("‰‰o‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢");
+                    ngToast.create("æ¼”å‡ºã‚’é¸ã‚“ã§ãã ã•ã„");
                     return;
                 }
 

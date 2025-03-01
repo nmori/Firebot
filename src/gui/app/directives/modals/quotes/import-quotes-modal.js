@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     angular.module("firebotApp")
         .component("importQuotesModal", {
             template: `
@@ -10,10 +10,10 @@
                 </div>
                 <div class="modal-body pb-0">
                     <div ng-hide="$ctrl.quotes">
-                        <h4>Import from</h5>
+                        <h4>取り込み</h5>
                         <p class="muted mb-12">現在取り込みできるのは、Streamlabs Chatbot（デスクトップBOT）とMix It Upからの引用のみです。</p>
 
-                        <h4>Choose file</h4>
+                        <h4>ファイルの選択</h4>
                         <p class="muted mb-2">Streamlabs Chatbotで取り込み用ファイルを取得するには、Connections -> Cloud -> Create Split ExcelでQuotes.xlsxというファイルを見つけます。</p>
                         <p class="muted mb-8"Mix It Upで取り込み用ファイルを入手するには、Quotes -> Export Quotesと進み、Quotes.txtというファイルを見つけます。</p>
                         <file-chooser
@@ -54,7 +54,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function(backendCommunicator, quotesService, importService) {
+            controller: function (backendCommunicator, quotesService, importService) {
                 const $ctrl = this;
 
                 $ctrl.headers = [

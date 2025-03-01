@@ -62,8 +62,8 @@ const randomEffect = {
         <firebot-checkbox
             ng-hide="effect.weighted"
             model="effect.dontRepeat"
-            label="Don't Repeat"
-            tooltip="If checked, each effect in this list will be played once before the list is shuffled again, preventing the same effect from repeating successively."
+            label="繰り返さない"
+            tooltip="チェックした場合、リスト内の各演出は、再度シャッフルされる前に一度だけ再生され、同じ演出が連続して繰り返されるのを防ぎます。"
         />
         <firebot-checkbox
             model="effect.bubbleOutputs"
@@ -77,7 +77,7 @@ const randomEffect = {
    */
     optionsController: $scope => {
 
-        $scope.effectListUpdated = function(effects) {
+        $scope.effectListUpdated = function (effects) {
             $scope.effect.effectList = effects;
         };
     },

@@ -182,8 +182,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Open Stream Preview on Launch"
-                        description="Automatically open the Stream Preview window when Firebot launches."
+                        name="立ち上げ時にストリームのプレビューを開く"
+                        description="Firebot起動時に自動的にストリームプレビューウィンドウを開きます。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('OpenStreamPreviewOnLaunch')"
