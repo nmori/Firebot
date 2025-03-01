@@ -25,8 +25,8 @@ const integrationDefinition = {
         auth: {
             type: "code",
             tokenHost: 'https://streamlabs.com',
-            tokenPath: '/api/v1.0/token',
-            authorizePath: '/api/v1.0/authorize'
+            tokenPath: '/api/v2.0/token',
+            authorizePath: '/api/v2.0/authorize'
         },
         autoRefreshToken: false,
         scopes: 'donations.read socket.token wheel.write credits.write'
@@ -35,8 +35,11 @@ const integrationDefinition = {
 
 const getStreamlabsSocketToken = async (accessToken) => {
     try {
-        const response = await fetch(`https://streamlabs.com/api/v1.0/socket/token?access_token=${accessToken}`);
-
+        const response = await fetch(`https://streamlabs.com/api/v2.0/socket/token`, {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        });
         if (response.ok) {
             const data = await response.json();
             return data.socket_token;

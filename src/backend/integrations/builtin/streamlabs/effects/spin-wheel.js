@@ -21,7 +21,7 @@ const effect = {
             </div>
         </eos-container>
     `,
-    optionsController: () => {},
+    optionsController: () => { },
     optionsValidator: () => {
     },
     onTriggerEvent: async () => {
@@ -30,7 +30,7 @@ const effect = {
 
         if (accessToken) {
             try {
-                const response = await fetch("https://streamlabs.com/api/v1.0/wheel/spin",
+                const response = await fetch("https://streamlabs.com/api/v2.0/wheel/spin",
                     {
                         method: "POST",
                         headers: {

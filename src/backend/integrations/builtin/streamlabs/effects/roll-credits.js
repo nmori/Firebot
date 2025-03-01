@@ -37,7 +37,7 @@ const effect = {
     /**
    * The controller for the front end Options
    */
-    optionsController: () => {},
+    optionsController: () => { },
     /**
    * When the effect is saved
    */
@@ -52,7 +52,7 @@ const effect = {
 
         if (accessToken) {
             try {
-                const response = await fetch("https://streamlabs.com/api/v1.0/credits/roll",
+                const response = await fetch("https://streamlabs.com/api/v2.0/credits/roll",
                     {
                         method: "POST",
                         headers: {
