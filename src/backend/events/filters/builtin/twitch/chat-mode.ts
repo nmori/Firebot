@@ -4,7 +4,7 @@ import { ComparisonType } from "../../../../../shared/filter-constants";
 const filter: EventFilter = {
     id: "firebot:chatmode",
     name: "チャットモード",
-    description: "チャットモードでフィルタ",
+    description: "チャットモードにフィルターをかける",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],

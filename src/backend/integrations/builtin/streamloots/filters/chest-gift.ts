@@ -6,7 +6,7 @@ const logger = require("../../../../logwrapper");
 const filter: EventFilter = {
     id: "streamloots:gift-purchase",
     name: "チェスト購入",
-    description: "StreamLootsチェストの購入がギフトかどうかで絞り込む",
+    description: "StreamLootsチェストの購入がギフトかどうかでにフィルターをかける",
     events: [
         { eventSourceId: "streamloots", eventId: "purchase" }
     ],

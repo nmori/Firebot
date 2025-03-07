@@ -9,7 +9,7 @@ import { ComparisonType } from "../../../../../shared/filter-constants";
 const filter: EventFilter = {
     id: "firebot:viewerroles",
     name: "視聴者の役割",
-    description: "視聴者の役割でフィルタ",
+    description: "視聴者の役割にフィルターをかける",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },

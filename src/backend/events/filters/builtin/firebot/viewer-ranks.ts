@@ -1,11 +1,12 @@
 import twitchApi from "../../../../twitch-api/api";
 import viewerDatabase from "../../../../viewers/viewer-database";
 import { EventFilter } from "../../../../../types/events";
+import { ComparisonType } from "../../../../../shared/filter-constants";
 
 const filter: EventFilter = {
     id: "firebot:viewerranks",
-    name: "Viewer's Ranks",
-    description: "Filter to a given viewer rank",
+    name: "視聴者ランク",
+    description: "指定された視聴者ランクにフィルターをかける",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -79,9 +80,15 @@ const filter: EventFilter = {
             const hasRank = await viewerDatabase.viewerHasRankById(userId, ladderId, rankId);
 
             switch (comparisonType) {
-                case "include":
+                case ComparisonType.INCLUDING:
+                case ComparisonType.COMPAT_INCLUDING:
+                case ComparisonType.COMPAT2_INCLUDING:
+                case ComparisonType.ORG_INCLUDING:
                     return hasRank;
-                case "doesn't include":
+
+                case ComparisonType.NOT_INCLUDING:
+                case ComparisonType.COMPAT_NOT_INCLUDING:
+                case ComparisonType.ORG_NOT_INCLUDING:
                     return !hasRank;
                 default:
                     return false;

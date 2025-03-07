@@ -74,7 +74,9 @@ const ComparisonType = Object.freeze({
     ORG_INCLUDING: "include",
     ORG_NOT_INCLUDING: "doesn't include",
     ORG_HAS_ROLE: "has role",
-    ORG_HAS_NOT_ROLE: "doesn't have role"
+    ORG_HAS_NOT_ROLE: "doesn't have role",
+    ORG_IS_IN_ROLE: "is in role",
+    ORG_IS_NOT_IN_ROLE: "isn't in role"
 });
 
 exports.ComparisonType = ComparisonType;

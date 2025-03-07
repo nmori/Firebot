@@ -56,15 +56,20 @@ module.exports = {
         const hasRole = await roleHelpers.viewerHasRoles(user.id, [rightSideValue]);
 
         switch (comparisonType) {
-            case "include":
-            case "is in role":
-            case "has role":
+            case ComparisonType.INCLUDING:
+            case ComparisonType.COMPAT_INCLUDING:
+            case ComparisonType.COMPAT2_INCLUDING:
+            case ComparisonType.ORG_INCLUDING:
             case ComparisonType.HAS_ROLE:
+            case ComparisonType.ORG_HAS_ROLE:
+            case ComparisonType.ORG_IS_IN_ROLE:
                 return hasRole;
-            case "doesn't include":
-            case "isn't in role":
-            case "doesn't have role":
+            case ComparisonType.NOT_INCLUDING:
+            case ComparisonType.COMPAT_NOT_INCLUDING:
+            case ComparisonType.ORG_NOT_INCLUDING:
+            case ComparisonType.ORG_HAS_NOT_ROLE:
             case ComparisonType.HAS_NOT_ROLE:
+            case ComparisonType.ORG_IS_NOT_IN_ROLE:
                 return !hasRole;
             default:
                 logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);

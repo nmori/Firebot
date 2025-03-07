@@ -9,8 +9,8 @@ const logger = require("../../../../logwrapper");
 
 const filter: EventFilter = createPresetFilter({
     id: "ebiggz:obs-scene-name",
-    name: "�V�[����",
-    description: "Filter on the name of the now active OBS scene",
+    name: "シーン名",
+    description: "現在アクティブなOBSシーンの名前にフィルタをかける",
     events: [
         { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_CHANGED_EVENT_ID },
         { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID }
