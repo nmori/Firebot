@@ -1,5 +1,6 @@
 import { EventFilter } from "../../../../../types/events";
 import { ComparisonType } from "../../../../../shared/filter-constants";
+import { mapLegacyComparisonType } from "../../../../../shared/filter-helpers";
 
 const filter: EventFilter = {
     id: "firebot:chatmode",
@@ -47,16 +48,13 @@ const filter: EventFilter = {
 
         const chatModes = eventMeta.chatMode as string;
 
-        switch (comparisonType) {
+        // 旧式のComparisonTypeを標準化
+        const standardComparisonType = mapLegacyComparisonType(comparisonType);
+
+        switch (standardComparisonType) {
             case ComparisonType.IS:
-            case ComparisonType.COMPAT_IS:
-            case ComparisonType.COMPAT2_IS:
-            case ComparisonType.ORG_IS:
                 return chatModes.includes(value);
             case ComparisonType.IS_NOT:
-            case ComparisonType.COMPAT_IS_NOT:
-            case ComparisonType.COMPAT2_IS_NOT:
-            case ComparisonType.ORG_IS_NOT:
                 return !chatModes.includes(value);
             default:
                 return false;

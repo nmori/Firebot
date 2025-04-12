@@ -28,8 +28,8 @@ module.exports = {
         },
         {
             id: "raid-sent-off",
-            name: "Outgoing Raid",
-            description: "When your outgoing raid is completed.",
+            name: "レイド送信時",
+            description: "レイド送信完了したとき",
             cached: false,
             cacheMetaKey: "fromUsername",
             manualMetadata: {
@@ -46,8 +46,8 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** raiding user **${eventData.raidTargetUserDisplayName}** with **${eventData.viewerCount
-                        }** viewer(s)`;
+                        }** が **${eventData.raidTargetUserDisplayName}** に **${eventData.viewerCount
+                        }** 人の視聴者とともにレイドしました`;
                 }
             }
         },
@@ -102,8 +102,8 @@ module.exports = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** が ${eventData.isResub ? "再サブスク" : "サブスク"
                         } しました： **${eventData.totalMonths} ヵ月目** ${eventData.subPlan === "Prime"
-                            ? "with **Twitch Prime**"
-                            : `at **Tier ${eventData.subPlan.replace("000", "")}**`
+                            ? "**Twitch Prime**で"
+                            : `**Tier ${eventData.subPlan.replace("000", "")}**で`
                         }`;
                 }
             }
@@ -160,9 +160,9 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-gift",
                 getMessage: (eventData) => {
-                    return `**${eventData.isAnonymous ? "An Anonymous Gifter" : eventData.gifterUsername}** gifted a ${eventData.giftDuration > 1 ? ` **${eventData.giftDuration} month** ` : ""
-                        } **Tier ${eventData.subPlan.replace("000", "")}** sub to **${eventData.gifteeUsername
-                        }** (Subbed for ${eventData.giftSubMonths} month${eventData.giftSubMonths > 1 ? "s" : ""} total)`;
+                    return `**${eventData.isAnonymous ? "匿名ギフター" : eventData.gifterUsername}** が${eventData.giftDuration > 1 ? ` **${eventData.giftDuration} ヵ月** の` : ""
+                        } **Tier ${eventData.subPlan.replace("000", "")}** サブスクを **${eventData.gifteeUsername
+                        }** にギフトしました（合計 ${eventData.giftSubMonths} ヵ月間サブスク）`;
                 }
             }
         },
@@ -198,9 +198,8 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-gifts",
                 getMessage: (eventData) => {
-                    return `**${eventData.isAnonymous ? "An Anonymous Gifter" : eventData.gifterUsername}** gifted **${eventData.subCount
-                        } Tier ${eventData.subPlan.replace("000", "")}** sub${eventData.subCount > 1 ? "s" : ""
-                        } to the community`;
+                    return `**${eventData.isAnonymous ? "匿名ギフター" : eventData.gifterUsername}** が **${eventData.subCount
+                        } 個の Tier ${eventData.subPlan.replace("000", "")}** サブスクをコミュニティにギフトしました`;
                 }
             }
         },
@@ -230,7 +229,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** upgraded their gift sub at **Tier ${eventData.subPlan.replace("000", "")}!**`;
+                        }** がギフトサブスクを **Tier ${eventData.subPlan.replace("000", "")}** にアップグレードしました！`;
                 }
             }
         },
@@ -253,14 +252,14 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** cheered **${eventData.bits}** bits. They have cheered a total of **${eventData.totalBits
-                        }** in the channel.`;
+                        }** が **${eventData.bits}** ビッツを応援しました。チャンネルでの合計応援ビッツは **${eventData.totalBits
+                        }** です。`;
                 }
             }
         },
         {
             id: "bits-badge-unlocked",
-            name: "ビッツバッジの実績解除",
+            name: "ビッツバッジ解除時",
             description: "誰かがあなたのチャンネルで新しいビッツバッジのロックを解除したとき",
             cached: false,
             manualMetadata: {
@@ -308,7 +307,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** unlocked the **${eventData.badgeTier}** bits badge in your channel!`;
+                        }** があなたのチャンネルで **${eventData.badgeTier}** ビッツバッジを解除しました！`;
                 }
             }
         },
@@ -328,7 +327,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** arrived`;
+                        }** が到着しました`;
                 }
             }
         },
@@ -384,7 +383,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** has chatted in your channel for the very first time`;
+                        }** が初めてあなたのチャンネルでチャットしました`;
                 }
             }
         },
@@ -419,7 +418,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     let message = `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** was banned by **${eventData.moderator}**.`;
+                        }** が **${eventData.moderator}** によって追放されました。`;
 
                     if (eventData.modReason) {
                         message = `${message} 理由: **${eventData.modReason}**`;
@@ -445,7 +444,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** was unbanned by **${eventData.moderator}**.`;
+                        }** の追放が **${eventData.moderator}** によって解除されました。`;
                 }
             }
         },
@@ -468,7 +467,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     let message = `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** was timed out for **${eventData.timeoutDuration} sec(s)** by ${eventData.moderator}.`;
+                        }** が **${eventData.timeoutDuration} 秒間** ${eventData.moderator} によってタイムアウトされました。`;
 
                     if (eventData.modReason) {
                         message = `${message} 理由: **${eventData.modReason}**`;
@@ -499,7 +498,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** redeemed **${eventData.rewardName}**${eventData.messageText && !!eventData.messageText.length ? `: *${eventData.messageText}*` : ""
+                        }** が **${eventData.rewardName}** を交換しました${eventData.messageText && !!eventData.messageText.length ? `: *${eventData.messageText}*` : ""
                         }`;
                 }
             }
@@ -526,7 +525,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }**'s redemption of **${eventData.rewardName}** was approved. ${eventData.messageText && !!eventData.messageText.length ? `*${eventData.messageText}*` : ""
+                        }** の **${eventData.rewardName}** 交換が承認されました。${eventData.messageText && !!eventData.messageText.length ? `*${eventData.messageText}*` : ""
                         }`;
                 }
             }
@@ -553,7 +552,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }**'s redemption of **${eventData.rewardName}** was rejected. ${eventData.messageText && !!eventData.messageText.length ? `*${eventData.messageText}*` : ""
+                        }** の **${eventData.rewardName}** 交換が拒否されました。${eventData.messageText && !!eventData.messageText.length ? `*${eventData.messageText}*` : ""
                         }`;
                 }
             }
@@ -582,7 +581,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** sent your **${eventData.sentTo}** account the following whisper: ${eventData.message}`;
+                        }** があなたの **${eventData.sentTo}** アカウントに以下のささやきを送りました: ${eventData.message}`;
                 }
             }
         },
@@ -757,11 +756,11 @@ module.exports = {
                 getMessage: (eventData) => {
                     let message;
                     if (eventData.description) {
-                        message = `Channel ${eventData.type} goal **${eventData.description}** has ended. Goal **${eventData.isAchieved ? "was" : "was not"
-                            }** achieved. (**${eventData.currentAmount}**/**${eventData.targetAmount}**).`;
+                        message = `チャンネル ${eventData.type} 目標 **${eventData.description}** が終了しました。目標は**${eventData.isAchieved ? "達成" : "未達成"
+                            }**でした。(**${eventData.currentAmount}**/**${eventData.targetAmount}**).`;
                     } else {
-                        message = `Channel ${eventData.type} goal has ended. Goal **${eventData.isAchieved ? "was" : "was not"
-                            }** achieved. (**${eventData.currentAmount}**/**${eventData.targetAmount}**).`;
+                        message = `チャンネル ${eventData.type} 目標が終了しました。目標は**${eventData.isAchieved ? "達成" : "未達成"
+                            }**でした。(**${eventData.currentAmount}**/**${eventData.targetAmount}**).`;
                     }
                     return message;
                 }
@@ -867,9 +866,9 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-train",
                 getMessage: (eventData) => {
-                    return `Level **${eventData.level}** hype train currently at **${Math.floor(
+                    return `レベル **${eventData.level}** のハイプトレインが現在 **${Math.floor(
                         (eventData.progress / eventData.goal) * 100
-                    )}%**.`;
+                    )}%** まで進行しています`;
                 }
             }
         },
@@ -1006,8 +1005,8 @@ module.exports = {
             activityFeed: {
                 icon: "fad fa-ribbon",
                 getMessage: (eventData) => {
-                    return `Charity campaign has ended. Goal reached: **${eventData.goalReached ? "Yes" : "No"
-                        }**. Total raised: **${eventData.currentTotalAmount} ${eventData.currentTotalCurrency}**.`;
+                    return `チャリティキャンペーンが終了しました。目標達成: **${eventData.goalReached ? "はい" : "いいえ"
+                        }**。総額: **${eventData.currentTotalAmount} ${eventData.currentTotalCurrency}**。`;
                 }
             }
         },
@@ -1028,8 +1027,8 @@ module.exports = {
                 icon: "fad fa-bullhorn",
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
-                    return `**${eventData.moderator}** sent a shoutout to **${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }**`;
+                    return `**${eventData.moderator}** が **${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
+                        }** にシャウトアウトを送りました`;
                 }
             }
         },
@@ -1050,7 +1049,7 @@ module.exports = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                        }** shouted out your channel to ${eventData.viewerCount} viewers`;
+                        }** があなたのチャンネルを ${eventData.viewerCount} 人の視聴者にシャウトアウトしました`;
                 }
             }
         },
@@ -1101,13 +1100,12 @@ module.exports = {
 
                     const friendlyDuration =
                         mins > 0
-                            ? `${mins}m${remainingSecs > 0 ? ` ${remainingSecs}s` : ""}`
-                            : `${eventData.adBreakDuration}s`;
+                            ? `${mins}分${remainingSecs > 0 ? ` ${remainingSecs}秒` : ""}`
+                            : `${eventData.adBreakDuration}秒`;
 
                     const minutesUntilNextAdBreak = Math.round(eventData.secondsUntilNextAdBreak / 60);
 
-                    return `**${friendlyDuration}** scheduled ad break starting in about **${minutesUntilNextAdBreak}** minute${minutesUntilNextAdBreak !== 1 ? "s" : ""
-                        }`;
+                    return `**${friendlyDuration}**の予約広告が約**${minutesUntilNextAdBreak}**分後に開始されます`;
                 }
             }
         },
@@ -1128,11 +1126,11 @@ module.exports = {
 
                     const friendlyDuration =
                         mins > 0
-                            ? `${mins}m${remainingSecs > 0 ? ` ${remainingSecs}s` : ""}`
-                            : `${eventData.adBreakDuration}s`;
+                            ? `${mins}分${remainingSecs > 0 ? ` ${remainingSecs}秒` : ""}`
+                            : `${eventData.adBreakDuration}秒`;
 
-                    return `**${friendlyDuration}** **${eventData.isAdBreakScheduled ? "scheduled" : "manual"
-                        }** ad break started`;
+                    return `**${friendlyDuration}**の**${eventData.isAdBreakScheduled ? "予約" : "手動"
+                        }**広告が開始されました`;
                 }
             }
         },
@@ -1153,11 +1151,11 @@ module.exports = {
 
                     const friendlyDuration =
                         mins > 0
-                            ? `${mins}m${remainingSecs > 0 ? ` ${remainingSecs}s` : ""}`
-                            : `${eventData.adBreakDuration}s`;
+                            ? `${mins}分${remainingSecs > 0 ? ` ${remainingSecs}秒` : ""}`
+                            : `${eventData.adBreakDuration}秒`;
 
-                    return `**${friendlyDuration}** **${eventData.isAdBreakScheduled ? "scheduled" : "manual"
-                        }** ad break ended`;
+                    return `**${friendlyDuration}**の**${eventData.isAdBreakScheduled ? "予約" : "手動"
+                        }**広告が終了しました`;
                 }
             }
         }

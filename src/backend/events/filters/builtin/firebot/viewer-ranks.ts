@@ -2,6 +2,7 @@ import twitchApi from "../../../../twitch-api/api";
 import viewerDatabase from "../../../../viewers/viewer-database";
 import { EventFilter } from "../../../../../types/events";
 import { ComparisonType } from "../../../../../shared/filter-constants";
+import { mapLegacyComparisonType } from "../../../../../shared/filter-helpers";
 
 const filter: EventFilter = {
     id: "firebot:viewerranks",
@@ -79,16 +80,16 @@ const filter: EventFilter = {
 
             const hasRank = await viewerDatabase.viewerHasRankById(userId, ladderId, rankId);
 
-            switch (comparisonType) {
+            // 旧式のComparisonTypeを標準化
+            const standardComparisonType = mapLegacyComparisonType(comparisonType);
+            
+            switch (standardComparisonType) {
+                case ComparisonType.HAS_ROLE:
                 case ComparisonType.INCLUDING:
-                case ComparisonType.COMPAT_INCLUDING:
-                case ComparisonType.COMPAT2_INCLUDING:
-                case ComparisonType.ORG_INCLUDING:
                     return hasRank;
 
+                case ComparisonType.HAS_NOT_ROLE:
                 case ComparisonType.NOT_INCLUDING:
-                case ComparisonType.COMPAT_NOT_INCLUDING:
-                case ComparisonType.ORG_NOT_INCLUDING:
                     return !hasRank;
                 default:
                     return false;

@@ -149,19 +149,19 @@ export const TransformSourceEffectType: EffectType<{
                     </div>
                 </div>
                 <firebot-checkbox 
-                    label="Rotation" 
-                    tooltip="Transform the rotation of the OBS source" 
+                    label="回転" 
+                    tooltip="OBSソースを回転します" 
                     model="effect.isTransformingRotation" />
                 <div ng-if="effect.isTransformingRotation" style="margin-bottom: 20px">
                     <div style="display: flex; gap: 20px; margin-bottom: 20px;">
                         <firebot-input
-                            input-title="Start Rotation"
-                            placeholder-text="Current Rotation"
+                            input-title="開始角度"
+                            placeholder-text="角度を入れます"
                             model="effect.startTransform.rotation"
                             style="flex-basis: 50%" />
                         <firebot-input
-                            input-title="End Rotation"
-                            placeholder-text="rotation in degrees"
+                            input-title="終了角度"
+                            placeholder-text="角度を入れます"
                             model="effect.endTransform.rotation"
                             style="flex-basis: 50%" />
                     </div>
