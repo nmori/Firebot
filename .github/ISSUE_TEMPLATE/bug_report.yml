@@ -1,7 +1,6 @@
 name: バグレポート
 description: バグレポートファイル
-title: "[Bug] "
-labels: ["Bug"]
+type: "Bug"
 body:
   - type: markdown
     attributes:

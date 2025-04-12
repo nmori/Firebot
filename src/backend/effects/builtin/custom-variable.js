@@ -59,7 +59,7 @@ const fileWriter = {
             $scope.effect.ttl = 0;
         }
 
-        $scope.openVariableInspector = function() {
+        $scope.openVariableInspector = function () {
             backendCommunicator.fireEvent("show-variable-inspector");
         };
 
@@ -76,7 +76,7 @@ const fileWriter = {
                 inputType: "codemirror",
                 menuPosition: "under",
                 codeMirrorOptions: {
-                    mode: {name: "javascript", json: true},
+                    mode: { name: "javascript", json: true },
                     theme: 'blackboard',
                     lineNumbers: true,
                     autoRefresh: true,
@@ -93,6 +93,9 @@ const fileWriter = {
             errors.push("変数名を入れてください");
         }
         return errors;
+    },
+    getDefaultLabel: (effect) => {
+        return effect.name;
     },
     onTriggerEvent: async (event) => {
         const { effect } = event;

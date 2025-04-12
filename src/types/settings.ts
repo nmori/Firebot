@@ -46,8 +46,13 @@ export type FirebotSettingsTypes = {
     ClearChatFeedMode: "never" | "onlyStreamer" | "always";
     ClearCustomScriptCache: boolean;
     CopiedOverlayVersion: string;
-    DashboardLayout: object; //TODO
+    DashboardLayout: {
+        dashboardViewerList: string;
+        dashboardChatWindow: string;
+        dashboardActivityFeed: string;
+    };
     DebugMode: boolean;
+    DefaultEffectLabelsEnabled: boolean;
     DefaultToAdvancedCommandMode: boolean;
     DefaultTtsVoiceId: string;
     DeleteProfile: string;
@@ -65,7 +70,10 @@ export type FirebotSettingsTypes = {
     OpenStreamPreviewOnLaunch: boolean;
     OverlayInstances: string[];
     PersistCustomVariables: boolean;
-    QuickActions: object; //TODO
+    QuickActions: Record<string, {
+        enabled: boolean;
+        position: number;
+    }>;
     RunCustomScripts: boolean;
     SeenAdvancedCommandModePopup: boolean;
     ShowAdBreakIndicator: boolean;
@@ -81,6 +89,7 @@ export type FirebotSettingsTypes = {
     TriggerUpcomingAdBreakMinutes: number;
     TtsVoiceRate: number;
     TtsVoiceVolume: number;
+    UseExperimentalTwitchClipUrlResolver: boolean;
     UseOverlayInstances: boolean;
     ViewerDB: boolean;
     ViewerListPageSize: number;
@@ -154,8 +163,13 @@ export const FirebotSettingsDefaults: FirebotSettingsTypes = {
     ClearChatFeedMode: "onlyStreamer",
     ClearCustomScriptCache: false,
     CopiedOverlayVersion: "",
-    DashboardLayout: {},
+    DashboardLayout: {
+        dashboardViewerList: "225px",
+        dashboardChatWindow: "100%",
+        dashboardActivityFeed: "275px"
+    },
     DebugMode: false,
+    DefaultEffectLabelsEnabled: true,
     DefaultToAdvancedCommandMode: false,
     DefaultTtsVoiceId: undefined,
     DeleteProfile: undefined,
@@ -189,6 +203,7 @@ export const FirebotSettingsDefaults: FirebotSettingsTypes = {
     TriggerUpcomingAdBreakMinutes: 0,
     TtsVoiceRate: 1,
     TtsVoiceVolume: 0.5,
+    UseExperimentalTwitchClipUrlResolver: true,
     UseOverlayInstances: false,
     ViewerDB: true,
     ViewerListPageSize: 10,

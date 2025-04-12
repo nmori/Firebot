@@ -2,8 +2,6 @@
 name: 機能リクエスト
 about: Firebotのアイデアを提案する
 title: "[機能要求] "
-labels: Enhancement
-
 ---
 
 **ご希望のソリューションをご記入ください。**

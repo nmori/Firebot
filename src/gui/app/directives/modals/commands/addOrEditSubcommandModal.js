@@ -15,15 +15,14 @@
                         引数の種類
                     </div>
                     <div ng-class="{'has-error': $ctrl.kindError}">
-                        <ui-select ng-model="$ctrl.arg.type" ng-change="$ctrl.onTypeChange()" theme="bootstrap" class="control-type-list">
-                            <ui-select-match placeholder="引数の種類を選ぶ">{{$select.selected.type}}</ui-select-match>
-                            <ui-select-choices repeat="arg.type as arg in $ctrl.argTypes | filter: { type: $select.search }" style="position:relative;">
-                                <div style="padding: 5px;">
-                                    <div ng-bind-html="arg.type | highlight: $select.search"></div>
-                                    <small class="muted">{{arg.description}}</small>
-                                </div>
-                            </ui-select-choices>
-                        </ui-select>
+                        <firebot-searchable-select
+                            ng-model="$ctrl.arg.type"
+                            ng-change="$ctrl.onTypeChange()"
+                            items="$ctrl.argTypes"
+                            item-id="type"
+                            item-name="type"
+                            placeholder="引数の種類を選ぶ"
+                        />
                         <div id="helpBlock2" class="help-block" ng-show="$ctrl.kindError">{{$ctrl.kindErrorText}}</div>
                     </div>
                 </div>

@@ -26,8 +26,14 @@
                     template: "<trigger-settings />"
                 },
                 {
-                    name: "データベース",
-                    description: "視聴者データベースのオプションとツール",
+                    name: "演出",
+                    description: "演出オプションを設定します",
+                    icon: "fa-magic",
+                    template: "<effect-settings />"
+                },
+                {
+                    name: "Database",
+                    description: "Options and tools for the viewer database.",
                     icon: "fa-database",
                     template: "<database-settings />"
                 },

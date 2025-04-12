@@ -21,16 +21,11 @@ const effect: EffectType<{
         </eos-container>
 
         <eos-container header="音声" pad-top="true">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="dropdown-text">{{getSelectedVoiceName()}}</span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href ng-click="effect.voiceId = 'default'">既定の音声 <tooltip text="'設定 > TTSで設定されたデフォルトの音声'"></tooltip></a></li>
-                    <li ng-repeat="voice in ttsVoices"><a href ng-click="effect.voiceId = voice.id">{{voice.name}}</a></li>
-                </ul>
-            </div>
+            <firebot-searchable-select
+                ng-model="effect.voiceId"
+                items="ttsVoices"
+                placeholder="音声を検索、もしくは選択"
+            />
         </eos-container>
 
         <eos-container header="Wait" pad-top="true">
@@ -50,7 +45,14 @@ const effect: EffectType<{
             $scope.effect.wait = false;
         }
 
-        $scope.ttsVoices = ttsService.getVoices();
+        $scope.ttsVoices = [{
+            id: "default",
+            name: "Default",
+            description: "設定 > 合成音声で選ばれた音声"
+        },
+        ...ttsService.getVoices()
+        ];
+
 
         $scope.getSelectedVoiceName = () => {
             const voiceId = $scope.effect.voiceId;

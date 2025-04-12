@@ -147,7 +147,7 @@
                                 <span class="pr-4" style="display: inline-block;text-overflow: ellipsis;overflow: hidden;line-height: 20px;white-space: nowrap;">
                                     <span class="muted" ng-hide="$ctrl.hideNumbers === true">{{$index + 1}}. </span>
                                     {{$ctrl.getEffectNameById(effect.type)}}
-                                    <span ng-if="effect.effectLabel" class="muted"> ({{effect.effectLabel}})</span>
+                                    <span ng-if="$ctrl.getEffectLabel(effect)" class="muted"> ({{$ctrl.getEffectLabel(effect)}})</span>
                                 </span>
                                 <span class="flex-row-center">
                                     <span
@@ -210,7 +210,7 @@
             </div>
             `,
             controller: function ($q, $rootScope, $scope, utilityService, effectHelperService, objectCopyHelper, effectQueuesService, presetEffectListsService,
-                backendCommunicator, ngToast, $http) {
+                settingsService, backendCommunicator, ngToast, $http, $injector) {
                 const ctrl = this;
 
                 ctrl.effectsData = {
@@ -602,31 +602,109 @@
                         });
                 };
 
-                // when the element is initialized
-                ctrl.$onInit = async function () {
-                    createEffectsData();
-                    effectDefinitions = await effectHelperService.getAllEffectDefinitions();
-                };
-
                 ctrl.getEffectNameById = (id) => {
                     if (!effectDefinitions || effectDefinitions.length < 1) {
                         return "";
                     }
 
-                    return effectDefinitions.find(e => e.id === id).name;
+                    return effectDefinitions.find(e => e.definition.id === id).definition.name;
+                };
+
+                /**
+                 * @type {{ [effectId: string]: string }}
+                 */
+                ctrl.effectDefaultLabels = {};
+
+                async function getDefaultLabels() {
+                    const effects = ctrl.effectsData?.list ?? [];
+
+                    /**
+                     * @type {Promise<{ id: string; defaultLabel?: string; }>[]}
+                     */
+                    const promises = [];
+                    for (const effect of effects) {
+                        if (!effect?.id) {
+                            continue;
+                        }
+
+                        const effectDef = effectDefinitions.find(e => e.definition.id === effect.type);
+
+                        if (!effectDef?.getDefaultLabel) {
+                            continue;
+                        }
+
+                        const promise = Promise.resolve(
+                            $injector.invoke(effectDef.getDefaultLabel, {}, {
+                                effect: effect
+                            })
+                        ).then((label) => {
+                            return {
+                                id: effect.id,
+                                defaultLabel: label
+                            };
+                        }).catch(() => {
+                            return {
+                                id: effect.id,
+                                defaultLabel: null
+                            };
+                        });
+
+                        promises.push(promise);
+                    }
+
+                    return $q.when(Promise.all(promises).then((results) => {
+                        return results.reduce((acc, result) => {
+                            if (result?.id && result?.defaultLabel != null) {
+                                acc[result.id] = result.defaultLabel;
+                            }
+                            return acc;
+                        }, {});
+                    }));
+                }
+
+                function updateDefaultLabels() {
+                    getDefaultLabels().then((labels) => {
+                        ctrl.effectDefaultLabels = labels;
+                    });
+                }
+
+                ctrl.getEffectLabel = (effect) => {
+                    if (effect.effectLabel?.length) {
+                        return effect.effectLabel;
+                    }
+
+                    if (effect?.id && settingsService.getSetting("DefaultEffectLabelsEnabled")) {
+                        const defaultLabel = ctrl.effectDefaultLabels[effect.id];
+
+                        if (defaultLabel != null) {
+                            return defaultLabel;
+                        }
+                    }
+
+                    return;
+                };
+
+                // when the element is initialized
+                ctrl.$onInit = async function () {
+                    createEffectsData();
+                    effectDefinitions = await effectHelperService.getAllEffectTypes();
+                    updateDefaultLabels();
                 };
 
                 ctrl.$onChanges = function () {
                     createEffectsData();
+                    updateDefaultLabels();
                 };
 
                 ctrl.effectsUpdate = function () {
                     ensureDefaultWeights();
+                    updateDefaultLabels();
                     ctrl.update({ effects: ctrl.effectsData });
                 };
 
                 ctrl.effectTypeChanged = function (effectType, index) {
                     ctrl.effectsData.list[index].type = effectType.id;
+                    updateDefaultLabels();
                 };
                 ctrl.testEffects = function () {
                     ipcRenderer.send('runEffectsManually', { effects: ctrl.effectsData });

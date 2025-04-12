@@ -14,6 +14,7 @@ const frontendCommunicator = require('../../common/frontend-communicator');
 const { wait } = require("../../utility");
 const { parseYoutubeId } = require("../../../shared/youtube-url-parser");
 const { v4: uuid } = require("uuid");
+const { resolveTwitchClipVideoUrl } = require("../../common/handlers/twitch-clip-url-resolver");
 
 /**
  * The Play Video effect
@@ -41,14 +42,11 @@ const playVideo = {
     optionsTemplate: `
     <eos-container header="ビデオ">
         <div style="padding-bottom: 10px">
-            <div ng-if="shouldShowVideoPlaceholder()" >
-                <img src="../images/placeholders/video.png" style="width: 350px;object-fit: scale-down;background: #d7d7d7">
-            </div>
-            <div ng-if="effect.videoType == 'Local Video' && !shouldShowVideoPlaceholder()">
-                <video width="350" controls ng-src="{{effect.file}}">
+            <div ng-if="effect.videoType == 'Local Video'">
+                <video width="350" controls ng-src="{{encodeFilePath(effect.file)}}">
                 </video>
             </div>
-            <div ng-if="effect.videoType == 'YouTube Video' && !shouldShowVideoPlaceholder()">
+            <div ng-if="effect.videoType == 'YouTube Video'">
                 <!--<ng-youtube-embed
                     video="effect.youtube"
                     color="white"
@@ -322,6 +320,10 @@ const playVideo = {
                 $scope.effect.width = "";
             }
         };
+
+        $scope.encodeFilePath = function (/** @type {string} */ filepath) {
+            return filepath?.replaceAll("%", "%25").replaceAll("#", "%23");
+        };
     },
     /**
      * When the effect is triggered by something
@@ -486,8 +488,12 @@ const playVideo = {
                 }
             }
 
-            //const clipVideoUrl = `${clip.thumbnailUrl.split("-preview-")[0]}.mp4`;
-            const clipVideoUrl = clip.embedUrl;
+            if (clip == null) {
+                logger.error("Unable to find clip");
+                return true;
+            }
+
+            const { url, useIframe } = await resolveTwitchClipVideoUrl(clip);
             const clipDuration = clip.duration;
             const volume = parseInt(effect.volume) / 10;
 
@@ -500,7 +506,8 @@ const playVideo = {
             }
 
             webServer.sendToOverlay("playTwitchClip", {
-                clipVideoUrl: clipVideoUrl,
+                clipVideoUrl: url,
+                useIframe,
                 volume: volume,
                 width: effect.width,
                 height: effect.height,

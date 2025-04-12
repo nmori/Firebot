@@ -41,12 +41,11 @@ const model: EffectType<{
         </eos-container>
 
         <eos-container ng-show="hasTags && effect.useTag" header="Tag" pad-top="true">
-            <ui-select ng-model="effect.sortTagId" theme="bootstrap">
-                <ui-select-match placeholder="Select or search for a tag... ">{{$select.selected.name}}</ui-select-match>
-                <ui-select-choices repeat="sortTag.id as sortTag in sortTags | filter: { name: $select.search }" style="position:relative;">
-                    <div ng-bind-html="sortTag.name | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
+            <firebot-searchable-select
+                ng-model="effect.sortTagId"
+                placeholder="Select or search for a tag..."
+                items="sortTags"
+            />
         </eos-container>
 
         <eos-container ng-show="hasScheduledTasks || (hasTags && effect.useTag)" header="Toggle Action" pad-top="true">
@@ -91,6 +90,18 @@ const model: EffectType<{
             errors.push("Please select a scheduled effect list sort tag.");
         }
         return errors;
+    },
+    getDefaultLabel: (effect, scheduledTaskService, sortTagsService) => {
+        const action = effect.toggleType === "toggle" ? "Toggle"
+            : effect.toggleType === "enable" ? "Enable" : "Disable";
+        if (effect.useTag) {
+            const sortTag = sortTagsService.getSortTags('scheduled effect lists')
+                .find(tag => tag.id === effect.sortTagId);
+            return `${action} tag: ${sortTag?.name ?? "Unknown"}`;
+        }
+
+        const scheduledTask = scheduledTaskService.getScheduledTasks().find(task => task.id === effect.scheduledTaskId);
+        return `${action} ${scheduledTask?.name ?? "Unknown Scheduled Effect List"}`;
     },
     onTriggerEvent: async (event) => {
         const { effect } = event;

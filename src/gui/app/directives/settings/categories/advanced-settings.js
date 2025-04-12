@@ -82,6 +82,17 @@
                         />
                     </firebot-setting>
 
+                    <firebot-setting
+                        name="Experimental Clip Player"
+                        description="When enabled, Firebot will use an experimental method to play Twitch clips in the overlay that bypasses content warnings. This is an experimental feature and isn't guaranteed to work. If Firebot is unable to play the clip, it will fall back to the default method."
+                    >
+                        <toggle-button
+                            toggle-model="settings.getSetting('UseExperimentalTwitchClipUrlResolver')"
+                            on-toggle="settings.saveSetting('UseExperimentalTwitchClipUrlResolver', !settings.getSetting('UseExperimentalTwitchClipUrlResolver'))"
+                            font-size="40"
+                        />
+                    </firebot-setting>
+
                     <div style="margin-top: 20px">
                         <p class="muted">ここにあった設定をお探しですか？ツール→アプリのメニューで確認してみてください</p>
                     </div>

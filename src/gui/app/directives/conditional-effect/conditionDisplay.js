@@ -40,16 +40,16 @@
                         $ctrl.conditionType.leftSideValueType !== 'none') {
                         return $ctrl.leftSideValueDisplay;
                     }
-                    return $ctrl.conditionType ? $ctrl.conditionType.name : "•s–¾";
+                    return $ctrl.conditionType ? $ctrl.conditionType.name : "ä¸æ˜Ž";
                 };
 
-                $ctrl.rightSideValueDisplay = "[–¢Ý’è]";
-                $ctrl.leftSideValueDisplay = "[–¢Ý’è]";
+                $ctrl.rightSideValueDisplay = "[æœªè¨­å®š]";
+                $ctrl.leftSideValueDisplay = "[æœªè¨­å®š]";
 
                 function getRightSideValueDisplay() {
                     return $q(async (resolve) => {
-                        if ($ctrl.condition == null || $ctrl.condition.rightSideValue == null || $ctrl.condition.rightSideValue === "") {
-                            resolve("[–¢Ý’è]");
+                        if ($ctrl.condition == null || $ctrl.condition.rightSideValue === null || $ctrl.condition.rightSideValue === undefined || $ctrl.condition.rightSideValue === "") {
+                            resolve("[æœªè¨­å®š]");
                         } else {
                             const value = await $injector.invoke($ctrl.conditionType.getRightSideValueDisplay, {}, {
                                 condition: $ctrl.condition
@@ -61,8 +61,8 @@
 
                 function getLeftSideValueDisplay() {
                     return $q(async (resolve) => {
-                        if ($ctrl.condition == null || $ctrl.condition.leftSideValue == null || $ctrl.condition.leftSideValue === "") {
-                            resolve("[–¢Ý’è]");
+                        if ($ctrl.condition == null || $ctrl.condition.leftSideValue === null || $ctrl.condition.leftSideValue === undefined || $ctrl.condition.leftSideValue === "") {
+                            resolve("[æœªè¨­å®š]");
                         } else {
                             const value = await $injector.invoke($ctrl.conditionType.getLeftSideValueDisplay, {}, {
                                 condition: $ctrl.condition
@@ -74,19 +74,19 @@
 
                 $ctrl.$onInit = function() {
                     getRightSideValueDisplay().then((value) => {
-                        $ctrl.rightSideValueDisplay = value || "[Not Set]";
+                        $ctrl.rightSideValueDisplay = value !== null && value !== undefined ? value : "[Not Set]";
                     });
                     getLeftSideValueDisplay().then((value) => {
-                        $ctrl.leftSideValueDisplay = value || "[Not Set]";
+                        $ctrl.leftSideValueDisplay = value !== null && value !== undefined ? value : "[Not Set]";
                     });
                 };
 
                 $ctrl.$onChanges = function() {
                     getRightSideValueDisplay().then((value) => {
-                        $ctrl.rightSideValueDisplay = value || "[Not Set]";
+                        $ctrl.rightSideValueDisplay = value !== null && value !== undefined ? value : "[Not Set]";
                     });
                     getLeftSideValueDisplay().then((value) => {
-                        $ctrl.leftSideValueDisplay = value || "[Not Set]";
+                        $ctrl.leftSideValueDisplay = value !== null && value !== undefined ? value : "[Not Set]";
                     });
                 };
             }
