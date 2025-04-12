@@ -23,7 +23,7 @@ const playSound = {
     optionsTemplate: `
     <eos-container header="メディアタイプ">
         <firebot-radios 
-            options="{ local: 'ローカルファイル', folderRandom: 'フォイル内のファイルをランダム再生', url: 'ネット上のものを再生' }"
+            options="{ local: 'ローカルファイル', folderRandom: 'フォルダ内のファイルをランダム再生', url: 'ネット上のものを再生' }"
             model="effect.soundType"
             inline="true"
             style="padding-bottom: 5px;"

@@ -151,6 +151,24 @@ export function createTextFilter({
                 case ComparisonType.COMPAT2_IS_NOT:
                 case ComparisonType.ORG_IS_NOT:
                     return eventValue !== filterValue;
+                case ComparisonType.DOESNT_CONTAIN:
+                case ComparisonType.COMPAT_DOESNT_CONTAIN:
+                case ComparisonType.COMPAT2_DOESNT_CONTAIN:
+                case ComparisonType.ORG_DOESNT_CONTAIN:
+                    return !eventValue.includes(filterValue);
+                case ComparisonType.STARTS_WITH:
+                case ComparisonType.ORG_STARTS_WITH:
+                    return eventValue.startsWith(filterValue);
+                case ComparisonType.DOESNT_STARTS_WITH:
+                case ComparisonType.COMPAT_DOESNT_STARTS_WITH:
+                case ComparisonType.ORG_DOESNT_STARTS_WITH:
+                    return !eventValue.startsWith(filterValue);
+                case ComparisonType.ENDS_WITH:
+                case ComparisonType.ORG_ENDS_WITH:
+                    return eventValue.endsWith(filterValue);
+                case ComparisonType.DOESNT_END_WITH:
+                case ComparisonType.ORG_DOESNT_END_WITH:
+                    return !eventValue.endsWith(filterValue);
                 case ComparisonType.CONTAINS:
                 case ComparisonType.COMPAT_CONTAINS:
                 case ComparisonType.COMPAT2_CONTAINS:
@@ -162,6 +180,25 @@ export function createTextFilter({
                 case ComparisonType.ORG_MATCHES_REGEX: {
                     const regex = new RegExp(filterValue, "gi");
                     return regex.test(eventValue);
+                }
+                case ComparisonType.DOESNT_MATCH_REGEX:
+                case ComparisonType.COMPAT_DOESNT_MATCH_REGEX:
+                case ComparisonType.COMPAT2_DOESNT_MATCH_REGEX:
+                case ComparisonType.ORG_DOESNT_MATCH_REGEX: {
+                    const regex = new RegExp(filterValue, "gi");
+                    return !regex.test(eventValue);
+                }
+                case ComparisonType.MATCHES_REGEX_CS:
+                case ComparisonType.COMPAT2_MATCHES_REGEX_CS:
+                case ComparisonType.ORG_MATCHES_REGEX_CS: {
+                    const regex = new RegExp(filterValue, "g");
+                    return regex.test(eventValue);
+                }
+                case ComparisonType.DOESNT_MATCH_REGEX_CS:
+                case ComparisonType.COMPAT2_DOESNT_MATCH_REGEX_CS:
+                case ComparisonType.ORG_DOESNT_MATCH_REGEX_CS: {
+                    const regex = new RegExp(filterValue, "g");
+                    return !regex.test(eventValue);
                 }
                 default:
                     logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);

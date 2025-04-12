@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     angular.module("firebotApp")
         .component("addOrEditChannelReward", {
             template: `
@@ -190,7 +190,7 @@
 
                         <div class="form-group">
                             <label class="control-label" style="margin:0;">特典アイコン</label>
-                            <p class="help-block"><b>Important</b>: 特典のアイコンはX(旧Twitch)でのみ変更可能</p>
+                            <p class="help-block"><b>Important</b>: 特典のアイコンはX(旧Twitter)でのみ変更可能</p>
                             <div>
                                 <div style="display: inline-flex; align-items: center; justify-content: center;padding: 12.5px;border: 2px gray dashed;border-radius: 6px;">
                                     <img
@@ -296,7 +296,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($scope, ngToast, channelRewardsService) {
+            controller: function ($scope, ngToast, channelRewardsService) {
                 const $ctrl = this;
 
                 const generateRandomColor = () => `#${Math.floor(Math.random() * 8 ** 8).toString(16).padStart(6, '0')}`;
@@ -357,15 +357,15 @@
                     effects: null
                 };
 
-                $ctrl.effectListUpdated = function(effects) {
+                $ctrl.effectListUpdated = function (effects) {
                     $ctrl.reward.effects = effects;
                 };
 
-                $ctrl.fulfilledEffectListUpdated = function(effects) {
+                $ctrl.fulfilledEffectListUpdated = function (effects) {
                     $ctrl.reward.effectsFulfilled = effects;
                 };
 
-                $ctrl.canceledEffectListUpdated = function(effects) {
+                $ctrl.canceledEffectListUpdated = function (effects) {
                     $ctrl.reward.effectsCanceled = effects;
                 };
 
