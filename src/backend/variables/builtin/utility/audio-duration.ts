@@ -7,7 +7,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "audioDuration",
         usage: "audioDuration[filePathOrUrl]",
-        description: "オーディオの長さを取得しようとします。",
+        description: "繧ｪ繝ｼ繝�繧｣繧ｪ縺ｮ髟ｷ縺輔ｒ蜿門ｾ励＠繧医≧縺ｨ縺励∪縺吶�",
         examples: [
             {
                 usage: `audioDuration["path/to/audio.mp3"]`,

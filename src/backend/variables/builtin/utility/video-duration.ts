@@ -8,7 +8,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "videoDuration",
         usage: "videoDuration[filePathOrUrl]",
-        description: "ビデオの再生時間を取得しようとします。",
+        description: "繝薙ョ繧ｪ縺ｮ蜀咲函譎る俣繧貞叙蠕励＠繧医≧縺ｨ縺励∪縺吶�",
         examples: [
             {
                 usage: `videoDuration["path/to/video.mp4"]`,

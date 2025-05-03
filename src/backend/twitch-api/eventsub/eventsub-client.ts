@@ -58,7 +58,7 @@ class TwitchEventSubClient {
             twitchEventsHandler.cheer.triggerCheer(
                 event.userName ?? "ananonymouscheerer",
                 event.userId,
-                event.userDisplayName ?? "An Anonymous Cheerer",
+                event.userDisplayName ?? "匿名のCheerer",
                 event.isAnonymous,
                 event.bits,
                 totalBits,

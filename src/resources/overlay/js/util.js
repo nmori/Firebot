@@ -112,7 +112,7 @@ function showTimedAnimatedElement(
 					completeCallback();
 				}
 			}, data);
-		}, (data.duration != null && data.duration > 0) ? data.duration : 5000);
+		}, (data.duration != null && data.duration > 0) ? data.duration : 500);
 	}, {
 		token: tokenArg,
 		id: id,

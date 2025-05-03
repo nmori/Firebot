@@ -144,7 +144,7 @@
                                 <div class="control__indicator"></div>
                             </label>
                             <label class="control-fb control--checkbox"
-                                >Hype Trains
+                                >ハイプトレイン
                                 <input
                                     type="checkbox"
                                     ng-click="settings.saveSetting('ShowHypeTrainIndicator', !settings.getSetting('ShowHypeTrainIndicator'))"
@@ -154,7 +154,7 @@
                                 <div class="control__indicator"></div>
                             </label>
                             <label class="control-fb control--checkbox"
-                                >Ad Breaks
+                                >広告（アドブレイク）
                                 <input
                                     type="checkbox"
                                     ng-click="settings.saveSetting('ShowAdBreakIndicator', !settings.getSetting('ShowAdBreakIndicator'))"

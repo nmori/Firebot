@@ -12,6 +12,6 @@ export const SceneCollectionNameVariable: ReplaceVariable = {
     },
     evaluator: async (trigger) => {
         const currentSceneCollectionName = trigger.metadata?.eventData?.sceneCollectionName ?? await getCurrentSceneCollectionName();
-    return currentSceneCollectionName ?? "ïsñæ";
-  },
+        return currentSceneCollectionName ?? "‰∏çÊòé";
+    }
 };
