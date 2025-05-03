@@ -50,15 +50,15 @@
                 {
                     value: "auto",
                     label: "Sequential",
-　　　　　　　　　　　　　　　　　　display: "キュー",
+                    display: "キュー",
                     description: "キュー内のエフェクトリストを順番に実行します。優先度の高いアイテムが優先度の低いアイテムより先に追加される。オプションのdelayのデフォルトは0sec。",
                     iconClass: "fa-sort-numeric-down"
                 },
                 {
                     value: "custom",
                     label: "Custom",
-　　　　　　　　　　　　　　　　　　display: "カスタム",
-                    description: "Wait the custom amount of time defined for each individual effect list.",
+                    display: "カスタム",
+                    description: "各エフェクト・リストで定義されたカスタム時間だけ待ちます",
                     iconClass: "fa-clock"
                 },
                 {
