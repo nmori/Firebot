@@ -115,7 +115,7 @@
             />
         </div>
         <div class="thread-replying-to" ng-if="cms.threadDetails.replyToMessageId != cms.threadDetails.threadParentMessageId">
-          <span>Replying to <span style="font-weight: 800">@{{cms.threadDetails.replyToUserDisplayName}}</span></span>
+          <span><span style="font-weight: 800">@{{cms.threadDetails.replyToUserDisplayName}}</span>へ返信</span>
           <button class="btn btn-link" ng-click="cms.threadDetails.replyToMessageId = cms.threadDetails.threadParentMessageId">Cancel</button>
         </div>
       </div>
@@ -131,7 +131,7 @@
           <div
             class="dropdown-toggle chatter-dropdown"
             data-toggle="dropdown"
-            uib-tooltip="Chat as"
+            uib-tooltip="送信者を選択"
             tooltip-placement="left"
             tooltip-append-to-body="true"
           >

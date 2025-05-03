@@ -32,8 +32,8 @@
                     template: "<effect-settings />"
                 },
                 {
-                    name: "Database",
-                    description: "Options and tools for the viewer database.",
+                    name: "データベース",
+                    description: "視聴者データベースの設定ツールおよびオプションを設定します",
                     icon: "fa-database",
                     template: "<database-settings />"
                 },

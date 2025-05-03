@@ -121,7 +121,7 @@ const getUptime = async () => {
     const channelData = await client.streams.getStreamByUserId(streamerAccount.userId);
 
     if (channelData == null) {
-        return "Not currently broadcasting";
+        return "配信されていません";
     }
 
     const startedDate = channelData.startDate;
@@ -129,6 +129,10 @@ const getUptime = async () => {
 };
 
 const getDateDiffString = (date1, date2, includeSeconds = false) => {
+
+    // 表示用の日本語単位
+    const japaneseLabels = ["年", "ヵ月", "日", "時間", "分", "秒"];
+
     let b = DateTime.fromJSDate(date1);
     const a = DateTime.fromJSDate(date2),
         intervals = ["years", "months", "days", "hours", "minutes"],
@@ -148,16 +152,17 @@ const getDateDiffString = (date1, date2, includeSeconds = false) => {
 
         b = b.plus(Duration.fromDurationLike({ [intervals[i]]: numericDiff }));
 
-        let interval = intervals[i];
+        let interval = japaneseLabels[i];
         if (numericDiff === 1) {
             interval = interval.slice(0, -1);
         }
         out.push(`${numericDiff} ${interval}`);
     }
-    if (out.length > 1) {
-        const last = out[out.length - 1];
-        out[out.length - 1] = `and ${last}`;
-    }
+    //日本語だと and が必要ないのでコメントアウト
+    // if (out.length > 1) {
+    //     const last = out[out.length - 1];
+    //     out[out.length - 1] = `and ${last}`;
+    // }
     return out.length === 2 ? out.join(" ") : out.join(", ");
 };
 

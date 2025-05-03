@@ -209,12 +209,12 @@
                     cellTemplate: `
                         <span
                             style="min-width: 51px; display: inline-block"
-                            uib-tooltip="再実行時間（全体）"
+                            uib-tooltip="再実行待ち時間（全体）"
                         >
                             <i class="far fa-globe-americas"></i>
                             {{data.cooldown.global ? data.cooldown.global + "秒" : "-" }}
                         </span>
-                        <span uib-tooltip="再実行時間（ユーザ）">
+                        <span uib-tooltip="再実行待ち時間（ユーザ）">
                             <i class="far fa-user"></i> {{data.cooldown.user ? data.cooldown.user + "秒" : "-" }}
                         </span>
                     `,
@@ -255,7 +255,7 @@
                             if (permissions) {
                                 if (permissions.mode === "roles") {
                                     const roleIds = permissions.roleIds;
-                                    let rolesOutput = "None selected";
+                                    let rolesOutput = "未選択";
                                     if (roleIds.length > 0) {
                                         rolesOutput = roleIds
                                             .filter(id => viewerRolesService.getRoleById(id) != null)
@@ -265,7 +265,7 @@
                                     const rolesDisplay = `Roles (${rolesOutput})`;
 
                                     const ranks = permissions.ranks ?? [];
-                                    let ranksOutput = "None selected";
+                                    let ranksOutput = "未選択";
                                     if (ranks.length > 0) {
                                         const groupedByLadder = ranks.reduce((acc, r) => {
                                             if (!acc.some(l => l.ladderId === r.ladderId)) {
@@ -290,13 +290,13 @@
                                     const ranksDisplay = `Ranks (${ranksOutput})`;
 
                                     const itemsToDisplay = [];
-                                    if (rolesOutput !== "None selected") {
+                                    if (rolesOutput !== "未選択") {
                                         itemsToDisplay.push(rolesDisplay);
                                     }
-                                    if (ranksOutput !== "None selected") {
+                                    if (ranksOutput !== "未選択") {
                                         itemsToDisplay.push(ranksDisplay);
                                     }
-                                    return itemsToDisplay.length > 0 ? itemsToDisplay.join(", ") : "Roles/Ranks (None selected)";
+                                    return itemsToDisplay.length > 0 ? itemsToDisplay.join(", ") : "役割/ランク (未選択)";
                                 } else if (permissions.mode === "viewer") {
                                     return `Viewer (${permissions.username ? permissions.username : 'No name'})`;
                                 }

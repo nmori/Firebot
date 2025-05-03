@@ -83,8 +83,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Experimental Clip Player"
-                        description="When enabled, Firebot will use an experimental method to play Twitch clips in the overlay that bypasses content warnings. This is an experimental feature and isn't guaranteed to work. If Firebot is unable to play the clip, it will fall back to the default method."
+                        name="クリッププレーヤー（実験実装）"
+                        description="この機能を有効にすると、Firebotは実験的な方法でTwitchのクリップをオーバーレイ再生し、コンテンツの警告を回避します。これは実験的な機能であり、動作を保証するものではありません。Firebotがクリップを再生できない場合は、デフォルトの方法を使って再生します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('UseExperimentalTwitchClipUrlResolver')"

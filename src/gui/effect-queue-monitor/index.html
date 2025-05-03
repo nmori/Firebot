@@ -33,7 +33,7 @@
         <div id="app" v-cloak>
           <div class="app-container">
             <div class="queue-list-column">
-                <h2>Queues</h2>
+                <h2>演出キュー</h2>
                 <div 
                   class="queue-list-item" 
                   v-for="queue in queues" 
@@ -46,7 +46,7 @@
                     <queue-status-badge :queue="queue"></queue-status-badge>
                 </div>
                 <div v-if="queues.length === 0">
-                    <p>No queues available.</p>
+                    <p>演出待ちのキューはありません。</p>
                 </div>
             </div>
 

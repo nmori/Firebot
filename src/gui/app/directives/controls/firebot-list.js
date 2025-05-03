@@ -81,8 +81,8 @@
                     indexTemplate: "{index}.",
                     nameProperty: "name",
                     hintTemplate: undefined,
-                    addLabel: "Add",
-                    noneAddedText: "None saved",
+                    addLabel: "追加",
+                    noneAddedText: "未保存",
                     maxItems: undefined,
                     connectItems: false
                 };

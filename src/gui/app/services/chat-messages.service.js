@@ -405,7 +405,7 @@
 
                 const now = moment();
                 chatMessage.timestamp = now;
-                chatMessage.timestampDisplay = now.format('h:mm A');
+                chatMessage.timestampDisplay = now.format('LTS');
 
                 if (chatMessage.profilePicUrl == null) {
                     chatMessage.profilePicUrl = "../images/placeholders/default-profile-pic.png";

@@ -140,7 +140,7 @@ const model = {
             const rolesDisplay = `Roles (${rolesOutput})`;
 
             const ranks = restriction.ranks ?? [];
-            let ranksOutput = "None selected";
+            let ranksOutput = "未選択";
             if (ranks.length > 0) {
                 const groupedByLadder = ranks.reduce((acc, r) => {
                     if (!acc.some(l => l.ladderId === r.ladderId)) {
@@ -165,13 +165,13 @@ const model = {
             const ranksDisplay = `Ranks (${ranksOutput})`;
 
             const itemsToDisplay = [];
-            if (rolesOutput !== "None selected") {
+            if (rolesOutput !== "未選択") {
                 itemsToDisplay.push(rolesDisplay);
             }
-            if (ranksOutput !== "None selected") {
+            if (ranksOutput !== "未選択") {
                 itemsToDisplay.push(ranksDisplay);
             }
-            return itemsToDisplay.length > 0 ? itemsToDisplay.join(", ") : "Roles/Ranks (None selected)";
+            return itemsToDisplay.length > 0 ? itemsToDisplay.join(", ") : "役割/ランク (未選択)";
         } else if (restriction.mode === "viewer") {
             return `視聴者 (${restriction.username ? restriction.username : '名無し'})`;
         }

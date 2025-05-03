@@ -15,7 +15,7 @@ const frontendCommunicator = require("../../../common/frontend-communicator");
 const integrationDefinition = {
     id: "hue",
     name: "Philips Hue",
-    description: "Allows users to run hue specific effects. Press the link button on your hue bridge, then press link.",
+    description: "ユーザーがhue特有の演出を実行できるようにします。hueブリッジのリンクボタンを押してから、リンクを押してください。",
     linkType: "other",
     connectionToggle: false
 };

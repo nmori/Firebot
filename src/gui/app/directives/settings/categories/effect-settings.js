@@ -8,8 +8,8 @@
             template: `
                 <div>
                     <firebot-setting
-                        name="Default Effect Labels"
-                        description="When enabled, Firebot will automatically generate labels for (most) effects that don't have a custom label set."
+                        name="演出のラベル名（初期設定）"
+                        description="有効にすると、カスタムラベルが設定されていない（ほとんどの）演出のラベルをFirebotが自動生成します。"
                     >
                         <firebot-select
                             options="{ true: 'On', false: 'Off' }"

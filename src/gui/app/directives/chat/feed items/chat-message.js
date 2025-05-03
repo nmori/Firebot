@@ -87,7 +87,7 @@
                         <div>
 
                             <span ng-if="$ctrl.compactDisplay" ng-show="$ctrl.showTimestamp" class="muted chat-timestamp">
-                                {{$ctrl.message.timestampDisplay}}
+                                {{$ctrl.message.}}
                             </span>
 
                             <div
@@ -351,7 +351,7 @@
                         } else {
                             actions.push({
                                 name: "Mod",
-                                label: "モデレータ指名",
+                                label: "モデレータに指名",
                                 icon: "fa-user-plus"
                             });
 
@@ -431,8 +431,8 @@
                         case "ban":
                             utilityService
                                 .showConfirmationModal({
-                                title: "視聴者を追放",
-                                question: `本当に ${username} さんを追放しますか?`,
+                                    title: "視聴者を追放",
+                                    question: `本当に ${username} さんを追放しますか？`,
                                     confirmLabel: "Ban",
                                     confirmBtnType: "btn-danger"
                                 })
@@ -443,14 +443,25 @@
                                 });
                             break;
                         case "mod":
-                            chatMessagesService.changeModStatus(username, true);
+                            utilityService
+                                .showConfirmationModal({
+                                    title: "モデレートユーザ",
+                                    question: `${username}をモデレータに指名しますか？`,
+                                    confirmLabel: "指名する",
+                                    confirmBtnType: "btn-danger"
+                                })
+                                .then((confirmed) => {
+                                    if (confirmed) {
+                                        chatMessagesService.changeModStatus(username, true);
+                                    }
+                                });
                             break;
                         case "unmod":
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Mod User",
-                                    question: `Are you sure you want to unmod ${username}?`,
-                                    confirmLabel: "Unmod",
+                                    title: "モデレートユーザ",
+                                    question: `${username}のモデレータ設定を解除しますか？`,
+                                    confirmLabel: "解除する",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {

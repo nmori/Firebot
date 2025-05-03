@@ -102,10 +102,10 @@
 
                         <setting-description-addon>
                             <div style="margin-top: 10px;">
-                                Enable this setting to have your stream displayed on <a
+                                この設定を有効にすると、配信を開始したときに <a
                                     class="clickable"
                                     ng-click="openLink('https://firebot.app/watch')"
-                                >Firebot's website</a> when you're live.
+                                >Firebotのウェブサイト</a> で紹介されます。
                             </div>
                         </setting-description-addon>
 

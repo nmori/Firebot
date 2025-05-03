@@ -38,6 +38,7 @@
     "CONNECTIONS": {
       "CONNECTIONS": "接続",
       "MIXER_TOGGLE": "クリックで接続変更",
+      "TOGGLE": "ここを押すと接続状態が切り替わります",
       "OPEN_CONNECTION_PANNEL": "接続パネルを開く"
     },
     "ABOUT": "ツールについて",
