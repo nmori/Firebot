@@ -26,20 +26,20 @@
                 }
             };
 
-            backendCommunicator.on("all-queues", effectQueues => {
+            backendCommunicator.on("all-queues", (effectQueues) => {
                 if (effectQueues != null) {
                     service.effectQueues = effectQueues;
                 }
             });
 
-            backendCommunicator.on("updateQueueLength", queue => {
+            backendCommunicator.on("updateQueueLength", (queue) => {
                 const index = service.effectQueues.findIndex(eq => eq.id === queue.id);
                 if (service.effectQueues[index] != null) {
                     service.effectQueues[index].length = queue.length;
                 }
             });
 
-            backendCommunicator.on("updateQueueStatus", queue => {
+            backendCommunicator.on("updateQueueStatus", (queue) => {
                 const index = service.effectQueues.findIndex(eq => eq.id === queue.id);
                 if (service.effectQueues[index] != null) {
                     service.effectQueues[index].active = queue.active;
@@ -48,21 +48,24 @@
 
             service.queueModes = [
                 {
-                    id: "custom",
-                    display: "カスタム",
-                    description: "個々の演出リストごとに定義されたカスタム時間を待つ",
-                    iconClass: "fa-clock"
-                },
-                {
-                    id: "auto",
-                    display: "順序",
-                    description: "キュー内の演出リストを順番に実行します。優先度の高いアイテムが、優先度の低いアイテムより先に追加されます（遅延の初期設定は0秒）",
+                    value: "auto",
+                    label: "Sequential",
+　　　　　　　　　　　　　　　　　　display: "キュー",
+                    description: "キュー内のエフェクトリストを順番に実行します。優先度の高いアイテムが優先度の低いアイテムより先に追加される。オプションのdelayのデフォルトは0sec。",
                     iconClass: "fa-sort-numeric-down"
                 },
                 {
-                    id: "interval",
+                    value: "custom",
+                    label: "Custom",
+　　　　　　　　　　　　　　　　　　display: "カスタム",
+                    description: "Wait the custom amount of time defined for each individual effect list.",
+                    iconClass: "fa-clock"
+                },
+                {
+                    value: "interval",
+                    label: "Interval",
                     display: "間隔",
-                    description: "設定した間隔で演出リストを実行",
+                    description: "設定した間隔で演出リストを実行する。",
                     iconClass: "fa-stopwatch"
                 }
             ];
@@ -118,7 +121,7 @@
                     copiedEffectQueue.name += " 複製";
                 }
 
-                service.saveEffectQueue(copiedEffectQueue).then(successful => {
+                service.saveEffectQueue(copiedEffectQueue).then((successful) => {
                     if (successful) {
                         ngToast.create({
                             className: 'success',
@@ -136,7 +139,7 @@
             };
 
             service.showAddEditEffectQueueModal = (effectQueueId) => {
-                return new Promise(resolve => {
+                return new Promise((resolve) => {
                     let effectQueue;
 
                     if (effectQueueId != null) {
@@ -145,11 +148,11 @@
 
                     utilityService.showModal({
                         component: "addOrEditEffectQueueModal",
-                        size: "sm",
+                        size: "md",
                         resolveObj: {
                             effectQueue: () => effectQueue
                         },
-                        closeCallback: response => {
+                        closeCallback: (response) => {
                             resolve(response.effectQueue.id);
                         }
                     });
@@ -157,7 +160,7 @@
             };
 
             service.showDeleteEffectQueueModal = (effectQueueId) => {
-                return new Promise(resolve => {
+                return new Promise((resolve) => {
                     if (effectQueueId == null) {
                         resolve(false);
                     }
@@ -174,7 +177,7 @@
                             confirmLabel: "削除する",
                             confirmBtnType: "btn-danger"
                         })
-                        .then(confirmed => {
+                        .then((confirmed) => {
                             if (confirmed) {
                                 service.deleteEffectQueue(effectQueueId);
                             }

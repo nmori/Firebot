@@ -113,6 +113,14 @@
                 commandsService.resetCooldownsForCommand(command.id);
             };
 
+            $scope.resetAllPerStreamCommandUsages = () => {
+                commandsService.resetAllPerStreamCommandUsages();
+            };
+
+            $scope.resetPerStreamUsagesForCommand = (command) => {
+                commandsService.resetPerStreamUsagesForCommand(command.id);
+            };
+
             $scope.saveAllCommands = (commands) => {
                 commandsService.saveAllCustomCommands(commands ?? commandsService.commandsCache.customCommands);
             };
@@ -133,7 +141,13 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
+                        html: `<a href ><i class="iconify" data-icon="mdi:tally-mark-5" style="margin-right: 10px;"></i> 使用量をクリア</a>`,
+                        click: () => {
+                            $scope.resetPerStreamUsagesForCommand(command);
+                        }
+                    },
+                    {
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "無効にする" : "有効にする"}</a>`,
                         click: () => {
                             $scope.toggleCustomCommandActiveState(command);
                         }

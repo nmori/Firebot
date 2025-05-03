@@ -174,6 +174,10 @@
                 commandsService.resetCooldownsForCommand($ctrl.command.id);
             };
 
+            $ctrl.resetPerStreamUsagesForCommand = () => {
+                commandsService.resetPerStreamUsagesForCommand($ctrl.command.id);
+            };
+
             $ctrl.toggleCommandActiveState = function() {
                 $ctrl.command.active = !$ctrl.command.active;
                 commandsService.saveSystemCommandOverride($ctrl.command);
@@ -194,7 +198,13 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${$ctrl.command.active ? "無効化する" : "有効化する"}</a>`,
+                        html: `<a href ><i class="iconify" data-icon="mdi:tally-mark-5" style="margin-right: 10px;"></i> 使用量をクリア</a>`,
+                        click: () => {
+                            $ctrl.resetPerStreamUsagesForCommand();
+                        }
+                    },
+                    {
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${$ctrl.command.active ? "Disable Command" : "Enable Command"}</a>`,
                         click: function () {
                             $ctrl.command.active = !$ctrl.command.active;
                             commandsService.saveSystemCommandOverride($ctrl.command);

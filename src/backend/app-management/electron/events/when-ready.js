@@ -142,7 +142,7 @@ exports.whenReady = async () => {
     await chatRolesManager.loadVips();
 
     windowManagement.updateSplashScreenStatus("演出キューを読込中...");
-    const effectQueueManager = require("../../../effects/queues/effect-queue-manager");
+    const effectQueueManager = require("../../../effects/queues/effect-queue-config-manager");
     effectQueueManager.loadItems();
 
     windowManagement.updateSplashScreenStatus("プリセット演出リストを読込中...");

@@ -97,15 +97,9 @@
             controller: function (utilityService, backendCommunicator) {
                 const $ctrl = this;
 
-                const restrictionDefinitions = backendCommunicator.fireEventSync("getRestrictions")
-                    .map((r) => {
-                        return {
-                            definition: r.definition,
-                            optionsTemplate: r.optionsTemplate,
-                            optionsController: eval(r.optionsControllerRaw), // eslint-disable-line no-eval
-                            optionsValueDisplay: eval(r.optionsValueDisplayRaw) // eslint-disable-line no-eval
-                        };
-                    });
+                console.log("Restrictions List", $ctrl.trigger, $ctrl.triggerMeta);
+
+                $ctrl.restrictionDefinitions = [];
 
                 $ctrl.getRestrictionModeDisplay = function () {
                     if ($ctrl.restrictionData.mode === "any") {
@@ -126,7 +120,22 @@
                 }
 
                 $ctrl.$onInit = function () {
-                    const DEFAULT_FAIL_MESSAGE = `@{user}さん、すみません。 ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} は使えません。理由: {reason}`;
+                    const DEFAULT_FAIL_MESSAGE = `@{user}さん、申し訳ないですが ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} は使えません。理由: {reason}`;
+
+                    $ctrl.restrictionDefinitions = backendCommunicator.fireEventSync("getRestrictions", {
+                        triggerType: $ctrl.trigger,
+                        triggerMeta: $ctrl.triggerMeta
+                    })
+                        .map((r) => {
+                            return {
+                                definition: r.definition,
+                                optionsTemplate: r.optionsTemplate,
+                                optionsController: eval(r.optionsControllerRaw), // eslint-disable-line no-eval
+                                optionsValueDisplay: eval(r.optionsValueDisplayRaw) // eslint-disable-line no-eval
+                            };
+                        });
+
+                    const DEFAULT_FAIL_MESSAGE = `Sorry @{user}, you cannot use this ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} because: {reason}`;
 
                     if ($ctrl.restrictionData == null) {
                         $ctrl.restrictionData = {
@@ -170,12 +179,12 @@
                 };
 
                 $ctrl.getRestrictionDefinition = function (restrictionType) {
-                    return restrictionDefinitions.find(r => r.definition.id === restrictionType);
+                    return $ctrl.restrictionDefinitions.find(r => r.definition.id === restrictionType);
                 };
 
                 $ctrl.showAddRestrictionModal = function () {
 
-                    const options = restrictionDefinitions
+                    const options = $ctrl.restrictionDefinitions
                         .filter(r => !r.definition.hidden)
                         .map((r) => {
                             return {

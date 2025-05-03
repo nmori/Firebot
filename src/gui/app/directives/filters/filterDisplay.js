@@ -21,13 +21,14 @@
                 $ctrl.filterValueDisplay = "[未設定]";
 
                 function getFilterValueDisplay() {
-                    return $q(async resolve => {
+                    return $q(async (resolve) => {
                         if ($ctrl.filter == null || $ctrl.filter.value == null) {
                             resolve("[未設定]");
                         } else {
                             const value = await $injector.invoke($ctrl.filterType.getSelectedValueDisplay, {}, {
                                 filterSettings: $ctrl.filter,
-                                filterType: $ctrl.filterType
+                                filterType: $ctrl.filterType,
+                                presetValues: await $injector.invoke($ctrl.filterType.getPresetValues, {}, {})
                             });
                             resolve(value);
                         }
@@ -37,14 +38,14 @@
                 }
 
                 $ctrl.$onInit = function() {
-                    getFilterValueDisplay().then(value => {
+                    getFilterValueDisplay().then((value) => {
                         $ctrl.filterValueDisplay = value;
                     });
                 };
 
                 $ctrl.$onChanges = function() {
 
-                    getFilterValueDisplay().then(value => {
+                    getFilterValueDisplay().then((value) => {
                         $ctrl.filterValueDisplay = value;
                     });
                 };

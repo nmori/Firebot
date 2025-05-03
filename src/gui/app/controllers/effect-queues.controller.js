@@ -5,7 +5,8 @@
         .controller("effectQueuesController", function(
             $scope,
             effectQueuesService,
-            utilityService
+            utilityService,
+            backendCommunicator
         ) {
             $scope.effectQueuesService = effectQueuesService;
 
@@ -14,8 +15,8 @@
             };
 
             $scope.getQueueModeName = (modeId) => {
-                const mode = effectQueuesService.queueModes.find(m => m.id === modeId);
-                return mode ? mode.display : "不明";
+                const mode = effectQueuesService.queueModes.find(m => m.value === modeId);
+                return mode ? mode.label : "不明";
             };
 
             $scope.headers = [
@@ -35,8 +36,8 @@
                     cellTemplate: `{{getQueueModeName(data.mode)}}`,
                     cellController: ($scope) => {
                         $scope.getQueueModeName = (modeId) => {
-                            const mode = effectQueuesService.queueModes.find(m => m.id === modeId);
-                            return mode ? mode.display : "不明";
+                            const mode = effectQueuesService.queueModes.find(m => m.value === modeId);
+                            return mode ? mode.label : "不明";
                         };
                     }
                 },
@@ -46,12 +47,6 @@
                     dataField: "interval",
                     sortable: true,
                     cellTemplate: `{{(data.mode === 'interval' || data.mode === 'auto') ? (data.interval || 0) + 's' : 'n/a'}}`,
-                    cellController: () => {}
-                },
-                {
-                    name: "キューの長さ",
-                    icon: "fa-tally",
-                    cellTemplate: `{{data.length || 0}}`,
                     cellController: () => {}
                 }
             ];
@@ -92,7 +87,7 @@
                                     confirmLabel: "Delete",
                                     confirmBtnType: "btn-danger"
                                 })
-                                .then(confirmed => {
+                                .then((confirmed) => {
                                     if (confirmed) {
                                         effectQueuesService.deleteEffectQueue(item.id);
                                     }
@@ -103,6 +98,11 @@
                 ];
 
                 return options;
+            };
+
+
+            $scope.openEffectQueueMonitor = () => {
+                backendCommunicator.send("open-effect-queue-monitor");
             };
         });
 }());

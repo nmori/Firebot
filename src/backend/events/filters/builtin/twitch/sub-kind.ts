@@ -1,4 +1,4 @@
-import { EventFilter } from "../../../../../types/events";
+import { EventFilter, PresetValue } from "../../../../../types/events";
 import { ComparisonType } from "../../../../../shared/filter-constants";
 
 const filter: EventFilter = {
@@ -20,15 +20,9 @@ const filter: EventFilter = {
                 display: "再び"
             }
     ],
-    getSelectedValueDisplay: (filterSettings) => {
-        switch (filterSettings.value) {
-            case "first":
-                return "初回";
-            case "resub":
-                return "再び";
-            default:
-                return "[未設定]";
-        }
+    getSelectedValueDisplay: (filterSettings, presetValues: PresetValue[]) => {
+        return presetValues
+            .find(pv => pv.value === filterSettings.value)?.display ?? "[未設定]";
     },
     predicate: (filterSettings, eventData) => {
         const { value } = filterSettings;
