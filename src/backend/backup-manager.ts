@@ -181,6 +181,9 @@ class BackupManager {
             zlib: { level: 9 }
         });
 
+        // 最適化: 圧縮レベルを調整（9は最大圧縮だが遅い、5は中程度の圧縮で速度も適切）
+        const compressionLevel = manualActivation ? 9 : 5; // 手動バックアップの場合は最大圧縮、自動バックアップは中程度
+        
         archive.on("warning", function(err) {
             if (err.code === "ENOENT") {
                 logger.warn("Error during backup: ", err);
@@ -201,12 +204,17 @@ class BackupManager {
 
         archive.pipe(output);
 
-        const varIgnoreInArchive = ["backups/**", "clips/**", "logs/**", "overlay.html", "profiles/*/db/*.db~"];
+        const varIgnoreInArchive = ["backups/**", "clips/**", "logs/**", "overlay.html", "profiles/*/db/*.db~", "cache/**"];
         const ignoreResources = SettingsManager.getSetting("BackupIgnoreResources");
 
         if (ignoreResources && !manualActivation) {
             logger.info("Ignoring overlay-resources folder");
             varIgnoreInArchive.push("overlay-resources/**");
+        }
+        
+        // バックアップサイズをさらに削減するため、キャッシュフォルダを除外
+        if (!manualActivation) {
+            varIgnoreInArchive.push("profiles/*/cache/**");
         }
 
         archive.glob('**/*', {
@@ -215,11 +223,22 @@ class BackupManager {
         });
 
         try {
+            logger.info(`Starting backup with compression level ${compressionLevel}...`);
+            const startTime = Date.now();
+            
             await archive.finalize();
+            
+            const endTime = Date.now();
+            logger.info(`Backup completed in ${(endTime - startTime) / 1000} seconds`);
 
             SettingsManager.saveSetting("LastBackupDate", new Date());
 
-            await this.cleanUpOldBackups();
+            // バックアップクリーンアップを非同期で実行
+            setTimeout(() => {
+                this.cleanUpOldBackups().catch(err => {
+                    logger.error("Error cleaning up old backups", err);
+                });
+            }, 5000);
         } catch (error) {
             logger.error("Error finalizing backup archive", error);
         }
@@ -239,9 +258,17 @@ class BackupManager {
 
             if (!isSameDay) {
                 logger.info("Doing once a day backup");
-                await this.startBackup();
+                // ここで起動時の即時バックアップを避けるため、Promise解決を待たずに実行
+                this.startBackup().catch(err => {
+                    logger.error("Error during daily backup", err);
+                });
+                
+                // trueを返して呼び出し元に処理が進んでいることを伝える
+                return true;
             }
         }
+        
+        return false;
     }
 
     async restoreBackup(backupFilePath: string): Promise<{ success: boolean; reason?: string; }> {
@@ -298,22 +325,49 @@ class BackupManager {
     }
 
     private async validateBackupZip(backupFilePath: string): Promise<boolean> {
-        let hasProfilesDir = false;
-        let hasGlobalSettings = false;
+        try {
+            let hasProfilesDir = false;
+            let hasGlobalSettings = false;
 
-        await fs.createReadStream(backupFilePath)
-            .pipe(unzipper.Parse() //eslint-disable-line new-cap
-                .on('entry', (entry) => {
-                    if (entry.path.includes("profiles")) {
-                        hasProfilesDir = true;
-                    } else if (entry.path.includes("global-settings")) {
-                        hasGlobalSettings = true;
-                    }
-                    entry.autodrain();
-                }))
-            .promise();
-
-        return hasProfilesDir && hasGlobalSettings;
+            // より速く判定するために、必要な情報が見つかったら早期リターン
+            const extractPromise = new Promise<boolean>((resolve, reject) => {
+                fs.createReadStream(backupFilePath)
+                    .pipe(unzipper.Parse() //eslint-disable-line new-cap
+                        .on('entry', (entry) => {
+                            if (entry.path.includes("profiles")) {
+                                hasProfilesDir = true;
+                            } else if (entry.path.includes("global-settings")) {
+                                hasGlobalSettings = true;
+                            }
+                            
+                            // 両方見つかったらストリームを終了して早期リターン
+                            if (hasProfilesDir && hasGlobalSettings) {
+                                entry.autodrain();
+                                resolve(true);
+                                return;
+                            }
+                            
+                            entry.autodrain();
+                        })
+                        .on('error', (err) => {
+                            logger.error("Error validating backup zip", err);
+                            reject(err);
+                        })
+                        .on('close', () => {
+                            resolve(hasProfilesDir && hasGlobalSettings);
+                        }));
+            });
+            
+            // タイムアウト処理を追加（30秒）
+            const timeoutPromise = new Promise<boolean>((resolve) => {
+                setTimeout(() => resolve(false), 30000);
+            });
+            
+            return await Promise.race([extractPromise, timeoutPromise]);
+        } catch (error) {
+            logger.error("Error during backup validation", error);
+            return false;
+        }
     }
 
     private async extractBackupZip(backupFilePath: string) {

@@ -1,4 +1,5 @@
 import fsp from "fs/promises";
+import fs from "fs";
 import path from "path";
 import logger from "./logwrapper";
 import frontendCommunicator from "./common/frontend-communicator";
@@ -22,9 +23,12 @@ export type FirebotFont = {
 }
 
 class FontManager {
+    private readonly fontCacheFile: string;
     cachedFonts: FirebotFont[] = [];
+    fontCssGenerated = false;
 
     constructor() {
+        this.fontCacheFile = path.join(this.fontsFolder, "fonts-cache.json");
         frontendCommunicator.on("fonts:get-font-folder-path", () => {
             return this.fontsFolder;
         });
@@ -82,6 +86,31 @@ class FontManager {
     }
 
     async loadInstalledFonts(): Promise<void> {
+        try {
+            // キャッシュファイルが存在する場合は読み込む
+            if (fs.existsSync(this.fontCacheFile)) {
+                logger.debug("フォントキャッシュから読み込みます...");
+                const cachedData = await fsp.readFile(this.fontCacheFile, 'utf8');
+                this.cachedFonts = JSON.parse(cachedData);
+                
+                // キャッシュからの読み込みは成功したが、実際にファイルが存在するか非同期で確認する
+                // これにより、起動プロセスはブロックせずに進行する
+                setTimeout(async () => {
+                    await this.validateAndUpdateFontCache();
+                }, 10000); // 10秒後に検証（アプリが起動した後）
+                
+                return;
+            }
+        } catch (error) {
+            logger.warn("フォントキャッシュの読み込みに失敗しました、通常の読み込みを行います", error);
+        }
+        
+        // キャッシュがない場合やエラーの場合は通常通り読み込む
+        await this.refreshFontCache();
+    }
+    
+    private async refreshFontCache(): Promise<void> {
+        logger.debug("フォント一覧を更新します...");
         const fonts = (await fsp.readdir(this.fontsFolder))
             .filter((f) => {
                 const normalized = f.toLowerCase();
@@ -100,7 +129,52 @@ class FontManager {
             });
 
         this.cachedFonts = fonts;
-        await this.generateAppFontCssFile();
+        
+        // キャッシュファイルを更新
+        try {
+            await fsp.writeFile(this.fontCacheFile, JSON.stringify(this.cachedFonts), 'utf8');
+            logger.debug("フォントキャッシュを更新しました");
+        } catch (error) {
+            logger.error("フォントキャッシュの保存に失敗しました", error);
+        }
+        
+        // メインウィンドウが読み込まれた後にCSSを生成する
+        setTimeout(() => {
+            this.generateAppFontCssFile().catch(err => {
+                logger.error("フォントCSSの生成に失敗しました", err);
+            });
+        }, 5000); // 5秒後に遅延実行
+    }
+    
+    private async validateAndUpdateFontCache(): Promise<void> {
+        try {
+            // ディレクトリからファイル一覧を取得
+            const files = await fsp.readdir(this.fontsFolder);
+            const fontFiles = files.filter(f => {
+                const normalized = f.toLowerCase();
+                return normalized.endsWith(".ttf")
+                    || normalized.endsWith(".woff")
+                    || normalized.endsWith(".woff2")
+                    || normalized.endsWith(".otf");
+            });
+            
+            // キャッシュと実際のファイル一覧を比較
+            const cachedFilenames = this.cachedFonts.map(f => f.filename);
+            const needsUpdate = 
+                fontFiles.length !== cachedFilenames.length ||
+                fontFiles.some(file => !cachedFilenames.includes(file)) ||
+                cachedFilenames.some(file => !fontFiles.includes(file));
+            
+            if (needsUpdate) {
+                logger.info("フォントファイルとキャッシュに不一致があるため、更新します");
+                await this.refreshFontCache();
+            } else if (!this.fontCssGenerated) {
+                // CSSがまだ生成されていない場合は生成する
+                await this.generateAppFontCssFile();
+            }
+        } catch (error) {
+            logger.error("フォントキャッシュの検証に失敗しました", error);
+        }
     }
 
     getFont(name: string): FirebotFont {
@@ -121,6 +195,9 @@ class FontManager {
                 format: this.getFontFormatFromFilename(filename)
             });
             logger.info(`Font ${filename} installed`);
+
+            // キャッシュファイルを更新
+            await fsp.writeFile(this.fontCacheFile, JSON.stringify(this.cachedFonts), 'utf8');
 
             await this.generateAppFontCssFile();
 
@@ -145,6 +222,9 @@ class FontManager {
                 this.cachedFonts.splice(this.cachedFonts.indexOf(font), 1);
                 logger.info(`Font ${name} removed`);
 
+                // キャッシュファイルを更新
+                await fsp.writeFile(this.fontCacheFile, JSON.stringify(this.cachedFonts), 'utf8');
+
                 await this.generateAppFontCssFile();
             } catch (error) {
                 logger.error(`Error removing font ${name}`, error);
@@ -153,6 +233,7 @@ class FontManager {
     }
 
     async generateAppFontCssFile(): Promise<void> {
+        this.fontCssGenerated = true;
         try {
             let cssFileRaw = "";
 

@@ -28,243 +28,224 @@ exports.whenReady = async () => {
     const { ensureRequiredFoldersExist } = require("../../data-tasks");
     ensureRequiredFoldersExist();
 
-    // load twitch auth
-    windowManagement.updateSplashScreenStatus("Twitch接続を読込中...");
-    require("../../../auth/auth-manager");
+    // 並列でロード可能なモジュールの事前読み込み
+    windowManagement.updateSplashScreenStatus("モジュールを準備中...");
     const twitchAuth = require("../../../auth/twitch-auth");
-    twitchAuth.registerTwitchAuthProviders();
-
-    // load accounts
-    windowManagement.updateSplashScreenStatus("アカウント設定を読込中...");
     const accountAccess = require("../../../common/account-access");
-    await accountAccess.updateAccountCache(false);
-
     const firebotDeviceAuthProvider = require("../../../auth/firebot-device-auth-provider");
-    firebotDeviceAuthProvider.setupDeviceAuthProvider();
-
     const connectionManager = require("../../../common/connection-manager");
-
-    windowManagement.updateSplashScreenStatus("タイマーを読込中...");
     const timerManager = require("../../../timers/timer-manager");
-    await timerManager.loadItems();
-    timerManager.startTimers();
-
-    windowManagement.updateSplashScreenStatus("計画された演出を読込中...");
     const scheduledTaskManager = require("../../../timers/scheduled-task-manager");
-    scheduledTaskManager.loadItems();
-    scheduledTaskManager.start();
+    
+    // load twitch auth
+    windowManagement.updateSplashScreenStatus("Twitch接続とアカウント設定を読込中...");
+    
+    // 認証関連の処理を並列実行
+    await Promise.all([
+        (async () => {
+            require("../../../auth/auth-manager");
+            twitchAuth.registerTwitchAuthProviders();
+            await accountAccess.updateAccountCache(false);
+            firebotDeviceAuthProvider.setupDeviceAuthProvider();
+        })(),
+        
+        // タイマー関連の並列ロード
+        (async () => {
+            await timerManager.loadItems();
+            timerManager.startTimers();
+            scheduledTaskManager.loadItems();
+            scheduledTaskManager.start();
+        })()
+    ]);
 
     windowManagement.updateSplashScreenStatus("Twitchとデータ同期中...");
     await accountAccess.refreshTwitchData();
-
+    
     windowManagement.updateSplashScreenStatus("配信ステータス監視を開始...");
     connectionManager.startOnlineCheckInterval();
 
-    // load effects
-    logger.debug("Loading effects...");
-    windowManagement.updateSplashScreenStatus("演出を読込中...");
+    // モジュールを事前にrequireして準備
+    logger.debug("準備モジュールを読込中...");
+    windowManagement.updateSplashScreenStatus("モジュールを読込中...");
+    
     const { loadEffects } = require("../../../effects/builtin-effect-loader");
-    loadEffects();
-
-    windowManagement.updateSplashScreenStatus("通貨情報を読込中...");
     const currencyAccess = require("../../../currency/currency-access").default;
-    currencyAccess.loadCurrencies();
-
-    windowManagement.updateSplashScreenStatus("Loading ranks...");
     const viewerRanksManager = require("../../../ranks/rank-manager");
-    viewerRanksManager.loadItems();
-
-    // load commands
-    logger.debug("Loading sys commands...");
-    windowManagement.updateSplashScreenStatus("システムコマンドを読込中...");
     const { loadSystemCommands } = require("../../../chat/commands/system-command-loader");
-    loadSystemCommands();
-
-    // load event sources
-    logger.debug("Loading event sources...");
-    windowManagement.updateSplashScreenStatus("イベントを読込中...");
     const { loadEventSources } = require("../../../events/builtin-event-source-loader");
-    loadEventSources();
-
-    // load event filters
-    logger.debug("Loading event filters...");
-    windowManagement.updateSplashScreenStatus("フィルタを読込中...");
     const { loadFilters } = require("../../../events/filters/builtin-filter-loader");
-    loadFilters();
-
-    // load integrations
-    logger.debug("Loading integrations...");
-    windowManagement.updateSplashScreenStatus("統合機能を読込中...");
     const { loadIntegrations } = require("../../../integrations/builtin-integration-loader");
-    loadIntegrations();
-
-    // load variables
-    logger.debug("Loading variables...");
-    windowManagement.updateSplashScreenStatus("変数を読込中...");
     const { loadReplaceVariables } = require("../../../variables/variable-loader");
-    loadReplaceVariables();
-
-    windowManagement.updateSplashScreenStatus("Loading variable macros...");
     const macroManager = require("../../../variables/macro-manager");
-    macroManager.loadItems();
-
-    // load restrictions
-    logger.debug("Loading restrictions...");
-    windowManagement.updateSplashScreenStatus("制限データを読込中...");
     const { loadRestrictions } = require("../../../restrictions/builtin-restrictions-loader");
-    loadRestrictions();
-
-    windowManagement.updateSplashScreenStatus("Loading fonts...");
     const { FontManager } = require("../../../font-manager");
-    await FontManager.loadInstalledFonts();
-
-    windowManagement.updateSplashScreenStatus("イベントを読込中...");
     const eventsAccess = require("../../../events/events-access");
-    eventsAccess.loadEventsAndGroups();
-
-    windowManagement.updateSplashScreenStatus("チームの役割を読込中...");
     const teamRolesManager = require("../../../roles/team-roles-manager");
-    teamRolesManager.loadTeamRoles();
-
-    windowManagement.updateSplashScreenStatus("カスタムの役割を読込中...");
     const customRolesManager = require("../../../roles/custom-roles-manager");
-    await customRolesManager.loadCustomRoles();
-
     const chatRolesManager = require("../../../roles/chat-roles-manager");
-
-    windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
-    await chatRolesManager.cacheViewerListBots();
-
-    windowManagement.updateSplashScreenStatus("モデレータ情報読込中...");
-    await chatRolesManager.loadModerators();
-
-    windowManagement.updateSplashScreenStatus("VIP情報読込中...");
-    await chatRolesManager.loadVips();
-
-    windowManagement.updateSplashScreenStatus("演出キューを読込中...");
     const effectQueueManager = require("../../../effects/queues/effect-queue-config-manager");
-    effectQueueManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("プリセット演出リストを読込中...");
     const presetEffectListManager = require("../../../effects/preset-lists/preset-effect-list-manager");
-    presetEffectListManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("クイックアクションを読込中...");
     const quickActionManager = require("../../../quick-actions/quick-action-manager");
-    quickActionManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("スタートアップスクリプト実行中...");
     const startupScriptsManager = require("../../../common/handlers/custom-scripts/startup-scripts-manager");
-    startupScriptsManager.loadStartupConfig();
-
-    windowManagement.updateSplashScreenStatus("チャットモデレートを起動中...");
     const { ChatModerationManager } = require("../../../chat/moderation/chat-moderation-manager");
-    ChatModerationManager.load();
-
-    windowManagement.updateSplashScreenStatus("カウンターを読込中...");
     const { CounterManager } = require("../../../counters/counter-manager");
-    CounterManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("ゲームを読込中...");
     const gamesManager = require("../../../games/game-manager");
-    gamesManager.loadGameSettings();
-
     const builtinGameLoader = require("../../../games/builtin-game-loader");
-    builtinGameLoader.loadGames();
-
-    windowManagement.updateSplashScreenStatus("カスタム変数を読込中...");
     const { SettingsManager } = require("../../../common/settings-manager");
-    if (SettingsManager.getSetting("PersistCustomVariables")) {
-        const customVariableManager = require("../../../common/custom-variable-manager");
-        customVariableManager.loadVariablesFromFile();
-    }
-
-    windowManagement.updateSplashScreenStatus("Loading sort tags...");
     const { SortTagManager } = require("../../../sort-tags/sort-tag-manager");
-    SortTagManager.loadSortTags();
-
-    // get importer in memory
-    windowManagement.updateSplashScreenStatus("インポートを読込中...");
-
     const setupImporter = require("../../../import/setups/setup-importer");
-    setupImporter.setupListeners();
-
     const slcbImporter = require("../../../import/third-party/streamlabs-chatbot");
-    slcbImporter.setupListeners();
-
     const { setupCommonListeners } = require("../../../common/common-listeners");
-    setupCommonListeners();
-
-    windowManagement.updateSplashScreenStatus("ホットキーを読込中...");
     const { HotkeyManager } = require("../../../hotkeys/hotkey-manager");
-    HotkeyManager.loadHotkeys();
-
-    windowManagement.updateSplashScreenStatus("通貨を読込中...");
     const currencyManager = require("../../../currency/currencyManager");
-    currencyManager.startTimer();
+    
+    // 優先度の高いモジュールを最初に並列ロード
+    windowManagement.updateSplashScreenStatus("主要機能を読込中...");
+    
+    await Promise.all([
+        // 1. コア機能
+        (async () => {
+            loadEffects();
+            loadSystemCommands();
+            loadEventSources();
+            loadFilters();
+        })(),
+        
+        // 2. データ関連
+        (async () => {
+            currencyAccess.loadCurrencies();
+            viewerRanksManager.loadItems();
+            loadIntegrations();
+        })(),
+        
+        // 3. 変数とUI関連
+        (async () => {
+            loadReplaceVariables();
+            macroManager.loadItems();
+            loadRestrictions();
+            FontManager.loadInstalledFonts();
+        })(),
+        
+        // 4. 役割関連
+        (async () => {
+            eventsAccess.loadEventsAndGroups();
+            teamRolesManager.loadTeamRoles();
+            await customRolesManager.loadCustomRoles();
+        })()
+    ]);
+    
+    // 第2段階のロード (ユーザー関連)
+    windowManagement.updateSplashScreenStatus("ユーザー情報を読込中...");
+    await Promise.all([
+        chatRolesManager.cacheViewerListBots(),
+        chatRolesManager.loadModerators(),
+        chatRolesManager.loadVips()
+    ]);
+    
+    // 第3段階のロード (設定関連)
+    windowManagement.updateSplashScreenStatus("設定とゲームを読込中...");
+    await Promise.all([
+        (async () => {
+            effectQueueManager.loadItems();
+            presetEffectListManager.loadItems();
+            quickActionManager.loadItems();
+        })(),
+        
+        (async () => {
+            startupScriptsManager.loadStartupConfig();
+            ChatModerationManager.load();
+            CounterManager.loadItems();
+        })(),
+        
+        (async () => {
+            gamesManager.loadGameSettings();
+            builtinGameLoader.loadGames();
+            if (SettingsManager.getSetting("PersistCustomVariables")) {
+                const customVariableManager = require("../../../common/custom-variable-manager");
+                customVariableManager.loadVariablesFromFile();
+            }
+            SortTagManager.loadSortTags();
+        })()
+    ]);
+    
+    // 第4段階のロード (インポートとリスナー)
+    windowManagement.updateSplashScreenStatus("リスナーとホットキーを読込中...");
+    await Promise.all([
+        (async () => {
+            setupImporter.setupListeners();
+            slcbImporter.setupListeners();
+            setupCommonListeners();
+        })(),
+        
+        (async () => {
+            HotkeyManager.loadHotkeys();
+            currencyManager.startTimer();
+        })()
+    ]);
 
-    // Connect to DBs.
-    windowManagement.updateSplashScreenStatus("視聴者データを読込中...");
-    logger.info("Creating or connecting user database");
+    // データベース接続を並列に行う
+    windowManagement.updateSplashScreenStatus("データベースに接続中...");
+    logger.info("Connecting to databases in parallel");
+    
+    // DBモジュールの読み込み
     const viewerDatabase = require("../../../viewers/viewer-database");
-    await viewerDatabase.connectViewerDatabase();
-
-    // Set users in user db to offline if for some reason they are still set to online. (app crash or something)
     const viewerOnlineStatusManager = require("../../../viewers/viewer-online-status-manager");
-    await viewerOnlineStatusManager.setAllViewersOffline();
-
-    windowManagement.updateSplashScreenStatus("ステータスを読込中...");
-    logger.info("Creating or connecting stats database");
     const statsdb = require("../../../database/statsDatabase");
-    await statsdb.connectStatsDatabase();
-
-    windowManagement.updateSplashScreenStatus("引用文を読込中...");
-    logger.info("Creating or connecting quotes database");
     const quotesdb = require("../../../quotes/quotes-manager");
-    await quotesdb.loadQuoteDatabase();
-
-    // These are defined globally for Custom Scripts.
-    // We will probably want to handle these differently but we shouldn't
-    // change anything until we are ready as changing this will break most scripts
+    
+    // データベース接続を並列実行
+    await Promise.all([
+        (async () => {
+            await viewerDatabase.connectViewerDatabase();
+            await viewerOnlineStatusManager.setAllViewersOffline();
+        })(),
+        statsdb.connectStatsDatabase(),
+        quotesdb.loadQuoteDatabase()
+    ]);
+    
+    // グローバル設定
     const Effect = require("../../../common/EffectType");
     global.EffectType = Effect.EffectTypeV5Map;
     const profileManager = require("../../../common/profile-manager");
     global.SCRIPTS_DIR = profileManager.getPathInProfile("/scripts/");
 
-    windowManagement.updateSplashScreenStatus("バックアップ実行中...");
-    const { BackupManager } = require("../../../backup-manager");
-    await BackupManager.onceADayBackUpCheck();
-
-    // start the REST api server
+    // ウェブサーバーとUI関連の起動
     windowManagement.updateSplashScreenStatus("Webサーバ起動中...");
     const httpServerManager = require("../../../../server/http-server-manager");
-    httpServerManager.start();
-
-    // register websocket event handlers
     const websocketEventsHandler = require("../../../../server/websocket-events-handler");
-    websocketEventsHandler.createComponentEventListeners();
-
-    windowManagement.updateSplashScreenStatus("チャンネル特典を読込中...");
     const channelRewardManager = require("../../../channel-rewards/channel-reward-manager");
-    await channelRewardManager.loadChannelRewards();
-
-    // load activity feed manager
-    require("../../../events/activity-feed-manager");
-
     const { IconManager } = require("../../../common/icon-manager");
-    await IconManager.loadFontAwesomeIcons();
-
-    windowManagement.updateSplashScreenStatus("配信情報を読込中...");
     const streamInfoPoll = require("../../../twitch-api/stream-info-manager");
-    streamInfoPoll.startStreamInfoPoll();
-
-    windowManagement.updateSplashScreenStatus("通知管理を起動中...");
     const notificationManager = require("../../../notifications/notification-manager").default;
-    notificationManager.loadNotificationCache();
-
-    // get ui extension manager in memory
-    require("../../../ui-extensions/ui-extension-manager");
-
+    
+    // ウェブサーバーを起動しながら他の処理も並列実行
+    await Promise.all([
+        (async () => {
+            httpServerManager.start();
+            websocketEventsHandler.createComponentEventListeners();
+        })(),
+        
+        (async () => {
+            await channelRewardManager.loadChannelRewards();
+            require("../../../events/activity-feed-manager");
+            require("../../../ui-extensions/ui-extension-manager");
+        })(),
+        
+        (async () => {
+            await IconManager.loadFontAwesomeIcons();
+            streamInfoPoll.startStreamInfoPoll();
+            notificationManager.loadNotificationCache();
+        })()
+    ]);
+    
+    // バックアップ確認処理を遅延実行するためのタイマーをセット
+    const { BackupManager } = require("../../../backup-manager");
+    setTimeout(() => {
+        BackupManager.onceADayBackUpCheck().catch(err => {
+            logger.error("Failed to run backup check", err);
+        });
+    }, 60000); // 1分後に実行
+    
     logger.debug('...loading main window');
     windowManagement.updateSplashScreenStatus("準備完了、さぁ始めよう！");
     await windowManagement.createMainWindow();
