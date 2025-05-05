@@ -1,6 +1,7 @@
 "use strict";
 const { ComparisonType } = require("../../../../../../shared/filter-constants");
 const logger = require("../../../../../logwrapper");
+const { mapLegacyComparisonType } = require("../../../../../../shared/filter-helpers");
 
 module.exports = {
     id: "firebot:username",
@@ -22,7 +23,10 @@ module.exports = {
         const triggerUsername = trigger.metadata.username ? trigger.metadata.username.toLowerCase() : "";
         const conditionUsername = rightSideValue ? rightSideValue.toLowerCase() : "";
 
-        switch (comparisonType) {
+        // 旧式のComparisonTypeを標準化
+        const standardComparisonType = mapLegacyComparisonType(comparisonType);
+
+        switch (standardComparisonType) {
             case ComparisonType.IS:
             case ComparisonType.COMPAT_IS:
             case ComparisonType.COMPAT2_IS:

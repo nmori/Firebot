@@ -113,16 +113,28 @@
 
                 $ctrl.canAddMoreRestrictions = true;
                 function updateCanAddMoreRestrictions() {
-                    /*$ctrl.canAddMoreRestrictions = restrictionDefinitions
+                    $ctrl.canAddMoreRestrictions = $ctrl.restrictionDefinitions
                         .some(r => {
                             return !$ctrl.restrictionData.restrictions.some(rs => rs.type === r.definition.id);
-                        });*/
+                        });
                 }
 
-                $ctrl.$onInit = function () {
-                    const DEFAULT_FAIL_MESSAGE = `@{user}さん、申し訳ないですが ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} は使えません。理由: {reason}`;
+                $ctrl.$onInit = function() {
 
-                    if ($ctrl.restrictionData == null) {
+                    $ctrl.restrictionDefinitions = backendCommunicator.fireEventSync("getRestrictions", {
+                        triggerType: $ctrl.trigger,
+                        triggerMeta: $ctrl.triggerMeta
+                    })
+                        .map((r) => {
+                            return {
+                                definition: r.definition,
+                                optionsTemplate: r.optionsTemplate,
+                                optionsController: eval(r.optionsControllerRaw), // eslint-disable-line no-eval
+                                optionsValueDisplay: eval(r.optionsValueDisplayRaw) // eslint-disable-line no-eval
+                            };
+                        });
+
+                        const DEFAULT_FAIL_MESSAGE = `@{user}さん、申し訳ないですが ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} は使えません。理由: {reason}`;                    if ($ctrl.restrictionData == null) {
                         $ctrl.restrictionData = {
                             restrictions: [],
                             mode: "all",

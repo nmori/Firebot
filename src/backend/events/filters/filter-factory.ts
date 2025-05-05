@@ -2,6 +2,7 @@ import { EventFilter, FilterSettings, PresetValue } from "../../../types/events"
 import { ComparisonType } from "../../../shared/filter-constants";
 import { extractPropertyWithPath } from "../../utility";
 const logger = require("../../logwrapper");
+const { mapLegacyComparisonType } = require("../../../shared/filter-helpers");
 
 type EventData = {
     eventSourceId: string;
@@ -66,7 +67,9 @@ function compareValue(
     expectedValue: unknown,
     actualValue: unknown
 ): boolean {
-    switch (comparisonType) {
+    // 旧式のComparisonTypeを標準化
+    const standardComparisonType = mapLegacyComparisonType(comparisonType);
+    switch (standardComparisonType) {
         case ComparisonType.IS:
             return actualValue === expectedValue;
         case ComparisonType.IS_NOT:
@@ -136,10 +139,12 @@ export function createTextFilter({
             if (caseInsensitive) {
                 eventValue = eventValue.toString().toLowerCase();
             }
-            const filterValue =
-        (caseInsensitive ? value?.toLowerCase() : value) ?? "";
+            const filterValue = (caseInsensitive ? value?.toLowerCase() : value) ?? "";
 
-            switch (comparisonType) {
+            // 旧式のComparisonTypeを標準化
+            const standardComparisonType = mapLegacyComparisonType(comparisonType);
+
+            switch (standardComparisonType) {
                 case ComparisonType.IS:
                 case ComparisonType.COMPAT_IS:
                 case ComparisonType.COMPAT2_IS:
@@ -223,7 +228,10 @@ export function createNumberFilter({
 
             const eventValue = extractPropertyWithPath(eventMeta, getMetaKey(eventMetaKey, eventData, filterSettings)) ?? 0;
 
-            switch (comparisonType) {
+            // 旧式のComparisonTypeを標準化
+            const standardComparisonType = mapLegacyComparisonType(comparisonType);
+
+            switch (standardComparisonType) {
                 case ComparisonType.IS:
                 case ComparisonType.COMPAT_IS:
                 case ComparisonType.COMPAT2_IS:

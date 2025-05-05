@@ -11,14 +11,14 @@ const filter: EventFilter = {
     comparisonTypes: [ComparisonType.IS],
     valueType: "preset",
     presetValues: () => [
-            {
-                value: "first",
-                display: "初回"
-            },
-            {
-                value: "resub",
-                display: "再び"
-            }
+        {
+            value: "first",
+            display: "初回"
+        },
+        {
+            value: "resub",
+            display: "再び"
+        }
     ],
     getSelectedValueDisplay: (filterSettings, presetValues: PresetValue[]) => {
         return presetValues

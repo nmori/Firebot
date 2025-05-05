@@ -82,7 +82,7 @@ const filter: EventFilter = {
 
             // 旧式のComparisonTypeを標準化
             const standardComparisonType = mapLegacyComparisonType(comparisonType);
-            
+
             switch (standardComparisonType) {
                 case ComparisonType.HAS_ROLE:
                 case ComparisonType.INCLUDING:

@@ -43,7 +43,7 @@ module.exports = {
     predicate: async (conditionSettings, trigger) => {
 
         const { comparisonType, leftSideValue, rightSideValue, rawLeftSideValue } = conditionSettings;
-        
+
         // 旧式のComparisonTypeを標準化
         const standardComparisonType = mapLegacyComparisonType(comparisonType);
 

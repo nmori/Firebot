@@ -5,6 +5,7 @@ import chatRolesManager from "../../../../roles/chat-roles-manager";
 import twitchApi from "../../../../twitch-api/api";
 import { EventFilter } from "../../../../../types/events";
 import { ComparisonType } from "../../../../../shared/filter-constants";
+const { mapLegacyComparisonType } = require("../../../../..//shared/filter-helpers");
 
 const filter: EventFilter = {
     id: "firebot:viewerroles",
@@ -110,7 +111,10 @@ const filter: EventFilter = {
 
             const hasRole = allRoles.some(r => r.id === value);
 
-            switch (comparisonType) {
+            // 旧式のComparisonTypeを標準化
+            const standardComparisonType = mapLegacyComparisonType(comparisonType);
+
+            switch (standardComparisonType) {
                 case ComparisonType.INCLUDING:
                 case ComparisonType.COMPAT_INCLUDING:
                 case ComparisonType.COMPAT2_INCLUDING:

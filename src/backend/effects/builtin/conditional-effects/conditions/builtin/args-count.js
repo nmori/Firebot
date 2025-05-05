@@ -5,6 +5,7 @@ const {
 } = require("../../../../../../shared/effect-constants");
 const { ComparisonType } = require("../../../../../../shared/filter-constants");
 const logger = require("../../../../../logwrapper");
+const { mapLegacyComparisonType } = require("../../../../../../shared/filter-helpers");
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -31,7 +32,10 @@ module.exports = {
 
         const argsCount = args.length;
 
-        switch (comparisonType) {
+        // 旧式のComparisonTypeを標準化
+        const standardComparisonType = mapLegacyComparisonType(comparisonType);
+
+        switch (standardComparisonType) {
             case ComparisonType.IS:
             case ComparisonType.COMPAT_IS:
             case ComparisonType.COMPAT2_IS:

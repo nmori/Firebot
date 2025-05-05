@@ -1,6 +1,7 @@
 "use strict";
 const { ComparisonType } = require("../../../../../../shared/filter-constants");
 const logger = require("../../../../../logwrapper");
+const { mapLegacyComparisonType } = require("../../../../../../shared/filter-helpers");
 
 module.exports = {
     id: "firebot:custom",
@@ -40,8 +41,10 @@ module.exports = {
                 rightSideValue = Number(rightSideValue);
             }
         }
+        // 旧式のComparisonTypeを標準化
+        const standardComparisonType = mapLegacyComparisonType(comparisonType);
 
-        switch (comparisonType) {
+        switch (standardComparisonType) {
             case ComparisonType.IS:
             case ComparisonType.COMPAT_IS:
             case ComparisonType.COMPAT2_IS:
