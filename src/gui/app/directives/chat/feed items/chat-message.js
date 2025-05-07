@@ -87,7 +87,7 @@
                         <div>
 
                             <span ng-if="$ctrl.compactDisplay" ng-show="$ctrl.showTimestamp" class="muted chat-timestamp">
-                                {{$ctrl.message.}}
+                                {{$ctrl.message.timestampDisplay}}
                             </span>
 
                             <div
@@ -443,18 +443,7 @@
                                 });
                             break;
                         case "mod":
-                            utilityService
-                                .showConfirmationModal({
-                                    title: "モデレートユーザ",
-                                    question: `${username}をモデレータに指名しますか？`,
-                                    confirmLabel: "指名する",
-                                    confirmBtnType: "btn-danger"
-                                })
-                                .then((confirmed) => {
-                                    if (confirmed) {
-                                        chatMessagesService.changeModStatus(username, true);
-                                    }
-                                });
+                            chatMessagesService.changeModStatus(username, true);
                             break;
                         case "unmod":
                             utilityService

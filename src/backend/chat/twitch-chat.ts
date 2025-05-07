@@ -109,7 +109,10 @@ class TwitchChat extends EventEmitter {
 
             this._streamerChatClient.irc.onPasswordError((event) => {
                 logger.error("Failed to connect to chat", event);
-                frontendCommunicator.send("error", `チャットに接続できません。理由は「${event.message}」です。アカウントを再ログインしてみてください。`);
+                frontendCommunicator.send(
+                    "error", 
+                    `チャットに接続できません。理由は「${event.message}」です。アカウントを再ログインしてみてください。`
+                );
                 this.disconnect(true);
             });
 

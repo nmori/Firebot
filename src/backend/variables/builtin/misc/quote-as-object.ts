@@ -4,7 +4,7 @@ import { OutputDataType, VariableCategory } from "../../../../shared/variable-co
 const moment = require("moment");
 const quoteManager = require("../../../quotes/quotes-manager");
 const commandManager = require("../../../chat/commands/command-manager");
-const logger = require("../../../../backend/logwrapper");
+const logger = require("../../../logwrapper");
 
 const model : ReplaceVariable = {
     definition: {

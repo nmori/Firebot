@@ -115,7 +115,7 @@ const model = {
         const errors = [];
         return errors;
     },
-    onTriggerEvent: (event) => {
+    onTriggerEvent: event => {
         return new Promise(async (resolve) => {
             // What should this do when triggered.
             const { effect, trigger, outputs, abortSignal } = event;

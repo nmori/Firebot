@@ -215,7 +215,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
     onTriggerEvent: (event) => {
         return new Promise<void>(async (resolve) => {
             const quotesManager = require("../../../quotes/quotes-manager");
-            const logger = require("../../../../backend/logwrapper");
+            const logger = require("../../../logwrapper");
             const twitchChat = require("../../twitch-chat");
             const TwitchApi = require("../../../twitch-api/api");
             const frontendCommunicator = require("../../../common/frontend-communicator");

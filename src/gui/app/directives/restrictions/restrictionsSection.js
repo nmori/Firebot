@@ -62,12 +62,12 @@
 
                     <div class="ml-3.5" ng-show="$ctrl.restrictionData.restrictions.length > 0">
                         <firebot-checkbox ng-show="$ctrl.trigger.name !== 'channel_reward'"
-                            label="Send as reply"
-                            tooltip="Replying only works within a Command or Chat Message event"
+                            label="返信で送る"
+                            tooltip="返信はコマンドまたはチャットメッセージイベント内でのみ機能します。"
                             model="$ctrl.restrictionData.sendAsReply"
                             style="margin: 0px 15px 0px 0px"
                         />
-                        <label class="control-fb control--checkbox"> Send chat message when restrictions not met
+                        <label class="control-fb control--checkbox"> 制限を満たさない場合にチャットメッセージを送信
                             <input type="checkbox" ng-model="$ctrl.restrictionData.sendFailMessage">
                             <div class="control__indicator"></div>
                         </label>
@@ -134,7 +134,8 @@
                             };
                         });
 
-                        const DEFAULT_FAIL_MESSAGE = `@{user}さん、申し訳ないですが ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} は使えません。理由: {reason}`;                    if ($ctrl.restrictionData == null) {
+                    const DEFAULT_FAIL_MESSAGE = `@{user}さん、申し訳ないですが ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} は使えません。理由: {reason}`;
+                    if ($ctrl.restrictionData == null) {
                         $ctrl.restrictionData = {
                             restrictions: [],
                             mode: "all",
@@ -199,7 +200,7 @@
                         {
                             label: "制限の追加",
                             options: options,
-                            saveText: "Add",
+                            saveText: "追加",
                             validationText: "追加する制限の種類を選んでください"
 
                         },

@@ -85,7 +85,6 @@ const effect = {
 
         return true;
     }
-
 };
 
 module.exports = effect;

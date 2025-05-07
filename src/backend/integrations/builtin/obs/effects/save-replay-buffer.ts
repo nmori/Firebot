@@ -1,7 +1,7 @@
 import { EffectType } from "../../../../../types/effects";
 import { saveReplayBuffer } from "../obs-remote";
 
-export const SaveReplayBufferEffectType: EffectType<{}> = {
+export const SaveReplayBufferEffectType: EffectType = {
   definition: {
     id: "firebot:obs-save-replay-buffer",
     name: "OBSリプレイバッファを保存",

@@ -53,9 +53,9 @@ const filter: EventFilter = {
 
         switch (standardComparisonType) {
             case ComparisonType.IS:
-                return chatModes.includes(value);
+                return chatModes.includes(ucValue);
             case ComparisonType.IS_NOT:
-                return !chatModes.includes(value);
+                return !chatModes.includes(ucValue);
             default:
                 return false;
         }

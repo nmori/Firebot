@@ -15,7 +15,7 @@ async function cleanup() {
 }
 
 export async function willQuit(event: Event) {
-    const logger = require("../../../../backend/logwrapper");
+    const logger = require("../../../logwrapper");
 
     logger.debug("Will quit event triggered");
 

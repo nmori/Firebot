@@ -18,6 +18,7 @@ const model : ReplaceVariable = {
                 description: "第2引数にプロパティパス（ドット記法）または配列インデックスを指定する。"
             }
         ],
+
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT],
         hidden: true

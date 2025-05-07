@@ -39,9 +39,9 @@
             };
 
             $ctrl.sharedChatRadioOptions = {
-                true: "Allow",
-                false: "Ignore",
-                inherit: { text: "Inherit", tooltip: "設定 > トリガー > 共有チャットがコマンドをトリガーすることを許可する から設定を継承します。" }
+                true: "許可",
+                false: "無視",
+                inherit: { text: "継承", tooltip: "設定 > トリガー > 共有チャットがコマンドをトリガーすることを許可する から設定を継承します。" }
             };
 
             $scope.trigger = "command";

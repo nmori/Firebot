@@ -61,8 +61,14 @@ module.exports = {
 
         // シンプル化されたswitch文
         switch (standardComparisonType) {
+            case "include":
+            case "is in role":
+            case "has role":
             case ComparisonType.HAS_ROLE:
                 return hasRole;
+            case "doesn't include":
+            case "isn't in role":
+            case "doesn't have role":
             case ComparisonType.HAS_NOT_ROLE:
                 return !hasRole;
             default:

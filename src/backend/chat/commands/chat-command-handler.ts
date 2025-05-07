@@ -13,8 +13,8 @@ import twitchApi from "../../twitch-api/api";
 import commandRunner from "./command-runner";
 import { SettingsManager } from "../../common/settings-manager";
 
-const DEFAULT_COOLDOWN_MESSAGE = "This command is still on cooldown for: {timeLeft}";
-const DEFAULT_RESTRICTION_MESSAGE = "Sorry, you cannot use this command because: {reason}";
+const DEFAULT_COOLDOWN_MESSAGE = "再実行には待ち時間が必要です: {timeLeft}";
+const DEFAULT_RESTRICTION_MESSAGE = "そのコマンドの実行はできません： {reason}";
 
 interface CommandMatch {
     command: CommandDefinition | SystemCommandDefinition;
