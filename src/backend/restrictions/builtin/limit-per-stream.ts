@@ -48,23 +48,23 @@ function incrementUsages(commandKey: string, userKey: string) {
 const limitPerStreamRestriction: RestrictionType<RestrictionData> = {
     definition: {
         id: "limit-per-stream",
-        name: "Limit Per Stream",
-        description: "Limit the number of times a command can be used in a stream.",
+        name: "ストリームごとの制限",
+        description: "ストリーム内でコマンドを使用できる回数を制限する。",
         triggers: ["command"]
     },
     optionsTemplate: `
         <div>
             <div class="modal-subheader" style="padding: 0 0 4px 0">
-                Global Limit
+                全体の制限
             </div>
             <firebot-input
-              placeholder-text="Enter number"
+              placeholder-text="数字を入力"
               input-type="number"
               disable-variables="true"
               model="restriction.globalLimit"
             />
             <div class="modal-subheader" style="padding: 0 0 4px 0; margin-top: 8px">
-                Per User Limit
+                ユーザーごとの制限
             </div>
             <firebot-input
               placeholder-text="Enter number"
@@ -83,7 +83,7 @@ const limitPerStreamRestriction: RestrictionType<RestrictionData> = {
             limits.push(`Global: ${restriction.globalLimit}`);
         }
         if (limits.length === 0) {
-            return "No Limits Set";
+            return "設定なし";
         }
         return limits.join(", ");
     },

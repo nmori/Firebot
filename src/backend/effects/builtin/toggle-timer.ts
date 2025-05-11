@@ -10,30 +10,30 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:toggle-timer",
-        name: "Toggle Timer",
-        description: "Toggle a timer's active status",
+        name: "タイマーの有効・無効を切り替え",
+        description: "タイマーの有効状態を切り替えます",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect lets you automatically toggle the active status of Timers.</p>
+            <p>このエフェクトを使うと、タイマーの有効状態を自動的に切り替えることができます。</p>
         </eos-container>
 
         <eos-container ng-hide="!hasTags">
-            <label class="control-fb control--checkbox"> Use Sort Tags</tooltip>
+            <label class="control-fb control--checkbox"> ソートタグを使用</tooltip>
                 <input type="checkbox" ng-model="effect.useTag">
                 <div class="control__indicator"></div>
             </label>
         </eos-container>
 
         <eos-container ng-hide="hasTimers || effect.useTag" pad-top="true">
-            <span class="muted">No Timers created yet! You can create them in the <b>Time-Based</b> tab.</span>
+            <span class="muted">まだタイマーは作成されていません！ <b>時間ベース</b>タブで作成できます。</span>
         </eos-container>
 
         <eos-container ng-hide="hasTags || !effect.useTag" pad-top="true">
-            <span class="muted">No Timer Tags created yet! You can create them in the <b>Time-Based</b> tab.</span>
+            <span class="muted">まだタイマータグは作成されていません！ <b>時間ベース</b>タブで作成できます。</span>
         </eos-container>
 
         <eos-container ng-show="hasTimers && !effect.useTag" header="Timer" pad-top="true">
@@ -43,7 +43,7 @@ const model: EffectType<{
         <eos-container ng-show="hasTags && effect.useTag" header="Tag" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.sortTagId"
-                placeholder="Select or search for a tag..."
+                placeholder="タグを選択または検索..."
                 items="sortTags"
             />
         </eos-container>

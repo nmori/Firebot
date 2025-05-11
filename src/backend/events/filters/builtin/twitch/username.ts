@@ -2,9 +2,9 @@ import { createTextFilter } from "../../filter-factory";
 
 const filter = createTextFilter({
     id: "firebot:username",
-    name: "Username",
+    name: "ユーザ名",
     caseInsensitive: true,
-    description: "Filter to a specific username",
+    description: "特定のユーザー名に絞り込む",
     eventMetaKey: "username",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },

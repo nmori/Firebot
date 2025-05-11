@@ -13,8 +13,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:update-viewer-rank",
-        name: "Update Viewer Rank",
-        description: "Update a viewers rank within a given rank ladder",
+        name: "視聴者ランクの更新",
+        description: "指定されたランクラダー内の視聴者ランクを更新する。",
         icon: "fad fa-award",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -29,7 +29,7 @@ const model: EffectType<{
         </firebot-searchable-select>
 
         <div class="effect-info alert alert-info">
-            Note: only rank ladders set to "Manual" mode are available for this effect.
+            注意：このエフェクトで使用できるのは、"Manual "モードに設定されたランク・ラダーのみです。
         </div>
     </eos-container>
 
@@ -45,7 +45,7 @@ const model: EffectType<{
         <firebot-input
             ng-if="effect.action === 'set-variable-rank'"
             model="effect.variableRankName"
-            placeholder="Enter rank name"
+            placeholder="ランク名を入力"
         ></firebot-input>
         <firebot-searchable-select
             ng-if="effect.action === 'set-specific-rank'"

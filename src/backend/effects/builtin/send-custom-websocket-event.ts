@@ -9,25 +9,25 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:send-custom-websocket-event",
-        name: "Send Custom WebSocket Event",
-        description: "Sends a custom event and any relevant data to all connected WebSocket clients",
+        name: "カスタムWebSocketイベントの送信",
+        description: "カスタムイベントと関連データを、接続しているすべてのWebSocketクライアントに送信します。",
         icon: "fad fa-plug",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container header="Event Name">
-            <p class="muted">Enter the name of the event you'd like to send.</p>
+            <p class="muted">送信したいイベント名を入力してください。</p>
             <firebot-input
                 model="effect.eventName"
                 placeholder-text="Enter event name"
                 menu-position="under"
             />
-            <p class="help-block">It will be sent as: <code>custom-event:{{effect.eventName || 'eventname'}}</code></p>
+            <p class="help-block"> <code>custom-event:{{effect.eventName || 'eventname'}}</code>として送信される。</p>
         </eos-container>
 
         <eos-container header="Event Data" pad-top="true">
-            <p class="muted">Enter any event data that you'd like to include with the event.</p>
+            <p class="muted">送信したいイベントデータを入力してください。</p>
             <selectable-input-editors
                 editors="editors"
                 initial-editor-label="initialEditorLabel"

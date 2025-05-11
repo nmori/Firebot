@@ -142,7 +142,8 @@ async function createAppMenu() {
     const menuTemplate = [
         {
             label: 'ファイル',
-            submenu: [{
+            submenu: [
+           	{
                 label: 'Firebot セットアップの取り込み...',
                 click: () => {
                     frontendCommunicator.send("open-modal", {
@@ -235,7 +236,8 @@ async function createAppMenu() {
         },
         {
             label: 'ウィンドウ',
-            submenu: [{
+            submenu: [
+            {
                 label: '最小化',
                 role: 'minimize',
                 icon: await createIconImage("../../../gui/images/icons/mdi/window-minimize.png")
@@ -249,16 +251,19 @@ async function createAppMenu() {
         },
         {
             label: 'ツール',
-            submenu: [{
+            submenu: [
+            {
                 label: 'セットアップウィザード',
                 toolTip: "改めて初期セットアップを起動します",
                 sublabel: "セットアップウィザードを再度実行します",
                 click: () => {
                     frontendCommunicator.send("open-modal", {
                         component: "setupWizardModal"
-                    });
-                }
+                        });
+   					},
+                    icon: await createIconImage("../../../gui/images/icons/mdi/auto-fix.png")
             },
+            
             {
                 label: 'バックアップから戻す...',
                 toolTip: "バックアップからFirebotを復元",

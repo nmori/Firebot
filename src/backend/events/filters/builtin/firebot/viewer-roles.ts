@@ -119,10 +119,12 @@ const filter: EventFilter = {
                 case ComparisonType.COMPAT_INCLUDING:
                 case ComparisonType.COMPAT2_INCLUDING:
                 case ComparisonType.ORG_INCLUDING:
+                case ComparisonType.HAS_ROLE:
                     return hasRole;
                 case ComparisonType.NOT_INCLUDING:
                 case ComparisonType.COMPAT_NOT_INCLUDING:
                 case ComparisonType.ORG_NOT_INCLUDING:
+                case ComparisonType.HAS_NOT_ROLE:
                     return !hasRole;
                 default:
                     return false;

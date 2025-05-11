@@ -39,14 +39,7 @@
                     "Days",
                     "Weeks",
                     "Months",
-                    "Years",
-                    "秒",
-                    "分",
-                    "時間",
-                    "日",
-                    "週",
-                    "月",
-                    "年"
+                    "Years"
                 ];
 
                 // units of time in secs
@@ -79,24 +72,24 @@
 
                 function determineTimeUnit(seconds) {
                     if (seconds % YEAR === 0) {
-                        return "年";
+                        return "Years";
                     }
                     if (seconds % MONTH === 0) {
-                        return "月";
+                        return "Months";
                     }
                     if (seconds % WEEK === 0) {
-                        return "週";
+                        return "Weeks";
                     }
                     if (seconds % DAY === 0) {
-                        return "日";
+                        return "Days";
                     }
                     if (seconds % HOUR === 0) {
-                        return "時間";
+                        return "Hours";
                     }
                     if (seconds % MINUTE === 0) {
-                        return "分";
+                        return "Minutes";
                     }
-                    return "秒";
+                    return "Seconds";
                 }
 
                 $ctrl.valueChange = () => {

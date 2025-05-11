@@ -11,21 +11,21 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:eval-js",
-        name: "Evaluate JavaScript",
-        description: "Evaluate a JavaScript expression",
+        name: "JavaScriptの実行",
+        description: "JavaScriptの式を実行します",
         icon: "fab fa-js",
         categories: [EffectCategory.ADVANCED],
         dependencies: [],
         outputs: [
             {
-                label: "Code Result",
+                label: "実行結果",
                 defaultName: "jsResult",
-                description: "The result of the JavaScript code. Note you must use 'return' for a result to be captured."
+                description: "JavaScriptの実行結果です。returnで値を返さないと取得できません"
             }
         ]
     },
     optionsTemplate: `
-    <eos-container header="Code">
+    <eos-container header="実行式">
         <div
             ui-codemirror="{onLoad : codemirrorLoaded}"
             ui-codemirror-opts="editorSettings"
@@ -35,7 +35,7 @@ const model: EffectType<{
         </div>
     </eos-container>
 
-    <eos-container header="Parameters" pad-top="true">
+    <eos-container header="パラメータ" pad-top="true">
         <editable-list settings="parameterSettings" model="effect.parameters" />
     </eos-container>
 
@@ -43,10 +43,10 @@ const model: EffectType<{
         <div class="effect-info alert alert-info">
             Things to note:
             <ul>
-                <li>JavaScript is evaluated in a sandboxed browser environment</li>
-                <li>You must use <code>return</code> to have a result captured as the output</li>
-                <li>Parameters can be accessed via <code>parameters[n]</code></li>
-                <li>Trigger metadata can be accessed via <code>metadata.*</code></li>
+                <li>JavaScript は、サンドボックス化されたブラウザ環境で実行されます。</li>
+				 <li>結果を出力としてキャプチャさせるには、<code>return</code> を使用する必要があります</li>
+				 <li>パラメータは、<code>parameters[n]</code></li>
+				 <li>トリガーのメタデータは、<code>metadata.*</code></li> を介してアクセスできます。
             </ul>
         </div>
     </eos-container>

@@ -10,30 +10,30 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:toggle-scheduled-task",
-        name: "Toggle Scheduled Effect List",
-        description: "Toggle a scheduled effect list's enabled status",
+        name: "予定エフェクトリストの切り替え",
+        description: "スケジュールされたエフェクト・リストの有効化ステータスを切り替える。",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect lets you automatically toggle the enabled status of Scheduled Effect Lists.</p>
+            <p>このエフェクトを使うと、スケジュールされたエフェクトリストの有効状態を自動的に切り替えることができます。</p>
         </eos-container>
 
         <eos-container ng-hide="!hasTags">
-            <label class="control-fb control--checkbox"> Use Sort Tags</tooltip>
+            <label class="control-fb control--checkbox"> ソートタグを使用</tooltip>
                 <input type="checkbox" ng-model="effect.useTag">
                 <div class="control__indicator"></div>
             </label>
         </eos-container>
 
         <eos-container ng-hide="hasScheduledTasks || effect.useTag" pad-top="true">
-            <span class="muted">No Scheduled Effect Lists created yet! You can create them in the <b>Time-Based</b> tab.</span>
+            <span class="muted">まだスケジュールされたエフェクトリストは作成されていません！ <b>時間ベース</b>タブで作成できます。</span>
         </eos-container>
 
         <eos-container ng-hide="hasTags || !effect.useTag" pad-top="true">
-            <span class="muted">No Timer Tags created yet! You can create them in the <b>Time-Based</b> tab.</span>
+            <span class="muted">まだタイマータグは作成されていません！ <b>時間ベース</b>タブで作成できます。</span>
         </eos-container>
 
         <eos-container ng-show="hasScheduledTasks && !effect.useTag" header="Scheduled Effect List" pad-top="true">
@@ -43,7 +43,7 @@ const model: EffectType<{
         <eos-container ng-show="hasTags && effect.useTag" header="Tag" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.sortTagId"
-                placeholder="Select or search for a tag..."
+                placeholder="タグを選択または検索..."
                 items="sortTags"
             />
         </eos-container>
