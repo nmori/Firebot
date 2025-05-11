@@ -142,8 +142,7 @@ async function createAppMenu() {
     const menuTemplate = [
         {
             label: 'ファイル',
-            submenu: [
-           	{
+            submenu: [{
                 label: 'Firebot セットアップの取り込み...',
                 click: () => {
                     frontendCommunicator.send("open-modal", {
@@ -251,19 +250,17 @@ async function createAppMenu() {
         },
         {
             label: 'ツール',
-            submenu: [
-            {
+            submenu: [{
                 label: 'セットアップウィザード',
                 toolTip: "改めて初期セットアップを起動します",
                 sublabel: "セットアップウィザードを再度実行します",
+                icon: await createIconImage("../../../gui/images/icons/mdi/auto-fix.png"),
                 click: () => {
                     frontendCommunicator.send("open-modal", {
                         component: "setupWizardModal"
-                        });
-   					},
-                    icon: await createIconImage("../../../gui/images/icons/mdi/auto-fix.png")
+                    });
+                }
             },
-            
             {
                 label: 'バックアップから戻す...',
                 toolTip: "バックアップからFirebotを復元",
@@ -284,39 +281,39 @@ async function createAppMenu() {
                 icon: await createIconImage("../../../gui/images/icons/mdi/text-search.png")
             },
             {
-                    label: 'Effect Queue Monitor',
-                    toolTip: "Open the effect queue monitor",
-                    sublabel: "Open the effect queue monitor",
-                    click: createEffectQueueMonitorWindow,
-                    icon: await createIconImage("../../../gui/images/icons/mdi/queue-first-in-last-out.png")
-                },
-                {
-                    label: 'Open Overlay In Browser',
-                    toolTip: "Open Firebot's overlay in your default browser",
-                    sublabel: "Open Firebot's overlay in your default browser",
-                    submenu: [
-                        {
-                            label: "Default",
-                            toolTip: "Open Firebot's default overlay in your default browser",
-                            sublabel: "Open Firebot's default overlay in your default browser",
-                            click: () => {
-                                const port = SettingsManager.getSetting("WebServerPort");
-                                shell.openExternal(`http://localhost:${port}/overlay`);
-                            }
-                        },
-                        ...overlayInstances.map(instance => ({
-                            label: instance,
-                            toolTip: `Open Firebot's ${instance} overlay instance in your default browser`,
-                            sublabel: `Open Firebot's ${instance} overlay instance in your default browser`,
-                            click: () => {
-                                const port = SettingsManager.getSetting("WebServerPort");
-                                shell.openExternal(`http://localhost:${port}/overlay?instance=${instance}`);
-                            }
-                        }))
-                    ],
-                    icon: await createIconImage("../../../gui/images/icons/mdi/open-in-app.png")
-                },
-                {
+                label: 'Effect Queue Monitor',
+                toolTip: "Open the effect queue monitor",
+                sublabel: "Open the effect queue monitor",
+                click: createEffectQueueMonitorWindow,
+                icon: await createIconImage("../../../gui/images/icons/mdi/queue-first-in-last-out.png")
+            },
+            {
+                label: 'Open Overlay In Browser',
+                toolTip: "Open Firebot's overlay in your default browser",
+                sublabel: "Open Firebot's overlay in your default browser",
+                submenu: [
+                    {
+                        label: "Default",
+                        toolTip: "Open Firebot's default overlay in your default browser",
+                        sublabel: "Open Firebot's default overlay in your default browser",
+                        click: () => {
+                            const port = SettingsManager.getSetting("WebServerPort");
+                            shell.openExternal(`http://localhost:${port}/overlay`);
+                        }
+                    },
+                    ...overlayInstances.map(instance => ({
+                        label: instance,
+                        toolTip: `Open Firebot's ${instance} overlay instance in your default browser`,
+                        sublabel: `Open Firebot's ${instance} overlay instance in your default browser`,
+                        click: () => {
+                            const port = SettingsManager.getSetting("WebServerPort");
+                            shell.openExternal(`http://localhost:${port}/overlay?instance=${instance}`);
+                        }
+                    }))
+                ],
+                icon: await createIconImage("../../../gui/images/icons/mdi/open-in-app.png")
+            },
+            {
                 type: 'separator'
             },
             {
