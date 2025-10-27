@@ -2,7 +2,7 @@
 
 const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
 const logger = require('../../logwrapper');
-const twitchApi = require("../../twitch-api/api");
+const { TwitchApi } = require("../../streaming-platforms/twitch/api");
 
 const model = {
     definition: {
@@ -28,7 +28,7 @@ const model = {
     </eos-container>
     `,
     optionsController: () => {},
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.username == null && effect.username !== "") {
             errors.push("視聴者名を指定してください");
@@ -38,11 +38,11 @@ const model = {
         }
         return errors;
     },
-    onTriggerEvent: async event => {
-        const user = await twitchApi.users.getUserByName(event.effect.username);
+    onTriggerEvent: async (event) => {
+        const user = await TwitchApi.users.getUserByName(event.effect.username);
 
         if (user != null) {
-            const result = await twitchApi.moderation.timeoutUser(user.id, event.effect.time);
+            const result = await TwitchApi.moderation.timeoutUser(user.id, event.effect.time);
 
             if (result === true) {
                 logger.debug(`${event.effect.username} was timed out for ${event.effect.time}s via the timeout effect.`);

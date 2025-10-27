@@ -1,18 +1,17 @@
-import { ReplaceVariable } from "../../../../types/variables";
-import { OutputDataType } from "../../../../shared/variable-constants";
+import type { ReplaceVariable } from "../../../../types/variables";
 
-const randomRedditImage = require("../../../common/handlers/redditProcessor");
+import randomRedditImage from "../../../common/handlers/redditProcessor";
 
 const model : ReplaceVariable = {
     definition: {
         handle: "randomRedditImage",
         usage: "randomRedditImage[subredditName]",
         description: "Redditからランダムに画像を取得する。(悪い画像がないかチェックするよう最善を尽くしますが、内容について注意)。",
-        possibleDataOutput: [OutputDataType.TEXT]
+        possibleDataOutput: ["text"]
     },
-    evaluator: (_, subreddit) => {
+    evaluator: async (_, subreddit) => {
         if (subreddit != null) {
-            return randomRedditImage.getRandomImage(subreddit);
+            return await randomRedditImage.getRandomImage(subreddit);
         }
 
         return "";

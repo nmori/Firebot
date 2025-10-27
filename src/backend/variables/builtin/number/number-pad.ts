@@ -1,13 +1,12 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 
 const model : ReplaceVariable = {
     definition: {
         handle: "padNumber",
         description: "指定された数値を指定された小数点以下の桁数まで繰り上げる。",
         usage: "padNumber[value, places]",
-        categories: [VariableCategory.NUMBERS],
-        possibleDataOutput: [OutputDataType.TEXT]
+        categories: ["numbers"],
+        possibleDataOutput: ["text"]
     },
     evaluator: (
         trigger: Trigger,

@@ -1,13 +1,13 @@
 "use strict";
 
-const util = require("../../../utility");
-const twitchChat = require("../../../chat/twitch-chat");
+const { humanizeTime } = require("../../../utils");
 const commandManager = require("../../../chat/commands/command-manager");
 const gameManager = require("../../game-manager");
 const currencyAccess = require("../../../currency/currency-access").default;
 const currencyManager = require("../../../currency/currency-manager");
 const moment = require("moment");
 const NodeCache = require("node-cache");
+const { TwitchApi } = require("../../../streaming-platforms/twitch/api");
 
 let activeBiddingInfo = {
     "active": false,
@@ -28,12 +28,28 @@ function purgeCaches() {
     };
 }
 
+function setNewHighBidder(username, userDisplayName, amount) {
+    activeBiddingInfo.currentBid = amount;
+    activeBiddingInfo.topBidder = username;
+    activeBiddingInfo.topBidderDisplayName = userDisplayName;
+}
+
 async function stopBidding(chatter) {
     clearTimeout(bidTimer);
+    const sendAsBot = !chatter || chatter.toLowerCase() === "bot";
     if (activeBiddingInfo.topBidder) {
         await twitchChat.sendChatMessage(`${activeBiddingInfo.topBidderDisplayName} が ${activeBiddingInfo.currentBid} を落札した。`, null, chatter);
+        await TwitchApi.chat.sendChatMessage(
+            `${activeBiddingInfo.topBidderDisplayName} has won the bidding with ${activeBiddingInfo.currentBid}!`,
+            null,
+            sendAsBot
+        );
     } else {
-        await twitchChat.sendChatMessage(`誰も入札しなかったので、勝者はいない！`, null, chatter);
+        await TwitchApi.chat.sendChatMessage(
+            `誰も入札しなかったので、勝者はいない`,
+            null,
+            sendAsBot
+        );
     }
 
     purgeCaches();
@@ -105,6 +121,7 @@ const bidCommand = {
 
         const bidSettings = gameManager.getGameSettings("firebot-bid");
         const chatter = bidSettings.settings.chatSettings.chatter;
+        const sendAsBot = !chatter || chatter.toLowerCase() === "bot";
 
         const currencyId = bidSettings.settings.currencySettings.currencyId;
         const currency = currencyAccess.getCurrencyById(currencyId);
@@ -115,17 +132,29 @@ const bidCommand = {
             const bidAmount = parseInt(triggeredArg);
 
             if (isNaN(bidAmount)) {
-                await twitchChat.sendChatMessage(`無効な金額です。入札を開始するには数字を入力してください。`, null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    `無効な金額です。入札を開始するには数字を入力してください。`,
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
             if (activeBiddingInfo.active !== false) {
-                await twitchChat.sendChatMessage(`すでに入札が行われています。 終了するには !bid stop と入力してください`, null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    `すでに入札が行われています。 終了するには !bid stop と入力してください`,
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
             if (bidAmount < bidSettings.settings.currencySettings.minBid) {
-                await twitchChat.sendChatMessage(`スタート価格は、${bidSettings.settings.currencySettings.minBid} 以上必要です。 `, null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    `スタート価格は、${bidSettings.settings.currencySettings.minBid} 以上必要です。`,
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
@@ -137,7 +166,11 @@ const bidCommand = {
 
             const raiseMinimum = bidSettings.settings.currencySettings.minIncrement;
             const minimumBidWithRaise = activeBiddingInfo.currentBid + raiseMinimum;
-            await twitchChat.sendChatMessage(`${bidAmount} ${currencyName}で入札を開始しました。 !bid ${minimumBidWithRaise} と打つとで入札します`, null, chatter);
+            await TwitchApi.chat.sendChatMessage(
+                `${bidAmount} ${currencyName}で入札を開始しました。 !bid ${minimumBidWithRaise} と打つとで入札します`,
+                null,
+                sendAsBot
+            );
 
             const timeLimit = bidSettings.settings.timeSettings.timeLimit * 60000;
             bidTimer = setTimeout(async () => {
@@ -154,45 +187,73 @@ const bidCommand = {
             const userDisplayName = chatMessage?.userDisplayName ?? username;
 
             if (activeBiddingInfo.active === false) {
-                await twitchChat.sendChatMessage(`現在、入札は行われていません。`, null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    `現在、入札は行われていません。`,
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
             const cooldownExpireTime = cooldownCache.get(username);
             if (cooldownExpireTime && moment().isBefore(cooldownExpireTime)) {
-                const timeRemainingDisplay = util.secondsForHumans(Math.abs(moment().diff(cooldownExpireTime, 'seconds')));
-                await twitchChat.sendChatMessage(`次の入札開始をお待ちください 待ち時間： ${timeRemainingDisplay} `, null, chatter, chatMessage.id);
+                const timeRemainingDisplay = humanizeTime(Math.abs(moment().diff(cooldownExpireTime, 'seconds')));
+                await TwitchApi.chat.sendChatMessage(
+                    `次の入札開始をお待ちください 待ち時間： ${timeRemainingDisplay} `,
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
             if (activeBiddingInfo.topBidder === username) {
-                await twitchChat.sendChatMessage("あなたは最高入札者です。追加入札はできません。", null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    "あなたは最高入札者です。追加入札はできません。",
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
             if (bidAmount < 1) {
-                await twitchChat.sendChatMessage("入札金額は 0 より大きくしてください。", null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    "入札金額は 0 より大きくしてください。",
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
             const minBid = bidSettings.settings.currencySettings.minBid;
             if (minBid != null && minBid > 0) {
                 if (bidAmount < minBid) {
-                    await twitchChat.sendChatMessage(`入札額は少なくとも ${minBid} ${currencyName} 以上必要です.`, null, chatter, chatMessage.id);
+                    await TwitchApi.chat.sendChatMessage(
+                        `入札額は少なくとも ${minBid} ${currencyName} 以上必要です.`,
+                        chatMessage.id,
+                        sendAsBot
+                    );
                     return;
                 }
             }
 
             const userBalance = await currencyManager.getViewerCurrencyAmount(username, currencyId);
             if (userBalance < bidAmount) {
-                await twitchChat.sendChatMessage(`${currencyName} が不足しています`, null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    `${currencyName} が不足しています`,
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
             const raiseMinimum = bidSettings.settings.currencySettings.minIncrement;
             const minimumBidWithRaise = activeBiddingInfo.currentBid + raiseMinimum;
             if (bidAmount < minimumBidWithRaise) {
-                await twitchChat.sendChatMessage(`少なくとも ${minimumBidWithRaise} ${currencyName} は必要です.`, null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    `少なくとも ${minimumBidWithRaise} ${currencyName} は必要です.`,
+                    chatMessage.id,
+                    sendAsBot
+                );
                 return;
             }
 
@@ -200,14 +261,22 @@ const bidCommand = {
             const previousHighBidAmount = activeBiddingInfo.currentBid;
             if (previousHighBidder != null && previousHighBidder !== "") {
                 await currencyManager.adjustCurrencyForViewer(previousHighBidder, currencyId, previousHighBidAmount);
-                await twitchChat.sendChatMessage(`落札されました！ ${previousHighBidAmount} ${currencyName} が返金されました.`, null, chatter, chatMessage.id);
+                await TwitchApi.chat.sendChatMessage(
+                    `落札されました！ ${previousHighBidAmount} ${currencyName} が返金されました.`,
+                    chatMessage.id,
+                    sendAsBot
+                );
             }
 
             await currencyManager.adjustCurrencyForViewer(username, currencyId, -Math.abs(bidAmount));
             const newTopBidWithRaise = bidAmount + raiseMinimum;
-            await twitchChat.sendChatMessage(`${userDisplayName} が高値を更新しました。${bidAmount} ${currencyName}. 入札するには !bid ${newTopBidWithRaise} か、それ以上の額を入力してください`);
+            await TwitchApi.chat.sendChatMessage(
+                `${userDisplayName} が高値を更新しました。${bidAmount} ${currencyName}. 入札するには !bid ${newTopBidWithRaise} か、それ以上の額を入力してください`,
+                null,
+                sendAsBot
+            );
 
-            // eslint-disable-next-line no-use-before-define
+
             setNewHighBidder(username, userDisplayName, bidAmount);
 
             const cooldownSecs = bidSettings.settings.cooldownSettings.cooldown;
@@ -216,7 +285,11 @@ const bidCommand = {
                 cooldownCache.set(username, expireTime, cooldownSecs);
             }
         } else {
-            await twitchChat.sendChatMessage(`入札コマンドが不正です。使い方） ${userCommand.trigger} [金額]`, null, chatter, chatMessage.id);
+            await TwitchApi.chat.sendChatMessage(
+                `入札コマンドが不正です。使い方: ${userCommand.trigger} [bidAmount]`,
+                chatMessage.id,
+                sendAsBot
+            );
         }
     }
 };
@@ -229,12 +302,6 @@ function registerBidCommand() {
 
 function unregisterBidCommand() {
     commandManager.unregisterSystemCommand(BID_COMMAND_ID);
-}
-
-function setNewHighBidder(username, userDisplayName, amount) {
-    activeBiddingInfo.currentBid = amount;
-    activeBiddingInfo.topBidder = username;
-    activeBiddingInfo.topBidderDisplayName = userDisplayName;
 }
 
 exports.purgeCaches = purgeCaches;

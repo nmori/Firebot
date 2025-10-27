@@ -1,0 +1,200 @@
+import type { EffectType } from "../../../../types/effects";
+import { TwitchApi } from "../api";
+import { TwitchSlashCommandHelpers } from "../chat/slash-commands/twitch-command-helpers";
+
+const model: EffectType<{
+    setFollowersOnly: boolean;
+    enableFollowersOnly?: boolean;
+    followersOnlyDuration?: string;
+
+    setSubscribersOnly: boolean;
+    enableSubscribersOnly?: boolean;
+
+    setEmoteOnly: boolean;
+    enableEmoteOnly?: boolean;
+
+    setSlowMode: boolean;
+    enableSlowMode?: boolean;
+    slowModeDelay?: number;
+
+    setUniqueChat: boolean;
+    enableUniqueChat?: boolean;
+}> = {
+    definition: {
+        id: "firebot:set-chat-mode",
+        name: "チャットモードの設定",
+        description: "Twitchチャンネルのチャットモードを設定します",
+        icon: "fad fa-comment-check",
+        categories: ["common", "twitch"],
+        dependencies: {
+            twitch: true
+        }
+    },
+    optionsTemplate: `
+        <eos-container header="Chat Modes">
+            <firebot-checkbox
+                model="effect.setFollowersOnly"
+                label="フォロワー専用モードを設定する"
+                tooltip="Twitchチャンネルチャットのフォロワー限定モードを変更するかどうか"
+            />
+
+            <div class="btn-group mb-4" ng-if="effect.setFollowersOnly === true">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="list-effect-type">{{effect.enableFollowersOnly == null ? 'Pick one' : (effect.enableFollowersOnly === true ? 'Enable' : 'Disable')}}</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-click="effect.enableFollowersOnly = true">
+                        <a href>有効</a>
+                    </li>
+                    <li ng-click="effect.enableFollowersOnly = false">
+                        <a href>無効</a>
+                    </li>
+                </ul>
+            </div>
+
+            <firebot-input
+                style="margin-bottom: 2rem;"
+                ng-if="effect.setFollowersOnly === true && effect.enableFollowersOnly === true"
+                model="effect.followersOnlyDuration"
+                input-title="フォロー期間"
+                placeholder-text="期間 (formats: 1m / 1h / 1d / 1w / 1mo)"
+            />
+
+            <firebot-checkbox
+                model="effect.setSubscribersOnly"
+                label="登録者専用モードの設定"
+                tooltip="Twitchチャンネルチャットの登録者限定モードを変更するかどうか"
+            />
+
+            <div class="btn-group mb-8" ng-if="effect.setSubscribersOnly === true">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="list-effect-type">{{effect.enableSubscribersOnly == null ? 'Pick one' : (effect.enableSubscribersOnly === true ? 'Enable' : 'Disable')}}</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-click="effect.enableSubscribersOnly = true">
+                        <a href>有効</a>
+                    </li>
+                    <li ng-click="effect.enableSubscribersOnly = false">
+                        <a href>無効</a>
+                    </li>
+                </ul>
+            </div>
+
+            <firebot-checkbox
+                model="effect.setEmoteOnly"
+                label="エモート専用モードの設定"
+                tooltip="Twitchチャンネルチャットの絵文字モードを変更するかどうか"
+            />
+
+            <div class="btn-group mb-8" ng-if="effect.setEmoteOnly === true">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="list-effect-type">{{effect.enableEmoteOnly == null ? 'Pick one' : (effect.enableEmoteOnly === true ? 'Enable' : 'Disable')}}</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-click="effect.enableEmoteOnly = true">
+                        <a href>有効</a>
+                    </li>
+                    <li ng-click="effect.enableEmoteOnly = false">
+                        <a href>無効</a>
+                    </li>
+                </ul>
+            </div>
+
+            <firebot-checkbox
+                model="effect.setSlowMode"
+                label="スローモードの設定"
+                tooltip="Twitchチャンネルチャットのスローモードを変更するかどうか。"
+            />
+
+            <div class="btn-group mb-4" ng-if="effect.setSlowMode === true">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="list-effect-type">{{effect.enableSlowMode == null ? 'Pick one' : (effect.enableSlowMode === true ? 'Enable' : 'Disable')}}</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-click="effect.enableSlowMode = true">
+                        <a href>有効</a>
+                    </li>
+                    <li ng-click="effect.enableSlowMode = false">
+                        <a href>無効</a>
+                    </li>
+                </ul>
+            </div>
+
+            <firebot-input
+                ng-if="effect.setSlowMode === true && effect.enableSlowMode === true"
+                model="effect.slowModeDelay"
+                input-title="遅延 (秒)"
+                placeholder-text="任意"
+            />
+
+            <firebot-checkbox
+                model="effect.setUniqueChat"
+                label="Set Unique Chat"
+                tooltip="Whether or not you want to change the unique mode of your Twitch channel chat."
+            />
+
+            <div class="btn-group mb-4" ng-if="effect.setUniqueChat === true">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="list-effect-type">{{effect.enableUniqueChat == null ? 'Pick one' : (effect.enableUniqueChat === true ? 'Enable' : 'Disable')}}</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-click="effect.enableUniqueChat = true">
+                        <a href>Enable</a>
+                    </li>
+                    <li ng-click="effect.enableUniqueChat = false">
+                        <a href>Disable</a>
+                    </li>
+                </ul>
+            </div>
+        </eos-container>
+    `,
+    optionsValidator: (effect) => {
+        const errors: string[] = [];
+
+        if (effect.setFollowersOnly === true && effect.enableFollowersOnly == null) {
+            errors.push("フォロワー専用アクションを選択する必要があります");
+        } else if (effect.setSubscribersOnly === true && effect.enableSubscribersOnly == null) {
+            errors.push("購読者限定のアクションを指定する必要があります。");
+        } else if (effect.setEmoteOnly === true && effect.enableEmoteOnly == null) {
+            errors.push("エモーションのみのアクションを指定する必要があります。");
+        } else if (effect.setSlowMode === true && effect.enableSlowMode == null) {
+            errors.push("You must specify a slow mode action");
+        } else if (effect.setUniqueChat === true && effect.enableUniqueChat == null) {
+            errors.push("You must specify a unique mode action");
+        }
+
+        return errors;
+    },
+    optionsController: () => {},
+    onTriggerEvent: async ({ effect }) => {
+        if (effect.setFollowersOnly === true) {
+            const parsedDuration = TwitchSlashCommandHelpers.getRawDurationInSeconds(
+                effect.followersOnlyDuration,
+                "minutes"
+            );
+
+            await TwitchApi.chat.setFollowerOnlyMode(
+                effect.enableFollowersOnly ?? false,
+                Math.floor(parsedDuration / 60)
+            );
+        }
+
+        if (effect.setSubscribersOnly === true) {
+            await TwitchApi.chat.setSubscriberOnlyMode(effect.enableSubscribersOnly ?? false);
+        }
+
+        if (effect.setEmoteOnly === true) {
+            await TwitchApi.chat.setEmoteOnlyMode(effect.enableEmoteOnly ?? false);
+        }
+
+        if (effect.setSlowMode === true) {
+            await TwitchApi.chat.setSlowMode(effect.enableSlowMode ?? false, effect.slowModeDelay);
+        }
+
+        if (effect.setUniqueChat === true) {
+            await TwitchApi.chat.setUniqueMode(effect.enableUniqueChat ?? false);
+        }
+    }
+};
+
+module.exports = model;

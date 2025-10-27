@@ -154,7 +154,7 @@
                                 return {
                                     success: false,
                                     reason: "Argument Name length must be at least 2 characters."
-                                }
+                                };
                             }
                             return true;
                         },
@@ -163,7 +163,7 @@
                                 return {
                                     success: false,
                                     reason: "Argument Name must start with a lowercase letter."
-                                }
+                                };
                             }
                             return true;
                         },

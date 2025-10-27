@@ -3,8 +3,8 @@
 const logger = require("../logwrapper");
 const NodeCache = require("node-cache");
 const { EffectTrigger } = require("../../shared/effect-constants");
-const filterManager = require("./filters/filter-manager");
-const eventsAccess = require("./events-access");
+const { FilterManager } = require("./filters/filter-manager");
+const { EventsAccess } = require("./events-access");
 
 // This cache holds all users who have fired events and what events they fired.
 // Deletes entries after 12 hours. Checks every 10 minutes.
@@ -78,7 +78,7 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
         meta = {};
     }
 
-    const eventSettings = eventsAccess.getAllActiveEvents().filter(
+    const eventSettings = EventsAccess.getAllActiveEvents().filter(
         es => es.sourceId === source.id && es.eventId === event.id
     );
 
@@ -88,7 +88,7 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
     for (const eventSetting of eventSettings) {
 
         if (eventSetting.filterData && (isSimulation || !isManual)) {
-            const passed = await filterManager.runFilters(eventSetting.filterData, {
+            const passed = await FilterManager.runFilters(eventSetting.filterData, {
                 eventSourceId: source.id,
                 eventId: event.id,
                 eventMeta: meta
@@ -130,8 +130,7 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
 
     try {
         await Promise.all(effectPromises);
-    } catch (error) {
-        logger.error(`event error: ${event.name} in ${source.name}' because: ${JSON.stringify(error)}`);
+    } catch { }
     }
 }
 

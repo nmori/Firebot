@@ -46,7 +46,7 @@ const model = {
             </div>
         </eos-container>
     `,
-    optionsController: $scope => {
+    optionsController: ($scope) => {
         $scope.displayModeOptions = {
             sum: { text: "合計", description: "Ex: 'ebiggz rolled a 7 on 2d6.'" },
             individual: { text: "各役割を含む", description: "Ex: 'ebiggz rolled a 7 (4, 3) on 2d6.'"}
@@ -56,7 +56,7 @@ const model = {
             ? $scope.effect.resultType
             : "sum";
     },
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (!effect.dice) {
             errors.push("振りたいサイコロの目を入力してください。");

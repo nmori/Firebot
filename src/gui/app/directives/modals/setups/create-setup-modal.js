@@ -2,8 +2,6 @@
 
 (function() {
     const sanitizeFileName = require("sanitize-filename");
-    const fs = require("fs");
-    const fsp = require("fs/promises");
     angular.module("firebotApp")
         .component("createSetupModal", {
             template: `
@@ -84,7 +82,7 @@
             controller: function(commandsService, countersService, currencyService,
                 effectQueuesService, eventsService, hotkeyService, presetEffectListsService,
                 timerService, scheduledTaskService, viewerRolesService, quickActionsService, variableMacroService, viewerRanksService, accountAccess, utilityService,
-                ngToast, backendCommunicator, sortTagsService, $q) {
+                ngToast, backendCommunicator, sortTagsService, $q, overlayWidgetsService) {
 
                 const $ctrl = this;
 
@@ -130,6 +128,12 @@
                         all: hotkeyService.getHotkeys(),
                         nameField: "name",
                         key: "hotkeys"
+                    },
+                    {
+                        label: "オーバーレイウィジット",
+                        all: overlayWidgetsService.overlayWidgetConfigs,
+                        nameField: "name",
+                        key: "overlayWidgetConfigs"
                     },
                     {
                         label: "プリセット演出リスト",
@@ -209,13 +213,14 @@
                         variableMacros: [],
                         viewerRoles: [],
                         viewerRankLadders: [],
-                        quickActions: []
+                        quickActions: [],
+                        overlayWidgetConfigs: []
                     },
                     requireCurrency: false,
                     importQuestions: []
                 };
 
-                $ctrl.save = () => {
+                $ctrl.save = async () => {
                     if ($ctrl.setup.name == null || $ctrl.setup.name === "") {
                         ngToast.create("セットアップ名を入れてください");
                         return;
@@ -248,63 +253,67 @@
                         properties: ["showOverwriteConfirmation", "createDirectory"]
                     };
 
-                    $q.when(backendCommunicator.fireEventAsync("show-save-dialog", {
+                    const dialogResponse = await backendCommunicator.fireEventAsync("show-save-dialog", {
                         options: saveDialogOptions
-                    }))
-                        .then((saveResponse) => {
-                            if (saveResponse.canceled) {
+                    });
+
+                    if (dialogResponse.canceled) {
                                 return;
                             }
-                            fs.writeFileSync(saveResponse.filePath, angular.toJson($ctrl.setup), { encoding: "utf8" });
+
+                    const success = await backendCommunicator.fireEventAsync("setups:create-setup", {
+                        setupFilePath: dialogResponse.filePath,
+                        setup: angular.copy($ctrl.setup)
+                    });
+
+                    if (success) {
                             ngToast.create({
-                                className: '成功',
+                                className: 'success',
                                 content: 'セットアップ設定を保存しました'
                             });
                             $ctrl.close();
+                    } else {
+                        ngToast.create({
+                            className: 'error',
+                            content: 'Failed to save Firebot Setup'
                         });
+                    }
                 };
 
                 $ctrl.$onInit = () => {};
 
-                $ctrl.onFileSelected = (filepath) => {
-                    $q.when(fsp.readFile(filepath))
-                        .then((setup) => {
-                            setup = JSON.parse(setup);
-                            if (setup == null || setup.components == null) {
-                                ngToast.create("以前の設定が読み込めませんでした");
-                                return;
-                            }
-                            for (const [componentKey, componentList] of Object.entries(setup.components)) {
+                $ctrl.onFileSelected = async (filepath) => {
+                    /** @type {import("../../../../../backend/setups/setup-manager").LoadSetupResult} */
+                    const result = await backendCommunicator.fireEventAsync("setups:load-setup", filepath);
+
+                    if (result.success) {
+                        for (const [componentKey, componentList] of Object.entries(result.setup.components)) {
                                 const componentConfig = $ctrl.components.find(c => c.key === componentKey);
                                 if (!componentConfig) {
                                     continue;
                                 }
 
-                                setup.components[componentConfig.key] = componentConfig.all
+                            result.setup.components[componentConfig.key] = componentConfig.all
                                     .filter(c => componentList.some(cy => cy.id === c.id));
                             }
-                            $ctrl.setup = setup;
-                        }, (reason) => {
-                            console.log(reason);
-                            ngToast.create("以前の設定が読み込めませんでした");
-                            return;
-                        });
+                        $ctrl.setup = result.setup;
+                    } else {
+                        ngToast.create("以前の設定が読み込めませんでした");
+                    }
                 };
 
-                $ctrl.loadPreviousSetup = () => {
-                    $q
-                        .when(backendCommunicator.fireEventAsync("open-file-browser", {
+                $ctrl.loadPreviousSetup = async () => {
+                    const response = await backendCommunicator.fireEventAsync("open-file-browser", {
                             options: {
                                 filters: [{name: 'Firebot Setups', extensions: ['firebotsetup']}]
                             }
-                        }))
-                        .then((response) => {
+                    });
+
                             if (response.path == null) {
                                 return;
                             }
 
                             $ctrl.onFileSelected(response.path);
-                        });
                 };
 
                 $ctrl.removeImportQuestion = (id) => {

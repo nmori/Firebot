@@ -1,6 +1,5 @@
+import { EffectType } from "../../../types/effects";
 import commandManager from "../../chat/commands/command-manager";
-import {EffectCategory} from "../../../shared/effect-constants";
-import {EffectType} from "../../../types/effects";
 
 const effect: EffectType<{
     commandId: string;
@@ -13,7 +12,7 @@ const effect: EffectType<{
         name: "Toggle Command",
         description: "Toggle a command's active status",
         icon: "fad fa-toggle-off",
-        categories: [EffectCategory.COMMON],
+        categories: ["common"],
         dependencies: []
     },
     optionsTemplate: `
@@ -82,7 +81,7 @@ const effect: EffectType<{
         }
     },
     optionsValidator: (effect) => {
-        const errors = [];
+        const errors: string[] = [];
         if (effect.commandType !== "tag" && effect.commandId == null) {
             errors.push("Please select a command.");
         }

@@ -39,8 +39,25 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="オーバーレイ更新時にエフェクトを強制的に継続させる"
-                        description="オーバーレイをリフレッシュしたり、エフェクトをクリアする場合、オーバーレイ上で再生中のビデオ再生やサウンド再生エフェクトは、待機に設定されていても、次のエフェクトに強制的に続行されます。"
+                        name="Overlay Resolution"
+                        description="The resolution of the overlay's browser source in your broadcasting software. This is used for Overlay Widget positioning and sizing controls."
+                    >
+                        <span
+                            style="padding-right: 10px"
+                        >
+                            {{ overlayResolution.width }} x {{ overlayResolution.height }}
+                        </span>
+                        <firebot-button
+                            text="Edit"
+                            ng-click="openEditOverlayResolutionModal()"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="Force Effects to Continue on Overlay Refresh"
+                        description="When refreshing an overlay or using the Clear Effects effect on it, this will force
+                        any Play Video or Play Sound effects currently playing on that overlay to continue to the next effect,
+                        even if they're set to wait."
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ForceOverlayEffectsToContinueOnRefresh')"
@@ -64,7 +81,7 @@
 
                 </div>
           `,
-            controller: function ($scope, settingsService, utilityService) {
+            controller: function($scope, settingsService, utilityService, modalFactory) {
                 $scope.settings = settingsService;
 
                 $scope.showOverlayInfoModal = function (overlayInstance) {
@@ -74,6 +91,14 @@
                 $scope.showEditOverlayInstancesModal = function () {
                     utilityService.showModal({
                         component: "editOverlayInstancesModal"
+                    });
+                };
+
+                $scope.overlayResolution = settingsService.getSetting("OverlayResolution") ?? { width: 1280, height: 720 };
+
+                $scope.openEditOverlayResolutionModal = function() {
+                    modalFactory.openEditOverlayResolutionModal((newResolution) => {
+                        $scope.overlayResolution = newResolution;
                     });
                 };
 

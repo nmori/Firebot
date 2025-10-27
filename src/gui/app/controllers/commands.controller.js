@@ -99,9 +99,9 @@
                     className: "info",
                     content: "Opening Firebot profile page..."
                 });
-                const profileToken = await backendCommunicator.fireEventAsync("get-firebot-profile-token");
-                if (profileToken) {
-                    $rootScope.openLinkExternally(`https://firebot.app/profile?id=${profileToken}`);
+                const channelName = await backendCommunicator.fireEventAsync("sync-profile-data-to-crowbar-api");
+                if (channelName) {
+                    $rootScope.openLinkExternally(`https://firebot.app/profile/${channelName}`);
                 }
             };
 
@@ -119,6 +119,10 @@
 
             $scope.resetPerStreamUsagesForCommand = (command) => {
                 commandsService.resetPerStreamUsagesForCommand(command.id);
+            };
+
+            $scope.saveCustomCommand = (command) => {
+                commandsService.saveCustomCommand(command);
             };
 
             $scope.saveAllCommands = (commands) => {
@@ -253,6 +257,7 @@
                                 command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
 
                             if (permissions) {
+                                const isInverted = permissions.invertCondition === true;
                                 if (permissions.mode === "roles") {
                                     const roleIds = permissions.roleIds;
                                     let rolesOutput = "未選択";
@@ -296,9 +301,9 @@
                                     if (ranksOutput !== "未選択") {
                                         itemsToDisplay.push(ranksDisplay);
                                     }
-                                    return itemsToDisplay.length > 0 ? itemsToDisplay.join(", ") : "役割/ランク (未選択)";
+                                    return itemsToDisplay.length > 0 ? (isInverted ? "Not: " : "") + itemsToDisplay.join(", ") : "役割/ランク (未選択)";
                                 } else if (permissions.mode === "viewer") {
-                                    return `Viewer (${permissions.username ? permissions.username : 'No name'})`;
+                                    return `${isInverted ? "Not: " : ""}Viewer (${permissions.username ? permissions.username : 'No name'})`;
                                 }
                             } else {
                                 return "このコマンドは誰でも利用できます";

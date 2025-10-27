@@ -132,7 +132,7 @@
                     return;
                 }
 
-                countersService.saveCounter($ctrl.counter).then((successful) => {
+                const successful = countersService.saveCounter($ctrl.counter);
                     if (successful) {
                         $ctrl.close({
                             $value: {
@@ -142,7 +142,6 @@
                     } else {
                         ngToast.create("Fカウンタの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
                     }
-                });
             };
 
             $ctrl.editMinimum = () => {

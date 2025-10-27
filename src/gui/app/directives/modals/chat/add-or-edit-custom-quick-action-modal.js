@@ -154,13 +154,12 @@
                         $ctrl.quickAction.icon = "far fa-magic";
                     }
 
-                    quickActionsService.saveCustomQuickAction($ctrl.quickAction).then((successful) => {
+                    const successful = quickActionsService.saveCustomQuickAction($ctrl.quickAction);
                         if (successful) {
                             $ctrl.close();
                         } else {
                             ngToast.create("カスタムクイックアクションの保存に失敗しました。再試行するか、ログを表示して詳細を確認してください。");
                         }
-                    });
                 };
             }
         });

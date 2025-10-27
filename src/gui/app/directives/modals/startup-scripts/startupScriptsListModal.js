@@ -20,7 +20,7 @@
                             <button class="btn btn-default" style="margin-right: 10px" ng-click="$ctrl.showAddOrEditStartupScriptModal(script)">Edit</button>
                             <span uib-tooltip="起動時スクリプトを削除" tooltip-append-to-body="true" class="clickable" style="color:red;" ng-click="$ctrl.removeStartupScript(script)">
                                 <i class="fas fa-trash-alt"></i>
-                            </span>    
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     question: `本当に起動時スクリプト '${startupScript.name}' を削除しますか？`,
                     confirmLabel: "削除する",
                     confirmBtnType: "btn-danger"
-                }).then(confirmed => {
+                }).then((confirmed) => {
                     if (confirmed) {
                         startupScriptsService.deleteStartupScriptData(startupScript.id);
                     }
@@ -66,7 +66,7 @@
                     },
                     dismissCallback: () => {
                     },
-                    closeCallback: resp => {
+                    closeCallback: (resp) => {
                         const { scriptData } = resp;
                         startupScriptsService.saveStartupScriptData(scriptData);
                     }

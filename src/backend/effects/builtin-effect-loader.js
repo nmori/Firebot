@@ -1,6 +1,6 @@
 "use strict";
 
-const effectManager = require("./effectManager");
+const { EffectManager } = require("./effect-manager");
 
 exports.loadEffects = () => {
     [
@@ -12,13 +12,17 @@ exports.loadEffects = () => {
         'call-vtubestudio',
         'celebration',
         'chat-feed-alert',
+        'chat-feed-custom-highlight',
+        'chat-feed-message-hide',
         'chat',
         'clear-chat',
         'clear-effects',
         'clips',
         'conditional-effects/conditional-effects',
+        'conditional-effects/switch-statement',
         'control-emulation', // No migration needed.
         'cooldown-command',
+        'copy-to-clipboard',
         'currency',
         'custom-script',
         'custom-variable',
@@ -58,6 +62,7 @@ exports.loadEffects = () => {
         'random-reddit-image',
         'remove-user-metadata',
         'reset-timer',
+        'retrigger-last-activity',
         'run-command',
         'run-program',
         'send-custom-websocket-event',
@@ -66,42 +71,59 @@ exports.loadEffects = () => {
         'shoutout',
         'show-image', // No migration needed.
         'show-text',
+        'show-toast',
         'stop-effect-execution',
+        'sync-profile-data',
         'take-screenshot',
         'text-to-speech',
         'toggle-command',
         'toggle-connection',
         'toggle-event-set',
         'toggle-event',
+        'toggle-overlay-widgets',
         'toggle-scheduled-task',
         'toggle-timer',
+        'trigger-manual-effect-queue',
         'update-channel-reward',
         'update-counter',
         'update-role',
         'update-viewer-rank',
 
-        'twitch/ad-break',
-        'twitch/announcement',
-        'twitch/approve-reject-channel-reward-redemption',
-        'twitch/block-unblock',
-        'twitch/create-stream-marker',
-        'twitch/raid',
-        'twitch/set-chat-mode',
-        'twitch/shoutout',
-        'twitch/snooze-ad-break',
-        'twitch/stream-title',
-        'twitch/stream-game',
-
-        'twitch/create-poll',
-        'twitch/end-poll',
-
-        'twitch/cancel-prediction',
-        'twitch/create-prediction',
-        'twitch/lock-prediction',
-        'twitch/resolve-prediction',
-        'twitch/update-vip-role'
+        'overlay-widgets/update-overlay-widget-settings',
+        'overlay-widgets/update-progress-bar',
+        'overlay-widgets/update-dynamic-countdown',
+        'overlay-widgets/set-custom-widget-state',
+        'overlay-widgets/send-message-to-custom-widget'
     ].forEach((filename) => {
         const definition = require(`./builtin/${filename}`);
-        effectManager.registerEffect(definition);
+        EffectManager.registerEffect(definition);
+    });
+
+    // Twitch effects
+    [
+        'ad-break',
+        'announcement',
+        'approve-reject-channel-reward-redemption',
+        'block-unblock',
+        'create-stream-marker',
+        'raid',
+        'set-chat-mode',
+        'shield-mode',
+        'shoutout',
+        'snooze-ad-break',
+        'stream-title',
+        'stream-game',
+
+        'create-poll',
+        'end-poll',
+
+        'cancel-prediction',
+        'create-prediction',
+        'lock-prediction',
+        'resolve-prediction',
+        'update-vip-role'
+    ].forEach((filename) => {
+        const definition = require(`../streaming-platforms/twitch/effects/${filename}`);
+        EffectManager.registerEffect(definition);
     });
 };

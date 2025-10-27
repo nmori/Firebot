@@ -22,14 +22,14 @@ type Scope = {
 
 export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
   {
-    definition: {
-      id: "ebiggz:obs-toggle-source-filter",
-      name: "OBSフィルタの適用状態を切り替え",
-      description: "OBSフィルタの適用状態を切り替えます",
-      icon: "fad fa-stars",
-      categories: ["common"],
-    },
-    optionsTemplate: `
+        definition: {
+            id: "ebiggz:obs-toggle-source-filter",
+            name: "OBSフィルタの適用状態を切り替え",
+            description: "OBSフィルタの適用状態を切り替えます",
+            icon: "fad fa-stars",
+            categories: ["common"],
+        },
+        optionsTemplate: `
     <eos-container ng-show="missingSources.length > 0">
         <div class="effect-info alert alert-warning">
              <p><b>Warning!</b> 

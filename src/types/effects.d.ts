@@ -1,5 +1,6 @@
-import { TriggerType, TriggersObject, Trigger } from "./triggers";
 import ng from "angular";
+import type { TriggerType, TriggersObject, Trigger } from "./triggers";
+import type { Awaitable } from "./util-types";
 
 type Func<T> = (...args: unknown[]) => T;
 
@@ -51,32 +52,98 @@ export type OverlayExtension = {
     };
 };
 
+export type EffectDefinition<EffectModel = unknown> = {
+    id: string;
+    name: string;
+    description: string;
+    icon: string;
+    categories: EffectCategory[];
+    hidden?: boolean | Func<boolean>;
+    triggers?: TriggerType[] | TriggersObject;
+    dependencies?: EffectDependencies | Array<"chat">;
+    showWhenDependenciesNotMet?: boolean;
+    outputs?: EffectOutput[];
+    /**
+         * If true, this effect cannot be aborted via the "Timeout" feature
+         */
+    exemptFromTimeouts?: boolean;
+    /**
+         * Keys of the effect model that should be exempt from having variables replaced in them automatically.
+         * This is useful when you want to run variable replacement manually, or not at all.
+         */
+    keysExemptFromAutoVariableReplacement?: Array<keyof EffectModel>;
+};
+
 export type EffectType<EffectModel = unknown, OverlayData = unknown> = {
-    definition: {
-        id: string;
-        name: string;
-        description: string;
-        icon: string;
-        categories: EffectCategory[];
-        hidden?: boolean | Func<boolean>;
-        triggers?: TriggerType[] | TriggersObject;
-        dependencies?: EffectDependencies | Array<"chat">;
-        showWhenDependenciesNotMet?: boolean;
-        outputs?: EffectOutput[];
-    };
+    definition: EffectDefinition<EffectModel>;
     optionsTemplate: string;
+    optionsTemplateUrl?: string;
     optionsController?: ($scope: EffectScope<EffectModel>, ...args: any[]) => void;
     optionsValidator?: (effect: EffectModel, $scope: EffectScope<EffectModel>) => string[];
-    getDefaultLabel?: (effect: EffectModel, ...args: any[]) => string | undefined | Promise<string | undefined>;
+    getDefaultLabel?: (effect: EffectModel, ...args: any[]) => Awaitable<string | undefined>;
     onTriggerEvent: (event: {
         effect: EffectModel;
         trigger: Trigger;
         sendDataToOverlay: (data: OverlayData, overlayInstance?: string) => void;
-    }) => Promise<void | boolean | EffectTriggerResponse>;
+        outputs: Record<string, unknown>;
+        abortSignal: AbortSignal;
+    }) => Awaitable<void | boolean | EffectTriggerResponse>;
     overlayExtension?: OverlayExtension;
 };
 
+export interface EffectInstance {
+    id: string;
+    type: string;
+    [x: string]: unknown;
+}
+
 export interface EffectList {
     id: string;
-    list: any[];
+    list: EffectInstance[];
 }
+
+export type PresetEffectList = {
+    id: string;
+    name: string;
+    args: Array<{
+        name: string;
+    }>;
+    effects: EffectList;
+    sortTags: string[];
+};
+
+type QueueMode = "auto" | "interval" | "custom" | "manual";
+
+export type EffectQueueConfig = {
+    id: string;
+    name: string;
+    mode: QueueMode;
+    interval?: number;
+    sortTags: string[];
+    active: boolean;
+    runEffectsImmediatelyWhenPaused: boolean;
+    length: number;
+    queue: any[];
+};
+
+export type QueueStatus = "running" | "paused" | "idle" | "canceled";
+
+export type RunEffectsContext = {
+    effects?: EffectList;
+    [key: string]: unknown;
+};
+
+type QueueItem = {
+    runEffectsContext: RunEffectsContext;
+    duration?: number;
+    priority?: "none" | "high";
+};
+
+export type QueueState = {
+    status: QueueStatus;
+    queuedItems: QueueItem[];
+    activeItems: QueueItem[];
+    interval: number;
+    mode: QueueMode;
+    runEffectsImmediatelyWhenPaused?: boolean;
+};

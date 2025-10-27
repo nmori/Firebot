@@ -1,7 +1,7 @@
 "use strict";
 
 (function() {
-    /** @typedef {import("../../../shared/types").QuickActionDefinition} QuickAction */
+    /** @typedef {import("../../../types/quick-actions").QuickActionDefinition} QuickAction */
 
     angular
         .module("firebotApp")
@@ -26,10 +26,10 @@
             };
 
             /**
-             * @returns {Promise.<void>}
+             * @returns {void}
              */
-            service.loadQuickActions = async () => {
-                const quickActions = await backendCommunicator.fireEventAsync("getQuickActions");
+            service.loadQuickActions = () => {
+                const quickActions = backendCommunicator.fireEventSync("quick-actions:get-quick-actions");
 
                 if (quickActions) {
                     service.quickActions = quickActions;
@@ -73,9 +73,9 @@
             /**
              * @returns {QuickAction[]}
              */
-            service.getQuickActions = async () => {
+            service.getQuickActions = () => {
                 if (!service.quickActions || !service.quickActions.length) {
-                    await service.loadQuickActions();
+                    service.loadQuickActions();
                 }
 
                 return service.quickActions || [];
@@ -93,8 +93,8 @@
              * @param {QuickAction} customQuickAction
              * @returns {Promise.<void>}
              */
-            service.saveCustomQuickAction = async (customQuickAction) => {
-                const savedCustomQuickAction = await backendCommunicator.fireEventAsync("saveCustomQuickAction", customQuickAction);
+            service.saveCustomQuickAction = (customQuickAction) => {
+                const savedCustomQuickAction = backendCommunicator.fireEventSync("quick-actions:save-custom-quick-action", customQuickAction);
 
                 if (savedCustomQuickAction) {
                     updateQuickActions(savedCustomQuickAction);
@@ -110,7 +110,7 @@
              */
             service.deleteCustomQuickAction = (customQuickActionId) => {
                 service.quickActions = service.quickActions.filter(cqa => cqa.id !== customQuickActionId);
-                backendCommunicator.fireEvent("deleteCustomQuickAction", customQuickActionId);
+                backendCommunicator.fireEvent("quick-actions:delete-custom-quick-action", customQuickActionId);
             };
 
             /**

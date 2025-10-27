@@ -67,7 +67,7 @@
                         saveText: "保存する",
                         descriptionText: "演出リスト内で出力名に重複がないことを確認してください。2つの演出が同じ名前で出力されると、予期せぬ動作が起こる可能性があります。",
                         validationFn: (value) => {
-                            return new Promise(resolve => {
+                            return new Promise((resolve) => {
                                 if (value?.trim().length < 1) {
                                     resolve(false);
                                 } else {

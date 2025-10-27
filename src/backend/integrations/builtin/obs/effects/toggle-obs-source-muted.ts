@@ -17,14 +17,14 @@ type Scope = {
 
 export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
   {
-    definition: {
-      id: "ebiggz:obs-toggle-source-muted",
+        definition: {
+            id: "ebiggz:obs-toggle-source-muted",
       name: "OBS 音声ソースのミュート",
       description: "OBS音声ソースのミュート状態を切り替える",
-      icon: "fad fa-volume-mute",
+            icon: "fad fa-volume-mute",
       categories: ["common"],
-    },
-    optionsTemplate: `
+        },
+        optionsTemplate: `
     <eos-container ng-show="missingSources.length > 0">
         <div class="effect-info alert alert-warning">
             <p><b>Warning!</b> 

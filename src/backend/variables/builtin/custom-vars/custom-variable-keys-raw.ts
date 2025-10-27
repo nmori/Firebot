@@ -1,7 +1,5 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
-
-const customVariableManager = require("../../../common/custom-variable-manager");
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
+import customVariableManager from "../../../common/custom-variable-manager";
 
 function isObject(data: unknown) {
     return typeof data === 'object' && !(data instanceof String);
@@ -18,8 +16,8 @@ const model : ReplaceVariable = {
             }
         ],
         description: "カスタム変数に保存されているオブジェクトのキーの配列を取得します。",
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.TEXT]
+        categories: ["advanced"],
+        possibleDataOutput: ["text"]
     },
     evaluator: (
         trigger: Trigger,

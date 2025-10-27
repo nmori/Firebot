@@ -153,7 +153,7 @@
                         confirmLabel: "削除する",
                         confirmBtnType: "btn-danger"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             $ctrl.close({
                                 $value: {

@@ -1,7 +1,5 @@
-import { ReplaceVariable } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
-
-const { processDice } = require("../../../common/handlers/diceProcessor");
+import type { ReplaceVariable } from "../../../../types/variables";
+import { processDice } from "../../../common/handlers/diceProcessor";
 
 const model : ReplaceVariable = {
     definition: {
@@ -22,8 +20,8 @@ const model : ReplaceVariable = {
             }
         ],
         description: "2d6、2d10+1d12、1d10+3など、与えられた設定に基づいてサイコロを振る。",
-        categories: [VariableCategory.COMMON, VariableCategory.NUMBERS],
-        possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
+        categories: ["common", "numbers"],
+        possibleDataOutput: ["number", "text"]
     },
     evaluator: (_, diceConfig, option: string) => {
         const showEach = option?.toLowerCase() === "show each";

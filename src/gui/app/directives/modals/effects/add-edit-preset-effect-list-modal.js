@@ -1,6 +1,7 @@
 "use strict";
 
 (function () {
+    const { v4: uuid } = require("uuid");
 
     angular.module("firebotApp").component("addOrEditPresetEffectListModal", {
         template: `
@@ -47,8 +48,9 @@
                     <collapsable-panel header="StreamDeckからの起動方法">
                         <p>Steps:</p>
                         <ol>
+                            <li ng-if="$ctrl.isNewPresetList === true">Configure your new preset effect list and click <strong>Save</strong></li>
                             <li>Add "Website" Action to a StreamDeck button</li>
-                            <li>Set URL to <b>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</b></li>
+                            <li>Set URL to <strong>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</strong<></li>
                             <li>Check "GET request in background"</li>
                         </ol>
                     </collapsable-panel>
@@ -72,6 +74,7 @@
             $ctrl.isNewPresetList = true;
 
             $ctrl.presetList = {
+                id: uuid(),
                 name: "",
                 effects: null,
                 args: [],
@@ -133,7 +136,7 @@
                     return;
                 }
 
-                presetEffectListsService.savePresetEffectList($ctrl.presetList).then((savedList) => {
+                const savedList = presetEffectListsService.savePresetEffectList($ctrl.presetList, $ctrl.isNewPresetList);
                     if (savedList != null) {
                         $ctrl.close({
                             $value: {
@@ -143,7 +146,6 @@
                     } else {
                         ngToast.create("Failed to save preset effect list. Please try again or view logs for details.");
                     }
-                });
             };
         }
     });

@@ -1,10 +1,7 @@
 "use strict";
 
 (function () {
-
-    angular
-        .module("firebotApp")
-        .component("advancedSettings", {
+    angular.module("firebotApp").component("advancedSettings", {
             template: `
                 <div>
 
@@ -35,6 +32,45 @@
                         <firebot-button
                             text="{{settings.getSetting('WhileLoopEnabled') ? '無効' : '有効' }}"
                             ng-click="toggleWhileLoops()"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="Global Values"
+                        description="Global Values are static values that can be used in effects via a $variable. They can be created and managed here."
+                    >
+                        <firebot-button
+                            text="Edit Global Values"
+                            ng-click="showEditGlobalValuesModal()"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="Proxied Webhooks"
+                        tag="Experimental"
+                        description="This feature allows you to receive webhooks without exposing your local network. A 'Webhook Received' event is triggered each time a webhook is received with the payload available via the $webhookPayload variable."
+                        bottom-border="false"
+                    >
+                        <setting-description-addon>
+                            <b>This feature is experimental and not guaranteed to be stable.</b>
+                        </setting-description-addon>
+                        <firebot-button
+                            text="Edit Webhooks"
+                            ng-click="showEditWebhooksModal()"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="Webhook Debug Logs"
+                        description="Enable or disable logging for incoming webhooks. Webhooks might contain sensitive information. Be careful where you send logs when this option is enabled."
+                    >
+                        <setting-description-addon>
+                            <b>Requires Debug Mode to also be enabled.</b>
+                        </setting-description-addon>
+                        <firebot-button
+                            text="{{settings.getSetting('WebhookDebugLogs') && settings.getSetting('DebugMode') ? 'Disable Webhook Logs' : 'Enable Webhook Logs' }}"
+                            disabled="!settings.getSetting('DebugMode')"
+                            ng-click="settings.saveSetting('WebhookDebugLogs', !settings.getSetting('WebhookDebugLogs'))"
                         />
                     </firebot-setting>
 
@@ -93,13 +129,37 @@
                         />
                     </firebot-setting>
 
+                    <firebot-setting
+                        name="Open Effect Queue Monitor on Launch"
+                        description="Automatically open the Effect Queue Monitor window when Firebot launches."
+                    >
+                        <toggle-button
+                            toggle-model="settings.getSetting('OpenEffectQueueMonitorOnLaunch')"
+                            on-toggle="settings.saveSetting('OpenEffectQueueMonitorOnLaunch', !settings.getSetting('OpenEffectQueueMonitorOnLaunch'))"
+                            font-size="40"
+                            accessibility-label="(settings.getSetting('OpenEffectQueueMonitorOnLaunch') ? 'Enabled' : 'Disabled') + ' Effect Queue Monitor on Launch'"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="Allow Chat-Created Commands to Run Effects"
+                        description="Enables the !command system command to import shared effects and run effects through variables inside command responses. Recommended only if you trust your moderators with these advanced features."
+                    >
+                        <toggle-button
+                            toggle-model="settings.getSetting('AllowChatCreatedCommandsToRunEffects')"
+                            on-toggle="settings.saveSetting('AllowChatCreatedCommandsToRunEffects', !settings.getSetting('AllowChatCreatedCommandsToRunEffects'))"
+                            font-size="40"
+                            accessibility-label="(settings.getSetting('AllowChatCreatedCommandsToRunEffects') ? 'Enabled' : 'Disabled') + ' Chat-Created Commands to Run Effects'"
+                        />
+                    </firebot-setting>
+
                     <div style="margin-top: 20px">
                         <p class="muted">ここにあった設定をお探しですか？ツール→アプリのメニューで確認してみてください</p>
                     </div>
 
                 </div>
           `,
-            controller: function ($scope, settingsService, utilityService, backendCommunicator) {
+        controller: function ($scope, settingsService, utilityService, backendCommunicator, modalService) {
                 $scope.settings = settingsService;
 
                 $scope.toggleWhileLoops = () => {
@@ -123,6 +183,19 @@
                     }
                 };
 
+            $scope.showEditWebhooksModal = function () {
+                modalService.showModal({
+                    component: "editWebhooksModal"
+                });
+            };
+
+            $scope.showEditGlobalValuesModal = function () {
+                modalService.showModal({
+                    component: "editGlobalValuesModal",
+                    size: "sm"
+                });
+            };
+
                 $scope.recalculateQuoteIds = () => {
                     utilityService
                         .showConfirmationModal({
@@ -137,7 +210,6 @@
                             }
                         });
                 };
-
             }
         });
-}());
+})();

@@ -132,19 +132,35 @@
             };
 
             // Chat Alert Message
-            service.chatAlertMessage = function(message) {
-
+            service.chatAlertMessage = function(message, icon = "fad fa-exclamation-circle") {
                 const alertItem = {
                     id: uuid(),
                     type: "alert",
-                    data: message
+                    message: message,
+                    icon: icon
                 };
 
                 service.chatQueue.push(alertItem);
             };
 
-            backendCommunicator.on("chat-feed-system-message", (message) => {
-                service.chatAlertMessage(message);
+            backendCommunicator.on("chat-feed-system-message", (message, icon) => {
+                service.chatAlertMessage(message, icon);
+            });
+
+            // Custom Highlight and Banner
+            service.customHighlightAndBanner = function(messageId, customHighlightColor, customBannerIcon, customBannerText) {
+                const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+                if (messageItem == null) {
+                    return;
+                }
+
+                messageItem.data.customHighlightColor = customHighlightColor;
+                messageItem.data.customBannerIcon = customBannerIcon;
+                messageItem.data.customBannerText = customBannerText;
+            };
+
+            backendCommunicator.on("chat-feed-custom-highlight", (data) => {
+                service.customHighlightAndBanner(data.messageId, data.customHighlightColor, data.customBannerIcon, data.customBannerText);
             });
 
             // Chat Update Handler
@@ -194,7 +210,7 @@
                     break;
                 case "ChatAlert":
                     logger.debug("Chat alert from backend.");
-                    service.chatAlertMessage(data.message);
+                        service.chatAlertMessage(data.message, data.icon);
                     break;
                 default:
                     // Nothing
@@ -270,27 +286,25 @@
 
             backendCommunicator.on("twitch:chat:user:delete-messages", markUserMessagesAsDeleted);
 
+            service.hideMessageInChatFeed = function(messageId) {
+                const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+                if (messageItem == null) {
+                    return;
+                }
+
+                messageItem.data.isHiddenFromChatFeed = true;
+            };
+
+            backendCommunicator.on("chat-feed-message-hide", (data) => {
+                service.hideMessageInChatFeed(data.messageId);
+            });
+
             service.changeModStatus = (username, shouldBeMod) => {
                 backendCommunicator.send("update-user-mod-status", {
                     username,
                     shouldBeMod
                 });
             };
-
-            // $interval(() => {
-            //     if (messageHoldingQueue.length > 0) {
-            //         service.chatQueue = service.chatQueue.concat(messageHoldingQueue);
-            //         messageHoldingQueue = [];
-
-            //         // Trim messages.
-            //         service.pruneChatQueue();
-
-            //         //hacky way to ensure we stay scroll glued
-            //         $timeout(() => {
-            //             $rootScope.$broadcast('ngScrollGlue.scroll');
-            //         }, 1);
-            //     }
-            // }, 250);
 
             backendCommunicator.on("twitch:chat:rewardredemption", (redemption) => {
                 const redemptionItem = {
@@ -466,14 +480,27 @@
                 service.pruneChatQueue();
             });
 
-            service.allEmotes = [];
-            service.filteredEmotes = [];
+            service.allEmotes = {
+                streamer: [],
+                bot: [],
+                thirdParty: []
+            };
+
+            service.filteredEmotes = {
+                streamer: [],
+                bot: [],
+                thirdParty: []
+            };
+
             service.refreshEmotes = () => {
                 const showBttvEmotes = settingsService.getSetting("ChatShowBttvEmotes");
                 const showFfzEmotes = settingsService.getSetting("ChatShowFfzEmotes");
                 const showSevenTvEmotes = settingsService.getSetting("ChatShowSevenTvEmotes");
 
-                service.filteredEmotes = service.allEmotes.filter((e) => {
+                service.filteredEmotes = {
+                    streamer: service.allEmotes.streamer,
+                    bot: service.allEmotes.bot,
+                    thirdParty: service.allEmotes.thirdParty.filter((e) => {
                     if (showBttvEmotes !== true && e.origin === "BTTV") {
                         return false;
                     }
@@ -487,7 +514,8 @@
                     }
 
                     return true;
-                });
+                    })
+            };
             };
 
             backendCommunicator.on("all-emotes", (emotes) => {

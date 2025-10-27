@@ -1,6 +1,5 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
-import { convertToString, escapeRegExp } from '../../../utility';
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
+import { stringify, escapeRegExp } from '../../../utils';
 
 const model : ReplaceVariable = {
     definition: {
@@ -10,22 +9,22 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "replace[textInput, searchValue, replacement, true]",
-                description: "正規表現を使って検索できるようにする。"
+                description: "[正規表現](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)を使って検索できるようにする。"
             },
             {
                 usage: "replace[textInput, searchValue, replacement, true, flags]",
-                description: "正規表現使用時にフラグを追加する。"
+                description: "[正規表現](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)使用時にフラグを追加する。"
             }
         ],
-        categories: [VariableCategory.TEXT],
-        possibleDataOutput: [OutputDataType.TEXT, OutputDataType.NUMBER]
+        categories: ["text"],
+        possibleDataOutput: ["text", "number"]
     },
     evaluator: (
         trigger: Trigger,
-        input: unknown,
-        search: unknown,
+        input: string,
+        search: string,
         replacement: unknown = "",
-        searchIsRegex: unknown = false,
+        searchIsRegex = false,
         flags: unknown = "g"
     ) : string => {
         if (input == null) {
@@ -34,12 +33,12 @@ const model : ReplaceVariable = {
 
 
         if (search == null) {
-            return <string>input;
+            return input;
         }
-        return convertToString(input)
+        return stringify(input)
             .replace(
-                new RegExp(searchIsRegex ? search : escapeRegExp(search), convertToString(flags)),
-                convertToString(replacement)
+                new RegExp(searchIsRegex ? search : escapeRegExp(search), stringify(flags)),
+                stringify(replacement)
             );
     }
 };

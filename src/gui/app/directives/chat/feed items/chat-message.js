@@ -21,7 +21,7 @@
                 fontFamilyStyle: "@?"
             },
             template: `
-                <div class="chat-message-wrapper">
+                <div class="chat-message-wrapper" ng-if="$ctrl.message.isHiddenFromChatFeed !== true">
                     <div
                         ng-if="$ctrl.message.isAnnouncement"
                         class="announcement-bar"
@@ -40,6 +40,11 @@
                         ng-class="{'first-chat': $ctrl.message.isFirstChat, returning: $ctrl.message.isReturningChatter, raider: $ctrl.message.isRaider, suspicious: $ctrl.message.isSuspiciousUser}"
                     >
                     </div>
+                    <div
+                        ng-if="$ctrl.message.customHighlightColor"
+                        class="chat-highlight-bar"
+                        ng-style="{'background-color': $ctrl.message.customHighlightColor}">
+                    </div>
                     <div ng-if="$ctrl.message.isAnnouncement" class="chat-message-banner">
                         <i class="fad fa-bullhorn"></i> アナウンス
                     </div>
@@ -54,6 +59,10 @@
                     </div>
                     <div ng-if="$ctrl.message.isSuspiciousUser" class="chat-message-banner">
                         <i class="fad fa-exclamation-triangle"></i> 不審なユーザー
+                    </div>
+                    <div ng-if="$ctrl.message.customBannerText" class="chat-message-banner">
+                        <i ng-if="$ctrl.message.customBannerIcon" class="{{$ctrl.message.customBannerIcon}}"></i>
+                        {{$ctrl.message.customBannerText}}
                     </div>
                     <div ng-if="$ctrl.message.isReply && !$ctrl.hideReplyBanner" class="chat-message-banner mini-banner muted truncate" ng-click="$ctrl.replyBannerClicked()">
                         <i class="fad fa-comment-alt-dots"></i> Replying to @{{$ctrl.message.replyParentMessageSenderDisplayName}}: {{$ctrl.message.replyParentMessageText}}</span>
@@ -120,6 +129,14 @@
                                     ng-click="$root.openLinkExternally('https://pronouns.alejo.io/')"
                                     ng-show="$ctrl.showPronoun && $ctrl.pronouns.pronounCache[$ctrl.message.username] != null"
                                 >{{$ctrl.pronouns.pronounCache[$ctrl.message.username]}}</span>
+
+                                <span
+                                    class="rank-role-badge"
+                                    ng-repeat="badge in $ctrl.rankAndRoleBadges"
+                                    uib-tooltip="{{badge.tooltip}}"
+                                    tooltip-append-to-body="true"
+                                ><i class="{{badge.icon}}" style="font-size: 10px;"></i> {{badge.text}}</span>
+
                                 <b ng-style="{'color': $ctrl.message.color}">{{$ctrl.message.userDisplayName != null ? $ctrl.message.userDisplayName : $ctrl.message.username}}</b>
                                 <span
                                     ng-if="$ctrl.message.username && $ctrl.message.userDisplayName && $ctrl.message.username.toLowerCase() !== $ctrl.message.userDisplayName.toLowerCase()"
@@ -226,7 +243,7 @@
                             <span>Flagged by AutoMod ({{$ctrl.message.autoModReason}}): Expired</span>
                     </div>
                     </div>
-                    <div ng-if="$ctrl.message.isAnnouncement || $ctrl.message.isFirstChat || $ctrl.message.isReturningChatter || $ctrl.message.isRaider || $ctrl.message.isSuspiciousUser" style="margin-bottom:5px">
+                    <div ng-if="$ctrl.message.isAnnouncement || $ctrl.message.isFirstChat || $ctrl.message.isReturningChatter || $ctrl.message.isRaider || $ctrl.message.isSuspiciousUser || $ctrl.message.customBannerText || $ctrl.message.customBannerIcon" style="margin-bottom:5px">
                 </div>
             `,
             controller: function(chatMessagesService, utilityService, connectionService, pronounsService, backendCommunicator) {
@@ -494,7 +511,27 @@
                     }
                 };
 
+                $ctrl.rankAndRoleBadges = [];
+
                 $ctrl.$onInit = () => {
+                    if ($ctrl.message.viewerRanks) {
+                        for (const [ladderName, rankName] of Object.entries($ctrl.message.viewerRanks)) {
+                            $ctrl.rankAndRoleBadges.push({
+                                text: rankName,
+                                icon: "far fa-chevron-double-down",
+                                tooltip: `Rank: ${rankName} in ${ladderName}`
+                            });
+                        }
+                    }
+                    if ($ctrl.message.viewerCustomRoles) {
+                        for (const roleName of $ctrl.message.viewerCustomRoles) {
+                            $ctrl.rankAndRoleBadges.push({
+                                text: roleName,
+                                icon: "far fa-user-tag",
+                                tooltip: "Custom Role"
+                            });
+                        }
+                    }
                 };
 
                 /*

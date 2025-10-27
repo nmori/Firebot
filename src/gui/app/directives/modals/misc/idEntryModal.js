@@ -54,7 +54,7 @@
                 $ctrl.label = "テキストを入力";
                 $ctrl.inputPlaceholder = "テキストを入力";
                 $ctrl.saveText = "Save";
-                $ctrl.validationFn = (model) => model != null && model.length > 0;
+                $ctrl.validationFn = model => model != null && model.length > 0;
                 $ctrl.validationText = "IDを入力してください";
                 $ctrl.hasValidationError = false;
 

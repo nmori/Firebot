@@ -1,13 +1,12 @@
 "use strict";
 (function() {
 
-    const dataAccess = require("../../backend/common/data-access.js");
-
     angular
         .module("firebotApp")
         .factory("modalFactory", function(
             $rootScope,
             modalService,
+            dataAccess,
             backendCommunicator,
             logger
         ) {
@@ -25,6 +24,28 @@
                 });
             });
 
+            backendCommunicator.onAsync("openGetInputModal", (data) => {
+                return new Promise((resolve) => {
+                    service.openGetInputModal({
+                        ...data.config,
+                        validationFn: async (value) => {
+                            if (value != null) {
+                                if (data.validation == null) {
+                                    return true;
+                                }
+
+                                if (data.validation.required) {
+                                    if (value == null || value === "") {
+                                        return false;
+                                    }
+                                }
+                            }
+                            return true;
+                        }
+                    }, resolve, () => resolve(null));
+                });
+            });
+
             service.showSetupWizard = function(allowExit = false) {
                 modalService.showModal({
                     component: "setupWizardModal",
@@ -34,7 +55,7 @@
                 });
             };
 
-            service.openGetInputModal = function(options, callback) {
+            service.openGetInputModal = function(options, callback, dismissCallback) {
                 modalService.showModal({
                     component: "inputModal",
                     size: "sm",
@@ -53,7 +74,8 @@
                     },
                     closeCallback: (resp) => {
                         callback(resp.model);
-                    }
+                    },
+                    dismissCallback
                 });
             };
 
@@ -87,6 +109,17 @@
                     },
                     closeCallback: async (resp) => {
                         callback(resp.model);
+                    }
+                });
+            };
+
+            service.openEditOverlayResolutionModal = function(callback) {
+                modalService.showModal({
+                    component: "editOverlayResolutionModal",
+                    size: "sm",
+                    resolveObj: {},
+                    closeCallback: (newResolution) => {
+                        callback(newResolution);
                     }
                 });
             };
@@ -375,7 +408,7 @@
                             if (!$scope.downloadComplete) {
                                 $scope.downloadHasError = true;
                                 $scope.errorMessage =
-                  "Download is taking longer than normal. There may have been an error. You can keep waiting or close this and try again later.";
+                                    "Download is taking longer than normal. There may have been an error. You can keep waiting or close this and try again later.";
                             }
                         }, 180 * 1000);
 
@@ -701,7 +734,7 @@
 
                             const { triggerType, triggerMeta } = $scope;
                             try {
-                                const variableErrors = await backendCommunicator.fireEventAsync("validateVariables", {
+                                const variableErrors = await backendCommunicator.fireEventAsync("variables:validate-variables", {
                                     data: $scope.effect,
                                     trigger: {
                                         type: triggerType,
@@ -724,7 +757,7 @@
                                     if (firstError.message) {
                                         errorDetails.push({
                                             title: "Error",
-                                            message: service.capitalize(firstError.message)
+                                            message: firstError.message
                                         });
                                     }
 
@@ -845,7 +878,7 @@
                         };
 
                         $scope.runEffect = function() {
-                            ipcRenderer.send('runEffectsManually', { effects: { list: [$scope.effect] } });
+                            backendCommunicator.send('runEffectsManually', { effects: { list: [$scope.effect] } });
                         };
 
                         $scope.delete = function() {

@@ -1,5 +1,4 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 
 import customVariableKeysRaw from './custom-variable-keys-raw';
 
@@ -18,8 +17,8 @@ const model : ReplaceVariable = {
             }
         ],
         description: "カスタム変数に保存されているオブジェクトのキーの配列を取得します。",
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.TEXT]
+        categories: ["advanced"],
+        possibleDataOutput: ["text"]
     },
     evaluator: (
         trigger: Trigger,

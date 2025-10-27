@@ -1,5 +1,5 @@
+import { FontAwesomeIcon } from "../../types/icons";
 import frontendCommunicator from "./frontend-communicator";
-import { FontAwesomeIcon } from "../../shared/types";
 import logger from "../logwrapper";
 import path from "path";
 import fs from "fs";
@@ -39,8 +39,8 @@ interface FontAwesomeIconDefinition {
 }
 
 type FontAwesomeIconDefinitions = {
-    [iconName: string]: FontAwesomeIconDefinition
-}
+    [iconName: string]: FontAwesomeIconDefinition;
+};
 
 class IconManager {
     private readonly iconCacheFile: string;
@@ -66,12 +66,8 @@ class IconManager {
         frontendCommunicator.on("all-font-awesome-icons", () => this.icons);
     }
     
-    // キャッシュの有効性チェック（7日以内に更新されているか）
-    private isCacheValid(): boolean {
-        try {
-            if (!fs.existsSync(this.iconCacheFile)) {
-                return false;
-            }
+    async loadFontAwesomeIcons(): Promise<void> {
+        const fontAwesomeIcons = await (await fetch("https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/metadata/icons.json")).json() as FontAwesomeIconDefinitions;
             
             const stats = fs.statSync(this.iconCacheFile);
             const modifiedTime = stats.mtime.getTime();

@@ -24,14 +24,15 @@ type Scope = {
 
 export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
 {
-  definition: {
-    id: "ebiggz:obs-toggle-source-visibility",
-    name: "OBSソースの表示状態を切り替える",
-    description: "OBSソースの表示状態を切り替える",
-    icon: "fad fa-clone",
-    categories: ["common"],
-  },
-  optionsTemplate: `
+        definition: {
+            id: "ebiggz:obs-toggle-source-visibility",
+            name: "OBSソースの表示状態を切り替える",
+            description: "OBSソースの表示状態を切り替える",
+            icon: "fad fa-clone",
+            categories: ["common"]
+            categories: ["common"],
+        },
+        optionsTemplate: `
 <eos-container ng-show="missingSources.length > 0">
         <div class="effect-info alert alert-warning">
             <p><b>Warning!</b> 

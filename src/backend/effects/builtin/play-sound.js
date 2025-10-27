@@ -8,7 +8,7 @@ const logger = require("../../logwrapper");
 const path = require("path");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
-const { wait } = require("../../utility");
+const { wait, convertByteArrayJsonToByteArray } = require("../../utils");
 
 const playSound = {
     definition: {
@@ -22,10 +22,9 @@ const playSound = {
     globalSettings: {},
     optionsTemplate: `
     <eos-container header="メディアタイプ">
-        <firebot-radios 
+        <firebot-select
             options="{ local: 'ローカルファイル', folderRandom: 'フォルダ内のファイルをランダム再生', url: 'ネット上のものを再生' }"
-            model="effect.soundType"
-            inline="true"
+            selected="effect.soundType"
             style="padding-bottom: 5px;"
         />
     </eos-container>
@@ -47,6 +46,16 @@ const playSound = {
 
             <div ng-if="effect.soundType === 'url'">
                <firebot-input input-title="Url" model="effect.url" />
+            </div>
+
+            <div ng-if="effect.soundType === 'rawData'">
+               <firebot-input input-title="MIME Type"
+                    model="effect.mimeType"
+                    placeholder-text="Example: audio/mpeg"
+                    style="margin-bottom: 2rem;" />
+               <firebot-input input-title="Binary Data"
+                    model="effect.rawData"
+                    placeholder-text="Variable containing binary data" />
             </div>
 
             <div style="padding-top:20px">
@@ -96,6 +105,13 @@ const playSound = {
             }
         } else if (effect.soundType === "url" && (effect.url == null || effect.url.trim() === "")) {
             errors.push("URLをいれてください");
+        } else if (effect.soundType === "rawData") {
+            if (effect.mimeType == null || effect.mimeType.trim() === "") {
+                errors.push("Please input a MIME type for the raw data.");
+        }
+            if (effect.rawData == null || effect.rawData.trim() === "") {
+                errors.push("Please input a value for the raw data.");
+            }
         }
 
         return errors;
@@ -105,6 +121,17 @@ const playSound = {
 
         if (effect.soundType == null) {
             effect.soundType = "local";
+        }
+
+        if (effect.soundType === "rawData") {
+            effect.soundType = "url";
+            try {
+                // Attempt to convert back to binary
+                effect.rawData = convertByteArrayJsonToByteArray(effect.rawData);
+            } finally {
+                const buffer = Buffer.from(effect.rawData);
+                effect.url = `data:${effect.mimeType};base64,${buffer.toString("base64")}`;
+            }
         }
 
         const data = {

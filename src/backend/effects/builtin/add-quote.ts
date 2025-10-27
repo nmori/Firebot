@@ -1,10 +1,9 @@
-import twitchApi from "../../twitch-api/api";
-import quotesManager from "../../quotes/quotes-manager";
-import { EffectCategory } from '../../../shared/effect-constants';
 import moment from "moment";
 import { EffectType } from "../../../types/effects";
+import { QuoteManager } from "../../quotes/quote-manager";
+import { TwitchApi } from "../../streaming-platforms/twitch/api";
 
-const model: EffectType<{
+const effect: EffectType<{
     creator: string;
     originator: string;
     text: string;
@@ -14,7 +13,7 @@ const model: EffectType<{
         name: "引用文の追加",
         description: "引用文をデータベースに追加します",
         icon: "fad fa-quote-right",
-        categories: [EffectCategory.FUN],
+        categories: ["fun"],
         dependencies: [],
         outputs: [
             {
@@ -42,7 +41,7 @@ const model: EffectType<{
     `,
     optionsController: () => {},
     optionsValidator: (effect) => {
-        const errors = [];
+        const errors: string[] = [];
         if (effect.creator == null || effect.creator === "") {
             errors.push("引用の作成者を教えてください");
         }
@@ -59,7 +58,7 @@ const model: EffectType<{
     onTriggerEvent: async (event) => {
         const { effect } = event;
 
-        const channelData = await twitchApi.channels.getChannelInformation();
+        const channelData = await TwitchApi.channels.getChannelInformation();
 
         const currentGameName = channelData && channelData.gameName ? channelData.gameName : "不明なゲーム";
 
@@ -71,7 +70,7 @@ const model: EffectType<{
             createdAt: moment().toISOString()
         };
 
-        const id = await quotesManager.addQuote(newQuote);
+        const id = await QuoteManager.addQuote(newQuote);
 
         return {
             success: true,
@@ -82,4 +81,4 @@ const model: EffectType<{
     }
 };
 
-export = model;
+export = effect;

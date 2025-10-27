@@ -46,7 +46,7 @@
                 $ctrl.label = "テキストを入力";
                 $ctrl.inputPlaceholder = "テキストを入力";
                 $ctrl.saveText = "保存";
-                $ctrl.validationFn = (value) => value != null;
+                $ctrl.validationFn = value => value != null;
                 $ctrl.validationText = "日付を入力してください.";
                 $ctrl.hasValidationError = false;
                 $ctrl.inputType = "text";

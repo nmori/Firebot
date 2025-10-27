@@ -32,6 +32,7 @@
                             </div>
 
                             <nav-category name="{{'SIDEBAR.MANAGEMENT' | translate }}" pad-top="true"></nav-category>
+                            <nav-link page="Overlay Widgets" name="Overlay Widgets" icon="fa-layer-plus"></nav-link>
                             <nav-link page="Effect Queues" name="{{ 'SIDEBAR.OTHER.EFFECT_QUEUES' | translate }}" icon="fa-stream"></nav-link>
                             <nav-link page="Variable Macros" name="{{ 'SIDEBAR.OTHER.VARIABLE_MACROS' | translate }}" icon="fa-layer-group"></nav-link>
                             <nav-link page="Games" name="{{ 'SIDEBAR.OTHER.GAMES' | translate }}" icon="fa-dice"></nav-link>
@@ -124,7 +125,9 @@
 
             ctrl.isViewerDBOn = () => settingsService.getSetting("ViewerDB");
 
-            ctrl.extensionPages = () => uiExtensionsService.extensions.map(e => e.pages.map((p) => {
+            ctrl.extensionPages = () => uiExtensionsService.extensions
+                .filter(e => e.pages != null)
+                .map(e => e.pages.map((p) => {
                 p.extensionId = e.id;
                 return p;
             })).flat();

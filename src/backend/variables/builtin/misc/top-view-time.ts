@@ -1,18 +1,17 @@
-import { ReplaceVariable } from "../../../../types/variables";
-import { OutputDataType } from "../../../../shared/variable-constants";
+import type { ReplaceVariable } from "../../../../types/variables";
 
 import viewerOnlineStatusManager from "../../../viewers/viewer-online-status-manager";
-const util = require("../../../utility");
+import { commafy } from "../../../utils";
 
 const model : ReplaceVariable = {
     definition: {
         handle: "topViewTime",
         description: "カンマで区切られた、最も閲覧時間の長いユーザーのリスト（時間単位）。デフォルトはトップ10で、2番目の引数にカスタムの数値を指定できます。",
         usage: "topViewTime[count]",
-        possibleDataOutput: [OutputDataType.TEXT]
+        possibleDataOutput: ["text"]
     },
 
-    // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+
     evaluator: async (_, count: number = 10) => {
 
         // limit to max of 25
@@ -27,7 +26,7 @@ const model : ReplaceVariable = {
 
         const topViewTimeUsersDisplay = topViewTimeUsers.map((u, i) => {
             const hours = u.minutesInChannel > 59 ? Math.floor(u.minutesInChannel / 60) : 0;
-            return `#${i + 1}) ${u.username} - ${util.commafy(hours)}`;
+            return `#${i + 1}) ${u.username} - ${commafy(hours)}`;
         }).join(", ");
 
         return topViewTimeUsersDisplay;

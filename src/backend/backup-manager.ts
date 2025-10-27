@@ -1,14 +1,20 @@
 import { app } from "electron";
-import path from "path";
-import fsp from "fs/promises";
 import fs from "fs";
-import logger from "./logwrapper";
-import utils from "./utility";
-import { SettingsManager } from "./common/settings-manager";
-import dataAccess from "./common/data-access.js";
-import frontendCommunicator from "./common/frontend-communicator";
+import fsp from "fs/promises";
+import path from "path";
 import unzipper from "unzipper";
 import archiver from "archiver";
+
+import { SettingsManager } from "./common/settings-manager";
+import * as dataAccess from "./common/data-access";
+import frontendCommunicator from "./common/frontend-communicator";
+import logger from "./logwrapper";
+import { emptyFolder } from "./utils";
+
+interface ZipEntry {
+    path: string;
+    autodrain: () => Promise<void>;
+}
 
 const RESTORE_FOLDER_PATH = dataAccess.getPathInTmpDir("/restore");
 const PROFILES_FOLDER_PATH = dataAccess.getPathInUserData("/profiles");
@@ -50,7 +56,7 @@ class BackupManager {
             frontendCommunicator.send("backups:backup-complete", manualActivation);
         });
 
-        frontendCommunicator.onAsync("backups:restore-backup", async (backupFilePath: string): Promise<{ success: boolean; reason?: string; }> => {
+        frontendCommunicator.onAsync("backups:restore-backup", async (backupFilePath: string): Promise<{ success: boolean, reason?: string }> => {
             return await this.restoreBackup(backupFilePath);
         });
 
@@ -212,12 +218,7 @@ class BackupManager {
             varIgnoreInArchive.push("overlay-resources/**");
         }
         
-        // バックアップサイズをさらに削減するため、キャッシュフォルダを除外
-        if (!manualActivation) {
-            varIgnoreInArchive.push("profiles/*/cache/**");
-        }
-
-        archive.glob('**/*', {
+        archive.glob("**/*", {
             ignore: varIgnoreInArchive,
             cwd: path.resolve(dataAccess.getPathInUserData("/"))
         });
@@ -271,7 +272,7 @@ class BackupManager {
         return false;
     }
 
-    async restoreBackup(backupFilePath: string): Promise<{ success: boolean; reason?: string; }> {
+    async restoreBackup(backupFilePath: string): Promise<{ success: boolean, reason?: string }> {
         // Validate backup zip
         try {
             const valid = await this.validateBackupZip(backupFilePath);
@@ -281,7 +282,7 @@ class BackupManager {
                     reason: "Provided zip is not a valid Firebot V5 backup."
                 };
             }
-        } catch (error) {
+        } catch {
             return {
                 success: false,
                 reason: "Failed to validate the backup zip."
@@ -290,7 +291,7 @@ class BackupManager {
 
         // Clear out the /restore folder
         try {
-            await utils.emptyFolder(RESTORE_FOLDER_PATH);
+            await emptyFolder(RESTORE_FOLDER_PATH);
         } catch (error) {
             logger.warn("Error clearing backup restore folder", error);
         }
@@ -300,7 +301,7 @@ class BackupManager {
 
         // Clear out the profiles folder
         try {
-            await utils.emptyFolder(PROFILES_FOLDER_PATH);
+            await emptyFolder(PROFILES_FOLDER_PATH);
         } catch (error) {
             logger.warn("Error clearing profiles folder", error);
             return {
@@ -333,16 +334,13 @@ class BackupManager {
             const extractPromise = new Promise<boolean>((resolve, reject) => {
                 fs.createReadStream(backupFilePath)
                     .pipe(unzipper.Parse() //eslint-disable-line new-cap
-                        .on('entry', (entry) => {
+                .on("entry", (entry: ZipEntry) => {
                             if (entry.path.includes("profiles")) {
                                 hasProfilesDir = true;
                             } else if (entry.path.includes("global-settings")) {
                                 hasGlobalSettings = true;
                             }
-                            
-                            // 両方見つかったらストリームを終了して早期リターン
-                            if (hasProfilesDir && hasGlobalSettings) {
-                                entry.autodrain();
+                    void entry.autodrain();
                                 resolve(true);
                                 return;
                             }
@@ -393,7 +391,17 @@ class BackupManager {
             await fsp.access(newPath);
 
             logger.info("Copying old backup files to new location");
-            await fsp.cp(this._backupFolderPath, newPath, { force: true, recursive: true });
+
+            // Don't do it recursively
+            const backupFiles = await fsp.readdir(this._backupFolderPath);
+            for (const backupFile of backupFiles) {
+                const sourceFile = path.join(this._backupFolderPath, backupFile);
+                const info = await fsp.stat(sourceFile);
+
+                if (info.isDirectory() !== true) {
+                    await fsp.cp(sourceFile, path.join(newPath, backupFile), { force: true });
+                }
+            }
 
             logger.info("Saving new backup location setting");
             SettingsManager.saveSetting("BackupLocation", newPath);

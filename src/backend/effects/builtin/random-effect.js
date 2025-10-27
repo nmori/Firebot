@@ -1,7 +1,7 @@
 "use strict";
 
 const effectRunner = require("../../common/effect-runner");
-const util = require("../../utility");
+const { getRandomInt, shuffleArray } = require("../../utils");
 const { EffectCategory } = require('../../../shared/effect-constants');
 const logger = require("../../logwrapper");
 
@@ -75,7 +75,7 @@ const randomEffect = {
     /**
    * The controller for the front end Options
    */
-    optionsController: $scope => {
+    optionsController: ($scope) => {
 
         $scope.effectListUpdated = function (effects) {
             $scope.effect.effectList = effects;
@@ -84,8 +84,8 @@ const randomEffect = {
     /**
    * When the effect is triggered by something
    */
-    onTriggerEvent: event => {
-        return new Promise(resolve => {
+    onTriggerEvent: (event) => {
+        return new Promise((resolve) => {
 
             const effect = event.effect;
             const effectList = effect.effectList;
@@ -139,7 +139,7 @@ const randomEffect = {
                 if (!cacheEntry) {
                     // we don't have a preexisting queue in the cache, create a new one
                     cacheEntry = {
-                        queue: util.shuffleArray(newEffectIds),
+                        queue: shuffleArray(newEffectIds),
                         currentEffectIds: newEffectIds
                     };
 
@@ -151,7 +151,7 @@ const randomEffect = {
                     const effectsHaventChanged = containsAll(newEffectIds, cacheEntry.currentEffectIds);
                     if (!effectsHaventChanged) {
                         cacheEntry.currentEffectIds = newEffectIds;
-                        cacheEntry.queue = util.shuffleArray(newEffectIds);
+                        cacheEntry.queue = shuffleArray(newEffectIds);
                     }
                 }
 
@@ -160,10 +160,10 @@ const randomEffect = {
                     // We need to make a new queue
                     let newShuffle = [];
                     if (newEffectIds.length < 2) {
-                        newShuffle = util.shuffleArray(newEffectIds);
+                        newShuffle = shuffleArray(newEffectIds);
                     } else {
                         do {
-                            newShuffle = util.shuffleArray(newEffectIds);
+                            newShuffle = shuffleArray(newEffectIds);
                         } while (cacheEntry.lastEffectId && newShuffle[0] === cacheEntry.lastEffectId);
                         cacheEntry.queue = newShuffle;
                     }
@@ -176,7 +176,7 @@ const randomEffect = {
 
             } else {
                 // we don't care about repeats, just get an effect via random index
-                const randomIndex = util.getRandomInt(0, enabledEffectList.length - 1);
+                const randomIndex = getRandomInt(0, enabledEffectList.length - 1);
                 chosenEffect = enabledEffectList[randomIndex];
 
                 //removed any cached queues
@@ -200,7 +200,7 @@ const randomEffect = {
             };
 
             effectRunner.processEffects(processEffectsRequest)
-                .then(result => {
+                .then((result) => {
                     if (result != null && result.success === true) {
                         if (result.stopEffectExecution) {
                             return resolve({

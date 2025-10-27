@@ -80,7 +80,10 @@
     pad-top="true"
     ng-hide="$ctrl.command.hideCooldowns"
   >
-      <command-cooldown-settings command="$ctrl.command" message-setting-disabled="true"></command-cooldown-settings>
+        <command-cooldown-settings
+            command="$ctrl.command"
+            message-setting-disabled="true"
+        ></command-cooldown-settings>
   </setting-container>
 
   <setting-container
@@ -136,25 +139,20 @@
     ng-if="$ctrl.command.options != null"
     pad-top="true"
   >
-    <command-option
-      ng-repeat="(optionName, optionMetadata) in $ctrl.command.options"
-      ng-if="optionMetadata.title === 'Output Template'"
-      name="optionName"
-      metadata="optionMetadata"
-    ></command-option>
-    <command-option
-      ng-repeat="(optionName, optionMetadata) in $ctrl.command.options"
-      ng-if="optionMetadata.title !== 'Output Template'"
-      name="optionName"
-      metadata="optionMetadata"
-    ></command-option>
+        <dynamic-parameter
+            ng-repeat="(settingName, settingSchema) in $ctrl.command.options"
+            name="{{settingName}}"
+            schema="settingSchema"
+            ng-model="$ctrl.command.options[settingName].value"
+        >
+        </dynamic-parameter>
   </setting-container>
 
-  <setting-container
-    header="Additional Effects"
-    pad-top="true"
+    <setting-container header="Additional Effects" pad-top="true">
+        <div
+            ng-if="$ctrl.command.subCommands != null && $ctrl.command.subCommands.length > 0"
+            style="margin-bottom: 20px; font-weight: 100"
   >
-    <div ng-if="$ctrl.command.subCommands != null && $ctrl.command.subCommands.length > 0" style="margin-bottom: 20px;font-weight: 100;">
       ユーザーが引数を指定しない場合にのみ起動されます。
     </div>
     <effect-list
@@ -173,7 +171,7 @@
     pad-top="true"
   >
     <div class="flex text-lg font-bold pb-4">
-      <div class="muted pl-8" style="flex-basis: 30%;">
+            <div class="muted pl-8" style="flex-basis: 30%">
         <i class="fas fa-tag"></i> 引数
       </div>
       <div class="muted" style="width: 25%">
@@ -185,7 +183,7 @@
       <div class="muted" style="width: 25%"></div>
       <div
         class="muted pr-8"
-        style="flex-basis: 30px; flex-shrink: 0;"
+                style="flex-basis: 30px; flex-shrink: 0"
       ></div>
     </div>
     <subcommand-row

@@ -121,7 +121,7 @@
                     if (crontime == null) {
                         return false;
                     }
-                } catch (error) {
+                } catch {
                     return false;
                 }
 
@@ -162,7 +162,7 @@
                     return;
                 }
 
-                scheduledTaskService.saveScheduledTask($ctrl.scheduledTask).then(successful => {
+                const successful = scheduledTaskService.saveScheduledTask($ctrl.scheduledTask);
                     if (successful) {
                         $ctrl.close({
                             $value: {
@@ -172,7 +172,6 @@
                     } else {
                         ngToast.create("演出予定リストの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
                     }
-                });
             };
         }
     });

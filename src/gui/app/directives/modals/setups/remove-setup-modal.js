@@ -1,8 +1,6 @@
 "use strict";
 
 (function () {
-    const fsp = require("fs/promises");
-
     angular.module("firebotApp")
         .component("removeSetupModal", {
             template: `
@@ -55,7 +53,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function ($q, logger, ngToast, commandsService, countersService, currencyService,
+            controller: function(ngToast, commandsService, countersService, currencyService,
                 effectQueuesService, eventsService, hotkeyService, presetEffectListsService,
                 timerService, scheduledTaskService, viewerRolesService, quickActionsService, variableMacroService, viewerRanksService, backendCommunicator) {
                 const $ctrl = this;
@@ -131,15 +129,12 @@
                     $ctrl.setupFilePath = null;
                 };
 
-                $ctrl.onFileSelected = (filepath) => {
-                    $q.when(fsp.readFile(filepath))
-                        .then((setup) => {
-                            setup = JSON.parse(setup);
-                            if (setup == null || setup.components == null) {
-                                $ctrl.resetSelectedFile("セットアップファイルをロードできません: 対応していないファイルです。");
-                                return;
-                            }
-                            $ctrl.setup = setup;
+                $ctrl.onFileSelected = async (filepath) => {
+                    /** @type {import("../../../../../backend/setups/setup-manager").LoadSetupResult} */
+                    const result = await backendCommunicator.fireEventAsync("setups:load-setup", filepath);
+
+                    if (result.success) {
+                        $ctrl.setup = result.setup;
 
                             Object.entries($ctrl.setup.components)
                                 .forEach(([componentType, components]) => {
@@ -155,23 +150,19 @@
                                 });
 
                             $ctrl.setupSelected = true;
-                        }, (reason) => {
-                            logger.error("Failed to load setup file", reason);
+                    } else {
                             $ctrl.allowCancel = true;
                             $ctrl.resetSelectedFile("セットアップファイルをロードできません: 対応していないファイルです。");
                             return;
-                        });
+                    }
                 };
 
                 $ctrl.removeSetup = () => {
+                    const success = backendCommunicator.fireEventSync("setups:remove-setup-components", {
+                        components: $ctrl.componentsToRemove
+                    });
 
-                    $.when(
-                        backendCommunicator.fireEventAsync("remove-setup-components", {
-                            components: $ctrl.componentsToRemove
-                        })
-                    )
-                        .then((successful) => {
-                            if (successful) {
+                    if (success) {
                                 ngToast.create({
                                     className: 'success',
                                     content: `構成部品を削除しました: ${$ctrl.setup.name}`
@@ -180,7 +171,6 @@
                             } else {
                                 ngToast.create(`構成部品を削除に失敗しました: ${$ctrl.setup.name}`);
                             }
-                        });
                 };
 
                 $ctrl.$onInit = () => {

@@ -1,13 +1,16 @@
 "use strict";
 
-const clipProcessor = require("../../common/handlers/createClipProcessor");
 const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
 const { SettingsManager } = require("../../common/settings-manager");
 const mediaProcessor = require("../../common/handlers/mediaProcessor");
 const webServer = require("../../../server/http-server-manager");
-const utils = require("../../utility");
+const logger = require("../../logwrapper");
+const { wait } = require("../../utils");
 const customVariableManager = require("../../common/custom-variable-manager");
 const { resolveTwitchClipVideoUrl } = require("../../common/handlers/twitch-clip-url-resolver");
+const { TwitchApi } = require("../../streaming-platforms/twitch/api");
+const discord = require("../../integrations/builtin/discord/discord-message-sender");
+const discordEmbedBuilder = require("../../integrations/builtin/discord/discord-embed-builder");
 
 const clip = {
     definition: {
@@ -191,8 +194,26 @@ const clip = {
     },
     onTriggerEvent: async (event) => {
         const { effect } = event;
-        const clip = await clipProcessor.createClip(effect);
+
+        if (effect.postLink) {
+            await TwitchApi.chat.sendChatMessage("Creating clip...", null, true);
+        }
+
+        const clip = await TwitchApi.clips.createClip();
+
         if (clip != null) {
+            if (effect.postLink) {
+                const message = `Clip created: ${clip.url}`;
+                await TwitchApi.chat.sendChatMessage(message, null, true);
+            }
+
+            if (effect.postInDiscord) {
+                const clipEmbed = await discordEmbedBuilder.buildClipEmbed(clip, effect.embedColor);
+                await discord.sendDiscordMessage(effect.discordChannelId, "A new clip was created!", clipEmbed);
+            }
+
+            logger.info("Successfully created a clip!");
+
             const clipDuration = clip.duration;
 
             if (effect.showInOverlay) {
@@ -233,7 +254,7 @@ const clip = {
                 });
 
                 if (effect.wait ?? true) {
-                    await utils.wait(clipDuration * 1000);
+                    await wait(clipDuration * 1000);
                 }
             }
 
@@ -245,12 +266,17 @@ const clip = {
                     effect.options.variablePropertyPath || null
                 );
             }
+        } else {
+            if (effect.postLink) {
+                await TwitchApi.chat.sendChatMessage("Whoops! Something went wrong when creating a clip. :(", null, true);
+            }
         }
 
         return {
             success: clip != null,
             outputs: {
-                clipUrl: clip?.url ?? ""
+                clipUrl: clip?.url ?? "",
+                thumbnailUrl: clip?.thumbnailUrl ?? ""
             }
         };
     },
@@ -284,7 +310,7 @@ const clip = {
 
                 let videoElement;
                 if (useIframe) {
-                    // eslint-disable-next-line prefer-template
+
                     const styles = `width: ${width || screen.width}px;
                         height: ${height || screen.height}px;
                         transform: rotate(${rotation || 0});`;
@@ -299,7 +325,7 @@ const clip = {
                         </iframe>
                     `;
                 } else {
-                    // eslint-disable-next-line prefer-template
+
                     const styles = (width ? `width: ${width}px;` : '') +
                         (height ? `height: ${height}px;` : '') +
                         (rotation ? `transform: rotate(${rotation});` : '');

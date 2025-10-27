@@ -1,7 +1,5 @@
 import { EventFilter } from "../../../../../types/events";
-
-const { ComparisonType } = require("../../../../../shared/filter-constants");
-const logger = require("../../../../logwrapper");
+import { ComparisonType } from "../../../../../shared/filter-constants";
 
 const filter: EventFilter = {
     id: "streamloots:gift-purchase",

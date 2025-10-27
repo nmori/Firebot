@@ -1,20 +1,27 @@
 "use strict";
-
-const electron = require("electron");
-const { ipcMain, BrowserWindow, BrowserView, Menu, shell, dialog, nativeImage } = electron;
+const { BrowserWindow, BrowserView, Menu, shell, dialog, nativeImage } = require("electron");
 const path = require("path");
 const url = require("url");
-const windowStateKeeper = require("electron-window-state");
-const fileOpenHelpers = require("../file-open-helpers");
-const createTray = require('./tray-creation.js');
-const logger = require("../../logwrapper");
 const { setupTitlebar, attachTitlebarToWindow } = require("custom-electron-titlebar/main");
+const windowStateKeeper = require("electron-window-state");
+
+const { BackupManager } = require("../../backup-manager");
+const { SettingsManager } = require("../../common/settings-manager");
+const createTray = require('./tray-creation.js');
+const fileOpenHelpers = require("../file-open-helpers");
 const screenHelpers = require("./screen-helpers");
 const frontendCommunicator = require("../../common/frontend-communicator");
-const { SettingsManager } = require("../../common/settings-manager");
-const { BackupManager } = require("../../backup-manager");
+const logger = require("../../logwrapper");
 
 const EventEmitter = require("events");
+
+/**
+ * Firebot's main window
+ * Keeps a global reference of the window object, if you don't, the window will
+ * be closed automatically when the JavaScript object is garbage collected.
+ *@type {Electron.BrowserWindow}
+ */
+let mainWindow = null;
 
 /**
  * @type {import("tiny-typed-emitter").TypedEmitter<{
@@ -35,6 +42,56 @@ setupTitlebar();
  */
 let variableInspectorWindow = null;
 
+async function createVariableInspectorWindow() {
+
+    if (variableInspectorWindow != null && !variableInspectorWindow.isDestroyed()) {
+        if (variableInspectorWindow.isMinimized()) {
+            variableInspectorWindow.restore();
+        }
+        variableInspectorWindow.focus();
+        return;
+    }
+
+    const variableInspectorWindowState = windowStateKeeper({
+        defaultWidth: 720,
+        defaultHeight: 1280,
+        file: "variable-inspector-window-state.json"
+    });
+
+    variableInspectorWindow = new BrowserWindow({
+        frame: true,
+        alwaysOnTop: true,
+        backgroundColor: "#2F3137",
+        title: "Custom Variable Inspector",
+        parent: mainWindow,
+        width: variableInspectorWindowState.width,
+        height: variableInspectorWindowState.height,
+        x: variableInspectorWindowState.x,
+        y: variableInspectorWindowState.y,
+        webPreferences: {
+            preload: path.join(__dirname, "../../../gui/variable-inspector/preload.js")
+        },
+        icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png")
+    });
+    variableInspectorWindow.setMenu(null);
+
+    variableInspectorWindowState.manage(variableInspectorWindow);
+
+    variableInspectorWindow.on("close", () => {
+        variableInspectorWindow = null;
+    });
+
+    await variableInspectorWindow.loadURL(
+        url.format({
+            pathname: path.join(__dirname, "../../../gui/variable-inspector/index.html"),
+            protocol: "file:",
+            slashes: true
+        }));
+
+    const customVariableManager = require("../../common/custom-variable-manager");
+    variableInspectorWindow.webContents.send("all-variables", customVariableManager.getInitialInspectorVariables());
+}
+
 
 /**
  * The stream preview popout window.
@@ -54,8 +111,8 @@ function createStreamPreviewWindow() {
         return;
     }
 
-    const accountAccess = require("../../common/account-access");
-    const streamer = accountAccess.getAccounts().streamer;
+    const { AccountAccess } = require("../../common/account-access");
+    const streamer = AccountAccess.getAccounts().streamer;
 
     if (!streamer.loggedIn) {
         return;
@@ -72,7 +129,7 @@ function createStreamPreviewWindow() {
         alwaysOnTop: true,
         backgroundColor: "#1E2023",
         title: "Stream Preview",
-        parent: exports.mainWindow,
+        parent: mainWindow,
         width: streamPreviewWindowState.width,
         height: streamPreviewWindowState.height,
         x: streamPreviewWindowState.x,
@@ -131,7 +188,7 @@ async function createIconImage(relativeIconPath) {
 }
 
 async function createAppMenu() {
-    const profileManager = require("../../common/profile-manager");
+    const { ProfileManager } = require("../../common/profile-manager");
     const dataAccess = require("../../common/data-access");
 
     const overlayInstances = SettingsManager.getSetting("OverlayInstances");
@@ -160,7 +217,7 @@ async function createAppMenu() {
                 sublabel: "Open the folder where Firebot data is stored",
                 click: () => {
                     const rootFolder = path.resolve(
-                        profileManager.getPathInProfile("/")
+                            ProfileManager.getPathInProfile("/")
                     );
                     shell.openPath(rootFolder);
                 },
@@ -275,7 +332,6 @@ async function createAppMenu() {
                 toolTip: "カスタム変数インスペクタを開く",
                 sublabel: "Open the custom variable inspector",
                 click: () => {
-                    // eslint-disable-next-line no-use-before-define
                     createVariableInspectorWindow();
                 },
                 icon: await createIconImage("../../../gui/images/icons/mdi/text-search.png")
@@ -354,14 +410,14 @@ async function createAppMenu() {
                 {
                     label: '不具合報告をする',
                     click: () => {
-                        shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+");
+                        shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&template=bug_report.yml");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/bug-outline.png")
                 },
                 {
                     label: '機能リクエストをする',
                     click: () => {
-                        shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Enhancement&template=feature_request.md&title=%5BFeature+Request%5D+");
+                        shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&template=feature_request.md");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/star-circle-outline.png")
                 },
@@ -407,14 +463,6 @@ async function createAppMenu() {
 }
 
 /**
- * Firebot's main window
- * Keeps a global reference of the window object, if you don't, the window will
- * be closed automatically when the JavaScript object is garbage collected.
- *@type {Electron.BrowserWindow}
- */
-exports.mainWindow = null;
-
-/**
  * The splashscreen window.
  *@type {Electron.BrowserWindow}
  */
@@ -426,14 +474,6 @@ async function createMainWindow() {
         defaultHeight: 720
     });
 
-    ipcMain.on('preload.openDevTools', (event) => {
-        if (exports.mainWindow != null) {
-            exports.mainWindow.webContents.openDevTools();
-            event.returnValue = true;
-        }
-        event.returnValue = false;
-    });
-
     const additionalArguments = [];
 
     if (Object.hasOwn(argv, 'fbuser-data-directory') && argv['fbuser-data-directory'] != null && argv['fbuser-data-directory'] !== '') {
@@ -441,7 +481,7 @@ async function createMainWindow() {
     }
 
     // Create the browser window.
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
         width: mainWindowState.width,
@@ -491,7 +531,6 @@ async function createMainWindow() {
     });
 
     //set a global reference, lots of backend files depend on this being available globally
-    exports.mainWindow = mainWindow;
     global.renderWindow = mainWindow;
 
     await createAppMenu();
@@ -518,7 +557,6 @@ async function createMainWindow() {
 
         createTray(mainWindow);
 
-        // mainWindow.webContents.openDevTools();
         mainWindow.show();
 
         // mainWindow.show();
@@ -529,13 +567,17 @@ async function createMainWindow() {
         const startupScriptsManager = require("../../common/handlers/custom-scripts/startup-scripts-manager");
         await startupScriptsManager.runStartupScripts();
 
-        const eventManager = require("../../events/EventManager");
-        eventManager.triggerEvent("firebot", "firebot-started", {
+        const { EventManager } = require("../../events/event-manager");
+        EventManager.triggerEvent("firebot", "firebot-started", {
             username: "Firebot"
         });
 
         if (SettingsManager.getSetting("OpenStreamPreviewOnLaunch") === true) {
             createStreamPreviewWindow();
+        }
+
+        if (SettingsManager.getSetting("OpenEffectQueueMonitorOnLaunch") === true) {
+            createEffectQueueMonitorWindow();
         }
 
         fileOpenHelpers.setWindowReady(true);
@@ -634,56 +676,6 @@ function updateSplashScreenStatus(newStatus) {
     splashscreenWindow.webContents.send("update-splash-screen-status", newStatus);
 }
 
-async function createVariableInspectorWindow() {
-
-    if (variableInspectorWindow != null && !variableInspectorWindow.isDestroyed()) {
-        if (variableInspectorWindow.isMinimized()) {
-            variableInspectorWindow.restore();
-        }
-        variableInspectorWindow.focus();
-        return;
-    }
-
-    const variableInspectorWindowState = windowStateKeeper({
-        defaultWidth: 720,
-        defaultHeight: 1280,
-        file: "variable-inspector-window-state.json"
-    });
-
-    variableInspectorWindow = new BrowserWindow({
-        frame: true,
-        alwaysOnTop: true,
-        backgroundColor: "#2F3137",
-        title: "Custom Variable Inspector",
-        parent: exports.mainWindow,
-        width: variableInspectorWindowState.width,
-        height: variableInspectorWindowState.height,
-        x: variableInspectorWindowState.x,
-        y: variableInspectorWindowState.y,
-        webPreferences: {
-            preload: path.join(__dirname, "../../../gui/variable-inspector/preload.js")
-        },
-        icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png")
-    });
-    variableInspectorWindow.setMenu(null);
-
-    variableInspectorWindowState.manage(variableInspectorWindow);
-
-    variableInspectorWindow.on("close", () => {
-        variableInspectorWindow = null;
-    });
-
-    await variableInspectorWindow.loadURL(
-        url.format({
-            pathname: path.join(__dirname, "../../../gui/variable-inspector/index.html"),
-            protocol: "file:",
-            slashes: true
-        }));
-
-    const customVariableManager = require("../../common/custom-variable-manager");
-    variableInspectorWindow.webContents.send("all-variables", customVariableManager.getInitialInspectorVariables());
-}
-
 function sendVariableCreateToInspector(key, value, ttl) {
     if (variableInspectorWindow == null || variableInspectorWindow.isDestroyed()) {
         return;
@@ -739,3 +731,4 @@ exports.sendVariableDeleteToInspector = sendVariableDeleteToInspector;
 exports.createStreamPreviewWindow = createStreamPreviewWindow;
 exports.createMainWindow = createMainWindow;
 exports.createSplashScreen = createSplashScreen;
+exports.mainWindow = mainWindow;

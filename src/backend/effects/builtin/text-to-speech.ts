@@ -1,10 +1,15 @@
-import frontendCommunicator from "../../../backend/common/frontend-communicator";
-import { EffectCategory } from "../../../shared/effect-constants";
 import { EffectType } from "../../../types/effects";
+import frontendCommunicator from "../../common/frontend-communicator";
+
+interface TtsVoice {
+    id: string;
+    name: string;
+    description: string;
+}
 
 const effect: EffectType<{
     text: string;
-    voiceId: "default" | string;
+    voiceId: string;
     wait?: boolean;
 }> = {
     definition: {
@@ -12,7 +17,7 @@ const effect: EffectType<{
         name: "合成音声",
         description: "Firebotにテキストを読ませる。",
         icon: "fad fa-microphone-alt",
-        categories: [EffectCategory.FUN],
+        categories: ["fun"],
         dependencies: []
     },
     optionsTemplate: `
@@ -45,13 +50,14 @@ const effect: EffectType<{
             $scope.effect.wait = false;
         }
 
-        $scope.ttsVoices = [{
+        $scope.ttsVoices = [
+            {
             id: "default",
             name: "Default",
             description: "設定 > 合成音声で選ばれた音声"
         },
-        ...ttsService.getVoices()
-        ];
+            ...ttsService.getVoices() as TtsVoice[]
+        ] as TtsVoice[];
 
 
         $scope.getSelectedVoiceName = () => {
@@ -60,23 +66,20 @@ const effect: EffectType<{
                 return "既定の音声";
             }
 
-            const voice = ttsService.getVoiceById(voiceId);
+            const voice = ttsService.getVoiceById(voiceId) as TtsVoice;
 
             return voice?.name ?? "不明な音声";
         };
     },
     optionsValidator: (effect) => {
-        const errors = [];
+        const errors: string[] = [];
         if (effect.text == null || effect.text.length < 1) {
             errors.push("テキストを入力してください。");
         }
         return errors;
     },
-    onTriggerEvent: async (event) => {
-        const effect = event.effect;
-
+    onTriggerEvent: async ({ effect }) => {
         await frontendCommunicator.fireEventAsync("read-tts", effect);
-
         return true;
     }
 };

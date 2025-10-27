@@ -3,10 +3,10 @@
 const { SettingsManager } = require("../../common/settings-manager");
 const mediaProcessor = require("../../common/handlers/mediaProcessor");
 const webServer = require("../../../server/http-server-manager");
-const twitchApi = require("../../twitch-api/api");
+const { TwitchApi } = require("../../streaming-platforms/twitch/api");
 const { EffectCategory } = require('../../../shared/effect-constants');
 const logger = require("../../logwrapper");
-const { wait } = require("../../utility");
+const { wait } = require("../../utils");
 
 const shoutoutStyles = `
     .firebot-shoutout-wrapper {
@@ -134,7 +134,7 @@ const effect = {
                             </div>
                         </div>
                         <div ng-if="effect.showLastGame" class="firebot-shoutout-game-wrapper">
-                            <div class="firebot-shoutout-game-boxart" style="background-image:url('{{defaultGameBoxArt}}');" />
+                            <div class="firebot-shoutout-game-boxart" ng-if="!effect.hideCategoryArt" style="background-image:url('{{defaultGameBoxArt}}');" />
                             <div class="firebot-shoutout-game-dimmer" />
                             <div class="firebot-shoutout-game-text-wrapper">
                                 <div class="firebot-shoutout-game-lastseen">
@@ -159,10 +159,14 @@ const effect = {
             <firebot-input style="margin-top:10px" input-title="Scale" model="effect.scale" placeholder-text="番号を入れる(ie 1, 1.25, 0.75, etc)" input-type="number" disable-variables="true" />
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> 最後のゲーム／カテゴリーを表示
-                    <input type="checkbox" ng-model="effect.showLastGame">
-                    <div class="control__indicator"></div>
-                </label>
+                <firebot-checkbox
+                    label="最後のゲーム／カテゴリーを表示"
+                    model="effect.showLastGame"
+                />
+                <firebot-checkbox
+                    label="ゲーム／カテゴリーの絵を隠す"
+                    model="effect.hideCategoryArt"
+                />
             </div>
 
             <firebot-input ng-if="effect.showLastGame" input-title="最後のテキスト" model="effect.lastGameText" placeholder-text="テキストを入力" />
@@ -265,7 +269,7 @@ const effect = {
             }
         }
 
-        const user = await twitchApi.users.getUserByName(effect.username);
+        const user = await TwitchApi.users.getUserByName(effect.username);
 
         if (user == null) {
             return;
@@ -273,7 +277,7 @@ const effect = {
 
         effect.username = user.displayName;
 
-        const channelInfo = await twitchApi.channels.getChannelInformation(user.id);
+        const channelInfo = await TwitchApi.channels.getChannelInformation(user.id);
         if (channelInfo == null) {
             return;
         }
@@ -282,7 +286,7 @@ const effect = {
 
         if (effect.showLastGame) {
             try {
-                const game = await twitchApi.categories.getCategoryById(channelInfo.gameId);
+                const game = await TwitchApi.categories.getCategoryById(channelInfo.gameId);
                 effect.gameName = channelInfo.gameName != null && channelInfo.gameName !== "" ? channelInfo.gameName : null;
                 effect.gameBoxArtUrl = game.boxArtUrl;
             } catch (error) {
@@ -345,7 +349,7 @@ const effect = {
                         </div>
 
                         <div class="firebot-shoutout-game-wrapper" style="display:${!data.showLastGame || data.gameName == null ? 'none' : 'inherit'};">
-                            <div class="firebot-shoutout-game-boxart" style="background-image:url('${data.gameBoxArtUrl}');"></div>
+                            <div class="firebot-shoutout-game-boxart" style="background-image:url('${data.gameBoxArtUrl}');display:${data.hideCategoryArt ? 'none' : 'block'};"></div>
                             <div class="firebot-shoutout-game-dimmer" />
                             <div class="firebot-shoutout-game-text-wrapper">
                                 <div class="firebot-shoutout-game-lastseen">

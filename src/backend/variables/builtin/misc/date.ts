@@ -1,5 +1,4 @@
-import { ReplaceVariable } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable } from "../../../../types/variables";
 
 const moment = require("moment");
 
@@ -25,8 +24,8 @@ const model : ReplaceVariable = {
             }
         ],
         description: "MMM Do YYYYとしてフォーマットされた現在の日付。 (日本語版拡張:localeに ja,en などの国を指定できます）",
-        categories: [VariableCategory.COMMON],
-        possibleDataOutput: [OutputDataType.TEXT]
+        categories: ["common"],
+        possibleDataOutput: ["text"]
     },
     evaluator: (_, template = 'MMM Do YYYY', steps = 0, key = 'days', locale = 'ja') => {
         const now = moment().locale(locale);

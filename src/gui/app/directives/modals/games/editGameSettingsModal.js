@@ -27,9 +27,12 @@
                 </setting-container>
 
                 <setting-container ng-if="$ctrl.game.settingCategories != null" ng-repeat="categoryMeta in $ctrl.settingCategoriesArray | orderBy:'sortRank'"  header="{{categoryMeta.title}}" description="{{categoryMeta.description}}" pad-top="$index > 0 ? true : false" collapsed="true">
-                    <command-option ng-repeat="setting in categoryMeta.settingsArray | orderBy:'sortRank'"
-                                name="setting.settingName"
-                                metadata="setting"></command-option>
+                    <dynamic-parameter
+                        ng-repeat="setting in categoryMeta.settingsArray | orderBy:'sortRank'"
+                        name="{{setting.settingName}}"
+                        schema="setting"
+                        ng-model="$ctrl.game.settingCategories[categoryMeta.categoryName].settings[setting.settingName].value"
+                    ></dynamic-parameter>
                 </setting-container>
 
             </div>
@@ -55,8 +58,9 @@
             $ctrl.$onInit = function() {
                 if ($ctrl.resolve.game) {
                     $ctrl.game = JSON.parse(JSON.stringify($ctrl.resolve.game));
-                    $ctrl.settingCategoriesArray = Object.values($ctrl.game.settingCategories)
-                        .map(sc => {
+                    $ctrl.settingCategoriesArray = Object.entries($ctrl.game.settingCategories)
+                        .map(([categoryName, sc]) => {
+                            sc.categoryName = categoryName;
                             sc.settingsArray = [];
                             const settingNames = Object.keys(sc.settings);
                             for (const settingName of settingNames) {
@@ -79,7 +83,7 @@
                         confirmLabel: "リセットする",
                         confirmBtnType: "btn-danger"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             $ctrl.close({
                                 $value: {
@@ -112,6 +116,12 @@
                                     }
                                 }
                                 if (setting.type === "number") {
+                                    if (setting.validation.required && setting.value == null) {
+                                        ngToast.create(`Please input a value for the ${setting.title} option`);
+                                        return false;
+                                    }
+
+                                    if (setting.value != null) {
                                     if (!isNaN(setting.validation.min) && setting.value < setting.validation.min) {
                                         ngToast.create(`設定値 ${setting.title} は ${setting.validation.min} 以上に設定してください`);
                                         return false;
@@ -124,6 +134,7 @@
                             }
                         }
                     }
+                }
                 }
                 return true;
             }

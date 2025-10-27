@@ -11,7 +11,7 @@ exports.loadGames = () => {
         'omikuji/omikuji',
         'otoshidama/otoshidama',
         'lottery/lottery'
-    ].forEach(filename => {
+    ].forEach((filename) => {
         const definition = require(`./builtin/${filename}.js`);
         gameManager.registerGame(definition);
     });

@@ -1,8 +1,6 @@
 "use strict";
 
 (function () {
-    const fsp = require("fs/promises");
-
     const { marked } = require("marked");
     const { sanitize } = require("dompurify");
 
@@ -59,7 +57,10 @@
                             <h4 class="muted">取り込みに関する質問</h4>
                             <div ng-repeat="question in $ctrl.setup.importQuestions track by question.id">
                                 <h5>{{question.question}} <tooltip ng-show="question.helpText" text="question.helpText" /></h5>
-                                <input type="{{question.answerType || 'text'}}" class="form-control" ng-model="question.answer" placeholder="質問に答えてください" />
+                                <input ng-if="question.answerType !== 'preset'" type="{{question.answerType || 'text'}}" class="form-control" ng-model="question.answer" placeholder="質問に答えてください" />
+                                <select ng-if="question.answerType === 'preset'" class="fb-select" ng-model="question.answer">
+                                    <option ng-repeat="preset in question.presetOptions" label="{{preset}}" value="{{preset}}">{{preset}}</option>
+                                </select>
                             </div>
                         </div>
 
@@ -75,9 +76,9 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function ($q, logger, ngToast, commandsService, countersService, currencyService,
+            controller: function(ngToast, commandsService, countersService, currencyService,
                 effectQueuesService, eventsService, hotkeyService, presetEffectListsService,
-                timerService, scheduledTaskService, viewerRolesService, quickActionsService, variableMacroService, viewerRanksService, backendCommunicator, $sce) {
+                timerService, scheduledTaskService, viewerRolesService, quickActionsService, variableMacroService, viewerRanksService, backendCommunicator, $sce, overlayWidgetsService) {
                 const $ctrl = this;
 
                 $ctrl.setupFilePath = null;
@@ -102,6 +103,7 @@
                     ...variableMacroService.macros.map(i => i.id),
                     ...viewerRolesService.getCustomRoles().map(i => i.id),
                     ...viewerRanksService.rankLadders.map(i => i.id),
+                    ...overlayWidgetsService.overlayWidgetConfigs.map(i => i.id),
                     ...quickActionsService.quickActions
                         .filter(qa => qa.type === "custom")
                         .map(i => i.id)
@@ -123,8 +125,8 @@
                     variableMacros: "マクロ変数",
                     viewerRoles: "視聴者の役割",
                     viewerRankLadders: "視聴者ランク",
-                    quickActions: "クイックアクション"
-                };
+                    quickActions: "クイックアクション",
+                    overlayWidgetConfigs: "オーバーレイウィジット"                };
 
                 $ctrl.setup = null;
 
@@ -149,19 +151,16 @@
                     modal.document.body.style.fontFamily = "sans-serif";
                 };
 
-                $ctrl.onFileSelected = (filepath) => {
-                    $q.when(fsp.readFile(filepath))
-                        .then((setup) => {
-                            setup = JSON.parse(setup);
-                            if (setup == null || setup.components == null) {
-                                $ctrl.resetSelectedFile("セットアップファイルをロードできません:対応していない設定ファイルです。");
-                                return;
-                            }
-                            $ctrl.setup = setup;
-                            // parse markdown
+                $ctrl.onFileSelected = async (filepath) => {
+                    /** @type {import("../../../../../backend/setups/setup-manager").LoadSetupResult} */
+                    const result = await backendCommunicator.fireEventAsync("setups:load-setup", filepath);
+
+                    if (result.success) {
+                        $ctrl.setup = result.setup;
                             $ctrl.setup.description = $sce.trustAsHtml(
                                 sanitize(marked($ctrl.setup.description, {}))
                             );
+
                             //set default answers
                             if ($ctrl.setup.importQuestions) {
                                 $ctrl.setup.importQuestions = $ctrl.setup.importQuestions.map((q) => {
@@ -172,16 +171,14 @@
                                 });
                             }
                             $ctrl.setupSelected = true;
-                        }, (reason) => {
-                            logger.error("Failed to load setup file", reason);
+                    } else {
                             $ctrl.allowCancel = true;
                             $ctrl.resetSelectedFile("セットアップファイルをロードできません: 対応していない設定ファイルです。");
                             return;
-                        });
+                    }
                 };
 
-                $ctrl.importSetup = () => {
-
+                $ctrl.importSetup = async () => {
                     if ($ctrl.setup.requireCurrency && $ctrl.selectedCurrency == null) {
                         ngToast.create("使用する通貨を選択してください。通貨が表示されない場合は、「通貨」タブで通貨設定を追加し、このセットアップを再度取り込んでください。");
                         return;
@@ -193,14 +190,12 @@
                         return;
                     }
 
-                    $q.when(
-                        backendCommunicator.fireEventAsync("import-setup", {
+                    const success = await backendCommunicator.fireEventAsync("setups:import-setup", {
                             setup: $ctrl.setup,
                             selectedCurrency: $ctrl.selectedCurrency
-                        })
-                    )
-                        .then((successful) => {
-                            if (successful) {
+                    });
+
+                    if (success) {
                                 ngToast.create({
                                     className: 'success',
                                     content: `セットアップの取り込みに成功しました: ${$ctrl.setup.name}`
@@ -209,7 +204,6 @@
                             } else {
                                 ngToast.create(`セットアップの取り込みに失敗しました: ${$ctrl.setup.name}`);
                             }
-                        });
                 };
 
                 $ctrl.$onInit = () => {

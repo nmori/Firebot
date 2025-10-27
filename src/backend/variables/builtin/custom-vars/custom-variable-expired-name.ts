@@ -1,18 +1,16 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { EffectTrigger } from "../../../../shared/effect-constants";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable, Trigger, TriggersObject } from "../../../../types/variables";
 
-const triggers = {};
-triggers[EffectTrigger.EVENT] = ["firebot:custom-variable-expired"];
-triggers[EffectTrigger.MANUAL] = true;
+const triggers: TriggersObject = {};
+triggers["event"] = ["firebot:custom-variable-expired"];
+triggers["manual"] = true;
 
 const model : ReplaceVariable = {
     definition: {
         handle: "expiredCustomVariableName",
         description: "時間切れとなったカスタム変数名",
         triggers: triggers,
-        categories: [VariableCategory.COMMON],
-        possibleDataOutput: [OutputDataType.TEXT]
+        categories: ["common"],
+        possibleDataOutput: ["text"]
     },
     evaluator: (trigger: Trigger) : unknown => {
         const expiredCustomVariableName = trigger.metadata.eventData.expiredCustomVariableName;

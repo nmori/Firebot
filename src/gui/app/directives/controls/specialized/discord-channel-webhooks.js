@@ -45,7 +45,7 @@
                         resolveObj: {
                             channel: () => channel
                         },
-                        closeCallback: resp => {
+                        closeCallback: (resp) => {
                             cb(resp.channel);
                         }
                     });

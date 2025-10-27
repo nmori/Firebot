@@ -1,9 +1,8 @@
 import { EffectType } from "../../../types/effects";
-import { EffectCategory } from '../../../shared/effect-constants';
 import { CounterManager } from "../../counters/counter-manager";
 import logger from "../../logwrapper";
 
-const model: EffectType<{
+const effect: EffectType<{
     counterId: string;
     mode: string;
     value: string;
@@ -13,7 +12,7 @@ const model: EffectType<{
         name: "カウンタを更新",
         description: "カウンタの値を更新",
         icon: "fad fa-tally",
-        categories: [EffectCategory.COMMON, EffectCategory.ADVANCED],
+        categories: ["common", "advanced"],
         dependencies: []
     },
     optionsTemplate: `
@@ -63,7 +62,7 @@ const model: EffectType<{
 
     },
     optionsValidator: (effect, $scope) => {
-        const errors = [];
+        const errors: string[] = [];
         if (effect.counterId == null) {
             errors.push("カウンタを選択してください。");
         } else if (effect.mode == null) {
@@ -104,4 +103,4 @@ const model: EffectType<{
     }
 };
 
-export = model;
+export = effect;

@@ -94,6 +94,7 @@ module.exports = {
                     tip: "待ち時間は視聴者ごとに適用されます",
                     default: 300,
                     validation: {
+                        required: true,
                         min: 0
                     }
                 }

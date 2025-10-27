@@ -186,11 +186,19 @@
 }
 
 .btn-primary {
-    background-color: #16809c;
+    background-color: $primary-button-bg;
     border-color: transparent;
     &:hover {
-        background-color: #1f849e;
+        background-color: $primary-button-hover-bg;
     }
+    &:active, &:focus {
+        background-color: $primary-button-bg !important;
+    }
+}
+
+.btn-primary[disabled]:hover {
+    background-color: $primary-button-bg;
+    opacity: 0.75;
 }
 
 .btn-default {
@@ -250,9 +258,9 @@
 }
 
 .btn-link {
-    color: #12d0ff;
+    color: $link-button-color;
     &:hover, &:focus {
-        color: #11add4;
+        color: $link-button-hover-color;
     }
 }
 
@@ -411,6 +419,10 @@
     float: none;
 }
 
+.input-group .ui-select-bootstrap .form-control {
+    float: left !important;
+}
+
 .form-group {
     margin-bottom: 25px;
     & .form-label {
@@ -434,13 +446,24 @@
 }
 
 .color-picker-wrapper .input-group .input-group-addon {
-    width: 40px;
-    border: 1px solid #24262A !important;
-    border-radius: 6px;
+    width: 45px;
+    border: transparent !important;
+    border-radius: 8px;
     &:first-child {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
+}
+
+.color-picker-group-wrapper {
+    .color-picker-wrapper .input-group .input-group-addon:first-child {
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+    }
+}
+
+.form-control:focus {
+    border-color: lighten($primary-button-bg, 25%);
 }
 
 .input-group .form-control:focus {
@@ -589,7 +612,7 @@ label {
   }
 
 a {
-    color: #41a7ff;
+    color: $link-button-color;
     &:hover {
         opacity: 0.8;
     }
@@ -732,4 +755,14 @@ code {
 .input-editor-selector-container .form-control,
 .input-editor-selector-container .CodeMirror {
     border-top-left-radius: 0px !important;
+}
+
+hr {
+    border-top: 1px solid #53545b;
+}
+
+// any input group addon that doesn't also have the class .color-picker-swatch
+.input-group-addon-normalize .input-group-addon:not(.color-picker-swatch) {
+    --fb-input-group-addon-width: 100px;
+    min-width: var(--fb-input-group-addon-width);
 }

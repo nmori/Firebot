@@ -2,7 +2,7 @@
 
 const { EffectCategory } = require('../../../shared/effect-constants');
 const logger = require('../../logwrapper');
-const twitchApi = require("../../twitch-api/api");
+const { TwitchApi } = require("../../streaming-platforms/twitch/api");
 
 const model = {
     definition: {
@@ -37,7 +37,7 @@ const model = {
         </eos-container>
     `,
     optionsController: () => {},
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.action == null) {
             errors.push("追放アクションを選んでください");
@@ -47,12 +47,12 @@ const model = {
         }
         return errors;
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         if (event.effect.action === "Ban") {
-            const user = await twitchApi.users.getUserByName(event.effect.username);
+            const user = await TwitchApi.users.getUserByName(event.effect.username);
 
             if (user != null) {
-                const result = await twitchApi.moderation.banUser(user.id, "Firebotより追放しました");
+                const result = await TwitchApi.moderation.banUser(user.id, "Firebotより追放しました");
 
                 if (result === true) {
                     logger.debug(`${event.effect.username} was banned via the Ban effect.`);
@@ -66,10 +66,10 @@ const model = {
             }
         }
         if (event.effect.action === "Unban") {
-            const user = await twitchApi.users.getUserByName(event.effect.username);
+            const user = await TwitchApi.users.getUserByName(event.effect.username);
 
             if (user != null) {
-                const result = await twitchApi.moderation.unbanUser(user.id);
+                const result = await TwitchApi.moderation.unbanUser(user.id);
 
                 if (result === true) {
                     logger.debug(`${event.effect.username} was unbanned via the Ban effect.`);

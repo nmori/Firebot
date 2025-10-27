@@ -11,8 +11,10 @@ import previousRank from "./previous-rank";
 import previousViewTime from "./previous-view-time";
 import rankLadder from "./rank-ladder";
 import rankTransitionType from "./rank-transition-type";
+import triggeredCommand from "./triggered-command";
 import viewerRanks from "./viewer-ranks";
 import viewerRoles from "./viewer-roles";
+import webhook from "./webhook";
 
 export default [
     currency,
@@ -28,6 +30,8 @@ export default [
     previousViewTime,
     rankLadder,
     rankTransitionType,
+    triggeredCommand,
     viewerRanks,
-    viewerRoles
+    viewerRoles,
+    webhook
 ];

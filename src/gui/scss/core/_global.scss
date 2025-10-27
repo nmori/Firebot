@@ -147,7 +147,6 @@
 .sticky-bottom {
   position: sticky;
   bottom: 0;
-  z-index: 99999999;
 
   &.is-stuck {
       border-top: 1px solid #24262A;
@@ -1634,7 +1633,7 @@ thead th{
 }
 
 .effect-bar {
-  background: #16809c;
+  background: $primary-button-bg;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -1652,7 +1651,7 @@ thead th{
   }
 
   &:hover {
-    background: #136e87;
+    background: $primary-button-hover-bg;
     cursor: pointer;
   }
 
@@ -1776,6 +1775,7 @@ thead th{
 
 .CodeMirror {
   border-radius: 8px !important;
+  height: 200px;
 }
 
 .cm-s-blackboard {

@@ -1,7 +1,5 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
-
-const customVariableManager = require("../../../common/custom-variable-manager");
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
+import customVariableManager from "../../../common/custom-variable-manager";
 
 const model : ReplaceVariable = {
     definition: {
@@ -22,8 +20,8 @@ const model : ReplaceVariable = {
             }
         ],
         description: "カスタム変数に保存されているデータを取得します。",
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.ALL]
+        categories: ["advanced"],
+        possibleDataOutput: ["ALL"]
     },
     evaluator: (
         trigger: Trigger,

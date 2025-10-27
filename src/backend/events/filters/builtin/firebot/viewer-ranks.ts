@@ -1,4 +1,4 @@
-import twitchApi from "../../../../twitch-api/api";
+import { TwitchApi } from "../../../../streaming-platforms/twitch/api";
 import viewerDatabase from "../../../../viewers/viewer-database";
 import { EventFilter } from "../../../../../types/events";
 import { ComparisonType } from "../../../../../shared/filter-constants";
@@ -67,7 +67,7 @@ const filter: EventFilter = {
 
         try {
             if (userId == null) {
-                const user = await twitchApi.users.getUserByName(username);
+                const user = await TwitchApi.users.getUserByName(username);
 
                 if (user == null) {
                     return false;

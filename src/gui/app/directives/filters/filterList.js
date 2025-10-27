@@ -170,7 +170,7 @@
                             availableFilters: () => filterDefintions,
                             index: () => index
                         },
-                        closeCallback: resp => {
+                        closeCallback: (resp) => {
                             const action = resp.action;
 
                             switch (action) {

@@ -1,19 +1,20 @@
 
 "use strict";
-const logger = require('../logwrapper');
-const eventManager = require("../events/EventManager");
-const windowManagement = require("../app-management/electron/window-management");
-const { ipcMain } = require("electron");
-
 const EventEmitter = require("events");
-
 const NodeCache = require("node-cache");
+
+const { EventManager } = require("../events/event-manager");
+const { ProfileManager } = require("../common/profile-manager");
+const windowManagement = require("../app-management/electron/window-management");
+const frontendCommunicator = require('./frontend-communicator');
+const logger = require('../logwrapper');
+const { simpleClone } = require('../utils');
 
 const cache = new NodeCache({ stdTTL: 0, checkperiod: 1 });
 exports._cache = cache;
 
 const onCustomVariableExpire = (key, value) => {
-    eventManager.triggerEvent("firebot", "custom-variable-expired", {
+    EventManager.triggerEvent("firebot", "custom-variable-expired", {
         username: "Firebot",
         expiredCustomVariableName: key,
         expiredCustomVariableData: value
@@ -33,7 +34,7 @@ const onCustomVariableDelete = (key, value) => {
 cache.on("expired", onCustomVariableExpire);
 
 cache.on("set", function(key, value) {
-    eventManager.triggerEvent("firebot", "custom-variable-set", {
+    EventManager.triggerEvent("firebot", "custom-variable-set", {
         username: "Firebot",
         createdCustomVariableName: key,
         createdCustomVariableData: value
@@ -45,8 +46,7 @@ cache.on("set", function(key, value) {
 cache.on("del", onCustomVariableDelete);
 
 function getVariableCacheDb() {
-    const profileManager = require("../common/profile-manager");
-    return profileManager
+    return ProfileManager
         .getJsonDbInProfile("custom-variable-cache");
 }
 
@@ -58,7 +58,7 @@ exports.getInitialInspectorVariables = () =>
             ttl: value.t
         }));
 
-exports.getAllVariables = () => JSON.parse(JSON.stringify(cache.data));
+exports.getAllVariables = () => simpleClone(cache.data);
 
 exports.persistVariablesToFile = () => {
     const db = getVariableCacheDb();
@@ -69,7 +69,7 @@ exports.loadVariablesFromFile = () => {
     const db = getVariableCacheDb();
     const data = db.getData("/");
     if (data) {
-        for (const [key, {t, v}] of Object.entries(data)) {
+        for (const [key, { t, v }] of Object.entries(data)) {
             const now = Date.now();
             if (t && t > 0 && t < now) {
                 // this var has expired
@@ -87,7 +87,7 @@ exports.addCustomVariable = (name, data, ttl = 0, propertyPath = null) => {
     //attempt to parse data as json
     try {
         data = JSON.parse(data);
-    } catch (error) {
+    } catch {
         //silently fail
     }
 
@@ -149,7 +149,7 @@ exports.addCustomVariable = (name, data, ttl = 0, propertyPath = null) => {
                 value: currentData
             });
         } catch (error) {
-            logger.debug(`error setting data to custom variable ${name} using property path ${propertyPath}`);
+            logger.debug(`error setting data to custom variable ${name} using property path ${propertyPath}`, error);
         }
     }
 };
@@ -180,7 +180,7 @@ exports.getCustomVariable = (name, propertyPath, defaultData = null) => {
         }
         return data != null ? data : defaultData;
     } catch (error) {
-        logger.debug(`error getting data from custom variable ${name} using property path ${propertyPath}`);
+        logger.debug(`error getting data from custom variable ${name} using property path ${propertyPath}`, error);
         return defaultData;
     }
 };
@@ -201,7 +201,7 @@ function deleteCustomVariable(name) {
     }
 }
 
-ipcMain.on("customVariableDelete", (_, key) => {
+frontendCommunicator.on("customVariableDelete", (key) => {
     deleteCustomVariable(key);
 });
 

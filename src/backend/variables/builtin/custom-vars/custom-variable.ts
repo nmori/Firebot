@@ -1,5 +1,4 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 
 import customVariableRaw from './custom-variable-raw';
 
@@ -22,8 +21,8 @@ const model : ReplaceVariable = {
             }
         ],
         description: "カスタム変数に保存されているデータを取得します。",
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
+        categories: ["advanced"],
+        possibleDataOutput: ["number", "text"]
     },
     evaluator: (trigger: Trigger, ...args: unknown[]) => {
         const data = customVariableRaw.evaluator(trigger, ...args);

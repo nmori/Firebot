@@ -1,5 +1,4 @@
-import { ReplaceVariable } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable } from "../../../../types/variables";
 
 import viewerMetadataManager from "../../../viewers/viewer-metadata-manager";
 
@@ -18,10 +17,10 @@ const model : ReplaceVariable = {
                 description: "第2引数にプロパティパス（ドット記法）または配列インデックスを指定する。"
             }
         ],
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
+        categories: ["advanced"],
+        possibleDataOutput: ["number", "text"]
     },
-    // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+
     evaluator: async (_, username: string, key: string, defaultValue = null, propertyPath: string = null) => {
         const data = await viewerMetadataManager.getViewerMetadata(username, key, propertyPath);
 

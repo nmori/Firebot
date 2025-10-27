@@ -135,6 +135,10 @@
                     $ctrl.command.sendCooldownMessage = true;
                 }
 
+                if ($ctrl.command.sendCooldownMessageAsReply == null) {
+                    $ctrl.command.sendCooldownMessageAsReply = true;
+                }
+
                 if ($ctrl.command.cooldownMessage == null) {
                     $ctrl.command.cooldownMessage = "再実行可能になるまでの待ち時間: 残り {timeLeft} 秒";
                 }

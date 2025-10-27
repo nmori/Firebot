@@ -2,20 +2,14 @@ import { globalShortcut } from "electron";
 import { JsonDB } from "node-json-db";
 import { v4 as uuid } from "uuid";
 
-import logger from "../logwrapper";
-import frontendCommunicator from "../common/frontend-communicator.js";
-import profileManager from "../../backend/common/profile-manager.js";
-import accountAccess from "../common/account-access";
-import { TriggerType } from "../common/EffectType";
-import effectRunner from "../common/effect-runner";
-import { EffectList } from "../../types/effects";
+import { FirebotHotkey } from "../../types/hotkeys";
+import { Trigger } from "../../types/triggers";
 
-interface FirebotHotkey {
-    id: string;
-    code: Electron.Accelerator;
-    active: boolean;
-    effects: EffectList;
-}
+import { AccountAccess } from "../common/account-access";
+import { ProfileManager } from "../common/profile-manager";
+import effectRunner from "../common/effect-runner";
+import frontendCommunicator from "../common/frontend-communicator";
+import logger from "../logwrapper";
 
 class HotkeyManager {
     hotkeys: FirebotHotkey[] = [];
@@ -36,15 +30,23 @@ class HotkeyManager {
         frontendCommunicator.on("hotkeys:delete-hotkey", (id: string) => {
             this.deleteHotkey(id);
         });
+
+        frontendCommunicator.on("hotkeys:pause-hotkeys", () => {
+            this.unregisterAllHotkeys();
+        });
+
+        frontendCommunicator.on("hotkeys:resume-hotkeys", () => {
+            this.registerAllHotkeys();
+        });
     }
 
     private getHotkeyDb(): JsonDB {
-        return profileManager.getJsonDbInProfile("/hotkeys");
+        return ProfileManager.getJsonDbInProfile("/hotkeys");
     }
 
-    loadHotkeys() {
+    loadHotkeys(): void {
         try {
-            const hotkeyData = this.getHotkeyDb().getData("/");
+            const hotkeyData = this.getHotkeyDb().getData("/") as FirebotHotkey[];
 
             if (hotkeyData?.length) {
                 this.hotkeys = hotkeyData || [];
@@ -56,16 +58,16 @@ class HotkeyManager {
             frontendCommunicator.send("hotkeys:hotkeys-updated", this.hotkeys);
             logger.info("Loaded hotkeys");
         } catch (err) {
-            logger.error(err);
+            logger.error("Error loading hotkeys", err);
         }
     }
 
-    unregisterAllHotkeys() {
+    unregisterAllHotkeys(): void {
         globalShortcut.unregisterAll();
     }
 
-    addHotkey(hotkey: FirebotHotkey) {
-        hotkey.id = uuid();
+    addHotkey(hotkey: FirebotHotkey): void {
+        hotkey.id ??= uuid();
 
         this.hotkeys.push(hotkey);
         this.registerHotkey(hotkey.code);
@@ -73,8 +75,22 @@ class HotkeyManager {
         this.saveHotkeys();
     }
 
-    updateHotkey(hotkey: FirebotHotkey) {
+    updateHotkey(hotkey: FirebotHotkey): void {
         const index = this.hotkeys.findIndex(h => h.id === hotkey.id);
+
+        const existingHotkey = this.hotkeys.find(h => h.id === hotkey.id);
+
+        // If the hotkey code has changed or the hotkey has been deactivated, unregister the old one
+        if (existingHotkey.code !== hotkey.code || hotkey.active !== existingHotkey.active) {
+            if (globalShortcut.isRegistered(existingHotkey.code)) {
+                try {
+                    globalShortcut.unregister(existingHotkey.code);
+                } catch {}
+            }
+            if (hotkey.active !== false) {
+                this.registerHotkey(hotkey.code);
+            }
+        }
 
         if (index > -1) {
             this.hotkeys[index] = hotkey;
@@ -83,17 +99,19 @@ class HotkeyManager {
         }
     }
 
-    deleteHotkey(id: string) {
+    deleteHotkey(id: string): void {
         const hotkey = this.hotkeys.find(h => h.id === id);
 
         this.hotkeys.splice(this.hotkeys.indexOf(hotkey), 1);
 
-        globalShortcut.unregister(hotkey.code);
+        try {
+            globalShortcut.unregister(hotkey.code);
+        } catch {}
 
         this.saveHotkeys();
     }
 
-    private saveHotkeys() {
+    private saveHotkeys(): void {
         try {
             this.getHotkeyDb().push("/", this.hotkeys);
         } catch (error) {
@@ -103,7 +121,7 @@ class HotkeyManager {
         frontendCommunicator.send("hotkeys:hotkeys-updated", this.hotkeys);
     }
 
-    private registerAllHotkeys() {
+    private registerAllHotkeys(): void {
         if (this.hotkeys == null) {
             return;
         }
@@ -113,7 +131,7 @@ class HotkeyManager {
         });
     }
 
-    private registerHotkey(accelerator: Electron.Accelerator) {
+    private registerHotkey(accelerator: Electron.Accelerator): void {
         try {
             const success = globalShortcut.register(accelerator, () => {
                 this.runHotkey(accelerator);
@@ -127,7 +145,7 @@ class HotkeyManager {
         }
     }
 
-    private runHotkey(code: Electron.Accelerator) {
+    private runHotkey(code: Electron.Accelerator): void {
         const hotkey = this.hotkeys.find(k => k.code === code);
 
         const effects = hotkey.effects;
@@ -138,15 +156,15 @@ class HotkeyManager {
 
         const processEffectsRequest = {
             trigger: {
-                type: TriggerType.HOTKEY,
+                type: "hotkey",
                 metadata: {
-                    username: accountAccess.getAccounts().streamer.username,
+                    username: AccountAccess.getAccounts().streamer.username,
                     hotkey: hotkey
                 }
-            },
+            } as Trigger,
             effects: effects
         };
-        effectRunner.processEffects(processEffectsRequest);
+        void effectRunner.processEffects(processEffectsRequest);
     }
 }
 

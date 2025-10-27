@@ -1,12 +1,11 @@
 import { ReplaceVariable } from "../../../../../types/variables";
-import { VariableCategory } from "../../../../../shared/variable-constants";
 import tinycolor from "tinycolor2";
 
 export const ColorValueVariable: ReplaceVariable = {
     definition: {
         handle: "obsColorValue",
         description: "16進カラーコード（例：#0066FF）または標準カラー名をもとにOBSカラー値を返します。",
-        categories: [VariableCategory.ADVANCED, VariableCategory.INTEGRATION, VariableCategory.OBS],
+        categories: ["advanced", "integrations", "obs"],
         possibleDataOutput: ["number"]
     },
     evaluator: (_, ...args: string[]) => {

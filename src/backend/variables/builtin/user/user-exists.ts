@@ -1,5 +1,4 @@
-import { ReplaceVariable } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable } from "../../../../types/variables";
 
 import viewerDatabase from "../../../viewers/viewer-database";
 
@@ -8,8 +7,8 @@ const model : ReplaceVariable = {
         handle: "userExists",
         usage: "userExists[username]",
         description: "Firebotのデータベースにユーザーが存在する場合は'true'を、存在しない場合は'false'を出力します。",
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.TEXT, OutputDataType.BOOLEAN]
+        categories: ["advanced"],
+        possibleDataOutput: ["text", "bool"]
     },
     evaluator: async (_, username: string) => {
         const user = await viewerDatabase.getViewerByUsername(username);

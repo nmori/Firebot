@@ -2,14 +2,12 @@ import { join } from 'node:path';
 import { BrowserWindow, MessageChannelMain, session } from 'electron';
 
 import type { Trigger } from '../../../../types/triggers';
+import { ReplaceVariableManager } from '../../../variables/replace-variable-manager';
+import { getCustomVariable } from '../../custom-variable-manager';
+import logger from '../../../logwrapper';
 
-const logger = require('../../../logwrapper');
 const preloadPath = join(__dirname, 'sandbox-preload.js');
 const htmlPath = join(__dirname, './sandbox.html');
-
-const { getCustomVariable } = require('../../custom-variable-manager');
-
-import replaceVariableManager from '../../../variables/replace-variable-manager';
 
 const charList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const handlers = new Map<string, (trigger: Trigger, ...args: unknown[]) => unknown>();
@@ -26,17 +24,17 @@ handlers.set('evaluateVariableExpression', (trigger, expressionString) => {
         throw new Error('variable expression must be a string');
     }
 
-    return replaceVariableManager.evaluateText(expressionString, trigger?.metadata, trigger);
+    return ReplaceVariableManager.evaluateText(expressionString, trigger?.metadata, trigger);
 });
 
 interface Sandbox {
-    finished: boolean,
-    tunnel: Electron.MessagePortMain,
-    timeout?: ReturnType<typeof setTimeout>,
-    window?: Electron.BrowserWindow,
+    finished: boolean;
+    tunnel: Electron.MessagePortMain;
+    timeout?: ReturnType<typeof setTimeout>;
+    window?: Electron.BrowserWindow;
 
-    resolve?: (...args: unknown[]) => void,
-    reject?: (...args: unknown[]) => void
+    resolve?: (...args: unknown[]) => void;
+    reject?: (...args: unknown[]) => void;
 }
 
 export const evalSandboxedJs = async (code: string, args: unknown[], trigger: Trigger) => {
@@ -140,7 +138,7 @@ export const evalSandboxedJs = async (code: string, args: unknown[], trigger: Tr
                         sandbox.tunnel.postMessage({ ...base, status: "error", result: err.message });
                     }
                 } else {
-                    sandbox.tunnel.postMessage({ ...base, status: "error", result: "unknown method"});
+                    sandbox.tunnel.postMessage({ ...base, status: "error", result: "unknown method" });
                 }
             }
         });

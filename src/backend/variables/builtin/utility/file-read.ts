@@ -1,9 +1,9 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import fs from "fs/promises";
 
-const fs = require("fs");
-const util = require("../../../utility");
-const logger = require("../../../../backend/logwrapper");
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
+
+import logger from "../../../logwrapper";
+import { getRandomInt } from "../../../utils";
 
 const model : ReplaceVariable = {
     definition: {
@@ -46,25 +46,38 @@ const model : ReplaceVariable = {
             {
                 usage: "readFile[path\\to\\file.txt, array, true]",
                 description: "Removes leading, trailing, and empty lines before grabbing the array."
+            },
+            {
+                usage: "readFile[path\\to\\file.ogg, bytes]",
+                description: "Reads the content of a file and returns a byte array."
             }
         ],
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.TEXT, OutputDataType.ARRAY]
+        categories: ["advanced"],
+        possibleDataOutput: ["text", "array"]
     },
-    evaluator: (
+    evaluator: async (
         trigger: Trigger,
         filePath: string,
-        lineOrRandom: null | number | "array" | "first" | "last" | "random",
+        lineOrRandom: null | number | "array" | "first" | "last" | "random" | "bytes",
         ignoreWhitespace?: string | boolean
-    ) : string | string[] => {
+    ) : Promise<string | string[] | Uint8Array> => {
 
         if (filePath === null) {
             return "[File Path Error]";
         }
 
+        if (lineOrRandom === "bytes") {
+            try {
+                return Uint8Array.from(await fs.readFile(filePath));
+            } catch (err) {
+                logger.error("Error reading binary file", err);
+                return "[Read File Error]";
+            }
+        }
+
         let contents : string;
         try {
-            contents = fs.readFileSync(filePath, { encoding: "utf8" });
+            contents = await fs.readFile(filePath, { encoding: "utf-8" });
         } catch (err) {
             logger.error("error reading file", err);
             return "[Read File Error]";
@@ -108,7 +121,7 @@ const model : ReplaceVariable = {
             return lines[lines.length - 1];
         }
         if (lorStr === 'true' || lorStr === 'random') {
-            return lines[util.getRandomInt(0, lines.length - 1)];
+            return lines[getRandomInt(0, lines.length - 1)];
         }
         return '';
     }

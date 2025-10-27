@@ -1,6 +1,5 @@
-import { EffectType } from "../../../types/effects";
-import { EffectCategory } from "../../../shared/effect-constants";
-import { handleTriggeredEvent } from "../../events/activity-feed-manager";
+import type { EffectType } from "../../../types/effects";
+import { ActivityFeedManager } from "../../events/activity-feed-manager";
 
 const effect: EffectType<{
     message: string;
@@ -11,7 +10,7 @@ const effect: EffectType<{
         name: "アクティビティフィードにアラートを出す",
         description: "Firebotのアクティビティフィードにアラートを表示する",
         icon: "fad fa-comment-exclamation",
-        categories: [EffectCategory.FUN],
+        categories: ["fun"],
         dependencies: []
     },
     optionsTemplate: `
@@ -40,14 +39,14 @@ const effect: EffectType<{
     `,
     optionsController: () => { },
     optionsValidator: (effect) => {
-        const errors = [];
+        const errors: string[] = [];
         if (effect.message == null || effect.message === "") {
             errors.push("アラートメッセージを空白にすることはできません。");
         }
         return errors;
     },
-    onTriggerEvent: async ({ effect }) => {
-        handleTriggeredEvent(
+    onTriggerEvent: ({ effect }) => {
+        ActivityFeedManager.handleTriggeredEvent(
             {
                 id: "firebot",
                 name: "Firebot"
@@ -74,4 +73,4 @@ const effect: EffectType<{
     }
 };
 
-module.exports = effect;
+export = effect;

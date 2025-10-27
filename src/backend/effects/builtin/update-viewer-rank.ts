@@ -1,11 +1,8 @@
-"use strict";
-
 import { EffectType } from "../../../types/effects";
-import { EffectCategory } from "../../../shared/effect-constants";
 import viewerDatabase from "../../viewers/viewer-database";
 import viewerRanksService from "../../ranks/rank-manager";
 
-const model: EffectType<{
+const effect: EffectType<{
     rankLadderId: string;
     action: "promote" | "demote" | "set-specific-rank" | "set-variable-rank";
     rankId?: string;
@@ -16,7 +13,7 @@ const model: EffectType<{
         name: "視聴者ランクの更新",
         description: "指定されたランクラダー内の視聴者ランクを更新する。",
         icon: "fad fa-award",
-        categories: [EffectCategory.COMMON],
+        categories: ["common"],
         dependencies: []
     },
     optionsTemplate: `
@@ -78,7 +75,7 @@ const model: EffectType<{
         };
     },
     optionsValidator: (effect) => {
-        const errors = [];
+        const errors: string[] = [];
         if (!effect.rankLadderId) {
             errors.push("Please select a Rank Ladder");
         }
@@ -162,4 +159,4 @@ const model: EffectType<{
     }
 };
 
-module.exports = model;
+export = effect;
