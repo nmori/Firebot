@@ -38,7 +38,7 @@ export async function sendScreenshotToDiscord(base64ImageData: string, message: 
         {
             file: Buffer.from(base64ImageData, "base64"),
             name: filename,
-            description: "Screenshot by Firebot"
+            description: "Firebotによるスクリーンショット"
         }
     ];
     const screenshotEmbed = await discordEmbedBuilder.buildScreenshotEmbed(`attachment://${filename}`, color);
@@ -51,7 +51,7 @@ export async function sendEmbedToDiscord(base64ImageData: string, embedType: Emb
         {
             file: Buffer.from(base64ImageData, "base64"),
             name: filename,
-            description: "Screenshot by Firebot"
+            description: "Firebotによるスクリーンショット"
         }
     ];
 

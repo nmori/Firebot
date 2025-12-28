@@ -39,18 +39,18 @@
                     cellController: () => { }
                 },
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     headerStyles: {
                         'min-width': '125px'
                     },
                     dataField: "twitchData.title",
                     sortable: true,
-                    cellTemplate: `{{data.twitchData.title}} <i ng-hide="data.manageable" class="fas fa-lock muted" style="font-size: 12px;" uib-tooltip="This reward was created either outside of Firebot or in an older version. Its settings cannot be changed in Firebot." />`,
+                    cellTemplate: `{{data.twitchData.title}} <i ng-hide="data.manageable" class="fas fa-lock muted" style="font-size: 12px;" uib-tooltip="この特典はFirebotの外部または古いバージョンで作成されたものです。Firebotでは設定を変更できません。" />`,
                     cellController: () => { }
                 },
                 {
-                    name: "COST",
+                    name: "金額",
                     icon: "fa-coin",
                     dataField: "twitchData.cost",
                     sortable: true,
@@ -58,7 +58,7 @@
                     cellController: () => { }
                 },
                 {
-                    cellTemplate: `<span class="paused-dot" style="margin-right: 5px" ng-class="{'paused': data.twitchData.isPaused, 'unpaused': !data.twitchData.isPaused}"></span>{{data.twitchData.isPaused ? 'Paused' : 'Unpaused' }}`,
+                    cellTemplate: `<span class="paused-dot" style="margin-right: 5px" ng-class="{'paused': data.twitchData.isPaused, 'unpaused': !data.twitchData.isPaused}"></span>{{data.twitchData.isPaused ? '停止中' : '稼働中' }}`,
                     cellController: () => { }
                 }
             ];
@@ -67,7 +67,7 @@
             $scope.rewardMenuOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ${item.manageable ? "Edit" : "Edit Effects"}</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ${item.manageable ? "編集" : "演出を編集"}</a>`,
                         click: function () {
                             channelRewardsService.showAddOrEditRewardModal(item);
                         }
@@ -98,13 +98,13 @@
                         enabled: channelRewardsService.channelRewards.length < 50
                     },
                     {
-                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="この報奨はFirebotの外部で作成されたもので、ここから削除することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="この報奨はFirebotの外部で作成されたもので、ここから削除することはできません。" tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
                                     title: "チャンネルの報奨を削除",
                                     question: `チャンネル報奨「"${item.twitchData.title}"」を消しても良いですか？ ?`,
-                                    confirmLabel: "Delete",
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {

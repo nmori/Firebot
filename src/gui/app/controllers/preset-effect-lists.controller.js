@@ -15,7 +15,7 @@
 
             $scope.headers = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     dataField: "name",
                     sortable: true,
@@ -23,7 +23,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "EFFECTS",
+                    name: "演出",
                     icon: "fa-magic",
                     cellTemplate: `{{data.effects ? data.effects.list.length : 0}}`,
                     cellController: () => {}

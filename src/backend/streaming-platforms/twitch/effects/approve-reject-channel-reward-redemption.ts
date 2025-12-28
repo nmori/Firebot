@@ -21,22 +21,22 @@ const model: EffectType<{
     optionsTemplate: `
         <eos-container header="特典">
             <firebot-radio-container>
-                <firebot-radio label="Use current reward" model="effect.rewardMode" value="'current'" tooltip="この演出を起動した特典を使用する" />
-                <firebot-radio label="Custom" model="effect.rewardMode" value="'custom'" />
-                <firebot-input ng-if="effect.rewardMode === 'custom'" input-title="Reward ID" model="effect.rewardId" placeholder-text="IDを入力" menu-position="below" />
+                <firebot-radio label="現在の特典を使用" model="effect.rewardMode" value="'current'" tooltip="この演出を起動した特典を使用する" />
+                <firebot-radio label="カスタム" model="effect.rewardMode" value="'custom'" />
+                <firebot-input ng-if="effect.rewardMode === 'custom'" input-title="特典ID" model="effect.rewardId" placeholder-text="IDを入力" menu-position="below" />
             </firebot-radio-container>
         </eos-container>
 
         <eos-container header="引き換え" pad-top="true">
             <firebot-radio label="現在の交換を利用する" model="effect.redemptionMode" value="'current'" tooltip="この演出を起動した特典を使用する" />
-            <firebot-radio label="Custom" model="effect.redemptionMode" value="'custom'" />
+            <firebot-radio label="カスタム" model="effect.redemptionMode" value="'custom'" />
             <firebot-input ng-if="effect.redemptionMode === 'custom'" input-title="交換ID" model="effect.redemptionId" placeholder-text="IDを入力" />
         </eos-container>
 
-        <eos-container header="Action" pad-top="true">
+        <eos-container header="アクション" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="list-effect-type">{{effect.approve != null ? (effect.approve === true ? 'Approve' : 'Reject') : 'Pick One'}}</span> <span class="caret"></span>
+                    <span class="list-effect-type">{{effect.approve != null ? (effect.approve === true ? '承認' : '却下') : '選択してください'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.approve = true">

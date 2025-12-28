@@ -12,7 +12,7 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "activeChatUserCount[CustomRole]",
-                description: "Gets the number of active viewers in the specified custom role."
+                description: "指定したカスタムロールに属するアクティブ視聴者数を取得します。"
             }
         ]
     },

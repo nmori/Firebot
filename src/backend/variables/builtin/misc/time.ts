@@ -2,31 +2,26 @@ import moment from "moment";
 
 import type { ReplaceVariable } from "../../../../types/variables";
 
-const model : ReplaceVariable = {
+const model: ReplaceVariable = {
     definition: {
         handle: "time",
-        description: "現在時刻を出力.",
+        description: "現在時刻を出力します。",
         categories: ["common"],
         possibleDataOutput: ["text"],
         examples: [
             {
                 usage: "time[format,locale]",
-                description: '現在時刻を特定のフォーマットで出力する。書式は <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> に従います.(日本語版拡張:localeに ja,en などの国を指定できます）'
+                description: '現在時刻を指定したフォーマットで出力します。書式は <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> に従います。（日本語版拡張: locale に ja,en などのロケールを指定できます）'
             },
             {
                 usage: "time[YYYY-DD-MM HH:mm:ss]",
-                description: "Format with the preferred tokens."
+                description: "指定した書式トークンでフォーマットします。"
             }
         ]
     },
-    evaluator: (_, format = 'h:mm a', locale = 'ja') => {
+    evaluator: (_, format: string = "HH:mm", locale: moment.LocaleSpecifier = "ja") => {
         const now = moment().locale(locale);
-        if(!isNaN(now.format(format)))
-        {
-            return Number(now.format(format));
-        }else{
-            return now.format(format);
-        }
+        return now.format(format);
     }
 };
 

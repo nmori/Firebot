@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:shared-train",
-    name: "Shared Train",
-    description: "Filter by whether the hype train is shared with other broadcasters.",
+    name: "シェアドトレイン",
+    description: "Hypeトレインが他の配信者と共有されているかどうかでフィルタリングします。",
     events: [
         { eventSourceId: "twitch", eventId: "hype-train-end" },
         { eventSourceId: "twitch", eventId: "hype-train-progress" },

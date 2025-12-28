@@ -16,8 +16,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:chat-feed-custom-highlight",
-        name: "Highlight Message In Chat Feed",
-        description: "Apply a custom highlight and/or banner to a message in the Firebot chat feed",
+        name: "チャットフィードでメッセージをハイライト",
+        description: "Firebotチャットフィードのメッセージにカスタムハイライトやバナーを適用します",
         icon: "fas fa-highlighter",
         categories: ["common", "chat based"],
         dependencies: ["chat"],
@@ -25,32 +25,32 @@ const effect: EffectType<{
     },
     optionsTemplate: `
     <eos-container pad-top="true">
-        <p>This will highlight and/or add a banner to a chat message in the Firebot dashboard.</p>
-        <p>This does <b>not</b> affect how this message is displayed in Twitch chat, browser overlays, or any other chat client you may be using.</p>
+        <p>これはFirebotダッシュボードのチャットメッセージをハイライトしたり、バナーを追加します。</p>
+        <p>Twitchチャット、ブラウザオーバーレイ、その他のチャットクライアントでのこのメッセージの表示には影響<b>しません</b>。</p>
     </eos-container>
 
-    <eos-container header="Highlight" pad-top="true">
+    <eos-container header="ハイライト" pad-top="true">
         <firebot-checkbox
-            label="Highlight Message"
+            label="メッセージをハイライト"
             model="effect.highlightEnabled"
         />
 
-        <p class="muted">Select the color for the highlight.</p>
+        <p class="muted">ハイライトの色を選択してください。</p>
 
-        <color-picker-input style="margin-top:10px" model="effect.customHighlightColor" label="Color"></color-picker-input>
+        <color-picker-input style="margin-top:10px" model="effect.customHighlightColor" label="色"></color-picker-input>
     </eos-container>
 
-    <eos-container header="Banner" pad-top="true">
+    <eos-container header="バナー" pad-top="true">
         <firebot-checkbox
-            label="Add a Banner"
+            label="バナーを追加"
             model="effect.bannerEnabled"
         />
 
-        <p class="muted">Enter the text for the banner.</p>
+        <p class="muted">バナーのテキストを入力してください。</p>
 
         <firebot-input
             model="effect.customBannerText"
-            placeholder-text="Enter banner text"
+            placeholder-text="バナーテキストを入力"
             pad-top="true"
             rows="4"
             useTextArea="true"
@@ -58,7 +58,7 @@ const effect: EffectType<{
             menu-position="under"
         />
 
-        <p class="muted" style="margin-top: 20px;">Select the icon for the banner.</p>
+        <p class="muted" style="margin-top: 20px;">バナーのアイコンを選択してください。</p>
 
         <input
             maxlength="2"
@@ -84,21 +84,21 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!effect.highlightEnabled && !effect.bannerEnabled) {
-            errors.push("At least one of 'Highlight Message' or 'Add a Banner' must be enabled, or this effect will not do anything.");
+            errors.push("「メッセージをハイライト」または「バナーを追加」のいずれかを有効にする必要があります。そうでない場合、この演出は何も実行しません。");
         }
         if (effect.highlightEnabled) {
             if (!effect.customHighlightColor) {
-                errors.push("If 'Highlight Message' is enabled, you must provide a highlight color.");
+                errors.push("「メッセージをハイライト」が有効な場合、ハイライトの色を指定する必要があります。");
             } else if (!/^#[0-9A-Fa-f]{6}$/.test(effect.customHighlightColor)) {
-                errors.push("The highlight color must be a valid hex color code (e.g., #ffcc00).");
+                errors.push("ハイライトの色は有効な16進数カラーコード（例: #ffcc00）である必要があります。");
             }
         }
         if (effect.bannerEnabled) {
             if (!effect.customBannerIcon) {
-                errors.push("If 'Add a Banner' is enabled, you must provide a banner icon.");
+                errors.push("「バナーを追加」が有効な場合、バナーアイコンを指定する必要があります。");
             }
             if (!effect.customBannerText) {
-                errors.push("If 'Add a Banner' is enabled, you must provide banner text.");
+                errors.push("「バナーを追加」が有効な場合、バナーテキストを指定する必要があります。");
             }
         }
         return errors;

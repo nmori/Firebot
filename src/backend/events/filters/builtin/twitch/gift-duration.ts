@@ -2,8 +2,8 @@ import { createNumberFilter } from "../../filter-factory";
 
 const filter = createNumberFilter({
     id: "firebot:gift-duration",
-    name: "Gift Duration",
-    description: "Filter by the duration of the gift sub (in months)",
+    name: "ギフト期間",
+    description: "ギフトサブスクの期間（月単位）でフィルタリングします",
     eventMetaKey: "giftDuration",
     events: [
         { eventSourceId: "twitch", eventId: "subs-gifted" }

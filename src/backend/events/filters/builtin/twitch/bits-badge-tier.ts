@@ -2,8 +2,8 @@ import { createNumberFilter } from "../../filter-factory";
 
 const filter = createNumberFilter({
     id: "firebot:bits-badge-tier",
-    name: "Bits Badge Tier",
-    description: "Filter by the tier of the bits badge that was unlocked (100, 1000, 5000, etc.)",
+    name: "Bitsバッジティア",
+    description: "アンロックされたBitsバッジのティアでフィルタリングします（100、1000、5000など）",
     events: [
         { eventSourceId: "twitch", eventId: "bits-badge-unlocked" }
     ],

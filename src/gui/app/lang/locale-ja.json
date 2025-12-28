@@ -25,6 +25,7 @@
     },
     "MANAGEMENT": {
       "MANAGEMENT": "管理",
+      "OVERLAY_WIDGETS": "オーバーレイウィジェット",
       "VIEWER_GROUPS": "視聴者グループ",
       "GAMES": "ゲーム",
       "VIEWER_ROLES": "視聴者の役割",

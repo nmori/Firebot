@@ -31,7 +31,7 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-reply"></i> 返答するテキスト<tooltip styles="opacity:0.7;font-size:11px;" text="'This is what Firebot should say in response when this command is triggered.'" /></label>
+                <label class="form-label"><i class="fad fa-reply"></i> 返答するテキスト<tooltip styles="opacity:0.7;font-size:11px;" text="'このコマンドがトリガーされたときにFirebotが応答として発言する内容です。'" /></label>
                 <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="メッセージを入れる" rows="4" cols="40" replace-variables></textarea>
                 <p class="help-block">メッセージ応答以外をしたいですか? Firebot の演出システムを最大限に活用するには、<b>応用モード</b> に切り替えてください。</p>
             </div>

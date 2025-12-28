@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:new-rank",
-    name: "New Rank",
-    description: "Filter to a given new rank",
+    name: "新規ランク",
+    description: "特定の新規ランクでフィルタリングします",
     events: [
         { eventSourceId: "firebot", eventId: "viewer-rank-updated" }
     ],

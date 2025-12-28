@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:is-anonymous",
-    name: "Anonymous",
-    description: "Filter by whether the event was triggered by an anonymous user",
+    name: "匿名",
+    description: "イベントが匿名ユーザーによってトリガーされたかどうかでフィルタリングします",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },

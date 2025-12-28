@@ -191,9 +191,9 @@
 
             $ctrl.stepTitles = [
                 "",
-                "Get Signed In",
-                "Let's Setup the Overlay",
-                "Feature Your Stream",
+                "サインインしましょう",
+                "オーバーレイをセットアップしましょう",
+                "Firebotウェブサイトで配信を紹介しましょう",
                 ""
             ];
 
@@ -224,7 +224,7 @@
             };
 
             $ctrl.getNextLabel = function () {
-                return "Next";
+                return "次へ";
             };
 
             $ctrl.handlePrevious = function () {

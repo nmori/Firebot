@@ -81,8 +81,8 @@ const clip = {
         </eos-container>
 
         <div ng-if="effect.showInOverlay">
-            <eos-container header="Wait for Video to Finish" class="setting-padtop">
-                <firebot-checkbox label="Wait for video to finish" tooltip="Wait for the video to finish before allowing the next effect to run." model="effect.wait" />
+            <eos-container header="動画の終了を待つ" class="setting-padtop">
+                <firebot-checkbox label="動画の終了を待つ" tooltip="次の演出を実行する前に動画の終了を待ちます。" model="effect.wait" />
             </eos-container>
             <eos-overlay-position effect="effect"></eos-overlay-position>
             <eos-container header="Dimensions">
@@ -196,14 +196,14 @@ const clip = {
         const { effect } = event;
 
         if (effect.postLink) {
-            await TwitchApi.chat.sendChatMessage("Creating clip...", null, true);
+            await TwitchApi.chat.sendChatMessage("クリップを作成中...", null, true);
         }
 
         const clip = await TwitchApi.clips.createClip();
 
         if (clip != null) {
             if (effect.postLink) {
-                const message = `Clip created: ${clip.url}`;
+                const message = `クリップを作成しました： ${clip.url}`;
                 await TwitchApi.chat.sendChatMessage(message, null, true);
             }
 
@@ -268,7 +268,7 @@ const clip = {
             }
         } else {
             if (effect.postLink) {
-                await TwitchApi.chat.sendChatMessage("Whoops! Something went wrong when creating a clip. :(", null, true);
+                await TwitchApi.chat.sendChatMessage("おっと！クリップの作成中に問題が発生しました。:(", null, true);
             }
         }
 

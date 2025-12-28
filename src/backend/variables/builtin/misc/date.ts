@@ -8,11 +8,11 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "date[dddd MMMM Do]",
-                description: 'Format with the preferred tokens. Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
+                description: '指定した書式トークンでフォーマットします。書式は <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> に従います。'
             },
             {
                 usage: "date[YYYY-DD-MM HH:mm:ss]",
-                description: "Format with the preferred tokens."
+                description: "指定した書式トークンでフォーマットします。"
             },
             {
                 usage: "date[MMM Do YYYY, 2, days,locale]",

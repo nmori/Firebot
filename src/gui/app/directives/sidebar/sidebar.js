@@ -32,7 +32,7 @@
                             </div>
 
                             <nav-category name="{{'SIDEBAR.MANAGEMENT' | translate }}" pad-top="true"></nav-category>
-                            <nav-link page="Overlay Widgets" name="Overlay Widgets" icon="fa-layer-plus"></nav-link>
+                            <nav-link page="Overlay Widgets" name="{{ 'SIDEBAR.MANAGEMENT.OVERLAY_WIDGETS' | translate }}" icon="fa-layer-plus"></nav-link>
                             <nav-link page="Effect Queues" name="{{ 'SIDEBAR.OTHER.EFFECT_QUEUES' | translate }}" icon="fa-stream"></nav-link>
                             <nav-link page="Variable Macros" name="{{ 'SIDEBAR.OTHER.VARIABLE_MACROS' | translate }}" icon="fa-layer-group"></nav-link>
                             <nav-link page="Games" name="{{ 'SIDEBAR.OTHER.GAMES' | translate }}" icon="fa-dice"></nav-link>

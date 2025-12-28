@@ -16,22 +16,22 @@ type State = {
 
 export const progressbar: OverlayWidgetType<Settings, State> = {
     id: "firebot:progressbar",
-    name: "Progress Bar",
-    description: "A simple progress bar that can be updated via commands or variables.",
+    name: "プログレスバー",
+    description: "コマンドや変数で更新できるシンプルなプログレスバー",
     icon: "fa-percentage",
     settingsSchema: [
         {
             name: "title",
-            title: "Title",
+            title: "タイトル",
             type: "string",
-            default: "Progress Bar",
+            default: "プログレスバー",
             validation: {
                 required: false
             }
         },
         {
             name: "titleFontOptions",
-            title: "Title Font Options",
+            title: "タイトルフォントオプション",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -45,7 +45,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "trackColor",
-            title: "Track Color",
+            title: "トラック色",
             type: "hexcolor",
             default: "#000000",
             validation: {
@@ -55,7 +55,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "barColor",
-            title: "Bar Color",
+            title: "バー色",
             type: "hexcolor",
             default: "#00FF00",
             validation: {
@@ -65,7 +65,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "minValue",
-            title: "Minimum Value",
+            title: "最小値",
             type: "number",
             default: 0,
             validation: {
@@ -74,7 +74,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "maxValue",
-            title: "Maximum Value",
+            title: "最大値",
             type: "number",
             default: 100,
             validation: {

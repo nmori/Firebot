@@ -128,7 +128,7 @@
 
                 <div class="mt-10">
                     <div class="settings-title">
-                        <h3>Stats</h3>
+                        <h3>統計</h3>
                     </div>
 
                     <div class="input-group">
@@ -177,7 +177,7 @@
                             <label class="control-fb control--checkbox"
                                 >隠す
                                 <tooltip
-                                    text="'Hide this command from the !commands list'"
+                                    text="'!commands リストからこのコマンドを隠す'"
                                 ></tooltip>
                                 <input
                                     type="checkbox"
@@ -199,9 +199,9 @@
                                 <div class="control__indicator"></div>
                             </label>
                             <label class="control-fb control--checkbox"
-                                >Only trigger when channel is live
+                                >配信中のみトリガー
                                 <tooltip
-                                    text="'When this option is enabled, users will only be able to trigger this command when the channel is live.'"
+                                    text="'このオプションを有効にすると、ユーザーはチャンネルが配信中の場合のみこのコマンドをトリガーできます。'"
                                 ></tooltip>
                                 <input
                                     type="checkbox"
@@ -280,7 +280,7 @@
                     </div>
 
                     <effect-list
-                        header="What should this command do?"
+                        header="このコマンドは何をしますか？"
                         effects="$ctrl.command.effects"
                         trigger="command"
                         trigger-meta="{ rootEffects: $ctrl.command.effects }"
@@ -337,9 +337,9 @@
                                 ng-if="!$ctrl.command.subCommands || $ctrl.command.subCommands.length === 0"
                             >
                                 <div class="muted pb-4">
-                                    <strong>NOTE:</strong> フォールバックするサブコマンド
+                                    <strong>注意:</strong> フォールバックするサブコマンド
                                     は、他のサブコマンドが存在しない場合は発動しない。
-                                    
+
                                 </div>
                                 <div class="flex text-lg font-bold pb-4">
                                     <div
@@ -375,8 +375,8 @@
                         <div
                             class="filter-bar clickable"
                             ng-click="$ctrl.openAddSubcommandModal()"
-                            uib-tooltip="Add Subcommand"
-                            aria-label="Add Subcommand"
+                            uib-tooltip="サブコマンドを追加"
+                            aria-label="サブコマンドを追加"
                             tooltip-append-to-body="true"
                         >
                             <i class="far fa-plus"></i>

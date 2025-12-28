@@ -15,15 +15,15 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "rawQuoteAsObject[#]",
-                description: "特定の見積もりIDを取得します。"
+                description: "特定の引用 ID を取得します。"
             },
             {
                 usage: "rawQuoteAsObject[#, property]",
-                description: "特定の見積もりの特定のプロパティのみを取得します。有効なプロパティは、id、createdAt、creator、originator、text、gameです。"
+                description: "特定の引用の特定のプロパティのみを取得します。有効なプロパティは id、createdAt、creator、originator、text、game です。"
             },
             {
                 usage: "rawQuoteAsObject[null, property]",
-                description: "ランダムな引用の特定のプロパティのみを取得します。有効なプロパティは、id、createdAt、creator、originator、text、gameです。"
+                description: "ランダムな引用の特定のプロパティのみを取得します。有効なプロパティは id、createdAt、creator、originator、text、game です。"
             }
         ],
         categories: ["text"],
@@ -62,7 +62,7 @@ const model : ReplaceVariable = {
                     && property !== "text"
                     && property !== "game") {
                     logger.debug("Failed property check for quote: ", property);
-                    return "[Invalid Quote Property]";
+                    return "[無効な引用プロパティです]";
                 }
                 return quoteObject[property];
             }
@@ -71,7 +71,7 @@ const model : ReplaceVariable = {
         }
 
         logger.debug(`Couldn't find a quote.`);
-        return '[Cant find quote]';
+        return '[引用が見つかりません]';
     }
 };
 

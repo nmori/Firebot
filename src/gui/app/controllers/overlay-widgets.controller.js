@@ -12,7 +12,7 @@
 
             $scope.headers = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-tag",
                     dataField: "name",
                     sortable: true,
@@ -20,7 +20,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "TYPE",
+                    name: "種別",
                     icon: "fa-exclamation-square",
                     headerStyles: {
                         'min-width': '100px'
@@ -29,15 +29,15 @@
                     sortable: true,
                     cellTemplate: `{{typeName}}`,
                     cellController: ($scope) => {
-                        $scope.typeName = "No Type";
+                        $scope.typeName = "種別なし";
                         if ($scope.data?.type) {
                             const widgetType = overlayWidgetsService.overlayWidgetTypes.find(t => t.id === $scope.data.type);
-                            $scope.typeName = widgetType?.name ?? "Unknown Type";
+                            $scope.typeName = widgetType?.name ?? "不明な種別";
                         }
                     }
                 },
                 {
-                    name: "INFO",
+                    name: "情報",
                     icon: "fa-info-circle",
                     headerStyles: {
                         'min-width': '100px'
@@ -53,31 +53,31 @@
             $scope.contextMenuOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             overlayWidgetsService.showAddOrEditOverlayWidgetModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${!item.active ? "Enable Overlay Widget" : "Disable Overlay Widget"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${!item.active ? "オーバーレイウィジェットを有効化" : "オーバーレイウィジェットを無効化"}</a>`,
                         click: function () {
                             overlayWidgetsService.toggleOverlayWidgetConfig(item.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             overlayWidgetsService.duplicateOverlayWidget(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             modalFactory
                                 .showConfirmationModal({
-                                    title: "Delete Overlay Widget",
-                                    question: `Are you sure you want to delete the Overlay Widget "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "オーバーレイウィジェットを削除",
+                                    question: `オーバーレイウィジェット「${item.name}」を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {
@@ -99,7 +99,7 @@
                     }));
 
                     options.push({
-                        text: `Actions...`,
+                        text: `アクション...`,
                         children: children,
                         hasTopDivider: true
                     });

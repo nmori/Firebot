@@ -18,47 +18,47 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "discordTimestamp[]",
-                description: "現在時刻を使用してDiscordタイムスタンプを作成します。"
+                description: "現在時刻を使用して Discord タイムスタンプを作成します。"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00]",
-                description: "指定された時刻を使用して、デフォルトの discord フォーマットで discord タイムスタンプを作成します。"
+                description: "指定した時刻を使用して、Discord のデフォルト形式でタイムスタンプを作成します。"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:t]",
-                description: "「短い時間」のDiscordタイムスタンプを作成する。EX： 01:00 | 1:00 PM"
+                description: "「短い時間」の Discord タイムスタンプを作成します。例: 01:00 | 1:00 PM"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:T]",
-                description: "「長い時間」のDiscordタイムスタンプを作成する。EX： 01:00:00 | 01:00:00 PM"
+                description: "「長い時間」の Discord タイムスタンプを作成します。例: 01:00:00 | 01:00:00 PM"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:d]",
-                description: "「短い日付」のDiscordタイムスタンプを作成します。EX： 1/26/2076 | 26/01/2076"
+                description: "「短い日付」の Discord タイムスタンプを作成します。例: 1/26/2076 | 26/01/2076"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:D]",
-                description: "「長い日付」のDiscordタイムスタンプを作成します。EX： January 26, 2076 | 26 January 2076"
+                description: "「長い日付」の Discord タイムスタンプを作成します。例: January 26, 2076 | 26 January 2076"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:f]",
-                description: "「短い日時」のDiscordタイムスタンプを作成する。EX： January 26, 2076 1:00 PM | 26 January 2076 13:00"
+                description: "「短い日時」の Discord タイムスタンプを作成します。例: January 26, 2076 1:00 PM | 26 January 2076 13:00"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:F]",
-                description: "「長い日時」のDiscordタイムスタンプを作成する。EX： Sunday, January 26, 2076 1:00 PM | Sunday, 26 January 2076, 13:00"
+                description: "「長い日時」の Discord タイムスタンプを作成します。例: Sunday, January 26, 2076 1:00 PM | Sunday, 26 January 2076, 13:00"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:R]",
-                description: "相対的なDiscordのタイムスタンプを作成します。EX： 'in 53 years' | 'in 23 minutes'"
+                description: "相対的な Discord タイムスタンプを作成します。例: 'in 53 years' | 'in 23 minutes'"
             },
             {
                 usage: "discordTimestamp[13:00:00]",
-                description: "現在の日付の指定された時間を使用してDiscordタイムスタンプを作成します。"
+                description: "現在の日付の指定時間を使って Discord タイムスタンプを作成します。"
             },
             {
                 usage: "discordTimestamp[now, R]",
-                description: "指定されたフォーマットで現在の日付と時刻を使用してDiscordタイムスタンプを作成します。"
+                description: "指定したフォーマットで現在の日付と時刻を使い、Discord タイムスタンプを作成します。"
             }
         ],
         triggers: triggers,
@@ -94,8 +94,8 @@ const model : ReplaceVariable = {
 
         // Now, validate dateString format.
         if (!moment(dateString, 'YYYY-MM-DD HH:mm:ss', true).isValid()) {
-            logger.error(`Incorrect date format provided to discord timestamp.`);
-            return '[Incorrect date format]';
+            logger.error(`Discord タイムスタンプに不正な日付形式が渡されました。`);
+            return '[日付形式が正しくありません]';
         }
 
         // Convert dateString to unix for discord.
@@ -110,7 +110,7 @@ const model : ReplaceVariable = {
 
         // Validate format is a valid discord format. If not, log error and use discord default format.
         if (!validFormats.includes(format)) {
-            logger.error(`Incorrect format passed to discord timestamp, using discord defaults.`);
+            logger.error(`Discord タイムスタンプに不正なフォーマットが渡されたため、既定の形式を使用します。`);
             return `<t:${timestamp}>`;
         }
 

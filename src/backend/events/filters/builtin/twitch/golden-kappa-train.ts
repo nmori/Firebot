@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:golden-kappa-train",
-    name: "Golden Kappa Train",
-    description: "Filter by whether the hype train is a Golden Kappa Train.",
+    name: "ゴールデンKappaトレイン",
+    description: "HypeトレインがゴールデンKappaトレインかどうかでフィルタリングします。",
     events: [
         { eventSourceId: "twitch", eventId: "hype-train-end" },
         { eventSourceId: "twitch", eventId: "hype-train-progress" },

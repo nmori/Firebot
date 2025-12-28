@@ -8,22 +8,22 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "unixTimestamp[2011-03-18 18:49 UTC]",
-                description: "Unix timestamp for provided date"
+                description: "指定した日付の UNIX タイムスタンプを返します。"
             },
             {
                 usage: "unixTimestamp[07/28/2024, MM/DD/YYYY]",
-                description: 'Unix timestamp for provided date with specified format.  Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
+                description: '指定した書式で日付を解釈し、UNIX タイムスタンプを返します。書式は <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> に従います。'
             },
             {
                 usage: "unixTimestamp[$accountCreationDate]",
-                description: "Unix timestamp for provided account creation date"
+                description: "指定したアカウント作成日の UNIX タイムスタンプを返します。"
             },
             {
                 usage: "unixTimestamp[$date[MMM Do YYYY, -14, days], MMM Do YYYY]",
-                description: "Unix timestamp for date variable set to 2 weeks ago formatted as MMM Do YYYY"
+                description: "2 週間前の日付変数（MMM Do YYYY 形式）の UNIX タイムスタンプを返します。"
             }
         ],
-        description: "The current date formatted as seconds since January 1, 1970 00:00:00 UTC",
+        description: "現在の日付を 1970 年 1 月 1 日 00:00:00 UTC からの経過秒として返します。",
         categories: ["common"],
         possibleDataOutput: ["number"]
     },

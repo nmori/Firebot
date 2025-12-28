@@ -9,513 +9,513 @@
             service.animations = {
                 enter: [
                     {
-                        name: "Bounce In",
+                        name: "バウンスイン",
                         class: "bounceIn",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Bounce In Up",
+                        name: "バウンスイン（上）",
                         class: "bounceInUp",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Bounce In Down",
+                        name: "バウンスイン（下）",
                         class: "bounceInDown",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Bounce In Left",
+                        name: "バウンスイン（左）",
                         class: "bounceInLeft",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Bounce In Right",
+                        name: "バウンスイン（右）",
                         class: "bounceInRight",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Fade In",
+                        name: "フェードイン",
                         class: "fadeIn",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade In Down",
+                        name: "フェードイン（下）",
                         class: "fadeInDown",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade In Down Big",
+                        name: "フェードイン（下・大）",
                         class: "fadeInDownBig",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade In Up",
+                        name: "フェードイン（上）",
                         class: "fadeInUp",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade In Up Big",
+                        name: "フェードイン（上・大）",
                         class: "fadeInUpBig",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade In Left",
+                        name: "フェードイン（左）",
                         class: "fadeInLeft",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade In Left Big",
+                        name: "フェードイン（左・大）",
                         class: "fadeInLeftBig",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade In Right",
+                        name: "フェードイン（右）",
                         class: "fadeInRight",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade In Right Big",
+                        name: "フェードイン（右・大）",
                         class: "fadeInRightBig",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Flip In X",
+                        name: "フリップイン（X軸）",
                         class: "flipInX",
-                        category: "Flip"
+                        category: "フリップ"
                     },
                     {
-                        name: "Flip In Y",
+                        name: "フリップイン（Y軸）",
                         class: "flipInY",
-                        category: "Flip"
+                        category: "フリップ"
                     },
                     {
-                        name: "Rotate In",
+                        name: "回転イン",
                         class: "rotateIn",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Rotate In Down Left",
+                        name: "回転イン（左下）",
                         class: "rotateInDownLeft",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Rotate In Down Right",
+                        name: "回転イン（右下）",
                         class: "rotateInDownRight",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Rotate In Up Left",
+                        name: "回転イン（左上）",
                         class: "rotateInUpLeft",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Rotate In Up Right",
+                        name: "回転イン（右上）",
                         class: "rotateInUpRight",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Forward Bottom",
+                        name: "スワールイン（前方・下）",
                         class: "swirlInFwdBottom",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Forward Center",
+                        name: "スワールイン（前方・中央）",
                         class: "swirlInFwdCenter",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Forward Left",
+                        name: "スワールイン（前方・左）",
                         class: "swirlInFwdLeft",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Forward Right",
+                        name: "スワールイン（前方・右）",
                         class: "swirlInFwdRight",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Forward Top",
+                        name: "スワールイン（前方・上）",
                         class: "swirlInFwdTop",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Backward Bottom",
+                        name: "スワールイン（後方・下）",
                         class: "swirlInBckBottom",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Backward Center",
+                        name: "スワールイン（後方・中央）",
                         class: "swirlInBckCenter",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Backward Left",
+                        name: "スワールイン（後方・左）",
                         class: "swirlInBckLeft",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Backward Right",
+                        name: "スワールイン（後方・右）",
                         class: "swirlInBckRight",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl In Backward Top",
+                        name: "スワールイン（後方・上）",
                         class: "swirlInBckTop",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Zoom In",
+                        name: "ズームイン",
                         class: "zoomIn",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Zoom In Down",
+                        name: "ズームイン（下）",
                         class: "zoomInDown",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Zoom In Left",
+                        name: "ズームイン（左）",
                         class: "zoomInLeft",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Zoom In Right",
+                        name: "ズームイン（右）",
                         class: "zoomInRight",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Zoom In Up",
+                        name: "ズームイン（上）",
                         class: "zoomInUp",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Slide In Down",
+                        name: "スライドイン（下）",
                         class: "slideInDown",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide In Down Full Screen",
+                        name: "スライドイン（下・全画面）",
                         class: "slideInDownFull",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide In Left",
+                        name: "スライドイン（左）",
                         class: "slideInLeft",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide In Left Full Screen",
+                        name: "スライドイン（左・全画面）",
                         class: "slideInLeftFull",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide In Right",
+                        name: "スライドイン（右）",
                         class: "slideInRight",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide In Right Full Screen",
+                        name: "スライドイン（右・全画面）",
                         class: "slideInRightFull",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide In Up",
+                        name: "スライドイン（上）",
                         class: "slideInUp",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide In Up Full Screen",
+                        name: "スライドイン（上・全画面）",
                         class: "slideInUpFull",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Light Speed In",
+                        name: "光速イン",
                         class: "lightSpeedIn",
-                        category: "Misc"
+                        category: "その他"
                     },
                     {
-                        name: "Jack In The Box",
+                        name: "びっくり箱",
                         class: "jackInTheBox",
-                        category: "Misc"
+                        category: "その他"
                     },
                     {
-                        name: "Roll In",
+                        name: "ロールイン",
                         class: "rollIn",
-                        category: "Misc"
+                        category: "その他"
                     },
                     {
-                        name: "None",
+                        name: "なし",
                         class: "none",
-                        category: "Misc"
+                        category: "その他"
                     }
                 ],
                 exit: [
                     {
-                        name: "Bounce Out",
+                        name: "バウンスアウト",
                         class: "bounceOut",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Bounce Out Up",
+                        name: "バウンスアウト（上）",
                         class: "bounceOutUp",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Bounce Out Down",
+                        name: "バウンスアウト（下）",
                         class: "bounceOutDown",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Bounce Out Left",
+                        name: "バウンスアウト（左）",
                         class: "bounceOutLeft",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Bounce Out Right",
+                        name: "バウンスアウト（右）",
                         class: "bounceOutRight",
-                        category: "Bouncing"
+                        category: "バウンス"
                     },
                     {
-                        name: "Fade Out",
+                        name: "フェードアウト",
                         class: "fadeOut",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade Out Down",
+                        name: "フェードアウト（下）",
                         class: "fadeOutDown",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade Out Down Big",
+                        name: "フェードアウト（下・大）",
                         class: "fadeOutDownBig",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade Out Up",
+                        name: "フェードアウト（上）",
                         class: "fadeOutUp",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade Out Up Big",
+                        name: "フェードアウト（上・大）",
                         class: "fadeOutUpBig",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade Out Left",
+                        name: "フェードアウト（左）",
                         class: "fadeOutLeft",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade Out Left Big",
+                        name: "フェードアウト（左・大）",
                         class: "fadeOutLeftBig",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade Out Right",
+                        name: "フェードアウト（右）",
                         class: "fadeOutRight",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Fade Out Right Big",
+                        name: "フェードアウト（右・大）",
                         class: "fadeOutRightBig",
-                        category: "Fade"
+                        category: "フェード"
                     },
                     {
-                        name: "Rotate Out",
+                        name: "回転アウト",
                         class: "rotateOut",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Rotate Out Down Left",
+                        name: "回転アウト（左下）",
                         class: "rotateOutDownLeft",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Rotate Out Down Right",
+                        name: "回転アウト（右下）",
                         class: "rotateOutDownRight",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Rotate Out Up Left",
+                        name: "回転アウト（左上）",
                         class: "rotateOutUpLeft",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Rotate Out Up Right",
+                        name: "回転アウト（右上）",
                         class: "rotateOutUpRight",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Forward Bottom",
+                        name: "スワールアウト（前方・下）",
                         class: "swirlOutFwdBottom",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Forward Center",
+                        name: "スワールアウト（前方・中央）",
                         class: "swirlOutFwdCenter",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Forward Left",
+                        name: "スワールアウト（前方・左）",
                         class: "swirlOutFwdLeft",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Forward Right",
+                        name: "スワールアウト（前方・右）",
                         class: "swirlOutFwdRight",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Forward Top",
+                        name: "スワールアウト（前方・上）",
                         class: "swirlOutFwdTop",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Backward Bottom",
+                        name: "スワールアウト（後方・下）",
                         class: "swirlOutBckBottom",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Backward Center",
+                        name: "スワールアウト（後方・中央）",
                         class: "swirlOutBckCenter",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Backward Left",
+                        name: "スワールアウト（後方・左）",
                         class: "swirlOutBckLeft",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Backward Right",
+                        name: "スワールアウト（後方・右）",
                         class: "swirlOutBckRight",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Swirl Out Backward Top",
+                        name: "スワールアウト（後方・上）",
                         class: "swirlOutBckTop",
-                        category: "Rotate"
+                        category: "回転"
                     },
                     {
-                        name: "Zoom Out",
+                        name: "ズームアウト",
                         class: "zoomOut",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Zoom Out Down",
+                        name: "ズームアウト（下）",
                         class: "zoomOutDown",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Zoom Out Left",
+                        name: "ズームアウト（左）",
                         class: "zoomOutLeft",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Zoom Out Right",
+                        name: "ズームアウト（右）",
                         class: "zoomOutRight",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Zoom Out Up",
+                        name: "ズームアウト（上）",
                         class: "zoomOutUp",
-                        category: "Zoom"
+                        category: "ズーム"
                     },
                     {
-                        name: "Slide Out Down",
+                        name: "スライドアウト（下）",
                         class: "slideOutDown",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide Out Down Full Screen",
+                        name: "スライドアウト（下・全画面）",
                         class: "slideOutDownFull",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide Out Left",
+                        name: "スライドアウト（左）",
                         class: "slideOutLeft",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide Out Left Full Screen",
+                        name: "スライドアウト（左・全画面）",
                         class: "slideOutLeftFull",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide Out Right",
+                        name: "スライドアウト（右）",
                         class: "slideOutRight",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide Out Right Full Screen",
+                        name: "スライドアウト（右・全画面）",
                         class: "slideOutRightFull",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide Out Up",
+                        name: "スライドアウト（上）",
                         class: "slideOutUp",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Slide Out Up Full Screen",
+                        name: "スライドアウト（上・全画面）",
                         class: "slideOutUpFull",
-                        category: "Slide"
+                        category: "スライド"
                     },
                     {
-                        name: "Light Speed Out",
+                        name: "光速アウト",
                         class: "lightSpeedOut",
-                        category: "Misc"
+                        category: "その他"
                     },
                     {
-                        name: "Hinge",
+                        name: "ヒンジ",
                         class: "hinge",
-                        category: "Misc"
+                        category: "その他"
                     },
                     {
-                        name: "Roll Out",
+                        name: "ロールアウト",
                         class: "rollOut",
-                        category: "Misc"
+                        category: "その他"
                     },
                     {
-                        name: "None",
+                        name: "なし",
                         class: "none",
-                        category: "Misc"
+                        category: "その他"
                     }
                 ],
                 inbetween: [
                     {
-                        name: "None",
+                        name: "なし",
                         class: "none"
                     },
                     {
-                        name: "Bounce",
+                        name: "バウンス",
                         class: "bounce"
                     },
                     {
-                        name: "Flash",
+                        name: "フラッシュ",
                         class: "flash"
                     },
                     {
-                        name: "Pulse",
+                        name: "パルス",
                         class: "pulse"
                     },
                     {
-                        name: "Shake",
+                        name: "シェイク",
                         class: "shake"
                     },
                     {
-                        name: "Swing",
+                        name: "スイング",
                         class: "swing"
                     },
                     {
-                        name: "Tada",
+                        name: "タダー",
                         class: "tada"
                     },
                     {
-                        name: "Wobble",
+                        name: "ウォブル",
                         class: "wobble"
                     },
                     {
-                        name: "Jello",
+                        name: "ジェロー",
                         class: "jello"
                     }
                 ]

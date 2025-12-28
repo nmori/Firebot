@@ -8,17 +8,17 @@ type State = {};
 
 export const customAdvanced: OverlayWidgetType<Settings, State> = {
     id: "firebot:custom-advanced",
-    name: "Custom Widget (Advanced)",
-    description: "Advanced custom widget that leaves everything up to you. Supply JavaScript to handle events in the overlay and modify the DOM as you see fit.",
+    name: "カスタムウィジェット（高度）",
+    description: "すべてを任意で設定できる高度なカスタムウィジェット。JavaScriptでオーバーレイのイベントを処理し、DOMを自由に変更可能",
     icon: "fa-cogs",
     settingsSchema: [
         {
             name: "onEventJs",
             type: "codemirror",
             title: "onEvent JS",
-            description: "Code that runs when the widget receives any event. Ran in an async function (await is supported).",
+            description: "ウィジェットが任意のイベントを受信する時に実行されるコードです。非同期関数内で実行されます（awaitをサポート）。",
             default:
-`// Example: show & hide a red box
+`// 例: 赤いボックスを表示・非表示
 if (eventName === "show") {
   const styles = {
     width: "100px",
@@ -36,7 +36,7 @@ if (eventName === "show") {
   document
     .getElementById(widgetId)?.remove();
 }`,
-            tip: "The following variables are available:\n- `eventName` (the name of the received event: `show`, `settings-update`, `state-update`, `message`, `remove`)\n- `widgetId` (this widget's unique ID)\n- `widgetState` (the current state of the widget, if any)\n- `messageName` (the name of the received message, if event is 'message')\n- `messageData` (the data sent with the message, if any and if event is 'message')\n- `overlayWrapperElement` (the official root element of the overlay, it's recommended to use this for DOM manipulations)\n- `utils.stylesToString(styles)` (utility function to convert a styles object to an inline css string)",
+            tip: "利用可能な変数:\n- `eventName` (受信したイベントの名前: `show`, `settings-update`, `state-update`, `message`, `remove`)\n- `widgetId` (このウィジェットの固有ID)\n- `widgetState` (ウィジェットの現在の状態、存在する場合)\n- `messageName` (受信したメッセージの名前、イベントが'message'の場合)\n- `messageData` (メッセージと共に送信されたデータ、存在しイベントが'message'の場合)\n- `overlayWrapperElement` (オーバーレイの公式ルート要素、DOM操作にはこれを使用することを推奨)\n- `utils.stylesToString(styles)` (スタイルオブジェクトをインラインCSS文字列に変換するユーティリティ関数)",
             settings: {
                 mode: { name: "javascript" },
                 lineNumbers: true,

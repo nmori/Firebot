@@ -2,9 +2,9 @@ import { createTextFilter } from "../../filter-factory";
 
 const filter = createTextFilter({
     id: "firebot:donationfrom",
-    name: "Donation From",
+    name: "寄付者",
     caseInsensitive: true,
-    description: "Filter to a specific donation sender",
+    description: "特定の寄付送信者でフィルタリングします",
     eventMetaKey: "from",
     events: [
         { eventSourceId: "streamlabs", eventId: "donation" },

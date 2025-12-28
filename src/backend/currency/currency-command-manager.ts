@@ -291,7 +291,7 @@ class CurrencyCommandManager {
                         } else {
                             // Error removing currency.
                             logger.error(`Error adding currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not add currency to user.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー： ユーザーに通貨を追加できませんでした。`, null, true);
                         }
 
                         break;
@@ -312,7 +312,7 @@ class CurrencyCommandManager {
                         } else {
                             // Error removing currency.
                             logger.error(`Error removing currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not remove currency from user.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー： ユーザーから通貨を削除できませんでした。`, null, true);
                         }
 
                         break;
@@ -334,7 +334,7 @@ class CurrencyCommandManager {
                         } else {
                             // Error removing currency.
                             logger.error(`Error setting currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not set currency for user.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー： ユーザーの通貨を設定できませんでした。`, null, true);
                         }
 
                         break;
@@ -349,7 +349,7 @@ class CurrencyCommandManager {
                         const currencyCheck = currencyAccess.getCurrencies();
                         if (currencyCheck[currencyId].transfer === "Disallow") {
                             logger.debug(`${event.userCommand.commandSender} tried to give currency, but transfers are turned off for it. ${currencyId}`);
-                            await TwitchApi.chat.sendChatMessage('Transfers are not allowed for this currency.', null, true);
+                            await TwitchApi.chat.sendChatMessage('この通貨は譲渡が許可されていません。', null, true);
                             return false;
                         }
 
@@ -370,13 +370,13 @@ class CurrencyCommandManager {
 
                         // If we get null, there was an error.
                         if (userAmount == null) {
-                            await TwitchApi.chat.sendChatMessage('Error: Could not retrieve currency.', null, true);
+                            await TwitchApi.chat.sendChatMessage('エラー： 通貨を取得できませんでした。', null, true);
                             return false;
                         }
 
                         // Check to make sure we have enough currency to give.
                         if (userAmount < currencyAdjust) {
-                            await TwitchApi.chat.sendChatMessage(`You do not have enough ${currencyName} to do this action.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`このアクションを実行するための ${currencyName} が不足しています。`, null, true);
                             return false;
                         }
 
@@ -388,12 +388,12 @@ class CurrencyCommandManager {
                             const status = await currencyManager.adjustCurrencyForViewer(event.userCommand.commandSender, currencyId, currencyAdjustNeg);
 
                             if (status) {
-                                await TwitchApi.chat.sendChatMessage(`Gave ${commafy(currencyAdjust)} ${currencyName} to ${username}.`, null, true);
+                                await TwitchApi.chat.sendChatMessage(`${username} に ${commafy(currencyAdjust)} ${currencyName} を贈りました。`, null, true);
                             } else {
                                 // Error removing currency.
                                 logger.error(`Error removing currency during give transaction for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
                                 await TwitchApi.chat.sendChatMessage(
-                                    `Error: Could not remove currency to user during give transaction.`,
+                                    `エラー： 譲渡中にユーザーから通貨を削除できませんでした。`,
                                     null,
                                     true
                                 );
@@ -402,7 +402,7 @@ class CurrencyCommandManager {
                         } else {
                             // Error removing currency.
                             logger.error(`Error adding currency during give transaction for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not add currency to user. Was there a typo in the username?`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー： ユーザーに通貨を追加できませんでした。ユーザー名に誤字がありませんか？`, null, true);
                             return false;
                         }
 
@@ -411,7 +411,7 @@ class CurrencyCommandManager {
                     case "addall": {
                         const currencyAdjust = Math.abs(parseInt(args[1]));
                         if (isNaN(currencyAdjust)) {
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not add currency to all online users.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー： すべてのオンラインユーザーに通貨を追加できませんでした。`, null, true);
                             return;
                         }
                         void currencyManager.addCurrencyToOnlineViewers(currencyId, currencyAdjust, true);
@@ -426,7 +426,7 @@ class CurrencyCommandManager {
                     case "removeall": {
                         const currencyAdjust = -Math.abs(parseInt(args[1]));
                         if (isNaN(currencyAdjust)) {
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not remove currency from all online users.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー： すべてのオンラインユーザーから通貨を削除できませんでした。`, null, true);
                             return;
                         }
                         void currencyManager.addCurrencyToOnlineViewers(currencyId, currencyAdjust, true);

@@ -87,9 +87,9 @@ const effect: EffectType<{
 
         if (effect.whisper) {
             const user = await TwitchApi.users.getUserByName(effect.whisper);
-            await TwitchApi.whispers.sendWhisper(user.id, effect.message, effect.chatter.toLowerCase() === "bot");
+            await TwitchApi.whispers.sendWhisper(user.id, effect.message, effect.chatter?.toLowerCase() === "bot");
         } else {
-            await TwitchApi.chat.sendChatMessage(effect.message, effect.sendAsReply ? messageId : null, effect.chatter.toLowerCase() === "bot");
+            await TwitchApi.chat.sendChatMessage(effect.message, effect.sendAsReply ? messageId : null, effect.chatter?.toLowerCase() === "bot");
         }
 
         return true;

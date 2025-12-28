@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "fileName",
         usage: 'fileName[path\\to\\file.txt]',
-        description: "Returns name of file without extension.",
+        description: "拡張子を除いたファイル名を返します。",
         categories: ["advanced"],
         possibleDataOutput: ["text"]
     },
@@ -21,7 +21,7 @@ const model : ReplaceVariable = {
             return basename(filePath, extname(filePath));
         } catch {
             // Probably a directory or invalid filename
-            return "[Invalid File Path]";
+            return "[無効なファイルパスです]";
         }
     }
 };

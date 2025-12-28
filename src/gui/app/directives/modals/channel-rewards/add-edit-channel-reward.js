@@ -96,7 +96,7 @@
                         <div class="form-group flex-row jspacebetween">
                             <div>
                                 <label class="control-label" style="margin:0;">Twitch特典リクエストをスキップする</label>
-                                <p class="help-block">If enabled, only future viewer requests will skip the queue for review.</p>
+                                <p class="help-block">有効にすると、今後の視聴者のリクエストはレビュー用のキューをスキップします。</p>
                                 <p class="help-block">リクエストは Twitch によって直ちに承認されます。払い戻しはできません。</p>
                             </div>
                             <div>
@@ -190,7 +190,7 @@
 
                         <div class="form-group">
                             <label class="control-label" style="margin:0;">特典アイコン</label>
-                            <p class="help-block"><b>Important</b>: 特典のアイコンはX(旧Twitter)でのみ変更可能</p>
+                            <p class="help-block"><b>重要</b>: 特典のアイコンはX(旧Twitter)でのみ変更可能</p>
                             <div>
                                 <div style="display: inline-flex; align-items: center; justify-content: center;padding: 12.5px;border: 2px gray dashed;border-radius: 6px;">
                                     <img
@@ -205,8 +205,8 @@
                     <div ng-if="$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue" style="padding-left: 15px; padding-right: 15px;">
                         <div class="mt-10" ng-if="$ctrl.reward.manageable">
                             <h3 class="mb-2">
-                                Restrictions
-                                <span class="muted pl-1 text-xl" style="font-family: 'Quicksand';">(Permissions, currency costs, and more)</span>
+                                制限
+                                <span class="muted pl-1 text-xl" style="font-family: 'Quicksand';">(権限、通貨コストなど)</span>
                             </h3>
                             <restrictions-list
                                 restriction-data="$ctrl.reward.restrictionData"
@@ -219,7 +219,7 @@
                                 ng-if="!$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue && $ctrl.reward.restrictionData.restrictions.length > 0"
                             >
                                 <firebot-checkbox
-                                    label="Automatically approve/reject redemptions based on restrictions outcome"
+                                    label="制限の結果に基づいて交換を自動的に承認/拒否する"
                                     model="$ctrl.reward.autoApproveRedemptions"
                                 />
                             </div>
@@ -234,11 +234,11 @@
                     </div>
 
                     <div ng-if="!$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue">
-                        <setting-container header="When Redeemed" collapsed="false">
+                        <setting-container header="交換された時" collapsed="false">
                             <div class="mt-10" ng-if="$ctrl.reward.manageable">
                                 <h3 class="mb-2">
-                                    Restrictions
-                                    <span class="muted pl-1 text-xl" style="font-family: 'Quicksand';">(Permissions, currency costs, and more)</span>
+                                    制限
+                                    <span class="muted pl-1 text-xl" style="font-family: 'Quicksand';">(権限、通貨コストなど)</span>
                                 </h3>
                                 <restrictions-list
                                     restriction-data="$ctrl.reward.restrictionData"
@@ -251,7 +251,7 @@
                                     ng-if="!$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue && $ctrl.reward.restrictionData.restrictions.length > 0"
                                 >
                                     <firebot-checkbox
-                                        label="Automatically approve/reject redemptions based on restrictions outcome"
+                                        label="制限の結果に基づいて交換を自動的に承認/拒否する"
                                         model="$ctrl.reward.autoApproveRedemptions"
                                     />
                                 </div>
@@ -265,7 +265,7 @@
                             ></effect-list>
                         </setting-container>
 
-                        <setting-container header="When Approved" collapsed="true" pad-top="true">
+                        <setting-container header="承認された時" collapsed="true" pad-top="true">
                             <effect-list
                                 effects="$ctrl.reward.effectsFulfilled"
                                 trigger="channel_reward"
@@ -274,7 +274,7 @@
                             ></effect-list>
                         </setting-container>
 
-                        <setting-container header="When Rejected" collapsed="true" pad-top="true">
+                        <setting-container header="拒否された時" collapsed="true" pad-top="true">
                             <effect-list
                                 effects="$ctrl.reward.effectsCanceled"
                                 trigger="channel_reward"
@@ -388,7 +388,7 @@
                         if (successful) {
                             $ctrl.dismiss();
                         } else {
-                            ngToast.create("Failed to save channel reward. Please try again or view logs for details.");
+                            ngToast.create("チャンネル特典の保存に失敗しました。もう一度お試しいただくか、ログで詳細をご確認ください。");
                         }
                     });
                 };

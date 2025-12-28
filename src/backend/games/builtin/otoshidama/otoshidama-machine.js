@@ -1,6 +1,7 @@
 "use strict";
 const twitchChat = require("../../../chat/twitch-chat");
-const util = require("../../../utility");
+const { wait } = require("../../../utils/async");
+const util = { wait };
 
 async function otoshidama(OtoshidamaSpec, chatter) {
 

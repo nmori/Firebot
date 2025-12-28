@@ -161,17 +161,17 @@
                 copiedWidget.id = null;
 
                 while (service.overlayWidgetConfigs.some(t => t.name === copiedWidget.name)) {
-                    copiedWidget.name += " copy";
+                    copiedWidget.name += " のコピー";
                 }
 
                 const successful = service.saveOverlayWidgetConfig(copiedWidget, true);
                 if (successful) {
                     ngToast.create({
                         className: 'success',
-                        content: 'Successfully duplicated overlay widget!'
+                        content: 'オーバーレイウィジェットを正常に複製しました！'
                     });
                 } else {
-                    ngToast.create("Unable to duplicate overlay widget.");
+                    ngToast.create("オーバーレイウィジェットを複製できませんでした。");
                 }
             };
 

@@ -14,14 +14,14 @@ type State = Record<never, never>;
 
 export const countdownToDate: OverlayWidgetType<Settings, State> = {
     id: "firebot:countdown-to-date",
-    name: "Countdown to Date",
-    description: "A countdown to a specific date and time.",
+    name: "日時までのカウントダウン",
+    description: "特定の日時までのカウントダウン",
     icon: "fa-alarm-clock",
     settingsSchema: [
         {
             name: "targetDateTime",
-            title: "Target Date/Time",
-            description: "The date and time this countdown should reach 0.",
+            title: "目標日時",
+            description: "このカウントダウンが0に到達する日時",
             type: "date-time",
             default: new Date().toISOString(),
             validation: {
@@ -30,18 +30,18 @@ export const countdownToDate: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "format",
-            title: "Format",
-            description: 'Whether to display the countdown in a simple ("8:35:42") or human-readable ("8 hours, 35 minutes, 42 seconds") format',
+            title: "フォーマット",
+            description: 'カウントダウンをシンプル形式（「8:35:42」）または人間が読みやすい形式（「8時間35分42秒」）のどちらで表示するか',
             type: "radio-cards",
             default: "simple",
             options: [
-                { value: "simple", label: "Simple", iconClass: "fa-watch-calculator" },
-                { value: "human", label: "Human-readable", iconClass: "fa-comment-lines" }
+                { value: "simple", label: "シンプル", iconClass: "fa-watch-calculator" },
+                { value: "human", label: "人間が読みやすい", iconClass: "fa-comment-lines" }
             ]
         },
         {
             name: "fontOptions",
-            title: "Font Options",
+            title: "フォントオプション",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -55,15 +55,15 @@ export const countdownToDate: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "horizontalAlignment",
-            title: "Horizontal Alignment",
-            description: "Horizontal alignment of the text within the widget area.",
+            title: "水平方向の配置",
+            description: "ウィジェットエリア内のテキストの水平方向の配置",
             type: "radio-cards",
             options: [{
-                value: "left", label: "Left", iconClass: "fa-align-left"
+                value: "left", label: "左", iconClass: "fa-align-left"
             }, {
-                value: "center", label: "Center", iconClass: "fa-align-center"
+                value: "center", label: "中央", iconClass: "fa-align-center"
             }, {
-                value: "right", label: "Right", iconClass: "fa-align-right"
+                value: "right", label: "右", iconClass: "fa-align-right"
             }],
             settings: {
                 gridColumns: 3
@@ -72,15 +72,15 @@ export const countdownToDate: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "verticalAlignment",
-            title: "Vertical Alignment",
-            description: "Vertical alignment of the text within the widget area.",
+            title: "垂直方向の配置",
+            description: "ウィジェットエリア内のテキストの垂直方向の配置",
             type: "radio-cards",
             options: [{
-                value: "top", label: "Top", iconClass: "fa-arrow-to-top"
+                value: "top", label: "上", iconClass: "fa-arrow-to-top"
             }, {
-                value: "center", label: "Center", iconClass: "fa-border-center-h"
+                value: "center", label: "中央", iconClass: "fa-border-center-h"
             }, {
-                value: "bottom", label: "Bottom", iconClass: "fa-arrow-to-bottom"
+                value: "bottom", label: "下", iconClass: "fa-arrow-to-bottom"
             }],
             settings: {
                 gridColumns: 3

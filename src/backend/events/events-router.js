@@ -130,8 +130,9 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
 
     try {
         await Promise.all(effectPromises);
-    } catch { }
-    }
+    } 
+    catch { }
+    
 }
 
 // Export Functions

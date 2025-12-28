@@ -6,11 +6,11 @@ const model: ReplaceVariable = {
     definition: {
         handle: "rawReadApi",
         usage: "rawReadApi[url]",
-        description: '(Deprecated: use $readApi) Calls the given URL and returns the response as an object.',
+        description: '(非推奨: $readApi を使用してください) 指定した URL にアクセスし、レスポンスをオブジェクトとして返します。',
         examples: [
             {
                 usage: 'rawReadApi[url, object.path.here]',
-                description: "Traverse a JSON response object."
+                description: "JSON レスポンスオブジェクトを辿ります。"
             }
         ],
         categories: ["advanced"],

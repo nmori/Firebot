@@ -70,17 +70,17 @@ const effect: EffectType<EffectMeta> = {
             />
         </eos-container>
 
-        <eos-container ng-if="effect.rewardSelectMode == 'custom'" header="Channel Reward Name/ID">
-            <firebot-input placeholder="Channel Reward Name/ID" model="effect.customId" menu-position="under" />
+        <eos-container ng-if="effect.rewardSelectMode == 'custom'" header="チャンネル特典の名前/ID">
+            <firebot-input placeholder="チャンネル特典の名前/ID" model="effect.customId" menu-position="under" />
             <div class="effect-info alert alert-warning">
-                NOTE: Firebot can only update channel rewards that were originally created in Firebot.
+                注：FirebotはFirebotで最初に作成されたチャンネル特典のみ更新できます。
             </div>
         </eos-container>
 
-        <eos-container ng-show="showRewardSettings()" header="Reward Settings" pad-top="true">
+        <eos-container ng-show="showRewardSettings()" header="特典設定" pad-top="true">
 
             <firebot-checkbox
-                label="Update Enabled"
+                label="有効状態を更新"
                 model="effect.rewardSettings.enabled.update"
                 aria-label="Toggle enabled"
             />
@@ -117,7 +117,7 @@ const effect: EffectType<EffectMeta> = {
 
             <div ng-hide="effect.rewardSelectMode === 'sortTag'">
                 <firebot-checkbox
-                    label="Update Name"
+                    label="名前を更新"
                     model="effect.rewardSettings.name.update"
                     aria-label="更新名"
                 />
@@ -126,7 +126,7 @@ const effect: EffectType<EffectMeta> = {
                 </div>
 
                 <firebot-checkbox
-                    label="Update Description"
+                    label="説明を更新"
                     model="effect.rewardSettings.description.update"
                     aria-label="更新内容"
                 />
@@ -135,7 +135,7 @@ const effect: EffectType<EffectMeta> = {
                 </div>
 
                 <firebot-checkbox
-                    label="Update Cost"
+                    label="金額を更新"
                     model="effect.rewardSettings.cost.update"
                     aria-label="新しい価格"
                 />
@@ -158,22 +158,22 @@ const effect: EffectType<EffectMeta> = {
 
         $scope.selectRewardOptions = {
             dropdown: {
-                text: "Select Reward",
-                description: "Pick the Channel Reward from a dropdown list"
+                text: "特典を選択",
+                description: "ドロップダウンリストからチャンネル特典を選択"
             },
             associated: {
-                text: "Associated Reward",
-                description: "Use the Channel Reward associated with the current Event",
+                text: "関連付けられた特典",
+                description: "現在のイベントに関連付けられたチャンネル特典を使用",
                 hide: !($scope.trigger === "channel_reward" || $scope.triggerMeta?.triggerId?.startsWith("twitch:channel-reward-redemption"))
             },
             sortTag: {
-                text: "Sort Tag",
-                description: "Updates Channel Rewards with the specified Sort Tag",
+                text: "ソートタグ",
+                description: "指定されたソートタグを持つチャンネル特典を更新",
                 hide: !$scope.hasTags
             },
             custom: {
-                text: "Custom",
-                description: "Manually specify a Channel Reward Name/ID"
+                text: "カスタム",
+                description: "チャンネル特典の名前/IDを手動で指定"
             }
         };
 
@@ -195,22 +195,22 @@ const effect: EffectType<EffectMeta> = {
 
         $scope.getToggleEnabledDisplay = (action) => {
             if (action === "toggle") {
-                return "Toggle";
+                return "切り替え";
             }
             if (action === true) {
-                return "Enable";
+                return "有効";
             }
-            return "Disable";
+            return "無効";
         };
 
         $scope.getTogglePausedDisplay = (action) => {
             if (action === "toggle") {
-                return "Toggle";
+                return "切り替え";
             }
             if (action === true) {
-                return "Pause";
+                return "一時停止";
             }
-            return "Unpause";
+            return "停止を解除";
         };
 
         if ($scope.effect.rewardSettings == null) {
@@ -254,7 +254,7 @@ const effect: EffectType<EffectMeta> = {
                 effect.customId == null
             )
         ) {
-            errors.push("Please specify a channel reward to update.");
+            errors.push("更新するチャンネル特典を指定してください。");
         }
 
         if (
@@ -272,28 +272,28 @@ const effect: EffectType<EffectMeta> = {
                 !effect.rewardSettings.enabled.update
             )
         ) {
-            errors.push("Please select at least one property to update.");
+            errors.push("更新するプロパティを少なくとも1つ選択してください。");
         }
 
         if (effect.rewardSettings.name.update &&
             (effect.rewardSettings.name.newValue == null ||
             effect.rewardSettings.name.newValue === "")
         ) {
-            errors.push("Please provide a new name for the reward.");
+            errors.push("特典の新しい名前を指定してください。");
         }
 
         if (effect.rewardSettings.description.update &&
             (effect.rewardSettings.description.newValue == null ||
             effect.rewardSettings.description.newValue === "")
         ) {
-            errors.push("Please provide a new description for the reward.");
+            errors.push("特典の新しい説明を指定してください。");
         }
 
         if (effect.rewardSettings.cost.update &&
             (effect.rewardSettings.cost.newValue == null ||
             effect.rewardSettings.cost.newValue === "")
         ) {
-            errors.push("Please provide a new cost for the reward.");
+            errors.push("特典の新しい金額を指定してください。");
         }
 
         return errors;
@@ -315,13 +315,13 @@ const effect: EffectType<EffectMeta> = {
 
         switch (selectMode) {
             case "dropdown":
-                rewardName = channelRewardsService.channelRewards.find(r => r.twitchData.id === effect.channelRewardId)?.twitchData.title ?? "Unknown Reward";
+                rewardName = channelRewardsService.channelRewards.find(r => r.twitchData.id === effect.channelRewardId)?.twitchData.title ?? "不明な特典";
                 break;
             case "associated":
-                rewardName = "Associated Reward";
+                rewardName = "関連付けられた特典";
                 break;
             case "sortTag":
-                rewardName = `Tag: ${sortTagsService.getSortTags("channel rewards").find(t => t.id === effect.sortTagId)?.name ?? "Unknown Tag"}`;
+                rewardName = `タグ: ${sortTagsService.getSortTags("channel rewards").find(t => t.id === effect.sortTagId)?.name ?? "不明なタグ"}`;
                 break;
             case "custom":
                 rewardName = effect.customId;
@@ -330,22 +330,22 @@ const effect: EffectType<EffectMeta> = {
 
         if (effect.rewardSettings.enabled.update && effect.rewardSettings.paused.update) {
             if (effect.rewardSettings.enabled.newValue === "toggle" && effect.rewardSettings.paused.newValue === "toggle") {
-                action = "Toggle Enabled & Paused";
+                action = "有効と一時停止を切り替え";
             } else {
-                const enableAction = effect.rewardSettings.enabled.newValue === "toggle" ? "Toggle Enabled" : effect.rewardSettings.enabled.newValue ? "Enable" : "Disable";
-                const pauseAction = effect.rewardSettings.paused.newValue === "toggle" ? "Toggle Paused" : effect.rewardSettings.paused.newValue ? "Pause" : "Unpause";
-                action = `${enableAction} & ${pauseAction}`;
+                const enableAction = effect.rewardSettings.enabled.newValue === "toggle" ? "有効を切り替え" : effect.rewardSettings.enabled.newValue ? "有効" : "無効";
+                const pauseAction = effect.rewardSettings.paused.newValue === "toggle" ? "一時停止を切り替え" : effect.rewardSettings.paused.newValue ? "一時停止" : "停止を解除";
+                action = `${enableAction}と${pauseAction}`;
             }
         } else if (effect.rewardSettings.enabled.update) {
-            action = effect.rewardSettings.enabled.newValue === "toggle" ? "Toggle Enabled" : effect.rewardSettings.enabled.newValue ? "Enable" : "Disable";
+            action = effect.rewardSettings.enabled.newValue === "toggle" ? "有効を切り替え" : effect.rewardSettings.enabled.newValue ? "有効" : "無効";
         } else if (effect.rewardSettings.paused.update) {
-            action = effect.rewardSettings.paused.newValue === "toggle" ? "Toggle Paused" : effect.rewardSettings.paused.newValue ? "Pause" : "Unpause";
+            action = effect.rewardSettings.paused.newValue === "toggle" ? "一時停止を切り替え" : effect.rewardSettings.paused.newValue ? "一時停止" : "停止を解除";
         } else if (effect.rewardSettings.name.update) {
-            return `Rename ${rewardName} to ${effect.rewardSettings.name.newValue}`;
+            return `${rewardName}を${effect.rewardSettings.name.newValue}に変更`;
         } else if (effect.rewardSettings.description.update) {
-            action = `Update Description for`;
+            action = `説明を更新:`;
         } else if (effect.rewardSettings.cost.update) {
-            action = `Set Cost to ${effect.rewardSettings.cost.newValue} for`;
+            action = `金額を${effect.rewardSettings.cost.newValue}に設定:`;
         }
         return `${action} ${rewardName}`;
     },

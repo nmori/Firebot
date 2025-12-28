@@ -7,43 +7,43 @@ const model: ReplaceVariable = {
         examples: [
             {
                 usage: 'color[red]',
-                description: "returns '#ff0000'"
+                description: "'#ff0000' を返します。"
             },
             {
                 usage: 'color[red, hex]',
-                description: "returns '#ff0000'"
+                description: "'#ff0000' を返します。"
             },
             {
                 usage: 'color[red, hexa, 255]',
-                description: "returns '#ff0000ff'"
+                description: "'#ff0000ff' を返します。"
             },
             {
                 usage: 'color[green, ahex, 255]',
-                description: "returns '#ff00ff00'"
+                description: "'#ff00ff00' を返します。"
             },
             {
                 usage: 'color[red, rgb]',
-                description: "returns 'rgb(255, 0, 0)'"
+                description: "'rgb(255, 0, 0)' を返します。"
             },
             {
                 usage: 'color[red, rgbp]',
-                description: "returns 'rgb(100%, 0, 0)'"
+                description: "'rgb(100%, 0, 0)' を返します。"
             },
 
             {
                 usage: 'color[#00ff00, hsl]',
-                description: "returns 'hsl(0, 100%, 50%)'"
+                description: "'hsl(0, 100%, 50%)' を返します。"
             },
             {
                 usage: 'color[#ff00ff00, hsv, 0.5]',
-                description: "returns 'hsv(0, 100%, 100%)'"
+                description: "'hsv(0, 100%, 100%)' を返します。"
             },
             {
                 usage: 'color[#ff00ff00, dec]',
-                description: "returns decimal value"
+                description: "10 進数の値を返します。"
             }
         ],
-        description: "outputs color in specified format",
+        description: "指定した形式で色を出力します。",
         possibleDataOutput: ["text"]
     },
     evaluator: (

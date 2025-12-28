@@ -12,14 +12,14 @@ type State = {};
 
 export const currentDateTime: OverlayWidgetType<Settings, State> = {
     id: "firebot:current-date-time",
-    name: "Current Date / Time",
-    description: "A widget that displays the current date and/or time.",
+    name: "現在の日時",
+    description: "現在の日付・時刻を表示するウィジェット",
     icon: "fa-clock",
     settingsSchema: [
         {
             name: "format",
-            title: "Format",
-            description: 'Uses [luxon.js](https://moment.github.io/luxon/#/formatting?id=table-of-tokens) formatting rules.',
+            title: "フォーマット",
+            description: '[luxon.js](https://moment.github.io/luxon/#/formatting?id=table-of-tokens)のフォーマットルールを使用します。',
             type: "string",
             default: "DD h:mm:ss a",
             useTextArea: true,
@@ -29,7 +29,7 @@ export const currentDateTime: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "fontOptions",
-            title: "Font Options",
+            title: "フォントオプション",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -43,15 +43,15 @@ export const currentDateTime: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "horizontalAlignment",
-            title: "Horizontal Alignment",
-            description: "Horizontal alignment of the text within the widget area.",
+            title: "水平方向の配置",
+            description: "ウィジェットエリア内のテキストの水平方向の配置",
             type: "radio-cards",
             options: [{
-                value: "left", label: "Left", iconClass: "fa-align-left"
+                value: "left", label: "左", iconClass: "fa-align-left"
             }, {
-                value: "center", label: "Center", iconClass: "fa-align-center"
+                value: "center", label: "中央", iconClass: "fa-align-center"
             }, {
-                value: "right", label: "Right", iconClass: "fa-align-right"
+                value: "right", label: "右", iconClass: "fa-align-right"
             }],
             settings: {
                 gridColumns: 3
@@ -60,15 +60,15 @@ export const currentDateTime: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "verticalAlignment",
-            title: "Vertical Alignment",
-            description: "Vertical alignment of the text within the widget area.",
+            title: "垂直方向の配置",
+            description: "ウィジェットエリア内のテキストの垂直方向の配置",
             type: "radio-cards",
             options: [{
-                value: "top", label: "Top", iconClass: "fa-arrow-to-top"
+                value: "top", label: "上", iconClass: "fa-arrow-to-top"
             }, {
-                value: "center", label: "Center", iconClass: "fa-border-center-h"
+                value: "center", label: "中央", iconClass: "fa-border-center-h"
             }, {
-                value: "bottom", label: "Bottom", iconClass: "fa-arrow-to-bottom"
+                value: "bottom", label: "下", iconClass: "fa-arrow-to-bottom"
             }],
             settings: {
                 gridColumns: 3

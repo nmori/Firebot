@@ -13,10 +13,10 @@ export const CommandListSystemCommand: SystemCommand<{
 }> = {
     definition: {
         id: "firebot:commandlist",
-        name: "Command List",
+        name: "コマンドリスト",
         active: true,
         trigger: "!commands",
-        description: "Displays a link to your profile page with all available commands.",
+        description: "利用可能なすべてのコマンドを含むプロフィールページへのリンクを表示します。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -26,24 +26,24 @@ export const CommandListSystemCommand: SystemCommand<{
         options: {
             successTemplate: {
                 type: "string",
-                title: "Output Template",
-                description: "The chat message to send with a link to your profile page.",
-                tip: "Variables: {url}",
-                default: `You can view the list of commands here: {url}`,
+                title: "出力テンプレート",
+                description: "プロフィールページへのリンクと共に送信するチャットメッセージ。",
+                tip: "変数: {url}",
+                default: `コマンドのリストはこちらで確認できます： {url}`,
                 useTextArea: true
             },
             noCommandsTemplate: {
                 type: "string",
-                title: "No Commands Output Template",
-                description: "The chat message to send when a user has no commands they are allowed to run.",
-                tip: "Variables: {username}",
-                default: "{username}, there are no commands that you are allowed to run.",
+                title: "コマンドなし時の出力テンプレート",
+                description: "ユーザーが実行を許可されているコマンドがない場合に送信するチャットメッセージ。",
+                tip: "変数: {username}",
+                default: "{username} さん、あなたが実行できるコマンドはありません。",
                 useTextArea: true
             },
             defaultTag: {
                 type: "sort-tag-select",
-                title: "Default Tag",
-                description: "The command tag that should be selected by default when users load into your profile page.",
+                title: "デフォルトタグ",
+                description: "ユーザーがプロフィールページを開いたときにデフォルトで選択されるコマンドタグ。",
                 context: "commands"
             }
         }

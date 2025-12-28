@@ -29,18 +29,17 @@ export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
             name: "OBSソースの表示状態を切り替える",
             description: "OBSソースの表示状態を切り替える",
             icon: "fad fa-clone",
-            categories: ["common"]
             categories: ["common"],
         },
         optionsTemplate: `
 <eos-container ng-show="missingSources.length > 0">
         <div class="effect-info alert alert-warning">
-            <p><b>Warning!</b> 
-                Cannot find {{missingSources.length}} sources in this effect. Ensure the correct profile or scene collection is loaded in OBS, and OBS is running.
+            <p><b>警告！</b>
+                この演出で {{missingSources.length}} 個のソースが見つかりません。OBSで正しいプロファイルまたはシーンコレクションが読み込まれていること、およびOBSが実行中であることを確認してください。
             </p>
         </div>
 </eos-container>
-<setting-container ng-show="missingSources.length > 0" header="Missing Sources ({{missingSources.length}})" collapsed="true">
+<setting-container ng-show="missingSources.length > 0" header="見つからないソース ({{missingSources.length}})" collapsed="true">
     <div ng-repeat="sceneName in missingSources track by $index">
       <div class="list-item" style="display: flex;border: 2px solid #3e4045;box-shadow: none;border-radius: 8px;padding: 5px 5px;">
         <div class="pl-5">
@@ -65,7 +64,7 @@ export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
   </div>
 
   <div>
-      <button class="btn btn-link" ng-click="getSourceData()">Refresh Source Data</button>
+      <button class="btn btn-link" ng-click="getSourceData()">ソースデータを更新</button>
   </div>
 
   <div class="effect-setting-container setting-padtop">
@@ -91,7 +90,7 @@ export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
       </div>
     </div>
     <div ng-if="sourceData == null" class="muted">
-        No sources found. {{ isObsConfigured ? "Is OBS running?" : "Have you configured the OBS integration?" }}
+        ソースが見つかりません。{{ isObsConfigured ? "OBSは実行中ですか？" : "OBS連携を設定しましたか？" }}
     </div>
   </div>
 </eos-container>
@@ -177,12 +176,12 @@ export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
             }
 
             if (selectedSource.action === "toggle") {
-                return "Toggle";
+                return "切り替え";
             }
             if (selectedSource.action === true) {
-                return "Show";
+                return "表示";
             }
-            return "Hide";
+            return "隠す";
         };
 
         $scope.getMissingActionDisplay = (

@@ -111,7 +111,7 @@ const model = {
         try {
             logger.debug(`Random Reddit: ${imageUrl}`);
             if (event.effect.show === "chat" || event.effect.show === "both") {
-                await TwitchApi.chat.sendChatMessage(`Random Reddit: ${imageUrl}`, null, chatter.toLowerCase() === "bot");
+                await TwitchApi.chat.sendChatMessage(`ランダムReddit： ${imageUrl}`, null, chatter.toLowerCase() === "bot");
             }
 
             if (event.effect.show === "overlay" || event.effect.show === "both") {

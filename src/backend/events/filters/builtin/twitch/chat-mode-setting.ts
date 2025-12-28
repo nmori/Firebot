@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:chatmodesetting",
-    name: "Setting",
-    description: "Filter by a chat mode's setting",
+    name: "設定",
+    description: "チャットモードの設定でフィルタリングします",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],

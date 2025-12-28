@@ -19,8 +19,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "overlay-connected",
-            name: "Overlay Connected",
-            description: "When a Firebot overlay is connected.",
+            name: "オーバーレイ接続時",
+            description: "Firebotオーバーレイが接続されたとき。",
             cached: false,
             manualMetadata: {
                 instanceName: "Default"
@@ -28,7 +28,7 @@ export const FirebotEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-tv-alt",
                 getMessage: (eventData) => {
-                    return `**${eventData.instanceName}** overlay connected`;
+                    return `**${eventData.instanceName}** オーバーレイが接続されました`;
                 }
             }
         },
@@ -151,8 +151,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "viewer-metadata-updated",
-            name: "Viewer Metadata Updated",
-            description: "When a viewer's metadata value is updated.",
+            name: "視聴者メタデータ更新時",
+            description: "視聴者のメタデータ値が更新されたとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -162,8 +162,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "webhook-received",
-            name: "Webhook Received",
-            description: "When a proxied webhook is received. You can setup webhooks in the Advanced tab of Settings.",
+            name: "Webhook受信時",
+            description: "プロキシ経由のWebhookを受信したとき。Webhookは設定の詳細タブで設定できます。",
             cached: false,
             manualMetadata: {
                 webhookId: "testWebhookId",
@@ -175,8 +175,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "dynamic-countdown-finished",
-            name: "Countdown (Dynamic) Finished",
-            description: "When a dynamic countdown reaches zero.",
+            name: "カウントダウン（動的）終了時",
+            description: "動的カウントダウンがゼロに達したとき。",
             cached: false,
             manualMetadata: {
                 countdownWidgetId: "testCountdownId",

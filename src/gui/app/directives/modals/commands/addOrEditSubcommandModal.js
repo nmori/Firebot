@@ -7,7 +7,7 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewArg ? 'Add' : 'Edit'}} サブコマンド</h4>
+                <h4 class="modal-title">サブコマンドを{{$ctrl.isNewArg ? '追加' : '編集'}}</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -29,11 +29,11 @@
 
                 <div ng-show="$ctrl.arg.type === 'Custom'" style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Arg Trigger Text <tooltip text="'このサブコマンドを起動するテキスト'">
+                        引数起動テキスト <tooltip text="'このサブコマンドを起動するテキスト'">
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.nameError}">
-                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.arg.arg" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="Enter trigger text" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
+                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.arg.arg" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="起動テキストを入力" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
                             <span id="helpBlock" class="help-block" ng-show="$ctrl.nameError">{{$ctrl.nameErrorText}}</span>
                         </div>
                     </div>
@@ -104,10 +104,10 @@
                     const type = $ctrl.arg.type;
 
                     if (type == null || !type.length) {
-                        $ctrl.kindErrorText = "Please select an arg type.";
+                        $ctrl.kindErrorText = "引数の種類を選択してください。";
                         return false;
                     } else if (type === "Fallback" && !$ctrl.resolve.hasAnyArgs) {
-                        $ctrl.kindErrorText = "You must add another arg type before adding a fallback.";
+                        $ctrl.kindErrorText = "フォールバックを追加する前に、別の引数の種類を追加する必要があります。";
                         return false;
                     }
 

@@ -21,14 +21,14 @@ const getStateForCounter = (counterId?: string): State => {
 
 export const counterDisplay: OverlayWidgetType<Settings, State> = {
     id: "firebot:counter-display",
-    name: "Counter Display",
-    description: "A display for a given Counter",
+    name: "カウンター表示",
+    description: "指定したカウンターの表示",
     icon: "fa-hashtag",
     settingsSchema: [
         {
             name: "counterId",
-            title: "Counter",
-            description: "The counter to display the value of. Make sure to set up a counter in the Counters tab if you haven't already.",
+            title: "カウンター",
+            description: "表示するカウンターの値です。まだ設定していない場合は、カウンタータブでカウンターを設定してください。",
             type: "counter-select",
             validation: {
                 required: true
@@ -36,8 +36,8 @@ export const counterDisplay: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "counterFontOptions",
-            title: "Counter Font Options",
-            description: "Font options for the counter number value.",
+            title: "カウンターフォントオプション",
+            description: "カウンター数値のフォントオプションです。",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -51,15 +51,15 @@ export const counterDisplay: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "showCounterName",
-            title: "Show Counter Name",
-            description: "Whether to show the name of the counter above the value.",
+            title: "カウンター名を表示",
+            description: "値の上にカウンター名を表示するかどうか",
             type: "boolean",
             default: true
         },
         {
             name: "nameFontOptions",
-            title: "Counter Name Font Options",
-            description: "Font options for the counter name, if shown.",
+            title: "カウンター名フォントオプション",
+            description: "カウンター名のフォントオプションです（表示する場合）。",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -73,13 +73,13 @@ export const counterDisplay: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "textAlignment",
-            title: "Text Alignment",
-            description: "Alignment of the counter text within the widget area.",
+            title: "テキストの配置",
+            description: "ウィジェットエリア内のカウンターテキストの配置",
             type: "radio-cards",
             options: [
-                { value: "left", label: "Left", iconClass: "fa-align-left" },
-                { value: "center", label: "Center", iconClass: "fa-align-center" },
-                { value: "right", label: "Right", iconClass: "fa-align-right" }
+                { value: "left", label: "左", iconClass: "fa-align-left" },
+                { value: "center", label: "中央", iconClass: "fa-align-center" },
+                { value: "right", label: "右", iconClass: "fa-align-right" }
             ],
             settings: {
                 gridColumns: 3

@@ -1,6 +1,7 @@
 "use strict";
 
-const util = require("../../../utility");
+const { wait } = require("../../../utils/async");
+const util = { wait };
 const twitchChat = require("../../../chat/twitch-chat");
 const commandManager = require("../../../chat/commands/command-manager");
 const gameManager = require("../../game-manager");

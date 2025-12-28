@@ -10,11 +10,11 @@ import logger from "../../../logwrapper";
 const model : ReplaceVariable = {
     definition: {
         handle: "quote",
-        description: "ランダム見積もり",
+        description: "ランダムな引用",
         examples: [
             {
                 usage: "quote[#]",
-                description: "特定の見積もりIDを取得します。"
+                description: "特定の引用 ID を取得します。"
             }
         ],
         categories: ["text"],
@@ -43,7 +43,7 @@ const model : ReplaceVariable = {
         }
 
         logger.debug(`Couldn't find a quote.`);
-        return '[Cant find quote]';
+        return '[引用が見つかりません]';
     }
 };
 

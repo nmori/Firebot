@@ -25,12 +25,12 @@
                     <p>このプリセット演出リストにデータを渡せるようにします</p>
 
                     <div class="role-bar" ng-repeat="arg in $ctrl.presetList.args track by $index">
-                        <span uib-tooltip="Access via $presetListArg[{{arg.name}}]" tooltip-append-to-body="true">{{arg.name}}</span>
-                        <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.deletePresetListArg($index)" uib-tooltip="Remove arg" tooltip-append-to-body="true">
+                        <span uib-tooltip="$presetListArg[{{arg.name}}]でアクセス" tooltip-append-to-body="true">{{arg.name}}</span>
+                        <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.deletePresetListArg($index)" uib-tooltip="引数を削除" tooltip-append-to-body="true">
                             <i class="far fa-times"></i>
                         </span>
                     </div>
-                    <div class="role-bar clickable" ng-click="$ctrl.addPresetListArg()" uib-tooltip="Add arg" tooltip-append-to-body="true">
+                    <div class="role-bar clickable" ng-click="$ctrl.addPresetListArg()" uib-tooltip="引数を追加" tooltip-append-to-body="true">
                         <i class="far fa-plus"></i>
                     </div>
                 </div>
@@ -46,12 +46,12 @@
 
                 <div style="margin-top: 20px;">
                     <collapsable-panel header="StreamDeckからの起動方法">
-                        <p>Steps:</p>
+                        <p>手順:</p>
                         <ol>
-                            <li ng-if="$ctrl.isNewPresetList === true">Configure your new preset effect list and click <strong>Save</strong></li>
-                            <li>Add "Website" Action to a StreamDeck button</li>
-                            <li>Set URL to <strong>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</strong<></li>
-                            <li>Check "GET request in background"</li>
+                            <li ng-if="$ctrl.isNewPresetList === true">新しいプリセット演出リストを設定し、<strong>実行</strong>をクリックします</li>
+                            <li>StreamDeckのボタンに「Website」アクションを追加します</li>
+                            <li>URLを <strong>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</strong> に設定します</li>
+                            <li>「GET request in background」にチェックを入れます</li>
                         </ol>
                     </collapsable-panel>
                 </div>
@@ -89,9 +89,9 @@
                 utilityService.openGetInputModal(
                     {
                         model: "",
-                        label: "Add Argument",
+                        label: "引数を追加",
                         inputPlaceholder: "名前を入れる",
-                        saveText: "Save",
+                        saveText: "保存",
                         validationFn: (value) => {
                             return new Promise((resolve) => {
                                 if (value == null || value.trim().length < 1) {
@@ -103,7 +103,7 @@
                                 }
                             });
                         },
-                        validationText: "Argument name cannot be empty and must be unique."
+                        validationText: "引数名は空にできず、一意である必要があります。"
 
                     },
                     (name) => {
@@ -132,7 +132,7 @@
 
             $ctrl.save = function () {
                 if ($ctrl.presetList.name == null || $ctrl.presetList.name === "") {
-                    ngToast.create("Please provide a name for this Preset List");
+                    ngToast.create("このプリセットリストの名前を入力してください");
                     return;
                 }
 
@@ -144,7 +144,7 @@
                             }
                         });
                     } else {
-                        ngToast.create("Failed to save preset effect list. Please try again or view logs for details.");
+                        ngToast.create("プリセット演出リストの保存に失敗しました。もう一度試すか、ログで詳細を確認してください。");
                     }
             };
         }

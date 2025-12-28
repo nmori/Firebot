@@ -3,12 +3,12 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "convertFromJSON",
-        description: "JSONテキストを生のオブジェクト・インスタンスに変換する。",
+        description: "JSON テキストを生のオブジェクト インスタンスに変換します。",
         usage: "convertFromJSON[json text]",
         examples: [
             {
                 usage: `convertFromJSON['{"name": "John", "age": 30}']`,
-                description: "Returns a raw object from JSON string"
+                description: "JSON 文字列を生のオブジェクトとして返します。"
             }
         ],
         categories: ["advanced"],
@@ -26,7 +26,7 @@ const model : ReplaceVariable = {
                 return JSON.parse(`${jsonText.toString()}`);
 
             } catch {
-                return "[PARSE ERROR]";
+                return "[解析エラー]";
             }
         }
         return jsonText;

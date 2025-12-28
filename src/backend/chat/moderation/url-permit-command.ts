@@ -14,11 +14,11 @@ class PermitManager {
     }> = {
         definition: {
             id: this._permidCommandId,
-            name: "Permit",
+            name: "URL許可",
             active: true,
             trigger: "!permit",
-            usage: "[target]",
-            description: "Permits a viewer to post a URL for a set duration (see Moderation -> URL Moderation).",
+            usage: "[対象]",
+            description: "視聴者が一定時間URLを投稿することを許可します（モデレーション -> URLモデレーション を参照）。",
             autoDeleteTrigger: false,
             scanWholeMessage: false,
             hideCooldowns: true,
@@ -38,16 +38,16 @@ class PermitManager {
             options: {
                 permitDuration: {
                     type: "number",
-                    title: "Duration in seconds",
+                    title: "許可時間（秒）",
                     default: 30,
-                    description: "The amount of time the viewer has to post a URL after the !permit command is used."
+                    description: "!permitコマンドが使用された後、視聴者がURLを投稿できる時間。"
                 },
                 permitDisplayTemplate: {
                     type: "string",
-                    title: "Output Template",
-                    description: "The chat message shown when the permit command is used (leave empty for no message).",
-                    tip: "Variables: {target}, {duration}",
-                    default: `{target}, you have {duration} seconds to post your link in the chat.`,
+                    title: "出力テンプレート",
+                    description: "permitコマンドが使用されたときに表示されるチャットメッセージ（空欄の場合はメッセージなし）。",
+                    tip: "変数: {target}, {duration}",
+                    default: `{target} さん、{duration} 秒以内にチャットにリンクを投稿してください。`,
                     useTextArea: true
                 }
             }
@@ -61,14 +61,14 @@ class PermitManager {
             }
 
             if (args.length !== 1) {
-                await TwitchApi.chat.sendChatMessage("Incorrect command usage!", null, true);
+                await TwitchApi.chat.sendChatMessage("コマンドの使い方が間違っています！", null, true);
                 return;
             }
 
             const target = args[0].replace("@", "");
             const normalizedTarget = target.toLowerCase();
             if (!target) {
-                await TwitchApi.chat.sendChatMessage("Please specify a user to permit.", null, true);
+                await TwitchApi.chat.sendChatMessage("許可するユーザーを指定してください。", null, true);
                 return;
             }
 

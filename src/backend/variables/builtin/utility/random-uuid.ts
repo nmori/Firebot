@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "randomUUID",
         usage: "randomUUID",
-        description: "Returns a random formated UUID eg 00000000-0000-0000-0000-000000000000",
+        description: "ランダムな形式の UUID（例: 00000000-0000-0000-0000-000000000000）を返します。",
         categories: ["advanced"],
         possibleDataOutput: ["text"]
     },

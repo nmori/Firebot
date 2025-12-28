@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:effect-queue",
-    name: "Effect Queue",
-    description: "Filter to a Effect Queue",
+    name: "エフェクトキュー",
+    description: "エフェクトキューでフィルタリングします",
     events: [
         { eventSourceId: "firebot", eventId: "effect-queue-added" },
         { eventSourceId: "firebot", eventId: "effect-queue-cleared" },

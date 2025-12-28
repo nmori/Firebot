@@ -6,7 +6,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "fileExists",
         usage: 'fileExists[path\\to\\file.txt]',
-        description: "Returns true if a file exists, otherwise returns false.",
+        description: "ファイルが存在する場合は true、存在しない場合は false を返します。",
         categories: ["advanced"],
         possibleDataOutput: ["text"]
     },

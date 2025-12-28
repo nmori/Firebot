@@ -69,7 +69,7 @@ twitchListeners.events.on("chat-message", async (data) => {
 
         await TwitchApi.chat.sendChatMessage(`${chatMessage.userDisplayName ?? username}, 正解！ ${util.commafy(winnings)} ${currency.name} を手に入れた`, null, sendAsBot);
     } else {
-        await TwitchApi.chat.sendChatMessage(`Sorry ${chatMessage.userDisplayName ?? username}, that is incorrect.${postCorrectAnswer ? ` 不正解！.${postCorrectAnswer ? ` 正解は ${question.answers[question.correctIndex - 1]}.` : ""} 次回チャレンジしてね`, null, sendAsBot);
+        await TwitchApi.chat.sendChatMessage(`Sorry ${chatMessage.userDisplayName ?? username}, 不正解！.${postCorrectAnswer ? ` 正解は ${question.answers[question.correctIndex - 1]}.` : ""} 次回チャレンジしてね`, null, sendAsBot);
     }
     clearCurrentQuestion();
 });

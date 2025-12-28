@@ -13,17 +13,17 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:chat-feed-message-hide",
-        name: "Hide Message In Chat Feed",
-        description: "Hide a message in Firebot's chat feed",
+        name: "チャットフィードでメッセージを非表示",
+        description: "Firebotのチャットフィードでメッセージを非表示にします",
         icon: "fad fa-eye-slash",
         categories: ["common", "chat based"],
         dependencies: ["chat"],
         triggers: triggers
     },
     optionsTemplate: `
-    <eos-container header="Explanation" pad-top="true">
-        <p class="muted">This effect hides a message within the chat feed in the Firebot dashboard.</p>
-        <p class="muted">This does <b>not</b> hide or delete the message in your Twitch chat, browser overlays, or any other chat client you may be using.</p>
+    <eos-container header="説明" pad-top="true">
+        <p class="muted">この演出は、Firebotダッシュボード内のチャットフィードでメッセージを非表示にします。</p>
+        <p class="muted">Twitchチャット、ブラウザオーバーレイ、その他のチャットクライアントではメッセージは非表示または削除<b>されません</b>。</p>
     </eos-container>
     `,
     optionsController: () => {

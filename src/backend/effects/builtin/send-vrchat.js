@@ -8,7 +8,7 @@ const logger = require("../../logwrapper");
 const path = require("path");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
-const { wait } = require("../../utility");
+const { wait } = require("../../utils/async");
 
 const voicelists = [];
 

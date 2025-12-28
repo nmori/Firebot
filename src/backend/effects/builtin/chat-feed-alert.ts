@@ -21,13 +21,13 @@ const effect: EffectType<{
         <firebot-input
             model="effect.message"
             use-text-area="true"
-            placeholder-text="Enter message"
+            placeholder-text="メッセージを入力"
             rows="4"
             cols="40"
             menu-position="under"
         />
     </eos-container>
-    <eos-container header="Icon" pad-top="true">
+    <eos-container header="アイコン" pad-top="true">
         <input
 			maxlength="2"
 			type="text"
@@ -49,7 +49,7 @@ const effect: EffectType<{
             errors.push("アラートメッセージは空白にはできません");
         }
         if (effect.icon == null || effect.icon === "") {
-            errors.push("Icon can't be blank.");
+            errors.push("アイコンは空白にできません。");
         }
         return errors;
     },

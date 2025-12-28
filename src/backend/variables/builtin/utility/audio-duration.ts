@@ -5,15 +5,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "audioDuration",
         usage: "audioDuration[filePathOrUrl]",
-        description: "オーディオの長さを取得しようとします。",
+        description: "音声の再生時間を取得します。",
         examples: [
             {
                 usage: `audioDuration["path/to/audio.mp3"]`,
-                description: "Returns the duration of the audio file in seconds."
+                description: "ローカルの音声ファイルの再生時間（秒）を返します。"
             },
             {
                 usage: `audioDuration["https://example.com/audio.mp3"]`,
-                description: "Returns the duration of the audio file from a URL in seconds."
+                description: "URL で指定した音声ファイルの再生時間（秒）を返します。"
             }
         ],
         categories: ["advanced"],
@@ -21,14 +21,14 @@ const model : ReplaceVariable = {
     },
     evaluator: async (trigger, url) => {
         if (url == null) {
-            return "[NO URL PROVIDED]";
+            return "[URL が指定されていません]";
         }
         try {
             return await frontendCommunicator.fireEventAsync("getSoundDuration", {
                 path: url
             });
         } catch {
-            return "[ERROR FETCHING DURATION]";
+            return "[再生時間の取得に失敗しました]";
         }
     }
 };

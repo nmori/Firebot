@@ -26,11 +26,11 @@ const model: ReplaceVariable = {
     definition: {
         handle: "readApi",
         usage: "readApi[url]",
-        description: 'Calls the given URL and returns the response as a string.',
+        description: '指定した URL にアクセスし、レスポンスを文字列として返します。',
         examples: [
             {
                 usage: 'readApi[url, object.path.here]',
-                description: "Traverse a JSON response object."
+                description: "JSON レスポンスオブジェクトを辿ります。"
             }
         ],
         categories: ["advanced"],
@@ -53,21 +53,21 @@ const model: ReplaceVariable = {
                             if (objToTraverse[node] != null) {
                                 currentObject = objToTraverse[node];
                             } else {
-                                currentObject = "[JSON PARSE ERROR]";
+                                currentObject = "[JSON 解析エラー]";
                                 break;
                             }
                         }
                         return currentObject;
                     } catch (err) {
                         logger.warn("error when parsing api json", err);
-                        return "[JSON PARSE ERROR]";
+                        return "[JSON 解析エラー]";
                     }
                 }
             }
 
             return content;
         } catch {
-            return "[API ERROR]";
+            return "[API エラー]";
         }
     }
 };

@@ -8,7 +8,7 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "convertToJSON[rawValue, true]",
-                description: "Converts a raw value into pretty-printed JSON text"
+                description: "生の値を整形済みの JSON テキストに変換します。"
             }
         ],
         categories: ["advanced"],

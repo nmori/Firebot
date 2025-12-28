@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "viewTime",
         usage: "viewTime",
-        description: "指定された視聴者の表示時間（時間単位）を表示します（現在の視聴者を使用する場合は空白のままにします）。",
+        description: "指定された視聴者の視聴時間（時間単位）を表示します（現在の視聴者を対象にする場合は空白のままにします）。",
         examples: [
             {
                 usage: "viewTime",
-                description: "Returns view time for current viewer"
+                description: "現在の視聴者の視聴時間を返します。"
             },
             {
                 usage: "viewTime[username]",
-                description: "Returns view time for specified viewer"
+                description: "指定した視聴者の視聴時間を返します。"
             }
         ],
         categories: ["user based"],

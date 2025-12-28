@@ -46,7 +46,7 @@
                 utilityService.showConfirmationModal({
                     title: "コマンドの削除",
                     question: `コマンド「'${command.trigger}'」を削除しますか？`,
-                    confirmLabel: "Delete",
+                    confirmLabel: "削除",
                     confirmBtnType: "btn-danger"
                 }).then((confirmed) => {
                     if (confirmed) {
@@ -73,7 +73,7 @@
             $scope.openAddOrEditCustomCommandModal = function (command) {
                 utilityService.showModal({
                     component: "addOrEditCustomCommandModal",
-                    breadcrumbName: command ? "Edit Command" : "Add Command",
+                    breadcrumbName: command ? "コマンドを編集" : "コマンドを追加",
                     resolveObj: {
                         command: () => command
                     },
@@ -97,7 +97,7 @@
             $scope.openFirebotProfilePage = async () => {
                 ngToast.create({
                     className: "info",
-                    content: "Opening Firebot profile page..."
+                    content: "Firebotプロフィールページを開いています..."
                 });
                 const channelName = await backendCommunicator.fireEventAsync("sync-profile-data-to-crowbar-api");
                 if (channelName) {
@@ -242,12 +242,12 @@
 
                             if (permissions) {
                                 if (permissions.mode === "roles") {
-                                    return "Roles & Ranks";
+                                    return "役割とランク";
                                 } else if (permissions.mode === "viewer") {
-                                    return "Viewer";
+                                    return "視聴者";
                                 }
                             } else {
-                                return "None";
+                                return "なし";
                             }
                         };
 
@@ -267,7 +267,7 @@
                                             .map(id => viewerRolesService.getRoleById(id).name)
                                             .join(", ");
                                     }
-                                    const rolesDisplay = `Roles (${rolesOutput})`;
+                                    const rolesDisplay = `役割 (${rolesOutput})`;
 
                                     const ranks = permissions.ranks ?? [];
                                     let ranksOutput = "未選択";
@@ -292,7 +292,7 @@
                                             })
                                             .join(", ");
                                     }
-                                    const ranksDisplay = `Ranks (${ranksOutput})`;
+                                    const ranksDisplay = `ランク (${ranksOutput})`;
 
                                     const itemsToDisplay = [];
                                     if (rolesOutput !== "未選択") {
@@ -301,9 +301,9 @@
                                     if (ranksOutput !== "未選択") {
                                         itemsToDisplay.push(ranksDisplay);
                                     }
-                                    return itemsToDisplay.length > 0 ? (isInverted ? "Not: " : "") + itemsToDisplay.join(", ") : "役割/ランク (未選択)";
+                                    return itemsToDisplay.length > 0 ? (isInverted ? "除外: " : "") + itemsToDisplay.join(", ") : "役割/ランク (未選択)";
                                 } else if (permissions.mode === "viewer") {
-                                    return `${isInverted ? "Not: " : ""}Viewer (${permissions.username ? permissions.username : 'No name'})`;
+                                    return `${isInverted ? "除外: " : ""}視聴者 (${permissions.username ? permissions.username : '名前なし'})`;
                                 }
                             } else {
                                 return "このコマンドは誰でも利用できます";

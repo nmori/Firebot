@@ -12,22 +12,22 @@ type State = {};
 
 export const text: OverlayWidgetType<Settings, State> = {
     id: "firebot:text",
-    name: "Text",
-    description: "A simple text widget that can be updated dynamically with the Update Overlay Widget Settings effects.",
+    name: "テキスト",
+    description: "オーバーレイウィジェット設定の更新エフェクトで動的に更新できるシンプルなテキストウィジェット",
     icon: "fa-font",
     settingsSchema: [
         {
             name: "text",
-            title: "Text",
+            title: "テキスト",
             type: "string",
-            default: "Example text",
+            default: "サンプルテキスト",
             validation: {
                 required: true
             }
         },
         {
             name: "fontOptions",
-            title: "Font Options",
+            title: "フォントオプション",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -41,15 +41,15 @@ export const text: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "horizontalAlignment",
-            title: "Horizontal Alignment",
-            description: "Horizontal alignment of the text within the widget area.",
+            title: "水平方向の配置",
+            description: "ウィジェットエリア内のテキストの水平方向の配置",
             type: "radio-cards",
             options: [{
-                value: "left", label: "Left", iconClass: "fa-align-left"
+                value: "left", label: "左", iconClass: "fa-align-left"
             }, {
-                value: "center", label: "Center", iconClass: "fa-align-center"
+                value: "center", label: "中央", iconClass: "fa-align-center"
             }, {
-                value: "right", label: "Right", iconClass: "fa-align-right"
+                value: "right", label: "右", iconClass: "fa-align-right"
             }],
             settings: {
                 gridColumns: 3
@@ -58,15 +58,15 @@ export const text: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "verticalAlignment",
-            title: "Vertical Alignment",
-            description: "Vertical alignment of the text within the widget area.",
+            title: "垂直方向の配置",
+            description: "ウィジェットエリア内のテキストの垂直方向の配置",
             type: "radio-cards",
             options: [{
-                value: "top", label: "Top", iconClass: "fa-arrow-to-top"
+                value: "top", label: "上", iconClass: "fa-arrow-to-top"
             }, {
-                value: "center", label: "Center", iconClass: "fa-border-center-h"
+                value: "center", label: "中央", iconClass: "fa-border-center-h"
             }, {
-                value: "bottom", label: "Bottom", iconClass: "fa-arrow-to-bottom"
+                value: "bottom", label: "下", iconClass: "fa-arrow-to-bottom"
             }],
             settings: {
                 gridColumns: 3

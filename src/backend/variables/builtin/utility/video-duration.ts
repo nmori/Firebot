@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "videoDuration",
         usage: "videoDuration[filePathOrUrl]",
-        description: "ビデオの再生時間を取得しようとします。",
+        description: "動画の再生時間を取得します。",
         examples: [
             {
                 usage: `videoDuration["path/to/video.mp4"]`,
-                description: "Returns the duration of the video file in seconds."
+                description: "ローカルの動画ファイルの再生時間（秒）を返します。"
             },
             {
                 usage: `videoDuration["https://example.com/video.mp4"]`,
-                description: "Returns the duration of the video file from a URL in seconds."
+                description: "URL で指定した動画ファイルの再生時間（秒）を返します。"
             }
         ],
         categories: ["advanced"],
@@ -22,13 +22,13 @@ const model : ReplaceVariable = {
     },
     evaluator: async (trigger, url: string) => {
         if (url == null) {
-            return "[NO URL PROVIDED]";
+            return "[URL が指定されていません]";
         }
         const result: number = await frontendCommunicator.fireEventAsync("getVideoDuration", url);
 
         if (isNaN(result)) {
-            logger.error("Error while retrieving video duration", result);
-            return "[ERROR FETCHING DURATION]";
+            logger.error("動画の再生時間を取得中にエラーが発生しました", result);
+            return "[再生時間の取得に失敗しました]";
         }
         return result;
     }

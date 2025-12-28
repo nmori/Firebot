@@ -44,7 +44,7 @@
                     </label>
 
                     <div ng-show="$ctrl.command.sendCooldownMessage">
-                        <firebot-checkbox label="Send cooldown message as reply"
+                        <firebot-checkbox label="再実行待ちメッセージを返信として送信"
                             model="$ctrl.command.sendCooldownMessageAsReply"
                         />
 

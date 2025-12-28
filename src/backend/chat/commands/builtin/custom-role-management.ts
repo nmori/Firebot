@@ -8,10 +8,10 @@ import { TwitchApi } from "../../../streaming-platforms/twitch/api";
 export const CustomRoleManagementSystemCommand: SystemCommand = {
     definition: {
         id: "firebot:role-management",
-        name: "Custom Role Management",
+        name: "カスタムロール管理",
         active: true,
         trigger: "!role",
-        description: "Allows management of viewer's custom roles from chat.",
+        description: "チャットから視聴者のカスタムロールを管理できます。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -33,20 +33,20 @@ export const CustomRoleManagementSystemCommand: SystemCommand = {
         subCommands: [
             {
                 arg: "add",
-                usage: "add @viewer roleName",
-                description: "Adds a custom role to a viewer.",
+                usage: "add @視聴者 ロール名",
+                description: "視聴者にカスタムロールを追加します。",
                 minArgs: 3
             },
             {
                 arg: "remove",
-                usage: "remove @viewer roleName",
-                description: "Removes a custom role from a viewer.",
+                usage: "remove @視聴者 ロール名",
+                description: "視聴者からカスタムロールを削除します。",
                 minArgs: 3
             },
             {
                 arg: "list",
-                usage: "list [@viewer]",
-                description: "List all custom roles, or just roles a viewer has."
+                usage: "list [@視聴者]",
+                description: "すべてのカスタムロール、または視聴者が持っているロールのみを一覧表示します。"
             }
         ]
     },
@@ -55,7 +55,7 @@ export const CustomRoleManagementSystemCommand: SystemCommand = {
         const { args, triggeredArg } = event.userCommand;
 
         if (args.length < 1) {
-            await TwitchApi.chat.sendChatMessage("Incorrect command usage!", null, true);
+            await TwitchApi.chat.sendChatMessage("コマンドの使い方が間違っています！", null, true);
             return;
         }
 
@@ -64,19 +64,19 @@ export const CustomRoleManagementSystemCommand: SystemCommand = {
                 const roleName = args.slice(2)[0];
                 const role = customRoleManager.getRoleByName(roleName);
                 if (role == null) {
-                    await TwitchApi.chat.sendChatMessage("Can't find a role by that name.", null, true);
+                    await TwitchApi.chat.sendChatMessage("その名前のロールが見つかりません。", null, true);
                 } else {
                     const username = args[1].replace("@", "");
                     const user = await TwitchApi.users.getUserByName(username);
                     if (user == null) {
-                        await TwitchApi.chat.sendChatMessage(`Could not add role ${role.name} to ${username}. User does not exist.`, null, true);
+                        await TwitchApi.chat.sendChatMessage(`${username} にロール ${role.name} を追加できませんでした。ユーザーが存在しません。`, null, true);
                     } else {
                         customRoleManager.addViewerToRole(role.id, {
                             id: user.id,
                             username: user.name,
                             displayName: user.displayName
                         });
-                        await TwitchApi.chat.sendChatMessage(`Added role ${role.name} to ${username}`, null, true);
+                        await TwitchApi.chat.sendChatMessage(`${username} にロール ${role.name} を追加しました。`, null, true);
                     }
                 }
                 break;
@@ -85,15 +85,15 @@ export const CustomRoleManagementSystemCommand: SystemCommand = {
                 const roleName = args.slice(2)[0];
                 const role = customRoleManager.getRoleByName(roleName);
                 if (role == null) {
-                    await TwitchApi.chat.sendChatMessage("Can't find a role by that name.", null, true);
+                    await TwitchApi.chat.sendChatMessage("その名前のロールが見つかりません。", null, true);
                 } else {
                     const username = args[1].replace("@", "");
                     const user = await TwitchApi.users.getUserByName(username);
                     if (user == null) {
-                        await TwitchApi.chat.sendChatMessage(`Could not remove role ${role.name} from ${username}. User does not exist.`, null, true);
+                        await TwitchApi.chat.sendChatMessage(`${username} からロール ${role.name} を削除できませんでした。ユーザーが存在しません。`, null, true);
                     } else {
                         customRoleManager.removeViewerFromRole(role.id, user.id);
-                        await TwitchApi.chat.sendChatMessage(`Removed role ${role.name} from ${username}`, null, true);
+                        await TwitchApi.chat.sendChatMessage(`${username} からロール ${role.name} を削除しました。`, null, true);
                     }
                 }
                 break;
@@ -103,28 +103,28 @@ export const CustomRoleManagementSystemCommand: SystemCommand = {
                     const username = args[1].replace("@", "");
                     const user = await TwitchApi.users.getUserByName(username);
                     if (user == null) {
-                        await TwitchApi.chat.sendChatMessage(`Could not get roles for ${username}. User does not exist.`, null, true);
+                        await TwitchApi.chat.sendChatMessage(`${username} のロールを取得できませんでした。ユーザーが存在しません。`, null, true);
                     } else {
                         const roleNames = customRoleManager.getAllCustomRolesForViewer(user.id).map(r => r.name);
                         if (roleNames.length < 1) {
-                            await TwitchApi.chat.sendChatMessage(`${username} has no custom roles assigned.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`${username} にはカスタムロールが割り当てられていません。`, null, true);
                         } else {
-                            await TwitchApi.chat.sendChatMessage(`${username}'s custom roles: ${roleNames.join(", ")}`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`${username} のカスタムロール： ${roleNames.join(", ")}`, null, true);
                         }
                     }
 
                 } else {
                     const roleNames = customRoleManager.getCustomRoles().map(r => r.name);
                     if (roleNames.length < 1) {
-                        await TwitchApi.chat.sendChatMessage(`There are no custom roles available.`, null, true);
+                        await TwitchApi.chat.sendChatMessage(`利用可能なカスタムロールはありません。`, null, true);
                     } else {
-                        await TwitchApi.chat.sendChatMessage(`Available custom roles: ${roleNames.join(", ")}`, null, true);
+                        await TwitchApi.chat.sendChatMessage(`利用可能なカスタムロール： ${roleNames.join(", ")}`, null, true);
                     }
                 }
                 break;
             }
             default:
-                await TwitchApi.chat.sendChatMessage("Incorrect command usage!", null, true);
+                await TwitchApi.chat.sendChatMessage("コマンドの使い方が間違っています！", null, true);
         }
     }
 };

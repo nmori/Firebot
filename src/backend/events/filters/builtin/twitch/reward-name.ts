@@ -2,9 +2,9 @@ import { createTextFilter } from "../../filter-factory";
 
 const filter = createTextFilter({
     id: "firebot:reward-name",
-    name: "Reward Name",
+    name: "リワード名",
     caseInsensitive: true,
-    description: "Filter to a Custom Channel Reward by Name",
+    description: "カスタムチャンネルリワードを名前でフィルタリングします",
     eventMetaKey: "rewardName",
     events: [
         { eventSourceId: "twitch", eventId: "channel-reward-redemption" }

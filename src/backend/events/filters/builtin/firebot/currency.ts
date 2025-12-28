@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:currency",
-    name: "Currency",
-    description: "Filter to a Currency",
+    name: "通貨",
+    description: "通貨でフィルタリングします",
     events: [
         { eventSourceId: "firebot", eventId: "currency-update" }
     ],

@@ -197,7 +197,7 @@ class BackupManager {
                 if (manualActivation) {
                     frontendCommunicator.send(
                         "error",
-                        "Something bad happened, please check your logs."
+                        "問題が発生しました。ログを確認してください。"
                     );
                 }
                 throw err;
@@ -279,13 +279,13 @@ class BackupManager {
             if (!valid) {
                 return {
                     success: false,
-                    reason: "Provided zip is not a valid Firebot V5 backup."
+                    reason: "指定されたzipファイルは有効なFirebot V5バックアップではありません。"
                 };
             }
         } catch {
             return {
                 success: false,
-                reason: "Failed to validate the backup zip."
+                reason: "バックアップzipの検証に失敗しました。"
             };
         }
 
@@ -306,7 +306,7 @@ class BackupManager {
             logger.warn("Error clearing profiles folder", error);
             return {
                 success: false,
-                reason: "Failed to clear profiles folder."
+                reason: "プロファイルフォルダのクリアに失敗しました。"
             };
         }
 
@@ -316,7 +316,7 @@ class BackupManager {
             logger.error("Failed to copy backup data", error);
             return {
                 success: false,
-                reason: "Failed to copy restore files to user data."
+                reason: "復元ファイルをユーザーデータにコピーできませんでした。"
             };
         }
 
@@ -326,47 +326,24 @@ class BackupManager {
     }
 
     private async validateBackupZip(backupFilePath: string): Promise<boolean> {
-        try {
-            let hasProfilesDir = false;
-            let hasGlobalSettings = false;
+        let hasProfilesDir = false;
+        let hasGlobalSettings = false;
 
-            // より速く判定するために、必要な情報が見つかったら早期リターン
-            const extractPromise = new Promise<boolean>((resolve, reject) => {
-                fs.createReadStream(backupFilePath)
-                    .pipe(unzipper.Parse() //eslint-disable-line new-cap
-                .on("entry", (entry: ZipEntry) => {
-                            if (entry.path.includes("profiles")) {
-                                hasProfilesDir = true;
-                            } else if (entry.path.includes("global-settings")) {
-                                hasGlobalSettings = true;
-                            }
-                    void entry.autodrain();
-                                resolve(true);
-                                return;
-                            }
-                            
-                            entry.autodrain();
-                        })
-                        .on('error', (err) => {
-                            logger.error("Error validating backup zip", err);
-                            reject(err);
-                        })
-                        .on('close', () => {
-                            resolve(hasProfilesDir && hasGlobalSettings);
-                        }));
-            });
-            
-            // タイムアウト処理を追加（30秒）
-            const timeoutPromise = new Promise<boolean>((resolve) => {
-                setTimeout(() => resolve(false), 30000);
-            });
-            
-            return await Promise.race([extractPromise, timeoutPromise]);
-        } catch (error) {
-            logger.error("Error during backup validation", error);
-            return false;
-        }
+        await fs.createReadStream(backupFilePath)
+            .pipe(unzipper.Parse() //eslint-disable-line new-cap
+                .on('entry', (entry) => {
+                    if (entry.path.includes("profiles")) {
+                        hasProfilesDir = true;
+                    } else if (entry.path.includes("global-settings")) {
+                        hasGlobalSettings = true;
+                    }
+                    entry.autodrain();
+                }))
+            .promise();
+
+        return hasProfilesDir && hasGlobalSettings;
     }
+
 
     private async extractBackupZip(backupFilePath: string) {
         await fsp.mkdir(RESTORE_FOLDER_PATH, { recursive: true });

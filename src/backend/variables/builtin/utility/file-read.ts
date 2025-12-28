@@ -9,47 +9,47 @@ const model : ReplaceVariable = {
     definition: {
         handle: "readFile",
         usage: 'readFile[path\\to\\file.txt]',
-        description: "Read contents of a text file.",
+        description: "テキストファイルの内容を読み込みます。",
         examples: [
             {
                 usage: "readFile[path\\to\\file.txt, 1]",
-                description: "Read a specific line number from the file."
+                description: "指定した行番号を読み込みます。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, first]",
-                description: "Read the first line from the file."
+                description: "先頭行を読み込みます。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, first, true]",
-                description: "Removes leading, trailing, and empty lines before grabbing the first line"
+                description: "先頭・末尾の空白行を除外してから先頭行を取得します。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, last]",
-                description: "Read the last line from the file."
+                description: "最終行を読み込みます。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, last, true]",
-                description: "Removes leading, trailing, and empty lines before grabbing the last line"
+                description: "先頭・末尾の空白行を除外してから最終行を取得します。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, random]",
-                description: "Read a random line from the file."
+                description: "ランダムな行を読み込みます。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, random, true]",
-                description: "Removes leading, trailing, and empty lines before grabbing a random line"
+                description: "先頭・末尾の空白行を除外してからランダムな行を取得します。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, array]",
-                description: "Read contents of a text file as an array."
+                description: "テキストファイル全体を配列として読み込みます。"
             },
             {
                 usage: "readFile[path\\to\\file.txt, array, true]",
-                description: "Removes leading, trailing, and empty lines before grabbing the array."
+                description: "先頭・末尾の空白行を除外してから配列を取得します。"
             },
             {
                 usage: "readFile[path\\to\\file.ogg, bytes]",
-                description: "Reads the content of a file and returns a byte array."
+                description: "ファイルの内容を読み込み、バイト配列として返します。"
             }
         ],
         categories: ["advanced"],
@@ -63,7 +63,7 @@ const model : ReplaceVariable = {
     ) : Promise<string | string[] | Uint8Array> => {
 
         if (filePath === null) {
-            return "[File Path Error]";
+            return "[ファイルパスエラー]";
         }
 
         if (lineOrRandom === "bytes") {
@@ -71,7 +71,7 @@ const model : ReplaceVariable = {
                 return Uint8Array.from(await fs.readFile(filePath));
             } catch (err) {
                 logger.error("Error reading binary file", err);
-                return "[Read File Error]";
+                return "[ファイル読み込みエラー]";
             }
         }
 
@@ -80,7 +80,7 @@ const model : ReplaceVariable = {
             contents = await fs.readFile(filePath, { encoding: "utf-8" });
         } catch (err) {
             logger.error("error reading file", err);
-            return "[Read File Error]";
+            return "[ファイル読み込みエラー]";
         }
 
         if (lineOrRandom == null || contents === '') {

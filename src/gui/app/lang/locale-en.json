@@ -24,6 +24,7 @@
     },
     "MANAGEMENT": {
       "MANAGEMENT": "Management",
+      "OVERLAY_WIDGETS": "Overlay Widgets",
       "VIEWER_GROUPS": "Viewer Groups",
       "VIEWER_ROLES": "Roles & Ranks",
       "MODERATION": "Moderation",
