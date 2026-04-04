@@ -99,9 +99,9 @@ const onecommeTransfer = {
                 "service": {
                     "id": String(effect.slotname.id),
                     "name": effect.slotname.name,
-                    "write": false,
-                    "speech": false,
-                    "persist": false
+                    "write": true,
+                    "speech": true,
+                    "persist": true
                 },
                 "comment": {
                     "id": String(crypto.randomUUID()),
