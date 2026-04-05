@@ -11,8 +11,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:streamgame",
-        name: "Set Stream Category",
-        description: "Set the stream category/game.",
+        name: "配信カテゴリ設定",
+        description: "配信カテゴリ/ゲームを設定します。",
         icon: "fad fa-gamepad",
         categories: ["common", "twitch"],
         dependencies: {

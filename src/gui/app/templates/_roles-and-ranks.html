@@ -4,7 +4,7 @@
     type="underlined"
     page-tabs="true"
 >
-    <firebot-tab name="roles" label="Roles">
+    <firebot-tab name="roles" label="役割">
         <div style="height: 100%; overflow-y: scroll; padding: 15px">
             <div
                 class="mb-4"
@@ -17,7 +17,7 @@
                         font-weight: 200;
                         font-size: 19px;
                     "
-                    >Custom Roles</span
+                    >カスタムロール</span
                 >
                 <div
                     class="clickable"
@@ -54,7 +54,7 @@
                     ng-if="viewerRolesService.getCustomRoles().length < 1"
                     class="muted"
                 >
-                    No custom roles saved.
+                    役割が保存されていません。
                 </p>
             </div>
 
@@ -66,11 +66,10 @@
                     font-size: 19px;
                 "
             >
-                Twitch Roles
+                Twitchでの役割
             </h3>
             <p class="muted">
-                These roles are predefined by Twitch and cannot be renamed or
-                deleted.
+                これらのロールはTwitchによって事前に定義されており、編集することはできません。
             </p>
             <div class="new-tile-grid" style="width: 100%">
                 <div
@@ -103,10 +102,10 @@
                     font-size: 19px;
                 "
             >
-                Firebot Roles
+                Firebotでの役割
             </h3>
             <p class="muted">
-                These roles are predefined by Firebot and cannot be edited.
+                これらのロールはFirebotによって事前に定義されており、編集することはできません。
             </p>
             <div class="new-tile-grid" style="width: 100%">
                 <div
@@ -132,13 +131,13 @@
                     font-size: 19px;
                 "
             >
-                Team Roles
+                チームの役割
             </h3>
             <p
                 ng-if="viewerRolesService.getTeamRoles().length >= 1"
                 class="muted"
             >
-                These roles are predefined by Twitch and cannot be edited.
+                これらのロールはTwitchによって事前に定義されており、編集することはできません。
             </p>
             <div class="new-tile-grid" style="width: 100%">
                 <div
@@ -157,24 +156,24 @@
                     ng-if="viewerRolesService.getTeamRoles().length < 1"
                     class="muted"
                 >
-                    There are no stream teams you are a part of.
+                    あなたが所属している配信チームはありません。
                 </p>
             </div>
         </div>
     </firebot-tab>
-    <firebot-tab name="ranks" label="Ranks">
+    <firebot-tab name="ranks" label="ランク">
         <firebot-item-table
             items="viewerRanksService.rankLadders"
             on-items-update="viewerRanksService.saveAllRankLadders(items)"
             headers="rankLadderHeaders"
             sort-tag-context="rank ladders"
             orderable="true"
-            add-new-button-text="New Rank Ladder"
+            add-new-button-text="新しいランク"
             on-add-new-clicked="viewerRanksService.showAddOrEditRankLadderModal()"
             context-menu-options="rankLadderMenuOptions(item)"
-            no-data-message="No rank ladders saved. You should make one! :)"
-            none-found-message="No rank ladders found."
-            search-placeholder="Search rank ladders"
+            no-data-message="ランクは設定されていない。作ったほうがいいね！:)"
+            none-found-message="ランクは見つからなかった。"
+            search-placeholder="検索順位"
             test-button="false"
         />
     </firebot-tab>

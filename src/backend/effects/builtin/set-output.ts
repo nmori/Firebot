@@ -69,8 +69,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:set-output",
-        name: "Set Output",
-        description: "Save data to an effect output variable that you can then use elsewhere in this effect list.",
+        name: "出力設定",
+        description: "データをエフェクト出力変数に保存し、このエフェクトリスト内の他の場所で利用できます。",
         icon: "fad fa-sign-out",
         categories: ["scripting"],
         dependencies: [],

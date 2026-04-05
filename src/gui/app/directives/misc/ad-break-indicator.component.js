@@ -11,14 +11,14 @@
                 <div
                     class="stream-info-stat hype-train-indicator"
                     style="margin-left:10px"
-                    uib-tooltip="Scheduled Ad Break"
+                    uib-tooltip="予定された広告休憩"
                     tooltip-append-to-body="true"
                     tooltip-placement="bottom"
                 >
                     <i class="fas fa-ad" style="margin-right: 5px; font-size: 12px;" />
-                    <span class="level-pill">{{abs.adRunning ? 'REMAINING' : 'STARTS IN'}}</span>
+                    <span class="level-pill">{{abs.adRunning ? '残り' : '開始まで'}}</span>
                     <span class="pl-2 font-bold">{{timeLeftDisplay}}</span>
-                    <span class="pl-2 time-left">({{abs.friendlyDuration}} break)</span>
+                    <span class="pl-2 time-left">({{abs.friendlyDuration}} の休憩)</span>
                 </div>
             `,
             controller: function($scope, adBreakService, $interval) {
@@ -37,8 +37,8 @@
 
                     if (now.isAfter(endsAt)) {
                         $scope.timeLeftDisplay = adBreakService.adRunning
-                            ? "ENDING"
-                            : "SOON";
+                            ? "終了"
+                            : "まもなく";
                         return;
                     }
 

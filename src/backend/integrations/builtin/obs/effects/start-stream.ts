@@ -4,8 +4,8 @@ import { startStreaming } from "../obs-remote";
 export const StartStreamEffectType: EffectType = {
     definition: {
         id: "ebiggz:obs-start-stream",
-        name: "OBS Start Stream",
-        description: "Tell OBS to start streaming",
+        name: "OBS配信開始",
+        description: "OBS に配信開始を実行させます",
         icon: "fad fa-play-circle",
         categories: ["common", "integrations"]
     },

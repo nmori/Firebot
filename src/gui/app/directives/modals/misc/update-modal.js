@@ -6,22 +6,22 @@
             template: `
                 <div class="modal-header sticky-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Release Notes</h4>
+                    <h4 class="modal-title">リリースノート</h4>
                 </div>
                 <div class="modal-body">
                     <div ng-if="$ctrl.getUpdateData() != null">
                         <div ng-if="us.majorUpdate != null">
                             <div class="update-alert alert alert-info" style="display: inline-block;">
-                                <p><i class="fas fa-birthday-cake"></i> Great news! A major update ({{$ctrl.updatesService.majorUpdate.gitVersion}}) is available! Check out the update notes to view all the new features and changes. <a class="github-link" href ng-click="$ctrl.openLink(release.gitLink)"><button class="btn btn-primary">View update</button></a></p>
+                                <p><i class="fas fa-birthday-cake"></i> 朗報です！メジャーアップデート（{{$ctrl.updatesService.majorUpdate.gitVersion}}）が利用可能です。新機能や変更点は更新ノートをご確認ください。 <a class="github-link" href ng-click="$ctrl.openLink(release.gitLink)"><button class="btn btn-primary">更新内容を見る</button></a></p>
                             </div>
                         </div>
 
                         <div ng-if="$ctrl.updatesService.majorUpdate == null && !$ctrl.getUpdateData().updateIsAvailable" class="update-alert alert alert-info" style="display: inline-block;">
-                            <p><i class="fas fa-check-circle"></i> Firebot is up-to-date.</p>
+                            <p><i class="fas fa-check-circle"></i> Firebot は最新です。</p>
                         </div>
 
                         <div class="update-alert alert alert-warning" style="display: inline-block;" ng-if="$ctrl.getUpdateData().updateIsAvailable">
-                            <p>Hey! It looks like there was an update released!</p>
+                            <p>新しいアップデートが公開されています！</p>
                         </div>
 
                         <div class="latest-update" style="font-size:30px;font-weight:200;">
@@ -35,14 +35,14 @@
 
                     <div ng-if="$ctrl.getUpdateData() == null">
                         <div class="update-alert alert alert-info" style="display: inline-block;">
-                            <p>Release data unavailable.</p>
+                            <p>リリース情報を取得できませんでした。</p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer update-buttons sticky-footer" ng-if="$ctrl.getUpdateData() != null">
-                    <a class="github-link" href><button class="btn btn-primary" ng-if="$ctrl.getUpdateData().updateIsAvailable" ng-click="$ctrl.downloadAndInstallUpdate()">Update</button></a>
-                    <a href ng-click="$ctrl.openLink('https://github.com/crowbartools/Firebot/issues/new?assignees=&template=bug_report.yml')"><button class="btn btn-danger">Report Bugs</button></a>
-                    <a href ng-click="$ctrl.openLink('https://github.com/crowbartools/Firebot/issues/new?assignees=&template=feature_request.md')"><button class="btn btn-info">Suggest Features</button></a>
+                    <a class="github-link" href><button class="btn btn-primary" ng-if="$ctrl.getUpdateData().updateIsAvailable" ng-click="$ctrl.downloadAndInstallUpdate()">更新する</button></a>
+                    <a href ng-click="$ctrl.openLink('https://github.com/crowbartools/Firebot/issues/new?assignees=&template=bug_report.yml')"><button class="btn btn-danger">不具合を報告</button></a>
+                    <a href ng-click="$ctrl.openLink('https://github.com/crowbartools/Firebot/issues/new?assignees=&template=feature_request.md')"><button class="btn btn-info">機能を提案</button></a>
                 </div>
                 `,
             bindings: {

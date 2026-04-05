@@ -7,8 +7,8 @@ export const SetOBSBrowserSourceUrlEffectType: EffectType<{
 }> = {
     definition: {
         id: "firebot:obs-set-browser-source-url",
-        name: "Set OBS Browser Source URL",
-        description: "Sets the URL in an OBS browser source",
+        name: "OBSブラウザソースURL設定",
+        description: "OBS ブラウザソースの URL を設定します",
         icon: "fad fa-browser",
         categories: ["common", "integrations"]
     },

@@ -117,7 +117,7 @@
                         content: 'Successfully duplicated a preset effect list!'
                     });
                 } else {
-                    ngToast.create("Unable to duplicate preset effect list.");
+                    ngToast.create("プリセットエフェクトリストの複製に失敗しました。");
                 }
             };
 

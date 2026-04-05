@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputKindVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputKind",
-        description: "Returns the OBS internal name of the kind of OBS input.",
+        description: "OBS 入力種別の OBS 内部名を返します。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"]
     },

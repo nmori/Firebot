@@ -98,7 +98,7 @@
                                 content: 'Successfully duplicated rank ladder!'
                             });
                         } else {
-                            ngToast.create("Unable to duplicate rank ladder.");
+                            ngToast.create("ランクラダーの複製に失敗しました。");
                         }
                     });
             };

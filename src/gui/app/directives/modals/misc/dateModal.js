@@ -6,7 +6,7 @@
         .component("dateModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">{{$ctrl.label}}</h4>
             </div>
             <div class="modal-body">
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
                 <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.saveText}}</button>
             </div>
             `,
@@ -42,11 +42,11 @@
 
                 $ctrl.model = "";
 
-                $ctrl.label = "Enter Text";
-                $ctrl.inputPlaceholder = "Enter Text";
-                $ctrl.saveText = "Save";
+                $ctrl.label = "日付を入力";
+                $ctrl.inputPlaceholder = "日付を入力";
+                $ctrl.saveText = "保存";
                 $ctrl.validationFn = value => value != null;
-                $ctrl.validationText = "Please provide a date.";
+                $ctrl.validationText = "日付を入力してください。";
                 $ctrl.hasValidationError = false;
                 $ctrl.inputType = "text";
 

@@ -5,23 +5,23 @@ import { SharedChatCache } from "../../../chat/shared-chat-cache";
 const model : ReplaceVariable = {
     definition: {
         handle: "sharedChatParticipants",
-        description: "Return an array of shared chat participant objects, including the streamer account. Empty if not in a shared chat session.",
+        description: "Shared Chat 参加者オブジェクトの配列を返します（配信者アカウントを含む）。Shared Chat 中でない場合は空配列です。",
         examples: [
             {
                 usage: "sharedChatParticipants[false]",
-                description: "Exclude the streamer account from the array"
+                description: "配列から配信者アカウントを除外します"
             },
             {
                 usage: "sharedChatParticipants[true, username]",
-                description: "Return an array of participant usernames, including the streamer account."
+                description: "参加者ユーザー名の配列を返します（配信者を含む）。"
             },
             {
                 usage: "sharedChatParticipants[false, displayName]",
-                description: "Return an array of participant display names, excluding the streamer account."
+                description: "参加者表示名の配列を返します（配信者を除外）。"
             },
             {
                 usage: "sharedChatParticipants[true, userId]",
-                description: "Return an array of participant user IDs, including the streamer account."
+                description: "参加者ユーザーIDの配列を返します（配信者を含む）。"
             }
         ],
         categories: ["common", "trigger based"],

@@ -10,10 +10,10 @@
             },
             //language=HTML
             template: `
-                <eos-container header="Discord Message" pad-top="true">
-                    <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
+                <eos-container header="Discord メッセージ" pad-top="true">
+                    <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージを入力" rows="4" cols="40" replace-variables></textarea>
 
-                    <label class="control-fb control--checkbox" style="margin-top:15px"> Include rich embed
+                    <label class="control-fb control--checkbox" style="margin-top:15px"> リッチ埋め込みを含める
                         <input type="checkbox" ng-model="effect.includeEmbed">
                         <div class="control__indicator"></div>
                     </label>
@@ -22,13 +22,13 @@
                         <dropdown-select options="embedOptions" selected="effect.embedType"></dropdown-select>
 
                         <div ng-show="effect.embedType" style="margin-top:10px;">
-                            <color-picker-input model="effect.embedColor" label="Embed Color"></color-picker-input>
+                            <color-picker-input model="effect.embedColor" label="埋め込み色"></color-picker-input>
                         </div>
 
                         <div ng-show="effect.embedType === 'custom'">
 
                             <div style="margin-top:10px;">
-                                <firebot-input input-title="Title" model="effect.customEmbed.title"></firebot-input>
+                                <firebot-input input-title="タイトル" model="effect.customEmbed.title"></firebot-input>
                             </div>
 
                             <div style="margin-top:10px;">
@@ -36,25 +36,25 @@
                             </div>
 
                             <div style="margin-top:10px;">
-                                <firebot-input input-title="Content" use-text-area="true" model="effect.customEmbed.description"></firebot-input>
+                                <firebot-input input-title="内容" use-text-area="true" model="effect.customEmbed.description"></firebot-input>
                             </div>
 
                             <div style="margin-top:10px;">
-                                <firebot-input input-title="Author Name" model="effect.customEmbed.authorName"></firebot-input>
+                                <firebot-input input-title="作成者名" model="effect.customEmbed.authorName"></firebot-input>
                             </div>
 
                             <div style="margin-top:10px;">
-                                <firebot-input input-title="Author Icon URL" model="effect.customEmbed.authorIconUrl"></firebot-input>
+                                <firebot-input input-title="作成者アイコンURL" model="effect.customEmbed.authorIconUrl"></firebot-input>
                             </div>
 
                             <div ng-hide="$ctrl.isScreenshot" style="margin-top:10px;">
-                                <firebot-input input-title="Image URL" model="effect.customEmbed.imageUrl"></firebot-input>
+                                <firebot-input input-title="画像URL" model="effect.customEmbed.imageUrl"></firebot-input>
                             </div>
 
                         </div>
 
                         <div ng-show="effect.embedType === 'channel'">
-                            <br /><b>*</b> Must be live for this to post.
+                            <br /><b>*</b> これを投稿するには配信中である必要があります。
                         </div>
                     </div>
                 </eos-container>
@@ -66,13 +66,13 @@
 
                     if ($ctrl.isScreenshot) {
                         $scope.embedOptions = {
-                            stream: "Channel Details",
-                            custom: "Custom Embed"
+                            stream: "チャンネル情報",
+                            custom: "カスタム埋め込み"
                         };
                     } else {
                         $scope.embedOptions = {
-                            channel: "Channel Details",
-                            custom: "Custom Embed"
+                            channel: "チャンネル情報",
+                            custom: "カスタム埋め込み"
                         };
                     }
 

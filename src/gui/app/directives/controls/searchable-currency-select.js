@@ -15,7 +15,7 @@
                     items="$ctrl.currencies"
                     id="{{$ctrl.id || ''}}"
                     name="{{$ctrl.name || ''}}"
-                    placeholder="Select currency"
+                    placeholder="通貨を選択"
                 ></firebot-searchable-select>
             `,
             controller: function(currencyService) {

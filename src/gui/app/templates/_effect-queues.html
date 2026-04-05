@@ -4,18 +4,18 @@
     headers="headers"
     sort-tag-context="effect queues"
     orderable="true"
-    add-new-button-text="New Effect Queue"
+    add-new-button-text="新しいエフェクトキュー"
     on-add-new-clicked="effectQueuesService.showAddEditEffectQueueModal()"
     context-menu-options="effectQueueOptions(item)"
-    no-data-message="No effect queues saved. You should make one! :)"
-    none-found-message="No effect queues found."
-    search-placeholder="Search effect queues"
+    no-data-message="保存されたエフェクトキューがありません。作成してみましょう！"
+    none-found-message="エフェクトキューが見つかりません。"
+    search-placeholder="エフェクトキューを検索"
     status-field="active"
-    status-enabled-label="Active"
-    status-disabled-label="Paused"
+    status-enabled-label="有効"
+    status-disabled-label="一時停止"
 >
     <fb-item-table-toolbar>
-      <firebot-button type="default" text="Open Monitor" ng-click="openEffectQueueMonitor()" />
+      <firebot-button type="default" text="モニターを開く" ng-click="openEffectQueueMonitor()" />
     </fb-item-table-toolbar>
   </firebot-item-table>
 </firebot-item-table>

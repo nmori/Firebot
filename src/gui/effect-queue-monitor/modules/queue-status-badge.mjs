@@ -8,6 +8,20 @@ const queueStatusBadge = {
         },
         status() {
             return this.queue.state.status;
+        },
+        statusLabel() {
+            switch (this.status) {
+                case "running":
+                    return "実行中";
+                case "paused":
+                    return "一時停止";
+                case "cancelled":
+                    return "キャンセル";
+                case "idle":
+                    return "待機中";
+                default:
+                    return this.status;
+            }
         }
     },
     template: `
@@ -17,7 +31,7 @@ const queueStatusBadge = {
             </div>
             <i v-if="status === 'paused' || status === 'cancelled'" class="far fa-pause-circle" style="font-size: 18px; margin-right: 5px;transform: translateY(1px);"></i>
             <i v-if="status === 'idle'" class="far fa-clock" style="font-size: 18px; margin-right: 5px;transform: translateY(1px);"></i>
-            <span style="text-transform: capitalize">{{ status }}</span>
+            <span>{{ statusLabel }}</span>
             <span v-if="itemCount && itemCount > 0" class="queue-item-count">{{ itemCount }}</span>
         </div>
     `

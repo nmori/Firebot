@@ -11,7 +11,7 @@ const logger = require("../../../logwrapper");
 const integrationDefinition = {
     id: "elgato",
     name: "Elgato",
-    description: "Interact with Elgato Lights.",
+    description: "Elgato ライトと連携します。",
     linkType: "none",
     connectionToggle: false,
     configurable: false

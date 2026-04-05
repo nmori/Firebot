@@ -25,10 +25,10 @@ const SPIN_COMMAND_ID = "firebot:spin";
 const spinCommand: SystemCommand = {
     definition: {
         id: SPIN_COMMAND_ID,
-        name: "Spin (Slots)",
+        name: "スピン（スロット）",
         active: true,
         trigger: "!spin",
-        description: "Allows viewers to play the Slots game.",
+        description: "視聴者がスロットゲームをプレイできます。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
@@ -38,7 +38,7 @@ const spinCommand: SystemCommand = {
                 arg: "\\d+",
                 regex: true,
                 usage: "[currencyAmount]",
-                description: "Spins the slot machine with the given amount",
+                description: "指定した金額でスロットを回します",
                 hideCooldowns: true
             }
         ]

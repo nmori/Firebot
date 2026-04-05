@@ -3,8 +3,8 @@ import { ComparisonType } from "../../../../../shared/filter-constants";
 
 const filter: EventFilter = {
     id: "streamloots:gift-purchase",
-    name: "Chest Purchase",
-    description: "Filter by whether or not the StreamLoots chest purchase was a gift.",
+    name: "チェスト購入",
+    description: "StreamLoots チェスト購入がギフトかどうかでフィルターします",
     events: [
         { eventSourceId: "streamloots", eventId: "purchase" }
     ],
@@ -14,21 +14,21 @@ const filter: EventFilter = {
         return [
             {
                 value: "true",
-                display: "A Gift"
+                display: "ギフト"
             },
             {
                 value: "false",
-                display: "Not A Gift"
+                display: "ギフトではない"
             }
         ];
     },
     getSelectedValueDisplay: (filterSettings) => {
 
         if (filterSettings.value == null) {
-            return "[Not set]";
+            return "[未設定]";
         }
 
-        return filterSettings.value === "true" ? "A Gift" : "Not A Gift";
+        return filterSettings.value === "true" ? "ギフト" : "ギフトではない";
     },
     predicate: (filterSettings, eventData) => {
 

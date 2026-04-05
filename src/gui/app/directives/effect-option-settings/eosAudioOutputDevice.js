@@ -10,16 +10,16 @@
                 padTop: "<"
             },
             template: `
-            <eos-container header="Audio Output Device" pad-top="$ctrl.padTop">
+            <eos-container header="音声出力デバイス" pad-top="$ctrl.padTop">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="chat-effect-type">{{$ctrl.effect.audioOutputDevice ? $ctrl.effect.audioOutputDevice.label : 'App Default'}}</span> <span class="caret"></span>
+                        <span class="chat-effect-type">{{$ctrl.effect.audioOutputDevice ? $ctrl.effect.audioOutputDevice.label : 'アプリ既定'}}</span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu chat-effect-dropdown">
                         <li ng-repeat="device in $ctrl.audioOutputDevices" ng-click="$ctrl.effect.audioOutputDevice = device"><a href>{{device.label}}</a></li>
                         <li class="divider"></li>
-                        <li role="menuitem" ng-click="$ctrl.effect.audioOutputDevice = {label: 'Send To Overlay', deviceId: 'overlay'}">
-                            <a href>Send To Overlay</a>
+                        <li role="menuitem" ng-click="$ctrl.effect.audioOutputDevice = {label: 'オーバーレイに送信', deviceId: 'overlay'}">
+                            <a href>オーバーレイに送信</a>
                         </li>
                     </ul>
                 </div>
@@ -32,11 +32,11 @@
 
                 ctrl.audioOutputDevices = [
                     {
-                        label: "App Default",
+                        label: "アプリ既定",
                         deviceId: ""
                     },
                     {
-                        label: "System Default",
+                        label: "システム既定",
                         deviceId: "default"
                     }
                 ];
@@ -44,7 +44,7 @@
                 ctrl.$onInit = function() {
                     if (ctrl.effect.audioOutputDevice == null) {
                         ctrl.effect.audioOutputDevice = {
-                            label: "App Default",
+                            label: "アプリ既定",
                             deviceId: ""
                         };
                     }

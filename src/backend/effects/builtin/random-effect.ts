@@ -11,8 +11,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:randomeffect",
-        name: "Run Random Effect",
-        description: "Run a random effect from a list of effects",
+        name: "ランダムエフェクト実行",
+        description: "エフェクトリストからランダムで1つ実行します",
         icon: "fad fa-random",
         categories: ["advanced", "scripting"]
     },

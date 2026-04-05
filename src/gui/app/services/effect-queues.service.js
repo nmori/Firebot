@@ -49,26 +49,26 @@
             service.queueModes = [
                 {
                     value: "auto",
-                    label: "Sequential",
-                    description: "Effect lists run one after another in order. Priority items are placed at the front of the queue.",
+                    label: "順番",
+                    description: "エフェクトリストは順番に1つずつ実行されます。優先設定の項目はキュー先頭に配置されます。",
                     iconClass: "fa-sort-numeric-down"
                 },
                 {
                     value: "custom",
-                    label: "Custom Delay",
-                    description: "Each effect list defines how long the queue waits before triggering the next effect list.",
+                    label: "カスタム遅延",
+                    description: "各エフェクトリストごとに、次のリストを実行するまでの待機時間を設定します。",
                     iconClass: "fa-clock"
                 },
                 {
                     value: "interval",
-                    label: "Interval",
-                    description: "Effect lists run at a fixed time interval.",
+                    label: "間隔",
+                    description: "エフェクトリストを一定間隔で実行します。",
                     iconClass: "fa-stopwatch"
                 },
                 {
                     value: "manual",
-                    label: "Manual",
-                    description: "Effect lists only run when triggered by a Trigger Manual Queue effect.",
+                    label: "手動",
+                    description: "エフェクトリストは「手動キュー実行」エフェクトでのみ実行されます。",
                     iconClass: "fa-step-forward"
                 }
             ];
@@ -128,10 +128,10 @@
                 if (successful) {
                     ngToast.create({
                         className: 'success',
-                        content: 'Successfully duplicated an effect queue!'
+                        content: 'エフェクトキューを複製しました。'
                     });
                 } else {
-                    ngToast.create("Unable to duplicate effect queue.");
+                    ngToast.create("エフェクトキューの複製に失敗しました。");
                 }
             };
 
@@ -174,9 +174,9 @@
 
                     return utilityService
                         .showConfirmationModal({
-                            title: "Delete Effect Queue",
-                            question: `Are you sure you want to delete the effect queue "${queue.name}"?`,
-                            confirmLabel: "Delete",
+                            title: "エフェクトキューを削除",
+                            question: `エフェクトキュー「${queue.name}」を削除してもよろしいですか？`,
+                            confirmLabel: "削除",
                             confirmBtnType: "btn-danger"
                         })
                         .then((confirmed) => {

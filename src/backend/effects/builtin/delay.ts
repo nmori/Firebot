@@ -6,8 +6,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:delay",
-        name: "Delay",
-        description: "Pause between effects",
+        name: "待機",
+        description: "エフェクト間で待機します",
         icon: "fad fa-stopwatch",
         categories: ["common", "advanced", "scripting"],
         dependencies: [],

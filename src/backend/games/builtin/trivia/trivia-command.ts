@@ -98,10 +98,10 @@ const TRIVIA_COMMAND_ID = "firebot:trivia";
 const triviaCommand: SystemCommand = {
     definition: {
         id: TRIVIA_COMMAND_ID,
-        name: "Trivia",
+        name: "トリビア",
         active: true,
         trigger: "!trivia",
-        description: "Allows viewers to play trivia",
+        description: "視聴者がトリビアをプレイできます",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
@@ -111,7 +111,7 @@ const triviaCommand: SystemCommand = {
                 arg: "\\d+",
                 regex: true,
                 usage: "[wager]",
-                description: "Triggers trivia for the given wager amount",
+                description: "指定した賭け金でトリビアを開始します",
                 hideCooldowns: true
             }
         ]

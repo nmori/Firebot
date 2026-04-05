@@ -15,7 +15,7 @@ triggers["manual"] = true;
 export const InputSettingsVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputSettings",
-        description: "Returns the raw OBS settings object of the OBS input.",
+        description: "OBS 入力の生の設定オブジェクトを返します。",
         possibleDataOutput: ["object"],
         categories: ["advanced", "integrations", "obs"]
     },

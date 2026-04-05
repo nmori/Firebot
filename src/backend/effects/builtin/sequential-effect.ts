@@ -8,8 +8,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:sequentialeffect",
-        name: "Run Sequential Effect",
-        description: "Run a single effect sequentially from a list of effects",
+        name: "順次エフェクト実行",
+        description: "エフェクトリストから1つずつ順番に実行します",
         icon: "fad fa-list-ol",
         categories: ["advanced", "scripting"],
         dependencies: []

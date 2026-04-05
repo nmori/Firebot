@@ -3,9 +3,9 @@ import * as heistCommand from "./heist-command";
 
 const game: FirebotGame = {
     id: "firebot-heist",
-    name: "Heist",
-    subtitle: "Score big as a team",
-    description: "This game allows viewers to wager their currency by participating in a heist. If they succeed, they will get a payout based on their initial wager. Feel free to edit all of the messages to completely change the theme!",
+    name: "強盗",
+    subtitle: "チームで一攫千金を狙う",
+    description: "視聴者が通貨を賭けて強盗に参加するゲームです。成功すると賭け金に応じた報酬を獲得できます。メッセージ文面は自由に変更できます。",
     icon: "fa-sack-dollar",
     settingCategories: {
         currencySettings: {

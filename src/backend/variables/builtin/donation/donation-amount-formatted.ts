@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "donationAmountFormatted",
-        description: "The amount (w/currency symbol) of a donation",
+        description: "寄付金額（通貨記号付き）",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["text"]

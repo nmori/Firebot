@@ -3,8 +3,8 @@
 const model = {
     definition: {
         id: "firebot:cooldown-command",
-        name: "Cooldown Command",
-        description: "Manually add or remove a cooldown for a command",
+        name: "コマンドクールダウン管理",
+        description: "コマンドのクールダウンを手動で追加または削除します",
         icon: "fad fa-hourglass-half",
         categories: ["common", "advanced", "scripting", "firebot control"],
         dependencies: []

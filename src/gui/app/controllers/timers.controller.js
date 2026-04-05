@@ -68,31 +68,31 @@
             $scope.timerOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             timerService.showAddEditTimerModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "Disable Timer" : "Enable Timer"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "タイマーを無効化" : "タイマーを有効化"}</a>`,
                         click: function () {
                             timerService.toggleTimerActiveState(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             timerService.duplicateTimer(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Timer",
-                                    question: `Are you sure you want to delete the Timer "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "タイマーを削除",
+                                    question: `タイマー "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {
@@ -147,31 +147,31 @@
             $scope.scheduledTaskOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             scheduledTaskService.showAddEditScheduledTaskModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.enabled ? "Disable Scheduled Effect List" : "Enable Scheduled Effect List"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.enabled ? "スケジュール済みエフェクトリストを無効化" : "スケジュール済みエフェクトリストを有効化"}</a>`,
                         click: function () {
                             scheduledTaskService.toggleScheduledTaskEnabledState(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             scheduledTaskService.duplicateScheduledTask(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Scheduled Effect List",
-                                    question: `Are you sure you want to delete the Scheduled Effect List "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "スケジュール済みエフェクトリストを削除",
+                                    question: `スケジュール済みエフェクトリスト "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {

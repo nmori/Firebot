@@ -29,25 +29,25 @@
             $scope.macroContextMenuOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             variableMacroService.showAddOrEditVariableMacroModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             variableMacroService.duplicateMacro(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Variable Macro",
-                                    question: `Are you sure you want to delete the Variable Macro "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "変数マクロを削除",
+                                    question: `変数マクロ "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {

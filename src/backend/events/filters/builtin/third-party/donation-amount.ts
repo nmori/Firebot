@@ -2,8 +2,8 @@ import { createNumberFilter } from "../../filter-factory";
 
 const filter = createNumberFilter({
     id: "firebot:donation-amount",
-    name: "Donation Amount",
-    description: "Filter by the amount of donation",
+    name: "寄付金額",
+    description: "寄付金額で絞り込みます",
     eventMetaKey: "donationAmount",
     events: [
         { eventSourceId: "streamlabs", eventId: "donation" },

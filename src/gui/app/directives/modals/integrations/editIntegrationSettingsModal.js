@@ -4,9 +4,9 @@
     angular.module("firebotApp").component("editIntegrationUserSettingsModal", {
         template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">
-                    <div style="font-size: 22px;">Configure Integration:</div>
+                    <div style="font-size: 22px;">連携を設定:</div>
                     <div style="font-weight:bold;font-size: 24px;">{{$ctrl.integration.name}}</div>
                 </h4>
             </div>
@@ -24,8 +24,8 @@
             </div>
             <div class="modal-footer sticky-footer edit-integration-footer" style="margin-top:15px">
                 <!--<button ng-show="$ctrl.integration != null" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.resetToDefaults()">Reset to default</button>-->
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button ng-show="$ctrl.integration != null" type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button ng-show="$ctrl.integration != null" type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             <scroll-sentinel element-class="edit-integration-footer"></scroll-sentinel>
             `,
@@ -64,9 +64,9 @@
             $ctrl.resetToDefaults = () => {
                 utilityService
                     .showConfirmationModal({
-                        title: `Reset To Defaults`,
-                        question: `Are you sure you want reset ${$ctrl.integration.name} to default settings?`,
-                        confirmLabel: "Reset",
+                        title: "デフォルトに戻す",
+                        question: `${$ctrl.integration.name} をデフォルト設定に戻しますか？`,
+                        confirmLabel: "リセット",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {

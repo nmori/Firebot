@@ -3,9 +3,9 @@ import spinCommand from "./spin-command";
 
 const game: FirebotGame = {
     id: "firebot-slots",
-    name: "Slots",
-    subtitle: "Spin to win",
-    description: "This game allows viewers to wager their currency at a Slot Machine. All they need to do is type '!spin [wagerAmount]' in chat to pull the lever! When the lever is pulled, three reels are spun, each of which can HIT or MISS. The number of HITs determines the winnings!",
+    name: "スロット",
+    subtitle: "回して勝利を狙う",
+    description: "視聴者が通貨を賭けてスロットを回すゲームです。!spin [賭け金] を入力してレバーを引き、3リールのHIT数に応じて配当が決まります。",
     icon: "fa-dice-three",
     settingCategories: {
         currencySettings: {

@@ -8,8 +8,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:eval-js",
-        name: "Evaluate JavaScript",
-        description: "Evaluate a JavaScript expression",
+        name: "JavaScript評価",
+        description: "JavaScript 式を評価します",
         icon: "fab fa-js",
         categories: ["advanced", "scripting"],
         dependencies: [],

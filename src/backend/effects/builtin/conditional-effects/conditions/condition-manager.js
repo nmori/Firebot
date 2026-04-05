@@ -5,6 +5,7 @@ const { ReplaceVariableManager } = require("../../../../variables/replace-variab
 const frontendCommunicator = require("../../../../common/frontend-communicator");
 const logger = require("../../../../logwrapper");
 const { simpleClone } = require("../../../../utils");
+const { LegacyComparisonTypeMap } = require("../../../../../shared/filter-constants");
 
 class ConditionManager extends EventEmitter {
     constructor() {
@@ -51,6 +52,7 @@ class ConditionManager extends EventEmitter {
                     try {
                         condition.rawLeftSideValue = condition.leftSideValue;
                         condition.rawRightSideValue = condition.rightSideValue;
+                        condition.comparisonType = LegacyComparisonTypeMap[condition.comparisonType] ?? condition.comparisonType;
 
                         if (conditionType.leftSideValueType === 'text') {
                             try {
@@ -98,7 +100,7 @@ class ConditionManager extends EventEmitter {
 const manager = new ConditionManager();
 
 frontendCommunicator.on("getConditionTypes", (trigger) => {
-    logger.info("got 'getConditionTypes' request");
+    logger.info("'getConditionTypes' リクエストを受信");
 
     let conditionTypes = manager.getAllConditionTypes();
     if (trigger != null) {
@@ -131,8 +133,8 @@ frontendCommunicator.on("getConditionTypes", (trigger) => {
             comparisonTypes: c.comparisonTypes,
             rightSideValueType: c.rightSideValueType,
             leftSideValueType: c.leftSideValueType ? c.leftSideValueType : "none",
-            leftSideTextPlaceholder: c.leftSideTextPlaceholder || "Enter value",
-            rightSideTextPlaceholder: c.rightSideTextPlaceholder || "Enter value",
+            leftSideTextPlaceholder: c.leftSideTextPlaceholder || "値を入れてください",
+            rightSideTextPlaceholder: c.rightSideTextPlaceholder || "値を入れてください",
             getRightSidePresetValues: c.getRightSidePresetValues ? c.getRightSidePresetValues.toString() : "() => {}",
             getLeftSidePresetValues: c.getLeftSidePresetValues ? c.getLeftSidePresetValues.toString() : "() => {}",
             getRightSideValueDisplay: c.getRightSideValueDisplay ? c.getRightSideValueDisplay.toString() : "condition => condition.rightSideValue",

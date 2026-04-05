@@ -21,8 +21,8 @@ const getStateForCounter = (counterId?: string): State => {
 
 export const counterDisplay: OverlayWidgetType<Settings, State> = {
     id: "firebot:counter-display",
-    name: "Counter Display",
-    description: "A display for a given Counter",
+    name: "カウンター表示",
+    description: "指定したカウンターを表示します。",
     icon: "fa-hashtag",
     settingsSchema: [
         {

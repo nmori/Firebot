@@ -7,8 +7,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:streamtitle",
-        name: "Set Stream Title",
-        description: "Set the title of the stream.",
+        name: "配信タイトル設定",
+        description: "配信タイトルを設定します。",
         icon: "fad fa-comment-dots",
         categories: ["common", "twitch"],
         dependencies: {

@@ -40,8 +40,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:run-program",
-        name: "Run Program",
-        description: "Run a program or executable",
+        name: "プログラム実行",
+        description: "プログラムまたは実行ファイルを実行します",
         icon: "fad fa-terminal",
         categories: ["advanced", "scripting"],
         dependencies: [],

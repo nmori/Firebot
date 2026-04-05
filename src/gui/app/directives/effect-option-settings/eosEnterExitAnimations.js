@@ -11,13 +11,13 @@
                 padTop: "<"
             },
             template: `
-            <eos-container header="{{$ctrl.limitTo ? $ctrl.limitTo + ' Animation' : 'Animations'}}" pad-top="$ctrl.padTop">
+            <eos-container header="{{$ctrl.limitTo ? $ctrl.limitTo + ' アニメーション' : 'アニメーション'}}" pad-top="$ctrl.padTop">
                 <div class="input-group" style="width: 100%" ng-hide="$ctrl.limitTo == 'Exit'">
-                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">ENTER</div>
+                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">開始</div>
                     <select class="fb-select" ng-model="$ctrl.selected.enter" ng-change="$ctrl.enterUpdate()" ng-options="enter.name group by enter.category for enter in $ctrl.animations.enter"></select>
                     <div ng-hide="$ctrl.effect.enterAnimation === 'none'">
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 15px 25px; align-items: center;">
-                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Custom Duration
+                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> 任意の継続時間
                                 <input type="checkbox" ng-init="customEnterDur = ($ctrl.effect.enterDuration != null && $ctrl.effect.enterDuration !== '')" ng-model="customEnterDur" ng-click="$ctrl.toggleEnterDurationStatus()">
                                 <div class="control__indicator"></div>
                             </label>
@@ -27,7 +27,7 @@
                                         <input type="number" class="form-control" ng-model="$ctrl.selected.enterDurationValue" ng-change="$ctrl.enterDurationUpdated()" style="width: 70px;">
                                     </div>
                                     <div class="form-group">
-                                        <dropdown-select options="{s: 'seconds', ms: 'milliseconds'}" selected="$ctrl.selected.enterDurationType" on-update="$ctrl.enterDurationUpdated(option)"></dropdown-select>
+                                        <dropdown-select options="{s: '秒', ms: 'ミリ秒'}" selected="$ctrl.selected.enterDurationType" on-update="$ctrl.enterDurationUpdated(option)"></dropdown-select>
                                     </div>
                                 </form>
                             </div>
@@ -36,24 +36,24 @@
                 </div>
 
                 <div class="input-group" style="width: 100%" ng-hide="$ctrl.limitTo == 'Exit'">
-                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">INBETWEEN</div>
+                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">間隔</div>
                     <select class="fb-select" ng-model="$ctrl.selected.inbetween" ng-change="$ctrl.inbetweenUpdate()" ng-options="inbetween.name for inbetween in $ctrl.animations.inbetween"></select>
                     <div ng-hide="$ctrl.effect.inbetweenAnimation === 'none'">
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 0 25px; align-items: center;">
-                            <span style="margin-right: 5px;width: 85px;">Delay for <tooltip text="'How long to delay after the Enter Animation before running the Inbetween Animation'"></tooltip></span>
+                            <span style="margin-right: 5px;width: 85px;">遅延時間 <tooltip text="'開始アニメーション後、中間アニメーションを実行するまでの待機時間'"></tooltip></span>
                             <div>
                                 <form class="form-inline">
                                     <div class="form-group">
                                         <input type="number" class="form-control" ng-model="$ctrl.selected.inbetweenDelayValue" ng-change="$ctrl.inbetweenDelayUpdated()" style="width: 70px;">
                                     </div>
                                     <div class="form-group">
-                                        <dropdown-select options="{s: 'seconds', ms: 'milliseconds'}" selected="$ctrl.selected.inbetweenDelayType" on-update="$ctrl.inbetweenDelayUpdated(option)"></dropdown-select>
+                                        <dropdown-select options="{s: '秒', ms: 'ミリ秒'}" selected="$ctrl.selected.inbetweenDelayType" on-update="$ctrl.inbetweenDelayUpdated(option)"></dropdown-select>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 0 25px; align-items: center;">
-                            <span style="margin-right: 5px;width: 85px;">Repeat <tooltip text="'How many times to repeat. Will get cut short if the total duration is reached and exit animation starts.'"></tooltip></span>
+                            <span style="margin-right: 5px;width: 85px;">繰り返し回数 <tooltip text="'繰り返し回数を指定します。合計継続時間に達して終了アニメーションが始まると短縮されます。'"></tooltip></span>
                             <div>
                                 <form class="form-inline">
                                     <div class="form-group">
@@ -65,7 +65,7 @@
                     </div>
                     <div ng-hide="$ctrl.effect.inbetweenAnimation === 'none'">
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 15px 25px; align-items: center;">
-                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Custom Duration
+                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> 任意の継続時間
                                 <input type="checkbox" ng-init="customInbetweenDur = ($ctrl.effect.inbetweenDuration != null && $ctrl.effect.inbetweenDuration !== '')" ng-model="customInbetweenDur" ng-click="$ctrl.toggleInbetweenDurationStatus()">
                                 <div class="control__indicator"></div>
                             </label>
@@ -75,7 +75,7 @@
                                         <input type="number" class="form-control" ng-model="$ctrl.selected.inbetweenDurationValue" ng-change="$ctrl.inbetweenDurationUpdated()" style="width: 70px;">
                                     </div>
                                     <div class="form-group">
-                                        <dropdown-select options="{s: 'seconds', ms: 'milliseconds'}" selected="$ctrl.selected.inbetweenDurationType" on-update="$ctrl.inbetweenDurationUpdated(option)"></dropdown-select>
+                                        <dropdown-select options="{s: '秒', ms: 'ミリ秒'}" selected="$ctrl.selected.inbetweenDurationType" on-update="$ctrl.inbetweenDurationUpdated(option)"></dropdown-select>
                                     </div>
                                 </form>
                             </div>
@@ -84,11 +84,11 @@
                 </div>
 
                 <div class="input-group" style="width: 100%" ng-hide="$ctrl.limitTo == 'Enter'">
-                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">EXIT</div>
+                    <div class="fb-control-detail" ng-hide="$ctrl.limitTo != null">終了</div>
                     <select class="fb-select" ng-model="$ctrl.selected.exit" ng-change="$ctrl.exitUpdate()" ng-options="exit.name group by exit.category for exit in $ctrl.animations.exit"></select>
                     <div ng-hide="$ctrl.effect.exitAnimation === 'none'">
                         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 15px 25px; align-items: center;">
-                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Custom Duration
+                            <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> 任意の継続時間
                                 <input type="checkbox" ng-init="customExitDur = ($ctrl.effect.exitDuration != null && $ctrl.effect.exitDuration !== '')" ng-model="customExitDur" ng-click="$ctrl.toggleExitDurationStatus()">
                                 <div class="control__indicator"></div>
                             </label>
@@ -98,7 +98,7 @@
                                         <input type="number" class="form-control" ng-model="$ctrl.selected.exitDurationValue" ng-change="$ctrl.exitDurationUpdated()" style="width: 70px;">
                                     </div>
                                     <div class="form-group">
-                                        <dropdown-select options="{s: 'seconds', ms: 'milliseconds'}" selected="$ctrl.selected.exitDurationType" on-update="$ctrl.exitDurationUpdated(option)"></dropdown-select>
+                                        <dropdown-select options="{s: '秒', ms: 'ミリ秒'}" selected="$ctrl.selected.exitDurationType" on-update="$ctrl.exitDurationUpdated(option)"></dropdown-select>
                                     </div>
                                 </form>
                             </div>

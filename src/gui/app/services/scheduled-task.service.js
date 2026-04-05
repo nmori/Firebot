@@ -142,7 +142,7 @@
                         content: 'Successfully duplicated scheduled effect list!'
                     });
                 } else {
-                    ngToast.create("Unable to duplicate scheduled effect list.");
+                    ngToast.create("スケジュール済みエフェクトリストの複製に失敗しました。");
                 }
             };
 

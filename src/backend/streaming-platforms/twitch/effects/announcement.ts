@@ -9,8 +9,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:announcement",
-        name: "Announce",
-        description: "Send an announcement to your chat",
+        name: "アナウンス送信",
+        description: "チャットにアナウンスを送信します",
         icon: "fad fa-bullhorn",
         categories: ["common", "chat based", "twitch"],
         dependencies: {

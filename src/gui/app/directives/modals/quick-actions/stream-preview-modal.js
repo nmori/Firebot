@@ -6,7 +6,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Modal Title</h4>
+                    <h4 class="modal-title">配信プレビュー</h4>
                 </div>
                 <div class="modal-body">
                     <iframe
@@ -17,7 +17,7 @@
                     </iframe>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.close()">Close</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.close()">閉じる</button>
                 </div>
             `,
             bindings: {

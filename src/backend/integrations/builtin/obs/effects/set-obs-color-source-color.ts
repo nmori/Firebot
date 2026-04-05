@@ -9,8 +9,8 @@ export const SetOBSColorSourceColorEffectType: EffectType<{
 }> = {
     definition: {
         id: "firebot:obs-set-color-source-color",
-        name: "Set OBS Color Source Color",
-        description: "Sets the color in an OBS color source",
+        name: "OBSカラーソース色設定",
+        description: "OBS カラーソースの色を設定します",
         icon: "fad fa-palette",
         categories: ["common", "integrations"]
     },

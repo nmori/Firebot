@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model: ReplaceVariable = {
     definition: {
         handle: "whisperRecipient",
-        description: "The account type (either 'streamer' or 'bot') that received the whisper.",
+        description: "ウィスパーを受信したアカウント種別（streamer または bot）です。",
         triggers: triggers,
         categories: ["trigger based", "common"],
         possibleDataOutput: ["text"]

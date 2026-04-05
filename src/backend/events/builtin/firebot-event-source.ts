@@ -3,24 +3,24 @@ import { EventSource } from "../../../types/events";
 export const FirebotEventSource: EventSource = {
     id: "firebot",
     name: "Firebot",
-    description: "Various events that can happen within Firebot.",
+    description: "Firebot 内で発生するさまざまなイベントです。",
     events: [
         {
             id: "chat-connected",
-            name: "Twitch Connected",
-            description: "When Firebot connects to Twitch.",
+            name: "Twitch 接続",
+            description: "Firebot が Twitch に接続したとき。",
             cached: false,
             activityFeed: {
                 icon: "fad fa-plug",
                 getMessage: () => {
-                    return `Connected to Twitch`;
+                    return `Twitch に接続しました`;
                 }
             }
         },
         {
             id: "overlay-connected",
-            name: "Overlay Connected",
-            description: "When a Firebot overlay is connected.",
+            name: "オーバーレイ接続",
+            description: "Firebot オーバーレイが接続されたとき。",
             cached: false,
             manualMetadata: {
                 instanceName: "Default"
@@ -28,14 +28,14 @@ export const FirebotEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-tv-alt",
                 getMessage: (eventData) => {
-                    return `**${eventData.instanceName}** overlay connected`;
+                    return `**${eventData.instanceName}** オーバーレイが接続されました`;
                 }
             }
         },
         {
             id: "view-time-update",
-            name: "View Time Update",
-            description: "When a viewer's view time updates automatically.",
+            name: "視聴時間更新",
+            description: "視聴者の視聴時間が自動更新されたとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -45,8 +45,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "currency-update",
-            name: "Currency Update",
-            description: "When a viewer's currency changes.",
+            name: "通貨更新",
+            description: "視聴者の通貨が変化したとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -57,8 +57,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "viewer-created",
-            name: "Viewer Created",
-            description: "When a viewer is first saved in the Viewer Database",
+            name: "視聴者作成",
+            description: "視聴者が Viewer Database に初めて保存されたとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot"
@@ -66,26 +66,26 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "firebot-started",
-            name: "Firebot Started",
-            description: "When Firebot has started running.",
+            name: "Firebot 起動",
+            description: "Firebot が起動したとき。",
             cached: false
         },
         {
             id: "custom-variable-expired",
-            name: "Custom Variable Expired",
-            description: "When a custom variable expires",
+            name: "カスタム変数期限切れ",
+            description: "カスタム変数の期限が切れたとき。",
             cached: false
         },
         {
             id: "custom-variable-set",
-            name: "Custom Variable Created",
-            description: "When a custom variable gets created",
+            name: "カスタム変数作成",
+            description: "カスタム変数が作成されたとき。",
             cached: false
         },
         {
             id: "highlight-message",
-            name: "Chat Message Spotlighted",
-            description: "When you spotlight a message via the Firebot chat feed. You can use this to display it on the overlay, for example.",
+            name: "チャットメッセージ強調表示",
+            description: "Firebot のチャットフィードでメッセージを強調表示したとき。たとえばオーバーレイ表示に利用できます。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -94,8 +94,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "category-changed",
-            name: "Category Changed",
-            description: "When you change the stream category in the Firebot Dashboard.",
+            name: "カテゴリ変更",
+            description: "Firebot ダッシュボードで配信カテゴリを変更したとき。",
             cached: false,
             manualMetadata: {
                 category: "Just Chatting"
@@ -103,8 +103,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "effect-queue-cleared",
-            name: "Effect Queue Cleared",
-            description: "When an effect queue finishes running and is cleared.",
+            name: "エフェクトキュー消去",
+            description: "エフェクトキューの実行が完了してクリアされたとき。",
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting"
@@ -112,8 +112,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "effect-queue-added",
-            name: "Effect Queue Added",
-            description: "When an new entry added to effect queue.",
+            name: "エフェクトキュー追加",
+            description: "エフェクトキューに新しいエントリが追加されたとき。",
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting"
@@ -121,8 +121,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "effect-queue-status",
-            name: "Effect Queue Status",
-            description: "When an effect queue status changes.",
+            name: "エフェクトキュー状態変更",
+            description: "エフェクトキューの状態が変更されたとき。",
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting",
@@ -131,14 +131,14 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "before-firebot-closed",
-            name: "Before Firebot Closed",
-            description: "Just before firebot is closed",
+            name: "Firebot 終了直前",
+            description: "Firebot が終了する直前。",
             cached: false
         },
         {
             id: "viewer-rank-updated",
-            name: "Viewer Rank Updated",
-            description: "When a viewer's rank is updated within a rank ladder.",
+            name: "視聴者ランク更新",
+            description: "ランクラダー内で視聴者のランクが更新されたとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -151,8 +151,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "viewer-metadata-updated",
-            name: "Viewer Metadata Updated",
-            description: "When a viewer's metadata value is updated.",
+            name: "視聴者メタデータ更新",
+            description: "視聴者のメタデータ値が更新されたとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -162,8 +162,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "webhook-received",
-            name: "Webhook Received",
-            description: "When a proxied webhook is received. You can setup webhooks in the Advanced tab of Settings.",
+            name: "Webhook 受信",
+            description: "プロキシされた Webhook を受信したとき。Webhook は設定の詳細タブでセットアップできます。",
             cached: false,
             manualMetadata: {
                 webhookId: "testWebhookId",
@@ -176,8 +176,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "dynamic-countdown-finished",
-            name: "Countdown (Dynamic) Finished",
-            description: "When a dynamic countdown reaches zero.",
+            name: "カウントダウン（動的）終了",
+            description: "動的カウントダウンが 0 に達したとき。",
             cached: false,
             manualMetadata: {
                 dynamicCountdownWidgetId: "testCountdownId",
@@ -186,8 +186,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "custom-widget-message-received",
-            name: "Custom Overlay Widget Message Received",
-            description: "When a message is received from a custom overlay widget.",
+            name: "カスタムオーバーレイウィジェットメッセージ受信",
+            description: "カスタムオーバーレイウィジェットからメッセージを受信したとき。",
             cached: false,
             manualMetadata: {
                 customWidgetId: "testCountdownId",

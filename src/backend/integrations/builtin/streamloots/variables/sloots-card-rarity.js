@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "slootsCardRarity",
-        description: "The rarity of a StreamLoots Card.",
+        description: "StreamLoots カードのレアリティです。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.INTEGRATION],
         possibleDataOutput: [OutputDataType.TEXT]

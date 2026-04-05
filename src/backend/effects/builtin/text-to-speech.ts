@@ -14,8 +14,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:text-to-speech",
-        name: "Text-To-Speech",
-        description: "Have Firebot read some text out loud with TTS.",
+        name: "テキスト読み上げ",
+        description: "Firebot に TTS でテキストを読み上げさせます。",
         icon: "fad fa-microphone-alt",
         categories: ["fun"],
         dependencies: []

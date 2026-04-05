@@ -118,7 +118,7 @@ const playSound = {
     definition: {
         id: "aws:polly",
         name: "Text-To-Speech (Amazon Polly)",
-        description: "Have Firebot read out some text using Amazon Polly.",
+        description: "Amazon Polly を使用して Firebot にテキストを読み上げさせます。",
         icon: "fad fa-microphone-alt",
         categories: ["integrations"],
         dependencies: []

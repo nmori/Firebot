@@ -8,15 +8,15 @@ const DEFAULT_COLOR = "#ffffff";
 const model : ReplaceVariable = {
     definition: {
         handle: "chatUserColor",
-        description: "Outputs the chatters display color from a command or event.",
+        description: "コマンドまたはイベントに関連するチャットユーザーの表示色を出力します。",
         examples: [
             {
                 usage: "chatUserColor[$target]",
-                description: "When in a command, gets the users color for the target user."
+                description: "コマンド実行時に、ターゲットユーザーの色を取得します。"
             },
             {
                 usage: "chatUserColor[$user]",
-                description: "Gets the color for associated user (Ie who triggered command, pressed button, etc)."
+                description: "関連ユーザー（コマンド実行者、ボタン押下者など）の色を取得します。"
             }
         ],
         categories: ["common", "user based"],

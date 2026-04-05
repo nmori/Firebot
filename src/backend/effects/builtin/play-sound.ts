@@ -23,8 +23,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:playsound",
-        name: "Play Sound",
-        description: "Plays a sound effect",
+        name: "サウンド再生",
+        description: "サウンドエフェクトを再生します",
         icon: "fad fa-waveform",
         categories: ["common", "fun", "overlay"],
         dependencies: []

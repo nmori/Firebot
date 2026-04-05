@@ -16,8 +16,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:stop-effect-execution",
-        name: "Stop Effect Execution",
-        description: "Stop the execution of the current effect list.",
+        name: "エフェクト実行停止",
+        description: "現在のエフェクトリストの実行を停止します。",
         icon: "fad fa-stop-circle",
         categories: ["scripting", "firebot control"],
         dependencies: []

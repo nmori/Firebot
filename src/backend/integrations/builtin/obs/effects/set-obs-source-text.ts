@@ -9,8 +9,8 @@ export const SetOBSSourceTextEffectType: EffectType<{
 }> = {
     definition: {
         id: "firebot:obs-set-source-text",
-        name: "Set OBS Source Text",
-        description: "Sets the text in an OBS text source",
+        name: "OBSソーステキスト設定",
+        description: "OBS テキストソースの文字列を設定します",
         icon: "fad fa-font-case",
         categories: ["common", "integrations"]
     },

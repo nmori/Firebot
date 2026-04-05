@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputAudioMonitorTypeVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputMonitorType",
-        description: "Returns the audio monitor type of the OBS input. Values are `None`, `Monitor Only`, or `Monitor and Output`.",
+        description: "OBS 入力のオーディオモニター種別を返します。値は `None`（なし）、`Monitor Only`（モニターのみ）、`Monitor and Output`（モニターと出力）です。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"]
     },

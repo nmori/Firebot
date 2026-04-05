@@ -171,7 +171,7 @@
                         content: 'Successfully duplicated overlay widget!'
                     });
                 } else {
-                    ngToast.create("Unable to duplicate overlay widget.");
+                    ngToast.create("オーバーレイウィジェットの複製に失敗しました。");
                 }
             };
 

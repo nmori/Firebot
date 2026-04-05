@@ -28,8 +28,8 @@ type Controller = {
         template: `
             <effect-config-panel
                 icon="fa-running"
-                label="Run Mode"
-                tooltip="Determines how effects in this list are run when triggered."
+                label="実行モード"
+                tooltip="このリスト内のエフェクトを、トリガー時にどのように実行するかを決定します。"
                 main-value="$ctrl.mainValue"
                 preview-items="$ctrl.previewItems"
                 disabled="$ctrl.disabled"
@@ -39,8 +39,8 @@ type Controller = {
                         ng-model="$ctrl.effectsData.runMode"
                         ng-change="$ctrl.onUpdate()"
                         options="$ctrl.options"
-                        placeholder="Select run mode"
-                        empty-message="No run modes available"
+                        placeholder="実行モードを選択"
+                        empty-message="利用可能な実行モードがありません"
                         option-toggling="false"
                         dark="true"
                     />
@@ -49,8 +49,8 @@ type Controller = {
                 <div class="config-panel-control" ng-if="$ctrl.effectsData.runMode === 'random'">
                     <div class="config-control-label">
                         <i class="far fa-weight-hanging"></i>
-                        <span>Weighted Chances</span>
-                        <tooltip text="'If enabled, effects will be chosen based on their assigned weights. If disabled, effects will be chosen randomly with equal chance.'"></tooltip>
+                        <span>重み付き確率</span>
+                        <tooltip text="'有効時は各エフェクトの重みに基づいて選択されます。無効時は同確率でランダムに選択されます。'"></tooltip>
                     </div>
                     <div>
                         <toggle-button
@@ -65,8 +65,8 @@ type Controller = {
                 <div class="config-panel-control" ng-if="$ctrl.effectsData.runMode === 'random' && !$ctrl.effectsData.weighted">
                     <div class="config-control-label">
                         <i class="far fa-ban"></i>
-                        <span>Don't Repeat</span>
-                        <tooltip text="'If enabled, effects will not repeat until all effects have been used once.'"></tooltip>
+                        <span>重複しない</span>
+                        <tooltip text="'有効時は、すべてのエフェクトが1回ずつ使われるまで重複しません。'"></tooltip>
                     </div>
                     <div>
                         <toggle-button
@@ -86,22 +86,22 @@ type Controller = {
 
             $ctrl.options = [
                 {
-                    name: "Sequential (All)",
+                    name: "順番実行（すべて）",
                     value: "all",
                     icon: "fa-sort-numeric-down",
-                    tooltip: "Runs all effects in order from top to bottom when triggered."
+                    tooltip: "トリガー時に上から順にすべてのエフェクトを実行します。"
                 },
                 {
-                    name: "Sequential (Single)",
+                    name: "順番実行（単体）",
                     value: "sequential",
                     icon: "fa-repeat-1",
-                    tooltip: "Runs the single next effect in the list each time this triggers. Once all effects have been used, it will start over from the beginning."
+                    tooltip: "トリガーごとに次の1件だけを実行します。すべて実行すると先頭から繰り返します。"
                 },
                 {
-                    name: "Random (Single)",
+                    name: "ランダム実行（単体）",
                     value: "random",
                     icon: "fa-random",
-                    tooltip: "Runs a single random effect from the list each time this triggers."
+                    tooltip: "トリガーごとにリストからランダムで1件を実行します。"
                 }
             ];
 
@@ -122,14 +122,14 @@ type Controller = {
                     if ($ctrl.effectsData?.weighted) {
                         items.push({
                             icon: "fa-weight-hanging",
-                            label: "Weighted",
-                            tooltip: "Using Weighted Chances"
+                            label: "重み付き",
+                            tooltip: "重み付き確率を使用"
                         });
                     } else if ($ctrl.effectsData?.dontRepeatUntilAllUsed) {
                         items.push({
                             icon: "fa-ban",
-                            label: "No Repeats",
-                            tooltip: "Won't repeat effects until all have been used once"
+                            label: "重複なし",
+                            tooltip: "全件実行まで重複しません"
                         });
                     }
                 }

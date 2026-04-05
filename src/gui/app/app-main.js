@@ -81,6 +81,8 @@
                     suffix: ".json"
                 })
                 .preferredLanguage("en");
+            $translateProvider.preferredLanguage("ja");
+            $translateProvider.fallbackLanguage("en");
         }
     ]);
 
@@ -331,7 +333,7 @@
                     // Login Kickoff
                     $scope.createNewProfile = function() {
                         if ($scope.profileName == null || $scope.profileName === "") {
-                            ngToast.create("Please provide a profile name.");
+                            ngToast.create("プロファイル名を入力してください。");
                             return;
                         }
                         $uibModalInstance.close();
@@ -365,7 +367,7 @@
                     // Login Kickoff
                     $scope.renameProfile = function() {
                         if ($scope.profileName == null || $scope.profileName === "") {
-                            ngToast.create("Please provide a profile name.");
+                            ngToast.create("プロファイル名を入力してください。");
                             return;
                         }
                         $uibModalInstance.close();
@@ -412,9 +414,9 @@
             if (profileId !== $scope.currentProfileId) {
                 utilityService
                     .showConfirmationModal({
-                        title: "Switch Profile",
-                        question: "Switching profiles will cause the app to restart. Do you still want to switch profiles?",
-                        confirmLabel: "Switch & Restart App",
+                        title: "プロファイルを切り替え",
+                        question: "プロファイルを切り替えるとアプリが再起動します。切り替えますか？",
+                        confirmLabel: "切り替えて再起動",
                         confirmBtnType: "btn-info"
                     })
                     .then((confirmed) => {
@@ -497,9 +499,9 @@
                     if (backupFilePath != null) {
                         utilityService
                             .showConfirmationModal({
-                                title: "Restore From Backup",
-                                question: "Are you sure you'd like to restore from this backup?",
-                                confirmLabel: "Restore"
+                                title: "バックアップから復元",
+                                question: "このバックアップから復元してもよろしいですか？",
+                                confirmLabel: "復元"
                             })
                             .then((confirmed) => {
                                 if (confirmed) {
@@ -518,7 +520,7 @@
         });*/
 
         if (settingsService.getSetting("BackupLocationReset") === true) {
-            modalFactory.showInfoModal("Your previous backup location could not be found. Backup location has been reset to default. You can change it in Settings > Backups.");
+            modalFactory.showInfoModal("以前のバックアップ保存先が見つかりませんでした。保存先はデフォルトにリセットされました。設定 > バックアップ から変更できます。");
             settingsService.deleteSetting("BackupLocationReset");
         }
     });

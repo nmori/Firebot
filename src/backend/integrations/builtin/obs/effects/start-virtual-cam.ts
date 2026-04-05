@@ -4,8 +4,8 @@ import { startVirtualCam } from "../obs-remote";
 export const StartVirtualCamEffectType: EffectType = {
     definition: {
         id: "ebiggz:obs-start-virtual-cam",
-        name: "OBS Start Virtual Camera",
-        description: "Tell OBS to start the virtual camera",
+        name: "OBS仮想カメラ開始",
+        description: "OBS に仮想カメラ開始を実行させます",
         icon: "fad fa-camera-home",
         categories: ["common", "integrations"]
     },

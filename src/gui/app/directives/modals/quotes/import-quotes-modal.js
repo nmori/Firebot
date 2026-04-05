@@ -6,27 +6,27 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Import Quotes</h4>
+                    <h4 class="modal-title">引用をインポート</h4>
                 </div>
                 <div class="modal-body pb-0">
                     <div ng-hide="$ctrl.quotes">
-                        <h4>Import from</h5>
+                        <h4>インポート元</h5>
                         <div class="muted mb-12">
-                            <p class="mb-2">Currently quotes from Streamlabs Chatbot (desktop bot), Mix It Up and Firebot can be imported.</p>
-                            <p>CSV files can also be imported, so long as the values are in the following order (and the first line is a header line):</p>
+                            <p class="mb-2">現在は Streamlabs Chatbot（デスクトップBot）、Mix It Up、Firebot の引用をインポートできます。</p>
+                            <p>CSV も、以下の順序（1行目はヘッダー）であればインポートできます:</p>
                             <p class="font-bold">
                                 ID,
-                                Quote,
-                                Originator <tooltip text="'The user who was quoted.'"></tooltip>,
-                                Creator <tooltip text="'The user who added the quote.'"></tooltip>,
-                                Game/Category,
-                                Creation Date <tooltip text="'In ISO format (i.e. 2025-01-30)'"></tooltip>
+                                引用文,
+                                発言者 <tooltip text="'引用されたユーザー。'"></tooltip>,
+                                作成者 <tooltip text="'引用を追加したユーザー。'"></tooltip>,
+                                ゲーム/カテゴリ,
+                                作成日 <tooltip text="'ISO 形式（例: 2025-01-30）。'"></tooltip>
                             </p>
                         </div>
 
-                        <h4>Choose file</h4>
-                        <p class="muted mb-2">To get the export file in Streamlabs Chatbot, go to Connections -> Cloud -> Create Split Excel and find the file called Quotes.xlsx.</p>
-                        <p class="muted mb-8">To get the export file in Mix It Up, go to Quotes -> Export Quotes and find the file called Quotes.txt.</p>
+                        <h4>ファイルを選択</h4>
+                        <p class="muted mb-2">Streamlabs Chatbot では、Connections -> Cloud -> Create Split Excel から Quotes.xlsx を取得してください。</p>
+                        <p class="muted mb-8">Mix It Up では、Quotes -> Export Quotes から Quotes.txt を取得してください。</p>
                         <file-chooser
                             model="$ctrl.importFilePath"
                             on-update="$ctrl.onFileSelected(filepath)"
@@ -34,13 +34,13 @@
                             hide-manual-edit="true"
                         >
                         </file-chooser>
-                        <p ng-if="$ctrl.fileError" style="color: #f96f6f;" class="mt-4">Cannot read this file. Please follow the instructions above.</p>
+                        <p ng-if="$ctrl.fileError" style="color: #f96f6f;" class="mt-4">このファイルを読み取れません。上記の手順を確認してください。</p>
                     </div>
                     <div ng-show="$ctrl.quotes">
                         <div style="margin: 0 0 25px;display: flex;flex-direction: row;justify-content: space-between;align-items: flex-end;">
-                            <div>Found {{$ctrl.quotes.length}} quotes to import.</div>
+                            <div>インポート対象の引用は {{$ctrl.quotes.length}} 件です。</div>
                             <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                                <searchbar placeholder-text="Search quotes..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
+                                <searchbar placeholder-text="引用を検索..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
                             </div>
                         </div>
                         <sortable-table
@@ -50,15 +50,15 @@
                             clickable="false"
                             track-by-field="_id"
                             starting-sort-field="_id"
-                            no-data-message="No quotes found"
+                            no-data-message="引用が見つかりません"
                         >
                         </sortable-table>
                     </div>
                 </div>
                 <div class="modal-footer pt-0">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
                     <button ng-show="$ctrl.quotes" ng-click="$ctrl.importQuotes()" class="btn btn-primary" ng-disabled="$ctrl.importing">
-                        {{$ctrl.importing ? 'Importing...' : 'Import'}}
+                        {{$ctrl.importing ? 'インポート中...' : 'インポート'}}
                     </button>
                 </div>
             `,
@@ -82,13 +82,13 @@
                         cellTemplate: `{{data._id}}`
                     },
                     {
-                        name: "QUOTE",
+                        name: "引用文",
                         icon: "fa-quote-right",
                         dataField: "text",
                         cellTemplate: `{{data.text}}`
                     },
                     {
-                        name: "AUTHOR",
+                        name: "発言者",
                         icon: "fa-user",
                         dataField: "originator",
                         headerStyles: {
@@ -100,7 +100,7 @@
                         cellTemplate: `{{data.originator}}`
                     },
                     {
-                        name: "DATE",
+                        name: "作成日",
                         icon: "fa-calendar",
                         dataField: "date",
                         headerStyles: {
@@ -112,7 +112,7 @@
                         cellTemplate: `{{data.createdAt | prettyDate}}`
                     },
                     {
-                        name: "GAME",
+                        name: "ゲーム",
                         icon: "fa-gamepad-alt",
                         dataField: "game",
                         headerStyles: {

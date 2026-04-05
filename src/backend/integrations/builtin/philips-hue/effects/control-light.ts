@@ -5,8 +5,8 @@ import hueManager from "../hue-manager";
 const model: EffectType<HueControlLightEffectData> = {
     definition: {
         id: "hue:control-light",
-        name: "Control Hue Light",
-        description: "Control a Philips Hue light",
+        name: "Hueライト制御",
+        description: "Philips Hue ライトを制御します",
         icon: "far fa-lightbulb fa-align-center",
         categories: ["integrations"],
         dependencies: []

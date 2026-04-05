@@ -194,6 +194,7 @@ export default defineConfig([{
     ignores: [
         ".git/",
         "node_modules/",
+        "old_jp_source/",
         "src/gui/js/",
         "src/gui/fonts/",
         "src/resources/",

@@ -4,8 +4,8 @@ import { ActivityFeedManager } from "../../events/activity-feed-manager";
 const effect: EffectType = {
     definition: {
         id: "firebot:retrigger-last-activity",
-        name: "Retrigger Last Activity",
-        description: "Retrigger the most recent event in the Dashboard Activity Feed",
+        name: "直近アクティビティ再実行",
+        description: "ダッシュボードのアクティビティフィードで最新イベントを再実行します",
         icon: "fad fa-redo",
         categories: ["dashboard", "advanced", "scripting"],
         dependencies: []

@@ -5,8 +5,8 @@ import logger from "../../../logwrapper";
 const model: EffectType = {
     definition: {
         id: "twitch:cancel-prediction",
-        name: "Cancel Twitch Prediction",
-        description: "Cancels the currently active Twitch prediction and refunds all channel points wagered",
+        name: "Twitch 予想をキャンセル",
+        description: "現在進行中の Twitch 予想をキャンセルし、賭けられたチャンネルポイントを全額返還します",
         icon: "fad fa-ban",
         categories: ["common", "twitch"],
         dependencies: {

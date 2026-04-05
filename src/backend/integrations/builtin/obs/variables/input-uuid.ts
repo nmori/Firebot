@@ -35,7 +35,7 @@ triggers["manual"] = true;
 export const InputUuidVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputUuid",
-        description: "Returns the UUID of the OBS input.",
+        description: "OBS 入力の UUID を返します。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"]
     },

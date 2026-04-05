@@ -7,8 +7,8 @@
         .component("manageSortTagsModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit Tags</h4>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">タグを編集</h4>
             </div>
             <div class="modal-body">
                 <firebot-list
@@ -22,8 +22,8 @@
                 ></firebot-list>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
             bindings: {
@@ -40,8 +40,8 @@
                     nameProperty: 'name',
                     connectItems: false,
                     showIndex: false,
-                    addLabel: 'Add Tag',
-                    noneAddedText: 'No tags added yet.'
+                    addLabel: 'タグを追加',
+                    noneAddedText: 'タグはまだ追加されていません。'
                 };
 
                 $ctrl.tags = [];

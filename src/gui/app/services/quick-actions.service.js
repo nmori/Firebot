@@ -89,9 +89,9 @@
                 if (action) {
                     utilityService
                         .showConfirmationModal({
-                            title: "Delete Custom Quick Action",
-                            question: `Are you sure you want to delete the Custom Quick Action "${action.name}"?`,
-                            confirmLabel: "Delete",
+                            title: "カスタムクイックアクションを削除",
+                            question: `カスタムクイックアクション「${action.name}」を削除してもよろしいですか？`,
+                            confirmLabel: "削除",
                             confirmBtnType: "btn-danger"
                         })
                         .then((confirmed) => {

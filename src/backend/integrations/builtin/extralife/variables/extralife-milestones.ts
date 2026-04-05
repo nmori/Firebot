@@ -5,27 +5,27 @@ import integrationManager from "../../../../integrations/integration-manager";
 const ExtraLifeMilestones: ReplaceVariable = {
     definition: {
         handle: "extraLifeMilestones",
-        description: "Returns information on extra life milestones. See examples for details.",
+        description: "Extra Life のマイルストーン情報を返します。詳細は例を参照してください。",
         examples: [
             {
                 usage: 'extraLifeMilestones[]',
-                description: "Returns the next milestone for the logged in extra life account."
+                description: "ログイン中の Extra Life アカウントに対する次のマイルストーンを返します。"
             },
             {
                 usage: 'extraLifeMilestones[null, 1, participantID]',
-                description: "Returns the next milestone for the given participant id."
+                description: "指定した participantID に対する次のマイルストーンを返します。"
             },
             {
                 usage: 'extraLifeMilestones[75, 1, participantID]',
-                description: "Returns a milestone with the goal of $75 for the given participant id."
+                description: "指定した participantID のうち、目標額が $75 のマイルストーンを返します。"
             },
             {
                 usage: 'extraLifeMilestones[75]',
-                description: "Returns a milestone with the goal of $75 for the logged in extra life account."
+                description: "ログイン中の Extra Life アカウントのうち、目標額が $75 のマイルストーンを返します。"
             },
             {
                 usage: 'extraLifeMilestones[null, 3, participantID, true]',
-                description: "Returns three milestones in JSON format."
+                description: "3件のマイルストーンを JSON 形式で返します。"
             }
         ],
         categories: ["common", "integrations"],

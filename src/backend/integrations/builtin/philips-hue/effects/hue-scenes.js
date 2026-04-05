@@ -5,8 +5,8 @@ const hueManager = require("../hue-manager");
 const effect = {
     definition: {
         id: "hue:scenes",
-        name: "Activate Hue Scene",
-        description: "Activate a Philips Hue scene",
+        name: "Hueシーン有効化",
+        description: "Philips Hue シーンを有効化します",
         icon: "far fa-house-signal fa-align-center",
         categories: ["integrations"],
         dependencies: []

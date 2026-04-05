@@ -55,12 +55,12 @@ export const TwitchEventHandlers = {
 export const TwitchEventSource: EventSource = {
     id: "twitch",
     name: "Twitch",
-    description: "Events like Follow, Subscribe, and more from Twitch",
+    description: "フォロー、サブスクライブなどの Twitch イベント",
     events: [
         {
             id: "raid",
-            name: "Incoming Raid",
-            description: "When someone raids your channel.",
+            name: "受信レイド",
+            description: "誰かがあなたのチャンネルにレイドしたとき。",
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
@@ -75,14 +75,14 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** raided with **${eventData.viewerCount}** viewer(s)`;
+                    }** が **${eventData.viewerCount}** 人の視聴者とレイドしました`;
                 }
             }
         },
         {
             id: "outgoing-raid-started",
-            name: "Outgoing Raid Started",
-            description: "When you or a moderator starts an outgoing raid to another channel.",
+            name: "送信レイド開始",
+            description: "あなたまたはモデレーターが他チャンネルへの送信レイドを開始したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -97,16 +97,16 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-inbox-out",
                 getMessage: (eventData) => {
-                    return `**${eventData.moderator}** started raid to user **${eventData.raidTargetUserDisplayName}** with **${
+                    return `**${eventData.moderator}** が **${eventData.raidTargetUserDisplayName}** へのレイドを開始（視聴者 **${
                         eventData.viewerCount
-                    }** viewer(s)`;
+                    }** 人）`;
                 }
             }
         },
         {
             id: "outgoing-raid-canceled",
-            name: "Outgoing Raid Canceled",
-            description: "When you or a moderator cancels an outgoing raid to another channel.",
+            name: "送信レイドキャンセル",
+            description: "あなたまたはモデレーターが他チャンネルへの送信レイドをキャンセルしたとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -120,14 +120,14 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-undo",
                 getMessage: (eventData) => {
-                    return `**${eventData.moderator}** canceled raid to user **${eventData.raidTargetUserDisplayName}**`;
+                    return `**${eventData.moderator}** が **${eventData.raidTargetUserDisplayName}** へのレイドをキャンセルしました`;
                 }
             }
         },
         {
             id: "raid-sent-off",
-            name: "Outgoing Raid Complete",
-            description: "When your outgoing raid is completed.",
+            name: "送信レイド完了",
+            description: "送信レイドが完了したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -144,16 +144,16 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** raiding user **${eventData.raidTargetUserDisplayName}** with **${
+                    }** が **${eventData.raidTargetUserDisplayName}** に **${
                         eventData.viewerCount
-                    }** viewer(s)`;
+                    }** 人でレイド中`;
                 }
             }
         },
         {
             id: "follow",
-            name: "Follow",
-            description: "When someone follows your channel.",
+            name: "フォロー",
+            description: "誰かがあなたのチャンネルをフォローしたとき。",
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
@@ -167,14 +167,14 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** followed`;
+                    }** がフォローしました`;
                 }
             }
         },
         {
             id: "sub",
-            name: "Sub",
-            description: "When someone subscribes (or resubscribes) to your channel.",
+            name: "サブスク",
+            description: "誰かがあなたのチャンネルをサブスクライブ（再サブスク含む）したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -192,7 +192,7 @@ export const TwitchEventSource: EventSource = {
                     },
                     value: "1000"
                 },
-                subMessage: "Test message",
+                subMessage: "テストメッセージ",
                 totalMonths: 10,
                 streak: 8
             },
@@ -201,19 +201,19 @@ export const TwitchEventSource: EventSource = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""}** ${
-                        eventData.isResub ? "resubscribed" : "subscribed"
+                        eventData.isResub ? "再サブスク" : "サブスク"
                     } for **${eventData.totalMonths} month(s)** ${
                         eventData.subPlan === "Prime"
-                            ? "with **Twitch Prime**"
-                            : `at **Tier ${eventData.subPlan.replace("000", "")}**`
+                            ? "（**Twitch Prime**）"
+                            : `（**Tier ${eventData.subPlan.replace("000", "")}**）`
                     }`;
                 }
             }
         },
         {
             id: "prime-sub-upgraded",
-            name: "Prime Sub Upgraded",
-            description: "When someone upgrades to a paid sub from a Prime sub.",
+            name: "Primeサブスクアップグレード",
+            description: "誰かが Prime サブスクから有料サブスクへアップグレードしたとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -235,14 +235,14 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** upgraded their Prime sub at **Tier ${eventData.subPlan.replace("000", "")}!**`;
+                    }** が Prime サブスクを **Tier ${eventData.subPlan.replace("000", "")}** にアップグレードしました`;
                 }
             }
         },
         {
             id: "subs-gifted",
-            name: "Sub Gifted",
-            description: "When someone gifts a sub to someone else in your channel.",
+            name: "サブスクギフト",
+            description: "誰かがあなたのチャンネル内で他の人にサブスクをギフトしたとき。",
             cached: false,
             manualMetadata: {
                 gifterUsername: "Firebot",
@@ -263,18 +263,18 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-gift",
                 getMessage: (eventData) => {
-                    return `**${eventData.isAnonymous ? "An Anonymous Gifter" : eventData.gifterUsername}** gifted a ${
-                        eventData.giftDuration > 1 ? ` **${eventData.giftDuration} month** ` : ""
-                    } **Tier ${eventData.subPlan.replace("000", "")}** sub to **${
+                    return `**${eventData.isAnonymous ? "匿名ギフター" : eventData.gifterUsername}** が **${
+                        eventData.giftDuration > 1 ? `${eventData.giftDuration}か月 ` : ""
+                    }Tier ${eventData.subPlan.replace("000", "")}** サブスクを **${
                         eventData.gifteeUsername
-                    }**`;
+                    }** にギフトしました`;
                 }
             }
         },
         {
             id: "community-subs-gifted",
-            name: "Community Subs Gifted",
-            description: "When someone gifts random subs to the community of the channel",
+            name: "コミュニティ向けサブスクギフト",
+            description: "誰かがチャンネルコミュニティにランダムサブスクをギフトしたとき。",
             cached: false,
             manualMetadata: {
                 gifterUsername: "Firebot",
@@ -304,18 +304,16 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-gifts",
                 getMessage: (eventData) => {
-                    return `**${eventData.isAnonymous ? "An Anonymous Gifter" : eventData.gifterUsername}** gifted **${
+                    return `**${eventData.isAnonymous ? "匿名ギフター" : eventData.gifterUsername}** がコミュニティに **${
                         eventData.subCount
-                    } Tier ${eventData.subPlan.replace("000", "")}** sub${
-                        eventData.subCount > 1 ? "s" : ""
-                    } to the community`;
+                    } 件の Tier ${eventData.subPlan.replace("000", "")}** サブスクをギフトしました`;
                 }
             }
         },
         {
             id: "gift-sub-upgraded",
-            name: "Gift Sub Upgraded",
-            description: "When someone upgrades to a paid sub from a gift sub.",
+            name: "ギフトサブスクアップグレード",
+            description: "誰かがギフトサブスクから有料サブスクへアップグレードしたとき。",
             cached: false,
             manualMetadata: {
                 username: "cavemobster",
@@ -339,14 +337,14 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** upgraded their gift sub at **Tier ${eventData.subPlan.replace("000", "")}!**`;
+                    }** がギフトサブスクを **Tier ${eventData.subPlan.replace("000", "")}** にアップグレードしました`;
                 }
             }
         },
         {
             id: "cheer",
-            name: "Cheer",
-            description: "When someone cheers in your channel (uses bits).",
+            name: "チアー",
+            description: "誰かがあなたのチャンネルでチアー（Bits 使用）したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -355,7 +353,7 @@ export const TwitchEventSource: EventSource = {
                 isAnonymous: false,
                 bits: 100,
                 totalBits: 1200,
-                cheerMessage: "cheer100 Test message"
+                cheerMessage: "cheer100 テストメッセージ"
             },
             activityFeed: {
                 icon: "fad fa-diamond",
@@ -363,22 +361,22 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** cheered **${eventData.bits}** bits. They have cheered a total of **${
+                    }** が **${eventData.bits}** Bits をチアーしました。累計 **${
                         eventData.totalBits
-                    }** in the channel.`;
+                    }** Bits です。`;
                 }
             }
         },
         {
             id: "bits-badge-unlocked",
-            name: "Bits Badge Unlocked",
-            description: "When someone unlocks a new bits badge tier in your channel.",
+            name: "Bitsバッジ解除",
+            description: "誰かがあなたのチャンネルで新しい Bits バッジ階級を解除したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
-                message: "Test message",
+                message: "テストメッセージ",
                 badgeTier: {
                     type: "enum",
                     options: {
@@ -420,14 +418,14 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** unlocked the **${eventData.badgeTier}** bits badge in your channel!`;
+                    }** がこのチャンネルで **${eventData.badgeTier}** Bits バッジを解除しました！`;
                 }
             }
         },
         {
             id: "bits-powerup-message-effect",
-            name: "Power-up: Message Effects",
-            description: "When a viewer uses the \"Message Effects\" Power-up in your channel.",
+            name: "パワーアップ: メッセージエフェクト",
+            description: "視聴者があなたのチャンネルで「Message Effects」パワーアップを使用したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -435,21 +433,21 @@ export const TwitchEventSource: EventSource = {
                 userId: "",
                 bits: 30,
                 totalBits: 1200,
-                cheerMessage: "Test Message"
+                cheerMessage: "テストメッセージ"
             },
             activityFeed: {
                 icon: "fad fa-diamond",
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                    }** used a Message Effects Power-up for **${eventData.bits}** bits`;
+                    }** が Message Effects パワーアップを使用（**${eventData.bits}** Bits）`;
                 }
             }
         },
         {
             id: "bits-powerup-celebration",
-            name: "Power-up: On-Screen Celebration",
-            description: "When a viewer uses the \"On-Screen Celebration\" Power-up in your channel.",
+            name: "パワーアップ: 画面演出セレブレーション",
+            description: "視聴者があなたのチャンネルで「On-Screen Celebration」パワーアップを使用したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -463,14 +461,14 @@ export const TwitchEventSource: EventSource = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                    }** used a Celebration Power-up for **${eventData.bits}** bits`;
+                    }** が Celebration パワーアップを使用（**${eventData.bits}** Bits）`;
                 }
             }
         },
         {
             id: "bits-powerup-gigantified-emote",
-            name: "Power-up: Gigantify an Emote",
-            description: "When a viewer uses the \"Gigantify an Emote\" Power-up in your channel.",
+            name: "パワーアップ: エモート巨大化",
+            description: "視聴者があなたのチャンネルで「Gigantify an Emote」パワーアップを使用したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -478,7 +476,7 @@ export const TwitchEventSource: EventSource = {
                 userId: "",
                 bits: 20,
                 totalBits: 1200,
-                cheerMessage: "Test Message",
+                cheerMessage: "テストメッセージ",
                 emoteName: "PogChamp",
                 emoteUrl: "https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/dark/3.0"
             },
@@ -487,14 +485,14 @@ export const TwitchEventSource: EventSource = {
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${showUserIdName ? ` (${eventData.username})` : ""
-                    }** gigantified the **${eventData.emoteName}** emote for **${eventData.bits}** bits`;
+                    }** が **${eventData.emoteName}** エモートを巨大化（**${eventData.bits}** Bits）`;
                 }
             }
         },
         {
             id: "viewer-arrived",
-            name: "Viewer Arrived",
-            description: "When a viewer initially chats in any given stream.",
+            name: "視聴者来訪",
+            description: "視聴者が配信で初めてチャットしたとき。",
             cached: true,
             cacheMetaKey: "username",
             manualMetadata: {
@@ -508,14 +506,14 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** arrived`;
+                    }** が来訪しました`;
                 }
             }
         },
         {
             id: "chat-cleared",
-            name: "Chat Cleared",
-            description: "When chat is cleared in your channel",
+            name: "チャット全削除",
+            description: "あなたのチャンネルでチャットが一括削除されたとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -524,36 +522,36 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "chat-message",
-            name: "Chat Message",
-            description: "When someone chats in your channel",
+            name: "チャットメッセージ",
+            description: "誰かがあなたのチャンネルでチャットしたとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             }
         },
         {
             id: "chat-message-deleted",
-            name: "Chat Message Deleted",
-            description: "When a chat message is deleted in your channel",
+            name: "チャットメッセージ削除",
+            description: "あなたのチャンネルでチャットメッセージが削除されたとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             }
         },
         {
             id: "first-time-chat",
-            name: "First Time Chat",
-            description: "When someone chats in your channel for the very first time",
+            name: "初回チャット",
+            description: "誰かがあなたのチャンネルで初めてチャットしたとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             },
             activityFeed: {
                 icon: "fad fa-sparkles",
@@ -561,26 +559,26 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** has chatted in your channel for the very first time`;
+                    }** がこのチャンネルで初めてチャットしました`;
                 }
             }
         },
         {
             id: "announcement",
-            name: "Announcement",
-            description: "When you or a mod sends an announcement in your channel",
+            name: "アナウンス",
+            description: "あなたまたはモデレーターがチャンネルでアナウンスを送信したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
-                messageText: "Test announcement"
+                messageText: "テストアナウンス"
             }
         },
         {
             id: "banned",
-            name: "Viewer Banned",
-            description: "When someone is banned in your channel",
+            name: "視聴者BAN",
+            description: "あなたのチャンネルで誰かが BAN されたとき。",
             cached: false,
             manualMetadata: {
                 username: "cavemobster",
@@ -595,10 +593,10 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     let message = `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** was banned by **${eventData.moderator}**`;
+                    }** が **${eventData.moderator}** により BAN されました`;
 
                     if (eventData.modReason) {
-                        message = `${message}. Reason: **${escape(eventData.modReason)}**`;
+                        message = `${message}。理由: **${escape(eventData.modReason)}**`;
                     }
                     return message;
                 }
@@ -606,8 +604,8 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "unbanned",
-            name: "Viewer Unbanned",
-            description: "When someone is unbanned in your channel",
+            name: "視聴者BAN解除",
+            description: "あなたのチャンネルで誰かの BAN が解除されたとき。",
             cached: false,
             manualMetadata: {
                 username: "cavemobster",
@@ -621,14 +619,14 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** was unbanned by **${eventData.moderator}**`;
+                    }** の BAN が **${eventData.moderator}** により解除されました`;
                 }
             }
         },
         {
             id: "timeout",
-            name: "Viewer Timeout",
-            description: "When someone is timed out in your channel",
+            name: "視聴者タイムアウト",
+            description: "あなたのチャンネルで誰かがタイムアウトされたとき。",
             cached: false,
             manualMetadata: {
                 username: "alca",
@@ -644,10 +642,10 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     let message = `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** was timed out for **${eventData.timeoutDuration} sec(s)** by ${eventData.moderator}`;
+                    }** が **${eventData.moderator}** により **${eventData.timeoutDuration} 秒**タイムアウトされました`;
 
                     if (eventData.modReason) {
-                        message = `${message}. Reason: **${escape(eventData.modReason)}**`;
+                        message = `${message}。理由: **${escape(eventData.modReason)}**`;
                     }
                     return message;
                 }
@@ -655,8 +653,8 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "channel-reward-redemption",
-            name: "Channel Reward Redemption",
-            description: "When someone redeems a CUSTOM channel reward",
+            name: "チャンネル報酬引き換え",
+            description: "誰かがカスタムのチャンネル報酬を引き換えたとき。",
             cached: true,
             cacheMetaKey: "username",
             cacheTtlInSecs: 1,
@@ -664,10 +662,10 @@ export const TwitchEventSource: EventSource = {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
-                rewardName: "Test Reward",
+                rewardName: "テスト報酬",
                 rewardImage: "https://static-cdn.jtvnw.net/automatic-reward-images/highlight-1.png",
                 rewardCost: 200,
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             },
             activityFeed: {
                 icon: "fad fa-circle",
@@ -675,7 +673,7 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** redeemed **${eventData.rewardName}**${
+                    }** が **${eventData.rewardName}** を引き換え${
                         eventData.messageText && !!eventData.messageText.length ? `: *${escape(eventData.messageText)}*` : ""
                     }`;
                 },
@@ -684,8 +682,8 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "channel-reward-redemption-fulfilled",
-            name: "Channel Reward Redemption Approved",
-            description: "When a CUSTOM channel reward redemption is Completed/Approved",
+            name: "チャンネル報酬引き換え承認",
+            description: "カスタムのチャンネル報酬引き換えが完了/承認されたとき。",
             cached: false,
             cacheMetaKey: "username",
             cacheTtlInSecs: 1,
@@ -693,10 +691,10 @@ export const TwitchEventSource: EventSource = {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
-                rewardName: "Test Reward",
+                rewardName: "テスト報酬",
                 rewardImage: "https://static-cdn.jtvnw.net/automatic-reward-images/highlight-1.png",
                 rewardCost: 200,
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             },
             activityFeed: {
                 icon: "fad fa-circle",
@@ -704,7 +702,7 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }**'s redemption of **${eventData.rewardName}** was approved. ${
+                    }** の **${eventData.rewardName}** 引き換えが承認されました。${
                         eventData.messageText && !!eventData.messageText.length ? `*${escape(eventData.messageText)}*` : ""
                     }`;
                 }
@@ -712,8 +710,8 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "channel-reward-redemption-canceled",
-            name: "Channel Reward Redemption Rejected",
-            description: "When a CUSTOM channel reward redemption is Rejected/Refunded",
+            name: "チャンネル報酬引き換え却下",
+            description: "カスタムのチャンネル報酬引き換えが却下/返金されたとき。",
             cached: false,
             cacheMetaKey: "username",
             cacheTtlInSecs: 1,
@@ -721,10 +719,10 @@ export const TwitchEventSource: EventSource = {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
-                rewardName: "Test Reward",
+                rewardName: "テスト報酬",
                 rewardImage: "https://static-cdn.jtvnw.net/automatic-reward-images/highlight-1.png",
                 rewardCost: 200,
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             },
             activityFeed: {
                 icon: "fad fa-circle",
@@ -732,7 +730,7 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }**'s redemption of **${eventData.rewardName}** was rejected. ${
+                    }** の **${eventData.rewardName}** 引き換えが却下されました。${
                         eventData.messageText && !!eventData.messageText.length ? `*${escape(eventData.messageText)}*` : ""
                     }`;
                 }
@@ -740,15 +738,15 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "channel-reward-redemption-single-message-bypass-sub-mode",
-            name: "Channel Reward Redemption: Send a Message in Sub-Only Mode",
-            description: "When someone redeems \"Send a Message in Sub-Only Mode\" to post a message in your channel",
+            name: "チャンネル報酬引き換え: サブ限モードでメッセージ送信",
+            description: "誰かが「Send a Message in Sub-Only Mode」を引き換えてあなたのチャンネルに投稿したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
                 rewardCost: 200,
-                messageText: "Test message",
+                messageText: "テストメッセージ",
                 rewardDescription: "Send a Message in Sub-Only Mode"
             },
             activityFeed: {
@@ -757,22 +755,22 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     const message = `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** redeemed **Send a Message in Sub-Only Mode**`;
+                    }** が **Send a Message in Sub-Only Mode** を引き換えました`;
                     return message;
                 }
             }
         },
         {
             id: "channel-reward-redemption-send-highlighted-message",
-            name: "Channel Reward Redemption: Highlight My Message",
-            description: "When someone redeems \"Highlight My Message\" in your channel",
+            name: "チャンネル報酬引き換え: メッセージハイライト",
+            description: "誰かがあなたのチャンネルで「Highlight My Message」を引き換えたとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
                 rewardCost: 200,
-                messageText: "Test message",
+                messageText: "テストメッセージ",
                 rewardDescription: "Highlight My Message"
             },
             activityFeed: {
@@ -781,7 +779,7 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     const message = `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** redeemed **Highlight My Message**`;
+                    }** が **Highlight My Message** を引き換えました`;
                     return message;
                 },
                 excludeFromChatFeed: true
@@ -789,8 +787,8 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "channel-reward-redemption-random-sub-emote-unlock",
-            name: "Channel Reward Redemption: Unlock a Random Sub Emote",
-            description: "When someone redeems \"Unlock a Random Sub Emote\" to unlock an emote in your channel",
+            name: "チャンネル報酬引き換え: ランダムサブエモート解除",
+            description: "誰かが「Unlock a Random Sub Emote」を引き換えてあなたのチャンネルのエモートを解除したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -807,15 +805,15 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     const message = `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** redeemed **Unlock a Random Sub Emote**`;
+                    }** が **Unlock a Random Sub Emote** を引き換えました`;
                     return message;
                 }
             }
         },
         {
             id: "channel-reward-redemption-chosen-sub-emote-unlock",
-            name: "Channel Reward Redemption: Choose an Emote to Unlock",
-            description: "When someone redeems \"Choose an Emote to Unlock\" to unlock an emote in your channel",
+            name: "チャンネル報酬引き換え: エモート指定解除",
+            description: "誰かが「Choose an Emote to Unlock」を引き換えてあなたのチャンネルのエモートを解除したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -832,15 +830,15 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     const message = `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** redeemed **Choose an Emote to Unlock**`;
+                    }** が **Choose an Emote to Unlock** を引き換えました`;
                     return message;
                 }
             }
         },
         {
             id: "channel-reward-redemption-chosen-modified-sub-emote-unlock",
-            name: "Channel Reward Redemption: Modify a Single Emote",
-            description: "When someone redeems \"Modify a Single Emote\" to modify and unlock an emote in your channel",
+            name: "チャンネル報酬引き換え: 単一エモート編集",
+            description: "誰かが「Modify a Single Emote」を引き換えてあなたのチャンネルのエモートを編集・解除したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -857,25 +855,25 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     const message = `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** redeemed **Modify a Single Emote**`;
+                    }** が **Modify a Single Emote** を引き換えました`;
                     return message;
                 }
             }
         },
         {
             id: "whisper",
-            name: "Whisper",
-            description: "When someone sends you or your bot account a whisper.",
+            name: "ウィスパー",
+            description: "誰かがあなたまたは Bot アカウントにウィスパーを送信したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
                 userDisplayName: "Firebot",
                 userId: "",
-                message: "Test whisper",
+                message: "テストウィスパー",
                 sentTo: {
                     type: "enum",
                     options: {
-                        streamer: "Streamer",
+                        streamer: "配信者",
                         bot: "Bot"
                     },
                     value: "streamer"
@@ -887,32 +885,32 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** sent your **${eventData.sentTo}** account the following whisper: ${escape(eventData.message)}`;
+                    }** が **${eventData.sentTo}** アカウントへウィスパーを送信: ${escape(eventData.message)}`;
                 }
             }
         },
         {
             id: "chat-mode-changed",
-            name: "Chat Mode Changed",
-            description: "When the chat mode settings have been updated by a moderator.",
+            name: "チャットモード変更",
+            description: "モデレーターによってチャットモード設定が更新されたとき。",
             cached: false,
             manualMetadata: {
                 chatMode: {
                     type: "enum",
                     options: {
-                        emoteonly: "Emote Only",
-                        subscribers: "Subscribers Only",
-                        followers: "Followers",
-                        slow: "Slow",
-                        uniquechat: "Unique Chat"
+                        emoteonly: "エモートのみ",
+                        subscribers: "サブスク限定",
+                        followers: "フォロワー限定",
+                        slow: "低速",
+                        uniquechat: "重複メッセージ禁止"
                     },
                     value: "emoteonly"
                 },
                 chatModeState: {
                     type: "enum",
                     options: {
-                        enabled: "Enabled",
-                        disabled: "Disabled"
+                        enabled: "有効",
+                        disabled: "無効"
                     },
                     value: "enabled"
                 },
@@ -922,88 +920,88 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-comment-alt",
                 getMessage: (eventData) => {
-                    return `**${eventData.moderator}** has set the chat mode to **${eventData.chatMode}**`;
+                    return `**${eventData.moderator}** がチャットモードを **${eventData.chatMode}** に設定しました`;
                 }
             }
         },
         {
             id: "channel-poll-begin",
-            name: "Channel Poll Started",
-            description: "When a channel poll begins on your channel.",
+            name: "チャンネル投票開始",
+            description: "あなたのチャンネルで投票が開始されたとき。",
             cached: false,
             manualMetadata: {
                 choices: {
                     options: { hideVotes: true },
                     type: "poll-choice-list",
                     value: [
-                        { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "Test Choice 1" },
-                        { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "Test Choice 2" },
-                        { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "Test Choice 3" }
+                        { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "テスト選択肢 1" },
+                        { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "テスト選択肢 2" },
+                        { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "テスト選択肢 3" }
                     ] },
-                title: "Test Poll Name"
+                title: "テスト投票名"
             },
             activityFeed: {
                 icon: "fad fa-poll-h",
                 getMessage: (eventData) => {
-                    return `Channel poll **${eventData.title}** has begun`;
+                    return `チャンネル投票 **${eventData.title}** が開始されました`;
                 }
             }
         },
         {
             id: "channel-poll-progress",
-            name: "Channel Poll Progress",
-            description: "When a channel poll progresses on your channel.",
+            name: "チャンネル投票進行",
+            description: "あなたのチャンネルの投票が進行したとき。",
             cached: false,
             manualMetadata: {
                 choices: {
                     type: "poll-choice-list",
                     value: [
-                        { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "Test Choice 1", totalVotes: 120, channelPointsVotes: 60 },
-                        { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "Test Choice 2", totalVotes: 140, channelPointsVotes: 40 },
-                        { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "Test Choice 3", totalVotes: 80, channelPointsVotes: 70 }
+                        { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "テスト選択肢 1", totalVotes: 120, channelPointsVotes: 60 },
+                        { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "テスト選択肢 2", totalVotes: 140, channelPointsVotes: 40 },
+                        { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "テスト選択肢 3", totalVotes: 80, channelPointsVotes: 70 }
                     ] },
-                title: "Test Poll Name",
-                winningChoiceName: "Test Choice 2",
+                title: "テスト投票名",
+                winningChoiceName: "テスト選択肢 2",
                 winningChoiceVotes: 140
             },
             activityFeed: {
                 icon: "fad fa-poll-h",
                 getMessage: (eventData) => {
-                    return `Channel poll **${eventData.title}** has progressed`;
+                    return `チャンネル投票 **${eventData.title}** が進行しました`;
                 }
             }
         },
         {
             id: "channel-poll-end",
-            name: "Channel Poll Ended",
-            description: "When a channel poll ends on your channel.",
+            name: "チャンネル投票終了",
+            description: "あなたのチャンネルの投票が終了したとき。",
             cached: false,
             manualMetadata: {
                 choices: {
                     type: "poll-choice-list",
                     value: [
-                        { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "Test Choice 1", totalVotes: 125, channelPointsVotes: 62 },
-                        { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "Test Choice 2", totalVotes: 145, channelPointsVotes: 42 },
-                        { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "Test Choice 3", totalVotes: 85, channelPointsVotes: 72 }
+                        { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "テスト選択肢 1", totalVotes: 125, channelPointsVotes: 62 },
+                        { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "テスト選択肢 2", totalVotes: 145, channelPointsVotes: 42 },
+                        { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "テスト選択肢 3", totalVotes: 85, channelPointsVotes: 72 }
                     ] },
-                title: "Test Poll Name",
-                winningChoiceName: "Test Choice 2",
+                title: "テスト投票名",
+                winningChoiceName: "テスト選択肢 2",
                 winningChoiceVotes: 145
             },
             activityFeed: {
                 icon: "fad fa-poll-h",
                 getMessage: (eventData) => {
-                    return `Channel poll **${eventData.title}** has ended. Winning choice(s): **${eventData.winningChoiceName}** with **${eventData.winningChoiceVotes}** vote(s)`;
+                    return `チャンネル投票 **${eventData.title}** が終了。勝利選択肢: **${eventData.winningChoiceName}**（**${eventData.winningChoiceVotes}** 票）`;
                 }
             }
         },
         {
             id: "channel-goal-begin",
-            name: "Channel Goal Started",
-            description: "When a channel goal begins on your channel.",
+            name: "チャンネル目標開始",
+            description: "あなたのチャンネルで目標が開始されたとき。",
             cached: false,
             manualMetadata: {
-                description: "Goal name"
+                description: "目標名"
             },
             activityFeed: {
                 icon: "fad fa-bullseye-arrow",
@@ -1020,11 +1018,11 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "channel-goal-progress",
-            name: "Channel Goal Progress",
-            description: "When a channel goal progresses on your channel.",
+            name: "チャンネル目標進行",
+            description: "あなたのチャンネルの目標が進行したとき。",
             cached: false,
             manualMetadata: {
-                description: "Goal name"
+                description: "目標名"
             },
             activityFeed: {
                 icon: "fad fa-bullseye-arrow",
@@ -1041,11 +1039,11 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "channel-goal-end",
-            name: "Channel Goal Ended",
-            description: "When a channel goal ends on your channel.",
+            name: "チャンネル目標終了",
+            description: "あなたのチャンネルの目標が終了したとき。",
             cached: false,
             manualMetadata: {
-                description: "Goal name"
+                description: "目標名"
             },
             activityFeed: {
                 icon: "fad fa-bullseye-arrow",
@@ -1066,68 +1064,68 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "channel-prediction-begin",
-            name: "Channel Prediction Started",
-            description: "When a channel prediction begins on your channel.",
+            name: "チャンネル予想開始",
+            description: "あなたのチャンネルで予想が開始されたとき。",
             cached: false,
             manualMetadata: {
-                title: "Title"
+                title: "タイトル"
             },
             activityFeed: {
                 icon: "fad fa-question-circle",
                 getMessage: (eventData) => {
-                    return `Channel prediction **${eventData.title}** has begun`;
+                    return `チャンネル予想 **${eventData.title}** が開始されました`;
                 }
             }
         },
         {
             id: "channel-prediction-progress",
-            name: "Channel Prediction Progress",
-            description: "When a channel prediction progresses on your channel.",
+            name: "チャンネル予想進行",
+            description: "あなたのチャンネルの予想が進行したとき。",
             cached: false,
             manualMetadata: {
-                title: "Title"
+                title: "タイトル"
             },
             activityFeed: {
                 icon: "fad fa-question-circle",
                 getMessage: (eventData) => {
-                    return `Channel prediction **${eventData.title}** has progressed`;
+                    return `チャンネル予想 **${eventData.title}** が進行しました`;
                 }
             }
         },
         {
             id: "channel-prediction-lock",
-            name: "Channel Prediction Locked",
-            description: "When a channel prediction is locked on your channel.",
+            name: "チャンネル予想ロック",
+            description: "あなたのチャンネルの予想がロックされたとき。",
             cached: false,
             manualMetadata: {
-                title: "Title"
+                title: "タイトル"
             },
             activityFeed: {
                 icon: "fad fa-question-circle",
                 getMessage: (eventData) => {
-                    return `Channel prediction **${eventData.title}** has been locked`;
+                    return `チャンネル予想 **${eventData.title}** がロックされました`;
                 }
             }
         },
         {
             id: "channel-prediction-end",
-            name: "Channel Prediction Ended",
-            description: "When a channel prediction ends on your channel.",
+            name: "チャンネル予想終了",
+            description: "あなたのチャンネルの予想が終了したとき。",
             cached: false,
             manualMetadata: {
-                title: "Title"
+                title: "タイトル"
             },
             activityFeed: {
                 icon: "fad fa-question-circle",
                 getMessage: (eventData) => {
-                    return `Channel prediction **${eventData.title}** has ended. Winning outcome: **${eventData.winningOutcome.title}**`;
+                    return `チャンネル予想 **${eventData.title}** が終了。勝利結果: **${eventData.winningOutcome.title}**`;
                 }
             }
         },
         {
             id: "hype-train-start",
-            name: "Hype Train Started",
-            description: "When a hype train starts on your channel.",
+            name: "ハイプトレイン開始",
+            description: "あなたのチャンネルでハイプトレインが開始されたとき。",
             cached: false,
             manualMetadata: {
                 total: "150",
@@ -1141,14 +1139,14 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-train",
                 getMessage: () => {
-                    return `Hype train started!`;
+                    return "ハイプトレインが開始しました！";
                 }
             }
         },
         {
             id: "hype-train-progress",
-            name: "Hype Train Progress",
-            description: "When a hype train progresses on your channel.",
+            name: "ハイプトレイン進行",
+            description: "あなたのチャンネルのハイプトレインが進行したとき。",
             cached: false,
             manualMetadata: {
                 total: "150",
@@ -1170,8 +1168,8 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "hype-train-level-up",
-            name: "Hype Train Level Up",
-            description: "When a hype train on your channel advances to the next level.",
+            name: "ハイプトレインレベルアップ",
+            description: "あなたのチャンネルのハイプトレインが次のレベルへ進んだとき。",
             cached: false,
             manualMetadata: {
                 previousLevel: "1",
@@ -1180,14 +1178,14 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-train",
                 getMessage: (eventData) => {
-                    return `Hype train level **${eventData.level}** unlocked!`;
+                    return `ハイプトレイン レベル **${eventData.level}** が解除されました！`;
                 }
             }
         },
         {
             id: "hype-train-end",
-            name: "Hype Train Ended",
-            description: "When a hype train ends on your channel.",
+            name: "ハイプトレイン終了",
+            description: "あなたのチャンネルのハイプトレインが終了したとき。",
             cached: false,
             manualMetadata: {
                 total: "150",
@@ -1199,40 +1197,40 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-train",
                 getMessage: (eventData) => {
-                    return `Level **${eventData.level}** hype train ended`;
+                    return `レベル **${eventData.level}** のハイプトレインが終了しました`;
                 }
             }
         },
         {
             id: "stream-online",
-            name: "Stream Started",
-            description: "When your stream starts.",
+            name: "配信開始",
+            description: "あなたの配信が開始されたとき。",
             cached: false,
             manualMetadata: {},
             activityFeed: {
                 icon: "fad fa-play-circle",
                 getMessage: () => {
-                    return `Stream started`;
+                    return "配信が開始されました";
                 }
             }
         },
         {
             id: "stream-offline",
-            name: "Stream Ended",
-            description: "When your stream ends.",
+            name: "配信終了",
+            description: "あなたの配信が終了したとき。",
             cached: false,
             manualMetadata: {},
             activityFeed: {
                 icon: "fad fa-stop-circle",
                 getMessage: () => {
-                    return `Stream ended`;
+                    return "配信が終了しました";
                 }
             }
         },
         {
             id: "charity-campaign-start",
-            name: "Charity Campaign Started",
-            description: "When you start a charity campaign in your channel.",
+            name: "チャリティキャンペーン開始",
+            description: "あなたがチャンネルでチャリティキャンペーンを開始したとき。",
             cached: false,
             manualMetadata: {
                 charityName: "Great Cause, LLC",
@@ -1247,14 +1245,14 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-ribbon",
                 getMessage: (eventData) => {
-                    return `Charity campaign benefitting **${eventData.charityName}** has started`;
+                    return `**${eventData.charityName}** を支援するチャリティキャンペーンが開始されました`;
                 }
             }
         },
         {
             id: "charity-donation",
-            name: "Charity Donation",
-            description: "When someone donates to your channel's charity campaign.",
+            name: "チャリティ寄付",
+            description: "誰かがあなたのチャンネルのチャリティキャンペーンへ寄付したとき。",
             cached: false,
             manualMetadata: {
                 from: "Firebot",
@@ -1268,14 +1266,14 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-hand-holding-heart",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** made a charity donation of **${eventData.donationAmount} ${eventData.donationCurrency}**`;
+                    return `**${eventData.from}** が **${eventData.donationAmount} ${eventData.donationCurrency}** をチャリティ寄付しました`;
                 }
             }
         },
         {
             id: "charity-campaign-progress",
-            name: "Charity Campaign Progress",
-            description: "When your channel's charity campaign progresses.",
+            name: "チャリティキャンペーン進行",
+            description: "あなたのチャンネルのチャリティキャンペーンが進行したとき。",
             cached: false,
             manualMetadata: {
                 charityName: "Great Cause, LLC",
@@ -1290,14 +1288,14 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-ribbon",
                 getMessage: (eventData) => {
-                    return `Charity campaign has progressed. Total so far: **${eventData.currentTotalAmount} ${eventData.currentTotalCurrency}**`;
+                    return `チャリティキャンペーンが進行中。現在合計: **${eventData.currentTotalAmount} ${eventData.currentTotalCurrency}**`;
                 }
             }
         },
         {
             id: "charity-campaign-end",
-            name: "Charity Campaign Ended",
-            description: "When your channel's charity campaign ends.",
+            name: "チャリティキャンペーン終了",
+            description: "あなたのチャンネルのチャリティキャンペーンが終了したとき。",
             cached: false,
             manualMetadata: {
                 charityName: "Great Cause, LLC",
@@ -1312,34 +1310,34 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-ribbon",
                 getMessage: (eventData) => {
-                    return `Charity campaign has ended. Goal reached: **${
-                        eventData.goalReached ? "Yes" : "No"
-                    }**. Total raised: **${eventData.currentTotalAmount} ${eventData.currentTotalCurrency}**`;
+                    return `チャリティキャンペーンが終了。目標達成: **${
+                        eventData.goalReached ? "はい" : "いいえ"
+                    }**。総額: **${eventData.currentTotalAmount} ${eventData.currentTotalCurrency}**`;
                 }
             }
         },
         {
             id: "shared-chat-started",
-            name: "Shared Chat Session Started",
-            description: "When a shared chat session is started with another channel.",
+            name: "共有チャットセッション開始",
+            description: "他チャンネルとの共有チャットセッションが開始されたとき。",
             cached: false
         },
         {
             id: "shared-chat-updated",
-            name: "Shared Chat Session Updated",
-            description: "When the participants in a shared chat session are updated.",
+            name: "共有チャットセッション更新",
+            description: "共有チャットセッションの参加者が更新されたとき。",
             cached: false
         },
         {
             id: "shared-chat-ended",
-            name: "Shared Chat Session Ended",
-            description: "When a shared chat session is ended.",
+            name: "共有チャットセッション終了",
+            description: "共有チャットセッションが終了したとき。",
             cached: false
         },
         {
             id: "shoutout-sent",
-            name: "Shoutout Sent",
-            description: "When you or a moderator sends a Twitch shoutout to another channel.",
+            name: "シャウトアウト送信",
+            description: "あなたまたはモデレーターが他チャンネルへ Twitch シャウトアウトを送信したとき。",
             cached: false,
             manualMetadata: {
                 moderator: "Firebot",
@@ -1352,16 +1350,16 @@ export const TwitchEventSource: EventSource = {
                 icon: "fad fa-bullhorn",
                 getMessage: (eventData) => {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
-                    return `**${eventData.moderator}** sent a shoutout to **${eventData.userDisplayName}${
+                    return `**${eventData.moderator}** が **${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }**`;
+                    }** へシャウトアウトを送信`;
                 }
             }
         },
         {
             id: "shoutout-received",
-            name: "Shoutout Received",
-            description: "When another channel sends you a Twitch shoutout.",
+            name: "シャウトアウト受信",
+            description: "他チャンネルから Twitch シャウトアウトを受信したとき。",
             cached: false,
             manualMetadata: {
                 username: "firebot",
@@ -1375,14 +1373,14 @@ export const TwitchEventSource: EventSource = {
                     const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
                     return `**${eventData.userDisplayName}${
                         showUserIdName ? ` (${eventData.username})` : ""
-                    }** shouted out your channel to ${eventData.viewerCount} viewers`;
+                    }** があなたのチャンネルを ${eventData.viewerCount} 人の視聴者にシャウトアウトしました`;
                 }
             }
         },
         {
             id: "category-changed",
-            name: "Category Changed",
-            description: "When you change your Twitch stream category.",
+            name: "カテゴリ変更",
+            description: "あなたが Twitch 配信カテゴリを変更したとき。",
             cached: false,
             manualMetadata: {
                 category: "Just Chatting"
@@ -1390,14 +1388,14 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-th-large",
                 getMessage: (eventData) => {
-                    return `Twitch stream category changed to **${eventData.category}**`;
+                    return `Twitch 配信カテゴリが **${eventData.category}** に変更されました`;
                 }
             }
         },
         {
             id: "title-changed",
-            name: "Title Changed",
-            description: "When you change your Twitch stream title.",
+            name: "タイトル変更",
+            description: "あなたが Twitch 配信タイトルを変更したとき。",
             cached: false,
             manualMetadata: {
                 title: "Stream Title"
@@ -1405,14 +1403,14 @@ export const TwitchEventSource: EventSource = {
             activityFeed: {
                 icon: "fad fa-text",
                 getMessage: (eventData) => {
-                    return `Twitch stream title changed to **${eventData.title}**`;
+                    return `Twitch 配信タイトルが **${eventData.title}** に変更されました`;
                 }
             }
         },
         {
             id: "ad-break-upcoming",
-            name: "Scheduled Ad Break Starting Soon",
-            description: "When a scheduled ad break will be starting soon on your channel.",
+            name: "予定広告ブレイク開始間近",
+            description: "チャンネルで予定された広告ブレイクがまもなく開始されるとき。",
             cached: false,
             manualMetadata: {
                 adBreakDuration: 60,
@@ -1431,16 +1429,14 @@ export const TwitchEventSource: EventSource = {
 
                     const minutesUntilNextAdBreak = Math.round(eventData.secondsUntilNextAdBreak / 60);
 
-                    return `**${friendlyDuration}** scheduled ad break starting in about **${minutesUntilNextAdBreak}** minute${
-                        minutesUntilNextAdBreak !== 1 ? "s" : ""
-                    }`;
+                    return `**${friendlyDuration}** の予定広告ブレイクが約 **${minutesUntilNextAdBreak}** 分後に開始します`;
                 }
             }
         },
         {
             id: "ad-break-start",
-            name: "Ad Break Started",
-            description: "When an ad break starts on your channel.",
+            name: "広告ブレイク開始",
+            description: "チャンネルで広告ブレイクが開始されたとき。",
             cached: false,
             manualMetadata: {
                 adBreakDuration: 60,
@@ -1457,16 +1453,16 @@ export const TwitchEventSource: EventSource = {
                             ? `${mins}m${remainingSecs > 0 ? ` ${remainingSecs}s` : ""}`
                             : `${eventData.adBreakDuration}s`;
 
-                    return `**${friendlyDuration}** **${
-                        eventData.isAdBreakScheduled ? "scheduled" : "manual"
-                    }** ad break started`;
+                    return `**${friendlyDuration}** の**${
+                        eventData.isAdBreakScheduled ? "予定" : "手動"
+                    }**広告ブレイクが開始されました`;
                 }
             }
         },
         {
             id: "ad-break-end",
-            name: "Ad Break Ended",
-            description: "When an ad break ends on your channel.",
+            name: "広告ブレイク終了",
+            description: "チャンネルで広告ブレイクが終了したとき。",
             cached: false,
             manualMetadata: {
                 adBreakDuration: 60,
@@ -1483,9 +1479,9 @@ export const TwitchEventSource: EventSource = {
                             ? `${mins}m${remainingSecs > 0 ? ` ${remainingSecs}s` : ""}`
                             : `${eventData.adBreakDuration}s`;
 
-                    return `**${friendlyDuration}** **${
-                        eventData.isAdBreakScheduled ? "scheduled" : "manual"
-                    }** ad break ended`;
+                    return `**${friendlyDuration}** の**${
+                        eventData.isAdBreakScheduled ? "予定" : "手動"
+                    }**広告ブレイクが終了しました`;
                 }
             }
         }

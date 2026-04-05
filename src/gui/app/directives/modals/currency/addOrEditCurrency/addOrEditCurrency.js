@@ -39,6 +39,16 @@
                     $ctrl.currency.transfer = state;
                 };
 
+                $ctrl.getTransferLabel = function(state) {
+                    if (state === "Allow") {
+                        return "許可";
+                    }
+                    if (state === "Disallow") {
+                        return "不許可";
+                    }
+                    return state;
+                };
+
                 // Get the groups we want people to be able to give bonus currency to...
                 $ctrl.viewerRoles = viewerRolesService.getAllRoles().filter(r => r.id !== "Owner");
             };
@@ -58,7 +68,7 @@
 
                 if ($ctrl.isNewCurrency && currencyService.currencies.some(c => c.name === $ctrl.currency.name)) {
                     utilityService.showErrorModal(
-                        "You cannot create a currency with the same name as another currency!"
+                        "他の通貨と同じ名前の通貨は作成できません。"
                     );
                     logger.error(`User tried to create currency with the same name as another currency: ${$ctrl.currency.name}.`);
                     return;
@@ -85,9 +95,9 @@
             $ctrl.showCurrencyDeleteModal = function(currency) {
                 utilityService
                     .showConfirmationModal({
-                        title: "Delete Currency",
-                        question: "Are you sure you'd like to delete this currency?",
-                        confirmLabel: "Delete"
+                        title: "通貨を削除",
+                        question: "この通貨を削除してもよろしいですか？",
+                        confirmLabel: "削除"
                     })
                     .then((confirmed) => {
                         if (confirmed) {
@@ -107,10 +117,10 @@
             $ctrl.showCurrencyPurgeModal = function(currency) {
                 utilityService
                     .showConfirmationModal({
-                        title: "Purge Currency",
+                        title: "通貨をパージ",
                         question:
-              "Are you sure you'd like to purge this currency? This currency will be set to 0 for all users.",
-                        confirmLabel: "Purge"
+              "この通貨をパージしてもよろしいですか？この通貨はすべてのユーザーで 0 に設定されます。",
+                        confirmLabel: "パージ"
                     })
                     .then((confirmed) => {
                         if (confirmed) {

@@ -77,8 +77,8 @@ const fileWriter: EffectType<{
 }> = {
     definition: {
         id: "firebot:filewriter",
-        name: "Write To File",
-        description: "Write or delete some text in a file.",
+        name: "ファイル書き込み",
+        description: "ファイル内のテキストを書き込みまたは削除します。",
         icon: "fad fa-file-edit",
         categories: ["advanced"],
         dependencies: []

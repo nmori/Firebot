@@ -10,8 +10,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:approve-reject-channel-reward-redemption",
-        name: "Approve/Reject Channel Reward Redemption",
-        description: "Approves or rejects a pending Twitch channel reward redemption",
+        name: "チャンネル報酬交換の承認/拒否",
+        description: "保留中の Twitch チャンネル報酬交換を承認または拒否します",
         icon: "fad fa-check-circle",
         categories: ["common", "twitch"],
         dependencies: {

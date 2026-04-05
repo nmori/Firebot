@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputVolumeMultiplierVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputVolumeMultiplier",
-        description: "Returns the volume level multiplier of the OBS input.",
+        description: "OBS 入力の音量倍率を返します。",
         possibleDataOutput: ["number"],
         categories: ["advanced", "integrations", "obs"]
     },

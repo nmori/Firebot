@@ -5,8 +5,8 @@ import adManager from "../ad-manager";
 const model: EffectType = {
     definition: {
         id: "twitch:snooze-ad-break",
-        name: "Snooze Next Ad Break",
-        description: "Pushes back the next scheduled mid-roll ad break by 5 minutes",
+        name: "次の広告ブレイクをスヌーズ",
+        description: "次回予定されているミッドロール広告ブレイクを 5 分延期します",
         icon: "fad fa-snooze",
         categories: [
             "common",

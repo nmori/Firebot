@@ -10,8 +10,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:customvariable",
-        name: "Custom Variable",
-        description: "Save data to a custom variable that you can then use elsewhere.",
+        name: "カスタム変数",
+        description: "データをカスタム変数に保存し、他の場所で利用できます。",
         icon: "fad fa-value-absolute",
         categories: ["scripting"],
         dependencies: []

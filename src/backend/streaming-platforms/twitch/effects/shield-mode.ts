@@ -7,8 +7,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:shield-mode",
-        name: "Enable/Disable Shield Mode",
-        description: "Enable or disable Shield Mode on your Twitch channel",
+        name: "シールドモード有効/無効",
+        description: "Twitch チャンネルのシールドモードを有効または無効にします",
         icon: "fad fa-shield",
         categories: ["common", "moderation", "twitch"],
         dependencies: {

@@ -5,12 +5,12 @@
         .component("editOverlayResolutionModal", {
             template: `
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Overlay Resolution</h4>
+                    <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">オーバーレイ解像度を編集</h4>
                 </div>
                 <div class="modal-body">
                     <div class="btn-group mb-5">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Presets <span class="caret"></span></button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">プリセット <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <li ng-repeat="preset in $ctrl.presets"><a href ng-click="$ctrl.applyPreset(preset)">{{ preset.label }}</a></li>
                         </ul>
@@ -23,7 +23,7 @@
                                     type="number"
                                     class="form-control"
                                     id="width"
-                                    placeholder="Width"
+                                    placeholder="幅"
                                     ng-model="$ctrl.overlayResolution.width"
                                 >
                                 <div class="input-group-addon">x</div>
@@ -31,7 +31,7 @@
                                     type="number"
                                     class="form-control"
                                     id="height"
-                                    placeholder="Height"
+                                    placeholder="高さ"
                                     ng-model="$ctrl.overlayResolution.height"
                                 >
                             </div>
@@ -39,8 +39,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {

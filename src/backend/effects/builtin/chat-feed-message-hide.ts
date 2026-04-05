@@ -13,8 +13,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:chat-feed-message-hide",
-        name: "Hide Message In Chat Feed",
-        description: "Hide a message in Firebot's chat feed",
+        name: "チャットフィードでメッセージを非表示",
+        description: "Firebot のチャットフィード内のメッセージを非表示にします",
         icon: "fad fa-eye-slash",
         categories: ["common", "dashboard", "chat based"],
         dependencies: ["chat"],

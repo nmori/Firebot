@@ -9,9 +9,9 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body" style="text-align:center;">
-                <h1>{{$ctrl.restoreComplete ? 'Restore Complete!' : !$ctrl.restoreHasError ? 'Restoring...' : 'Oh no!'}}</h1>
+                <h1>{{$ctrl.restoreComplete ? '復元完了！' : !$ctrl.restoreHasError ? '復元中...' : '問題が発生しました'}}</h1>
                 <div style="overflow: hidden;" ng-hide="$ctrl.restoreComplete || $ctrl.restoreHasError">
-                    <div class="loader">Loading...</div>
+                    <div class="loader">読み込み中...</div>
                 </div>
                 <div ng-if="$ctrl.restoreHasError" style="height: 220px;display:flex;justify-content:center;align-items:center;">
                     <i class="fad fa-sad-tear" style="font-size: 150px;"></i>
@@ -20,15 +20,15 @@
                     <i class="fad fa-check-circle" style="font-size: 150px; color:lightgreen"></i>
                 </div>
                 <p ng-if="$ctrl.restoreHasError" style="color:#ed5e5e;">
-                    <b>Restore failed because:</b><br>{{$ctrl.errorMessage}}
+                    <b>復元に失敗しました:</b><br>{{$ctrl.errorMessage}}
                 </p>
-                <p ng-if="$ctrl.restoreHasError" class="muted" style="font-size:12px;">Note: Alternatively, you can manually restore your<br>backup by following <a href="https://github.com/crowbartools/Firebot/wiki/Firebot-V5-Manual-Restore" style="color:#7bddfa;text-decoration:underline;">these steps</a>.</p>
+                <p ng-if="$ctrl.restoreHasError" class="muted" style="font-size:12px;">補足: <a href="https://github.com/crowbartools/Firebot/wiki/Firebot-V5-Manual-Restore" style="color:#7bddfa;text-decoration:underline;">こちらの手順</a>に従って<br>手動復元することも可能です。</p>
                 <p ng-if="$ctrl.restoreComplete">
-                    The restore has completed successfully! Please click <b>Restart Firebot</b> below to restart Firebot. This ensures the restored data is properly loaded.
+                    復元が完了しました。下の <b>Firebotを再起動</b> をクリックして再起動してください。復元したデータを正しく読み込むために必要です。
                 </p>
             </div>
             <div class="modal-footer" style="text-align:center;">
-                <button ng-if="$ctrl.restoreHasError || $ctrl.restoreComplete" class="btn btn-primary" ng-click="$ctrl.exit()">{{$ctrl.restoreComplete ? 'Restart Firebot' : 'Okay'}}</button>
+                <button ng-if="$ctrl.restoreHasError || $ctrl.restoreComplete" class="btn btn-primary" ng-click="$ctrl.exit()">{{$ctrl.restoreComplete ? 'Firebotを再起動' : 'OK'}}</button>
             </div>
             `,
         bindings: {
@@ -58,7 +58,7 @@
             function beginRestore() {
                 if ($ctrl.backupFilePath == null || $ctrl.backupFilePath === "") {
                     $ctrl.restoreHasError = true;
-                    $ctrl.errorMessage = "The provided backup zip path does not appear to be valid.";
+                    $ctrl.errorMessage = "指定されたバックアップzipのパスが無効です。";
                     return;
                 }
 
@@ -77,7 +77,7 @@
                     } catch (error) {
                         logger.error("Unknown error while attempting to restore backup", error);
                         $ctrl.restoreHasError = true;
-                        $ctrl.errorMessage = "An unknown error occurred while attempting to restore the backup. Please reach out on Discord or Bluesky. We are happy to help!";
+                        $ctrl.errorMessage = "バックアップ復元中に不明なエラーが発生しました。Discord または Bluesky でご連絡ください。喜んでサポートします。";
                     }
                     resolve();
                 });
@@ -91,7 +91,7 @@
                 $timeout(() => {
                     if (!$ctrl.restoreComplete && !$ctrl.restoreHasError) {
                         $ctrl.restoreHasError = true;
-                        $ctrl.errorMessage = "Restore is taking longer than it should. There is likely an issue. You can close and try again. If you continue having issues, please reach out on Discord or Bluesky. We are happy to help!";
+                        $ctrl.errorMessage = "復元に通常より時間がかかっています。問題が発生している可能性があります。いったん閉じて再試行してください。解決しない場合は Discord または Bluesky でご連絡ください。";
                     }
                 }, 60 * 1000);
             };

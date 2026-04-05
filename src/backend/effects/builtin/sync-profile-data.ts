@@ -6,8 +6,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:sync-profile-data",
-        name: "Sync Data to Profile Page",
-        description: "Syncs your data to your Firebot profile page",
+        name: "プロフィールページへデータ同期",
+        description: "データを Firebot プロフィールページへ同期します",
         icon: "fad fa-sync",
         categories: ["advanced", "scripting", "firebot control"],
         dependencies: {

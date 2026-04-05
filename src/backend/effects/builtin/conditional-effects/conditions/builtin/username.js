@@ -2,8 +2,8 @@
 
 module.exports = {
     id: "firebot:username",
-    name: "Username",
-    description: "Condition based on a username",
+    name: "ユーザ名",
+    description: "ユーザー名に基づく条件",
     comparisonTypes: ["is", "is not", "contains", "matches regex"],
     leftSideValueType: "none",
     rightSideValueType: "text",

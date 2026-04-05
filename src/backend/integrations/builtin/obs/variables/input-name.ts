@@ -35,7 +35,7 @@ triggers["manual"] = true;
 export const InputNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputName",
-        description: "Returns the name of the OBS input.",
+        description: "OBS 入力名を返します。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"]
     },

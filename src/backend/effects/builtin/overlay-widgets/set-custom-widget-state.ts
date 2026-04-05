@@ -9,8 +9,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:set-custom-widget-state",
-        name: "Set Custom Widget State",
-        description: "Set the state of a Custom or Custom (Advanced) Overlay Widget.",
+        name: "カスタムウィジェット状態設定",
+        description: "Custom または Custom（Advanced）オーバーレイウィジェットの状態を設定します。",
         icon: "fad fa-cog",
         categories: ["overlay", "advanced"],
         dependencies: []

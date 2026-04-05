@@ -1,36 +1,36 @@
 <div ng-if="isViewerDBOn">
     <div class="p-6 mx-0 flex justify-between">
         <button ng-click="vs.updateViewers()" class="btn btn-primary mr-4">
-            <i class="far fa-sync mr-2"></i> Refresh
+            <i class="far fa-sync mr-2"></i> 更新
         </button>
         <div class="btn-group" uib-dropdown>
             <button id="tools-dropdown" type="button" class="btn btn-default" uib-dropdown-toggle>
-            Tools <span class="caret"></span>
+            ツール <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="tools-dropdown">
                 <li role="menuitem">
                     <a href ng-click="showImportViewersModal()">
-                        <i class="fas fa-cloud-download-alt mr-4 text-center" style="width: 20px;" aria-label="Import Viewers"></i>
-                        Import Viewers...
+                        <i class="fas fa-cloud-download-alt mr-4 text-center" style="width: 20px;" aria-label="視聴者をインポート"></i>
+                        視聴者をインポート...
                     </a>
                 </li>
                 <li role="menuitem">
                     <a href ng-click="showExportViewersModal()">
-                        <i class="fas fa-file-export mr-4 text-center" style="width: 20px;" aria-label="Export Viewers"></i>
-                        Export Viewers...
+                        <i class="fas fa-file-export mr-4 text-center" style="width: 20px;" aria-label="視聴者をエクスポート"></i>
+                        視聴者をエクスポート...
                     </a>
                 </li>
                 <li role="menuitem">
                     <a href style="color: #fb7373;" ng-click="showPurgeViewersModal()">
-                        <i class="far fa-trash-alt mr-4 text-center" style="width: 20px;" aria-label="Purge Viewers"></i>
-                        Purge Viewers...
+                        <i class="far fa-trash-alt mr-4 text-center" style="width: 20px;" aria-label="視聴者を一括削除"></i>
+                        視聴者を一括削除...
                     </a>
                 </li>
             </ul>
         </div>
         <div class="flex justify-between" style="margin-left: auto;">
-            <button ng-click="showViewerSearchModal();" class="btn btn-default mr-4"><i class="far fa-search"></i> Search Twitch</button>
-            <searchbar placeholder-text="Search Firebot viewers..." query="viewerSearch" style="flex-basis: 250px"></searchbar>
+            <button ng-click="showViewerSearchModal();" class="btn btn-default mr-4"><i class="far fa-search"></i> Twitchで検索</button>
+            <searchbar placeholder-text="Firebot視聴者を検索..." query="viewerSearch" style="flex-basis: 250px"></searchbar>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
             on-row-click="viewerRowClicked(data)"
             track-by-field="_id"
             starting-sort-field="username"
-            no-data-message="No viewer data available yet!"
+            no-data-message="視聴者データはまだありません。"
             page-size="viewerTablePageSize"
         >
         </sortable-table>
@@ -51,8 +51,8 @@
 </div>
 
 <div ng-if="!isViewerDBOn" class="flex flex-col justify-center items-center" style="height: 100%">
-    <p class="muted">The viewer database is turned off.</p>
+    <p class="muted">視聴者データベースは無効です。</p>
     <button ng-click="turnOnDatabase()" class="btn btn-primary">
-        Turn on viewer database
+        視聴者データベースを有効化
     </button>
 </div>

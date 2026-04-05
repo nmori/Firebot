@@ -126,7 +126,7 @@
             service.openViewerSearchModal = function(options, callback) {
                 modalService.showModal({
                     component: "viewerSearchModal",
-                    breadcrumbName: "Viewer Search",
+                    breadcrumbName: "視聴者検索",
                     size: "sm",
                     backdrop: true,
                     resolveObj: {
@@ -675,49 +675,49 @@
 
                                     if (firstError.varname) {
                                         errorDetails.push({
-                                            title: "Variable",
+                                            title: "変数",
                                             message: `$${firstError.varname}`
                                         });
                                     }
 
                                     if (firstError.message) {
                                         errorDetails.push({
-                                            title: "Error",
+                                            title: "エラー",
                                             message: firstError.message
                                         });
                                     }
 
                                     if (firstError.index > -1) {
                                         errorDetails.push({
-                                            title: "Argument Index",
+                                            title: "引数インデックス",
                                             message: firstError.index
                                         });
                                     }
 
                                     if (firstError.character) {
                                         errorDetails.push({
-                                            title: "Character",
+                                            title: "文字",
                                             message: `"${firstError.character}"`
                                         });
                                     }
 
                                     if (firstError.position) {
                                         errorDetails.push({
-                                            title: "Character Position",
+                                            title: "文字位置",
                                             message: firstError.position
                                         });
                                     }
 
                                     if (firstError.rawText) {
                                         errorDetails.push({
-                                            title: "Raw Text",
+                                            title: "元テキスト",
                                             message: `"${firstError.rawText}"`
                                         });
                                     }
 
                                     if (firstError.dataField) {
                                         errorDetails.push({
-                                            title: "UI Field",
+                                            title: "UIフィールド",
                                             message: firstError.dataField
                                         });
                                     }

@@ -170,8 +170,8 @@ const overlayAlertStyles = `
 const effect: EffectType<OverlayAlertEffect> = {
     definition: {
         id: "firebot:overlayalert",
-        name: "Overlay Alert",
-        description: "Shows a customizable alert with media and text in the overlay.",
+        name: "オーバーレイアラート",
+        description: "オーバーレイ上にメディアとテキストを含むカスタマイズ可能なアラートを表示します。",
         icon: "fad fa-bell",
         categories: ["common", "overlay"],
         dependencies: [],

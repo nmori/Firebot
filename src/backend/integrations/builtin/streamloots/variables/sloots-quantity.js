@@ -10,7 +10,7 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "slootsChestQuantity",
-        description: "The number of purchased StreamLoots Chests.",
+        description: "購入された StreamLoots チェスト数です。",
         triggers: triggers,
         categories: [VariableCategory.COMMON, VariableCategory.INTEGRATION],
         possibleDataOutput: [OutputDataType.NUMBER]

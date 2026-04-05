@@ -12,8 +12,8 @@ type State = {};
 
 export const custom: OverlayWidgetType<Settings, State> = {
     id: "firebot:custom",
-    name: "Custom Widget",
-    description: "Supply your own HTML and JavaScript to create a custom widget.",
+    name: "カスタムウィジェット",
+    description: "独自の HTML と JavaScript でカスタムウィジェットを作成します。",
     icon: "fa-cog",
     settingsSchema: [
         {

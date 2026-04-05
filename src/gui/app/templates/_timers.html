@@ -1,34 +1,34 @@
 <firebot-tabs ng-init="$ctrl.activeTab = 'timers'" active="$ctrl.activeTab" type="underlined" page-tabs="true">
-  <firebot-tab name="timers" label="Timers">
+  <firebot-tab name="timers" label="タイマー">
     <firebot-item-table
       items="timerService.timers"
       on-items-update="onTimersUpdated(items)"
       headers="timerHeaders"
       sort-tag-context="timers"
       orderable="true"
-      add-new-button-text="New Timer"
+      add-new-button-text="新規タイマー"
       on-add-new-clicked="timerService.showAddEditTimerModal()"
       context-menu-options="timerOptions(item)"
-      no-data-message="No timers saved. You should make one! :)"
-      none-found-message="No timers found."
-      search-placeholder="Search timers"
+      no-data-message="タイマーは作成されていません! :)"
+      none-found-message="タイマーは見つかりません"
+      search-placeholder="タイマーを検索"
       test-button="false"
       status-field="active"
     ></firebot-item-table>
   </firebot-tab>
-  <firebot-tab name="scheduled" label="Scheduled Effect Lists">
+  <firebot-tab name="scheduled" label="演出予定リスト">
     <firebot-item-table
       items="scheduledTaskService.scheduledTasks"
       on-items-update="onScheduledTasksUpdated(items)"
       headers="scheduledTaskHeaders"
-      sort-tag-context="scheduled effect lists"
+      sort-tag-context="演出予定リスト"
       orderable="true"
-      add-new-button-text="New Scheduled Effect List"
+      add-new-button-text="新しい演出予定リスト"
       on-add-new-clicked="scheduledTaskService.showAddEditScheduledTaskModal()"
       context-menu-options="scheduledTaskOptions(item)"
-      no-data-message="No scheduled effect lists saved. You should make one! :)"
-      none-found-message="No scheduled effect lists found."
-      search-placeholder="Search scheduled effect lists"
+      no-data-message="演出予定リストは作成されていません :)"
+      none-found-message="演出予定リストは見つかりません"
+      search-placeholder="演出予定リストを検索"
       test-button="false"
       status-field="enabled"
     ></firebot-item-table>

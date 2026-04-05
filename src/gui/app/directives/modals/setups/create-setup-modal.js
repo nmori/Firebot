@@ -9,20 +9,20 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Create New Setup</h4>
+                    <h4 class="modal-title">新しいセットアップを作成</h4>
                 </div>
                 <div class="modal-body">
-                    <h3>Name</h3>
-                    <input type="text" class="form-control" ng-model="$ctrl.setup.name" placeholder="Enter name">
+                    <h3>名前</h3>
+                    <input type="text" class="form-control" ng-model="$ctrl.setup.name" placeholder="名前を入力">
 
-                    <h3>Description</h3>
-                    <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.setup.description" placeholder="Enter description (supports Markdown)"></textarea>
+                    <h3>説明</h3>
+                    <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.setup.description" placeholder="説明を入力（Markdown対応）"></textarea>
 
-                    <h3>Version</h3>
-                    <input type="number" class="form-control" ng-model="$ctrl.setup.version" placeholder="Enter version">
+                    <h3>バージョン</h3>
+                    <input type="number" class="form-control" ng-model="$ctrl.setup.version" placeholder="バージョンを入力">
 
-                    <h3>Components</h3>
-                    <p class="muted">Select the various components that you want to include in this Firebot Setup.</p>
+                    <h3>コンポーネント</h3>
+                    <p class="muted">この Firebot セットアップに含めるコンポーネントを選択してください。</p>
                     <div ng-repeat="componentConfig in $ctrl.components track by $index" style="margin-bottom: 20px;">
                         <h4>{{componentConfig.label}}</h4>
                         <div style="padding-left: 5px">
@@ -35,45 +35,45 @@
                             </div>
                         </div>
                         <button class="btn btn-link" ng-click="$ctrl.addOrEditComponent(componentConfig)">
-                            <i class="fal" ng-class="!!$ctrl.setup.components[componentConfig.key].length ? 'fa-edit' : 'fa-plus'"></i> {{!!$ctrl.setup.components[componentConfig.key].length ? 'Edit' : 'Add'}}
+                            <i class="fal" ng-class="!!$ctrl.setup.components[componentConfig.key].length ? 'fa-edit' : 'fa-plus'"></i> {{!!$ctrl.setup.components[componentConfig.key].length ? '編集' : '追加'}}
                         </button>
                     </div>
 
-                    <h3>Options</h3>
+                    <h3>オプション</h3>
                     <div>
-                        <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity.0.9;"> Require User To Select A Currency <tooltip text="'Require the user to select one of THEIR currencies before importing. Firebot will update all Currency Effects, Variables, and Restrictions in the included components to use the selected currency. This is great for Chat games.'"></tooltip>
+                        <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity.0.9;"> インポート前にユーザーへ通貨選択を必須化 <tooltip text="'インポート前に、ユーザー自身の通貨から1つを選択してもらいます。含まれるコンポーネント内の通貨エフェクト・変数・制限は選択された通貨を使うよう更新されます。チャットゲームに便利です。'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.setup.requireCurrency">
                             <div class="control__indicator"></div>
                         </label>
                     </div>
 
-                    <h3>Import Questions <tooltip text="'Users must supply answers to these questions before importing this Setup. Firebot will automatically replace all instances of the given token with the user\\'s answer.'"/></h3>
+                    <h3>インポート質問 <tooltip text="'このセットアップをインポートする前に、ユーザーがこれらの質問に回答する必要があります。Firebot は指定されたトークンを自動的にユーザーの回答へ置換します。'"/></h3>
                     <div>
                         <div>
                             <div ng-repeat="question in $ctrl.setup.importQuestions track by question.id" class="list-item selectable" ng-click="$ctrl.addImportQuestion(question)">
-                                <div uib-tooltip="Click to edit" style="font-weight: 400;">
-                                    <div><b>Question:</b> {{question.question}}</div>
-                                    <div><b>Replace Token:</b> {{question.replaceToken}}</div>
-                                    <div ng-show="question.defaultAnswer"><b>Default Answer:</b> {{question.defaultAnswer}}</div>
+                                <div uib-tooltip="クリックして編集" style="font-weight: 400;">
+                                    <div><b>質問:</b> {{question.question}}</div>
+                                    <div><b>置換トークン:</b> {{question.replaceToken}}</div>
+                                    <div ng-show="question.defaultAnswer"><b>デフォルト回答:</b> {{question.defaultAnswer}}</div>
                                 </div>
-                                <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeImportQuestion(question.id);$event.stopPropagation();" aria-label="Remove item">
+                                <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeImportQuestion(question.id);$event.stopPropagation();" aria-label="項目を削除">
                                     <i class="fad fa-trash-alt" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
-                        <button class="filter-bar" ng-click="$ctrl.addImportQuestion()" uib-tooltip="Add Import Question" tooltip-append-to-body="true">
+                        <button class="filter-bar" ng-click="$ctrl.addImportQuestion()" uib-tooltip="インポート質問を追加" tooltip-append-to-body="true">
                             <i class="far fa-plus"></i>
                         </button>
                     </div>
 
                     <div style="margin-top: 20px;">
-                        <div class="alert alert-warning" role="alert" style="opacity: 0.8;margin-bottom: 0;"><b>Warning!</b> Media files (such as images, videos, sounds, customs scripts, etc) referenced in effects will <b>not</b> be included with this Setup.</div>
+                        <div class="alert alert-warning" role="alert" style="opacity: 0.8;margin-bottom: 0;"><b>警告!</b> エフェクト内で参照されるメディアファイル（画像、動画、音声、カスタムスクリプトなど）は、このセットアップに<b>含まれません</b>。</div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPreviousSetup()">Load Previous</button>
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Create Setup</button>
+                    <button type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPreviousSetup()">前回の設定を読み込む</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">セットアップを作成</button>
                 </div>
             `,
             bindings: {
@@ -90,97 +90,97 @@
 
                 $ctrl.components = [
                     {
-                        label: "Commands",
+                        label: "コマンド",
                         all: commandsService.getCustomCommands(),
                         nameField: "trigger",
                         key: "commands"
                     },
                     {
-                        label: "Counters",
+                        label: "カウンター",
                         all: countersService.counters,
                         nameField: "name",
                         key: "counters"
                     },
                     {
-                        label: "Currencies",
+                        label: "通貨",
                         all: currencyService.getCurrencies(),
                         nameField: "name",
                         key: "currencies"
                     },
                     {
-                        label: "Effect Queues",
+                        label: "エフェクトキュー",
                         all: effectQueuesService.getEffectQueues(),
                         nameField: "name",
                         key: "effectQueues"
                     },
                     {
-                        label: "Events",
+                        label: "イベント",
                         all: eventsService.getAllEvents(),
                         nameField: "name",
                         key: "events"
                     },
                     {
-                        label: "Event Sets",
+                        label: "イベントセット",
                         all: eventsService.getAllEventGroups(),
                         nameField: "name",
                         key: "eventGroups"
                     },
                     {
-                        label: "Hotkeys",
+                        label: "ホットキー",
                         all: hotkeyService.hotkeys,
                         nameField: "name",
                         key: "hotkeys"
                     },
                     {
-                        label: "Overlay Widgets",
+                        label: "オーバーレイウィジェット",
                         all: overlayWidgetsService.overlayWidgetConfigs,
                         nameField: "name",
                         key: "overlayWidgetConfigs"
                     },
                     {
-                        label: "Preset Effect Lists",
+                        label: "プリセットエフェクトリスト",
                         all: presetEffectListsService.getPresetEffectLists(),
                         nameField: "name",
                         key: "presetEffectLists"
                     },
                     {
-                        label: "Timers",
+                        label: "タイマー",
                         all: timerService.getTimers(),
                         nameField: "name",
                         key: "timers"
                     },
                     {
-                        label: "Scheduled Effect Lists",
+                        label: "スケジュール済みエフェクトリスト",
                         all: scheduledTaskService.getScheduledTasks(),
                         nameField: "name",
                         key: "scheduledTasks"
                     },
                     {
-                        label: "Variable Macros",
+                        label: "変数マクロ",
                         all: variableMacroService.macros,
                         nameField: "name",
                         key: "variableMacros"
                     },
                     {
-                        label: "Viewer Roles",
+                        label: "視聴者ロール",
                         all: viewerRolesService.getCustomRoles(),
                         nameField: "name",
                         key: "viewerRoles"
                     },
                     {
-                        label: "Viewer Rank Ladders",
+                        label: "視聴者ランクラダー",
                         all: viewerRanksService.rankLadders,
                         nameField: "name",
                         key: "viewerRankLadders"
                     },
                     {
-                        label: "Quick Actions",
+                        label: "クイックアクション",
                         all: quickActionsService.quickActions.filter(qa => qa.type === "custom"),
                         nameField: "name",
                         key: "quickActions"
                     },
                     {
-                        label: "Global Values",
+                        label: "グローバル値",
                         all: settingsService.getSetting("GlobalValues", true).map(v => ({
                             id: `GlobalValue:${v.name}`,
                             ...v
@@ -235,33 +235,33 @@
 
                 $ctrl.save = async () => {
                     if ($ctrl.setup.name == null || $ctrl.setup.name === "") {
-                        ngToast.create("Please give this Setup a name.");
+                        ngToast.create("セットアップ名を入力してください。");
                         return;
                     }
 
                     if ($ctrl.setup.description == null || $ctrl.setup.description === "") {
-                        ngToast.create("Please give this Setup a description.");
+                        ngToast.create("セットアップの説明を入力してください。");
                         return;
                     }
 
                     if ($ctrl.setup.version == null || $ctrl.setup.version <= 0) {
-                        ngToast.create("The Setup version must be greater than 0");
+                        ngToast.create("セットアップのバージョンは 0 より大きい値を指定してください。");
                         return;
                     }
 
                     if (Object.values($ctrl.setup.components)
                         .every(array => array == null || array.length < 1)) {
-                        ngToast.create("Please select at least one component");
+                        ngToast.create("少なくとも1つのコンポーネントを選択してください。");
                         return;
                     }
 
                     /**@type {Electron.SaveDialogOptions} */
                     const saveDialogOptions = {
-                        buttonLabel: "Save Setup",
+                        buttonLabel: "セットアップを保存",
                         defaultPath: `${sanitizeFileName($ctrl.setup.name)}.firebotsetup`,
-                        title: "Save Setup File",
+                        title: "セットアップファイルを保存",
                         filters: [
-                            { name: "Firebot Setup Files", extensions: ['firebotsetup'] }
+                            { name: "Firebot セットアップファイル", extensions: ['firebotsetup'] }
                         ],
                         properties: ["showOverwriteConfirmation", "createDirectory"]
                     };
@@ -282,13 +282,13 @@
                     if (success) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Saved Firebot Setup!'
+                            content: 'Firebot セットアップを保存しました！'
                         });
                         $ctrl.close();
                     } else {
                         ngToast.create({
                             className: 'error',
-                            content: 'Failed to save Firebot Setup'
+                            content: 'Firebot セットアップの保存に失敗しました。'
                         });
                     }
                 };
@@ -311,14 +311,14 @@
                         }
                         $ctrl.setup = result.setup;
                     } else {
-                        ngToast.create("Unable to load previous Firebot Setup");
+                        ngToast.create("前回の Firebot セットアップを読み込めませんでした。");
                     }
                 };
 
                 $ctrl.loadPreviousSetup = async () => {
                     const response = await backendCommunicator.fireEventAsync("open-file-browser", {
                         options: {
-                            filters: [{ name: 'Firebot Setups', extensions: ['firebotsetup'] }]
+                            filters: [{ name: 'Firebot セットアップ', extensions: ['firebotsetup'] }]
                         }
                     });
 

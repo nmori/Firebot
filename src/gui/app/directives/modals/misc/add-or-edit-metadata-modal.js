@@ -6,21 +6,21 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNew ? 'Add' : 'Edit'}} Metadata</h4>
+                    <h4 class="modal-title">{{$ctrl.isNew ? '追加' : '編集'}} メタデータ</h4>
                 </div>
                 <div class="modal-body">
 
                     <form name="metadataInfo">
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('key')}">
-                            <label for="key" class="control-label">Key</label>
+                            <label for="key" class="control-label">キー</label>
                             <input
                                 ng-if="$ctrl.isNew"
                                 type="text"
                                 id="key"
                                 name="key"
                                 class="form-control input-lg"
-                                placeholder="Enter key"
+                                placeholder="キーを入力"
                                 ng-model="$ctrl.metadata.key"
                                 ui-validate="'$value != null && $value.length > 0'"
                                 required
@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('value')}">
-                            <label for="value" class="control-label">Data</label>
+                            <label for="value" class="control-label">データ</label>
                             <selectable-input-editors
                                 editors="editors"
                                 initial-editor-label="initialEditorLabel"
@@ -40,8 +40,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {
@@ -60,15 +60,15 @@
 
                 $scope.editors = [
                     {
-                        label: "Text",
+                        label: "テキスト",
                         inputType: "text",
-                        placeholderText: "Enter value",
+                        placeholderText: "値を入力",
                         disableVariables: true
                     },
                     {
-                        label: "Number",
+                        label: "数値",
                         inputType: "number",
-                        placeholderText: "Enter value",
+                        placeholderText: "値を入力",
                         disableVariables: true,
                         forceInput: true
                     },

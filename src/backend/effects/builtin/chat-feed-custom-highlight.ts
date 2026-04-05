@@ -16,8 +16,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:chat-feed-custom-highlight",
-        name: "Highlight Message In Chat Feed",
-        description: "Apply a custom highlight and/or banner to a message in the Firebot chat feed",
+        name: "チャットフィードでメッセージをハイライト",
+        description: "Firebot のチャットフィード内メッセージにカスタムハイライトやバナーを適用します",
         icon: "fas fa-highlighter",
         categories: ["common", "chat based", "dashboard"],
         dependencies: ["chat"],

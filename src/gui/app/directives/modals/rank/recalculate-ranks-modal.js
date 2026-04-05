@@ -5,16 +5,16 @@
         template: `
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <div class="action text-4xl">Recalculate Ranks For All Viewers</div>
+                    <div class="action text-4xl">全視聴者のランクを再計算</div>
                 </h4>
             </div>
             <div class="modal-body text-center">
                 <div ng-hide="$ctrl.hasFinished">
                     <p ng-hide="$ctrl.hasStarted">
-                        This will recalculate the ranks in the {{$ctrl.rankLadder.name}} ladder for all viewers. This may take some time depending on the number of viewers in your database.
+                        {{$ctrl.rankLadder.name}} ラダーのランクを全視聴者分再計算します。視聴者数によっては時間がかかる場合があります。
                     </p>
                     <div ng-show="$ctrl.hasStarted">
-                        <p>Recalculating ranks...</p>
+                        <p>ランクを再計算中...</p>
                         <uib-progressbar
                             class="progress-striped active"
                             value="$ctrl.completionPercentage"
@@ -25,12 +25,12 @@
                 </div>
                 <div ng-show="$ctrl.hasFinished">
                     <i class="fa fa-check-circle text-success" style="font-size: 15rem;"></i>
-                    <p>Rank recalculation was successful!</p>
+                    <p>ランクの再計算が完了しました。</p>
                 </div>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-default" ng-click="$ctrl.cancel()">{{$ctrl.hasFinished ? 'Close' : 'Cancel'}}</button>
-                <button ng-if="!$ctrl.hasStarted && !$ctrl.hasFinished" type="button" class="btn btn-primary" ng-click="$ctrl.start()">Recalculate</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.cancel()">{{$ctrl.hasFinished ? '閉じる' : 'キャンセル'}}</button>
+                <button ng-if="!$ctrl.hasStarted && !$ctrl.hasFinished" type="button" class="btn btn-primary" ng-click="$ctrl.start()">再計算</button>
             </div>
             `,
         bindings: {
@@ -80,11 +80,11 @@
             $ctrl.cancel = () => {
                 if ($ctrl.hasStarted) {
                     utilityService.showConfirmationModal({
-                        title: "Are you sure?",
-                        question: "Are you sure you want to cancel the rank recalculation?",
-                        confirmLabel: "Yes, cancel",
+                        title: "確認",
+                        question: "ランク再計算をキャンセルしてもよろしいですか？",
+                        confirmLabel: "はい、キャンセル",
                         confirmBtnType: "btn-danger",
-                        cancelLabel: "No, keep going"
+                        cancelLabel: "いいえ、続行"
                     }).then((confirmed) => {
                         if (confirmed) {
                             backendCommunicator.fireEvent("rank-recalculation:cancel");

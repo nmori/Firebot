@@ -21,7 +21,7 @@
                         </div>
                         <div style="flex-basis: 50%; text-align: right;">
                             <firebot-button
-                                text="Mark as Complete"
+                                text="完了にする"
                                 size="small"
                                 icon="fa-check"
                                 ng-click="$ctrl.approveOrReject(true)"
@@ -29,13 +29,13 @@
                                 disabled="$ctrl.isLoading"
                             />
                             <firebot-button
-                                text="Reject"
+                                text="却下"
                                 size="small"
                                 icon="fa-times"
                                 ng-click="$ctrl.approveOrReject(false)"
                                 loading="$ctrl.isLoading"
                                 disabled="$ctrl.isLoading"
-                                tooltip="Refund points back to user"
+                                tooltip="ポイントをユーザーに返却"
                                 tooltip-placement="top-right"
                             />
                         </div>

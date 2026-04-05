@@ -12,9 +12,9 @@
             },
             template: `
         <div>
-          <h3 style="margin-bottom: 5px;">Filters</h3>
+                    <h3 style="margin-bottom: 5px;">フィルタ</h3>
           <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;" ng-if="$ctrl.hasFiltersAvailable()">
-            <span>Only trigger this event when</span>
+                        <span>このイベントをトリガーする条件:</span>
 
             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                 <a href role="button"
@@ -22,32 +22,32 @@
                   <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                     <li ng-click="$ctrl.filterData.mode = 'exclusive'">
-                      <a style="padding-left: 10px;">all filters pass</a>
+                                            <a style="padding-left: 10px;">すべてのフィルタを満たす</a>
                     </li>
 
                     <li ng-click="$ctrl.filterData.mode = 'inclusive'">
-                      <a style="padding-left: 10px;">any filter passes</a>
+                                            <a style="padding-left: 10px;">いずれかのフィルタを満たす</a>
                     </li>
                 </ul>
             </div>
-            <span>:</span>
+                        <span></span>
           </div>
           <div style="display:flex;flex-wrap: wrap;">
 
             <button ng-repeat="filter in $ctrl.filterData.filters track by $index" class="filter-bar" ng-click="$ctrl.openAddOrEditFilterModal($index)">
                 <filter-display filter="filter" filter-type="$ctrl.getFilterType(filter.type)"></filter-display>
-                <a class="filter-remove-btn clickable" style="padding-left: 10px;" ng-click="$event.stopPropagation();$ctrl.removeFilterAtIndex($index)" uib-tooltip="Remove filter" tooltip-append-to-body="true">
+                <a class="filter-remove-btn clickable" style="padding-left: 10px;" ng-click="$event.stopPropagation();$ctrl.removeFilterAtIndex($index)" uib-tooltip="フィルタを削除" tooltip-append-to-body="true">
                     <i class="far fa-times"></i>
                 </a>
             </button>
 
-            <button class="filter-bar" ng-show="$ctrl.hasFiltersAvailable()" ng-click="$ctrl.openAddOrEditFilterModal()" uib-tooltip="Add new filter" tooltip-append-to-body="true">
+            <button class="filter-bar" ng-show="$ctrl.hasFiltersAvailable()" ng-click="$ctrl.openAddOrEditFilterModal()" uib-tooltip="新しいフィルタを追加" tooltip-append-to-body="true">
                 <i class="far fa-plus"></i>
             </button>
 
           </div>
 
-            <div ng-if="!$ctrl.hasFiltersAvailable()" class="muted">There are no filters available for this event type.</div>
+            <div ng-if="!$ctrl.hasFiltersAvailable()" class="muted">このイベントタイプで利用可能なフィルタはありません。</div>
         </div>
             `,
             controller: function(utilityService, backendCommunicator, $injector) {
@@ -137,7 +137,7 @@
                 }
 
                 $ctrl.getFilterModeDisplay = function() {
-                    return $ctrl.filterData.mode === "inclusive" ? "any filter passes" : "all filters pass";
+                    return $ctrl.filterData.mode === "inclusive" ? "いずれかのフィルタを満たす" : "すべてのフィルタを満たす";
                 };
 
                 $ctrl.getFilterType = function(typeId) {

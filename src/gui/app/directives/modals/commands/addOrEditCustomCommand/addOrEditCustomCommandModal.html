@@ -14,10 +14,10 @@
 
     <div ng-if="!$ctrl.command.simple">
         <firebot-tabs active="$ctrl.activeTab" type="underlined" full-width="true">
-            <firebot-tab index="0" name="general" label="General" icon="fas fa-cog">
+            <firebot-tab index="0" name="general" label="一般" icon="fas fa-cog">
                 <firebot-input
-                    input-title="Trigger"
-                    title-tooltip="Displayed on the command list webpage"
+                    input-title="トリガー"
+                    title-tooltip="コマンド一覧ページに表示されます"
                     placeholder-text="!something or phrase"
                     model="$ctrl.command.trigger"
                     disable-variables="true"
@@ -27,9 +27,9 @@
                 </firebot-input>
 
                 <firebot-input
-                    input-title="Description"
-                    title-tooltip="Displayed on the command list webpage"
-                    placeholder-text="Enter description"
+                    input-title="説明"
+                    title-tooltip="コマンド一覧ページに表示されます"
+                    placeholder-text="説明を入力"
                     model="$ctrl.command.description"
                     disable-variables="true"
                     class="pb-4"
@@ -39,7 +39,7 @@
 
                 <div class="controls-fb-inline pb-5">
                     <label class="control-fb control--checkbox"
-                        >Enabled
+                        >有効
                         <input
                             type="checkbox"
                             ng-model="$ctrl.command.active"
@@ -49,8 +49,8 @@
                         <div class="control__indicator"></div>
                     </label>
                     <label class="control-fb control--checkbox"
-                        >Hidden
-                        <tooltip text="'Hide this command from the !commands list'"></tooltip>
+                        >非表示
+                        <tooltip text="'このコマンドを !commands 一覧から非表示にします'"></tooltip>
                         <input
                             type="checkbox"
                             ng-model="$ctrl.command.hidden"
@@ -62,9 +62,9 @@
 
                 <div class="controls-fb-inline pb-5">
                     <label class="control-fb control--checkbox"
-                        >Auto Delete Trigger
+                        >トリガーメッセージを自動削除
                         <tooltip
-                            text="'Have Firebot automatically delete the message that triggers this command to keep chat cleaner.'"
+                            text="'このコマンドを発火したメッセージを Firebot が自動削除し、チャットを見やすく保ちます。'"
                         >
                         </tooltip>
                         <input
@@ -75,9 +75,9 @@
                         <div class="control__indicator"></div>
                     </label>
                     <label class="control-fb control--checkbox"
-                        >Scan Whole Message
+                        >メッセージ全体を検索
                         <tooltip
-                            text="'Scan the whole message for the trigger instead just the first word'"
+                            text="'先頭の単語だけでなく、メッセージ全体からトリガーを検索します。'"
                         ></tooltip>
                         <input
                             type="checkbox"
@@ -89,17 +89,16 @@
                 </div>
 
                 <eos-collapsable-panel
-                    show-label="Show RegEx Options"
-                    hide-label="Hide RegEx Options"
+                    show-label="RegEx オプションを表示"
+                    hide-label="RegEx オプションを非表示"
                 >
                     <p class="pb-3">
-                        For advanced users only! Enable this to make Firebot
-                        treat the trigger as a JavaScript flavored regular
-                        expression. This will allow you to define more complex
-                        patterns to match against.
+                        上級者向けです。これを有効にすると Firebot はトリガーを
+                        JavaScript 形式の正規表現として扱います。
+                        より複雑な一致パターンを定義できます。
                     </p>
                     <label class="control-fb control--checkbox"
-                        >Trigger Is A RegEx
+                        >トリガーを RegEx として扱う
                         <input
                             type="checkbox"
                             ng-model="$ctrl.command.triggerIsRegex"
@@ -112,9 +111,9 @@
                         ng-if="$ctrl.command.triggerIsRegex"
                     >
                         <span class="input-group-addon" id="tooltip-desc"
-                            >Description
+                            >説明
                             <tooltip
-                                text="'Here you can input whatever you want to remind yourself what the RegEx does. It will show up as a tooltip on the main command page.'"
+                                text="'RegEx の用途メモを入力できます。メインのコマンドページでツールチップ表示されます。'"
                             >
                             </tooltip
                         ></span>
@@ -123,13 +122,13 @@
                             class="form-control"
                             aria-describedby="tooltip-desc"
                             ng-model="$ctrl.command.regexDescription"
-                            placeholder="This regex matches..."
+                            placeholder="この正規表現は..."
                         />
                     </div>
                 </eos-collapsable-panel>
 
                 <div ng-hide="$ctrl.command.triggerIsRegex" class="pb-5">
-                    <h4 class="mb-2">Aliases</h4>
+                    <h4 class="mb-2">エイリアス</h4>
                     <editable-tags
                         model="$ctrl.command.aliases"
                         settings="aliasesListOptions"
@@ -138,17 +137,17 @@
 
                 <div class="settings-title">
                     <h3>
-                        <span ng-hide="$ctrl.command.scanWholeMessage || $ctrl.command.triggerIsRegex">Base </span>Effects
+                        <span ng-hide="$ctrl.command.scanWholeMessage || $ctrl.command.triggerIsRegex">基本 </span>エフェクト
                         <tooltip
                             ng-hide="$ctrl.command.scanWholeMessage || $ctrl.command.triggerIsRegex"
                             class="text-3xl"
-                            text="'Always triggered if there are no subcommands. If there are subcommands, this is only triggered when the user does not provide any arguments.'"
+                            text="'サブコマンドが無い場合は常に実行されます。サブコマンドがある場合は、ユーザーが引数を指定しない時のみ実行されます。'"
                         ></tooltip>
                     </h3>
                 </div>
 
                 <effect-list
-                    header="What should this command do?"
+                    header="このコマンドで何を実行しますか？"
                     effects="$ctrl.command.effects"
                     trigger="command"
                     trigger-meta="{ rootEffects: $ctrl.command.effects }"
@@ -158,13 +157,13 @@
 
             </firebot-tab>
 
-            <firebot-tab index="1" name="access" label="Access Control" icon="fas fa-shield-alt">
+            <firebot-tab index="1" name="access" label="アクセス制御" icon="fas fa-shield-alt">
                 <h3 class="mb-3">
-                    Restrictions
+                    制限
                     <span
                         class="muted pl-1 text-lg"
                         style="font-family: 'Quicksand'"
-                        >(Permissions, currency costs, and more)</span
+                        >(権限、通貨コストなど)</span
                     >
                 </h3>
                 <restrictions-list
@@ -175,20 +174,20 @@
                 >
                 </restrictions-list>
 
-                <h3 class="mb-3 mt-6">Cooldowns</h3>
+                <h3 class="mb-3 mt-6">クールダウン</h3>
                 <command-cooldown-settings
                     command="$ctrl.command"
                 ></command-cooldown-settings>
             </firebot-tab>
 
-            <firebot-tab index="2" name="subcommands" label="Subcommands" badge="$ctrl.command.subCommands ? $ctrl.command.subCommands.length : 0" icon="fas fa-sitemap" ng-if="!$ctrl.command.scanWholeMessage && !$ctrl.command.triggerIsRegex">
+            <firebot-tab index="2" name="subcommands" label="サブコマンド" badge="$ctrl.command.subCommands ? $ctrl.command.subCommands.length : 0" icon="fas fa-sitemap" ng-if="!$ctrl.command.scanWholeMessage && !$ctrl.command.triggerIsRegex">
                 <div
                     class="mt-8"
                 >
                     <div class="settings-title">
                         <p class="muted">
-                            Optionally trigger different effects based on
-                            subcommand triggers
+                            サブコマンドのトリガーに応じて
+                            異なるエフェクトを実行できます
                         </p>
                     </div>
                     <div
@@ -199,13 +198,13 @@
                             class="flex text-lg font-bold pb-4"
                         >
                             <div class="muted pl-8" style="flex-basis: 30%">
-                                <i class="fas fa-tag"></i> ARG
+                                <i class="fas fa-tag"></i> 引数
                             </div>
                             <div class="muted" style="width: 25%">
-                                <i class="fas fa-clock"></i> COOLDOWNS
+                                <i class="fas fa-clock"></i> クールダウン
                             </div>
                             <div class="muted" style="width: 25%">
-                                <i class="fas fa-lock-alt"></i> PERMISSIONS
+                                <i class="fas fa-lock-alt"></i> 権限
                             </div>
                             <div class="muted" style="width: 25%"></div>
                             <div
@@ -223,28 +222,27 @@
                         ></subcommand-row>
                         <div ng-if="$ctrl.command.fallbackSubcommand != null">
                             <hr style="border-top: 1px solid #202021" />
-                            <h4 class="muted">Fallback subcommand:</h4>
+                            <h4 class="muted">フォールバックサブコマンド:</h4>
                             <div
                                 ng-if="!$ctrl.command.subCommands || $ctrl.command.subCommands.length === 0"
                             >
                                 <div class="muted pb-4">
-                                    <strong>NOTE:</strong> Fallback subcommand
-                                    will not trigger when no other subcommands
-                                    exist
+                                    <strong>注:</strong> 他のサブコマンドが存在しない場合、
+                                    フォールバックサブコマンドは実行されません
                                 </div>
                                 <div class="flex text-lg font-bold pb-4">
                                     <div
                                         class="muted pl-8"
                                         style="flex-basis: 30%"
                                     >
-                                        <i class="fas fa-tag"></i> ARG
+                                        <i class="fas fa-tag"></i> 引数
                                     </div>
                                     <div class="muted" style="width: 25%">
-                                        <i class="fas fa-clock"></i> COOLDOWNS
+                                        <i class="fas fa-clock"></i> クールダウン
                                     </div>
                                     <div class="muted" style="width: 25%">
                                         <i class="fas fa-lock-alt"></i>
-                                        PERMISSIONS
+                                        権限
                                     </div>
                                     <div class="muted" style="width: 25%"></div>
                                     <div
@@ -266,23 +264,23 @@
                         <div
                             class="filter-bar clickable"
                             ng-click="$ctrl.openAddSubcommandModal()"
-                            uib-tooltip="Add Subcommand"
-                            aria-label="Add Subcommand"
+                            uib-tooltip="サブコマンドを追加"
+                            aria-label="サブコマンドを追加"
                             tooltip-append-to-body="true"
                         >
-                            <i class="far fa-plus mr-2"></i> Add Subcommand
+                            <i class="far fa-plus mr-2"></i> サブコマンドを追加
                         </div>
                     </div>
                 </div>
             </firebot-tab>
 
-            <firebot-tab index="3" name="advanced" label="Advanced" icon="fas fa-sliders-h">
-                <h3 class="mb-3">Behavior Options</h3>
+            <firebot-tab index="3" name="advanced" label="詳細" icon="fas fa-sliders-h">
+                <h3 class="mb-3">動作オプション</h3>
                 <div class="controls-fb-inline pb-5">
                     <label class="control-fb control--checkbox"
-                        >Treat quoted text as single argument
+                        >引用符付きテキストを単一引数として扱う
                         <tooltip
-                            text="'When this option is enabled, text inside of double quotes will be treated as a single argument without the quotes. Example: !command &quot;This is an argument&quot; will have a single argument with the value: This is an argument'"
+                            text="'有効時、二重引用符内のテキストは引用符を除いて単一引数として扱われます。例: !command &quot;This is an argument&quot; は値 This is an argument の単一引数になります。'"
                         ></tooltip>
                         <input
                             type="checkbox"
@@ -293,12 +291,12 @@
                     </label>
                 </div>
 
-                <h3 class="mb-3 mt-5">Ignore Triggers From</h3>
+                <h3 class="mb-3 mt-5">次からのトリガーを無視</h3>
                 <div class="controls-fb-inline pb-5">
                     <label class="control-fb control--checkbox"
-                        >Streamer Account
+                        >配信者アカウント
                         <tooltip
-                            text="'Whether or not the streamer account should be able to trigger this command.'"
+                            text="'配信者アカウントがこのコマンドを実行できるかどうか。'"
                         ></tooltip>
                         <input
                             type="checkbox"
@@ -308,9 +306,9 @@
                         <div class="control__indicator"></div>
                     </label>
                     <label class="control-fb control--checkbox"
-                        >Bot Account
+                        >Bot アカウント
                         <tooltip
-                            text="'Whether or not the bot account should be able to trigger this command.'"
+                            text="'Bot アカウントがこのコマンドを実行できるかどうか。'"
                         ></tooltip>
                         <input
                             type="checkbox"
@@ -320,9 +318,9 @@
                         <div class="control__indicator"></div>
                     </label>
                     <label class="control-fb control--checkbox"
-                        >Whispers
+                        >Whisper
                         <tooltip
-                            text="'Whether or not whispers should be able to trigger this command.'"
+                            text="'Whisper からこのコマンドを実行できるかどうか。'"
                         ></tooltip>
                         <input
                             type="checkbox"
@@ -333,7 +331,7 @@
                     </label>
                 </div>
 
-                <h3 class="mb-3 mt-5">Shared Chat</h3>
+                <h3 class="mb-3 mt-5">共有チャット</h3>
                 <firebot-radios
                     options="$ctrl.sharedChatRadioOptions"
                     model="$ctrl.command.allowTriggerBySharedChat"
@@ -341,9 +339,9 @@
                     class="pb-5"
                 />
 
-                <h3 class="mb-3 mt-5">Stats</h3>
+                <h3 class="mb-3 mt-5">統計</h3>
                 <div class="input-group">
-                    <span class="input-group-addon">Usage count</span>
+                    <span class="input-group-addon">使用回数</span>
                     <input
                         class="form-control"
                         type="number"
@@ -371,20 +369,19 @@
         ng-click="$ctrl.switchCommandMode()"
     >
         <span
-            >Switch to {{$ctrl.command.simple ? 'Advanced' : 'Simple'}}
-            Mode</span
+            >{{$ctrl.command.simple ? '詳細' : 'シンプル'}}モードに切り替え</span
         >
         <i class="fas fa-arrow-right hvr-icon"></i>
     </button>
     <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">
-        Cancel
+        キャンセル
     </button>
     <button
         type="button"
         class="btn btn-primary add-new-board-save"
         ng-click="$ctrl.save()"
     >
-        Save Changes
+        変更を保存
     </button>
 </div>
 

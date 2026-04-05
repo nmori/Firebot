@@ -8,7 +8,7 @@ triggers["event"] = ["twitch:timeout"];
 const model : ReplaceVariable = {
     definition: {
         handle: "timeoutDuration",
-        description: "How long the user is timed out for in minus",
+        description: "ユーザーのタイムアウト時間（分）です。",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["number"]

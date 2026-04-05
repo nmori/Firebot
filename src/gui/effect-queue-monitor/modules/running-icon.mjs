@@ -12,7 +12,7 @@ const runningIcon = {
     template: `
         <img
             src="./images/running.gif"
-            alt="Running Icon"
+            alt="実行中アイコン"
             :width="width"
             :height="height"
             style="transform: translateY(2px);"

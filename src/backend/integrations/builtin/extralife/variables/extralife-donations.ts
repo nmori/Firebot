@@ -5,31 +5,31 @@ import integrationManager from "../../../../integrations/integration-manager";
 const ExtraLifeDonations: ReplaceVariable = {
     definition: {
         handle: "extraLifeDonations",
-        description: "Returns information on extra life donations.",
+        description: "Extra Life の寄付情報を返します。",
         examples: [
             {
                 usage: 'extraLifeDonations[amount]',
-                description: "Returns top donation for currently signed in extra life account."
+                description: "現在サインイン中の Extra Life アカウントで最高額の寄付を返します。"
             },
             {
                 usage: 'extraLifeDonations[amount, 1, participantID]',
-                description: "Returns top donation for specified participantID."
+                description: "指定した participantID で最高額の寄付を返します。"
             },
             {
                 usage: 'extraLifeDonations[amount, 3, participantID]',
-                description: "Returns top 3 donations for participantID."
+                description: "指定した participantID の上位3件の寄付を返します。"
             },
             {
                 usage: 'extraLifeDonations[createdDateUTC, 5, participantID]',
-                description: "Returns 5 most recent donations for participantID."
+                description: "指定した participantID の最新5件の寄付を返します。"
             },
             {
                 usage: 'extraLifeDonations[createdDateUTC, 5, participantID, true]',
-                description: "Returns 5 most recent donations for participantID in JSON format."
+                description: "指定した participantID の最新5件の寄付を JSON 形式で返します。"
             },
             {
                 usage: 'extraLifeDonations[amount, 3, null, true]',
-                description: "Returns top 3 donations for current signed in extra life account in JSON format."
+                description: "現在サインイン中の Extra Life アカウントの上位3件の寄付を JSON 形式で返します。"
             }
         ],
         categories: ["common", "integrations"],

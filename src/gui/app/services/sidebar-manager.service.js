@@ -15,7 +15,7 @@
             };
 
             service.currentTab = "chat feed";
-            service.currentTabName = "Dashboard";
+            service.currentTabName = "ダッシュボード";
 
             service.fullPage = true;
             service.disableScroll = true;

@@ -366,7 +366,7 @@
                     class="logins-wrapper noselect"
                     uib-dropdown
                     uib-dropdown-toggle
-                    aria-label="Login & Profile Management"
+                    aria-label="ログインとプロフィール管理"
                     >
                         <img
                             class="login-thumbnail noselect"
@@ -385,20 +385,20 @@
                                 <a
                                     href
                                     ng-click="showManageLoginsModal()"
-                                    aria-label="Manage Logins"
+                                    aria-label="ログインを管理"
                                 >
                                     <span>
                                         <i class="fal fa-sign-in-alt"></i>
                                     </span>
-                                    Manage Logins
+                                    ログインを管理
                                 </a>
                             </li>
                             <li class="divider"></li>
-                            <li class="dropdown-header">Profiles</li>
+                            <li class="dropdown-header">プロファイル</li>
                             <li
                                 ng-repeat="profile in cs.profiles"
                                 ng-class="{'noclick': currentProfileId == profile.profileId}"
-                                uib-tooltip="Current profile"
+                                uib-tooltip="現在のプロファイル"
                                 tooltip-enable="currentProfileId == profile.profileId"
                                 tooltip-append-to-body="true"
                             >
@@ -406,7 +406,7 @@
                                     href
                                     ng-click="switchProfiles(profile.profileId)"
                                     ng-class="{'menunoclick': currentProfileId == profile.profileId}"
-                                    aria-label="{{currentProfileId == profile.profileId ? 'Current profile ('+ profile.profileId +')' : 'Switch to ' + profile.profileId + ' profile'}}"
+                                    aria-label="{{currentProfileId == profile.profileId ? '現在のプロファイル ('+ profile.profileId +')' : profile.profileId + ' プロファイルに切り替え'}}"
                                 >
                                     <span class="accounts-image"><img ng-src="{{profile.avatar}}"/></span>
                                     <span class="accounts-info" style="text-transform: unset">{{profile.profileId}}</span>
@@ -418,7 +418,7 @@
                                     <span>
                                         <i class="fal fa-user-plus"></i>
                                     </span>
-                                    Add New Profile
+                                    新しいプロファイルを追加
                                 </a>
                             </li>
                             <li>
@@ -426,7 +426,7 @@
                                     <span>
                                         <i class="fal fa-pencil"></i>
                                     </span>
-                                    Rename This Profile
+                                    このプロファイル名を変更
                                 </a>
                             </li>
                             <li>
@@ -434,7 +434,7 @@
                                     <span>
                                         <i class="fal fa-user-minus"></i>
                                     </span>
-                                    Delete This Profile
+                                    このプロファイルを削除
                                 </a>
                             </li>
                         </ul>
@@ -461,67 +461,67 @@
         <!-- New Profile Modal -->
         <script type="text/ng-template" id="newProfileModal.html">
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="errorLabel">Create New Profile</h4>
+                <button type="button" class="close" aria-label="閉じる" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="errorLabel">新しいプロファイルを作成</h4>
             </div>
             <div class="modal-body">
                 <div class="input-group">
-                    <span class="input-group-addon">Profile Name</span>
-                    <input type="text" class="form-control" ng-model="profileName" placeholder="Text here">
+                    <span class="input-group-addon">プロファイル名</span>
+                    <input type="text" class="form-control" ng-model="profileName" placeholder="ここに入力">
                 </div>
 
                 <div class="alert alert-warning" style="margin-top:15px;">
-                    Note: Creating a new profile requires an application restart.
+                    注: 新しいプロファイルの作成にはアプリの再起動が必要です。
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="createNewProfile()">Create Profile & Restart App</button>
+                <button type="button" class="btn btn-link" ng-click="dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="createNewProfile()">作成してアプリを再起動</button>
             </div>
         </script>
 
         <!-- Rename Profile Modal -->
         <script type="text/ng-template" id="renameProfileModal.html">
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Rename Profile</h4>
+                <button type="button" class="close" aria-label="閉じる" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">プロファイル名を変更</h4>
             </div>
             <div class="modal-body">
                 <div class="input-group">
-                    <span class="input-group-addon">Profile Name</span>
-                    <input type="text" class="form-control" ng-model="profileName" placeholder="Text here">
+                    <span class="input-group-addon">プロファイル名</span>
+                    <input type="text" class="form-control" ng-model="profileName" placeholder="ここに入力">
                 </div>
 
                 <div class="alert alert-warning"  style="margin-top:15px;">
-                        Note: Renaming a profile requires an application restart.
+                        注: プロファイル名の変更にはアプリの再起動が必要です。
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="renameProfile()">Rename Profile & Restart App</button>
+                <button type="button" class="btn btn-link" ng-click="dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="renameProfile()">変更してアプリを再起動</button>
             </div>
         </script>
 
         <!-- Delete Profile Modal -->
         <script type="text/ng-template" id="deleteProfileModal.html">
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Delete Profile</h4>
+                <button type="button" class="close" aria-label="閉じる" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">プロファイルを削除</h4>
             </div>
             <div class="modal-body">
-                WARNING! You are about to delete this profile and all settings associated with it. Are you sure this is what you want to do?
+                警告: このプロファイルと関連設定をすべて削除しようとしています。本当に実行しますか？
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" ng-click="deleteProfile()">Delete Profile & Restart App</button>
-                <button type="button" class="btn btn-link" ng-click="dismiss()">Cancel</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteProfile()">削除してアプリを再起動</button>
+                <button type="button" class="btn btn-link" ng-click="dismiss()">キャンセル</button>
             </div>
         </script>
 
         <!-- Error Modal -->
         <script type="text/ng-template" id="errorModal.html">
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="errorLabel">Error</h4>
+                <button type="button" class="close" aria-label="閉じる" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="errorLabel">エラー</h4>
             </div>
             <div class="modal-body">
                 <div style="display: flex;">
@@ -530,15 +530,15 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+                <button type="button" class="btn btn-default" ng-click="close()">閉じる</button>
             </div>
         </script>
 
         <!-- Info Modal -->
         <script type="text/ng-template" id="infoModal.html">
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="errorLabel">Info</h4>
+                <button type="button" class="close" aria-label="閉じる" ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="errorLabel">情報</h4>
             </div>
             <div class="modal-body">
                 <div style="display: flex;">
@@ -547,7 +547,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+                <button type="button" class="btn btn-default" ng-click="close()">閉じる</button>
             </div>
         </script>
 
@@ -559,18 +559,18 @@
         <!-- show events modal -->
         <script type="text/ng-template" id="overlayEventsModal.html">
             <div class="modal-header" style="text-align:center;">
-                <h2 class="modal-title">Event List Settings</h2>
+                <h2 class="modal-title">イベント一覧設定</h2>
             </div>
             <div class="modal-body">
-                <h3>Event List</h3>
+                <h3>イベント一覧</h3>
                 <show-events-settings model="textSettings"></show-events-settings>
 
-                <h3>Text Presets</h3>
+                <h3>テキストプリセット</h3>
                 <event-list-text-options model="textSettings" is-global="true"></event-list-text-options>
             </div>
             <div class="modal-footer" style="text-align:center;">
-                <button class="btn btn-link" ng-click="dismiss()">Cancel</button>
-                <button class="btn btn-primary" ng-click="save()">Save</button>
+                <button class="btn btn-link" ng-click="dismiss()">キャンセル</button>
+                <button class="btn btn-primary" ng-click="save()">保存</button>
             </div>
         </script>
 
@@ -583,37 +583,37 @@
                 <div>
                     <span><i class="fal fa-check-circle animated bounceIn" style="font-size: 193px;color: green;"></i></span>
                 </div>
-                <h1 style="animation-delay: 0.3s;" class="animated fadeIn">Update Successful!</h1>
-                <h3 style="color:darkgray; animation-delay: 0.3s;" class="animated fadeIn">Installed {{appVersion}}</h3>
+                <h1 style="animation-delay: 0.3s;" class="animated fadeIn">アップデートに成功しました！</h1>
+                <h3 style="color:darkgray; animation-delay: 0.3s;" class="animated fadeIn">{{appVersion}} をインストール済み</h3>
                 <br />
                 <p style="animation-delay: 0.3s;" class="animated fadeIn">
-                    You can see what's new in <strong>Help</strong> &gt; <strong>Release Notes</strong>.
+                    新機能は <strong>ヘルプ</strong> &gt; <strong>リリースノート</strong> で確認できます。
                 </p>
             </div>
             <div class="modal-footer" style="text-align:center;">
-                <button style="animation-delay: 0.3s;" class="btn btn-primary animated fadeIn" ng-click="dismiss()">Okay</button>
+                <button style="animation-delay: 0.3s;" class="btn btn-primary animated fadeIn" ng-click="dismiss()">OK</button>
             </div>
         </script>
 
         <!-- Download Modal -->
         <script type="text/ng-template" id="downloadModal.html">
             <div class="modal-header">
-                <h2 ng-if="!installing">{{downloadComplete ? 'Download complete!' : 'Downloading update...'}}</h2>
-                <h2 ng-if="installing">Installing update...</h2>
+                <h2 ng-if="!installing">{{downloadComplete ? 'ダウンロード完了！' : 'アップデートをダウンロード中...'}}</h2>
+                <h2 ng-if="installing">アップデートをインストール中...</h2>
             </div>
             <div class="modal-body" style="text-align:center;">
                 <div ng-if="(!downloadComplete && !downloadHasError) || installing" style="overflow: hidden;">
-                    <div class="loader">Loading...</div>
+                    <div class="loader">読み込み中...</div>
                 </div>
-                <p ng-if="downloadComplete && !installing" style="color:darkgray;">Firebot has downloaded an update. Would you like to install it now, or when you exit?</p>
+                <p ng-if="downloadComplete && !installing" style="color:darkgray;">Firebot のアップデートをダウンロードしました。今すぐインストールしますか？それとも終了時に実行しますか？</p>
                 <p ng-if="downloadHasError" style="color:red;">
                     {{errorMessage}}
                 </p>
             </div>
             <div class="modal-footer">
-                <button ng-if="downloadHasError" class="btn btn-primary" ng-click="dismiss()">Close</button>
-                <button ng-if="!downloadHasError && downloadComplete && !installing" class="btn btn-primary" ng-click="installUpdate()">Install Now</button>
-                <button ng-if="!downloadHasError && downloadComplete && !installing" class="btn btn-default" ng-click="dismiss()">Install On Exit</button>
+                <button ng-if="downloadHasError" class="btn btn-primary" ng-click="dismiss()">閉じる</button>
+                <button ng-if="!downloadHasError && downloadComplete && !installing" class="btn btn-primary" ng-click="installUpdate()">今すぐインストール</button>
+                <button ng-if="!downloadHasError && downloadComplete && !installing" class="btn btn-default" ng-click="dismiss()">終了時にインストール</button>
             </div>
         </script>
 
@@ -622,23 +622,23 @@
             <scroll-sentinel element-class="edit-effect-header"></scroll-sentinel>
                 <div class="modal-header sticky-header flex flex-col items-start no-before no-after">
                     <div class="flex items-center justify-between" style="width: 100%;">
-                        <h4 class="modal-title">{{isAddMode ? "Add New Effect" : "Edit Effect"}}</h4>
+                        <h4 class="modal-title">{{isAddMode ? "新しいエフェクトを追加" : "エフェクトを編集"}}</h4>
                         <div class="flex item-center justify-between">
                             <div
                                 class="test-effects-btn clickable"
-                                uib-tooltip="Test Effect" 
+                                uib-tooltip="エフェクトをテスト" 
                                 ng-hide="effect == null || effect.type === 'Nothing'" 
                                 ng-click="runEffect()" 
-                                aria-label="Test Effect" 
+                                aria-label="エフェクトをテスト" 
                                 role="button"
                             >
                                 <i class="far fa-play-circle"></i>
                             </div> 
                             <div>
                                 <a href role="button"
-                                    aria-label="Open effect menu"
+                                    aria-label="エフェクトメニューを開く"
                                     class="effects-actions-btn"
-                                    uib-tooltip="Open effect menu"
+                                    uib-tooltip="エフェクトメニューを開く"
                                     uib-dropdown-menu
                                     context-menu="getOverflowMenu()"
                                     context-menu-on="click"
@@ -660,15 +660,15 @@
 
                 <div class="modal-body">
                     <div style="padding-left: 15px;margin-bottom: 20px;margin-top: 10px;">
-                        <div class="muted" style="font-size:12.5px;">CURRENT EFFECT:</div>
+                        <div class="muted" style="font-size:12.5px;">現在のエフェクト:</div>
                         <div style="display:flex;align-items: center;">
                         <div style="font-size: 20px;font-weight: 100;">{{effectDefinition.definition.name}}</div>
-                        <button type="button" ng-click="openNewEffectModal()" class="btn btn-sm btn-default ml-4" style="font-size: 10px;">Change</button>
+                        <button type="button" ng-click="openNewEffectModal()" class="btn btn-sm btn-default ml-4" style="font-size: 10px;">変更</button>
                         </div>
                     </div>
                 
                     <div class="effect-settings-panel">
-                        <div ng-show="effect.type == 'Nothing'" class="effect-specific-title"><h4>Please select an effect.</h4></div>
+                        <div ng-show="effect.type == 'Nothing'" class="effect-specific-title"><h4>エフェクトを選択してください。</h4></div>
                         <effect-options effect="effect" type="effect.type" trigger="{{triggerType}}" ng-show="effect.type != null" trigger-meta="triggerMeta"><effect-options>
                     </div>
                 </div>
@@ -679,19 +679,19 @@
                         ng-click="openOutputsModal()"
                     >
                         <i class="fas fa-sign-out"></i>
-                        <span>Outputs</span>
+                        <span>出力</span>
                     </button>
 
-                    <button class="btn btn-link" ng-click="dismiss()">Cancel</button>
+                    <button class="btn btn-link" ng-click="dismiss()">キャンセル</button>
 
-                    <button ng-if="openModals.length < 2" type="button" class="btn btn-primary" ng-click="save()" ng-disabled="effect.type === 'Nothing'">{{isAddMode ? "Add" : "Save"}}</button>
+                    <button ng-if="openModals.length < 2" type="button" class="btn btn-primary" ng-click="save()" ng-disabled="effect.type === 'Nothing'">{{isAddMode ? "追加" : "保存"}}</button>
                     <div ng-if="openModals.length >= 2" class="btn-group dropup" uib-dropdown>
-                        <button id="split-button" type="button" class="btn btn-primary" ng-click="save()" ng-disabled="effect.type === 'Nothing'">{{isAddMode ? "Add" : "Save"}}</button>
-                        <button type="button" class="btn btn-primary" uib-dropdown-toggle aria-label="Open Menu">
+                        <button id="split-button" type="button" class="btn btn-primary" ng-click="save()" ng-disabled="effect.type === 'Nothing'">{{isAddMode ? "追加" : "保存"}}</button>
+                        <button type="button" class="btn btn-primary" uib-dropdown-toggle aria-label="メニューを開く">
                             <span class="caret" style="border-top: 4px dashed !important; border-bottom: none !important;"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right" style="min-width: 100%" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-                            <li role="menuitem" ng-click="saveAll()"><a href>Save All <tooltip text="'This will save all windows up until the last one ('+ openModals[0].name +')'"></tooltip></a></li>
+                            <li role="menuitem" ng-click="saveAll()"><a href>すべて保存 <tooltip text="'最後のウィンドウ（'+ openModals[0].name +'）まで、すべて保存します。'"></tooltip></a></li>
                         </ul>
                     </div>
                 </div>

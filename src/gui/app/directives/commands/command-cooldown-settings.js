@@ -10,21 +10,21 @@
             },
             template: `
                 <div class="input-group pb-0">
-                    <span class="input-group-addon">Global</span>
+                    <span class="input-group-addon">全体</span>
                     <input
                         class="form-control"
                         type="number"
                         min="0"
-                        placeholder="secs"
+                        placeholder="秒"
                         ng-disabled="$ctrl.disabled"
                         ng-model="$ctrl.command.cooldown.global"
                     />
-                    <span class="input-group-addon">User</span>
+                    <span class="input-group-addon">ユーザー</span>
                     <input
                         class="form-control"
                         type="number"
                         min="0"
-                        placeholder="secs"
+                        placeholder="秒"
                         ng-disabled="$ctrl.disabled"
                         ng-model="$ctrl.command.cooldown.user"
                     />
@@ -35,7 +35,7 @@
                     ng-show="!$ctrl.messageSettingDisabled && ($ctrl.command.cooldown.global > 0 || $ctrl.command.cooldown.user > 0)"
                 >
                     <label class="control-fb control--checkbox">
-                        Send chat message when on cooldown
+                        クールダウン中にチャットメッセージを送信
                         <input
                             type="checkbox"
                             ng-model="$ctrl.command.sendCooldownMessage"
@@ -44,12 +44,12 @@
                     </label>
 
                     <div ng-show="$ctrl.command.sendCooldownMessage">
-                        <firebot-checkbox label="Send cooldown message as reply"
+                        <firebot-checkbox label="クールダウンメッセージを返信として送信"
                             model="$ctrl.command.sendCooldownMessageAsReply"
                         />
 
                         <label class="control-fb control--checkbox">
-                            Use custom cooldown message
+                            カスタムクールダウンメッセージを使用
                             <input
                                 type="checkbox"
                                 ng-model="$ctrl.command.useCustomCooldownMessage"
@@ -61,9 +61,9 @@
                             <firebot-input
                                 model="$ctrl.command.cooldownMessage"
                                 disable-variables="true"
-                                input-title="Message"
+                                input-title="メッセージ"
                         />
-                            <p class="muted">Available variables: {user}, {timeLeft}</p>
+                            <p class="muted">利用可能な変数: {user}, {timeLeft}</p>
                         </div>
                     </div>
                 </div>

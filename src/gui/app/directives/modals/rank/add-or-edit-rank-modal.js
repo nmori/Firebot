@@ -9,19 +9,19 @@
                 <button
                     type="button"
                     class="close"
-                    aria-label="Close"
+                    aria-label="閉じる"
                     ng-click="$ctrl.dismiss()"
                 >
                     <i class="fal fa-times" aria-hidden="true"></i>
                 </button>
                 <h4 class="modal-title">
-                    <div class="action text-4xl">{{ $ctrl.isNewRank ? 'Add' : 'Edit' }} Rank</div>
+                    <div class="action text-4xl">{{ $ctrl.isNewRank ? 'ランクを追加' : 'ランクを編集' }}</div>
                 </h4>
             </div>
             <div class="modal-body">
                 <form name="rankSettings">
                     <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
-                        <label for="name" class="control-label">Name</label>
+                        <label for="name" class="control-label">名前</label>
                         <input
                             type="text"
                             id="name"
@@ -30,13 +30,13 @@
                             ui-validate="{taken:'!$ctrl.isNameTaken($value)'}"
                             required
                             class="form-control input-lg"
-                            placeholder="Give the rank a name"
+                            placeholder="ランク名を入力"
                             ng-model="$ctrl.rank.name"
                         />
                         <div ng-if="$ctrl.formFieldHasError('name')">
-                            <span ng-if="rankSettings.name.$error.required" class="help-block">Name is required.</span>
-                            <span ng-if="rankSettings.name.$error.minlength" class="help-block">Name must be 3 or more characters.</span>
-                            <span ng-if="rankSettings.name.$error.taken" class="help-block">Name is already taken.</span>
+                            <span ng-if="rankSettings.name.$error.required" class="help-block">名前は必須です。</span>
+                            <span ng-if="rankSettings.name.$error.minlength" class="help-block">名前は3文字以上で入力してください。</span>
+                            <span ng-if="rankSettings.name.$error.taken" class="help-block">この名前はすでに使用されています。</span>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                             id="value"
                             name="value"
                             required
-                            placeholder="Amount"
+                            placeholder="値"
                             class="form-control input-lg"
                             ng-model="$ctrl.rank.value"
                         />
@@ -55,8 +55,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
         bindings: {

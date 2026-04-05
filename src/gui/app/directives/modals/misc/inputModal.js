@@ -8,7 +8,7 @@
         .component("inputModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">{{$ctrl.label}}</h4>
             </div>
             <div class="modal-body">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
                 <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.saveText}}</button>
             </div>
             `,
@@ -65,9 +65,9 @@
                 $ctrl.initialModel = null;
                 $ctrl.model = "";
 
-                $ctrl.label = "Enter Text";
-                $ctrl.inputPlaceholder = "Enter Text";
-                $ctrl.saveText = "Save";
+                $ctrl.label = "テキストを入力";
+                $ctrl.inputPlaceholder = "テキストを入力";
+                $ctrl.saveText = "保存";
                 $ctrl.validationFn = () => true;
                 $ctrl.validationText = "";
                 $ctrl.hasValidationError = false;

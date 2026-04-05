@@ -34,8 +34,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:http-request",
-        name: "HTTP Request",
-        description: "Send an HTTP request to a given url",
+        name: "HTTPリクエスト",
+        description: "指定した URL に HTTP リクエストを送信します",
         icon: "fad fa-terminal",
         categories: ["advanced", "scripting"],
         dependencies: [],

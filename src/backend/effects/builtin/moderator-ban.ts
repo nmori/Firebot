@@ -9,8 +9,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:modban",
-        name: "Ban",
-        description: "Ban or unban a user.",
+        name: "BAN",
+        description: "ユーザーを BAN または BAN 解除します。",
         icon: "fad fa-ban",
         categories: ["common", "moderation", "twitch"],
         dependencies: []

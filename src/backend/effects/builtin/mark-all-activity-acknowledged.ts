@@ -4,8 +4,8 @@ import frontendCommunicator from "../../common/frontend-communicator";
 const effect: EffectType = {
     definition: {
         id: "firebot:mark-all-activity-acknowledged",
-        name: "Mark All Activity As Acknowledged",
-        description: "Marks all Activity as acknowledged on the Chat page",
+        name: "全アクティビティ既読化",
+        description: "チャットページの全アクティビティを既読にします",
         icon: "fad fa-comment-dots",
         categories: ["common", "dashboard"],
         dependencies: []

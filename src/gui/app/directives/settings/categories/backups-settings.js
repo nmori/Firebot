@@ -6,11 +6,11 @@
         .component("backupsSettings", {
             template: `
                 <div>
-                    <div><strong>NOTE: These settings affect ALL user profiles.</strong></div>
+                    <div><strong>注: これらの設定はすべてのユーザープロファイルに影響します。</strong></div>
 
                     <firebot-setting
-                        name="Max Backups"
-                        description="The maximum number of backups to keep. When Firebot makes a new backup, it will delete the oldest if this number has been reached."
+                        name="バックアップ上限"
+                        description="保持するバックアップの最大数です。この数に達している場合、新しいバックアップ作成時に最も古いバックアップが削除されます。"
                     >
                         <dropdown-select
                             ng-init="currentMaxBackups = settings.getSetting('MaxBackupCount')"
@@ -23,14 +23,14 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Automatic Backup Options"
-                        description="Choose what Firebot should ignore in automatic backups."
+                        name="自動バックアップオプション"
+                        description="自動バックアップ時に除外する項目を選択します。"
                     >
                         <div>
                         <label class="control-fb control--checkbox"
-                            >Don't include overlay resource folder
+                            >オーバーレイリソースフォルダを含めない
                             <tooltip
-                                text="'If your overlay-resource folder has become quite large, and slowing down the backup system turn this on. Note: Manual backups are not affected .'"
+                                text="'overlay-resource フォルダが大きくなってバックアップが遅い場合に有効です。注: 手動バックアップには影響しません。'"
                             ></tooltip>
                             <input
                                 type="checkbox"
@@ -44,12 +44,12 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Automatic Backups"
-                        description="Choose when Firebot should make automatic backups."
+                        name="自動バックアップ"
+                        description="Firebot が自動バックアップを作成するタイミングを選択します。"
                     >
                         <div>
                         <label class="control-fb control--checkbox"
-                            >When Firebot closes
+                            >Firebot 終了時
                             <input
                                 type="checkbox"
                                 ng-click="settings.saveSetting('BackupOnExit', !settings.getSetting('BackupOnExit'))"
@@ -59,7 +59,7 @@
                             <div class="control__indicator"></div>
                         </label>
                         <label class="control-fb control--checkbox"
-                            >Once a day
+                            >1日1回
                             <input
                                 type="checkbox"
                                 ng-click="settings.saveSetting('BackupOnceADay', !settings.getSetting('BackupOnceADay'))"
@@ -69,9 +69,9 @@
                             <div class="control__indicator"></div>
                         </label>
                         <label class="control-fb control--checkbox"
-                            >Before viewer purges
+                            >視聴者データ削除前
                             <tooltip
-                                text="'Firebot will always backup before you do viewer purges (Database > View Purge Options)'"
+                                text="'視聴者データの削除前には必ずバックアップが作成されます。'"
                             ></tooltip>
                             <input
                                 type="checkbox"
@@ -82,9 +82,9 @@
                             <div class="control__indicator" disabled></div>
                         </label>
                         <label class="control-fb control--checkbox"
-                            >Before updates
+                            >アップデート前
                             <tooltip
-                                text="'Firebot will always back up before updates. This cannot be turned off. It\\'s for your own good <3'"
+                                text="'アップデート前には必ずバックアップが作成されます。この設定は無効化できません。'"
                             ></tooltip>
                             <input
                                 type="checkbox"
@@ -98,21 +98,21 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Manual Backup"
-                        description="Trigger a manual back up now."
+                        name="手動バックアップ"
+                        description="今すぐ手動バックアップを実行します。"
                     >
                         <div>
                             <span
                                 ng-if="isBackingUp || backupCompleted"
                                 style="padding-left: 10px"
                             >
-                                <span ng-if="isBackingUp"> Backing up... </span>
+                                <span ng-if="isBackingUp"> バックアップ中... </span>
                                 <span ng-if="backupCompleted" style="color: green">
-                                    <i class="fal fa-check-circle"></i> Backup successful!
+                                    <i class="fal fa-check-circle"></i> バックアップ成功
                                 </span>
                             </span>
                             <firebot-button
-                                text="Backup Now"
+                                text="今すぐバックアップ"
                                 ng-click="startBackup()"
                                 ng-disabled="isBackingUp"
                             />
@@ -120,24 +120,24 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Backup Management"
-                        description="View, restore, and delete previous backups."
+                        name="バックアップ管理"
+                        description="過去のバックアップの確認、復元、削除を行います。"
                     >
                         <div>
                             <firebot-button
-                                text="Manage Backups"
+                                text="バックアップを管理"
                                 ng-click="backupService.showBackupListModal()"
                             />
                         </div>
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Move Backup Folder"
-                        description="Choose where Firebot stores backups.">
+                        name="バックアップフォルダの移動"
+                        description="Firebot がバックアップを保存する場所を選択します。">
 
                         <setting-description-addon>
-                            <div style="margin-top: 10px;"><strong>NOTE</strong>: Changing this setting will copy any existing backups from the current location to the new location. This will overwrite any files with the same name in the new location.</div>
-                            <div style="margin-top: 10px;">Current backup location: <a ng-click="backupService.openBackupFolder()" ng-bind="backupService.backupFolderPath" href></a></div>
+                            <div style="margin-top: 10px;"><strong>注</strong>: この設定を変更すると、現在の場所から新しい場所へ既存のバックアップがコピーされます。新しい場所に同名ファイルがある場合は上書きされます。</div>
+                            <div style="margin-top: 10px;">現在のバックアップ先: <a ng-click="backupService.openBackupFolder()" ng-bind="backupService.backupFolderPath" href></a></div>
                         </setting-description-addon>
 
                         <div>
@@ -145,16 +145,16 @@
                                 ng-if="isMovingBackupFolder || backupFolderMoveCompleted"
                                 style="padding-left: 10px"
                             >
-                                <span ng-if="isMovingBackupFolder"> Moving backups to new folder... </span>
+                                <span ng-if="isMovingBackupFolder"> バックアップを新しいフォルダへ移動中... </span>
                                 <span ng-if="backupFolderMoveCompleted && backupFolderMoveSuccess" style="color: green">
-                                    <i class="fal fa-check-circle"></i> Move successful!
+                                    <i class="fal fa-check-circle"></i> 移動成功
                                 </span>
                                 <span ng-if="backupFolderMoveCompleted && !backupFolderMoveSuccess" style="color: red">
-                                    <i class="fal fa-check-circle"></i> Move failed.
+                                    <i class="fal fa-check-circle"></i> 移動失敗
                                 </span>
                             </span>
                             <firebot-button
-                                text="Move Backup Folder"
+                                text="バックアップフォルダを移動"
                                 ng-click="backupService.initiateBackupFolderMove()"
                                 ng-disabled="isMovingBackupFolder"
                             />

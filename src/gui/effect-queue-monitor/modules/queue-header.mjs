@@ -3,33 +3,33 @@ const queueHeader = {
     computed: {
         modeLabel() {
             if (this.queue.mode === "interval") {
-                return "Interval";
+                return "間隔実行";
             }
             if (this.queue.mode === "custom") {
-                return "Custom";
+                return "カスタム";
             }
             if (this.queue.mode === "auto") {
-                return "Sequential";
+                return "順次実行";
             }
             if (this.queue.mode === "manual") {
-                return "Manual";
+                return "手動";
             }
-            return "Unknown";
+            return "不明";
         },
         shouldShowInterval() {
             return ["interval", "auto"].includes(this.queue.mode);
         },
         intervalName() {
             if (this.queue.mode === "interval") {
-                return "Interval:";
+                return "間隔:";
             }
             if (this.queue.mode === "auto") {
-                return "Delay:";
+                return "遅延:";
             }
             return "";
         },
         intervalValue() {
-            return `${this.queue.interval || "0"}s`;
+            return `${this.queue.interval || "0"}秒`;
         }
     },
     template: `
@@ -39,7 +39,7 @@ const queueHeader = {
             </div>
             <div style="display: flex; gap: 5px;">
                 <chip
-                    label="Mode:"
+                    label="モード:"
                     :value="modeLabel"
                 />
                 <chip

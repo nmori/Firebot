@@ -11,7 +11,7 @@
           <div>
             <firebot-searchable-select
                 ng-model="$ctrl.local"
-                placeholder="Select or search for a counter..."
+                placeholder="カウンターを選択または検索..."
                 items="counters"
             />
           </div>

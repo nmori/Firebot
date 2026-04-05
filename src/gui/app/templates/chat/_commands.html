@@ -1,5 +1,5 @@
 <firebot-tabs ng-init="$ctrl.activeTab = 'custom'" active="$ctrl.activeTab" type="underlined" page-tabs="true">
-  <firebot-tab name="custom" label="Custom Commands">
+  <firebot-tab name="custom" label="カスタムコマンド">
     <firebot-item-table
       items="commandsService.getCustomCommands()"
       on-item-update="saveCustomCommand(item)"
@@ -7,12 +7,12 @@
       headers="customCommandHeaders"
       sort-tag-context="commands"
       orderable="true"
-      add-new-button-text="New Custom Command"
+      add-new-button-text="新しいコマンド"
       on-add-new-clicked="openAddOrEditCustomCommandModal()"
       context-menu-options="commandMenuOptions(item)"
-      no-data-message="No custom commands saved. You should make one! :)"
-      none-found-message="No custom commands found."
-      search-placeholder="Search commands"
+      no-data-message="コマンドはまだありません! :)"
+      none-found-message="コマンドはまだありません。"
+      search-placeholder="コマンドを検索"
       test-button="true"
       on-test-button-clicked="manuallyTriggerCommand(itemId)"
       status-field="active"
@@ -21,19 +21,19 @@
       <fb-item-table-toolbar>
         <div class="btn-group" uib-dropdown>
           <button id="tools-dropdown" type="button" class="btn btn-default" uib-dropdown-toggle>
-            Tools <span class="caret"></span>
+            ツール <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="tools-dropdown">
-            <li role="menuitem"><a href ng-click="resetActiveCooldowns()"><i class="iconify mr-2" data-icon="mdi:clock-fast"></i> Clear All Cooldowns</a></li>
-            <li role="menuitem"><a href ng-click="resetAllPerStreamCommandUsages()"><i class="iconify mr-2" data-icon="mdi:tally-mark-5"></i> Clear All Per-Stream Usages</a></li>
+            <li role="menuitem"><a href ng-click="resetActiveCooldowns()"><i class="iconify mr-2" data-icon="mdi:clock-fast"></i> すべての再実行待ちをリセット</a></li>
+            <li role="menuitem"><a href ng-click="resetAllPerStreamCommandUsages()"><i class="iconify mr-2" data-icon="mdi:tally-mark-5"></i> すべての使用量をクリア</a></li>
             <li class="divider"></li>
-            <li role="menuitem"><a href ng-click="openFirebotProfilePage()"><i class="iconify mr-2" data-icon="mdi:open-in-new"></i> Open Firebot Profile Page</a></li>
+            <li role="menuitem"><a href ng-click="openFirebotProfilePage()"><i class="iconify mr-2" data-icon="mdi:open-in-new"></i> Firebotプロファイルを開く</a></li>
           </ul>
         </div>
       </fb-item-table-toolbar>
     </firebot-item-table>
   </firebot-tab> 
-  <firebot-tab name="system" label="System Commands">
+  <firebot-tab name="system" label="システムコマンド">
     <div style="height: 100%; overflow-y: scroll;">
       <div>
         <scroll-sentinel element-class="sys-cmd-header"></scroll-sentinel>
@@ -46,7 +46,7 @@
           "
         >
           <searchbar
-            placeholder-text="Search system commands"
+            placeholder-text="検索..."
             query="sysCommandSearch"
             style="flex-basis: 250px"
           ></searchbar>
@@ -61,16 +61,16 @@
             "
           >
             <div class="muted pl-8" style="flex-basis: 25%;">
-              <i class="fas fa-tag"></i> NAME
+              <i class="fas fa-tag"></i> 名前
             </div>
             <div class="muted" style="width: 20%">
-              <i class="fas fa-exclamation"></i> TRIGGER
+              <i class="fas fa-exclamation"></i> 起動
             </div>
             <div class="muted" style="width: 20%">
-              <i class="fas fa-clock"></i> COOLDOWNS
+              <i class="fas fa-clock"></i> 再実行待ち
             </div>
             <div class="muted" style="width: 20%">
-              <i class="fas fa-lock-alt"></i> PERMISSIONS
+              <i class="fas fa-lock-alt"></i> 権限
             </div>
             <div class="muted" style="width: 20%"></div>
             <div

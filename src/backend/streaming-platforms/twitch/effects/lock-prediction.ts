@@ -5,8 +5,8 @@ import logger from "../../../logwrapper";
 const model: EffectType = {
     definition: {
         id: "twitch:lock-prediction",
-        name: "Lock Twitch Prediction",
-        description: "Locks the currently active Twitch prediction so that no more predictions can be made",
+        name: "Twitch 予想をロック",
+        description: "現在進行中の Twitch 予想をロックし、これ以上予想できないようにします",
         icon: "fad fa-lock",
         categories: ["common", "twitch"],
         dependencies: {

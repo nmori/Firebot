@@ -5,7 +5,7 @@ export const IsRecordingVariable: ReplaceVariable = {
     definition: {
         handle: "obsIsRecording",
         description:
-      "Returns 'true' if OBS is currently recording or 'false' if it is not.",
+            "OBS が現在録画中なら 'true'、そうでなければ 'false' を返します。",
         possibleDataOutput: ["bool"],
         categories: ["advanced", "integrations", "obs"]
     },

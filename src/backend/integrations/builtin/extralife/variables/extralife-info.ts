@@ -5,55 +5,55 @@ import integrationManager from "../../../../integrations/integration-manager";
 const ExtraLifeInfo: ReplaceVariable = {
     definition: {
         handle: "extraLifeInfo",
-        description: "Returns specified data from your extra life profile. See examples for details.",
+        description: "Extra Life プロフィールから指定データを返します。詳細は例を参照してください。",
         examples: [
             {
                 usage: 'extraLifeInfo[fundraisingGoal]',
-                description: "Returns the fundraising goal for the current logged in extra life account."
+                description: "現在ログイン中の Extra Life アカウントの募金目標額を返します。"
             },
             {
                 usage: 'extraLifeInfo[fundraisingGoal, participantID]',
-                description: "Returns the fundraising goal for the given participantID."
+                description: "指定した participantID の募金目標額を返します。"
             },
             {
                 usage: 'extraLifeInfo[eventName, participantID]',
-                description: "Returns the fundraising event name, e.g. Extra Life 2024."
+                description: "募金イベント名（例: Extra Life 2024）を返します。"
             },
             {
                 usage: 'extraLifeInfo[donateLink, participantID]',
-                description: "Returns the donation link."
+                description: "寄付リンクを返します。"
             },
             {
                 usage: 'extraLifeInfo[profileLink, participantID]',
-                description: "Returns the profile link."
+                description: "プロフィールリンクを返します。"
             },
             {
                 usage: 'extraLifeInfo[sumDonations, participantID]',
-                description: "Returns the sum of current donations."
+                description: "現在の寄付合計額を返します。"
             },
             {
                 usage: 'extraLifeInfo[sumPledges, participantID]',
-                description: "Returns the sum of current pledges."
+                description: "現在の誓約合計額を返します。"
             },
             {
                 usage: 'extraLifeInfo[numIncentives, participantID]',
-                description: "Returns the number of incentives."
+                description: "インセンティブ数を返します。"
             },
             {
                 usage: 'extraLifeInfo[numMilestones, participantID]',
-                description: "Returns the number of milestones."
+                description: "マイルストーン数を返します。"
             },
             {
                 usage: 'extraLifeInfo[numDonations, participantID]',
-                description: "Returns the number of donations."
+                description: "寄付件数を返します。"
             },
             {
                 usage: 'extraLifeInfo[avatarImageURL, participantID]',
-                description: "Returns the url for the extra life avatar image."
+                description: "Extra Life のアバター画像URLを返します。"
             },
             {
                 usage: 'extraLifeInfo[null, null, true]',
-                description: "Get all profile data for the current logged in extra life account in JSON format."
+                description: "現在ログイン中の Extra Life アカウントのプロフィール全データを JSON 形式で返します。"
             }
         ],
         categories: ["common", "integrations"],

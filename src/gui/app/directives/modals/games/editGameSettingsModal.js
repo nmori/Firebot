@@ -4,9 +4,9 @@
     angular.module("firebotApp").component("editGameSettingsModal", {
         template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">
-                    <div style="font-size: 22px;">Edit Game:</div>
+                    <div style="font-size: 22px;">ゲームを編集:</div>
                     <div style="font-weight:bold;font-size: 24px;">{{$ctrl.game.name}}</div>
                 </h4>
             </div>
@@ -18,12 +18,12 @@
 
                 <setting-container>
                     <div class="controls-fb-inline" style="margin-bottom: 12px;">
-                        <label class="control-fb control--checkbox">Enabled
+                        <label class="control-fb control--checkbox">有効
                             <input type="checkbox" ng-model="$ctrl.game.active" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
                     </div>
-                    <p class="muted" style="margin-top: 20px;">Note: Once enabled, you can view the associated !command for this game and edit the trigger or tweak permissions in <strong>Commands</strong> tab > <strong>System Commands</strong></p>
+                    <p class="muted" style="margin-top: 20px;">注: 有効化すると、このゲームに紐づく !command を確認でき、<strong>コマンド</strong> タブ &gt; <strong>システムコマンド</strong> でトリガーや権限を調整できます。</p>
                 </setting-container>
 
                 <setting-container ng-if="$ctrl.game.settingCategories != null" ng-repeat="categoryMeta in $ctrl.settingCategoriesArray | orderBy:'sortRank'"  header="{{categoryMeta.title}}" description="{{categoryMeta.description}}" pad-top="$index > 0 ? true : false" collapsed="true">
@@ -37,9 +37,9 @@
 
             </div>
             <div class="modal-footer sticky-footer edit-game-footer">
-                <button ng-show="$ctrl.game != null" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.resetToDefaults()">Reset to default</button>
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button ng-show="$ctrl.game != null" type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button ng-show="$ctrl.game != null" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.resetToDefaults()">デフォルトに戻す</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button ng-show="$ctrl.game != null" type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             <scroll-sentinel element-class="edit-game-footer"></scroll-sentinel>
             `,
@@ -78,9 +78,9 @@
             $ctrl.resetToDefaults = () => {
                 utilityService
                     .showConfirmationModal({
-                        title: `Reset To Defaults`,
-                        question: `Are you sure you want reset ${$ctrl.game.name} to default settings?`,
-                        confirmLabel: "Reset",
+                        title: "デフォルトに戻す",
+                        question: `${$ctrl.game.name} をデフォルト設定に戻しますか？`,
+                        confirmLabel: "リセット",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {

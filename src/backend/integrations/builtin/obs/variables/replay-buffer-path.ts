@@ -13,7 +13,7 @@ export const ReplayBufferPathVariable: ReplaceVariable = {
     definition: {
         handle: "obsReplayBufferPath",
         description:
-      "The path of the replay buffer file that OBS saved.",
+            "OBS が保存したリプレイバッファファイルのパスです。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"],
         triggers: triggers

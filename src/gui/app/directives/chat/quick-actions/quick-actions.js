@@ -37,11 +37,11 @@
                 <div class="quick-action-settings flex flex-col items-center mb-4">
                     <button
                         class="quick-action-btn p-0"
-                        uib-tooltip="Edit Quick Actions"
+                        uib-tooltip="クイックアクションを編集"
                         append-tooltip-to-body="true"
                         tooltip-placement="right"
                         ng-click="$ctrl.quickActionsService.openQuickActionSettingsModal()"
-                        aria-label="Edit Quick Actions"
+                        aria-label="クイックアクションを編集"
                     >
                         <i class="fas fa-pencil"></i>
                     </button>
@@ -59,13 +59,13 @@
                 $ctrl.customQuickActionsContextMenu = (customQuickAction) => {
                     const options = [
                         {
-                            html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                            html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                             click: () => {
                                 quickActionsService.showAddOrEditCustomQuickActionModal(customQuickAction);
                             }
                         },
                         {
-                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                             click: () => {
                                 quickActionsService.deleteCustomQuickAction(customQuickAction.id);
                             },

@@ -21,7 +21,7 @@
                 <div ng-hide="$ctrl.model.class === 'none'">
                     <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 5px 0 15px 25px; align-items: center;">
                         <firebot-checkbox
-                            label="Custom Duration"
+                            label="カスタム時間"
                             ng-init="customDuration = ($ctrl.model.duration != null && $ctrl.model.duration !== '')"
                             model="customDuration"
                             style="margin: 0px 15px 0px 0px"
@@ -33,7 +33,7 @@
                                 class="form-control"
                                 ng-model="$ctrl.model.duration"
                                 style="width: 125px;"
-                                placeholder="Seconds"
+                                placeholder="秒"
                             />
                         </div>
                     </div>

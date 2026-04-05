@@ -9,8 +9,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:create-prediction",
-        name: "Create Twitch Prediction",
-        description: "Creates a Twitch prediction",
+        name: "Twitch 予想作成",
+        description: "Twitch の予想を作成します",
         icon: "fad fa-question-circle",
         categories: ["common", "twitch"],
         dependencies: {
@@ -18,21 +18,21 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Prediction Title">
-            <firebot-input input-title="Title" model="effect.title" placeholder-text="Enter prediction title" menu-position="under" />
+        <eos-container header="予想タイトル">
+            <firebot-input input-title="タイトル" model="effect.title" placeholder-text="予想タイトルを入力" menu-position="under" />
         </eos-container>
 
-        <eos-container header="Prediction Duration" pad-top="true">
-            <firebot-input input-title="Duration" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="Enter duration in seconds" />
+        <eos-container header="予想時間" pad-top="true">
+            <firebot-input input-title="時間" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="秒数を入力" />
         </eos-container>
 
-        <eos-container header="Outcomes" pad-top="true">
+        <eos-container header="結果候補" pad-top="true">
             <editable-list settings="optionSettings" model="effect.outcomes" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You may only have one prediction running at a time.
+                注意: 同時に実行できる予想は 1 つまでです。
             </div>
         </eos-container>
     `,
@@ -40,15 +40,15 @@ const model: EffectType<{
         const errors: string[] = [];
 
         if (!effect.title?.length || effect.title.length === 0) {
-            errors.push("You must enter a title");
+            errors.push("タイトルを入力してください");
         }
 
         if (!(effect.duration >= 30 && effect.duration <= 1800)) {
-            errors.push("Duration must be between 30 and 1800 seconds");
+            errors.push("時間は 30 〜 1800 秒で入力してください");
         }
 
         if (!effect.outcomes?.length || !(effect.outcomes.length >= 2 && effect.outcomes.length <= 10)) {
-            errors.push("You must enter between 2 and 10 outcomes");
+            errors.push("結果候補は 2 〜 10 個入力してください");
         }
 
         return errors;

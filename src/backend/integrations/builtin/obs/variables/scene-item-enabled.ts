@@ -9,8 +9,8 @@ triggers["event"] = [
 export const SceneItemEnabledVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneItemEnabled",
-        description:
-      "Returns `true` if the OBS scene item that triggered the event is enabled, or `false` otherwise.",
+                description:
+            "イベントを発火した OBS シーンアイテムが有効なら `true`、それ以外は `false` を返します。",
         possibleDataOutput: ["bool"],
         categories: ["advanced", "integrations", "obs"],
         triggers: triggers

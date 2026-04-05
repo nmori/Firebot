@@ -6,30 +6,30 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Edit Banned Words</h4>
+                <h4 class="modal-title">禁止語を編集</h4>
             </div>
             <div class="modal-body">
-                <p class="muted" style="margin-bottom:20px;">Messages containing any words or phrases listed here will be automatically deleted.</p>
+                <p class="muted" style="margin-bottom:20px;">ここに登録された語句を含むメッセージは自動的に削除されます。</p>
                 <div style="margin: 0 0 25px;display: flex;flex-direction: row;">
 
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="add-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="dropdown-text"><i class="fas fa-plus-circle"></i> Add Word(s)</span>
+                            <span class="dropdown-text"><i class="fas fa-plus-circle"></i> 禁止語を追加</span>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="add-options">
-                            <li role="menuitem" ng-click="$ctrl.addWord()"><a href style="padding-left: 10px;"><i class="fad fa-plus-circle" style="margin-right: 5px;"></i> Add single word</a></li>
-                            <li role="menuitem" ng-click="$ctrl.showImportModal()"><a href style="padding-left: 10px;"><i class="fad fa-file-import" style="margin-right: 5px;"></i> Import from .txt file <tooltip text="'Import a list of words/phrases from a txt file'"></tooltip></a></li>
+                            <li role="menuitem" ng-click="$ctrl.addWord()"><a href style="padding-left: 10px;"><i class="fad fa-plus-circle" style="margin-right: 5px;"></i> 語句を1件追加</a></li>
+                            <li role="menuitem" ng-click="$ctrl.showImportModal()"><a href style="padding-left: 10px;"><i class="fad fa-file-import" style="margin-right: 5px;"></i> .txtファイルからインポート <tooltip text="'.txtファイルから語句一覧をインポートします'"></tooltip></a></li>
                         </ul>
                     </div>
                     <div>
                         <button class="btn btn-primary" type="button" id="add-options" ng-click="$ctrl.addRegex()" style="margin-left: 5px;">
-                            <span class="dropdown-text"><i class="fas fa-plus-circle"></i> Add regex</span> <tooltip text="'Regular expressions follow JavaScript format.'" />
+                            <span class="dropdown-text"><i class="fas fa-plus-circle"></i> 正規表現を追加</span> <tooltip text="'正規表現はJavaScript形式です。'" />
                         </button>
                     </div>
 
                     <div style="display: flex;flex-direction: row;justify-content: space-between;margin-left: auto;">
-                        <searchbar placeholder-text="Search words..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
+                        <searchbar placeholder-text="語句を検索..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
                     </div>
                 </div>
                 <div style="margin-bottom: 10px;">
@@ -41,7 +41,7 @@
                         starting-sort-field="createdAt"
                         sort-initially-reversed="true"
                         page-size="5"
-                        no-data-message="No regular expressions have been saved.">
+                        no-data-message="正規表現はまだ保存されていません。">
                     </sortable-table>
                 </div>
                 <div>
@@ -53,13 +53,13 @@
                         starting-sort-field="createdAt"
                         sort-initially-reversed="true"
                         page-size="5"
-                        no-data-message="No banned words or phrases have been saved.">
+                        no-data-message="禁止語やフレーズはまだ保存されていません。">
                     </sortable-table>
                 </div>
             </div>
             <div class="modal-footer">
-                <button ng-show="$ctrl.cms.chatModerationData.bannedWords.length > 0" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.deleteAllWords()">Delete All Words</button>
-                <button ng-show="$ctrl.cms.chatModerationData.bannedRegularExpressions.length > 0" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.deleteAllRegex()">Delete All Regex</button>
+                <button ng-show="$ctrl.cms.chatModerationData.bannedWords.length > 0" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.deleteAllWords()">禁止語をすべて削除</button>
+                <button ng-show="$ctrl.cms.chatModerationData.bannedRegularExpressions.length > 0" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.deleteAllRegex()">正規表現をすべて削除</button>
             </div>
             `,
             bindings: {
@@ -82,7 +82,7 @@
 
                 $ctrl.regexHeaders = [
                     {
-                        name: "REGEX",
+                        name: "正規表現",
                         icon: "fa-code",
                         dataField: "text",
                         headerStyles: {
@@ -93,7 +93,7 @@
                         cellController: () => {}
                     },
                     {
-                        name: "CREATED AT",
+                        name: "追加日時",
                         icon: "fa-calendar",
                         dataField: "createdAt",
                         sortable: true,
@@ -108,7 +108,7 @@
                             'width': '15px'
                         },
                         sortable: false,
-                        cellTemplate: `<i class="fal fa-trash-alt clickable" style="color:#ff3737;" ng-click="clicked()" uib-tooltip="Delete" tooltip-append-to-body="true"></i>`,
+                        cellTemplate: `<i class="fal fa-trash-alt clickable" style="color:#ff3737;" ng-click="clicked()" uib-tooltip="削除" tooltip-append-to-body="true"></i>`,
                         cellController: ($scope, chatModerationService) => {
                             $scope.clicked = () => {
                                 chatModerationService.removeRegex($scope.data.text);
@@ -119,7 +119,7 @@
 
                 $ctrl.wordHeaders = [
                     {
-                        name: "TEXT",
+                        name: "テキスト",
                         icon: "fa-quote-right",
                         dataField: "text",
                         headerStyles: {
@@ -130,7 +130,7 @@
                         cellController: () => {}
                     },
                     {
-                        name: "CREATED AT",
+                        name: "追加日時",
                         icon: "fa-calendar",
                         dataField: "createdAt",
                         sortable: true,
@@ -145,7 +145,7 @@
                             'width': '15px'
                         },
                         sortable: false,
-                        cellTemplate: `<i class="fal fa-trash-alt clickable" style="color:#ff3737;" ng-click="clicked()" uib-tooltip="Delete" tooltip-append-to-body="true"></i>`,
+                        cellTemplate: `<i class="fal fa-trash-alt clickable" style="color:#ff3737;" ng-click="clicked()" uib-tooltip="削除" tooltip-append-to-body="true"></i>`,
                         cellController: ($scope, chatModerationService) => {
                             $scope.clicked = () => {
                                 chatModerationService.removeBannedWordByText($scope.data.text);
@@ -158,23 +158,23 @@
                     utilityService.openGetInputModal(
                         {
                             model: "",
-                            label: "Add Regex",
-                            saveText: "Add",
-                            inputPlaceholder: "Enter regex",
-                            descriptionText: `Regular expressions follow <a href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions">JavaScript format</a>.`,
+                            label: "正規表現を追加",
+                            saveText: "追加",
+                            inputPlaceholder: "正規表現を入力",
+                            descriptionText: `正規表現は<a href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions">JavaScript形式</a>です。`,
                             validationFn: (value) => {
                                 return new Promise((resolve) => {
                                     if (value == null || value.trim().length < 1) {
                                         return resolve({
                                             success: false,
-                                            reason: `Regex value cannot be empty.`
+                                            reason: `正規表現は空にできません。`
                                         });
                                     }
                                     if (chatModerationService.chatModerationData.bannedRegularExpressions
                                         .some(regex => regex.text === value)) {
                                         return resolve({
                                             success: false,
-                                            reason: `Regex already exists.`
+                                            reason: `この正規表現は既に存在します。`
                                         });
                                     }
                                     try {
@@ -183,7 +183,7 @@
                                         logger.warn(`Invalid RegEx entered: ${value}`, error);
                                         return resolve({
                                             success: false,
-                                            reason: `Please enter a valid RegEx.`
+                                            reason: `有効な正規表現を入力してください。`
                                         });
                                     }
                                     resolve(true);
@@ -199,9 +199,9 @@
                     utilityService.openGetInputModal(
                         {
                             model: "",
-                            label: "Add Banned Word",
-                            saveText: "Add",
-                            inputPlaceholder: "Enter banned word or phrase",
+                            label: "禁止語を追加",
+                            saveText: "追加",
+                            inputPlaceholder: "禁止語またはフレーズを入力",
                             validationFn: (value) => {
                                 return new Promise((resolve) => {
                                     if (value == null || value.trim().length < 1 || value.trim().length > 359) {
@@ -214,7 +214,7 @@
                                     }
                                 });
                             },
-                            validationText: "Banned word can't be empty and can't already exist."
+                            validationText: "禁止語は空にできず、既存値と重複できません。"
 
                         },
                         (newWord) => {
@@ -231,7 +231,7 @@
                             const success = await chatModerationService.importBannedWords(data);
 
                             if (!success) {
-                                utilityService.showErrorModal("There was an error importing the banned word list. Please check the log for more info.");
+                                utilityService.showErrorModal("禁止語リストのインポート中にエラーが発生しました。詳細はログを確認してください。");
                             }
 
                             return success;
@@ -241,9 +241,9 @@
 
                 $ctrl.deleteAllWords = function() {
                     utilityService.showConfirmationModal({
-                        title: "Delete All Words",
-                        question: `Are you sure you want to delete all banned words and phrases?`,
-                        confirmLabel: "Delete",
+                        title: "禁止語をすべて削除",
+                        question: `禁止語とフレーズをすべて削除してもよろしいですか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     }).then((confirmed) => {
                         if (confirmed) {
@@ -254,9 +254,9 @@
 
                 $ctrl.deleteAllRegex = function() {
                     utilityService.showConfirmationModal({
-                        title: "Delete All Regex",
-                        question: `Are you sure you want to delete all regular expressions?`,
-                        confirmLabel: "Delete",
+                        title: "正規表現をすべて削除",
+                        question: `正規表現をすべて削除してもよろしいですか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     }).then((confirmed) => {
                         if (confirmed) {

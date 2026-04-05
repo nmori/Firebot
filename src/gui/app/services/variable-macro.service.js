@@ -117,7 +117,7 @@
                             content: 'Successfully duplicated variable macro!'
                         });
                     } else {
-                        ngToast.create("Unable to duplicate variable macro.");
+                        ngToast.create("変数マクロの複製に失敗しました。");
                     }
                 });
             };

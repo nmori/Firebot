@@ -8,6 +8,7 @@
 const EffectCategory = Object.freeze({
     COMMON: "common",
     TWITCH: "twitch",
+    JP_ORIGINAL: "jp original",
     MODERATION: "moderation",
     CHAT_BASED: "chat based",
     DASHBOARD: "dashboard",

@@ -6,20 +6,20 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNew ? 'Add' : 'Edit'}} Gift Receiver</h4>
+                    <h4 class="modal-title">{{$ctrl.isNew ? '追加' : '編集'}} ギフト受取ユーザー</h4>
                 </div>
                 <div class="modal-body">
 
                     <form name="giftReceiver">
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('gifteeUsername')}">
-                            <label for="gifteeUsername" class="control-label">Giftee Username</label>
+                            <label for="gifteeUsername" class="control-label">受取ユーザー名</label>
                             <input
                                 type="text"
                                 id="gifteeUsername"
                                 name="gifteeUsername"
                                 class="form-control input-md"
-                                placeholder="Enter giftee username"
+                                placeholder="受取ユーザー名を入力"
                                 ng-model="$ctrl.giftReceiver.gifteeUsername"
                                 ui-validate="'$value != null && $value.length > 0'"
                                 required
@@ -30,8 +30,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {

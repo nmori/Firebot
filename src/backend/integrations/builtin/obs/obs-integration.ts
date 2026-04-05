@@ -214,43 +214,43 @@ const integrationConfig: Integration<ObsSettings> = {
         id: "OBS",
         name: "OBS",
         description:
-      "Connect to OBS to allow Firebot to change scenes, toggle sources and filters, and much more. Requires OBS 28+ or the obs-websocket v5 plugin.",
+            "OBS に接続して、Firebot からシーン変更、ソースやフィルターの切り替えなどを行えるようにします。OBS 28+ または obs-websocket v5 プラグインが必要です。",
         linkType: "none",
         configurable: true,
         connectionToggle: false,
         settingCategories: {
             websocketSettings: {
-                title: "Websocket Settings",
+                title: "WebSocket設定",
                 sortRank: 1,
                 settings: {
                     ipAddress: {
-                        title: "IP Address",
+                        title: "IPアドレス",
                         description:
-              "The ip address of the computer running OBS. Use 'localhost' for the same computer.",
+                            "OBS が動作しているPCのIPアドレスです。同じPCの場合は 'localhost' を使用してください。",
                         type: "string",
                         default: "localhost"
                     },
                     port: {
-                        title: "Port",
+                        title: "ポート",
                         description:
-              "Port the OBS Websocket is running on. Default is 4455.",
+                            "OBS WebSocket が使用するポートです。既定値は 4455 です。",
                         type: "number",
                         default: 4455
                     },
                     password: {
-                        title: "Password",
-                        description: "The password set for the OBS Websocket.",
+                        title: "パスワード",
+                        description: "OBS WebSocket に設定したパスワードです。",
                         type: "password",
                         default: ""
                     }
                 }
             },
             misc: {
-                title: "Misc",
+                title: "その他",
                 sortRank: 2,
                 settings: {
                     logging: {
-                        title: "Enable logging for OBS Errors",
+                        title: "OBS エラーログを有効化",
                         type: "boolean",
                         default: false
                     }

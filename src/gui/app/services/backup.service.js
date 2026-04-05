@@ -25,8 +25,8 @@
             service.openBackupZipFilePicker = function() {
                 return $q.when(backendCommunicator.fireEventAsync("open-file-browser", {
                     options: {
-                        title: "Select Firebot backup",
-                        buttonLabel: "Select Backup",
+                        title: "Firebotバックアップを選択",
+                        buttonLabel: "バックアップを選択",
                         filters: [{ name: "Zip", extensions: ["zip"] }]
                     },
                     currentPath: service.backupFolderPath
@@ -106,9 +106,9 @@
                         $scope.deleteBackup = function(index, backup) {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Backup",
-                                    question: "Are you sure you want to delete this backup?",
-                                    confirmLabel: "Delete"
+                                    title: "バックアップを削除",
+                                    question: "このバックアップを削除してもよろしいですか？",
+                                    confirmLabel: "削除"
                                 })
                                 .then((confirmed) => {
                                     if (confirmed) {
@@ -125,9 +125,9 @@
                         $scope.restoreBackup = function(backup) {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Restore From Backup",
-                                    question: "Are you sure you'd like to restore from this backup?",
-                                    confirmLabel: "Restore"
+                                    title: "バックアップから復元",
+                                    question: "このバックアップから復元してもよろしいですか？",
+                                    confirmLabel: "復元"
                                 })
                                 .then((confirmed) => {
                                     if (confirmed) {
@@ -153,8 +153,8 @@
                 $q
                     .when(backendCommunicator.fireEventAsync("open-file-browser", {
                         options: {
-                            title: "Select new Firebot backup location",
-                            button: "Select Folder",
+                            title: "新しいFirebotバックアップ保存先を選択",
+                            button: "フォルダーを選択",
                             directoryOnly: true
                         },
                         currentPath: service.backupFolderPath

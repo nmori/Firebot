@@ -8,7 +8,7 @@
         .component("viewerSearchModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">{{$ctrl.label}}</h4>
             </div>
             <div class="modal-body">
@@ -46,10 +46,10 @@
 
                 $ctrl.model = null;
 
-                $ctrl.label = "Enter Text";
+                $ctrl.label = "テキストを入力";
                 $ctrl.description = "";
-                $ctrl.inputPlaceholder = "Search Twitch for a viewer...";
-                $ctrl.saveText = "Save";
+                $ctrl.inputPlaceholder = "Twitch で視聴者を検索...";
+                $ctrl.saveText = "保存";
                 $ctrl.validationFn = () => true;
                 $ctrl.validationText = "";
                 $ctrl.hasValidationError = false;

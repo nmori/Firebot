@@ -17,7 +17,7 @@ export const TransitionNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsTransitionName",
         description:
-      "The name of the OBS transition that triggered the event.",
+            "イベントを発火した OBS トランジション名です。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"],
         triggers: triggers

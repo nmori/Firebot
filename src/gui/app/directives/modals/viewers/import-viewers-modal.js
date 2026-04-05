@@ -6,15 +6,15 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Import Viewers</h4>
+                    <h4 class="modal-title">視聴者をインポート</h4>
                 </div>
                 <div class="modal-body pb-0">
                     <div ng-hide="$ctrl.viewers">
-                        <h4 class="font-semibold">Import from</h4>
-                        <p class="muted mb-12">Currently only viewers from Streamlabs Chatbot (desktop bot) can be imported.</p>
+                        <h4 class="font-semibold">インポート元</h4>
+                        <p class="muted mb-12">現在は Streamlabs Chatbot（デスクトップBot）の視聴者のみインポートできます。</p>
 
-                        <h4 class="font-semibold">Choose file</h4>
-                        <p class="muted mb-8">To get the export file in Streamlabs Chatbot, go to Connections -> Cloud -> Create Split Excel and find the file called [Name of the currency].xlsx, or choose Create Excel Files and find the file called Data.xlsx.</p>
+                        <h4 class="font-semibold">ファイルを選択</h4>
+                        <p class="muted mb-8">Streamlabs Chatbot でエクスポートファイルを取得するには、Connections -> Cloud -> Create Split Excel で [通貨名].xlsx を探すか、Create Excel Files で Data.xlsx を探してください。</p>
                         <file-chooser
                             model="$ctrl.importFilePath"
                             on-update="$ctrl.onFileSelected(filepath)"
@@ -22,18 +22,18 @@
                             hide-manual-edit="true"
                         >
                         </file-chooser>
-                        <p ng-if="$ctrl.fileError" style="color: #f96f6f;" class="mt-4">Cannot read this file. Please follow the instructions above.</p>
+                        <p ng-if="$ctrl.fileError" style="color: #f96f6f;" class="mt-4">このファイルを読み取れません。上記の手順を確認してください。</p>
                     </div>
                     <div ng-show="$ctrl.viewers">
                         <div class="mb-8">
-                            <h3>Settings</h3>
+                            <h3>設定</h3>
                             <div class="mt-8">
                                 <div class="form-group">
-                                    <label class="control-fb control--checkbox"> Include view hours
+                                    <label class="control-fb control--checkbox"> 視聴時間を含める
                                         <input type="checkbox" ng-model="$ctrl.settings.includeViewHours" ng-click="$ctrl.toggleIncludeViewHours()">
                                         <div class="control__indicator"></div>
                                     </label>
-                                    <label ng-if="$ctrl.settings.includeViewHours" class="control-fb control--checkbox"> Include viewers with 0 view hours
+                                    <label ng-if="$ctrl.settings.includeViewHours" class="control-fb control--checkbox"> 視聴時間が 0 の視聴者も含める
                                         <input type="checkbox" ng-model="$ctrl.settings.includeZeroHoursViewers" ng-click="$ctrl.toggleIncludeZeroHoursViewers()">
                                         <div class="control__indicator"></div>
                                     </label>
@@ -41,14 +41,14 @@
                             </div>
                         </div>
                         <div class="mt-16 mb-4">
-                            <h3>Overview</h3>
+                            <h3>概要</h3>
                             <div class="mb-10 flex flex-row justify-between items-end">
                                 <div>
-                                    Found {{$ctrl.filteredViewers.length}} viewers to import.
-                                    <tooltip text="'Viewers that have changed their username in the mean time are included in this number, but will not be imported since their new name is unknown.'"></tooltip>
+                                    インポート対象の視聴者は {{$ctrl.filteredViewers.length}} 人です。
+                                    <tooltip text="'この人数にはユーザー名が変更された視聴者も含まれますが、新しい名前が不明なため実際にはインポートされません。'"></tooltip>
                                 </div>
                                 <div class="flex justify-between">
-                                    <searchbar placeholder-text="Search viewers..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
+                                    <searchbar placeholder-text="視聴者を検索..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
                                 </div>
                             </div>
                             <sortable-table
@@ -60,14 +60,14 @@
                                 track-by-field="name"
                                 starting-sort-field="viewHours"
                                 sort-initially-reversed="true"
-                                no-data-message="No viewers found"
+                                no-data-message="視聴者が見つかりません"
                             >
                             </sortable-table>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer pt-0">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.cancelImport()">Cancel</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.cancelImport()">キャンセル</button>
                     <button ng-show="$ctrl.filteredViewers" ng-click="$ctrl.importViewers()" class="btn btn-primary" ng-disabled="$ctrl.importing || $ctrl.aborting">
                         {{ $ctrl.getButtonText() }}
                     </button>
@@ -121,14 +121,14 @@
 
                 $ctrl.getButtonText = () => {
                     if ($ctrl.importing) {
-                        return "Importing...";
+                        return "インポート中...";
                     }
 
                     if ($ctrl.aborting) {
-                        return "Canceling Import...";
+                        return "インポートをキャンセル中...";
                     }
 
-                    return "Import";
+                    return "インポート";
                 };
 
                 $ctrl.toggleIncludeViewHours = () => {

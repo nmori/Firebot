@@ -4,7 +4,7 @@ import { SharedChatCache } from "../../../chat/shared-chat-cache";
 const model : ReplaceVariable = {
     definition: {
         handle: "isSharedChatEnabled",
-        description: "Returns true when in a shared chat session, false otherwise.",
+        description: "Shared Chat セッション中なら true、それ以外は false を返します。",
         categories: ["common"],
         possibleDataOutput: ["bool"]
     },

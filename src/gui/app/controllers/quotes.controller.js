@@ -125,7 +125,7 @@
                         'width': '175px',
                         'padding': '0px 3px'
                     },
-                    cellTemplate: `<div style="width:175px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{data.game || "Unknown Category/Game"}}</div>`,
+                    cellTemplate: `<div style="width:175px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{data.game || "不明なカテゴリ/ゲーム"}}</div>`,
                     cellController: () => {}
                 },
                 {

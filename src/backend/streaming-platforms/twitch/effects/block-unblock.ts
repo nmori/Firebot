@@ -8,8 +8,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:block",
-        name: "Block User",
-        description: "block or unblock a user on Twitch.",
+        name: "ユーザーのブロック/解除",
+        description: "Twitch でユーザーをブロックまたは解除します。",
         icon: "fad fa-user-slash",
         categories: ["common", "twitch"],
         dependencies: []

@@ -13,24 +13,24 @@
                 <scroll-sentinel element-class="edit-widget-header"></scroll-sentinel>
                 <div class="modal-header sticky-header edit-widget-header">
                     <h4 class="modal-title">
-                        <div class="action text-4xl">{{$ctrl.isNewWidget ? 'Add New Overlay Widget' : 'Edit Overlay Widget:'}}</div>
+                        <div class="action text-4xl">{{$ctrl.isNewWidget ? '新しいオーバーレイウィジェットを追加' : 'オーバーレイウィジェットを編集:'}}</div>
                         <div class="text-4xl font-semibold" ng-show="!$ctrl.isNewWidget">{{$ctrl.widget.name}}</div>
                     </h4>
                     <firebot-button
                         ng-click="$ctrl.toggleLivePreview()"
-                        text="Live Preview: {{$ctrl.livePreviewActive ? 'On' : 'Off'}}"
+                        text="ライブプレビュー: {{$ctrl.livePreviewActive ? 'オン' : 'オフ'}}"
                         size="extraSmall"
                         type="{{$ctrl.livePreviewActive ? 'success' : 'default'}}"
                         icon="fa-eye{{ $ctrl.livePreviewActive ? '' : '-slash' }}"
                         disabled="!$ctrl.typeSupportsLivePreview || $ctrl.widget.type == null"
-                        tooltip="{{ $ctrl.widget.type == null ? 'Select a type to enable live preview' : (!$ctrl.typeSupportsLivePreview ? 'This widget type does not support live preview' : 'When enabled, you will see real-time changes in the overlay') }}"
+                        tooltip="{{ $ctrl.widget.type == null ? 'ライブプレビューを有効にするにはタイプを選択してください' : (!$ctrl.typeSupportsLivePreview ? 'このウィジェットタイプはライブプレビューに対応していません' : '有効にするとオーバーレイ上の変更をリアルタイムで確認できます') }}"
                         tooltip-placement="bottom"
                         style="margin-left: auto; margin-right: 15px;"
                     ></firebot-button>
                     <button
                         type="button"
                         class="close"
-                        aria-label="Close"
+                        aria-label="閉じる"
                         ng-click="$ctrl.dismiss()"
                         style="margin-left: 0;"
                     >
@@ -41,26 +41,26 @@
                     <form name="widgetSettings">
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('type')}">
-                            <label for="expression" class="control-label">Type</label>
+                            <label for="expression" class="control-label">タイプ</label>
                             <firebot-searchable-select
                                 name="type"
                                 ng-model="$ctrl.widget.type"
-                                placeholder="Select or search for a type..."
+                                placeholder="タイプを選択または検索..."
                                 items="$ctrl.widgetTypes"
                                 ng-required="true"
                                 on-select="$ctrl.onTypeSelected(item)"
                                 disabled="!$ctrl.isNewWidget || $ctrl.livePreviewActive"
                             />
                             <div ng-if="$ctrl.formFieldHasError('type')">
-                                <span class="help-block">Please select a type.</span>
+                                <span class="help-block">タイプを選択してください。</span>
                             </div>
-                            <div ng-if="$ctrl.livePreviewActive && $ctrl.isNewWidget" class="help-block">You cannot change the type while live preview is active.</div>
+                            <div ng-if="$ctrl.livePreviewActive && $ctrl.isNewWidget" class="help-block">ライブプレビュー有効中はタイプを変更できません。</div>
                         </div>
 
                         <div ng-if="$ctrl.widget.type && $ctrl.selectedType != null">
 
                             <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
-                                <label for="name" class="control-label">Name</label>
+                                <label for="name" class="control-label">名前</label>
                                 <div style="position: relative;">
                                     <input
                                         type="text"
@@ -70,30 +70,30 @@
                                         ui-validate="{valid:'$ctrl.widgetNameIsValid($value)', taken:'!$ctrl.widgetNameIsTaken($value)'}"
                                         required
                                         class="form-control input-lg"
-                                        placeholder="Give your {{ $ctrl.selectedType.name }} a name"
+                                        placeholder="{{ $ctrl.selectedType.name }} の名前を入力"
                                         ng-model="$ctrl.widget.name"
                                         ng-keyup="$event.keyCode == 13 && $ctrl.save()"
                                         ng-keydown="$event.keyCode != 13 ? $event:$event.preventDefault()"
                                     />
                                 </div>
                                 <div ng-if="$ctrl.formFieldHasError('name')">
-                                    <span ng-if="widgetSettings.name.$error.required" class="help-block">Name is required.</span>
-                                    <span ng-if="widgetSettings.name.$error.minlength" class="help-block">Name must be 1 or more characters.</span>
-                                    <span ng-if="widgetSettings.name.$error.valid && !widgetSettings.name.$error.required && !widgetSettings.name.$error.minlength" class="help-block">Invalid name format.</span>
-                                    <span ng-if="widgetSettings.name.$error.taken" class="help-block">This name is already in use.</span>
+                                    <span ng-if="widgetSettings.name.$error.required" class="help-block">名前は必須です。</span>
+                                    <span ng-if="widgetSettings.name.$error.minlength" class="help-block">名前は1文字以上で入力してください。</span>
+                                    <span ng-if="widgetSettings.name.$error.valid && !widgetSettings.name.$error.required && !widgetSettings.name.$error.minlength" class="help-block">名前の形式が正しくありません。</span>
+                                    <span ng-if="widgetSettings.name.$error.taken" class="help-block">この名前はすでに使用されています。</span>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="overlay-instance" class="control-label">Overlay Instance</label>
+                                <label for="overlay-instance" class="control-label">オーバーレイインスタンス</label>
                                 <select class="fb-select" id="overlay-instance" ng-model="$ctrl.widget.overlayInstance">
-                                    <option label="Default" value="">Default</option>
+                                    <option label="デフォルト" value="">デフォルト</option>
                                     <option ng-repeat="instance in $ctrl.overlayInstances" label="{{instance}}" value="{{instance}}">{{instance}}</option>
                                 </select>
                             </div>
 
                             <div class="form-group" ng-if="$ctrl.userCanConfigure.position">
-                                <label for="position" class="control-label">Position</label>
+                                <label for="position" class="control-label">位置</label>
                                 <overlay-position-editor
                                     model="$ctrl.widget.position"
                                     min-width="25"
@@ -105,7 +105,7 @@
                             </div>
 
                             <div class="form-group" ng-if="$ctrl.userCanConfigure.zIndex">
-                                <label for="z-index" class="control-label">z-index <tooltip text="'Controls which items appear in front when things overlap. Items with a higher number are shown on top of items with a lower number.'"></tooltip></label>
+                                <label for="z-index" class="control-label">z-index <tooltip text="'重なったときに前面に表示される順序を制御します。数値が大きいほど前面に表示されます。'"></tooltip></label>
                                 <input
                                     type="number"
                                     id="z-index"
@@ -113,11 +113,11 @@
                                     class="form-control"
                                     ng-model="$ctrl.widget.zIndex"
                                 />
-                                <span class="help-block">Optional.</span>
+                                <span class="help-block">任意</span>
                             </div>
 
                             <div class="form-group" ng-if="$ctrl.userCanConfigure.entryAnimation">
-                                <label for="position" class="control-label">Entry Animation</label>
+                                <label for="position" class="control-label">開始アニメーション</label>
                                 <animation-select
                                     type="enter"
                                     ng-model="$ctrl.widget.entryAnimation"
@@ -125,7 +125,7 @@
                             </div>
 
                             <div class="form-group" ng-if="$ctrl.userCanConfigure.exitAnimation">
-                                <label for="position" class="control-label">Exit Animation</label>
+                                <label for="position" class="control-label">終了アニメーション</label>
                                 <animation-select
                                     type="exit"
                                     ng-model="$ctrl.widget.exitAnimation"
@@ -134,8 +134,8 @@
 
                             <div ng-if="$ctrl.selectedType != null && $ctrl.selectedType.settingsSchema != null">
                                 <hr />
-                                <h4 style="margin: 0;">Settings</h4>
-                                <div style="margin-top: 0.25rem;font-size: 14px; color: #99a1af; margin-bottom: 1.25rem;">Configure the settings for this widget below.</div>
+                                <h4 style="margin: 0;">設定</h4>
+                                <div style="margin-top: 0.25rem;font-size: 14px; color: #99a1af; margin-bottom: 1.25rem;">このウィジェットの設定を以下で構成します。</div>
                                 <dynamic-parameters
                                     settings-schema="$ctrl.selectedType.settingsSchema"
                                     settings="$ctrl.widget.settings"
@@ -148,9 +148,9 @@
                     </form>
                 </div>
                 <div class="modal-footer sticky-footer edit-widget-footer">
-                    <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-if="!$ctrl.isNewWidget">Delete</button>
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-if="!$ctrl.isNewWidget">削除</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
                 <scroll-sentinel element-class="edit-widget-footer"></scroll-sentinel>
             `,
@@ -344,7 +344,7 @@
                     if (successful) {
                         $ctrl.dismiss();
                     } else {
-                        ngToast.create("Failed to save overlay widget. Please try again or view logs for details.");
+                        ngToast.create("オーバーレイウィジェットの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
                     }
                 };
 
@@ -355,9 +355,9 @@
 
                     modalFactory
                         .showConfirmationModal({
-                            title: "Delete Overlay Widget",
-                            question: `Are you sure you want to delete this overlay widget?`,
-                            confirmLabel: "Delete",
+                            title: "オーバーレイウィジェットを削除",
+                            question: "このオーバーレイウィジェットを削除しますか？",
+                            confirmLabel: "削除",
                             confirmBtnType: "btn-danger"
                         })
                         .then((confirmed) => {

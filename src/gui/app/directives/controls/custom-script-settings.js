@@ -19,17 +19,17 @@
                 initFirst: "=?"
             },
             template: `
-            <eos-container header="Script">
+            <eos-container header="スクリプト">
 
                 <div class="effect-info alert alert-info">
-                    Place scripts in the <a id="scriptFolderBtn" ng-click="openScriptsFolder()" style="text-decoration:underline;color:#53afff;cursor:pointer;">scripts folder</a> of the Firebot user-settings directory, then refresh the dropdown.
+                    Firebotユーザー設定ディレクトリの <a id="scriptFolderBtn" ng-click="openScriptsFolder()" style="text-decoration:underline;color:#53afff;cursor:pointer;">scriptsフォルダー</a> にスクリプトを配置して、ドロップダウンを更新してください。
                 </div>
 
                 <div class="flex items-center">
                     <firebot-searchable-select
                         items="scriptArray"
                         ng-model="effect.scriptName"
-                        placeholder="Select script"
+                        placeholder="スクリプトを選択"
                         on-select="selectScript(item)"
                         style="flex-grow: 1;"
                         class="mr-2"
@@ -40,8 +40,8 @@
 
             <eos-container ng-show="effect.scriptName != null" pad-top="true">
                 <div ng-if="scriptManifest != null" style="padding-bottom:10px;">
-                    <div class="script-name">{{scriptManifest.name ? scriptManifest.name : "Unnamed Script"}} <span class="script-version muted">{{scriptManifest.version ? scriptManifest.version : "Unknown"}}</span></div>
-                    <div style="font-size: 13px;">by <span class="script-author">{{scriptManifest.author ? scriptManifest.author : "Unknown"}}</span><span ng-if="scriptManifest.website" class="script-website"> (<a ng-click="openScriptsWebsite()" class="clickable">{{scriptManifest.website}}</a>)</span><span></span></div>
+                    <div class="script-name">{{scriptManifest.name ? scriptManifest.name : "無名スクリプト"}} <span class="script-version muted">{{scriptManifest.version ? scriptManifest.version : "不明"}}</span></div>
+                    <div style="font-size: 13px;">作成者: <span class="script-author">{{scriptManifest.author ? scriptManifest.author : "不明"}}</span><span ng-if="scriptManifest.website" class="script-website"> (<a ng-click="openScriptsWebsite()" class="clickable">{{scriptManifest.website}}</a>)</span><span></span></div>
                     <div
                         class="script-description markdown-container"
                         ng-bind-html="scriptManifest.description"
@@ -50,15 +50,15 @@
             </eos-container>
 
             <eos-container ng-show="$ctrl.initFirst">
-                <i>After adding this script, you can configure its settings.</i>
+                <i>このスクリプトを追加したあと、設定を構成できます。</i>
             </eos-container>
 
-            <eos-container header="Settings" ng-show="effect.scriptName != null && !$ctrl.initFirst">
+            <eos-container header="設定" ng-show="effect.scriptName != null && !$ctrl.initFirst">
                 <div ng-show="isLoadingParameters">
-                    Loading settings...
+                    設定を読み込み中...
                 </div>
                 <div ng-hide="isLoadingParameters">
-                    <span ng-hide="scriptHasParameters()" class="muted">Script has no settings.</span>
+                    <span ng-hide="scriptHasParameters()" class="muted">このスクリプトには設定がありません。</span>
                     <div ng-show="scriptHasParameters()">
                         <dynamic-parameter
                             ng-repeat="(settingName, settingSchema) in effect.parameters"
@@ -75,7 +75,7 @@
 
             <eos-container>
                 <div class="effect-info alert alert-danger">
-                    <strong>Warning:</strong> Only use scripts from sources you absolutely trust!
+                    <strong>警告:</strong> 必ず信頼できる配布元のスクリプトのみ使用してください。
                 </div>
             </eos-container>
             `,
@@ -110,7 +110,7 @@
                         }
 
                         if ($scope.scriptManifest != null && $scope.scriptManifest.startupOnly && !$ctrl.allowStartup) {
-                            utilityService.showInfoModal(`Unable to load '${$scope.effect.scriptName}' as this script can only be used as a Startup Script (Settings > Scripts > Startup Scripts)`);
+                            utilityService.showInfoModal(`'${$scope.effect.scriptName}' を読み込めません。このスクリプトは起動時スクリプト専用です（設定 > スクリプト > 起動時スクリプト）。`);
                             $scope.effect.scriptName = undefined;
                             $scope.effect.parameters = undefined;
                             $scope.scriptManifest = undefined;
@@ -133,7 +133,7 @@
 
 
                         if (!initialLoad && ($scope.scriptManifest == null || $scope.scriptManifest.firebotVersion !== "5")) {
-                            utilityService.showInfoModal("The selected script may not have been written for Firebot V5 and so might not function as expected. Please reach out to us on Discord or Bluesky if you need assistance.");
+                            utilityService.showInfoModal("選択したスクリプトは Firebot V5 向けに作成されていない可能性があり、期待どおりに動作しない場合があります。サポートが必要な場合は Discord または Bluesky でお問い合わせください。");
                         }
 
                         const currentParameters = $scope.effect.parameters;

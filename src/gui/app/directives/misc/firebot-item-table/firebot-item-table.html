@@ -27,7 +27,7 @@
             ></searchbar>
             <button
                 ng-if="$ctrl.showAdvancedOptionsButton"
-                uib-tooltip="Advanced Search Options"
+                uib-tooltip="高度な検索オプション"
                 tooltip-append-to-body="true"
                 tooltip-placement="top-right"
                 uib-popover-template="'advancedSearchOptionsPopover.html'"
@@ -49,9 +49,9 @@
                 <div class="p-3">
                   <firebot-checkbox
                     ng-if="$ctrl.customFilterName != null"
-                    label="Full text search"
+                    label="全文検索"
                     model="$ctrl.useFullTextSearch"
-                    tooltip="Search all fields. Prefix with ! to perform an exclusive search."
+                    tooltip="すべての項目を検索します。先頭に ! を付けると除外検索になります。"
                     tooltip-placement="top-right"
                     style="margin: 0;"
                   />
@@ -120,7 +120,7 @@
                             <span style="display: inline-block">
                                 <i class="fas fa-tag"></i>
                             </span>
-                            <span class="mx-2 my-0"> TAGS </span>
+                            <span class="mx-2 my-0"> タグ </span>
                             <span style="display: inline-block; width: 11px">
                                 <i
                                     ng-show="$ctrl.isOrderField('%sorttags%')"
@@ -149,9 +149,9 @@
                         class="fit-test-button-body"
                     >
                         <span
-                            aria-label="Test"
+                            aria-label="テスト"
                             ng-click="$ctrl.onTestButtonClicked({ itemId: item.id })"
-                            uib-tooltip="Test Effects"
+                            uib-tooltip="エフェクトをテスト"
                             tooltip-append-to-body="true"
                         >
                             <i class="fas fa-play-circle clickable"></i>
@@ -197,7 +197,7 @@
                             </span>
                             <div class="ml-10">
                                 <button
-                                    aria-label="Open Context Menu"
+                                    aria-label="コンテキストメニューを開く"
                                     class="noselect clickable text-5xl"
                                     context-menu="$ctrl.getContextMenu(item)"
                                     context-menu-on="click"

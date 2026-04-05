@@ -19,8 +19,8 @@ export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
     {
         definition: {
             id: "ebiggz:obs-toggle-source-muted",
-            name: "Toggle OBS Audio Source Muted",
-            description: "Toggle an OBS source's muted status",
+            name: "OBS音声ソースミュート切り替え",
+            description: "OBS ソースのミュート状態を切り替えます",
             icon: "fad fa-volume-mute",
             categories: ["common", "integrations"]
         },

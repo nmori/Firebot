@@ -24,4 +24,42 @@ const ComparisonType = Object.freeze({
     DOESNT_MATCH_REGEX: "doesn't match regex (case insensitive)"
 });
 
+// Legacy labels used by prior JP builds are normalized to current comparison values.
+const LegacyComparisonTypeMap = Object.freeze({
+    "が一致": ComparisonType.IS,
+    "一致": ComparisonType.IS,
+    "と一致": ComparisonType.IS,
+    "が不一致": ComparisonType.IS_NOT,
+    "不一致": ComparisonType.IS_NOT,
+    "と不一致": ComparisonType.IS_NOT,
+    "より上": ComparisonType.GREATER_THAN,
+    "より大きい": ComparisonType.GREATER_THAN,
+    "以上": ComparisonType.GREATER_THAN_OR_EQUAL_TO,
+    "未満": ComparisonType.LESS_THAN,
+    "以下": ComparisonType.LESS_THAN_OR_EQUAL_TO,
+    "含んでいる": ComparisonType.CONTAINS,
+    "含む": ComparisonType.CONTAINS,
+    "を配列に含む": ComparisonType.CONTAINS,
+    "厳格に一致": ComparisonType.CONTAINS,
+    "アイテムに含まない": ComparisonType.DOESNT_CONTAIN,
+    "含まない": ComparisonType.DOESNT_CONTAIN,
+    "を配列に含まない": ComparisonType.DOESNT_CONTAIN,
+    "厳格に不一致": ComparisonType.DOESNT_CONTAIN,
+    "で始まる": ComparisonType.STARTS_WITH,
+    "で始まらない": ComparisonType.DOESNT_STARTS_WITH,
+    "で終わる": ComparisonType.ENDS_WITH,
+    "で終わらない": ComparisonType.DOESNT_END_WITH,
+    "正規表現に一致": ComparisonType.MATCHES_REGEX_CS,
+    "という正規表現に一致": ComparisonType.MATCHES_REGEX_CS,
+    "正規表現に不一致": ComparisonType.DOESNT_MATCH_REGEX_CS,
+    "という正規表現に不一致": ComparisonType.DOESNT_MATCH_REGEX_CS,
+    "正規表現に一致（大小問わず）": ComparisonType.MATCHES_REGEX,
+    "という正規表現に一致（大小問わず）": ComparisonType.MATCHES_REGEX,
+    "正規表現に不一致（大小問わず）": ComparisonType.DOESNT_MATCH_REGEX,
+    "という正規表現に不一致（大小問わず）": ComparisonType.DOESNT_MATCH_REGEX,
+    "正規表現にマッチする": ComparisonType.MATCHES_REGEX,
+    "正規表現にマッチしない": ComparisonType.DOESNT_MATCH_REGEX
+});
+
 exports.ComparisonType = ComparisonType;
+exports.LegacyComparisonTypeMap = LegacyComparisonTypeMap;

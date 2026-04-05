@@ -2,8 +2,8 @@ import { createNumberFilter } from "../../../../events/filters/filter-factory";
 
 const filter = createNumberFilter({
     id: "streamloots:chest-quantity",
-    name: "Chest Quantity",
-    description: "Filter by the number of StreamLoots chests purchased/gifted.",
+    name: "チェスト数",
+    description: "購入/ギフトされた StreamLoots チェスト数でフィルターします",
     events: [
         { eventSourceId: "streamloots", eventId: "purchase" }
     ],

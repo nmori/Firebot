@@ -16,7 +16,7 @@
 
             $scope.getQueueModeName = (modeId) => {
                 const mode = effectQueuesService.queueModes.find(m => m.value === modeId);
-                return mode ? mode.label : "Unknown";
+                return mode ? mode.label : "不明";
             };
 
             $scope.headers = [
@@ -37,7 +37,7 @@
                     cellController: ($scope) => {
                         $scope.getQueueModeName = (modeId) => {
                             const mode = effectQueuesService.queueModes.find(m => m.value === modeId);
-                            return mode ? mode.label : "Unknown";
+                            return mode ? mode.label : "不明";
                         };
                     }
                 },
@@ -46,7 +46,7 @@
                     icon: "fa-clock",
                     dataField: "interval",
                     sortable: true,
-                    cellTemplate: `{{(data.mode === 'interval' || data.mode === 'auto') ? (data.interval || 0) + 's' : 'n/a'}}`,
+                    cellTemplate: `{{(data.mode === 'interval' || data.mode === 'auto') ? (data.interval || 0) + '秒' : '該当なし'}}`,
                     cellController: () => { }
                 }
             ];
@@ -54,37 +54,37 @@
             $scope.effectQueueOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen mr-4"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen mr-4"></i> 編集</a>`,
                         click: function () {
                             effectQueuesService.showAddEditEffectQueueModal(item.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "Disable Effect Queue" : "Enable Effect Queue"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "エフェクトキューを無効化" : "エフェクトキューを有効化"}</a>`,
                         click: function () {
                             effectQueuesService.toggleEffectQueue(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="fad fa-minus-circle mr-4"></i> Clear Queue</a>`,
+                        html: `<a href ><i class="fad fa-minus-circle mr-4"></i> キューをクリア</a>`,
                         click: function () {
                             effectQueuesService.clearEffectQueue(item.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone mr-4"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone mr-4"></i> 複製</a>`,
                         click: function () {
                             effectQueuesService.duplicateEffectQueue(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Effect Queue",
-                                    question: `Are you sure you want to delete the Effect Queue "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "エフェクトキューを削除",
+                                    question: `エフェクトキュー "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {

@@ -9,48 +9,48 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:toggle-command",
-        name: "Toggle Command",
-        description: "Toggle a command's active status",
+        name: "コマンドの切り替え",
+        description: "コマンドの有効状態を切り替えます",
         icon: "fad fa-toggle-off",
         categories: ["common", "firebot control"],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect lets you automatically toggle the active status of Commands.</p>
+            <p>この演出を使うと、コマンドの有効状態を自動的に切り替えられます。</p>
         </eos-container>
 
-        <eos-container header="Command Type" pad-top="true">
+        <eos-container header="コマンド種別" pad-top="true">
             <dropdown-select options="commandOptions" selected="effect.commandType"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="effect.commandType === 'system'" header="System Commands" pad-top="true">
+        <eos-container ng-show="effect.commandType === 'system'" header="システムコマンド" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.commandId"
                 items="systemCommands"
                 item-name="trigger"
-                placeholder="Select or search for a command..."
+                placeholder="コマンドを選択または検索..."
             />
         </eos-container>
 
-        <eos-container ng-show="effect.commandType === 'custom'" header="Custom Commands" pad-top="true">
+        <eos-container ng-show="effect.commandType === 'custom'" header="カスタムコマンド" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.commandId"
                 items="customCommands"
                 item-name="trigger"
-                placeholder="Select or search for a command..."
+                placeholder="コマンドを選択または検索..."
             />
         </eos-container>
 
-        <eos-container ng-show="effect.commandType === 'tag'" header="Custom Command Tags" pad-top="true">
+        <eos-container ng-show="effect.commandType === 'tag'" header="カスタムコマンドタグ" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.sortTagId"
                 items="sortTags"
-                placeholder="Select or search for a tag..."
+                placeholder="タグを選択または検索..."
             />
         </eos-container>
 
-        <eos-container header="Toggle Action" pad-top="true">
+        <eos-container header="切り替えアクション" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,
@@ -61,9 +61,9 @@ const effect: EffectType<{
         $scope.hasTags = $scope.sortTags != null && $scope.sortTags.length > 0;
 
         $scope.commandOptions = {
-            system: 'System',
-            custom: 'Custom',
-            tag: 'Custom (by tag)'
+            system: 'システム',
+            custom: 'カスタム',
+            tag: 'カスタム（タグ指定）'
         };
 
         if (!$scope.hasTags) {
@@ -71,9 +71,9 @@ const effect: EffectType<{
         }
 
         $scope.toggleOptions = {
-            disable: "Deactivate",
-            enable: "Activate",
-            toggle: "Toggle"
+            disable: "無効化",
+            enable: "有効化",
+            toggle: "切り替え"
         };
 
         if ($scope.effect.toggleType == null) {
@@ -83,20 +83,20 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.commandType !== "tag" && effect.commandId == null) {
-            errors.push("Please select a command.");
+            errors.push("コマンドを選択してください。");
         }
         if (effect.commandType === "tag" && effect.sortTagId == null) {
-            errors.push("Please select a command tag.");
+            errors.push("コマンドタグを選択してください。");
         }
         return errors;
     },
     getDefaultLabel: (effect, commandsService, sortTagsService) => {
-        const action = effect.toggleType === "toggle" ? "Toggle"
-            : effect.toggleType === "enable" ? "Activate" : "Deactivate";
+        const action = effect.toggleType === "toggle" ? "切り替え"
+            : effect.toggleType === "enable" ? "有効化" : "無効化";
         if (effect.commandType === "tag") {
             const sortTag = sortTagsService.getSortTags('commands')
                 .find(tag => tag.id === effect.sortTagId);
-            return `${action} tag: ${sortTag?.name ?? "Unknown"}`;
+            return `${action} タグ: ${sortTag?.name ?? "不明"}`;
         }
         let command;
         if (effect.commandType === "system") {
@@ -107,7 +107,7 @@ const effect: EffectType<{
             command = commandsService.getCustomCommands()
                 .find(cmd => cmd.id === effect.commandId);
         }
-        return `${action} ${command?.trigger ?? "Unknown Command"}`;
+        return `${action} ${command?.trigger ?? "不明なコマンド"}`;
     },
     onTriggerEvent: (event) => {
         const { commandId, commandType, toggleType, sortTagId } = event.effect;

@@ -12,7 +12,7 @@
        <div class="notifications-wrapper">
           <button
             class="app-bar-icon-btn"
-            aria-label="Notification Center"
+            aria-label="通知センター"
             uib-popover-template="$ctrl.templateUrl"
             popover-placement="bottom-right"
             popover-trigger="'outsideClick'"
@@ -27,10 +27,10 @@
        <script type="text/ng-template" id="notificationCenterPopupTemplate.html">
 
           <div class="notification-popover-header">
-            <span>Notifications</span>
+            <span>通知</span>
           </div>
           <div class="noti-preview-wrapper">
-            <div ng-repeat="notification in $ctrl.getNotifications() | orderBy: 'created_at':true track by $index" class="notification-card" ng-click="$ctrl.openNotification(notification)" aria-label="Notification: {{notification.title}}">
+            <div ng-repeat="notification in $ctrl.getNotifications() | orderBy: 'created_at':true track by $index" class="notification-card" ng-click="$ctrl.openNotification(notification)" aria-label="通知: {{notification.title}}">
               <span class="noti-unread-indicator" ng-class="{'read': notification.read}"></span>
               <span class="noti-icon">
                 <i class="fal" ng-class="getIconClass(notification.type)"></i>
@@ -42,12 +42,12 @@
               <div class="noti-action" uib-dropdown uib-dropdown-toggle ng-click="$event.stopPropagation();" dropdown-append-to-body="true">
                 <span class="noselect pointer"><i class="fal fa-ellipsis-v"></i></span>
                 <ul class="dropdown-menu" uib-dropdown-menu>
-                  <li><a href ng-click="deleteNotification(notification.id)" style="color:red;"><i class="far fa-trash-alt"></i> Delete notification</a></li>
+                  <li><a href ng-click="deleteNotification(notification.id)" style="color:red;"><i class="far fa-trash-alt"></i> 通知を削除</a></li>
                 </ul>
               </div>
             </div>
             <div ng-if="$ctrl.getNotifications().length < 1" class="no-notifications-card">
-              <span class="muted">No notifications.</span>
+              <span class="muted">通知はありません。</span>
             </div>
           </div>
         </script>
@@ -74,14 +74,14 @@
                 class="btn btn-default mr-5 pull-left"
                 type="button"
                 ng-click="openScriptsFolder()"
-            >Open Scripts Folder</button>
+            >スクリプトフォルダーを開く</button>
             <button
                 class="btn btn-primary"
                 ng-class="{'pull-right': showOpenScriptsFolderButton}"
                 style="min-width: 75px;"
                 type="button"
                 ng-click="ok()"
-            >OK</button>
+            >閉じる</button>
           </div>
         </script>
        `,

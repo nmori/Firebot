@@ -6,18 +6,18 @@ const { EffectManager } = require("../../../effects/effect-manager");
 const integrationDefinition = {
     id: "aws",
     name: "AWS",
-    description: "Interact with Amazon Web Services.",
+    description: "Amazon Web Services と連携します。",
     linkType: "none",
     connectionToggle: false,
     configurable: true,
     settingCategories: {
         iamCredentials: {
-            title: "IAM Credentials",
+            title: "IAM認証情報",
             sortRank: 1,
             settings: {
                 accessKeyId: {
-                    title: "Access Key ID",
-                    description: "Specifies the AWS access key associated with an IAM user or role.",
+                    title: "アクセスキーID",
+                    description: "IAM ユーザーまたはロールに紐づく AWS アクセスキーを指定します。",
                     type: "string",
                     sortRank: 1,
                     validation: {
@@ -25,8 +25,8 @@ const integrationDefinition = {
                     }
                 },
                 secretAccessKey: {
-                    title: "Secret Access Key",
-                    description: "Specifies the secret key associated with the access key.",
+                    title: "シークレットアクセスキー",
+                    description: "アクセスキーに対応するシークレットキーを指定します。",
                     type: "string",
                     showBottomHr: true,
                     sortRank: 2,
@@ -35,11 +35,11 @@ const integrationDefinition = {
                     }
                 },
                 region: {
-                    title: "Region",
-                    description: "The AWS region with which we will interact with for the services.",
+                    title: "リージョン",
+                    description: "連携に使用する AWS リージョンを指定します。",
                     type: "string",
                     default: "us-east-1",
-                    tip: "Default is 'us-east-1'.",
+                    tip: "既定値は 'us-east-1' です。",
                     sortRank: 3,
                     validation: {
                         required: true

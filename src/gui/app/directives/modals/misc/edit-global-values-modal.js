@@ -5,16 +5,16 @@
         .component("editGlobalValuesModal", {
             template: `
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">
-                        Global Values
+                        グローバル値
                     </h4>
                 </div>
                 <div class="modal-body firebot-list-container">
                     <div class="firebot-list-description">
                         <p class="muted" style="margin: 0 0 20px 0; font-size: 13px;">
                             <i class="fas fa-info-circle" style="margin-right: 6px;"></i>
-                            Static values that are available throughout Firebot via a variable. Useful for reusing common values (e.g., API keys).
+                            Firebot 全体で変数として使える固定値です。よく使う値（例: APIキー）の再利用に便利です。
                         </p>
                     </div>
 
@@ -27,12 +27,12 @@
                                 <div class="firebot-list-item-actions">
                                     <button class="btn btn-default btn-sm"
                                             ng-click="$ctrl.addOrEditGlobalValue(value)"
-                                            title="Edit global value">
+                                            title="グローバル値を編集">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="btn btn-danger btn-sm"
                                             ng-click="$ctrl.removeGlobalValue(value)"
-                                            title="Delete global value">
+                                            title="グローバル値を削除">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                 </div>
@@ -42,7 +42,7 @@
 
                     <button class="btn btn-primary btn-sm" style="width: 100%;" ng-click="$ctrl.addOrEditGlobalValue()">
                         <i class="fas fa-plus" style="margin-right: 6px;"></i>
-                        Create Global Value
+                        グローバル値を作成
                     </button>
                 </div>
             `,

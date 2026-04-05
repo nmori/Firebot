@@ -237,7 +237,7 @@
                         <div class="variable-menu" ng-show="showMenu" ng-class="[menuPosition, { 'has-magic-vars': hasMagicVariables }]">
                             <div style="padding:10px;border-bottom: 1px solid #48474a;">
                                 <div class="relative">
-                                    <input id="variable-search" type="text" class="form-control" placeholder="Search variables..." ng-model="variableSearchText" ng-change="searchUpdated()" style="padding-left: 27px;">
+                                    <input id="variable-search" type="text" class="form-control" placeholder="変数を検索..." ng-model="variableSearchText" ng-change="searchUpdated()" style="padding-left: 27px;">
                                     <span class="searchbar-icon"><i class="far fa-search"></i></span>
                                 </div>
                             </div>
@@ -249,14 +249,14 @@
                                         ng-class="{'selected': activeCategory === 'macros'}"
                                         ng-click="setActiveCategory('macros');"
                                     >
-                                        <div><i class="fas fa-layer-group"></i> Macros</div>
+                                        <div><i class="fas fa-layer-group"></i> マクロ</div>
                                     </div>
                                     <div
                                         class="variable-category"
                                         ng-class="{'selected': activeCategory === 'global-values'}"
                                         ng-click="setActiveCategory('global-values');"
                                     >
-                                        <div><i class="fas fa-globe"></i> Global Values</div>
+                                        <div><i class="fas fa-globe"></i> グローバル値</div>
                                     </div>
                                     <div
                                         class="variable-category"
@@ -264,48 +264,48 @@
                                         ng-click="setActiveCategory('magic');"
                                         ng-show="hasMagicVariables"
                                     >
-                                        <div><i class="far fa-magic"></i> Magic</div>
+                                        <div><i class="far fa-magic"></i> マジック</div>
                                     </div>
-                                    <div class="variable-category-header muted pt-2">Categories</div>
+                                    <div class="variable-category-header muted pt-2">カテゴリ</div>
                                     <div class="variable-category" ng-class="{'selected': activeCategory == null}" ng-click="setActiveCategory(null);">
-                                        <div>All</div>
+                                        <div>すべて</div>
                                     </div>
                                     <div class="variable-category" ng-repeat="category in categories" ng-class="{'selected': activeCategory === category}" ng-click="setActiveCategory(category);">
                                         <div>{{category}}
                                             <tooltip
                                                 style="margin-left: 5px"
                                                 ng-if="category === 'integrations' || category === 'obs'"
-                                                text="'Integrations need to be linked / configured in Settings -> Integrations in order for the variables to work.'"
+                                                text="'変数を利用するには、Settings -> Integrations で連携を接続/設定する必要があります。'"
                                             ></tooltip>
                                         </div>
                                     </div>
                                 </div>
                                 <div style="overflow-y: auto;width: 100%;" ng-style="{ height: hasMagicVariables ? '441px': '403px', padding: activeCategory === 'macros' ? '10px 0' : '10px' }">
                                     <div ng-hide="activeCategory === 'magic' || activeCategory === 'macros' || activeCategory === 'global-values'" ng-repeat="variable in variables | orderBy:'handle' | variableCategoryFilter:activeCategory | variableSearch:variableSearchText" style="margin-bottom: 8px;">
-                                        <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
-                                        <div ng-if="variable.sensitive === true" class="text-danger"><strong>WARNING</strong>: May contain sensitive data! <tooltip text="'This variable may contain sensitive/private data. You probably should NOT post it in chat, show it on overlays, or write it to insecure areas, like log files'"></tooltip></div>
+                                        <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
+                                        <div ng-if="variable.sensitive === true" class="text-danger"><strong>警告</strong>: 機密データを含む可能性があります。<tooltip text="'この変数には機密情報や個人情報が含まれる場合があります。チャット投稿、オーバーレイ表示、ログファイルなど安全でない場所への出力は避けてください。'"></tooltip></div>
                                         <div ng-if="variable.aliases && variable.aliases.length > 0">
-                                            <div style="font-size: 12px; opacity: 0.75;">Aliases: {{getAliases(variable)}}</div>
+                                            <div style="font-size: 12px; opacity: 0.75;">エイリアス: {{getAliases(variable)}}</div>
                                         </div>
                                         <div class="muted" ng-bind-html="variable.description"></div>
                                         <div ng-show="variable.hasSuggestions" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
-                                            <collapsable-section show-text="Suggestions" hide-text="Suggestions" text-color="#0b8dc6" on-toggle="suggestionsToggled(variable, isOpen)">
+                                            <collapsable-section show-text="候補" hide-text="候補" text-color="#0b8dc6" on-toggle="suggestionsToggled(variable, isOpen)">
                                                 <div ng-repeat="suggestion in variable.suggestions" style="margin-top: 3px; margin-bottom: 3px;">
-                                                    <div style="font-weight: 900;">\${{suggestion.usage}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="addVariable(suggestion)"></i></div>
+                                                    <div style="font-weight: 900;">\${{suggestion.usage}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="addVariable(suggestion)"></i></div>
                                                     <div class="muted" ng-bind-html="suggestion.description"></div>
                                                 </div>
                                                 <div ng-if="suggestionsLoading[variable.handle]" style="padding: 3px 10px;">
                                                     <i class="fas fa-circle-notch fa-spin"></i>
                                                 </div>
                                                 <div ng-if="!suggestionsLoading[variable.handle] && (!variable.suggestions || variable.suggestions.length === 0)" style="text-align: center; padding: 1px 10px;" class="muted">
-                                                   {{ variable.noSuggestionsText || "No suggestions available" }}
+                                                   {{ variable.noSuggestionsText || "候補はありません" }}
                                                 </div>
                                             </collapsable-section>
                                         </div>
                                         <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
-                                            <collapsable-section show-text="Other examples" hide-text="Other examples" text-color="#0b8dc6">
+                                            <collapsable-section show-text="他の例" hide-text="他の例" text-color="#0b8dc6">
                                                 <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
-                                                    <div style="font-weight: 900;">\${{example.usage}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="addVariable(example)"></i></div>
+                                                    <div style="font-weight: 900;">\${{example.usage}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="addVariable(example)"></i></div>
                                                     <div ng-if="example.description" class="muted" ng-bind-html="example.description"></div>
                                                 </div>
                                             </collapsable-section>
@@ -313,7 +313,7 @@
                                     </div>
                                     <div ng-show="activeCategory === 'macros'" style="position: relative;">
                                         <div class="mb-2 pr-4" style="text-align: right;">
-                                            <firebot-button type="primary" size="small" icon="fas fa-plus-circle" text="Add Macro" ng-click="showAddOrEditVariableMacroModal()" />
+                                            <firebot-button type="primary" size="small" icon="fas fa-plus-circle" text="マクロを追加" ng-click="showAddOrEditVariableMacroModal()" />
                                         </div>
                                         <macro-list-item
                                             ng-repeat="macro in variableMacroService.macros | filter: { name: variableSearchText } track by macro.name"
@@ -324,32 +324,32 @@
                                     </div>
                                     <div ng-show="activeCategory === 'global-values'" style="position: relative;">
                                         <div class="mb-2 pr-4" style="text-align: right;">
-                                            <firebot-button type="primary" size="small" text="Manage Global Values" ng-click="openEditGlobalValuesModal()" />
+                                            <firebot-button type="primary" size="small" text="グローバル値を管理" ng-click="openEditGlobalValuesModal()" />
                                         </div>
                                         <div
                                             ng-repeat="globalValue in settingsService.getSetting('GlobalValues') | filter: { name: variableSearchText } track by globalValue.name"
                                             style="margin-bottom: 8px;"
                                         >
-                                            <div style="font-weight: 900;">$!{{globalValue.name}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="insertText('$!' + globalValue.name)"></i></div>
+                                            <div style="font-weight: 900;">$!{{globalValue.name}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText('$!' + globalValue.name)"></i></div>
                                         </div>
                                     </div>
                                     <div ng-show="activeCategory === 'magic'" style="position: relative;">
                                         <div style="position: absolute; right: 0;">
                                             <a
                                                 class="magic-tooltip"
-                                                uib-tooltip="These are custom variables, effect outputs, and preset list arg variables that Firebot thinks might be relevant to this effect. This is not an exhaustive list and the variables that are listed may or may not be available at the time of effect execution. Treat these as a helpful hint rather than a guarantee."
+                                                uib-tooltip="これは、このエフェクトに関連しそうだと Firebot が判断したカスタム変数・エフェクト出力・プリセットリスト引数変数です。網羅一覧ではなく、実行時に利用可能とは限りません。保証ではなく参考情報として扱ってください。"
                                                 tooltip-append-to-body="true"
                                                 tooltip-placement="auto top"
-                                            >What are these?</a>
+                                            >これは何ですか？</a>
                                         </div>
                                         <div ng-if="magicVariables.customVariables.length > 0">
-                                            <div class="variable-category-header" style="padding-top: 0; padding-left: 0;">Custom Variables</div>
+                                            <div class="variable-category-header" style="padding-top: 0; padding-left: 0;">カスタム変数</div>
                                             <div ng-repeat="variable in magicVariables.customVariables | variableSearch:variableSearchText track by variable.name" style="margin-bottom: 8px;">
-                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
+                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
                                                 <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
-                                                    <collapsable-section show-text="Other examples" hide-text="Other examples" text-color="#0b8dc6">
+                                                    <collapsable-section show-text="他の例" hide-text="他の例" text-color="#0b8dc6">
                                                         <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
-                                                            <div style="font-weight: 900;">{{example.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="insertText(example.handle)"></i></div>
+                                                            <div style="font-weight: 900;">{{example.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(example.handle)"></i></div>
                                                             <div class="muted" ng-bind-html="example.description"></div>
                                                         </div>
                                                     </collapsable-section>
@@ -358,15 +358,15 @@
                                         </div>
 
                                         <div ng-if="magicVariables.effectOutputs.length > 0">
-                                            <div class="variable-category-header" style="padding-left: 0;">Effect Outputs</div>
+                                            <div class="variable-category-header" style="padding-left: 0;">エフェクト出力</div>
                                             <div ng-repeat="variable in magicVariables.effectOutputs | variableSearch:variableSearchText track by variable.name" style="margin-bottom: 8px;">
-                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
+                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
                                                 <div ng-show="variable.description" class="muted">{{variable.description}}</div>
-                                                <div ng-show="variable.effectLabel" style="font-size: 12px; opacity: 0.75;">Effect: {{variable.effectLabel}}</div>
+                                                <div ng-show="variable.effectLabel" style="font-size: 12px; opacity: 0.75;">エフェクト: {{variable.effectLabel}}</div>
                                                 <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
-                                                    <collapsable-section show-text="Other examples" hide-text="Other examples" text-color="#0b8dc6">
+                                                    <collapsable-section show-text="他の例" hide-text="他の例" text-color="#0b8dc6">
                                                         <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
-                                                            <div style="font-weight: 900;">{{example.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="insertText(example.handle)"></i></div>
+                                                            <div style="font-weight: 900;">{{example.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(example.handle)"></i></div>
                                                             <div class="muted" ng-bind-html="example.description"></div>
                                                         </div>
                                                     </collapsable-section>
@@ -375,9 +375,9 @@
                                         </div>
 
                                         <div ng-if="magicVariables.presetListArgs.length > 0">
-                                            <div class="variable-category-header pl-0">Preset List Args</div>
+                                            <div class="variable-category-header pl-0">プリセットリスト引数</div>
                                             <div ng-repeat="variable in magicVariables.presetListArgs | variableSearch:variableSearchText track by variable.name" style="margin-bottom: 8px;">
-                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
+                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
                                             </div>
                                         </div>
                                     </div>

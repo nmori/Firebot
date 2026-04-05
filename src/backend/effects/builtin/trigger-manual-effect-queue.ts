@@ -8,8 +8,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:trigger-manual-effect-queue",
-        name: "Trigger Manual Effect Queue",
-        description: "Runs the next effect list in a manual effect queue.",
+        name: "手動エフェクトキュー実行",
+        description: "手動エフェクトキュー内の次のエフェクトリストを実行します。",
         icon: "fad fa-step-forward",
         categories: ["scripting", "firebot control"]
     },

@@ -15,11 +15,11 @@
             template: `
                 <div>
                     <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;">
-                        <span>Only trigger when </span>
+                        <span>次の場合のみトリガー: </span>
 
                         <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                             <div class="noselect pointer ddtext" style="font-size: 12px;">
-                                <a href aria-label="Control Restrictions Options">
+                                <a href aria-label="制限オプション">
                                     {{$ctrl.getRestrictionModeDisplay()}}
                                     <span class="fb-arrow down ddtext"></span>
                                 </a>
@@ -27,19 +27,19 @@
                             <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'all'">
-                                    <a href style="padding-left: 10px;" aria-label="all restrictions pass">all restrictions pass</a>
+                                    <a href style="padding-left: 10px;" aria-label="すべての制限を満たす">すべての制限を満たす</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'any'">
-                                    <a href style="padding-left: 10px;" aria-label="any restrictions pass">any restriction pass</a>
+                                    <a href style="padding-left: 10px;" aria-label="いずれかの制限を満たす">いずれかの制限を満たす</a>
                                 </li>
 
                                 <li ng-click="$ctrl.restrictionData.mode = 'none'">
-                                    <a href style="padding-left: 10px;" aria-label="no restrictions pass">no restrictions pass</a>
+                                    <a href style="padding-left: 10px;" aria-label="制限を満たさない">制限を満たさない</a>
                                 </li>
                             </ul>
                         </div>
-                        <span>:</span>
+                        <span></span>
                     </div>
                     <div ng-class="{'mb-4': $ctrl.restrictionData.restrictions.length}">
                         <restriction-item ng-repeat="restriction in $ctrl.restrictionData.restrictions"
@@ -53,8 +53,8 @@
                         <div class="filter-bar clickable"
                             ng-show="$ctrl.canAddMoreRestrictions"
                             ng-click="$ctrl.showAddRestrictionModal()"
-                            uib-tooltip="Add Restriction"
-                            aria-label="Add Restriction"
+                            uib-tooltip="制限を追加"
+                            aria-label="制限を追加"
                             tooltip-append-to-body="true">
                                 <i class="far fa-plus"></i>
                         </div>
@@ -62,19 +62,19 @@
 
                     <div class="ml-3.5" ng-show="$ctrl.restrictionData.restrictions.length > 0">
                         <firebot-checkbox ng-show="$ctrl.trigger.name !== 'channel_reward'"
-                            label="Send as reply"
-                            tooltip="Replying only works within a Command or Chat Message event"
+                            label="返信として送信"
+                            tooltip="返信はコマンドまたはチャットメッセージイベント内でのみ有効です"
                             model="$ctrl.restrictionData.sendAsReply"
                             style="margin: 0px 15px 0px 0px"
                         />
-                        <label class="control-fb control--checkbox"> Send chat message when restrictions not met
+                        <label class="control-fb control--checkbox"> 制限を満たさないときにチャットメッセージを送信
                             <input type="checkbox" ng-model="$ctrl.restrictionData.sendFailMessage">
                             <div class="control__indicator"></div>
                         </label>
 
                         <div ng-show="$ctrl.restrictionData.sendFailMessage">
                             <label class="control-fb control--checkbox">
-                                Use custom restrictions message
+                                カスタム制限メッセージを使用
                                 <input
                                     type="checkbox"
                                     ng-model="$ctrl.restrictionData.useCustomFailMessage"
@@ -86,9 +86,9 @@
                                 <firebot-input
                                     model="$ctrl.restrictionData.failMessage"
                                     disable-variables="true"
-                                    input-title="Message"
+                                    input-title="メッセージ"
                                 />
-                                <p class="muted">Available variables: {user}, {reason}</p>
+                                <p class="muted">使用可能な変数: {user}, {reason}</p>
                             </div>
                         </div>
                     </div>
@@ -103,12 +103,12 @@
 
                 $ctrl.getRestrictionModeDisplay = function() {
                     if ($ctrl.restrictionData.mode === "any") {
-                        return "any restriction passes";
+                        return "いずれかの制限を満たす";
                     }
                     if ($ctrl.restrictionData.mode === "none") {
-                        return "no restrictions pass";
+                        return "制限を満たさない";
                     }
-                    return "all restrictions pass";
+                    return "すべての制限を満たす";
                 };
 
                 $ctrl.canAddMoreRestrictions = true;
@@ -199,10 +199,10 @@
 
                     utilityService.openSelectModal(
                         {
-                            label: "Add Restriction",
+                            label: "制限を追加",
                             options: options,
-                            saveText: "Add",
-                            validationText: "Please select a restriction type."
+                            saveText: "追加",
+                            validationText: "制限タイプを選択してください。"
 
                         },
                         (selectedId) => {

@@ -19,8 +19,8 @@ const completeCache = new NodeCache({ stdTTL: 30, checkperiod: 1 });
 
 export const countdownToDate: OverlayWidgetType<Settings, State> = {
     id: "firebot:countdown-to-date",
-    name: "Countdown to Date",
-    description: "A countdown to a specific date and time.",
+    name: "日時までカウントダウン",
+    description: "指定した日時までのカウントダウンです。",
     icon: "fa-alarm-clock",
     settingsSchema: [
         {
@@ -105,7 +105,7 @@ export const countdownToDate: OverlayWidgetType<Settings, State> = {
     supportsLivePreview: true,
     livePreviewState: {},
     stateDisplay: (config) => {
-        const endDate = DateTime.fromJSDate(new Date(config.settings.targetDateTime));
+        const endDate = DateTime.fromJSDate(new Date(config.settings.targetDateTime)).setLocale("ja");
         return endDate.toLocaleString(DateTime.DATETIME_SHORT);
     },
     onOverlayMessage(config, messageName) {
@@ -185,7 +185,11 @@ export const countdownToDate: OverlayWidgetType<Settings, State> = {
                         }
                     }
 
-                    formatted = remainingTime.shiftTo(...includedUnits)
+                    formatted = remainingTime
+                        .shiftTo(...includedUnits)
+                        .reconfigure({
+                            locale: "ja"
+                        })
                         .toHuman({
                             maximumFractionDigits: 0,
                             roundingMode: "floor"

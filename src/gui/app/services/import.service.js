@@ -27,7 +27,7 @@
 
                 ngToast.create({
                     className: "error",
-                    content: result.error ?? "Unknown error trying to import quotes"
+                    content: result.error ?? "引用のインポート中に不明なエラーが発生しました"
                 });
 
                 return null;
@@ -46,7 +46,7 @@
 
                 ngToast.create({
                     className: "error",
-                    content: result.error ?? "Unknown error trying to import viewers"
+                    content: result.error ?? "視聴者データのインポート中に不明なエラーが発生しました"
                 });
 
                 return null;

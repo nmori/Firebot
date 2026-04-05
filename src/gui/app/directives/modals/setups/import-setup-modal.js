@@ -9,7 +9,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Import Setup</h4>
+                    <h4 class="modal-title">セットアップをインポート</h4>
                 </div>
                 <div class="modal-body">
                     <div ng-hide="$ctrl.setupSelected">
@@ -23,41 +23,41 @@
                     </div>
                     <div ng-if="$ctrl.setupSelected">
                         <div class="effect-list" style="padding: 15px;border-radius: 5px;">
-                            <div class="script-name" style="font-size: 30px;font-weight: 100;">{{$ctrl.setup.name || "Unnamed Setup"}} <span class="script-version muted">v{{$ctrl.setup.version}}</span></div>
+                            <div class="script-name" style="font-size: 30px;font-weight: 100;">{{$ctrl.setup.name || "名前未設定のセットアップ"}} <span class="script-version muted">v{{$ctrl.setup.version}}</span></div>
                             <div style="font-size: 13px;">by <span class="script-author">{{$ctrl.setup.author}}</span></div>
                             <div class="script-description" ng-bind-html="$ctrl.setup.description"></div>
-                            <button ng-show="$ctrl.allowCancel" class="btn-sm btn-default" ng-click="$ctrl.resetSelectedFile()" style="margin-top: 3px;">Cancel</button>
-                            <button class="btn-sm btn-default pull-right" ng-click="$ctrl.popoutDescription()" style="margin-top: 3px;">Popout Description</button>
+                            <button ng-show="$ctrl.allowCancel" class="btn-sm btn-default" ng-click="$ctrl.resetSelectedFile()" style="margin-top: 3px;">キャンセル</button>
+                            <button class="btn-sm btn-default pull-right" ng-click="$ctrl.popoutDescription()" style="margin-top: 3px;">説明をポップアウト</button>
                         </div>
                         <div style="margin-top: 25px;">
-                            <h4 class="muted">This Setup Adds:</h4>
+                            <h4 class="muted">このセットアップで追加されるもの:</h4>
                             <div ng-repeat="(key, name) in $ctrl.componentTypes">
                                 <div ng-repeat="component in $ctrl.setup.components[key]">
                                     <div style="display: flex;align-items: center;">
                                         <span class="list-group-item" style="padding: 2px 7px;font-size: 13px;border-radius: 3px;">{{name}}</span>
                                         <span style="margin-left: 5px;font-size: 20px;font-weight: 500;">{{component.trigger || component.name}}</span>
-                                        <span ng-show="$ctrl.currentIds[component.id]" style="color:red;margin-left: 4px;"><i class="far fa-exclamation-triangle" uib-tooltip="This {{name}} already exists for you. If you import this Setup, the {{name}} will be replaced by the version in this setup."></i></span>
+                                        <span ng-show="$ctrl.currentIds[component.id]" style="color:red;margin-left: 4px;"><i class="far fa-exclamation-triangle" uib-tooltip="この {{name}} はすでに存在します。このセットアップをインポートすると、既存の {{name}} はこのセットアップ内の内容で置き換えられます。"></i></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div ng-show="$ctrl.setup.requireCurrency" style="margin-top: 25px;">
-                            <h4 class="muted">Currency To Use:</h4>
-                            <h5>This setup requires that you select one of your currencies so it can be used in the included effects, variables, and restrictions.</h5>
+                            <h4 class="muted">使用する通貨:</h4>
+                            <h5>このセットアップには通貨の選択が必要です。含まれるエフェクト、変数、制限で選択した通貨が使用されます。</h5>
                             <select
                                 class="form-control fb-select"
                                 ng-model="$ctrl.selectedCurrency"
                                 ng-options="currency as currency.name for currency in $ctrl.currencies">
-                                <option value="" disabled selected>Select currency...</option>
+                                <option value="" disabled selected>通貨を選択...</option>
                             </select>
                         </div>
 
                         <div ng-if="$ctrl.setup.importQuestions && $ctrl.setup.importQuestions.length > 0" style="margin-top:25px">
-                            <h4 class="muted">Import Questions</h4>
+                            <h4 class="muted">インポート時の質問</h4>
                             <div ng-repeat="question in $ctrl.setup.importQuestions track by question.id">
                                 <h5>{{question.question}} <tooltip ng-show="question.helpText" text="question.helpText" /></h5>
-                                <input ng-if="question.answerType !== 'preset'" type="{{question.answerType || 'text'}}" class="form-control" ng-model="question.answer" placeholder="Enter answer" />
+                                <input ng-if="question.answerType !== 'preset'" type="{{question.answerType || 'text'}}" class="form-control" ng-model="question.answer" placeholder="回答を入力" />
                                 <select ng-if="question.answerType === 'preset'" class="fb-select" ng-model="question.answer">
                                     <option ng-repeat="preset in question.presetOptions" label="{{preset}}" value="{{preset}}">{{preset}}</option>
                                 </select>
@@ -65,7 +65,7 @@
                         </div>
 
                         <div style="display:flex; justify-content: center;margin-top: 25px;">
-                            <button type="button" class="btn btn-primary" ng-click="$ctrl.importSetup()">Import Setup</button>
+                            <button type="button" class="btn btn-primary" ng-click="$ctrl.importSetup()">セットアップをインポート</button>
                         </div>
                     </div>
                 </div>
@@ -180,20 +180,20 @@
                         $ctrl.setupSelected = true;
                     } else {
                         $ctrl.allowCancel = true;
-                        $ctrl.resetSelectedFile(result.error ?? "Failed to load setup file");
+                        $ctrl.resetSelectedFile(result.error ?? "セットアップファイルの読み込みに失敗しました");
                         return;
                     }
                 };
 
                 $ctrl.importSetup = async () => {
                     if ($ctrl.setup.requireCurrency && $ctrl.selectedCurrency == null) {
-                        ngToast.create("Please select a currency to use. If you don't have a currency, create one in the Currency tab and then import this Setup again.");
+                        ngToast.create("使用する通貨を選択してください。通貨がない場合は通貨タブで作成してから、再度このセットアップをインポートしてください。");
                         return;
                     }
 
                     if ($ctrl.setup.importQuestions &&
                         $ctrl.setup.importQuestions.some(q => q.answer == null)) {
-                        ngToast.create("Please provide an answer for all Import Questions.");
+                        ngToast.create("すべてのインポート質問に回答してください。");
                         return;
                     }
 
@@ -205,11 +205,11 @@
                     if (success) {
                         ngToast.create({
                             className: 'success',
-                            content: `Successfully imported Setup: ${$ctrl.setup.name}`
+                            content: `セットアップをインポートしました: ${$ctrl.setup.name}`
                         });
                         $ctrl.dismiss();
                     } else {
-                        ngToast.create(`Failed to import Setup: ${$ctrl.setup.name}`);
+                        ngToast.create(`セットアップのインポートに失敗しました: ${$ctrl.setup.name}`);
                     }
                 };
 

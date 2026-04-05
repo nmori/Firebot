@@ -15,7 +15,7 @@ triggers["event"] = [
 const model : ReplaceVariable = {
     definition: {
         handle: "sharedChatSourceUser",
-        description: "Outputs a user object (userId, username, displayName) for the source user of a shared chat message, or null if not a shared chat message.",
+        description: "Shared Chat メッセージの送信元ユーザー情報オブジェクト（userId, username, displayName）を出力します。Shared Chat でない場合は null です。",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["object", "null"]

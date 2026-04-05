@@ -6,8 +6,8 @@ export const CreateRecordChapter: EffectType<{
 }> = {
     definition: {
         id: "firebot:obs-create-recording-chapter",
-        name: "Create OBS Recording Chapter Marker",
-        description: "Adds a chapter marker to an OBS",
+        name: "OBS録画チャプターマーカー作成",
+        description: "OBS 録画にチャプターマーカーを追加します",
         icon: "far fa-bookmark",
         categories: ["common", "integrations"]
     },

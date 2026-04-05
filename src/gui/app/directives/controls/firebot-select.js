@@ -21,7 +21,7 @@
         },
         template: `
         <div class="btn-group" uib-dropdown style="{{$ctrl.style || ''}}">
-            <button id="{{$ctrl.id}}" aria-label="{{($ctrl.ariaLabel || 'Selected') + ': ' + $ctrl.getSelectedOption()}}" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="$ctrl.isDisabled">
+            <button id="{{$ctrl.id}}" aria-label="{{($ctrl.ariaLabel || '選択中') + ': ' + $ctrl.getSelectedOption()}}" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="$ctrl.isDisabled">
             {{$ctrl.getSelectedOption()}} <span class="caret" aria-hidden="true"></span>
             </button>
             <ul class="dropdown-menu" ng-class="$ctrl.rightJustify ? 'right-justified-dropdown' : ''" uib-dropdown-menu role="menu" aria-labelledby="{{$ctrl.id}}">
@@ -91,7 +91,7 @@
             ctrl.$onInit = () => {
                 loadOptions();
                 if (!ctrl.placeholder) {
-                    ctrl.placeholder = "Please select";
+                    ctrl.placeholder = "選択してください";
                 }
             };
 

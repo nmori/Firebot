@@ -21,7 +21,7 @@
                                 style="margin-left:10px;font-size:15px;">({{$ctrl.label}})</span>
                             <span ng-show="($ctrl.label == null || $ctrl.label == '') && $ctrl.autoLabel != null && $ctrl.autoLabel != ''" class="muted"
                                 style="margin-left:10px;font-size:15px;">({{$ctrl.autoLabel}})</span>
-                            <div class="clickable conditionTag" uib-tooltip="Edit case label" tooltip-append-to-body="true"
+                            <div class="clickable conditionTag" uib-tooltip="ケースラベルを編集" tooltip-append-to-body="true"
                                 ng-click="$event.stopPropagation();$ctrl.showEditLabelModal();" ng-class="{'hiddenBtn': !hovering}">
                                 <i class="fas fa-tag"></i>
                             </div>
@@ -59,8 +59,8 @@
                     utilityService.openGetInputModal(
                         {
                             model: $ctrl.label,
-                            label: "Case Label",
-                            saveText: "Save",
+                            label: "ケースラベル",
+                            saveText: "保存",
                             validationFn: () => {
                                 return new Promise((resolve) => {
                                     resolve(true);

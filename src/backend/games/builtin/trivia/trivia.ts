@@ -3,9 +3,9 @@ import triviaCommand from "./trivia-command";
 
 const game: FirebotGame = {
     id: "firebot-trivia",
-    name: "Trivia",
-    subtitle: "Knowledge is power",
-    description: "Users can wager currency to answer a random trivia question. Trivia questions are sourced from https://opentdb.com/",
+    name: "トリビア",
+    subtitle: "知識は力",
+    description: "視聴者が通貨を賭けてランダムなトリビア問題に回答するゲームです。問題は https://opentdb.com/ から取得されます。",
     icon: "fa-head-side-brain",
     settingCategories: {
         currencySettings: {

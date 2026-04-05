@@ -4,6 +4,30 @@ import moment from "moment";
 
 import type { RestrictionType } from "../../../types/restrictions";
 
+const DAY_ORDER = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+];
+
+const LEGACY_JA_DAY_MAP: Record<string, string> = {
+    "日曜日": "Sunday",
+    "月曜日": "Monday",
+    "火曜日": "Tuesday",
+    "水曜日": "Wednesday",
+    "木曜日": "Thursday",
+    "金曜日": "Friday",
+    "土曜日": "Saturday"
+};
+
+function normalizeDayLabel(day: string): string {
+    return LEGACY_JA_DAY_MAP[day] ?? day;
+}
+
 const model: RestrictionType<{
     mode: "time" | "days";
     days: string[];
@@ -66,15 +90,7 @@ const model: RestrictionType<{
             $scope.restriction.days = [];
         }
 
-        $scope.allDays = [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday'
-        ];
+        $scope.allDays = DAY_ORDER;
 
         $scope.getAllDays = () => {
             return $scope.allDays;
@@ -115,16 +131,7 @@ const model: RestrictionType<{
         }
 
         function daySorter(a: string, b: string) {
-            const dayOrder = [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday'
-            ];
-            return dayOrder.indexOf(a) - dayOrder.indexOf(b);
+            return DAY_ORDER.indexOf(normalizeDayLabel(a)) - DAY_ORDER.indexOf(normalizeDayLabel(b));
         }
 
         if (restriction.mode === "days") {
@@ -149,7 +156,7 @@ const model: RestrictionType<{
 
             if (restrictionData.mode === "days") {
                 const currentDayOfWeek = new Date().toLocaleString('en-us', { weekday: 'long' });
-                const restrictionDays = restrictionData.days;
+                const restrictionDays = restrictionData.days.map(normalizeDayLabel);
                 if (restrictionDays.includes(currentDayOfWeek)) {
                     resolve(true);
                 } else {

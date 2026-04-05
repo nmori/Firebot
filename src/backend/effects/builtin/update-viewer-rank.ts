@@ -10,8 +10,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:update-viewer-rank",
-        name: "Update Viewer Rank",
-        description: "Update a viewers rank within a given rank ladder",
+        name: "視聴者ランク更新",
+        description: "指定したランクラダー内で視聴者ランクを更新します",
         icon: "fad fa-award",
         categories: ["common", "fun", "firebot control"],
         dependencies: []

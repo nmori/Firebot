@@ -4,18 +4,18 @@
     angular.module("firebotApp").component("viewTwitchRoleModal", {
         template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="editGroupLabel">{{$ctrl.role.name}}{{$ctrl.role.id === "broadcaster" ? "" : "s"}}</h4>
             </div>
             <div class="modal-body">
                 <div class="settings-title flex justify-between mb-2">
                     <div class="flex items-center">
-                        <div class="uppercase m-0 ml-4 p-0" style="font-size: 14px;opacity: 0.7;">Viewers</div>
+                        <div class="uppercase m-0 ml-4 p-0" style="font-size: 14px;opacity: 0.7;">視聴者</div>
                         <div ng-if="$ctrl.editable" class="clickable ml-2 text-2xl" ng-click="$ctrl.addViewer()"><i class="fas fa-plus-circle"></i></div>
                     </div>
 
                     <div class="inline-block relative" style="width: 50%;" ng-show="$ctrl.viewers.length > 10 || searchText.length > 0">
-                        <input type="text" class="form-control pl-12" placeholder="Search viewers" ng-model="searchText" style="height: 30px;">
+                        <input type="text" class="form-control pl-12" placeholder="視聴者を検索" ng-model="searchText" style="height: 30px;">
                         <span class="searchbar-icon" style="top:5px;"><i class="far fa-search"></i></span>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                     <div style="min-height: 40px;background-color:#282a2e;border-radius:8px;">
 
                         <div ng-show="$ctrl.viewers.length == 0" class="flex items-center justify-between px-4" style="height: 40px">
-                            <span class="muted">No users with this role.</span>
+                            <span class="muted">このロールのユーザーはいません。</span>
                         </div>
 
                         <div ng-repeat="viewer in viewerList = ($ctrl.viewers | filter:searchText) | startFrom:($ctrl.pagination.currentPage-1)*$ctrl.pagination.pageSize | limitTo:$ctrl.pagination.pageSize track by $index">
@@ -68,9 +68,9 @@
             $ctrl.addViewer = () => {
                 utilityService.openViewerSearchModal(
                     {
-                        label: `Add ${$ctrl.role.name}`,
-                        description: `This will give the viewer the ${$ctrl.role.name} role on Twitch.`,
-                        saveText: "Add",
+                        label: `${$ctrl.role.name} を追加`,
+                        description: `この視聴者にTwitchで ${$ctrl.role.name} ロールを付与します。`,
+                        saveText: "追加",
                         validationFn: async (user) => {
                             if (user == null || $ctrl.viewers.map(v => v.id).includes(user.id)) {
                                 return false;
@@ -78,7 +78,7 @@
 
                             return true;
                         },
-                        validationText: "Viewer already has this role."
+                        validationText: "この視聴者は既にこのロールを持っています。"
                     },
                     (user) => {
                         $ctrl.viewers.push({
@@ -99,9 +99,9 @@
 
             $ctrl.deleteViewer = (user) => {
                 utilityService.showConfirmationModal({
-                    title: "Remove role",
-                    question: `This will remove ${user.displayName} as a ${$ctrl.role.name} on Twitch. Continue?`,
-                    confirmLabel: "Remove",
+                    title: "ロールを解除",
+                    question: `Twitch上で ${user.displayName} の ${$ctrl.role.name} ロールを解除します。続行しますか？`,
+                    confirmLabel: "解除",
                     confirmBtnType: "btn-danger"
                 }).then((confirmed) => {
                     if (confirmed) {

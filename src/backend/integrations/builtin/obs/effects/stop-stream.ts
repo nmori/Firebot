@@ -4,8 +4,8 @@ import { stopStreaming } from "../obs-remote";
 export const StopStreamEffectType: EffectType = {
     definition: {
         id: "ebiggz:obs-stop-stream",
-        name: "OBS Stop Stream",
-        description: "Tell OBS to stop streaming",
+        name: "OBS配信停止",
+        description: "OBS に配信停止を実行させます",
         icon: "fad fa-stop-circle",
         categories: ["common", "integrations"]
     },

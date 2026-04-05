@@ -13,7 +13,7 @@ export const VendorEventTypeVariable: ReplaceVariable = {
     definition: {
         handle: "obsVendorEventType",
         description:
-      "The vendor-specified type of event that triggered the OBS vendor event.",
+            "OBS ベンダーイベントを発火したベンダー指定のイベント種別です。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"],
         triggers: triggers

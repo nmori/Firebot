@@ -8,8 +8,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:modmod",
-        name: "Mod",
-        description: "Mod or unmod a user",
+        name: "モデレーター付与",
+        description: "ユーザーにモデレーター権限を付与または解除します",
         icon: "fad fa-crown",
         categories: ["common", "moderation", "twitch"],
         dependencies: ["chat"]

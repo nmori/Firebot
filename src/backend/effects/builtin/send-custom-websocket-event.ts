@@ -8,8 +8,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:send-custom-websocket-event",
-        name: "Send Custom WebSocket Event",
-        description: "Sends a custom event and any relevant data to all connected WebSocket clients",
+        name: "カスタムWebSocketイベント送信",
+        description: "カスタムイベントと関連データをすべての接続済み WebSocket クライアントに送信します",
         icon: "fad fa-plug",
         categories: ["advanced", "scripting"],
         dependencies: []

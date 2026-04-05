@@ -4,7 +4,7 @@ import frontendCommunicator from "../../common/frontend-communicator";
 const OpenRewardQueueQuickAction: SystemQuickAction = {
     definition: {
         id: "firebot:open-reward-request-queue",
-        name: "Open Reward Request Queue",
+        name: "報酬リクエスト承認を開く",
         type: "system",
         icon: "far fa-line-columns"
     },

@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputShowingVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputShowing",
-        description: "Returns `true` if the OBS input is currently showing or `false` if it is not.",
+        description: "OBS 入力が現在表示中なら `true`、そうでなければ `false` を返します。",
         possibleDataOutput: ["bool"],
         categories: ["advanced", "integrations", "obs"]
     },

@@ -14,14 +14,14 @@
     ng-style="{'width': layout.dashboardViewerList }"
   >
     <div class="viewer-list-header">
-      <span role="heading" aria-level="2"> CHAT USERS </span>
+      <span role="heading" aria-level="2"> チャットユーザー </span>
     </div>
     <div class="chat-users mt-2">
-      <chat-user-category category="Moderators" role-key="mod" />
-      <chat-user-category category="VIPs" role-key="vip" />
-      <chat-user-category category="Viewers" role-key="viewer" />
-      <chat-user-category category="Broadcaster" role-key="broadcaster" />
-      <chat-user-category category="Known Bots" role-key="viewerlistbot" />
+      <chat-user-category category="モデレーター" role-key="mod" />
+      <chat-user-category category="VIP" role-key="vip" />
+      <chat-user-category category="視聴者" role-key="viewer" />
+      <chat-user-category category="配信者" role-key="broadcaster" />
+      <chat-user-category category="既知のボット" role-key="viewerlistbot" />
     </div>
   </div>
 
@@ -46,7 +46,7 @@
         ng-click="scrollGlued = true"
         class="chat-scroll-paused-btn btn-sm clickable mb-4"
       >
-        Chat Paused Due to Scroll
+        スクロール中のためチャットを一時停止中
       </button>
       <div
         class="chat-window"
@@ -91,12 +91,12 @@
         </div>
       </div>
       <div class="chat-autodisconnected" ng-show="cms.autodisconnected">
-        Disconnected from chat, trying to reconnect...
+        チャット接続が切断されました。再接続中...
       </div>
       <div ng-if="cms.threadDetails != null" class="thread-wrapper" ng-class="{ 'mt-5': alternateBackgrounds}">
         <div class="thread-header">
-          <h4><i class="fas" ng-class="currentThreadMessages().length < 2 ? 'fa-reply' : 'fa-comment-alt-lines'" style="margin-right: 10px;"></i>{{currentThreadMessages().length < 2 ? "Reply to" : "Thread"}}</h4>
-          <button type="button" class="thread-close-btn clickable" aria-label="Close" ng-click="closeThreadPanel()"><i class="far fa-times"></i></button>
+          <h4><i class="fas" ng-class="currentThreadMessages().length < 2 ? 'fa-reply' : 'fa-comment-alt-lines'" style="margin-right: 10px;"></i>{{currentThreadMessages().length < 2 ? "返信先" : "スレッド"}}</h4>
+          <button type="button" class="thread-close-btn clickable" aria-label="閉じる" ng-click="closeThreadPanel()"><i class="far fa-times"></i></button>
         </div>
         <div style="overflow-y: auto;">
           <chat-message
@@ -118,8 +118,8 @@
             />
         </div>
         <div class="thread-replying-to" ng-if="cms.threadDetails.replyToMessageId != cms.threadDetails.threadParentMessageId">
-          <span>Replying to <span style="font-weight: 800">@{{cms.threadDetails.replyToUserDisplayName}}</span></span>
-          <button class="btn btn-link" ng-click="cms.threadDetails.replyToMessageId = cms.threadDetails.threadParentMessageId">Cancel</button>
+          <span><span style="font-weight: 800">@{{cms.threadDetails.replyToUserDisplayName}}</span> に返信中</span>
+          <button class="btn btn-link" ng-click="cms.threadDetails.replyToMessageId = cms.threadDetails.threadParentMessageId">キャンセル</button>
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@
           <div
             class="dropdown-toggle chatter-dropdown"
             data-toggle="dropdown"
-            uib-tooltip="Chat as"
+            uib-tooltip="送信アカウント"
             tooltip-placement="left"
             tooltip-append-to-body="true"
           >
@@ -142,9 +142,9 @@
             <div class="fb-arrow down mx-4 mb-1"></div>
           </div>
           <ul class="dropdown-menu">
-            <li ng-click="cms.chatSender = 'Streamer'"><a>Streamer</a></li>
+            <li ng-click="cms.chatSender = 'Streamer'"><a>配信者</a></li>
             <li ng-click="cms.chatSender = 'Bot'" ng-show="botLoggedIn">
-              <a>Bot</a>
+              <a>ボット</a>
             </li>
           </ul>
         </div>
@@ -152,7 +152,7 @@
         <input
           id="chatMessageInput"
           type="text"
-          placeholder="Message the stream"
+          placeholder="チャットメッセージを入力"
           class="text-input-field"
           style="height: 100%"
           ng-maxlength="360"
@@ -180,10 +180,10 @@
     <div class="feed-overlay"></div>
     <div class="activity-feed-header">
       <div style="display: flex; align-items: center">
-        <span>ACTIVITY FEED</span>
+        <span>アクティビティフィード</span>
         <span
           ng-show="afs.unacknowledgedCount() > 0"
-          uib-tooltip="Unacknowledged events"
+          uib-tooltip="未確認イベント"
           tooltip-append-to-body="true"
           class="ml-2 py-px px-2"
           style="
@@ -204,7 +204,7 @@
           uib-dropdown-toggle
           class="clickable"
           style="color: white; font-size: 20px; line-height: 1"
-          aria-label="Activity Feed options"
+          aria-label="アクティビティフィード設定"
         >
           <i class="far fa-ellipsis-v"></i>
         </a>
@@ -213,26 +213,26 @@
             <a ng-click="afs.toggleMarkAllAcknowledged()"
               ><i
                 class="far fa-check-square mr-4"
-                aria-label="Mark all activities as acknowledged"
+                aria-label="すべて確認済みにする"
               ></i>
-              Mark all as {{afs.allAcknowledged() ? 'Unacknowledged' :
-              'Acknowledged'}}</a
+              すべてを{{afs.allAcknowledged() ? '未確認' :
+              '確認済み'}}にする</a
             >
           </li>
           <li ng-class="{'disabled': afs.activities.length < 1}">
             <a ng-click="afs.clearAllActivities()"
               ><i
                 class="far fa-trash-alt mr-4"
-                aria-label="Clear all activities"
+                aria-label="すべてのアクティビティを削除"
               ></i>
-              Clear all activities</a
+              すべてのアクティビティを削除</a
             >
           </li>
           <li class="divider"></li>
           <li>
             <a ng-click="afs.showEditActivityFeedEventsModal()"
-              ><i class="far fa-toggle-off mr-4" aria-label="Edit events"></i>
-              Edit events</a
+              ><i class="far fa-toggle-off mr-4" aria-label="イベント編集"></i>
+              イベントを編集</a
             >
           </li>
           <!-- <li class="divider"></li> -->
@@ -303,9 +303,9 @@
       type="default"
       icon="fas fa-cog"
       ng-click="showChatSettingsModal()"
-      tooltip="Dashboard Settings"
+      tooltip="ダッシュボード設定"
       tooltip-placement="left"
-      aria-label="Dashboard Settings"
+      aria-label="ダッシュボード設定"
     />
   </div>
 </div>

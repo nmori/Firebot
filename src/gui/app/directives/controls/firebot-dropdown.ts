@@ -71,7 +71,7 @@ type Controller = {
             <button
                 class="firebot-dropdown-btn"
                 role="button"
-                aria-label="{{($ctrl.ariaLabel || 'Selected') + ': ' + $ctrl.getSelectedOptionName()}}"
+                aria-label="{{($ctrl.ariaLabel || '選択中') + ': ' + $ctrl.getSelectedOptionName()}}"
                 id="{{$ctrl.id}}"
                 ng-disabled="$ctrl.isDisabled"
                 ng-class="{'dark': $ctrl.dark === true}"

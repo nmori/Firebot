@@ -9,8 +9,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:activeUserLists",
-        name: "Manage Active Chat Users",
-        description: "Add or remove users from the active chat user lists.",
+        name: "アクティブチャットユーザー管理",
+        description: "アクティブチャットユーザーリストにユーザーを追加・削除します。",
         icon: "fad fa-users",
         categories: ["common", "moderation"],
         dependencies: []

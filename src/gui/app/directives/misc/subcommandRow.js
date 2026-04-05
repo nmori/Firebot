@@ -15,23 +15,23 @@
                     <div class="pl-8"" style="flex-basis: 30%;">
                         {{$ctrl.subcommand.regex || $ctrl.subcommand.fallback ? ($ctrl.subcommand.usage || "").split(" ")[0] : $ctrl.subcommand.arg}}
                         <span ng-show="$ctrl.fullyEditable">
-                            <i ng-if="$ctrl.subcommandTypeTitle() === 'Number'" class="far fa-hashtag muted text-lg" uib-tooltip="Number subcommand"></i>
-                            <i ng-if="$ctrl.subcommandTypeTitle() === 'Username'" class="far fa-at muted text-lg" uib-tooltip="Username subcommand"></i>
+                            <i ng-if="$ctrl.subcommandTypeTitle() === 'Number'" class="far fa-hashtag muted text-lg" uib-tooltip="数値サブコマンド"></i>
+                            <i ng-if="$ctrl.subcommandTypeTitle() === 'Username'" class="far fa-at muted text-lg" uib-tooltip="ユーザー名サブコマンド"></i>
                         </span>
                     </div>
 
                     <div style="width: 25%">
                         <div ng-if="!$ctrl.subcommand.inheritBaseCommandCooldown">
-                            <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
+                            <span style="min-width: 51px; display: inline-block;" uib-tooltip="全体クールダウン">
                                 <i class="fal fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "s" : "-" }}
                             </span>
-                            <span uib-tooltip="User cooldown">
+                            <span uib-tooltip="ユーザークールダウン">
                                 <i class="fal fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "s" : "-" }}
                             </span>
                         </div>
                         <div ng-if="$ctrl.subcommand.inheritBaseCommandCooldown">
-                            <span style="text-transform: capitalize;">Inherited</span>
-                            <tooltip type="info" text="'This subcommand will use the cooldowns of the base command.'"></tooltip>
+                            <span style="text-transform: capitalize;">継承</span>
+                            <tooltip type="info" text="'このサブコマンドはベースコマンドのクールダウンを使用します。'"></tooltip>
                         </div>
                     </div>
 
@@ -43,7 +43,7 @@
                     <div style="width: 25%">
                         <div style="min-width: 75px">
                             <span class="status-dot" ng-class="{'active': $ctrl.subcommand.active, 'notactive': !$ctrl.subcommand.active}"></span>
-                            {{$ctrl.subcommand.active ? "Active" : "Disabled"}}
+                            {{$ctrl.subcommand.active ? "有効" : "無効"}}
                         </div>
                     </div>
 
@@ -56,12 +56,12 @@
                     <div class="sub-command p-8">
                         <div>
                             <div class="settings-title">
-                                <h4 class="font-semibold">Description <tooltip class="text-2xl ml-1" text="'Displayed on the command list webpage'"></tooltip></h4>
+                                <h4 class="font-semibold">説明 <tooltip class="text-2xl ml-1" text="'コマンド一覧ページに表示されます'"></tooltip></h4>
                             </div>
                             <input
                                 class="form-control"
                                 type="text"
-                                placeholder="Enter description"
+                                placeholder="説明を入力"
                                 ng-model="$ctrl.subcommand.description"
                                 aria-describedby="subcommandDescription"
                             >
@@ -70,28 +70,28 @@
 
                         <div class="mt-10">
                             <div class="settings-title">
-                                <h4 class="font-semibold">Usage</h4>
+                                <h4 class="font-semibold">使用方法</h4>
                             </div>
                             <p ng-show="!$ctrl.fullyEditable">{{$ctrl.cmdTrigger}} {{$ctrl.subcommand.usage ? $ctrl.subcommand.usage : $ctrl.subcommand.arg}}</p>
                             <div class="input-group" ng-hide="!$ctrl.fullyEditable">
                                 <span class="input-group-addon">{{$ctrl.cmdTrigger}}{{!$ctrl.subcommand.regex ? " " + $ctrl.subcommand.arg : ""}}</span>
-                                <input ng-hide="$ctrl.subcommand.regex" class="form-control" type="text" placeholder="Enter text" ng-model="$ctrl.compiledUsage" ng-change="$ctrl.onUsageChange()">
-                                <input ng-show="$ctrl.subcommand.regex" class="form-control" type="text" placeholder="Enter text" ng-model="$ctrl.subcommand.usage">
+                                <input ng-hide="$ctrl.subcommand.regex" class="form-control" type="text" placeholder="テキストを入力" ng-model="$ctrl.compiledUsage" ng-change="$ctrl.onUsageChange()">
+                                <input ng-show="$ctrl.subcommand.regex" class="form-control" type="text" placeholder="テキストを入力" ng-model="$ctrl.subcommand.usage">
                             </div>
                         </div>
 
                         <div class="mt-10" ng-show="$ctrl.fullyEditable">
                             <div class="settings-title">
                                 <h4 class="font-semibold">
-                                    Required Additional Arg Count
-                                    <tooltip class="text-2xl ml-1" text="'The number of additional required args after the subcommands arg. If this number is not met, effects will not be triggered.'" />
+                                    追加の必須引数数
+                                    <tooltip class="text-2xl ml-1" text="'サブコマンド引数の後に必要な追加引数の数です。満たさない場合、エフェクトは実行されません。'" />
                                 </h4>
                             </div>
                             <input
                                 ng-show="$ctrl.fullyEditable"
                                 class="form-control"
                                 type="number"
-                                placeholder="Enter count"
+                                placeholder="数を入力"
                                 ng-model="$ctrl.adjustedMinArgs"
                                 ng-change="$ctrl.onMinArgsChange()"
                             >
@@ -99,12 +99,12 @@
 
                         <div class="mt-10" ng-hide="$ctrl.subcommand.hideCooldowns">
                             <div class="settings-title">
-                                <h4 class="font-semibold">Cooldowns</h4>
+                                <h4 class="font-semibold">クールダウン</h4>
                             </div>
                             <firebot-checkbox
                                 model="$ctrl.subcommand.inheritBaseCommandCooldown"
-                                label="Inherit base command cooldowns"
-                                tooltip="If enabled, this subcommand will use the cooldowns set on the base command."
+                                label="ベースコマンドのクールダウンを継承"
+                                tooltip="有効にすると、このサブコマンドはベースコマンドのクールダウン設定を使用します。"
                             />
                             <command-cooldown-settings
                                 ng-if="!$ctrl.subcommand.inheritBaseCommandCooldown"
@@ -122,9 +122,9 @@
                         <div class="mt-10">
                             <div class="settings-title">
                                 <h4 class="mb-2 font-semibold">
-                                    Restrictions
+                                    制限
                                     <span class="muted pl-1 text-xl font-medium" style="font-family: 'Quicksand';">
-                                        (Permissions, currency costs, and more)
+                                        （権限、通貨コストなど）
                                     </span>
                                 </h4>
                             </div>
@@ -136,23 +136,23 @@
 
                         <div class="mt-10">
                             <div class="settings-title">
-                                <h4 class="font-semibold">Settings</h4>
+                                <h4 class="font-semibold">設定</h4>
                             </div>
                             <div class="controls-fb-inline pb-4">
                             <label class="control-fb control--checkbox">
-                                Is Active
+                                有効
                                 <input type="checkbox" ng-model="$ctrl.subcommand.active" aria-label="..." checked>
                                 <div class="control__indicator"></div>
                             </label>
 
                             <label class="control-fb control--checkbox">
-                                Auto Delete Trigger <tooltip text="'Have Firebot automatically delete the message that triggers this subcommand to keep chat cleaner.'"></tooltip>
+                                トリガーを自動削除 <tooltip text="'チャットを見やすく保つため、このサブコマンドを発火したメッセージを Firebot が自動で削除します。'"></tooltip>
                                 <input type="checkbox" ng-model="$ctrl.subcommand.autoDeleteTrigger" aria-label="...">
                                 <div class="control__indicator"></div>
                             </label>
 
                             <label class="control-fb control--checkbox">
-                                Hidden <tooltip text="'Hide this subcommand from the !commands list'"></tooltip>
+                                非表示 <tooltip text="'このサブコマンドを !commands 一覧から隠します'"></tooltip>
                                 <input type="checkbox" ng-model="$ctrl.subcommand.hidden" aria-label="...">
                                 <div class="control__indicator"></div>
                             </label>
@@ -161,7 +161,7 @@
 
                         <div ng-if="$ctrl.fullyEditable" class="mt-6">
                             <effect-list
-                                header="What should this subcommand do?"
+                                header="このサブコマンドで実行する内容"
                                 effects="$ctrl.subcommand.effects"
                                 trigger="command"
                                 trigger-meta="{ rootEffects: $ctrl.subcommand.effects }"
@@ -170,11 +170,11 @@
                             ></effect-list>
 
                             <div class="mt-10">
-                                <button class="btn btn-danger" ng-click="$ctrl.delete()" aria-label="Delete subcommand">
+                                <button class="btn btn-danger" ng-click="$ctrl.delete()" aria-label="サブコマンドを削除">
                                     <i class="far fa-trash"></i>
                                 </button>
-                                <button ng-hide="$ctrl.subcommand.fallback" class="btn btn-default ml-2" ng-click="$ctrl.edit()" aria-label="Edit subcommand">
-                                    <i class="far fa-edit"></i> Edit Trigger
+                                <button ng-hide="$ctrl.subcommand.fallback" class="btn btn-default ml-2" ng-click="$ctrl.edit()" aria-label="サブコマンドを編集">
+                                    <i class="far fa-edit"></i> トリガーを編集
                                 </button>
                             </div>
                         </div>
@@ -246,12 +246,12 @@
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
-                        return "Roles";
+                        return "ロール";
                     } else if (permissions.mode === "viewer") {
-                        return "Viewer";
+                        return "視聴者";
                     }
                 } else {
-                    return "Inherited";
+                    return "継承";
                 }
             };
 
@@ -263,38 +263,38 @@
                 if (permissions) {
                     if (permissions.mode === "roles") {
                         const roleIds = permissions.roleIds;
-                        let output = "None selected";
+                        let output = "未選択";
                         if (roleIds.length > 0) {
                             output = roleIds
                                 .filter(id => viewerRolesService.getRoleById(id) != null)
                                 .map(id => viewerRolesService.getRoleById(id).name)
                                 .join(", ");
                         }
-                        return `Roles (${output})`;
+                        return `ロール（${output}）`;
                     } else if (permissions.mode === "viewer") {
-                        return `Viewer (${permissions.username ? permissions.username : 'No name'})`;
+                        return `視聴者（${permissions.username ? permissions.username : '未設定'}）`;
                     }
                 } else {
-                    return "This subcommand will use the permissions of the base command.";
+                    return "このサブコマンドはベースコマンドの権限を使用します。";
                 }
             };
 
             $ctrl.subcommandContextMenu = () => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit Trigger</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> トリガーを編集</a>`,
                         click: () => {
                             $ctrl.edit();
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-${$ctrl.subcommand.active ? 'ban' : 'check'}" style="margin-right: 10px;"></i> ${$ctrl.subcommand.active ? 'Disable' : 'Enable'}</a>`,
+                        html: `<a href ><i class="far fa-${$ctrl.subcommand.active ? 'ban' : 'check'}" style="margin-right: 10px;"></i> ${$ctrl.subcommand.active ? '無効化' : '有効化'}</a>`,
                         click: () => {
                             $ctrl.subcommand.active = !$ctrl.subcommand.active;
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: () => {
                             $ctrl.delete();
                         },

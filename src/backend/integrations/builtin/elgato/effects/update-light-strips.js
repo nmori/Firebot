@@ -5,8 +5,8 @@ const { integration } = require("../elgato");
 const effect = {
     definition: {
         id: "elgato:light-strips",
-        name: "Update Elgato Light Strips",
-        description: "Turn Elgato Light Strips on or off and change the color.",
+        name: "Elgato Light Strip更新",
+        description: "Elgato Light Strip のオン/オフと色を変更します。",
         icon: "fad fa-lights-holiday fa-align-center",
         categories: ["integrations"],
         dependencies: []

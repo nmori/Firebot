@@ -7,24 +7,24 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
 }> = {
     definition: {
         id: "firebot:send-raw-obs-websocket-request",
-        name: "Send Raw OBS WebSocket Request",
-        description: "Send a raw WebSocket request to OBS",
+        name: "OBS生WebSocketリクエスト送信",
+        description: "OBS に生の WebSocket リクエストを送信します",
         icon: "fad fa-plug",
         categories: ["advanced", "integrations"],
         outputs: [
             {
-                label: "API Response",
-                description: "The raw response from the OBS WebSocket API",
+                label: "APIレスポンス",
+                description: "OBS WebSocket API からの生レスポンス",
                 defaultName: "apiResponse"
             }
         ]
     },
     optionsTemplate: `
-    <eos-container header="Function Name">
-        <firebot-input model="effect.functionName" placeholder-text="Enter OBS WebSocket function name" menu-position="below" disable-variables="true"></firebot-input>
+    <eos-container header="関数名">
+        <firebot-input model="effect.functionName" placeholder-text="OBS WebSocket の関数名を入力" menu-position="below" disable-variables="true"></firebot-input>
     </eos-container>
 
-    <eos-container header="Request Payload" pad-top="true">
+    <eos-container header="リクエストペイロード" pad-top="true">
         <div
             ui-codemirror="{onLoad : codemirrorLoaded}"
             ui-codemirror-opts="editorSettings"
@@ -36,7 +36,7 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
 
     <eos-container pad-top="true">
       <div class="effect-info alert alert-warning">
-        <b>Warning!</b> This may cause undesired effects in OBS. Please use caution when using this effect.
+                <b>警告！</b> OBS で意図しない動作を引き起こす可能性があります。このエフェクトの使用には注意してください。
       </div>
     </eos-container>
   `,
@@ -62,7 +62,7 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
     },
     optionsValidator: (effect) => {
         if (effect.functionName == null || effect.functionName.length === 0) {
-            return ["You must enter a function name."];
+            return ["関数名を入力してください。"];
         }
         return [];
     },

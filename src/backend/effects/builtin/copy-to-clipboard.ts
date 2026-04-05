@@ -6,8 +6,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:copy-to-clipboard",
-        name: "Copy Text to Clipboard",
-        description: "Copy text to the system clipboard",
+        name: "テキストをクリップボードへコピー",
+        description: "テキストをシステムクリップボードにコピーします",
         icon: "fad fa-copy",
         categories: ["advanced", "scripting"],
         dependencies: []

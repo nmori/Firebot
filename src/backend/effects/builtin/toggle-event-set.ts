@@ -7,8 +7,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:toggle-event-set",
-        name: "Toggle Event Set",
-        description: "Toggle an event sets active status",
+        name: "イベントセット切り替え",
+        description: "イベントセットの有効状態を切り替えます",
         icon: "fad fa-toggle-off",
         categories: ["common", "firebot control"],
         dependencies: []

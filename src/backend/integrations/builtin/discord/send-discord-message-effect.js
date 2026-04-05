@@ -22,20 +22,20 @@ frontEndCommunicator.onAsync("getDiscordChannels", async () => {
 module.exports = {
     definition: {
         id: "discord:send-message",
-        name: "Send Discord Message",
-        description: "Send a message and/or embed to a Discord channel",
+        name: "Discordメッセージ送信",
+        description: "Discord チャンネルにメッセージや埋め込みを送信します",
         icon: "fab fa-discord",
         categories: ["integrations"],
         dependencies: [],
         outputs: [
             {
-                label: "Success status",
-                description: "returns true if the message was sent successfully, false otherwise.",
+                label: "送信成功ステータス",
+                description: "メッセージ送信に成功した場合は true、失敗した場合は false を返します。",
                 defaultName: "discordSuccess"
             },
             {
-                label: "Message Output",
-                description: "returns the discord message object if the message was sent successfully, returns an error otherwise.",
+                label: "メッセージ出力",
+                description: "メッセージ送信に成功した場合は Discord メッセージオブジェクト、失敗時はエラーを返します。",
                 defaultName: "discordMessage"
             }
         ]
@@ -58,7 +58,7 @@ module.exports = {
             </div>
             <div ng-hide="hasChannels">
                 <eos-container>
-                    <span class="muted">No Discord channels configured yet! You can configure them in <b>Settings</b> > <b>Integrations</b> > <b>Discord</b></span>
+                    <span class="muted">Discordチャンネルがまだ設定されていません。<b>設定</b> > <b>連携</b> > <b>Discord</b> で設定できます。</span>
                 </eos-container>
             </div>
         </div>

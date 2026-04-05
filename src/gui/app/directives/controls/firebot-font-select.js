@@ -23,7 +23,7 @@
                     class="control-type-list"
                     ng-disabled="$ctrl.disabled"
                 >
-                    <ui-select-match placeholder="Select or search for a font"><span style="font-family: '{{$select.selected}}'">{{$select.selected}}</span></ui-select-match>
+                    <ui-select-match placeholder="フォントを選択または検索"><span style="font-family: '{{$select.selected}}'">{{$select.selected}}</span></ui-select-match>
                     <ui-select-choices repeat="fontName in $ctrl.fontNames | filter: $select.search | limitTo:100 track by $index" style="position:relative;">
                         <div class="flex-row-center">
                             <div class="px-4">
@@ -32,7 +32,7 @@
                         </div>
                     </ui-select-choices>
                 </ui-select>
-                <div ng-if="$ctrl.systemFontsLoading" class="input-group-addon" style="width: 34px;min-width: 34px !important;" uib-tooltip="Loading system fonts..." tooltip-placement="top" tooltip-append-to-body="true">
+                <div ng-if="$ctrl.systemFontsLoading" class="input-group-addon" style="width: 34px;min-width: 34px !important;" uib-tooltip="システムフォントを読み込み中..." tooltip-placement="top" tooltip-append-to-body="true">
                     <i class="fa fa-spinner-third fa-spin"></i>
                 </div>
             </div>

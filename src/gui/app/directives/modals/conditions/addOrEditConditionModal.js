@@ -9,13 +9,13 @@
         `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewCondition ? 'Create New Condition' : 'Edit Condition'}}</h4>
+                <h4 class="modal-title">{{$ctrl.isNewCondition ? '新しい条件を作成' : '条件を編集'}}</h4>
             </div>
             <div class="modal-body">
 
                 <div style="display: flex;flex-direction: column;">
                     <div class="modal-subheader muted" style="padding: 0 0 4px 0;">
-                        Type
+                        タイプ
                     </div>
                     <div class="btn-group" style="margin-right: 5px;margin-bottom:5px;" uib-dropdown>
                         <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
@@ -47,21 +47,21 @@
                     </div>
 
                     <div class="modal-subheader muted" style="padding: 0 0 4px 0; margin-top: 12px;">
-                        COMPARATOR
+                        比較
                     </div>
                     <div class="btn-group" style="margin-right: 5px;margin-bottom:5px;" uib-dropdown>
                         <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
-                        {{$ctrl.selectedCondition.comparisonType}} <span class="caret"></span>
+                        {{$ctrl.getComparisonTypeLabel($ctrl.selectedCondition.comparisonType)}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
                             <li role="menuitem" ng-repeat="comparisonType in $ctrl.currentConditionDef.comparisonTypes" ng-click="$ctrl.selectedCondition.comparisonType = comparisonType">
-                                <a href>{{comparisonType}}</a>
+                                <a href>{{$ctrl.getComparisonTypeLabel(comparisonType)}}</a>
                             </li>
                         </ul>
                     </div>
 
                     <div class="modal-subheader muted" style="padding: 0 0 4px 0; margin-top: 12px;">
-                        EXPECTED VALUE
+                        期待値
                     </div>
                     <div ng-switch="$ctrl.currentConditionDef.rightSideValueType" style="flex: 1 1 0;">
                         <div ng-switch-when="preset">
@@ -85,9 +85,9 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-hide="$ctrl.isNewCondition">Delete</button>
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" ng-hide="$ctrl.isNewCondition">削除</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
         `,
             bindings: {
@@ -107,6 +107,38 @@
 
                 $ctrl.rightSidePresetValues = [];
                 $ctrl.leftSidePresetValues = [];
+
+                const comparisonTypeLabels = {
+                    "is": "一致",
+                    "is not": "不一致",
+                    "is strictly": "厳格に一致",
+                    "is not strictly": "厳格に不一致",
+                    "is less than": "未満",
+                    "is less than or equal to": "以下",
+                    "is greater than": "より大きい",
+                    "is greater than or equal to": "以上",
+                    "contains": "含む",
+                    "does not contain": "含まない",
+                    "contains (case-insensitive)": "含む（大小無視）",
+                    "does not contain (case-insensitive)": "含まない（大小無視）",
+                    "matches regex": "正規表現に一致",
+                    "does not match regex": "正規表現に不一致",
+                    "matches regex (case insensitive)": "正規表現に一致（大小無視）",
+                    "doesn't match regex (case insensitive)": "正規表現に不一致（大小無視）",
+                    "doesn't matches regex": "正規表現に不一致",
+                    "has role": "ロールを持つ",
+                    "doesn't have role": "ロールを持たない",
+                    "include": "ロールを持つ",
+                    "is in role": "ロールを持つ",
+                    "doesn't include": "ロールを持たない",
+                    "isn't in role": "ロールを持たない",
+                    "follows": "フォローしている",
+                    "starts with": "で始まる",
+                    "doesn't start with": "で始まらない",
+                    "ends with": "で終わる",
+                    "doesn't end with": "で終わらない"
+                };
+
                 async function loadPresetValues() {
                     if ($ctrl.currentConditionDef && $ctrl.currentConditionDef.rightSideValueType === "preset") {
                         const rightSidePresetValues = await $injector.invoke($ctrl.currentConditionDef.getRightSidePresetValues, {}, {});
@@ -132,7 +164,7 @@
                             return presetValue.display;
                         }
                     }
-                    return "Select one";
+                    return "1つ選択";
                 };
 
                 $ctrl.getSelectedLeftSidePresetValueDisplay = function() {
@@ -144,7 +176,11 @@
                             return presetValue.display;
                         }
                     }
-                    return "Select one";
+                    return "1つ選択";
+                };
+
+                $ctrl.getComparisonTypeLabel = function(comparisonType) {
+                    return comparisonTypeLabels[comparisonType] || comparisonType;
                 };
 
 

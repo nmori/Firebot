@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputAudioBalanceVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputAudioBalance",
-        description: "Returns the audio balance value of the OBS input.",
+        description: "OBS 入力のオーディオバランス値を返します。",
         possibleDataOutput: ["number"],
         categories: ["advanced", "integrations", "obs"]
     },

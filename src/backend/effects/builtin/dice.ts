@@ -4,8 +4,8 @@ import { type DiceEffectModel, handleDiceEffect } from "../../common/handlers/di
 const model: EffectType<DiceEffectModel> = {
     definition: {
         id: "firebot:dice",
-        name: "Roll Dice",
-        description: "Specify an amount of dice to roll in chat.",
+        name: "ダイスロール",
+        description: "チャットで振るダイスの数を指定します。",
         icon: "fad fa-dice",
         categories: ["fun", "chat based"],
         dependencies: ["chat"]

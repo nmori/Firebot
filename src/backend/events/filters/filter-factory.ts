@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 import { EventFilter, FilterSettings, PresetValue } from "../../../types/events";
 import { Awaitable } from "../../../types/util-types";
-import { ComparisonType } from "../../../shared/filter-constants";
+import { ComparisonType, LegacyComparisonTypeMap } from "../../../shared/filter-constants";
 import { extractPropertyWithPath } from "../../utils";
 
 type EventData = {
@@ -61,9 +61,13 @@ const NUMBER_TEXT_COMPARISON_TYPES = [
     ...NUMBER_UNIQUE_COMPARISON_TYPES
 ];
 
+function normalizeComparisonType(comparisonType: string): string {
+    return LegacyComparisonTypeMap[comparisonType] ?? comparisonType;
+}
+
 
 function compareValue(
-    comparisonType: ComparisonType,
+    comparisonType: string,
     expectedValue: unknown,
     actualValue: unknown
 ): boolean {
@@ -140,7 +144,7 @@ export function createTextFilter({
             const filterValue =
                 (caseInsensitive ? value?.toLowerCase() : value) ?? "";
 
-            return compareValue(comparisonType, filterValue, eventValue);
+            return compareValue(normalizeComparisonType(comparisonType), filterValue, eventValue);
         }
     };
 }
@@ -161,7 +165,7 @@ export function createNumberFilter({
 
             const eventValue = extractPropertyWithPath(eventMeta, getMetaKey(eventMetaKey, eventData, filterSettings)) ?? 0;
 
-            return compareValue(comparisonType, value, eventValue);
+            return compareValue(normalizeComparisonType(comparisonType), value, eventValue);
         }
     };
 }
@@ -185,7 +189,7 @@ export function createTextOrNumberFilter({
             }
             const filterValue =
                 (caseInsensitive ? value?.toString()?.toLowerCase() : value) ?? "";
-            return compareValue(comparisonType, filterValue, eventValue);
+            return compareValue(normalizeComparisonType(comparisonType), filterValue, eventValue);
         }
     };
 }
@@ -222,7 +226,9 @@ export function createPresetFilter({
 
             const output = data === value || data.toString() === value;
 
-            return comparisonType === ComparisonType.IS ? output : !output;
+            const normalizedComparisonType = normalizeComparisonType(comparisonType);
+
+            return normalizedComparisonType === ComparisonType.IS ? output : !output;
         }
     };
 }

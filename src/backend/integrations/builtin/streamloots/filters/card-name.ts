@@ -2,8 +2,8 @@ import { createTextFilter } from "../../../../events/filters/filter-factory";
 
 const filter = createTextFilter({
     id: "streamloots:card-name",
-    name: "Card Name",
-    description: "Filter by StreamLoots Card name",
+    name: "カード名",
+    description: "StreamLoots カード名でフィルターします",
     events: [
         { eventSourceId: "streamloots", eventId: "redemption" }
     ],

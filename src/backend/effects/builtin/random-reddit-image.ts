@@ -28,8 +28,8 @@ const model: EffectType<{
 > = {
     definition: {
         id: "firebot:randomReddit",
-        name: "Random Reddit Image",
-        description: "Pulls a random image from a selected subreddit.",
+        name: "Redditランダム画像",
+        description: "選択した subreddit からランダムな画像を取得します。",
         icon: "fab fa-reddit-alien",
         categories: ["fun", "chat based", "overlay"],
         dependencies: [],

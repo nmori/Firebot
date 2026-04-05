@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputAudioTracksVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputAudioTracks",
-        description: "Returns the raw OBS audio tracks object of the OBS input.",
+        description: "OBS 入力の生のオーディオトラックオブジェクトを返します。",
         possibleDataOutput: ["object"],
         categories: ["advanced", "integrations", "obs"]
     },

@@ -7,8 +7,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:modpurge",
-        name: "Purge",
-        description: "Purge a users chat messages from chat.",
+        name: "パージ",
+        description: "ユーザーのチャットメッセージを削除します。",
         icon: "fad fa-comment-slash",
         categories: ["common", "moderation", "twitch", "chat based"],
         dependencies: ["chat"]

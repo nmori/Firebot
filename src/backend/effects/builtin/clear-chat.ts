@@ -5,8 +5,8 @@ import logger from '../../logwrapper';
 const effect: EffectType = {
     definition: {
         id: "firebot:clearchat",
-        name: "Clear Chat",
-        description: "Clear all chat messages.",
+        name: "チャット全削除",
+        description: "すべてのチャットメッセージを削除します。",
         icon: "fad fa-eraser",
         categories: ["common", "moderation", "twitch", "chat based"],
         dependencies: ["chat"]

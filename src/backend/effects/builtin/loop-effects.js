@@ -10,8 +10,8 @@ const { wait } = require("../../utils");
 const model = {
     definition: {
         id: "firebot:loopeffects",
-        name: "Loop Effects",
-        description: "Loop an effect list",
+        name: "エフェクトループ",
+        description: "エフェクトリストをループ実行します",
         icon: "fad fa-repeat-alt",
         categories: [EffectCategory.SCRIPTING],
         dependencies: []

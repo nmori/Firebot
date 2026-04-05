@@ -7,19 +7,19 @@
                 <button
                     type="button"
                     class="close"
-                    aria-label="Close"
+                    aria-label="閉じる"
                     ng-click="$ctrl.dismiss()"
                 >
                     <i class="fal fa-times" aria-hidden="true"></i>
                 </button>
                 <h4 class="modal-title">
-                    <div class="action text-4xl">Create Rank Ladder</div>
+                    <div class="action text-4xl">ランクラダーを作成</div>
                 </h4>
             </div>
             <div class="modal-body">
                 <form name="ladderSettings">
                     <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
-                        <label for="name" class="control-label">Name</label>
+                        <label for="name" class="control-label">名前</label>
                         <input
                             type="text"
                             id="name"
@@ -28,18 +28,18 @@
                             ui-validate="{taken:'!$ctrl.nameIsTaken($value)'}"
                             required
                             class="form-control input-lg"
-                            placeholder="Give the ladder a name"
+                            placeholder="ラダー名を入力"
                             ng-model="$ctrl.rankLadder.name"
                         />
                         <div ng-if="$ctrl.formFieldHasError('name')">
-                            <span ng-if="ladderSettings.name.$error.required" class="help-block">Name is required.</span>
-                            <span ng-if="ladderSettings.name.$error.minlength" class="help-block">Name must be 3 or more characters.</span>
-                            <span ng-if="ladderSettings.name.$error.taken" class="help-block">This name is already in use.</span>
+                            <span ng-if="ladderSettings.name.$error.required" class="help-block">名前は必須です。</span>
+                            <span ng-if="ladderSettings.name.$error.minlength" class="help-block">名前は3文字以上で入力してください。</span>
+                            <span ng-if="ladderSettings.name.$error.taken" class="help-block">この名前はすでに使用されています。</span>
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('ladderMode')}">
-                        <label for="ladderMode" class="control-label">Mode</label>
+                        <label for="ladderMode" class="control-label">モード</label>
                         <firebot-radio-cards
                             options="$ctrl.ladderModes"
                             ng-model="$ctrl.rankLadder.mode"
@@ -51,7 +51,7 @@
 
                     <div ng-show="$ctrl.rankLadder.mode == 'auto'">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('trackBy')}">
-                            <label for="trackBy" class="control-label">Track By</label>
+                            <label for="trackBy" class="control-label">追跡項目</label>
                             <firebot-radio-cards
                                 options="$ctrl.trackByOptions"
                                 ng-model="$ctrl.rankLadder.settings.trackBy"
@@ -61,7 +61,7 @@
                                 grid-columns="3"
                             ></firebot-radio-cards>
                             <div ng-show="$ctrl.rankLadder.settings.trackBy == 'currency'" class="form-group mb-0 mt-2" ng-class="{'has-error': $ctrl.formFieldHasError('currency')}">
-                                <label for="currency" class="control-label" style="display: none;">Currency</label>
+                                <label for="currency" class="control-label" style="display: none;">通貨</label>
                                 <searchable-currency-select
                                     ng-model="$ctrl.rankLadder.settings.currencyId"
                                     id="currency"
@@ -70,17 +70,17 @@
                                 ></searchable-currency-select>
                             </div>
                             <div ng-show="$ctrl.rankLadder.settings.trackBy == 'metadata'" class="form-group mb-0 mt-2" ng-class="{'has-error': $ctrl.formFieldHasError('metadata')}">
-                                <label for="metadata" class="control-label" style="display: none;">Metadata</label>
+                                <label for="metadata" class="control-label" style="display: none;">メタデータ</label>
                                 <input
                                     type="text"
                                     id="metadata"
                                     name="metadata"
                                     ng-required="$ctrl.rankLadder.mode == 'auto' && $ctrl.rankLadder.settings.trackBy == 'metadata'"
                                     class="form-control input-lg"
-                                    placeholder="Enter metadata key"
+                                    placeholder="メタデータキーを入力"
                                     ng-model="$ctrl.rankLadder.settings.metadataKey"
                                 />
-                                <p class="help-block">If a viewer's metadata value for this key is not numeric, they will be treated as unranked.</p>
+                                <p class="help-block">このキーのメタデータ値が数値でない視聴者は、ランクなしとして扱われます。</p>
                             </div>
                         </div>
                     </div>
@@ -90,18 +90,18 @@
                         ng-if="$ctrl.rankLadder.mode === 'auto'"
                         ng-class="{'has-error': $ctrl.formFieldHasError('restrictedToRoles')}"
                     >
-                        <label class="control-label">Restricted To Roles</label>
+                        <label class="control-label">対象ロール制限</label>
                         <div>
-                            <span class="help-block">If roles are specified here, viewers must have one of these roles to be eligible for this rank.</span>
+                            <span class="help-block">ここでロールを指定すると、指定ロールのいずれかを持つ視聴者のみこのランクの対象になります。</span>
                         </div>
                         <div>
                             <div class="role-bar" ng-repeat="roleId in $ctrl.rankLadder.settings.viewerRestrictions.roleIds track by $index">
                                 <span>{{$ctrl.roleIdNameMap[roleId]}}</span>
-                                <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeRole(roleId)" uib-tooltip="Remove role" tooltip-append-to-body="true">
+                                <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeRole(roleId)" uib-tooltip="ロールを削除" tooltip-append-to-body="true">
                                     <i class="far fa-times"></i>
                                 </span>
                             </div>
-                            <div class="role-bar clickable" ng-click="$ctrl.openAddRoleModal()" uib-tooltip="Add role" tooltip-append-to-body="true">
+                            <div class="role-bar clickable" ng-click="$ctrl.openAddRoleModal()" uib-tooltip="ロールを追加" tooltip-append-to-body="true">
                                 <i class="far fa-plus"></i>
                             </div>
                         </div>
@@ -109,8 +109,8 @@
 
                     <div class="form-group flex justify-between">
                         <div>
-                            <label class="control-label" style="margin:0;">Announce Promotions in Chat</label>
-                            <p class="help-block">If enabled, send a chat message when a viewer moves to a higher rank only if that viewer is active in chat.</p>
+                            <label class="control-label" style="margin:0;">チャットで昇格を通知</label>
+                            <p class="help-block">有効時、視聴者が上位ランクへ移動し、かつチャットでアクティブな場合に通知メッセージを送信します。</p>
                         </div>
                         <div class="ml-5">
                             <toggle-button toggle-model="$ctrl.rankLadder.settings.announcePromotionsInChat" auto-update-value="true" font-size="32"></toggle-button>
@@ -118,12 +118,12 @@
                     </div>
 
                      <div class="form-group" ng-if="$ctrl.rankLadder.settings.announcePromotionsInChat">
-                        <label for="promotionMessageTemplate" class="control-label">Promotion Message Template</label>
-                        <p class="help-block">Variables: {{$ctrl.getApplicableMessageVariables()}}</p>
+                        <label for="promotionMessageTemplate" class="control-label">昇格メッセージテンプレート</label>
+                        <p class="help-block">変数: {{$ctrl.getApplicableMessageVariables()}}</p>
                         <textarea
                             class="form-control"
                             name="text"
-                            placeholder="Enter message (Leave blank for default)"
+                            placeholder="メッセージを入力（空欄でデフォルト）"
                             rows="4"
                             cols="40"
                             ng-model="$ctrl.rankLadder.settings.customPromotionMessageTemplate"
@@ -132,8 +132,8 @@
 
                     <div class="form-group flex justify-between">
                         <div>
-                            <label class="control-label" style="margin:0;">Show Badge in Chat</label>
-                            <p class="help-block">If enabled, users who are ranked on this ladder will have a badge in Firebot's chat</p>
+                            <label class="control-label" style="margin:0;">チャットでバッジ表示</label>
+                            <p class="help-block">有効時、このラダーでランク付けされたユーザーに Firebot チャット内バッジを表示します。</p>
                         </div>
                         <div class="ml-5">
                             <toggle-button toggle-model="$ctrl.rankLadder.settings.showBadgeInChat" auto-update-value="true" font-size="32"></toggle-button>
@@ -145,9 +145,9 @@
                         ng-if="$ctrl.rankLadder.mode === 'manual' || $ctrl.rankLadder.settings.trackBy != null"
                         ng-class="{'has-error': $ctrl.formFieldHasError('ranks')}"
                     >
-                        <label class="control-label">Ranks</label>
+                        <label class="control-label">ランク</label>
                         <div ng-if="$ctrl.formFieldHasError('ranks')">
-                            <span ng-if="ladderSettings.ranks.$error.valid" class="help-block">All ranks must have a value set.</span>
+                            <span ng-if="ladderSettings.ranks.$error.valid" class="help-block">すべてのランクに値を設定してください。</span>
                         </div>
                         <div>
                             <firebot-list
@@ -165,8 +165,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
         bindings: {
@@ -357,9 +357,9 @@
                 }
                 utilityService
                     .showConfirmationModal({
-                        title: "Delete Rank",
-                        question: `Are you sure you want to delete the rank '${rank.name}'?`,
-                        confirmLabel: "Delete",
+                        title: "ランクを削除",
+                        question: `ランク「${rank.name}」を削除しますか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {
@@ -380,7 +380,7 @@
                         if (successful) {
                             $ctrl.dismiss();
                         } else {
-                            ngToast.create("Failed to save rank ladder. Please try again or view logs for details.");
+                            ngToast.create("ランクラダーの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
                         }
                     });
             };

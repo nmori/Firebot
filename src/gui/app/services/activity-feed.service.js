@@ -75,9 +75,9 @@
 
             service.clearAllActivities = () => {
                 modalFactory.showConfirmationModal({
-                    title: "Clear All Activities",
-                    question: "Are you sure you want to clear all activities?",
-                    confirmLabel: "Clear",
+                    title: "すべてのアクティビティをクリア",
+                    question: "すべてのアクティビティをクリアしてもよろしいですか？",
+                    confirmLabel: "クリア",
                     confirmBtnType: "btn-danger"
                 }).then((confirmed) => {
                     if (confirmed) {
@@ -85,7 +85,7 @@
                         service.activities = [];
                         ngToast.create({
                             className: 'success',
-                            content: "Successfully cleared all activities!",
+                            content: "すべてのアクティビティをクリアしました。",
                             timeout: 5000
                         });
                     }
@@ -104,7 +104,7 @@
                 backendCommunicator.send("activity-feed:retrigger-event", activityId);
                 ngToast.create({
                     className: 'success',
-                    content: "Successfully retriggered event!",
+                    content: "イベントを再実行しました。",
                     timeout: 5000
                 });
             };

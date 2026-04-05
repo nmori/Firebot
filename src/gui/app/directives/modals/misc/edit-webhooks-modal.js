@@ -5,16 +5,16 @@
         .component("editWebhooksModal", {
             template: `
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">
-                        Webhooks
+                        Webhook
                     </h4>
                 </div>
                 <div class="modal-body firebot-list-container">
                     <div class="firebot-list-description">
                         <p class="muted" style="margin: 0 0 20px 0; font-size: 13px;">
                             <i class="fas fa-info-circle" style="margin-right: 6px;"></i>
-                            Webhooks allow external services to trigger events in Firebot
+                            Webhookを使うと外部サービスから Firebot のイベントを発火できます
                         </p>
                     </div>
 
@@ -24,21 +24,21 @@
                                 <div class="firebot-list-item-info">
                                     <i class="fas fa-webhook" style="margin-right: 10px; opacity: 0.6;"></i>
                                     <span class="firebot-list-item-name">{{webhook.name}}</span>
-                                    <span ng-if="webhook.scriptId != null" class="firebot-list-item-badge" uib-tooltip="This webhook is managed by the {{webhook.scriptId}} script." tooltip-append-to-body="true">
-                                        <i class="fas fa-plug" style="margin-right: 4px;"></i>Plugin
+                                    <span ng-if="webhook.scriptId != null" class="firebot-list-item-badge" uib-tooltip="このWebhookは {{webhook.scriptId}} スクリプトで管理されています。" tooltip-append-to-body="true">
+                                        <i class="fas fa-plug" style="margin-right: 4px;"></i>プラグイン
                                     </span>
                                 </div>
                                 <div class="firebot-list-item-actions">
                                     <button class="btn btn-default btn-sm"
                                             ng-click="$ctrl.copyWebhookUrlToClipboard(webhook)"
-                                            title="Copy URL to clipboard">
+                                            title="URLをクリップボードにコピー">
                                         <i class="far fa-copy"></i>
-                                        <span>Copy URL</span>
+                                        <span>URLをコピー</span>
                                     </button>
                                     <button ng-if="webhook.scriptId == null"
                                             class="btn btn-danger btn-sm"
                                             ng-click="$ctrl.whs.deleteWebhookConfig(webhook.id)"
-                                            title="Delete webhook">
+                                            title="Webhookを削除">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                 </div>
@@ -48,7 +48,7 @@
 
                     <button class="btn btn-primary btn-sm" style="width: 100%;" ng-click="$ctrl.createNewWebhook()">
                         <i class="fas fa-plus" style="margin-right: 6px;"></i>
-                        Create Webhook
+                        Webhookを作成
                     </button>
                 </div>
             `,
@@ -66,8 +66,8 @@
                     modalFactory.openGetInputModal(
                         {
                             model: "",
-                            label: "Webhook Name",
-                            saveText: "Save",
+                            label: "Webhook名",
+                            saveText: "保存",
                             validationFn: (value) => {
                                 return new Promise((resolve) => {
                                     if (value == null || value.trim().length < 1) {
@@ -77,7 +77,7 @@
                                     }
                                 });
                             },
-                            validationText: "Webhook name cannot be empty."
+                            validationText: "Webhook名は空にできません。"
                         },
                         (newName) => {
                             webhooksService.saveWebhookConfig({
@@ -96,7 +96,7 @@
 
                     ngToast.create({
                         className: 'info',
-                        content: `Copied webhook URL to clipboard`
+                        content: `Webhook URLをクリップボードにコピーしました`
                     });
                 };
             }

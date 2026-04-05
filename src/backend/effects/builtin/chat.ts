@@ -10,8 +10,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:chat",
-        name: "Chat",
-        description: "Send a chat message.",
+        name: "チャット送信",
+        description: "チャットメッセージを送信します。",
         icon: "fad fa-comment-lines",
         categories: ["common", "chat based", "twitch"],
         dependencies: ["chat"]

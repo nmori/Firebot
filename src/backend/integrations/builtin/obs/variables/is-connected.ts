@@ -4,7 +4,7 @@ import { isConnected } from "../obs-remote";
 export const IsConnectedVariable: ReplaceVariable = {
     definition: {
         handle: "obsIsConnected",
-        description: "Returns 'true' if OBS is currently connected or 'false' if it is not.",
+        description: "OBS が現在接続中なら 'true'、そうでなければ 'false' を返します。",
         possibleDataOutput: ["bool"],
         categories: ["advanced", "integrations", "obs"]
     },

@@ -13,7 +13,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "donationMessage",
-        description: "The message from a donation",
+        description: "寄付メッセージ",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["text"]

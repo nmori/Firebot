@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputVolumeDbVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputVolumeDb",
-        description: "Returns the volume level in dB of the OBS input.",
+        description: "OBS 入力の音量レベル（dB）を返します。",
         possibleDataOutput: ["number"],
         categories: ["advanced", "integrations", "obs"]
     },

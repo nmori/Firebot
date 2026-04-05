@@ -16,8 +16,8 @@ export const TransformSourceEffectType: EffectType<{
 }> = {
     definition: {
         id: "firebot:obs-transform-source",
-        name: "Transform OBS Source",
-        description: "Transforms the position, scale, or rotation of an OBS source either instantly or animated over time",
+        name: "OBSソース変形",
+        description: "OBS ソースの位置・拡大率・回転を即時またはアニメーションで変更します",
         icon: "fad fa-arrows",
         categories: ["common", "integrations"]
     },

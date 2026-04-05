@@ -42,9 +42,9 @@
 
             $scope.deleteCustomCommand = (command) => {
                 utilityService.showConfirmationModal({
-                    title: "Delete Command",
-                    question: `Are you sure you want to delete the command '${command.trigger}'?`,
-                    confirmLabel: "Delete",
+                    title: "コマンドを削除",
+                    question: `コマンド '${command.trigger}' を削除してもよろしいですか？`,
+                    confirmLabel: "削除",
                     confirmBtnType: "btn-danger"
                 }).then((confirmed) => {
                     if (confirmed) {
@@ -71,7 +71,7 @@
             $scope.openAddOrEditCustomCommandModal = function(command) {
                 utilityService.showModal({
                     component: "addOrEditCustomCommandModal",
-                    breadcrumbName: command ? "Edit Command" : "Add Command",
+                    breadcrumbName: command ? "コマンドを編集" : "コマンドを追加",
                     size: "mdlg",
                     resolveObj: {
                         command: () => command
@@ -96,7 +96,7 @@
             $scope.openFirebotProfilePage = async () => {
                 ngToast.create({
                     className: "info",
-                    content: "Opening Firebot profile page..."
+                    content: "Firebot のプロフィールページを開いています..."
                 });
                 const channelName = await backendCommunicator.fireEventAsync("sync-profile-data-to-crowbar-api");
                 if (channelName) {
@@ -132,43 +132,43 @@
                 const command = item;
                 return [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: () => {
                             $scope.openAddOrEditCustomCommandModal(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> Clear Cooldowns</a>`,
+                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> クールダウンをクリア</a>`,
                         click: () => {
                             $scope.resetCooldownsForCommand(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="iconify" data-icon="mdi:tally-mark-5" style="margin-right: 10px;"></i> Clear Per-Stream Usages</a>`,
+                        html: `<a href ><i class="iconify" data-icon="mdi:tally-mark-5" style="margin-right: 10px;"></i> 配信ごとの使用回数をクリア</a>`,
                         click: () => {
                             $scope.resetPerStreamUsagesForCommand(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "Disable Command" : "Enable Command"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "コマンドを無効化" : "コマンドを有効化"}</a>`,
                         click: () => {
                             $scope.toggleCustomCommandActiveState(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="${item.hidden ? "fas fa-eye" : "fas fa-eye-slash"}" style="margin-right: 10px;"></i> ${item.hidden ? "Show Command" : "Hide Command"}</a>`,
+                        html: `<a href ><i class="${item.hidden ? "fas fa-eye" : "fas fa-eye-slash"}" style="margin-right: 10px;"></i> ${item.hidden ? "コマンドを表示" : "コマンドを非表示"}</a>`,
                         click: () => {
                             $scope.toggleCustomCommandVisibilityState(command);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: () => {
                             $scope.duplicateCustomCommand(command);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: () => {
                             $scope.deleteCustomCommand(command);
                         }
@@ -192,13 +192,13 @@
                         >{{data.trigger}}</span>
                         <tooltip
                             ng-if="data.triggerIsRegex"
-                            text="'Description: ' + data.regexDescription"
+                            text="'説明: ' + data.regexDescription"
                         ></tooltip>
                         <span
                             class="muted ml-2"
                             style="font-size: 11px"
                             ng-if="data.hidden"
-                            uib-tooltip="Hidden from !commands list"
+                            uib-tooltip="!commands 一覧で非表示"
                             tooltip-append-to-body="true"
                         >
                             <i class="fas fa-eye-slash"></i>
@@ -211,12 +211,12 @@
                     cellTemplate: `
                         <span
                             style="min-width: 51px; display: inline-block"
-                            uib-tooltip="Global cooldown"
+                            uib-tooltip="グローバルクールダウン"
                         >
                             <i class="far fa-globe-americas"></i>
                             {{data.cooldown.global ? data.cooldown.global + "s" : "-" }}
                         </span>
-                        <span uib-tooltip="User cooldown">
+                        <span uib-tooltip="ユーザークールダウン">
                             <i class="far fa-user"></i> {{data.cooldown.user ? data.cooldown.user + "s" : "-" }}
                         </span>
                     `
@@ -239,12 +239,12 @@
 
                             if (permissions) {
                                 if (permissions.mode === "roles") {
-                                    return "Roles & Ranks";
+                                    return "ロールとランク";
                                 } else if (permissions.mode === "viewer") {
-                                    return "Viewer";
+                                    return "視聴者";
                                 }
                             } else {
-                                return "None";
+                                return "なし";
                             }
                         };
 
@@ -257,17 +257,17 @@
                                 const isInverted = permissions.invertCondition === true;
                                 if (permissions.mode === "roles") {
                                     const roleIds = permissions.roleIds;
-                                    let rolesOutput = "None selected";
+                                    let rolesOutput = "未選択";
                                     if (roleIds.length > 0) {
                                         rolesOutput = roleIds
                                             .filter(id => viewerRolesService.getRoleById(id) != null)
                                             .map(id => viewerRolesService.getRoleById(id).name)
                                             .join(", ");
                                     }
-                                    const rolesDisplay = `Roles (${rolesOutput})`;
+                                    const rolesDisplay = `ロール (${rolesOutput})`;
 
                                     const ranks = permissions.ranks ?? [];
-                                    let ranksOutput = "None selected";
+                                    let ranksOutput = "未選択";
                                     if (ranks.length > 0) {
                                         const groupedByLadder = ranks.reduce((acc, r) => {
                                             if (!acc.some(l => l.ladderId === r.ladderId)) {
@@ -289,21 +289,21 @@
                                             })
                                             .join(", ");
                                     }
-                                    const ranksDisplay = `Ranks (${ranksOutput})`;
+                                    const ranksDisplay = `ランク (${ranksOutput})`;
 
                                     const itemsToDisplay = [];
-                                    if (rolesOutput !== "None selected") {
+                                    if (rolesOutput !== "未選択") {
                                         itemsToDisplay.push(rolesDisplay);
                                     }
-                                    if (ranksOutput !== "None selected") {
+                                    if (ranksOutput !== "未選択") {
                                         itemsToDisplay.push(ranksDisplay);
                                     }
-                                    return itemsToDisplay.length > 0 ? (isInverted ? "Not: " : "") + itemsToDisplay.join(", ") : "Roles/Ranks (None selected)";
+                                    return itemsToDisplay.length > 0 ? (isInverted ? "除外: " : "") + itemsToDisplay.join(", ") : "ロール/ランク（未選択）";
                                 } else if (permissions.mode === "viewer") {
-                                    return `${isInverted ? "Not: " : ""}Viewer (${permissions.username ? permissions.username : 'No name'})`;
+                                    return `${isInverted ? "除外: " : ""}視聴者 (${permissions.username ? permissions.username : '名前なし'})`;
                                 }
                             } else {
-                                return "This command is available to everyone";
+                                return "このコマンドは全員が利用できます";
                             }
                         };
                     }

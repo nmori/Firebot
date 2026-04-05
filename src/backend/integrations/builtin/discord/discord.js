@@ -6,39 +6,39 @@ const { EffectManager } = require("../../../effects/effect-manager");
 const integrationDefinition = {
     id: "discord",
     name: "Discord",
-    description: "Send messages to Discord channels.",
+    description: "Discordチャンネルにメッセージを送信します。",
     linkType: "none",
     connectionToggle: false,
     configurable: true,
     settingCategories: {
         webhookSettings: {
-            title: "Channel Setup",
+            title: "チャンネル設定",
             sortRank: 2,
             settings: {
                 channels: {
-                    title: "Saved Channels",
-                    description: "The collection of channel names and webhook urls that Firebot can post messages to.",
+                    title: "保存済みチャンネル",
+                    description: "Firebotがメッセージを投稿できるチャンネル名とWebhook URLの一覧です。",
                     type: "discord-channel-webhooks",
                     sortRank: 1
                 }
             }
         },
         botOverrides: {
-            title: "Bot Overrides",
+            title: "Bot上書き設定",
             sortRank: 1,
             settings: {
                 botName: {
-                    title: "Bot Name",
-                    description: "This overrides the bot name set for a webhook in Discord. If left empty, whatever name you set in Discord for the webhook will be used.",
+                    title: "Bot名",
+                    description: "DiscordでWebhookに設定したBot名を上書きします。空欄の場合はDiscord側の設定名を使用します。",
                     type: "string",
-                    tip: "Optional.",
+                    tip: "任意",
                     sortRank: 1
                 },
                 botImageUrl: {
-                    title: "Bot Image URL",
-                    description: "This overrides the avatar image of bot posting images. If left empty, whatever profile pic you set in Discord for the webhook will be used.",
+                    title: "Bot画像URL",
+                    description: "投稿時のBotアバター画像を上書きします。空欄の場合はDiscord側のWebhookプロフィール画像を使用します。",
                     type: "string",
-                    tip: "Optional.",
+                    tip: "任意",
                     sortRank: 2
                 }
             }

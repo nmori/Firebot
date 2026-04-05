@@ -9,8 +9,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:set-user-metadata",
-        name: "Set User Metadata",
-        description: "Save metadata associated to a given user",
+        name: "ユーザーメタデータ設定",
+        description: "指定したユーザーに紐づくメタデータを保存します",
         icon: "fad fa-user-cog",
         categories: ["advanced", "scripting", "firebot control"],
         dependencies: []

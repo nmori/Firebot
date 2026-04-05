@@ -24,13 +24,13 @@ export async function whenReady() {
     await ensureRequiredFoldersExist();
 
     // load twitch auth
-    windowManagement.updateSplashScreenStatus("Loading Twitch login system...");
+    windowManagement.updateSplashScreenStatus("Twitchログインシステムを読み込み中...");
     await import("../../../auth/auth-manager");
     const { TwitchAuthProviders } = await import("../../../streaming-platforms/twitch/auth/twitch-auth");
     TwitchAuthProviders.registerTwitchAuthProviders();
 
     // load accounts
-    windowManagement.updateSplashScreenStatus("Loading accounts...");
+    windowManagement.updateSplashScreenStatus("アカウントを読み込み中...");
 
     const { AccountAccess } = await import("../../../common/account-access");
     AccountAccess.loadAccountData(false);
@@ -40,17 +40,17 @@ export async function whenReady() {
 
     const connectionManager = (await import("../../../common/connection-manager")).default;
 
-    windowManagement.updateSplashScreenStatus("Loading timers...");
+    windowManagement.updateSplashScreenStatus("タイマーを読み込み中...");
     const { TimerManager } = await import("../../../timers/timer-manager");
     TimerManager.loadItems();
     TimerManager.startTimers();
 
-    windowManagement.updateSplashScreenStatus("Loading scheduled effect lists...");
+    windowManagement.updateSplashScreenStatus("スケジュール演出リストを読み込み中...");
     const { ScheduledTaskManager } = await import("../../../timers/scheduled-task-manager");
     ScheduledTaskManager.loadItems();
     ScheduledTaskManager.start();
 
-    windowManagement.updateSplashScreenStatus("Refreshing Twitch account data...");
+    windowManagement.updateSplashScreenStatus("Twitchアカウント情報を更新中...");
 
     // Loading these first so that the refresh caches the account avatar URLs
     const _chatHelpers = await import("../../../chat/chat-helpers");
@@ -59,149 +59,149 @@ export async function whenReady() {
     const { TwitchApi } = await import("../../../streaming-platforms/twitch/api");
     await TwitchApi.refreshAccounts();
 
-    windowManagement.updateSplashScreenStatus("Starting stream status poll...");
+    windowManagement.updateSplashScreenStatus("配信状態ポーリングを開始中...");
     connectionManager.startOnlineCheckInterval();
 
     // load effects
     logger.debug("Loading effects...");
-    windowManagement.updateSplashScreenStatus("Loading effects...");
+    windowManagement.updateSplashScreenStatus("エフェクトを読み込み中...");
     const { loadEffects } = await import("../../../effects/builtin-effect-loader");
     loadEffects();
 
-    windowManagement.updateSplashScreenStatus("Loading currencies...");
+    windowManagement.updateSplashScreenStatus("通貨を読み込み中...");
     const currencyAccess = (await import("../../../currency/currency-access")).default;
     currencyAccess.loadCurrencies();
 
-    windowManagement.updateSplashScreenStatus("Loading ranks...");
+    windowManagement.updateSplashScreenStatus("ランクを読み込み中...");
     const viewerRanksManager = (await import("../../../ranks/rank-manager")).default;
     viewerRanksManager.loadItems();
 
     // load commands
     logger.debug("Loading sys commands...");
-    windowManagement.updateSplashScreenStatus("Loading system commands...");
+    windowManagement.updateSplashScreenStatus("システムコマンドを読み込み中...");
     const { loadSystemCommands } = await import("../../../chat/commands/system-command-loader");
     loadSystemCommands();
 
     // load event sources
     logger.debug("Loading event sources...");
-    windowManagement.updateSplashScreenStatus("Loading event sources...");
+    windowManagement.updateSplashScreenStatus("イベントソースを読み込み中...");
     const { loadEventSources } = await import("../../../events/builtin-event-source-loader");
     loadEventSources();
 
     // load event filters
     logger.debug("Loading event filters...");
-    windowManagement.updateSplashScreenStatus("Loading filters...");
+    windowManagement.updateSplashScreenStatus("フィルターを読み込み中...");
     const { loadFilters } = await import("../../../events/filters/builtin-filter-loader");
     loadFilters();
 
     // load integrations
     logger.debug("Loading integrations...");
-    windowManagement.updateSplashScreenStatus("Loading integrations...");
+    windowManagement.updateSplashScreenStatus("連携を読み込み中...");
     const { loadIntegrations } = await import("../../../integrations/builtin-integration-loader");
     loadIntegrations();
 
     // load variables
     logger.debug("Loading variables...");
-    windowManagement.updateSplashScreenStatus("Loading variables...");
+    windowManagement.updateSplashScreenStatus("変数を読み込み中...");
     const { loadReplaceVariables } = await import("../../../variables/variable-loader");
     loadReplaceVariables();
 
-    windowManagement.updateSplashScreenStatus("Loading variable macros...");
+    windowManagement.updateSplashScreenStatus("変数マクロを読み込み中...");
     const macroManager = (await import("../../../variables/macro-manager")).default;
     macroManager.loadItems();
 
     // load restrictions
     logger.debug("Loading restrictions...");
-    windowManagement.updateSplashScreenStatus("Loading restrictions...");
+    windowManagement.updateSplashScreenStatus("制限を読み込み中...");
     const { loadRestrictions } = await import("../../../restrictions/builtin-restrictions-loader");
     loadRestrictions();
 
-    windowManagement.updateSplashScreenStatus("Loading fonts...");
+    windowManagement.updateSplashScreenStatus("フォントを読み込み中...");
     const { FontManager } = await import("../../../font-manager");
     await FontManager.loadInstalledFonts();
 
-    windowManagement.updateSplashScreenStatus("Loading events...");
+    windowManagement.updateSplashScreenStatus("イベントを読み込み中...");
     const { EventsAccess } = await import("../../../events/events-access");
     EventsAccess.loadEventsAndGroups();
 
-    windowManagement.updateSplashScreenStatus("Loading team roles...");
+    windowManagement.updateSplashScreenStatus("チームロールを読み込み中...");
     const teamRolesManager = (await import("../../../roles/team-roles-manager")).default;
     await teamRolesManager.loadTeamRoles();
 
-    windowManagement.updateSplashScreenStatus("Loading custom roles...");
+    windowManagement.updateSplashScreenStatus("カスタムロールを読み込み中...");
     const customRolesManager = (await import("../../../roles/custom-roles-manager")).default;
     await customRolesManager.loadCustomRoles();
 
     const chatRolesManager = (await import("../../../roles/chat-roles-manager")).default;
     chatRolesManager.setupListeners();
 
-    windowManagement.updateSplashScreenStatus("Loading known bot list...");
+    windowManagement.updateSplashScreenStatus("既知ボット一覧を読み込み中...");
     await chatRolesManager.cacheViewerListBots();
 
     const twitchRolesManager = (await import("../../../roles/twitch-roles-manager")).default;
     twitchRolesManager.setupListeners();
 
-    windowManagement.updateSplashScreenStatus("Loading channel moderators...");
+    windowManagement.updateSplashScreenStatus("チャンネルモデレーターを読み込み中...");
     await twitchRolesManager.loadModerators();
 
-    windowManagement.updateSplashScreenStatus("Loading channel VIPs...");
+    windowManagement.updateSplashScreenStatus("チャンネルVIPを読み込み中...");
     await twitchRolesManager.loadVips();
 
-    windowManagement.updateSplashScreenStatus("Loading channel subscribers...");
+    windowManagement.updateSplashScreenStatus("チャンネル登録者を読み込み中...");
     await twitchRolesManager.loadSubscribers();
 
-    windowManagement.updateSplashScreenStatus("Loading effect queues...");
+    windowManagement.updateSplashScreenStatus("エフェクトキューを読み込み中...");
     const { EffectQueueConfigManager } = await import("../../../effects/queues/effect-queue-config-manager");
     EffectQueueConfigManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("Loading preset effect lists...");
+    windowManagement.updateSplashScreenStatus("プリセット演出リストを読み込み中...");
     const { PresetEffectListManager } = await import("../../../effects/preset-lists/preset-effect-list-manager");
     PresetEffectListManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("Loading quick actions...");
+    windowManagement.updateSplashScreenStatus("クイックアクションを読み込み中...");
     const { QuickActionManager } = await import("../../../quick-actions/quick-action-manager");
     QuickActionManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("Loading webhooks...");
+    windowManagement.updateSplashScreenStatus("Webhookを読み込み中...");
     const webhookConfigManager = (await import("../../../webhooks/webhook-config-manager")).default;
     webhookConfigManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("Loading overlay widgets...");
+    windowManagement.updateSplashScreenStatus("オーバーレイウィジェットを読み込み中...");
     const { loadWidgetTypes } = await import("../../../overlay-widgets/builtin-widget-type-loader");
     loadWidgetTypes();
 
     const overlayWidgetConfigManager = (await import("../../../overlay-widgets/overlay-widget-config-manager")).default;
     overlayWidgetConfigManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("Loading startup script data...");
+    windowManagement.updateSplashScreenStatus("起動スクリプトデータを読み込み中...");
     const startupScriptsManager = await import("../../../common/handlers/custom-scripts/startup-scripts-manager");
     startupScriptsManager.loadStartupConfig();
 
-    windowManagement.updateSplashScreenStatus("Starting chat moderation manager...");
+    windowManagement.updateSplashScreenStatus("チャットモデレーションマネージャーを開始中...");
     const { ChatModerationManager } = await import("../../../chat/moderation/chat-moderation-manager");
     ChatModerationManager.load();
 
-    windowManagement.updateSplashScreenStatus("Loading counters...");
+    windowManagement.updateSplashScreenStatus("カウンターを読み込み中...");
     const { CounterManager } = await import("../../../counters/counter-manager");
     CounterManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("Loading games...");
+    windowManagement.updateSplashScreenStatus("ゲームを読み込み中...");
     const { GameManager } = await import("../../../games/game-manager");
     GameManager.loadGameSettings();
 
     const builtinGameLoader = await import("../../../games/builtin-game-loader");
     builtinGameLoader.loadGames();
 
-    windowManagement.updateSplashScreenStatus("Loading custom variables...");
+    windowManagement.updateSplashScreenStatus("カスタム変数を読み込み中...");
     const { CustomVariableManager } = await import("../../../common/custom-variable-manager");
     CustomVariableManager.loadVariablesFromFile();
 
-    windowManagement.updateSplashScreenStatus("Loading sort tags...");
+    windowManagement.updateSplashScreenStatus("ソートタグを読み込み中...");
     const { SortTagManager } = await import("../../../sort-tags/sort-tag-manager");
     SortTagManager.loadSortTags();
 
     // get importer in memory
-    windowManagement.updateSplashScreenStatus("Loading importers...");
+    windowManagement.updateSplashScreenStatus("インポーターを読み込み中...");
 
     const { SetupManager } = await import("../../../setups/setup-manager");
     SetupManager.setupListeners();
@@ -215,16 +215,16 @@ export async function whenReady() {
     const { setupCommonListeners } = await import("../../../common/common-listeners");
     setupCommonListeners();
 
-    windowManagement.updateSplashScreenStatus("Loading hotkeys...");
+    windowManagement.updateSplashScreenStatus("ホットキーを読み込み中...");
     const { HotkeyManager } = await import("../../../hotkeys/hotkey-manager");
     HotkeyManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("Starting currency timer...");
+    windowManagement.updateSplashScreenStatus("通貨タイマーを開始中...");
     const currencyManager = (await import("../../../currency/currency-manager")).default;
     currencyManager.startTimer();
 
     // Connect to DBs.
-    windowManagement.updateSplashScreenStatus("Loading viewers...");
+    windowManagement.updateSplashScreenStatus("視聴者を読み込み中...");
     logger.info("Creating or connecting user database");
     const viewerDatabase = (await import("../../../viewers/viewer-database")).default;
     await viewerDatabase.connectViewerDatabase();
@@ -233,7 +233,7 @@ export async function whenReady() {
     const viewerOnlineStatusManager = (await import("../../../viewers/viewer-online-status-manager")).default;
     await viewerOnlineStatusManager.setAllViewersOffline();
 
-    windowManagement.updateSplashScreenStatus("Loading quotes...");
+    windowManagement.updateSplashScreenStatus("引用を読み込み中...");
     logger.info("Creating or connecting quotes database");
     const { QuoteManager } = await import("../../../quotes/quote-manager");
     await QuoteManager.loadQuoteDatabase();
@@ -246,12 +246,12 @@ export async function whenReady() {
     const { ProfileManager } = await import("../../../common/profile-manager");
     global.SCRIPTS_DIR = ProfileManager.getPathInProfile("/scripts/");
 
-    windowManagement.updateSplashScreenStatus("Running daily backup...");
+    windowManagement.updateSplashScreenStatus("日次バックアップを実行中...");
     const { BackupManager } = await import("../../../backup-manager");
     await BackupManager.onceADayBackUpCheck();
 
     // start the REST api server
-    windowManagement.updateSplashScreenStatus("Starting internal web server...");
+    windowManagement.updateSplashScreenStatus("内部Webサーバーを起動中...");
     const httpServerManager = (await import("../../../../server/http-server-manager")).default;
     httpServerManager.start();
 
@@ -259,7 +259,7 @@ export async function whenReady() {
     const websocketEventsHandler = await import("../../../../server/websocket-events-handler");
     websocketEventsHandler.createComponentEventListeners();
 
-    windowManagement.updateSplashScreenStatus("Loading channel rewards...");
+    windowManagement.updateSplashScreenStatus("チャンネル特典を読み込み中...");
     const channelRewardManager = (await import("../../../channel-rewards/channel-reward-manager")).default;
     await channelRewardManager.loadChannelRewards();
 
@@ -269,11 +269,11 @@ export async function whenReady() {
     const { IconManager } = await import("../../../common/icon-manager");
     await IconManager.loadFontAwesomeIcons();
 
-    windowManagement.updateSplashScreenStatus("Starting stream info poll...");
+    windowManagement.updateSplashScreenStatus("配信情報ポーリングを開始中...");
     const streamInfoPoll = (await import("../../../streaming-platforms/twitch/stream-info-manager")).default;
     streamInfoPoll.startStreamInfoPoll();
 
-    windowManagement.updateSplashScreenStatus("Starting notification manager...");
+    windowManagement.updateSplashScreenStatus("通知マネージャーを開始中...");
     const { NotificationManager } = await import("../../../notifications/notification-manager");
     NotificationManager.loadNotificationCache();
 
@@ -287,7 +287,7 @@ export async function whenReady() {
     countdownManager.startTimer();
 
     logger.debug("...loading main window");
-    windowManagement.updateSplashScreenStatus("Here we go!");
+    windowManagement.updateSplashScreenStatus("まもなく起動します...");
     await windowManagement.createMainWindow();
 
     // Receive log messages from frontend

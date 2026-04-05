@@ -13,7 +13,7 @@
                 <div class="text-dropdown input-editor-dropdown" uib-dropdown uib-dropdown-toggle>
                     <a href role="button" class="ddtext" style="font-size: 12px;">{{$ctrl.selectedEditor ? $ctrl.selectedEditor.label : ''}}<span class="fb-arrow down ddtext"></span></a>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                        <li class="dropdown-header">Editor Types</li>
+                        <li class="dropdown-header">エディタータイプ</li>
                         <li ng-repeat="option in $ctrl.editors track by option.label" role="none">
                             <a href class="pl-4" ng-click="$ctrl.selectedEditor = option" role="menuitem" aria-label="{{option.label}}">
                                 <span>{{option.label}}</span>

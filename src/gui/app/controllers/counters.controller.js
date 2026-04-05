@@ -30,39 +30,39 @@
                     icon: "fa-arrow-to-bottom",
                     dataField: "minimum",
                     sortable: true,
-                    cellTemplate: `{{data.minimum ? data.minimum : 'n/a'}}`
+                    cellTemplate: `{{data.minimum ? data.minimum : '該当なし'}}`
                 },
                 {
                     name: "MAXIMUM",
                     icon: "fa-arrow-to-top",
                     dataField: "maximum",
                     sortable: true,
-                    cellTemplate: `{{data.maximum ? data.maximum : 'n/a'}}`
+                    cellTemplate: `{{data.maximum ? data.maximum : '該当なし'}}`
                 }
             ];
 
             $scope.counterOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: () => {
                             countersService.showAddEditCounterModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: () => {
                             countersService.duplicateCounter(item.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: () => {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Counter",
-                                    question: `Are you sure you want to delete the Counter "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "カウンターを削除",
+                                    question: `カウンター "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {
@@ -82,8 +82,8 @@
                 utilityService.openGetInputModal(
                     {
                         model: counter.name,
-                        label: "Rename Counter",
-                        saveText: "Save",
+                        label: "カウンター名を変更",
+                        saveText: "保存",
                         validationFn: (value) => {
                             return new Promise((resolve) => {
                                 if (value == null || value.trim().length < 1) {
@@ -95,7 +95,7 @@
                                 }
                             });
                         },
-                        validationText: "Counter name cannot be empty and must be unique."
+                        validationText: "カウンター名は空にできず、一意である必要があります。"
                     },
                     (newName) => {
                         counter.name = newName;

@@ -15,7 +15,7 @@ const frontendCommunicator = require("../../../common/frontend-communicator");
 const integrationDefinition = {
     id: "hue",
     name: "Philips Hue",
-    description: "Allows users to run hue specific effects. Press the link button on your hue bridge, then press link.",
+    description: "Philips Hue専用エフェクトを実行できます。Hueブリッジのリンクボタンを押した後、Firebot側でリンクを実行してください。",
     linkType: "other",
     connectionToggle: false
 };
@@ -29,7 +29,7 @@ async function connectToHue(hueUser) {
 
     frontendCommunicator.send(
         "error",
-        "Could not connect to hue. The bridge might have changed ip addresses or lost user info. Try re-linking to hue."
+        "Hueに接続できませんでした。ブリッジのIPアドレス変更、またはユーザー情報消失の可能性があります。Hueを再リンクしてください。"
     );
     return false;
 }
@@ -69,9 +69,9 @@ class HueIntegration extends EventEmitter {
 
         frontendCommunicator.send(
             "error",
-            "Please press the link button on your hue bridge, then click the link button in Firebot."
+            "Hueブリッジのリンクボタンを押してから、Firebotでリンクボタンをクリックしてください。"
         );
-        throw new Error("Please press the link button on your hue bridge, then click the link button in Firebot.");
+        throw new Error("Hueブリッジのリンクボタンを押してから、Firebotでリンクボタンをクリックしてください。");
     }
     async unlink() {
         await hueManager.deleteHueUser();

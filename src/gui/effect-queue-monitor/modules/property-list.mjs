@@ -6,25 +6,25 @@ const propertyList = {
         },
         title: {
             type: String,
-            default: "Properties"
+            default: "プロパティ"
         },
         emptyMessage: {
             type: String,
-            default: "No properties available."
+            default: "利用可能なプロパティはありません。"
         }
     },
     methods: {
         formatValue(value) {
             if (value === null || value === undefined) {
-                return 'Not set';
+                return '未設定';
             } else if (typeof value === 'object') {
                 return Array.isArray(value)
-                    ? `Array (${value.length} items)`
-                    : `Object (${Object.keys(value).length} properties)`;
+                    ? `配列 (${value.length} 件)`
+                    : `オブジェクト (${Object.keys(value).length} プロパティ)`;
             } else if (typeof value === 'boolean') {
-                return value ? 'Yes' : 'No';
+                return value ? 'はい' : 'いいえ';
             } else if (value === '') {
-                return 'Empty string';
+                return '空文字';
             }
             return value.toString();
         },

@@ -7,8 +7,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:chat-feed-alert",
-        name: "Chat Feed Alert",
-        description: "Display an alert in Firebot's chat feed",
+        name: "チャットフィードアラート",
+        description: "Firebot のチャットフィードにアラートを表示します",
         icon: "fad fa-exclamation-circle",
         categories: ["common", "dashboard", "chat based"],
         dependencies: []

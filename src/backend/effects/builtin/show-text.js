@@ -14,8 +14,8 @@ const showText = {
    */
     definition: {
         id: "firebot:showtext",
-        name: "Show Text",
-        description: "Shows specified text in the overlay.",
+            name: "テキスト表示",
+            description: "指定したテキストをオーバーレイに表示します。",
         icon: "fad fa-text",
         categories: ["common", "overlay"],
         dependencies: []

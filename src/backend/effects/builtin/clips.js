@@ -15,8 +15,8 @@ const discordEmbedBuilder = require("../../integrations/builtin/discord/discord-
 const clip = {
     definition: {
         id: "firebot:clip",
-        name: "Create Clip",
-        description: "Creates a clip on Twitch.",
+        name: "クリップ作成",
+        description: "Twitch でクリップを作成します。",
         icon: "fad fa-film",
         categories: [EffectCategory.COMMON, EffectCategory.FUN, EffectCategory.TWITCH],
         dependencies: [EffectDependency.CHAT],

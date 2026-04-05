@@ -13,8 +13,8 @@ const celebration = {
    */
     definition: {
         id: "firebot:celebration",
-        name: "Celebration",
-        description: "Celebrate with firework overlay effects.",
+        name: "お祝い",
+        description: "花火のオーバーレイ演出で祝う",
         icon: "fad fa-birthday-cake",
         categories: [EffectCategory.FUN, EffectCategory.OVERLAY],
         dependencies: []
@@ -42,7 +42,7 @@ const celebration = {
         </div>
     </eos-container>
 
-    <eos-container header="Duration" pad-top="true">
+    <eos-container header="継続時間" pad-top="true">
         <firebot-input input-title="Seconds" data-type="number" model="effect.length" placeholder-text="5" menu-position="under"/>
     </eos-container>
 
@@ -50,7 +50,7 @@ const celebration = {
 
     <eos-container>
         <div class="effect-info alert alert-warning">
-            This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">Learn more</a>
+        このエフェクトを使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。<a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">これについて学ぶ</a>
         </div>
     </eos-container>
     `,
@@ -75,7 +75,7 @@ const celebration = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.celebration == null) {
-            errors.push("Please select how you'd like to celebrate.");
+            errors.push("お祝いの方法をお選びください");
         }
         return errors;
     },

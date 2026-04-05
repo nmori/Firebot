@@ -13,7 +13,7 @@ export const TransitionDurationVariable: ReplaceVariable = {
     definition: {
         handle: "obsTransitionDuration",
         description:
-      "The new duration (in milliseconds) of the OBS transition that was updated.",
+            "更新された OBS トランジションの新しい長さ（ミリ秒）です。",
         possibleDataOutput: ["number"],
         categories: ["advanced", "integrations", "obs"],
         triggers: triggers

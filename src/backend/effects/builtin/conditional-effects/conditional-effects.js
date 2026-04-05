@@ -10,8 +10,8 @@ builtinConditionTypeLoader.registerConditionTypes();
 const model = {
     definition: {
         id: "firebot:conditional-effects",
-        name: "Conditional Effects",
-        description: "Conditionally run effects",
+        name: "条件付き演出",
+        description: "条件に応じて演出を実行します",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         icon: "fad fa-question-circle",
         dependencies: []
@@ -22,9 +22,9 @@ const model = {
 
         <div ui-sortable="sortableOptions" ng-model="effect.ifs">
             <div ng-repeat="ifCondition in effect.ifs" style="margin-bottom: 15px;">
-                <condition-section header="{{$index === 0 ? 'If' : 'Else If'}}" label="ifCondition.label" initially-open="$index === 0 && openFirst">
+                <condition-section header="{{$index === 0 ? 'もし' : '上記不成立で、もし'}}" label="ifCondition.label" initially-open="$index === 0 && openFirst">
                     <condition-list condition-data="ifCondition.conditionData" trigger="trigger" trigger-meta="triggerMeta"></condition-list>
-                    <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">Then run the following effects:</div>
+                    <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">以下の演出を実行する:</div>
                     <effect-list effects="ifCondition.effectData"
                         trigger="{{trigger}}"
                         trigger-meta="triggerMeta"
@@ -32,20 +32,20 @@ const model = {
                         modalId="{{modalId}}"></effect-list>
 
                     <div style="margin-top: 10px">
-                        <button class="btn btn-default" ng-click="duplicateClauseAtIndex($index)" title="Duplicate Condition"><i class="far fa-clone"></i></button>
-                        <button class="btn btn-danger" ng-click="deleteClauseAtIndex($index)" title="Delete Condition"><i class="far fa-trash"></i></button>
+                        <button class="btn btn-default" ng-click="duplicateClauseAtIndex($index)" title="条件を複製"><i class="far fa-clone"></i></button>
+                        <button class="btn btn-danger" ng-click="deleteClauseAtIndex($index)" title="条件を削除"><i class="far fa-trash"></i></button>
                     </div>
                 </condition-section>
             </div>
         </div>
 
-            <button class="btn btn-link" ng-click="addIf()"><i class="fal fa-plus-circle"></i> Add <strong>{{effect.ifs.length === 0 ? 'If' : 'Else If'}}</strong> Clause</button>
+            <button class="btn btn-link" ng-click="addIf()"><i class="fal fa-plus-circle"></i> <strong>{{effect.ifs.length === 0 ? '' : '追加で'}}</strong> 分岐条件を追加</button>
 
             <div style="margin-top: 15px;">
 
-                <condition-section header="Otherwise" label="effect.otherwiseLabel" draggable="false">
+                <condition-section header="未成立時" label="effect.otherwiseLabel" draggable="false">
                     <div style="padding-bottom: 10px;padding-left: 2px;font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;">
-                        <span>If none of the above conditions pass, run the following effects:</span>
+                        <span>上記のいずれの条件もパスしない場合は、以下の演出を実行する：</span>
                     </div>
                     <effect-list effects="effect.otherwiseEffectData"
                         trigger="{{trigger}}"
@@ -60,8 +60,8 @@ const model = {
         <eos-container header="Options" pad-top="true">
             <firebot-checkbox
                 model="effect.bubbleOutputs"
-                label="Apply effect outputs to parent list"
-                tooltip="Whether or not you want any effect outputs to be made available to the parent effect list."
+                label="親リストに演出出力を適用する"
+                tooltip="演出出力を親演出リストで利用可能にするかどうか"
             />
         </eos-container>
     `,
@@ -91,17 +91,17 @@ const model = {
         $scope.duplicateClauseAtIndex = ($index) => {
             const newCondition = objectCopyHelper.copyAndReplaceIds($scope.effect.ifs[$index]);
             newCondition.label = newCondition.label?.length
-                ? `${newCondition.label} Copy`
-                : "Copy";
+                ? `${newCondition.label} コピー`
+                : "コピー";
 
             $scope.effect.ifs.splice($index + 1, 0, newCondition);
         };
 
         $scope.deleteClauseAtIndex = ($index) => {
             utilityService.showConfirmationModal({
-                title: "Remove Clause",
-                question: `Are you sure you want to remove this ${$index === 0 ? 'IF' : 'IF ELSE'} clause?`,
-                confirmLabel: "Remove",
+                title: "条件を削除",
+                question: `本当に削除しますか？ ${$index === 0 ? 'IF' : 'IF ELSE'} ?`,
+                confirmLabel: "削除する",
                 confirmBtnType: "btn-danger"
             }).then((confirmed) => {
                 if (confirmed) {

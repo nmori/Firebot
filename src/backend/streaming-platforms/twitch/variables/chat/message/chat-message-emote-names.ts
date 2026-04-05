@@ -16,10 +16,10 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "chatMessageEmoteNames[1]",
-                description: "Get the name of a specific emote."
+                description: "指定したインデックスのエモート名を取得します。"
             }
         ],
-        description: "Outputs the names of a chat message's emotes from the associated command or event.",
+        description: "関連するコマンドまたはイベントのチャットメッセージに含まれるエモート名を出力します。",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["text"]

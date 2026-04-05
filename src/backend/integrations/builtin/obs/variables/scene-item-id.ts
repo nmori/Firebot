@@ -10,7 +10,7 @@ export const SceneItemIdVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneItemId",
         description:
-      "The numeric ID of the OBS scene item that triggered the event.",
+            "イベントを発火した OBS シーンアイテムの数値IDです。",
         possibleDataOutput: ["number"],
         categories: ["advanced", "integrations", "obs"],
         triggers: triggers

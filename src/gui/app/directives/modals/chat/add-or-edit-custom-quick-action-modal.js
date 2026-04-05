@@ -6,28 +6,28 @@
             template: `
                 <div class="modal-header" style="text-align: center">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNewQuickAction ? "Add" : "Edit"}} Quick Action</h4>
+                    <h4 class="modal-title">{{$ctrl.isNewQuickAction ? "追加" : "編集"}} クイックアクション</h4>
                 </div>
                 <div class="modal-body py-8 px-14">
                     <div class="mb-6">
-                        <h3>Name</h3>
-                        <p class="muted">The name will also be the tooltip when you hover the Quick Action.</p>
-                        <input type="text" class="form-control" placeholder="Enter name" ng-model="$ctrl.quickAction.name" required>
+                        <h3>名前</h3>
+                        <p class="muted">この名前は、クイックアクションにマウスを重ねたときのツールチップにも表示されます。</p>
+                        <input type="text" class="form-control" placeholder="名前を入力" ng-model="$ctrl.quickAction.name" required>
                     </div>
                     <div class="mb-6">
-                        <h3>Icon</h3>
-                        <p class="muted">A custom icon which allows you to identify your Quick Action.</p>
+                        <h3>アイコン</h3>
+                        <p class="muted">クイックアクションを識別しやすくするためのカスタムアイコンです。</p>
                         <input maxlength="2" type="text" class="form-control" ng-model="$ctrl.quickAction.icon" icon-picker required>
                     </div>
                     <div>
-                        <h3>Effect list</h3>
-                        <p class="muted">The effect list that will be run when the Quick Action is triggered.</p>
-                        <dropdown-select options="{ custom: 'Custom', preset: 'Preset'}" selected="$ctrl.listType"></dropdown-select>
+                        <h3>エフェクトリスト</h3>
+                        <p class="muted">クイックアクション実行時に実行されるエフェクトリストです。</p>
+                        <dropdown-select options="{ custom: 'カスタム', preset: 'プリセット'}" selected="$ctrl.listType"></dropdown-select>
                         <div ng-if="$ctrl.listType === 'preset'" class="mt-8">
                             <firebot-searchable-select
                                 ng-model="$ctrl.quickAction.presetListId"
                                 items="$ctrl.presetEffectLists"
-                                placeholder="Select or search for a preset effect list..."
+                                placeholder="プリセットのエフェクトリストを選択または検索..."
                                 on-select="$ctrl.presetListSelected(item)"
                             />
                         </div>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div ng-if="$ctrl.listType === 'preset' && $ctrl.currentPresetArgs.length > 0">
-                        <h3>Arguments</h3>
+                        <h3>引数</h3>
                         <div style="margin: 15px 0;display:flex;align-items:center;">
                             <toggle-button
                                 toggle-model="$ctrl.quickAction.promptForArgs"
@@ -49,7 +49,7 @@
                                 style="display:inline-block;"
                             />
                             <span class="ml-2">
-                                Prompt for args when quick action triggered
+                                クイックアクション実行時に引数入力を求める
                             </span>
                         </div>
                         <div ng-if="!$ctrl.quickAction.promptForArgs">
@@ -64,15 +64,15 @@
                                     model="$ctrl.quickAction.presetArgValues[arg.name]"
                                     input-type="string"
                                     disable-variables="true"
-                                    placeholder-text="Enter value"
+                                    placeholder-text="値を入力"
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer sticky-footer">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {
@@ -130,7 +130,7 @@
 
                 $ctrl.save = function() {
                     if ($ctrl.quickAction.name == null || $ctrl.quickAction.name === "") {
-                        ngToast.create("Please provide a name for this Quick Action");
+                        ngToast.create("このクイックアクションの名前を入力してください");
                         return;
                     }
 
@@ -138,7 +138,7 @@
                         ($ctrl.quickAction.presetListId == null || $ctrl.quickAction.presetListId === "") &&
                         ($ctrl.quickAction.effectList == null || !$ctrl.quickAction.effectList.list.length)
                     ) {
-                        ngToast.create("Please select a Custom or Preset Effect List for this Quick Action");
+                        ngToast.create("このクイックアクションにカスタムまたはプリセットのエフェクトリストを選択してください");
                         return;
                     }
 
@@ -158,7 +158,7 @@
                     if (successful) {
                         $ctrl.close();
                     } else {
-                        ngToast.create("Failed to save custom quick action. Please try again or view logs for details.");
+                        ngToast.create("カスタムクイックアクションの保存に失敗しました。再試行するか、ログを確認してください。");
                     }
                 };
             }

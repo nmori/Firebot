@@ -8,20 +8,20 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Import Items From TXT</h4>
+                <h4 class="modal-title">TXT から項目をインポート</h4>
             </div>
             <div class="modal-body">
 
                 <div>
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Txt File
+                        TXT ファイル
                     </div>
                     <file-chooser model="$ctrl.filePath" options="{ filters: [ {name:'Text',extensions:['txt']} ]}"></file-chooser>
                 </div>
 
                 <div style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Separator <tooltip text="'Tell Firebot how the items in the txt file are separated'"></tooltip>
+                        区切り文字 <tooltip text="'TXT ファイル内で項目がどのように区切られているかを指定します'"></tooltip>
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="options-sounds" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -29,17 +29,17 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="options-sounds">
-                            <li><a href ng-click="$ctrl.delimiter = 'newline'">Newline</a></li>
-                            <li><a href ng-click="$ctrl.delimiter = 'comma'">Comma</a></li>
-                            <li><a href ng-click="$ctrl.delimiter = 'space'">Space</a></li>
+                            <li><a href ng-click="$ctrl.delimiter = 'newline'">改行</a></li>
+                            <li><a href ng-click="$ctrl.delimiter = 'comma'">カンマ</a></li>
+                            <li><a href ng-click="$ctrl.delimiter = 'space'">スペース</a></li>
                         </ul>
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.import()">Import</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.import()">インポート</button>
             </div>
             `,
             bindings: {

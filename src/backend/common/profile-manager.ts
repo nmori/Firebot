@@ -111,7 +111,7 @@ class ProfileManager {
         } catch (error) {
             const errorMessage = (error as Error).name === "DatabaseError" ? error?.inner?.message ?? error.stack : error;
             logger.error(`Error saving ${profileId} profile to global settings. Is the file locked or corrupted?`, errorMessage);
-            dialog.showErrorBox("Error Loading Profile", `An error occurred while trying to load your ${profileId} profile. Please try starting Firebot again. If this issue continues, please reach out on our Discord for support.`);
+            dialog.showErrorBox("プロフィールの読み込みエラー", `${profileId} プロフィールの読み込み中にエラーが発生しました。Firebot を再起動してもう一度お試しください。問題が続く場合は、Discord でサポートにお問い合わせください。`);
             app.quit();
             return;
         }

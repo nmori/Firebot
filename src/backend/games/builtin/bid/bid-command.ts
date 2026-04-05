@@ -72,10 +72,10 @@ async function stopBidding(chatter: string): Promise<void> {
 const bidCommand: SystemCommand = {
     definition: {
         id: BID_COMMAND_ID,
-        name: "Bid",
+        name: "入札",
         active: true,
         trigger: "!bid",
-        description: "Allows viewers to participate in the Bid game.",
+        description: "視聴者が入札ゲームに参加できます。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
@@ -84,7 +84,7 @@ const bidCommand: SystemCommand = {
                 id: "bidStart",
                 arg: "start",
                 usage: "start [currencyAmount]",
-                description: "Starts the bidding at the given amount.",
+                description: "指定金額で入札を開始します。",
                 hideCooldowns: true,
                 restrictionData: {
                     restrictions: [
@@ -104,7 +104,7 @@ const bidCommand: SystemCommand = {
                 id: "bidStop",
                 arg: "stop",
                 usage: "stop",
-                description: "Manually stops the bidding. Highest bidder wins.",
+                description: "入札を手動停止します。最高額入札者が勝利します。",
                 hideCooldowns: true,
                 restrictionData: {
                     restrictions: [
@@ -125,7 +125,7 @@ const bidCommand: SystemCommand = {
                 arg: "\\d+",
                 regex: true,
                 usage: "[currencyAmount]",
-                description: "Joins the bidding at the given amount.",
+                description: "指定金額で入札に参加します。",
                 hideCooldowns: true
             }
         ]

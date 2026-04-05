@@ -6,20 +6,20 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNew ? 'Add' : 'Edit'}} Header</h4>
+                    <h4 class="modal-title">{{$ctrl.isNew ? '追加' : '編集'}} ヘッダー</h4>
                 </div>
                 <div class="modal-body">
 
                     <form name="headerInfo">
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('key')}">
-                            <label for="key" class="control-label">Key</label>
+                            <label for="key" class="control-label">キー</label>
                             <input 
                                 type="text" 
                                 id="key" 
                                 name="key" 
                                 class="form-control input-lg" 
-                                placeholder="Enter key"
+                                placeholder="キーを入力"
                                 ng-model="$ctrl.header.key"
                                 ui-validate="'$value != null && $value.length > 0'" 
                                 required
@@ -29,13 +29,13 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('value')}">
-                            <label for="value" class="control-label">Value</label>
+                            <label for="value" class="control-label">値</label>
                             <input 
                                 type="text" 
                                 id="value" 
                                 name="value" 
                                 class="form-control input-lg" 
-                                placeholder="Enter value"
+                                placeholder="値を入力"
                                 ng-model="$ctrl.header.value"
                                 ui-validate="'$value != null && $value.length > 0'" 
                                 required
@@ -47,8 +47,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {

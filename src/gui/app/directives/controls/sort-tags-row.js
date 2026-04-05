@@ -24,7 +24,7 @@
                         <button
                             role="button"
                             class="sort-tag-add mb-px"
-                            aria-label="Add tag"
+                            aria-label="タグを追加"
                         >
                             <i class="far fa-plus"></i>
                         </button>
@@ -33,9 +33,9 @@
                         <button
                             role="button"
                             class="sort-tag-add mb-px"
-                            aria-label="Edit tags"
+                            aria-label="タグを編集"
                         >
-                            {{getSortTags().length}} tags <i class="far fa-chevron-right"></i>
+                            {{getSortTags().length}} 件 <i class="far fa-chevron-right"></i>
                         </button>
                     </div>
                     <script type="text/ng-template" id="sortTagsPopover.html">
@@ -49,11 +49,11 @@
                                 <div class="control__indicator"></div>
                             </label>
                             <div class="button mb-2" ng-click="editSortTags()" ng-if="sts.getSortTags($ctrl.context).length === 0">
-                                Add tags
+                                タグを追加
                             </div>
                             <hr class="divider mt-1 mb-1" ng-if="sts.getSortTags($ctrl.context).length > 0" />
                             <div class="button mt-4 mb-2" ng-click="editSortTags()" ng-if="sts.getSortTags($ctrl.context).length > 0">
-                                Add/edit tags
+                                タグを追加/編集
                             </div>
                         </div>
                     </script>

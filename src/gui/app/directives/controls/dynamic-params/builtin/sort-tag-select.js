@@ -11,7 +11,7 @@
           <div>
             <firebot-searchable-select
                 ng-model="$ctrl.local"
-                placeholder="Select or search for a sort tag..."
+                placeholder="ソートタグを選択または検索..."
                 items="sortTags"
             />
           </div>

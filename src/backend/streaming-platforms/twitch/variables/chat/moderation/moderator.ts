@@ -8,7 +8,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "moderator",
-        description: "The name of the moderator that performed the action (ban, unban, timeout, chat mode change, shoutout, or raid create/cancel).",
+        description: "操作（BAN/解除/タイムアウト/チャットモード変更/シャウトアウト/レイド開始・取消）を実行したモデレーター名です。",
         triggers: triggers,
         categories: ["user based", "trigger based"],
         possibleDataOutput: ["text"]

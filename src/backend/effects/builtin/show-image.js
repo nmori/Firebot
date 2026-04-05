@@ -18,8 +18,8 @@ const showImage = {
      */
     definition: {
         id: "firebot:showImage",
-        name: "Show Image/GIF",
-        description: "Shows an image in the overlay.",
+        name: "画像/GIF表示",
+        description: "オーバーレイに画像を表示します。",
         icon: "fad fa-image",
         categories: [EffectCategory.COMMON, EffectCategory.FUN, EffectCategory.OVERLAY],
         dependencies: []

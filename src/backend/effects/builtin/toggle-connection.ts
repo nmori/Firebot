@@ -14,8 +14,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:toggleconnection",
-        name: "Toggle Connection",
-        description: "Toggle connection to Twitch and any linked Integrations",
+        name: "接続切り替え",
+        description: "Twitch および連携済み Integrations との接続状態を切り替えます",
         icon: "fad fa-plug",
         categories: ["advanced", "firebot control"],
         dependencies: []

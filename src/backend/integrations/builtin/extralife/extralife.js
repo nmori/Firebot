@@ -6,16 +6,16 @@ const extraLifeVariableLoader = require("./variables/extralife-variable-loader")
 const integrationDefinition = {
     id: "extralife",
     name: "ExtraLife",
-    description: "ExtraLife Donation events",
+    description: "ExtraLife 寄付イベント",
     connectionToggle: true,
     linkType: "id",
     idDetails: {
         steps:
-`1. Navigate to your ExtraLife Page via the **Your Page** nav link.
+`1. **Your Page** ナビリンクから ExtraLife ページを開きます。
 
-2. Look for your "Participant ID" in the URL bar, it should be the numbers following \`participantID=\`.
+2. URL バーの "Participant ID" を確認します。\`participantID=\` の後ろの数字が対象です。
 
-3. Paste your Participant ID below.`
+3. その Participant ID を下に貼り付けてください。`
     }
 };
 
@@ -29,24 +29,24 @@ class ExtraLifeIntegration extends EventEmitter {
         EventManager.registerEventSource({
             id: "extralife",
             name: "ExtraLife",
-            description: "Donation events from ExtraLife",
+            description: "ExtraLife 由来の寄付イベント",
             events: [
                 {
                     id: "donation",
-                    name: "Donation",
-                    description: "When someone donates to your ExtraLife campaign.",
+                    name: "寄付",
+                    description: "誰かがあなたの ExtraLife キャンペーンへ寄付したとき。",
                     cached: false,
                     manualMetadata: {
                         from: "ExtraLife",
                         formattedDonationAmount: 5,
                         donationAmount: 5,
-                        donationMessage: "Test message"
+                        donationMessage: "テストメッセージ"
                     },
                     isIntegration: true,
                     activityFeed: {
                         icon: "fad fa-money-bill",
                         getMessage: (eventData) => {
-                            return `**${eventData.from}** donated **${eventData.formattedDonationAmount}** to ExtraLife${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                            return `**${eventData.from}** が ExtraLife に **${eventData.formattedDonationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                         }
                     }
                 }

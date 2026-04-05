@@ -23,8 +23,8 @@ const playVideo = {
      */
     definition: {
         id: "firebot:playvideo",
-        name: "Play Video",
-        description: "Plays a local, Youtube, or Twitch video in the overlay.",
+        name: "動画再生",
+        description: "ローカル、YouTube、または Twitch の動画をオーバーレイで再生します。",
         icon: "fad fa-video",
         categories: ["common", "overlay", "fun"],
         dependencies: [],

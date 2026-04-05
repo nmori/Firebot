@@ -8,13 +8,13 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Discord Channel</h4>
+                <h4 class="modal-title">Discord チャンネル</h4>
             </div>
             <div class="modal-body">
 
                 <div>
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        File
+                        ファイル
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.descError}">
@@ -24,27 +24,27 @@
                                 aria-describedby="pathHelpBlock"
                                 options="{ filters: [ {name: 'Any File', extensions: ['*']} ]}"
                             ></file-chooser>
-                            <span id="pathHelpBlock" class="help-block" ng-show="$ctrl.pathError">Please select a file.</span>
+                            <span id="pathHelpBlock" class="help-block" ng-show="$ctrl.pathError">ファイルを選択してください。</span>
                         </div>
                     </div>
                 </div>
 
                 <div style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        File Name
+                        ファイル名
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.nameError}">
-                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.file.name" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="Enter filename">
-                            <span id="helpBlock" class="help-block" ng-show="$ctrl.nameError">Please provide a filename.</span>
+                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.file.name" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="ファイル名を入力">
+                            <span id="helpBlock" class="help-block" ng-show="$ctrl.nameError">ファイル名を入力してください。</span>
                         </div>
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
             bindings: {

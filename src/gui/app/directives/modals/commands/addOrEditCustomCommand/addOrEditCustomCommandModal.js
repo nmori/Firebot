@@ -21,7 +21,7 @@
                 active: true,
                 simple: !settingsService.getSetting("DefaultToAdvancedCommandMode"),
                 sendCooldownMessage: true,
-                cooldownMessage: "This command is still on cooldown for: {timeLeft}",
+                cooldownMessage: "このコマンドはまだクールダウン中です: {timeLeft}",
                 cooldown: {},
                 effects: {
                     id: randomUUID(),
@@ -39,18 +39,18 @@
             };
 
             $ctrl.sharedChatRadioOptions = {
-                true: "Allow",
-                false: "Ignore",
-                inherit: { text: "Inherit", tooltip: "Inherit settings from Settings > Triggers > Allow Shared Chat To Trigger Commands" }
+                true: "許可",
+                false: "無視",
+                inherit: { text: "継承", tooltip: "設定 > トリガー > 共有チャットでコマンド実行を許可 の設定を継承します" }
             };
 
             $scope.trigger = "command";
 
             $scope.aliasesListOptions = {
                 useTextArea: false,
-                addLabel: "New Alias",
-                editLabel: "Edit Alias",
-                validationText: "Alias cannot be empty",
+                addLabel: "新しいエイリアス",
+                editLabel: "エイリアスを編集",
+                validationText: "エイリアスは空にできません",
                 noDuplicates: true
             };
 
@@ -60,21 +60,21 @@
                     const willBeRemoved = [];
                     if ($ctrl.command.effects.list.length > 1 ||
                         $ctrl.command.effects.list.some(e => e.type !== "firebot:chat")) {
-                        willBeRemoved.push("all effects save for a single Chat effect");
+                        willBeRemoved.push("チャットエフェクトを1つ残し、それ以外のエフェクト");
                     }
                     if ($ctrl.command.restrictionData.restrictions.length > 1 ||
                         $ctrl.command.restrictionData.restrictions.some(r => r.type !== "firebot:permissions")) {
-                        willBeRemoved.push("all non-Permission restrictions");
+                        willBeRemoved.push("権限以外の制限");
                     }
                     if ($ctrl.command.fallbackSubcommand != null ||
                         ($ctrl.command.subCommands && $ctrl.command.subCommands.length > 0)) {
-                        willBeRemoved.push("all Subcommands");
+                        willBeRemoved.push("すべてのサブコマンド");
                     }
                     if (willBeRemoved.length > 0) {
                         utilityService.showConfirmationModal({
-                            title: "Switch To Simple Mode",
-                            question: `Switching to Simple Mode will remove: ${willBeRemoved.join(", ")}. Are you sure you want to switch?`,
-                            confirmLabel: "Switch",
+                            title: "シンプルモードに切り替え",
+                            question: `シンプルモードへ切り替えると、${willBeRemoved.join("、")}が削除されます。切り替えますか？`,
+                            confirmLabel: "切り替える",
                             confirmBtnType: "btn-danger"
                         }).then((confirmed) => {
                             if (confirmed) {
@@ -100,19 +100,19 @@
                         !settingsService.getSetting("SeenAdvancedCommandModePopup")) {
                         settingsService.saveSetting("SeenAdvancedCommandModePopup", true);
                         utilityService.showConfirmationModal({
-                            title: "Default Mode",
-                            question: `Do you want to always use Advanced Mode for new Commands?`,
-                            tip: "Note: You can change this in Settings > Triggers at any time",
-                            confirmLabel: "Yes",
+                            title: "デフォルトモード",
+                            question: `新しいコマンドで常に詳細モードを使用しますか？`,
+                            tip: "補足: この設定は 設定 > トリガー でいつでも変更できます",
+                            confirmLabel: "はい",
                             confirmBtnType: "btn-default",
-                            cancelLabel: "Not right now",
+                            cancelLabel: "今はしない",
                             cancelBtnType: "btn-default"
                         }).then((confirmed) => {
                             if (confirmed) {
                                 settingsService.saveSetting("DefaultToAdvancedCommandMode", true);
                                 ngToast.create({
                                     className: 'success',
-                                    content: "New commands will now default to Advanced Mode.",
+                                    content: "新しいコマンドのデフォルトを詳細モードにしました。",
                                     timeout: 7000
                                 });
                             }
@@ -142,7 +142,7 @@
                 }
 
                 if ($ctrl.command.cooldownMessage == null) {
-                    $ctrl.command.cooldownMessage = "This command is still on cooldown for: {timeLeft}";
+                    $ctrl.command.cooldownMessage = "このコマンドはまだクールダウン中です: {timeLeft}";
                 }
 
                 if ($ctrl.command.aliases == null) {
@@ -164,18 +164,18 @@
             };
 
             $ctrl.deleteSubcommand = (id) => {
-                let name = "fallback";
+                let name = "フォールバック";
 
                 if (id !== "fallback-subcommand") {
                     const subCmd = $ctrl.command.subCommands.find(c => c.id === id);
 
                     switch (subCmd.type) {
                         case "Username":
-                            name = "username";
+                            name = "ユーザー名";
                             break;
 
                         case "Number":
-                            name = "number";
+                            name = "数値";
                             break;
 
                         case "Custom":
@@ -185,9 +185,9 @@
                 }
 
                 utilityService.showConfirmationModal({
-                    title: "Delete Subcommand",
-                    question: `Are you sure you want to delete the ${name} subcommand?`,
-                    confirmLabel: "Delete",
+                    title: "サブコマンドを削除",
+                    question: `${name} サブコマンドを削除してもよろしいですか？`,
+                    confirmLabel: "削除",
                     confirmBtnType: "btn-danger"
                 }).then((confirmed) => {
                     if (confirmed) {
@@ -245,9 +245,9 @@
                     return;
                 }
                 utilityService.showConfirmationModal({
-                    title: "Delete Command",
-                    question: `Are you sure you want to delete this command?`,
-                    confirmLabel: "Delete",
+                    title: "コマンドを削除",
+                    question: `このコマンドを削除してもよろしいですか？`,
+                    confirmLabel: "削除",
                     confirmBtnType: "btn-danger"
                 }).then((confirmed) => {
                     if (confirmed) {
@@ -258,20 +258,20 @@
 
             $ctrl.save = function () {
                 if ($ctrl.command.trigger == null || $ctrl.command.trigger === "") {
-                    ngToast.create("Please provide a trigger.");
+                    ngToast.create("トリガーを入力してください。");
                     return;
                 }
 
                 if ($ctrl.command.simple) {
                     const responseMessage = $ctrl.command.effects.list[0] && $ctrl.command.effects.list[0].message && $ctrl.command.effects.list[0].message.trim();
                     if (!responseMessage || responseMessage === "") {
-                        ngToast.create("Please provide a response message.");
+                        ngToast.create("返信メッセージを入力してください。");
                         return;
                     }
                 }
 
                 if (commandsService.triggerExists($ctrl.command.trigger, $ctrl.command.id)) {
-                    ngToast.create("A custom command with this trigger already exists.");
+                    ngToast.create("このトリガーを使ったカスタムコマンドは既に存在します。");
                     return;
                 }
 

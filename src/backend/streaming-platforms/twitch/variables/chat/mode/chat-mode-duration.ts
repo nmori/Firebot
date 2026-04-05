@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "chatModeDuration",
-        description: "The duration relevant to either follower (minutes) or slow (seconds) mode.",
+        description: "フォロワー（分）またはスロー（秒）モードに対応する時間です。",
         triggers: triggers,
         categories: ["trigger based"],
         possibleDataOutput: ["number"]

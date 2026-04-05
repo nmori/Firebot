@@ -9,7 +9,7 @@
                 <div
                     ng-if="channelRewardsService.loadingRedemptions"
                     class="queue-loader-overlay">
-                    <div>Loading requests...</div>
+                    <div>リクエストを読み込み中...</div>
                 </div>
                 <div class="queue-manager-content">
                     <div class="queue-rewards-column">
@@ -17,7 +17,7 @@
                             selected="selectedReward == null"
                             ng-click="setSelectedReward(null)"
                         >
-                            <span>All requests ({{totalRedemptionsCount()}})</span>
+                            <span>すべてのリクエスト ({{totalRedemptionsCount()}})</span>
                         </queue-reward-wrapper>
                         <queue-reward-item
                             ng-repeat="(rewardId, redemptions) in channelRewardsService.redemptions | hideEmptyRewardQueues track by rewardId"
@@ -38,7 +38,7 @@
                        </div>
                        <div class="queue-footer">
                           <firebot-button
-                                text="Complete All"
+                                text="すべて完了"
                                 size="small"
                                 icon="fa-check"
                                 ng-click="approveOrRejectAll(true)"
@@ -46,7 +46,7 @@
                                 disabled="isLoading || !hasRedemptions()"
                             />
                             <firebot-button
-                                text="Reject All"
+                                text="すべて却下"
                                 type="danger"
                                 size="small"
                                 icon="fa-times"
@@ -82,9 +82,9 @@
                 $scope.approveOrRejectAll = (approve = false) => {
                     utilityService
                         .showConfirmationModal({
-                            title: approve ? "Complete All Requests" : "Reject All Requests",
-                            question: `Are you sure you want to ${approve ? "complete" : "reject"} all requests?`,
-                            confirmLabel: approve ? "Complete All" : "Reject All",
+                            title: approve ? "すべてのリクエストを完了" : "すべてのリクエストを却下",
+                            question: `すべてのリクエストを${approve ? "完了" : "却下"}しますか？`,
+                            confirmLabel: approve ? "すべて完了" : "すべて却下",
                             confirmBtnType: approve ? "btn-info" : "btn-danger"
                         })
                         .then((confirmed) => {

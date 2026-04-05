@@ -7,17 +7,17 @@ const { EffectCategory } = require("../../shared/effect-constants");
         template: `
             <div class="select-effect-header modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Select New Effect</h4>
+                <h4 class="modal-title">新しいエフェクトを選択</h4>
             </div>
             <div class="modal-body">
                 <div class="select-effect-search">
-                    <searchbar search-id="effectSearch" placeholder-text="Search effects..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
+                    <searchbar search-id="effectSearch" placeholder-text="エフェクトを検索..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
                 </div>
                 <div style="display: flex;flex-direction:row;height: 450px;">
                     <div class="select-effect-categories">
-                        <div class="select-effect-category-header muted">Categories</div>
+                        <div class="select-effect-category-header muted">カテゴリ</div>
                         <div class="select-effect-category" ng-class="{'selected': $ctrl.activeCategory == null}" ng-click="$ctrl.activeCategory = null;">
-                            <div>All</div>
+                            <div>すべて</div>
                         </div>
                         <div class="select-effect-category" ng-repeat="category in $ctrl.categories" ng-class="{'selected': $ctrl.activeCategory === category}" ng-click="$ctrl.activeCategory = category;">
                             <div>
@@ -25,7 +25,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
                                 <tooltip
                                     style="margin-left: 5px"
                                     ng-if="category === 'integrations'"
-                                    text="'Integrations need to be linked / configured in Settings -> Integrations in order for the effects to work.'"
+                                    text="'連携カテゴリのエフェクトを使用するには、設定 -> 連携 でリンク/設定が必要です。'"
                                 ></tooltip>
                             </div>
                         </div>
@@ -46,12 +46,12 @@ const { EffectCategory } = require("../../shared/effect-constants");
             </div>
             <div class="sticky-bottom-element select-effect-footer">
                 <div>
-                    <div style="font-size: 12px;font-weight: 600;" class="muted">SELECTED EFFECT:</div>
-                    <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "None"}}</div>
+                    <div style="font-size: 12px;font-weight: 600;" class="muted">選択中のエフェクト:</div>
+                    <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "なし"}}</div>
                 </div>
                 <div class="flex">
-                    <button type="button" class="btn btn-link mr-4" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">Select</button>
+                    <button type="button" class="btn btn-link mr-4" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">選択</button>
                 </div>
             </div>
             <scroll-sentinel element-class="select-effect-footer"></scroll-sentinel>
@@ -96,7 +96,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
 
             $ctrl.save = function() {
                 if ($ctrl.selectedEffectDef == null) {
-                    ngToast.create("Please select an effect!");
+                    ngToast.create("エフェクトを選択してください！");
                     return;
                 }
 

@@ -8,8 +8,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:twitch-shoutout",
-        name: "Twitch Shoutout",
-        description: "Send a Twitch shoutout to another channel",
+        name: "Twitch シャウトアウト",
+        description: "別のチャンネルに Twitch シャウトアウトを送信します",
         icon: "fad fa-bullhorn",
         categories: ["common", "twitch"],
         dependencies: {

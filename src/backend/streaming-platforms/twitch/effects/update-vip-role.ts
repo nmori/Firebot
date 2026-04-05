@@ -9,7 +9,7 @@ const model: EffectType<{
     definition: {
         id: "firebot:update-vip-role",
         name: "VIP",
-        description: "Add or remove the VIP role of a user",
+        description: "ユーザーの VIP ロールを追加または削除します",
         icon: "far fa-gem",
         categories: ["common", "moderation", "twitch"],
         dependencies: ["chat"]

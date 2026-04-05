@@ -8,11 +8,11 @@
             template: `
                 <div>
                     <firebot-setting
-                        name="Default Effect Labels"
-                        description="When enabled, Firebot will automatically generate labels for (most) effects that don't have a custom label set."
+                        name="デフォルトのエフェクトラベル"
+                        description="有効時、カスタムラベル未設定の（ほとんどの）エフェクトに対して Firebot が自動でラベルを生成します。"
                     >
                         <firebot-select
-                            options="{ true: 'On', false: 'Off' }"
+                            options="{ true: 'オン', false: 'オフ' }"
                             ng-init="effectLabelsEnabled = settings.getSetting('DefaultEffectLabelsEnabled')"
                             selected="effectLabelsEnabled"
                             on-update="settings.saveSetting('DefaultEffectLabelsEnabled', option === 'true')"

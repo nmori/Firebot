@@ -3,9 +3,9 @@ import bidCommand from "./bid-command";
 
 const game: FirebotGame = {
     id: "firebot-bid",
-    name: "Bid",
-    subtitle: "Put something up for auction",
-    description: "This allows the Streamer (or mods) to start an auction for something which users can then place bids for. Useful as a giveaway tool that uses channel currency! Once bidding has started, users can type '!bid [bidAmount]' in chat. When a user is outbid they get their currency back. The winner will lose whatever currency they bid.",
+    name: "入札",
+    subtitle: "オークション形式で競り合う",
+    description: "配信者（またはモデレーター）がオークションを開始し、視聴者が通貨を使って入札できるゲームです。!bid [金額] で参加でき、上回られた入札者には通貨が返金されます。最終的な落札者は入札額分の通貨を消費します。",
     icon: "fa-gavel",
     settingCategories: {
         currencySettings: {

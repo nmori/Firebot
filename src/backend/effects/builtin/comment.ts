@@ -5,8 +5,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:comment",
-        name: "Comment",
-        description: "Add a comment to your effect list (does nothing when triggered)",
+        name: "コメント",
+        description: "エフェクトリストにコメントを追加します（実行時の動作はありません）",
         icon: "fad fa-comment-alt-lines",
         categories: ["common"],
         dependencies: [],

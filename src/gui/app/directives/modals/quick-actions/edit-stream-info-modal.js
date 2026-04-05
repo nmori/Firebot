@@ -6,7 +6,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Edit Stream Info</h4>
+                    <h4 class="modal-title">配信情報を編集</h4>
                 </div>
                 <div class="modal-body">
 
@@ -20,23 +20,23 @@
 
                     <form ng-show="$ctrl.dataLoaded" name="streamInfo">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('title')}">
-                            <label for="title" class="control-label">Stream Title</label>
+                            <label for="title" class="control-label">配信タイトル</label>
                             <input
                                 type="text"
                                 id="title"
                                 name="title"
                                 required
                                 class="form-control input-lg"
-                                placeholder="Give your stream a title"
+                                placeholder="配信タイトルを入力"
                                 ng-model="$ctrl.streamInfo.title"
                             />
                         </div>
 
                         <div class="form-group">
-                            <label for="game" class="control-label">Category</label>
+                            <label for="game" class="control-label">カテゴリ</label>
                             <div style="display:flex">
                                 <ui-select style="width: 100%; min-width: 0;" ng-model="$ctrl.selectedGame" required input-id="game" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.gameSelected($item)">
-                                    <ui-select-match placeholder="Search for category...">
+                                    <ui-select-match placeholder="カテゴリを検索...">
                                         <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
                                             <img style="height: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
                                             <div style="font-weight: 100; font-size: 17px; overflow: hidden; text-overflow: ellipsis;">{{$select.selected.name}}</div>
@@ -52,8 +52,8 @@
                                 <div ng-show="$ctrl.selectedGame != null" style="margin-left: 3px">
                                     <button
                                         class="btn btn-default"
-                                        aria-label="Clear category"
-                                        uib-tooltip="Clear category"
+                                        aria-label="カテゴリをクリア"
+                                        uib-tooltip="カテゴリをクリア"
                                         ng-click="$ctrl.removeCategory()">
                                         <i class="far fa-times"></i>
                                     </button>
@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="form-group" style="margin-bottom: 0;">
-                            <label for="tags" class="control-label">Stream Tags</label>
+                            <label for="tags" class="control-label">配信タグ</label>
                             <div style="display: block" role="list">
                                 <div class="role-bar" id="tags" ng-repeat="tag in $ctrl.streamInfo.tags" role="listitem">
                                     <span>{{tag}}</span>
@@ -70,8 +70,8 @@
                                         role="button"
                                         class="clickable"
                                         style="padding-left: 10px;"
-                                        aria-label="Remove {{tag}} tag"
-                                        uib-tooltip="Remove tag"
+                                        aria-label="{{tag}} タグを削除"
+                                        uib-tooltip="タグを削除"
                                         tooltip-append-to-body="true"
                                         ng-click="$ctrl.removeStreamTag(tag)"
                                     >
@@ -82,8 +82,8 @@
                                     class="role-bar clickable"
                                     ng-show="$ctrl.streamInfo.tags.length < 10"
                                     role="button"
-                                    aria-label="Add tag"
-                                    uib-tooltip="Add tag"
+                                    aria-label="タグを追加"
+                                    uib-tooltip="タグを追加"
                                     tooltip-append-to-body="true"
                                     ng-click="$ctrl.openAddStreamTagsModal()"
                                 >
@@ -95,8 +95,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {
@@ -153,9 +153,9 @@
                 $ctrl.openAddStreamTagsModal = function() {
                     utilityService.openGetInputModal(
                         {
-                            label: "Add Stream Tag",
-                            saveText: "Add",
-                            inputPlaceholder: "Enter a tag",
+                            label: "配信タグを追加",
+                            saveText: "追加",
+                            inputPlaceholder: "タグを入力",
                             validationFn: (value) => {
                                 return new Promise((resolve) => {
                                     // Must be alphanumeric no more than 25 characters
@@ -172,7 +172,7 @@
                                     }
                                 });
                             },
-                            validationText: "Tag name cannot be empty, must contain a maximum of 25 alphanumeric characters, cannot contain spaces, and must be unique."
+                            validationText: "タグ名は空欄不可、英数字25文字以内、スペース不可、かつ重複不可です。"
                         },
                         (tag) => {
                             $ctrl.streamInfo.tags.push(tag);
@@ -212,7 +212,7 @@
                     }
                     ngToast.create({
                         className: 'success',
-                        content: "Updated stream info!"
+                        content: "配信情報を更新しました！"
                     });
                     $ctrl.dismiss();
                 };

@@ -5,8 +5,8 @@ const { integration } = require("../elgato");
 const effect = {
     definition: {
         id: "elgato:key-lights",
-        name: "Update Elgato Key Lights",
-        description: "Turn Elgato Key Lights on or off, and change the temperature and brightness.",
+        name: "Elgato Key Light更新",
+        description: "Elgato Key Light のオン/オフ、色温度、明るさを変更します。",
         icon: "fad fa-lamp fa-align-center",
         categories: ["integrations"],
         dependencies: []

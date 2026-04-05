@@ -14,8 +14,8 @@
             },
             template: `
                 <div>
-                    <ui-select multiple ng-model="$ctrl.model" theme="bootstrap" close-on-select="false" class="control-type-list" title="Choose options">
-                        <ui-select-match placeholder="Select...">{{$item.name}}<span ng-if="$item.description" class="ml-2 muted">({{$item.description}})</span></ui-select-match>
+                    <ui-select multiple ng-model="$ctrl.model" theme="bootstrap" close-on-select="false" class="control-type-list" title="オプションを選択">
+                        <ui-select-match placeholder="選択...">{{$item.name}}<span ng-if="$item.description" class="ml-2 muted">({{$item.description}})</span></ui-select-match>
                         <ui-select-choices repeat="item.id as item in $ctrl.settings.options | filter: {name: $select.search}" style="position:relative;">
                             <div class="flex-row-center">
                                 <div ng-if="item.iconClass" class="my-0 mx-4" style="width: 20px;height: 100%;font-size:16px;text-align: center;flex-shrink: 0;">

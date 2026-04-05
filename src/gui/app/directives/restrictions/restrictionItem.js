@@ -40,14 +40,14 @@
                             ></restriction-options>
                             <div style="padding-top: 20px">
                                 <firebot-checkbox
-                                    label="Invert Condition"
-                                    tooltip="Makes this restriction pass when it normally wouldn't — for example, allow only if the user is NOT a mod."
+                                    label="条件を反転"
+                                    tooltip="通常は通らない条件を通すようにします。例: ユーザーがモデレーターではない場合のみ許可。"
                                     model="$ctrl.restriction.invertCondition"
                                     style="margin: 0;"
                                 />
                             </div>
                             <div style="padding-top: 10px">
-                                <button class="btn btn-danger" ng-click="$ctrl.delete()" aria-label="Delete restriction"><i class="far fa-trash"></i></button>
+                                <button class="btn btn-danger" ng-click="$ctrl.delete()" aria-label="制限を削除"><i class="far fa-trash"></i></button>
                             </div>
                         </div>
                     </div>

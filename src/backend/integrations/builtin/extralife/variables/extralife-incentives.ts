@@ -5,27 +5,27 @@ import integrationManager from "../../../../integrations/integration-manager";
 const ExtraLifeIncentives: ReplaceVariable = {
     definition: {
         handle: "extraLifeIncentives",
-        description: "Returns information on extra life incentives. See examples for details.",
+        description: "Extra Life のインセンティブ情報を返します。詳細は例を参照してください。",
         examples: [
             {
                 usage: 'extraLifeIncentives[]',
-                description: "Returns one incentive for the logged in extra life account."
+                description: "ログイン中の Extra Life アカウントに対するインセンティブ1件を返します。"
             },
             {
                 usage: 'extraLifeIncentives[Play one handed]',
-                description: "Returns one incentive with the description 'Play one handed' for the logged in extra life account."
+                description: "ログイン中の Extra Life アカウントで、説明が 'Play one handed' のインセンティブ1件を返します。"
             },
             {
                 usage: 'extraLifeIncentives[Play one handed, 1, participantID]',
-                description: "Returns one incentive with the description 'Play one handed' for the given participant id."
+                description: "指定した participantID で、説明が 'Play one handed' のインセンティブ1件を返します。"
             },
             {
                 usage: 'extraLifeIncentives[null, 3, participantID]',
-                description: "Returns three incentives for given participant ID."
+                description: "指定した participantID のインセンティブを3件返します。"
             },
             {
                 usage: 'extraLifeIncentives[null, 10, null, true]',
-                description: "Returns ten incentives for current logged in extra life account in JSON format."
+                description: "現在ログイン中の Extra Life アカウントのインセンティブ10件を JSON 形式で返します。"
             }
         ],
         categories: ["common", "integrations"],

@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "chatModeState",
-        description: "The state of the chat mode, either 'enabled' or 'disabled'.",
+        description: "チャットモードの状態（enabled または disabled）です。",
         triggers: triggers,
         categories: ["trigger based"],
         possibleDataOutput: ["text"]

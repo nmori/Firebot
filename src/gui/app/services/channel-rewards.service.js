@@ -100,7 +100,7 @@
                             content: 'Successfully duplicated a channel reward!'
                         });
                     } else {
-                        ngToast.create("Unable to duplicate channel reward.");
+                        ngToast.create("チャンネル報酬の複製に失敗しました。");
                     }
                 });
             };

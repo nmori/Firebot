@@ -10,7 +10,7 @@
             $scope.showAddOrEditCustomRoleModal = (role) => {
                 utilityService.showModal({
                     component: "addOrEditCustomRoleModal",
-                    breadcrumbName: "Add/Edit Custom Role",
+                    breadcrumbName: "カスタムロールを追加/編集",
                     size: "sm",
                     resolveObj: {
                         role: () => role
@@ -33,7 +33,7 @@
             $scope.showViewTwitchRoleModal = (role) => {
                 utilityService.showModal({
                     component: "viewTwitchRoleModal",
-                    breadcrumbName: "View Twitch Role",
+                    breadcrumbName: "Twitch ロールを表示",
                     size: "sm",
                     resolveObj: {
                         role: () => role
@@ -69,20 +69,20 @@
             $scope.rankLadderMenuOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             viewerRanksService.showAddOrEditRankLadderModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             viewerRanksService.duplicateRankLadder(item.id);
                         }
                     },
                     ...(item.mode === "auto" ?
                         [{
-                            html: `<a href ><i class="far fa-calculator" style="margin-right: 10px;"></i> Recalculate Ranks</a>`,
+                            html: `<a href ><i class="far fa-calculator" style="margin-right: 10px;"></i> ランクを再計算</a>`,
                             click: function () {
                                 viewerRanksService.showRecalculateRanksModal(item);
                             }
@@ -90,13 +90,13 @@
                         ] : []
                     ),
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Rank Ladder",
-                                    question: `Are you sure you want to delete the Rank Ladder "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "ランクラダーを削除",
+                                    question: `ランクラダー "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {

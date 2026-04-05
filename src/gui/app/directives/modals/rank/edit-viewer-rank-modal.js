@@ -6,24 +6,24 @@
         .component("editViewerRankModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit Rank</h4>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">ランクを編集</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group mb-0">
-                    <label for="rank" class="control-label">Rank</label>
+                    <label for="rank" class="control-label">ランク</label>
                     <firebot-searchable-select
                         name="rank"
                         ng-model="$ctrl.rankId"
-                        placeholder="Select rank"
+                        placeholder="ランクを選択"
                         items="$ctrl.rankOptions"
                     >
                     </firebot-searchable-select>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
             bindings: {
@@ -53,7 +53,7 @@
                         name: r.name
                     })) ?? [];
                     $ctrl.rankOptions = [
-                        { id: undefined, name: "No rank" },
+                        { id: undefined, name: "ランクなし" },
                         ...ranks
                     ];
                 };

@@ -6,8 +6,8 @@ export const ChangeSceneCollectionEffectType: EffectType<{
 }> = {
     definition: {
         id: "ebiggz:obs-change-scene-collection",
-        name: "Change OBS Scene Collection",
-        description: "Change the active OBS Scene Collection",
+        name: "OBSシーンコレクション変更",
+        description: "有効な OBS シーンコレクションを変更します",
         icon: "fad fa-th-list",
         categories: ["common", "integrations"]
     },

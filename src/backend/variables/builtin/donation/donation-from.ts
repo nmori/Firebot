@@ -14,13 +14,13 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "donationFrom",
-        description: "The name of who sent a donation",
+        description: "寄付を送ったユーザー名",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["text"]
     },
     evaluator: (trigger) => {
-        const from = (trigger.metadata.eventData && trigger.metadata.eventData.from) || "Unknown User";
+        const from = (trigger.metadata.eventData && trigger.metadata.eventData.from) || "不明なユーザー";
 
         return from;
     }

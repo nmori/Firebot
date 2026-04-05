@@ -11,27 +11,27 @@
         template: `
           <div class="input-group-addon-normalize">
             <firebot-font-select
-                label="Name"
+                label="フォント名"
                 ng-model="$ctrl.modelValue.family"
             />
             <div class="pt-2">
                 <color-picker-input
                     model="$ctrl.modelValue.color"
                     alpha="$ctrl.allowAlpha"
-                    label="Color"
+                    label="色"
                 />
             </div>
             <div class="input-group pt-2">
-                <span class="input-group-addon">Size (px)</span>
+                <span class="input-group-addon">サイズ (px)</span>
                 <input
                     class="form-control"
                     type="number"
-                    placeholder="Enter a number"
+                    placeholder="数値を入力"
                     ng-model="$ctrl.modelValue.size"
                 />
             </div>
             <div class="input-group pt-2">
-                <span class="input-group-addon">Weight</span>
+                <span class="input-group-addon">太さ</span>
                 <select
                     class="form-control"
                     ng-model="$ctrl.modelValue.weight"
@@ -40,7 +40,7 @@
             </div>
             <div class="pt-2">
                 <firebot-checkbox
-                    label="Italic"
+                    label="斜体"
                     model="$ctrl.modelValue.italic"
                 />
             </div>

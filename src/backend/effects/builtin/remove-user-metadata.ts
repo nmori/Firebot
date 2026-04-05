@@ -7,8 +7,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:remove-user-metadata",
-        name: "Remove User Metadata",
-        description: "Remove a key from metadata associated to a given user",
+        name: "ユーザーメタデータ削除",
+        description: "指定したユーザーに紐づくメタデータからキーを削除します",
         icon: "fad fa-user-cog",
         categories: ["advanced", "scripting", "firebot control"],
         dependencies: []

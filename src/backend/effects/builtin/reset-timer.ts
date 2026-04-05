@@ -7,8 +7,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:reset-timer",
-        name: "Reset Timer",
-        description: "Force a timer to restart its interval",
+        name: "タイマーリセット",
+        description: "タイマーの間隔を強制的に再開始します",
         icon: "fad fa-stopwatch",
         categories: ["common", "firebot control"],
         dependencies: []

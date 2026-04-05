@@ -9,13 +9,13 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:pause-effect-queue",
-        name: "Pause/Resume Effect Queue",
-        description: "Pauses or resumes an effect queue. Effects sent to a paused queue will run once the queue is resumed.",
+        name: "演出キューの一時停止／再開",
+        description: "演出キューを一時停止または再開します。一時停止されたキューに送られた演出は、キューが再開されると実行されます。",
         icon: "fad fa-pause-circle",
         categories: ["scripting", "firebot control"]
     },
     optionsTemplate: `
-        <eos-container header="Effect Queue">
+        <eos-container header="演出キュー">
             <div class="btn-group" ng-if="effectQueues.length">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="list-effect-type">{{effectQueueName ? effectQueueName : 'Pick one'}}</span> <span class="caret"></span>
@@ -27,7 +27,7 @@ const effect: EffectType<{
                 </ul>
             </div>
             <div ng-if="!effectQueues.length">
-                You have no effect queues saved.
+                演出キューが保存されていない。
             </div>
         </eos-container>
 
@@ -38,20 +38,20 @@ const effect: EffectType<{
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.action = 'Pause'">
-                        <a href>Pause</a>
+                        <a href>一時停止</a>
                     </li>
                     <li ng-click="effect.action = 'Resume'">
-                        <a href>Resume</a>
+                        <a href>再開</a>
                     </li>
                     <li ng-click="effect.action = 'Toggle'">
-                        <a href>Toggle</a>
+                        <a href>切り替え</a>
                     </li>
                 </ul>
             </div>
             <firebot-checkbox
                 ng-if="effect.action === 'Pause' || effect.action === 'Toggle'"
-                label="Run Effects Immediately When Paused"
-                tooltip="When the queue is paused and effects are added to it, run them immediately instead of waiting for the queue to be resumed. This is useful if you want to temporarily pause queue functionality and have effects set to this queue to run as if there was no queue."
+                label="一時停止中は演出を即時実行"
+                tooltip="キューが一時停止中に演出が追加された場合、再開を待たずに即時実行します。キュー機能を一時的に止めたいが、演出は通常通り流したい場合に便利です。"
                 model="effect.runEffectsImmediatelyWhenPaused"
                 allow-indeterminate="true"
                 style="margin-top: 15px; margin-bottom: 0px;"
@@ -80,9 +80,9 @@ const effect: EffectType<{
         const errors: string[] = [];
 
         if (effect.effectQueue == null) {
-            errors.push("You must select an effect queue");
+            errors.push("演出キューを指定してください");
         } else if (effect.action == null) {
-            errors.push("You must select an action");
+            errors.push("アクションを選んでください");
         }
 
         return errors;

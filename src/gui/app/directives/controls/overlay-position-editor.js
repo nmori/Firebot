@@ -14,7 +14,7 @@
             },
             template: `
                 <div class="overlay-position-editor">
-                    <div class="overlay-dimensions" uib-tooltip="Overlay Resolution" tooltip-append-to-body="true" ng-click="$ctrl.openEditResolutionModal()">
+                    <div class="overlay-dimensions" uib-tooltip="オーバーレイ解像度" tooltip-append-to-body="true" ng-click="$ctrl.openEditResolutionModal()">
                         {{ $ctrl.overlayResWidth }} x {{ $ctrl.overlayResHeight }} <i class="far fa-edit" aria-hidden="true"></i>
                     </div>
                     <div class="overlay-canvas" ng-style="$ctrl.getCanvasStyle()">
@@ -47,16 +47,16 @@
 
                         <!-- Alignment buttons -->
                         <div class="alignment-controls">
-                            <button class="alignment-button" ng-click="$ctrl.centerHorizontally()" uib-tooltip="Center Horizontally" tooltip-append-to-body="true" title="Center Horizontally">
+                            <button class="alignment-button" ng-click="$ctrl.centerHorizontally()" uib-tooltip="水平中央に配置" tooltip-append-to-body="true" title="水平中央に配置">
                                 <i class="fas fa-arrows-alt-h"></i>
                             </button>
-                            <button class="alignment-button" ng-click="$ctrl.centerVertically()" uib-tooltip="Center Vertically" tooltip-append-to-body="true" title="Center Vertically">
+                            <button class="alignment-button" ng-click="$ctrl.centerVertically()" uib-tooltip="垂直中央に配置" tooltip-append-to-body="true" title="垂直中央に配置">
                                 <i class="fas fa-arrows-alt-v"></i>
                             </button>
-                            <button class="alignment-button" ng-click="$ctrl.centerBoth()" uib-tooltip="Center Both" tooltip-append-to-body="true" title="Center Both">
+                            <button class="alignment-button" ng-click="$ctrl.centerBoth()" uib-tooltip="中央に配置" tooltip-append-to-body="true" title="中央に配置">
                                 <i class="fas fa-bullseye"></i>
                             </button>
-                            <button class="alignment-button" ng-click="$ctrl.undoPosition()" ng-disabled="!$ctrl.canUndo()" uib-tooltip="Undo Last Change" tooltip-append-to-body="true" title="Undo Last Change">
+                            <button class="alignment-button" ng-click="$ctrl.undoPosition()" ng-disabled="!$ctrl.canUndo()" uib-tooltip="直前の変更を取り消し" tooltip-append-to-body="true" title="直前の変更を取り消し">
                                 <i class="fas fa-undo"></i>
                             </button>
                         </div>

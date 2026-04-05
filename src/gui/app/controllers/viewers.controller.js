@@ -55,7 +55,7 @@
                         } else {
                             ngToast.create({
                                 className: 'danger',
-                                content: 'Failed to export viewers'
+                                content: '視聴者データのエクスポートに失敗しました'
                             });
                         }
 
@@ -80,8 +80,8 @@
             $scope.showViewerSearchModal = () => {
                 utilityService.openViewerSearchModal(
                     {
-                        label: "Viewer Search",
-                        saveText: "Select"
+                        label: "視聴者検索",
+                        saveText: "選択"
                     },
                     (user) => {
                         $scope.showUserDetailsModal(user.id);
@@ -141,7 +141,7 @@
                     cellTemplate: `{{getViewTimeDisplay(data.minutesInChannel)}}`,
                     cellController: ($scope) => {
                         $scope.getViewTimeDisplay = (minutesInChannel) => {
-                            return minutesInChannel < 60 ? 'Less than an hour' : Math.round(minutesInChannel / 60);
+                            return minutesInChannel < 60 ? '1時間未満' : Math.round(minutesInChannel / 60);
                         };
                     }
                 },

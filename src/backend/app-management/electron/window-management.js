@@ -209,18 +209,18 @@ async function createAppMenu() {
      */
     const menuTemplate = [
         {
-            label: 'File',
+            label: 'ファイル',
             submenu: [
                 {
-                    label: "Firebot Setups",
-                    toolTip: "Create, import, or remove custom components via Firebot Setups",
-                    sublabel: "Create, import, or remove custom components via Firebot Setups",
+                    label: "Firebot セットアップ",
+                    toolTip: "Firebot セットアップでカスタム要素の作成・取り込み・削除を行います",
+                    sublabel: "Firebot セットアップでカスタム要素の作成・取り込み・削除を行います",
                     icon: await createIconImage("../../../gui/images/icons/mdi/file-document-multiple-outline.png"),
                     submenu: [
                         {
-                            label: 'Create Firebot Setup...',
-                            toolTip: "Create a new Firebot Setup (a collection of commands, events, currencies, etc) and share it with others!",
-                            sublabel: "Create a new Firebot Setup (a collection of commands, events, currencies, etc) and share it with others!",
+                            label: 'Firebot セットアップを作成...',
+                            toolTip: "コマンド・イベント・通貨などを含む Firebot セットアップを作成して共有します",
+                            sublabel: "コマンド・イベント・通貨などを含む Firebot セットアップを作成して共有します",
                             click: () => {
                                 frontendCommunicator.send("open-modal", {
                                     component: "createSetupModal"
@@ -229,9 +229,9 @@ async function createAppMenu() {
                             icon: await createIconImage("../../../gui/images/icons/mdi/export.png")
                         },
                         {
-                            label: 'Import Firebot Setup...',
-                            toolTip: "Import a Firebot Setup (.firebotsetup file) made by someone else!",
-                            sublabel: "Import a Firebot Setup (.firebotsetup file) made by someone else!",
+                            label: 'Firebot セットアップを取り込み...',
+                            toolTip: "他の人が作成した Firebot セットアップ（.firebotsetup）を取り込みます",
+                            sublabel: "他の人が作成した Firebot セットアップ（.firebotsetup）を取り込みます",
                             click: () => {
                                 frontendCommunicator.send("open-modal", {
                                     component: "importSetupModal"
@@ -240,9 +240,9 @@ async function createAppMenu() {
                             icon: await createIconImage("../../../gui/images/icons/mdi/import.png")
                         },
                         {
-                            label: 'Remove Firebot Setup...',
-                            toolTip: "Select a Setup file to have Firebot find and remove all matching components (commands, events, etc) currently saved for you.",
-                            sublabel: "Select a Setup file to have Firebot find and remove all matching components (commands, events, etc) currently saved for you.",
+                            label: 'Firebot セットアップを削除...',
+                            toolTip: "セットアップファイルを選択し、保存済みの一致する要素（コマンド・イベント等）を削除します",
+                            sublabel: "セットアップファイルを選択し、保存済みの一致する要素（コマンド・イベント等）を削除します",
                             click: () => {
                                 frontendCommunicator.send("open-modal", {
                                     component: "removeSetupModal"
@@ -256,9 +256,9 @@ async function createAppMenu() {
                     type: 'separator'
                 },
                 {
-                    label: 'Open Data Folder',
-                    toolTip: "Open the folder where Firebot data is stored",
-                    sublabel: "Open the folder where Firebot data is stored",
+                    label: 'データフォルダを開く',
+                    toolTip: "Firebot のデータが保存されているフォルダを開きます",
+                    sublabel: "Firebot のデータが保存されているフォルダを開きます",
                     click: () => {
                         const rootFolder = path.resolve(
                             ProfileManager.getPathInProfile("/")
@@ -268,9 +268,9 @@ async function createAppMenu() {
                     icon: await createIconImage("../../../gui/images/icons/mdi/folder-account-outline.png")
                 },
                 {
-                    label: 'Open Logs Folder',
-                    toolTip: "Open the folder where logs are stored",
-                    sublabel: "Open the folder where logs are stored",
+                    label: 'ログフォルダを開く',
+                    toolTip: "ログが保存されているフォルダを開きます",
+                    sublabel: "ログが保存されているフォルダを開きます",
                     click: () => {
                         const rootFolder = path.resolve(
                             dataAccess.getPathInUserData("/logs/")
@@ -280,9 +280,9 @@ async function createAppMenu() {
                     icon: await createIconImage("../../../gui/images/icons/mdi/folder-text-outline.png")
                 },
                 {
-                    label: 'Open Backups Folder',
-                    toolTip: "Open the folder where backups are stored",
-                    sublabel: "Open the folder where backups are stored",
+                    label: 'バックアップフォルダを開く',
+                    toolTip: "バックアップが保存されているフォルダを開きます",
+                    sublabel: "バックアップが保存されているフォルダを開きます",
                     click: () => {
                         const backupFolder = BackupManager.backupFolderPath;
                         shell.openPath(backupFolder);
@@ -293,60 +293,69 @@ async function createAppMenu() {
                     type: 'separator'
                 },
                 {
+                    label: 'アプリを終了',
                     role: 'quit',
                     icon: await createIconImage("../../../gui/images/icons/mdi/exit-run.png")
                 }
             ]
         },
         {
-            label: 'Edit',
+            label: '編集',
             submenu: [
                 {
+                    label: '切り取り',
                     role: 'cut',
                     icon: await createIconImage("../../../gui/images/icons/mdi/content-cut.png")
                 },
                 {
+                    label: 'コピー',
                     role: 'copy',
                     icon: await createIconImage("../../../gui/images/icons/mdi/content-copy.png")
                 },
                 {
+                    label: '貼り付け',
                     role: 'paste',
                     icon: await createIconImage("../../../gui/images/icons/mdi/content-paste.png")
                 },
                 {
+                    label: '元に戻す',
                     role: "undo",
                     icon: await createIconImage("../../../gui/images/icons/mdi/undo.png")
                 },
                 {
+                    label: 'やり直し',
                     role: "redo",
                     icon: await createIconImage("../../../gui/images/icons/mdi/redo.png")
                 },
                 {
+                    label: 'すべて選択',
                     role: "selectAll",
                     icon: await createIconImage("../../../gui/images/icons/mdi/select-all.png")
                 }
             ]
         },
         {
-            label: 'Window',
+            label: 'ウィンドウ',
             submenu: [
                 {
+                    label: '最小化',
                     role: 'minimize',
                     icon: await createIconImage("../../../gui/images/icons/mdi/window-minimize.png")
                 },
                 {
+                    label: '閉じる',
                     role: 'close',
                     icon: await createIconImage("../../../gui/images/icons/mdi/window-close.png")
                 }
             ]
         },
         {
-            label: 'Tools',
+            label: 'ツール',
             submenu: [
                 {
-                    label: 'Setup Wizard',
-                    toolTip: "Run the setup wizard again",
-                    sublabel: "Run the setup wizard again",
+                    label: 'セットアップウィザード',
+                    toolTip: "セットアップウィザードを再実行します",
+                    sublabel: "セットアップウィザードを再実行します",
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "setupWizardModal"
@@ -355,39 +364,39 @@ async function createAppMenu() {
                     icon: await createIconImage("../../../gui/images/icons/mdi/auto-fix.png")
                 },
                 {
-                    label: 'Restore from backup...',
-                    toolTip: "Restores Firebot from a backup",
-                    sublabel: "Restores Firebot from a backup",
+                    label: 'バックアップから復元...',
+                    toolTip: "バックアップから Firebot を復元します",
+                    sublabel: "バックアップから Firebot を復元します",
                     click: async () => {
                         frontendCommunicator.send("backups:start-restore-backup");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/backup-restore.png")
                 },
                 {
-                    label: 'Custom Variable Inspector',
-                    toolTip: "Open the custom variable inspector",
-                    sublabel: "Open the custom variable inspector",
+                    label: 'カスタム変数インスペクタ',
+                    toolTip: "カスタム変数インスペクタを開きます",
+                    sublabel: "カスタム変数インスペクタを開きます",
                     click: () => {
                         createVariableInspectorWindow();
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/text-search.png")
                 },
                 {
-                    label: 'Effect Queue Monitor',
-                    toolTip: "Open the effect queue monitor",
-                    sublabel: "Open the effect queue monitor",
+                    label: 'エフェクトキューモニター',
+                    toolTip: "エフェクトキューモニターを開きます",
+                    sublabel: "エフェクトキューモニターを開きます",
                     click: createEffectQueueMonitorWindow,
                     icon: await createIconImage("../../../gui/images/icons/mdi/queue-first-in-last-out.png")
                 },
                 {
-                    label: 'Open Overlay In Browser',
-                    toolTip: "Open Firebot's overlay in your default browser",
-                    sublabel: "Open Firebot's overlay in your default browser",
+                    label: 'オーバーレイをブラウザで開く',
+                    toolTip: "Firebot のオーバーレイを既定のブラウザで開きます",
+                    sublabel: "Firebot のオーバーレイを既定のブラウザで開きます",
                     submenu: [
                         {
-                            label: "Default",
-                            toolTip: "Open Firebot's default overlay in your default browser",
-                            sublabel: "Open Firebot's default overlay in your default browser",
+                            label: "デフォルト",
+                            toolTip: "Firebot のデフォルトオーバーレイを既定のブラウザで開きます",
+                            sublabel: "Firebot のデフォルトオーバーレイを既定のブラウザで開きます",
                             click: () => {
                                 const port = SettingsManager.getSetting("WebServerPort");
                                 shell.openExternal(`http://localhost:${port}/overlay`);
@@ -395,8 +404,8 @@ async function createAppMenu() {
                         },
                         ...overlayInstances.map(instance => ({
                             label: instance,
-                            toolTip: `Open Firebot's ${instance} overlay instance in your default browser`,
-                            sublabel: `Open Firebot's ${instance} overlay instance in your default browser`,
+                            toolTip: `Firebot の ${instance} オーバーレイを既定のブラウザで開きます`,
+                            sublabel: `Firebot の ${instance} オーバーレイを既定のブラウザで開きます`,
                             click: () => {
                                 const port = SettingsManager.getSetting("WebServerPort");
                                 shell.openExternal(`http://localhost:${port}/overlay?instance=${instance}`);
@@ -409,23 +418,25 @@ async function createAppMenu() {
                     type: 'separator'
                 },
                 {
+                    label: '開発者ツールを開く',
                     role: 'toggledevtools',
                     icon: await createIconImage("../../../gui/images/icons/mdi/tools.png")
                 }
             ]
         },
         {
-            role: 'Help',
+            label: 'ヘルプ',
+            role: 'help',
             submenu: [
                 {
-                    label: 'Join our Discord',
+                    label: '開発Discordに参加',
                     click: () => {
                         shell.openExternal("https://discord.gg/crowbartools-372817064034959370");
                     },
                     icon: await createIconImage("../../../gui/images/icons/discord.png")
                 },
                 {
-                    label: 'Follow @firebot.app on Bluesky',
+                    label: '@firebot.app をBlueskyでフォロー',
                     click: () => {
                         shell.openExternal("https://bsky.app/profile/firebot.app");
                     },
@@ -435,21 +446,21 @@ async function createAppMenu() {
                     type: 'separator'
                 },
                 {
-                    label: 'View Source on GitHub',
+                    label: 'GitHubでソースを見る',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/source-branch.png")
                 },
                 {
-                    label: 'Report a Bug',
+                    label: '不具合を報告',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&template=bug_report.yml");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/bug-outline.png")
                 },
                 {
-                    label: 'Request a Feature',
+                    label: '機能をリクエスト',
                     click: () => {
                         shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&template=feature_request.md");
                     },
@@ -459,21 +470,21 @@ async function createAppMenu() {
                     type: 'separator'
                 },
                 {
-                    label: 'Merch Store',
+                    label: 'マーチストア',
                     click: () => {
                         shell.openExternal("https://crowbar-tools.myspreadshop.com");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/shopping-outline.png")
                 },
                 {
-                    label: 'Donate',
+                    label: '寄付する',
                     click: () => {
                         shell.openExternal("https://opencollective.com/crowbartools");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/hand-heart-outline.png")
                 },
                 {
-                    label: 'Submit a Testimonial',
+                    label: '感想を投稿',
                     click: () => {
                         shell.openExternal("https://firebot.app/testimonial-submission");
                     },
@@ -483,7 +494,7 @@ async function createAppMenu() {
                     type: 'separator'
                 },
                 {
-                    label: 'Copy Debug Info...',
+                    label: 'デバッグ情報をコピー...',
                     click: () => {
                         copyDebugInfoToClipboard();
                     },
@@ -493,14 +504,14 @@ async function createAppMenu() {
                     type: 'separator'
                 },
                 {
-                    label: 'About Firebot...',
+                    label: 'Firebotについて...',
                     click: () => {
                         frontendCommunicator.send("open-about-modal");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/information-outline.png")
                 },
                 {
-                    label: 'Release Notes...',
+                    label: 'リリースノート...',
                     click: () => {
                         frontendCommunicator.send("open-modal", {
                             component: "updateModal"

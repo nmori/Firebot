@@ -16,8 +16,8 @@ const currency = {
    */
     definition: {
         id: "firebot:currency",
-        name: "Update Currency",
-        description: "Update a viewers currency.",
+        name: "通貨更新",
+        description: "視聴者の通貨を更新します。",
         icon: "fad fa-money-bill",
         categories: ["common", "fun", "firebot control"],
         dependencies: [],

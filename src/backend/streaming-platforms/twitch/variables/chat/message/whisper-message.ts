@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "whisperMessage",
-        description: "The message included with the whisper.",
+        description: "ウィスパーに含まれるメッセージ本文です。",
         triggers: triggers,
         categories: ["trigger based", "common"],
         possibleDataOutput: ["text"]

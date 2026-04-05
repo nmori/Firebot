@@ -30,8 +30,8 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
 } & screenshotHelpers.ScreenshotEffectData> = {
     definition: {
         id: "firebot:obs-source-screenshot",
-        name: "Take OBS Source Screenshot",
-        description: "Takes a screenshot of an OBS Source and saves it.",
+        name: "OBSソーススクリーンショット撮影",
+        description: "OBS ソースのスクリーンショットを撮影して保存します。",
         icon: "fad fa-camera-retro",
         categories: ["common", "integrations"],
         outputs: [

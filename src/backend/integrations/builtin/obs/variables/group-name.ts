@@ -11,7 +11,7 @@ export const GroupNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsGroupName",
         description:
-            "The name of the OBS group containing the item that triggered the event, or 'Unknown' if the element isn't grouped.",
+            "イベントを発火したアイテムを含む OBS グループ名です。グループ外の場合は 'Unknown' です。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"],
         triggers: triggers

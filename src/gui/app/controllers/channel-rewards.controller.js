@@ -44,7 +44,7 @@
                     },
                     dataField: "twitchData.title",
                     sortable: true,
-                    cellTemplate: `{{data.twitchData.title}} <i ng-hide="data.manageable" class="fas fa-lock muted" style="font-size: 12px;" uib-tooltip="This reward was created either outside of Firebot or in an older version. Its settings cannot be changed in Firebot." />`,
+                    cellTemplate: `{{data.twitchData.title}} <i ng-hide="data.manageable" class="fas fa-lock muted" style="font-size: 12px;" uib-tooltip="この報酬は Firebot 外部または旧バージョンで作成されたため、Firebot では設定を変更できません。" />`,
                     cellController: () => { }
                 },
                 {
@@ -56,7 +56,7 @@
                     cellController: () => { }
                 },
                 {
-                    cellTemplate: `<span class="paused-dot" style="margin-right: 5px" ng-class="{'paused': data.twitchData.isPaused, 'unpaused': !data.twitchData.isPaused}"></span>{{data.twitchData.isPaused ? 'Paused' : 'Unpaused' }}`,
+                    cellTemplate: `<span class="paused-dot" style="margin-right: 5px" ng-class="{'paused': data.twitchData.isPaused, 'unpaused': !data.twitchData.isPaused}"></span>{{data.twitchData.isPaused ? '一時停止中' : '稼働中' }}`,
                     cellController: () => { }
                 }
             ];
@@ -65,13 +65,13 @@
             $scope.rewardMenuOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ${item.manageable ? "Edit" : "Edit Effects"}</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ${item.manageable ? "編集" : "エフェクトを編集"}</a>`,
                         click: function () {
                             channelRewardsService.showAddOrEditRewardModal(item);
                         }
                     },
                     {
-                        html: `<a href uib-tooltip="This reward was created either outside of Firebot or in an older version. Its enabled status cannot be edited." tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.twitchData.isEnabled ? "Disable Channel Reward" : "Enable Channel Reward"}</a>`,
+                        html: `<a href uib-tooltip="この報酬は Firebot 外部または旧バージョンで作成されたため、有効状態を変更できません。" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.twitchData.isEnabled ? "チャンネル報酬を無効化" : "チャンネル報酬を有効化"}</a>`,
                         click: function () {
                             item.twitchData.isEnabled = !item.twitchData.isEnabled;
                             channelRewardsService.saveChannelReward(item);
@@ -80,7 +80,7 @@
                         enabled: item.manageable
                     },
                     {
-                        html: `<a href uib-tooltip="This reward was created either outside of Firebot or in an older version. Its paused status cannot be edited." tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.twitchData.isPaused ? "Unpause Channel Reward" : "Pause Channel Reward"}</a>`,
+                        html: `<a href uib-tooltip="この報酬は Firebot 外部または旧バージョンで作成されたため、一時停止状態を変更できません。" tooltip-enable="${!item.manageable}"><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.twitchData.isPaused ? "チャンネル報酬の一時停止を解除" : "チャンネル報酬を一時停止"}</a>`,
                         click: function () {
                             item.twitchData.isPaused = !item.twitchData.isPaused;
                             channelRewardsService.saveChannelReward(item);
@@ -89,20 +89,20 @@
                         enabled: item.manageable
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: function () {
                             channelRewardsService.duplicateChannelReward(item.id);
                         },
                         enabled: channelRewardsService.channelRewards.length < 50
                     },
                     {
-                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="This reward was created either outside of Firebot or in an older version. It cannot be deleted from here." tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="この報酬は Firebot 外部または旧バージョンで作成されたため、ここから削除できません。" tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Channel Reward",
-                                    question: `Are you sure you want to delete the Channel Reward "${item.twitchData.title}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "チャンネル報酬を削除",
+                                    question: `チャンネル報酬 "${item.twitchData.title}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {

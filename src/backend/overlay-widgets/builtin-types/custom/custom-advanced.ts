@@ -9,8 +9,8 @@ type State = {};
 
 export const customAdvanced: OverlayWidgetType<Settings, State> = {
     id: "firebot:custom-advanced",
-    name: "Custom Widget (Advanced)",
-    description: "Advanced custom widget that leaves everything up to you. Supply JavaScript to handle events in the overlay and modify the DOM as you see fit.",
+    name: "カスタムウィジェット（高度）",
+    description: "すべてを自由に設計できる高度なカスタムウィジェットです。JavaScript でオーバーレイ上のイベント処理と DOM 操作を行えます。",
     icon: "fa-cogs",
     settingsSchema: [
         {

@@ -21,7 +21,7 @@
                             <div style="display: flex; align-items: center;">
                                 <h3 style="margin: 0px;font-weight: bold;padding-left: 15px;">{{$ctrl.header}}</h3>
                                 <span ng-show="$ctrl.label != null && $ctrl.label != ''" class="muted" style="margin-left:10px;font-size:15px;">({{$ctrl.label}})</span>
-                                <div class="clickable conditionTag" uib-tooltip="Edit clause label" tooltip-append-to-body="true" ng-click="$event.stopPropagation();$ctrl.showEditLabelModal();" ng-class="{'hiddenBtn': !hovering}">
+                                <div class="clickable conditionTag" uib-tooltip="句ラベルを編集" tooltip-append-to-body="true" ng-click="$event.stopPropagation();$ctrl.showEditLabelModal();" ng-class="{'hiddenBtn': !hovering}">
                                     <i class="fas fa-tag"></i>
                                 </div>
                             </div>
@@ -55,8 +55,8 @@
                     utilityService.openGetInputModal(
                         {
                             model: $ctrl.label,
-                            label: "Clause Label",
-                            saveText: "Save",
+                            label: "句ラベル",
+                            saveText: "保存",
                             validationFn: () => {
                                 return new Promise((resolve) => {
                                     resolve(true);

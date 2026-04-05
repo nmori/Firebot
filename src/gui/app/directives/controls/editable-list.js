@@ -25,13 +25,13 @@
                                 <span ng-if="$ctrl.settings.hintTemplate != null" class="muted">{{ $ctrl.settings.hintTemplate.replace("{index}", $ctrl.settings.indexZeroBased ? $index : $index + 1).replace("{name}", item) }}</span>
                             </div>
                             <div class="flex items-center justify-center">
-                                <div ng-if="$ctrl.settings.showCopyButton" uib-tooltip="Copy" class="clickable mr-4" style="color: white;" ng-click="$ctrl.copyItem($index);" aria-label="Edit item">
+                                <div ng-if="$ctrl.settings.showCopyButton" uib-tooltip="コピー" class="clickable mr-4" style="color: white;" ng-click="$ctrl.copyItem($index);" aria-label="項目をコピー">
                                     <i class="fas fa-copy" aria-hidden="true"></i>
                                 </div>
-                                <div uib-tooltip="Edit" class="clickable mr-4" style="color: white;" ng-click="$ctrl.editItem($index);" aria-label="Edit item">
+                                <div uib-tooltip="編集" class="clickable mr-4" style="color: white;" ng-click="$ctrl.editItem($index);" aria-label="項目を編集">
                                     <i class="fas fa-edit" aria-hidden="true"></i>
                                 </div>
-                                <div uib-tooltip="Remove" class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeItem($index);$event.stopPropagation();" aria-label="Remove item">
+                                <div uib-tooltip="削除" class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeItem($index);$event.stopPropagation();" aria-label="項目を削除">
                                     <i class="fad fa-trash-alt" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             ng-disabled="$ctrl.maxItemsReached()"
                             class="filter-bar"
                             ng-class="{ muted: $ctrl.maxItemsReached() }"
-                            uib-tooltip="{{!$ctrl.maxItemsReached() ? $ctrl.settings.addLabel : 'Maximum reached' }}"
+                                uib-tooltip="{{!$ctrl.maxItemsReached() ? $ctrl.settings.addLabel : '上限に達しました' }}"
                             tooltip-append-to-body="true"
                             aria-label="{{$ctrl.settings.addLabel}}"
                         >
@@ -70,11 +70,11 @@
                     showCopyButton: false,
                     hintTemplate: undefined,
                     copyTemplate: "{name}",
-                    addLabel: "Add",
-                    editLabel: "Edit",
+                    addLabel: "追加",
+                    editLabel: "編集",
                     customValidators: undefined,
-                    validationText: "Text cannot be empty",
-                    noneAddedText: "None saved",
+                    validationText: "テキストは空にできません",
+                    noneAddedText: "保存済み項目はありません",
                     noDuplicates: false,
                     maxItems: undefined,
                     trigger: undefined,
@@ -105,18 +105,18 @@
                             model: model,
                             label: isNew ? $ctrl.settings.addLabel : $ctrl.settings.editLabel,
                             useTextArea: $ctrl.settings.useTextArea,
-                            saveText: "Save",
+                            saveText: "保存",
                             validationFn: $ctrl.settings.validationFn ?? ((value, initialValue) => {
                                 return new Promise(async (resolve) => {
                                     if (value == null || value.trim().length < 1) {
                                         resolve({
                                             success: false,
-                                            reason: "Text cannot be empty"
+                                            reason: "テキストは空にできません"
                                         });
                                     } else if ($ctrl.settings.noDuplicates && value !== initialValue && $ctrl.model.some(i => i === value)) {
                                         resolve({
                                             success: false,
-                                            reason: "Must be unique"
+                                            reason: "一意である必要があります"
                                         });
                                     } else {
                                         if ($ctrl.settings.customValidators) {
@@ -132,7 +132,7 @@
                                                     console.error(e);
                                                     resolve({
                                                         success: false,
-                                                        reason: "An error occurred"
+                                                        reason: "エラーが発生しました"
                                                     });
                                                     return;
                                                 }
@@ -156,7 +156,7 @@
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model[index] = newItem;
                         } else {
-                            ngToast.create("Cannot edit: Duplicate found");
+                            ngToast.create("編集できません: 重複する項目があります");
                         }
                     });
                 };
@@ -170,7 +170,7 @@
 
                     ngToast.create({
                         className: 'info',
-                        content: `Copied '${copyText}' to clipboard`
+                        content: `「${copyText}」をクリップボードにコピーしました`
                     });
                 };
 
@@ -180,7 +180,7 @@
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model.push(newItem);
                         } else {
-                            ngToast.create("Cannot add: Duplicate found");
+                            ngToast.create("追加できません: 重複する項目があります");
                         }
                     });
                 };

@@ -6,8 +6,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:ad-break",
-        name: "Ad Break",
-        description: "Trigger an ad break",
+        name: "広告ブレイク",
+        description: "広告ブレイクを開始します",
         icon: "fad fa-ad",
         categories: ["common", "twitch"],
         dependencies: {

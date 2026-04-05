@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputMutedVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputMuted",
-        description: "Returns `true` if the OBS input is muted or `false` if it is not.",
+        description: "OBS 入力がミュートなら `true`、そうでなければ `false` を返します。",
         possibleDataOutput: ["bool"],
         categories: ["advanced", "integrations", "obs"]
     },

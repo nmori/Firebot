@@ -8,8 +8,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:toggle-overlay-widgets",
-        name: "Toggle Overlay Widgets",
-        description: "Toggle the active status of overlay widgets.",
+        name: "オーバーレイウィジェット切り替え",
+        description: "オーバーレイウィジェットの有効状態を切り替えます。",
         icon: "fad fa-toggle-off",
         categories: ["overlay", "advanced", "firebot control"],
         dependencies: []

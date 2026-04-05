@@ -6,7 +6,7 @@
             template: `
             <div class="modal-header sticky-header" style="text-align: center">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Quick Action Settings</h4>
+                <h4 class="modal-title">クイックアクション設定</h4>
             </div>
             <div class="modal-body py-8 px-14">
                 <firebot-item-table
@@ -15,18 +15,18 @@
                     on-items-update="$ctrl.onItemsUpdate()"
                     headers="$ctrl.headers"
                     orderable="true"
-                    add-new-button-text="Add new Quick Action"
+                    add-new-button-text="新しいクイックアクションを追加"
                     on-add-new-clicked="$ctrl.quickActionsService.showAddOrEditCustomQuickActionModal()"
                     context-menu-options="$ctrl.createQuickActionMenuOptions(item)"
-                    no-data-message="No Quick Actions have been saved. You should make one! :)"
-                    none-found-message="No Quick Actions found."
+                    no-data-message="クイックアクションはまだ保存されていません。作成してみましょう。"
+                    none-found-message="クイックアクションが見つかりません。"
                     hide-search="true"
                     test-button="true"
                     on-test-button-clicked="$ctrl.quickActionsService.triggerQuickAction(itemId)"
                 />
             </div>
             <div class="modal-footer sticky-footer">
-                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Close</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">閉じる</button>
             </div>
             `,
             bindings: {
@@ -59,7 +59,7 @@
                         cellController: () => {}
                     },
                     {
-                        cellTemplate: `<status-indicator status="getStatus(data)" enabled-label="Enabled" disabled-label="Disabled" />`,
+                        cellTemplate: `<status-indicator status="getStatus(data)" enabled-label="有効" disabled-label="無効" />`,
                         cellController: ($scope) => {
                             $scope.getStatus = (action) => {
                                 return quickActionsService.settings[action.id].enabled;
@@ -95,7 +95,7 @@
                     const isEnabled = quickActionsService.settings[action.id].enabled;
                     const quickActionMenuOptions = [
                         {
-                            html: `<a href ><i class="fal fa-toggle-off mr-4"></i> ${isEnabled ? "Disable" : "Enable"} Quick Action</a>`,
+                            html: `<a href ><i class="fal fa-toggle-off mr-4"></i> クイックアクションを${isEnabled ? "無効化" : "有効化"}</a>`,
                             click: () => {
                                 quickActionsService.settings[action.id].enabled = !quickActionsService.settings[action.id].enabled;
                                 quickActionsService.saveQuickActionSettings();
@@ -106,13 +106,13 @@
                     if (action.type === "custom") {
                         quickActionMenuOptions.push(
                             {
-                                html: `<a href ><i class="far fa-edit mr-4"></i> Edit Quick Action</a>`,
+                                html: `<a href ><i class="far fa-edit mr-4"></i> クイックアクションを編集</a>`,
                                 click: () => {
                                     $ctrl.quickActionsService.showAddOrEditCustomQuickActionModal(action);
                                 }
                             },
                             {
-                                html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> Delete</a>`,
+                                html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> 削除</a>`,
                                 click: () => {
                                     $ctrl.quickActionsService.deleteCustomQuickAction(action.id);
                                 }

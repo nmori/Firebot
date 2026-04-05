@@ -4,7 +4,7 @@ import tinycolor from "tinycolor2";
 export const ColorValueVariable: ReplaceVariable = {
     definition: {
         handle: "obsColorValue",
-        description: "Returns an OBS color value based on either a hex color code (e.g. #0066FF) or an HTML color name.",
+        description: "16進カラーコード（例: #0066FF）または HTML カラー名に基づく OBS カラー値を返します。",
         categories: ["advanced", "integrations", "obs"],
         possibleDataOutput: ["number"]
     },

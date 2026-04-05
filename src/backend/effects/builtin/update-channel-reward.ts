@@ -40,8 +40,8 @@ function updateRewardEnabledOrPaused(effect: EffectMeta, channelReward: SavedCha
 const effect: EffectType<EffectMeta> = {
     definition: {
         id: "firebot:update-channel-reward",
-        name: "Update Channel Reward",
-        description: "Update settings for a channel reward",
+        name: "チャンネル特典の更新",
+        description: "チャンネル特典の設定を更新する",
         icon: "fad fa-gifts",
         categories: ["advanced", "twitch", "fun", "firebot control"],
         dependencies: []
@@ -54,19 +54,19 @@ const effect: EffectType<EffectMeta> = {
             </firebot-radios>
         </eos-container>
 
-        <eos-container ng-if="effect.rewardSelectMode == 'dropdown'" header="Channel Reward">
+        <eos-container ng-if="effect.rewardSelectMode == 'dropdown'" header="チャンネル特典">
             <firebot-searchable-select
                 ng-model="effect.channelRewardId"
                 items="manageableRewards"
-                placeholder="Select or search for a channel reward..."
+                placeholder="チャンネル特典を選択または検索..."
             />
         </eos-container>
 
-        <eos-container ng-if="effect.rewardSelectMode == 'sortTag'" header="Channel Reward Tags">
+        <eos-container ng-if="effect.rewardSelectMode == 'sortTag'" header="チャンネル特典タグ">
             <firebot-searchable-select
                 ng-model="effect.sortTagId"
                 items="sortTags"
-                placeholder="Select or search for a tag..."
+                placeholder="タグを選択または検索..."
             />
         </eos-container>
 
@@ -90,15 +90,15 @@ const effect: EffectType<EffectMeta> = {
                     {{getToggleEnabledDisplay(effect.rewardSettings.enabled.newValue)}} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = true"><a href>Enable</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = false"><a href>Disable</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = 'toggle'"><a href>Toggle</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = true"><a href>有効</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = false"><a href>無効</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.enabled.newValue = 'toggle'"><a href>切り替え</a></li>
                     </ul>
                 </div>
             </div>
 
             <firebot-checkbox
-                label="Update Paused"
+                label="更新を一時停止する"
                 model="effect.rewardSettings.paused.update"
                 aria-label="Toggle paused"
             />
@@ -108,9 +108,9 @@ const effect: EffectType<EffectMeta> = {
                     {{getTogglePausedDisplay(effect.rewardSettings.paused.newValue)}} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = true"><a href>Paused</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = false"><a href>Unpaused</a></li>
-                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = 'toggle'"><a href>Toggle</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = true"><a href>一時停止</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = false"><a href>停止を解除</a></li>
+                        <li role="menuitem" ng-click="effect.rewardSettings.paused.newValue = 'toggle'"><a href>切り替え</a></li>
                     </ul>
                 </div>
             </div>
@@ -119,28 +119,28 @@ const effect: EffectType<EffectMeta> = {
                 <firebot-checkbox
                     label="Update Name"
                     model="effect.rewardSettings.name.update"
-                    aria-label="Update name"
+                    aria-label="更新名"
                 />
                 <div ng-show="effect.rewardSettings.name.update" style="margin-bottom: 15px;">
-                    <firebot-input model="effect.rewardSettings.name.newValue" placeholder-text="Enter text" />
+                    <firebot-input model="effect.rewardSettings.name.newValue" placeholder-text="テキストを入力" />
                 </div>
 
                 <firebot-checkbox
                     label="Update Description"
                     model="effect.rewardSettings.description.update"
-                    aria-label="Update description"
+                    aria-label="更新内容"
                 />
                 <div ng-show="effect.rewardSettings.description.update" style="margin-bottom: 15px;">
-                    <firebot-input model="effect.rewardSettings.description.newValue" use-text-area="true" placeholder-text="Enter text" />
+                    <firebot-input model="effect.rewardSettings.description.newValue" use-text-area="true" placeholder-text="テキストを入力" />
                 </div>
 
                 <firebot-checkbox
                     label="Update Cost"
                     model="effect.rewardSettings.cost.update"
-                    aria-label="Update cost"
+                    aria-label="新しい価格"
                 />
                 <div ng-show="effect.rewardSettings.cost.update" style="margin-bottom: 15px;">
-                    <firebot-input model="effect.rewardSettings.cost.newValue" placeholder-text="Enter new cost" />
+                    <firebot-input model="effect.rewardSettings.cost.newValue" placeholder-text="新しい価格を入力" />
                 </div>
             </div>
 
@@ -254,7 +254,7 @@ const effect: EffectType<EffectMeta> = {
                 effect.customId == null
             )
         ) {
-            errors.push("Please specify a channel reward to update.");
+            errors.push("更新するチャンネル特典を指定してください。");
         }
 
         if (
@@ -272,28 +272,28 @@ const effect: EffectType<EffectMeta> = {
                 !effect.rewardSettings.enabled.update
             )
         ) {
-            errors.push("Please select at least one property to update.");
+            errors.push("更新する項目を最低1つ選択してください。");
         }
 
         if (effect.rewardSettings.name.update &&
             (effect.rewardSettings.name.newValue == null ||
             effect.rewardSettings.name.newValue === "")
         ) {
-            errors.push("Please provide a new name for the reward.");
+            errors.push("特典の新しい名前を入力してください。");
         }
 
         if (effect.rewardSettings.description.update &&
             (effect.rewardSettings.description.newValue == null ||
             effect.rewardSettings.description.newValue === "")
         ) {
-            errors.push("Please provide a new description for the reward.");
+            errors.push("特典の新しい説明を入力してください。");
         }
 
         if (effect.rewardSettings.cost.update &&
             (effect.rewardSettings.cost.newValue == null ||
             effect.rewardSettings.cost.newValue === "")
         ) {
-            errors.push("Please provide a new cost for the reward.");
+            errors.push("特典の新しいコストを入力してください。");
         }
 
         return errors;

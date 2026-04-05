@@ -21,8 +21,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:runcommand",
-        name: "Run Command",
-        description: "Runs effects saved for the selected custom command.",
+        name: "コマンド実行",
+        description: "選択したカスタムコマンドに保存されたエフェクトを実行します。",
         icon: "fad fa-exclamation-square",
         categories: ["advanced", "firebot control"],
         dependencies: []

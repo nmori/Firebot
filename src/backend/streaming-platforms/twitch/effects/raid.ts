@@ -8,8 +8,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:raid",
-        name: "Raid/Unraid Twitch Channel",
-        description: "Start or cancel a raid to another Twitch channel",
+        name: "Twitch チャンネルへのレイド開始/解除",
+        description: "別の Twitch チャンネルへのレイドを開始または解除します",
         icon: "fad fa-rocket-launch",
         categories: ["common", "twitch"],
         dependencies: {

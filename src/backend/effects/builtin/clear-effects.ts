@@ -16,8 +16,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:clear-effects",
-        name: "Clear Effects",
-        description: "Remove overlay effects, stop sounds, or clear effect queues",
+        name: "エフェクトクリア",
+        description: "オーバーレイエフェクトの削除、サウンド停止、エフェクトキューのクリアを行います",
         icon: "fad fa-minus-circle",
         categories: ["common", "overlay", "firebot control"],
         dependencies: []

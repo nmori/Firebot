@@ -22,12 +22,12 @@
             update: "&"
         },
         template: `
-      <ui-select ng-model="$ctrl.selectedEvent" on-select="$ctrl.selectOption($item, $model)" theme="bootstrap" title="{{$select.selected != null ? $select.selected.name + ' ' + $select.selected.source.name : 'Select or search for an event...'}}">
-        <ui-select-match placeholder="Select or search for an event... ">{{$select.selected.name}} ({{$select.selected.source.name}})</ui-select-match>
+            <ui-select ng-model="$ctrl.selectedEvent" on-select="$ctrl.selectOption($item, $model)" theme="bootstrap" title="{{$select.selected != null ? $select.selected.name + ' ' + $select.selected.source.name : 'イベントを選択または検索...'}}">
+                <ui-select-match placeholder="イベントを選択または検索... ">{{$select.selected.name}} ({{$select.selected.source.name}})</ui-select-match>
         <ui-select-choices repeat="option in $ctrl.options | eventfilter: $select.search" style="position:relative;">
           <div>
             <div ng-bind-html="option.name | highlight: $select.search" style="display: inline-block"></div>
-            <tooltip ng-if="option.isIntegration" text="option.source.name + ' needs to be linked in Settings -> Integrations for this event to work.'"></tooltip>
+                        <tooltip ng-if="option.isIntegration" text="option.source.name + ' をこのイベントで使うには、設定 -> 連携 でリンクする必要があります。'"></tooltip>
           </div>
           <small class="muted" style="white-space: normal"><strong>{{option.source.name}}</strong> | {{option.description}}</small>
         </ui-select-choices>

@@ -11,8 +11,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:create-poll",
-        name: "Create Twitch Poll",
-        description: "Creates a Twitch poll",
+        name: "Twitch 投票作成",
+        description: "Twitch の投票を作成します",
         icon: "fad fa-poll-h",
         categories: ["common", "twitch"],
         dependencies: {
@@ -20,35 +20,35 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Poll Title">
-            <firebot-input input-title="Title" model="effect.title" placeholder-text="Enter poll title" menu-position="under" />
+        <eos-container header="投票タイトル">
+            <firebot-input input-title="タイトル" model="effect.title" placeholder-text="投票タイトルを入力" menu-position="under" />
             <div class="effect-info alert alert-warning" ng-if="doesTitleUseAVariable(effect)">
-                Warning: Title must be shorter than 60 characters after variable expansion.
+                警告: 変数展開後のタイトルは 60 文字以内にしてください。
             </div>
             <div class="effect-info alert alert-danger" ng-if="doesTitleExceedLength(effect)">
-                Error: Title must be shorter than 60 characters ({{effect.title.length}}/60).
+                エラー: タイトルは 60 文字以内にしてください（{{effect.title.length}}/60）。
             </div>
         </eos-container>
 
-        <eos-container header="Poll Duration" pad-top="true">
-            <firebot-input input-title="Duration" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="Enter duration in seconds" />
+        <eos-container header="投票時間" pad-top="true">
+            <firebot-input input-title="時間" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="秒数を入力" />
         </eos-container>
 
-        <eos-container header="Channel Point Voting" pad-top="true">
-            <firebot-checkbox model="effect.allowChannelPointVoting" label="Allow Channel Point Voting" />
-            <firebot-input ng-if="effect.allowChannelPointVoting" input-title="Channel Points Per Vote" input-type="number" disable-variables="true" model="effect.channelPointsPerVote" placeholder-text="Enter channel points per vote" />
+        <eos-container header="チャンネルポイント投票" pad-top="true">
+            <firebot-checkbox model="effect.allowChannelPointVoting" label="チャンネルポイント投票を有効化" />
+            <firebot-input ng-if="effect.allowChannelPointVoting" input-title="1 票あたりのチャンネルポイント" input-type="number" disable-variables="true" model="effect.channelPointsPerVote" placeholder-text="1 票あたりのポイントを入力" />
         </eos-container>
 
-        <eos-container header="Choices" pad-top="true">
+        <eos-container header="選択肢" pad-top="true">
             <div class="effect-info alert alert-warning" ng-if="doAnyChoicesUseAVariable(effect)">
-                Warning: All choices must be between 1 and 25 characters after variable expansion.
+                警告: 変数展開後の各選択肢は 1 〜 25 文字にしてください。
             </div>
             <editable-list settings="optionSettings" model="effect.choices" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You may only have one poll running at a time.
+                注意: 同時に実行できる投票は 1 つまでです。
             </div>
         </eos-container>
     `,
@@ -56,39 +56,39 @@ const model: EffectType<{
         const errors: string[] = [];
 
         if (!effect.title?.length || effect.title.length === 0) {
-            errors.push("You must enter a title");
+            errors.push("タイトルを入力してください");
         }
 
         if (effect.title && effect.title.length > 60 && !effect.title.includes("$")) {
-            errors.push("Title must be between 1 and 60 characters in length");
+            errors.push("タイトルは 1 〜 60 文字で入力してください");
         }
 
         if (!(effect.duration >= 15 && effect.duration <= 1800)) {
-            errors.push("Duration must be between 15 and 1800 seconds");
+            errors.push("時間は 15 〜 1800 秒で入力してください");
         }
 
         if (!effect.choices?.length || !(effect.choices.length >= 2 && effect.choices.length <= 5)) {
-            errors.push("You must enter between 2 and 5 choices");
+            errors.push("選択肢は 2 〜 5 個入力してください");
         }
 
         if (effect.choices && effect.choices.some(choice => !choice || choice === "" || (choice.length > 25 && !choice.includes("$")))) {
-            errors.push("All choices must be between 1 and 25 characters in length");
+            errors.push("各選択肢は 1 〜 25 文字で入力してください");
         }
 
         if (
             effect.allowChannelPointVoting &&
             !(effect.channelPointsPerVote >= 1 && effect.channelPointsPerVote <= 1000000)
         ) {
-            errors.push("Channel points per vote must be between 1 and 1,000,000");
+            errors.push("1 票あたりのチャンネルポイントは 1 〜 1,000,000 にしてください");
         }
 
         return errors;
     },
     optionsController: ($scope) => {
         $scope.optionSettings = {
-            addLabel: "Add Poll Choice",
-            editLabel: "Edit Poll Choice",
-            inputPlaceholder: "Enter Poll Choice",
+            addLabel: "選択肢を追加",
+            editLabel: "選択肢を編集",
+            inputPlaceholder: "選択肢を入力",
             maxItems: 5,
             noDuplicates: true,
             showCopyButton: true,
@@ -101,7 +101,7 @@ const model: EffectType<{
                     if (choice && choice.length > 25 && !choice.includes("$")) {
                         return {
                             success: false,
-                            reason: `Choice is limited to 25 characters (${choice.length}/25)`
+                            reason: `選択肢は 25 文字以内にしてください（${choice.length}/25）`
                         };
                     }
                     return true;

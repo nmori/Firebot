@@ -65,6 +65,7 @@ class CrowbarRelayWebSocket extends TypedEmitter<{
             const unauthorized = closedEvent.target?._ws?._req?.res?.statusCode === 401;
             if (unauthorized) {
                 logger.error("Crowbar Relay WebSocket unauthorized!");
+                AccountAccess.setAccountTokenIssue("streamer");
                 this.ws.close();
             } else {
                 logger.info("Crowbar Relay WebSocket disconnected!");

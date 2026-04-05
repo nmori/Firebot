@@ -6,12 +6,12 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Simulate Event</h4>
+                    <h4 class="modal-title">イベントをシミュレート</h4>
                 </div>
                 <div class="modal-body">
-                    <p class="muted">Select an event to simulate to test any effects you have saved.</p>
+                    <p class="muted">保存済みエフェクトをテストするため、シミュレートするイベントを選択してください。</p>
                     <div class="form-group" ng-class="{'has-error': $ctrl.eventError}">
-                        <label class="control-label">Event</label>
+                        <label class="control-label">イベント</label>
                         <searchable-event-dropdown
                             selected="{ eventId: $ctrl.event.eventId, sourceId: $ctrl.event.sourceId }"
                             style="width:100%"
@@ -31,8 +31,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button ng-if="$ctrl.hasPreviousProperties" type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPrevious()">Load Previous</button>
-                    <button type="button" ng-disabled="$ctrl.eventData.eventId == null" class="btn btn-primary" ng-click="$ctrl.simulate()">Simulate</button>
+                    <button ng-if="$ctrl.hasPreviousProperties" type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPrevious()">前回の値を読み込む</button>
+                    <button type="button" ng-disabled="$ctrl.eventData.eventId == null" class="btn btn-primary" ng-click="$ctrl.simulate()">シミュレート</button>
                 </div>
             `,
             bindings: {

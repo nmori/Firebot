@@ -7,8 +7,8 @@ import {
 
 const filter: EventFilter = createPresetFilter({
     id: "ebiggz:obs-group-name",
-    name: "Group Name",
-    description: "Filter on the name of the group owning the item that triggered the event",
+    name: "グループ名",
+    description: "イベントを発火したアイテムが属するグループ名でフィルターします",
     events: [
         { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID }
     ],

@@ -8,68 +8,68 @@
 
             $scope.categories = [
                 {
-                    name: "General",
-                    description: "Various settings for appearance, beta notifications, and more.",
+                    name: "一般",
+                    description: "見た目やベータ通知など、さまざまな設定です。",
                     icon: "fa-sliders-v-square",
                     template: "<general-settings />"
                 },
                 {
-                    name: "Dashboard",
-                    description: "Settings related to Dashboard components like chat, Quick Actions, and more",
+                    name: "ダッシュボード",
+                    description: "チャット、クイックアクションなどのダッシュボード要素に関する設定です",
                     icon: "fa-signal-stream",
                     template: "<dashboard-settings />"
                 },
                 {
-                    name: "Triggers",
-                    description: "Tweak the behaviors of various triggers (commands, events, etc)",
+                    name: "トリガー",
+                    description: "各種トリガー（コマンド、イベント等）の挙動を調整します",
                     icon: "fa-bolt",
                     template: "<trigger-settings />"
                 },
                 {
-                    name: "Effects",
-                    description: "Various options for effects",
+                    name: "エフェクト",
+                    description: "エフェクトに関する各種オプションです",
                     icon: "fa-magic",
                     template: "<effect-settings />"
                 },
                 {
-                    name: "Database",
-                    description: "Options and tools for the viewer database.",
+                    name: "データベース",
+                    description: "視聴者データベース向けのオプションとツールです。",
                     icon: "fa-database",
                     template: "<database-settings />"
                 },
                 {
-                    name: "Overlay",
-                    description: "Add new fonts, create new instances, and other overlay settings.",
+                    name: "オーバーレイ",
+                    description: "新しいフォント追加、インスタンス作成などのオーバーレイ設定です。",
                     icon: "fa-tv",
                     template: "<overlay-settings />"
                 },
                 {
-                    name: "Integrations",
-                    description: "Link Firebot to a growing list of third party tools and apps.",
+                    name: "連携",
+                    description: "Firebotをさまざまなサードパーティ製ツールやアプリと連携します。",
                     icon: "fa-globe",
                     template: "<integration-settings />"
                 },
                 {
                     name: "TTS",
-                    description: "Settings for the default TTS voice.",
+                    description: "既定のTTS音声に関する設定です。",
                     icon: "fa-volume",
                     template: "<tts-settings />"
                 },
                 {
-                    name: "Backups",
-                    description: "Manage backups and backup settings to ensure your data is never lost.",
+                    name: "バックアップ",
+                    description: "バックアップとその設定を管理し、データ損失を防ぎます。",
                     icon: "fa-file-archive",
                     template: "<backups-settings />"
                 },
                 {
-                    name: "Scripts",
-                    description: "Configure script settings, add start up scripts, and more.",
+                    name: "スクリプト",
+                    description: "スクリプト設定の構成、起動時スクリプト追加などを行います。",
                     icon: "fa-code",
                     template: "<scripts-settings />"
                 },
                 {
-                    name: "Advanced",
-                    description: "Various advanced settings such as debug mode, while loops, and other tools",
+                    name: "詳細設定",
+                    description: "デバッグモード、whileループ、その他ツールなどの詳細設定です",
                     icon: "fa-tools",
                     template: "<advanced-settings />"
                 }

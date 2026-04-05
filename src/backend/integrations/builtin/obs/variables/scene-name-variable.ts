@@ -5,7 +5,7 @@ export const SceneNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneName",
         description:
-      "The name of the OBS scene that triggered the event, or the current OBS Scene if there is no event. If OBS isn't running, it returns 'Unknown'.",
+            "イベントを発火した OBS シーン名です。イベントがない場合は現在の OBS シーン名を返します。OBS 未起動時は 'Unknown' を返します。",
         possibleDataOutput: ["text"],
         categories: ["advanced", "integrations", "obs"]
     },

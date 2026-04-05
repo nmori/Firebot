@@ -17,9 +17,9 @@
             $ctrl.command.allowTriggerBySharedChat = String($ctrl.command.allowTriggerBySharedChat);
 
             $ctrl.sharedChatRadioOptions = {
-                true: "Allow",
-                false: "Ignore",
-                inherit: { text: "Inherit", tooltip: "Inherit settings from Settings > Triggers > Allow Shared Chat To Trigger Commands" }
+                true: "許可",
+                false: "無視",
+                inherit: { text: "継承", tooltip: "設定 > トリガー > 共有チャットでコマンド実行を許可 の設定を継承します" }
             };
 
             $ctrl.$onInit = function () {

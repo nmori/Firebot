@@ -13,7 +13,7 @@
                     on-update="$ctrl.updateSelectedDevice()"
                     options="$ctrl.audioOutputDeviceOptions"
                     option-toggling="false"
-                    placeholder="Select output"
+                    placeholder="出力先を選択"
                 />
             `,
             controller: function($q, soundService) {
@@ -38,11 +38,11 @@
                         .toSorted((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
                     $ctrl.audioOutputDeviceOptions = [
-                        { name: "App Default", value: undefined },
-                        { name: "System Default", value: "default" },
+                        { name: "アプリ既定", value: undefined },
+                        { name: "システム既定", value: "default" },
                         ...deviceList.map(d => ({ name: d.label, value: d.deviceId })),
                         { name: "divider" },
-                        { name: "Send To Overlay", value: "overlay" }
+                        { name: "オーバーレイに送信", value: "overlay" }
                     ];
 
                     $ctrl.deviceId = $ctrl.device?.deviceId;

@@ -60,7 +60,7 @@
                     } else {
                         ngToast.create({
                             className: 'error',
-                            content: 'Failed to export quotes'
+                            content: '引用のエクスポートに失敗しました'
                         });
                     }
                 }

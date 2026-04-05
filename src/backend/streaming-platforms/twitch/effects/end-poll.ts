@@ -7,8 +7,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:end-poll",
-        name: "End Twitch Poll",
-        description: "Ends the currently active Twitch poll",
+        name: "Twitch 投票を終了",
+        description: "現在進行中の Twitch 投票を終了します",
         icon: "fad fa-stop-circle",
         categories: ["common", "twitch"],
         dependencies: {

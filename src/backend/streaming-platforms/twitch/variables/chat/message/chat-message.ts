@@ -15,7 +15,7 @@ triggers["event"] = [
 const model : ReplaceVariable = {
     definition: {
         handle: "chatMessage",
-        description: "Outputs the chat message from the associated command or event.",
+        description: "関連するコマンドまたはイベントのチャットメッセージを出力します。",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["number", "text"]

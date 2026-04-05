@@ -47,30 +47,30 @@
                         ng-style="{'background-color': $ctrl.message.customHighlightColor}">
                     </div>
                     <div ng-if="$ctrl.message.isAnnouncement" class="chat-message-banner">
-                        <i class="fad fa-bullhorn"></i> Announcement
+                        <i class="fad fa-bullhorn"></i> お知らせ
                     </div>
                     <div ng-if="$ctrl.message.isFirstChat" class="chat-message-banner">
-                        <i class="fad fa-sparkles"></i> First Time Chat
+                        <i class="fad fa-sparkles"></i> 初回チャット
                     </div>
                     <div ng-if="$ctrl.message.isReturningChatter" class="chat-message-banner">
-                        <i class="fad fa-repeat"></i> Returning Chatter
+                        <i class="fad fa-repeat"></i> 復帰チャッター
                     </div>
                     <div ng-if="$ctrl.message.isRaider" class="chat-message-banner">
-                        <i class="fad fa-siren-on"></i> Raider from {{$ctrl.message.raidingFrom}}
+                        <i class="fad fa-siren-on"></i> {{$ctrl.message.raidingFrom}} からレイド
                     </div>
                     <div ng-if="$ctrl.message.isSuspiciousUser" class="chat-message-banner">
-                        <i class="fad fa-exclamation-triangle"></i> Suspicious User
+                        <i class="fad fa-exclamation-triangle"></i> 要注意ユーザー
                     </div>
                     <div ng-if="$ctrl.message.customBannerText" class="chat-message-banner">
                         <i ng-if="$ctrl.message.customBannerIcon" class="{{$ctrl.message.customBannerIcon}}"></i>
                         {{$ctrl.message.customBannerText}}
                     </div>
                     <div ng-if="$ctrl.message.isReply && !$ctrl.hideReplyBanner" class="chat-message-banner mini-banner muted truncate" ng-click="$ctrl.replyBannerClicked()">
-                        <i class="fad fa-comment-alt-dots"></i> Replying to @{{$ctrl.message.replyParentMessageSenderDisplayName}}: {{$ctrl.message.replyParentMessageText}}</span>
+                        <i class="fad fa-comment-alt-dots"></i> @{{$ctrl.message.replyParentMessageSenderDisplayName}} への返信: {{$ctrl.message.replyParentMessageText}}</span>
                     </div>
                     <div ng-if="$ctrl.message.reward" class="reward-redemption" ng-class="{ isHighlight: $ctrl.message.reward.id === 'highlight-message' }">
                         <img ng-src="{{$ctrl.message.reward.imageUrl}}" />
-                        <b>{{$ctrl.message.userDisplayName}}{{($ctrl.message.userDisplayName.toLowerCase() !== $ctrl.message.username.toLowerCase() ? " (" + $ctrl.message.username + ")" : "")}}</b> <span>redeemed</span> <b>{{$ctrl.message.reward.name}}</b>
+                        <b>{{$ctrl.message.userDisplayName}}{{($ctrl.message.userDisplayName.toLowerCase() !== $ctrl.message.username.toLowerCase() ? " (" + $ctrl.message.username + ")" : "")}}</b> <span>が引き換え</span> <b>{{$ctrl.message.reward.name}}</b>
                     </div>
                     <div
                         ng-if="$ctrl.message.sharedChatRoomDisplayName && !$ctrl.compactDisplay"
@@ -78,7 +78,7 @@
                         class="shared-chat-banner"
                     >
                         <img ng-if="$ctrl.message.sharedChatRoomProfilePicUrl" ng-src="{{ $ctrl.message.sharedChatRoomProfilePicUrl }}" />
-                        Sent from {{ $ctrl.message.sharedChatRoomDisplayName }}'s channel
+                        {{ $ctrl.message.sharedChatRoomDisplayName }} のチャンネルから送信
                     </div>
                     <div class="chat-message"
                         ng-class="{
@@ -111,7 +111,7 @@
                                 ng-if="$ctrl.message.sharedChatRoomProfilePicUrl && $ctrl.compactDisplay"
                                 class="chat-user-avatar-wrapper"
                                 ng-show="$ctrl.showSharedChatInfo"
-                                uib-tooltip="Sent from {{ $ctrl.message.sharedChatRoomDisplayName }}'s channel"
+                                uib-tooltip="{{ $ctrl.message.sharedChatRoomDisplayName }} のチャンネルから送信"
                                 tooltip-append-to-body="true"
                             >
                                 <img class="shared-chat-user-avatar" ng-src="{{$ctrl.message.sharedChatRoomProfilePicUrl}}">
@@ -146,7 +146,7 @@
                                 </div>
                                 <span
                                     class="pronoun"
-                                    uib-tooltip="Pronouns"
+                                    uib-tooltip="代名詞"
                                     tooltip-append-to-body="true"
                                     ng-click="$root.openLinkExternally('https://pronouns.alejo.io/')"
                                     ng-show="$ctrl.showPronoun && $ctrl.pronouns.pronounCache[$ctrl.message.username] != null"
@@ -233,20 +233,20 @@
                                     <span ng-if="part.origin === '7TV' && !$ctrl.showSevenTvEmotes" style="{{$ctrl.chatSizeStyle}}{{$ctrl.fontFamilyStyle}}">{{part.name}}</span>
                                 </span>
                             </div>
-                            <div ng-show="$ctrl.message.whisper" class="muted">(Whispered to {{ $ctrl.message.whisperTarget }})</div>
+                            <div ng-show="$ctrl.message.whisper" class="muted">({{ $ctrl.message.whisperTarget }} にささやき)</div>
                         </div>
                     </div>
                     <div class="automod-tag" ng-show="$ctrl.message.isAutoModHeld">
                         <div ng-if="$ctrl.message.autoModStatus === 'pending' && !$ctrl.message.autoModErrorMessage">
                             <i class="fal fa-question-circle pending"></i>
-                            <span>Flagged by AutoMod ({{$ctrl.message.autoModReason}}): </span>
+                            <span>AutoMod によりフラグ ({{$ctrl.message.autoModReason}}): </span>
                             <span ng-if="!$ctrl.respondedToAutoMod">
-                                <a href style="font-weight: 700;" ng-click="$ctrl.allowAutoModMessage()">Allow</a>
+                                <a href style="font-weight: 700;" ng-click="$ctrl.allowAutoModMessage()">許可</a>
                                 <span> • </span>
-                                <a href style="font-weight: 700;" ng-click="$ctrl.denyAutoModMessage()">Deny</a>
+                                <a href style="font-weight: 700;" ng-click="$ctrl.denyAutoModMessage()">拒否</a>
                             </span>
                             <span ng-if="$ctrl.respondedToAutoMod" class="muted">
-                                Sending...
+                                送信中...
                             </span>
                         </div>
                         <div ng-if="$ctrl.message.autoModStatus === 'pending' && $ctrl.message.autoModErrorMessage">
@@ -254,15 +254,15 @@
                         </div>
                         <div ng-if="$ctrl.message.autoModStatus === 'approved'">
                             <i class="far fa-check approved"></i>
-                            <span>Allowed by {{$ctrl.message.autoModResolvedBy}}</span>
+                            <span>{{$ctrl.message.autoModResolvedBy}} が許可</span>
                         </div>
                         <div ng-if="$ctrl.message.autoModStatus === 'denied'">
                             <i class="far fa-times denied"></i>
-                            <span>Denied by {{$ctrl.message.autoModResolvedBy}}</span>
+                            <span>{{$ctrl.message.autoModResolvedBy}} が拒否</span>
                         </div>
                         <div ng-if="$ctrl.message.autoModStatus === 'expired'">
                             <i class="far fa-clock expired"></i>
-                            <span>Flagged by AutoMod ({{$ctrl.message.autoModReason}}): Expired</span>
+                            <span>AutoMod によりフラグ ({{$ctrl.message.autoModReason}}): 期限切れ</span>
                         </div>
                     </div>
                     <div ng-if="$ctrl.message.isAnnouncement || $ctrl.message.isFirstChat || $ctrl.message.isReturningChatter || $ctrl.message.isRaider || $ctrl.message.isSuspiciousUser || $ctrl.message.customBannerText || $ctrl.message.customBannerIcon" style="margin-bottom:5px">
@@ -332,6 +332,26 @@
                     $ctrl.onReplyClicked({
                         threadOrReplyMessageId: $ctrl.message.threadParentMessageId || $ctrl.message.replyParentMessageId
                     });
+                };
+
+                $ctrl.getActionLabel = (actionName) => {
+                    const labels = {
+                        "Details": "詳細",
+                        "Delete Message": "メッセージを削除",
+                        "Mention": "メンション",
+                        "Reply To Message": "メッセージに返信",
+                        "Quote Message": "メッセージを引用",
+                        "Whisper": "ささやき",
+                        "Spotlight Message": "メッセージをスポットライト",
+                        "Shoutout": "シャウトアウト",
+                        "Unmod": "モデレーター解除",
+                        "Mod": "モデレーター付与",
+                        "Remove VIP": "VIP解除",
+                        "Add as VIP": "VIP付与",
+                        "Timeout": "タイムアウト",
+                        "Ban": "BAN"
+                    };
+                    return labels[actionName] || actionName;
                 };
 
                 $ctrl.getMessageContextMenu = (message) => {
@@ -432,14 +452,14 @@
                                             <i class="fad fa-gem fa-stack-1x ml-px mt-1" style="opacity: 0.5"></i>
                                             <i class="far fa-slash fa-stack-1x text-2xl"></i>
                                         </span>
-                                        <span class="action-name">${a.name}</span>
+                                        <span class="action-name">${$ctrl.getActionLabel(a.name)}</span>
                                     </div>
                                 `;
                             } else {
                                 html = `
                                     <div class="message-action">
                                         <span class="action-icon"><i class="fad ${a.icon}"></i></span>
-                                        <span class="action-name">${a.name}</span>
+                                        <span class="action-name">${$ctrl.getActionLabel(a.name)}</span>
                                     </div>
                                 `;
                             }
@@ -463,9 +483,9 @@
                         case "ban":
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Ban User",
-                                    question: `Are you sure you want to ban ${username}?`,
-                                    confirmLabel: "Ban",
+                                    title: "ユーザーをBAN",
+                                    question: `${username} をBANしますか？`,
+                                    confirmLabel: "BAN",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {
@@ -480,9 +500,9 @@
                         case "unmod":
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Mod User",
-                                    question: `Are you sure you want to unmod ${username}?`,
-                                    confirmLabel: "Unmod",
+                                    title: "モデレーター解除",
+                                    question: `${username} のモデレーターを解除しますか？`,
+                                    confirmLabel: "解除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {
@@ -534,7 +554,7 @@
                             $ctrl.rankAndRoleBadges.push({
                                 text: rankName,
                                 icon: "far fa-chevron-double-down",
-                                tooltip: `Rank: ${rankName} in ${ladderName}`
+                                tooltip: `ランク: ${ladderName} の ${rankName}`
                             });
                         }
                     }
@@ -543,7 +563,7 @@
                             $ctrl.rankAndRoleBadges.push({
                                 text: roleName,
                                 icon: "far fa-user-tag",
-                                tooltip: "Custom Role"
+                                tooltip: "カスタムロール"
                             });
                         }
                     }

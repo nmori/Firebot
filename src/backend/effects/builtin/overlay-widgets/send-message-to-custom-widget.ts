@@ -10,8 +10,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:send-message-to-custom-widget",
-        name: "Send Message to Custom Widget",
-        description: "Send a message to a Custom or Custom (Advanced) Overlay Widget.",
+        name: "カスタムウィジェットへメッセージ送信",
+        description: "Custom または Custom（Advanced）オーバーレイウィジェットにメッセージを送信します。",
         icon: "fad fa-paper-plane",
         categories: ["overlay", "advanced"],
         dependencies: []

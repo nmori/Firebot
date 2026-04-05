@@ -9,9 +9,9 @@
                 padTop: "<"
             },
             template: `
-            <eos-container header="Dimensions" pad-top="$ctrl.padTop">
+            <eos-container header="サイズ" pad-top="$ctrl.padTop">
                 <div class="input-group">
-                    <span class="input-group-addon">Width</span>
+                    <span class="input-group-addon">幅</span>
                     <input
                         type="number"
                         class="form-control"
@@ -20,7 +20,7 @@
                         ng-model="$ctrl.effect.width"
                         placeholder="px"
                     >
-                    <span class="input-group-addon">Height</span>
+                    <span class="input-group-addon">高さ</span>
                     <input
                         type="number"
                         class="form-control"

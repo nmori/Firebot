@@ -76,7 +76,7 @@
                         content: 'Successfully duplicated a timer!'
                     });
                 } else {
-                    ngToast.create("Unable to duplicate timer.");
+                    ngToast.create("タイマーの複製に失敗しました。");
                 }
             };
 

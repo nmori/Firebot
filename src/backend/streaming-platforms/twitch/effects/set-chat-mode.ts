@@ -22,8 +22,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:set-chat-mode",
-        name: "Set Chat Mode",
-        description: "Sets the chat mode(s) for your Twitch channel",
+        name: "チャットモード設定",
+        description: "Twitch チャンネルのチャットモードを設定します",
         icon: "fad fa-comment-check",
         categories: ["common", "twitch", "chat based", "moderation"],
         dependencies: {

@@ -7,9 +7,9 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:resolve-prediction",
-        name: "Resolve Twitch Prediction",
+        name: "Twitch 予想を確定",
         description:
-            "Resolves the currently active Twitch prediction by selecting an outcome and pays out channel points to the winners",
+            "現在進行中の Twitch 予想の結果を選択して確定し、勝者へチャンネルポイントを支払います",
         icon: "fad fa-trophy-alt",
         categories: ["common", "twitch"],
         dependencies: {

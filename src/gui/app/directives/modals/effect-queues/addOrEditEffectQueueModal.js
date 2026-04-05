@@ -15,16 +15,16 @@
             <div class="modal-body">
                 <div>
                     <div class="modal-subheader pb-2 pt-0 px-0">
-                        Name <tooltip text="'A name to help you identify this effect queue'">
+                        名前 <tooltip text="'このエフェクトキューを識別しやすくするための名前です'">
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group">
-                            <input type="text" class="form-control" ng-model="$ctrl.effectQueue.name" placeholder="Enter name">
+                            <input type="text" class="form-control" ng-model="$ctrl.effectQueue.name" placeholder="名前を入力">
                         </div>
                     </div>
                 </div>
 
-                <div class="modal-subheader pb-2 pt-0 px-0">MODE</div>
+                <div class="modal-subheader pb-2 pt-0 px-0">モード</div>
                 <firebot-radio-cards
                     options="$ctrl.queueModes"
                     ng-model="$ctrl.effectQueue.mode"
@@ -34,25 +34,25 @@
                 ></firebot-radio-cards>
 
                 <div class="mt-6" ng-show="$ctrl.effectQueue.mode != null && ($ctrl.effectQueue.mode ==='interval' || $ctrl.effectQueue.mode ==='auto')">
-                    <div class="modal-subheader pb-2 pt-0 px-0">Interval/Delay (secs)</div>
+                    <div class="modal-subheader pb-2 pt-0 px-0">間隔/遅延（秒）</div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group">
-                            <input type="number" class="form-control" ng-model="$ctrl.effectQueue.interval" placeholder="Enter interval">
+                            <input type="number" class="form-control" ng-model="$ctrl.effectQueue.interval" placeholder="間隔を入力">
                         </div>
                     </div>
                 </div>
 
                 <firebot-checkbox
-                    label="Run Effects Immediately When Paused"
-                    tooltip="When the queue is paused and effects are added to it, run them immediately instead of waiting for the queue to be resumed. This is useful if you want to temporarily pause queue functionality and have effects set to this queue to run as if there was no queue."
+                    label="一時停止中はエフェクトをすぐ実行する"
+                    tooltip="キューが一時停止中にエフェクトが追加された場合、キューの再開を待たずにすぐ実行します。キュー機能を一時的に止めつつ、このキューに設定されたエフェクトを通常どおり実行したいときに便利です。"
                     model="$ctrl.effectQueue.runEffectsImmediatelyWhenPaused"
                     style="margin-top: 15px; margin-bottom: 0px;"
                 />
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
         bindings: {
@@ -89,12 +89,12 @@
 
             $ctrl.save = () => {
                 if ($ctrl.effectQueue.name == null || $ctrl.effectQueue.name === "") {
-                    ngToast.create("Please provide a name for this Effect Queue");
+                    ngToast.create("このエフェクトキューの名前を入力してください");
                     return;
                 }
 
                 if ($ctrl.effectQueue.mode === "interval" && $ctrl.effectQueue.interval == null) {
-                    ngToast.create("Please choose an interval for this Effect Queue");
+                    ngToast.create("このエフェクトキューの間隔を設定してください");
                     return;
                 }
 
@@ -106,7 +106,7 @@
                         }
                     });
                 } else {
-                    ngToast.create("Failed to save effect queue. Please try again or view logs for details.");
+                    ngToast.create("エフェクトキューの保存に失敗しました。再試行するか、ログを確認してください。");
                 }
             };
         }

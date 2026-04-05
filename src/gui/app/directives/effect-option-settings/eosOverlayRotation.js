@@ -9,13 +9,13 @@
                 padTop: "<"
             },
             template: `
-            <eos-container header="Rotation" pad-top="$ctrl.padTop">
+            <eos-container header="回転" pad-top="$ctrl.padTop">
                 <div style="display: flex; flex-direction: row; width: 100%; align-items: center;">
                     <firebot-input
                         style="flex-grow:1"
-                        input-title="Rotation"
+                        input-title="回転"
                         model="$ctrl.effect.rotation"
-                        placeholder-text="Enter rotation"
+                        placeholder-text="回転値を入力"
                         data-type="number"
                         menu-position="under"
                     />

@@ -9,8 +9,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:modTimeout",
-        name: "Timeout",
-        description: "Timeout a user.",
+        name: "タイムアウト",
+        description: "ユーザーをタイムアウトします。",
         icon: "fad fa-user-clock",
         categories: ["common", "moderation", "twitch"],
         dependencies: ["chat"]

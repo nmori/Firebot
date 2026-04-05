@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../../../events/filters/filter-factory";
 
 const filter = createPresetFilter({
     id: "streamloots:card-rarity",
-    name: "Card Rarity",
-    description: "Filter by the rarity of redeemed Streamloots Cards",
+    name: "カードレアリティ",
+    description: "引き換えられた StreamLoots カードのレアリティでフィルターします",
     events: [
         { eventSourceId: "streamloots", eventId: "redemption" }
     ],
@@ -13,19 +13,19 @@ const filter = createPresetFilter({
         return [
             {
                 value: "common",
-                display: "Common"
+                display: "コモン"
             },
             {
                 value: "rare",
-                display: "Rare"
+                display: "レア"
             },
             {
                 value: "epic",
-                display: "Epic"
+                display: "エピック"
             },
             {
                 value: "legendary",
-                display: "Legendary"
+                display: "レジェンダリー"
             }
         ];
     }

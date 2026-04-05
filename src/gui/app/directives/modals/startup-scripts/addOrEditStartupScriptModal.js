@@ -9,7 +9,7 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-hide="$ctrl.scriptIsInitializing" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewScript ? "Add New" : "Edit"}} Startup Script</h4>
+                <h4 class="modal-title">{{$ctrl.isNewScript ? "追加" : "編集"}} スタートアップスクリプト</h4>
             </div>
             <div class="modal-body">
                 <div style="margin-top: 20px;" ng-if="!$ctrl.scriptIsInitializing">
@@ -23,12 +23,12 @@
                     />
                 </div>
                 <eos-container ng-if="$ctrl.scriptIsInitializing">
-                    <i>Initializing script...</i>
+                    <i>スクリプトを初期化中...</i>
                 </eos-container>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-hide="$ctrl.scriptIsInitializing" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.scriptIsInitializing">{{ $ctrl.initFirst ? "Add & Configure" : "Save" }}</button>
+                <button type="button" class="btn btn-link" ng-hide="$ctrl.scriptIsInitializing" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.scriptIsInitializing">{{ $ctrl.initFirst ? "追加して設定" : "保存" }}</button>
             </div>
             `,
             bindings: {
@@ -56,7 +56,7 @@
 
                 $ctrl.save = () => {
                     if ($ctrl.scriptData.scriptName == null || $ctrl.scriptData.scriptName.length < 1) {
-                        ngToast.create("Please select a script.");
+                        ngToast.create("スクリプトを選択してください。");
                         return;
                     }
 

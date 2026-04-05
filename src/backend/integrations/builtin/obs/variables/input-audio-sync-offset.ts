@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const InputAudioSyncOffsetVariable: ReplaceVariable = {
     definition: {
         handle: "obsInputAudioSyncOffset",
-        description: "Returns the audio sync offset (in milliseconds) of the OBS input.",
+        description: "OBS 入力の音声同期オフセット（ミリ秒）を返します。",
         possibleDataOutput: ["number"],
         categories: ["advanced", "integrations", "obs"]
     },

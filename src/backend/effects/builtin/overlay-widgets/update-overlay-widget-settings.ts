@@ -15,8 +15,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:update-overlay-widget-settings",
-        name: "Update Overlay Widget Settings",
-        description: "Update the settings of an overlay widget.",
+        name: "オーバーレイウィジェット設定更新",
+        description: "オーバーレイウィジェットの設定を更新します。",
         icon: "fad fa-layer-plus",
         categories: ["overlay", "advanced"],
         dependencies: []

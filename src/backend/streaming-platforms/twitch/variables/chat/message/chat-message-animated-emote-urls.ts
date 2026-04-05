@@ -16,10 +16,10 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "chatMessageAnimatedEmoteUrls[1]",
-                description: "Get the URL of a specific animated emote. If the emote isn't animated, the result will return an empty string."
+                description: "指定したインデックスのアニメーションエモートURLを取得します。アニメーション版がない場合は空文字を返します。"
             }
         ],
-        description: "Outputs the URLs of a chat message's animated emotes from the associated command or event. Any emotes that don't have an animated version will return an empty string.",
+        description: "関連するコマンドまたはイベントのチャットメッセージに含まれるアニメーションエモートURLを出力します。アニメーション版がないエモートは空文字になります。",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["text"]

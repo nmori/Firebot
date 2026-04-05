@@ -42,8 +42,8 @@ type Controller = {
         template: `
             <effect-config-panel
                 icon="fa-stream"
-                label="Queue"
-                tooltip="Effect queues allow you to queue up effects so they don't overlap each other. Particularly useful for events!"
+                label="キュー"
+                tooltip="エフェクトキューを使うと、エフェクト同士が重ならないように順番に実行できます。特にイベントで便利です。"
                 main-value="$ctrl.mainValue"
                 preview-items="$ctrl.previewItems"
                 no-bottom-margin="true"
@@ -54,8 +54,8 @@ type Controller = {
                         ng-change="$ctrl.selectedUpdated()"
                         options="$ctrl.options"
                         actions="$ctrl.actions"
-                        placeholder="Select queue"
-                        empty-message="No queues created"
+                        placeholder="キューを選択"
+                        empty-message="キューが作成されていません"
                         dark="true"
                     />
                 </div>
@@ -63,8 +63,8 @@ type Controller = {
                 <div class="config-panel-control" ng-if="$ctrl.validQueueSelected()">
                     <div class="config-control-label">
                         <i class="far fa-arrow-up"></i>
-                        <span>Priority</span>
-                        <tooltip role="tooltip" aria-label="If an effect list has priority, it will get added in front of other lists in the queue that do not have priority." text="'If an effect list has priority, it will get added in front of other lists in the queue that do not have priority.'"></tooltip>
+                        <span>優先度</span>
+                        <tooltip role="tooltip" aria-label="エフェクトリストを優先にすると、優先設定されていない他のリストより前にキューへ追加されます。" text="'エフェクトリストを優先にすると、優先設定されていない他のリストより前にキューへ追加されます。'"></tooltip>
                     </div>
                     <div>
                         <toggle-button
@@ -78,14 +78,14 @@ type Controller = {
                 <div class="config-panel-control" ng-if="$ctrl.getSelectedQueueModeIsCustom()">
                     <div class="config-control-label">
                         <i class="far fa-clock"></i>
-                        <span>Effects Duration</span>
-                        <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'The total duration (in secs) the queue should wait after triggering this effect list before running the next one'"></tooltip>
+                        <span>エフェクト実行時間</span>
+                        <tooltip role="tooltip" aria-label="このエフェクトリスト実行後に次を実行するまで、キューが待機する秒数です。" text="'このエフェクトリスト実行後に次を実行するまで、キューが待機する秒数です。'"></tooltip>
                     </div>
                     <div class="config-control-input">
                         <button
                             class="config-duration-btn"
                             ng-click="$ctrl.openEditQueueDurationModal()"
-                            aria-label="Effects duration: {{$ctrl.effectsData.queueDuration || 0}} seconds"
+                            aria-label="エフェクト実行時間: {{$ctrl.effectsData.queueDuration || 0}} 秒"
                             role="button"
                         >
                             <span class="config-duration-value">{{$ctrl.effectsData.queueDuration || 0}}s</span>
@@ -135,7 +135,7 @@ type Controller = {
                 $ctrl.mainValue = {
                     icon: queue ? modeInfo?.iconClass ?? "fa-stream" : 'fa-ban',
                     label: $ctrl.getSelectedEffectQueueName(),
-                    tooltip: (modeInfo?.description ? `${modeInfo.label} Queue: ${modeInfo.description}` : null) ?? "This effect list will run immediately when triggered."
+                    tooltip: (modeInfo?.description ? `${modeInfo.label} キュー: ${modeInfo.description}` : null) ?? "このエフェクトリストはトリガー時に即時実行されます。"
                 };
 
                 const items: PreviewItem[] = [];
@@ -144,8 +144,8 @@ type Controller = {
                     if ($ctrl.effectsData.queuePriority && $ctrl.effectsData.queuePriority === "high") {
                         items.push({
                             icon: "fa-arrow-up",
-                            label: "Prioritized",
-                            tooltip: "Has Priority"
+                            label: "優先",
+                            tooltip: "優先度あり"
                         });
                     }
                 }
@@ -154,7 +154,7 @@ type Controller = {
                     items.push({
                         icon: "fa-clock",
                         label: `${$ctrl.effectsData.queueDuration || 0}s`,
-                        tooltip: "Effects Duration"
+                        tooltip: "エフェクト実行時間"
                     });
                 }
 
@@ -168,7 +168,7 @@ type Controller = {
             };
 
             $ctrl.getSelectedEffectQueueName = () => {
-                const unsetDisplay = "None";
+                const unsetDisplay = "なし";
                 if ($ctrl.effectsData.queue == null) {
                     return unsetDisplay;
                 }
@@ -208,7 +208,7 @@ type Controller = {
                 });
                 return [
                     {
-                        name: "None",
+                        name: "なし",
                         value: null,
                         icon: "fa-ban"
                     },
@@ -219,7 +219,7 @@ type Controller = {
             $ctrl.getQueueActions = () => {
                 const actions: DropdownAction[] = [
                     {
-                        label: "Create new queue",
+                        label: "新しいキューを作成",
                         icon: "fa-plus-circle",
                         type: "info",
                         onSelect: () => {
@@ -231,7 +231,7 @@ type Controller = {
                 if ($ctrl.validQueueSelected()) {
                     actions.push(
                         {
-                            label: `Edit "${$ctrl.getSelectedEffectQueueName()}"`,
+                            label: `"${$ctrl.getSelectedEffectQueueName()}" を編集`,
                             icon: "fa-edit",
                             type: "info",
                             onSelect: () => {
@@ -239,7 +239,7 @@ type Controller = {
                             }
                         },
                         {
-                            label: `Delete "${$ctrl.getSelectedEffectQueueName()}"`,
+                            label: `"${$ctrl.getSelectedEffectQueueName()}" を削除`,
                             icon: "fa-trash-alt",
                             type: "danger",
                             onSelect: () => {
@@ -282,9 +282,9 @@ type Controller = {
                 modalFactory.openGetInputModal(
                     {
                         model: $ctrl.effectsData.queueDuration || 0,
-                        label: "Edit Effects Duration",
-                        saveText: "Save",
-                        inputPlaceholder: "Enter secs",
+                        label: "エフェクト実行時間を編集",
+                        saveText: "保存",
+                        inputPlaceholder: "秒数を入力",
                         validationFn: (value) => {
                             return new Promise((resolve) => {
                                 if (value == null || value < 0) {
@@ -293,7 +293,7 @@ type Controller = {
                                 resolve(true);
                             });
                         },
-                        validationText: "Value must be greater than 0."
+                        validationText: "値は0より大きい必要があります。"
                     },
                     (newDuration) => {
                         $ctrl.effectsData.queueDuration = newDuration;

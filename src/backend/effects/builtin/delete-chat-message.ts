@@ -4,8 +4,8 @@ import { TwitchApi } from "../../streaming-platforms/twitch/api";
 const effect: EffectType = {
     definition: {
         id: "firebot:delete-chat-message",
-        name: "Delete Chat Message",
-        description: "Delete the associated chat message",
+        name: "チャットメッセージ削除",
+        description: "関連するチャットメッセージを削除します",
         icon: "fad fa-comment-times",
         categories: ["chat based", "advanced", "twitch"],
         dependencies: ["chat"],

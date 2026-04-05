@@ -8,11 +8,11 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Remove Setup</h4>
+                    <h4 class="modal-title">セットアップを削除</h4>
                 </div>
                 <div class="modal-body">
                     <div ng-hide="$ctrl.setupSelected">
-                        <p class="muted">After selecting a Setup file, Firebot will find all matching components (commands, events, etc) and remove them.</p>
+                        <p class="muted">セットアップファイルを選択すると、Firebot は一致するコンポーネント（コマンド、イベントなど）を探して削除します。</p>
                         <file-chooser
                             model="$ctrl.setupFilePath"
                             on-update="$ctrl.onFileSelected(filepath)"
@@ -23,12 +23,12 @@
                     </div>
                     <div ng-if="$ctrl.setupSelected">
                         <div style="padding: 15px;background: #242529;border-radius: 5px;">
-                            <div class="script-name" style="font-size: 30px;font-weight: 100;">{{$ctrl.setup.name || "Unnamed Setup"}} <span class="script-version muted">v{{$ctrl.setup.version}}</span></div>
-                            <div style="font-size: 13px;">by <span class="script-author">{{$ctrl.setup.author}}</span></div>
-                            <button ng-show="$ctrl.allowCancel" class="btn-sm btn-link" ng-click="$ctrl.resetSelectedFile()" style="margin-top: 3px;">Cancel</button>
+                            <div class="script-name" style="font-size: 30px;font-weight: 100;">{{$ctrl.setup.name || "名称未設定のセットアップ"}} <span class="script-version muted">v{{$ctrl.setup.version}}</span></div>
+                            <div style="font-size: 13px;">作成者: <span class="script-author">{{$ctrl.setup.author}}</span></div>
+                            <button ng-show="$ctrl.allowCancel" class="btn-sm btn-link" ng-click="$ctrl.resetSelectedFile()" style="margin-top: 3px;">キャンセル</button>
                         </div>
                         <div style="margin-top: 25px;" ng-show="$ctrl.hasComponentsToRemove">
-                            <h4 class="muted">The following will be removed:</h4>
+                            <h4 class="muted">以下が削除されます:</h4>
                             <div ng-repeat="(key, name) in $ctrl.componentTypes">
                                 <div ng-repeat="component in $ctrl.componentsToRemove[key]">
                                     <div style="display: flex;align-items: center;">
@@ -40,11 +40,11 @@
                         </div>
 
                         <p ng-hide="$ctrl.hasComponentsToRemove" style="margin-top: 15px;">
-                            None of the components in this Setup are currently saved for you and so nothing needs to be removed.
+                            このセットアップ内のコンポーネントは現在保存されていないため、削除するものはありません。
                         </p>
 
                         <div style="display:flex; justify-content: center;margin-top: 25px;">
-                            <button ng-show="$ctrl.hasComponentsToRemove" type="button" class="btn btn-primary" ng-click="$ctrl.removeSetup()">Remove Setup</button>
+                            <button ng-show="$ctrl.hasComponentsToRemove" type="button" class="btn btn-primary" ng-click="$ctrl.removeSetup()">セットアップを削除</button>
                         </div>
                     </div>
                 </div>
@@ -67,22 +67,22 @@
                 $ctrl.allowCancel = true;
 
                 $ctrl.componentTypes = {
-                    commands: "Command",
-                    counters: "Counter",
-                    currencies: "Currency",
-                    effectQueues: "Effect Queue",
-                    events: "Event",
-                    eventGroups: "Event Set",
-                    hotkeys: "Hotkey",
-                    presetEffectLists: "Preset Effect List",
-                    timers: "Timer",
-                    scheduledTasks: "Scheduled Effect List",
-                    variableMacros: "Variable Macro",
-                    viewerRoles: "Viewer Role",
-                    viewerRankLadders: "Viewer Rank Ladder",
-                    quickActions: "Quick Action",
-                    overlayWidgetConfigs: "Overlay Widget",
-                    globalValues: "Global Value"
+                    commands: "コマンド",
+                    counters: "カウンター",
+                    currencies: "通貨",
+                    effectQueues: "エフェクトキュー",
+                    events: "イベント",
+                    eventGroups: "イベントセット",
+                    hotkeys: "ホットキー",
+                    presetEffectLists: "プリセットエフェクトリスト",
+                    timers: "タイマー",
+                    scheduledTasks: "スケジュール済みエフェクトリスト",
+                    variableMacros: "変数マクロ",
+                    viewerRoles: "視聴者ロール",
+                    viewerRankLadders: "視聴者ランクラダー",
+                    quickActions: "クイックアクション",
+                    overlayWidgetConfigs: "オーバーレイウィジェット",
+                    globalValues: "グローバル値"
                 };
 
                 /** @type { FirebotSetup["components"] } */
@@ -165,7 +165,7 @@
                         $ctrl.setupSelected = true;
                     } else {
                         $ctrl.allowCancel = true;
-                        $ctrl.resetSelectedFile(result.error ?? "Failed to load setup file");
+                        $ctrl.resetSelectedFile(result.error ?? "セットアップファイルの読み込みに失敗しました");
                         return;
                     }
                 };
@@ -178,11 +178,11 @@
                     if (success) {
                         ngToast.create({
                             className: 'success',
-                            content: `Successfully removed components for Setup: ${$ctrl.setup.name}`
+                            content: `セットアップ「${$ctrl.setup.name}」のコンポーネントを削除しました`
                         });
                         $ctrl.dismiss();
                     } else {
-                        ngToast.create(`Failed to remove components for Setup: ${$ctrl.setup.name}`);
+                        ngToast.create(`セットアップ「${$ctrl.setup.name}」のコンポーネント削除に失敗しました`);
                     }
                 };
 

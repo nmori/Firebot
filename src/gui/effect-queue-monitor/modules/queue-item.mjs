@@ -24,16 +24,16 @@ const queueItem = {
                 const metadata = triggerData?.metadata ?? {};
                 let manualTriggerType = undefined;
                 if (metadata.command != null) {
-                    manualTriggerType = `Command: ${metadata.command.trigger}`;
+                    manualTriggerType = `コマンド: ${metadata.command.trigger}`;
                 } else if (metadata.event != null && metadata.eventSource) {
-                    manualTriggerType = `Event: ${metadata.event.name} - ${metadata.eventSource.name}`;
+                    manualTriggerType = `イベント: ${metadata.event.name} - ${metadata.eventSource.name}`;
                 }
-                return `Manual (${manualTriggerType})`;
+                return `手動 (${manualTriggerType})`;
             }
-            return triggerData?.type?.replace(/_/, " ") ?? "Unknown";
+            return triggerData?.type?.replace(/_/, " ") ?? "不明";
         },
         triggeredBy() {
-            return this.item?.runEffectsContext?.trigger?.metadata?.username ?? "Unknown";
+            return this.item?.runEffectsContext?.trigger?.metadata?.username ?? "不明";
         },
         numberOfEffects() {
             return this.item?.runEffectsContext?.effects?.list?.length ?? 0;
@@ -47,7 +47,7 @@ const queueItem = {
         formattedTriggerType() {
             const type = this.item?.runEffectsContext?.trigger?.type;
             if (!type) {
-                return "Unknown";
+                return "不明";
             }
             return type
                 .replace(/_/g, " ")
@@ -97,26 +97,26 @@ const queueItem = {
         <div class="queue-item-details" v-if="isExpanded">
             <div class="details-divider">
                 <div class="details-divider-line"></div>
-                <div class="details-divider-text">Trigger</div>
+                <div class="details-divider-text">トリガー</div>
                 <div class="details-divider-line"></div>
             </div>
             <div class="trigger-details">
                 <div>
-                    <h4 class="section-header">Type</h4>
+                    <h4 class="section-header">種別</h4>
                     <div>{{triggerType}}</div>
                 </div>
                 <div style="margin-top: 15px;">
                     <property-list
                         :properties="triggerProperties"
-                        title="Metadata"
-                        empty-message="No additional metadata"
+                        title="メタデータ"
+                        empty-message="追加のメタデータはありません"
                     />
                 </div>
             </div>
 
             <div class="details-divider" style="margin-top: 20px;">
                 <div class="details-divider-line"></div>
-                <div class="details-divider-text">Effects</div>
+                <div class="details-divider-text">演出</div>
                 <div class="details-divider-line"></div>
             </div>
             <div class="item-list">
@@ -131,7 +131,7 @@ const queueItem = {
                             </div>
                             <div class="item-content">
                                 <div class="item-name">
-                                    {{ effect.__definition?.name ?? "Unknown" }}
+                                    {{ effect.__definition?.name ?? "不明な演出" }}
                                 </div>
                                 <div class="item-description" v-if="effect.effectLabel">
                                     {{ effect.effectLabel }}
@@ -146,7 +146,7 @@ const queueItem = {
             </div>
             <div v-if="!item.runEffectsContext.effects.list || item.runEffectsContext.effects.list.length === 0"
                  class="no-effects-message">
-                No effects found
+                演出が見つかりません
             </div>
         </div>
         <effect-detail-modal

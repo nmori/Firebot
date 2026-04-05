@@ -10,9 +10,9 @@ const { SettingsManager } = require("../../common/settings-manager");
 const effectGroup = {
     definition: {
         id: "firebot:run-effect-list",
-        name: "Run Effect List",
+        name: "エフェクトリスト実行",
         description:
-            "Run a preset or custom list of effects",
+            "プリセットまたはカスタムのエフェクトリストを実行します",
         icon: "fad fa-list",
         categories: ["advanced", "scripting", "firebot control"],
         dependencies: []

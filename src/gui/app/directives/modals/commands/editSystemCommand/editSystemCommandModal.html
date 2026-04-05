@@ -2,20 +2,20 @@
     <button
         type="button"
         class="close"
-        aria-label="Close"
+        aria-label="閉じる"
         ng-click="$ctrl.dismiss()"
     >
         <span aria-hidden="true">&times;</span>
     </button>
     <h4 class="modal-title">
-        <div class="text-4xl">Edit System Command:</div>
+        <div class="text-4xl">システムコマンドを編集:</div>
         <div class="text-4xl font-bold">{{$ctrl.command.name}}</div>
     </h4>
 </div>
 <div class="modal-body general-button-settings">
-    <setting-container header="Trigger">
+    <setting-container header="トリガー">
         <div class="input-group pb-5">
-            <span class="input-group-addon" id="basic-addon3">Trigger</span>
+            <span class="input-group-addon" id="basic-addon3">トリガー</span>
             <input
                 type="text"
                 class="form-control"
@@ -27,9 +27,9 @@
 
         <div class="controls-fb-inline">
             <label class="control-fb control--checkbox"
-                >Auto Delete Trigger
+                >トリガーメッセージを自動削除
                 <tooltip
-                    text="'Have Firebot automatically delete the message that triggers this command to keep chat cleaner.'"
+                    text="'このコマンドを発火したメッセージを Firebot が自動削除し、チャットを見やすく保ちます。'"
                 ></tooltip>
                 <input
                     type="checkbox"
@@ -40,9 +40,9 @@
             </label>
 
             <label class="control-fb control--checkbox"
-                >Scan Whole Message
+                >メッセージ全体を検索
                 <tooltip
-                    text="'Scan the whole message for the trigger instead just the first word'"
+                    text="'先頭の単語だけでなく、メッセージ全体からトリガーを検索します。'"
                 ></tooltip>
                 <input
                     type="checkbox"
@@ -55,9 +55,9 @@
 
         <firebot-input
             ng-if="$ctrl.command.baseCommandDescription == null"
-            input-title="Description"
-            title-tooltip="Displayed on the command list webpage"
-            placeholder-text="Enter description"
+            input-title="説明"
+            title-tooltip="コマンド一覧ページに表示されます"
+            placeholder-text="説明を入力"
             model="$ctrl.command.description"
             disable-variables="true"
             class="pt-6"
@@ -65,9 +65,9 @@
         </firebot-input>
         <firebot-input
             ng-if="$ctrl.command.baseCommandDescription != null"
-            input-title="Description"
-            title-tooltip="Displayed on the command list webpage"
-            placeholder-text="Enter description"
+            input-title="説明"
+            title-tooltip="コマンド一覧ページに表示されます"
+            placeholder-text="説明を入力"
             model="$ctrl.command.baseCommandDescription"
             disable-variables="true"
             class="pt-6"
@@ -76,7 +76,7 @@
     </setting-container>
 
     <setting-container
-        header="Cooldowns"
+        header="クールダウン"
         pad-top="true"
         ng-hide="$ctrl.command.hideCooldowns"
     >
@@ -87,8 +87,8 @@
     </setting-container>
 
     <setting-container
-        header="Restrictions"
-        description="Permissions, currency costs, and more"
+        header="制限"
+        description="権限、通貨コストなど"
         pad-top="true"
     >
         <restrictions-list
@@ -99,10 +99,10 @@
         </restrictions-list>
     </setting-container>
 
-    <setting-container header="General" pad-top="true">
+    <setting-container header="一般" pad-top="true">
         <div class="controls-fb-inline">
             <label class="control-fb control--checkbox"
-                >Is Active
+                >有効
                 <input
                     type="checkbox"
                     ng-model="$ctrl.command.active"
@@ -112,9 +112,9 @@
                 <div class="control__indicator"></div>
             </label>
             <label class="control-fb control--checkbox"
-                >Hidden
+                >非表示
                 <tooltip
-                    text="'Hide this command from the !commands list'"
+                    text="'このコマンドを !commands 一覧から非表示にします'"
                 ></tooltip>
                 <input
                     type="checkbox"
@@ -126,7 +126,7 @@
         </div>
     </setting-container>
 
-    <setting-container header="Shared Chat" pad-top="true">
+    <setting-container header="共有チャット" pad-top="true">
         <div class="controls-fb-inline">
             <firebot-radios
                 options="$ctrl.sharedChatRadioOptions"
@@ -137,7 +137,7 @@
     </setting-container>
 
     <setting-container
-        header="Settings"
+        header="設定"
         ng-if="$ctrl.command.options != null"
         pad-top="true"
     >
@@ -150,15 +150,15 @@
         </dynamic-parameter>
     </setting-container>
 
-    <setting-container header="Additional Effects" pad-top="true">
+    <setting-container header="追加エフェクト" pad-top="true">
         <div
             ng-if="$ctrl.command.subCommands != null && $ctrl.command.subCommands.length > 0"
             style="margin-bottom: 20px; font-weight: 100"
         >
-            This is only triggered when the user does not provide any arguments.
+            これはユーザーが引数を指定しなかった場合のみ実行されます。
         </div>
         <effect-list
-            header="What should this command do?"
+            header="このコマンドで何を実行しますか？"
             effects="$ctrl.command.effects"
             trigger="command"
             trigger-meta="{ rootEffects: $ctrl.command.effects }"
@@ -168,19 +168,19 @@
     </setting-container>
 
     <setting-container
-        header="Subcommands"
+        header="サブコマンド"
         ng-if="$ctrl.command.subCommands != null && $ctrl.command.subCommands.length > 0"
         pad-top="true"
     >
         <div class="flex text-lg font-bold pb-4">
             <div class="muted pl-8" style="flex-basis: 30%">
-                <i class="fas fa-tag"></i> ARG
+                <i class="fas fa-tag"></i> 引数
             </div>
             <div class="muted" style="width: 25%">
-                <i class="fas fa-clock"></i> COOLDOWNS
+                <i class="fas fa-clock"></i> クールダウン
             </div>
             <div class="muted" style="width: 25%">
-                <i class="fas fa-lock-alt"></i> PERMISSIONS
+                <i class="fas fa-lock-alt"></i> 権限
             </div>
             <div class="muted" style="width: 25%"></div>
             <div
@@ -202,16 +202,16 @@
         class="btn btn-danger pull-left"
         ng-click="$ctrl.reset()"
     >
-        Reset To Default
+        デフォルトに戻す
     </button>
     <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">
-        Cancel
+        キャンセル
     </button>
     <button
         type="button"
         class="btn btn-primary add-new-board-save"
         ng-click="$ctrl.save()"
     >
-        Save Changes
+        変更を保存
     </button>
 </div>

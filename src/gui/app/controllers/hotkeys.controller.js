@@ -42,25 +42,25 @@
             $scope.hotkeyOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen mr-2 text-center" style="width: 20px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen mr-2 text-center" style="width: 20px;"></i> 編集</a>`,
                         click: () => {
                             hotkeyService.showAddEditHotkeyModal(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off mr-2 text-center" style="width: 20px;"></i> ${item.active ? "Disable Hotkey" : "Enable Hotkey"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off mr-2 text-center" style="width: 20px;"></i> ${item.active ? "ホットキーを無効化" : "ホットキーを有効化"}</a>`,
                         click: () => {
                             hotkeyService.toggleHotkeyActiveState(item);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt text-center mr-2" style="width: 20px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt text-center mr-2" style="width: 20px;"></i> 削除</a>`,
                         click: () => {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Hotkey",
-                                    question: `Are you sure you want to delete the Hotkey "${item.name}"?`,
-                                    confirmLabel: "Delete",
+                                    title: "ホットキーを削除",
+                                    question: `ホットキー "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then((confirmed) => {

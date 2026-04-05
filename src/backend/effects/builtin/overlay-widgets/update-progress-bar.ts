@@ -9,8 +9,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:update-progress-bar",
-        name: "Update Progress Bar",
-        description: "Update a progress bar's value.",
+        name: "プログレスバー更新",
+        description: "プログレスバーの値を更新します。",
         icon: "fad fa-percentage",
         categories: ["overlay", "advanced"],
         dependencies: []

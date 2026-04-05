@@ -12,50 +12,50 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "Streamlabs",
-    description: "Donation events from Streamlabs",
+    description: "Streamlabs 由来の寄付関連イベント",
     events: [
         {
             id: EventId.DONATION,
-            name: "Donation",
-            description: "When someone donates to you via StreamLabs.",
+            name: "寄付",
+            description: "誰かが Streamlabs 経由であなたに寄付したとき。",
             cached: false,
             manualMetadata: {
                 from: "StreamLabs",
                 formattedDonationAmount: 5,
                 donationAmount: 5,
-                donationMessage: "Test message"
+                donationMessage: "テストメッセージ"
             },
             isIntegration: true,
             activityFeed: {
                 icon: "fad fa-money-bill",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** donated **${eventData.formattedDonationAmount}**${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                    return `**${eventData.from}** が **${eventData.formattedDonationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                 }
             }
         },
         {
             id: EventId.EXTRA_LIFE_DONATION,
-            name: "Extra Life Donation",
-            description: "When someone donates to your Extra Life campaign.",
+            name: "Extra Life 寄付",
+            description: "誰かがあなたの Extra Life キャンペーンへ寄付したとき。",
             cached: false,
             manualMetadata: {
                 from: "Extra Life",
                 formattedDonationAmount: 5,
                 donationAmount: 5,
-                donationMessage: "Test message"
+                donationMessage: "テストメッセージ"
             },
             isIntegration: true,
             activityFeed: {
                 icon: "fad fa-money-bill",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** donated **${eventData.formattedDonationAmount}** to ExtraLife${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                    return `**${eventData.from}** が Extra Life に **${eventData.formattedDonationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                 }
             }
         },
         {
             id: EventId.FOLLOW,
-            name: "Follow",
-            description: "When someone follows your Twitch channel (comes from StreamLabs)",
+            name: "フォロー",
+            description: "誰かがあなたの Twitch チャンネルをフォローしたとき（Streamlabs 経由）。",
             cacheMetaKey: "username",
             cached: true,
             manualMetadata: {
@@ -65,7 +65,7 @@ const eventSourceDefinition = {
             activityFeed: {
                 icon: "fas fa-heart",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** followed`;
+                    return `**${eventData.username}** がフォローしました`;
                 }
             }
         }

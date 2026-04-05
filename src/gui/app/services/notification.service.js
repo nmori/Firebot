@@ -107,6 +107,13 @@
                 notificationCache = notificationCache.filter(n => n.id !== id);
             });
 
+            backendCommunicator.on("notifications:notification-updated", (updatedNotification) => {
+                const index = notificationCache.findIndex(n => n.id === updatedNotification.id);
+                if (index >= 0) {
+                    notificationCache[index] = updatedNotification;
+                }
+            });
+
             backendCommunicator.send("notifications:start-external-notification-check");
 
             return service;

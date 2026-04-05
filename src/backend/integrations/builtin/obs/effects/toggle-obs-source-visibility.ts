@@ -26,8 +26,8 @@ export const ToggleSourceVisibilityEffectType: EffectType<EffectProperties> =
     {
         definition: {
             id: "ebiggz:obs-toggle-source-visibility",
-            name: "Toggle OBS Source Visibility",
-            description: "Toggle an OBS source's visibility",
+            name: "OBSソース表示切り替え",
+            description: "OBS ソースの表示状態を切り替えます",
             icon: "fad fa-clone",
             categories: ["common", "integrations"]
         },

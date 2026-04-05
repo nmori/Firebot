@@ -6,8 +6,8 @@ export const ChangeSceneEffectType: EffectType<{
 }> = {
     definition: {
         id: "ebiggz:obs-change-scene",
-        name: "Change OBS Scene",
-        description: "Change the active OBS Scene",
+        name: "OBSシーン変更",
+        description: "有効な OBS シーンを変更します",
         icon: "fad fa-tv",
         categories: ["common", "integrations"]
     },

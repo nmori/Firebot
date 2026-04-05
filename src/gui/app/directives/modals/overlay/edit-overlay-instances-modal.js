@@ -5,12 +5,12 @@
         .component("editOverlayInstancesModal", {
             template: `
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Manage Overlay Instances</h4>
+                    <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">オーバーレイインスタンスを管理</h4>
                 </div>
                 <div class="modal-body" style="padding: 0 25px 25px 25px;">
                     <p class="muted" style="margin-bottom: 20px; font-size: 14px;">
-                        Overlay instances are useful for advanced setups. For example, use a separate instance for greenscreen footage that needs chroma keying without affecting your other videos and images.
+                        オーバーレイインスタンスは高度なセットアップに便利です。例えば、他の動画や画像に影響を与えず、クロマキーが必要なグリーンスクリーン映像だけ別インスタンスで扱えます。
                     </p>
 
                     <div style="margin-bottom: 20px;">
@@ -20,12 +20,12 @@
                             <div style="flex: 1;">
                                 <div style="display: flex; align-items: center;">
                                     <i class="fas fa-star" style="color: #ffd700; margin-right: 8px; font-size: 14px;"></i>
-                                    <strong style="font-size: 15px;">Default</strong>
-                                    <span class="muted" style="margin-left: 8px; font-size: 12px;">Primary overlay instance</span>
+                                    <strong style="font-size: 15px;">デフォルト</strong>
+                                    <span class="muted" style="margin-left: 8px; font-size: 12px;">メインのオーバーレイインスタンス</span>
                                 </div>
                             </div>
                             <button class="btn btn-default btn-sm" ng-click="$ctrl.showViewUrlModal()">
-                                <i class="fas fa-link" style="margin-right: 5px;"></i> View URL
+                                <i class="fas fa-link" style="margin-right: 5px;"></i> URLを表示
                             </button>
                         </div>
 
@@ -39,9 +39,9 @@
                             </div>
                             <div style="display: flex; gap: 8px;">
                                 <button class="btn btn-default btn-sm" ng-click="$ctrl.showViewUrlModal(instanceName)">
-                                    <i class="fas fa-link" style="margin-right: 5px;"></i> View URL
+                                    <i class="fas fa-link" style="margin-right: 5px;"></i> URLを表示
                                 </button>
-                                <button class="btn btn-danger btn-sm" ng-click="$ctrl.deleteOverlayInstanceAtIndex($index)" uib-tooltip="Delete instance" tooltip-append-to-body="true">
+                                <button class="btn btn-danger btn-sm" ng-click="$ctrl.deleteOverlayInstanceAtIndex($index)" uib-tooltip="インスタンスを削除" tooltip-append-to-body="true">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
                             </div>
@@ -50,12 +50,12 @@
                         <!-- Empty State -->
                         <div ng-if="$ctrl.getOverlayInstances().length === 0" style="text-align: center; padding: 30px 20px; background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 6px; margin-bottom: 10px;">
                             <i class="fas fa-window-restore" style="font-size: 32px; opacity: 0.3; margin-bottom: 10px;"></i>
-                            <p class="muted" style="margin: 0; font-size: 14px;">No custom overlay instances yet</p>
+                            <p class="muted" style="margin: 0; font-size: 14px;">カスタムオーバーレイインスタンスはまだありません</p>
                         </div>
                     </div>
 
                     <button class="btn btn-primary" ng-click="$ctrl.showCreateInstanceModal()" style="width: 100%;">
-                        <i class="fas fa-plus" style="margin-right: 5px;"></i> Create New Instance
+                        <i class="fas fa-plus" style="margin-right: 5px;"></i> 新しいインスタンスを作成
                     </button>
                 </div>
             `,
@@ -76,9 +76,9 @@
                     const instanceName = instances[index];
 
                     const confirmed = await modalFactory.showConfirmationModal({
-                        title: "Delete Overlay Instance",
-                        question: `Are you sure you want to delete the "${instanceName}" overlay instance?`,
-                        confirmLabel: "Delete",
+                        title: "オーバーレイインスタンスを削除",
+                        question: `オーバーレイインスタンス「${instanceName}」を削除しますか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     });
 
@@ -103,9 +103,9 @@
                 $ctrl.showCreateInstanceModal = () => {
                     modalFactory.openGetInputModal({
                         model: "",
-                        label: "Instance Name",
-                        inputPlaceholder: "Enter instance name",
-                        saveText: "Create",
+                        label: "インスタンス名",
+                        inputPlaceholder: "インスタンス名を入力",
+                        saveText: "作成",
                         validationFn: async (value) => {
                             if (!value || value.trim() === "") {
                                 return false;
@@ -113,7 +113,7 @@
                             const instances = settingsService.getSetting("OverlayInstances");
                             return !instances.includes(value);
                         },
-                        validationText: "This name is invalid or already exists."
+                        validationText: "この名前は無効か、すでに存在します。"
                     }, (instanceName) => {
                         if (instanceName) {
                             addOverlayInstance(instanceName);

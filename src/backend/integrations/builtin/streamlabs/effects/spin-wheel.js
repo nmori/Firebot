@@ -7,8 +7,8 @@ const logger = require("../../../../logwrapper");
 const effect = {
     definition: {
         id: "streamlabs:spin-wheel",
-        name: "Spin The Wheel",
-        description: "Trigger StreamLab's \"Spin the Wheel\" feature",
+            name: "ホイールスピン",
+            description: "Streamlabs の Spin the Wheel 機能を実行します",
         icon: "fad fa-tire",
         categories: ["integrations"],
         dependencies: []

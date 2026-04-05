@@ -20,21 +20,21 @@ const HEIST_COMMAND_ID = "firebot:heist";
 const heistCommand: SystemCommand = {
     definition: {
         id: HEIST_COMMAND_ID,
-        name: "Heist",
+        name: "強盗",
         active: true,
         trigger: "!heist",
-        description: "Allows viewers to play the Heist game.",
+        description: "視聴者が強盗ゲームに参加できます。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
-        baseCommandDescription: "Starts/joins the heist with the default wager amount, if one is set.",
+        baseCommandDescription: "既定の賭け金が設定されている場合、その金額で強盗を開始または参加します。",
         subCommands: [
             {
                 id: "wagerAmount",
                 arg: "\\d+",
                 regex: true,
                 usage: "[wagerAmount]",
-                description: "Starts/joins the heist with the given amount.",
+                description: "指定した賭け金で強盗を開始または参加します。",
                 hideCooldowns: true
             }
         ]

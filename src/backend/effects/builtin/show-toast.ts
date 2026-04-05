@@ -9,8 +9,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:show-toast",
-        name: "Show Toast Notification",
-        description: "Displays a toast notification at the top of the Firebot main window.",
+        name: "トースト通知表示",
+        description: "Firebot メインウィンドウ上部にトースト通知を表示します。",
         icon: "fad fa-comment-alt-exclamation",
         categories: ["advanced", "scripting"],
         dependencies: []

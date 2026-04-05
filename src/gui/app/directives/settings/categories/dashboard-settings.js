@@ -8,12 +8,12 @@
             template: `
                 <div>
                     <firebot-setting-category
-                        name="General"
+                        name="全般"
                     />
 
                     <firebot-setting
-                        name="Show Chat Viewer List"
-                        description="Show or hide the list of viewers connected to chat."
+                        name="チャット視聴者リストを表示"
+                        description="チャットに接続している視聴者一覧の表示/非表示を切り替えます。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ShowChatViewerList')"
@@ -23,8 +23,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Show Activity Feed"
-                        description="Show or hide the Activity Feed, containing the events that have triggered since Firebot started."
+                        name="アクティビティフィードを表示"
+                        description="Firebot 起動後に発生したイベントを表示するアクティビティフィードの表示/非表示を切り替えます。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ShowActivityFeed')"
@@ -34,38 +34,38 @@
                     </firebot-setting>
 
                     <firebot-setting-category
-                        name="Quick Actions"
+                        name="クイックアクション"
                         pad-top="true"
                     />
 
                     <firebot-setting
-                        name="Edit Quick Actions"
-                        description="Edit and reorder Dashboard Quick Actions."
+                        name="クイックアクションを編集"
+                        description="ダッシュボードのクイックアクションを編集・並べ替えします。"
                     >
                         <firebot-button
-                            text="Edit Quick Actions"
+                            text="クイックアクションを編集"
                             ng-click="quickActionsService.openQuickActionSettingsModal()"
                         />
                     </firebot-setting>
 
                     <firebot-setting-category
-                        name="Activity Feed"
+                        name="アクティビティフィード"
                         pad-top="true"
                     />
 
                     <firebot-setting
-                        name="Activity Feed Events"
-                        description="Choose which events to display in the Activity Feed."
+                        name="表示イベント"
+                        description="アクティビティフィードに表示するイベントを選択します。"
                     >
                         <firebot-button
-                            text="Edit Events"
+                            text="イベントを編集"
                             ng-click="activityFeed.showEditActivityFeedEventsModal()"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Show Activity Feed Events in Chat"
-                        description="When enabled, events that are displayed in the Activity Feed will also be displayed as alerts in the chat feed."
+                        name="アクティビティイベントをチャットにも表示"
+                        description="有効時、アクティビティフィードに表示されるイベントをチャットフィードにもアラート表示します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ShowActivityFeedEventsInChat')"
@@ -75,13 +75,13 @@
                     </firebot-setting>
 
                     <firebot-setting-category
-                        name="Sounds"
+                        name="サウンド"
                         pad-top="true"
                     />
 
                     <firebot-setting
-                        name="Tag Notification Sound"
-                        description="The sound that is played when a viewer tags you in chat."
+                        name="メンション通知音"
+                        description="チャットでメンションされたときに再生される通知音です。"
                     >
                         <div style="width: 80%; text-align: right;">
                             <div>
@@ -102,7 +102,7 @@
                             <div class="mt-4" ng-show="selectedNotificationSound.name === 'Custom'">
                                 <file-chooser
                                     model="selectedNotificationSound.path"
-                                    options="{title: 'Select Sound File', filters: [{name: 'Audio', extensions: ['mp3', 'ogg', 'oga', 'wav', 'flac']}]}"
+                                    options="{title: '音声ファイルを選択', filters: [{name: 'Audio', extensions: ['mp3', 'ogg', 'oga', 'wav', 'flac']}]}"
                                     on-update="setCustomNotiPath(filepath)"
                                 />
                             </div>
@@ -115,27 +115,27 @@
                     </firebot-setting>
 
                     <firebot-setting-category
-                        name="Chat Display"
+                        name="チャット表示"
                         pad-top="true"
                     />
 
                     <firebot-setting
-                        name="Message Style"
-                        description="This is how chat messages will be displayed in the chat feed."
+                        name="メッセージ表示スタイル"
+                        description="チャットフィードでのメッセージ表示方法を設定します。"
                     >
                         <firebot-select
-                            options="{ true: 'Compact', false: 'Modern (Expanded)' }"
+                            options="{ true: 'コンパクト', false: 'モダン（展開）' }"
                             ng-init="compactMode = settings.getSetting('ChatCompactMode')"
                             selected="compactMode"
                             on-update="settings.saveSetting('ChatCompactMode', option === 'true')"
                             right-justify="true"
-                            aria-label="Set chat message display style to Compact or Modern (Expanded)"
+                            aria-label="チャットメッセージの表示スタイルをコンパクトまたはモダン（展開）に設定"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Alternate Backgrounds"
-                        description="Alternate the backgrounds of each chat message to make them easier to differentiate."
+                        name="交互背景"
+                        description="各チャットメッセージの背景を交互にして見分けやすくします。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatAlternateBackgrounds')"
@@ -145,8 +145,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Show Shared Chat Info"
-                        description="Display info about the channel a chat message was sent in during a shared chat session in the chat feed."
+                        name="共有チャット情報を表示"
+                        description="共有チャット中にメッセージが送信されたチャンネル情報をチャットフィードに表示します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatShowSharedChatInfo')"
@@ -156,8 +156,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Show Avatars"
-                        description="Display the chatter's avatar on messages in the chat feed."
+                        name="アバターを表示"
+                        description="チャットフィードの各メッセージに発言者のアバターを表示します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatAvatars')"
@@ -167,8 +167,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Show Timestamps"
-                        description="Display the timestamp of messages in the chat feed."
+                        name="タイムスタンプを表示"
+                        description="チャットフィードのメッセージに時刻を表示します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatTimestamps')"
@@ -178,8 +178,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Show Pronouns"
-                        description="Display the pronouns of chatters in the chat feed."
+                        name="代名詞を表示"
+                        description="チャットフィードで発言者の代名詞を表示します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatPronouns')"
@@ -188,13 +188,13 @@
                         />
 
                         <setting-description-addon>
-                            <strong>Pronouns are provided by the third-party <a href="https://pr.alejo.io/">Twitch Chat Pronouns</a> service.</strong>
+                            <strong>代名詞情報はサードパーティーサービス <a href="https://pr.alejo.io/">Twitch Chat Pronouns</a> により提供されます。</strong>
                         </setting-description-addon>
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Reverse Chat Order"
-                        description="When this is enabled, new chat messages will be shown at the top of the chat feed instead of the bottom."
+                        name="チャット順序を反転"
+                        description="有効時、新しいチャットメッセージが下ではなく上に表示されます。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatReverseOrder')"
@@ -204,8 +204,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Use Custom Chat Font Family"
-                        description="Use a custom font family in the chat feed."
+                        name="カスタムフォント（種類）を使用"
+                        description="チャットフィードでカスタムフォントファミリーを使用します。"
                     >
                         <div style="text-align: right">
                             <toggle-button
@@ -223,8 +223,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Use Custom Chat Font Size"
-                        description="Use a custom font size in the chat feed."
+                        name="カスタムフォント（サイズ）を使用"
+                        description="チャットフィードでカスタムフォントサイズを使用します。"
                     >
                         <div style="text-align: right">
                             <toggle-button
@@ -237,7 +237,7 @@
                                 class="mt-4"
                                 ng-show="settings.getSetting('ChatCustomFontSizeEnabled')"
                                 input-type="number"
-                                placeholder="Enter a number"
+                                placeholder="数値を入力"
                                 model="chatFontSettings.size"
                                 on-input-update="settings.saveSetting('ChatCustomFontSize', chatFontSettings.size)"
                                 disable-variables="true"
@@ -246,13 +246,13 @@
                     </firebot-setting>
 
                     <firebot-setting-category
-                        name="Emotes"
+                        name="エモート"
                         pad-top="true"
                     />
 
                     <firebot-setting
-                        name="Load All Available Twitch Emotes"
-                        description="This will add ALL Twitch emotes that the streamer and bot accounts can use to the chat autocomplete list. This includes any subscriber, follower, bits tier, etc. emotes."
+                        name="利用可能な Twitch エモートをすべて読み込む"
+                        description="配信者アカウント/ボットアカウントで使える Twitch エモートをすべてチャット補完リストに追加します（サブスク、フォロワー、Bits ティア等を含む）。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatGetAllEmotes')"
@@ -261,13 +261,13 @@
                         />
 
                         <setting-description-addon>
-                            <strong>NOTE: It can take SEVERAL seconds for emotes to load after connecting to chat. Changes to this setting will take effect next time you connect to chat.</strong>
+                            <strong>注: チャット接続後、エモートの読み込みに数秒かかる場合があります。この設定変更は次回チャット接続時に反映されます。</strong>
                         </setting-description-addon>
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Third-Party Emotes"
-                        description="Firebot will load third-party emotes from the services enabled here."
+                        name="サードパーティーエモート"
+                        description="ここで有効にしたサービスからサードパーティーエモートを読み込みます。"
                     >
                         <div>
                             <firebot-checkbox
@@ -294,13 +294,13 @@
                     </firebot-setting>
 
                     <firebot-setting-category
-                        name="Filtering"
+                        name="フィルタリング"
                         pad-top="true"
                     />
 
                     <firebot-setting
-                        name="Chat Clear Mode"
-                        description="Determines how clearing Twitch chat also clears Firebot chat."
+                        name="チャットクリア動作"
+                        description="Twitchチャットのクリア時に Firebot 側チャットをどうクリアするかを設定します。"
                     >
                         <firebot-select
                             ng-init="clearChatFeedMode = settings.getSetting('ClearChatFeedMode')"
@@ -312,8 +312,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Hide Deleted Messages"
-                        description="Turning this on will cover deleted messages with a black box. Hovering over the message will reveal it. Great for letting your mods hide spoilers!"
+                        name="削除メッセージを隠す"
+                        description="有効時、削除されたメッセージを黒塗り表示します。ホバーで内容を確認できます。ネタバレ防止に便利です。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatHideDeletedMessages')"
@@ -323,8 +323,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Hide Bot Account Messages"
-                        description="Hide any messages sent from your bot account in the chat feed. This requires having a bot account logged in."
+                        name="ボットアカウントのメッセージを隠す"
+                        description="チャットフィードでボットアカウント送信メッセージを非表示にします（ボットログインが必要）。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatHideBotAccountMessages')"
@@ -334,8 +334,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Hide Whispers"
-                        description="Hide any whispers (private messages) you receive in the chat feed."
+                        name="Whisper を隠す"
+                        description="受信した Whisper（プライベートメッセージ）をチャットフィードで非表示にします。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('ChatHideWhispers')"
@@ -431,9 +431,9 @@
                 };
 
                 $scope.clearChatFeedOptions = {
-                    never: "Never",
-                    onlyStreamer: "Only when I /clear",
-                    always: "When I or mods /clear"
+                    never: "クリアしない",
+                    onlyStreamer: "自分が /clear したときのみ",
+                    always: "自分またはモデレーターが /clear したとき"
                 };
 
                 $scope.quickActionSettings = settingsService.getSetting("QuickActions");

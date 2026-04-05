@@ -20,13 +20,13 @@
             <div class="general-event-settings">
 
                 <div class="effect-setting-container">
-                    <h3>Trigger On</h3>
+                    <h3>トリガー条件</h3>
                     <searchable-event-dropdown selected="{ eventId: $ctrl.event.eventId, sourceId: $ctrl.event.sourceId }" style="width:100%" update="$ctrl.eventChanged(event)"></searchable-event-dropdown>
                 </div>
 
                 <div class="effect-setting-container">
-                    <h3>Name</h3>
-                    <input type="text" class="form-control event-id" aria-describedby="basic-addon3" placeholder="Enter name" ng-model="$ctrl.event.name" ng-change="$ctrl.nameChanged()">
+                    <h3>名前</h3>
+                    <input type="text" class="form-control event-id" aria-describedby="basic-addon3" placeholder="名前を入力" ng-model="$ctrl.event.name" ng-change="$ctrl.nameChanged()">
                 </div>
 
                 <div ng-if="$ctrl.event.eventId != null">
@@ -35,26 +35,26 @@
 
                 <div class="other-settings setting-padtop">
                     <div class="settings-title">
-                        <h3>Settings</h3>
+                        <h3>設定</h3>
                     </div>
 
                     <div class="controls-fb-inline effect-setting-container">
-                        <label class="control-fb control--checkbox">Is Enabled
-                            <input type="checkbox" ng-model="$ctrl.event.active" aria-label="Is Active" checked>
+                        <label class="control-fb control--checkbox">有効
+                            <input type="checkbox" ng-model="$ctrl.event.active" aria-label="有効" checked>
                             <div class="control__indicator"></div>
                         </label>
                     </div>
                 </div>
                 <div class="cooldown-title">
                     <div class="controls-fb-inline effect-custom-cooldown-container">
-                        <label class="control-fb control--checkbox">Custom Cooldown
-                            <input type="checkbox" ng-model="$ctrl.event.customCooldown" aria-label="Use Custom Cooldown" >
+                        <label class="control-fb control--checkbox">カスタムクールダウン
+                            <input type="checkbox" ng-model="$ctrl.event.customCooldown" aria-label="カスタムクールダウンを使用" >
                             <div class="control__indicator"></div>
                         </label>
                         <div id="cooldown-options" ng-if="$ctrl.event.customCooldown" class="nav-body-wrapper" style="padding-left: 29px;">
-                            <input type="number" class="form-control event-id" aria-describedby="basic-addon3" placeholder="Enter time in seconds" ng-model="$ctrl.event.customCooldownSecs" style="margin-bottom: 6px;">
-                            <label class="control-fb control--checkbox">Apply Cooldown Per User
-                                <input type="checkbox" ng-model="$ctrl.event.customCooldownPerUser" aria-label="Apply Cooldown Per User" >
+                            <input type="number" class="form-control event-id" aria-describedby="basic-addon3" placeholder="秒数を入力" ng-model="$ctrl.event.customCooldownSecs" style="margin-bottom: 6px;">
+                            <label class="control-fb control--checkbox">ユーザーごとに適用
+                                <input type="checkbox" ng-model="$ctrl.event.customCooldownPerUser" aria-label="ユーザーごとにクールダウンを適用" >
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
@@ -63,7 +63,7 @@
             </div>
             <div ng-if="$ctrl.event.eventId != null" class="effect-setting-container setting-padtop">
                 <effect-list
-                    header="What should this event do?"
+                    header="このイベントで実行する内容"
                     effects="$ctrl.event.effects"
                     trigger="event"
                     trigger-meta="$ctrl.triggerMeta"
@@ -74,9 +74,9 @@
             </div>
         </div>
         <div class="modal-footer sticky-footer edit-event-footer">
-            <button ng-if="!$ctrl.isNewEvent" type="button" class="btn btn-danger delete-event-button pull-left" ng-click="$ctrl.delete()">Delete Event</button>
-            <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-            <button type="button" class="btn btn-primary event-edit-save" ng-click="$ctrl.save()">{{isNewEvent ? "Add" : "Save"}}</button>
+            <button ng-if="!$ctrl.isNewEvent" type="button" class="btn btn-danger delete-event-button pull-left" ng-click="$ctrl.delete()">イベントを削除</button>
+            <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+            <button type="button" class="btn btn-primary event-edit-save" ng-click="$ctrl.save()">{{isNewEvent ? "追加" : "保存"}}</button>
         </div>
         <scroll-sentinel element-class="edit-event-footer"></scroll-sentinel>
         `,
@@ -147,9 +147,9 @@
 
                 utilityService
                     .showConfirmationModal({
-                        title: "Delete Event",
-                        question: `Are you sure you want to delete this event?`,
-                        confirmLabel: "Delete",
+                        title: "イベントを削除",
+                        question: "このイベントを削除してもよろしいですか？",
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {
@@ -168,7 +168,7 @@
 
             $ctrl.save = function() {
                 if ($ctrl.event.name == null || $ctrl.event.name === "") {
-                    ngToast.create("Please enter an event name.");
+                    ngToast.create("イベント名を入力してください。");
                     return;
                 }
 

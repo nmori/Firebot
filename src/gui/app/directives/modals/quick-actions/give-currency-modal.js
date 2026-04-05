@@ -6,14 +6,14 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Give Currency</h4>
+                    <h4 class="modal-title">通貨を付与</h4>
                 </div>
                 <div class="modal-body">
 
                     <form name="currencyInfo">
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('currency')}">
-                            <label for="currency" class="control-label">Currency</label>
+                            <label for="currency" class="control-label">通貨</label>
                             <select
                                 id="currency"
                                 name="currency"
@@ -21,18 +21,18 @@
                                 class="fb-select form-control input-lg"
                                 ng-model="$ctrl.currencyInfo.currencyId"
                                 ng-options="currency.id as currency.name for currency in $ctrl.currencies">
-                                <option value="" disabled selected>Select currency...</option>
+                                <option value="" disabled selected>通貨を選択...</option>
                             </select>
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('username')}">
-                            <label for="targetType" class="control-label">Target</label>
+                            <label for="targetType" class="control-label">対象</label>
                             <div class="permission-type">
-                                <label class="control-fb control--radio">All Online Chat Users
+                                <label class="control-fb control--radio">オンライン中のチャットユーザー全員
                                     <input type="radio" ng-model="$ctrl.currencyInfo.targetType" value="allOnline"/>
                                     <div class="control__indicator"></div>
                                 </label>
-                                <label class="control-fb control--radio">All Online Chat Users In Role
+                                <label class="control-fb control--radio">指定ロールのオンライン中チャットユーザー全員
                                     <input type="radio" ng-model="$ctrl.currencyInfo.targetType" value="allOnlineInRole"/>
                                     <div class="control__indicator"></div>
                                 </label>
@@ -46,7 +46,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <label class="control-fb control--radio">Single User
+                                <label class="control-fb control--radio">個別ユーザー
                                     <input type="radio" ng-model="$ctrl.currencyInfo.targetType" value="individual"/>
                                     <div class="control__indicator"></div>
                                 </label>
@@ -58,7 +58,7 @@
                                     ui-validate-watch="'$ctrl.currencyInfo.targetType'"
                                     ui-validate="'$ctrl.currencyInfo.targetType !== individual || ($value != null && $value.length > 0)'"
                                     class="form-control input-lg"
-                                    placeholder="Enter username"
+                                    placeholder="ユーザー名を入力"
                                     uib-typeahead="username for username in $ctrl.usernames | filter:$viewValue | limitTo:8"
                                     typeahead-min-length="0"
                                     ng-model="$ctrl.currencyInfo.username"
@@ -67,24 +67,24 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('amount')}">
-                            <label for="amount" class="control-label">Amount</label>
+                            <label for="amount" class="control-label">数量</label>
                             <input
                                 type="number"
                                 id="amount"
                                 name="amount"
                                 class="form-control input-lg"
-                                placeholder="Enter amount"
+                                placeholder="数量を入力"
                                 ng-model="$ctrl.currencyInfo.amount"
                                 ui-validate="'$value > 0 || $value < 0'"
                                 required
                             />
-                            <p class="help-block">Tip: You can enter a negative amount to remove currency.</p>
+                            <p class="help-block">ヒント: マイナス値を入力すると通貨を減らせます。</p>
                         </div>
 
                         <div class="form-group flex-row jspacebetween mb-0">
                             <div>
-                                <label class="control-label m-0">Send Chat Message</label>
-                                <p class="help-block">Send a message to chat detailing the currency given</p>
+                                <label class="control-label m-0">チャットメッセージを送信</label>
+                                <p class="help-block">付与した通貨の内容をチャットに送信します</p>
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.currencyInfo.sendChatMessage" auto-update-value="true" font-size="32"></toggle-button>
@@ -94,8 +94,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Give</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">付与</button>
                 </div>
             `,
             bindings: {
@@ -113,7 +113,7 @@
                 $ctrl.usernames = chatMessagesService.chatUsers.map(u => u.username);
 
                 $ctrl.roles = viewerRolesService.getAllRoles();
-                $ctrl.selectedRole = "Select...";
+                $ctrl.selectedRole = "選択...";
 
                 $ctrl.selectRole = (role) => {
                     $ctrl.currencyInfo.role = role.id;
@@ -146,7 +146,7 @@
 
                     ngToast.create({
                         className: 'success',
-                        content: "Successfully gave currency!"
+                        content: "通貨を付与しました！"
                     });
 
                     $ctrl.dismiss();

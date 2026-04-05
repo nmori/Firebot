@@ -6,115 +6,115 @@
                 <div>
 
                     <firebot-setting
-                        name="Debug Mode"
-                        description="When Debug Mode is enabled, Firebot will log a lot more information to its log files. This is often useful when troubleshooting an obscure problem."
+                        name="デバッグモード"
+                        description="デバッグモードを有効にすると、ログファイルへより多くの情報が記録されます。原因不明の問題調査に役立ちます。"
                     >
                         <setting-description-addon>
-                            <b>Firebot must be restarted for changes to this setting to take effect.</b>
+                            <b>この設定変更を反映するには Firebot の再起動が必要です。</b>
                         </setting-description-addon>
                         <firebot-button
-                            text="{{settings.getSetting('DebugMode') ? 'Disable Debug Mode' : 'Enable Debug Mode' }}"
+                            text="{{settings.getSetting('DebugMode') ? 'デバッグモードを無効化' : 'デバッグモードを有効化' }}"
                             ng-click="settings.saveSetting('DebugMode', !settings.getSetting('DebugMode'))"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="While Loop"
-                        description="Enable or disable the conditional 'While Loop' option in the Loop Effects effect."
+                        name="While ループ"
+                        description="「Loop Effects」エフェクト内の条件付き「While Loop」オプションを有効/無効にします。"
                     >
                         <setting-description-addon>
-                            <b>If you aren't careful, you can cause an infinite loop and freeze Firebot.</b>
+                            <b>設定を誤ると無限ループにより Firebot がフリーズする可能性があります。</b>
                         </setting-description-addon>
                         <firebot-button
-                            text="{{settings.getSetting('WhileLoopEnabled') ? 'Disable While Loops' : 'Enable While Loops' }}"
+                            text="{{settings.getSetting('WhileLoopEnabled') ? 'While ループを無効化' : 'While ループを有効化' }}"
                             ng-click="toggleWhileLoops()"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Global Values"
-                        description="Global Values are static values that can be used in effects via a $variable. They can be created and managed here."
+                        name="グローバル値"
+                        description="グローバル値はエフェクト内で $variable として使える固定値です。ここで作成・管理できます。"
                     >
                         <firebot-button
-                            text="Edit Global Values"
+                            text="グローバル値を編集"
                             ng-click="showEditGlobalValuesModal()"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Proxied Webhooks"
+                        name="プロキシWebhook"
                         tag="Experimental"
-                        description="This feature allows you to receive webhooks without exposing your local network. A 'Webhook Received' event is triggered each time a webhook is received with the payload available via the $webhookPayload variable."
+                        description="ローカルネットワークを公開せずに Webhook を受信できる機能です。受信時に「Webhook Received」イベントが発火し、ペイロードは $webhookPayload で利用できます。"
                         bottom-border="false"
                     >
                         <setting-description-addon>
-                            <b>This feature is experimental and not guaranteed to be stable.</b>
+                            <b>この機能は実験的機能であり、安定動作は保証されません。</b>
                         </setting-description-addon>
                         <firebot-button
-                            text="Edit Webhooks"
+                            text="Webhookを編集"
                             ng-click="showEditWebhooksModal()"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Webhook Debug Logs"
-                        description="Enable or disable logging for incoming webhooks. Webhooks might contain sensitive information. Be careful where you send logs when this option is enabled."
+                        name="Webhookデバッグログ"
+                        description="受信Webhookのログ記録を有効/無効にします。Webhookには機密情報が含まれる可能性があるため、ログ共有先に注意してください。"
                     >
                         <setting-description-addon>
-                            <b>Requires Debug Mode to also be enabled.</b>
+                            <b>デバッグモードが有効な場合のみ利用できます。</b>
                         </setting-description-addon>
                         <firebot-button
-                            text="{{settings.getSetting('WebhookDebugLogs') && settings.getSetting('DebugMode') ? 'Disable Webhook Logs' : 'Enable Webhook Logs' }}"
+                            text="{{settings.getSetting('WebhookDebugLogs') && settings.getSetting('DebugMode') ? 'Webhookログを無効化' : 'Webhookログを有効化' }}"
                             disabled="!settings.getSetting('DebugMode')"
                             ng-click="settings.saveSetting('WebhookDebugLogs', !settings.getSetting('WebhookDebugLogs'))"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Quote ID Recalculation"
-                        description="Quote IDs in Firebot are static, even if a quote before another is deleted. If you would like to recalculate your quote IDs so that there isn't any skipped quote numbers, you can use this option."
+                        name="引用ID再計算"
+                        description="Firebot の引用IDは固定です。途中の引用が削除されても番号は詰まりません。欠番をなくしたい場合はこの機能を使います。"
                     >
                         <setting-description-addon>
-                            <b>We recommend that you make a backup first, just in case.</b>
+                            <b>念のため、先にバックアップを取得することを推奨します。</b>
                         </setting-description-addon>
                         <firebot-button
-                            text="Recalculate Quote IDs"
+                            text="引用IDを再計算"
                             ng-click="recalculateQuoteIds()"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Allow Quote .CSV Export"
-                        description="Whether or not you want the 'Export as .CSV' button available for quotes on the profile page."
+                        name="引用のCSVエクスポートを許可"
+                        description="プロフィールページで引用の「CSVとしてエクスポート」ボタンを表示するか設定します。"
                     >
                         <firebot-select
-                            options="{ true: 'On', false: 'Off' }"
+                            options="{ true: 'オン', false: 'オフ' }"
                             ng-init="allowQuoteCsv = settings.getSetting('AllowQuoteCSVDownloads')"
                             selected="allowQuoteCsv"
                             on-update="settings.saveSetting('AllowQuoteCSVDownloads', option === 'true')"
                             right-justify="true"
-                            aria-label="Choose Whether or not you want the 'Export as .CSV' button available for quotes on the profile page."
+                            aria-label="プロフィールページの引用にCSVエクスポートボタンを表示するか選択"
 
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Persist All Custom Variables"
-                        description="Whether or not all custom variables should be persisted to file when Firebot closes."
+                        name="カスタム変数を永続化"
+                        description="Firebot 終了時にすべてのカスタム変数をファイルへ保存するか設定します。"
                     >
                         <firebot-select
-                            options="{ true: 'On', false: 'Off' }"
+                            options="{ true: 'オン', false: 'オフ' }"
                             ng-init="persistVariables = settings.getSetting('PersistCustomVariables')"
                             selected="persistVariables"
                             on-update="settings.saveSetting('PersistCustomVariables', option === 'true')"
                             right-justify="true"
-                            aria-label="enable or disable persistent Custom Variables"
+                            aria-label="カスタム変数の永続化を有効または無効にする"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Experimental Clip Player"
-                        description="When enabled, Firebot will use an experimental method to play Twitch clips in the overlay that bypasses content warnings. This is an experimental feature and isn't guaranteed to work. If Firebot is unable to play the clip, it will fall back to the default method."
+                        name="実験的クリッププレーヤー"
+                        description="有効時、コンテンツ警告を回避する実験的手法でオーバーレイに Twitch クリップを再生します。動作保証はなく、失敗時は通常方式にフォールバックします。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('UseExperimentalTwitchClipUrlResolver')"
@@ -124,77 +124,77 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Open Effect Queue Monitor on Launch"
-                        description="Automatically open the Effect Queue Monitor window when Firebot launches."
+                        name="起動時にエフェクトキューモニターを開く"
+                        description="Firebot 起動時にエフェクトキューモニターを自動で開きます。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('OpenEffectQueueMonitorOnLaunch')"
                             on-toggle="settings.saveSetting('OpenEffectQueueMonitorOnLaunch', !settings.getSetting('OpenEffectQueueMonitorOnLaunch'))"
                             font-size="40"
-                            accessibility-label="(settings.getSetting('OpenEffectQueueMonitorOnLaunch') ? 'Enabled' : 'Disabled') + ' Effect Queue Monitor on Launch'"
+                            accessibility-label="(settings.getSetting('OpenEffectQueueMonitorOnLaunch') ? '有効' : '無効') + ' 起動時にエフェクトキューモニターを開く'"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Allow Chat-Created Commands to Run Effects"
-                        description="Enables the !command system command to import shared effects and run effects through variables inside command responses. Recommended only if you trust your moderators with these advanced features."
+                        name="チャット作成コマンドでエフェクト実行を許可"
+                        description="!command システムコマンドで共有エフェクトを取り込み、コマンド応答内の変数経由でエフェクト実行を可能にします。高度機能のため、モデレーターを信頼できる場合のみ推奨します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('AllowChatCreatedCommandsToRunEffects')"
                             on-toggle="settings.saveSetting('AllowChatCreatedCommandsToRunEffects', !settings.getSetting('AllowChatCreatedCommandsToRunEffects'))"
                             font-size="40"
-                            accessibility-label="(settings.getSetting('AllowChatCreatedCommandsToRunEffects') ? 'Enabled' : 'Disabled') + ' Chat-Created Commands to Run Effects'"
+                            accessibility-label="(settings.getSetting('AllowChatCreatedCommandsToRunEffects') ? '有効' : '無効') + ' チャット作成コマンドでエフェクト実行を許可'"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Default Moderation User"
-                        description="Sets which user account will perform moderation actions. This includes bans/timeouts, deleting/clearing chat messages, setting chat modes/Shield Mode, and Twitch shoutouts."
+                        name="既定のモデレーション実行ユーザー"
+                        description="モデレーション操作を実行するユーザーアカウントを設定します。BAN/タイムアウト、メッセージ削除/クリア、チャットモード/シールドモード（Shield Mode）、Twitch シャウトアウトを含みます。"
                     >
                         <firebot-select
-                            options="{ streamer: 'Streamer', bot: 'Bot' }"
+                            options="{ streamer: '配信者', bot: 'ボット' }"
                             ng-init="defaultModerationUser = settings.getSetting('DefaultModerationUser')"
                             selected="defaultModerationUser"
                             on-update="settings.saveSetting('DefaultModerationUser', option)"
                             right-justify="true"
-                            aria-label="Sets which user account will perform moderation actions"
+                            aria-label="モデレーション操作を実行するユーザーアカウントを設定"
                         />
 
                         <setting-description-addon>
-                            <strong>NOTE: If no bot account is logged in, actions will default to the streamer account.</strong>
+                            <strong>注: ボットアカウントが未ログインの場合、配信者アカウントで実行されます。</strong>
                         </setting-description-addon>
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Preset Effect List Recursion Limit"
-                        description="Limits how many times a preset effect list can recursively call itself to prevent Firebot from hanging. When enabled, execution stops after 100 recursive calls."
+                        name="プリセットエフェクトリスト再帰上限"
+                        description="Firebot のハングを防ぐため、プリセットエフェクトリストが自分自身を再帰呼び出しできる回数を制限します。有効時は100回で停止します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('PresetRecursionLimit')"
                             on-toggle="settings.saveSetting('PresetRecursionLimit', !settings.getSetting('PresetRecursionLimit'))"
                             font-size="40"
-                            accessibility-label="(settings.getSetting('PresetRecursionLimit') ? 'Enabled' : 'Disabled') + ' Preset Effect List Recursion Limit'"
+                            accessibility-label="(settings.getSetting('PresetRecursionLimit') ? '有効' : '無効') + ' プリセットエフェクトリスト再帰上限'"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Automatic Firebot Updates"
-                        description="Enables or disables Firebot automatic updates when a new stable release is available."
+                        name="Firebot自動アップデート"
+                        description="新しい安定版リリースが利用可能なときに Firebot の自動更新を有効/無効にします。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('AutoUpdateLevel') !== 0"
                             on-toggle="toggleAutoUpdates()"
                             font-size="40"
-                            accessibility-label="(settings.getSetting('AutoUpdateLevel') !== 0 ? 'Enabled' : 'Disabled') + ' Automatic Firebot Updates'"
+                            accessibility-label="(settings.getSetting('AutoUpdateLevel') !== 0 ? '有効' : '無効') + ' Firebot自動アップデート'"
                         />
 
                         <setting-description-addon>
-                            <strong>WARNING: If you disable this option, YOU are responsible for ensuring Firebot is up to date. Outdated versions will NOT be supported via our official channels. Please see our <a href="https://github.com/crowbartools/Firebot/blob/master/.github/SUPPORT.md">support policy</a> for more information.</strong>
+                            <strong>警告: このオプションを無効にすると、Firebot を最新に保つ責任は利用者側にあります。古いバージョンは公式サポート対象外です。詳細は <a href="https://github.com/crowbartools/Firebot/blob/master/.github/SUPPORT.md">サポートポリシー</a> を参照してください。</strong>
                         </setting-description-addon>
                     </firebot-setting>
 
                     <div style="margin-top: 20px">
-                        <p class="muted">Looking for a setting that used to be located here? Try checking in the Tools app menu!</p>
+                        <p class="muted">以前ここにあった設定をお探しですか？ ツールアプリメニューを確認してください。</p>
                     </div>
 
                 </div>
@@ -210,10 +210,10 @@
                 } else {
                     modalFactory
                         .showConfirmationModal({
-                            title: "Enable While Loops",
+                            title: "While ループを有効化",
                             question:
-                                "By enabling this feature, you understand that using While Loops incorrectly can potentially cause performance issues or even freeze Firebot.",
-                            confirmLabel: "I understand, enable.",
+                                "この機能を有効化すると、While ループの誤使用によりパフォーマンス低下や Firebot フリーズが発生する可能性があることに同意しますか？",
+                            confirmLabel: "理解しました。有効化します",
                             confirmBtnType: "btn-primary"
                         })
                         .then((confirmed) => {
@@ -240,9 +240,9 @@
             $scope.recalculateQuoteIds = () => {
                 modalFactory
                     .showConfirmationModal({
-                        title: "Recalculate Quote IDs",
-                        question: `Are you sure you want to recalculate your quote IDs?`,
-                        confirmLabel: "Recalculate",
+                        title: "引用IDを再計算",
+                        question: "引用IDを再計算してもよろしいですか？",
+                        confirmLabel: "再計算する",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {
@@ -258,11 +258,11 @@
                 } else {
                     modalFactory
                         .showConfirmationModal({
-                            title: "Disable Automatic Updates?",
-                            question: "If you disable automatic updates, you will be responsible for updating Firebot yourself and will not receive support unless you are on a supported version. Are you sure you want to disable automatic Firebot updates?",
-                            confirmLabel: "Yes, disable",
+                            title: "自動アップデートを無効化しますか？",
+                            question: "自動アップデートを無効化すると、更新作業はご自身で行う必要があり、サポート対象バージョンでない場合はサポートを受けられません。本当に Firebot の自動アップデートを無効化しますか？",
+                            confirmLabel: "はい、無効化します",
                             confirmBtnType: "btn-danger",
-                            cancelLabel: "No, keep enabled",
+                            cancelLabel: "いいえ、有効のままにします",
                             cancelBtnType: "btn-default"
                         })
                         .then((confirmed) => {

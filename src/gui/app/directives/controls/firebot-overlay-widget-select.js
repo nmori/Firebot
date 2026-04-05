@@ -16,7 +16,7 @@
             template: `
                 <firebot-searchable-select
                     ng-model="$ctrl.modelValue"
-                    placeholder="Select or search for a {{$ctrl.typeName}}..."
+                    placeholder="{{$ctrl.typeName}}を選択または検索..."
                     items="$ctrl.configs"
                     on-select="$ctrl.onSelect != null ? $ctrl.onSelect({ item: $item }) : undefined"
                     ng-disabled="$ctrl.disabled"

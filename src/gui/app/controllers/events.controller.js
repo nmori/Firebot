@@ -88,8 +88,8 @@
                     dataField: "eventId",
                     sortable: true,
                     cellTemplate: `{{data.eventId && data.sourceId ?
-                        friendlyEventTypeName(data.sourceId, data.eventId) : "No
-                        Type"}}`,
+                        friendlyEventTypeName(data.sourceId, data.eventId) : "種類
+                        なし"}}`,
                     cellController: ($scope) => {
                         $scope.friendlyEventTypeName = friendlyEventTypeName;
                     }
@@ -145,8 +145,8 @@
                 utilityService.openGetInputModal(
                     {
                         model: "",
-                        label: "New Event Set Name",
-                        saveText: "Create",
+                        label: "新しいイベントセット名",
+                        saveText: "作成",
                         validationFn: (value) => {
                             return new Promise((resolve) => {
                                 if (value == null || value.trim().length < 1) {
@@ -156,7 +156,7 @@
                                 }
                             });
                         },
-                        validationText: "Event Set name cannot be empty."
+                        validationText: "イベントセット名は空にできません。"
 
                     },
                     (name) => {
@@ -168,8 +168,8 @@
                 utilityService.openGetInputModal(
                     {
                         model: group.name,
-                        label: "Rename Event Set",
-                        saveText: "Save",
+                        label: "イベントセット名を変更",
+                        saveText: "保存",
                         validationFn: (value) => {
                             return new Promise((resolve) => {
                                 if (value == null || value.trim().length < 1) {
@@ -179,7 +179,7 @@
                                 }
                             });
                         },
-                        validationText: "Event set name cannot be empty."
+                        validationText: "イベントセット名は空にできません。"
 
                     },
                     (name) => {
@@ -191,9 +191,9 @@
             $scope.showDeleteGroupModal = function(group) {
                 utilityService
                     .showConfirmationModal({
-                        title: "Delete Event Set",
-                        question: `Are you sure you want to delete the event set "${group.name}"? This will delete all events within it.`,
-                        confirmLabel: "Delete",
+                        title: "イベントセットを削除",
+                        question: `イベントセット "${group.name}" を削除してもよろしいですか？この中のイベントもすべて削除されます。`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {
@@ -215,7 +215,7 @@
 
                 utilityService.showModal({
                     component: "addOrEditEventModal",
-                    breadcrumbName: "Edit Event",
+                    breadcrumbName: "イベントを編集",
                     resolveObj: {
                         event: () => event,
                         groupId: () => selectedGroupId
@@ -248,9 +248,9 @@
             $scope.showDeleteEventModal = function(eventId, name) {
                 utilityService
                     .showConfirmationModal({
-                        title: "Delete Event",
-                        question: `Are you sure you want to delete the event "${name}"?`,
-                        confirmLabel: "Delete",
+                        title: "イベントを削除",
+                        question: `イベント "${name}" を削除してもよろしいですか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {
@@ -298,7 +298,7 @@
                     const event = eventsService.getMainEvents().find(e => e.id === eventId);
 
                     const copiedEvent = objectCopyHelper.copyObject("events", [event])[0];
-                    copiedEvent.name += " copy";
+                    copiedEvent.name += " のコピー";
 
                     eventsService.getMainEvents().push(copiedEvent);
                     eventsService.saveMainEvents();
@@ -308,7 +308,7 @@
 
                     const copiedEvent = objectCopyHelper.copyObject("events", [event])[0];
 
-                    copiedEvent.name += " copy";
+                    copiedEvent.name += " のコピー";
 
                     group.events.push(copiedEvent);
                     eventsService.saveGroup(group);
@@ -393,50 +393,50 @@
 
                 const currentGroupId = eventsService.getSelectedTab();
                 const availableGroups = [
-                    { id: 'mainevents', name: "Main Events" },
+                    { id: 'mainevents', name: "メインイベント" },
                     ...eventsService.getEventGroups().map(g => ({ id: g.id, name: g.name }))
                 ].filter(g => g.id !== currentGroupId);
 
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: () => {
                             $scope.showAddOrEditEventModal(event.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${event.active ? "Disable Event" : "Enable Event"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${event.active ? "イベントを無効化" : "イベントを有効化"}</a>`,
                         click: () => {
                             $scope.toggleEventActiveStatus(event.id);
                         }
                     },
                     {
-                        html: `<a href ><span class="iconify" data-icon="mdi:content-copy" style="margin-right: 10px;"></span> Copy</a>`,
+                        html: `<a href ><span class="iconify" data-icon="mdi:content-copy" style="margin-right: 10px;"></span> コピー</a>`,
                         click: () => {
                             $scope.copyEvent(event.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate</a>`,
+                        html: `<a href ><i class="far fa-clone" style="margin-right: 10px;"></i> 複製</a>`,
                         click: () => {
                             $scope.duplicateEvent(event.id);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: () => {
-                            $scope.showDeleteEventModal(event.id, event.name ? event.name : 'Unnamed');
+                            $scope.showDeleteEventModal(event.id, event.name ? event.name : '名称未設定');
                         }
                     },
                     {
-                        text: "Paste...",
+                        text: "貼り付け...",
                         hasTopDivider: true,
                         enabled: function () {
                             return $scope.hasCopiedEvents();
                         },
                         children: [
                             {
-                                html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> Before</a>`,
+                                html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 前に貼り付け</a>`,
                                 click: function ($itemScope) {
                                     const $index = $itemScope.$index;
                                     if ($scope.hasCopiedEvents()) {
@@ -445,7 +445,7 @@
                                 }
                             },
                             {
-                                html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> After</a>`,
+                                html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 後に貼り付け</a>`,
                                 click: function ($itemScope) {
                                     const $index = $itemScope.$index;
                                     if ($scope.hasCopiedEvents()) {
@@ -456,7 +456,7 @@
                         ]
                     },
                     {
-                        text: "Transfer to...",
+                        text: "移動先...",
                         children: availableGroups.map((g) => {
                             return {
                                 html: `<a href>${g.name}</a>`,
@@ -476,38 +476,38 @@
 
                 return [
                     {
-                        html: `<a href ><i class="far fa-pen mr-4"></i> Rename</a>`,
+                        html: `<a href ><i class="far fa-pen mr-4"></i> 名前変更</a>`,
                         click: () => {
                             $scope.showRenameEventGroupModal(group);
                         }
                     },
                     {
-                        html: `<a href ><i class="fas mr-4 ${group.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> ${group.active ? 'Deactivate' : 'Activate'}</a>`,
+                        html: `<a href ><i class="fas mr-4 ${group.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> ${group.active ? '無効化' : '有効化'}</a>`,
                         click: () => {
                             eventsService.toggleEventGroupActiveStatus(group.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone mr-4"></i> Duplicate set</a>`,
+                        html: `<a href ><i class="far fa-clone mr-4"></i> セットを複製</a>`,
                         click: () => {
                             eventsService.duplicateEventGroup(group);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373"><i class="far fa-trash-alt mr-4"></i> Delete set</a>`,
+                        html: `<a href style="color: #fb7373"><i class="far fa-trash-alt mr-4"></i> セットを削除</a>`,
                         click: () => {
                             $scope.showDeleteGroupModal(group);
                         }
                     },
                     {
-                        html: `<a href ><span class="iconify mr-4" data-icon="mdi:content-copy"></span> Copy events</a>`,
+                        html: `<a href ><span class="iconify mr-4" data-icon="mdi:content-copy"></span> イベントをコピー</a>`,
                         click: () => {
                             $scope.copyEvents(group.id);
                         },
                         hasTopDivider: true
                     },
                     {
-                        html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste" ng-class="{'disabled': !hasCopiedEvents()}"></span> Paste event(s)</a>`,
+                        html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste" ng-class="{'disabled': !hasCopiedEvents()}"></span> イベントを貼り付け</a>`,
                         click: () => {
                             $scope.pasteEvents(group.id);
                         },

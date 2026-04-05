@@ -6,14 +6,14 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Select {{$ctrl.label}}</h4>
+                    <h4 class="modal-title">{{$ctrl.label}} を選択</h4>
                 </div>
                 <div class="modal-body">
                     <div id="roles" class="modal-subheader" style="padding: 0 0 4px 0">
                         {{$ctrl.label}}
                     </div>
                     <div style="height: 55px; display: flex; align-items: center;">
-                        <searchbar search-id="componentSearch" placeholder-text="Search {{$ctrl.label}}..." query="$ctrl.componentSearch" style="width: 100%;"></searchbar>
+                        <searchbar search-id="componentSearch" placeholder-text="{{$ctrl.label}}を検索..." query="$ctrl.componentSearch" style="width: 100%;"></searchbar>
                     </div>
                     <div class="viewer-group-list" style="height: inherit; min-height: 100px;max-height: 300px;">
                         <label class="control-fb control--checkbox"
@@ -26,8 +26,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
             `,
             bindings: {

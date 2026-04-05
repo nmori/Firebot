@@ -9,18 +9,18 @@
                 <div>
 
                     <firebot-setting
-                        name="Custom Scripts"
-                        description="Firebot supports custom scripts! You must opt-in to use this feature as it is potentially dangerous. Please only run scripts from sources you trust."
+                        name="カスタムスクリプト"
+                        description="Firebot はカスタムスクリプトをサポートしています。この機能は強力ですがリスクもあるため、使用前に有効化が必要です。信頼できる提供元のスクリプトのみ実行してください。"
                     >
                         <setting-description-addon>
-                            <div style="margin-top: 10px;">Want to write your own scripts? Learn how <a
+                            <div style="margin-top: 10px;">独自スクリプトの作り方は <a
                                 class="clickable"
                                 ng-click="openLink('https://github.com/crowbartools/Firebot/wiki/Writing-Custom-Scripts')"
-                            >here</a
-                            >.</div>
+                            >こちら</a
+                            > を参照してください。</div>
                         </setting-description-addon>
                         <firebot-select
-                            options="{ true: 'Enabled', false: 'Disabled' }"
+                            options="{ true: '有効', false: '無効' }"
                             ng-init="customScriptsEnabled = settings.getSetting('RunCustomScripts')"
                             selected="customScriptsEnabled"
                             on-update="settings.saveSetting('RunCustomScripts', option === 'true')"
@@ -30,22 +30,22 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Startup Scripts"
-                        description="Startup Scripts are custom scripts that run when Firebot starts. Scripts which add new effects, variables, event types, etc should be loaded here."
+                        name="起動時スクリプト"
+                        description="起動時スクリプトは Firebot 起動時に実行されるカスタムスクリプトです。新しいエフェクト、変数、イベントタイプを追加するスクリプトなどはここで読み込みます。"
                     >
                         <firebot-button
-                            text="Manage Startup Scripts"
+                            text="起動時スクリプトを管理"
                             disabled="!settings.getSetting('RunCustomScripts')"
                             ng-click="openStartupScriptsModal()"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Clear Custom Script Cache"
-                        description="Whether or not you want custom scripts to be cleared from memory before they are executed. Enabling this helps when actively developing a custom script, otherwise Firebot wont reflect changes to your script until restarted. Everyday users should leave this disabled."
+                        name="カスタムスクリプトキャッシュをクリア"
+                        description="スクリプト実行前にメモリ上のスクリプトキャッシュをクリアするかを設定します。スクリプト開発中は有効化すると変更が反映されやすくなります。通常利用では無効のままを推奨します。"
                     >
                         <firebot-select
-                            options="{ true: 'On', false: 'Off' }"
+                            options="{ true: 'オン', false: 'オフ' }"
                             ng-init="clearCache = settings.getSetting('ClearCustomScriptCache')"
                             is-disabled="!settings.getSetting('RunCustomScripts')"
                             selected="clearCache"

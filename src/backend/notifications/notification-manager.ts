@@ -173,8 +173,30 @@ class NotificationManager {
 
             const newKnownExtNotis: string[] = [];
 
-            externalNotifications.forEach((n) => {
+            externalNotifications.forEach((externalNotification) => {
+                const n = this.localizeExternalNotification(externalNotification);
+
                 newKnownExtNotis.push(n.id);
+
+                const existingExternalNotification = this._notificationCache.notifications.find(
+                    (cachedNotification) => cachedNotification.source === NotificationSource.EXTERNAL && cachedNotification.externalId === n.id
+                );
+
+                if (existingExternalNotification != null) {
+                    const hasChanged =
+                        existingExternalNotification.title !== n.title
+                        || existingExternalNotification.message !== n.message
+                        || existingExternalNotification.type !== n.type;
+
+                    if (hasChanged) {
+                        existingExternalNotification.title = n.title;
+                        existingExternalNotification.message = n.message;
+                        existingExternalNotification.type = n.type;
+                        existingExternalNotification.saved = true;
+
+                        frontendCommunicator.send("notifications:notification-updated", existingExternalNotification);
+                    }
+                }
 
                 if (!knownExtNotis.includes(n.id)) {
                     this.addNotification({
@@ -188,11 +210,24 @@ class NotificationManager {
             });
 
             this.setKnownExternalNotifications(newKnownExtNotis);
+            this.saveNotifications();
 
         } catch (err) {
             const error = err as Error;
             logger.error("Error loading external notifications", error.message);
         }
+    }
+
+    private localizeExternalNotification(notification: ExternalNotification): ExternalNotification {
+        if (notification.title === "Feature YOUR stream on the Firebot website!") {
+            return {
+                ...notification,
+                title: "Firebot公式サイトであなたの配信を紹介しよう！",
+                message: "こんにちは、Firebotユーザーのみなさん！あなたの配信を Firebot 公式サイトで紹介できるのをご存知ですか？\n設定 → 一般 で「Feature My Stream」を有効にしてください。\n有効化すると、Firebot を実行したまま Twitch で配信中のときに、あなたの配信が自動で公式サイトに表示されます。"
+            };
+        }
+
+        return notification;
     }
 
     startExternalNotificationCheck(): void {

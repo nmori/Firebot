@@ -7,12 +7,12 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewArg ? 'Add' : 'Edit'}} Subcommand</h4>
+                <h4 class="modal-title">{{$ctrl.isNewArg ? '追加' : '編集'}} サブコマンド</h4>
             </div>
             <div class="modal-body">
                 <div>
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Arg Type
+                        引数タイプ
                     </div>
                     <div ng-class="{'has-error': $ctrl.kindError}">
                         <firebot-searchable-select
@@ -20,8 +20,8 @@
                             ng-change="$ctrl.onTypeChange()"
                             items="$ctrl.argTypes"
                             item-id="type"
-                            item-name="type"
-                            placeholder="Select arg type"
+                            item-name="displayName"
+                            placeholder="引数タイプを選択"
                         />
                         <div id="helpBlock2" class="help-block" ng-show="$ctrl.kindError">{{$ctrl.kindErrorText}}</div>
                     </div>
@@ -29,23 +29,23 @@
 
                 <div ng-show="$ctrl.arg.type === 'Custom'" style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Arg Trigger Text <tooltip text="'The text that should trigger this subcommand'">
+                        引数トリガーテキスト <tooltip text="'このサブコマンドを発火させるテキストです'">
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.nameError}" style="margin-bottom: 0;">
-                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.arg.arg" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="Enter trigger text" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
+                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.arg.arg" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="トリガーテキストを入力" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
                             <span id="helpBlock" class="help-block" ng-show="$ctrl.nameError">{{$ctrl.nameErrorText}}</span>
                         </div>
                     </div>
                 </div>
 
                 <p class="muted mt-3" ng-if="$ctrl.arg.type && ($ctrl.arg.type === 'Custom' ? $ctrl.arg.arg : true)">
-                   Example usage: {{$ctrl.parentTrigger || "!command"}} <b>{{$ctrl.getExampleText()}}</b>
+                   使用例: {{$ctrl.parentTrigger || "!command"}} <b>{{$ctrl.getExampleText()}}</b>
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.isNewArg ? 'Add' : 'Save'}}</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{$ctrl.isNewArg ? '追加' : '保存'}}</button>
             </div>
             `,
             bindings: {
@@ -57,7 +57,7 @@
                 const $ctrl = this;
 
                 $ctrl.kindErrorText = "";
-                $ctrl.nameErrorText = 'Please provide trigger text.';
+                $ctrl.nameErrorText = 'トリガーテキストを入力してください。';
 
                 $ctrl.kindError = false;
                 $ctrl.nameError = false;
@@ -85,7 +85,8 @@
                 $ctrl.argTypes = [
                     {
                         type: "Custom",
-                        description: "An arg that triggers on specific text"
+                        displayName: "カスタム",
+                        description: "特定のテキストで発火する引数"
                     }
                 ];
 
@@ -96,11 +97,11 @@
 
                     const triggerText = $ctrl.arg.arg;
                     if (triggerText == null || triggerText.length < 1) {
-                        $ctrl.nameErrorText = 'Please provide trigger text.';
+                        $ctrl.nameErrorText = 'トリガーテキストを入力してください。';
                         return false;
                     }
                     if ($ctrl.resolve.otherArgNames.some(a => a === triggerText.toLowerCase())) {
-                        $ctrl.nameErrorText = 'This trigger text already exists.';
+                        $ctrl.nameErrorText = 'このトリガーテキストは既に存在します。';
                         return false;
                     }
                     return true;
@@ -110,10 +111,10 @@
                     const type = $ctrl.arg.type;
 
                     if (type == null || !type.length) {
-                        $ctrl.kindErrorText = "Please select an arg type.";
+                        $ctrl.kindErrorText = "引数タイプを選択してください。";
                         return false;
                     } else if (type === "Fallback" && !$ctrl.resolve.hasAnyArgs) {
-                        $ctrl.kindErrorText = "You must add another arg type before adding a fallback.";
+                        $ctrl.kindErrorText = "フォールバックを追加する前に、別の引数タイプを追加してください。";
                         return false;
                     }
 
@@ -189,7 +190,8 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.arg === numberRegex)) {
                         $ctrl.argTypes.push({
                             type: "Number",
-                            description: "An arg that triggers on any number"
+                            displayName: "数値",
+                            description: "任意の数値で発火する引数"
                         });
                     }
 
@@ -197,7 +199,8 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.arg === usernameRegex)) {
                         $ctrl.argTypes.push({
                             type: "Username",
-                            description: "An arg that triggers on text that starts with an @ symbol"
+                            displayName: "ユーザー名",
+                            description: "@で始まるテキストで発火する引数"
                         });
                     }
 
@@ -205,7 +208,8 @@
                         ($ctrl.resolve.arg && $ctrl.resolve.arg.fallback)) {
                         $ctrl.argTypes.push({
                             type: "Fallback",
-                            description: "An arg that triggers if none of the other args are matched"
+                            displayName: "フォールバック",
+                            description: "他の引数が一致しない場合に発火する引数"
                         });
                     }
 

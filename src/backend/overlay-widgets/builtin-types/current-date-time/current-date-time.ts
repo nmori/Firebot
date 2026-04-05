@@ -12,8 +12,8 @@ type State = {};
 
 export const currentDateTime: OverlayWidgetType<Settings, State> = {
     id: "firebot:current-date-time",
-    name: "Current Date / Time",
-    description: "A widget that displays the current date and/or time.",
+    name: "現在日時",
+    description: "現在の日付や時刻を表示するウィジェットです。",
     icon: "fa-clock",
     settingsSchema: [
         {
@@ -102,7 +102,7 @@ export const currentDateTime: OverlayWidgetType<Settings, State> = {
 
                 const DateTime = (window as any).luxon.DateTime;
 
-                const now = DateTime.now();
+                const now = DateTime.now().setLocale("ja");
                 const formatted = config.settings?.format ? now.toFormat(config.settings.format) : now.toLocaleString(DateTime.DATETIME_MED);
 
                 return `

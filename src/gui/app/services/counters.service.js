@@ -75,7 +75,7 @@
                         content: 'Successfully duplicated a counter!'
                     });
                 } else {
-                    ngToast.create("Unable to duplicate counter.");
+                    ngToast.create("カウンターの複製に失敗しました。");
                 }
             };
 

@@ -2,7 +2,7 @@
     <div class="p-6">
       <div class="content-block moderation-feature-block">
         <div class="content-block-body">
-          <div class="font-semibold text-3xl">Exempt Roles <tooltip text="'These roles are exempt from all Moderation features.'" /></div>
+          <div class="font-semibold text-3xl">この制約を受けない役職 <tooltip text="'これらの役割は、すべてのモデレーション機能から除外されます。'" /></div>
 
           <div class="mt-6">
             <exempt-roles model="cms.chatModerationData.settings.exemptRoles" on-update="cms.saveChatModerationSettings()"></exempt-roles>
@@ -13,40 +13,40 @@
       <div class="content-block moderation-feature-block">
         <div class="content-block-body">
           <div class="title-toggle-button-container">
-            <div class="font-semibold text-3xl" ng-class="{ muted: !cms.chatModerationData.settings.bannedWordList.enabled }">Banned Word List</div>
+            <div class="font-semibold text-3xl" ng-class="{ muted: !cms.chatModerationData.settings.bannedWordList.enabled }">禁止ワードリスト</div>
             <div class="toggle-button-container">
               <toggle-button
                 toggle-model="cms.chatModerationData.settings.bannedWordList.enabled"
                 auto-update-value="true"
                 on-toggle="cms.saveChatModerationSettings()"
                 font-size="40"
-                accessibility-label="cms.chatModerationData.settings.bannedWordList.enabled ? 'Disable Banned Word List' : 'Enable Banned Word List'"
+                accessibility-label="cms.chatModerationData.settings.bannedWordList.enabled ? '禁止ワードリストを無効化' : '禁止ワードリストを有効化'"
               />
             </div>
           </div>
           <div class="mt-6" ng-show="cms.chatModerationData.settings.bannedWordList.enabled">
             <div class="my-8">
               <div class="mb-4 font text-2xl font-semibold">
-                Exempt Roles <tooltip text="'These roles are exempt from the banned words list.'" />
+                この制約を受けない役職 <tooltip text="'これらの役割は、禁止ワードリストの対象外です。'" />
               </div>
               <exempt-roles model="cms.chatModerationData.settings.bannedWordList.exemptRoles" on-update="cms.saveChatModerationSettings()"></exempt-roles>
             </div>
-            <button ng-click="showEditBannedWordsModal()" class="btn btn-default">Edit Word List</button>
+            <button ng-click="showEditBannedWordsModal()" class="btn btn-default">ワードリストを編集</button>
           </div>
           <div
               style="width: 100%;"
               class="mt-8"
               ng-show="cms.chatModerationData.settings.bannedWordList.enabled"
             >
-            <div class="muted">The chat message shown when a message contains a banned word or regex (leave empty for no message).</div>
+            <div class="muted">メッセージに禁止ワードまたは正規表現が含まれるときに表示するチャット文（空欄で送信なし）。</div>
               <div class="muted mb-4 font-extrabold">
-                Variables: {userName}</span>
+                変数: {userName}</span>
               </div>
               <firebot-input
                 input-type="string"
                 disable-variables="true"
                 use-text-area="true"
-                placeholder-text="Enter text"
+                placeholder-text="テキストを入力"
                 model="cms.chatModerationData.settings.bannedWordList.outputMessage"
                 on-input-update="cms.saveChatModerationSettings()"
               />
@@ -57,14 +57,14 @@
       <div class="content-block moderation-feature-block">
         <div class="content-block-body">
           <div class="title-toggle-button-container">
-            <div class="font-semibold text-3xl" ng-class="{ muted: !cms.chatModerationData.settings.emoteLimit.enabled }">Emote/Emoji Limit</div>
+            <div class="font-semibold text-3xl" ng-class="{ muted: !cms.chatModerationData.settings.emoteLimit.enabled }">エモート/絵文字制限</div>
             <div class="toggle-button-container">
               <toggle-button
                 toggle-model="cms.chatModerationData.settings.emoteLimit.enabled"
                 auto-update-value="true"
                 on-toggle="cms.saveChatModerationSettings()"
                 font-size="40"
-                accessibility-label="cms.chatModerationData.settings.emoteLimit.enabled ? 'Disable Emote/Emoji Limit' : 'Enable Emote/Emoji Limit'"
+                accessibility-label="cms.chatModerationData.settings.emoteLimit.enabled ? 'エモート/絵文字制限を無効化' : 'エモート/絵文字制限を有効化'"
               />
             </div>
           </div>
@@ -72,13 +72,13 @@
           <div class="mt-6" ng-show="cms.chatModerationData.settings.emoteLimit.enabled">
             <div class="my-8">
               <div class="mb-4 font text-2xl font-semibold">
-                Exempt Roles <tooltip text="'These roles are exempt from the emote/emoji limit.'" />
+                この制約を受けない役職 <tooltip text="'これらの役割は、エモート/絵文字制限の対象外です。'" />
               </div>
               <exempt-roles model="cms.chatModerationData.settings.emoteLimit.exemptRoles" on-update="cms.saveChatModerationSettings()"></exempt-roles>
             </div>
             <firebot-input
-              input-title="Max Per Message"
-              placeholder-text="Enter number"
+              input-title="1メッセージあたりの上限"
+              placeholder-text="数値を入力"
               input-type="number"
               disable-variables="true"
               model="cms.chatModerationData.settings.emoteLimit.max"
@@ -89,15 +89,15 @@
               class="mt-8"
               ng-show="cms.chatModerationData.settings.emoteLimit.enabled"
             >
-            <div class="muted">The chat message shown when a message exceeds the emote/emoji limit (leave empty for no message).</div>
+            <div class="muted">メッセージがエモート/絵文字の上限を超えたときに表示するチャット文（空欄で送信なし）。</div>
               <div class="muted mb-4 font-extrabold">
-                Variables: {userName}</span>
+                変数: {userName}</span>
               </div>
               <firebot-input
                 input-type="string"
                 disable-variables="true"
                 use-text-area="true"
-                placeholder-text="Enter text"
+                placeholder-text="テキストを入力"
                 model="cms.chatModerationData.settings.emoteLimit.outputMessage"
                 on-input-update="cms.saveChatModerationSettings()"
               />
@@ -109,41 +109,41 @@
       <div class="content-block moderation-feature-block">
         <div class="content-block-body">
           <div class="title-toggle-button-container">
-            <div class="font-semibold text-3xl" ng-class="{ muted: !cms.chatModerationData.settings.urlModeration.enabled }">URL Moderation</div>
+            <div class="font-semibold text-3xl" ng-class="{ muted: !cms.chatModerationData.settings.urlModeration.enabled }">URLモデレーション</div>
             <div class="toggle-button-container">
               <toggle-button
                 toggle-model="cms.chatModerationData.settings.urlModeration.enabled"
                 on-toggle="toggleUrlModerationFeature()"
                 font-size="40"
-                accessibility-label="cms.chatModerationData.settings.urlModeration.enabled ? 'Disable URL Moderation' : 'Enable URL Moderation'"
+                accessibility-label="cms.chatModerationData.settings.urlModeration.enabled ? 'URLモデレーションを無効化' : 'URLモデレーションを有効化'"
               />
             </div>
           </div>
           <div class="muted mb-6">
-            A !permit command is automatically added to System Commands.
+            !permit コマンドはシステムコマンドに自動追加されます。
           </div>
           <div style="display: block;width: 100%;" class="my-8" ng-show="cms.chatModerationData.settings.urlModeration.enabled">
             <div class="my-8">
               <div class="mb-4 text-2xl font-semibold">
-                Exempt Roles <tooltip text="'These roles are exempt from URL moderation.'" />
+                この制約を受けない役職 <tooltip text="'これらの役割は、URLモデレーションの対象外です。'" />
               </div>
               <exempt-roles model="cms.chatModerationData.settings.urlModeration.exemptRoles" on-update="cms.saveChatModerationSettings()"></exempt-roles>
             </div>
-            <button ng-click="showEditUrlAllowlistModal()" class="btn btn-default">Edit URL Allowlist</button>
-            <button ng-click="showEditUserAllowlistModal()" class="btn btn-default">Edit User Allowlist</button>
+            <button ng-click="showEditUrlAllowlistModal()" class="btn btn-default">URL許可リストを編集</button>
+            <button ng-click="showEditUserAllowlistModal()" class="btn btn-default">ユーザー許可リストを編集</button>
           </div>
           <div
             class="title-toggle-button-container my-8"
             ng-show="cms.chatModerationData.settings.urlModeration.enabled"
           >
-            <div class="font-semibold text-2xl" ng-class="{ muted: !cms.chatModerationData.settings.urlModeration.viewTime.enabled }">View Time</div>
+            <div class="font-semibold text-2xl" ng-class="{ muted: !cms.chatModerationData.settings.urlModeration.viewTime.enabled }">視聴時間</div>
             <div class="toggle-button-container">
               <toggle-button
                 toggle-model="cms.chatModerationData.settings.urlModeration.viewTime.enabled"
                 on-toggle="cms.saveChatModerationSettings()"
                 auto-update-value="true"
                 font-size="32"
-                accessibility-label="cms.chatModerationData.settings.urlModeration.viewTime.enabled ? 'Disable View Time Exceptions' : 'Enable View Time Exceptions'"
+                accessibility-label="cms.chatModerationData.settings.urlModeration.viewTime.enabled ? '視聴時間による除外を無効化' : '視聴時間による除外を有効化'"
                 />
             </div>
             <div
@@ -151,10 +151,10 @@
               class="mt-6"
               ng-show="cms.chatModerationData.settings.urlModeration.enabled && cms.chatModerationData.settings.urlModeration.viewTime.enabled"
             >
-              <div class="muted mb-4 ml-6">All viewers with a higher view time will be exempt from URL moderation.</div>
+              <div class="muted mb-4 ml-6">指定時間以上の視聴者は URL モデレーションの対象外になります。</div>
               <firebot-input
-                input-title="View time in hours"
-                placeholder-text="Enter amount of hours"
+                input-title="視聴時間（時間）"
+                placeholder-text="時間数を入力"
                 input-type="number"
                 disable-variables="true"
                 model="cms.chatModerationData.settings.urlModeration.viewTime.viewTimeInHours"
@@ -167,15 +167,15 @@
               class="mt-8"
               ng-show="cms.chatModerationData.settings.urlModeration.enabled"
             >
-            <div class="muted">The chat message shown when a message containing a URL is moderated (leave empty for no message).</div>
+            <div class="muted">URL を含むメッセージがモデレーション対象になったときに表示するチャット文（空欄で送信なし）。</div>
               <div class="muted mb-4 font-extrabold">
-                Variables: {userName}<span ng-show="cms.chatModerationData.settings.urlModeration.viewTime.enabled">, {viewTime}</span>
+                変数: {userName}<span ng-show="cms.chatModerationData.settings.urlModeration.viewTime.enabled">, {viewTime}</span>
               </div>
               <firebot-input
                 input-type="string"
                 disable-variables="true"
                 use-text-area="true"
-                placeholder-text="Enter text"
+                placeholder-text="テキストを入力"
                 model="cms.chatModerationData.settings.urlModeration.outputMessage"
                 on-input-update="cms.saveChatModerationSettings()"
               />

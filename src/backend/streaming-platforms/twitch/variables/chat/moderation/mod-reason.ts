@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "modReason",
-        description: "The reason why the user was banned or timed out.",
+        description: "ユーザーがBANまたはタイムアウトされた理由です。",
         triggers: triggers,
         categories: ["user based", "trigger based"],
         possibleDataOutput: ["text"]

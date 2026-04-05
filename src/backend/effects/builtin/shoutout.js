@@ -125,8 +125,8 @@ const shoutoutStyles = `
 const effect = {
     definition: {
         id: "firebot:shoutout",
-        name: "Firebot Shoutout",
-        description: "Display a shoutout graphic for a channel in the overlay.",
+        name: "Firebot シャウトアウト",
+        description: "チャンネル向けのシャウトアウト演出をオーバーレイに表示します。",
         icon: "fad fa-megaphone",
         categories: [EffectCategory.COMMON, EffectCategory.FUN, EffectCategory.OVERLAY],
         dependencies: []
@@ -147,7 +147,7 @@ const effect = {
                                     src="{{defaultAvatar}}"/>
                             </div>
                         </div>
-                        <div class="firebot-shoutout-username" style="padding: 0 10%; color: {{effect.textColor}};font-size: 32px; opacity: 1;">SomeUser</div>
+                            <div class="firebot-shoutout-username" style="padding: 0 10%; color: {{effect.textColor}};font-size: 32px; opacity: 1;">ユーザー名</div>
                         <div class="firebot-shoutout-padding">
                             <div
                                 ng-hide="effect.shoutoutText == null || effect.shoutoutText === ''"

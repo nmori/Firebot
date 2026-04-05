@@ -7,8 +7,8 @@ export const SetOBSImageSourceFileEffectType: EffectType<{
 }> = {
     definition: {
         id: "firebot:obs-set-image-source-file",
-        name: "Set OBS Image Source File",
-        description: "Sets the file of an OBS image source",
+            name: "OBS画像ソースファイル設定",
+            description: "OBS 画像ソースのファイルを設定します",
         icon: "fad fa-photo-video",
         categories: ["common", "integrations"]
     },

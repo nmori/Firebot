@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Effect Queue Monitor</title>
+    <title>演出キューモニター</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" href="./styles/main.css">
     <script>
@@ -33,7 +33,7 @@
     <div id="app" v-cloak>
         <div class="app-container">
             <div class="queue-list-column">
-                <h2>Queues</h2>
+                <h2>演出キュー</h2>
                 <div 
                   class="queue-list-item" 
                   v-for="queue in queues" 
@@ -48,12 +48,12 @@
                 </div>
                 <context-menu ref="contextMenu" 
                 :menu-items="[
-                              { label: 'Clear Queue', action: (queue) => clearQueue(queue.id), icon: 'fad fa-minus-circle' },
-                              { label: 'Resume Queue', action: (queue) => toggleQueue(queue.id), icon: 'far fa-clock', visible: (queue) => !queue.active },
-                              { label: 'Pause Queue', action: (queue) => toggleQueue(queue.id), icon: 'far fa-pause-circle', visible: (queue) => queue.active }
+                              { label: 'キューをクリア', action: (queue) => clearQueue(queue.id), icon: 'fad fa-minus-circle' },
+                              { label: 'キューを再開', action: (queue) => toggleQueue(queue.id), icon: 'far fa-clock', visible: (queue) => !queue.active },
+                              { label: 'キューを一時停止', action: (queue) => toggleQueue(queue.id), icon: 'far fa-pause-circle', visible: (queue) => queue.active }
                 ]" />
                 <div v-if="queues.length === 0">
-                    <p>No queues available.</p>
+                    <p>利用可能なキューはありません。</p>
                 </div>
             </div>
 
@@ -62,8 +62,8 @@
                     <queue-header :queue="selectedQueue"></queue-header>
                 <queue-item-list 
                   :items="selectedQueueCombinedItems" 
-                  list-name="Queued Items"
-                  no-items-text="No queued items"
+                                    list-name="待機中の項目"
+                                    no-items-text="待機中の項目はありません"
                 ></queue-item-list>
                 </div>
             </div>

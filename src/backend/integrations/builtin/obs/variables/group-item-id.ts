@@ -11,7 +11,7 @@ export const GroupItemIdVariable: ReplaceVariable = {
     definition: {
         handle: "obsGroupItemId",
         description:
-            "The group-unique numeric ID of the item in OBS that triggered the event, or -1 when the item is not grouped.",
+            "イベントを発火した OBS アイテムのグループ内一意の数値IDです。グループ外の場合は -1 です。",
         possibleDataOutput: ["number"],
         categories: ["advanced", "integrations", "obs"],
         triggers: triggers

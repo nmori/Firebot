@@ -35,8 +35,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:screenshot",
-        name: "Take Screenshot",
-        description: "Takes a screenshot of the selected screen.",
+        name: "スクリーンショット撮影",
+        description: "選択した画面のスクリーンショットを撮影します。",
         icon: "fad fa-camera",
         categories: ["fun"],
         dependencies: [],

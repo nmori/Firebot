@@ -5,9 +5,9 @@ const queueItemList = {
         <div class="queue-list-container">
             <div class="queue-list-header">
                 <div class="queue-list-header-icon-column"></div>
-                <div class="queue-list-header-column">Trigger</div>
-                <div class="queue-list-header-column">Triggered By</div>
-                <div class="queue-list-header-column">Effects</div>
+                <div class="queue-list-header-column">トリガー</div>
+                <div class="queue-list-header-column">実行ユーザー</div>
+                <div class="queue-list-header-column">演出数</div>
                 <div class="queue-list-header-chevron-column"></div>
             </div>
             <div class="queue-list-body">

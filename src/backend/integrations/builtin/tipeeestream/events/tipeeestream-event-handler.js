@@ -11,31 +11,31 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "TipeeeStream",
-    description: "Donation/tip events from tipeeestream",
+    description: "TipeeeStream 由来の寄付/チップイベント",
     events: [
         {
             id: EventId.DONATION,
-            name: "Donation",
-            description: "When someone donates to you via TipeeeStream.",
+            name: "寄付",
+            description: "誰かが TipeeeStream 経由であなたに寄付したとき。",
             cached: false,
             manualMetadata: {
                 from: "TipeeeStream",
                 formattedDonationAmount: 5,
                 donationAmount: 5,
-                donationMessage: "Test message"
+                donationMessage: "テストメッセージ"
             },
             isIntegration: true,
             activityFeed: {
                 icon: "fad fa-money-bill",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** donated **${eventData.formattedDonationAmount}**${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                    return `**${eventData.from}** が **${eventData.formattedDonationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                 }
             }
         },
         {
             id: EventId.FOLLOW,
-            name: "Follow",
-            description: "When someone follows your Twitch channel (comes from TipeeeStream)",
+            name: "フォロー",
+            description: "誰かがあなたの Twitch チャンネルをフォローしたとき（TipeeeStream 経由）。",
             cacheMetaKey: "username",
             cached: true,
             manualMetadata: {
@@ -45,7 +45,7 @@ const eventSourceDefinition = {
             activityFeed: {
                 icon: "fas fa-heart",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** followed`;
+                    return `**${eventData.username}** がフォローしました`;
                 }
             }
         }

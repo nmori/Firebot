@@ -24,8 +24,8 @@ export const ToggleSourceFilterEffectType: EffectType<EffectProperties> =
     {
         definition: {
             id: "ebiggz:obs-toggle-source-filter",
-            name: "Toggle OBS Filter",
-            description: "Toggle filters for OBS sources and scenes",
+            name: "OBSフィルター切り替え",
+            description: "OBS のソースおよびシーンのフィルター状態を切り替えます",
             icon: "fad fa-stars",
             categories: ["common", "integrations"]
         },

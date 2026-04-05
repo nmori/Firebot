@@ -48,13 +48,13 @@ const effectDetailModal = {
             return rest;
         },
         effectName() {
-            return this.effect.__definition?.name ?? "Unknown Effect";
+            return this.effect.__definition?.name ?? "不明な演出";
         },
         effectIconClass() {
             return this.effect.__definition?.icon ?? 'fad fa-magic';
         },
         effectId() {
-            return this.effect.id ?? "Not set";
+            return this.effect.id ?? "未設定";
         },
         isEffectEnabled() {
             return this.effect.active !== false;
@@ -98,20 +98,20 @@ const effectDetailModal = {
                                 :value="effectId"
                             />
                             <chip
-                                label="Enabled:"
-                                :value="isEffectEnabled ? 'Yes' : 'No'"
+                                label="有効:"
+                                :value="isEffectEnabled ? 'はい' : 'いいえ'"
                             />
                         </div>
 
                         <property-list
                             :properties="effectProperties"
-                            title="Properties"
-                            empty-message="This effect has no additional properties."
+                            title="プロパティ"
+                            empty-message="この演出に追加のプロパティはありません。"
                         />
 
                         <div class="effect-raw-data">
                             <div class="raw-data-header" @click="toggleExpandObject('rawData')">
-                                <h4>Raw Data</h4>
+                                <h4>生データ</h4>
                                 <chevron-icon
                                     :direction="expandedProperties.includes('rawData') ? 'up' : 'down'"
                                 />

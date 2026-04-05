@@ -12,8 +12,8 @@ const effect = {
    */
     definition: {
         id: "streamlabs:roll-credits",
-        name: "Roll Credits",
-        description: "Trigger StreamLab's Roll Credits feature",
+        name: "クレジットロール",
+        description: "Streamlabs の Roll Credits 機能を実行します",
         icon: "fad fa-align-center",
         categories: ["integrations"],
         dependencies: []

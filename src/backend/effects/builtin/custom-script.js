@@ -14,8 +14,8 @@ const fileWriter = {
    */
     definition: {
         id: "firebot:customscript",
-        name: "Run Custom Script",
-        description: "Run a custom JS script.",
+        name: "カスタムスクリプトの実行",
+        description: "カスタムJSスクリプトを実行する。",
         icon: "fad fa-code",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []

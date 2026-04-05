@@ -5,29 +5,29 @@
         .component("overlayInfoModal", {
             template: `
                 <div class="modal-header" style="text-align:center;">
-                    <h2 class="modal-title">Overlay Setup</h2>
-                    <button type="button" class="close" aria-label="Close" ng-click="dismiss()" style="position: absolute;right: 25px;"><span aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-title">オーバーレイ設定</h2>
+                    <button type="button" class="close" aria-label="閉じる" ng-click="dismiss()" style="position: absolute;right: 25px;"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body" style="padding: 30px; font-weight: 100;">
                     <div ng-hide="showingInstance" style="margin-bottom: 25px;">
                         <p style="font-size: 15px; margin-bottom: 20px;">
-                            To display images, videos, and other visual effects on stream, add Firebot's overlay to your broadcasting software.
+                            配信で画像、動画、その他の視覚エフェクトを表示するには、配信ソフトに Firebot のオーバーレイを追加してください。
                         </p>
 
-                        <h4 style="margin-bottom: 15px; font-weight: 600;">Setup Instructions</h4>
+                        <h4 style="margin-bottom: 15px; font-weight: 600;">設定手順</h4>
                         <ol style="text-align: left; line-height: 1.8; padding-left: 20px; max-width: 600px; margin: 0 auto;">
-                            <li>In your broadcasting software, add a <b>Browser Source</b></li>
-                            <li>Select your setup type below and copy the URL</li>
-                            <li>Paste the URL into the browser source's URL field</li>
-                            <li>Set the browser source dimensions to match your canvas (e.g., 1920×1080)</li>
+                            <li>配信ソフトで <b>ブラウザソース</b> を追加します</li>
+                            <li>下の設定タイプを選び、URL をコピーします</li>
+                            <li>ブラウザソースの URL 欄に貼り付けます</li>
+                            <li>ブラウザソースのサイズをキャンバスに合わせます（例: 1920×1080）</li>
                         </ol>
                         <p style="margin-top: 15px; font-size: 13px; color: #888;">
-                            <b>Important:</b> Do not select "Local file" when adding the browser source.
+                            <b>重要:</b> ブラウザソース追加時に「ローカルファイル」は選択しないでください。
                         </p>
                     </div>
 
                     <div style="max-width: 600px; margin: 0 auto;">
-                        <label style="display: block; text-align: left; margin-bottom: 8px; font-weight: 500;">Setup Type</label>
+                        <label style="display: block; text-align: left; margin-bottom: 8px; font-weight: 500;">設定タイプ</label>
                         <firebot-radio-cards
                             options="streamSetups"
                             ng-model="selectedSetup"
@@ -38,7 +38,7 @@
                         <label style="display: block; text-align: left; margin-bottom: 8px; font-weight: 500; margin-top: 10px;">URL</label>
                         <copy-text-display
                             text="overlayPath"
-                            tooltip-text="Copy overlay URL to clipboard"
+                            tooltip-text="オーバーレイ URL をクリップボードにコピー"
                         ></copy-text-display>
                     </div>
 
@@ -63,15 +63,15 @@
                 $scope.streamSetups = [
                     {
                         value: "local",
-                        label: "Single Computer",
+                        label: "1台構成",
                         iconClass: "fa-desktop",
-                        tooltip: "You run Firebot and your broadcasting software on the same computer."
+                        tooltip: "Firebot と配信ソフトを同じPCで実行します。"
                     },
                     {
                         value: "two-pc",
-                        label: "Two Computers",
+                        label: "2台構成",
                         iconClass: "fa-network-wired",
-                        tooltip: "You run Firebot and your broadcasting software on separate computers."
+                        tooltip: "Firebot と配信ソフトを別々のPCで実行します。"
                     }
                 ];
 

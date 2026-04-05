@@ -13,7 +13,7 @@ triggers["manual"] = true;
 export const OldInputNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsOldInputName",
-        description: "Returns the previous name of the OBS input.",
+        description: "OBS 入力の変更前の名前を返します。",
         categories: ["advanced", "integrations", "obs"],
         possibleDataOutput: ["text"]
     },

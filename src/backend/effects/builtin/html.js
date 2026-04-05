@@ -13,8 +13,8 @@ const html = {
    */
     definition: {
         id: "firebot:html",
-        name: "Show HTML",
-        description: "Show an HTML snippet in the overlay.",
+        name: "HTML表示",
+        description: "オーバーレイに HTML スニペットを表示します。",
         icon: "fab fa-html5",
         categories: [EffectCategory.ADVANCED, EffectCategory.OVERLAY],
         dependencies: []
