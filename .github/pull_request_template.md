@@ -1,23 +1,23 @@
-### Description of the Change
-<!-- Please describe your change here -->
+### 変更内容の説明
+<!-- ここに変更内容を記載してください -->
 
 
-### Applicable Issues
-<!-- Please tag any applicable Issues (ie #123) here -->
+### 関連 Issue
+<!-- 関連する Issue（例: #123）をここに記載してください -->
 
 
-### Testing
-<!-- Outline any testing (manual or regression) you've done for these changes -->
+### テスト
+<!-- この変更に対して実施したテスト（手動テスト・回帰テストなど）を記載してください -->
 
 
-### Screenshots
-<!-- If applicable, please provide screenshots of any UI changes or additions -->
+### スクリーンショット
+<!-- 該当する場合、UI の変更や追加のスクリーンショットを添付してください -->
 
 
 <!--
 Note:
-  Please be aware that we may require changes if we 
-  believe they are needed to meet the vision and standards of Firebot.
-  Don't take suggestions for tweaks personally, we are all simply trying to make Firebot
-  the best that it can be :)
+  Firebot のビジョンと基準を満たすために必要と判断した場合、
+  変更をお願いすることがあります。
+  調整提案は個人への批判ではありません。私たちは Firebot を
+  できる限り良くすることを共通の目的としています :)
 -->

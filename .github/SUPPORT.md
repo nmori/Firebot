@@ -1,10 +1,15 @@
-## Support Policy
+## サポートポリシー
 
-We will always support the latest stable Firebot release. Previous stable releases will be supported for **no more than 30 days** after a newer stable update has been released. After 30 days, you must be on a supported version in order to receive support via our official channels (Discord, GitHub, etc.).
+常に最新の安定版 Firebot リリースをサポートします。過去の安定版リリースのサポート期間は、新しい安定版の公開後 **最大 30 日間** です。30 日を過ぎた場合、公式チャネル（Discord、GitHub など）でサポートを受けるには、サポート対象バージョンを利用している必要があります。
 
-Pre-release versions (e.g. betas) are no longer supported **immediately** upon a corresponding stable release or if superseded by a newer pre-release (e.g. `5.66.0-beta1` would immediately become unsupported upon release of either `5.66.0-beta2` or a `5.66.0` stable release). Nightly releases continue to receive limited support due to their potentially unstable nature.
+プレリリース版（例: ベータ）は、対応する安定版が公開された時点、または新しいプレリリースに置き換えられた時点で **直ちに** サポート対象外となります（例: `5.66.0-beta1` は、`5.66.0-beta2` もしくは安定版 `5.66.0` が公開された時点で即時サポート対象外）。ナイトリーリリースは不安定である可能性があるため、限定的なサポートを継続します。
 
+### 困ったことや質問がありますか？
 
-### Need help or have a question?
+#### 本家のご案内
 
-Please feel free to stop by our [Discord](https://discord.gg/crowbartools-372817064034959370) or connect with us on [Bluesky](https://bsky.app/profile/firebot.app)!
+[Discord](https://discord.gg/crowbartools-372817064034959370) にぜひお越しください。 [Bluesky](https://bsky.app/profile/firebot.app) でもご連絡いただけます。
+
+#### 日本語版サポートについて
+
+日本語でのサポートは、こちらの[Discord](https://discord.gg/invite/h4r5HnR) で提供しています。質問や問題がある場合は、ぜひご参加ください

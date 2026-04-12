@@ -1,89 +1,93 @@
-# Welcome!
-Welcome to the Firebot community! We regularly receive and welcome community contributions. However, they are subject to the following standards and guidelines.
+# ようこそ！
+Firebot コミュニティへようこそ！私たちはコミュニティからの貢献を常に歓迎しています。ただし、以下の基準とガイドラインに従っていただく必要があります。
 
-# Code of Conduct
-First and foremost, all contributors and contributions are subject to our [community code of conduct](CODE_OF_CONDUCT.md). Any violations of the code of conduct are subject to the enforcement actions listed therein.
+# 以下の行動規範について
 
-# Before You Begin
-Before starting development on a new feature or fix, please ensure the following prerequisites are met:
-- **Open Issue**: Any community work must be associated with an open issue and any proposed changes must be as detailed as possible. This is crucial for us to understand what and how work is being done, along with any potential impacts to existing features.
-- **Approved by Firebot Team**: Any work done **must** be approved by the Firebot team before it can begin. This is especially true for larger projects (e.g. refactors or rewrites of critical core components). This process ensures effort is not wasted and that it doesn't overlap or conflict with other Firebot initiatives.
+これらは Firebot 本家コミュニティで定められたものです。ローカライズ版は本家コミュニティの行動規範を尊重します。一方で、ローカライズ版は限られたリソース・目的のためにフォークしローカライズしています。そのため、リソースが限られています。チームがいるスタイルではないことから、一部の規範通りには運用できないかもしれません。ローカライズ版は、行動規範の精神を尊重しつつ、ローカライズ版の目的に沿った形で運用します。
 
-> [!WARNING]
-> Any pull request submitted without a relevant issue or approval from the Firebot team will be closed.
+# 行動規範
+まず第一に、すべてのコントリビューターと貢献内容は [コミュニティ行動規範](CODE_OF_CONDUCT.md) の対象です。行動規範への違反は、そこに記載された執行措置の対象となります。
 
-# Working on Code
-
-## Branches
-The `master` branch is reserved for the current latest release.
+# 始める前に
+新機能開発や修正に着手する前に、以下の前提条件を満たしていることを確認してください。
+- **Open Issue**: コミュニティで行う作業は、必ず公開中の Issue と関連付いている必要があります。提案する変更内容は可能な限り詳細に記載してください。これは、どのような作業がどのように行われるか、また既存機能への影響可能性を把握するために重要です。
+- **Firebot Team の承認**: 作業開始前に、実施する作業は **必ず** Firebot チームの承認を受けてください。これは大規模な取り組み（例: 重要なコアコンポーネントのリファクタリングや書き直し）で特に重要です。このプロセスにより、重複や競合を避け、無駄な工数を防ぎます。
 
 > [!WARNING]
-> **Do not target pull requests to the `master` branch.** Pull requests targeting the `master` branch will be closed.
+> 関連する Issue または Firebot チームの承認なしに提出されたプルリクエストはクローズされます。
 
-All active developement work is done against the `v5` branch. When performing work, create a feature branch from the most recent `v5` commit, then target the `v5` branch when you create a pull request.
+# コード作業について
 
-## Testing
-Before opening a pull request, best effort testing must be done to ensure changes work and do not break existing functionality. For new features, this includes full testing of the new feature code. For bug fixes, this includes testing that the fix fully resolves the relevant issue. In both cases, regression testing should be done to ensure that existing functionality continues to work as expected.
+## ブランチ
+`master` ブランチは、現在の最新リリース専用です。
+
+> [!WARNING]
+> **`master` ブランチをプルリクエストの対象にしないでください。** `master` 向けのプルリクエストはクローズされます。
+
+すべてのアクティブな開発作業は `v5` ブランチに対して行われます。作業時は最新の `v5` コミットから機能ブランチを作成し、プルリクエスト作成時の対象も `v5` にしてください。
+
+## テスト
+プルリクエストを開く前に、変更が正しく動作し既存機能を壊さないことを確認するため、可能な限りテストを実施してください。新機能では新規コードの十分なテスト、バグ修正では対象 Issue を完全に解消できることの確認が必要です。いずれの場合も、既存機能が引き続き期待どおりに動作することを確認する回帰テストを行ってください。
   
 > [!WARNING]
-> Pull requests not properly tested may be closed.
+> 十分にテストされていないプルリクエストはクローズされる場合があります。
 
-## Formatting
-ESLint will handle most formatting concerns, so ensure that your editor is following both the ESLint and `.editorconfig` rules.
+## フォーマット
+フォーマット上の多くの懸念は ESLint が処理します。エディタが ESLint と `.editorconfig` の両方のルールに従うよう設定してください。
 
-We use Unix-style end of line character (line feed `\n` or `\x0A`, not the Windows-style carriage return + line feed `\r\n`)
+改行コードは Unix 形式を使用します（Windows 形式の `\r\n` ではなく、`\n` または `\x0A`）。
 
-We use 4 spaces for indents.
+インデントは半角スペース 4 つを使用します。
 
-# Opening Pull Requests
+# プルリクエストの作成
 
-## Branch
+## ブランチ
 
-As mentioned above, all pull requests must target the `v5` branch.
+前述のとおり、すべてのプルリクエストは `v5` ブランチを対象にしてください。
 
-## Title
+## タイトル
 
-Pull request titles should adhere to the following format:
+プルリクエストのタイトルは次の形式に従ってください。
 
 > `type(scope): short description (#issue)`
 
-- The `type` should be a lowercase value that follows the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format. Firebot specifically focuses on the following types:
-  - `feat`: New/updated feature
-  - `fix`: Bug fix
-  - `chore`: Housekeeping items such as refactors, cleanup, or comments that do not change functionality.
-- (Optional) The `scope` should include a single word to indicate what feature or area of the code this affects (e.g. `effects` or `chat`). 
-- The `short description` should be no more than a few words to describe the change.
-- The `issue` field should be the primary issue number this change addresses, including the `#` sign and enclosed in parentheses (e.g. `(#1608)`).
+- `type` は [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) 形式に従う小文字の値にしてください。Firebot では主に以下の種別を使用します。
+  - `feat`: 新機能または機能更新
+  - `fix`: バグ修正
+  - `chore`: リファクタ、クリーンアップ、コメント追加など、機能変更を伴わない保守作業
+- （任意）`scope` には、影響する機能やコード領域を示す単語を 1 つ入れてください（例: `effects` や `chat`）。
+- `short description` は、変更内容を短い語句で表してください。
+- `issue` には、この変更が主に対応する Issue 番号を記載してください。`#` を含め、括弧で囲みます（例: `(#1608)`）。
 
-The following are examples of well-formatted titles:
+適切なタイトル例:
 - `fix: change Save All effects dropdown to a dropup (#1804)`
 - `feat(vars): add $isUserInChat (#2477)`
 - `feat: multiline textarea in preset list args (#2399)`
 
-## Description
+## 説明
 
-When opening a pull request, ensure that the following information is included in the description:
+プルリクエストを作成する際は、説明欄に次の情報を含めてください。
 
-- **Description of the Change**: Detail the change as much as possible, including any new, changed, and removed functionality. Also include any notes on how the change affects other areas of Firebot, if applicable.
-- **Applicable Issues**: List any issues (i.e. feature requests or bug reports) related to this change.
-- **Testing**: Detail all testing done for this pull request, including relevant testing steps, inputs, and outputs.
-- **Screenshots**: For any work that makes changes to or can be verified in the UI, include screenshots of the updated functionality.
+- **変更内容の説明**: 新規・変更・削除された機能を含め、可能な限り詳細に記載してください。必要に応じて、Firebot の他領域への影響も記載してください。
+- **関連 Issue**: この変更に関連する Issue（機能要望やバグ報告など）を列挙してください。
+- **テスト**: このプルリクエストで実施したテスト内容を、手順・入力・出力を含めて記載してください。
+- **スクリーンショット**: UI に変更がある、または UI 上で確認可能な作業については、更新後機能のスクリーンショットを添付してください。
   
 > [!WARNING]
-> Pull requests missing any of the listed information above may be closed.
+> 上記情報のいずれかが不足しているプルリクエストはクローズされる場合があります。
 
-# Review Process
+# レビュープロセス
 
-## Community Review
+## コミュニティレビュー
 
-We believe in a collaborative environment and welcome collaboration between our community members! However, community contributors should leave feedback or ask questions either in the PR comments or in the **dev** channel in Discord. Please keep feedback constructive and courteous, always adhering to our code of conduct.
+私たちは協働的な環境を重視しており、コミュニティメンバー同士の協力を歓迎します。コミュニティコントリビューターは、フィードバックや質問を PR コメント、または Discord の **dev** チャンネルで行ってください。常に行動規範を守り、建設的かつ礼節ある姿勢をお願いします。
 
-The GitHub review features (approvals, commenting on/requesting changes to code) are reserved for Firebot team members **only**. Please do not use these features, as only Firebot team members may request changes or approve/reject pull requests.
+GitHub のレビュー機能（承認、コードへの変更要求コメントなど）は Firebot チームメンバー **のみ** が使用します。変更要求や承認・却下は Firebot チームメンバーだけが行えるため、これらの機能は使用しないでください。
 
-In conjunction with the above, please do not leave "LGTM" or similar comments on PRs. That kind of feedback and determination, while it may be well-intentioned, can only be made by members of the Firebot team.
+あわせて、PR への「LGTM」等のコメントは控えてください。善意のフィードバックであっても、その判断は Firebot チームメンバーのみが行えます。
 
-## Requested Changes
+## 変更要求
 
-As part the review process, we may require changes if we believe they are needed to meet the vision & standards of Firebot, and that's OK! Some reasons for this include maintaining compatibility with previous versions, ensuring consistent user experience, etc. We may also suggest tweaks to simplify the code, make it more efficient, or make it easier to maintain long term.
+レビュープロセスの一環として、Firebot のビジョンと基準を満たすために必要だと判断した場合、変更をお願いすることがあります。これは問題ありません。理由には、過去バージョンとの互換性維持や一貫したユーザー体験の確保などがあります。コードを簡潔にする、効率を上げる、長期保守を容易にするための調整を提案することもあります。
 
-*Please don't take this feedback personally.* We simply want Firebot to be the best that it can be for all of our users.
+*このフィードバックを個人的に受け取らないでください。* 私たちは、すべてのユーザーにとって Firebot をより良いものにすることを目指しています。

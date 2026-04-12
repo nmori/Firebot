@@ -1,11 +1,11 @@
 ---
-name: Feature request
-about: Suggest an idea for Firebot
+name: 機能要望
+about: Firebot への新しい提案
 type: "Feature"
 ---
 
-**Describe the solution you'd like**
-Enter a clear and concise description of what you want to happen.
+**希望する解決策**
+実現したい内容を、明確かつ簡潔に記載してください。
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**補足情報**
+機能要望に関する補足情報やスクリーンショットがあれば記載してください。

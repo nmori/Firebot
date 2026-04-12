@@ -1,8 +1,8 @@
 ---
-name: Help request
-about: Request help with an issue you are having.
+name: サポート依頼
+about: 発生している問題のサポートを依頼する
 type: "Support"
 ---
 
-**Help Request**
-Enter a clear and concise explanation of the issue you are having or the thing you would like help with.
+**サポート依頼内容**
+現在発生している問題、または支援が必要な内容を明確かつ簡潔に記載してください。
