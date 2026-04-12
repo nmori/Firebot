@@ -201,7 +201,7 @@ const quotesManagement = {
     onTriggerEvent: event => {
         return new Promise(async (resolve) => {
             const quotesManager = require("../../../quotes/quotes-manager");
-            const logger = require("../../../logwrapper");
+            const logger = require("../../../../backend/logwrapper");
             const twitchChat = require("../../twitch-chat");
             const TwitchApi = require("../../../twitch-api/api");
             const frontendCommunicator = require("../../../common/frontend-communicator");
@@ -263,6 +263,7 @@ const quotesManagement = {
             }
 
             switch (triggeredArg) {
+<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
             case "add": {
                 if (args.length < 3) {
                     await twitchChat.sendChatMessage(`引用文を指定してください`);
@@ -296,15 +297,70 @@ const quotesManagement = {
                     await quotesManager.removeQuote(quoteId);
                     await twitchChat.sendChatMessage(`Quote ${quoteId} was removed.`);
                     logger.debug('A quote was removed: ' + quoteId);
+=======
+                case "add": {
+                    const shouldInsertStreamerUsername =
+                        (commandOptions.defaultStreamerAttribution && args.length === 1) ||
+                        (commandOptions.defaultStreamerAttribution && !args[1].includes("@"));
+                    const expectedArgs = shouldInsertStreamerUsername
+                        ? 2
+                        : 3;
+
+                    if (args.length < expectedArgs) {
+                        await twitchChat.sendChatMessage(`引用文を指定してください`);
+                        return resolve();
+                    }
+                    // Once we've evaluated that the syntax is correct we make our API calls
+                    const channelData = await TwitchApi.channels.getChannelInformation();
+                    const currentGameName = channelData && channelData.gameName ? channelData.gameName : "不明なゲーム";
+
+                    // If shouldInsertStreamerUsername and no @ is included in the originator arg, set originator @streamerName and treat the rest as the quote
+                    if (shouldInsertStreamerUsername) {
+                        args.splice(1, 0, `@${channelData.displayName}`);
+                    }
+
+                    const newQuote = {
+                        text: args.slice(2, args.length).join(" "),
+                        originator: args[1].replace(/@/g, ""),
+                        creator: event.userCommand.commandSender,
+                        game: currentGameName,
+                        createdAt: moment().toISOString()
+                    };
+                    const newQuoteId = await quotesManager.addQuote(newQuote);
+                    const newQuoteText = await quotesManager.getQuote(newQuoteId);
+                    const formattedQuote = getFormattedQuoteString(newQuoteText);
+                    await twitchChat.sendChatMessage(
+                        `追加しました： ${formattedQuote}`
+                    );
+                    sendToTTS(formattedQuote);
+                    logger.debug(`Quote #${newQuoteId} added!`);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
                     return resolve();
                 }
+                case "remove": {
+                    const quoteId = parseInt(args[1]);
+                    if (!isNaN(quoteId)) {
+                        await quotesManager.removeQuote(quoteId);
+                        await twitchChat.sendChatMessage(`Quote ${quoteId} was removed.`);
+                        logger.debug(`A quote was removed: ${quoteId}`);
+                        return resolve();
+                    }
 
+<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
                 await twitchChat.sendChatMessage(`その番号の引用が見つかりませんでした`);
                 logger.error('Quotes: NaN passed to remove quote command.');
                 return resolve();
             }
             case "list": {
                 const cloudSync = require('../../../cloud-sync/profile-sync');
+=======
+                    await twitchChat.sendChatMessage(`その番号の引用が見つかりませんでした`);
+                    logger.error('Quotes: NaN passed to remove quote command.');
+                    return resolve();
+                }
+                case "list": {
+                    const cloudSync = require('../../../cloud-sync/profile-sync');
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
 
                     const profileJSON = {
                         username: event.chatMessage.username,
@@ -315,9 +371,13 @@ const quotesManagement = {
                     const binId = await cloudSync.syncProfileData(profileJSON);
 
                     if (binId == null) {
-                    await twitchChat.sendChatMessage("引用はありませｎ");
+                        await twitchChat.sendChatMessage("引用はありませｎ");
                     } else {
+<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
                     await twitchChat.sendChatMessage(`引用のリストはこちら： https://firebot.app/profile?id=${binId}`);
+=======
+                        await twitchChat.sendChatMessage(`引用のリストはこちら： https://firebot.app/profile?id=${binId}`);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
                     }
 
                     return resolve();
@@ -349,7 +409,7 @@ const quotesManagement = {
                         await twitchChat.sendChatMessage(`Sorry! We couldnt find a quote using those terms.`);
                     }
 
-                    await twitchChat.sendChatMessage(`この検索文字を含む引用は見つかりませんでした。`);
+                    // resolve promise
                     return resolve();
                 }
                 case "searchuser": {
@@ -386,9 +446,9 @@ const quotesManagement = {
 
                     if (day == null || month == null || day > 31 || day < 1 ||
                     month > 12 || month < 1) {
-                    await twitchChat.sendChatMessage(`日付が無効です`);
-                    return resolve();
-                }
+                        await twitchChat.sendChatMessage(`日付が無効です`);
+                        return resolve();
+                    }
 
                     const quote = await quotesManager.getRandomQuoteByDate({
                         day,
@@ -411,34 +471,41 @@ const quotesManagement = {
                         return resolve();
                     }
 
-                const quoteId = parseInt(args[1]);
-                if (isNaN(quoteId)) {
-                    await twitchChat.sendChatMessage(`IDが異なります`);
-                    return resolve();
-                }
+                    const quoteId = parseInt(args[1]);
+                    if (isNaN(quoteId)) {
+                        await twitchChat.sendChatMessage(`IDが異なります`);
+                        return resolve();
+                    }
 
                     const quote = await quotesManager.getQuote(quoteId);
 
+<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
                 if (quote == null) {
                     await twitchChat.sendChatMessage(`ID ${quoteId} の引用が見つからない`);
                     return resolve();
                 }
+=======
+                    if (quote == null) {
+                        await twitchChat.sendChatMessage(`ID ${quoteId} の引用が見つからない`);
+                        return resolve();
+                    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
 
                     const newText = args.slice(2).join(" ");
                     quote.text = newText;
 
-                try {
-                    await quotesManager.updateQuote(quote);
-                } catch (err) {
-                    await twitchChat.sendChatMessage(`${quoteId} を更新中にエラーがおきました`);
-                    return resolve();
-                }
+                    try {
+                        await quotesManager.updateQuote(quote);
+                    } catch (err) {
+                        await twitchChat.sendChatMessage(`${quoteId} を更新中にエラーがおきました`);
+                        return resolve();
+                    }
 
                     const formattedQuote = getFormattedQuoteString(quote);
 
-                await twitchChat.sendChatMessage(
-                    `編集しました： ${formattedQuote}`
-                );
+                    await twitchChat.sendChatMessage(
+                        `編集しました： ${formattedQuote}`
+                    );
 
                     // resolve promise
                     return resolve();
@@ -449,18 +516,25 @@ const quotesManagement = {
                         return resolve();
                     }
 
-                const quoteId = parseInt(args[1]);
-                if (isNaN(quoteId)) {
-                    await twitchChat.sendChatMessage(`無効な引用ID`);
-                    return resolve();
-                }
+                    const quoteId = parseInt(args[1]);
+                    if (isNaN(quoteId)) {
+                        await twitchChat.sendChatMessage(`無効な引用ID`);
+                        return resolve();
+                    }
 
                     const quote = await quotesManager.getQuote(quoteId);
 
+<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
                 if (quote == null) {
                     await twitchChat.sendChatMessage(`${quoteId} をもつIDのものがみつからない`);
                     return resolve();
                 }
+=======
+                    if (quote == null) {
+                        await twitchChat.sendChatMessage(`${quoteId} をもつIDのものがみつからない`);
+                        return resolve();
+                    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
 
                     const newGameName = args.slice(2).join(" ");
                     quote.game = newGameName;

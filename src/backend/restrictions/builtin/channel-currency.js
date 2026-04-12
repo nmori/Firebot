@@ -112,7 +112,11 @@ const model = {
         }
 
         if (!passed) {
+<<<<<<< HEAD
             const currency = currencyDatabase.getCurrencyById(selectedCurrency);
+=======
+            const currency = currencyAccess.getCurrencyById(selectedCurrency);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             const currencyName = currency ? currency.name.toLowerCase() : "不明な通貨";
             const amountText = comparison !== "equal" ? `${comparison} than ${currencyAmount}` : `${currencyAmount}`;
             throw new Error(`以下が必要です：${amountText} ${currencyName}`);

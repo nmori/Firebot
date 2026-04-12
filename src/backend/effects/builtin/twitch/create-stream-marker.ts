@@ -22,7 +22,7 @@ const model: EffectType<{
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                注：この効果を有効にするには、ライブであり、VODが有効である必要があります。
+                注：この演出を有効にするには、ライブであり、VODが有効である必要があります。
             </div>
         </eos-container>
     `,

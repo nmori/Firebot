@@ -22,7 +22,11 @@
           <div style="width: 20%">
             <div style="min-width: 75px">
                 <span class="status-dot" ng-class="{'active': $ctrl.command.active, 'notactive': !$ctrl.command.active}"></span> {{$ctrl.command.active ? "有効" : "無効"}}
+<<<<<<< HEAD
             </div> 
+=======
+            </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
           </div>
           <div style="flex-basis:30px; flex-shrink: 0;">
             <i class="fas" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
@@ -66,7 +70,11 @@
             <div style="padding-top: 10px">
               <button class="btn btn-primary" ng-click="$ctrl.openEditSystemCommandModal()">編集</button>
               <button class="btn btn-default" ng-click="$ctrl.toggleCommandActiveState()">有効化の切り替え</button>
+<<<<<<< HEAD
             </div>  
+=======
+            </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
           </div>
         </div>
       </div>
@@ -178,12 +186,27 @@
             $ctrl.sysCommandMenuOptions = () => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                         click: function () {
                             $ctrl.openEditSystemCommandModal();
                         }
                     },
                     {
+<<<<<<< HEAD
+=======
+                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> 再実行待ちを解除</a>`,
+                        click: () => {
+                            $ctrl.resetCooldownsForCommand();
+                        }
+                    },
+                    {
+                        html: `<a href ><i class="iconify" data-icon="mdi:tally-mark-5" style="margin-right: 10px;"></i> 使用量をクリア</a>`,
+                        click: () => {
+                            $ctrl.resetPerStreamUsagesForCommand();
+                        }
+                    },
+                    {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${$ctrl.command.active ? "Disable Command" : "Enable Command"}</a>`,
                         click: function () {
                             $ctrl.command.active = !$ctrl.command.active;

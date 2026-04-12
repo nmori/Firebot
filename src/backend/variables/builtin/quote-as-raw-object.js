@@ -4,7 +4,13 @@
 const quoteManager = require("../../quotes/quotes-manager");
 const commandsManager = require("../../chat/commands/CommandManager");
 const moment = require("moment");
+<<<<<<< HEAD:src/backend/variables/builtin/quote-as-raw-object.js
 const logger = require("../../logwrapper");
+=======
+const quoteManager = require("../../../quotes/quotes-manager");
+const commandManager = require("../../../chat/commands/command-manager");
+const logger = require("../../../../backend/logwrapper");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/quote-as-raw-object.ts
 
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 

@@ -591,7 +591,11 @@ const playSound = {
         // Set output device.
         let selectedOutputDevice = effect.audioOutputDevice;
         if (selectedOutputDevice == null || selectedOutputDevice.deviceId === "") {
+<<<<<<< HEAD
             selectedOutputDevice = settings.getAudioOutputDevice();
+=======
+            selectedOutputDevice = SettingsManager.getSetting("AudioOutputDevice");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
         data.audioOutputDevice = selectedOutputDevice;
 

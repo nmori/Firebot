@@ -39,7 +39,7 @@
                     const startedAt = moment(streamInfoService.streamInfo.startedAt);
                     const now = moment();
 
-                    totalSeconds = now.diff(startedAt, "秒");
+                    totalSeconds = now.diff(startedAt, "seconds");
                 }
 
                 function buildDurationDisplay() {

@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     const fs = require("fs");
 
     angular
@@ -25,6 +25,7 @@
                         <span class="script-type">{{effect.scriptName ? effect.scriptName : 'Pick one'}}</span> <span class="caret"></span>
                     </button>
                     <a ng-click="getNewScripts()" id="refreshScriptList" style="padding-left:5px;height:100%;cursor:pointer;"><i class="far fa-sync" id="refreshIcon" style="margin-top:10px;" aria-hidden="true"></i></a>
+<<<<<<< HEAD
                     <ul class="dropdown-menu script-dropdown">
                         <li ng-show="scriptArray.length == 0" class="muted">
                             <a href>スクリプトがありません</a>
@@ -33,6 +34,8 @@
                             <a href>{{script}}</a>
                         </li>
                     </ul>
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
             </eos-container>
 
@@ -40,7 +43,14 @@
                 <div ng-if="scriptManifest != null" style="padding-bottom:10px;">
                     <div class="script-name">{{scriptManifest.name ? scriptManifest.name : "名無し"}} <span class="script-version muted">{{scriptManifest.version ? scriptManifest.version : "不明"}}</span></div>
                     <div style="font-size: 13px;">by <span class="script-author">{{scriptManifest.author ? scriptManifest.author : "不明"}}</span><span ng-if="scriptManifest.website" class="script-website"> (<a ng-click="openScriptsWebsite()" class="clickable">{{scriptManifest.website}}</a>)</span><span></span></div>
+<<<<<<< HEAD
                     <div class="script-description">{{scriptManifest.description}}</div>
+=======
+                    <div
+                        class="script-description markdown-container"
+                        ng-bind-html="scriptManifest.description"
+                    ></div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
             </eos-container>
 
@@ -67,8 +77,13 @@
                 </div>
             </eos-container>
             `,
+<<<<<<< HEAD
             controller: function($scope, utilityService, $rootScope, $q, logger,
                 backendCommunicator, profileManager) {
+=======
+            controller: function ($scope, utilityService, $rootScope, $q, logger,
+                $sce, backendCommunicator, profileManager) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
                 const $ctrl = this;
 
@@ -105,7 +120,11 @@
                         }
 
                         if (!initialLoad && ($scope.scriptManifest == null || $scope.scriptManifest.firebotVersion !== "5")) {
+<<<<<<< HEAD
                             utilityService.showInfoModal("このスクリプトはFirebot V5用に設計されていないため、期待通りに機能しない可能性があります。サポートが必要な場合は、DiscordまたはX(旧Twitter)でご相談ください。");
+=======
+                            utilityService.showInfoModal("The selected script may not have been written for Firebot V5 and so might not function as expected. Please reach out to us on Discord or Bluesky if you need assistance.");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         }
 
                         const currentParameters = $scope.effect.parameters;
@@ -166,19 +185,24 @@
                 $scope.scriptArray = fs.readdirSync(scriptFolderPath);
 
                 // Grab files in folder on refresh click.
+<<<<<<< HEAD
                 $scope.getNewScripts = function() {
                     $scope.scriptArray = fs.readdirSync(scriptFolderPath);
+=======
+                $scope.getNewScripts = function () {
+                    loadScriptFileNames();
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     if ($scope.effect.scriptName != null) {
                         loadParameters($scope.effect.scriptName);
                     }
                 };
 
                 // Open script folder on click.
-                $scope.openScriptsFolder = function() {
+                $scope.openScriptsFolder = function () {
                     backendCommunicator.fireEvent("openScriptsFolder");
                 };
 
-                $scope.openScriptsWebsite = function() {
+                $scope.openScriptsWebsite = function () {
                     if (!$scope.scriptManifest || !$scope.scriptManifest.website) {
                         return;
                     }
@@ -186,14 +210,19 @@
                     $rootScope.openLinkExternally($scope.scriptManifest.website);
                 };
 
+<<<<<<< HEAD
                 $scope.selectScript = function(scriptName) {
+=======
+                $scope.selectScript = function (scriptItem) {
+                    const scriptName = scriptItem.name;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     $scope.effect.scriptName = scriptName;
                     $scope.effect.parameters = null;
                     $scope.scriptManifest = null;
                     loadParameters(scriptName, false);
                 };
 
-                $scope.scriptHasParameters = function() {
+                $scope.scriptHasParameters = function () {
                     return ($scope.effect.parameters != null &&
                         Object.keys($scope.effect.parameters).length > 0);
                 };

@@ -12,7 +12,15 @@ const model = {
         examples: [
             {
                 usage: "date[dddd MMMM Do]",
+<<<<<<< HEAD:src/backend/variables/builtin/date.js
                 description: "優先トークンを使ったフォーマット."
+=======
+                description: 'Format with the preferred tokens. Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
+            },
+            {
+                usage: "date[YYYY-DD-MM HH:mm:ss]",
+                description: "Format with the preferred tokens."
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/date.ts
             },
             {
                 usage: "date[MMM Do YYYY, 2, days,locale]",
@@ -29,13 +37,17 @@ const model = {
     },
     evaluator: (_, template = 'MMM Do YYYY', steps = 0, key = 'days', locale = 'ja') => {
         const now = moment().locale(locale);
+<<<<<<< HEAD:src/backend/variables/builtin/date.js
+=======
+        const stepNumber =Number(steps);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/date.ts
 
-        if (steps > 0 && key !== null) {
+        if (stepNumber > 0 && key !== null) {
             now.add(steps, key);
         }
 
-        if (steps < 0 && key !== null) {
-            now.subtract(Math.abs(steps), key);
+        if (stepNumber < 0 && key !== null) {
+            now.subtract(Math.abs(stepNumber), key);
         }
 
         return now.format(template);

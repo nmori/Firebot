@@ -12,9 +12,13 @@ export function triggerSub(
     isResub: boolean
 ): void {
     eventManager.triggerEvent("twitch", "sub", {
+<<<<<<< HEAD
         userIdName: userName,
         username: userName,
         displayName:userDisplayName,
+=======
+        username,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         userId,
         subPlan,
         totalMonths,
@@ -32,9 +36,13 @@ export function triggerPrimeUpgrade(
     subPlan: string
  ): void {
     eventManager.triggerEvent("twitch", "prime-sub-upgraded", {
+<<<<<<< HEAD
         username: username,
         displayName:userDisplayName,
         userIdName: username,
+=======
+        username,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         userId,
         subPlan
     });

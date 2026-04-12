@@ -65,9 +65,15 @@ twitchListeners.events.on("chat-message", async data => {
 
         const currency = currencyDatabase.getCurrencyById(currencyId);
 
+<<<<<<< HEAD
         await twitchChat.sendChatMessage(`${username}, 正解！ ${util.commafy(winnings)} ${currency.name} を手に入れた`, null, chatter);
     } else {
         await twitchChat.sendChatMessage(`残念! ${username}, 不正解。次回チャレンジしてね`, null, chatter);
+=======
+        await twitchChat.sendChatMessage(`${chatMessage.userDisplayName ?? username}, 正解！ ${util.commafy(winnings)} ${currency.name} を手に入れた`, null, chatter);
+    } else {
+        await twitchChat.sendChatMessage(`Sorry ${chatMessage.userDisplayName ?? username}, 不正解！.${postCorrectAnswer ? ` 正解は ${question.answers[question.correctIndex - 1]}.` : ""} 次回チャレンジしてね`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     }
     clearCurrentQuestion();
 });
@@ -113,36 +119,59 @@ const triviaCommand = {
 
             if (currentQuestion) {
                 if (currentQuestion.username === username) {
+<<<<<<< HEAD
                     await twitchChat.sendChatMessage(`${username}, あなたはすでにトリビアを出題されている！`, null, chatter);
                     return;
                 }
                 await twitchChat.sendChatMessage(`${username}, 現在、他の方が質問に回答中です。回答が終わるまでお待ちください。`, null, chatter);
+=======
+                    await twitchChat.sendChatMessage(`${user.displayName}, あなたはすでにトリビアを出題されている！`, null, chatter);
+                    return;
+                }
+                await twitchChat.sendChatMessage(`${user.displayName}, 現在、他の方が質問に回答中です。回答が終わるまでお待ちください。`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 return;
             }
 
             const cooldownExpireTime = cooldownCache.get(username);
             if (cooldownExpireTime && moment().isBefore(cooldownExpireTime)) {
                 const timeRemainingDisplay = util.secondsForHumans(Math.abs(moment().diff(cooldownExpireTime, 'seconds')));
+<<<<<<< HEAD
                 await twitchChat.sendChatMessage(`${username}, 次の開催までお待ち下さい。残り時間: ${timeRemainingDisplay}`, null, chatter);
+=======
+                await twitchChat.sendChatMessage(`${user.displayName}, 次の開催までお待ち下さい。残り時間: ${timeRemainingDisplay}`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 return;
             }
 
             if (wagerAmount < 1) {
+<<<<<<< HEAD
                 await twitchChat.sendChatMessage(`${username}, 賭け金は0以上でなければなりません。`, null, chatter);
+=======
+                await twitchChat.sendChatMessage(`${user.displayName}, 賭け金は0以上でなければなりません。`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 return;
             }
 
             const minWager = triviaSettings.settings.currencySettings.minWager;
             if (minWager != null & minWager > 0) {
                 if (wagerAmount < minWager) {
+<<<<<<< HEAD
                     await twitchChat.sendChatMessage(`${username}, 賭け金の額は少なくとも ${minWager} 以上にしてください.`, null, chatter);
+=======
+                    await twitchChat.sendChatMessage(`${user.displayName}, 賭け金の額は少なくとも ${minWager} 以上にしてください.`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     return;
                 }
             }
             const maxWager = triviaSettings.settings.currencySettings.maxWager;
             if (maxWager != null & maxWager > 0) {
                 if (wagerAmount > maxWager) {
+<<<<<<< HEAD
                     await twitchChat.sendChatMessage(`${username}, 賭け金額は ${maxWager} 以下にしてください`, null, chatter);
+=======
+                    await twitchChat.sendChatMessage(`${user.displayName}, 賭け金額は ${maxWager} 以下にしてください`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     return;
                 }
             }
@@ -157,7 +186,11 @@ const triviaCommand = {
             }
 
             if (userBalance < wagerAmount) {
+<<<<<<< HEAD
                 await twitchChat.sendChatMessage(`${username}, 手持ち金額が足りません`, null, chatter);
+=======
+                await twitchChat.sendChatMessage(`${user.displayName}, 手持ち金額が足りません`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 return;
             }
 
@@ -168,7 +201,11 @@ const triviaCommand = {
             );
 
             if (question == null) {
+<<<<<<< HEAD
                 await twitchChat.sendChatMessage(`${username}, トリビアの問題が見つかりませんでした。賭け金は返却されました。`, null, chatter);
+=======
+                await twitchChat.sendChatMessage(`${user.displayName}, トリビアの問題が見つかりませんでした。賭け金は返却されました。`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 return;
             }
 
@@ -182,7 +219,11 @@ const triviaCommand = {
                 await currencyDatabase.adjustCurrencyForUser(username, currencyId, -Math.abs(wagerAmount));
             } catch (error) {
                 logger.error(error.message);
+<<<<<<< HEAD
                 await twitchChat.sendChatMessage(`${username}, 残高から通貨を差し引く際にエラーが発生したため、トリビアはキャンセルされました。`, null, chatter);
+=======
+                await twitchChat.sendChatMessage(`${user.displayName}, 残高から通貨を差し引く際にエラーが発生したため、トリビアはキャンセルされました。`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 return;
             }
 
@@ -244,14 +285,22 @@ const triviaCommand = {
                 if (currentQuestion == null || currentQuestion.username !== username) {
                     return;
                 }
+<<<<<<< HEAD
                 await twitchChat.sendChatMessage(`@${username}, 5秒以内にお答えください...`, null, chatter);
+=======
+                await twitchChat.sendChatMessage(`@${user.displayName}, 5秒以内にお答えください...`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             }, (answerTimeout - 6) * 1000);
 
             answerTimeoutId = setTimeout(async () => {
                 if (currentQuestion == null || currentQuestion.username !== username) {
                     return;
                 }
+<<<<<<< HEAD
                 await twitchChat.sendChatMessage(`@${username},回答は間に合わなかった！`, null, chatter);
+=======
+                await twitchChat.sendChatMessage(`@${user.displayName},回答は間に合わなかった！`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 clearCurrentQuestion();
             }, answerTimeout * 1000);
         } else {

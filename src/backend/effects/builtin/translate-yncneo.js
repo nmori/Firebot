@@ -1,7 +1,5 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
 const webServer = require("../../../server/http-server-manager");
 const fs = require('fs-extra');
 const logger = require("../../logwrapper");
@@ -9,23 +7,6 @@ const path = require("path");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
 const { wait } = require("../../utility");
-const axiosDefault = require("axios").default;
-
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - YNCNEO'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
 
 const voicelists = [];
 
@@ -90,8 +71,8 @@ const playSound = {
         </div>
         
     `,
-    optionsController: async($scope) =>  {
-        $scope.successEffectsUpdated = async(effects) =>{
+    optionsController: async ($scope) => {
+        $scope.successEffectsUpdated = async (effects) => {
             $scope.effect.successEffects = effects;
         };
 
@@ -100,22 +81,22 @@ const playSound = {
         const errors = [];
 
         if (effect.message == null || effect.message === "") {
-            effect.message="{message_to}({language_from}>{language_to})";
+            effect.message = "{message_to}({language_from}>{language_to})";
             errors.push("チャットメッセージを空白にすることはできません。");
         }
         if (effect.language == null || effect.language === "") {
-            effect.language="ja_JP\nen_US";
+            effect.language = "ja_JP\nen_US";
             errors.push("翻訳言語を指定してください");
         }
 
-        if (effect.port == null || effect.port ==="") {
-            effect.port ="8080";
+        if (effect.port == null || effect.port === "") {
+            effect.port = "8080";
         }
         return errors;
     },
-    onTriggerEvent:  async ({ effect, trigger}) => {
+    onTriggerEvent: async ({ effect, trigger }) => {
 
-        const chatHelpers = require("../../chat/chat-helpers");        
+        const chatHelpers = require("../../chat/chat-helpers");
         const commandHandler = require("../../chat/commands/commandHandler");
         const twitchChat = require("../../chat/twitch-chat");
         const { EffectTrigger } = require("../../../shared/effect-constants");
@@ -128,39 +109,34 @@ const playSound = {
         }
 
         try {
-            // HTTP header
-            var headers = {
-                'Content-Type': 'application/json'
-            };
-
             const crypto = require("crypto");
 
-            const translateQuery={
+            const translateQuery = {
                 operation: 'translates',
                 params: [
                     {
                         id: crypto.randomUUID(),
-                        lang:[
+                        lang: [
                             effect.language.split('\n')
                         ],
                         text: effect.message
                     }
                 ]
             };
+            const response = await fetch(
+                `http://127.0.0.1:${effect.port}/`,
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST',
+                    body: JSON.stringify(translateQuery)
+                });
 
-            const response = await axios({
-                method:'post',
-                url: 'http://127.0.0.1:'+String(effect.port)+'/',
-                data : JSON.stringify(translateQuery),
-                header: headers
-            });
+            const responseData = JSON.parse(await response.text());
+            let message = effect.message.replace("{lang}", responseData.detect_language);
 
-            var message = effect.message
-                .replace("{lang}", response.data.detect_language);
-
-            for(var i=0;i<response.data.result.length;i++){
-                message =message.replace("{"+response.data.result[i].lang+"}", response.data.result[i].text);          
-            } 
+            for (let i = 0; i < responseData.result.length; i++) {
+                message = message.replace("{" + responseData.result[i].lang + "}", responseData.result[i].text);
+            }
 
             await twitchChat.sendChatMessage(message, effect.whisper, effect.chatter, !effect.whisper && effect.sendAsReply ? messageId : undefined);
 
@@ -168,7 +144,7 @@ const playSound = {
                 const firebotMessage = await chatHelpers.buildStreamerFirebotChatMessageFromText(message);
                 commandHandler.handleChatMessage(firebotMessage);
             }
-            
+
         } catch (error) {
             logger.error("Error running http request", error.message);
         }

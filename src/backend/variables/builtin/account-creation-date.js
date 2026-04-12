@@ -6,7 +6,15 @@ const accountAccess = require("../../common/account-access");
 const moment = require("moment");
 const logger = require("../../logwrapper");
 
+<<<<<<< HEAD:src/backend/variables/builtin/account-creation-date.js
 const model = {
+=======
+const twitchApi = require("../../../twitch-api/api");
+const accountAccess = require("../../../common/account-access");
+const logger = require("../../../../backend/logwrapper");
+
+const model : ReplaceVariable = {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/account-creation-date.ts
     definition: {
         handle: "accountCreationDate",
         description: "Twitchアカウントの作成日。",

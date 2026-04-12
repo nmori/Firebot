@@ -31,7 +31,34 @@ export const ToggleSourceVisibilityEffectType: Firebot.EffectType<EffectProperti
     categories: ["common"],
   },
   optionsTemplate: `
+<<<<<<< HEAD
 <eos-container header="ソース">
+=======
+<eos-container ng-show="missingSources.length > 0">
+        <div class="effect-info alert alert-warning">
+            <p><b>Warning!</b> 
+                Cannot find {{missingSources.length}} sources in this effect. Ensure the correct profile or scene collection is loaded in OBS, and OBS is running.
+            </p>
+        </div>
+</eos-container>
+<setting-container ng-show="missingSources.length > 0" header="Missing Sources ({{missingSources.length}})" collapsed="true">
+    <div ng-repeat="sceneName in missingSources track by $index">
+      <div class="list-item" style="display: flex;border: 2px solid #3e4045;box-shadow: none;border-radius: 8px;padding: 5px 5px;">
+        <div class="pl-5">
+          <span>Scene: {{sceneName.sceneName}},</span>
+            <span>Name: {{sceneName.sourceName || 'Unknown'}},</span>
+            <span ng-if="sceneName.sourceName == null">Id: {{sceneName.sourceId}},</span>
+            <span>Action: {{getMissingActionDisplay(sceneName.action)}}</span>
+        </div>   
+        <div>
+            <button class="btn btn-danger" ng-click="deleteSceneAtIndex($index)"><i class="far fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+</setting-container>
+
+<eos-container header="Sources" pad-top="missingSources.length > 0">
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
   <div class="effect-setting-container">
     <div class="input-group">
       <span class="input-group-addon">フィルタ</span>

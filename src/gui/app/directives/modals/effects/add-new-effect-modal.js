@@ -2,7 +2,7 @@
 
 const { EffectCategory } = require("../../shared/effect-constants");
 
-(function() {
+(function () {
     angular.module("firebotApp").component("addNewEffectModal", {
         template: `
             <div class="modal-header" style="background: #43454A;border-bottom: 2px solid #373C3E;border-top-right-radius: 8px;border-top-left-radius: 8px;">
@@ -10,12 +10,21 @@ const { EffectCategory } = require("../../shared/effect-constants");
                 <h4 class="modal-title">新規演出</h4>
             </div>
             <div class="modal-body">
+<<<<<<< HEAD
                 <div style="height: 55px;background: #43454A;border-bottom: 2px solid #373C3E;display:flex; align-items: center;padding: 0 13px;">
                     <searchbar search-id="effectSearch" placeholder-text="演出を選ぶ..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
                 </div>
                 <div style="display: flex;flex-direction:row;height: 450px;">
                     <div style="width: 150px;display:flex;flex-direction:column;height: 100%; flex-shrink: 0;background: #27292c;">
                         <div class="effect-category-header">カテゴリ</div>
+=======
+                <div class="select-effect-search">
+                    <searchbar search-id="effectSearch" placeholder-text="演出を選ぶ..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
+                </div>
+                <div style="display: flex;flex-direction:row;height: 450px;">
+                    <div class="effect-categories">
+                        <div class="effect-category-header muted">Categories</div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         <div class="effect-category-wrapper" ng-class="{'selected': $ctrl.activeCategory == null}" ng-click="$ctrl.activeCategory = null;">
                             <div class="category-text">All</div>
                         </div>
@@ -25,7 +34,11 @@ const { EffectCategory } = require("../../shared/effect-constants");
                                 <tooltip
                                     style="margin-left: 5px"
                                     ng-if="category === 'integrations'"
+<<<<<<< HEAD
                                     text="'効果的に動作させるには、設定 -> 連携で設定をする必要があります。'"
+=======
+                                    text="'Integrations need to be linked / configured in Settings -> Integrations in order for the effects to work.'"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 ></tooltip>
                             </div>
                         </div>
@@ -63,7 +76,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function(ngToast, backendCommunicator, utilityService, $scope, $timeout) {
+        controller: function (ngToast, backendCommunicator, utilityService, $scope, $timeout) {
             const $ctrl = this;
 
             $ctrl.activeCategory = null;
@@ -72,7 +85,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
             $ctrl.selectedEffectDef = null;
 
             $ctrl.effectDefs = [];
-            $ctrl.$onInit = async function() {
+            $ctrl.$onInit = async function () {
                 const effectDefs = await backendCommunicator
                     .fireEventAsync("getEffectDefinitions", {
                         triggerType: $ctrl.resolve.trigger,
@@ -90,6 +103,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
                     $ctrl.selectedEffectDef = $ctrl.effectDefs.find(e => e.id === $ctrl.resolve.selectedEffectTypeId);
                 }
 
+<<<<<<< HEAD
                 if (!$ctrl.selectedEffectDef) {
                     const modalId = $ctrl.resolve.modalId;
                     utilityService.addSlidingModal(
@@ -109,12 +123,14 @@ const { EffectCategory } = require("../../shared/effect-constants");
                     });
                 }
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 $timeout(() => {
                     angular.element("#effectSearch").trigger("focus");
                 }, 50);
             };
 
-            $ctrl.save = function() {
+            $ctrl.save = function () {
                 if ($ctrl.selectedEffectDef == null) {
                     ngToast.create("演出を選んでください");
                     return;

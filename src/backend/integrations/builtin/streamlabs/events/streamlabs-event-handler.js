@@ -22,7 +22,12 @@ const eventSourceDefinition = {
             manualMetadata: {
                 from: "StreamLabs",
                 formattedDonationAmount: 5,
+<<<<<<< HEAD
                 donationMessage: "テストメッセージ"
+=======
+                donationAmount: 5,
+                donationMessage: "Test message"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             },
             isIntegration: true,
             queued: true,
@@ -41,7 +46,12 @@ const eventSourceDefinition = {
             manualMetadata: {
                 from: "Extra Life",
                 formattedDonationAmount: 5,
+<<<<<<< HEAD
                 donationMessage: "テストメッセージ"
+=======
+                donationAmount: 5,
+                donationMessage: "Test message"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             },
             isIntegration: true,
             queued: true,

@@ -7,6 +7,10 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "category",
+<<<<<<< HEAD:src/backend/variables/builtin/category.js
+=======
+        aliases: ["game"],
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/stream/category.ts
         description: "あなたのチャンネルに設定されている現在のカテゴリ/ゲームを取得します。",
         examples: [
             {
@@ -25,9 +29,19 @@ const model = {
         categories: [VariableCategory.COMMON, VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },
+<<<<<<< HEAD:src/backend/variables/builtin/category.js
     evaluator: async (_, username) => {
         if (username == null) {
             username = accountAccess.getAccounts().streamer.username;
+=======
+    evaluator: async (trigger, username) => {
+        if (username === undefined || username == null) {
+            if (trigger.metadata?.username === undefined || trigger.metadata?.username == null) {
+                username = accountAccess.getAccounts().streamer.username;
+            } else {
+                username = trigger.metadata?.username;
+            }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/stream/category.ts
         }
 
         const channelInfo = await TwitchApi.channels.getChannelInformationByUsername(username);

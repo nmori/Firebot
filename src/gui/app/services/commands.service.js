@@ -188,10 +188,19 @@
                         service.commandsCache.customCommands[currentIndex] = data.command;
                     }
 
+<<<<<<< HEAD
                     // Refresh the backend command cache.
                     ipcRenderer.send("refreshCommandCache");
                 }
             );
+=======
+            backendCommunicator.on("active-cooldowns-reset", () => {
+                ngToast.create({
+                    className: "success",
+                    content: "全てのコマンドの再実行待ちを解除しました"
+                });
+            });
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             listenerService.registerListener(
                 {
@@ -201,6 +210,7 @@
 
                     const command = service.commandsCache.customCommands.find(c => c.trigger === data.trigger);
 
+<<<<<<< HEAD
                     service.deleteCustomCommand(command);
 
                     service.commandsCache.customCommands = service.commandsCache.customCommands.filter(c => c.id !== command.id);
@@ -209,6 +219,11 @@
                     ipcRenderer.send("refreshCommandCache");
                 }
             );
+=======
+                const toastMessage = command != null
+                    ? `<strong>${command.trigger}</strong>の再実行待ちを解除しました`
+                    : `再実行待ちを解除しました`;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
 
             return service;

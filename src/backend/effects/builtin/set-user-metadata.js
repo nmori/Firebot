@@ -22,10 +22,21 @@ const effect = {
             <input ng-model="effect.key" type="text" class="form-control" id="chat-text-setting" placeholder="キーを入れる" replace-variables>
         </eos-container>
 
+<<<<<<< HEAD
         <eos-container header="データ" pad-top="true">
             <p class="muted">ユーザーデータの上記キーの下に保存されるデータです。テキストまたは別の置換フレーズを使用できます。</p>
             <textarea ng-model="effect.data" rows="3" class="form-control" id="data" placeholder="データテキストを入力" replace-variables></textarea>
             <p class="muted" style="font-size: 11px;"><b>情報:</b> データが有効なJSON文字列の場合、オブジェクトまたは配列にパースされます。</p>
+=======
+        <eos-container header="Data" pad-top="true">
+            <p class="muted">This is the data that will be saved under the above key in the user's data. Can be text or another replace phrase.</p>
+            <selectable-input-editors
+                editors="editors"
+                initial-editor-label="initialEditorLabel"
+                model="effect.data"
+            />
+            <p class="muted" style="font-size: 11px;"><b>Note:</b> If data is a valid JSON string, it will be parsed into an object or array.</p>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             <div style="margin-top: 10px;">
                 <eos-collapsable-panel show-label="応用" hide-label="応用を隠す" hide-info-box="true">

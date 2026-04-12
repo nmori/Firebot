@@ -1,12 +1,23 @@
 "use strict";
 
+<<<<<<< HEAD
 const { viewerHasRoles } = require("../../../../../roles/role-helpers");
+=======
+const twitchApi = require("../../../../../twitch-api/api");
+const roleHelpers = require("../../../../../roles/role-helpers").default;
+const { ComparisonType } = require("../../../../../../shared/filter-constants");
+const { mapLegacyComparisonType } = require("../../../../../../shared/filter-helpers");
+const logger = require("../../../../../logwrapper");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
 module.exports = {
     id: "firebot:viewerroles",
     name: "視聴者の役割",
     description: "与えられた視聴者の役割に基づく条件",
-    comparisonTypes: ["に属している", "に属していない"],
+    comparisonTypes: [
+        ComparisonType.HAS_ROLE,
+        ComparisonType.HAS_NOT_ROLE
+    ],
     leftSideValueType: "text",
     leftSideTextPlaceholder: "ユーザ名を入力",
     rightSideValueType: "preset",
@@ -36,6 +47,9 @@ module.exports = {
     predicate: async (conditionSettings, trigger) => {
 
         const { comparisonType, leftSideValue, rightSideValue, rawLeftSideValue } = conditionSettings;
+        
+        // 旧式のComparisonTypeを標準化
+        const standardComparisonType = mapLegacyComparisonType(comparisonType);
 
         let username = leftSideValue;
         if ((username == null || username === "") && (rawLeftSideValue == null || rawLeftSideValue === "")) {
@@ -44,19 +58,15 @@ module.exports = {
 
         const hasRole = await viewerHasRoles(username, [rightSideValue]);
 
-        switch (comparisonType) {
-        case "include":
-        case "is in role":
-        case "has role":
-        case "役割を担当":
-            return hasRole;
-        case "doesn't include":
-        case "isn't in role":
-        case "doesn't have role":
-        case "役割を担当していない":
-            return !hasRole;
-        default:
-            return false;
+        // シンプル化されたswitch文
+        switch (standardComparisonType) {
+            case ComparisonType.HAS_ROLE:
+                return hasRole;
+            case ComparisonType.HAS_NOT_ROLE:
+                return !hasRole;
+            default:
+                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType} (標準化後: ${standardComparisonType})`);
+                return false;
         }
     }
 };

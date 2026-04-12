@@ -17,7 +17,11 @@ const model = {
                 Mode
             </div>
             <div style="margin-bottom: 10px">
+<<<<<<< HEAD
                 <label class="control-fb control--radio">役割 <span class="muted"><br />特定の役割のアクセスを制限する</span>
+=======
+                <label class="control-fb control--radio">Roles & Ranks <span class="muted"><br />特定の役割/ランクのアクセスを制限する</span>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     <input type="radio" ng-model="restriction.mode" value="roles"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -91,14 +95,56 @@ const model = {
     optionsValueDisplay: (restriction, viewerRolesService) => {
         if (restriction.mode === "roles") {
             const roleIds = restriction.roleIds;
+<<<<<<< HEAD
             let output = "未選択";
+=======
+            let rolesOutput = "未選択";
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             if (roleIds.length > 0) {
                 output = roleIds
                     .filter(id => viewerRolesService.getRoleById(id) != null)
                     .map(id => viewerRolesService.getRoleById(id).name)
                     .join(", ");
             }
+<<<<<<< HEAD
             return `役割 (${output})`;
+=======
+            const rolesDisplay = `Roles (${rolesOutput})`;
+
+            const ranks = restriction.ranks ?? [];
+            let ranksOutput = "未選択";
+            if (ranks.length > 0) {
+                const groupedByLadder = ranks.reduce((acc, r) => {
+                    if (!acc.some(l => l.ladderId === r.ladderId)) {
+                        acc.push({ ladderId: r.ladderId, rankIds: [] });
+                    }
+                    const ladder = acc.find(l => l.ladderId === r.ladderId);
+                    ladder.rankIds.push(r.rankId);
+                    return acc;
+                }, []);
+                ranksOutput = groupedByLadder
+                    .filter(r => viewerRanksService.getRankLadder(r.ladderId) != null)
+                    .map((r) => {
+                        const ladder = viewerRanksService.getRankLadder(r.ladderId);
+                        const rankNames = r.rankIds
+                            .map(id => ladder.ranks.find(rank => rank.id === id))
+                            .filter(rank => rank != null)
+                            .map(rank => rank.name);
+                        return `${ladder.name}: ${rankNames.join(", ")}`;
+                    })
+                    .join(", ");
+            }
+            const ranksDisplay = `Ranks (${ranksOutput})`;
+
+            const itemsToDisplay = [];
+            if (rolesOutput !== "未選択") {
+                itemsToDisplay.push(rolesDisplay);
+            }
+            if (ranksOutput !== "未選択") {
+                itemsToDisplay.push(ranksDisplay);
+            }
+            return itemsToDisplay.length > 0 ? itemsToDisplay.join(", ") : "役割/ランク (未選択)";
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         } else if (restriction.mode === "viewer") {
             return `視聴者 (${restriction.username ? restriction.username : '名無し'})`;
         }

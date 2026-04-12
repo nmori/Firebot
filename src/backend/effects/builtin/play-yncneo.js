@@ -1,33 +1,7 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
-const webServer = require("../../../server/http-server-manager");
-const fs = require('fs-extra');
 const logger = require("../../logwrapper");
-const path = require("path");
-const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
-const { wait } = require("../../utility");
-const axiosDefault = require("axios").default;
-
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - YNCNEO'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
-
-const voicelists = [];
 
 const playSound = {
     definition: {
@@ -79,55 +53,36 @@ const playSound = {
         <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
         
     `,
-    optionsController: async($scope) =>  {
-        const axiosDefault = require("axios").default;
-
-        const axios = axiosDefault.create({
-
-        });
-
-        axios.interceptors.request.use(request => {
-            //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-            return request;
-        });
-
-        axios.interceptors.response.use(response => {
-            //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-            return response;
-        });
+    optionsController: async ($scope) => {
 
         if ($scope.effect.port == null) {
             $scope.effect.port = 8080;
-        }       
+        }
 
         $scope.effect.voicelists = [];
 
-        try {       
+        try {
 
-            const headers = {
-                'Content-Type': 'application/json'
-            };
-
-            const crypto = require("crypto");            
-            const voiceQuery={
+            const crypto = require("crypto");
+            const voiceQuery = {
                 operation: 'speech.getvoicelist',
                 params: [
                     {
-                        id: crypto.randomUUID(),
+                        id: crypto.randomUUID()
                     }
                 ]
             };
-
-            const response = await axios({
-                method:'post',
-                url: '  http://127.0.0.1:'+String($scope.effect.port), 
-                data : JSON.stringify(voiceQuery),
-                header: headers
-            });
-
-            for (const voicecast of response.data.voice) 
-            {
-                $scope.effect.voicelists.push( { name:voicecast });
+            const response = await fetch(
+                `http://127.0.0.1:${$scope.effect.port}/`,
+                {
+                    method: 'POST',
+                    header: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(voiceQuery)
+                }
+            );
+            const responseData = JSON.parse(await response.text());
+            for (const voicecast of responseData.voice) {
+                $scope.effect.voicelists.push({ name: voicecast });
             }
 
         } catch (error) {
@@ -138,7 +93,7 @@ const playSound = {
     optionsValidator: effect => {
         const errors = [];
 
-        if (effect.port == null || effect.port ==="") {
+        if (effect.port == null || effect.port === "") {
             errors.push("ポート番号を指定してください");
         }
 
@@ -149,14 +104,10 @@ const playSound = {
 
         try {
             // HTTP header
-            var headers = {
-                'Content-Type': 'application/json'
-            };
-
             const crypto = require("crypto");
             const engine = effect.voicecast.name.split('/');
 
-            const voiceQuery={
+            const voiceQuery = {
                 operation: 'speech',
                 params: [
                     {
@@ -164,18 +115,22 @@ const playSound = {
                         text: effect.message,
                         talker: effect.username,
                         voiceCast: engine[0],
-                        voiceEngine: engine[1],
+                        voiceEngine: engine[1]
                     }
                 ]
             };
 
-            const response = await axios({
-                method:'post',
-                url: 'http://127.0.0.1:'+String(effect.port)+'/',
-                data : JSON.stringify(voiceQuery),
-                header: headers
-            });
-            
+            const response = await fetch(
+                `http://127.0.0.1:${effect.port}/`,
+                {
+                    method: 'POST',
+                    header: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(voiceQuery)
+                }
+            );
+
+            let responseData = await response.text();
+
         } catch (error) {
             logger.error("Error running http request", error.message);
         }

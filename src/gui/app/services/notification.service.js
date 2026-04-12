@@ -11,6 +11,7 @@
             let notifications = [];
 
             const NotificationType = {
+<<<<<<< HEAD
                 EXTERNAL: "外部",
                 INTERNAL: "内部"
             };
@@ -132,6 +133,12 @@
 
             service.getStatusIcon = () => {
                 return "fa-check-circle";
+=======
+                UPDATE: "update",
+                INFO: "info",
+                TIP: "tip",
+                ALERT: "alert"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             service.NotificationIconType = NotificationIconType;

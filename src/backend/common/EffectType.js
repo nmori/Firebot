@@ -108,7 +108,7 @@ const effectDefinitions = [
     },
     {
         id: "SEND-VRCHAT",
-        v5Id: "firebot:send-vrchat",        
+        v5Id: "firebot:send-vrchat",
         name: "VRChatチャットに送付",
         triggers: ALL_TRIGGERS,
         dependencies: [],
@@ -145,7 +145,7 @@ const effectDefinitions = [
         triggers: ALL_TRIGGERS,
         dependencies: [],
         description: "音を再生する"
-    },    
+    },
     {
         id: "SPEECH_VOICEVOX",
         v5Id: "firebot:playvoicevox",
@@ -153,7 +153,7 @@ const effectDefinitions = [
         triggers: ALL_TRIGGERS,
         dependencies: [],
         description: "VOICEVOXに直接指示し、音声合成で話す"
-    }, 
+    },
     {
         id: "SPEECH_YNCNEO",
         v5Id: "firebot:play-yncneo",
@@ -168,7 +168,7 @@ const effectDefinitions = [
         name: "演出をランダム実行",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "効果のリストからランダム効果を実行する"
+        description: "演出のリストからランダム演出を実行する"
     },
     {
         id: "EFFECT_GROUP",
@@ -177,7 +177,7 @@ const effectDefinitions = [
         triggers: ALL_TRIGGERS,
         dependencies: [],
         description:
-      "複数の演出をグループ化し、1つの演出として扱う（ランダム演出の使用に適している）"
+            "複数の演出をグループ化し、1つの演出として扱う（ランダム演出の使用に適している）"
     },
     {
         id: "SHOW_IMAGE",
@@ -226,7 +226,7 @@ const effectDefinitions = [
         triggers: ALL_TRIGGERS,
         dependencies: [],
         description: "ゆかコネNEO経由で翻訳"
-    },    
+    },
     {
         id: "COMMAND_LIST",
         v5Id: null,
@@ -321,7 +321,7 @@ exports.getEffectByName = getEffectByName;
 exports.getDependenciesForEffect = getDependenciesForEffect;
 exports.getEffectById = getEffectById;
 
-exports.effectCanBeTriggered = function(effectName, triggerType) {
+exports.effectCanBeTriggered = function (effectName, triggerType) {
     const triggerTypes = getTriggerTypesForEffect(effectName);
     if (triggerTypes == null) {
         return false;
@@ -332,7 +332,7 @@ exports.effectCanBeTriggered = function(effectName, triggerType) {
 
 exports.getEffectDictionary = generateEffectObjects;
 
-exports.getAllEffectTypes = function(triggerType, triggerMeta) {
+exports.getAllEffectTypes = function (triggerType, triggerMeta) {
     // if triggerType is null, all effects are returned
     const effects = getEffects(triggerType, triggerMeta);
 
@@ -340,7 +340,7 @@ exports.getAllEffectTypes = function(triggerType, triggerMeta) {
     return effects.map(e => e.name);
 };
 
-exports.getEffect = function(effectIdOrName) {
+exports.getEffect = function (effectIdOrName) {
     const effects = effectDefinitions.filter(
         e => e.id === effectIdOrName || e.name === effectIdOrName
     );

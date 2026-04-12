@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
 
     angular
         .module("firebotApp")
@@ -8,7 +8,11 @@
             template: `
                 <div>
 
+<<<<<<< HEAD
                     <firebot-setting 
+=======
+                    <firebot-setting
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         name="カスタムスクリプト"
                         description="Firebotはカスタムスクリプトをサポートしています！この機能を使用するにはあなたの許可が必要です。スクリプトは自由度が高くリスクもあるため、信頼できる入手先から物のみ実行してください。"
                     >
@@ -19,15 +23,24 @@
                             >here</a
                             >.</div>
                         </setting-description-addon>
+<<<<<<< HEAD
                         <firebot-select 
                             options="{ true: '有効', false: '無効' }"
                             ng-init="customScriptsEnabled = settings.getCustomScriptsEnabled()" 
                             selected="customScriptsEnabled" 
                             on-update="settings.setCustomScriptsEnabled(option === 'true')"
+=======
+                        <firebot-select
+                            options="{ true: '有効', false: '無効' }"
+                            ng-init="customScriptsEnabled = settings.getSetting('RunCustomScripts')"
+                            selected="customScriptsEnabled"
+                            on-update="settings.saveSetting('RunCustomScripts', option === 'true')"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             right-justify="true"
                         />
                     </firebot-setting>
 
+<<<<<<< HEAD
                     <firebot-setting 
                         name="起動時スクリプト"
                         description="起動時スクリプトは、Firebotの起動時に実行されるカスタムスクリプトです。新しい演出、変数、イベントタイプなどを追加するスクリプトはここで読み込みます。"
@@ -35,11 +48,24 @@
                         <firebot-button 
                             text="起動時スクリプトを管理"
                             disabled="!settings.getCustomScriptsEnabled()"
+=======
+                    <firebot-setting
+                        name="起動時スクリプト"
+                        description="起動時スクリプトは、Firebotの起動時に実行されるカスタムスクリプトです。新しい演出、変数、イベントタイプなどを追加するスクリプトはここで読み込みます。"
+                    >
+                        <firebot-button
+                            text="起動時スクリプトを管理"
+                            disabled="!settings.getSetting('RunCustomScripts')"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             ng-click="openStartupScriptsModal()"
                         />
                     </firebot-setting>
 
+<<<<<<< HEAD
                     <firebot-setting 
+=======
+                    <firebot-setting
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         name="スクリプトキャッシュをクリア"
                         description="スクリプトを実行する前にメモリからクリアするかどうかを設定します。これを有効にすると、スクリプトを積極的に開発する場合に便利です。そうしないと、Firebotが再起動するまでスクリプトの変更が反映されません。普段は無効にしておいてください。"
                     >
@@ -56,11 +82,11 @@
                     
                 </div>
           `,
-            controller: function($rootScope, $scope, settingsService, utilityService) {
+            controller: function ($rootScope, $scope, settingsService, utilityService) {
                 $scope.openLink = $rootScope.openLinkExternally;
                 $scope.settings = settingsService;
 
-                $scope.openStartupScriptsModal = function() {
+                $scope.openStartupScriptsModal = function () {
                     utilityService.showModal({
                         component: "startupScriptsListModal",
                         size: "sm",

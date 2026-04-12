@@ -33,5 +33,10 @@ sudo wget https://github.com/nmori/Firebot/releases/download/v5.60.0/Firebot-v{0
 sudo tar -zxvf firebot-v{0}-linux-x64.tar.gz
 ./Firebot\ v5
 ```
+<<<<<<< HEAD
+=======
+
+これはターミナル・ウィンドウで行うか、解凍したアーカイブの正しいパスを「作業ディレクトリ」として含むショートカットを作成する必要があります。
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
 **注意**： Linux版は自動アップデート機能に対応していません。

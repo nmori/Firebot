@@ -7,7 +7,11 @@ export const ColorValueVariable: ReplaceVariable = {
     definition: {
         handle: "obsColorValue",
         description: "16進カラーコード（例：#0066FF）または標準カラー名をもとにOBSカラー値を返します。",
+<<<<<<< HEAD
         categories: [VariableCategory.ADVANCED],
+=======
+        categories: [VariableCategory.ADVANCED, VariableCategory.INTEGRATION, VariableCategory.OBS],
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         possibleDataOutput: ["number"]
     },
     evaluator: (_, ...args: string[]) => {

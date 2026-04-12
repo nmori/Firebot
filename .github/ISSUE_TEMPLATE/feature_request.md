@@ -2,8 +2,11 @@
 name: 機能リクエスト
 about: Firebotのアイデアを提案する
 title: "[機能要求] "
+<<<<<<< HEAD
 labels: Enhancement
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 ---
 
 **ご希望のソリューションをご記入ください。**

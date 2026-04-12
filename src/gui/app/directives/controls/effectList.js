@@ -213,7 +213,7 @@
                 ctrl.createAllEffectsMenuOptions = () => {
                     const allEffectsMenuOptions = [
                         {
-                            html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-copy"></span> コピー</a>`,
+                            html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-copy"></span> Copy all effects</a>`,
                             click: () => {
                                 ctrl.copyEffects();
                             },
@@ -234,7 +234,34 @@
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
+<<<<<<< HEAD
                             html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> 演出を共有</a>`,
+=======
+                            text: "Advanced...",
+                            hasTopDivider: true,
+                            children: [
+                                {
+                                    html: `<a href role="menuitem"><i class="fal fa-magic mr-4"></i> Convert to Preset Effect List</a>`,
+                                    click: function () {
+                                        ctrl.convertToPresetEffectList();
+                                    },
+                                    enabled: ctrl.effectsData.list.length > 0
+                                },
+                                {
+                                    html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> Copy Effect List ID</a>`,
+                                    click: function () {
+                                        $rootScope.copyTextToClipboard(ctrl.effectsData.id);
+                                        ngToast.create({
+                                            className: "success",
+                                            content: `Copied ${ctrl.effectsData.id} to clipboard.`
+                                        });
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> Share effects</a>`,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             click: function () {
                                 ctrl.shareEffects();
                             },
@@ -255,6 +282,7 @@
                 ctrl.createEffectMenuOptions = (effect) => {
                     const effectMenuOptions = [
                         {
+<<<<<<< HEAD
                             html: `<a href ><i class="far fa-tag mr-4"></i> ラベルを編集</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
@@ -262,6 +290,8 @@
                             }
                         },
                         {
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             html: `<a href ><i class="far fa-edit mr-4"></i> 演出を編集</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
@@ -270,6 +300,16 @@
                             }
                         },
                         {
+<<<<<<< HEAD
+=======
+                            html: `<a href ><i class="far fa-tag mr-4"></i> ラベルを編集</a>`,
+                            click: function ($itemScope) {
+                                const $index = $itemScope.$index;
+                                ctrl.editLabelForEffectAtIndex($index);
+                            }
+                        },
+                        {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             html: `<a href ><i class="fal fa-toggle-off mr-4"></i> 有効化の切り替え</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
@@ -298,7 +338,40 @@
                             }
                         },
                         {
+<<<<<<< HEAD
                             text: "貼り付け...",
+=======
+                            text: "Advanced...",
+                            hasTopDivider: true,
+                            children: [
+                                {
+                                    html: `<a href ><i class="far fa-stopwatch mr-4"></i> Edit Timeout</a>`,
+                                    enabled: function ($itemScope) {
+                                        const effect = $itemScope.effect;
+                                        const effectDefinition = effectDefinitions.find(e => e.id === effect.type);
+                                        return !effectDefinition?.exemptFromTimeouts;
+                                    },
+                                    click: function ($itemScope) {
+                                        const $index = $itemScope.$index;
+                                        ctrl.editTimeoutForEffectAtIndex($index);
+                                    }
+                                },
+                                {
+                                    html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> Copy Effect ID</a>`,
+                                    click: function ($itemScope) {
+                                        const effect = $itemScope.effect;
+                                        $rootScope.copyTextToClipboard(effect.id);
+                                        ngToast.create({
+                                            className: "success",
+                                            content: `Copied ${effect.id} to clipboard.`
+                                        });
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            text: "Paste...",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             hasTopDivider: true,
                             enabled: ctrl.hasCopiedEffects(),
                             children: [

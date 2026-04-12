@@ -3,7 +3,6 @@
 const { ipcMain } = require("electron");
 const logger = require("../../logwrapper");
 const EventEmitter = require("events");
-
 class FilterManager extends EventEmitter {
     constructor() {
         super();

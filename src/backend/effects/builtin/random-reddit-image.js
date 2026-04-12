@@ -48,6 +48,7 @@ const model = {
     </div>
 
     <div class="effect-reddit-settings" ng-if="effect.show === 'overlay' || effect.show ==='both'">
+<<<<<<< HEAD
         <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
         <eos-enter-exit-animations effect="effect" class="setting-padtop"></eos-enter-exit-animations>
         <div class="effect-setting-container setting-padtop">
@@ -73,6 +74,8 @@ const model = {
                 </div>
             </div>
         </div>
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         <div class="effect-setting-container setting-padtop">
             <div class="effect-specific-title"><h4>長さ</h4></div>
             <div class="effect-setting-content">

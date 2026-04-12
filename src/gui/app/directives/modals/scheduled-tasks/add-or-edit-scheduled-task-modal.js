@@ -51,7 +51,18 @@
                 </div>
 
                 <div class="function-button-settings" style="margin-top: 15px;">
+<<<<<<< HEAD
                     <effect-list header="この予定で何をしますか？" effects="$ctrl.scheduledTask.effects" trigger="scheduledTask" trigger-meta="$ctrl.triggerMeta" update="$ctrl.effectListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
+=======
+                    <effect-list
+                        header="この予定で何をしますか？"
+                        effects="$ctrl.scheduledTask.effects"
+                        trigger="scheduledTask"
+                        trigger-meta="{ rootEffects: $ctrl.scheduledTask.effects }"
+                        update="$ctrl.effectListUpdated(effects)"
+                        modalId="{{$ctrl.modalId}}"
+                    ></effect-list>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
                 <p class="muted" style="font-size:11px;margin-top:6px;">
                     <b>ヒント:</b>この演出予定リストに、一度に1つのチャットメッセージを表示させたい場合,  <b>演出のランダム実行</b> か <b>演出の順番実行</b>をお試しください。
@@ -101,6 +112,7 @@
                 }
 
                 $ctrl.updateScheduleData();
+<<<<<<< HEAD
 
                 const modalId = $ctrl.resolve.modalId;
                 $ctrl.modalId = modalId;
@@ -119,6 +131,8 @@
                 $scope.$on("modal.closing", function() {
                     utilityService.removeSlidingModal();
                 });
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             $ctrl.effectListUpdated = function(effects) {

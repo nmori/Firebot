@@ -16,6 +16,13 @@ const model = {
             {
                 usage: "time[format,locale]",
                 description: '現在時刻を特定のフォーマットで出力する。書式は <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> に従います.(日本語版拡張:localeに ja,en などの国を指定できます）'
+<<<<<<< HEAD:src/backend/variables/builtin/time.js
+=======
+            },
+            {
+                usage: "time[YYYY-DD-MM HH:mm:ss]",
+                description: "Format with the preferred tokens."
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/time.ts
             }
         ]
     },

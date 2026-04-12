@@ -25,7 +25,11 @@ const activeCustomScripts = {};
  * @param {Trigger} trigger
  */
 async function executeScript(scriptData, trigger, isStartupScript = false) {
+<<<<<<< HEAD
     const { scriptName, parameters } = scriptData;
+=======
+    const { scriptName, parameters, id } = scriptData;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     const scriptFilePath = getScriptPath(scriptName);
 
@@ -41,7 +45,11 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
         }
         customScript = require(scriptFilePath);
     } catch (error) {
+<<<<<<< HEAD
         renderWindow.webContents.send("error", `${scriptName}'を読み込めません \n\n ${error}`);
+=======
+        frontendCommunicator.send("error", `Error loading the script '${scriptName}' \n\n ${error}`);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         logger.error(error);
         return;
     }
@@ -96,12 +104,16 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
 
     if (!response.success) {
         logger.error("Script failed with message:", response.errorMessage);
+<<<<<<< HEAD
         renderWindow.webContents.send("error", "スクリプトの実行に失敗しました： " + response.errorMessage);
+=======
+        frontendCommunicator.send("error", `Custom script failed with the message: ${response.errorMessage}`);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         return;
     }
 
     if (typeof response.callback !== "function") {
-        response.callback = () => {};
+        response.callback = () => { };
     }
 
     const effects = response.effects;

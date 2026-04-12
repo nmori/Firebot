@@ -6,23 +6,87 @@
  * @enum {string}
  */
 const ComparisonType = Object.freeze({
-    IS: "と一致",
-    IS_NOT: "と不一致",
+    // 標準比較タイプ - Standard comparison types
+    IS: "が一致",
+    IS_NOT: "が不一致",
     INCLUDING: "を含む",
-    GREATER_THAN: "より大きい",
+    NOT_INCLUDING: "を含まない",
+    GREATER_THAN: "より上",
     GREATER_THAN_OR_EQUAL_TO: "以上",
     LESS_THAN: "未満",
     LESS_THAN_OR_EQUAL_TO: "以下",
-    CONTAINS: "を配列に含む",
-    DOESNT_CONTAIN: "を配列に含まない",
+    CONTAINS: "含んでいる",
+    DOESNT_CONTAIN: "アイテムに含まない", // Fixed inconsistency - changed from "含む" to "含まない" to match functionality
+    DOES_NOT_CONTAIN: "アイテムに含まない",
     DOESNT_STARTS_WITH: "で始まらない",
     STARTS_WITH: "で始まる",
     DOESNT_END_WITH: "で終わらない",
     ENDS_WITH: "で終わる",
-    MATCHES_REGEX_CS: "という正規表現に一致",
-    DOESNT_MATCH_REGEX_CS: "という正規表現に不一致",
-    MATCHES_REGEX: "という正規表現に一致（大小問わず）",
-    DOESNT_MATCH_REGEX: "という正規表現に不一致（大小問わず）"
+    MATCHES_REGEX_CS: "正規表現に一致",
+    DOESNT_MATCH_REGEX_CS: "正規表現に不一致",
+    MATCHES_REGEX: "正規表現に一致（大小問わず）",
+    DOESNT_MATCH_REGEX: "正規表現に不一致（大小問わず）",
+    IS_STRICTKY: "厳密に一致", // Note: There's a typo in the constant name (should be STRICTLY)
+    IS_NOT_STRICTKY: "厳密に不一致", // Note: There's a typo in the constant name (should be STRICTLY)
+    FOLLOW: "フォロー",
+    HAS_ROLE: "役割を担当",
+    HAS_NOT_ROLE: "役割を担当していない",
+
+    //COMPAT : 設定ファイル（過去）互換 - Backward compatibility for old settings files
+    /**
+     * @deprecated Use standard comparison types instead. These are kept for backward compatibility.
+     */
+    COMPAT_IS: "一致",
+    COMPAT_IS_NOT: "不一致",
+    COMPAT_INCLUDING: "含む",
+    COMPAT_NOT_INCLUDING: "含まない",
+    COMPAT_GREATER_THAN: "より大きい",
+    COMPAT_CONTAINS: "厳格に一致",
+    COMPAT_DOESNT_CONTAIN: "厳格に不一致",
+    COMPAT_DOESNT_STARTS_WITH: "で始まらない",
+    COMPAT_MATCHES_REGEX: "正規表現にマッチする",
+    COMPAT_DOESNT_MATCH_REGEX: "正規表現にマッチしない",
+
+    //COMPAT2 : 設定ファイル（過去）互換 - Backward compatibility for old settings files (2nd generation)
+    /**
+     * @deprecated Use standard comparison types instead. These are kept for backward compatibility.
+     */
+    COMPAT2_IS: "と一致",
+    COMPAT2_IS_NOT: "と不一致",
+    COMPAT2_INCLUDING: "を含む",
+    COMPAT2_CONTAINS: "を配列に含む",
+    COMPAT2_DOESNT_CONTAIN: "を配列に含まない",
+    COMPAT2_MATCHES_REGEX_CS: "という正規表現に一致",
+    COMPAT2_DOESNT_MATCH_REGEX_CS: "という正規表現に不一致",
+    COMPAT2_MATCHES_REGEX: "という正規表現に一致（大小問わず）",
+    COMPAT2_DOESNT_MATCH_REGEX: "という正規表現に不一致（大小問わず）",
+
+    //Original : 設定ファイル互換 - Compatibility with original English settings files
+    /**
+     * @deprecated Use standard comparison types instead. These are kept for backward compatibility.
+     */
+    ORG_IS: "is",
+    ORG_IS_NOT: "is not",
+    ORG_GREATER_THAN: "greater than",
+    ORG_GREATER_THAN_OR_EQUAL_TO: "greater than or equal to",
+    ORG_LESS_THAN: "less than",
+    ORG_LESS_THAN_OR_EQUAL_TO: "less than or equal to",
+    ORG_CONTAINS: "contains",
+    ORG_DOESNT_CONTAIN: "doesn't contain",
+    ORG_DOESNT_STARTS_WITH: "doesn't start with",
+    ORG_STARTS_WITH: "starts with",
+    ORG_DOESNT_END_WITH: "doesn't end with",
+    ORG_ENDS_WITH: "ends with",
+    ORG_MATCHES_REGEX_CS: "matches regex",
+    ORG_DOESNT_MATCH_REGEX_CS: "doesn't matches regex",
+    ORG_MATCHES_REGEX: "matches regex (case insensitive)",
+    ORG_DOESNT_MATCH_REGEX: "doesn't match regex (case insensitive)",
+    ORG_INCLUDING: "include",
+    ORG_NOT_INCLUDING: "doesn't include",
+    ORG_HAS_ROLE: "has role",
+    ORG_HAS_NOT_ROLE: "doesn't have role",
+    ORG_IS_IN_ROLE: "is in role",
+    ORG_IS_NOT_IN_ROLE: "isn't in role"
 });
 
 exports.ComparisonType = ComparisonType;

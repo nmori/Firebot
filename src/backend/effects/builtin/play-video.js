@@ -145,7 +145,19 @@ const playVideo = {
             </eos-container>
         </div>
 
+<<<<<<< HEAD
         <eos-container header="長さ" pad-top="true">
+=======
+        <eos-container ng-if="shouldShowVolumeControl()" header="Volume" pad-top="true">
+            <div class="volume-slider-wrapper">
+                <i class="fal fa-volume-down volume-low"></i>
+                <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 0, ceil: 10, hideLimitLabels: true}"></rzslider>
+                <i class="fal fa-volume-up volume-high"></i>
+            </div>
+        </eos-container>
+
+        <eos-container header="Duration" pad-top="true">
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <div class="input-group">
                 <input
                     type="text"
@@ -166,6 +178,7 @@ const playVideo = {
             </label>
         </eos-container>
 
+<<<<<<< HEAD
         <eos-container header="音量" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
@@ -176,6 +189,8 @@ const playVideo = {
 
         <eos-overlay-position effect="effect" pad-top="true"></eos-overlay-position>
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         <eos-container header="Size" pad-top="true">
             <label class="control-fb control--checkbox"> アスペクト比を 16:9 に強制する
                 <input type="checkbox" ng-click="forceRatioToggle();" ng-checked="forceRatio">
@@ -210,7 +225,7 @@ const playVideo = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                この効果を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。<a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
+                この演出を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。<a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
                 <br>
                 <strong>情報</strong>: Streamlabs Desktop（旧称：SLOBS）は、ブラウザのソースでmp4ビデオをサポートしていません。Streamlabs Desktopで表示したいmp4動画をお持ちの場合は、<strong>.webm</strong>形式に変換する必要があります。
             </div>

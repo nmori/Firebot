@@ -19,11 +19,25 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container header="特典">
+<<<<<<< HEAD
             <firebot-input input-title="特典ID" model="effect.rewardId" placeholder-text="IDを入力" />
         </eos-container>
 
         <eos-container header="引き換え" pad-top="true">
             <firebot-input input-title="引き換えID" model="effect.redemptionId" placeholder-text="IDを入力" />
+=======
+            <firebot-radio-container>
+                <firebot-radio label="Use current reward" model="effect.rewardMode" value="'current'" tooltip="この演出を起動した特典を使用する" />
+                <firebot-radio label="Custom" model="effect.rewardMode" value="'custom'" />
+                <firebot-input ng-if="effect.rewardMode === 'custom'" input-title="Reward ID" model="effect.rewardId" placeholder-text="IDを入力" menu-position="below" />
+            </firebot-radio-container>
+        </eos-container>
+
+        <eos-container header="引き換え" pad-top="true">
+            <firebot-radio label="現在の交換を利用する" model="effect.redemptionMode" value="'current'" tooltip="この演出を起動した特典を使用する" />
+            <firebot-radio label="Custom" model="effect.redemptionMode" value="'custom'" />
+            <firebot-input ng-if="effect.redemptionMode === 'custom'" input-title="交換ID" model="effect.redemptionId" placeholder-text="IDを入力" />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
         <eos-container header="Action" pad-top="true">
@@ -51,9 +65,18 @@ const model: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
 
+<<<<<<< HEAD
         if (!effect.rewardId?.length) {
             errors.push("特典IDを入力する必要があります");
         } else if (!effect.redemptionId?.length) {
+=======
+        const rewardMode = effect.rewardMode ?? "custom";
+        const redemptionMode = effect.redemptionMode ?? "custom";
+
+        if (rewardMode === "custom" && !effect.rewardId?.length) {
+            errors.push("特典IDを入力する必要があります");
+        } else if (redemptionMode === "custom" && !effect.redemptionId?.length) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             errors.push("引き換えIDを入力する必要があります");
         } else if (effect.approve == null) {
             errors.push("アクションを選んでください");

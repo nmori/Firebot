@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
 
     angular
         .module("firebotApp")
@@ -8,7 +8,11 @@
             template: `
                 <div>
 
+<<<<<<< HEAD
                     <firebot-setting 
+=======
+                    <firebot-setting
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         name="開発者モード"
                         description="開発者モードを有効にすると、Firebotはログファイルに多くの情報を記録します。これは、不明な問題のトラブルシューティングを行う際に便利です"
                     >
@@ -17,13 +21,13 @@
                                 >この設定の変更を有効にするには、Firebotを再起動する必要があります。</b
                             >
                         </setting-description-addon>
-                        <firebot-button 
-                            text="{{settings.debugModeEnabled() ? '無効にする' : '有効にする' }}"
-                            ng-click="settings.setDebugModeEnabled(!settings.debugModeEnabled())"
+                        <firebot-button
+                            text="{{settings.getSetting('DebugMode') ? '無効' : '有効' }}"
+                            ng-click="settings.saveSetting('DebugMode', !settings.getSetting('DebugMode'))"
                         />
                     </firebot-setting>
 
-                    <firebot-setting 
+                    <firebot-setting
                         name="無限ループ抑制"
                         description="演出の無限ループ抑制を有効または無効にする。"
                     >
@@ -32,13 +36,22 @@
                                 >気をつけないと、無限ループを引き起こし、Firebotをフリーズさせてしまうことがあります。</b
                             >
                         </setting-description-addon>
+<<<<<<< HEAD
                         <firebot-button 
                             text="{{settings.getWhileLoopEnabled() ? '抑制する' : '抑制を解除' }}"
+=======
+                        <firebot-button
+                            text="{{settings.getSetting('WhileLoopEnabled') ? '無効' : '有効' }}"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             ng-click="toggleWhileLoops()"
                         />
                     </firebot-setting>
 
+<<<<<<< HEAD
                     <firebot-setting 
+=======
+                    <firebot-setting
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         name="引用IDの再計算"
                         description="Firebotの引用IDは固定です。引用IDをつけ直して連続化させたい場合は、このオプションをご利用ください。"
                     >
@@ -47,13 +60,21 @@
                                 >念のため、最初にバックアップを取ることをお勧めします。</b
                             >
                         </setting-description-addon>
+<<<<<<< HEAD
                         <firebot-button 
+=======
+                        <firebot-button
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             text="IDを付与し直す"
                             ng-click="recalculateQuoteIds()"
                         />
                     </firebot-setting>
 
+<<<<<<< HEAD
                     <firebot-setting 
+=======
+                    <firebot-setting
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         name="引用文データの書き出しを許可"
                         description="プロフィールページで「CSVとしてエクスポート」ボタンを使用可能とするかどうか"
                     >
@@ -66,7 +87,11 @@
                         />
                     </firebot-setting>
 
+<<<<<<< HEAD
                     <firebot-setting 
+=======
+                    <firebot-setting
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         name="カスタム変数の永続化"
                         description="Firebot終了時にカスタム変数をファイルに保存し、次回起動時に維持するかどうか"
                     >
@@ -76,6 +101,21 @@
                             selected="persistVariables" 
                             on-update="settings.setPersistCustomVariables(option === 'true')"
                             right-justify="true"
+<<<<<<< HEAD
+=======
+                            aria-label="enable or disable persistent Custom Variables"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="クリッププレーヤー（実験実装）"
+                        description="この機能を有効にすると、Firebotは実験的な方法でTwitchのクリップをオーバーレイ再生し、コンテンツの警告を回避します。これは実験的な機能であり、動作を保証するものではありません。Firebotがクリップを再生できない場合は、デフォルトの方法を使って再生します。"
+                    >
+                        <toggle-button
+                            toggle-model="settings.getSetting('UseExperimentalTwitchClipUrlResolver')"
+                            on-toggle="settings.saveSetting('UseExperimentalTwitchClipUrlResolver', !settings.getSetting('UseExperimentalTwitchClipUrlResolver'))"
+                            font-size="40"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         />
                     </firebot-setting>
 
@@ -85,7 +125,7 @@
 
                 </div>
           `,
-            controller: function($scope, settingsService, utilityService, backendCommunicator) {
+            controller: function ($scope, settingsService, utilityService, backendCommunicator) {
                 $scope.settings = settingsService;
 
                 $scope.toggleWhileLoops = () => {

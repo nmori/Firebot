@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     angular.module("firebotApp")
         .component("editStreamInfoModal", {
             template: `
@@ -34,6 +34,7 @@
 
                         <div class="form-group">
                             <label for="game" class="control-label">カテゴリ</label>
+<<<<<<< HEAD
                             <ui-select ng-model="$ctrl.selectedGame" required input-id="game" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.gameSelected($item)">
                                 <ui-select-match placeholder="カテゴリを探す...">
                                     <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
@@ -48,6 +49,33 @@
                                     </div>
                                 </ui-select-choices>
                             </ui-select>
+=======
+                            <div style="display:flex">
+                                <ui-select style="width: 100%" ng-model="$ctrl.selectedGame" required input-id="game" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.gameSelected($item)">
+                                    <ui-select-match placeholder="Search for category...">
+                                        <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
+                                            <img style="height: 21px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
+                                            <div style="font-weight: 100;font-size: 17px;">{{$select.selected.name}}</div>
+                                        </div>
+                                    </ui-select-match>
+                                    <ui-select-choices minimum-input-length="1" repeat="game in $ctrl.games | filter: $select.search" refresh="$ctrl.searchGames($select.search)" refresh-delay="200" style="position:relative;">
+                                        <div style="height: 35px; display:flex; flex-direction: row; align-items: center;">
+                                            <img style="height: 30px; width: 30px; border-radius: 5px; margin-right:10px;" ng-src="{{game.boxArtUrl}}">
+                                            <div style="font-weight: 100;font-size: 17px;">{{game.name}}</div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <div ng-show="$ctrl.selectedGame != null" style="margin-left: 3px">
+                                    <button 
+                                        class="btn btn-default"
+                                        aria-label="Clear category"
+                                        uib-tooltip="Clear category"     
+                                        ng-click="$ctrl.removeCategory()">
+                                        <i class="far fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         </div>
 
                         <div class="form-group" style="margin-bottom: 0;">
@@ -93,7 +121,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($scope, ngToast, utilityService, backendCommunicator) {
+            controller: function ($scope, ngToast, utilityService, backendCommunicator) {
                 const $ctrl = this;
 
                 $ctrl.dataLoaded = false;
@@ -119,7 +147,7 @@
                         $scope.streamInfo[fieldName].$invalid;
                 };
 
-                $ctrl.$onInit = async() => {
+                $ctrl.$onInit = async () => {
                     $ctrl.streamInfo = await backendCommunicator.fireEventAsync("get-channel-info");
 
                     if ($ctrl.streamInfo) {
@@ -139,8 +167,9 @@
                     }
                 };
 
-                $ctrl.openAddStreamTagsModal = function() {
+                $ctrl.openAddStreamTagsModal = function () {
                     utilityService.openGetInputModal({
+<<<<<<< HEAD
                             label: "Add Stream Tag",
                             saveText: "Add",
                             inputPlaceholder: "Enter a tag",
@@ -148,26 +177,35 @@
                                 return new Promise(resolve => {
                                     // Must be alphanumeric no more than 25 characters
                                     const tagRegExp = /^[a-z0-9]{1,25}$/ig;
+=======
+                        label: "Add Stream Tag",
+                        saveText: "Add",
+                        inputPlaceholder: "Enter a tag",
+                        validationFn: (value) => {
+                            return new Promise((resolve) => {
+                                // Must be alphanumeric no more than 25 characters
+                                const tagRegExp = /^[a-z0-9]{1,25}$/ig;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
-                                    if (value == null || value.trim().length < 1) {
-                                        resolve(false);
-                                    } else if (!tagRegExp.test(value)) {
-                                        resolve(false);
-                                    } else if ($ctrl.streamInfo.tags.findIndex(element => value.toLowerCase() === element.toLowerCase()) !== -1) {
-                                        resolve(false);
-                                    } else {
-                                        resolve(true);
-                                    }
-                                });
-                            },
-                            validationText: "Tag name cannot be empty, must contain a maximum of 25 alphanumeric characters, cannot contain spaces, and must be unique."
+                                if (value == null || value.trim().length < 1) {
+                                    resolve(false);
+                                } else if (!tagRegExp.test(value)) {
+                                    resolve(false);
+                                } else if ($ctrl.streamInfo.tags.findIndex(element => value.toLowerCase() === element.toLowerCase()) !== -1) {
+                                    resolve(false);
+                                } else {
+                                    resolve(true);
+                                }
+                            });
                         },
+                        validationText: "Tag name cannot be empty, must contain a maximum of 25 alphanumeric characters, cannot contain spaces, and must be unique."
+                    },
                         (tag) => {
                             $ctrl.streamInfo.tags.push(tag);
                         });
                 };
 
-                $ctrl.searchGames = function(gameQuery) {
+                $ctrl.searchGames = function (gameQuery) {
                     backendCommunicator.fireEventAsync("search-twitch-games", gameQuery)
                         .then(games => {
                             if (games != null) {
@@ -176,18 +214,28 @@
                         });
                 };
 
-                $ctrl.gameSelected = function(game) {
+                $ctrl.gameSelected = function (game) {
                     if (game != null) {
                         $ctrl.streamInfo.gameId = game.id;
                         $ctrl.streamInfo.gameName = game.name;
                     }
                 };
 
+<<<<<<< HEAD
                 $ctrl.removeStreamTag = function(tag) {
+=======
+                $ctrl.removeCategory = function () {
+                    $ctrl.selectedGame = null;
+                    $ctrl.streamInfo.gameId = '';
+                    $ctrl.streamInfo.gameName = null;
+                };
+
+                $ctrl.removeStreamTag = function (tag) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     $ctrl.streamInfo.tags = $ctrl.streamInfo.tags.filter(element => tag.toLowerCase() !== element.toLowerCase());
                 };
 
-                $ctrl.save = async() => {
+                $ctrl.save = async () => {
                     await backendCommunicator.fireEventAsync("set-channel-info", $ctrl.streamInfo);
                     if ($ctrl.streamInfo.gameId !== $ctrl.originalGame.id) {
                         backendCommunicator.fireEvent("category-changed", $ctrl.streamInfo.gameName);

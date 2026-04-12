@@ -248,4 +248,7 @@ exports.setupCommonListeners = () => {
         updater.autoUpdater;
     });
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20

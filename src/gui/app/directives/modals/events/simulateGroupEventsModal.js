@@ -1,8 +1,12 @@
 "use strict";
 
+<<<<<<< HEAD
 // Basic template for a modal component, copy this and rename to build a modal.
 
 (function() {
+=======
+(function () {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     angular.module("firebotApp")
         .component("simulateGroupEventsModal", {
             template: `
@@ -21,6 +25,7 @@
                         ></searchable-event-dropdown>
                     </div>
 
+<<<<<<< HEAD
                     <div>
                         <label class="control-fb control--checkbox"> イベントの強制実行 <tooltip text="'模擬されたイベントは確実に実行します'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.eventData.forceRetrigger">
@@ -28,6 +33,8 @@
                         </label>
                     </div>
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     <div ng-if="$ctrl.metadata">
                         <command-option
                             ng-repeat="data in $ctrl.metadata"
@@ -38,7 +45,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+<<<<<<< HEAD
                     <button type="button" class="btn btn-primary" ng-click="$ctrl.simulate()">模擬実行</button>
+=======
+                    <button ng-if="$ctrl.hasPreviousProperties" type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPrevious()">前回値で実行</button>
+                    <button type="button" ng-disabled="$ctrl.eventData.eventId == null" class="btn btn-primary" ng-click="$ctrl.simulate()">模擬実行</button>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
             `,
             bindings: {
@@ -60,13 +72,11 @@
 
                 $ctrl.changeUsername = (key, usernameType, isAnon) => {
                     const username = $ctrl.metadata.find(md => md.key === key);
-
-                    if (username && isAnon) {
-                        username.value = `An Anonymous ${usernameType}`;
+                    if (username === undefined) {
+                        $ctrl.metadata[key] = "";
                     } else {
                         username.value = "";
                     }
-
                     const index = $ctrl.metadata.findIndex(md => md.key === key);
                     $ctrl.metadata[index] = username;
                 };

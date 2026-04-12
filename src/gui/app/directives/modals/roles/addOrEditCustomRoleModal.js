@@ -113,7 +113,7 @@
             $ctrl.deleteViewer = function(viewer) {
                 utilityService.showConfirmationModal({
                     title: "視聴者を削除",
-                    question: `視聴者 ${viewer} の役割を外しますか?`,
+                    question: `視聴者 ${displayName} の役割を外しますか?`,
                     confirmLabel: "役割を外す",
                     confirmBtnType: "btn-danger"
                 }).then(confirmed => {
@@ -128,6 +128,7 @@
                     $ctrl.role = JSON.parse(JSON.stringify($ctrl.resolve.role));
                     $ctrl.isNewRole = false;
                 }
+<<<<<<< HEAD
 
                 const modalId = $ctrl.resolve.modalId;
                 utilityService.addSlidingModal(
@@ -146,6 +147,8 @@
                     utilityService.removeSlidingModal();
                 });
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             $ctrl.delete = function() {

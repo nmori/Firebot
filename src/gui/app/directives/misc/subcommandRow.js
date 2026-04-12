@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     angular.module("firebotApp").component("subcommandRow", {
         bindings: {
             subcommand: "=",
@@ -21,12 +21,27 @@
                     </div>
 
                     <div style="width: 25%">
+<<<<<<< HEAD
                         <span style="min-width: 51px; display: inline-block;" uib-tooltip="再実行可能になるまでの待ち時間(全般)">
                             <i class="fal fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "s" : "-" }}
                         </span>
                         <span uib-tooltip="再実行可能になるまでの待ち時間(ユーザ)">
                             <i class="fal fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "s" : "-" }}
                         </span>
+=======
+                        <div ng-if="!$ctrl.subcommand.inheritBaseCommandCooldown">
+                            <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
+                                <i class="fal fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "秒" : "-" }}
+                            </span>
+                            <span uib-tooltip="User cooldown">
+                                <i class="fal fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "秒" : "-" }}
+                            </span>
+                        </div>
+                        <div ng-if="$ctrl.subcommand.inheritBaseCommandCooldown">
+                            <span style="text-transform: capitalize;">継承</span>
+                            <tooltip type="info" text="'このサブコマンドはベースコマンドの再実行待ち時間を使用します。'"></tooltip>
+                        </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     </div>
 
                     <div style="width: 25%">
@@ -160,7 +175,11 @@
                 </div>
             </div>
         `,
+<<<<<<< HEAD
         controller: function(viewerRolesService, utilityService) {
+=======
+        controller: function (viewerRolesService) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             const $ctrl = this;
 
             $ctrl.subcommandTypeTitle = "";
@@ -177,7 +196,7 @@
                 }
             };
 
-            $ctrl.$onInit = function() {
+            $ctrl.$onInit = function () {
                 if ($ctrl.subcommand) {
                     if ((!$ctrl.subcommand.regex && !$ctrl.subcommand.fallback) && $ctrl.subcommand.usage) {
                         $ctrl.compiledUsage = $ctrl.subcommand.usage.replace(`${$ctrl.subcommand.arg} `, "");
@@ -202,6 +221,7 @@
             };
 
             $ctrl.delete = () => {
+<<<<<<< HEAD
                 utilityService.showConfirmationModal({
                     title: "サブコマンドを削除",
                     question: `このサブコマンドを削除しますか?`,
@@ -212,13 +232,16 @@
                         $ctrl.onDelete({ id: $ctrl.subcommand.id });
                     }
                 });
+=======
+                $ctrl.onDelete({ id: $ctrl.subcommand.id });
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             $ctrl.edit = () => {
                 $ctrl.onEdit({ id: $ctrl.subcommand.id });
             };
 
-            $ctrl.effectListUpdated = function(effects) {
+            $ctrl.effectListUpdated = function (effects) {
                 $ctrl.subcommand.effects = effects;
             };
 
@@ -226,7 +249,7 @@
                 const command = $ctrl.subcommand;
 
                 const permissions = command.restrictionData && command.restrictionData.restrictions &&
-                command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
+                    command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
@@ -242,7 +265,7 @@
             $ctrl.getPermissionTooltip = () => {
                 const command = $ctrl.subcommand;
                 const permissions = command.restrictionData && command.restrictionData.restrictions &&
-                command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
+                    command.restrictionData.restrictions.find(r => r.type === "firebot:permissions");
 
                 if (permissions) {
                     if (permissions.mode === "roles") {

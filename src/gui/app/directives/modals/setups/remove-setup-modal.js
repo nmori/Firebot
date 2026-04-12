@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     const fsp = require("fs/promises");
 
     angular.module("firebotApp")
@@ -55,7 +55,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($q, logger, ngToast, commandsService, countersService, currencyService,
+            controller: function ($q, logger, ngToast, commandsService, countersService, currencyService,
                 effectQueuesService, eventsService, hotkeyService, presetEffectListsService,
                 timerService, viewerRolesService, quickActionsService, backendCommunicator) {
                 const $ctrl = this;
@@ -74,7 +74,10 @@
                     hotkeys: "ホットキー",
                     presetEffectLists: "プリセット演出リスト",
                     timers: "タイマー",
+                    scheduledTasks: "スケジュール演出リスト",
+                    variableMacros: "マクロ変数",
                     viewerRoles: "視聴者の役割",
+                    viewerRankLadders: "視聴者ランク",
                     quickActions: "クイックアクション"
                 };
 

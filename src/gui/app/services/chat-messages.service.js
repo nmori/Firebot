@@ -339,21 +339,34 @@
                 service.clearUserList();
             });
 
+<<<<<<< HEAD
             backendCommunicator.on("twitch:chat:automod-update", ({messageId, newStatus, resolverName, flaggedPhrases}) => {
                 if (newStatus === "ALLOWED") {
                     service.chatQueue = service.chatQueue.filter(i => i?.data?.id !== messageId);
                     service.chatAlertMessage(`${resolverName} は次のメッセージを承認： ${flaggedPhrases.join(", ")}`);
                 } else {
                     const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+=======
+            backendCommunicator.on("twitch:chat:automod-update", ({messageId, newStatus, resolverName }) => {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
+                    if (messageItem == null) {
+                        return;
+                    }
+
+<<<<<<< HEAD
+                    messageItem.data.autoModStatus = newStatus;
+                    messageItem.data.autoModResolvedBy = resolverName;
+                }
+
+=======
                     if (messageItem == null) {
                         return;
                     }
 
                     messageItem.data.autoModStatus = newStatus;
                     messageItem.data.autoModResolvedBy = resolverName;
-                }
-
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             });
 
             backendCommunicator.on("twitch:chat:automod-update-error", ({messageId, likelyExpired}) => {
@@ -407,7 +420,7 @@
 
                 const now = moment();
                 chatMessage.timestamp = now;
-                chatMessage.timestampDisplay = now.format('h:mm A');
+                chatMessage.timestampDisplay = now.format('LTS');
 
                 if (chatMessage.profilePicUrl == null) {
                     chatMessage.profilePicUrl = "../images/placeholders/default-profile-pic.png";

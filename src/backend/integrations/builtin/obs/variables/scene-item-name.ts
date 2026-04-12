@@ -13,7 +13,12 @@ export const SceneItemNameVariable: ReplaceVariable = {
         handle: "obsSceneItemName",
         description:
       "イベントをトリガーしたOBSシーンアイテムの名前。",
+<<<<<<< HEAD
         possibleDataOutput: ["number"],
+=======
+        possibleDataOutput: ["text"],
+        categories: [VariableCategory.ADVANCED, VariableCategory.INTEGRATION, VariableCategory.OBS],
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         triggers: triggers
     },
     evaluator: async (trigger) => {

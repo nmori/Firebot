@@ -4,14 +4,21 @@ import {
     OBS_SCENE_CHANGED_EVENT_ID,
     OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID
 } from "../constants";
+const logger = require("../../../../logwrapper");
 
 export const SceneNameEventFilter: EventFilter = {
     id: "ebiggz:obs-scene-name",
+<<<<<<< HEAD
     name: "Scene Name",
+=======
+    name: "シーン名",
+    description: "現在アクティブなOBSシーンの名前にフィルタをかける",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     events: [
         { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_CHANGED_EVENT_ID },
         { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID }
     ],
+<<<<<<< HEAD
     description: "Filter on the name of the now active OBS scene",
     valueType: "preset",
     comparisonTypes: ["is", "is not"],
@@ -41,5 +48,17 @@ export const SceneNameEventFilter: EventFilter = {
             default:
                 return false;
         }
+=======
+    eventMetaKey: "sceneName",
+    allowIsNot: true,
+    presetValues: async (backendCommunicator: any) => {
+        const scenes: string[] = await backendCommunicator.fireEventAsync("obs-get-scene-list");
+        return scenes.map((s) => {
+            return {
+                value: s,
+                display: s
+            };
+        });
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     }
 };

@@ -66,6 +66,7 @@ const showImage = {
     </div>
     </div>
     <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
+<<<<<<< HEAD
     <eos-enter-exit-animations effect="effect" class="setting-padtop"></eos-enter-exit-animations>
     <div class="effect-setting-container setting-padtop">
     <div class="effect-specific-title"><h4>継続時間</h4></div>
@@ -90,6 +91,9 @@ const showImage = {
         </div>
     </div>
     </div>
+=======
+
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     <div class="effect-setting-container setting-padtop">
     <div class="effect-specific-title"><h4>継続期間</h4></div>
     <div class="effect-setting-content">

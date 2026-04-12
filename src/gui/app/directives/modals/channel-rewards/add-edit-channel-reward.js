@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     angular.module("firebotApp")
         .component("addOrEditChannelReward", {
             template: `
@@ -21,20 +21,27 @@
                         </div>
                         
                         <p class="help-block" style="text-align: center;">
-                            This reward was either created outside of Firebot, or by an older version of Firebot, so its settings cannot be changed here. You can however still create effects for it. If you want to update settings for this reward, you can do so on Twitch.
+                            この特典はFirebotの外部で作成されたか、Firebotの古いバージョンで作成されたものなので、ここで設定を変更することはできません。ただし、演出を作成することはできます。この特典設定を更新したい場合は、Twitchで行うことができます。
                         </p>
-                        <collapsable-panel header="How to enable editing/Update Channel Reward">
-                            <p>If you would like to be able to edit this channel reward in Firebot or use the <strong>Update Channel Reward</strong> effect, you can <strong>Duplicate</strong> it from the <strong>Channel Rewards</strong> screen. This will preserve any effects and settings (except the image) you already have setup.</p>
-                            <p>You can then delete the old reward from your Twitch dashboard. You will also need to update any existing <strong>Update Channel Reward</strong> effects to reference the newly created reward.</p>
+                        <collapsable-panel header="チャンネル特典の編集・更新を有効にする方法">
+                            <p>このチャンネル特典をFirebotで編集したり、<strong>チャンネル特典の更新</strong>演出を使用したい場合は、<strong>チャンネル特典/strong>画面から<strong>複製</strong>することができます。これにより、すでに設定されている演出や設定（画像を除く）が保持されます。</p>
+                            <p>その後、Twitchダッシュボードから古い特典を削除できます。また、新しく作成した特典を参照するために、既存の<strong>チャンネル特典の更新</strong>演出を更新する必要があります。</p>
                         </collapsable-panel>
                     </div>
                     <form ng-show="$ctrl.reward.manageable" name="rewardSettings">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
                             <label for="name" class="control-label">チャンネル特典名</label>
+<<<<<<< HEAD
                             <input 
                                 type="text" 
                                 id="name" 
                                 name="name" 
+=======
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 ng-maxlength="45"
                                 ui-validate="'!$ctrl.rewardNameExists($value)'"
                                 required 
@@ -72,10 +79,17 @@
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
                             <label for="cost" class="control-label">金額</label>
+<<<<<<< HEAD
                             <input 
                                 type="number" 
                                 class="form-control input-lg" 
                                 id="cost" 
+=======
+                            <input
+                                type="number"
+                                class="form-control input-lg"
+                                id="cost"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 name="cost"
                                 placeholder="金額を入力" 
                                 ng-model="$ctrl.reward.twitchData.cost"
@@ -95,8 +109,14 @@
 
                         <div class="form-group flex-row jspacebetween">
                             <div>
+<<<<<<< HEAD
                                 <label class="control-label" style="margin:0;">特典を引き換え順待ちに入れずに引き換え済みにする</label>
                                 <p class="help-block">有効にすると、引き換え待ちに入れず引き換え済みにします</p>
+=======
+                                <label class="control-label" style="margin:0;">Twitch特典リクエストをスキップする</label>
+                                <p class="help-block">If enabled, only future viewer requests will skip the queue for review.</p>
+                                <p class="help-block">リクエストは Twitch によって直ちに承認されます。払い戻しはできません。</p>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue" auto-update-value="true" font-size="32"></toggle-button>
@@ -188,7 +208,7 @@
 
                         <div class="form-group">
                             <label class="control-label" style="margin:0;">特典アイコン</label>
-                            <p class="help-block"><b>Important</b>: 特典のアイコンはX(旧Twitch)でのみ変更可能</p>
+                            <p class="help-block"><b>Important</b>: 特典のアイコンはX(旧Twitter)でのみ変更可能</p>
                             <div>
                                 <div style="display: inline-flex; align-items: center; justify-content: center;padding: 12.5px;border: 2px gray dashed;border-radius: 6px;">
                                     <img 
@@ -216,7 +236,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($scope, ngToast, channelRewardsService) {
+            controller: function ($scope, ngToast, channelRewardsService) {
                 const $ctrl = this;
 
                 const generateRandomColor = () => `#${Math.floor(Math.random() * 8 ** 8).toString(16)}`;
@@ -277,10 +297,21 @@
                     effects: null
                 };
 
-                $ctrl.effectListUpdated = function(effects) {
+                $ctrl.effectListUpdated = function (effects) {
                     $ctrl.reward.effects = effects;
                 };
 
+<<<<<<< HEAD
+=======
+                $ctrl.fulfilledEffectListUpdated = function (effects) {
+                    $ctrl.reward.effectsFulfilled = effects;
+                };
+
+                $ctrl.canceledEffectListUpdated = function (effects) {
+                    $ctrl.reward.effectsCanceled = effects;
+                };
+
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 $ctrl.$onInit = () => {
                     if ($ctrl.resolve.reward != null) {
                         $ctrl.reward = JSON.parse(angular.toJson($ctrl.resolve.reward));

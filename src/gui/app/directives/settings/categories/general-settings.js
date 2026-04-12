@@ -25,6 +25,7 @@
                         description="最小化すると、タスクバーではなくトレイの中に最小化します"
                     >
                         <toggle-button
+<<<<<<< HEAD
                             toggle-model="settings.getMinimizeToTray()"
                             on-toggle="settings.setMinimizeToTray(!settings.getMinimizeToTray())"
                             font-size="40"
@@ -39,6 +40,10 @@
                         <toggle-button
                             toggle-model="settings.notifyOnBeta()"
                             on-toggle="settings.setNotifyOnBeta(!settings.notifyOnBeta())"
+=======
+                            toggle-model="settings.getSetting('MinimizeToTray')"
+                            on-toggle="settings.saveSetting('MinimizeToTray', !settings.getSetting('MinimizeToTray'))"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             font-size="40"
                         />
                     </firebot-setting>
@@ -89,8 +94,52 @@
                     </firebot-setting>
 
                     <firebot-setting
+<<<<<<< HEAD
                         name="配信統計"
                         description="配信時に上部に表示される統計内容を選択します。"
+=======
+                        name="ベータ版の通知"
+                        description="Firebot は自動的に安定版をダウンロードしますが、ベータ版リリースは自動更新の対象外です。
+                        新しいベータ版リリースの通知を受けたい場合は有効にしてください。"
+                    >
+                        <toggle-button
+                            toggle-model="settings.getSetting('NotifyOnBeta')"
+                            on-toggle="settings.saveSetting('NotifyOnBeta', !settings.getSetting('NotifyOnBeta'))"
+                            font-size="40"
+                            aria-label="Firebot automatically updates to new stable versions. It does not automatically update to betas or major new
+                        releases however. Enable if you want to be notified of new beta releases."
+                            accessibility-label="(settings.getSetting('NotifyOnBeta') ? 'Enabled' : 'Disabled') + ' Firebot automatically updates to new stable versions. It does not automatically update to betas or major new
+                        releases however. Enable if you want to be notified of new beta releases.'"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="Firebot ホームページ上の紹介"
+                        description=""
+                    >
+
+                        <setting-description-addon>
+                            <div style="margin-top: 10px;">
+                                この設定を有効にすると、配信を開始したときに <a
+                                    class="clickable"
+                                    ng-click="openLink('https://firebot.app/watch')"
+                                >Firebotのウェブサイト</a> で紹介されます。
+                            </div>
+                        </setting-description-addon>
+
+                        <toggle-button
+                            toggle-model="settings.getSetting('WebOnlineCheckin')"
+                            on-toggle="settings.saveSetting('WebOnlineCheckin', !settings.getSetting('WebOnlineCheckin'))"
+                            font-size="40"
+                            aria-label="Enable this setting to have your stream displayed on Firebot's website when you're live"
+                            accessibility-label="(settings.getSetting('WebOnlineCheckin') ? 'Enabled' : 'Disabled') + ' Enable this setting to have your stream displayed on Firebot\\'s website when you\\'re live'"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="ライブ・ストリーム"
+                        description="配信時にトップバーに表示される配信統計を選択します。"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     >
                         <div>
                             <label class="control-fb control--checkbox"
@@ -107,9 +156,35 @@
                                 >視聴者数
                                 <input
                                     type="checkbox"
+<<<<<<< HEAD
                                     ng-click="settings.setShowViewerCountStat(!settings.getShowViewerCountStat())"
                                     ng-checked="settings.getShowViewerCountStat()"
                                     aria-label="..."
+=======
+                                    ng-click="settings.saveSetting('ShowViewerCountStat', !settings.getSetting('ShowViewerCountStat'))"
+                                    ng-checked="settings.getSetting('ShowViewerCountStat')"
+                                    aria-label="Viewer count"
+                                />
+                                <div class="control__indicator"></div>
+                            </label>
+                            <label class="control-fb control--checkbox"
+                                >ハイプトレイン
+                                <input
+                                    type="checkbox"
+                                    ng-click="settings.saveSetting('ShowHypeTrainIndicator', !settings.getSetting('ShowHypeTrainIndicator'))"
+                                    ng-checked="settings.getSetting('ShowHypeTrainIndicator')"
+                                    aria-label="Hype Trains"
+                                />
+                                <div class="control__indicator"></div>
+                            </label>
+                            <label class="control-fb control--checkbox"
+                                >広告（アドブレイク）
+                                <input
+                                    type="checkbox"
+                                    ng-click="settings.saveSetting('ShowAdBreakIndicator', !settings.getSetting('ShowAdBreakIndicator'))"
+                                    ng-checked="settings.getSetting('ShowAdBreakIndicator')"
+                                    aria-label="Ad Breaks"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 />
                                 <div class="control__indicator"></div>
                             </label>
@@ -131,8 +206,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Open Stream Preview on Launch"
-                        description="Automatically open the Stream Preview window when Firebot launches."
+                        name="立ち上げ時にストリームのプレビューを開く"
+                        description="Firebot起動時に自動的にストリームプレビューウィンドウを開きます。"
                     >
                         <toggle-button
                             toggle-model="settings.getOpenStreamPreviewOnLaunch()"
@@ -146,7 +221,12 @@
             controller: function($scope, settingsService, $q) {
                 $scope.settings = settingsService;
 
+<<<<<<< HEAD
                 $scope.audioOutputDevices = [{
+=======
+            $scope.audioOutputDevices = [
+                {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     label: "システムの既定デバイス",
                     deviceId: "default"
                 }];

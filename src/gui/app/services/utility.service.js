@@ -18,6 +18,7 @@
         ) {
             const service = {};
 
+<<<<<<< HEAD
 
             backendCommunicator.on("requestIntegrationAccountId", (data) => {
                 service.openGetIdEntyModal({
@@ -558,6 +559,12 @@
                 service.showModal(downloadModalContext);
             };
 
+=======
+            backendCommunicator.on("showToast", (messageOrOptions) => {
+                ngToast.create(messageOrOptions);
+            });
+
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             // This is used by effects that make use of lists of checkboxes. Returns and array of selected boxes.
             service.getNewArrayWithToggledElement = function(array, element) {
                 let itemArray = [],
@@ -589,6 +596,7 @@
                 return false;
             };
 
+<<<<<<< HEAD
             /*
              * INFO MODAL
              */
@@ -1132,6 +1140,8 @@
                 }
             );
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             service.capitalize = function([first, ...rest]) {
                 return first.toUpperCase() + rest.join("").toLowerCase();
             };

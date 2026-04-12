@@ -144,12 +144,36 @@
                         key: "timers"
                     },
                     {
+<<<<<<< HEAD
+=======
+                        label: "Scheduled Effect Lists",
+                        all: scheduledTaskService.getScheduledTasks(),
+                        nameField: "name",
+                        key: "scheduledTasks"
+                    },
+                    {
+                        label: "Variable Macros",
+                        all: variableMacroService.macros,
+                        nameField: "name",
+                        key: "variableMacros"
+                    },
+                    {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         label: "視聴者の役割",
                         all: viewerRolesService.getCustomRoles(),
                         nameField: "name",
                         key: "viewerRoles"
                     },
                     {
+<<<<<<< HEAD
+=======
+                        label: "視聴者ランク",
+                        all: viewerRanksService.rankLadders,
+                        nameField: "name",
+                        key: "viewerRankLadders"
+                    },
+                    {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         label: "クイックアクション",
                         all: quickActionsService.quickActions.filter(qa => qa.type === "custom"),
                         nameField: "name",
@@ -218,7 +242,11 @@
                     /**@type {Electron.SaveDialogOptions} */
                     const saveDialogOptions = {
                         buttonLabel: "セットアップ設定を保存",
+<<<<<<< HEAD
                         defaultPath: sanitizeFileName($ctrl.setup.name),
+=======
+                        defaultPath: `${sanitizeFileName($ctrl.setup.name)}.firebotsetup`,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         title: "セットアップ設定ファイルの保存",
                         filters: [
                             {name: "Firebot Setup Files", extensions: ['firebotsetup']}

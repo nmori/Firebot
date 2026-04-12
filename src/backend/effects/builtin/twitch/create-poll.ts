@@ -23,6 +23,15 @@ const model: EffectType<{
     optionsTemplate: `
         <eos-container header="投票タイトル">
             <firebot-input input-title="Title" model="effect.title" placeholder-text="投票タイトルを入れる"  menu-position="under" />
+<<<<<<< HEAD
+=======
+            <div class="effect-info alert alert-warning" ng-if="doesTitleUseAVariable(effect)">
+                Warning: Title must be shorter than 60 characters after variable expansion.
+            </div>
+            <div class="effect-info alert alert-danger" ng-if="doesTitleExceedLength(effect)">
+                Error: Title must be shorter than 60 characters ({{effect.title.length}}/60).
+            </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
         <eos-container header="投票期間" pad-top="true">
@@ -35,6 +44,12 @@ const model: EffectType<{
         </eos-container>
 
         <eos-container header="選択肢" pad-top="true">
+<<<<<<< HEAD
+=======
+            <div class="effect-info alert alert-warning" ng-if="doAnyChoicesUseAVariable(effect)">
+                Warning: All choices must be between 1 and 25 characters after variable expansion.
+            </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <editable-list settings="optionSettings" model="effect.choices" />
         </eos-container>
 

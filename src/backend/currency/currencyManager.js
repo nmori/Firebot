@@ -9,6 +9,7 @@ const moment = require("moment");
 const connectionManager = require("../common/connection-manager");
 const util = require("../utility");
 
+<<<<<<< HEAD
 let currencyInterval = null;
 
 // This file manages the currency payout intervals.
@@ -506,3 +507,8 @@ ipcMain.on("refreshCurrencyCache", () => {
 exports.startTimer = startTimer;
 exports.stopTimer = stopTimer;
 exports.createAllCurrencyCommands = createAllCurrencyCommands;
+=======
+exports.startTimer = () => currencyManager.startTimer();
+exports.stopTimer = () => currencyManager.stopTimer();
+exports.createAllCurrencyCommands = () => currencyCommandManager.createAllCurrencyCommands();
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20

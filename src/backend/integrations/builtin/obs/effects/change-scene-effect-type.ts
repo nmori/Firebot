@@ -27,7 +27,11 @@ export const ChangeSceneEffectType: EffectType<{
         </ui-select>
 
         <div ng-show="effect.custom === true" style="margin-top:10px;">
+<<<<<<< HEAD
             <firebot-input input-title="カスタムシーン" model="effect.sceneName"></firebot-input>
+=======
+            <firebot-input input-title="カスタムシーン" model="effect.sceneName" menu-position="under"></firebot-input>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </div>
     </eos-container>
   `,

@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 const {checkForFirebotSetupPath} = require("../../file-open-helpers");
+=======
+const {checkForFirebotSetupPathInArgs} = require("../../file-open-helpers");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
 exports.whenReady = async () => {
     const logger = require("../../../logwrapper");
@@ -57,9 +61,12 @@ exports.whenReady = async () => {
     windowManagement.updateSplashScreenStatus("Twitchとデータ同期中...");
     await accountAccess.refreshTwitchData();
 
+<<<<<<< HEAD
     const twitchFrontendListeners = require("../../../twitch-api/frontend-twitch-listeners");
     twitchFrontendListeners.setupListeners();
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     windowManagement.updateSplashScreenStatus("配信ステータス監視を開始...");
     connectionManager.startOnlineCheckInterval();
 
@@ -69,11 +76,27 @@ exports.whenReady = async () => {
     const { loadEffects } = require("../../../effects/builtin-effect-loader");
     loadEffects();
 
+<<<<<<< HEAD
     // load commands
     logger.debug("Loading sys commands...");
     windowManagement.updateSplashScreenStatus("システムコマンドを読込中...");
     const { loadCommands } = require("../../../chat/commands/systemCommandLoader");
     loadCommands();
+=======
+    windowManagement.updateSplashScreenStatus("通貨情報を読込中...");
+    const currencyAccess = require("../../../currency/currency-access").default;
+    currencyAccess.loadCurrencies();
+
+    windowManagement.updateSplashScreenStatus("Loading ranks...");
+    const viewerRanksManager = require("../../../ranks/rank-manager");
+    viewerRanksManager.loadItems();
+
+    // load commands
+    logger.debug("Loading sys commands...");
+    windowManagement.updateSplashScreenStatus("システムコマンドを読込中...");
+    const { loadSystemCommands } = require("../../../chat/commands/system-command-loader");
+    loadSystemCommands();
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     // load event sources
     logger.debug("Loading event sources...");
@@ -96,7 +119,11 @@ exports.whenReady = async () => {
     // load variables
     logger.debug("Loading variables...");
     windowManagement.updateSplashScreenStatus("変数を読込中...");
+<<<<<<< HEAD
     const { loadReplaceVariables } = require("../../../variables/builtin-variable-loader");
+=======
+    const { loadReplaceVariables } = require("../../../variables/variable-loader");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     loadReplaceVariables();
 
     // load restrictions
@@ -120,12 +147,28 @@ exports.whenReady = async () => {
     const customRolesManager = require("../../../roles/custom-roles-manager");
     customRolesManager.loadCustomRoles();
 
+<<<<<<< HEAD
     windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
     const chatRolesManager = require("../../../roles/chat-roles-manager");
     chatRolesManager.cacheViewerListBots();
 
     windowManagement.updateSplashScreenStatus("演出キューを読込中...");
     const effectQueueManager = require("../../../effects/queues/effect-queue-manager");
+=======
+    const chatRolesManager = require("../../../roles/chat-roles-manager");
+
+    windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
+    await chatRolesManager.cacheViewerListBots();
+
+    windowManagement.updateSplashScreenStatus("モデレータ情報読込中...");
+    await chatRolesManager.loadModerators();
+
+    windowManagement.updateSplashScreenStatus("VIP情報読込中...");
+    await chatRolesManager.loadVips();
+
+    windowManagement.updateSplashScreenStatus("演出キューを読込中...");
+    const effectQueueManager = require("../../../effects/queues/effect-queue-config-manager");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     effectQueueManager.loadItems();
 
     windowManagement.updateSplashScreenStatus("プリセット演出リストを読込中...");
@@ -141,12 +184,21 @@ exports.whenReady = async () => {
     startupScriptsManager.loadStartupConfig();
 
     windowManagement.updateSplashScreenStatus("チャットモデレートを起動中...");
+<<<<<<< HEAD
     const chatModerationManager = require("../../../chat/moderation/chat-moderation-manager");
     chatModerationManager.load();
 
     windowManagement.updateSplashScreenStatus("カウンターを読込中...");
     const countersManager = require("../../../counters/counter-manager");
     countersManager.loadItems();
+=======
+    const { ChatModerationManager } = require("../../../chat/moderation/chat-moderation-manager");
+    ChatModerationManager.load();
+
+    windowManagement.updateSplashScreenStatus("カウンターを読込中...");
+    const { CounterManager } = require("../../../counters/counter-manager");
+    CounterManager.loadItems();
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     windowManagement.updateSplashScreenStatus("ゲームを読込中...");
     const gamesManager = require("../../../games/game-manager");
@@ -156,16 +208,24 @@ exports.whenReady = async () => {
     builtinGameLoader.loadGames();
 
     windowManagement.updateSplashScreenStatus("カスタム変数を読込中...");
+<<<<<<< HEAD
     const {settings} = require("../../../common/settings-access");
     if (settings.getPersistCustomVariables()) {
+=======
+    const { SettingsManager } = require("../../../common/settings-manager");
+    if (SettingsManager.getSetting("PersistCustomVariables")) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         const customVariableManager = require("../../../common/custom-variable-manager");
         customVariableManager.loadVariablesFromFile();
     }
 
     // get importer in memory
     windowManagement.updateSplashScreenStatus("インポートを読込中...");
+<<<<<<< HEAD
     const v4Importer = require("../../../import/v4/v4-importer");
     v4Importer.setupListeners();
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     const setupImporter = require("../../../import/setups/setup-importer");
     setupImporter.setupListeners();
@@ -177,8 +237,13 @@ exports.whenReady = async () => {
     setupCommonListeners();
 
     windowManagement.updateSplashScreenStatus("ホットキーを読込中...");
+<<<<<<< HEAD
     const hotkeyManager = require("../../../hotkeys/hotkey-manager");
     hotkeyManager.refreshHotkeyCache();
+=======
+    const { HotkeyManager } = require("../../../hotkeys/hotkey-manager");
+    HotkeyManager.loadHotkeys();
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     windowManagement.updateSplashScreenStatus("通貨を読込中...");
     const currencyManager = require("../../../currency/currencyManager");
@@ -211,15 +276,28 @@ exports.whenReady = async () => {
     global.SCRIPTS_DIR = profileManager.getPathInProfile("/scripts/");
 
     windowManagement.updateSplashScreenStatus("バックアップ実行中...");
+<<<<<<< HEAD
     const backupManager = require("../../../backup-manager");
     await backupManager.onceADayBackUpCheck();
+=======
+    const { BackupManager } = require("../../../backup-manager");
+    await BackupManager.onceADayBackUpCheck();
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     // start the REST api server
     windowManagement.updateSplashScreenStatus("Webサーバ起動中...");
     const httpServerManager = require("../../../../server/http-server-manager");
     httpServerManager.start();
 
+<<<<<<< HEAD
     windowManagement.updateSplashScreenStatus("チャンネル報酬を読込中...");
+=======
+    // register websocket event handlers
+    const websocketEventsHandler = require("../../../../server/websocket-events-handler");
+    websocketEventsHandler.createComponentEventListeners();
+
+    windowManagement.updateSplashScreenStatus("チャンネル特典を読込中...");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     const channelRewardManager = require("../../../channel-rewards/channel-reward-manager");
     await channelRewardManager.loadChannelRewards();
 
@@ -233,6 +311,16 @@ exports.whenReady = async () => {
     const streamInfoPoll = require("../../../twitch-api/stream-info-manager");
     streamInfoPoll.startStreamInfoPoll();
 
+<<<<<<< HEAD
+=======
+    windowManagement.updateSplashScreenStatus("通知管理を起動中...");
+    const notificationManager = require("../../../notifications/notification-manager").default;
+    notificationManager.loadNotificationCache();
+
+    // get ui extension manager in memory
+    require("../../../ui-extensions/ui-extension-manager");
+
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     logger.debug('...loading main window');
     windowManagement.updateSplashScreenStatus("準備完了、さぁ始めよう！");
     await windowManagement.createMainWindow();

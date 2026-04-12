@@ -149,12 +149,23 @@ class ConnectionManager extends EventEmitter {
 
         const accountAccess = require("./account-access");
         if (!accountAccess.getAccounts().streamer.loggedIn) {
+<<<<<<< HEAD
             renderWindow.webContents.send("error", "接続する前に、Twitchアカウントにログインする必要があります。");
         } else if (accountAccess.streamerTokenIssue()) {
             const botTokenIssue = accountAccess.getAccounts().bot.loggedIn && accountAccess.botTokenIssue();
 
             const message = `配信者アカウント ${botTokenIssue ? ' と Bot' : ""} アカウントのログインに問題があります. ログインし直してください.`;
             renderWindow.webContents.send("error", message);
+=======
+            frontendCommunicator.send("error", "You must sign into your Streamer Twitch account before connecting.");
+        } else if (accountAccess.streamerTokenIssue()) {
+            const botTokenIssue = accountAccess.getAccounts().bot.loggedIn && accountAccess.botTokenIssue();
+
+            frontendCommunicator.send("invalidate-accounts", {
+                streamer: true,
+                bot: botTokenIssue
+            });
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         } else {
             const waitForServiceConnectDisconnect = (serviceId, action = true) => {
                 const shouldToggle = action === "toggle";

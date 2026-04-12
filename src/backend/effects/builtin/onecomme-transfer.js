@@ -1,7 +1,7 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
+const { SettingsManager } = require("../../common/settings-manager");
+const { ResourceTokenManager } = require("../../resource-token-manager");
 const webServer = require("../../../server/http-server-manager");
 const fs = require('fs-extra');
 const logger = require("../../logwrapper");
@@ -9,23 +9,6 @@ const path = require("path");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
 const { wait } = require("../../utility");
-const axiosDefault = require("axios").default;
-
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - ONECOMME'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
 
 const onecommeTransfer = {
     definition: {
@@ -61,34 +44,27 @@ const onecommeTransfer = {
     </eos-container>
         
     `,
-    optionsController: async($scope) =>  {
+    optionsController: async ($scope) => {
 
         $scope.effect.slotnames = [];
 
-        try {       
-            const axiosDefault = require("axios").default;
+        try {
 
-            const axios = axiosDefault.create({
+            let headers = {
+                'Content-Type': 'application/json'
+            };
 
-            });
+            const response = await fetch(
+                'http://127.0.0.1:11180/api/services',
+                {
+                    method: 'GET',
+                    headers: headers
+                });
 
-            axios.interceptors.request.use(request => {
-                //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-                return request;
-            });
+            let responseData = JSON.parse(await response.text());
 
-            axios.interceptors.response.use(response => {
-                //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-                return response;
-            });
-            const response = await axios({
-                method:'get',
-                url: 'http://127.0.0.1:11180/api/services' 
-            });
-
-            for (const slotname of response.data) 
-            {
-                $scope.effect.slotnames.push( { name:slotname.name , id:slotname.id});
+            for (const slotname of responseData) {
+                $scope.effect.slotnames.push({ name: slotname.name, id: slotname.id });
             }
 
         } catch (error) {
@@ -99,11 +75,11 @@ const onecommeTransfer = {
     optionsValidator: effect => {
         const errors = [];
 
-        if (effect.slotname == null || effect.slotname.id ==="") {
+        if (effect.slotname == null || effect.slotname.id === "") {
             errors.push("転送先を指定してください");
         }
-        
-        if (effect.writerName == null || effect.writerName ==="") {
+
+        if (effect.writerName == null || effect.writerName === "") {
             errors.push("名前を指定してください");
         }
         return errors;
@@ -115,11 +91,11 @@ const onecommeTransfer = {
             const {
                 createHash,
             } = require('node:crypto');
-            const hash = createHash('sha1');  
+            const hash = createHash('sha1');
             hash.update(effect.writerName);
             const crypto = require("crypto");
 
-            const sendData =  {
+            const sendData = {
                 "service": {
                     "id": String(effect.slotname.id),
                     "name": effect.slotname.name,
@@ -138,25 +114,29 @@ const onecommeTransfer = {
                     "isOwner": false,
                     "timestamp": 0
                 }
-            };         
-            
+            };
+
             // HTTP header
             var headers = {
                 'Content-Type': 'application/json'
             };
-            
-            const response = await axios({
-                method:'post',
-                url: 'http://127.0.0.1:11180/api/comments',
-                headers: headers,
-                data: JSON.stringify(sendData)
-            });
-            
+
+
+            const response = await fetch(
+                'http://localhost:11180/api/comments',
+                {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(sendData)
+                });
+
+            let responseData = await response.text();
+
         } catch (error) {
             logger.error("Error running http request", error.message);
         }
 
-        
+
         return true;
     }
 };

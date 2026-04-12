@@ -1,5 +1,5 @@
 "use strict";
-(function() {
+(function () {
     //This handles the Settings tab
 
     const fs = require("fs");
@@ -9,6 +9,7 @@
 
     angular
         .module("firebotApp")
+<<<<<<< HEAD
         .controller("settingsController", function(
             $scope,
             $timeout,
@@ -24,6 +25,9 @@
             accountAccess,
             backupService
         ) {
+=======
+        .controller("settingsController", function ($scope, settingsService) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             $scope.settings = settingsService;
 
 
@@ -47,8 +51,19 @@
                     template: "<trigger-settings />"
                 },
                 {
+<<<<<<< HEAD
                     name: "データベース",
                     description: "視聴者データベースのオプションとツール",
+=======
+                    name: "演出",
+                    description: "演出オプションを設定します",
+                    icon: "fa-magic",
+                    template: "<effect-settings />"
+                },
+                {
+                    name: "データベース",
+                    description: "視聴者データベースの設定ツールおよびオプションを設定します",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     icon: "fa-database",
                     template: "<database-settings />"
                 },
@@ -95,6 +110,7 @@
                 $scope.selectedCategory = category;
             };
 
+<<<<<<< HEAD
             $scope.getSelectedVoiceName = () => {
                 const selectedVoiceId = settingsService.getDefaultTtsVoiceId();
                 const voice = ttsService.getVoiceById(selectedVoiceId);
@@ -523,5 +539,10 @@
                 };
                 utilityService.showModal(showChangePortModalContext);
             };
+=======
+            if (settingsService.getSetting("AutoUpdateLevel") > 3) {
+                settingsService.saveSetting("AutoUpdateLevel", 3);
+            }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         });
 }());

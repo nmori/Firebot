@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
 
     angular
         .module("firebotApp")
@@ -14,7 +14,11 @@
                     >
                         <firebot-button
                             text="オーバーレイパスを取得"
+<<<<<<< HEAD
                             ng-click="settings.showOverlayInfoModal()"
+=======
+                            ng-click="showOverlayInfoModal()"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         />
                     </firebot-setting>
 
@@ -34,6 +38,24 @@
                             selected="overlayInstances"
                             on-update="settings.setUseOverlayInstances(option === 'true')"
                             right-justify="true"
+<<<<<<< HEAD
+=======
+                            aria-label="enable or disable Overlay Instances"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="オーバーレイ更新時にエフェクトを強制的に継続させる"
+                        description="オーバーレイをリフレッシュしたり、エフェクトをクリアする場合、オーバーレイ上で再生中のビデオ再生やサウンド再生エフェクトは、待機に設定されていても、次のエフェクトに強制的に続行されます。"
+                    >
+                        <toggle-button
+                            toggle-model="settings.getSetting('ForceOverlayEffectsToContinueOnRefresh')"
+                            on-toggle="settings.saveSetting('ForceOverlayEffectsToContinueOnRefresh', !settings.getSetting('ForceOverlayEffectsToContinueOnRefresh'))"
+                            font-size="40"
+                            accessibility-label="(settings.getSetting('ForceOverlayEffectsToContinueOnRefresh') ? 'Enabled' : 'Disabled') + '
+                             When refreshing an overlay or using the Clear Effects effect on it, this will force any Play Video or Play
+                             Sound effects currently playing on that overlay to continue to the next effect, even if they\\'re set to wait.'"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         />
                     </firebot-setting>
 
@@ -49,21 +71,36 @@
 
                 </div>
           `,
-            controller: function($scope, settingsService, utilityService) {
+            controller: function ($scope, settingsService, utilityService) {
                 $scope.settings = settingsService;
 
+<<<<<<< HEAD
                 $scope.showFontManagementModal = function() {
                     utilityService.showModal({
                         component: "fontManagementModal",
                         size: "sm"
                     });
+=======
+                $scope.showOverlayInfoModal = function (overlayInstance) {
+                    utilityService.showOverlayInfoModal(overlayInstance);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 };
 
-                $scope.showEditOverlayInstancesModal = function() {
+                $scope.showEditOverlayInstancesModal = function () {
                     utilityService.showModal({
                         component: "editOverlayInstancesModal"
                     });
                 };
+<<<<<<< HEAD
+=======
+
+                $scope.showFontManagementModal = function () {
+                    utilityService.showModal({
+                        component: "fontManagementModal",
+                        size: "sm"
+                    });
+                };
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             }
         });
 }());

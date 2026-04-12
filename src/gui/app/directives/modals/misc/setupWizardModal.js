@@ -2,7 +2,7 @@
 
 // Basic template for a modal component, copy this and rename to build a modal.
 
-(function() {
+(function () {
     angular.module("firebotApp").component("setupWizardModal", {
         template: `
         <div class="modal-header" style="text-align:center">
@@ -27,6 +27,7 @@
                     </div>
 
                     <div ng-switch-when="1" class="wave">
+<<<<<<< HEAD
                         <div ng-hide="$ctrl.importStarted || $ctrl.importCompleted" style="display:flex; flex-direction:column; justify-content: space-between;">
                             <div>
                                 <div>
@@ -128,6 +129,8 @@
                     </div>
 
                     <div ng-switch-when="2" class="wave">
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         <p>
                             {{'SETUP_WIZ.DIFFERENT_TWO_ACCOUNT' | translate }}</br></br>
                             <b>{{'SETUP_WIZ.STREAMER' | translate }}</b> - {{'SETUP_WIZ.STREAMER_DOCUMENT' | translate }} <span class="muted">({{'SETUP_WIZ.REQUIRED' | translate }})</span></br>
@@ -220,7 +223,23 @@
 
                     </div>
 
+<<<<<<< HEAD
 
+=======
+                    <div ng-switch-when="3" class="wave">
+                        <p>{{'SETUP_WIZ.FEATURE_NOTE1' | translate }}</p>
+                        <p style="font-weight: 700;margin-top: 20px;"><a href='https:firebot.app/watch'>{{'SETUP_WIZ.FEATURE_NOTE2' | translate }}</a>{{'SETUP_WIZ.FEATURE_NOTE3' | translate }}</p>
+                        <div style="margin-top: 20px;">
+                            <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 16px;opacity:0.9;display:inline-block;"> {{'SETUP_WIZ.FEATURE_YES' | translate }}
+                                <input type="checkbox" ng-click="$ctrl.settings.saveSetting('WebOnlineCheckin', !$ctrl.settings.getSetting('WebOnlineCheckin'))" ng-checked="$ctrl.settings.getSetting('WebOnlineCheckin')" >
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <p class="muted" style="font-size: 12px; opacity: 0.8;">{{'SETUP_WIZ.FEATURE_SET' | translate }}</p>
+                        </div>
+                    </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
                     <div ng-switch-when="4" class="slide-fade">
                         <div style="margin-top: 20px" class="animated fadeIn">
@@ -251,7 +270,7 @@
                 </div>
 
                 <div>
-                    <a class="btn btn-default hvr-icon-back" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()"><i class="fas fa-arrow-left hvr-icon"></i> Back</a>
+                    <a class="btn btn-default hvr-icon-back" ng-click="$ctrl.handlePrevious()" ng-show="$ctrl.showBackButton()"><i class="fas fa-arrow-left hvr-icon"></i> 戻る</a>
                     <a
                         class="btn btn-primary hvr-icon-forward"
                         uib-tooltip="{{$ctrl.getTooltipText()}}"
@@ -273,46 +292,58 @@
             close: "&",
             dismiss: "&"
         },
+<<<<<<< HEAD
         controller: function($rootScope, connectionService, connectionManager,
             overlayUrlHelper, ngToast, backendCommunicator, backupService) {
+=======
+        controller: function ($rootScope, connectionService, connectionManager,
+            overlayUrlHelper, ngToast, backendCommunicator, backupService, settingsService) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             const $ctrl = this;
 
             $ctrl.step = 0;
 
             $ctrl.stepTitles = [
                 "",
+<<<<<<< HEAD
                 "Firebot v4データを取り込む",
                 "ログイン",
                 "オーバーレイのセットアップ",
+=======
+                "Get Signed In",
+                "Let's Setup the Overlay",
+                "Feature Your Stream",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 ""
             ];
 
             $ctrl.getAccountAvatar = connectionService.getAccountAvatar;
 
-            $ctrl.isFirstStep = function() {
+            $ctrl.isFirstStep = function () {
                 return $ctrl.step === 0;
             };
 
-            $ctrl.isLastStep = function() {
+            $ctrl.isLastStep = function () {
                 return $ctrl.step === $ctrl.stepTitles.length - 1;
             };
 
-            $ctrl.isCurrentStep = function(step) {
+            $ctrl.isCurrentStep = function (step) {
                 return $ctrl.step === step;
             };
 
-            $ctrl.setCurrentStep = function(step) {
+            $ctrl.setCurrentStep = function (step) {
                 $ctrl.step = step;
             };
 
-            $ctrl.getCurrentStep = function() {
+            $ctrl.getCurrentStep = function () {
                 return $ctrl.step;
             };
 
-            $ctrl.getStepTitle = function() {
+            $ctrl.getStepTitle = function () {
                 return $ctrl.stepTitles[$ctrl.step];
             };
 
+<<<<<<< HEAD
             $ctrl.getNextLabel = function() {
                 switch ($ctrl.step) {
                 default:
@@ -328,9 +359,17 @@
                     default:
                         $ctrl.step -= $ctrl.isFirstStep() ? 0 : 1;
                 }
+=======
+            $ctrl.getNextLabel = function () {
+                return "Next";
             };
 
-            $ctrl.showNextButton = function() {
+            $ctrl.handlePrevious = function () {
+                $ctrl.step -= $ctrl.isFirstStep() ? 0 : 1;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+            };
+
+            $ctrl.showNextButton = function () {
                 if ($ctrl.isFirstStep() || $ctrl.isLastStep()) {
                     return false;
                 }
@@ -340,14 +379,14 @@
                 return true;
             };
 
-            $ctrl.showBackButton = function() {
+            $ctrl.showBackButton = function () {
                 if ($ctrl.step === 1) {
                     return false;
                 }
                 return !($ctrl.isFirstStep() || $ctrl.isLastStep());
             };
 
-            $ctrl.canGoToNext = function() {
+            $ctrl.canGoToNext = function () {
                 switch ($ctrl.step) {
                     case 2:
                         return connectionService.accounts.streamer.loggedIn;
@@ -358,6 +397,7 @@
                 }
                 return true;
             };
+<<<<<<< HEAD
 
             $ctrl.v4DataDetected = false;
             backendCommunicator.fireEventAsync("v4-data-check")
@@ -406,6 +446,9 @@
             });
 
             $ctrl.handleNext = async function(forceNext) {
+=======
+            $ctrl.handleNext = async function (forceNext) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 if ($ctrl.isLastStep()) {
                     $ctrl.close();
                 } else {
@@ -434,12 +477,19 @@
                 }
             };
 
-            $ctrl.getTooltipText = function() {
+            $ctrl.getTooltipText = function () {
                 switch ($ctrl.step) {
+<<<<<<< HEAD
                 case 2:
                     return "配信者アカウントでログインしてください";
                 case 3:
                     return "オーバーレイのURLを配信ソフトウェアに設定してください";
+=======
+                    case 1:
+                        return "配信者アカウントでログインしてください";
+                    case 2:
+                        return "オーバーレイのURLを配信ソフトウェアに設定してください";
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 }
                 return "";
             };
@@ -449,7 +499,7 @@
 
             $ctrl.overlayPath = overlayUrlHelper.getOverlayPath();
 
-            $ctrl.copyOverlayPath = function() {
+            $ctrl.copyOverlayPath = function () {
                 $rootScope.copyTextToClipboard($ctrl.overlayPath);
 
                 ngToast.create({
@@ -459,7 +509,7 @@
             };
 
             let overlayStatusId = 0;
-            $ctrl.overlayConnectionMessage = function() {
+            $ctrl.overlayConnectionMessage = function () {
                 const connectionStatus = connectionManager
                     .getConnectionStatusForService("overlay");
                 if (connectionStatus === "connected") {
@@ -473,7 +523,7 @@
                 return "準備は完了しましたが、現時点では未接続です。";
             };
 
-            $ctrl.getOverlayStatusId = function() {
+            $ctrl.getOverlayStatusId = function () {
                 return overlayStatusId;
             };
 

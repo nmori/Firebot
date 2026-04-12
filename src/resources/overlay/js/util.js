@@ -94,13 +94,17 @@ function showTimedAnimatedElement(
 	$(id).find(".inner-position").animateCss(enterAnimation, enterDuration, null, null, (data) => {
 		
 		$(data.id).find(".inner-position").animateCss(data.inbetweenAnimation, data.inbetweenDuration, data.inbetweenDelay, data.inbetweenRepeat);
+<<<<<<< HEAD
 
 		setTimeout(function(){ 
+=======
+		setTimeout(function(){
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 			if(data.inbetweenAnimation) {
 				$(data.id).find(".inner-position").css("animation-duration", "");
 				$(data.id).find(".inner-position").css("animation-delay", "");
 				$(data.id).find(".inner-position").css("animation-iteration-count", "");
-				$(this).find(".inner-position").removeClass('animated ' + data.inbetweenAnimation);
+				$(data.id).find(".inner-position").removeClass('animated ' + data.inbetweenAnimation);				
 			}
 			$(data.id).find(".inner-position").animateCss(data.exitAnimation, data.exitDuration, null, null, (data1) => {
 				$(data1.id).remove();
@@ -108,16 +112,25 @@ function showTimedAnimatedElement(
 					completeCallback();
 				}
 			}, data);
+<<<<<<< HEAD
 		}, (duration === 0 || duration != null) ? duration : 5000);
 	}, { 
 		token: tokenArg, 
 		id: id, 
 		exitAnimation: exitAnimation, 
+=======
+		}, (data.duration != null && data.duration > 0) ? data.duration : 500);
+	}, {
+		token: tokenArg,
+		id: id,
+		exitAnimation: exitAnimation,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 		exitDuration: exitDuration,
 		inbetweenAnimation: inbetweenAnimation,
 		inbetweenDuration: inbetweenDuration,
 		inbetweenDelay: inbetweenDelay,
-		inbetweenRepeat: inbetweenRepeat
+		inbetweenRepeat: inbetweenRepeat,
+		duration: duration
 	});
 }
 

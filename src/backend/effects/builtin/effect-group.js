@@ -20,12 +20,21 @@ const effectGroup = {
         </eos-container>
 
         <eos-container ng-show="effect.listType === 'preset'" header="プリセット演出" pad-top="true">
+<<<<<<< HEAD
             <ui-select ng-model="effect.presetListId" theme="bootstrap"  on-select="presetListSelected($item)">
                 <ui-select-match placeholder="プリセット演出リストの選択または検索... ">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="presetList.id as presetList in presetEffectLists | filter: { name: $select.search }" style="position:relative;">
                     <div ng-bind-html="presetList.name | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
+=======
+            <firebot-searchable-select
+                ng-model="effect.presetListId"
+                placeholder="プリセット演出リストの選択または検索..."
+                items="presetEffectLists"
+                on-select="presetListSelected(item)"
+            />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             <div style="margin-top: 15px">
                 <button class="btn btn-default"
@@ -42,7 +51,11 @@ const effectGroup = {
                 <div style="display: flex; align-items: center; justify-content: space-between;">
                     <span><b>{{arg.name}}: </b></span>
                     <div style="width: 100%; padding: 0 10px;">
+<<<<<<< HEAD
                         <input type="text" class="form-control" placeholder="データを入れる" ng-model="effect.presetListArgs[arg.name]" replace-variables />
+=======
+                        <textarea type="text" class="form-control" placeholder="データを入れる" ng-model="effect.presetListArgs[arg.name]" replace-variables rows="1"></textarea>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     </div>
                 </div>
             </div>

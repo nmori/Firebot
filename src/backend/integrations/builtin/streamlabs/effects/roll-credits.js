@@ -38,7 +38,7 @@ const effect = {
     /**
    * The controller for the front end Options
    */
-    optionsController: () => {},
+    optionsController: () => { },
     /**
    * When the effect is saved
    */
@@ -53,7 +53,11 @@ const effect = {
 
         if (accessToken) {
             try {
+<<<<<<< HEAD
                 await axios.post("https://streamlabs.com/api/v1.0/credits/roll",
+=======
+                const response = await fetch("https://streamlabs.com/api/v2.0/credits/roll",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     {
                         "access_token": accessToken
                     });

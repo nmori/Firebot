@@ -108,7 +108,7 @@ const clip = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                注：この効果を発揮させるには、配信中である必要があります。
+                注：この演出を発揮させるには、配信中である必要があります。
             </div>
         </eos-container>
     `,
@@ -116,7 +116,7 @@ const clip = {
 
         // Force ratio toggle
         $scope.forceRatio = true;
-        $scope.forceRatioToggle = function() {
+        $scope.forceRatioToggle = function () {
             if ($scope.forceRatio === true) {
                 $scope.forceRatio = false;
             } else {
@@ -125,7 +125,7 @@ const clip = {
         };
 
         if ($scope.effect.options == null) {
-            $scope.effect.options = { };
+            $scope.effect.options = {};
         }
         if ($scope.effect.embedColor == null) {
             $scope.effect.embedColor = "#21b9ed";
@@ -133,7 +133,7 @@ const clip = {
 
         // Calculate 16:9
         // This checks to see which field the user is filling out, and then adjust the other field so it's always 16:9.
-        $scope.calculateSize = function(widthOrHeight, size) {
+        $scope.calculateSize = function (widthOrHeight, size) {
             if (size !== "") {
                 if (widthOrHeight === "Width" && $scope.forceRatio) {
                     $scope.effect.height = String(Math.round(size / 16 * 9));

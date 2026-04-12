@@ -1,5 +1,6 @@
 "use strict";
 
+const logger = require("../logwrapper");
 const NodeCache = require("node-cache");
 const { EffectTrigger } = require("../../shared/effect-constants");
 const filterManager = require("./filters/filter-manager");
@@ -81,6 +82,12 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
         es => es.sourceId === source.id && es.eventId === event.id
     );
 
+<<<<<<< HEAD
+=======
+    logger.info(`call event:${JSON.stringify(event)} meta:${JSON.stringify(meta)}`);
+
+    const effectPromises = [];
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     for (const eventSetting of eventSettings) {
 
         if (eventSetting.filterData && (isSimulation || !isManual)) {
@@ -89,6 +96,8 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
                 eventId: event.id,
                 eventMeta: meta
             });
+            logger.info(`- jugde filter:${JSON.stringify(eventSetting.filterData)}`);
+            logger.info(`- jugde result:${passed}`);
             if (!passed) {
                 continue;
             }
@@ -121,6 +130,15 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
 
         runEventEffects(effects, event, source, meta, isManual);
     }
+<<<<<<< HEAD
+=======
+
+    try {
+        await Promise.all(effectPromises);
+    } catch (error) {
+        logger.error(`event error: ${event.name} in ${source.name}' because: ${JSON.stringify(error)}`);
+    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 }
 
 // Export Functions

@@ -1,16 +1,24 @@
 "use strict";
 
+<<<<<<< HEAD
 (function() {
 
     const moment = require("moment");
     const path = require("path");
     const fs = require("fs");
 
+=======
+(function () {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     angular
         .module("firebotApp")
         .component("backupsSettings", {
             template: `
                 <div>
+<<<<<<< HEAD
+=======
+                    <div><strong>注：これらの設定は、すべてのユーザープロファイルに影響します。</strong></div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
                     <firebot-setting
                         name="バックアップ上限"
@@ -128,17 +136,55 @@
                         <div>
                             <firebot-button
                                 text="バックアップの管理"
+<<<<<<< HEAD
                                 ng-click="showBackupListModal()"
+=======
+                                ng-click="backupService.showBackupListModal()"
+                            />
+                        </div>
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="バックアップフォルダの指定"
+                        description="Firebot がバックアップを保存する場所を選択します。">
+
+                        <setting-description-addon>
+                            <div style="margin-top: 10px;"><strong>メモ</strong>: この設定を変更すると、既存のバックアップが現在の場所から新しい場所にコピーされます。これにより、新しい場所にある同じ名前のファイルが上書きされます。</div>
+                            <div style="margin-top: 10px;">現在のバックアップ先： <a ng-click="backupService.openBackupFolder()" ng-bind="backupService.backupFolderPath" href></a></div>
+                        </setting-description-addon>
+
+                        <div>
+                            <span
+                                ng-if="isMovingBackupFolder || backupFolderMoveCompleted"
+                                style="padding-left: 10px"
+                            >
+                                <span ng-if="isMovingBackupFolder"> バックアップを新しいフォルダに移動中... </span>
+                                <span ng-if="backupFolderMoveCompleted && backupFolderMoveSuccess" style="color: green">
+                                    <i class="fal fa-check-circle"></i> 移動に成功しました
+                                </span>
+                                <span ng-if="backupFolderMoveCompleted && !backupFolderMoveSuccess" style="color: red">
+                                    <i class="fal fa-check-circle"></i> 移動に失敗しました
+                                </span>
+                            </span>
+                            <firebot-button
+                                text="移動する"
+                                ng-click="backupService.initiateBackupFolderMove()"
+                                ng-disabled="isMovingBackupFolder"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             />
                         </div>
                     </firebot-setting>
 
                 </div>
           `,
+<<<<<<< HEAD
             controller: function($scope, settingsService, backupService, backendCommunicator, $timeout, utilityService) {
+=======
+            controller: function ($scope, settingsService, backupService, backendCommunicator, $timeout) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 $scope.settings = settingsService;
 
-                $scope.startBackup = function() {
+                $scope.startBackup = function () {
                     $scope.isBackingUp = true;
                     $scope.backupCompleted = false;
                     backupService.startBackup();
@@ -159,6 +205,7 @@
                     }
                 });
 
+<<<<<<< HEAD
                 $scope.showBackupListModal = function() {
                     const showBackupListModalContext = {
                         templateUrl: "backupListModal.html",
@@ -282,6 +329,11 @@
                         }
                     };
                     utilityService.showModal(showBackupListModalContext);
+=======
+                $scope.moveBackupFolder = () => {
+                    $scope.isMovingBackupFolder = true;
+                    $scope.backupFolderMoveCompleted = false;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 };
 
             }

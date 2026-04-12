@@ -86,7 +86,7 @@
                         <div>
 
                             <span ng-if="$ctrl.compactDisplay" ng-show="$ctrl.showTimestamp" class="muted chat-timestamp">
-                                {{$ctrl.message.timestampDisplay}}
+                                {{$ctrl.message.}}
                             </span>
 
                             <div
@@ -119,7 +119,17 @@
                                     ng-click="$root.openLinkExternally('https://pronouns.alejo.io/')"
                                     ng-show="$ctrl.showPronoun && $ctrl.pronouns.pronounCache[$ctrl.message.username] != null"
                                 >{{$ctrl.pronouns.pronounCache[$ctrl.message.username]}}</span>
+<<<<<<< HEAD
                                 <b ng-style="{'color': $ctrl.message.color}">{{$ctrl.message.displayName}}{{ $ctrl.message.displayName !== $ctrl.message.username ? '('+ $ctrl.message.username +')':''}}</b>
+=======
+                                <b ng-style="{'color': $ctrl.message.color}">{{$ctrl.message.userDisplayName != null ? $ctrl.message.userDisplayName : $ctrl.message.username}}</b>
+                                <span
+                                    ng-if="$ctrl.message.username && $ctrl.message.userDisplayName && $ctrl.message.username.toLowerCase() !== $ctrl.message.userDisplayName.toLowerCase()"
+                                    style="font-weight: 100"
+                                    ng-style="{'color': $ctrl.message.color}"
+                                    class="muted"
+                                >&nbsp;({{$ctrl.message.username}})</span>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 <span
                                     ng-if="$ctrl.compactDisplay && !$ctrl.message.action"
                                     style="color:white;font-weight:200;"
@@ -192,7 +202,12 @@
                         </div>
                     </div>
                     <div class="automod-tag" ng-show="$ctrl.message.isAutoModHeld">
+<<<<<<< HEAD
                         <div ng-if="$ctrl.message.autoModStatus === 'PENDING' && !$ctrl.message.autoModErrorMessage">
+=======
+                        <div ng-if="$ctrl.message.autoModStatus === 'pending' && !$ctrl.message.autoModErrorMessage">
+                            <i class="fal fa-question-circle pending"></i>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             <span>AutoModによって自動マーク： ({{$ctrl.message.autoModReason}}): </span>
                             <span ng-if="!$ctrl.respondedToAutoMod">
                                 <a href style="font-weight: 700;" ng-click="$ctrl.allowAutoModMessage()">Allow</a>
@@ -209,9 +224,20 @@
                         <div ng-if="['ALLOWED', 'DENIED'].includes($ctrl.message.autoModStatus)">
                             <span>{{$ctrl.message.autoModStatus === 'ALLOWED' ? 'Allowed' : 'Denied'}} by {{$ctrl.message.autoModResolvedBy}}</span>
                         </div>
+<<<<<<< HEAD
                         <div ng-if="$ctrl.message.autoModStatus === 'EXPIRED'">
                             <span>Expired</span>
                         </div>
+=======
+                        <div ng-if="$ctrl.message.autoModStatus === 'denied'">
+                            <i class="far fa-times denied"></i>
+                            <span>Denied by {{$ctrl.message.autoModResolvedBy}}</span>
+                        </div>
+                        <div ng-if="$ctrl.message.autoModStatus === 'expired'">
+                            <i class="far fa-clock expired"></i>
+                            <span>Flagged by AutoMod ({{$ctrl.message.autoModReason}}): Expired</span>
+                    </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     </div>
                     <div ng-if="$ctrl.message.isAnnouncement || $ctrl.message.isFirstChat || $ctrl.message.isReturningChatter || $ctrl.message.isRaider || $ctrl.message.isSuspiciousUser" style="margin-bottom:5px">
                 </div>
@@ -338,7 +364,7 @@
                         } else {
                             actions.push({
                                 name: "Mod",
-                                label: "モデレータ指名",
+                                label: "モデレータに指名",
                                 icon: "fa-user-plus"
                             });
 
@@ -418,8 +444,13 @@
                         case "ban":
                             utilityService
                                 .showConfirmationModal({
+<<<<<<< HEAD
                                 title: "視聴者を追放",
                                 question: `本当に ${userName} さんを追放しますか?`,
+=======
+                                    title: "視聴者を追放",
+                                    question: `本当に ${username} さんを追放しますか？`,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                     confirmLabel: "Ban",
                                     confirmBtnType: "btn-danger"
                                 })
@@ -430,14 +461,35 @@
                                 });
                             break;
                         case "mod":
+<<<<<<< HEAD
                             chatMessagesService.changeModStatus(userName, true);
+=======
+                            utilityService
+                                .showConfirmationModal({
+                                    title: "モデレートユーザ",
+                                    question: `${username}をモデレータに指名しますか？`,
+                                    confirmLabel: "指名する",
+                                    confirmBtnType: "btn-danger"
+                                })
+                                .then((confirmed) => {
+                                    if (confirmed) {
+                                        chatMessagesService.changeModStatus(username, true);
+                                    }
+                                });
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             break;
                         case "unmod":
                             utilityService
                                 .showConfirmationModal({
+<<<<<<< HEAD
                                     title: "Mod User",
                                     question: `Are you sure you want to unmod ${userName}?`,
                                     confirmLabel: "Unmod",
+=======
+                                    title: "モデレートユーザ",
+                                    question: `${username}のモデレータ設定を解除しますか？`,
+                                    confirmLabel: "解除する",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                     confirmBtnType: "btn-danger"
                                 })
                                 .then(confirmed => {

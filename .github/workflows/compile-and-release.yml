@@ -74,7 +74,11 @@ jobs:
       - name: Setup Nodejs
         uses: actions/setup-node@v3
         with:
+<<<<<<< HEAD
           node-version: '18.17.1'
+=======
+          node-version: '20.14.0'
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
           
       - uses: actions/setup-python@v4
         with:

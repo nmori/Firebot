@@ -17,7 +17,6 @@ interface CommunityGiftSubCache {
 }
 
 export function triggerCommunitySubGift(
-    gifterUserName: string,
     gifterDisplayName: string,
     subPlan: string,
     subCount: number
@@ -32,7 +31,6 @@ export function triggerSubGift(
     gifterUserId: string,
     isAnonymous: boolean,
     gifteeDisplayName: string,
-    gifteeUserName: string,
     subPlan: string,
     giftDuration: number,
     giftSubMonths: number,
@@ -62,10 +60,7 @@ export function triggerSubGift(
                             subCount: giftReceivers.length,
                             subPlan,
                             isAnonymous,
-                            gifteeUsername: gifteeUserName,
-                            gifteeDisplayName: gifteeDisplayName,
-                            gifterUsername: gifterUserName,
-                            gifterDisplayName: gifterDisplayName,
+                            gifterUsername: gifterDisplayName,
                             giftReceivers: giftReceivers
                         });
 
@@ -88,10 +83,8 @@ export function triggerSubGift(
         userIdName: gifterUserName,
         userId: gifterUserId,
         giftSubMonths,
-        gifteeUsername: gifteeUserName,
-        gifteeDisplayName: gifteeDisplayName,
-        gifterUsername: gifterUserName,
-        gifterDisplayName: gifterDisplayName,
+        gifteeUsername: gifteeDisplayName,
+        gifterUsername: gifterDisplayName,
         subPlan,
         isAnonymous,
         giftDuration
@@ -100,10 +93,16 @@ export function triggerSubGift(
 }
 
 export function triggerSubGiftUpgrade(
+<<<<<<< HEAD
     gifteeUserName: string,
     gifteeDisplayName: string,
     gifteeUserId: string,
     gifterUserName: string,
+=======
+    gifteeUsername: string,
+    gifteeUserId: string,
+    gifteeDisplayName: string,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     gifterDisplayName: string,
     subPlan: string
 ): void {
@@ -111,10 +110,16 @@ export function triggerSubGiftUpgrade(
         username: gifteeDisplayName,
         userIdName: gifteeUserName,
         userId: gifteeUserId,
+<<<<<<< HEAD
         gifteeUsername: gifteeUserName,
         gifteeDisplayName: gifteeDisplayName,
         gifterUsername: gifterUserName,
         gifterDisplayName: gifterDisplayName,
+=======
+        userDisplayName: gifteeDisplayName,
+        gifterUsername: gifterDisplayName,
+        gifteeUsername: gifteeDisplayName,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         subPlan
     });
 }

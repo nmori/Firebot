@@ -14,7 +14,7 @@ const playSound = {
     definition: {
         id: "firebot:playsound",
         name: "サウンドを再生",
-        description: "効果音を再生します",
+        description: "演出音を再生します",
         icon: "fad fa-waveform",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -23,7 +23,7 @@ const playSound = {
     optionsTemplate: `
     <eos-container header="メディアタイプ">
         <firebot-radios 
-            options="{ local: 'ローカルファイル', folderRandom: 'フォイル内のファイルをランダム再生', url: 'ネット上のものを再生' }"
+            options="{ local: 'ローカルファイル', folderRandom: 'フォルダ内のファイルをランダム再生', url: 'ネット上のものを再生' }"
             model="effect.soundType"
             inline="true"
             style="padding-bottom: 5px;"
@@ -50,7 +50,7 @@ const playSound = {
             </div>
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox">再生終了を待つ <tooltip text="'音が鳴り終わるのを待ってから、次の効果に移ります'"></tooltip>
+                <label class="control-fb control--checkbox">再生終了を待つ <tooltip text="'音が鳴り終わるのを待ってから、次の演出に移ります'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>
@@ -133,7 +133,11 @@ const playSound = {
         // Set output device.
         let selectedOutputDevice = effect.audioOutputDevice;
         if (selectedOutputDevice == null || selectedOutputDevice.deviceId === "") {
+<<<<<<< HEAD
             selectedOutputDevice = settings.getAudioOutputDevice();
+=======
+            selectedOutputDevice = SettingsManager.getSetting("AudioOutputDevice");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
         data.audioOutputDevice = selectedOutputDevice;
 
@@ -181,9 +185,8 @@ const playSound = {
             onOverlayEvent: event => {
                 const data = event;
                 const token = encodeURIComponent(data.resourceToken);
-                const resourcePath = `http://${
-                    window.location.hostname
-                }:7472/resource/${token}`;
+                const resourcePath = `http://${window.location.hostname
+                    }:7472/resource/${token}`;
 
                 // Generate UUID to use as class name.
                 // eslint-disable-next-line no-undef

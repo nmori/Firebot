@@ -7,7 +7,10 @@ exports.loadEffects = () => {
         'active-user-lists',
         'add-quote',
         'api',
+<<<<<<< HEAD
         'block-unblock',
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         'call-layna',
         'call-vtubestudio',
         'celebration',

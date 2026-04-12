@@ -18,19 +18,19 @@
                 <div>
                     <div style="padding-bottom: 4px;padding-left: 2px;font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;" ng-if="$ctrl.hasConditionsAvailable()">
                         <span>{{$ctrl.prefix || "If"}} </span>
+                        <span> 以下の条件で、</span>
                         <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                             <div class="noselect pointer ddtext" style="font-size: 15px;">{{$ctrl.getConditionModeDisplay()}}<span class="fb-arrow down ddtext"></span></div>
                             <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
                                 <li ng-click="$ctrl.conditionData.mode = 'exclusive'">
-                                    <a style="padding-left: 10px;">all</a>
+                                    <a style="padding-left: 10px;">すべて成立時</a>
                                 </li>
 
                                 <li ng-click="$ctrl.conditionData.mode = 'inclusive'">
-                                    <a style="padding-left: 10px;">any</a>
+                                    <a style="padding-left: 10px;">いずれか成立時</a>
                                 </li>
                             </ul>
                         </div>
-                        <span> 以下の条件のいずれかを満たすとき：</span>
                     </div>
                     <div style="display:flex;flex-wrap: wrap;">
                         <button ng-repeat="condition in $ctrl.conditionData.conditions track by $index" class="filter-bar" style="max-width: 100%;" ng-click="$ctrl.openAddOrEditConditionModal($index)">
@@ -114,7 +114,7 @@
                 }
 
                 $ctrl.getConditionModeDisplay = function() {
-                    return $ctrl.conditionData.mode === "inclusive" ? "いずれか" : "すべて";
+                    return $ctrl.conditionData.mode === "inclusive" ? "いずれか成立時" : "すべて成立時";
                 };
 
                 $ctrl.getConditionType = function(typeId) {

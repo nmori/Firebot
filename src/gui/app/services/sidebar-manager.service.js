@@ -76,10 +76,17 @@
         function($routeProvider) {
             $routeProvider
 
+<<<<<<< HEAD
                 .when("/viewer-roles", {
                 templateUrl: "./templates/_viewerroles.html",
                 controller: "viewerRolesController"
             })
+=======
+                .when("/roles-and-ranks", {
+                    templateUrl: "./templates/_roles-and-ranks.html",
+                    controller: "rolesAndRanksController"
+                })
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             .when("/", {
                 templateUrl: "./templates/chat/_chat-messages.html",
@@ -161,10 +168,27 @@
                 controller: "countersController"
             })
 
+<<<<<<< HEAD
             .when("/games", {
                 templateUrl: "./templates/_games.html",
                 controller: "gamesController"
             });
+=======
+                .when("/games", {
+                    templateUrl: "./templates/_games.html",
+                    controller: "gamesController"
+                })
+
+                .when("/variable-macros", {
+                    templateUrl: "./templates/_variable-macros.html",
+                    controller: "variableMacrosController"
+                })
+
+                .when("/extension/:extensionId/:pageId", {
+                    templateUrl: "./templates/_extension-page.html",
+                    controller: "extensionPageController"
+                });
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
     ]);
 }(window.angular));

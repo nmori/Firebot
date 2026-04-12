@@ -36,7 +36,11 @@
                 }
 
                 $ctrl.$onInit = function() {
+<<<<<<< HEAD
                     getFilterValueDisplay().then(value => {
+=======
+                    getFilterValueDisplay().then((value) => {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         $ctrl.filterValueDisplay = value;
                     });
                 };

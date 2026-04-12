@@ -1,11 +1,16 @@
 "use strict";
-(function() {
+(function () {
 
     // This handles the Events tab
     angular
         .module("firebotApp")
+<<<<<<< HEAD
         .controller("eventsController", function($scope, eventsService, utilityService,
             listenerService, objectCopyHelper) {
+=======
+        .controller("eventsController", function ($scope, eventsService, utilityService,
+            backendCommunicator, objectCopyHelper) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             $scope.es = eventsService;
 
@@ -30,7 +35,7 @@
                         'min-width': '150px'
                     },
                     cellTemplate: `{{data.name}}`,
-                    cellController: () => {}
+                    cellController: () => { }
                 },
                 {
                     name: "種類",
@@ -46,7 +51,7 @@
                 }
             ];
 
-            $scope.getSelectedEvents = function() {
+            $scope.getSelectedEvents = function () {
                 const selectedTab = eventsService.getSelectedTab();
                 if (selectedTab === "mainevents") {
                     return eventsService.getMainEvents();
@@ -91,7 +96,7 @@
                 eventsService.updateEventsForCurrentGroup(events);
             };
 
-            $scope.showCreateEventGroupModal = function() {
+            $scope.showCreateEventGroupModal = function () {
                 utilityService.openGetInputModal(
                     {
                         model: "",
@@ -114,7 +119,7 @@
                     });
             };
 
-            $scope.showRenameEventGroupModal = function(group) {
+            $scope.showRenameEventGroupModal = function (group) {
                 utilityService.openGetInputModal(
                     {
                         model: group.name,
@@ -138,7 +143,7 @@
                     });
             };
 
-            $scope.showDeleteGroupModal = function(group) {
+            $scope.showDeleteGroupModal = function (group) {
                 utilityService
                     .showConfirmationModal({
                         title: "イベントセットの削除",
@@ -153,7 +158,7 @@
                     });
             };
 
-            $scope.showAddOrEditEventModal = function(eventId) {
+            $scope.showAddOrEditEventModal = function (eventId) {
 
                 const selectedGroupId = eventsService.getSelectedTab();
                 let event;
@@ -165,6 +170,10 @@
 
                 utilityService.showModal({
                     component: "addOrEditEventModal",
+<<<<<<< HEAD
+=======
+                    breadcrumbName: "イベントを編集",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     resolveObj: {
                         event: () => event,
                         groupId: () => selectedGroupId
@@ -194,7 +203,7 @@
                 });
             };
 
-            $scope.showDeleteEventModal = function(eventId, name) {
+            $scope.showDeleteEventModal = function (eventId, name) {
                 utilityService
                     .showConfirmationModal({
                         title: "イベントの削除",
@@ -210,7 +219,7 @@
                     });
             };
 
-            $scope.toggleEventActiveStatus = function(eventId) {
+            $scope.toggleEventActiveStatus = function (eventId) {
                 const groupId = eventsService.getSelectedTab();
                 if (groupId === "mainevents") {
                     const event = eventsService.getMainEvents().find(e => e.id === eventId);
@@ -241,7 +250,7 @@
                 addEventToGroup(event, groupId);
             }
 
-            $scope.duplicateEvent = function(eventId) {
+            $scope.duplicateEvent = function (eventId) {
                 const groupId = eventsService.getSelectedTab();
                 if (groupId === "mainevents") {
                     const event = eventsService.getMainEvents().find(e => e.id === eventId);
@@ -264,7 +273,7 @@
                 }
             };
 
-            $scope.copyEvent = function(eventId) {
+            $scope.copyEvent = function (eventId) {
                 const groupId = eventsService.getSelectedTab();
                 if (groupId === "mainevents") {
                     const event = eventsService.getMainEvents().find(e => e.id === eventId);
@@ -276,11 +285,11 @@
                 }
             };
 
-            $scope.hasCopiedEvents = function() {
+            $scope.hasCopiedEvents = function () {
                 return objectCopyHelper.hasObjectCopied("events");
             };
 
-            $scope.copyEvents = function(groupId) {
+            $scope.copyEvents = function (groupId) {
                 if (groupId === "mainevents") {
                     const events = eventsService.getMainEvents();
                     objectCopyHelper.copyObject("events", events);
@@ -290,7 +299,7 @@
                 }
             };
 
-            $scope.pasteEvents = function(groupId) {
+            $scope.pasteEvents = function (groupId) {
                 if (!$scope.hasCopiedEvents()) {
                     return;
                 }
@@ -318,11 +327,11 @@
                 eventsService.setSelectedTab(groupId);
             };
 
-            $scope.eventMenuOptions = function(event) {
+            $scope.eventMenuOptions = function (event) {
 
                 const currentGroupId = eventsService.getSelectedTab();
                 const availableGroups = [
-                    { id: 'mainevents', name: "メインイベント"},
+                    { id: 'mainevents', name: "メインイベント" },
                     ...eventsService.getEventGroups().map(g => ({ id: g.id, name: g.name }))
                 ].filter(g => g.id !== currentGroupId);
 
@@ -359,7 +368,11 @@
                     },
                     {
                         text: "移動先...",
+<<<<<<< HEAD
                         children: availableGroups.map(g => {
+=======
+                        children: availableGroups.map((g) => {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             return {
                                 html: `<a href>${g.name}</a>`,
                                 click: () => {
@@ -374,7 +387,7 @@
                 return options;
             };
 
-            $scope.eventSetMenuOptions = function(group) {
+            $scope.eventSetMenuOptions = function (group) {
 
                 return [
                     {
@@ -418,7 +431,7 @@
                 ];
             };
 
-            $scope.simulateEventsByType = function() {
+            $scope.simulateEventsByType = function () {
                 utilityService.showModal({
                     component: "simulateGroupEventsModal",
                     size: "sm"
@@ -428,7 +441,7 @@
             /**
              * Returns an integer of total number of effects in an event.
              */
-            $scope.getEventEffectsCount = function(event) {
+            $scope.getEventEffectsCount = function (event) {
                 if (event.effects && event.effects.list) {
                     return event.effects.list.length;
                 }
@@ -436,7 +449,7 @@
             };
 
             // Fire event manually
-            $scope.fireEventManually = function(eventId) {
+            $scope.fireEventManually = function (eventId) {
                 const event = $scope.getSelectedEvents().find(e => e.id === eventId);
                 if (event != null) {
                     ipcRenderer.send("triggerManualEvent", {

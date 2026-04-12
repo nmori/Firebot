@@ -1,7 +1,6 @@
 "use strict";
-
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
+const { SettingsManager } = require("../../common/settings-manager");
+const { ResourceTokenManager } = require("../../resource-token-manager");
 const webServer = require("../../../server/http-server-manager");
 const fs = require('fs-extra');
 const logger = require("../../logwrapper");
@@ -9,23 +8,6 @@ const path = require("path");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
 const { wait } = require("../../utility");
-const axiosDefault = require("axios").default;
-
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - COEIROINK'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
 
 const voicelists = [];
 
@@ -61,7 +43,7 @@ const playSound = {
         <eos-container header="音源" pad-top="true">
             <div style="padding-top:20px">
 
-                <label class="control-fb control--checkbox"> 再生終了を待つ <tooltip text="'音が鳴り終わるのを待ってから、次の効果に移ります'"></tooltip>
+                <label class="control-fb control--checkbox"> 再生終了を待つ <tooltip text="'音が鳴り終わるのを待ってから、次の演出に移ります'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>
@@ -85,43 +67,31 @@ const playSound = {
         <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
         
     `,
-    optionsController: async($scope) =>  {
+    optionsController: async ($scope) => {
 
         if ($scope.effect.volume == null) {
             $scope.effect.volume = 5;
-        }     
+        }
         if ($scope.effect.voicevoxPort == null) {
             $scope.effect.voicevoxPort = 50031;
-        }       
+        }
 
         $scope.effect.voicelists = [];
 
-        try {       
-            const axiosDefault = require("axios").default;
+        try {
 
-            const axios = axiosDefault.create({
-
-            });
-
-            axios.interceptors.request.use(request => {
-                //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-                return request;
-            });
-
-            axios.interceptors.response.use(response => {
-                //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-                return response;
-            });
-            const response = await axios({
-                method:'get',
-                url: 'http://127.0.0.1:'+String($scope.effect.voicevoxPort)+'/speakers' 
-            });
-            for (const voicecast of response.data) 
-            {
-                for (const voicestyle of voicecast.styles) 
+            const response = await fetch(
+                `http://127.0.0.1:${$scope.effect.voicevoxPort}/speakers`,
                 {
-                    $scope.effect.voicelists.push( { name:voicecast.name+'-'+voicestyle.name , id:voicestyle.id});
-                }    
+                    method: 'GET'
+                });
+
+            let responseData = await response.text();
+
+            for (const voicecast of JSON.parse(responseData)) {
+                for (const voicestyle of voicecast.styles) {
+                    $scope.effect.voicelists.push({ name: voicecast.name + '-' + voicestyle.name, id: voicestyle.id });
+                }
             }
 
         } catch (error) {
@@ -132,7 +102,7 @@ const playSound = {
     optionsValidator: effect => {
         const errors = [];
 
-        if (effect.voicecast == null || effect.voicecast.id ==="") {
+        if (effect.voicecast == null || effect.voicecast.id === "") {
             errors.push("キャストを指定してください");
         }
         return errors;
@@ -144,30 +114,30 @@ const playSound = {
         var tmpWaveFile = tmp.fileSync({ postfix: '.wav' });
         try {
             // HTTP header
-            var headers = {
-                'Content-Type': 'application/json'
-            };
-            
-            const response = await axios({
-                method:'post',
-                url: 'http://127.0.0.1:'+String(effect.voicevoxPort)+'/audio_query?text='+encodeURIComponent(effect.message)+'&speaker='+String(effect.voicecast.id),
-                headers: headers,
-                data: null
-            });
-            
-            var headers_wave = {
-                'Content-Type': 'application/json',
-                "accept": "audio/wav",
-            };
-            const response_voice = await axios({
-                method:'post',
-                url: 'http://127.0.0.1:'+String(effect.voicevoxPort)+'/synthesis?speaker='+String(effect.voicecast.id),
-                headers: headers_wave,
-                data: response.data,
-                responseType : 'arraybuffer' 
-            });
+            const response = await fetch(
+                `http://127.0.0.1:${effect.voicevoxPort}/audio_query?text=${encodeURIComponent(effect.message)}&speaker=${effect.voicecast.id}`,
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST'
+                });
+
+            let responseData = await response.text();
+            const response_voice = await fetch(
+                `http://127.0.0.1:${effect.voicevoxPort}/synthesis?speaker=${effect.voicecast.id}&enable_interrogative_upspeak=true`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'accept': 'audio/wav'
+                    },
+                    method: 'POST',
+                    body: responseData
+                });
+
+            let responseData_voice = await response_voice.arrayBuffer();
+            let buffer = Buffer.from(responseData_voice);
+
             try {
-                fs.writeFileSync(tmpWaveFile.name, response_voice.data, 'binary');                
+                fs.writeFileSync(tmpWaveFile.name, buffer, 'binary');
             } catch (err) {
                 console.error('Error writing to temporary file:', err);
             }
@@ -187,14 +157,14 @@ const playSound = {
         // Set output device.
         let selectedOutputDevice = effect.audioOutputDevice;
         if (selectedOutputDevice == null || selectedOutputDevice.deviceId === "") {
-            selectedOutputDevice = settings.getAudioOutputDevice();
+            selectedOutputDevice = SettingsManager.getSetting("AudioOutputDevice");
         }
         data.audioOutputDevice = selectedOutputDevice;
 
         // Generate token if going to overlay, otherwise send to gui.
         if (selectedOutputDevice.deviceId === "overlay") {
             if (effect.soundType !== "url") {
-                const resourceToken = resourceTokenManager.storeResourcePath(
+                const resourceToken = ResourceTokenManager.storeResourcePath(
                     data.filepath,
                     30
                 );
@@ -221,7 +191,7 @@ const playSound = {
             } catch (error) {
                 return true;
             }
-        }else{
+        } else {
             try {
                 const duration = await frontendCommunicator.fireEventAsync("getSoundDuration", {
                     path: data.isUrl ? data.url : data.filepath
@@ -229,8 +199,8 @@ const playSound = {
                 const durationInMils = (Math.round(duration) || 0) * 1000;
                 setTimeout(() => {
                     tmpWaveFile.setGracefulCleanup();
-                 }, durationInMils+10000);
-                
+                }, durationInMils + 10000);
+
             } catch (error) {
                 return true;
             }
@@ -250,9 +220,8 @@ const playSound = {
             onOverlayEvent: event => {
                 const data = event;
                 const token = encodeURIComponent(data.resourceToken);
-                const resourcePath = `http://${
-                    window.location.hostname
-                }:7472/resource/${token}`;
+                const resourcePath = `http://${window.location.hostname
+                    }:7472/resource/${token}`;
 
                 // Generate UUID to use as class name.
                 // eslint-disable-next-line no-undef

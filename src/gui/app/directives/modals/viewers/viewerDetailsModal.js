@@ -35,7 +35,14 @@
                                     <i class="fab fa-twitch" style="transform: translateY(2px);" />
                             </a>
                         </div>
+<<<<<<< HEAD
                         <div ng-show="$ctrl.isTwitchOrNewUser() && $ctrl.viewerDetails.twitchData" style="display:flex;margin-top:7px;">
+=======
+                        <div ng-show="$ctrl.isTwitchOrNewUser() && $ctrl.viewerDetails.twitchData && $ctrl.viewerDetails.twitchData.username.toLowerCase() !== $ctrl.viewerDetails.twitchData.displayName.toLowerCase()" style="display:flex;">
+                            <div style="margin-right: 11px; font-size: 20px;" class="muted">{{$ctrl.viewerDetails.twitchData.username}}</div>
+                        </div>
+                        <div ng-show="$ctrl.isTwitchOrNewUser() && $ctrl.viewerDetails.twitchData" style="display:flex;margin-top:10px;">
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             <div style="margin-right: 11px;" uib-tooltip="Twitch歴"><i class="fas fa-user-circle"></i> {{$ctrl.getAccountAge($ctrl.viewerDetails.twitchData.creationDate)}}</div>
                         </div>
                         <div ng-show="$ctrl.isTwitchOrNewUser() && $ctrl.viewerDetails.twitchData" style="display:flex;margin-top:7px;">
@@ -58,7 +65,20 @@
                         </div>
 
                         <div class="viewer-detail-data" ng-show="$ctrl.hasFirebotData" style="margin-top: 10px;">
+<<<<<<< HEAD
                             <div class="detail-data clickable" ng-repeat="dataPoint in $ctrl.dataPoints" ng-click="dataPoint.onClick()" aria-label="編集 {{dataPoint.name}}">
+=======
+                            <div
+                                ng-repeat="dataPoint in $ctrl.dataPoints"
+                                ng-click="dataPoint.canEdit ? dataPoint.onClick() : undefined"
+                                class="detail-data"
+                                ng-class="{ clickable: dataPoint.canEdit }"
+                                aria-label="Edit {{dataPoint.name}}"
+                                uib-tooltip="{{dataPoint.tooltip}}"
+                                tooltip-enable="dataPoint.tooltip"
+                                tooltip-append-to-body="true"
+                            >
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 <div class="data-title">
                                     <i class="far" ng-class="dataPoint.icon"></i> {{dataPoint.name}}
                                 </div>
@@ -141,7 +161,11 @@
                         <div style="font-size:13px;font-weight: bold;opacity:0.9;margin-bottom:5px;">役割</div>
                         <div class="role-bar" ng-repeat="customRole in $ctrl.customRoles track by customRole.id">
                             <span>{{customRole.name}}</span>
+<<<<<<< HEAD
                             <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeUserFromRole(customRole.id, customRole.name)" uib-tooltip="役割を外す" tooltip-append-to-body="true">
+=======
+                            <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeViewerFromRole(customRole.id, customRole.name)" uib-tooltip="役割を外す" tooltip-append-to-body="true">
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 <i class="far fa-times"></i>
                             </span>
                         </div>
@@ -528,7 +552,11 @@
                         "参加",
                         "fa-sign-in",
                         joinDate,
+<<<<<<< HEAD
                         value => {
+=======
+                        (value) => {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             return value ? moment(value).format("L") : "未保存";
                         },
                         "joinDate",
@@ -546,7 +574,11 @@
                         "最終視聴",
                         "fa-eye",
                         lastSeen,
+<<<<<<< HEAD
                         value => {
+=======
+                        (value) => {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             return value ? moment(value).format("L") : "未保存";
                         },
                         "lastSeen",
@@ -564,7 +596,11 @@
                         "視聴時間",
                         "fa-tv",
                         minsInChannel,
+<<<<<<< HEAD
                         value => {
+=======
+                        (value) => {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             return value < 60 ? '１時間未満' : parseInt(value / 60) + " 時間";
                         },
                         "minutesInChannel",

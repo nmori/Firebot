@@ -21,7 +21,12 @@ const eventSourceDefinition = {
             manualMetadata: {
                 from: "StreamElements",
                 donationAmount: 5,
+<<<<<<< HEAD
                 donationMessage: "テストメッセージ"
+=======
+                formattedDonationAmount: 5,
+                donationMessage: "Test message"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             },
             isIntegration: true,
             activityFeed: {

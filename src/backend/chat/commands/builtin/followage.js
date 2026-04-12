@@ -41,11 +41,20 @@ const followage = {
 
         const followDate = await twitchApi.users.getFollowDateForUser(commandSender);
 
+<<<<<<< HEAD:src/backend/chat/commands/builtin/followage.js
         if (followDate === null) {
             await chat.sendChatMessage(`${commandSender} はこのチャンネルをフォローしていません.`);
         } else {
             const followDateMoment = moment(followDate),
                 nowMoment = moment();
+=======
+        if (rawFollowDate === null) {
+            await chat.sendChatMessage(`${commandSender} はこのチャンネルをフォローしていません.`);
+        } else {
+            const followDate = DateTime.fromJSDate(rawFollowDate),
+                now = DateTime.utc(),
+                nowLocal = DateTime.now();
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/follow-age.ts
 
             const followAgeString = util.getDateDiffString(
                 followDateMoment,
@@ -55,7 +64,11 @@ const followage = {
             await chat.sendChatMessage(commandOptions.displayTemplate
                 .replace("{user}", commandSender)
                 .replace("{followage}", followAgeString)
+<<<<<<< HEAD:src/backend/chat/commands/builtin/followage.js
                 .replace("{followdate}", followDateMoment.format("YYYY/MMMM/DD HH:mm"))
+=======
+                .replace("{followdate}", nowLocal.toFormat("YYYY/MMMM/DD HH:mm"))
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/follow-age.ts
             );
         }
     }

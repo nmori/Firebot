@@ -28,6 +28,7 @@
                             hotkey = resp.hotkey;
 
                         switch (action) {
+<<<<<<< HEAD
                         case "add":
                             hotkeyService.saveHotkey(hotkey);
                             break;
@@ -48,6 +49,28 @@
                                     }
                                 });
                             break;
+=======
+                            case "add":
+                                hotkeyService.addHotkey(hotkey);
+                                break;
+                            case "update":
+                                hotkeyService.updateHotkey(hotkey);
+                                break;
+                            case "delete":
+                                utilityService
+                                    .showConfirmationModal({
+                                        title: "ホットキーの削除",
+                                        question: `ホットキー「"${hotkey.name}"」を削除しますか?`,
+                                        confirmLabel: "削除する",
+                                        confirmBtnType: "btn-danger"
+                                    })
+                                    .then((confirmed) => {
+                                        if (confirmed) {
+                                            hotkeyService.deleteHotkey(hotkey);
+                                        }
+                                    });
+                                break;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         }
                     }
                 });

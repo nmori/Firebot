@@ -29,7 +29,11 @@ function purgeCaches() {
 async function stopBidding(chatter) {
     clearTimeout(bidTimer);
     if (activeBiddingInfo.topBidder) {
+<<<<<<< HEAD
         await twitchChat.sendChatMessage(`${activeBiddingInfo.topBidder} が ${activeBiddingInfo.currentBid} を落札した。`, null, chatter);
+=======
+        await twitchChat.sendChatMessage(`${activeBiddingInfo.topBidderDisplayName} が ${activeBiddingInfo.currentBid} を落札した。`, null, chatter);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     } else {
         await twitchChat.sendChatMessage(`誰も入札しなかったので、勝者はいない！`, null, chatter);
     }
@@ -196,13 +200,21 @@ const bidCommand = {
             const previousHighBidder = activeBiddingInfo.topBidder;
             const previousHighBidAmount = activeBiddingInfo.currentBid;
             if (previousHighBidder != null && previousHighBidder !== "") {
+<<<<<<< HEAD
                 await currencyDatabase.adjustCurrencyForUser(previousHighBidder, currencyId, previousHighBidAmount);
+=======
+                await currencyManager.adjustCurrencyForViewer(previousHighBidder, currencyId, previousHighBidAmount);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 await twitchChat.sendChatMessage(`落札されました！ ${previousHighBidAmount} ${currencyName} が返金されました.`, null, chatter, chatMessage.id);
             }
 
             await currencyDatabase.adjustCurrencyForUser(username, currencyId, -Math.abs(bidAmount));
             const newTopBidWithRaise = bidAmount + raiseMinimum;
+<<<<<<< HEAD
             await twitchChat.sendChatMessage(`${username} が高値を更新しました。${bidAmount} ${currencyName}. 入札するには !bid ${newTopBidWithRaise} か、それ以上の額を入力してください`);
+=======
+            await twitchChat.sendChatMessage(`${userDisplayName} が高値を更新しました。${bidAmount} ${currencyName}. 入札するには !bid ${newTopBidWithRaise} か、それ以上の額を入力してください`);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             // eslint-disable-next-line no-use-before-define
             setNewHighBidder(username, bidAmount);

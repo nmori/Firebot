@@ -34,7 +34,18 @@
                 },
                 aliases: [],
                 sortTags: [],
+<<<<<<< HEAD
                 treatQuotedTextAsSingleArg: false
+=======
+                treatQuotedTextAsSingleArg: false,
+                allowTriggerBySharedChat: "inherit"
+            };
+
+            $ctrl.sharedChatRadioOptions = {
+                true: "Allow",
+                false: "Ignore",
+                inherit: { text: "Inherit", tooltip: "設定 > トリガー > 共有チャットがコマンドをトリガーすることを許可する から設定を継承します。" }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             $scope.trigger = "command";
@@ -52,7 +63,11 @@
                 if (currentlyAdvanced) {
                     const willBeRemoved = [];
                     if ($ctrl.command.effects.list.length > 1 ||
+<<<<<<< HEAD
                             $ctrl.command.effects.list.some(e => e.type !== "firebot:chat")) {
+=======
+                        $ctrl.command.effects.list.some(e => e.type !== "firebot:chat")) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         willBeRemoved.push("単一のチャット演出を除く、すべての演出");
                     }
                     if ($ctrl.command.restrictionData.restrictions.length > 1 ||
@@ -140,6 +155,7 @@
                     $ctrl.command.treatQuotedTextAsSingleArg = false;
                 }
 
+<<<<<<< HEAD
                 const modalId = $ctrl.resolve.modalId;
                 utilityService.addSlidingModal(
                     $ctrl.modalInstance.rendered.then(() => {
@@ -156,6 +172,12 @@
                 $scope.$on("modal.closing", function() {
                     utilityService.removeSlidingModal();
                 });
+=======
+                if ($ctrl.command.allowTriggerBySharedChat == null) {
+                    $ctrl.command.allowTriggerBySharedChat = "inherit";
+                }
+                $ctrl.command.allowTriggerBySharedChat = String($ctrl.command.allowTriggerBySharedChat);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             $ctrl.effectListUpdated = function(effects) {

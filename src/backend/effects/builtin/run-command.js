@@ -32,6 +32,7 @@ const model = {
     </eos-container>
 
         <eos-container header="実行コマンド" pad-top="true">
+<<<<<<< HEAD
             <ui-select ng-model="effect.systemCommandId" theme="bootstrap" ng-show="effect.commandType === 'system'">
                 <ui-select-match placeholder="コマンドの選択または検索... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in systemCommands | filter: { trigger: $select.search }" style="position:relative;">
@@ -45,6 +46,23 @@ const model = {
                     <div ng-bind-html="command.trigger | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
+=======
+            <firebot-searchable-select
+                ng-show="effect.commandType === 'system'"
+                ng-model="effect.systemCommandId"
+                placeholder="プリセット演出リストの選択または検索..."
+                items="systemCommands"
+                item-name="trigger"
+            />
+
+            <firebot-searchable-select
+                ng-show="effect.commandType === 'custom'"
+                ng-model="effect.commandId"
+                placeholder="プリセット演出リストの選択または検索..."
+                items="customCommands"
+                item-name="trigger"
+            />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
         <eos-container header="引数(任意)" pad-top="true">

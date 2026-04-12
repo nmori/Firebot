@@ -60,6 +60,7 @@ const secondsForHumans = (seconds) => {
 const formattedSeconds = (secs, simpleOutput = false) => {
     let allSecs = secs;
 
+<<<<<<< HEAD
     allSecs = Math.round(allSecs);
     const hours = Math.floor(allSecs / (60 * 60));
 
@@ -102,6 +103,12 @@ const formattedSeconds = (secs, simpleOutput = false) => {
         // if (seconds > 0) {
         //     uptimeStr = uptimeStr + "s";
         // }
+=======
+    if (simpleOutput === true) {
+        if (simpleOutput) {
+            return duration.shiftTo("hours", "minutes").toFormat("h:mm");
+        }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     }
 
     return uptimeStr;
@@ -135,7 +142,7 @@ const getUptime = async () => {
     const channelData = await client.streams.getStreamByUserId(streamerAccount.userId);
 
     if (channelData == null) {
-        return "今は配信していません";
+        return "配信されていません";
     }
 
     const startedDate = channelData.startDate;
@@ -146,9 +153,19 @@ const getUptime = async () => {
     return exports.formattedSeconds(durationSecs);
 };
 
+<<<<<<< HEAD
 const getDateDiffString = (date1, date2) => {
     const b = moment(date1),
         a = moment(date2),
+=======
+const getDateDiffString = (date1, date2, includeSeconds = false) => {
+
+    // 表示用の日本語単位
+    const japaneseLabels = ["年", "ヵ月", "日", "時間", "分", "秒"];
+
+    let b = DateTime.fromJSDate(date1);
+    const a = DateTime.fromJSDate(date2),
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         intervals = ["years", "months", "days", "hours", "minutes"],
         out = [];
 
@@ -160,16 +177,24 @@ const getDateDiffString = (date1, date2) => {
             continue;
         }
 
+<<<<<<< HEAD
         let interval = intervals[i];
         if (diff === 1) {
+=======
+        b = b.plus(Duration.fromDurationLike({ [intervals[i]]: numericDiff }));
+
+        let interval = japaneseLabels[i];
+        if (numericDiff === 1) {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             interval = interval.slice(0, -1);
         }
         out.push(`${diff} ${interval}`);
     }
-    if (out.length > 1) {
-        const last = out[out.length - 1];
-        out[out.length - 1] = `and ${last}`;
-    }
+    //日本語だと and が必要ないのでコメントアウト
+    // if (out.length > 1) {
+    //     const last = out[out.length - 1];
+    //     out[out.length - 1] = `and ${last}`;
+    // }
     return out.length === 2 ? out.join(" ") : out.join(", ");
 };
 

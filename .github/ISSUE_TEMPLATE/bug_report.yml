@@ -1,7 +1,11 @@
 name: バグレポート
 description: バグレポートファイル
+<<<<<<< HEAD
 title: "[Bug] "
 labels: ["Bug"]
+=======
+type: "Bug"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 body:
   - type: markdown
     attributes:

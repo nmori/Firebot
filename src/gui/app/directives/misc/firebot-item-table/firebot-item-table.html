@@ -35,6 +35,7 @@
         ng-if="$ctrl.items.length === 0"
         class="noselect muted pl-5"
       >
+<<<<<<< HEAD
         <span class="hvr-bob"><i class="fas fa-arrow-up"></i></span
         ><span class="ml-3">{{$ctrl.noDataMessage}}</span>
       </div>
@@ -89,6 +90,59 @@
                 tooltip-append-to-body="true"
               >
                 <i class="fas fa-play-circle clickable"></i>
+=======
+        <i 
+          class="fas fa-toolbox"
+        ></i>
+        <div ng-if="$ctrl.hasAdvancedOptionsApplied()" class="options-applied-indicator"></div>
+      </button>
+      <script type="text/ng-template" id="advancedSearchOptionsPopover.html">
+          <div class="p-3">
+            <firebot-checkbox
+              ng-if="$ctrl.customFilterName != null"
+              label="Full text search"
+              model="$ctrl.useFullTextSearch"
+              tooltip="Search all fields. Prefix with ! to perform an exclusive search."
+              tooltip-placement="top-right"
+              style="margin: 0;"
+            />
+          </div>
+      </script>
+      
+    </div>
+  </div>
+  <div class="p-6">
+    <div
+      ng-if="$ctrl.items.length === 0"
+      class="noselect muted pl-5"
+    >
+      <span class="hvr-bob"><i class="fas fa-arrow-up"></i></span
+      ><span class="ml-3">{{$ctrl.noDataMessage}}</span>
+    </div>
+    <div
+      ng-if="$ctrl.items.length > 0 && filteredItems && filteredItems.length < 1"
+      class="noselect muted pl-5"
+    >
+      <span class="ml-3">{{$ctrl.noneFoundMessage}}</span>
+    </div>
+    <table
+      ng-show="$ctrl.items.length > 0 && (filteredItems == null || filteredItems.length > 0)"
+      class="fb-table fit-table"
+    >
+      <thead class="fit-table-header">
+        <tr>
+          <th ng-if="$ctrl.testButton == true" class="fit-test-button-header"></th>
+          <th
+            ng-repeat="header in $ctrl.headers track by $index"
+            ng-style="header.headerStyles"
+            class="fit-custom-header"
+            ng-click="header.sortable && header.dataField && $ctrl.setOrderField(header.dataField)" 
+            ng-class="{'selected': header.dataField && $ctrl.isOrderField(header.dataField), 'not-clickable': !header.sortable || !header.dataField}"
+          >
+            <div style="display:flex;">
+              <span style="display:inline-block;">
+                <i ng-show="header.icon" class="fas" ng-class="header.icon"></i>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
               </span>
             </td>
 

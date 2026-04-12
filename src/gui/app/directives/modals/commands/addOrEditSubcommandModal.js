@@ -15,6 +15,7 @@
                         引数の種類
                     </div>
                     <div ng-class="{'has-error': $ctrl.kindError}">
+<<<<<<< HEAD
                         <ui-select ng-model="$ctrl.arg.type" ng-change="$ctrl.onTypeChange()" theme="bootstrap" class="control-type-list">
                             <ui-select-match placeholder="引数の種類を選ぶ">{{$select.selected.type}}</ui-select-match>
                             <ui-select-choices repeat="arg.type as arg in $ctrl.argTypes | filter: { type: $select.search }" style="position:relative;">
@@ -25,6 +26,17 @@
                             </ui-select-choices>
                         </ui-select>
                         <div id="helpBlock2" class="help-block" ng-show="$ctrl.kindError">引数のタイプを選択してください.</div>
+=======
+                        <firebot-searchable-select
+                            ng-model="$ctrl.arg.type"
+                            ng-change="$ctrl.onTypeChange()"
+                            items="$ctrl.argTypes"
+                            item-id="type"
+                            item-name="type"
+                            placeholder="引数の種類を選ぶ"
+                        />
+                        <div id="helpBlock2" class="help-block" ng-show="$ctrl.kindError">{{$ctrl.kindErrorText}}</div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     </div>
                 </div>
 
@@ -53,7 +65,15 @@
             controller: function($timeout) {
                 const $ctrl = this;
 
+<<<<<<< HEAD
                 $ctrl.nameErrorText = '起動用テキストを入力してください.';
+=======
+                $ctrl.kindErrorText = "";
+                $ctrl.nameErrorText = '起動用テキストを入力してください.';
+
+                $ctrl.kindError = false;
+                $ctrl.nameError = false;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
                 $timeout(() => {
                     angular.element("#nameField").trigger("focus");

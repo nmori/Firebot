@@ -14,8 +14,13 @@
             };
 
             $scope.getQueueModeName = (modeId) => {
+<<<<<<< HEAD
                 const mode = effectQueuesService.queueModes.find(m => m.id === modeId);
                 return mode ? mode.display : "不明";
+=======
+                const mode = effectQueuesService.queueModes.find(m => m.value === modeId);
+                return mode ? mode.label : "不明";
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             $scope.headers = [
@@ -31,8 +36,13 @@
                     cellTemplate: `{{getQueueModeName(data.mode)}}`,
                     cellController: ($scope) => {
                         $scope.getQueueModeName = (modeId) => {
+<<<<<<< HEAD
                             const mode = effectQueuesService.queueModes.find(m => m.id === modeId);
                             return mode ? mode.display : "不明";
+=======
+                            const mode = effectQueuesService.queueModes.find(m => m.value === modeId);
+                            return mode ? mode.label : "不明";
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         };
                     }
                 },
@@ -41,12 +51,15 @@
                     icon: "fa-clock",
                     cellTemplate: `{{(data.mode === 'interval' || data.mode === 'auto') ? (data.interval || 0) + 's' : 'n/a'}}`,
                     cellController: () => {}
+<<<<<<< HEAD
                 },
                 {
                     name: "キューの長さ",
                     icon: "fa-tally",
                     cellTemplate: `{{data.length || 0}}`,
                     cellController: () => {}
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 }
             ];
 

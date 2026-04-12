@@ -92,7 +92,14 @@ const model = {
             if (passed) {
                 resolve();
             } else {
+<<<<<<< HEAD
                 reject(`チャンネルのカテゴリー/ゲームが正しく設定されていない`);
+=======
+                const expectedGame = await TwitchApi.categories.getCategoryById(expectedGameId);
+                reject(
+                    `Channel category/game isn't set to ${expectedGame?.name ?? "the correct category/game"}.`
+                );
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             }
         });
     }

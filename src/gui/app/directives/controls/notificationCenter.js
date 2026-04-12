@@ -32,7 +32,11 @@
               <div class="noti-action" uib-dropdown uib-dropdown-toggle ng-click="$event.stopPropagation();" dropdown-append-to-body="true">
                 <span class="noselect pointer"><i class="fal fa-ellipsis-v"></i></span>
                 <ul class="dropdown-menu" uib-dropdown-menu>
+<<<<<<< HEAD:src/gui/app/directives/controls/notificationCenter.js
                   <li><a href ng-click="deleteNotification(notification)" style="color:red;"><i class="far fa-trash-alt"></i> お知らせの削除/a></li>
+=======
+                  <li><a href ng-click="deleteNotification(notification.id)" style="color:red;"><i class="far fa-trash-alt"></i> お知らせの削除</a></li>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/gui/app/directives/controls/notification-center.js
                 </ul>
               </div>
             </div>
@@ -81,6 +85,7 @@
                     return unreadCount.toString();
                 };
 
+<<<<<<< HEAD:src/gui/app/directives/controls/notificationCenter.js
                 $scope.getIconTypeText = function(iconType) {
                     const NotificationIconType = notificationService.NotificationIconType;
                     switch (iconType) {
@@ -93,6 +98,20 @@
                     case NotificationIconType.INFO:
                     default:
                         return "情報";
+=======
+                $scope.getIconTypeText = function(type) {
+                    const NotificationIconType = notificationService.NotificationIconType;
+                    switch (type) {
+                        case NotificationIconType.UPDATE:
+                            return "アップデート";
+                        case NotificationIconType.ALERT:
+                            return "通知";
+                        case NotificationIconType.TIP:
+                            return "ヒント";
+                        case NotificationIconType.INFO:
+                        default:
+                            return "情報";
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/gui/app/directives/controls/notification-center.js
                     }
                 };
 

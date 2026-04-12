@@ -1,7 +1,10 @@
 "use strict";
 (function() {
+<<<<<<< HEAD
     const uuidv1 = require("uuid/v1");
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     angular.module("firebotApp").component("addOrEditEffectQueueModal", {
         template: `
             <scroll-sentinel element-class="edit-effect-queue-header"></scroll-sentinel>
@@ -25,6 +28,7 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <div class="mt-6">
                     <div class="modal-subheader pb-2 pt-0 px-0">動作モード</div>
                     <div>
@@ -46,6 +50,16 @@
                         </ui-select>
                     </div>
                 </div>
+=======
+                    <div class="modal-subheader pb-2 pt-0 px-0">動作モード</div>
+                <firebot-radio-cards
+                    options="$ctrl.queueModes"
+                    ng-model="$ctrl.effectQueue.mode"
+                    id="queueMode"
+                    name="queueMode"
+                    grid-columns="1"
+                ></firebot-radio-cards>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
                 <div class="mt-6" ng-show="$ctrl.effectQueue.mode != null && ($ctrl.effectQueue.mode ==='interval' || $ctrl.effectQueue.mode ==='auto')">
                     <div class="modal-subheader pb-2 pt-0 px-0">間隔/遅れ(秒)</div>

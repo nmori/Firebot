@@ -25,6 +25,7 @@ const model = {
                 </label>
             </div>
 
+<<<<<<< HEAD
             <ui-select ng-if="effect.selectionType && effect.selectionType === 'command'" ng-model="effect.commandId" theme="bootstrap" on-select="commandSelected($item, $model)">
                 <ui-select-match placeholder="コマンドを選択または検索... ">{{$select.selected.trigger}}</ui-select-match>
                 <ui-select-choices repeat="command.id as command in commands | filter: { trigger: $select.search }" style="position:relative;">
@@ -38,6 +39,25 @@ const model = {
                     <div ng-bind-html="sortTag.name | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
+=======
+            <div ng-if="effect.selectionType && effect.selectionType === 'command'">
+                <firebot-searchable-select
+                    ng-model="effect.commandId"
+                    placeholder="コマンドを選択または検索..."
+                    items="commands"
+                    item-name="trigger"
+                    on-select="commandSelected(item)"
+                />
+            </div>
+
+            <div ng-if="effect.selectionType && effect.selectionType === 'sortTag'">
+                <firebot-searchable-select
+                    ng-model="effect.sortTagId"
+                    placeholder="タグを選択または検索..."
+                    items="sortTags"
+                />
+            </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             <div ng-show="subcommands && !!subcommands.length" class="mt-4 pl-4">
                 <label class="control-fb control--radio">再実行可能になるまでの時間（基本コマンド）

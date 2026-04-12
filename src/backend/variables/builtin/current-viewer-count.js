@@ -1,6 +1,12 @@
 // Migration: done
 
+<<<<<<< HEAD:src/backend/variables/builtin/current-viewer-count.js
 "use strict";
+=======
+const logger = require("../../../../../backend/logwrapper");
+const accountAccess = require("../../../../common/account-access");
+const twitchApi = require("../../../../twitch-api/api");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/stream/current-viewer-count.ts
 
 const logger = require("../../logwrapper");
 const accountAccess = require("../../common/account-access");

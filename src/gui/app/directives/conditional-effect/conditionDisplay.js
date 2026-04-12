@@ -47,8 +47,13 @@
                 $ctrl.leftSideValueDisplay = "[未設定]";
 
                 function getRightSideValueDisplay() {
+<<<<<<< HEAD
                     return $q(async resolve => {
                         if ($ctrl.condition == null || $ctrl.condition.rightSideValue == null) {
+=======
+                    return $q(async (resolve) => {
+                        if ($ctrl.condition == null || $ctrl.condition.rightSideValue === null || $ctrl.condition.rightSideValue === undefined || $ctrl.condition.rightSideValue === "") {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             resolve("[未設定]");
                         } else {
                             const value = await $injector.invoke($ctrl.conditionType.getRightSideValueDisplay, {}, {
@@ -60,8 +65,13 @@
                 }
 
                 function getLeftSideValueDisplay() {
+<<<<<<< HEAD
                     return $q(async resolve => {
                         if ($ctrl.condition == null || $ctrl.condition.leftSideValue == null) {
+=======
+                    return $q(async (resolve) => {
+                        if ($ctrl.condition == null || $ctrl.condition.leftSideValue === null || $ctrl.condition.leftSideValue === undefined || $ctrl.condition.leftSideValue === "") {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             resolve("[未設定]");
                         } else {
                             const value = await $injector.invoke($ctrl.conditionType.getLeftSideValueDisplay, {}, {

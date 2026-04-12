@@ -22,11 +22,23 @@ const model: EffectType<{
         <eos-chatter-select effect="effect" title="アナウンスの内容"></eos-chatter-select>
 
         <eos-container header="Message" pad-top="true">
+<<<<<<< HEAD
             <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージを入力" rows="4" cols="40" replace-variables></textarea>
             <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">アナウンスメッセージは500文字を超えることはできません。このメッセージは、すべての置換変数が入力された後、長すぎる場合は自動的に複数のメッセージに分割されます。</div>
+=======
+            <firebot-input
+                model="effect.message"
+                use-text-area="true"
+                placeholder-text="Enter message"
+                rows="4"
+                cols="40"
+                menu-position="under"
+            />
+            <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">Announcement messages cannot be longer than 500 characters. This message will get automatically chunked into multiple messages if it is too long after all replace variables have been populated.</div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
-        <eos-container header="Color" pad-top="true">
+        <eos-container header="色" pad-top="true">
             <dropdown-select options="announcementColors" selected="effect.color"></dropdown-select>
         </eos-container>
     `,

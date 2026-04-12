@@ -48,7 +48,11 @@ const steam = {
                     .replace("{gameName}", gameDetails.name)
                     .replace("{price}", gameDetails.price || "不明")
                     .replace("{releaseDate}", gameDetails.releaseDate || "不明")
+<<<<<<< HEAD:src/backend/chat/commands/builtin/steam/steam.js
                     .replace("{metaCriticScore}", gameDetails.score || "不明")
+=======
+                    .replace("{metaCriticScore}", gameDetails.score.toString() || "不明")
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/steam/steam.ts
                     .replace("{steamUrl}", gameDetails.url)
                     .replace("{steamShortDescription}", gameDetails.shortDescription || "不明");
             }

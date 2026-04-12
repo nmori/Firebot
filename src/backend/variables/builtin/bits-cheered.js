@@ -3,8 +3,13 @@
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 const expressionish = require('expressionish');
 const moment = require("moment");
+<<<<<<< HEAD:src/backend/variables/builtin/bits-cheered.js
 const logger = require("../../logwrapper");
 const twitchApi = require("../../twitch-api/api");
+=======
+const logger = require("../../../../../backend/logwrapper");
+const twitchApi = require("../../../../twitch-api/api");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/cheer/bits-cheered.ts
 
 const model = {
     definition: {

@@ -42,6 +42,7 @@
         };
 
         // Saved the currency modal.
+<<<<<<< HEAD
         service.saveCurrency = function(currency, updateName = false) {
             const currencyId = currency.id,
                 allCurrencies = service.getCurrencies();
@@ -83,6 +84,10 @@
             ipcRenderer.send("createCurrency", currencyId);
             ipcRenderer.send("refreshCurrencyCache");
             ipcRenderer.send("refreshCurrencyCommands", {"action": "create", "currency": currency});
+=======
+        service.createCurrency = function(currency) {
+            backendCommunicator.send("currencies:create-currency", currency);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         };
 
         // Updated a pre-existing currency through the modal.

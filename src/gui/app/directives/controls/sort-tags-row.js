@@ -9,6 +9,7 @@
                 onUpdate: "&"
             },
             template: `
+<<<<<<< HEAD
                 <div class="sort-tags p-px">
                     <span ng-repeat="tag in sts.getSortTagsForItem($ctrl.context, $ctrl.item.sortTags) track by tag.id" class="sort-tag mr-2">
                         <span class="mb-px">{{tag.name}}</span>
@@ -28,6 +29,56 @@
                     >
                         <i class="far fa-plus"></i>
                     </button>
+=======
+                <div
+                    style="display: flex; position: relative;"
+                    uib-popover-template="'sortTagsPopover.html'"
+                    popover-is-open="$ctrl.isPopupVisible"
+                    popover-placement="auto bottom-left"
+                    popover-append-to-body="true"
+                    popover-trigger="'outsideClick'"
+                >
+                    <div class="sort-tags p-px" ng-class="{ 'hidden-tags': hasOverflow() }">
+                        <span ng-repeat="tag in getSortTags() track by tag.id" class="sort-tag mr-2">
+                            <span class="mb-px">{{tag.name}}</span>
+                        </span>
+                        <button
+                            role="button"
+                            class="sort-tag-add mb-px"
+                            aria-label="タグを追加"
+                        >
+                            <i class="far fa-plus"></i>
+                        </button>
+                    </div>
+                    <div style="position: absolute;" ng-show="hasOverflow()" uib-tooltip-html="getSortTagNames()">
+                        <button
+                            role="button"
+                            class="sort-tag-add mb-px"
+                            aria-label="タグを編集"
+                        >
+                            {{getSortTags().length}} tags <i class="far fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <script type="text/ng-template" id="sortTagsPopover.html">
+                        <div style="max-height: 315px; min-width: 175px; max-width: 225px; overflow-y: auto; overflow-x: hidden; padding: 10px 10px 0;">
+                            <label
+                                ng-repeat="tag in sts.getSortTags($ctrl.context) track by tag.id"
+                                class="control-fb control--checkbox"
+                                style="max-width: 200px; min-width: 150px;"
+                            > {{tag.name}}
+                                <input type="checkbox" ng-click="$ctrl.toggleSortTag(tag)" ng-checked="$ctrl.item.sortTags.includes(tag.id)">
+                                <div class="control__indicator"></div>
+                            </label>
+                            <div class="button mb-2" ng-click="editSortTags()" ng-if="sts.getSortTags($ctrl.context).length === 0">
+                                Add tags
+                            </div>
+                            <hr class="divider mt-1 mb-1" ng-if="sts.getSortTags($ctrl.context).length > 0" />
+                            <div class="button mt-4 mb-2" ng-click="editSortTags()" ng-if="sts.getSortTags($ctrl.context).length > 0">
+                                Add/edit tags
+                            </div>
+                        </div>
+                    </script>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
             `,
             controller: function($scope, sortTagsService) {

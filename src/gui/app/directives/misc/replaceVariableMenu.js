@@ -164,9 +164,18 @@
                                         <div class="category-text">{{category}}</div>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                                 <div style="padding: 10px;overflow-y: auto; height: 250px;width: 100%;">
                                     <div ng-repeat="variable in variables | orderBy:'handle' | variableCategoryFilter:activeCategory | variableSearch:variableSearchText" style="margin-bottom: 8px;">
                                         <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="追加する" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
+=======
+                                <div style="overflow-y: auto;width: 100%;" ng-style="{ height: hasMagicVariables ? '408px': '375px', padding: activeCategory === 'macros' ? '10px 0' : '10px' }">
+                                    <div ng-hide="activeCategory === 'magic' || activeCategory === 'macros'" ng-repeat="variable in variables | orderBy:'handle' | variableCategoryFilter:activeCategory | variableSearch:variableSearchText" style="margin-bottom: 8px;">
+                                        <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="追加する" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
+                                        <div ng-if="variable.aliases && variable.aliases.length > 0">
+                                            <div style="font-size: 12px; opacity: 0.75;">Aliases: {{getAliases(variable)}}</div>
+                                        </div>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                         <div class="muted" ng-bind-html="variable.description"></div>
                                         <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
                                             <collapsable-section show-text="使用例" hide-text="使用例" text-color="#0b8dc6">

@@ -112,6 +112,59 @@ const firebotEventSource = {
             manualMetadata: {
                 queueName: "Just Chatting"
             }
+<<<<<<< HEAD
+=======
+        },
+        {
+            id: "effect-queue-added",
+            name: "演出キュー追加",
+            description: "演出キューに新しい項目が追加されたとき。",
+            cached: false,
+            manualMetadata: {
+                queueName: "Just Chatting"
+            }
+        },
+        {
+            id: "effect-queue-status",
+            name: "演出キューのステータス変更",
+            description: "演出キューのステータスが変更されたとき。",
+            cached: false,
+            manualMetadata: {
+                queueName: "Just Chatting",
+                status: "paused"
+            }
+        },
+        {
+            id: "before-firebot-closed",
+            name: "Firebotが終了するとき",
+            description: "Firebotが終了するとき",
+            cached: false
+        },
+        {
+            id: "viewer-rank-updated",
+            name: "視聴者ランクが更新されたとき",
+            description: "視聴者のランクが更新されたとき。",
+            cached: false,
+            manualMetadata: {
+                username: "Firebot",
+                rankLadderName: "Rank Ladder",
+                newRankName: "New Rank",
+                previousRankName: "Previous Rank",
+                isPromotion: true,
+                isDemotion: false
+            }
+        },
+        {
+            id: "viewer-metadata-updated",
+            name: "Viewer Metadata Updated",
+            description: "When a viewer's metadata value is updated.",
+            cached: false,
+            manualMetadata: {
+                username: "Firebot",
+                metadataKey: "testKey",
+                metadataValue: "testValue"
+            }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
     ]
 };

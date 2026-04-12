@@ -16,7 +16,18 @@ const effect = {
         <p>この演出を使うと、実際のチャットメッセージを使わずにFirebotのチャットフィードにアラートを送ることができます。つまり、アラートはあなただけに表示されます。</p>
     </eos-container>
     <eos-container header="アラート" pad-top="true">
+<<<<<<< HEAD
         <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
+=======
+        <firebot-input
+            model="effect.message"
+            use-text-area="true"
+            placeholder-text="Enter message"
+            rows="4"
+            cols="40"
+            menu-position="under"
+        />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     </eos-container>
 
     `,

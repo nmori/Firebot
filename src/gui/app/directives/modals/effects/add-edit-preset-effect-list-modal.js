@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
 
     const uuidv1 = require("uuid/v1");
 
@@ -44,9 +44,15 @@
                     <collapsable-panel header="StreamDeckからの起動方法">
                         <p>Steps:</p>
                         <ol>
+<<<<<<< HEAD
                             <li>StreamDeckボタンに "ウェブサイト "アクションを追加します</li>
                             <li>URL枠に次のアドレスを設定します。<b>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</b></li>
                             <li>"背景でGETリクエストを実行 "にチェックを入れる</li>
+=======
+                            <li>Add "Website" Action to a StreamDeck button</li>
+                            <li>Set URL to <b>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</b></li>
+                            <li>Check "GET request in background"</li>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         </ol>
                     </collapsable-panel>
                 </div>
@@ -63,7 +69,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function(ngToast, utilityService, presetEffectListsService) {
+        controller: function (ngToast, utilityService, presetEffectListsService) {
             const $ctrl = this;
 
             $ctrl.isNewPresetList = true;
@@ -75,7 +81,7 @@
                 sortTags: []
             };
 
-            $ctrl.effectListUpdated = function(effects) {
+            $ctrl.effectListUpdated = function (effects) {
                 $ctrl.presetList.effects = effects;
             };
 
@@ -110,7 +116,7 @@
                 $ctrl.presetList.args.splice(index, 1);
             };
 
-            $ctrl.$onInit = function() {
+            $ctrl.$onInit = function () {
                 if ($ctrl.resolve.presetList) {
                     $ctrl.presetList = JSON.parse(
                         angular.toJson($ctrl.resolve.presetList)
@@ -128,7 +134,7 @@
                 }
             };
 
-            $ctrl.save = function() {
+            $ctrl.save = function () {
                 if ($ctrl.presetList.name == null || $ctrl.presetList.name === "") {
                     ngToast.create("Please provide a name for this Preset List");
                     return;

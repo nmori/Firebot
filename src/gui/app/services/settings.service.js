@@ -27,6 +27,7 @@
                 settingsCache[path] = data;
             });
 
+<<<<<<< HEAD
             function getSettingsFile() {
                 return profileManager.getJsonDbInProfile("/settings");
             }
@@ -550,6 +551,10 @@
                 // Ensure port is a number.
                 if (!Number.isInteger(port)) {
                     return;
+=======
+                if (settingsCache[settingPath] == null || forceCacheUpdate === true) {
+                    settingsCache[settingPath] = backendCommunicator.fireEventSync("settings:get-setting", settingName);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 }
 
                 // Save to settings file for app front end
@@ -581,6 +586,7 @@
                 utilityService.showOverlayInfoModal(instanceName);
             };
 
+<<<<<<< HEAD
             service.showOverlayEventsModal = function() {
                 utilityService.showOverlayEventsModal();
             };
@@ -794,6 +800,8 @@
                 pushDataToFile('/settings/minimizeToTray', minimizeToTray === true);
             };
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             return service;
         });
 }());

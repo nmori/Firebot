@@ -13,6 +13,7 @@ const model = {
     },
     globalSettings: {},
     optionsTemplate: `
+<<<<<<< HEAD
         <eos-container>
             <p>現在の演出リストのうち、演出中のものを実行停止します。</p>
 
@@ -22,6 +23,53 @@ const model = {
                     <div class="control__indicator"></div>
                 </label>
             </div>
+=======
+        <eos-container header="Target">
+            <firebot-radios
+                options="targetOptions"
+                model="effect.target"
+            />
+        </eos-container>
+
+        <eos-container header="Effect List" ng-if="effect.target === 'specificList'" pad-top="true">
+            <firebot-input
+                input-title="Effect List ID"
+                title-tooltip="You can copy the ID of an effect list via its three-dot menu in the top right corner"
+                model="effect.listId"
+                placeholder-text="Enter ID"
+                data-type="text"
+            />
+        </eos-container>
+
+        <eos-container header="Effect" ng-if="effect.target === 'specificEffect'" pad-top="true">
+            <firebot-input
+                input-title="Effect ID"
+                title-tooltip="You can copy the ID of an effect via its three-dot menu"
+                model="effect.effectId"
+                placeholder-text="Enter ID"
+                data-type="text"
+            />
+        </eos-container>
+
+        <eos-container header="Queue" ng-if="effect.target === 'queueActiveEffectLists'" pad-top="true">
+            <firebot-searchable-select
+                ng-model="effect.queueId"
+                placeholder="Select queue"
+                items="queueOptions"
+            />
+        </eos-container>
+
+        <eos-container
+            header="Options"
+            ng-if="effect.target !== 'specificEffect'"
+            pad-top="true"
+        >
+            <firebot-checkbox
+                label="Bubble to parent effect lists"
+                tooltip="Bubble the stop effect execution request to all parent effect lists (useful if nested within a conditional effect, etc)"
+                model="effect.bubbleStop"
+            />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
     `,
     optionsController: () => {},

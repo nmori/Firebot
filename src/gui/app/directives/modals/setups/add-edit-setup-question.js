@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <h3>質問 <tooltip text="'これはユーザーがインポートする際に尋ねられる質問です'"/></h3>
                     <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.question.question" placeholder="質問を入れてください"></textarea>
-                    
+
                     <h3>置換タグ <tooltip text="'Firebotは、タグをユーザーの返答に置換します。タグは何でもかまいませんが、一般的でない文字を使用することをお勧めします。 例： %WagerAmount%'"/></h3>
                     <input type="text" class="form-control" ng-model="$ctrl.question.replaceToken" placeholder="テキストを入力" />
 
@@ -20,8 +20,13 @@
                     <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.question.helpText" placeholder="任意"></textarea>
 
                     <h3>回答の種類</h3>
+<<<<<<< HEAD
                     <select 
                         class="fb-select" 
+=======
+                    <select
+                        class="fb-select"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         ng-model="$ctrl.question.answerType"
                         ng-change="$ctrl.question.defaultAnswer = undefined"; 
                         ng-options="answerType.id as answerType.name for answerType in $ctrl.answerTypes">

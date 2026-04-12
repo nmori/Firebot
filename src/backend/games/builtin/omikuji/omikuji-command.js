@@ -2,12 +2,9 @@
 
 const util = require("../../../utility");
 const twitchChat = require("../../../chat/twitch-chat");
-const commandManager = require("../../../chat/commands/CommandManager");
+const commandManager = require("../../../chat/commands/command-manager");
 const gameManager = require("../../game-manager");
 const currencyDatabase = require("../../../database/currencyDatabase");
-const customRolesManager = require("../../../roles/custom-roles-manager");
-const teamRolesManager = require("../../../roles/team-roles-manager");
-const twitchRolesManager = require("../../../../shared/twitch-roles");
 const omikujiMachine = require("./omikuji-machine");
 const logger = require("../../../logwrapper");
 const moment = require("moment");
@@ -31,16 +28,15 @@ const omikujiCommand = {
         subCommands: [
         ]
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
 
-        const { userCommand,chatMessage } = event;
+        const { userCommand, chatMessage } = event;
 
         const omikujiSettings = gameManager.getGameSettings("firebot-omikuji");
         const chatter = omikujiSettings.settings.chatSettings.chatter;
-        const username = chatMessage.username;
-        const displayName = chatMessage.displayName;
-
-        let wagerAmount = omikujiSettings.settings.currencySettings.defaultWager;
+        const username = userCommand.commandSender;
+        const displayName = chatMessage.userDisplayName;
+        const wagerAmount = omikujiSettings.settings.currencySettings.defaultWager;
 
         if (activeOmikuji.get(username)) {
             if (omikujiSettings.settings.generalMessages.alreadyOmikujining) {

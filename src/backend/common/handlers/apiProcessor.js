@@ -11,13 +11,14 @@ const axios = axiosDefault.create({
 
 // Capitalize Name
 function toTitleCase(str) {
-    return str.replace(/\w\S*/g, function(txt) {
+    return str.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 }
 
 async function randomAdvice() {
     const url = "http://api.adviceslip.com/advice";
+<<<<<<< HEAD
 
     return await axios.get(url)
         .then(function(response) {
@@ -33,12 +34,28 @@ async function randomAdvice() {
             );
             return "[Error getting API response]";
         });
+=======
+    try {
+        const response = await fetch(url);
+        const advice = (await response.json()).slip["advice"];
+        logger.info(`Advice: ${advice}`);
+        return advice;
+    } catch (err) {
+        logger.debug(err.message);
+        frontendCommunicator.send(
+            "error",
+            "アドバイスAPIに接続できませんでした。システムダウンしている可能性があります。"
+        );
+        return "[Error getting API response]";
+    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 }
 
 async function randomCatFact() {
     //http://catfacts-api.appspot.com/api/facts
     const url = "https://catfact.ninja/fact";
 
+<<<<<<< HEAD
     return await axios.get(url)
         .then(function(response) {
             const fact = response.data.fact;
@@ -53,12 +70,28 @@ async function randomCatFact() {
             );
             return "[API応答エラー]";
         });
+=======
+    try {
+        const response = await fetch(url);
+        const fact = (await response.json()).fact;
+        logger.info(`Cat Fact: ${fact}`);
+        return fact;
+    } catch (err) {
+        logger.debug(err.message);
+        frontendCommunicator.send(
+            "error",
+            "チャットに猫の情報を送信する際にエラーが発生しました。"
+        );
+        return "[API応答エラー]";
+    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 }
 
 async function randomDogFact() {
     //https://dog-api.kinduff.com/api/facts
     const url = "https://dog-api.kinduff.com/api/facts";
 
+<<<<<<< HEAD
     return await axios.get(url)
         .then(function(response) {
             const fact = response.data.facts[0];
@@ -73,6 +106,21 @@ async function randomDogFact() {
             );
             return "[API応答エラー]";
         });
+=======
+    try {
+        const response = await fetch(url);
+        const fact = (await response.json()).facts[0];
+        logger.info(`Dog Fact: ${fact}`);
+        return fact;
+    } catch (err) {
+        logger.debug(err.message);
+        frontendCommunicator.send(
+            "error",
+            "チャットに犬の情報を送信する際にエラーが発生しました。"
+        );
+        return "[API応答エラー]";
+    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 }
 
 async function randomPokemon() {
@@ -92,6 +140,7 @@ async function randomPokemon() {
             const movename = move.name;
             const text = `I choose you ${nameCap}! ${nameCap} used ${movename}! ${info}`;
 
+<<<<<<< HEAD
             logger.info(`Pokemon: ${text}`);
             return text;
         })
@@ -103,12 +152,25 @@ async function randomPokemon() {
             );
             return "[API応答エラー]";
         });
+=======
+        logger.info(`Pokemon: ${text}`);
+        return text;
+    } catch (err) {
+        logger.debug(err.message);
+        frontendCommunicator.send(
+            "error",
+            "チャットにポケモン情報を送信する際にエラーが発生しました。"
+        );
+        return "[API応答エラー]";
+    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 }
 
 async function numberTrivia() {
     // http://numbersapi.com/random
     const url = "http://numbersapi.com/random";
 
+<<<<<<< HEAD
     return await axios.get(url)
         .then(function(response) {
             logger.info(`Random Number Trivia:${response.data}`);
@@ -122,6 +184,21 @@ async function numberTrivia() {
             );
             return "[API応答エラー]";
         });
+=======
+    try {
+        const response = await fetch(url);
+        const data = await response.text();
+        logger.info(`Random Number Trivia: ${data}`);
+        return data;
+    } catch (err) {
+        logger.debug(err.message);
+        frontendCommunicator.send(
+            "error",
+            "チャットにトリビア情報を送信する際にエラーが発生しました。"
+        );
+        return "[API応答エラー]";
+    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 }
 
 async function dadJoke() {
@@ -133,6 +210,7 @@ async function dadJoke() {
         }
     };
 
+<<<<<<< HEAD
     return await axios.get(options.url, options)
         .then(function(response) {
             const joke = response.data.joke;
@@ -147,6 +225,21 @@ async function dadJoke() {
             );
             return "[API応答エラー]";
         });
+=======
+    try {
+        const response = await fetch(options.url, options);
+        const joke = (await response.json()).joke;
+        logger.info(`Dad Joke: ${joke}`);
+        return joke;
+    } catch (err) {
+        logger.debug(err.message);
+        frontendCommunicator.send(
+            "error",
+            "チャットにジョーク情報を送信する際にエラーが発生しました。"
+        );
+        return "[API応答エラー]";
+    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 }
 
 // API Processor

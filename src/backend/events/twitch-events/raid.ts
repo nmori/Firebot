@@ -7,9 +7,13 @@ export function triggerRaid(
     viewerCount = 0
 ): void {
     eventManager.triggerEvent("twitch", "raid", {
+<<<<<<< HEAD
         username: username,
         displayName:userDisplayName,
         userIdName: username,
+=======
+        username,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         userId,
         viewerCount
     });

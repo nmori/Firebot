@@ -26,8 +26,8 @@ const integrationDefinition = {
         auth: {
             type: "code",
             tokenHost: 'https://streamlabs.com',
-            tokenPath: '/api/v1.0/token',
-            authorizePath: '/api/v1.0/authorize'
+            tokenPath: '/api/v2.0/token',
+            authorizePath: '/api/v2.0/authorize'
         },
         autoRefreshToken: false,
         scopes: 'donations.read socket.token wheel.write credits.write'
@@ -36,6 +36,7 @@ const integrationDefinition = {
 
 const getStreamlabsSocketToken = async (accessToken) => {
     try {
+<<<<<<< HEAD
         const response = await axios.get("https://streamlabs.com/api/v1.0/socket/token",
             {
                 params: {
@@ -45,6 +46,16 @@ const getStreamlabsSocketToken = async (accessToken) => {
 
         if (response && response.data && response.data.socket_token) {
             return response.data.socket_token;
+=======
+        const response = await fetch(`https://streamlabs.com/api/v2.0/socket/token`, {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data.socket_token;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
     } catch (error) {
         logger.error("Failed to get socket token for Streamlabs", error.message);

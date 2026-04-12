@@ -1,34 +1,9 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
-const webServer = require("../../../server/http-server-manager");
-const fs = require('fs-extra');
+
 const logger = require("../../logwrapper");
-const path = require("path");
-const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
-const { wait } = require("../../utility");
-const axiosDefault = require("axios").default;
 const twitchChat = require("../../chat/twitch-chat");
-
-const axios = axiosDefault.create({
-    headers: {
-        'User-Agent': 'Firebot v5 - YNCNEO'
-    }
-});
-
-axios.interceptors.request.use(request => {
-    //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-    return request;
-});
-
-axios.interceptors.response.use(response => {
-    //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-    return response;
-});
-
-const voicelists = [];
 
 const playSound = {
     definition: {
@@ -94,52 +69,36 @@ const playSound = {
         <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
         
     `,
-    optionsController: async($scope) =>  {
-        const axiosDefault = require("axios").default;
+    optionsController: async ($scope) => {
 
-        axios.interceptors.request.use(request => {
-            //logger.debug('HTTP Request Effect [Request]: ', JSON.parse(JSON.stringify(request)));
-            return request;
-        });
-
-        axios.interceptors.response.use(response => {
-            //logger.debug('HTTP Request Effect [Response]: ', JSON.parse(JSON.stringify(response)));
-            return response;
-        });
-
-        $scope.successEffectsUpdated = async(effects) =>{
+        $scope.successEffectsUpdated = async (effects) => {
 
         };
 
-        if ($scope.effect.port == null||$scope.effect.port === "") {
+        if ($scope.effect.port == null || $scope.effect.port === "") {
             $scope.effect.port = 8080;
-        }       
-    
+        }
+
     },
     optionsValidator: effect => {
         const errors = [];
 
-        if (effect.port == null || effect.port ==="") {
+        if (effect.port == null || effect.port === "") {
             errors.push("ポート番号を指定してください");
         }
 
         return errors;
     },
-    onTriggerEvent:  async ({ effect, trigger})  => {
+    onTriggerEvent: async ({ effect, trigger }) => {
 
         try {
             const { EffectTrigger } = require("../../../shared/effect-constants");
             const chatHelpers = require("../../chat/chat-helpers");
             const commandHandler = require("../../chat/commands/commandHandler");
 
-            // HTTP header
-            var headers = {
-                'Content-Type': 'application/json'
-            };
-
             const crypto = require("crypto");
 
-            const voiceQuery={
+            const voiceQuery = {
                 operation: 'gpt',
                 params: [
                     {
@@ -153,15 +112,18 @@ const playSound = {
                 ]
             };
 
-            const response = await axios({
-                method:'post',
-                url: 'http://127.0.0.1:'+String(effect.port)+'/',
-                data : JSON.stringify(voiceQuery),
-                header: headers
-            });
+            const response = await fetch(
+                `http://127.0.0.1:${effect.port}/`,
+                {
+                    method: 'POST',
+                    header: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(voiceQuery)
+                }
+            );
 
-            if(effect.status==='success')
-            {
+            let responseData = JSON.parse(await response.text());
+
+            if (effect.status === 'success') {
                 let messageId = null;
                 if (trigger.type === EffectTrigger.COMMAND) {
                     messageId = trigger.metadata.chatMessage.id;
@@ -178,7 +140,7 @@ const playSound = {
                     const firebotMessage = await chatHelpers.buildStreamerFirebotChatMessageFromText(message);
                     commandHandler.handleChatMessage(firebotMessage);
                 }
-            }            
+            }
         } catch (error) {
             logger.error("Error running http request", error.message);
         }

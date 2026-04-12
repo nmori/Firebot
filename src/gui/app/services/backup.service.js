@@ -27,8 +27,13 @@
             service.openBackupZipFilePicker = function() {
                 return $q.when(backendCommunicator.fireEventAsync("open-file-browser", {
                     options: {
+<<<<<<< HEAD
                         title: "バックアップデータ(zip)の選択",
                         buttonLabel: "バックアップデータの選択",
+=======
+                        title: "Select Firebot backup",
+                        buttonLabel: "Select Backup",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         filters: [{ name: "Zip", extensions: ["zip"] }]
                     },
                     currentPath: BACKUPS_FOLDER_PATH
@@ -132,6 +137,7 @@
 
             service.restoreBackup = async (backupFilePath) => {
 
+<<<<<<< HEAD
                 // Validate backup zip
                 try {
                     const valid = await validateBackupZip(backupFilePath);
@@ -175,6 +181,97 @@
 
                 return {
                     success: true
+=======
+            service.showBackupListModal = function() {
+                const showBackupListModalContext = {
+                    templateUrl: "backupListModal.html",
+                    size: "sm",
+                    controllerFunc: (
+                        $scope,
+                        $uibModalInstance,
+                        $q,
+                        utilityService
+                    ) => {
+                        $scope.backups = [];
+
+                        $scope.loadingBackups = true;
+                        $q
+                            .when(backendCommunicator.fireEventAsync("backups:get-backup-list"))
+                            .then((backups) => {
+                                const formattedBackups = backups.map((b) => {
+                                    const backupMoment = moment(b.backupDate);
+                                    return {
+                                        name: b.name,
+                                        path: b.path,
+                                        backupTime: b.backupDate,
+                                        backupDateDisplay: backupMoment.format(
+                                            "MMM Do, h:mm A"
+                                        ),
+                                        backupDateFull: backupMoment.format(
+                                            "ddd, MMM Do YYYY, h:mm:ss A"
+                                        ),
+                                        fromNowDisplay: utilityService.capitalize(
+                                            backupMoment.fromNow()
+                                        ),
+                                        dayDifference: moment().diff(backupMoment, "days"),
+                                        version: b.version,
+                                        size: Math.round(b.size / 1000),
+                                        isManual: b.isManual,
+                                        neverDelete: b.neverDelete
+                                    };
+                                });
+
+                                $scope.loadingBackups = false;
+                                $scope.backups = formattedBackups;
+                            });
+
+                        $scope.togglePreventDeletion = (backup) => {
+                            backendCommunicator.send("backups:toggle-backup-prevent-deletion", backup.path);
+                        };
+
+                        $scope.deleteBackup = function(index, backup) {
+                            utilityService
+                                .showConfirmationModal({
+                                    title: "Delete Backup",
+                                    question: "Are you sure you want to delete this backup?",
+                                    confirmLabel: "Delete"
+                                })
+                                .then((confirmed) => {
+                                    if (confirmed) {
+                                        backendCommunicator.fireEventAsync("backups:delete-backup", backup.path)
+                                            .then((success) => {
+                                                if (success) {
+                                                    $scope.backups.splice(index, 1);
+                                                }
+                                            });
+                                    }
+                                });
+                        };
+
+                        $scope.restoreBackup = function(backup) {
+                            utilityService
+                                .showConfirmationModal({
+                                    title: "Restore From Backup",
+                                    question: "Are you sure you'd like to restore from this backup?",
+                                    confirmLabel: "Restore"
+                                })
+                                .then((confirmed) => {
+                                    if (confirmed) {
+                                        $uibModalInstance.dismiss("cancel");
+                                        service.initiateBackupRestore(backup.path);
+                                    }
+                                });
+                        };
+
+                        $scope.openBackupFolder = function() {
+                            service.openBackupFolder();
+                        };
+
+                        $scope.dismiss = function() {
+                            $uibModalInstance.dismiss("cancel");
+                        };
+                    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 };
             };
 

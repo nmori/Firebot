@@ -48,6 +48,7 @@
 
             service.queueModes = [
                 {
+<<<<<<< HEAD
                     id: "custom",
                     display: "カスタム",
                     description: "個々の演出リストごとに定義されたカスタム時間を待つ",
@@ -63,6 +64,26 @@
                     id: "interval",
                     display: "間隔",
                     description: "設定した間隔で演出リストを実行",
+=======
+                    value: "auto",
+                    label: "Sequential",
+                    display: "キュー",
+                    description: "キュー内のエフェクトリストを順番に実行します。優先度の高いアイテムが優先度の低いアイテムより先に追加される。オプションのdelayのデフォルトは0sec。",
+                    iconClass: "fa-sort-numeric-down"
+                },
+                {
+                    value: "custom",
+                    label: "Custom",
+                    display: "カスタム",
+                    description: "各エフェクト・リストで定義されたカスタム時間だけ待ちます",
+                    iconClass: "fa-clock"
+                },
+                {
+                    value: "interval",
+                    label: "Interval",
+                    display: "間隔",
+                    description: "設定した間隔で演出リストを実行する。",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     iconClass: "fa-stopwatch"
                 }
             ];

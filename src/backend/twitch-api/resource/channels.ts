@@ -104,7 +104,33 @@ export class TwitchChannelsApi {
             return true;
         } catch (error) {
             /** @ts-ignore */
+<<<<<<< HEAD
             renderWindow.webContents.send("error", `AdBreakの起動に失敗しました。: ${error.message}`);
+=======
+            frontendCommunicator.send("error", `Failed to trigger ad-break because: ${error.message}`);
+            return false;
+        }
+    }
+
+    /**
+     * Snoozes the next scheduled mid-roll ad break by 5 minutes.
+     */
+    async snoozeAdBreak(): Promise<boolean> {
+        try {
+            const streamer = accountAccess.getAccounts().streamer;
+
+            const isOnline = await this.getOnlineStatus(streamer.userId);
+            if (isOnline && streamer.broadcasterType !== "") {
+                const result = await this._streamerClient.channels.snoozeNextAd(streamer.userId);
+                logger.debug(`Ads were snoozed. ${result.snoozeCount} snooze${result.snoozeCount !== 1 ? "s" : ""} remaining. Next scheduled ad break: ${result.nextAdDate.toLocaleTimeString()}`);
+            } else {
+                logger.warn(`Unable to snooze ads. ${isOnline !== true ? "Stream is offline." : "Streamer must be affiliate or partner."}`);
+            }
+
+            return true;
+        } catch (error) {
+            logger.error("Failed to snooze ads", error.message);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             return false;
         }
     }

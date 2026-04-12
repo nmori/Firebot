@@ -170,7 +170,7 @@ const effect = {
         <eos-container header="視聴者のID" pad-top="true">
             <firebot-input model="effect.username" placeholder-text="視聴者IDを入力" />
             <p ng-show="trigger == 'command'" class="muted" style="font-size:11px;margin-top:6px;">
-                <b>情報:</b> 一般的には <b>$user</b> 、<b>$userIdName</b> あたりをつかいます 
+                <b>情報:</b> 一般的には <b>$user</b> 、<b>$username</b> あたりをつかいます 
             </p>
         </eos-container>
         <eos-container header="継続時間" pad-top="true">
@@ -262,8 +262,7 @@ const effect = {
             return;
         }
 
-        effect.username = user.username;
-        effect.displayName = user.displayName;
+        effect.username = user.displayName;
 
         const channelInfo = await twitchApi.channels.getChannelInformation(user.id);
         if (channelInfo == null) {
@@ -324,7 +323,7 @@ const effect = {
                         <div style="padding: 0 10%;">
                             <div>
                                 <div>
-                                    <div id="${fittyId}" class="firebot-shoutout-username" style="color: ${data.textColor}">${data.displayName}</div>
+                                    <div id="${fittyId}" class="firebot-shoutout-username" style="color: ${data.textColor}">${data.username}</div>
                                 </div>
                             </div>
                         </div>

@@ -31,10 +31,27 @@
                 $ctrl.display = null;
 
                 $ctrl.timeUnits = [
+<<<<<<< HEAD
                     "秒",
                     "分",
                     "時間",
                     "日"
+=======
+                    "Seconds",
+                    "Minutes",
+                    "Hours",
+                    "Days",
+                    "Weeks",
+                    "Months",
+                    "Years",
+                    "秒",
+                    "分",
+                    "時間",
+                    "日",
+                    "週",
+                    "月",
+                    "年"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 ];
 
                 // units of time in secs
@@ -57,6 +74,18 @@
                 $ctrl.selectedTimeUnit = $ctrl.timeUnits[0];
 
                 function determineTimeUnit(seconds) {
+<<<<<<< HEAD
+=======
+                    if (seconds % YEAR === 0) {
+                        return "年";
+                    }
+                    if (seconds % MONTH === 0) {
+                        return "月";
+                    }
+                    if (seconds % WEEK === 0) {
+                        return "週";
+                    }
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     if (seconds % DAY === 0) {
                         return "日";
                     }

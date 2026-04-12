@@ -347,8 +347,11 @@ class FirebotChatHelpers {
         const firebotChatMessage: FirebotChatMessage = {
             id: msg.tags.get("id"),
             username: msg.userInfo.userName,
+<<<<<<< HEAD
             displayName: msg.userInfo.displayName,
             userIdName: msg.userInfo.userName,
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             userId: msg.userInfo.userId,
             customRewardId: msg.tags.get("custom-reward-id") || undefined,
             isHighlighted: msg.tags.get("msg-id") === "highlighted-message",
@@ -377,12 +380,18 @@ class FirebotChatHelpers {
             isCheer: msg.isCheer,
             badges: [],
             parts: [],
+<<<<<<< HEAD
             roles: [
                 ...(msg.userInfo.isBroadcaster ? ['broadcaster'] : []),
                 ...(msg.userInfo.isFounder || msg.userInfo.isSubscriber ? ['sub'] : []),
                 ...(msg.userInfo.isMod ? ['mod'] : []),
                 ...(msg.userInfo.isVip ? ['vip'] : [])
             ],
+=======
+            roles: [],
+            isSharedChatMessage,
+            sharedChatRoomId: isSharedChatMessage ? sharedChatRoomId : null
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         };
 
         const profilePicUrl = await this.getUserProfilePicUrl(firebotChatMessage.userId);
@@ -468,8 +477,11 @@ class FirebotChatHelpers {
         const firebotChatMessage: FirebotChatMessage = {
             id: id,
             username: extensionName,
+<<<<<<< HEAD
             userIdName: extensionName,
             displayName: extensionName,
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             userId: extensionName,
             rawText: text,
             profilePicUrl: extensionIconUrl,
@@ -503,12 +515,20 @@ class FirebotChatHelpers {
         }));
 
         const viewerFirebotChatMessage: FirebotChatMessage = {
+<<<<<<< HEAD
             id: msg.messageId,
             username: msg.senderName,
             displayName: msg.senderDisplayName,
             userIdName: msg.senderName,
             userId: msg.senderId,
             rawText: msg.messageContent,
+=======
+            id: msg.message_id,
+            username: msg.user_login,
+            userId: msg.user_id,
+            userDisplayName: msg.user_name,
+            rawText: msg.message.text,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             profilePicUrl: profilePicUrl,
             whisper: false,
             action: false,

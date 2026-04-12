@@ -112,9 +112,15 @@
               chat-size-style="{{customFontSizeStyle}}"
             />
         </div>
+<<<<<<< HEAD
         <div class="thread-replying-to" ng-if="threadDetails.replyToMessageId != threadDetails.threadParentMessageId">
           <span><span style="font-weight: 800">@{{threadDetails.replyToUserDisplayName}}</span>に返信：</span>
           <button class="btn btn-link" ng-click="threadDetails.replyToMessageId = threadDetails.threadParentMessageId">キャンセル</button>
+=======
+        <div class="thread-replying-to" ng-if="cms.threadDetails.replyToMessageId != cms.threadDetails.threadParentMessageId">
+          <span><span style="font-weight: 800">@{{cms.threadDetails.replyToUserDisplayName}}</span>へ返信</span>
+          <button class="btn btn-link" ng-click="cms.threadDetails.replyToMessageId = cms.threadDetails.threadParentMessageId">Cancel</button>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </div>
       </div>
     </div>
@@ -129,7 +135,7 @@
           <span
             class="dropdown-toggle chatter-dropdown"
             data-toggle="dropdown"
-            uib-tooltip="Chat as"
+            uib-tooltip="送信者を選択"
             tooltip-placement="left"
             tooltip-append-to-body="true"
           >
@@ -139,9 +145,15 @@
             <div class="fb-arrow down mx-4 mb-1"></div>
           </span>
           <ul class="dropdown-menu">
+<<<<<<< HEAD
             <li ng-click="chatSender = 'Streamer'"><a href>配信者</a></li>
             <li ng-click="chatSender = 'Bot'" ng-show="botLoggedIn">
               <a href>Bot</a>
+=======
+            <li ng-click="cms.chatSender = 'Streamer'"><a>Streamer</a></li>
+            <li ng-click="cms.chatSender = 'Bot'" ng-show="botLoggedIn">
+              <a>Bot</a>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             </li>
           </ul>
         </div>
@@ -226,7 +238,11 @@
             >
           </li>
           <li>
+<<<<<<< HEAD
             <a href ng-click="afs.showEditActivityFeedEventsModal()"
+=======
+            <a ng-click="afs.showEditActivityFeedEventsModal()"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
               ><i class="far fa-toggle-off mr-4" aria-label="イベント編集"></i>
               イベント編集</a
             >

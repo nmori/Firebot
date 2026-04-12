@@ -36,10 +36,19 @@ const randomEffect = {
         <p>以下の演出リストからランダム実行する。.</p>
 
         <div style="padding-top: 10px;">
+<<<<<<< HEAD
             <label class="control-fb control--checkbox"> 繰り返さない <tooltip text="'チェックした場合、リスト内の各演出は、再度シャッフルされる前に一度だけ再生され、同じ演出が連続して繰り返されるのを防ぎます。'"></tooltip>
                 <input type="checkbox" ng-model="effect.dontRepeat">
                 <div class="control__indicator"></div>
             </label>
+=======
+            <firebot-checkbox
+                model="effect.weighted"
+                label="Weighted Chances"
+                tooltip="チェックすると、演出確率は重みの値によって決まります。チェックを外した場合、各演出は同じ確率で選択されます。"
+                style="margin-bottom: 0"
+            />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </div>
     </eos-container>
 
@@ -55,6 +64,15 @@ const randomEffect = {
 
     <eos-container header="オプション" pad-top="true">
         <firebot-checkbox
+<<<<<<< HEAD
+=======
+            ng-hide="effect.weighted"
+            model="effect.dontRepeat"
+            label="繰り返さない"
+            tooltip="チェックした場合、リスト内の各演出は、再度シャッフルされる前に一度だけ再生され、同じ演出が連続して繰り返されるのを防ぎます。"
+        />
+        <firebot-checkbox
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             model="effect.bubbleOutputs"
             label="親リストに演出出力を適用する"
             tooltip="演出出力を親演出リストで利用可能にするかどうか"
@@ -66,7 +84,7 @@ const randomEffect = {
    */
     optionsController: $scope => {
 
-        $scope.effectListUpdated = function(effects) {
+        $scope.effectListUpdated = function (effects) {
             $scope.effect.effectList = effects;
         };
     },

@@ -10,7 +10,7 @@ const integrationDefinition = {
     linkType: "id",
     idDetails: {
         steps:
-`1. ナビリンクの**Your Page** からExtraLifeページに移動します。
+            `1. ナビリンクの**Your Page** からExtraLifeページに移動します。
 
 2. URLバーにある「参加者ID」を探してください \`participantID=\`.
 
@@ -38,7 +38,12 @@ class ExtraLifeIntegration extends EventEmitter {
                     manualMetadata: {
                         from: "ExtraLife",
                         formattedDonationAmount: 5,
+<<<<<<< HEAD
                         donationMessage: "テストメッセージ"
+=======
+                        donationAmount: 5,
+                        donationMessage: "Test message"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     },
                     isIntegration: true,
                     queued: true,
@@ -82,7 +87,7 @@ class ExtraLifeIntegration extends EventEmitter {
         extraLifePollService.stop();
         this.emit("disconnected", integrationDefinition.id);
     }
-    link() {}
+    link() { }
     unlink() {
         if (this.connected) {
             this.connected = false;

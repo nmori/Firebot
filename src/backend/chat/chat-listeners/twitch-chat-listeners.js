@@ -40,9 +40,15 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
         frontendCommunicator.send("twitch:chat:message", firebotChatMessage);
 
         twitchEventsHandler.announcement.triggerAnnouncement(
+<<<<<<< HEAD
             firebotChatMessage.userIdName,
             firebotChatMessage.userId,
             firebotChatMessage.displayName,
+=======
+            firebotChatMessage.username,
+            firebotChatMessage.userId,
+            firebotChatMessage.userDisplayName,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             firebotChatMessage.roles,
             firebotChatMessage.rawText
         );
@@ -67,9 +73,14 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
                 messageText: firebotChatMessage.rawText,
                 user: {
                     id: firebotChatMessage.userId,
+<<<<<<< HEAD
                     userIdName: firebotChatMessage.useridname,
                     username: firebotChatMessage.useridname,
                     displayName:firebotChatMessage.displayName
+=======
+                    username: firebotChatMessage.username,
+                    displayName: firebotChatMessage.userDisplayName
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 },
                 reward: {
                     id: HIGHLIGHT_MESSAGE_REWARD_ID,
@@ -116,6 +127,10 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
 
         twitchEventsHandler.whisper.triggerWhisper(
             msg.userInfo.userName,
+<<<<<<< HEAD
+=======
+            msg.userInfo.userId,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             msg.userInfo.displayName,
             messageText,
             accountType
@@ -159,6 +174,7 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     streamerChatClient.onResub(async (_channel, _user, subInfo, msg) => {
         try {
             if (subInfo.originalGiftInfo != null) {
+                logger.info(`Gifted sub resub:${JSON.stringify(subInfo)}`);
                 twitchEventsHandler.sub.triggerSub(
                     msg.userInfo.userName,
                     subInfo.userId,
@@ -189,8 +205,8 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     });
 
     streamerChatClient.onCommunitySub((_channel, _user, subInfo) => {
+        logger.info(`Gifted onCommunitySub :${JSON.stringify(subInfo)}`);
         twitchEventsHandler.giftSub.triggerCommunitySubGift(
-            subInfo.gifterUserName ?? "anonymous",
             subInfo.gifterDisplayName ?? "匿名",
             subInfo.plan,
             subInfo.count
@@ -198,14 +214,13 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     });
 
     streamerChatClient.onSubGift((_channel, _user, subInfo) => {
+        logger.info(`Gifted onSubGift :${JSON.stringify(subInfo)}`);
         twitchEventsHandler.giftSub.triggerSubGift(
-            subInfo.gifterUserName ?? "anonymous",
             subInfo.gifterDisplayName ?? "匿名",
             subInfo.gifter,
             subInfo.gifterUserId,
             !subInfo.gifterUserId,
             subInfo.displayName,
-            subInfo.userName,
             subInfo.plan,
             subInfo.giftDuration,
             subInfo.months,
@@ -216,9 +231,14 @@ exports.setupChatListeners = (streamerChatClient, botChatClient) => {
     streamerChatClient.onGiftPaidUpgrade((_channel, _user, subInfo, msg) => {
         twitchEventsHandler.giftSub.triggerSubGiftUpgrade(
             msg.userInfo.userName,
+<<<<<<< HEAD
             subInfo.displayName,
             subInfo.userId,
             subInfo.gifterUserName,
+=======
+            subInfo.userId,
+            subInfo.displayName,
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             subInfo.gifterDisplayName,
             subInfo.plan
         );

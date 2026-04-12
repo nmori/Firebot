@@ -1,5 +1,5 @@
 "use strict";
-(function() {
+(function () {
 
     const uuidv1 = require("uuid/v1");
 
@@ -60,7 +60,17 @@
                         </div>
                     </div>
                     <div class="ml-3.5" ng-show="$ctrl.restrictionData.restrictions.length > 0">
+<<<<<<< HEAD
                         <label class="control-fb control--checkbox"> 制限が満たされていない場合にチャット メッセージを送信する
+=======
+                        <firebot-checkbox ng-show="$ctrl.trigger.name !== 'channel_reward'"
+                            label="Send as reply"
+                            tooltip="Replying only works within a Command or Chat Message event"
+                            model="$ctrl.restrictionData.sendAsReply"
+                            style="margin: 0px 15px 0px 0px"
+                        />
+                        <label class="control-fb control--checkbox"> Send chat message when restrictions not met
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             <input type="checkbox" ng-model="$ctrl.restrictionData.sendFailMessage">
                             <div class="control__indicator"></div>
                         </label>
@@ -87,7 +97,7 @@
                     </div>
                 </div>
             `,
-            controller: function(utilityService, backendCommunicator) {
+            controller: function (utilityService, backendCommunicator) {
                 const $ctrl = this;
 
                 const restrictionDefinitions = backendCommunicator.fireEventSync("getRestrictions")
@@ -100,7 +110,7 @@
                         };
                     });
 
-                $ctrl.getRestrictionModeDisplay = function() {
+                $ctrl.getRestrictionModeDisplay = function () {
                     if ($ctrl.restrictionData.mode === "any") {
                         return "いずれか";
                     }
@@ -118,14 +128,25 @@
                         });*/
                 }
 
+<<<<<<< HEAD
                 $ctrl.$onInit = function() {
+=======
+                $ctrl.$onInit = function () {
+                    const DEFAULT_FAIL_MESSAGE = `@{user}さん、申し訳ないですが ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} は使えません。理由: {reason}`;
+
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     if ($ctrl.restrictionData == null) {
                         $ctrl.restrictionData = {
                             restrictions: [],
                             mode: "all",
                             sendFailMessage: true,
                             useCustomFailMessage: false,
+<<<<<<< HEAD
                             failMessage: "このコマンドは使用できません: {reason}"
+=======
+                            failMessage: DEFAULT_FAIL_MESSAGE,
+                            sendAsReply: false
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         };
                     }
 
@@ -142,24 +163,37 @@
                     }
 
                     if ($ctrl.restrictionData.failMessage == null) {
+<<<<<<< HEAD
                         $ctrl.restrictionData.failMessage = "このコマンドは使用できません: {reason}";
+=======
+                        $ctrl.restrictionData.failMessage = DEFAULT_FAIL_MESSAGE;
+                    }
+
+                    if ($ctrl.restrictionData.sendAsReply == null) {
+                        $ctrl.restrictionData.sendAsReply = false;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     }
 
                     updateCanAddMoreRestrictions();
                 };
 
-                $ctrl.deleteRestriction = function(restrictionId) {
+                $ctrl.deleteRestriction = function (restrictionId) {
                     $ctrl.restrictionData.restrictions = $ctrl.restrictionData.restrictions
                         .filter(r => r.id !== restrictionId);
 
                     updateCanAddMoreRestrictions();
                 };
 
+<<<<<<< HEAD
                 $ctrl.getRestrictionDefinition = function(restrictionType) {
                     return restrictionDefinitions.find(r => r.definition.id === restrictionType);
+=======
+                $ctrl.getRestrictionDefinition = function (restrictionType) {
+                    return $ctrl.restrictionDefinitions.find(r => r.definition.id === restrictionType);
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 };
 
-                $ctrl.showAddRestrictionModal = function() {
+                $ctrl.showAddRestrictionModal = function () {
 
                     const options = restrictionDefinitions
                         .filter(r => !r.definition.hidden)

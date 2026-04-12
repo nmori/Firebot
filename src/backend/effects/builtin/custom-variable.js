@@ -21,12 +21,24 @@ const fileWriter = {
 
         <eos-container header="変数の中身" pad-top="true">
             <p class="muted">変数に保存されるデータ。テキストまたは別の置換フレーズを指定できます。</p>
+<<<<<<< HEAD
             <textarea ng-model="effect.variableData" rows="3" class="form-control" id="chat-text-setting" placeholder="テキストを入力" replace-variables></textarea>
+=======
+            <selectable-input-editors
+                editors="editors"
+                initial-editor-label="initialEditorLabel"
+                model="effect.variableData"
+            />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <p class="muted" style="font-size: 11px;"><b>Note:</b> If variable data is a valid JSON string, it will be parsed into an object or array.</p>
         </eos-container>
 
         <eos-container header="プロパティのパス（任意）" pad-top="true">
             <p class="muted">変数にすでにオブジェクトや配列の形でデータが保存されている場合、上記のデータで更新する特定のプロパティやインデックスへのパス（ドット記法を使用）を定義することができます。何も指定しなければ、変数全体が置き換えられる。既存のデータがなく、プロパティのパスが提供された場合は、何も起こりません。</p>
+<<<<<<< HEAD
+=======
+            <p class="muted">If no property path is provided and the existing variable does NOT contain an array, the entire variable is replaced. If the existing variable contains an array and the new value is NOT an array, the new value will be appended to the array.</p>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <eos-collapsable-panel show-label="Show examples" hide-label="Hide examples" hide-info-box="true">
                 <span>例:</span>
                 <ul>

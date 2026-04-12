@@ -15,6 +15,10 @@
                         type="number"
                         min="0"
                         placeholder="秒"
+<<<<<<< HEAD
+=======
+                        ng-disabled="$ctrl.disabled"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         ng-model="$ctrl.command.cooldown.global"
                     />
                     <span class="input-group-addon">ユーザ指定</span>
@@ -23,6 +27,10 @@
                         type="number"
                         min="0"
                         placeholder="秒"
+<<<<<<< HEAD
+=======
+                        ng-disabled="$ctrl.disabled"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         ng-model="$ctrl.command.cooldown.user"
                     />
                 </div>

@@ -1,11 +1,12 @@
 "use strict";
 
 const { ComparisonType } = require("../../../../../shared/filter-constants");
+const logger = require("../../../../logwrapper");
 
 module.exports = {
     id: "streamloots:gift-purchase",
     name: "チェスト購入",
-    description: "StreamLootsチェストの購入がギフトかどうかで絞り込む",
+    description: "StreamLootsチェストの購入がギフトかどうかでにフィルターをかける",
     events: [
         { eventSourceId: "streamloots", eventId: "purchase" }
     ],

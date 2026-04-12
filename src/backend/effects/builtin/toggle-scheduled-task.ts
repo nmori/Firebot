@@ -8,14 +8,15 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:toggle-scheduled-task",
-        name: "演出予定リストを切り替え",
-        description: "演出予定リストの状態を切り替える",
+        name: "Toggle Scheduled Effect List",
+        description: "Toggle a scheduled effect list's enabled status",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container>
+<<<<<<< HEAD
             <p>この演出は、"演出予定リストの有効状態を切り替えます。</p>
         </eos-container>
 
@@ -28,6 +29,39 @@ const model: EffectType<{
         </eos-container>
 
         <eos-container ng-show="hasScheduledTasks" header="切り替え" pad-top="true">
+=======
+            <p>This effect lets you automatically toggle the enabled status of Scheduled Effect Lists.</p>
+        </eos-container>
+
+        <eos-container ng-hide="!hasTags">
+            <label class="control-fb control--checkbox"> Use Sort Tags</tooltip>
+                <input type="checkbox" ng-model="effect.useTag">
+                <div class="control__indicator"></div>
+            </label>
+        </eos-container>
+
+        <eos-container ng-hide="hasScheduledTasks || effect.useTag" pad-top="true">
+            <span class="muted">No Scheduled Effect Lists created yet! You can create them in the <b>Time-Based</b> tab.</span>
+        </eos-container>
+
+        <eos-container ng-hide="hasTags || !effect.useTag" pad-top="true">
+            <span class="muted">No Timer Tags created yet! You can create them in the <b>Time-Based</b> tab.</span>
+        </eos-container>
+
+        <eos-container ng-show="hasScheduledTasks && !effect.useTag" header="Scheduled Effect List" pad-top="true">
+            <dropdown-select options="scheduledTaskOptions" selected="effect.scheduledTaskId"></dropdown-select>
+        </eos-container>
+
+        <eos-container ng-show="hasTags && effect.useTag" header="Tag" pad-top="true">
+            <firebot-searchable-select
+                ng-model="effect.sortTagId"
+                placeholder="Select or search for a tag..."
+                items="sortTags"
+            />
+        </eos-container>
+
+        <eos-container ng-show="hasScheduledTasks || (hasTags && effect.useTag)" header="Toggle Action" pad-top="true">
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,

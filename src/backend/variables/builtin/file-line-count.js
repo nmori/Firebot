@@ -3,6 +3,10 @@
 "use strict";
 
 const fs = require("fs");
+<<<<<<< HEAD:src/backend/variables/builtin/file-line-count.js
+=======
+const logger = require("../../../../backend/logwrapper");
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/utility/file-line-count.ts
 
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 

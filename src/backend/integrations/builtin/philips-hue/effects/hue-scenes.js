@@ -6,14 +6,21 @@ const hueManager = require("../hue-manager");
 const effect = {
     definition: {
         id: "hue:scenes",
+<<<<<<< HEAD
         name: "Hue Scenes",
         description: "Activate a Philips Hue scene",
         icon: "far fa-lightbulb fa-align-center",
+=======
+        name: "Philips Hueシーンを設定",
+        description: "Philips Hueのシーンをアクティブにする",
+        icon: "far fa-house-signal fa-align-center",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         categories: [EffectCategory.INTEGRATIONS],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
+<<<<<<< HEAD
         <eos-container header="Activate Hue Scene">
             <ui-select ng-model="selectedScene" theme="bootstrap" on-select="sceneSelected($item)" style="margin-bottom:10px;">
                 <ui-select-match placeholder="シーンを探す...">
@@ -27,6 +34,15 @@ const effect = {
                     </div>
                 </ui-select-choices>
             </ui-select>
+=======
+        <eos-container header="Philips Hueシーンを設定">
+            <firebot-searchable-select
+                items="hueScenes"
+                ng-model="effect.sceneId"
+                placeholder="シーンを探す..."
+                class="mb-2"
+            />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
     `,
     optionsController: ($scope, $q, backendCommunicator) => {
@@ -50,9 +66,14 @@ const effect = {
             }
         };
     },
+<<<<<<< HEAD
     optionsValidator: () => {},
     onTriggerEvent: async(event) => {
         const effect = event.effect;
+=======
+    optionsValidator: () => { },
+    onTriggerEvent: async ({ effect }) => {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         const sceneId = effect.sceneId;
 
         hueManager.setHueScene(sceneId);

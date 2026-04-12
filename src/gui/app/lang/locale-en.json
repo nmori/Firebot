@@ -14,6 +14,9 @@
       "EVENTS": "Events",
       "PRESET_EFFECT_LISTS": "Preset Effect Lists",
       "EFFECT_QUEUES": "Effect Queues",
+      "VARIABLE_MACROS": "Variable Macros",
+      "MODERATION": "Moderation",
+      "GAMES": "Games",
       "TIME_BASED": "Time-Based",
       "HOTKEYS": "Hotkeys",
       "CHANNELREWARDS": "Channel Rewards"

@@ -51,10 +51,24 @@ const deepmerge = require("deepmerge");
 
                 const defaultSettings = {
                     sortable: false,
+<<<<<<< HEAD
                     addLabel: "追加",
                     editLabel: "編集",
                     validationText: "テキストは空欄にできません",
                     noneAddedText: "保存しない",
+=======
+                    showIndex: false,
+                    indexZeroBased: false,
+                    indexTemplate: "{index}.",
+                    showCopyButton: false,
+                    hintTemplate: undefined,
+                    copyTemplate: "{name}",
+                    addLabel: "追加",
+                    editLabel: "編集",
+                    customValidators: undefined,
+                    validationText: "空欄は許容されていません",
+                    noneAddedText: "未保存",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     noDuplicates: false,
                     maxItems: undefined,
                     trigger: undefined,
@@ -85,8 +99,13 @@ const deepmerge = require("deepmerge");
                             label: isNew ? $ctrl.settings.addLabel : $ctrl.settings.editLabel,
                             useTextArea: $ctrl.settings.useTextArea,
                             saveText: "保存",
+<<<<<<< HEAD
                             validationFn: (value) => {
                                 return new Promise(resolve => {
+=======
+                            validationFn: $ctrl.settings.validationFn ?? ((value, initialValue) => {
+                                return new Promise(async (resolve) => {
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                     if (value == null || value.trim().length < 1) {
                                         resolve(false);
                                     } else {

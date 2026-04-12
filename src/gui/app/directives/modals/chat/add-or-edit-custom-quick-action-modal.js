@@ -26,12 +26,21 @@
                         <p class="muted">クイックアクションが起動されたときに実行される演出リスト。</p>
                         <dropdown-select options="{ custom: 'Custom', preset: 'Preset'}" selected="$ctrl.listType"></dropdown-select>
                         <div ng-if="$ctrl.listType === 'preset'" class="mt-8">
+<<<<<<< HEAD
                             <ui-select ng-model="$ctrl.quickAction.presetListId" theme="bootstrap" on-select="$ctrl.presetListSelected($item)">
                                 <ui-select-match placeholder="プリセット演出リストの選択または検索... ">{{$select.selected.name}}</ui-select-match>
                                 <ui-select-choices repeat="presetList.id as presetList in $ctrl.presetEffectLists | filter: { name: $select.search }" style="position:relative;">
                                     <div ng-bind-html="presetList.name | highlight: $select.search"></div>
                                 </ui-select-choices>
                             </ui-select>
+=======
+                            <firebot-searchable-select
+                                ng-model="$ctrl.quickAction.presetListId"
+                                items="$ctrl.presetEffectLists"
+                                placeholder="プリセット演出リストの選択または検索..."
+                                on-select="$ctrl.presetListSelected(item)"
+                            />
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         </div>
                         <div ng-if="$ctrl.listType === 'custom'" class="mt-8">
                             <effect-list effects="$ctrl.quickAction.effectList"

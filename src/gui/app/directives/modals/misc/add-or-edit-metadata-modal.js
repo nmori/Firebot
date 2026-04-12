@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     angular.module("firebotApp")
         .component("addOrEditMetadataModal", {
             template: `
@@ -16,10 +16,17 @@
                             <label for="key" class="control-label">Key</label>
                             <input 
                                 ng-if="$ctrl.isNew"
+<<<<<<< HEAD
                                 type="text" 
                                 id="key" 
                                 name="key" 
                                 class="form-control input-lg" 
+=======
+                                type="text"
+                                id="key"
+                                name="key"
+                                class="form-control input-lg"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 placeholder="キーを入力"
                                 ng-model="$ctrl.metadata.key"
                                 ui-validate="'$value != null && $value.length > 0'" 
@@ -31,6 +38,7 @@
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('value')}">
                             <label for="value" class="control-label">Data</label>
+<<<<<<< HEAD
                             <input
                                 ng-if="expectedValueType === 'string' || expectedValueType === 'number'" 
                                 type="{{expectedValueType === 'number' ? 'number' : 'text'}}" 
@@ -40,6 +48,12 @@
                                 placeholder="値を入力"
                                 ng-model="$ctrl.metadata.value"
                                 disable-variables="true"
+=======
+                            <selectable-input-editors
+                                editors="editors"
+                                initial-editor-label="initialEditorLabel"
+                                model="$ctrl.metadata.value"
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             />
                             <div
                                 ng-if="expectedValueType === 'json'"
@@ -49,6 +63,7 @@
                             >
                             </div>
                         </div>
+<<<<<<< HEAD
 
                         <div ng-show="$ctrl.isNew">
                             <div>データの種類</div>
@@ -59,6 +74,8 @@
                             </dropdown-select>
                         </div>
                         
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -71,7 +88,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($scope) {
+            controller: function ($scope) {
                 const $ctrl = this;
 
                 // string, number, json
@@ -82,6 +99,7 @@
                     }
                 });
 
+<<<<<<< HEAD
                 $scope.editorSettings = {
                     mode: {name: "javascript", json: true},
                     theme: 'blackboard',
@@ -100,6 +118,35 @@
                         resizableHeight: true
                     });
                 };
+=======
+                $scope.editors = [
+                    {
+                        label: "Text",
+                        inputType: "text",
+                        placeholderText: "Enter value",
+                        disableVariables: true
+                    },
+                    {
+                        label: "Number",
+                        inputType: "number",
+                        placeholderText: "Enter value",
+                        disableVariables: true,
+                        forceInput: true
+                    },
+                    {
+                        label: "JSON",
+                        inputType: "codemirror",
+                        disableVariables: true,
+                        codeMirrorOptions: {
+                            mode: { name: "javascript", json: true },
+                            theme: 'blackboard',
+                            lineNumbers: true,
+                            autoRefresh: true,
+                            showGutter: true
+                        }
+                    }
+                ];
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
                 $ctrl.isNew = true;
 

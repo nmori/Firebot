@@ -4,8 +4,15 @@ const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:username",
+<<<<<<< HEAD:src/backend/events/filters/builtin/username.js
     name: "視聴者名",
     description: "特定の視聴者名にフィルタ",
+=======
+    name: "Username",
+    caseInsensitive: true,
+    description: "Filter to a specific username",
+    eventMetaKey: "username",
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/events/filters/builtin/twitch/username.ts
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "bits-badge-unlocked" },
@@ -33,6 +40,7 @@ module.exports = {
     valueType: "text",
     predicate: (filterSettings, eventData) => {
 
+<<<<<<< HEAD:src/backend/events/filters/builtin/username.js
         const { comparisonType, value } = filterSettings;
         const { eventMeta } = eventData;
 
@@ -56,3 +64,6 @@ module.exports = {
         }
     }
 };
+=======
+export default filter;
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/events/filters/builtin/twitch/username.ts

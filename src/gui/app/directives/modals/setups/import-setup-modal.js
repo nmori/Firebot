@@ -1,6 +1,6 @@
 "use strict";
 
-(function() {
+(function () {
     const fsp = require("fs/promises");
 
     const marked = require("marked");
@@ -75,7 +75,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($q, logger, ngToast, commandsService, countersService, currencyService,
+            controller: function ($q, logger, ngToast, commandsService, countersService, currencyService,
                 effectQueuesService, eventsService, hotkeyService, presetEffectListsService,
                 timerService, viewerRolesService, quickActionsService, backendCommunicator, $sce) {
                 const $ctrl = this;
@@ -116,7 +116,10 @@
                     hotkeys: "ホットキー",
                     presetEffectLists: "プリセット演出リスト",
                     timers: "タイマー",
+                    scheduledTasks: "スケジュール演出リスト",
+                    variableMacros: "マクロ変数",
                     viewerRoles: "視聴者の役割",
+                    viewerRankLadders: "視聴者ランク",
                     quickActions: "クイックアクション"
                 };
 
@@ -140,7 +143,10 @@
                     `);
 
                     modal.document.title = `Firebot セットアップ - ${$ctrl.setup.name}`;
+<<<<<<< HEAD
                     modal.document.body.style.color = "white";
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     modal.document.body.style.fontFamily = "sans-serif";
                 };
 

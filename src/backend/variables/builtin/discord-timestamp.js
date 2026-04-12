@@ -1,9 +1,14 @@
 // Migration: info needed
 "use strict";
 const moment = require("moment");
+<<<<<<< HEAD:src/backend/variables/builtin/discord-timestamp.js
 const logger = require("../../logwrapper");
 const { EffectTrigger } = require("../../../shared/effect-constants");
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
+=======
+const logger = require("../../../../backend/logwrapper");
+
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/discord-timestamp.ts
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
 triggers[EffectTrigger.EVENT] = true;

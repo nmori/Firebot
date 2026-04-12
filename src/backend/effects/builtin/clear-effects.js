@@ -34,11 +34,19 @@ const delay = {
             <p>この演出は、現在実行中の演出をクリアします。カットシーンに入るときなどに便利です。また、演出キューを削除するのにも使えます。</p>
         </eos-container>
         <eos-container header="Effects To Clear">
+<<<<<<< HEAD
             <label class="control-fb control--checkbox"> オーバーレイ効果
                 <input type="checkbox" ng-model="effect.overlay">
                 <div class="control__indicator"></div>
             </label>
             <div class="mt-0 mr-0 mb-6 ml-6" uib-collapse="!effect.overlay || !settings.useOverlayInstances()">
+=======
+            <firebot-checkbox
+                label="オーバーレイ演出"
+                model="effect.overlay"
+            />
+            <div class="mt-0 mr-0 mb-6 ml-6" uib-collapse="!effect.overlay || !settings.getSetting('UseOverlayInstances')">
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="chat-effect-type">{{ getSelectedOverlayDisplay() }}</span> <span class="caret"></span>
@@ -51,6 +59,7 @@ const delay = {
                     </ul>
                 </div>
             </div>
+<<<<<<< HEAD
             <label class="control-fb control--checkbox"> サウンド
                 <input type="checkbox" ng-model="effect.sounds">
                 <div class="control__indicator"></div>
@@ -61,6 +70,18 @@ const delay = {
             </label>
             <div uib-collapse="!effect.queues" style="margin: 0 0 15px 15px;">
                 <div class="btn-group" uib-dropdown>
+=======
+            <firebot-checkbox
+                label="サウンド"
+                model="effect.sounds"
+            />
+            <firebot-checkbox
+                label="演出キュー"
+                model="effect.queues"
+            />
+            <div uib-collapse="!effect.queues" style="margin: 0 0 15px 15px;" class="mb-6">
+                <div class="btn-group mb-5" uib-dropdown>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
                     {{ getSelectedEffectQueueDisplay() }} <span class="caret"></span>
                     </button>

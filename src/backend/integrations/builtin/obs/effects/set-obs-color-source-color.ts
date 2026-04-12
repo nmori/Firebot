@@ -34,8 +34,26 @@ export const SetOBSColorSourceColorEffectType: EffectType<{
         </div>
     </eos-container>
 
+<<<<<<< HEAD
     <eos-container ng-if="colorSources != null && effect.colorSourceName != null" header="Color" style="margin-top: 10px;">
         <firebot-input model="effect.color" placeholder-text="例: #0066FF や #FF336699"></firebot-input>
+=======
+    <eos-container ng-if="colorSources != null && effect.colorSourceName != null" header="Color" style="margin-top: 10px;" pad-top="true">
+        <firebot-checkbox
+            label="Use Custom Color"
+            tooltip="Allow entering custom hex colors or replace variables. Will fail if the result is not a valid hex color."
+            model="effect.customColor"
+            on-change="toggleCustomColor(newValue)"
+            class="mb4"
+        />
+        <firebot-input
+            input-title="#ARGB"
+            ng-if="effect.customColor"
+            model="effect.color"
+            placeholder-text="Format: #0066FF or #FF336699"
+        />
+        <color-picker-input label="#RGBA" ng-if="!effect.customColor" model="effect.color" alpha="true" lg-input="true"></color-picker-input>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     </eos-container>
   `,
     optionsController: ($scope: any, backendCommunicator: any, $q: any) => {

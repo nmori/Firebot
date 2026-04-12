@@ -23,7 +23,11 @@ const chat = {
         </eos-container>
 
         <eos-container header="イベント" pad-top="true" ng-show="effect.selectedGroupName">
+<<<<<<< HEAD
             <dropdown-select options="eventOptions[effect.selectedGroupName]" selected="effect.selectedEventId"></dropdown-select>
+=======
+            <dropdown-select options="eventOptions[effect.selectedGroupName]" selected="effect.selectedEventId" value-mode="object"></dropdown-select>
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
         <eos-container header="切り替え" pad-top="true">

@@ -34,6 +34,7 @@
                     $ctrl.currency = JSON.parse(JSON.stringify($ctrl.resolve.currency));
                 }
 
+<<<<<<< HEAD
                 const modalId = $ctrl.resolve.modalId;
                 utilityService.addSlidingModal(
                     $ctrl.modalInstance.rendered.then(() => {
@@ -47,6 +48,8 @@
                     })
                 );
 
+=======
+>>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 // Set our transfer status.
                 $ctrl.setTransferEnabled = function(state) {
                     $ctrl.currency.transfer = state;
