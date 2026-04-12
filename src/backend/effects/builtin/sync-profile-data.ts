@@ -23,8 +23,8 @@ const effect: EffectType<{
         </eos-container>
 
         <eos-container pad-top="true">
-            <div class="effect-info alert alert-info">
-                After sync, you can access the JSON of your profile data at <a href="https://api.crowbar.tools/v1/profile-data/{{username}}">https://api.crowbar.tools/v1/profile-data/{{username}}</a>
+            <div class="effect-info alert alert-warning">
+                プロフィールデータの同期はこのフォーク版では利用できません。
             </div>
         </eos-container>
     `,

@@ -1,4 +1,3 @@
-import { AccountAccess } from "../../../../common/account-access";
 import logger from "../../../../logwrapper";
 
 interface SteamAppDetails {
@@ -80,23 +79,21 @@ class SteamManager {
     }
 
     private async getAppIdFromGameName(gameName: string): Promise<number> {
-        const streamer = AccountAccess.getAccounts().streamer;
-
-        if (!streamer?.loggedIn) {
-            return null;
-        }
         try {
-            const response = await fetch(`https://api.crowbar.tools/v1/steam/find-app-id?search=${encodeURIComponent(gameName)}`, {
-                method: "GET",
-                headers: {
-                    'User-Agent': 'Firebot V5 - https://firebot.app',
-                    'Authorization': `Bearer ${streamer.auth.access_token}`
+            const response = await fetch(
+                `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(gameName)}&l=japanese&cc=JP`,
+                {
+                    headers: {
+                        'User-Agent': 'Firebot V5'
+                    }
                 }
-            });
+            );
 
             if (response?.ok) {
-                const data = await response.json() as { appId: number | null };
-                return data.appId;
+                const data = await response.json() as { total: number; items: { id: number; name: string }[] };
+                if (data.total > 0 && data.items?.length > 0) {
+                    return data.items[0].id;
+                }
             }
         } catch (error) {
             logger.error('Steam app ID fetch failed.', (error as Error).message);

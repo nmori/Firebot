@@ -19,13 +19,6 @@ export enum NotificationType {
     ALERT = "alert"
 }
 
-type ExternalNotification = {
-    id: string;
-    title: string;
-    message: string;
-    type: NotificationType;
-};
-
 export type NotificationBase = {
     title: string;
     message: string;
@@ -48,8 +41,6 @@ interface NotificationCache {
     notifications: Notification[];
     knownExternalIds: string[];
 }
-
-const EXTERNAL_NOTIFICATION_SOURCE_URL = "https://api.crowbar.tools/v1/notifications/v5";
 
 class NotificationManager {
     private _externalCheckInterval: NodeJS.Timeout;
@@ -155,88 +146,8 @@ class NotificationManager {
         return this._notificationCache.notifications.find(n => n.id === id) ?? null;
     }
 
-    private getKnownExternalNotifications(): string[] {
-        const externalNotificationIds = this.getNotificationDb().getData("/knownExternalIds") as string[];
-        return externalNotificationIds ? externalNotificationIds : [];
-    }
-
-    private setKnownExternalNotifications(ids: string[]): void {
-        this.getNotificationDb().push("/knownExternalIds", ids);
-    }
-
-    private async loadExternalNotifications(): Promise<void> {
-        try {
-            const response = await fetch(EXTERNAL_NOTIFICATION_SOURCE_URL);
-            const externalNotifications = await response.json() as ExternalNotification[];
-
-            const knownExtNotis = this.getKnownExternalNotifications();
-
-            const newKnownExtNotis: string[] = [];
-
-            externalNotifications.forEach((externalNotification) => {
-                const n = this.localizeExternalNotification(externalNotification);
-
-                newKnownExtNotis.push(n.id);
-
-                const existingExternalNotification = this._notificationCache.notifications.find(
-                    (cachedNotification) => cachedNotification.source === NotificationSource.EXTERNAL && cachedNotification.externalId === n.id
-                );
-
-                if (existingExternalNotification != null) {
-                    const hasChanged =
-                        existingExternalNotification.title !== n.title
-                        || existingExternalNotification.message !== n.message
-                        || existingExternalNotification.type !== n.type;
-
-                    if (hasChanged) {
-                        existingExternalNotification.title = n.title;
-                        existingExternalNotification.message = n.message;
-                        existingExternalNotification.type = n.type;
-                        existingExternalNotification.saved = true;
-
-                        frontendCommunicator.send("notifications:notification-updated", existingExternalNotification);
-                    }
-                }
-
-                if (!knownExtNotis.includes(n.id)) {
-                    this.addNotification({
-                        title: n.title,
-                        message: n.message,
-                        type: n.type,
-                        source: NotificationSource.EXTERNAL,
-                        externalId: n.id
-                    }, true);
-                }
-            });
-
-            this.setKnownExternalNotifications(newKnownExtNotis);
-            this.saveNotifications();
-
-        } catch (err) {
-            const error = err as Error;
-            logger.error("Error loading external notifications", error.message);
-        }
-    }
-
-    private localizeExternalNotification(notification: ExternalNotification): ExternalNotification {
-        if (notification.title === "Feature YOUR stream on the Firebot website!") {
-            return {
-                ...notification,
-                title: "Firebot公式サイトであなたの配信を紹介しよう！",
-                message: "こんにちは、Firebotユーザーのみなさん！あなたの配信を Firebot 公式サイトで紹介できるのをご存知ですか？\n設定 → 一般 で「Feature My Stream」を有効にしてください。\n有効化すると、Firebot を実行したまま Twitch で配信中のときに、あなたの配信が自動で公式サイトに表示されます。"
-            };
-        }
-
-        return notification;
-    }
-
     startExternalNotificationCheck(): void {
-        if (this._externalCheckInterval == null) {
-            void this.loadExternalNotifications();
-
-            this._externalCheckInterval = setInterval(
-                () => this.loadExternalNotifications(), 5 * 60 * 1000);
-        }
+        // External notifications from api.crowbar.tools are disabled in this fork
     }
 
     stopExternalNotificationCheck(): void {

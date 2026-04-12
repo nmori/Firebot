@@ -280,8 +280,7 @@ export async function whenReady() {
     // get ui extension manager in memory
     await import("../../../ui-extensions/ui-extension-manager");
 
-    // start crowbar relay websocket
-    await import("../../../crowbar-relay/crowbar-relay-websocket");
+    // crowbar relay websocket is disabled in this fork (no third-party token relay)
 
     const countdownManager = (await import("../../../overlay-widgets/builtin-types/countdown/countdown-manager")).default;
     countdownManager.startTimer();

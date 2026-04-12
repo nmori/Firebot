@@ -57,7 +57,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function(accountAccess, webhooksService, modalFactory, $rootScope, ngToast) {
+            controller: function(webhooksService, settingsService, modalFactory, $rootScope, ngToast) {
                 const $ctrl = this;
 
                 $ctrl.whs = webhooksService;
@@ -87,10 +87,10 @@
                 };
 
                 $ctrl.copyWebhookUrlToClipboard = (webhook) => {
-                    const channelId = accountAccess.accounts.streamer.channelId;
+                    const port = settingsService.getSetting("WebServerPort");
                     const webhookId = webhook.id;
 
-                    const copyText = `https://api.crowbar.tools/v1/webhook/${channelId}/${webhookId}`;
+                    const copyText = `http://localhost:${port}/api/v1/webhooks/${webhookId}`;
 
                     $rootScope.copyTextToClipboard(copyText);
 

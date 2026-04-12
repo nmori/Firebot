@@ -213,4 +213,10 @@ router.route("/queues/:queueId/clear")
     .get(queues.clearQueue)
     .post(queues.clearQueue);
 
+// Webhooks (local receiver, replaces CrowbarRelay)
+import * as webhooks from "./controllers/webhooks-api-controller";
+
+router.route("/webhooks/:webhookId")
+    .post(webhooks.receiveWebhook);
+
 export = router;

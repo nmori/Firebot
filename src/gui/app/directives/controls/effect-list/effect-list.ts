@@ -980,16 +980,12 @@ type ContextMenuItemScope = {
             };
             //#endregion
 
-            function getSharedEffects(code: string): angular.IPromise<{ effects: EffectInstance[] } | null> {
-                return $http.get<{ effects: EffectInstance[] }>(`https://api.crowbar.tools/v1/data-bin/${code}`)
-                    .then((resp) => {
-                        if (resp.status === 200) {
-                            return JSON.parse(unescape(JSON.stringify(resp.data))) as { effects: EffectInstance[] };
-                        }
-                        return null;
-                    }, () => {
-                        return null;
-                    });
+            function getSharedEffects(_code: string): angular.IPromise<{ effects: EffectInstance[] } | null> {
+                ngToast.create({
+                    className: 'warning',
+                    content: 'エフェクト共有コードからのインポートはこのフォーク版では利用できません。'
+                });
+                return $q.resolve(null);
             }
 
             //#region Context Menus
