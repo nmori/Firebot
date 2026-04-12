@@ -334,9 +334,9 @@
                             if (!$scope.downloadComplete) {
                                 $scope.downloadHasError = true;
                                 $scope.errorMessage =
-                                    "Download is taking longer than normal. There may have been an error. You can keep waiting or close this and try again later.";
+                                    "ダウンロードに通常より時間がかかっています。エラーが発生した可能性があります。このままお待ちいただくか、この画面を閉じて後でもう一度お試しください。";
                             }
-                        }, 180 * 1000);
+                        }, 60 * 1000);
 
                         $scope.installUpdate = function() {
                             updatesService.installUpdate();
