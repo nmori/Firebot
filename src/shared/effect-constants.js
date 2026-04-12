@@ -8,14 +8,16 @@
 const EffectCategory = Object.freeze({
     COMMON: "common",
     TWITCH: "twitch",
+    JP_ORIGINAL: "jp original",
+    MODERATION: "moderation",
     CHAT_BASED: "chat based",
-    MODERATION: "Moderation",
+    DASHBOARD: "dashboard",
     OVERLAY: "overlay",
     FUN: "fun",
     INTEGRATIONS: "integrations",
+    FIREBOT_CONTROL: "firebot control",
     ADVANCED: "advanced",
-    SCRIPTING: "scripting",
-    JP_ORIGINAL: "JP original"
+    SCRIPTING: "scripting"
 });
 
 /**
@@ -36,6 +38,7 @@ const EffectTrigger = Object.freeze({
     CHANNEL_REWARD: "channel_reward",
     MANUAL: "manual",
     QUICK_ACTION: "quick_action",
+    OVERLAY_WIDGET: "overlay_widget",
     ALL: "all"
 });
 

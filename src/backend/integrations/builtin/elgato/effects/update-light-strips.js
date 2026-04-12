@@ -1,21 +1,20 @@
 "use strict";
 
-const { EffectCategory } = require("../../../../../shared/effect-constants");
 const { integration } = require("../elgato");
 
 const effect = {
     definition: {
         id: "elgato:light-strips",
-        name: "ライトストリップの更新",
-        description: "ライトストリップのオン/オフ、色の変更。",
+        name: "Elgato Light Strip更新",
+        description: "Elgato Light Strip のオン/オフと色を変更します。",
         icon: "fad fa-lights-holiday fa-align-center",
-        categories: [EffectCategory.INTEGRATIONS],
+        categories: ["integrations"],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
         <eos-container ng-if="!hasLightStrips">
-        現在、ライトストリップは接続されていません。
+            No Light Strips are connected currently.
         </eos-container>
         <eos-container ng-if="hasLightStrips" header="Light Strips">
             <div ng-repeat="light in lightStrips" class="mb-16">
@@ -25,7 +24,7 @@ const effect = {
                 </label>
 
                 <div ng-if="isLightSelected(light)" class="ml-6 mb-10">
-                    <label class="control-fb control--checkbox">アップデートの有効化
+                    <label class="control-fb control--checkbox">Update Activated
                         <input type="checkbox" ng-click="selectOption('toggleType', light)" ng-checked="isOptionSelected('toggleType', light)" aria-label="..." >
                         <div class="control__indicator"></div>
                     </label>
@@ -37,19 +36,19 @@ const effect = {
                 </div>
 
                 <div ng-if="isLightSelected(light)" class="ml-6 mb-10">
-                    <label class="control-fb control--checkbox">色の更新
+                    <label class="control-fb control--checkbox">Update Color
                         <input type="checkbox" ng-click="selectOption('color', light)" ng-checked="isOptionSelected('color', light)" aria-label="..." >
                         <div class="control__indicator"></div>
                     </label>
                     <div ng-if="isOptionSelected('color', light)">
-                        <p class="muted">色の値には、16進数のRGB値か、CSS標準のカラー名を指定します。</p>
+                        <p class="muted">Color value can either be a hex RGB value or a CSS standard color name.</p>
                     </div>
                     <div class="input-group" ng-if="isOptionSelected('color', light)">
-                        <span class="input-group-addon">色 (RGB もしくは 標準カラー名)</span>
+                        <span class="input-group-addon">Color (RGB or color name)</span>
                         <input
                             class="form-control"
                             type="text"
-                            placeholder="例: RRGGBB / blue"
+                            placeholder="Example: RRGGBB or blue"
                             ng-model="effect.selectedLights[light.name].options.color"
                             replace-variables>
                     </div>
@@ -66,7 +65,7 @@ const effect = {
         }
 
         $q.when(backendCommunicator.fireEventAsync("getLightStrips"))
-            .then(lightStrips => {
+            .then((lightStrips) => {
                 if (lightStrips?.length > 0) {
                     $scope.lightStrips = lightStrips;
 
@@ -105,15 +104,15 @@ const effect = {
         };
 
         $scope.toggleOptions = {
-            disable: "無効",
-            enable: "有効",
-            toggle: "切り替え"
+            disable: "Deactivate",
+            enable: "Activate",
+            toggle: "Toggle"
         };
     },
     optionsValidator: (effect) => {
         const errors = [];
         if (Object.keys(effect.selectedLights).length === 0) {
-            errors.push("ライトストリップを選択してください。");
+            errors.push("Please select a Light Strip.");
         }
         return errors;
     },

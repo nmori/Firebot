@@ -1,130 +1,68 @@
-<<<<<<< HEAD
-<firebot-item-table
+<firebot-tabs
   ng-if="canUseChannelRewards()"
-  items="channelRewardsService.channelRewards"
-  on-items-update="onRewardsUpdated(items)"
-  headers="headers"
-  sort-tag-context="channel rewards"
-  orderable="true"
-  add-new-button-disabled="channelRewardsService.channelRewards.length >= 50"
-  add-new-button-text="新規チャンネル特典"
-  on-add-new-clicked="channelRewardsService.showAddOrEditRewardModal()"
-  context-menu-options="rewardMenuOptions(item)"
-  no-data-message="チャンネル特典はまだ作成されていません"
-  none-found-message="チャンネル特典はみつかりません"
-  search-placeholder="特典を検索"
-  test-button="true"
-  on-test-button-clicked="channelRewardsService.manuallyTriggerReward(itemId)"
-  status-field="twitchData.isEnabled"
+  ng-init="$ctrl.activeTab = 'rewards'"
+  active="$ctrl.activeTab"
+  type="underlined"
+  page-tabs="true"
 >
-  <fb-item-table-toolbar>
-    <button
-      class="btn btn-default"
-      uib-tooltip="Twitchと同期"
-      ng-click="channelRewardsService.syncChannelRewards()"
+  <firebot-tab name="rewards" label="チャンネルポイント報酬">
+    <firebot-item-table
+      items="channelRewardsService.channelRewards"
+      on-item-update="saveChannelReward(item)"
+      on-items-update="onRewardsUpdated(items)"
+      headers="rewardHeaders"
+      sort-tag-context="channel rewards"
+      orderable="true"
+      add-new-button-disabled="channelRewardsService.channelRewards.length >= 50"
+      add-new-button-text="新しい報酬"
+      on-add-new-clicked="channelRewardsService.showAddOrEditRewardModal()"
+      context-menu-options="rewardMenuOptions(item)"
+      no-data-message="保存された報酬がありません。作成してみましょう！"
+      none-found-message="報酬が見つかりません。"
+      search-placeholder="報酬を検索"
+      test-button="true"
+      on-test-button-clicked="channelRewardsService.manuallyTriggerReward(itemId)"
+      status-field="twitchData.isEnabled"
     >
-      <i class="fas fa-sync"></i>
-    </button>
-  </fb-item-table-toolbar>
-  <fb-item-table-footer>
-    <div class="p-6" style="display: flex; align-items: center">
-      <div style="flex-shrink: 0; display: flex; align-items: center">
-        <span
-          >特典数の上限
-          <tooltip text="'Twitchはチャンネル特典を合計50チャンネルに制限しています'"
-        /></span>
-        <span class="my-0 mx-4" style="font-size: 20px;">
-          {{channelRewardsService.channelRewards.length}} / 50
-        </span>
-      </div>
-      <div style="width: 100%">
-        <div
-          style="
-            width: 100%;
-            background: #24262a;
-            height: 8px;
-            border-radius: 8px;
-            overflow: hidden;
-          "
-        >
-=======
-<div ng-if="canUseChannelRewards()" class="fb-tabbed-page">
-  <div class="fb-tab-wrapper">
-    <ul class="nav nav-tabs fb-tabs">
-      <li
-        role="presentation"
-        ng-class="{'active' : activeChannelRewardTab === 0}"
-        ng-click="activeChannelRewardTab = 0"
-      >
-        <a href>チャンネル特典</a>
-      </li>
-      <li
-        role="presentation"
-        ng-class="{'active' : activeChannelRewardTab === 1}"
-        ng-click="activeChannelRewardTab = 1"
-      >
-        <a href>リクエストキュー</a>
-      </li>
-    </ul>
-  </div>
-  
-  <firebot-item-table
-    ng-if="activeChannelRewardTab === 0"
-    items="channelRewardsService.channelRewards"
-    on-items-update="onRewardsUpdated(items)"
-    headers="rewardHeaders"
-    sort-tag-context="channel rewards"
-    orderable="true"
-    add-new-button-disabled="channelRewardsService.channelRewards.length >= 50"
-    add-new-button-text="新規チャンネル特典"
-    on-add-new-clicked="channelRewardsService.showAddOrEditRewardModal()"
-    context-menu-options="rewardMenuOptions(item)"
-    no-data-message="チャンネル特典はまだ作成されていません! :)"
-    none-found-message="チャンネル特典はみつかりません"
-    search-placeholder="特典を検索"
-    test-button="true"
-    on-test-button-clicked="channelRewardsService.manuallyTriggerReward(itemId)"
-    status-field="twitchData.isEnabled"
-  >
-    <fb-item-table-toolbar>
-      <button
-        class="btn btn-default"
-        uib-tooltip="Twitchと同期"
-        ng-click="channelRewardsService.syncChannelRewards()"
-      >
-        <i class="fas fa-sync"></i>
-      </button>
-    </fb-item-table-toolbar>
-    <fb-item-table-footer>
-      <div class="p-6" style="display: flex; align-items: center">
-        <div style="flex-shrink: 0; display: flex; align-items: center">
-          <span
-            >Reward Limit
-            <tooltip text="'Twitch limits channels to 50 total channel rewards.'"
-          /></span>
-          <span class="my-0 mx-4" style="font-size: 20px;">
-            {{channelRewardsService.channelRewards.length}} / 50
-          </span>
+      <fb-item-table-toolbar>
+        <button class="btn btn-default" uib-tooltip="Twitchと同期" tooltip-append-to-body="true" ng-click="channelRewardsService.syncChannelRewards()">
+          <i class="fas fa-sync"></i>
+        </button>
+      </fb-item-table-toolbar>
+      <fb-item-table-footer>
+        <div class="p-6" style="display: flex; align-items: center">
+          <div style="flex-shrink: 0; display: flex; align-items: center">
+            <span>報酬上限
+              <tooltip text="'Twitchの仕様でチャンネル報酬は合計50件までです。'" />
+            </span>
+            <span class="my-0 mx-4" style="font-size: 20px;">
+              {{channelRewardsService.channelRewards.length}} / 50
+            </span>
+          </div>
+          <div style="width: 100%">
+            <div style="
+                width: 100%;
+                background: #24262a;
+                height: 8px;
+                border-radius: 8px;
+                overflow: hidden;
+              ">
+              <div style="height: 100%; background: #2aa2c0"
+                ng-style="{ width: ((channelRewardsService.channelRewards.length / 50) * 100) + '%' }"></div>
+            </div>
+          </div>
         </div>
-        <div style="width: 100%">
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-          <div
-            style="height: 100%; background: #2aa2c0"
-            ng-style="{ width: ((channelRewardsService.channelRewards.length / 50) * 100) + '%' }"
-          ></div>
-        </div>
-      </div>
-    </div>
-  </fb-item-table-footer>
-</firebot-item-table>
+      </fb-item-table-footer>
+    </firebot-item-table>
+  </firebot-tab>
+  <firebot-tab name="queue" label="リクエストキュー">
+    <channel-reward-queue-manager style="height: 100%; overflow: clip;"/>
+  </firebot-tab>
+</firebot-tabs>
 
 <div
   ng-if="!canUseChannelRewards()"
-  style="height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 80px;"
+  style="height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 80px;"
 >
-  <div>チャンネル特典を利用するには、アフィリエイトまたはTwitchパートナーのアカウントでログインしてください。</div>
-<<<<<<< HEAD
+  <div>チャンネルポイント報酬を使用するには、対応アカウントでログインしてください。</div>
 </div>
-=======
-</div>  
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20

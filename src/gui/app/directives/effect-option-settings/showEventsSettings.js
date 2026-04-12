@@ -8,11 +8,11 @@
                 <div>
                     <eos-container header="表示スタイル">
                         <div class="controls-fb-inline">
-                            <label class="control-fb control--radio">List
+                            <label class="control-fb control--radio">リスト
                                 <input type="radio" ng-model="$ctrl.model.textType" value="list"/> 
                                 <div class="control__indicator"></div>
                             </label>
-                            <label class="control-fb control--radio">Replace
+                            <label class="control-fb control--radio">置換
                                 <input type="radio" ng-model="$ctrl.model.textType" value="replace"/>
                                 <div class="control__indicator"></div>
                             </label>
@@ -21,16 +21,16 @@
                         
                     <eos-overlay-position effect="$ctrl.model" class="setting-padtop" hide-random="true"></eos-overlay-position>
                         
-                        <eos-container header="寸法" class="setting-padtop">
+                        <eos-container header="サイズ" class="setting-padtop">
                             <div class="input-group">
-                                <span class="input-group-addon">Width</span>
+                                <span class="input-group-addon">幅</span>
                                 <input 
                                 type="number"
                                 class="form-control" 
                                 aria-describeby="showEvents-width-setting-type"
                                 ng-model="$ctrl.model.width"
                                 placeholder="px">
-                                <span class="input-group-addon">Height</span>
+                                <span class="input-group-addon">高さ</span>
                                 <input 
                                 type="number"
                                 class="form-control" 

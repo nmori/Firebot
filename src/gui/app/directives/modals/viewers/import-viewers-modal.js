@@ -6,15 +6,15 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">視聴者の取り込み</h4>
+                    <h4 class="modal-title">視聴者をインポート</h4>
                 </div>
                 <div class="modal-body pb-0">
                     <div ng-hide="$ctrl.viewers">
-                        <h4 class="font-semibold">取り込み元</h4>
-                        <p class="muted mb-12">現在、Streamlabs Chatbot（デスクトップBot）からのみ取り込み可能です。</p>
+                        <h4 class="font-semibold">インポート元</h4>
+                        <p class="muted mb-12">現在は Streamlabs Chatbot（デスクトップBot）の視聴者のみインポートできます。</p>
 
-                        <h4 class="font-semibold">ファイルの選択</h4>
-                        <p class="muted mb-8">Streamlabs Chatbotでエクスポートファイルを取得するには、Connections -> Cloud -> Create Split Excelで[通貨名].xlsxというファイルを見つけるか、Create Excel Filesを選択してData.xlsxというファイルを見つけます。</p>
+                        <h4 class="font-semibold">ファイルを選択</h4>
+                        <p class="muted mb-8">Streamlabs Chatbot でエクスポートファイルを取得するには、Connections -> Cloud -> Create Split Excel で [通貨名].xlsx を探すか、Create Excel Files で Data.xlsx を探してください。</p>
                         <file-chooser
                             model="$ctrl.importFilePath"
                             on-update="$ctrl.onFileSelected(filepath)"
@@ -22,18 +22,18 @@
                             hide-manual-edit="true"
                         >
                         </file-chooser>
-                        <p ng-if="$ctrl.fileError" style="color: #f96f6f;" class="mt-4">このファイルを読み込めません。上記の指示に従ってください。</p>
+                        <p ng-if="$ctrl.fileError" style="color: #f96f6f;" class="mt-4">このファイルを読み取れません。上記の手順を確認してください。</p>
                     </div>
                     <div ng-show="$ctrl.viewers">
                         <div class="mb-8">
-                            <h3>Settings</h3>
+                            <h3>設定</h3>
                             <div class="mt-8">
                                 <div class="form-group">
-                                    <label class="control-fb control--checkbox"> 表示時間を含む
+                                    <label class="control-fb control--checkbox"> 視聴時間を含める
                                         <input type="checkbox" ng-model="$ctrl.settings.includeViewHours" ng-click="$ctrl.toggleIncludeViewHours()">
                                         <div class="control__indicator"></div>
                                     </label>
-                                    <label ng-if="$ctrl.settings.includeViewHours" class="control-fb control--checkbox"> 視聴時間のない視聴者を含む
+                                    <label ng-if="$ctrl.settings.includeViewHours" class="control-fb control--checkbox"> 視聴時間が 0 の視聴者も含める
                                         <input type="checkbox" ng-model="$ctrl.settings.includeZeroHoursViewers" ng-click="$ctrl.toggleIncludeZeroHoursViewers()">
                                         <div class="control__indicator"></div>
                                     </label>
@@ -41,14 +41,14 @@
                             </div>
                         </div>
                         <div class="mt-16 mb-4">
-                            <h3>Overview</h3>
+                            <h3>概要</h3>
                             <div class="mb-10 flex flex-row justify-between items-end">
                                 <div>
-                                    {{$ctrl.filteredViewers.length}} 人の視聴者を取り込めます.
-                                    <tooltip text="'ユーザー名を変更した視聴者は新しい名前が不明なのでうまく取り込めません。'"></tooltip>
+                                    インポート対象の視聴者は {{$ctrl.filteredViewers.length}} 人です。
+                                    <tooltip text="'この人数にはユーザー名が変更された視聴者も含まれますが、新しい名前が不明なため実際にはインポートされません。'"></tooltip>
                                 </div>
                                 <div class="flex justify-between">
-                                    <searchbar placeholder-text="視聴者を探す..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
+                                    <searchbar placeholder-text="視聴者を検索..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
                                 </div>
                             </div>
                             <sortable-table
@@ -67,9 +67,9 @@
                     </div>
                 </div>
                 <div class="modal-footer pt-0">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
-                    <button ng-show="$ctrl.filteredViewers" ng-click="$ctrl.importViewers()" class="btn btn-primary" ng-disabled="$ctrl.importing">
-                        {{$ctrl.importing ? '取り込み中...' : '取り込みを開始'}}
+                    <button type="button" class="btn btn-link" ng-click="$ctrl.cancelImport()">キャンセル</button>
+                    <button ng-show="$ctrl.filteredViewers" ng-click="$ctrl.importViewers()" class="btn btn-primary" ng-disabled="$ctrl.importing || $ctrl.aborting">
+                        {{ $ctrl.getButtonText() }}
                     </button>
                 </div>
             `,
@@ -119,6 +119,18 @@
                     }
                 ];
 
+                $ctrl.getButtonText = () => {
+                    if ($ctrl.importing) {
+                        return "インポート中...";
+                    }
+
+                    if ($ctrl.aborting) {
+                        return "インポートをキャンセル中...";
+                    }
+
+                    return "インポート";
+                };
+
                 $ctrl.toggleIncludeViewHours = () => {
                     $ctrl.settings.includeViewHours = !$ctrl.settings.includeViewHours;
                 };
@@ -133,8 +145,8 @@
                     }
                 };
 
-                $ctrl.onFileSelected = (filepath) => {
-                    const data = importService.parseStreamlabsChatbotData(filepath);
+                $ctrl.onFileSelected = async (filepath) => {
+                    const data = await importService.loadViewers("streamlabs-chatbot", filepath);
                     if (data && data.viewers) {
                         $ctrl.viewers = data.viewers;
                         $ctrl.search = "";
@@ -152,7 +164,7 @@
                         resolveObj: {
                             viewer: () => viewer
                         },
-                        closeCallback: response => {
+                        closeCallback: (response) => {
                             if (response.action === "delete") {
                                 $ctrl.filteredViewers = $ctrl.filteredViewers.filter(v => v.id !== response.viewer.id);
                                 return;
@@ -164,16 +176,37 @@
                     });
                 };
 
+                $ctrl.cancelImport = () => {
+                    if (!$ctrl.importing && !$ctrl.aborting) {
+                        $ctrl.close();
+                        return;
+                    }
+
+                    if ($ctrl.importing) {
+                        backendCommunicator.on("import:cleanup-finished", () => {
+                            $ctrl.aborting = false;
+                            $ctrl.close();
+                        });
+
+                        $ctrl.aborting = true;
+                        $ctrl.importing = false;
+
+                        backendCommunicator.fireEvent("import:abort-import");
+                    }
+                };
+
                 $ctrl.importViewers = async () => {
                     const data = {
-                        viewers: $ctrl.filteredViewers,
+                        appId: "streamlabs-chatbot",
+                        data: $ctrl.filteredViewers,
                         settings: $ctrl.settings
                     };
 
                     $ctrl.importing = true;
-                    const success = await backendCommunicator.fireEventAsync("importSlcbViewers", data);
+                    /** @type {import("../../../../../types/import").ImportResult} */
+                    const response = await backendCommunicator.fireEventAsync("import:import-viewers", data);
 
-                    if (success) {
+                    if (response.success) {
                         logger.debug(`Viewer import completed`);
 
                         $ctrl.importing = false;

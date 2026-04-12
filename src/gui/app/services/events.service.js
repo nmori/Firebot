@@ -2,14 +2,19 @@
 
 (function() {
     //This handles events
-    const uuidv1 = require("uuid/v1");
+    const { randomUUID } = require("crypto");
 
-    angular.module("firebotApp").factory("eventsService", function(backendCommunicator, objectCopyHelper) {
+    angular.module("firebotApp").factory("eventsService", function(
+        backendCommunicator,
+        settingsService,
+        objectCopyHelper
+    ) {
         const service = {};
 
         let mainEvents = [];
         let groups = [];
 
+        service.eventSetSettings = {};
 
         function loadAllEventData() {
             const eventData = backendCommunicator.fireEventSync("getAllEventData");
@@ -21,6 +26,8 @@
             if (eventData.groups) {
                 groups = eventData.groups;
             }
+
+            service.eventSetSettings = settingsService.getSetting("EventSetSettings");
         }
         loadAllEventData();
 
@@ -36,6 +43,10 @@
 
             groups[index] = group;
         });
+
+        backendCommunicator.on("event-access:event-set-settings-updated",
+            eventSetSettings => service.eventSetSettings = eventSetSettings
+        );
 
         let selectedTab = "mainevents";
         service.setSelectedTab = function(groupId) {
@@ -72,7 +83,7 @@
         };
 
         service.createGroup = function(name) {
-            const newId = uuidv1();
+            const newId = randomUUID();
             const newGroup = {
                 id: newId,
                 name: name,
@@ -103,7 +114,7 @@
                 return;
             }
 
-            groups.forEach(group => {
+            groups.forEach((group) => {
                 const indexInGroup = group.events.findIndex(e => e.id === eventToSave.id);
                 if (indexInGroup > -1) {
                     group.events[indexInGroup] = eventToSave;
@@ -135,6 +146,10 @@
                 action: "saveGroup",
                 meta: JSON.parse(angular.toJson(group))
             });
+        };
+
+        service.saveEventSetSettings = () => {
+            settingsService.saveSetting("EventSetSettings", service.eventSetSettings);
         };
 
         service.deleteGroup = function(groupId) {

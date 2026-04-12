@@ -1,24 +1,16 @@
 "use strict";
 (function() {
-    // This handles the Groups tab
-
     angular
         .module("firebotApp")
         .controller("rolesAndRanksController", function($scope, utilityService, viewerRolesService, viewerRanksService) {
 
             $scope.activeTab = 0;
-
-            /**
-             * Roles
-             */
-
             $scope.viewerRolesService = viewerRolesService;
 
-            $scope.showAddOrEditCustomRoleModal = function(role) {
-
+            $scope.showAddOrEditCustomRoleModal = (role) => {
                 utilityService.showModal({
                     component: "addOrEditCustomRoleModal",
-                    breadcrumbName: "役割の追加/編集",
+                    breadcrumbName: "カスタムロールを追加/編集",
                     size: "sm",
                     resolveObj: {
                         role: () => role
@@ -34,6 +26,17 @@
                                 viewerRolesService.deleteCustomRole(role.id);
                                 break;
                         }
+                    }
+                });
+            };
+
+            $scope.showViewTwitchRoleModal = (role) => {
+                utilityService.showModal({
+                    component: "viewTwitchRoleModal",
+                    breadcrumbName: "Twitch ロールを表示",
+                    size: "sm",
+                    resolveObj: {
+                        role: () => role
                     }
                 });
             };
@@ -79,7 +82,7 @@
                     },
                     ...(item.mode === "auto" ?
                         [{
-                            html: `<a href ><i class="far fa-calculator" style="margin-right: 10px;"></i> ランクの再計算</a>`,
+                            html: `<a href ><i class="far fa-calculator" style="margin-right: 10px;"></i> ランクを再計算</a>`,
                             click: function () {
                                 viewerRanksService.showRecalculateRanksModal(item);
                             }
@@ -91,8 +94,8 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "ランクの削除",
-                                    question: `このランクを削除しますか "${item.name}"?`,
+                                    title: "ランクラダーを削除",
+                                    question: `ランクラダー "${item.name}" を削除してもよろしいですか？`,
                                     confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })

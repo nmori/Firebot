@@ -2,8 +2,8 @@ import { createNumberFilter } from "../../filter-factory";
 
 const filter = createNumberFilter({
     id: "firebot:new-currency-amount",
-    name: "新しい通貨の金額",
-    description: "新しい通貨の金額でフィルタします",
+    name: "New Currency Amount",
+    description: "Filter by the viewers new currency amount",
     eventMetaKey: "newCurrencyAmount",
     events: [
         { eventSourceId: "firebot", eventId: "currency-update" }

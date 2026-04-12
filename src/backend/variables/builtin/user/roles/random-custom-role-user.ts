@@ -1,21 +1,20 @@
-import { ReplaceVariable } from "../../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../../shared/variable-constants";
+import type { ReplaceVariable } from "../../../../../types/variables";
 import customRolesManager from "../../../../roles/custom-roles-manager";
 import logger from "../../../../logwrapper";
-import util from "../../../../utility";
+import { getRandomInt } from "../../../../utils";
 
 const model : ReplaceVariable = {
     definition: {
         handle: "randomCustomRoleUser",
         usage: "randomCustomRoleUser[role]",
-        description: "指定されたカスタム・ロールを持つランダムなユーザを返します。",
-        categories: [VariableCategory.USER],
-        possibleDataOutput: [OutputDataType.TEXT, OutputDataType.OBJECT],
+        description: "Returns a random user's display name that is in any of the specified custom role(s).",
+        categories: ["user based"],
+        possibleDataOutput: ["text", "object"],
         examples: [
             {
                 usage: "randomCustomRoleUser[customRolesToInclude, usersToExclude, customRolesToExclude, displayName|username|id|raw]",
                 description: "Get a random user that is in any of the included role(s), ignoring the excluded username(s) or members in the excluded role(s)."
-    },
+            },
             {
                 usage: "randomCustomRoleUser[roleOne, $streamer]",
                 description: "Get a random user's display name that is a member of roleOne, excluding your own streamer's account."
@@ -31,10 +30,10 @@ const model : ReplaceVariable = {
             {
                 usage: "randomCustomRoleUser[roleOne, null, null, raw]",
                 description: "Get an object representing a random member of roleOne. The result will include `displayName`, `username`, and `id` properties."
-        }
+            }
         ]
     },
-    evaluator: async (_, roles: string | string[], ignoreUsers?: string | string[], ignoreRoles?: string | string[], propName?: string) => {
+    evaluator: (_, roles: string | string[], ignoreUsers?: string | string[], ignoreRoles?: string | string[], propName?: string) => {
         function parseArg(param?: string | string[]): string[] {
             if (param != null) {
                 if (Array.isArray(param)) {
@@ -46,7 +45,7 @@ const model : ReplaceVariable = {
             return [];
         }
 
-        const failResult: Readonly<{noRoles: string; noUsers: string;}> = {
+        const failResult: Readonly<{ noRoles: string, noUsers: string }> = {
             noRoles: "[No custom role specified]",
             noUsers: ""
         };
@@ -90,14 +89,14 @@ const model : ReplaceVariable = {
         });
         if (excludedUserNames.length > 0) {
             selectableUsers = selectableUsers.filter(user => !excludedUserNames.includes(user.username));
-    }
+        }
         if (excludedRoles.length > 0) {
             const excludedRoleIds = excludedRoles.map(role => role.id);
             selectableUsers = selectableUsers.filter(user => !customRolesManager.userIsInRole(user.id, [], excludedRoleIds));
         }
 
         if (selectableUsers.length > 0) {
-            const randIndex = util.getRandomInt(0, selectableUsers.length - 1);
+            const randIndex = getRandomInt(0, selectableUsers.length - 1);
             switch (propName?.toLowerCase()) {
                 case "id":
                     return selectableUsers[randIndex].id;

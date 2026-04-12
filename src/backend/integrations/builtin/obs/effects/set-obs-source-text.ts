@@ -7,15 +7,15 @@ export const SetOBSSourceTextEffectType: EffectType<{
     text: string;
     file: string;
 }> = {
-  definition: {
-    id: "firebot:obs-set-source-text",
-    name: "OBSテキストソースのテキストを変更",
-    description: "OBSテキストソースで表示するテキストを変更します",
-    icon: "fad fa-font-case",
-    categories: ["common"],
-  },
-  optionsTemplate: `
-    <eos-container header="OBS テキストソース">
+    definition: {
+        id: "firebot:obs-set-source-text",
+        name: "OBSソーステキスト設定",
+        description: "OBS テキストソースの文字列を設定します",
+        icon: "fad fa-font-case",
+        categories: ["common", "integrations"]
+    },
+    optionsTemplate: `
+    <eos-container header="OBS Text Source">
         <div>
             <button class="btn btn-link" ng-click="getTextSources()">Refresh Source Data</button>
         </div>
@@ -32,7 +32,7 @@ export const SetOBSSourceTextEffectType: EffectType<{
             No sources found. {{ isObsConfigured ? "Is OBS running?" : "Have you configured the OBS integration?" }}
         </div>
     </eos-container>
-    <eos-container ng-if="textSources != null && effect.textSourceName != null" header="Text" style="margin-top: 10px;">
+    <eos-container ng-if="textSources != null && effect.textSourceName != null" header="Text" style="margin-top: 10px;" pad-top="true">
         <label class="control-fb control--checkbox">Use file as text source
             <input type="checkbox" ng-click="toggleSource()" ng-checked="effect.textSource === 'file'"  aria-label="..." >
             <div class="control__indicator"></div>
@@ -79,6 +79,9 @@ export const SetOBSSourceTextEffectType: EffectType<{
             return ["Please select a text source."];
         }
         return [];
+    },
+    getDefaultLabel: (effect) => {
+        return effect.textSourceName;
     },
     onTriggerEvent: async ({ effect }) => {
         await setTextSourceSettings(effect.textSourceName, {

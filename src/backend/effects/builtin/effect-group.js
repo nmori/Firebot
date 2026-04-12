@@ -2,39 +2,33 @@
 
 const effectRunner = require("../../common/effect-runner");
 const { EffectCategory, EffectTrigger } = require('../../../shared/effect-constants');
-const presetEffectListManager = require("../preset-lists/preset-effect-list-manager");
+const { PresetEffectListManager } = require("../preset-lists/preset-effect-list-manager");
+const logger = require("../../logwrapper");
+const { simpleClone } = require("../../utils");
+const { SettingsManager } = require("../../common/settings-manager");
 
 const effectGroup = {
     definition: {
         id: "firebot:run-effect-list",
-        name: "演出リストを実行",
+        name: "エフェクトリスト実行",
         description:
-            "演出のプリセットまたはカスタムリストを実行",
+            "プリセットまたはカスタムのエフェクトリストを実行します",
         icon: "fad fa-list",
-        categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
+        categories: ["advanced", "scripting", "firebot control"],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container header="List Type">
-            <dropdown-select options="{ custom: 'Custom', preset: 'Preset'}" selected="effect.listType"></dropdown-select>
+            <dropdown-select options="{ custom: 'Custom Effect List', preset: 'Preset Effect List'}" selected="effect.listType"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="effect.listType === 'preset'" header="プリセット演出" pad-top="true">
-<<<<<<< HEAD
-            <ui-select ng-model="effect.presetListId" theme="bootstrap"  on-select="presetListSelected($item)">
-                <ui-select-match placeholder="プリセット演出リストの選択または検索... ">{{$select.selected.name}}</ui-select-match>
-                <ui-select-choices repeat="presetList.id as presetList in presetEffectLists | filter: { name: $select.search }" style="position:relative;">
-                    <div ng-bind-html="presetList.name | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
-=======
+        <eos-container ng-show="effect.listType === 'preset'" header="Preset Effect List" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.presetListId"
-                placeholder="プリセット演出リストの選択または検索..."
+                placeholder="Select or search for a preset effect list..."
                 items="presetEffectLists"
-                on-select="presetListSelected(item)"
+                on-select="selectPresetList(item)"
             />
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             <div style="margin-top: 15px">
                 <button class="btn btn-default"
@@ -43,25 +37,21 @@ const effectGroup = {
             </div>
         </eos-container>
 
-        <eos-container ng-show="effect.listType === 'preset' && selectedPresetList != null" header="プリセットリストの引数" pad-top="true">
-            <p>プリセット選択リストにデータを渡します</p>
+        <eos-container ng-show="effect.listType === 'preset' && selectedPresetList != null" header="Preset List Args" pad-top="true">
+            <p>Pass data to the preset select list.</p>
 
             <div ng-repeat="arg in selectedPresetList.args track by $index" style="margin-bottom: 5px;">
 
                 <div style="display: flex; align-items: center; justify-content: space-between;">
                     <span><b>{{arg.name}}: </b></span>
                     <div style="width: 100%; padding: 0 10px;">
-<<<<<<< HEAD
-                        <input type="text" class="form-control" placeholder="データを入れる" ng-model="effect.presetListArgs[arg.name]" replace-variables />
-=======
-                        <textarea type="text" class="form-control" placeholder="データを入れる" ng-model="effect.presetListArgs[arg.name]" replace-variables rows="1"></textarea>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    <textarea type="text" class="form-control" placeholder="Enter data" ng-model="effect.presetListArgs[arg.name]" replace-variables rows="1"></textarea>
                     </div>
                 </div>
             </div>
         </eos-container>
 
-        <eos-container ng-show="effect.listType === 'custom'" header="カスタム演出リスト" pad-top="true">
+        <eos-container ng-show="effect.listType === 'custom'" header="Custom Effect List" pad-top="true">
             <effect-list effects="effect.effectList"
                     trigger="{{trigger}}"
                     trigger-meta="triggerMeta"
@@ -72,16 +62,16 @@ const effectGroup = {
         <eos-container header="Options" pad-top="true">
             <firebot-checkbox
                 model="effect.dontWait"
-                label="演出が終わるのを待たない"
-                tooltip="このリストを起動するルート演出リストが、これらの演出が完了するのを待つ代わりに、その演出の実行を継続したい場合は、これをチェックしてください。."
+                label="Don't wait for effects to finish"
+                tooltip="Check this if you want the root effect list that triggers this list to continue its effect execution instead of waiting for these effects to complete."
             />
 
             <firebot-checkbox
                 ng-if="!effect.dontWait"
                 style="margin-top: 10px"
                 model="effect.bubbleOutputs"
-                label="親リストに演出出力を適用する"
-                tooltip="演出出力を親演出リストで利用可能にするかどうか"
+                label="Apply effect outputs to parent list"
+                tooltip="Whether or not you want any effect outputs to be made available to the parent effect list."
             />
         </eos-container>
 
@@ -92,8 +82,20 @@ const effectGroup = {
 
         $scope.presetEffectLists = presetEffectListsService.getPresetEffectLists();
 
-        $scope.presetListSelected = (presetList) => {
+        const updatePresetListArgs = (presetList) => {
+            const effectArgNames = Object.keys($scope.effect.presetListArgs);
+            if (effectArgNames.length) {
+                effectArgNames.forEach((argName) => {
+                    if (!presetList.args.some(arg => arg.name === argName)) {
+                        delete $scope.effect.presetListArgs[argName];
+                    }
+                });
+            }
+        };
+
+        $scope.selectPresetList = (presetList) => {
             $scope.selectedPresetList = presetList;
+            updatePresetListArgs(presetList);
         };
 
         $scope.editSelectedPresetList = () => {
@@ -101,9 +103,9 @@ const effectGroup = {
                 return;
             }
             presetEffectListsService.showAddEditPresetEffectListModal($scope.selectedPresetList)
-                .then(presetList => {
+                .then((presetList) => {
                     if (presetList) {
-                        $scope.selectedPresetList = presetList;
+                        $scope.selectPresetList(presetList);
                     }
                 });
         };
@@ -112,7 +114,7 @@ const effectGroup = {
             return $scope.selectedPresetList ? $scope.selectedPresetList.name : "";
         };
 
-        $scope.effectListUpdated = function(effects) {
+        $scope.effectListUpdated = function (effects) {
             $scope.effect.effectList = effects;
         };
 
@@ -131,27 +133,34 @@ const effectGroup = {
                 $scope.effect.presetListId = null;
                 $scope.effect.presetListArgs = {};
             } else {
-                $scope.selectedPresetList = presetList;
+                $scope.selectPresetList(presetList);
             }
         }
-
     },
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.listType === 'preset' && effect.presetListId == null) {
-            errors.push("プリセットリストを選択してください");
+            errors.push("Please select a preset list");
         }
         return errors;
     },
-    onTriggerEvent: event => {
-        return new Promise(resolve => {
+    getDefaultLabel: (effect, presetEffectListsService) => {
+        if (effect.listType === 'preset') {
+            const presetList = presetEffectListsService.getPresetEffectList(effect.presetListId);
+            return effect.presetListId ? presetList?.name : "Unknown Preset Effect List";
+        }
+        const length = effect.effectList?.list?.length ?? 0;
+        return `${length} Custom Effect${length === 1 ? "" : "s"}`;
+    },
+    onTriggerEvent: (event) => {
+        return new Promise((resolve) => {
 
             const { effect, trigger, outputs } = event;
 
             let processEffectsRequest = {};
 
             if (effect.listType === "preset") {
-                const presetList = presetEffectListManager.getItem(effect.presetListId);
+                const presetList = PresetEffectListManager.getItem(effect.presetListId);
                 if (presetList == null) {
                     // preset list doesnt exist anymore
                     return resolve(true);
@@ -159,10 +168,26 @@ const effectGroup = {
 
                 // The original trigger may be in use down the chain of events,
                 // we must therefore deepclone it in order to prevent mutations
-                const newTrigger = JSON.parse(JSON.stringify(trigger));
+                const newTrigger = simpleClone(trigger);
 
                 newTrigger.type = EffectTrigger.PRESET_LIST;
                 newTrigger.metadata.presetListArgs = effect.presetListArgs;
+
+                // Prevent hangs if a preset list directly or indirectly calls
+                // itself. Some recursion is allowed, but we cap it at 100 calls.
+                if (newTrigger.metadata.stackDepth == null) {
+                    newTrigger.metadata.stackDepth = {};
+                }
+                if (newTrigger.metadata.stackDepth[presetList.id] == null) {
+                    newTrigger.metadata.stackDepth[presetList.id] = 0;
+                }
+                newTrigger.metadata.stackDepth[presetList.id] += 1;
+
+                const recursionLimitEnabled = SettingsManager.getSetting("PresetRecursionLimit");
+                if (recursionLimitEnabled && newTrigger.metadata.stackDepth[presetList.id] > 100) {
+                    logger.error(`Preset Effect List '${presetList.name}' (ID: ${presetList.id}) has been triggered more than 100 times in the same chain. Stopping execution to prevent infinite loop.`);
+                    return resolve(true);
+                }
 
                 processEffectsRequest = {
                     trigger: newTrigger,
@@ -188,7 +213,7 @@ const effectGroup = {
             if (effect.dontWait) {
                 resolve(true);
             } else {
-                effectExecutionPromise.then(result => {
+                effectExecutionPromise.then((result) => {
                     if (result != null && result.success === true) {
 
                         if (result.stopEffectExecution) {

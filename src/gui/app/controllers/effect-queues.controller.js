@@ -1,11 +1,12 @@
 "use strict";
-(function() {
+(function () {
     angular
         .module("firebotApp")
-        .controller("effectQueuesController", function(
+        .controller("effectQueuesController", function (
             $scope,
             effectQueuesService,
-            utilityService
+            utilityService,
+            backendCommunicator
         ) {
             $scope.effectQueuesService = effectQueuesService;
 
@@ -14,52 +15,39 @@
             };
 
             $scope.getQueueModeName = (modeId) => {
-<<<<<<< HEAD
-                const mode = effectQueuesService.queueModes.find(m => m.id === modeId);
-                return mode ? mode.display : "不明";
-=======
                 const mode = effectQueuesService.queueModes.find(m => m.value === modeId);
                 return mode ? mode.label : "不明";
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             $scope.headers = [
                 {
-                    name: "名前",
+                    name: "NAME",
                     icon: "fa-user",
+                    dataField: "name",
+                    sortable: true,
                     cellTemplate: `{{data.name}}`,
-                    cellController: () => {}
+                    cellController: () => { }
                 },
                 {
-                    name: "モード",
+                    name: "MODE",
                     icon: "fa-bring-forward",
+                    dataField: "mode",
+                    sortable: true,
                     cellTemplate: `{{getQueueModeName(data.mode)}}`,
                     cellController: ($scope) => {
                         $scope.getQueueModeName = (modeId) => {
-<<<<<<< HEAD
-                            const mode = effectQueuesService.queueModes.find(m => m.id === modeId);
-                            return mode ? mode.display : "不明";
-=======
                             const mode = effectQueuesService.queueModes.find(m => m.value === modeId);
                             return mode ? mode.label : "不明";
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         };
                     }
                 },
                 {
-                    name: "周期/遅延",
+                    name: "INTERVAL/DELAY",
                     icon: "fa-clock",
-                    cellTemplate: `{{(data.mode === 'interval' || data.mode === 'auto') ? (data.interval || 0) + 's' : 'n/a'}}`,
-                    cellController: () => {}
-<<<<<<< HEAD
-                },
-                {
-                    name: "キューの長さ",
-                    icon: "fa-tally",
-                    cellTemplate: `{{data.length || 0}}`,
-                    cellController: () => {}
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    dataField: "interval",
+                    sortable: true,
+                    cellTemplate: `{{(data.mode === 'interval' || data.mode === 'auto') ? (data.interval || 0) + '秒' : '該当なし'}}`,
+                    cellController: () => { }
                 }
             ];
 
@@ -72,13 +60,13 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "エフェクトキューを無効化" : "エフェクトキューを有効化"}</a>`,
                         click: function () {
                             effectQueuesService.toggleEffectQueue(item);
                         }
                     },
                     {
-                        html: `<a href ><i class="fad fa-minus-circle mr-4"></i> クリア</a>`,
+                        html: `<a href ><i class="fad fa-minus-circle mr-4"></i> キューをクリア</a>`,
                         click: function () {
                             effectQueuesService.clearEffectQueue(item.id);
                         }
@@ -94,12 +82,12 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "演出キューの削除",
-                                    question: `演出キュー「"${item.name}"」を削除しますか?`,
-                                    confirmLabel: "Delete",
+                                    title: "エフェクトキューを削除",
+                                    question: `エフェクトキュー "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
-                                .then(confirmed => {
+                                .then((confirmed) => {
                                     if (confirmed) {
                                         effectQueuesService.deleteEffectQueue(item.id);
                                     }
@@ -110,6 +98,11 @@
                 ];
 
                 return options;
+            };
+
+
+            $scope.openEffectQueueMonitor = () => {
+                backendCommunicator.send("open-effect-queue-monitor");
             };
         });
 }());

@@ -5,32 +5,27 @@
         .component("commandCooldownSettings", {
             bindings: {
                 command: "=",
-                messageSettingDisabled: "<?"
+                messageSettingDisabled: "<?",
+                disabled: "<?"
             },
             template: `
                 <div class="input-group pb-0">
-                    <span class="input-group-addon">全員</span>
+                    <span class="input-group-addon">全体</span>
                     <input
                         class="form-control"
                         type="number"
                         min="0"
                         placeholder="秒"
-<<<<<<< HEAD
-=======
                         ng-disabled="$ctrl.disabled"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         ng-model="$ctrl.command.cooldown.global"
                     />
-                    <span class="input-group-addon">ユーザ指定</span>
+                    <span class="input-group-addon">ユーザー</span>
                     <input
                         class="form-control"
                         type="number"
                         min="0"
                         placeholder="秒"
-<<<<<<< HEAD
-=======
                         ng-disabled="$ctrl.disabled"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         ng-model="$ctrl.command.cooldown.user"
                     />
                 </div>
@@ -40,7 +35,7 @@
                     ng-show="!$ctrl.messageSettingDisabled && ($ctrl.command.cooldown.global > 0 || $ctrl.command.cooldown.user > 0)"
                 >
                     <label class="control-fb control--checkbox">
-                        再実行可能になるまでの待ち時間中に送るメッセージ
+                        クールダウン中にチャットメッセージを送信
                         <input
                             type="checkbox"
                             ng-model="$ctrl.command.sendCooldownMessage"
@@ -49,8 +44,12 @@
                     </label>
 
                     <div ng-show="$ctrl.command.sendCooldownMessage">
+                        <firebot-checkbox label="クールダウンメッセージを返信として送信"
+                            model="$ctrl.command.sendCooldownMessageAsReply"
+                        />
+
                         <label class="control-fb control--checkbox">
-                            再実行可能になるまでの待ち時間メッセージをカスタムする
+                            カスタムクールダウンメッセージを使用
                             <input
                                 type="checkbox"
                                 ng-model="$ctrl.command.useCustomCooldownMessage"
@@ -64,7 +63,7 @@
                                 disable-variables="true"
                                 input-title="メッセージ"
                         />
-                            <p class="muted"> 利用可能な変数: {user}, {timeLeft}</p>
+                            <p class="muted">利用可能な変数: {user}, {timeLeft}</p>
                         </div>
                     </div>
                 </div>

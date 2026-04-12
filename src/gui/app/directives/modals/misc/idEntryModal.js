@@ -4,7 +4,7 @@
 
 (function() {
 
-    const marked = require("marked");
+    const { marked } = require("marked");
     const { sanitize } = require("dompurify");
 
     angular
@@ -12,7 +12,7 @@
         .component("idEntryModal", {
             template: `
             <div class="modal-header" style="text-align: center;">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss();"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss();"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">{{$ctrl.label}}</h4>
             </div>
             <div class="modal-body">
@@ -21,10 +21,10 @@
                     <div style="margin-bottom: 5px;opacity: 0.8;font-weight: 800;font-size: 16px;">STEPS</div>
                     <div ng-bind-html="$ctrl.steps"></div>
                 </div>
-             
+
                 <div style="margin-top: 15px;">
                     <div ng-show="$ctrl.hasSteps" style="margin-bottom: 5px;opacity: 0.8;font-weight: 800;font-size: 16px;text-transform: uppercase;">{{$ctrl.idLabel}}</div>
-                    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">     
+                    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
                         <div style="width: 95%; position: relative;">
                             <div class="form-group" ng-class="{'has-error': $ctrl.hasValidationError}">
                                 <textarea type="text" class="form-control" rows="2" ng-model="$ctrl.model" ng-keyup="$event.keyCode == 13 && $ctrl.save()" aria-describedby="helpBlock" placeholder="{{$ctrl.inputPlaceholder}}"></textarea>
@@ -33,8 +33,8 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
@@ -53,9 +53,9 @@
 
                 $ctrl.label = "テキストを入力";
                 $ctrl.inputPlaceholder = "テキストを入力";
-                $ctrl.saveText = "Save";
-                $ctrl.validationFn = (model) => model != null && model.length > 0;
-                $ctrl.validationText = "IDを入力してください";
+                $ctrl.saveText = "保存";
+                $ctrl.validationFn = model => model != null && model.length > 0;
+                $ctrl.validationText = "アカウントIDは空にできません。";
                 $ctrl.hasValidationError = false;
 
                 $ctrl.hasSteps = false;
@@ -75,7 +75,7 @@
                     if ($ctrl.resolve.idLabel) {
                         $ctrl.idLabel = $ctrl.resolve.idLabel;
                     }
-                    $ctrl.validationText = `${$ctrl.resolve.idLabel} は空欄にできません`;
+                    $ctrl.validationText = `${$ctrl.resolve.idLabel} は空にできません。`;
 
                     if ($ctrl.resolve.inputPlaceholder) {
                         $ctrl.inputPlaceholder = $ctrl.resolve.inputPlaceholder;

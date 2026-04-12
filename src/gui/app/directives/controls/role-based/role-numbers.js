@@ -12,7 +12,7 @@
             template: `
             <div>
                 <div style="margin: 5px 0 10px 0px;">
-                    <button class="btn btn-default" ng-click="$ctrl.openAddRoleModal()"><i class="far fa-plus-circle"></i> 役割の追加</button>
+                    <button class="btn btn-default" ng-click="$ctrl.openAddRoleModal()"><i class="far fa-plus-circle"></i> ロールを追加</button>
                 </div>
 
                 <div ui-sortable="$ctrl.sortableOptions" ng-model="$ctrl.model.roles">
@@ -73,7 +73,7 @@
                     const options = allRoles
                         .filter(r =>
                             !$ctrl.model.roles.some(rd => rd.roleId === r.id))
-                        .map(r => {
+                        .map((r) => {
                             return {
                                 id: r.id,
                                 name: r.name
@@ -82,10 +82,10 @@
 
                     utilityService.openSelectModal(
                         {
-                            label: "役割の追加",
+                            label: "ロールを追加",
                             options: options,
-                            saveText: "追加する",
-                            validationText: "役割を選んでください."
+                            saveText: "追加",
+                            validationText: "ロールを選択してください。"
 
                         },
                         (roleId) => {

@@ -5,16 +5,12 @@ export const SceneNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneName",
         description:
-      "現在の OBS シーン名。OBSが起動していない場合は'不明'を返す。",
-<<<<<<< HEAD
-        possibleDataOutput: ["text"]
-=======
+            "イベントを発火した OBS シーン名です。イベントがない場合は現在の OBS シーン名を返します。OBS 未起動時は 'Unknown' を返します。",
         possibleDataOutput: ["text"],
-        categories: [VariableCategory.ADVANCED, VariableCategory.INTEGRATION, VariableCategory.OBS]
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+        categories: ["advanced", "integrations", "obs"]
     },
-    evaluator: async (trigger) => {
-        const currentSceneName = trigger.metadata?.eventData?.sceneName ?? await getCurrentSceneName();
+    evaluator: (trigger) => {
+        const currentSceneName = trigger.metadata?.eventData?.sceneName ?? getCurrentSceneName();
         return currentSceneName ?? "Unknown";
     }
 };

@@ -24,25 +24,29 @@
 
             $scope.timerHeaders = [
                 {
-                    name: "名前",
+                    name: "NAME",
                     icon: "fa-user",
                     headerStyles: {
                         'min-width': '175px'
                     },
+                    dataField: "name",
+                    sortable: true,
                     cellTemplate: `{{data.name}}`,
                     cellController: () => {}
                 },
                 {
-                    name: "間隔",
+                    name: "INTERVAL",
                     icon: "fa-stopwatch",
                     headerStyles: {
                         'min-width': '100px'
                     },
+                    dataField: "interval",
+                    sortable: true,
                     cellTemplate: `{{data.interval}}`,
                     cellController: () => {}
                 },
                 {
-                    name: "必要なチャット行数",
+                    name: "REQUIRED CHAT LINES",
                     icon: "fa-align-center",
                     headerStyles: {
                         'min-width': '175px'
@@ -51,7 +55,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "演出",
+                    name: "EFFECTS",
                     icon: "fa-magic",
                     headerStyles: {
                         'min-width': '100px'
@@ -70,7 +74,7 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "タイマーを無効化" : "タイマーを有効化"}</a>`,
                         click: function () {
                             timerService.toggleTimerActiveState(item);
                         }
@@ -86,12 +90,12 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "タイマーの削除",
-                                    question: `タイマー "${item.name}" を削除しますか?`,
-                                    confirmLabel: "削除する",
+                                    title: "タイマーを削除",
+                                    question: `タイマー "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
-                                .then(confirmed => {
+                                .then((confirmed) => {
                                     if (confirmed) {
                                         timerService.deleteTimer(item);
                                     }
@@ -106,16 +110,18 @@
 
             $scope.scheduledTaskHeaders = [
                 {
-                    name: "名前",
+                    name: "NAME",
                     icon: "fa-user",
                     headerStyles: {
                         'min-width': '175px'
                     },
+                    dataField: "name",
+                    sortable: true,
                     cellTemplate: `{{data.name}}`,
                     cellController: () => {}
                 },
                 {
-                    name: "予定",
+                    name: "SCHEDULE",
                     icon: "fa-calendar-alt",
                     headerStyles: {
                         'min-width': '250px'
@@ -128,7 +134,7 @@
                     }
                 },
                 {
-                    name: "演出",
+                    name: "EFFECTS",
                     icon: "fa-magic",
                     headerStyles: {
                         'min-width': '100px'
@@ -147,7 +153,7 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.enabled ? "スケジュール済みエフェクトリストを無効化" : "スケジュール済みエフェクトリストを有効化"}</a>`,
                         click: function () {
                             scheduledTaskService.toggleScheduledTaskEnabledState(item);
                         }
@@ -159,16 +165,16 @@
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "演出予定リストの削除",
-                                    question: `リスト "${item.name}" を削除しますか?`,
-                                    confirmLabel: "削除する",
+                                    title: "スケジュール済みエフェクトリストを削除",
+                                    question: `スケジュール済みエフェクトリスト "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
-                                .then(confirmed => {
+                                .then((confirmed) => {
                                     if (confirmed) {
                                         scheduledTaskService.deleteScheduledTask(item);
                                     }

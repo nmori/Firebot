@@ -1,35 +1,22 @@
 import { EffectType } from "../../../types/effects";
-import { EffectCategory } from '../../../shared/effect-constants';
-import scheduledTaskManager from "../../timers/scheduled-task-manager";
+import { ScheduledTaskManager } from "../../timers/scheduled-task-manager";
 
-const model: EffectType<{
+const effect: EffectType<{
     scheduledTaskId: string;
-    toggleType: string;
+    toggleType: "toggle" | "enable" | "disable";
+    useTag?: boolean;
+    sortTagId?: string;
 }> = {
     definition: {
         id: "firebot:toggle-scheduled-task",
-        name: "Toggle Scheduled Effect List",
-        description: "Toggle a scheduled effect list's enabled status",
+        name: "スケジュール済みエフェクトリスト切り替え",
+        description: "スケジュール済みエフェクトリストの有効状態を切り替えます",
         icon: "fad fa-toggle-off",
-        categories: [EffectCategory.COMMON],
+        categories: ["common", "firebot control"],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container>
-<<<<<<< HEAD
-            <p>この演出は、"演出予定リストの有効状態を切り替えます。</p>
-        </eos-container>
-
-        <eos-container ng-hide="hasScheduledTasks" pad-top="true">
-            <span class="muted">"演出予定リストはまだ作成されていません！作成は <b>予定</b> タブから作成します</span>
-        </eos-container>
-
-        <eos-container ng-show="hasScheduledTasks" header=""演出予定リスト" pad-top="true">
-            <dropdown-select options="scheduledTaskOptions" selected="effect.scheduledTaskId"></dropdown-select>
-        </eos-container>
-
-        <eos-container ng-show="hasScheduledTasks" header="切り替え" pad-top="true">
-=======
             <p>This effect lets you automatically toggle the enabled status of Scheduled Effect Lists.</p>
         </eos-container>
 
@@ -61,13 +48,14 @@ const model: EffectType<{
         </eos-container>
 
         <eos-container ng-show="hasScheduledTasks || (hasTags && effect.useTag)" header="Toggle Action" pad-top="true">
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,
-    optionsController: ($scope, scheduledTaskService) => {
+    optionsController: ($scope, scheduledTaskService, sortTagsService) => {
 
         const scheduledTasks = scheduledTaskService.getScheduledTasks();
+
+        $scope.sortTags = sortTagsService.getSortTags('scheduled effect lists');
 
         $scope.scheduledTaskOptions = {};
 
@@ -76,6 +64,7 @@ const model: EffectType<{
         }
 
         $scope.hasScheduledTasks = scheduledTasks != null && scheduledTasks.length > 0;
+        $scope.hasTags = $scope.sortTags != null && $scope.sortTags.length > 0;
 
         if ($scope.scheduledTaskOptions[$scope.effect.scheduledTaskId] == null) {
             $scope.effect.scheduledTaskId = undefined;
@@ -91,22 +80,48 @@ const model: EffectType<{
             $scope.effect.toggleType = "disable";
         }
     },
-    optionsValidator: effect => {
-        const errors = [];
-        if (effect.scheduledTaskId == null) {
+    optionsValidator: (effect) => {
+        const errors: string[] = [];
+        if (!effect.useTag && effect.scheduledTaskId == null) {
             errors.push("Please select a scheduled effect list.");
+        }
+        if (effect.useTag && effect.sortTagId == null) {
+            errors.push("Please select a scheduled effect list sort tag.");
         }
         return errors;
     },
-    onTriggerEvent: async event => {
-        const { effect } = event;
-        const scheduledTask = scheduledTaskManager.getItem(effect.scheduledTaskId);
-        scheduledTask.enabled = effect.toggleType === "toggle" ? !scheduledTask.enabled : effect.toggleType === "enable";
+    getDefaultLabel: (effect, scheduledTaskService, sortTagsService) => {
+        const action = effect.toggleType === "toggle" ? "Toggle"
+            : effect.toggleType === "enable" ? "Enable" : "Disable";
+        if (effect.useTag) {
+            const sortTag = sortTagsService.getSortTags('scheduled effect lists')
+                .find(tag => tag.id === effect.sortTagId);
+            return `${action} tag: ${sortTag?.name ?? "Unknown"}`;
+        }
 
-        scheduledTaskManager.saveScheduledTask(scheduledTask);
+        const scheduledTask = scheduledTaskService.getScheduledTasks().find(task => task.id === effect.scheduledTaskId);
+        return `${action} ${scheduledTask?.name ?? "Unknown Scheduled Effect List"}`;
+    },
+    onTriggerEvent: (event) => {
+        const { effect } = event;
+        if (!effect.useTag) {
+            const scheduledTask = ScheduledTaskManager.getItem(effect.scheduledTaskId);
+            scheduledTask.enabled = effect.toggleType === "toggle" ? !scheduledTask.enabled : effect.toggleType === "enable";
+
+            ScheduledTaskManager.saveScheduledTask(scheduledTask);
+
+            return true;
+        }
+
+        const tasks = ScheduledTaskManager.getAllItems().filter(task => task.sortTags?.includes(effect.sortTagId));
+
+        tasks.forEach((scheduledTask) => {
+            scheduledTask.enabled = effect.toggleType === "toggle" ? !scheduledTask.enabled : effect.toggleType === "enable";
+            ScheduledTaskManager.saveScheduledTask(scheduledTask);
+        });
 
         return true;
     }
 };
 
-export = model;
+export = effect;

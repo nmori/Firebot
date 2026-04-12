@@ -6,12 +6,12 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">視聴者の編集</h4>
+                    <h4 class="modal-title">視聴者を編集</h4>
                 </div>
                 <div class="modal-body">
                     <form name="importedViewer">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('username')}">
-                            <label for="username" class="control-label">視聴者名</label>
+                            <label for="username" class="control-label">ユーザー名</label>
                             <input
                                 type="text"
                                 id="username"
@@ -19,7 +19,7 @@
                                 class="form-control input-lg"
                                 ng-model="$ctrl.viewer.name"
                                 ui-validate="'$value != null && $value.length > 0'"
-                                必須
+                                required
                             />
                         </div>
 
@@ -32,7 +32,7 @@
                                 class="form-control input-lg"
                                 ng-model="$ctrl.viewer.viewHours"
                                 ui-validate="'$value != null'"
-                                必須
+                                required
                             />
                         </div>
 

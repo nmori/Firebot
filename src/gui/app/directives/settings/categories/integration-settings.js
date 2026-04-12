@@ -22,6 +22,7 @@
                   class="btn btn-default"
                   ng-show="integration.configurable"
                   ng-click="integrations.openIntegrationSettings(integration.id)"
+                  aria-label="{{integration.name}} を設定"
                 >
                   設定
                 </button>
@@ -29,6 +30,8 @@
                   class="btn btn-default"
                   ng-show="integration.linkType === 'auth' || integration.linkType === 'id' || integration.linkType === 'other'"
                   ng-click="integrations.toggleLinkforIntegration(integration.id)"
+                  aria-label="{{integrations.integrationIsLinked(integration.id) ? 'リンク解除'
+                  : 'リンク'}} {{integration.name}}"
                 >
                   {{integrations.integrationIsLinked(integration.id) ? 'リンク解除'
                   : 'リンク'}}

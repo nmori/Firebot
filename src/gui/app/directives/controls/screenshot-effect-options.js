@@ -9,20 +9,20 @@
             },
             template: `
                 <div>
-                    <eos-container header="Output Options" pad-top="true">
+                    <eos-container header="出力オプション" pad-top="true">
                         <div style="padding-top:15px">
-                            <label class="control-fb control--checkbox"> Save to folder
+                            <label class="control-fb control--checkbox"> フォルダーに保存
                                 <input type="checkbox" ng-model="effect.saveLocally">
                                 <div class="control__indicator"></div>
                             </label>
                             <div ng-if="effect.saveLocally" style="margin-left: 30px;">
-                                <file-chooser model="effect.folderPath" options="{ directoryOnly: true, filters: [], title: 'Select Screenshot Folder'}"></file-chooser>
-                                <firebot-input class="pt-3" model="effect.fileNamePattern" input-title="File Name Pattern" input-type="text" menu-position="bottom" />
+                                <file-chooser model="effect.folderPath" options="{ directoryOnly: true, filters: [], title: 'スクリーンショット保存先フォルダーを選択'}"></file-chooser>
+                                <firebot-input class="pt-3" model="effect.fileNamePattern" input-title="ファイル名パターン" input-type="text" menu-position="bottom" />
                             </div>
                         </div>
 
                         <div style="padding-top:15px">
-                            <label class="control-fb control--checkbox"> Overwrite existing file
+                            <label class="control-fb control--checkbox"> 既存ファイルを上書き
                                 <input type="checkbox" ng-model="effect.overwriteExisting" ng-change="overwriteExistingChanged()">
                                 <div class="control__indicator"></div>
                             </label>
@@ -32,18 +32,18 @@
                         </div>
 
                         <div style="padding-top:15px" ng-show="hasChannels">
-                            <label class="control-fb control--checkbox"> Post screenshot in Discord channel
+                            <label class="control-fb control--checkbox"> Discord チャンネルにスクリーンショットを投稿
                                 <input type="checkbox" ng-model="effect.postInDiscord">
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
                         <div ng-show="effect.postInDiscord" style="margin-left: 30px;">
-                            <div>Discord Channel:</div>
+                            <div>Discord チャンネル:</div>
                             <dropdown-select options="channelOptions" selected="effect.discordChannelId"></dropdown-select>
                         </div>
 
-                        <div style="padding-top:15px">
-                            <label class="control-fb control--checkbox"> Show screenshot in overlay
+                        <div ng-init="showOverlayOption = effect.showInOverlay == true"  style="padding-top:15px" ng-if="showOverlayOption">
+                            <label class="control-fb control--checkbox"> オーバーレイにスクリーンショットを表示
                                 <input type="checkbox" ng-model="effect.showInOverlay">
                                 <div class="control__indicator"></div>
                             </label>
@@ -53,16 +53,16 @@
                     <discord-webhook-message effect="effect" is-screenshot="true" ng-if="effect.postInDiscord"></discord-webhook-message>
 
                     <div ng-if="effect.showInOverlay">
-                        <eos-container header="Overlay Duration" pad-top="true">
-                            <firebot-input model="effect.duration" input-type="number" disable-variables="true" input-title="Secs" />
+                        <eos-container header="オーバーレイ表示時間" pad-top="true">
+                            <firebot-input model="effect.duration" input-type="number" disable-variables="true" input-title="秒" />
                         </eos-container>
-                        <eos-container header="Overlay Dimensions" pad-top="true">
-                            <label class="control-fb control--checkbox"> Force 16:9 Ratio
+                        <eos-container header="オーバーレイサイズ" pad-top="true">
+                            <label class="control-fb control--checkbox"> 16:9 比率を固定
                                 <input type="checkbox" ng-click="forceRatio = !forceRatio" ng-checked="forceRatio">
                                 <div class="control__indicator"></div>
                             </label>
                             <div class="input-group">
-                                <span class="input-group-addon">Width (in pixels)</span>
+                                <span class="input-group-addon">幅（px）</span>
                                 <input
                                     type="text"
                                     class="form-control"
@@ -70,7 +70,7 @@
                                     type="number"
                                     ng-change="calculateSize('Width', effect.width)"
                                     ng-model="effect.width">
-                                <span class="input-group-addon">Height (in pixels)</span>
+                                <span class="input-group-addon">高さ（px）</span>
                                 <input
                                     type="text"
                                     class="form-control"
@@ -81,6 +81,7 @@
                             </div>
                         </eos-container>
                         <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
+                        <eos-overlay-rotation effect="effect" pad-top="true"></eos-overlay-rotation>
                         <eos-enter-exit-animations effect="effect" class="setting-padtop"></eos-enter-exit-animations>
                         <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
                     </div>
@@ -127,7 +128,7 @@
                 $scope.hasChannels = false;
                 $scope.channelOptions = {};
                 $q.when(backendCommunicator.fireEventAsync("getDiscordChannels"))
-                    .then(channels => {
+                    .then((channels) => {
                         if (channels && channels.length > 0) {
                             const newChannels = {};
 

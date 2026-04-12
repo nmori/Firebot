@@ -12,10 +12,10 @@
                 <div class="loader">読み込み中...</div>
             </div>
             <div style="text-align:center;" ng-if="$ctrl.loaded === true">
-                <h4 class="mb-8"><strong class="capitalize">{{$ctrl.accountType}}</strong> アカウントを繋げましょう</h4>
+                <h4 class="mb-8"><strong class="capitalize">{{$ctrl.accountType}}</strong> アカウントを接続しましょう！</h4>
                 <p class="muted px-15">
-                    {{$ctrl.accountType === 'streamer' ? 'ここを押すか、' : ''}} 以下のURLをブラウザにコピーして<br>Twitch <strong>{{$ctrl.accountType}}</strong> アカウントでログインします。
-                    <span ng-if="$ctrl.accountType && $ctrl.accountType === 'bot'" style="font-style: italic;"><br><br>注意：配信アカウントで意図せずログインしてしまうことを避けるため、ブラウザのシークレットウィンドウで実行するとよいでしょう。</span>
+                    Twitch <strong>{{$ctrl.accountType}}</strong> アカウントを接続するには、下記URLをブラウザで{{$ctrl.accountType === 'streamer' ? '開くか、' : ''}}コピーしてください。<br>
+                    <span ng-if="$ctrl.accountType && $ctrl.accountType === 'bot'" style="font-style: italic;"><br><br>注意: 配信者アカウントで誤ってログインしないために、シークレットウィンドウの利用をおすすめします。</span>
                 </p>
                 <div class="dcf-link-panel">
                     <div class="dcf-link-container truncate">
@@ -25,7 +25,7 @@
                             class="dcf-clone-btn"
                             ng-class="{ 'is-cta': $ctrl.accountType === 'bot' }"
                             ng-click="$ctrl.copy()"
-                            uib-tooltip="{{$ctrl.copiedLink ? 'コピーしました!' : $ctrl.tooltipText}}"
+                            uib-tooltip="{{$ctrl.copiedLink ? 'コピーしました！' : $ctrl.tooltipText}}"
                             tooltip-append-to-body="true"
                             aria-label="{{$ctrl.tooltipText}}"
                         >
@@ -33,12 +33,12 @@
                         </div>
                     </div>
                     <div class="my-5">
-                        <p class="muted">URLを開いたら、以下のコードで認証をしてください：</p>
+                        <p class="muted">URLを開いたら、次のコードを確認してください:</p>
                         <h2 class="my-8" style="letter-spacing: 0.3em; font-family: monospace;">{{$ctrl.code}}</h2>
                         <div>
                             <i class="far fa-spinner-third fa-spin" style="font-size: 48px;"></i>
                         </div>
-                        <div class="muted mt-5">ログインをまっています...</div>
+                        <div class="muted mt-5">ログイン待機中...</div>
                     </div>
                 </div>
                 <button class="btn btn-link mt-5" ng-click="$ctrl.dismiss()">キャンセル</button>
@@ -56,7 +56,7 @@
                 $ctrl.code = details.code;
             });
 
-            backendCommunicator.on("accountUpdate", accounts => {
+            backendCommunicator.on("accounts:account-update", (accounts) => {
                 switch ($ctrl.accountType) {
                     case "streamer":
                         if (accounts.streamer.loggedIn) {
@@ -96,7 +96,7 @@
 
             $ctrl.$onInit = function() {
                 $ctrl.accountType = $ctrl.type;
-                $ctrl.tooltipText = `${utilityService.capitalize($ctrl.accountType)} のログインURLをコピー`;
+                $ctrl.tooltipText = `Copy ${utilityService.capitalize($ctrl.accountType)} Login URL`;
                 backendCommunicator.fireEventAsync("begin-device-auth", `twitch:${$ctrl.accountType}-account`);
             };
         }

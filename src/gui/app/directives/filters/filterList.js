@@ -12,24 +12,25 @@
             },
             template: `
         <div>
-          <h3 style="margin-bottom: 5px;">フィルタ</h3>
+                    <h3 style="margin-bottom: 5px;">フィルタ</h3>
           <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;" ng-if="$ctrl.hasFiltersAvailable()">
-            <span>以下の場合にのみ、このイベントが発生します。</span>
+                        <span>このイベントをトリガーする条件:</span>
 
             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
-                  <div class="noselect pointer ddtext" style="font-size: 12px;">{{$ctrl.getFilterModeDisplay()}}<span class="fb-arrow down ddtext"></span></div>
+                <a href role="button"
+                   class="noselect pointer ddtext" style="font-size: 12px;">{{$ctrl.getFilterModeDisplay()}}<span class="fb-arrow down ddtext"></span></a>
                   <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
 
                     <li ng-click="$ctrl.filterData.mode = 'exclusive'">
-                      <a style="padding-left: 10px;">すべて一致</a>
+                                            <a style="padding-left: 10px;">すべてのフィルタを満たす</a>
                     </li>
 
                     <li ng-click="$ctrl.filterData.mode = 'inclusive'">
-                      <a style="padding-left: 10px;">いずれか一致</a>
+                                            <a style="padding-left: 10px;">いずれかのフィルタを満たす</a>
                     </li>
                 </ul>
             </div>
-            <span>:</span>
+                        <span></span>
           </div>
           <div style="display:flex;flex-wrap: wrap;">
 
@@ -40,7 +41,7 @@
                 </a>
             </button>
 
-            <button class="filter-bar" ng-show="$ctrl.hasFiltersAvailable()" ng-click="$ctrl.openAddOrEditFilterModal()" uib-tooltip="Add new filter" tooltip-append-to-body="true">
+            <button class="filter-bar" ng-show="$ctrl.hasFiltersAvailable()" ng-click="$ctrl.openAddOrEditFilterModal()" uib-tooltip="新しいフィルタを追加" tooltip-append-to-body="true">
                 <i class="far fa-plus"></i>
             </button>
 
@@ -136,7 +137,7 @@
                 }
 
                 $ctrl.getFilterModeDisplay = function() {
-                    return $ctrl.filterData.mode === "inclusive" ? "いずれか成立時" : "すべて成立時";
+                    return $ctrl.filterData.mode === "inclusive" ? "いずれかのフィルタを満たす" : "すべてのフィルタを満たす";
                 };
 
                 $ctrl.getFilterType = function(typeId) {
@@ -169,7 +170,7 @@
                             availableFilters: () => filterDefintions,
                             index: () => index
                         },
-                        closeCallback: resp => {
+                        closeCallback: (resp) => {
                             const action = resp.action;
 
                             switch (action) {

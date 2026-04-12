@@ -9,21 +9,22 @@
                 <div>
 
                     <firebot-setting
-                        name="合成音声(Text to Speech)"
-                        description="使用される合成音声"
+                        name="TTS音声"
+                        description="TTSで使用する音声です。"
                     >
                         <firebot-select
                             options="ttsVoiceOptions"
                             ng-init="ttsVoice = getSelectedVoiceName()"
                             selected="ttsVoice"
-                            on-update="settings.setDefaultTtsVoiceId(option)"
+                            on-update="settings.saveSetting('DefaultTtsVoiceId', option)"
                             right-justify="true"
+                            aria-label="Choose your Text to Speech voice"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="読み上げ音量"
-                        description="TTSが話す音量"
+                        name="TTS音量"
+                        description="TTSの読み上げ音量です。"
                     >
                         <div class="volume-slider-wrapper"  style="width: 75%">
                             <i class="fal fa-volume-down volume-low" style="font-size: 25px"></i>
@@ -36,8 +37,8 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="読み上げスピード"
-                        description="合成音声が話す速度： 1は通常。0.5は半分の速さ。2は2倍など。"
+                        name="TTS読み上げ速度"
+                        description="TTSの読み上げ速度です。1が標準、0.5は半分、2は2倍です。"
                     >
                         <div class="volume-slider-wrapper" style="width: 75%">
                             <i class="fal fa-turtle volume-low" style="font-size: 25px"></i>
@@ -51,11 +52,11 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="読み上げテスト"
-                        description="現在の設定でテスト読み上げします"
+                        name="TTSテスト"
+                        description="現在のTTS設定をテストします。"
                     >
                         <firebot-button
-                            text="テストで読み上げる"
+                            text="テストメッセージを再生"
                             ng-click="testTTS()"
                         />
                     </firebot-setting>
@@ -66,7 +67,7 @@
                 $scope.settings = settingsService;
 
                 $scope.getSelectedVoiceName = () => {
-                    const selectedVoiceId = settingsService.getDefaultTtsVoiceId();
+                    const selectedVoiceId = settingsService.getSetting("DefaultTtsVoiceId");
                     const voice = ttsService.getVoiceById(selectedVoiceId);
                     return voice ? voice.name : "不明な音声";
                 };
@@ -74,7 +75,7 @@
                 $scope.ttsVoices = ttsService.getVoices();
 
                 $scope.getSelectedVoiceName = () => {
-                    const selectedVoiceId = settingsService.getDefaultTtsVoiceId();
+                    const selectedVoiceId = settingsService.getSetting("DefaultTtsVoiceId");
                     const voice = ttsService.getVoiceById(selectedVoiceId);
                     return voice ? voice.name : "不明な音声";
                 };
@@ -85,30 +86,32 @@
                 }, {});
 
                 $scope.ttsVolumeSlider = {
-                    value: settingsService.getTtsVoiceVolume(),
+                    value: settingsService.getSetting("TtsVoiceVolume"),
                     options: {
                         floor: 0,
                         ceil: 1,
                         step: 0.1,
                         precision: 1,
+                        ariaLabel: "Text to speech volume ",
                         translate: function(value) {
                             return Math.floor(value * 10);
                         },
                         onChange: (_, value) => {
-                            settingsService.setTtsVoiceVolume(value);
+                            settingsService.saveSetting("TtsVoiceVolume", value);
                         }
                     }
                 };
 
                 $scope.ttsRateSlider = {
-                    value: settingsService.getTtsVoiceRate(),
+                    value: settingsService.getSetting("TtsVoiceRate"),
                     options: {
                         floor: 0.1,
                         ceil: 10,
                         step: 0.1,
                         precision: 1,
+                        ariaLabel: "Text to speech rate ",
                         onChange: (_, value) => {
-                            settingsService.setTtsVoiceRate(value);
+                            settingsService.saveSetting("TtsVoiceRate", value);
                         }
                     }
                 };
@@ -116,16 +119,16 @@
                 const streamerName = accountAccess.accounts.streamer.username;
 
                 const testTTSMessages = [
-                    "良い一日をお過ごしください。",
-                    "話ができてとてもうれしい",
-                    "あなたは素晴らしい",
-                    "歯医者にはいつ行く？歯が痛い。ははは。",
-                    "これはテストメッセージです。ピーピーピー。",
-                    `ごめんね、 ${streamerName}さん。 残念ながら、それはできません。`
+                    "良い一日を過ごせますように。",
+                    "こうして話せるのは素敵ですね。",
+                    "あなたはとても素晴らしいです。",
+                    "歯医者さんにはいつ行きますか？",
+                    "これはテストメッセージです。",
+                    `${streamerName}さん、申し訳ありませんがそれはできません。`
                 ];
 
-                $scope.testTTS = () => {
-                    ttsService.readText(testTTSMessages[Math.floor(Math.random() * testTTSMessages.length)], "default");
+                $scope.testTTS = async () => {
+                    await ttsService.readText(testTTSMessages[Math.floor(Math.random() * testTTSMessages.length)], "default", false);
                 };
 
                 $scope.refreshSliders = function() {

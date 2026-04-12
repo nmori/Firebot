@@ -1,46 +1,45 @@
-import { ReplaceVariable } from "../../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../../shared/variable-constants";
+import type { ReplaceVariable } from "../../../../../types/variables";
 
-import twitchApi from "../../../../twitch-api/api";
+import { TwitchApi } from "../../../../streaming-platforms/twitch/api";
 import roleHelpers from "../../../../roles/role-helpers";
 
 const model : ReplaceVariable = {
     definition: {
         handle: "userRoles",
-        usage: "userRoles[username, all|firebot|custom|twitch|team]",
-        description: "ユーザのすべての役割を返します。",
+        usage: "userRoles[username, all|twitch|team|firebot|custom]",
+        description: "Returns an array containing all roles of the user",
         examples: [
             {
                 usage: "userRoles",
-                description: "ユーザのすべての役割を返します。"
+                description: "Returns all roles for the user"
             },
             {
                 usage: "userRoles[$user]",
-                description: "指定されたユーザのすべての役割を返します。"
+                description: "Returns all roles of the specified user"
             },
             {
                 usage: "userRoles[$user, all]",
-                description: "指定されたユーザのすべての役割を返します。"
+                description: "Returns all roles of the specified user as nested arrays in the order of: twitch, team, firebot and custom"
             },
             {
                 usage: "userRoles[$user, firebot]",
-                description: "指定されたユーザのすべてのfirebot役割を返します。"
+                description: "Returns all firebot roles of the specified user"
             },
             {
                 usage: "userRoles[$user, custom]",
-                description: "指定されたユーザのすべてのカスタム役割を返します。"
+                description: "Returns all custom roles of the specified user"
             },
             {
                 usage: "userRoles[$user, twitch]",
-                description: "指定したユーザーのすべてのTwitch役割を返します。"
+                description: "Returns all Twitch roles of the specified user"
             },
             {
                 usage: "userRoles[$user, team]",
-                description: "指定したユーザーのすべてのTwitchチームの役割を返します。"
+                description: "Returns all Twitch team roles of the specified user"
             }
         ],
-        categories: [VariableCategory.COMMON, VariableCategory.USER],
-        possibleDataOutput: [OutputDataType.ARRAY]
+        categories: ["common", "user based"],
+        possibleDataOutput: ["array"]
     },
     evaluator: async (trigger, username: null | string, roleType) : Promise<unknown[]> => {
         if (username == null && roleType == null) {
@@ -59,7 +58,7 @@ const model : ReplaceVariable = {
         }
 
         try {
-            const user = await twitchApi.users.getUserByName(username);
+            const user = await TwitchApi.users.getUserByName(username);
             if (user == null) {
                 return [];
             }

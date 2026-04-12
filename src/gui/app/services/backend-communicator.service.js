@@ -11,7 +11,7 @@
         .module("firebotApp")
         .factory("backendCommunicator", function($q) {
 
-            const uuidv1 = require("uuid/v1");
+            const { randomUUID } = require("crypto");
 
             const service = {};
 
@@ -27,7 +27,7 @@
                         const eventListeners = listeners[name];
                         for (const listener of eventListeners) {
                             if (listener.async) {
-                                listener.callback(data).then(returnValue => {
+                                listener.callback(data).then((returnValue) => {
                                     service.fireEvent(`${name}:reply`, returnValue);
                                 });
                             } else {
@@ -35,16 +35,16 @@
                             }
                         }
                     });
-                }(eventName));
+                })(eventName);
             }
 
             service.on = function(eventName, callback, async = false) {
 
                 if (typeof callback !== "function") {
-                    throw new Error("コールバックなしでイベントを登録できない");
+                    throw new Error("Can't register an event without a callback.");
                 }
 
-                const id = uuidv1(),
+                const id = randomUUID(),
                     event = {
                         id: id,
                         callback: callback,
@@ -68,12 +68,12 @@
                 if (data !== undefined) {
                     data = JSON.parse(JSON.stringify(data));
                 }
-                return new Promise(resolve => {
+                return $q.when(new Promise((resolve) => {
                     ipcRenderer.send(type, data);
                     ipcRenderer.once(`${type}:reply`, (_, eventData) => {
                         resolve(eventData);
                     });
-                });
+                }));
             };
 
             service.fireEventSync = function(type, data) {
@@ -88,4 +88,4 @@
 
             return service;
         });
-}());
+})();

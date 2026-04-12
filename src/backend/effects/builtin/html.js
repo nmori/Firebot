@@ -1,8 +1,8 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
+const { SettingsManager } = require("../../common/settings-manager");
 const webServer = require("../../../server/http-server-manager");
-const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
+const { EffectCategory } = require('../../../shared/effect-constants');
 
 /**
  * The HTML effect
@@ -13,8 +13,8 @@ const html = {
    */
     definition: {
         id: "firebot:html",
-        name: "HTMLを表示する",
-        description: "オーバーレイにHTMLを表示する.",
+        name: "HTML表示",
+        description: "オーバーレイに HTML スニペットを表示します。",
         icon: "fab fa-html5",
         categories: [EffectCategory.ADVANCED, EffectCategory.OVERLAY],
         dependencies: []
@@ -38,16 +38,16 @@ const html = {
         </div>
     </eos-container>
 
-    <eos-container header="表示継続時間" pad-top="true">
+    <eos-container header="Show Duration" pad-top="true">
         <div class="input-group">
+            <span class="input-group-addon" id="html-length-effect-type">Seconds</span>
             <input ng-model="effect.length" type="text" class="form-control" id="html-length-setting" aria-describedby="html-length-effect-type" replace-variables="number">
-            <span class="input-group-addon" id="html-length-effect-type">秒</span>
         </div>
-        <eos-collapsable-panel show-label="応用" hide-label="応用を隠す">
-            <h4>カスタム除去CSSセレクタ</h4>
-            <p style="margin-bottom:10px">CSSクラスをセレクタとして指定することで、指定した時間経過後に削除する要素を定義することができます。空白のままにしておくと、Firebotは常に上記のすべてのhtmlを削除します（推奨）。</p>
+        <eos-collapsable-panel show-label="Advanced" hide-label="Hide Advanced">
+            <h4>Custom Removal CSS Selector</h4>
+            <p style="margin-bottom:10px">Optionally define which element(s) to be removed after the given duration via a CSS class as a selector. Leave blank to have Firebot always remove all the html above (Recommended).</p>
             <div class="input-group">
-                <span class="input-group-addon" id="html-selector-effect-type">CSSクラス</span>
+                <span class="input-group-addon" id="html-selector-effect-type">CSS Class</span>
                 <input ng-model="effect.removal" type="text" class="form-control" aria-describedby="html-selector-effect-type">
             </div>
         </eos-collapsable-panel>
@@ -59,11 +59,11 @@ const html = {
 
     <eos-container>
         <div class="effect-info alert alert-warning">
-            この演出を使用するには、Firebotオーバーレイが配信ソフトにロードされている必要があります。<a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">いますぐ学ぶ</a>
+            This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">Learn more</a>
             <br /><br />
-            このエフェクトは<i>非常に</i>自由度が高いため、エラーになりやすいことに注意してください。
+            Please be aware that this effect is <i>extremely</i> prone to errors due to its open-ended nature.
             <br /><br />
-            ユーザーが提供したコンテンツに由来する変数を使用する場合は、<code>$encodeForHtml[$variable]</code>を使用して値をエスケープすることをお勧めします。
+            When using variables that are derived from user provided content, it is recommended to escape the value using <code>$encodeForHtml[$variable]</code>.
         </div>
     </eos-container>
     `,
@@ -99,20 +99,20 @@ const html = {
    * When the effect is triggered by something
    * Used to validate fields in the option template.
    */
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.html == null) {
-            errors.push("オーバーレイに表示するHTMLを入力してください。");
+            errors.push("Please enter some HTML to show in the overlay.");
         }
         if (effect.length == null) {
-            errors.push("上映時間を入力してください。");
+            errors.push("Please input a show duration.");
         }
         return errors;
     },
     /**
    * When the effect is triggered by something
    */
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         // What should this do when triggered.
         const effect = event.effect;
 
@@ -136,9 +136,9 @@ const html = {
             exitDuration: effect.exitDuration
         };
 
-        if (settings.useOverlayInstances()) {
+        if (SettingsManager.getSetting("UseOverlayInstances")) {
             if (effect.overlayInstance != null) {
-                if (settings.getOverlayInstances().includes(effect.overlayInstance)) {
+                if (SettingsManager.getSetting("OverlayInstances").includes(effect.overlayInstance)) {
                     data.overlayInstance = effect.overlayInstance;
                 }
             }
@@ -157,7 +157,7 @@ const html = {
         },
         event: {
             name: "html",
-            onOverlayEvent: event => {
+            onOverlayEvent: (event) => {
                 // The absolute position prevents the html effect from always being underneath other effects.
                 const element = $(event.html).css({"position": "absolute"});
 

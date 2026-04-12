@@ -5,19 +5,12 @@ export const SceneCollectionNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneCollectionName",
         description:
-<<<<<<< HEAD
-      "現在の OBS シーンコレクション の名前。OBSが起動していない場合は、'不明'を返します。.",
-    possibleDataOutput: ["text"],
-  },
-  evaluator: async (trigger) => {
-=======
-      "The name of the OBS scene collection that triggered the event, or the name of the current OBS scene collection if there is no event. If OBS isn't running, it returns 'Unknown'.",
+              "イベントを発火した OBS シーンコレクション名です。イベントがない場合は現在の OBS シーンコレクション名を返します。OBS 未起動時は 'Unknown' を返します。",
         possibleDataOutput: ["text"],
-        categories: [VariableCategory.ADVANCED, VariableCategory.INTEGRATION, VariableCategory.OBS]
+        categories: ["advanced", "integrations", "obs"]
     },
     evaluator: async (trigger) => {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         const currentSceneCollectionName = trigger.metadata?.eventData?.sceneCollectionName ?? await getCurrentSceneCollectionName();
-        return currentSceneCollectionName ?? "不明";
+        return currentSceneCollectionName ?? "Unknown";
     }
 };

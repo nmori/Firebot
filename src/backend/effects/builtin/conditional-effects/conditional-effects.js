@@ -11,7 +11,7 @@ const model = {
     definition: {
         id: "firebot:conditional-effects",
         name: "条件付き演出",
-        description: "条件付き演出",
+        description: "条件に応じて演出を実行します",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         icon: "fad fa-question-circle",
         dependencies: []
@@ -24,7 +24,7 @@ const model = {
             <div ng-repeat="ifCondition in effect.ifs" style="margin-bottom: 15px;">
                 <condition-section header="{{$index === 0 ? 'もし' : '上記不成立で、もし'}}" label="ifCondition.label" initially-open="$index === 0 && openFirst">
                     <condition-list condition-data="ifCondition.conditionData" trigger="trigger" trigger-meta="triggerMeta"></condition-list>
-                    <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">Then run the following effects:</div>
+                    <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">以下の演出を実行する:</div>
                     <effect-list effects="ifCondition.effectData"
                         trigger="{{trigger}}"
                         trigger-meta="triggerMeta"
@@ -32,7 +32,8 @@ const model = {
                         modalId="{{modalId}}"></effect-list>
 
                     <div style="margin-top: 10px">
-                        <button class="btn btn-danger" ng-click="deleteClauseAtIndex($index)"><i class="far fa-trash"></i></button>
+                        <button class="btn btn-default" ng-click="duplicateClauseAtIndex($index)" title="条件を複製"><i class="far fa-clone"></i></button>
+                        <button class="btn btn-danger" ng-click="deleteClauseAtIndex($index)" title="条件を削除"><i class="far fa-trash"></i></button>
                     </div>
                 </condition-section>
             </div>
@@ -64,7 +65,7 @@ const model = {
             />
         </eos-container>
     `,
-    optionsController: ($scope, utilityService) => {
+    optionsController: ($scope, utilityService, objectCopyHelper) => {
 
         $scope.sortableOptions = {
             handle: ".dragHandle",
@@ -85,6 +86,15 @@ const model = {
                 conditionData: null,
                 effectData: null
             });
+        };
+
+        $scope.duplicateClauseAtIndex = ($index) => {
+            const newCondition = objectCopyHelper.copyAndReplaceIds($scope.effect.ifs[$index]);
+            newCondition.label = newCondition.label?.length
+                ? `${newCondition.label} コピー`
+                : "コピー";
+
+            $scope.effect.ifs.splice($index + 1, 0, newCondition);
         };
 
         $scope.deleteClauseAtIndex = ($index) => {
@@ -118,7 +128,7 @@ const model = {
     onTriggerEvent: (event) => {
         return new Promise(async (resolve) => {
             // What should this do when triggered.
-            const { effect, trigger, outputs } = event;
+            const { effect, trigger, outputs, abortSignal } = event;
 
             let effectsToRun = null;
             if (effect.ifs != null) {
@@ -127,7 +137,10 @@ const model = {
                         continue;
                     }
 
-                    const didPass = await conditionManager.runConditions(ifCondition.conditionData, trigger);
+                    const didPass = await conditionManager.runConditions(ifCondition.conditionData, {
+                        ...trigger,
+                        effectOutputs: outputs
+                    });
                     if (didPass) {
                         effectsToRun = ifCondition.effectData;
                         break;
@@ -139,7 +152,7 @@ const model = {
                 effectsToRun = effect.otherwiseEffectData;
             }
 
-            if (effectsToRun != null) {
+            if (effectsToRun != null && !abortSignal?.aborted) {
                 const processEffectsRequest = {
                     trigger: event.trigger,
                     effects: effectsToRun,

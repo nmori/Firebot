@@ -1,10 +1,9 @@
 "use strict";
 
-const logger = require("../logwrapper");
 const NodeCache = require("node-cache");
 const { EffectTrigger } = require("../../shared/effect-constants");
-const filterManager = require("./filters/filter-manager");
-const eventsAccess = require("./events-access");
+const { FilterManager } = require("./filters/filter-manager");
+const { EventsAccess } = require("./events-access");
 
 // This cache holds all users who have fired events and what events they fired.
 // Deletes entries after 12 hours. Checks every 10 minutes.
@@ -78,32 +77,25 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
         meta = {};
     }
 
-    const eventSettings = eventsAccess.getAllActiveEvents().filter(
+    const eventSettings = EventsAccess.getAllActiveEvents().filter(
         es => es.sourceId === source.id && es.eventId === event.id
     );
 
-<<<<<<< HEAD
-=======
-    logger.info(`call event:${JSON.stringify(event)} meta:${JSON.stringify(meta)}`);
-
     const effectPromises = [];
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     for (const eventSetting of eventSettings) {
 
         if (eventSetting.filterData && (isSimulation || !isManual)) {
-            const passed = await filterManager.runFilters(eventSetting.filterData, {
+            const passed = await FilterManager.runFilters(eventSetting.filterData, {
                 eventSourceId: source.id,
                 eventId: event.id,
                 eventMeta: meta
             });
-            logger.info(`- jugde filter:${JSON.stringify(eventSetting.filterData)}`);
-            logger.info(`- jugde result:${passed}`);
             if (!passed) {
                 continue;
             }
         }
 
-        if (!isRetrigger && (isSimulation || !isManual) && (eventSetting.customCooldown || event.cached)) {
+        if (!isRetrigger && !isSimulation && !isManual && (eventSetting.customCooldown || event.cached)) {
             let cacheTtlInSecs;
             let cacheMetaKey;
 
@@ -128,17 +120,12 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
             continue;
         }
 
-        runEventEffects(effects, event, source, meta, isManual);
+        effectPromises.push(runEventEffects(effects, event, source, meta, isManual));
     }
-<<<<<<< HEAD
-=======
 
     try {
         await Promise.all(effectPromises);
-    } catch (error) {
-        logger.error(`event error: ${event.name} in ${source.name}' because: ${JSON.stringify(error)}`);
-    }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+    } catch { }
 }
 
 // Export Functions

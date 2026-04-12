@@ -5,17 +5,17 @@
         template: `
             <div class="modal-header" style="text-align: center">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">列の編集</h4>
+                                <h4 class="modal-title">視聴者列を編集</h4>
             </div>
             <div class="modal-body" style="text-align: center; padding: 0 35px">
-              <p>表示する列を選択</p>
+                            <p>メインテーブルに表示する列を選択してください</p>
               <div class="viewer-db-switches">
                 <div ng-repeat="column in $ctrl.columns">
                   <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom:5px;">
                       <span style="font-weight: 900;">{{column.headerName}}</span>
                       <span>
-                          <input class="tgl tgl-light sr-only" id="{{column.field}}" type="checkbox" 
-                            ng-checked="$ctrl.columnIsChecked(column)" 
+                          <input class="tgl tgl-light sr-only" id="{{column.field}}" type="checkbox"
+                            ng-checked="$ctrl.columnIsChecked(column)"
                             ng-click="$ctrl.flipColumnPreference(column)"/>
                         <label class="tgl-btn" for="{{column.field}}"></label>
                       </span>

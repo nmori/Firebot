@@ -1,18 +1,18 @@
 import { EffectType } from "../../../../../types/effects";
 import { stopVirtualCam } from "../obs-remote";
 
-export const StopVirtualCamEffectType: EffectType<{}> = {
-  definition: {
-    id: "ebiggz:obs-stop-virtual-cam",
-    name: "OBS 仮想カメラを停止",
-    description: "OBSに仮想カメラを終了するよう指示します",
-    icon: "fad fa-camera-home",
-    categories: ["common"],
-  },
-  optionsTemplate: `
+export const StopVirtualCamEffectType: EffectType = {
+    definition: {
+        id: "ebiggz:obs-stop-virtual-cam",
+        name: "OBS仮想カメラ停止",
+        description: "OBS に仮想カメラ停止を実行させます",
+        icon: "fad fa-camera-home",
+        categories: ["common", "integrations"]
+    },
+    optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>警告!</b> この演出が有効になると、FirebotはOBSに仮想カメラを停止するよう指示します
+        <b>警告！</b> このエフェクトを実行すると、Firebot は OBS に仮想カメラ停止を要求します。
       </div>
     </eos-container>
   `,
@@ -21,7 +21,7 @@ export const StopVirtualCamEffectType: EffectType<{}> = {
         return [];
     },
     onTriggerEvent: async () => {
-        stopVirtualCam();
+        await stopVirtualCam();
         return true;
     }
 };

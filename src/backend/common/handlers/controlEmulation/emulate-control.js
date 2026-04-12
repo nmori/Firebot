@@ -1,5 +1,5 @@
 "use strict";
-const { keyboard, Key, mouse, Button } = require("@nut-tree/nut-js");
+const { keyboard, Key, mouse, Button } = require("firebot-nutjs");
 const logger = require("../../../logwrapper");
 
 function mapNutKey(key) {
@@ -152,11 +152,9 @@ function emulateKeyPress(keyRaw, modifiers, pressDurationRaw) {
     modifiers = modifiers ?? [];
     const nutModifiers = modifiers.map(k => mapNutKey(k).key);
 
-    logger.info(
-        `nut-js: Pressing "${keyRaw}" with modifiers: ${modifiers.join(", ")}`
-    );
+    logger.info(`nut-js: Pressing "${keyRaw}" with modifiers: ${modifiers.join(", ")}`);
 
-    const durationSecs = (parseFloat(pressDurationRaw) || 0.03);
+    const durationSecs = parseFloat(pressDurationRaw) || 0.03;
 
     if (isMouseClick) {
         switch (key) {
@@ -176,18 +174,20 @@ function emulateKeyPress(keyRaw, modifiers, pressDurationRaw) {
                 });
                 break;
         }
-
     } else {
         const combinedKeys = [...nutModifiers, key];
-        keyboard.pressKey(...combinedKeys).then(() => {
-            setTimeout(function() {
-                keyboard.releaseKey(...combinedKeys).catch((error) => {
-                    logger.error(`nut-js: Error pressing "${keyRaw}"`, error.message);
-                });
-            }, durationSecs * 1000);
-        }).catch((error) => {
-            logger.error(`nut-js: Error pressing "${keyRaw}"`, error.message);
-        });
+        keyboard
+            .pressKey(...combinedKeys)
+            .then(() => {
+                setTimeout(function () {
+                    keyboard.releaseKey(...combinedKeys).catch((error) => {
+                        logger.error(`nut-js: Error pressing "${keyRaw}"`, error.message);
+                    });
+                }, durationSecs * 1000);
+            })
+            .catch((error) => {
+                logger.error(`nut-js: Error pressing "${keyRaw}"`, error.message);
+            });
     }
 }
 

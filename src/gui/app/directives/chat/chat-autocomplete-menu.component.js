@@ -100,142 +100,142 @@
                             items: [
                                 {
                                     display: "/announce [message]",
-                                    description: "チャンネル規定色のアナウンスを送信",
+                                    description: "チャンネルのブランドカラーでお知らせを送信",
                                     text: "/announce"
                                 },
                                 {
                                     display: "/announceblue [message]",
-                                    description: "青色のアナウンスを送信",
+                                    description: "青色でお知らせを送信",
                                     text: "/announceblue"
                                 },
                                 {
                                     display: "/announcegreen [message]",
-                                    description: "緑色のアナウンスを送信",
+                                    description: "緑色でお知らせを送信",
                                     text: "/announcegreen"
                                 },
                                 {
                                     display: "/announceorange [message]",
-                                    description: "オレンジ色のアナウンスを送信",
+                                    description: "オレンジ色でお知らせを送信",
                                     text: "/announceorange"
                                 },
                                 {
                                     display: "/announcepurple [message]",
-                                    description: "紫色のアナウンスを送信",
+                                    description: "紫色でお知らせを送信",
                                     text: "/announcepurple"
                                 },
                                 {
                                     display: "/ban @username",
-                                    description: "ユーザを追放する(BAN)",
+                                    description: "ユーザーをBAN",
                                     text: "/ban"
                                 },
                                 {
                                     display: "/unban @username",
-                                    description: "ユーザの追放を解除",
+                                    description: "ユーザーのBANを解除",
                                     text: "/unban"
                                 },
                                 {
                                     display: "/clear",
-                                    description: "チャットを消す",
+                                    description: "チャット表示をクリア",
                                     text: "/clear"
                                 },
                                 {
                                     display: "/mod @username",
-                                    description: "ユーザをモデレータ役に任命",
+                                    description: "ユーザーをモデレーター化",
                                     text: "/mod"
                                 },
                                 {
                                     display: "/unmod @username",
-                                    description: "ユーザをモデレータ役から解任",
+                                    description: "ユーザーのモデレーターを解除",
                                     text: "/unmod"
                                 },
                                 {
                                     display: "/timeout @username [duration] [reason]",
-                                    description: "ユーザを時限追放",
+                                    description: "ユーザーを一定時間チャット禁止",
                                     text: "/timeout"
                                 },
                                 {
                                     display: "/untimeout @username",
-                                    description: "ユーザを時限追放を解除",
+                                    description: "ユーザーのタイムアウトを解除",
                                     text: "/untimeout"
                                 },
                                 {
                                     display: "/vip @username",
-                                    description: "ユーザをVIP設定",
+                                    description: "ユーザーにVIPを付与",
                                     text: "/vip"
                                 },
                                 {
                                     display: "/unvip @username",
-                                    description: "ユーザをVIP解除",
+                                    description: "ユーザーのVIPを解除",
                                     text: "/unvip"
                                 },
                                 {
                                     display: "/followers [1m / 1h / 1d / 1w / 1mo]",
-                                    description: "フォロー期間に基づくチャット制限を設定",
+                                    description: "フォロー期間に応じてフォロワー限定にする",
                                     text: "/followers"
                                 },
                                 {
                                     display: "/followersoff",
-                                    description: "フォロー期間に基づくチャット制限を解除",
+                                    description: "フォロワー限定モードをオフ",
                                     text: "/followersoff"
                                 },
                                 {
                                     display: "/raid @username",
-                                    description: "レイドを実行",
+                                    description: "配信終了時に他チャンネルへレイド",
                                     text: "/raid"
                                 },
                                 {
                                     display: "/shoutout @username",
-                                    description: "ユーザを紹介（シャウトアウト）する",
+                                    description: "他チャンネルへシャウトアウト",
                                     text: "/shoutout"
                                 },
                                 {
                                     display: "/unraid",
-                                    description: "レイドを解除する",
+                                    description: "進行中のレイドをキャンセル",
                                     text: "/unraid"
                                 },
                                 {
                                     display: "/subscribers",
-                                    description: "チャットをサブスクライバー限定にする",
+                                    description: "サブスク限定モードにする",
                                     text: "/subscribers"
                                 },
                                 {
                                     display: "/subscribersoff",
-                                    description: "チャットのサブスクライバー限定を解除",
+                                    description: "サブスク限定モードをオフ",
                                     text: "/subscribersoff"
                                 },
                                 {
                                     display: "/slow [seconds]",
-                                    description: "チャット送信周期制限を設定する",
+                                    description: "メッセージ送信間隔を制限",
                                     text: "/slow"
                                 },
                                 {
                                     display: "/slowoff",
-                                    description: "チャット送信周期制限を解除する",
+                                    description: "スローモードをオフ",
                                     text: "/slowoff"
                                 },
                                 {
                                     display: "/emoteonly",
-                                    description: "チャットをエモート限定する",
+                                    description: "エモートのみモードにする",
                                     text: "/emoteonly"
                                 },
                                 {
                                     display: "/emoteonlyoff",
-                                    description: "チャットのエモート限定を解除する",
+                                    description: "エモートのみモードをオフ",
                                     text: "/emoteonlyoff"
                                 },
                                 {
                                     display: "/uniquechat",
-                                    description: "重複するメッセージのチャンネルへの投稿を禁止",
+                                    description: "重複メッセージを制限",
                                     text: "/uniquechat"
                                 },
                                 {
                                     display: "/uniquechatoff",
-                                    description: "重複するメッセージのチャンネルへの投稿禁止を解除",
+                                    description: "ユニークチャットモードをオフ",
                                     text: "/uniquechatoff"
                                 },
                                 {
                                     display: "/commercial [30, 60, 90, 120, 150, 180]",
-                                    description: "全視聴者に向けて指定時間毎にCMを流します（単位：分）",
+                                    description: "指定秒数の広告をチャンネルで実行",
                                     text: "/commercial"
                                 }
                             ]
@@ -248,7 +248,9 @@
 
                     function buildChatUserItems() {
                         return chatMessagesService.chatUsers.map(user => ({
-                            display: user.username,
+                            display: user.username && user.username.toLowerCase() !== user.displayName.toLowerCase()
+                                ? `${user.displayName} (${user.username})`
+                                : user.displayName,
                             text: `@${user.username}`
                         }));
                     }
@@ -259,16 +261,25 @@
                     });
 
                     function buildEmoteItems() {
-                        return chatMessagesService.filteredEmotes.map(emote => ({
+                        const sender = chatMessagesService.chatSender === "Bot" ? "bot" : "streamer";
+                        const emotes = [
+                            ...chatMessagesService.filteredEmotes[sender],
+                            ...chatMessagesService.filteredEmotes.thirdParty
+                        ].map(emote => ({
                             display: emote.code,
                             text: emote.code,
-                            url: emote.url,
+                            url: emote.animatedUrl ?? emote.url,
                             origin: emote.origin
-                        }));
+                        })).sort((e1, e2) => e1.display.toLowerCase().localeCompare(e2.display.toLowerCase()));
+                        return emotes;
                     }
 
                     emotesCategory.items = buildEmoteItems();
                     $scope.$watchCollection("chatMessagesService.filteredEmotes", () => {
+                        emotesCategory.items = buildEmoteItems();
+                    });
+
+                    $scope.$watch("chatMessagesService.chatSender", () => {
                         emotesCategory.items = buildEmoteItems();
                     });
 
@@ -332,12 +343,14 @@
 
                             const token = currentWord.text[0];
 
-                            categories.forEach(c => {
+                            categories.forEach((c) => {
                                 if (token === c.token && (!c.onlyStart || currentWord.index === 0)) {
                                     const minQueryLength = c.minQueryLength || 0;
                                     if (currentWord.text.length >= minQueryLength) {
                                         const tokenAndWord = `${c.token}?${currentWord.text.replace(c.token, "")}`;
-                                        const searchRegex = new RegExp(`^${tokenAndWord}`, "i");
+                                        const searchRegex = c.onlyStart === true
+                                            ? new RegExp(`^${tokenAndWord}`, "i")
+                                            : new RegExp(`${currentWord.text.replace(c.token, "")}`, "i");
                                         matchingMenuItems = c.items.filter(i => searchRegex.test(i.text) && i.text !== currentWord.text);
                                     }
                                 }
@@ -379,7 +392,7 @@
 
                     const menu = angular.element(`
                         <div class="chat-autocomplete-menu" ng-show="menuOpen" ng-class="menuPosition">
-                            <div class="tip"><b>Tab</b> を押すと強調表示されたオプションを受け入れます</div>
+                            <div class="tip"><b>Tab</b> キーでハイライト中の候補を確定します</div>
                             <div class="completions">
                                 <div ng-click="selectItem($index)" class="autocomplete-menu-item" ng-class="{ selected: selectedIndex == $index }" ng-repeat="item in menuItems track by item.text">
                                     <div class="item-image" ng-show="item.url != null">

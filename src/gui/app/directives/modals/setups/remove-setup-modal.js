@@ -1,18 +1,18 @@
 "use strict";
 
-(function () {
-    const fsp = require("fs/promises");
+/** @import { FirebotSetup } from "../../../../../types/setups" */
 
+(function() {
     angular.module("firebotApp")
         .component("removeSetupModal", {
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">セットアップの削除</h4>
+                    <h4 class="modal-title">セットアップを削除</h4>
                 </div>
                 <div class="modal-body">
                     <div ng-hide="$ctrl.setupSelected">
-                        <p class="muted">セットアップファイルを選択すると、Firebotは一致するすべての構成部品（コマンド、イベントなど）を検索し、それらを削除します。</p>
+                        <p class="muted">セットアップファイルを選択すると、Firebot は一致するコンポーネント（コマンド、イベントなど）を探して削除します。</p>
                         <file-chooser
                             model="$ctrl.setupFilePath"
                             on-update="$ctrl.onFileSelected(filepath)"
@@ -23,12 +23,12 @@
                     </div>
                     <div ng-if="$ctrl.setupSelected">
                         <div style="padding: 15px;background: #242529;border-radius: 5px;">
-                            <div class="script-name" style="font-size: 30px;font-weight: 100;">{{$ctrl.setup.name || "Unnamed Setup"}} <span class="script-version muted">v{{$ctrl.setup.version}}</span></div>
-                            <div style="font-size: 13px;">by <span class="script-author">{{$ctrl.setup.author}}</span></div>
+                            <div class="script-name" style="font-size: 30px;font-weight: 100;">{{$ctrl.setup.name || "名称未設定のセットアップ"}} <span class="script-version muted">v{{$ctrl.setup.version}}</span></div>
+                            <div style="font-size: 13px;">作成者: <span class="script-author">{{$ctrl.setup.author}}</span></div>
                             <button ng-show="$ctrl.allowCancel" class="btn-sm btn-link" ng-click="$ctrl.resetSelectedFile()" style="margin-top: 3px;">キャンセル</button>
                         </div>
                         <div style="margin-top: 25px;" ng-show="$ctrl.hasComponentsToRemove">
-                            <h4 class="muted">これらが削除されます:</h4>
+                            <h4 class="muted">以下が削除されます:</h4>
                             <div ng-repeat="(key, name) in $ctrl.componentTypes">
                                 <div ng-repeat="component in $ctrl.componentsToRemove[key]">
                                     <div style="display: flex;align-items: center;">
@@ -40,11 +40,11 @@
                         </div>
 
                         <p ng-hide="$ctrl.hasComponentsToRemove" style="margin-top: 15px;">
-                            このセットアップに含まれる構成部品は保存されていないため、削除する必要はありません。
+                            このセットアップ内のコンポーネントは現在保存されていないため、削除するものはありません。
                         </p>
 
                         <div style="display:flex; justify-content: center;margin-top: 25px;">
-                            <button ng-show="$ctrl.hasComponentsToRemove" type="button" class="btn btn-primary" ng-click="$ctrl.removeSetup()">セットアップの削除</button>
+                            <button ng-show="$ctrl.hasComponentsToRemove" type="button" class="btn btn-primary" ng-click="$ctrl.removeSetup()">セットアップを削除</button>
                         </div>
                     </div>
                 </div>
@@ -55,9 +55,11 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function ($q, logger, ngToast, commandsService, countersService, currencyService,
+            controller: function(ngToast, commandsService, countersService, currencyService,
                 effectQueuesService, eventsService, hotkeyService, presetEffectListsService,
-                timerService, viewerRolesService, quickActionsService, backendCommunicator) {
+                timerService, scheduledTaskService, viewerRolesService, quickActionsService,
+                variableMacroService, viewerRanksService, overlayWidgetsService,
+                settingsService, backendCommunicator) {
                 const $ctrl = this;
 
                 $ctrl.setupFilePath = null;
@@ -66,21 +68,24 @@
 
                 $ctrl.componentTypes = {
                     commands: "コマンド",
-                    counters: "カウンタ",
+                    counters: "カウンター",
                     currencies: "通貨",
-                    effectQueues: "演出キュー",
+                    effectQueues: "エフェクトキュー",
                     events: "イベント",
                     eventGroups: "イベントセット",
                     hotkeys: "ホットキー",
-                    presetEffectLists: "プリセット演出リスト",
+                    presetEffectLists: "プリセットエフェクトリスト",
                     timers: "タイマー",
-                    scheduledTasks: "スケジュール演出リスト",
-                    variableMacros: "マクロ変数",
-                    viewerRoles: "視聴者の役割",
-                    viewerRankLadders: "視聴者ランク",
-                    quickActions: "クイックアクション"
+                    scheduledTasks: "スケジュール済みエフェクトリスト",
+                    variableMacros: "変数マクロ",
+                    viewerRoles: "視聴者ロール",
+                    viewerRankLadders: "視聴者ランクラダー",
+                    quickActions: "クイックアクション",
+                    overlayWidgetConfigs: "オーバーレイウィジェット",
+                    globalValues: "グローバル値"
                 };
 
+                /** @type { FirebotSetup["components"] } */
                 $ctrl.componentsToRemove = {
                     commands: [],
                     counters: [],
@@ -91,8 +96,13 @@
                     hotkeys: [],
                     presetEffectLists: [],
                     timers: [],
+                    scheduledTasks: [],
+                    variableMacros: [],
                     viewerRoles: [],
-                    quickActions: []
+                    viewerRankLadders: [],
+                    quickActions: [],
+                    overlayWidgetConfigs: [],
+                    globalValues: []
                 };
 
                 $ctrl.hasComponentsToRemove = false;
@@ -105,12 +115,19 @@
                     ...effectQueuesService.getEffectQueues().map(i => i.id),
                     ...eventsService.getAllEvents().map(i => i.id),
                     ...eventsService.getAllEventGroups().map(i => i.id),
-                    ...hotkeyService.getHotkeys().map(i => i.id),
+                    ...hotkeyService.hotkeys.map(i => i.id),
                     ...presetEffectListsService.getPresetEffectLists().map(i => i.id),
                     ...timerService.getTimers().map(i => i.id),
+                    ...scheduledTaskService.getScheduledTasks().map(i => i.id),
+                    ...variableMacroService.macros.map(i => i.id),
                     ...viewerRolesService.getCustomRoles().map(i => i.id),
-                    ...quickActionsService.quickActions.map(i => i.id)
-                ].forEach(id => {
+                    ...viewerRanksService.rankLadders.map(i => i.id),
+                    ...quickActionsService.quickActions.map(i => i.id),
+                    ...overlayWidgetsService.overlayWidgetConfigs.map(i => i.id),
+                    ...settingsService.getSetting("GlobalValues", true).map(v =>
+                        `GlobalValue:${v.name}`
+                    )
+                ].forEach((id) => {
                     $ctrl.currentIds[id] = true;
                 });
 
@@ -125,56 +142,48 @@
                     $ctrl.setupFilePath = null;
                 };
 
-                $ctrl.onFileSelected = (filepath) => {
-                    $q.when(fsp.readFile(filepath))
-                        .then(setup => {
-                            setup = JSON.parse(setup);
-                            if (setup == null || setup.components == null) {
-                                $ctrl.resetSelectedFile("セットアップファイルをロードできません: 対応していないファイルです。");
-                                return;
-                            }
-                            $ctrl.setup = setup;
+                $ctrl.onFileSelected = async (filepath) => {
+                    /** @type {import("../../../../../backend/setups/setup-manager").LoadSetupResult} */
+                    const result = await backendCommunicator.fireEventAsync("setups:load-setup", filepath);
 
-                            Object.entries($ctrl.setup.components)
-                                .forEach(([componentType, components]) => {
-                                    components.forEach(component => {
-                                        if ($ctrl.currentIds[component.id]) {
-                                            $ctrl.componentsToRemove[componentType].push({
-                                                id: component.id,
-                                                name: component.trigger || component.name
-                                            });
-                                            $ctrl.hasComponentsToRemove = true;
-                                        }
-                                    });
+                    if (result.success) {
+                        $ctrl.setup = result.setup;
+
+                        Object.entries($ctrl.setup.components)
+                            .forEach(([componentType, components]) => {
+                                components.forEach((component) => {
+                                    if ($ctrl.currentIds[component.id]) {
+                                        $ctrl.componentsToRemove[componentType].push({
+                                            id: component.id,
+                                            name: component.trigger || component.name
+                                        });
+                                        $ctrl.hasComponentsToRemove = true;
+                                    }
                                 });
+                            });
 
-                            $ctrl.setupSelected = true;
-                        }, (reason) => {
-                            logger.error("Failed to load setup file", reason);
-                            $ctrl.allowCancel = true;
-                            $ctrl.resetSelectedFile("セットアップファイルをロードできません: 対応していないファイルです。");
-                            return;
-                        });
+                        $ctrl.setupSelected = true;
+                    } else {
+                        $ctrl.allowCancel = true;
+                        $ctrl.resetSelectedFile(result.error ?? "セットアップファイルの読み込みに失敗しました");
+                        return;
+                    }
                 };
 
                 $ctrl.removeSetup = () => {
+                    const success = backendCommunicator.fireEventSync("setups:remove-setup-components", {
+                        components: $ctrl.componentsToRemove
+                    });
 
-                    $.when(
-                        backendCommunicator.fireEventAsync("remove-setup-components", {
-                            components: $ctrl.componentsToRemove
-                        })
-                    )
-                        .then(successful => {
-                            if (successful) {
-                                ngToast.create({
-                                    className: 'success',
-                                    content: `構成部品を削除しました: ${$ctrl.setup.name}`
-                                });
-                                $ctrl.dismiss();
-                            } else {
-                                ngToast.create(`構成部品を削除に失敗しました: ${$ctrl.setup.name}`);
-                            }
+                    if (success) {
+                        ngToast.create({
+                            className: 'success',
+                            content: `セットアップ「${$ctrl.setup.name}」のコンポーネントを削除しました`
                         });
+                        $ctrl.dismiss();
+                    } else {
+                        ngToast.create(`セットアップ「${$ctrl.setup.name}」のコンポーネント削除に失敗しました`);
+                    }
                 };
 
                 $ctrl.$onInit = () => {
@@ -186,4 +195,4 @@
                 };
             }
         });
-}());
+})();

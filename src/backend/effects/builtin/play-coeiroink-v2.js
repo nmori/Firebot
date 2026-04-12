@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 const { SettingsManager } = require("../../common/settings-manager");
 const { ResourceTokenManager } = require("../../resource-token-manager");
 const webServer = require("../../../server/http-server-manager");
@@ -7,7 +7,7 @@ const logger = require("../../logwrapper");
 const path = require("path");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
-const { wait } = require("../../utility");
+const { wait } = require("../../utils");
 
 const voicelists = [];
 
@@ -15,7 +15,7 @@ const playSound = {
     definition: {
         id: "firebot:play-coeiroink-v2",
         name: "COEIROINK v2で読み上げ",
-        description: "COEIROINK v2をつかって合成音声を読み上げ",
+        description: "COEIROINK v2を使って音声読み上げを行います",
         icon: "fad fa-waveform",
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
@@ -29,7 +29,7 @@ const playSound = {
                 <span class="voicecast-name">{{effect.voicecast ? effect.voicecast.name : '選択...'}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu voicecast-name-dropdown">
-                <li ng-repeat="voicelist in effect.voicelists""
+                <li ng-repeat="voicelist in effect.voicelists"
                     ng-click="effect.voicecast = voicelist">
                     <a href>{{voicelist.name}}</a>
                 </li>
@@ -38,12 +38,12 @@ const playSound = {
     </eos-container>        
 
         <eos-container header="メッセージ" pad-top="true">
-            <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージの入力" rows="4" cols="40" replace-variables></textarea>
+            <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージの入力 rows="4" cols="40" replace-variables></textarea>
         </eos-container>
-        <eos-container header="音源" pad-top="true">
+        <eos-container header="音声 pad-top="true">
             <div style="padding-top:20px">
 
-                <label class="control-fb control--checkbox"> 再生終了を待つ <tooltip text="'音が鳴り終わるのを待ってから、次の演出に移ります'"></tooltip>
+                <label class="control-fb control--checkbox"> 音声終了まで待機する <tooltip text="'音声が終わるまで待機します。次の処理に移るまで待機したい場合に有効にしてください。'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>
@@ -54,7 +54,7 @@ const playSound = {
 
         </eos-container>
 
-        <eos-container header="音量" pad-top="true">
+        <eos-container header="音量 pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 1, ceil: 10, hideLimitLabels: true, showSelectionBar: true}"></rzslider>
@@ -103,7 +103,7 @@ const playSound = {
         const errors = [];
 
         if (effect.voicecast == null || effect.voicecast.id === "") {
-            errors.push("キャストを指定してください");
+            errors.push("キャストを選択してください");
         }
         return errors;
     },
@@ -275,3 +275,6 @@ const playSound = {
 };
 
 module.exports = playSound;
+
+
+

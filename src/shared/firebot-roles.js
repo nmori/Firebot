@@ -3,7 +3,7 @@
 const firebotRoles = [
     {
         id: "ActiveChatters",
-        name: "アクティブなチャットユーザ"
+        name: "Active Chat User"
     }
 ];
 

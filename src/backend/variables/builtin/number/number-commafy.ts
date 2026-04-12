@@ -1,10 +1,9 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 
 const model : ReplaceVariable = {
     definition: {
         handle: "commafy",
-        description: "数値に適切なカンマを追加する。",
+        description: "Adds the appropriate commas to a number.",
         usage: "commafy[number]",
         examples: [
             {
@@ -16,8 +15,8 @@ const model : ReplaceVariable = {
                 description: `Returns "1,000,000.00"`
             }
         ],
-        categories: [VariableCategory.NUMBERS],
-        possibleDataOutput: [OutputDataType.TEXT]
+        categories: ["numbers"],
+        possibleDataOutput: ["text"]
     },
     evaluator: (
         trigger: Trigger,

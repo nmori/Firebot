@@ -5,15 +5,15 @@ export const SetOBSImageSourceFileEffectType: EffectType<{
     imageSourceName: string;
     file: string;
 }> = {
-  definition: {
-    id: "firebot:obs-set-image-source-file",
-    name: "OBS画像ソースにファイルを設定",
-    description: "OBS画像ソースのファイルを設定します。",
-    icon: "fad fa-photo-video",
-    categories: ["common"],
-  },
-  optionsTemplate: `
-    <eos-container header="OBS画像ソース">
+    definition: {
+        id: "firebot:obs-set-image-source-file",
+            name: "OBS画像ソースファイル設定",
+            description: "OBS 画像ソースのファイルを設定します",
+        icon: "fad fa-photo-video",
+        categories: ["common", "integrations"]
+    },
+    optionsTemplate: `
+    <eos-container header="OBS Image Source">
         <div>
             <button class="btn btn-link" ng-click="getImageSources()">Refresh Source Data</button>
         </div>
@@ -33,7 +33,7 @@ export const SetOBSImageSourceFileEffectType: EffectType<{
         </div>
     </eos-container>
 
-    <eos-container ng-if="imageSources != null && effect.imageSourceName != null" header="File" style="margin-top: 10px;">
+    <eos-container ng-if="imageSources != null && effect.imageSourceName != null" header="File" style="margin-top: 10px;" pad-top="true">
         <file-chooser model="effect.file" options="{ filters: [ {name: 'OBS-Supported Image Files', extensions: ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'tga', 'jxr', 'psd', 'webp']}, {name: 'All Files', extensions: ['*']} ]}"></file-chooser>
     </eos-container>
   `,
@@ -68,6 +68,9 @@ export const SetOBSImageSourceFileEffectType: EffectType<{
         }
 
         return errors;
+    },
+    getDefaultLabel: (effect) => {
+        return effect.imageSourceName;
     },
     onTriggerEvent: async ({ effect }) => {
         await setImageSourceSettings(effect.imageSourceName, {

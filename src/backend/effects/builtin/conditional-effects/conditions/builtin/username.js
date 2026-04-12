@@ -1,17 +1,10 @@
 "use strict";
-const { ComparisonType } = require("../../../../../../shared/filter-constants");
-const logger = require("../../../../../logwrapper");
 
 module.exports = {
     id: "firebot:username",
     name: "ユーザ名",
     description: "ユーザー名に基づく条件",
-    comparisonTypes: [
-        ComparisonType.IS,
-        ComparisonType.IS_NOT,
-        ComparisonType.CONTAINS,
-        ComparisonType.MATCHES_REGEX
-    ],
+    comparisonTypes: ["is", "is not", "contains", "matches regex"],
     leftSideValueType: "none",
     rightSideValueType: "text",
     predicate: (conditionSettings, trigger) => {
@@ -23,29 +16,17 @@ module.exports = {
         const conditionUsername = rightSideValue ? rightSideValue.toLowerCase() : "";
 
         switch (comparisonType) {
-            case ComparisonType.IS:
-            case ComparisonType.COMPAT_IS:
-            case ComparisonType.COMPAT2_IS:
-            case ComparisonType.ORG_IS:
+            case "is":
                 return triggerUsername === conditionUsername;
-            case ComparisonType.IS_NOT:
-            case ComparisonType.COMPAT_IS_NOT:
-            case ComparisonType.COMPAT2_IS_NOT:
-            case ComparisonType.ORG_IS_NOT:
+            case "is not":
                 return triggerUsername !== conditionUsername;
-            case ComparisonType.CONTAINS:
-            case ComparisonType.COMPAT_CONTAINS:
-            case ComparisonType.COMPAT2_CONTAINS:
-            case ComparisonType.ORG_CONTAINS:
+            case "contains":
                 return triggerUsername.includes(conditionUsername);
-            case ComparisonType.MATCHES_REGEX:
-            case ComparisonType.ORG_MATCHES_REGEX:
-            {
+            case "matches regex": {
                 const regex = new RegExp(conditionUsername, "gi");
                 return regex.test(triggerUsername);
             }
             default:
-                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
                 return false;
         }
     }

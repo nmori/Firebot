@@ -5,7 +5,7 @@
         template: `
             <context-menu-modal-header
                 on-close="$ctrl.dismiss()"
-                trigger-type=""演出予定リスト"
+                trigger-type="scheduled effect list"
                 trigger-name="$ctrl.scheduledTask.name"
                 sort-tags="$ctrl.scheduledTask.sortTags"
                 show-trigger-name="true"
@@ -19,11 +19,11 @@
                         <span class="input-group-addon">名前</span>
                         <input type="text" class="form-control" ng-model="$ctrl.scheduledTask.name">
                     </div>
-                    <label class="control-fb control--radio">簡単な予定
+                    <label class="control-fb control--radio">簡易スケジュール
                         <input type="radio" ng-model="$ctrl.scheduledTask.inputType" value="simple"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">詳細な予定
+                    <label class="control-fb control--radio">詳細スケジュール
                         <input type="radio" ng-model="$ctrl.scheduledTask.inputType" value="advanced"/>
                         <div class="control__indicator"></div>
                     </label>
@@ -34,7 +34,7 @@
                             on-update="$ctrl.updateScheduleData()"></dropdown-select>
                     </div>
                     <div class="input-group pb-6 settings-commandGroup-scheduledTask" ng-if="$ctrl.scheduledTask.inputType === 'advanced'">
-                        <span class="input-group-addon">予定 <tooltip text="'予定の入力はcrontab形式で書く必要があります。crontab式の作成については、crontab.guruを参照してください。'"></tooltip></span>
+                        <span class="input-group-addon">スケジュール <tooltip text="'スケジュールは crontab 形式で入力してください。式の作成は crontab.guru が便利です。'"></tooltip></span>
                         <input type="text" class="form-control" ng-model="$ctrl.scheduledTask.schedule" ng-change="$ctrl.updateScheduleData()">
                     </div>
                     <div class="muted pb-6">{{$ctrl.scheduleFriendlyName}}</div>
@@ -43,7 +43,7 @@
                             <input type="checkbox" ng-model="$ctrl.scheduledTask.enabled" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
-                        <label class="control-fb control--checkbox">配信中のときのみ <tooltip text="'この演出予定リストで、あなたが配信中でなくても演出を実行したい場合は、このチェックを外してください。'"></tooltip>
+                        <label class="control-fb control--checkbox">配信中のみ実行 <tooltip text="'配信外でもこのスケジュール済みエフェクトリストを実行したい場合はチェックを外してください。'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.scheduledTask.onlyWhenLive" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
@@ -51,21 +51,17 @@
                 </div>
 
                 <div class="function-button-settings" style="margin-top: 15px;">
-<<<<<<< HEAD
-                    <effect-list header="この予定で何をしますか？" effects="$ctrl.scheduledTask.effects" trigger="scheduledTask" trigger-meta="$ctrl.triggerMeta" update="$ctrl.effectListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
-=======
                     <effect-list
-                        header="この予定で何をしますか？"
+                        header="このスケジュール済みエフェクトリストで実行する内容"
                         effects="$ctrl.scheduledTask.effects"
                         trigger="scheduledTask"
                         trigger-meta="{ rootEffects: $ctrl.scheduledTask.effects }"
                         update="$ctrl.effectListUpdated(effects)"
                         modalId="{{$ctrl.modalId}}"
                     ></effect-list>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
                 <p class="muted" style="font-size:11px;margin-top:6px;">
-                    <b>ヒント:</b>この演出予定リストに、一度に1つのチャットメッセージを表示させたい場合,  <b>演出のランダム実行</b> か <b>演出の順番実行</b>をお試しください。
+                    <strong>ヒント:</strong> このスケジュール済みエフェクトリストでチャットメッセージを1つずつ表示したい場合は、エフェクトリストの実行モードを <strong>順番</strong> または <strong>ランダム</strong> に設定してください。
                 </p>
             </div>
 
@@ -95,10 +91,10 @@
 
             $ctrl.simpleSchedules = {
                 "* * * * *": "毎分",
-                "0 * * * *": "毎時間",
+                "0 * * * *": "毎時",
                 "0 0 * * *": "毎日",
                 "0 0 1 * *": "毎月",
-                "0 0 * * 1-5": "毎週"
+                "0 0 * * 1-5": "平日毎日"
             };
 
             $ctrl.scheduleFriendlyName = "";
@@ -112,27 +108,6 @@
                 }
 
                 $ctrl.updateScheduleData();
-<<<<<<< HEAD
-
-                const modalId = $ctrl.resolve.modalId;
-                $ctrl.modalId = modalId;
-                utilityService.addSlidingModal(
-                    $ctrl.modalInstance.rendered.then(() => {
-                        const modalElement = $(`.${modalId}`).children();
-                        return {
-                            element: modalElement,
-                            name: "演出予定リストの編集",
-                            id: modalId,
-                            instance: $ctrl.modalInstance
-                        };
-                    })
-                );
-
-                $scope.$on("modal.closing", function() {
-                    utilityService.removeSlidingModal();
-                });
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
             $ctrl.effectListUpdated = function(effects) {
@@ -146,7 +121,7 @@
                     if (crontime == null) {
                         return false;
                     }
-                } catch (error) {
+                } catch {
                     return false;
                 }
 
@@ -155,10 +130,10 @@
 
             function scheduledTaskValid() {
                 if ($ctrl.scheduledTask.name === "") {
-                    ngToast.create("演出予定リストの名称をご記入ください。");
+                    ngToast.create("スケジュール済みエフェクトリストの名前を入力してください。");
                     return false;
                 } else if ($ctrl.scheduledTask.schedule.length < 1 || isScheduleValid($ctrl.scheduledTask.schedule) !== true) {
-                    ngToast.create("演出予定リストには、有効な書き方（cron形式）で入力してください。");
+                    ngToast.create("スケジュール済みエフェクトリストに有効な cron スケジュールを入力してください。");
                     return false;
                 }
                 return true;
@@ -187,17 +162,16 @@
                     return;
                 }
 
-                scheduledTaskService.saveScheduledTask($ctrl.scheduledTask).then(successful => {
-                    if (successful) {
-                        $ctrl.close({
-                            $value: {
-                                scheduledTask: $ctrl.scheduledTask
-                            }
-                        });
-                    } else {
-                        ngToast.create("演出予定リストの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
-                    }
-                });
+                const successful = scheduledTaskService.saveScheduledTask($ctrl.scheduledTask);
+                if (successful) {
+                    $ctrl.close({
+                        $value: {
+                            scheduledTask: $ctrl.scheduledTask
+                        }
+                    });
+                } else {
+                    ngToast.create("スケジュール済みエフェクトリストの保存に失敗しました。再試行するかログを確認してください。");
+                }
             };
         }
     });

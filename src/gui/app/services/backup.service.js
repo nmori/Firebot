@@ -1,44 +1,37 @@
 "use strict";
 
 (function() {
-    const { basename, dirname, sep, resolve } = require('path');
-    const { mkdirSync, readFileSync, writeFileSync } = require("fs-extra");
-    const fs = require("fs-extra");
-    const empty = require("empty-folder");
-    const { unzipSync } = require('fflate');
+    const moment = require("moment");
 
     angular
         .module("firebotApp")
-        .factory("backupService", function($q, logger, backendCommunicator, listenerService,
-            dataAccess, utilityService) {
+        .factory("backupService", function($q, backendCommunicator, utilityService) {
             const service = {};
 
-            const RESTORE_FOLDER_PATH = dataAccess.getPathInTmpDir("/restore");
-            const USER_DATA_FOLDER_PATH = dataAccess.getPathInUserData("/");
-            const PROFILES_FOLDER_PATH = dataAccess.getPathInUserData("/profiles");
-            const BACKUPS_FOLDER_PATH = resolve(`${dataAccess.getUserDataPath() + sep}backups`) + sep;
+            service.backupFolderPath = backendCommunicator.fireEventSync("backups:get-backup-folder-path");
 
-            service.BACKUPS_FOLDER_PATH = BACKUPS_FOLDER_PATH;
+            backendCommunicator.on("settings:setting-updated:BackupLocation", (newPath) => {
+                service.backupFolderPath = newPath;
+            });
 
             service.startBackup = function() {
-                listenerService.fireEvent(listenerService.EventType.INITIATE_BACKUP, true);
+                backendCommunicator.fireEvent("backups:start-backup", true);
+            };
+
+            service.openBackupFolder = function() {
+                backendCommunicator.fireEvent("open-backup-folder");
             };
 
             service.openBackupZipFilePicker = function() {
                 return $q.when(backendCommunicator.fireEventAsync("open-file-browser", {
                     options: {
-<<<<<<< HEAD
-                        title: "バックアップデータ(zip)の選択",
-                        buttonLabel: "バックアップデータの選択",
-=======
-                        title: "Select Firebot backup",
-                        buttonLabel: "Select Backup",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                        title: "Firebotバックアップを選択",
+                        buttonLabel: "バックアップを選択",
                         filters: [{ name: "Zip", extensions: ["zip"] }]
                     },
-                    currentPath: BACKUPS_FOLDER_PATH
+                    currentPath: service.backupFolderPath
                 }))
-                    .then(response => {
+                    .then((response) => {
                         if (response == null || response.path == null) {
                             return null;
                         }
@@ -59,129 +52,10 @@
                 });
             };
 
-            function validateBackupZip(backupFilePath) {
-                let hasProfilesDir = false;
-                let hasGlobalSettings = false;
-
-                const unzippedData = unzipSync(readFileSync(backupFilePath));
-
-                for (const [filepath] of Object.entries(unzippedData)) {
-                    if (filepath.includes('profiles')) {
-                        if (hasGlobalSettings) {
-                            return true;
-                        }
-                        hasProfilesDir = true;
-                    } else if (basename(filepath).toLowerCase() === 'global-settings.json') {
-                        if (hasProfilesDir) {
-                            return true;
-                        }
-                        hasGlobalSettings = true;
-                    }
-                }
-                return false;
-            }
-
-            function clearRestoreFolder() {
-                return new Promise(resolve => {
-                    empty(RESTORE_FOLDER_PATH, false, o => {
-                        if (o.error) {
-                            logger.warn(o.error);
-                        }
-                        resolve();
-                    });
-                });
-            }
-
-            function extractBackupZip(backupFilePath) {
-                mkdirSync(RESTORE_FOLDER_PATH, { recursive: true });
-
-                const unzippedData = unzipSync(readFileSync(backupFilePath));
-                for (const [filepath, bytes] of Object.entries(unzippedData)) {
-                    if (filepath.endsWith('/')) {
-                        continue;
-                    }
-
-                    const writeFilePath = resolve(`${RESTORE_FOLDER_PATH}/${filepath}`);
-                    mkdirSync(dirname(writeFilePath), { recursive: true });
-                    writeFileSync(writeFilePath, bytes);
-                }
-            }
-
-            function clearProfilesFolder() {
-                return new Promise((resolve, reject) => {
-                    empty(PROFILES_FOLDER_PATH, false, o => {
-                        if (o.error) {
-                            logger.error(o.error);
-                            return reject();
-                        }
-                        resolve();
-                    });
-                });
-            }
-
-            function copyRestoreFilesToUserData() {
-                return new Promise((resolve, reject) => {
-                    fs.copy(RESTORE_FOLDER_PATH, USER_DATA_FOLDER_PATH, { errorOnExist: false }, function(err) {
-                        if (err) {
-                            logger.error("Failed to copy backup data!");
-                            logger.error(err);
-                            reject();
-                        } else {
-                            logger.info('Copied backup data');
-                            resolve();
-                        }
-                    });
-                });
-            }
-
-
             service.restoreBackup = async (backupFilePath) => {
+                return await backendCommunicator.fireEventAsync("backups:restore-backup", backupFilePath);
+            };
 
-<<<<<<< HEAD
-                // Validate backup zip
-                try {
-                    const valid = await validateBackupZip(backupFilePath);
-                    if (!valid) {
-                        return {
-                            success: false,
-                            reason: "このzipファイルは有効なFirebot V5のバックアップではありません。"
-                        };
-                    }
-                } catch (error) {
-                    return {
-                        success: false,
-                        reason: "zipファイルの検証に失敗しました。ファイルが壊れているかもしれません"
-                    };
-                }
-
-                // Clear out the /restore folder
-                await clearRestoreFolder();
-
-                // Extract the backup zip to the /restore folder
-                await extractBackupZip(backupFilePath);
-
-                // Clear out the profiles folder
-                try {
-                    await clearProfilesFolder();
-                } catch (error) {
-                    return {
-                        success: false,
-                        reason: "プロファイルフォルダのクリアに失敗しました"
-                    };
-                }
-
-                try {
-                    await copyRestoreFilesToUserData();
-                } catch (error) {
-                    return {
-                        success: false,
-                        reason: "バックアップデータを書き戻すのに失敗しました"
-                    };
-                }
-
-                return {
-                    success: true
-=======
             service.showBackupListModal = function() {
                 const showBackupListModalContext = {
                     templateUrl: "backupListModal.html",
@@ -232,9 +106,9 @@
                         $scope.deleteBackup = function(index, backup) {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Delete Backup",
-                                    question: "Are you sure you want to delete this backup?",
-                                    confirmLabel: "Delete"
+                                    title: "バックアップを削除",
+                                    question: "このバックアップを削除してもよろしいですか？",
+                                    confirmLabel: "削除"
                                 })
                                 .then((confirmed) => {
                                     if (confirmed) {
@@ -251,9 +125,9 @@
                         $scope.restoreBackup = function(backup) {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "Restore From Backup",
-                                    question: "Are you sure you'd like to restore from this backup?",
-                                    confirmLabel: "Restore"
+                                    title: "バックアップから復元",
+                                    question: "このバックアップから復元してもよろしいですか？",
+                                    confirmLabel: "復元"
                                 })
                                 .then((confirmed) => {
                                     if (confirmed) {
@@ -271,8 +145,29 @@
                             $uibModalInstance.dismiss("cancel");
                         };
                     }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 };
+                utilityService.showModal(showBackupListModalContext);
+            };
+
+            service.initiateBackupFolderMove = () => {
+                $q
+                    .when(backendCommunicator.fireEventAsync("open-file-browser", {
+                        options: {
+                            title: "新しいFirebotバックアップ保存先を選択",
+                            button: "フォルダーを選択",
+                            directoryOnly: true
+                        },
+                        currentPath: service.backupFolderPath
+                    }))
+                    .then((response) => {
+                        if (response?.path != null) {
+                            service.moveBackupFolder(response.path);
+                        }
+                    });
+            };
+
+            service.moveBackupFolder = async (newPath) => {
+                return await backendCommunicator.fireEventAsync("backups:move-backup-folder", newPath);
             };
 
             return service;

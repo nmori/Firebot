@@ -12,10 +12,10 @@
                 padTop: "<"
             },
             template: `
-            <eos-container header="Overlay Display Location" pad-top="$ctrl.padTop">
+            <eos-container header="オーバーレイ表示位置" pad-top="$ctrl.padTop">
                 <div class="controls-fb-inline">
                     <label class="control-fb control--radio">プリセット
-                        <input type="radio" ng-model="$ctrl.presetOrCustom" ng-change="$ctrl.togglePresetCustom()" value="preset"/> 
+                        <input type="radio" ng-model="$ctrl.presetOrCustom" ng-change="$ctrl.togglePresetCustom()" value="preset"/>
                         <div class="control__indicator"></div>
                     </label>
                     <label class="control-fb control--radio">カスタム
@@ -28,33 +28,44 @@
                         <label ng-repeat="position in $ctrl.presetPositions" class="btn btn-primary" ng-model="$ctrl.effect.position" ng-disabled="$ctrl.isRandom()" uib-btn-radio="position" uib-tooltip="{{position}}" tooltip-append-to-body="true" tooltip-animation="false"></label>
                     </div>
                     <div class="controls-fb-inline" ng-if="!$ctrl.hideRandom">
-                        <label class="control-fb control--checkbox" style="margin: 5px 0 0 10px;"> ランダムなプリセット位置
+                        <label class="control-fb control--checkbox" style="margin: 5px 0 0 10px;"> プリセット位置をランダムにする
                             <input type="checkbox" ng-click="$ctrl.toggleRandomPreset()" ng-checked="$ctrl.isRandom()">
                             <div class="control__indicator"></div>
                         </label>
                     </div>
-                </div>       
+                </div>
                 <div ng-if="$ctrl.effect.position === 'Custom'" style="margin: 5px 0 5px 0px;">
                     <form class="form-inline">
                         <div class="form-group">
-                            <dropdown-select options="['top','bottom']" selected="$ctrl.topOrBottom" on-update="$ctrl.updateTopOrBottom(option)"></dropdown-select>
-                            <span> から </span>
+                            <input type="number" class="form-control" ng-model="$ctrl.topOrBottomValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" ng-model="$ctrl.topOrBottomValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
-                            <span> ピクセル </span>
+                            <span> px を </span>
+                            <dropdown-select options="['top','bottom']" selected="$ctrl.topOrBottom" on-update="$ctrl.updateTopOrBottom(option)"></dropdown-select>
+                            <span> から</span>
                         </div>
                         <div style="margin-top: 15px;">
                             <div class="form-group">
-                                <dropdown-select options="['left','right']" selected="$ctrl.leftOrRight" on-update="$ctrl.updateLeftOrRight(option)"></dropdown-select>
-                                <span> から </span>
+                                <input type="number" class="form-control" ng-model="$ctrl.leftOrRightValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
                             </div>
                             <div class="form-group">
-                                <input type="number" class="form-control" ng-model="$ctrl.leftOrRightValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
-                                <span> ピクセル </span>
+                                <span> px を </span>
+                                <dropdown-select options="['left','right']" selected="$ctrl.leftOrRight" on-update="$ctrl.updateLeftOrRight(option)"></dropdown-select>
+                                <span> から</span>
                             </div>
                         </div>
                     </form>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div class="input-group">
+                        <span class="input-group-addon">z-index <tooltip text="'重なったときに前面に表示される順序を制御します。数値が大きいほど前面に表示されます。'"></tooltip></span>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="任意"
+                            replace-variables="number"
+                            ng-model="$ctrl.effect.zIndex">
+                    </div>
                 </div>
             </eos-container>
        `,
@@ -154,7 +165,7 @@
                         }
                     }
                     ctrl.presetOrCustom =
-          ctrl.effect.position === "Custom" ? "custom" : "preset";
+                        ctrl.effect.position === "Custom" ? "custom" : "preset";
                 };
             }
         });

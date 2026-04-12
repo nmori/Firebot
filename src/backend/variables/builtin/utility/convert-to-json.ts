@@ -1,10 +1,9 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 
 const model : ReplaceVariable = {
     definition: {
         handle: "convertToJSON",
-        description: "生の値をJSONテキストに変換します。",
+        description: "Converts a raw value into JSON text",
         usage: "convertToJSON[rawValue]",
         examples: [
             {
@@ -12,8 +11,8 @@ const model : ReplaceVariable = {
                 description: "Converts a raw value into pretty-printed JSON text"
             }
         ],
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.TEXT]
+        categories: ["advanced"],
+        possibleDataOutput: ["text"]
     },
     evaluator: (
         trigger: Trigger,
@@ -25,7 +24,7 @@ const model : ReplaceVariable = {
         }
         try {
             return JSON.stringify(jsonText, null, prettyPrint === "true" ? 4 : null);
-        } catch (ignore) {
+        } catch {
             return "null";
         }
     }

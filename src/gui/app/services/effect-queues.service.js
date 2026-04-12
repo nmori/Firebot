@@ -1,10 +1,10 @@
 "use strict";
 
-(function() {
+(function () {
 
     angular
         .module("firebotApp")
-        .factory("effectQueuesService", function(backendCommunicator, utilityService,
+        .factory("effectQueuesService", function (backendCommunicator, utilityService,
             objectCopyHelper, ngToast) {
             const service = {};
 
@@ -19,27 +19,27 @@
                 }
             };
 
-            service.loadEffectQueues = async () => {
-                const effectQueues = await backendCommunicator.fireEventAsync("getEffectQueues");
+            service.loadEffectQueues = () => {
+                const effectQueues = backendCommunicator.fireEventSync("effect-queues:get-effect-queues");
                 if (effectQueues != null) {
                     service.effectQueues = effectQueues;
                 }
             };
 
-            backendCommunicator.on("all-queues", effectQueues => {
+            backendCommunicator.on("all-queues", (effectQueues) => {
                 if (effectQueues != null) {
                     service.effectQueues = effectQueues;
                 }
             });
 
-            backendCommunicator.on("updateQueueLength", queue => {
+            backendCommunicator.on("updateQueueLength", (queue) => {
                 const index = service.effectQueues.findIndex(eq => eq.id === queue.id);
                 if (service.effectQueues[index] != null) {
                     service.effectQueues[index].length = queue.length;
                 }
             });
 
-            backendCommunicator.on("updateQueueStatus", queue => {
+            backendCommunicator.on("updateQueueStatus", (queue) => {
                 const index = service.effectQueues.findIndex(eq => eq.id === queue.id);
                 if (service.effectQueues[index] != null) {
                     service.effectQueues[index].active = queue.active;
@@ -48,43 +48,28 @@
 
             service.queueModes = [
                 {
-<<<<<<< HEAD
-                    id: "custom",
-                    display: "カスタム",
-                    description: "個々の演出リストごとに定義されたカスタム時間を待つ",
-                    iconClass: "fa-clock"
-                },
-                {
-                    id: "auto",
-                    display: "順序",
-                    description: "キュー内の演出リストを順番に実行します。優先度の高いアイテムが、優先度の低いアイテムより先に追加されます（遅延の初期設定は0秒）",
-                    iconClass: "fa-sort-numeric-down"
-                },
-                {
-                    id: "interval",
-                    display: "間隔",
-                    description: "設定した間隔で演出リストを実行",
-=======
                     value: "auto",
-                    label: "Sequential",
-                    display: "キュー",
-                    description: "キュー内のエフェクトリストを順番に実行します。優先度の高いアイテムが優先度の低いアイテムより先に追加される。オプションのdelayのデフォルトは0sec。",
+                    label: "順番",
+                    description: "エフェクトリストは順番に1つずつ実行されます。優先設定の項目はキュー先頭に配置されます。",
                     iconClass: "fa-sort-numeric-down"
                 },
                 {
                     value: "custom",
-                    label: "Custom",
-                    display: "カスタム",
-                    description: "各エフェクト・リストで定義されたカスタム時間だけ待ちます",
+                    label: "カスタム遅延",
+                    description: "各エフェクトリストごとに、次のリストを実行するまでの待機時間を設定します。",
                     iconClass: "fa-clock"
                 },
                 {
                     value: "interval",
-                    label: "Interval",
-                    display: "間隔",
-                    description: "設定した間隔で演出リストを実行する。",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    label: "間隔",
+                    description: "エフェクトリストを一定間隔で実行します。",
                     iconClass: "fa-stopwatch"
+                },
+                {
+                    value: "manual",
+                    label: "手動",
+                    description: "エフェクトリストは「手動キュー実行」エフェクトでのみ実行されます。",
+                    iconClass: "fa-step-forward"
                 }
             ];
 
@@ -96,8 +81,8 @@
                 return service.effectQueues.find(eq => eq.id === id);
             };
 
-            service.saveEffectQueue = async (effectQueue) => {
-                const savedEffectQueue = await backendCommunicator.fireEventAsync("saveEffectQueue", effectQueue);
+            service.saveEffectQueue = (effectQueue) => {
+                const savedEffectQueue = backendCommunicator.fireEventSync("effect-queues:save-effect-queue", effectQueue);
 
                 if (savedEffectQueue != null) {
                     updateEffectQueue(savedEffectQueue);
@@ -109,17 +94,17 @@
             };
 
             service.toggleEffectQueue = (queue) => {
-                backendCommunicator.fireEvent("toggleEffectQueue", queue.id);
+                backendCommunicator.fireEvent("effect-queues:toggle-effect-queue", queue.id);
                 queue.active = !queue.active;
             };
 
             service.clearEffectQueue = (queueId) => {
-                backendCommunicator.fireEvent("clearEffectQueue", queueId);
+                backendCommunicator.fireEvent("effect-queues:clear-effect-queue", queueId);
             };
 
             service.saveAllEffectQueues = (effectQueues) => {
                 service.effectQueues = effectQueues;
-                backendCommunicator.fireEvent("saveAllEffectQueues", effectQueues);
+                backendCommunicator.fireEvent("effect-queues:save-all-effect-queues", effectQueues);
             };
 
             service.effectQueueNameExists = (name) => {
@@ -136,28 +121,27 @@
                 copiedEffectQueue.id = null;
 
                 while (service.effectQueueNameExists(copiedEffectQueue.name)) {
-                    copiedEffectQueue.name += " 複製";
+                    copiedEffectQueue.name += " copy";
                 }
 
-                service.saveEffectQueue(copiedEffectQueue).then(successful => {
-                    if (successful) {
-                        ngToast.create({
-                            className: 'success',
-                            content: '演出キューを複製しました'
-                        });
-                    } else {
-                        ngToast.create("演出キューの複製に失敗しました");
-                    }
-                });
+                const successful = service.saveEffectQueue(copiedEffectQueue);
+                if (successful) {
+                    ngToast.create({
+                        className: 'success',
+                        content: 'エフェクトキューを複製しました。'
+                    });
+                } else {
+                    ngToast.create("エフェクトキューの複製に失敗しました。");
+                }
             };
 
             service.deleteEffectQueue = (effectQueueId) => {
                 service.effectQueues = service.effectQueues.filter(eq => eq.id !== effectQueueId);
-                backendCommunicator.fireEvent("deleteEffectQueue", effectQueueId);
+                backendCommunicator.fireEvent("effect-queues:delete-effect-queue", effectQueueId);
             };
 
             service.showAddEditEffectQueueModal = (effectQueueId) => {
-                return new Promise(resolve => {
+                return new Promise((resolve) => {
                     let effectQueue;
 
                     if (effectQueueId != null) {
@@ -166,11 +150,11 @@
 
                     utilityService.showModal({
                         component: "addOrEditEffectQueueModal",
-                        size: "sm",
+                        size: "md",
                         resolveObj: {
                             effectQueue: () => effectQueue
                         },
-                        closeCallback: response => {
+                        closeCallback: (response) => {
                             resolve(response.effectQueue.id);
                         }
                     });
@@ -178,7 +162,7 @@
             };
 
             service.showDeleteEffectQueueModal = (effectQueueId) => {
-                return new Promise(resolve => {
+                return new Promise((resolve) => {
                     if (effectQueueId == null) {
                         resolve(false);
                     }
@@ -190,12 +174,12 @@
 
                     return utilityService
                         .showConfirmationModal({
-                            title: "演出キューの削除",
-                            question: `次の演出キューを削除しますか？ "${queue.name}"`,
-                            confirmLabel: "削除する",
+                            title: "エフェクトキューを削除",
+                            question: `エフェクトキュー「${queue.name}」を削除してもよろしいですか？`,
+                            confirmLabel: "削除",
                             confirmBtnType: "btn-danger"
                         })
-                        .then(confirmed => {
+                        .then((confirmed) => {
                             if (confirmed) {
                                 service.deleteEffectQueue(effectQueueId);
                             }

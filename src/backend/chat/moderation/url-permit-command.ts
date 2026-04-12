@@ -1,13 +1,17 @@
-import { SystemCommand } from "../../../types/commands";
-import logger from "../../logwrapper";
-import commandManager from "../commands/CommandManager";
+import type { SystemCommand } from "../../../types/commands";
+import { CommandManager } from "../commands/command-manager";
+import { TwitchApi } from "../../streaming-platforms/twitch/api";
 import frontendCommunicator from "../../common/frontend-communicator";
+import logger from "../../logwrapper";
 
 class PermitManager {
     private readonly _permidCommandId: string = "firebot:moderation:url:permit";
     private _tempPermittedUsers: string[] = [];
 
-    private readonly _permitCommand: SystemCommand = {
+    private readonly _permitCommand: SystemCommand<{
+        permitDisplayTemplate: string;
+        permitDuration: number;
+    }> = {
         definition: {
             id: this._permidCommandId,
             name: "Permit",
@@ -49,7 +53,6 @@ class PermitManager {
             }
         },
         onTriggerEvent: async (event) => {
-            const twitchChat = require("../twitch-chat");
             const { command, commandOptions, userCommand } = event;
             let { args } = userCommand;
 
@@ -58,27 +61,30 @@ class PermitManager {
             }
 
             if (args.length !== 1) {
-                await twitchChat.sendChatMessage("Incorrect command usage!");
+                await TwitchApi.chat.sendChatMessage("Incorrect command usage!", null, true);
                 return;
             }
 
             const target = args[0].replace("@", "");
+            const normalizedTarget = target.toLowerCase();
             if (!target) {
-                await twitchChat.sendChatMessage("Please specify a user to permit.");
+                await TwitchApi.chat.sendChatMessage("Please specify a user to permit.", null, true);
                 return;
             }
 
-            this._tempPermittedUsers.push(target);
+            this._tempPermittedUsers.push(normalizedTarget);
             logger.debug(`URL moderation: ${target} has been temporary permitted to post a URL.`);
 
-            const message = commandOptions.permitDisplayTemplate.replace("{target}", target).replace("{duration}", commandOptions.permitDuration);
+            const message = commandOptions.permitDisplayTemplate
+                .replaceAll("{target}", target)
+                .replaceAll("{duration}", commandOptions.permitDuration.toString());
 
             if (message) {
-                await twitchChat.sendChatMessage(message);
+                await TwitchApi.chat.sendChatMessage(message, null, true);
             }
 
             setTimeout(() => {
-                this._tempPermittedUsers = this._tempPermittedUsers.filter(user => user !== target);
+                this._tempPermittedUsers = this._tempPermittedUsers.filter(user => user !== normalizedTarget);
                 logger.debug(`URL moderation: Temporary URL permission for ${target} expired.`);
             }, commandOptions.permitDuration * 1000);
         }
@@ -89,13 +95,13 @@ class PermitManager {
     }
 
     registerPermitCommand(): void {
-        if (!commandManager.hasSystemCommand(this._permidCommandId)) {
-            commandManager.registerSystemCommand(this._permitCommand);
+        if (!CommandManager.hasSystemCommand(this._permidCommandId)) {
+            CommandManager.registerSystemCommand(this._permitCommand);
         }
     }
 
     unregisterPermitCommand(): void {
-        commandManager.unregisterSystemCommand(this._permidCommandId);
+        CommandManager.unregisterSystemCommand(this._permidCommandId);
     }
 }
 

@@ -1,6 +1,6 @@
 "use strict";
 (function() {
-    const uuid = require("uuid/v4");
+    const { randomUUID } = require("crypto");
     angular.module("firebotApp").component("simpleCommandOptions", {
         bindings: {
             command: "="
@@ -8,32 +8,32 @@
         template: `
         <div class="simple-command p-4">
             <div class="form-group">
-                <label for="trigger" class="form-label"><i class="fad fa-exclamation"></i> 起動コマンド <tooltip styles="opacity:0.7;font-size:11px;" text="'起動するチャットメッセージの先頭につけるテキスト。通常は、!などの特殊文字で始まります。'"/></label>
-                <input type="text" class="form-control input-lg" id="trigger" placeholder="!something のような !から始まるフレーズ" ng-model="$ctrl.command.trigger" />
+                <label for="trigger" class="form-label"><i class="fad fa-exclamation"></i> トリガー <tooltip styles="opacity:0.7;font-size:11px;" text="'チャットメッセージの先頭で、このコマンドを発火させる文字列です。通常は ! などの記号で始まります。'"/></label>
+                <input type="text" class="form-control input-lg" id="trigger" placeholder="!something" ng-model="$ctrl.command.trigger" />
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-stopwatch"></i> 再実行待ち <tooltip styles="opacity:0.7;font-size:11px;" text="'コマンドがスパム送信されるのを防ぎます。全体に適用することも、ユーザーごとに適用することもできます。'"/></label>
+                <label class="form-label"><i class="fad fa-stopwatch"></i> クールダウン <tooltip styles="opacity:0.7;font-size:11px;" text="'クールダウンはコマンドの連投を防ぎます。全体およびユーザーごとに設定できます。'"/></label>
                 <command-cooldown-settings command="$ctrl.command" message-setting-disabled="true"></command-cooldown-settings>
                 <p class="help-block">任意</p>
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-lock-alt"></i> 権限 <tooltip styles="opacity:0.7;font-size:11px;" text="'権限を使用すると、このコマンドを起動できる人を制限できます。'" /></label>
+                <label class="form-label"><i class="fad fa-lock-alt"></i> 権限 <tooltip styles="opacity:0.7;font-size:11px;" text="'権限設定で、このコマンドを実行できるユーザーを制限できます。'" /></label>
                 <div>
                     <div class="btn-group">
                         <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'everyone'">全員</label>
-                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'subs'">サブスクライバー限定</label>
-                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'mods'">モデレータ限定</label>
+                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'subs'">サブのみ</label>
+                        <label class="btn btn-default btn-lg" ng-model="$ctrl.selectedPermissionType" ng-change="$ctrl.permissionTypeChanged()" uib-btn-radio="'mods'">モデレーターのみ</label>
                     </div>
                 </div>
                 <p class="help-block">{{$ctrl.getPermissionText()}}</p>
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fad fa-reply"></i> 返答するテキスト<tooltip styles="opacity:0.7;font-size:11px;" text="'This is what Firebot should say in response when this command is triggered.'" /></label>
-                <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="メッセージを入れる" rows="4" cols="40" replace-variables></textarea>
-                <p class="help-block">メッセージ応答以外をしたいですか? Firebot の演出システムを最大限に活用するには、<b>応用モード</b> に切り替えてください。</p>
+                <label class="form-label"><i class="fad fa-reply"></i> 応答テキスト <tooltip styles="opacity:0.7;font-size:11px;" text="'このコマンドが発火したときに Firebot が返すメッセージです。'" /></label>
+                <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="メッセージを入力" rows="4" cols="40" replace-variables></textarea>
+                <p class="help-block">メッセージ応答以上のことをしたい場合は、<b>詳細モード</b>に切り替えて Firebot のエフェクト機能を活用してください。</p>
             </div>
         </div>
        `,
@@ -44,12 +44,12 @@
 
             $ctrl.getPermissionText = () => {
                 switch ($ctrl.selectedPermissionType) {
-                case "everyone":
-                    return "全員がこのコマンドを起動できます。";
-                case "subs":
-                    return "サブスクライバーとモデレータがこのコマンドを起動できます";
-                case "mods":
-                    return "モデレータだけがこのコマンドを起動できます";
+                    case "everyone":
+                        return "すべての視聴者がこのコマンドを実行できます。";
+                    case "subs":
+                        return "サブスクライバー（およびモデレーター）のみ実行できます。";
+                    case "mods":
+                        return "モデレーターと配信者本人のみ実行できます。";
                 }
             };
 
@@ -60,7 +60,7 @@
                         break;
                     case "subs":
                         $ctrl.command.restrictionData.restrictions = [{
-                            id: uuid(),
+                            id: randomUUID(),
                             type: "firebot:permissions",
                             mode: "roles",
                             roleIds: ["sub", "mod", "broadcaster"]
@@ -68,7 +68,7 @@
                         break;
                     case "mods":
                         $ctrl.command.restrictionData.restrictions = [{
-                            id: uuid(),
+                            id: randomUUID(),
                             type: "firebot:permissions",
                             mode: "roles",
                             roleIds: ["mod", "broadcaster"]
@@ -101,7 +101,7 @@
                     const chatEffect = $ctrl.command.effects.list.find(e => e.type === "firebot:chat");
                     if (chatEffect) {
                         $ctrl.chatEffect = {
-                            id: uuid(),
+                            id: randomUUID(),
                             type: "firebot:chat",
                             message: chatEffect.message
                         };
@@ -109,7 +109,7 @@
                 }
                 if ($ctrl.chatEffect == null) {
                     $ctrl.chatEffect = {
-                        id: uuid(),
+                        id: randomUUID(),
                         type: "firebot:chat",
                         message: ""
                     };

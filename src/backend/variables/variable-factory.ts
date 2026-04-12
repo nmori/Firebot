@@ -1,5 +1,4 @@
-import { ReplaceVariable } from "../../types/variables";
-import { EffectTrigger } from "../../shared/effect-constants";
+import type { ReplaceVariable } from "../../types/variables";
 
 type VariableConfig = {
     handle: string;
@@ -8,7 +7,7 @@ type VariableConfig = {
     eventMetaKey: string;
     usage?: string;
     defaultValue?: unknown;
-    type: "text" | "number" | "all";
+    type: ReplaceVariable["definition"]["possibleDataOutput"][number] | ReplaceVariable["definition"]["possibleDataOutput"];
 };
 
 export function createEventDataVariable({
@@ -21,10 +20,10 @@ export function createEventDataVariable({
     return {
         definition: {
             ...definition,
-            possibleDataOutput: [type as any],
+            possibleDataOutput: Array.isArray(type) ? type : [type],
             triggers: {
-                [EffectTrigger.EVENT]: events,
-                [EffectTrigger.MANUAL]: true
+                ["event"]: events,
+                ["manual"]: true
             }
         },
         evaluator(trigger) {

@@ -1,79 +1,79 @@
 "use strict";
-(function() {
-    //This handles the Hotkeys tab
 
+(function() {
     angular
         .module("firebotApp")
-        .controller("hotkeysController", function(
-            $scope,
-            hotkeyService,
-            utilityService
-        ) {
-            $scope.getHotkeys = function() {
-                return hotkeyService.getHotkeys();
+        .controller("hotkeysController", function($scope, hotkeyService, utilityService) {
+            $scope.hotkeyService = hotkeyService;
+
+            $scope.onHotkeysUpdated = (items) => {
+                hotkeyService.saveAllHotkeys(items);
             };
 
-            $scope.getDisplayForCode = function(code) {
-                return hotkeyService.getDisplayFromAcceleratorCode(code);
-            };
+            $scope.headers = [
+                {
+                    name: "NAME",
+                    icon: "fa-user",
+                    dataField: "name",
+                    sortable: true,
+                    cellTemplate: `{{data.name}}`
+                },
+                {
+                    name: "HOTKEY",
+                    icon: "fa-keyboard",
+                    dataField: "code",
+                    cellTemplate: `
+                        {{getDisplayForCode(data.code)}} 
+                        <i 
+                            ng-show="data.warning" 
+                            class="fas fa-exclamation-circle ml-2" 
+                            style="color: #fb7373;"
+                            uib-tooltip="{{data.warning}}"
+                        />
+                    `,
+                    cellController: ($scope) => {
+                        $scope.getDisplayForCode = (code) => {
+                            return hotkeyService.getDisplayFromAcceleratorCode(code);
+                        };
+                    }
+                }
+            ];
 
-            $scope.openAddOrEditHotkeyModal = function(hotkey) {
-                utilityService.showModal({
-                    component: "addOrEditHotkeyModal",
-                    resolveObj: {
-                        hotkey: () => hotkey
+            $scope.hotkeyOptions = (item) => {
+                const options = [
+                    {
+                        html: `<a href ><i class="far fa-pen mr-2 text-center" style="width: 20px;"></i> 編集</a>`,
+                        click: () => {
+                            hotkeyService.showAddEditHotkeyModal(item);
+                        }
                     },
-                    closeCallback: resp => {
-                        const action = resp.action,
-                            hotkey = resp.hotkey;
-
-                        switch (action) {
-<<<<<<< HEAD
-                        case "add":
-                            hotkeyService.saveHotkey(hotkey);
-                            break;
-                        case "update":
-                            hotkeyService.updateHotkey(hotkey);
-                            break;
-                        case "delete":
+                    {
+                        html: `<a href ><i class="far fa-toggle-off mr-2 text-center" style="width: 20px;"></i> ${item.active ? "ホットキーを無効化" : "ホットキーを有効化"}</a>`,
+                        click: () => {
+                            hotkeyService.toggleHotkeyActiveState(item);
+                        }
+                    },
+                    {
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt text-center mr-2" style="width: 20px;"></i> 削除</a>`,
+                        click: () => {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "ホットキーの削除",
-                                    question: `ホットキー「"${hotkey.name}"」を削除しますか?`,
-                                    confirmLabel: "削除する",
+                                    title: "ホットキーを削除",
+                                    question: `ホットキー "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
-                                .then(confirmed => {
+                                .then((confirmed) => {
                                     if (confirmed) {
-                                        hotkeyService.deleteHotkey(hotkey);
+                                        hotkeyService.deleteHotkey(item.id);
                                     }
                                 });
-                            break;
-=======
-                            case "add":
-                                hotkeyService.addHotkey(hotkey);
-                                break;
-                            case "update":
-                                hotkeyService.updateHotkey(hotkey);
-                                break;
-                            case "delete":
-                                utilityService
-                                    .showConfirmationModal({
-                                        title: "ホットキーの削除",
-                                        question: `ホットキー「"${hotkey.name}"」を削除しますか?`,
-                                        confirmLabel: "削除する",
-                                        confirmBtnType: "btn-danger"
-                                    })
-                                    .then((confirmed) => {
-                                        if (confirmed) {
-                                            hotkeyService.deleteHotkey(hotkey);
-                                        }
-                                    });
-                                break;
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+
                         }
                     }
-                });
+                ];
+
+                return options;
             };
         });
 }());

@@ -1,26 +1,21 @@
-import { TriggerType } from "../../../../common/EffectType";
-import { ReplaceVariable } from "../../../../../types/variables";
+import { ReplaceVariable, TriggersObject } from "../../../../../types/variables";
 import { OBS_EVENT_SOURCE_ID, OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID } from "../constants";
 
-const triggers = {};
-triggers[TriggerType.EVENT] = [
+const triggers: TriggersObject = {};
+triggers["event"] = [
     `${OBS_EVENT_SOURCE_ID}:${OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID}`
 ];
 
 export const SceneItemEnabledVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneItemEnabled",
-        description:
-      "イベントをトリガーした OBS シーンアイテムが有効であれば `true` を、そうでなければ `false` を返す。",
-<<<<<<< HEAD
-        possibleDataOutput: ["text"],
-=======
+                description:
+            "イベントを発火した OBS シーンアイテムが有効なら `true`、それ以外は `false` を返します。",
         possibleDataOutput: ["bool"],
-        categories: [VariableCategory.ADVANCED, VariableCategory.INTEGRATION, VariableCategory.OBS],
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+        categories: ["advanced", "integrations", "obs"],
         triggers: triggers
     },
-    evaluator: async (trigger) => {
+    evaluator: (trigger) => {
         const sceneItemEnabled = trigger.metadata?.eventData?.sceneItemEnabled;
         return sceneItemEnabled ?? false;
     }

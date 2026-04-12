@@ -5,10 +5,10 @@
         template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.effectDefinition.name}}の出力設定</h4>
+                    <h4 class="modal-title">{{$ctrl.effectDefinition.name}} の出力</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="well-dark well-sm">いくつかの演出は、$variableを介して、連動された他の演出で参照できるデータを出力します。</div>
+                    <div class="well-dark well-sm">一部のエフェクトは、後続エフェクトから $variable で参照できるデータを出力します。</div>
                     <div style="margin-top: 25px;">
                         <div
                             ng-repeat="output in $ctrl.effectDefinition.outputs"
@@ -24,14 +24,14 @@
                                 <div style="margin-left: 5px">
                                     <a href
                                         style="margin-right: 5px"
-                                        uib-tooltip="Copy variable"
+                                        uib-tooltip="変数をコピー"
                                         append-tooltip-to-body="true"
                                         ng-click="$ctrl.copyOutputVariable(output)">
                                         <span class="iconify clickable-icon-on-dark" data-icon="mdi:content-copy"></span>
                                     </a>
                                     <i
                                         class="fas fa-edit clickable-icon-on-dark"
-                                        uib-tooltip="Edit name"
+                                        uib-tooltip="名前を編集"
                                         append-tooltip-to-body="true"
                                         ng-click="$ctrl.showEditOutputNameModal(output)"
                                     ></i>
@@ -63,11 +63,11 @@
                 utilityService.openGetInputModal(
                     {
                         model: $ctrl.effect.outputNames[output.defaultName],
-                        label: "名前を変更する",
-                        saveText: "保存する",
-                        descriptionText: "演出リスト内で出力名に重複がないことを確認してください。2つの演出が同じ名前で出力されると、予期せぬ動作が起こる可能性があります。",
+                        label: "出力名を変更",
+                        saveText: "保存",
+                        descriptionText: "出力名はエフェクトリスト内で一意にしてください。同じ名前に複数エフェクトが出力すると予期しない動作になる可能性があります。",
                         validationFn: (value) => {
-                            return new Promise(resolve => {
+                            return new Promise((resolve) => {
                                 if (value?.trim().length < 1) {
                                     resolve(false);
                                 } else {
@@ -75,7 +75,7 @@
                                 }
                             });
                         },
-                        validationText: "名前を入力してください."
+                        validationText: "名前は空にできません。"
                     },
                     (newName) => {
                         $ctrl.effect.outputNames[output.defaultName] = newName;
@@ -90,7 +90,7 @@
 
                 ngToast.create({
                     className: 'success',
-                    content: `コピーしました： '${variable}'!`
+                    content: `'${variable}' をコピーしました。`
                 });
             };
 

@@ -13,9 +13,9 @@
                     <span
                         class="clickable pl-4"
                         ng-click="$ctrl.removeExemptRole($index)"
-                        uib-tooltip="Remove role"
+                        uib-tooltip="ロールを削除"
                         tooltip-append-to-body="true"
-                        aria-label="Remove role"
+                        aria-label="ロールを削除"
                     >
                         <i class="far fa-times"></i>
                     </span>
@@ -23,9 +23,9 @@
                 <div
                     class="role-bar clickable"
                     ng-click="$ctrl.openAddExemptRoleModal()"
-                    uib-tooltip="役割の追加"
+                    uib-tooltip="ロールを追加"
                     tooltip-append-to-body="true"
-                    aria-label="Add role"
+                    aria-label="ロールを追加"
                 >
                     <i class="far fa-plus"></i>
                 </div>
@@ -50,13 +50,13 @@
                     const options = roles.filter(r => !$ctrl.model.includes(r.id));
                     utilityService.openSelectModal(
                         {
-                            label: "高度な役割を追加",
+                            label: "除外ロールを追加",
                             options: options.map(r => ({
                                 id: r.id,
                                 name: r.name
                             })),
                             saveText: "追加",
-                            validationText: "役割を選んでください"
+                            validationText: "ロールを選択してください。"
                         },
                         (roleId) => {
                             if (!roleId) {

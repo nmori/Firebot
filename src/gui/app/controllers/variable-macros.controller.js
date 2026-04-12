@@ -45,8 +45,8 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "マクロ変数の削除",
-                                    question: `マクロ変数を削除しますか？ "${item.name}"?`,
+                                    title: "変数マクロを削除",
+                                    question: `変数マクロ "${item.name}" を削除してもよろしいですか？`,
                                     confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })

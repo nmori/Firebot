@@ -1,30 +1,35 @@
-import frontendCommunicator from "../../../backend/common/frontend-communicator";
-import { EffectCategory } from "../../../shared/effect-constants";
 import { EffectType } from "../../../types/effects";
+import frontendCommunicator from "../../common/frontend-communicator";
+
+interface TtsVoice {
+    id: string;
+    name: string;
+    description: string;
+}
 
 const effect: EffectType<{
     text: string;
-    voiceId: "default" | string;
+    voiceId: string;
     wait?: boolean;
 }> = {
     definition: {
         id: "firebot:text-to-speech",
-        name: "合成音声",
-        description: "Firebotにテキストを読ませる。",
+        name: "テキスト読み上げ",
+        description: "Firebot に TTS でテキストを読み上げさせます。",
         icon: "fad fa-microphone-alt",
-        categories: [EffectCategory.FUN],
+        categories: ["fun"],
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="テキスト">
-            <textarea ng-model="effect.text" class="form-control" name="text" placeholder="テキストを入力" rows="4" cols="40" replace-variables menu-position="under"></textarea>
+        <eos-container header="Text">
+            <textarea ng-model="effect.text" class="form-control" name="text" placeholder="Enter text" rows="4" cols="40" replace-variables menu-position="under"></textarea>
         </eos-container>
 
-        <eos-container header="音声" pad-top="true">
+        <eos-container header="Voice" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.voiceId"
                 items="ttsVoices"
-                placeholder="音声を検索、もしくは選択"
+                placeholder="Select or search for a voice…"
             />
         </eos-container>
 
@@ -36,6 +41,13 @@ const effect: EffectType<{
                 style="margin: 0px 15px 0px 0px"
             />
         </eos-container>
+
+        <eos-container header="Volume" pad-top="true">
+            <div class="muted">
+                <p style="margin-bottom: 5px;">Text-To-Speech volume can only be adjusted globally.</p>
+                <p>Go to <span class="font-bold">Settings -> TTS</span> to change the volume.</p>
+            </div>
+        </eos-container>
     `,
     optionsController: ($scope, ttsService) => {
         if ($scope.effect.voiceId == null) {
@@ -45,38 +57,36 @@ const effect: EffectType<{
             $scope.effect.wait = false;
         }
 
-        $scope.ttsVoices = [{
-            id: "default",
-            name: "Default",
-            description: "設定 > 合成音声で選ばれた音声"
-        },
-        ...ttsService.getVoices()
-        ];
+        $scope.ttsVoices = [
+            {
+                id: "default",
+                name: "Default",
+                description: "The default voice set in Settings > TTS"
+            },
+            ...ttsService.getVoices() as TtsVoice[]
+        ] as TtsVoice[];
 
 
         $scope.getSelectedVoiceName = () => {
             const voiceId = $scope.effect.voiceId;
             if (voiceId === "default" || voiceId == null) {
-                return "既定の音声";
+                return "Default";
             }
 
-            const voice = ttsService.getVoiceById(voiceId);
+            const voice = ttsService.getVoiceById(voiceId) as TtsVoice;
 
-            return voice?.name ?? "不明な音声";
+            return voice?.name ?? "Unknown Voice";
         };
     },
     optionsValidator: (effect) => {
-        const errors = [];
+        const errors: string[] = [];
         if (effect.text == null || effect.text.length < 1) {
-            errors.push("テキストを入力してください。");
+            errors.push("Please input some text.");
         }
         return errors;
     },
-    onTriggerEvent: async (event) => {
-        const effect = event.effect;
-
+    onTriggerEvent: async ({ effect }) => {
         await frontendCommunicator.fireEventAsync("read-tts", effect);
-
         return true;
     }
 };

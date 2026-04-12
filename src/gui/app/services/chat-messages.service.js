@@ -2,11 +2,11 @@
 (function() {
     const moment = require('moment');
 
-    const uuid = require("uuid/v4");
+    const { randomUUID } = require("crypto");
 
     angular
         .module('firebotApp')
-        .factory('chatMessagesService', function (logger, listenerService, settingsService,
+        .factory('chatMessagesService', function (logger, settingsService,
             soundService, backendCommunicator, pronounsService, accountAccess, ngToast) {
             const service = {};
 
@@ -21,10 +21,16 @@
 
             service.autodisconnected = false;
 
-            // Tells us if we should process in app chat or not.
-            service.getChatFeed = function() {
-                return settingsService.getRealChatFeed();
-            };
+            // The active chat sender identifier, either "Streamer" or "Bot"
+            service.chatSender = "Streamer";
+            // The pending but unsent outgoing chat message text
+            service.messageText = "";
+            // The message/thread currently being replied to
+            service.threadDetails = null;
+
+            // History of chat messages sent via Dashboard
+            service.chatHistory = [];
+            service.currrentHistoryIndex = -1;
 
             // Return the chat queue.
             service.getChatQueue = function() {
@@ -50,7 +56,7 @@
 
             // Return User List with people in role filtered out.
             service.getFilteredChatUserList = function() {
-                return service.chatUsers.filter((user) => !user.disableViewerList);
+                return service.chatUsers.filter(user => !user.disableViewerList);
             };
 
             // Clear User List
@@ -61,7 +67,7 @@
             // Full Chat User Refresh
             // This replaces chat users with a fresh list pulled from the backend in the chat processor file.
             service.chatUserRefresh = function(data) {
-                const users = data.chatUsers.map(u => {
+                const users = data.chatUsers.map((u) => {
                     u.id = u.userId;
                     return u;
                 });
@@ -94,7 +100,7 @@
                 const chatQueue = service.chatQueue;
 
                 let cachedUserName = null;
-                chatQueue.forEach(message => {
+                chatQueue.forEach((message) => {
                     // If user id matches, then mark the message as deleted.
                     if (message.user_id === data.user_id) {
                         if (cachedUserName == null) {
@@ -106,41 +112,63 @@
                         if (data.moderator) {
                             modName = data.moderator.user_name;
                         }
-                        message.eventInfo = `${modName}によって削除されました.`;
+                        message.eventInfo = `Purged by ${modName}.`;
 
                     }
                 });
 
                 if (data.cause && cachedUserName) {
                     if (data.cause.type === "timeout") {
-                        service.chatAlertMessage(`${cachedUserName} は ${data.moderator.user_name} から ${data.cause.durationString} という理由でタイムアウトになりました`);
+                        service.chatAlertMessage(`${cachedUserName} was timed out by ${data.moderator.user_name} for ${data.cause.durationString}.`);
                     } else if (data.cause.type === "ban") {
-                        service.chatAlertMessage(`${cachedUserName} は ${data.moderator.user_name} によって追放(BAN)されています`);
+                        service.chatAlertMessage(`${cachedUserName} was banned by ${data.moderator.user_name}.`);
                     }
                 }
             };
 
-            service.highlightMessage = (username, rawText) => {
+            service.highlightMessage = (username, userId, displayName, rawText, chatMessage) => {
                 backendCommunicator.fireEvent("highlight-message", {
                     username: username,
-                    messageText: rawText
+                    userId: userId,
+                    displayName: displayName,
+                    messageText: rawText,
+                    chatMessage: {
+                        ...chatMessage,
+                        timestamp: chatMessage.timestamp ? chatMessage.timestamp.toISOString() : null
+                    }
                 });
             };
 
             // Chat Alert Message
-            service.chatAlertMessage = function(message) {
-
+            service.chatAlertMessage = function(message, icon = "fad fa-exclamation-circle") {
                 const alertItem = {
-                    id: uuid(),
+                    id: randomUUID(),
                     type: "alert",
-                    data: message
+                    message: message,
+                    icon: icon
                 };
 
                 service.chatQueue.push(alertItem);
             };
 
-            backendCommunicator.on("chat-feed-system-message", (message) => {
-                service.chatAlertMessage(message);
+            backendCommunicator.on("chat-feed-system-message", (message, icon) => {
+                service.chatAlertMessage(message, icon);
+            });
+
+            // Custom Highlight and Banner
+            service.customHighlightAndBanner = function(messageId, customHighlightColor, customBannerIcon, customBannerText) {
+                const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+                if (messageItem == null) {
+                    return;
+                }
+
+                messageItem.data.customHighlightColor = customHighlightColor;
+                messageItem.data.customBannerIcon = customBannerIcon;
+                messageItem.data.customBannerText = customBannerText;
+            };
+
+            backendCommunicator.on("chat-feed-custom-highlight", (data) => {
+                service.customHighlightAndBanner(data.messageId, data.customHighlightColor, data.customBannerIcon, data.customBannerText);
             });
 
             // Chat Update Handler
@@ -152,14 +180,14 @@
                         logger.info("Chat cleared");
                         service.clearChatQueue();
 
-                    service.chatAlertMessage('チャットは ' + data.clearer.user_name + 'によってクリアされました');
-                    break;
-                case "PurgeMessage":
-                    logger.info("Chat message purged");
-                    service.purgeChatMessages(data);
-                    break;
-                case "UserJoin":
-                    logger.debug("Chat User Joined");
+                        service.chatAlertMessage(`Chat has been cleared by ${data.clearer.user_name}.`);
+                        break;
+                    case "PurgeMessage":
+                        logger.info("Chat message purged");
+                        service.purgeChatMessages(data);
+                        break;
+                    case "UserJoin":
+                        logger.debug("Chat User Joined");
 
                         // Standardize user roles naming.
                     data.user_roles = data.roles; // eslint-disable-line
@@ -180,19 +208,19 @@
                         break;
                     case "Disconnected":
                     // We disconnected. Clear messages, post alert, and then let the reconnect handle repopulation.
-                    logger.info("Chat Disconnected!");
-                    service.clearChatQueue();
-                    service.chatAlertMessage("チャットから切断されました");
-                    break;
-                case "UsersRefresh":
-                    logger.info("Chat userlist refreshed.");
-                    service.chatUserRefresh(data);
-                    break;
-                case "ChatAlert":
-                    logger.debug("Chat alert from backend.");
-                    service.chatAlertMessage(data.message);
-                    break;
-                default:
+                        logger.info("Chat Disconnected!");
+                        service.clearChatQueue();
+                        service.chatAlertMessage("Chat has been disconnected.");
+                        break;
+                    case "UsersRefresh":
+                        logger.info("Chat userlist refreshed.");
+                        service.chatUserRefresh(data);
+                        break;
+                    case "ChatAlert":
+                        logger.debug("Chat alert from backend.");
+                        service.chatAlertMessage(data.message, data.icon);
+                        break;
+                    default:
                     // Nothing
                         logger.warn("Unknown chat event sent", data);
                 }
@@ -234,17 +262,8 @@
             };
 
             // Gets view count setting for ui.
-            service.getChatViewCountSetting = function() {
-                const viewCount = settingsService.getChatViewCount();
-                if (viewCount === "On") {
-                    return true;
-                }
-                return false;
-            };
-
-            // Gets view count setting for ui.
             service.getChatViewerListSetting = function() {
-                return settingsService.getShowChatViewerList();
+                return settingsService.getSetting("ShowChatViewerList");
             };
 
             function markMessageAsDeleted(messageId) {
@@ -275,63 +294,49 @@
 
             backendCommunicator.on("twitch:chat:user:delete-messages", markUserMessagesAsDeleted);
 
-            service.changeModStatus = (username, shouldBeMod) => {
-                backendCommunicator.send("update-user-mod-status", {
-                    username,
-                    shouldBeMod
-                });
+            service.hideMessageInChatFeed = function(messageId) {
+                const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+                if (messageItem == null) {
+                    return;
+                }
+
+                messageItem.data.isHiddenFromChatFeed = true;
             };
 
-            // $interval(() => {
-            //     if (messageHoldingQueue.length > 0) {
-            //         service.chatQueue = service.chatQueue.concat(messageHoldingQueue);
-            //         messageHoldingQueue = [];
+            backendCommunicator.on("chat-feed-message-hide", (data) => {
+                service.hideMessageInChatFeed(data.messageId);
+            });
 
-            //         // Trim messages.
-            //         service.pruneChatQueue();
-
-            //         //hacky way to ensure we stay scroll glued
-            //         $timeout(() => {
-            //             $rootScope.$broadcast('ngScrollGlue.scroll');
-            //         }, 1);
-            //     }
-            // }, 250);
-
-            backendCommunicator.on("twitch:chat:rewardredemption", redemption => {
-                if (settingsService.getRealChatFeed()) {
-
-                    const redemptionItem = {
-                        id: uuid(),
-                        type: "redemption",
-                        data: redemption
-                    };
-
-                    if (service.chatQueue && service.chatQueue.length > 0) {
-                        const lastQueueItem = service.chatQueue[service.chatQueue.length - 1];
-                        if (!lastQueueItem.rewardMatched &&
+            backendCommunicator.on("twitch:chat:rewardredemption", (redemption) => {
+                if (service.chatQueue && service.chatQueue.length > 0) {
+                    const lastQueueItem = service.chatQueue[service.chatQueue.length - 1];
+                    if (!lastQueueItem.rewardMatched &&
                             lastQueueItem.type === "message" &&
                             lastQueueItem.data.customRewardId != null &&
                             lastQueueItem.data.customRewardId === redemption.reward.id &&
                             lastQueueItem.data.userId === redemption.user.id) {
-                            lastQueueItem.rewardMatched = true;
-                            service.chatQueue.splice(-1, 0, redemptionItem);
-                            return;
-                        }
+                        lastQueueItem.rewardMatched = true;
+                        lastQueueItem.data.reward = redemption.reward;
+                        return;
                     }
-
-                    service.chatQueue.push(redemptionItem);
                 }
+
+                service.chatQueue.push({
+                    id: randomUUID(),
+                    type: "redemption",
+                    data: redemption
+                });
             });
 
-            backendCommunicator.on("twitch:chat:user-joined", user => {
+            backendCommunicator.on("twitch:chat:user-joined", (user) => {
                 service.chatUserJoined(user);
             });
 
-            backendCommunicator.on("twitch:chat:user-left", id => {
+            backendCommunicator.on("twitch:chat:user-left", (id) => {
                 service.chatUserLeft(({ id }));
             });
 
-            backendCommunicator.on("twitch:chat:user-updated", user => {
+            backendCommunicator.on("twitch:chat:user-updated", (user) => {
                 service.chatUserUpdated(user);
             });
 
@@ -339,48 +344,34 @@
                 service.clearUserList();
             });
 
-<<<<<<< HEAD
-            backendCommunicator.on("twitch:chat:automod-update", ({messageId, newStatus, resolverName, flaggedPhrases}) => {
-                if (newStatus === "ALLOWED") {
-                    service.chatQueue = service.chatQueue.filter(i => i?.data?.id !== messageId);
-                    service.chatAlertMessage(`${resolverName} は次のメッセージを承認： ${flaggedPhrases.join(", ")}`);
-                } else {
-                    const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
-=======
-            backendCommunicator.on("twitch:chat:automod-update", ({messageId, newStatus, resolverName }) => {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+            backendCommunicator.on("twitch:chat:automod-update", ({ messageId, newStatus, resolverName }) => {
 
-                    if (messageItem == null) {
-                        return;
-                    }
-
-<<<<<<< HEAD
-                    messageItem.data.autoModStatus = newStatus;
-                    messageItem.data.autoModResolvedBy = resolverName;
-                }
-
-=======
-                    if (messageItem == null) {
-                        return;
-                    }
-
-                    messageItem.data.autoModStatus = newStatus;
-                    messageItem.data.autoModResolvedBy = resolverName;
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-            });
-
-            backendCommunicator.on("twitch:chat:automod-update-error", ({messageId, likelyExpired}) => {
-                const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+                const messageItem = service.chatQueue.find(i => i.type === "message" &&
+                    (i.data.id === messageId || i.data.autoModHeldMessageId === messageId)
+                );
 
                 if (messageItem == null) {
                     return;
                 }
 
-                messageItem.data.autoModErrorMessage = `エラー発生： ${likelyExpired ? "対応手段なし" : "配信者アカウントを再認証する必要があるかもしれません。"}`;
+                messageItem.data.autoModStatus = newStatus;
+                messageItem.data.autoModResolvedBy = resolverName;
+            });
+
+            backendCommunicator.on("twitch:chat:automod-update-error", ({ messageId, likelyExpired }) => {
+                const messageItem = service.chatQueue.find(i => i.type === "message" &&
+                    (i.data.id === messageId || i.data.autoModHeldMessageId === messageId)
+                );
+
+                if (messageItem == null) {
+                    return;
+                }
+
+                messageItem.data.autoModErrorMessage = `There was an error acting on this message. ${likelyExpired ? "The time to act has likely expired." : "You may need to reauth your Streamer account."}`;
             });
 
             backendCommunicator.on("twitch:chat:clear-feed", (modUsername) => {
-                const clearMode = settingsService.getClearChatFeedMode();
+                const clearMode = settingsService.getSetting("ClearChatFeedMode");
 
                 const isStreamer = accountAccess.accounts.streamer.username.toLowerCase()
                     === modUsername.toLowerCase();
@@ -392,35 +383,42 @@
                 service.chatAlertMessage(`${modUsername} cleared the chat.`);
             });
 
-            backendCommunicator.on("twitch:chat:user-active", id => {
+            backendCommunicator.on("twitch:chat:user-active", (id) => {
                 const user = service.chatUsers.find(u => u.id === id);
                 if (user != null) {
                     user.active = true;
                 }
             });
 
-            backendCommunicator.on("twitch:chat:user-inactive", id => {
+            backendCommunicator.on("twitch:chat:user-inactive", (id) => {
                 const user = service.chatUsers.find(u => u.id === id);
                 if (user != null) {
                     user.active = false;
                 }
             });
 
-            backendCommunicator.on("twitch:chat:autodisconnected", autodisconnected => {
+            backendCommunicator.on("twitch:chat:autodisconnected", (autodisconnected) => {
                 service.autodisconnected = autodisconnected;
             });
 
-            backendCommunicator.on("twitch:chat:message", chatMessage => {
+            backendCommunicator.on("twitch:chat:message", (chatMessage) => {
 
                 if (chatMessage.tagged) {
                     soundService.playChatNotification();
+                }
+                if (chatMessage.isAutoModHeld === true) {
+                    setTimeout(() => {
+                        if (chatMessage.autoModStatus === "pending") {
+                            chatMessage.autoModStatus = "expired";
+                        }
+                    }, 5 * 60 * 1000);
                 }
 
                 pronounsService.getUserPronoun(chatMessage.username);
 
                 const now = moment();
                 chatMessage.timestamp = now;
-                chatMessage.timestampDisplay = now.format('LTS');
+                chatMessage.timestampDisplay = now.format('h:mm A');
 
                 if (chatMessage.profilePicUrl == null) {
                     chatMessage.profilePicUrl = "../images/placeholders/default-profile-pic.png";
@@ -432,53 +430,91 @@
                     service.chatUserUpdated(user);
                 }
 
-                if (settingsService.getRealChatFeed()) {
-                    // Push new message to queue.
-                    const messageItem = {
-                        id: uuid(),
-                        type: "message",
-                        data: chatMessage
+                // when an automod held message is approved, the message is sent again,
+                // attempt to merge it with the existing message
+                const existingAutoModMessageIndex = service.chatQueue.findIndex(i =>
+                    i.type === "message" &&
+                    i.data.isAutoModHeld &&
+                    i.data.autoModHeldMessageId == null &&
+                    i.data.rawText === chatMessage.rawText &&
+                    i.data.userId === chatMessage.userId &&
+                    moment().diff(i.data.timestamp, "minutes") <= 5
+                );
+                const existingAutoModMessage = service.chatQueue[existingAutoModMessageIndex]?.data;
+                if (existingAutoModMessage != null) {
+                    // merge the new message with the existing one
+                    chatMessage = {
+                        ...existingAutoModMessage,
+                        ...chatMessage,
+                        autoModHeldMessageId: existingAutoModMessage.id,
+                        isAutoModHeld: existingAutoModMessage.isAutoModHeld,
+                        autoModStatus: existingAutoModMessage.autoModStatus,
+                        autoModResolvedBy: existingAutoModMessage.autoModResolvedBy,
+                        autoModErrorMessage: existingAutoModMessage.autoModErrorMessage
                     };
+                    // remove the existing automod message from the queue
+                    service.chatQueue.splice(existingAutoModMessageIndex, 1);
+                }
 
-                    if (chatMessage.customRewardId != null &&
+                // Push new message to queue.
+                const messageItem = {
+                    id: randomUUID(),
+                    type: "message",
+                    data: chatMessage
+                };
+
+                if (chatMessage.customRewardId != null &&
                         service.chatQueue &&
                         service.chatQueue.length > 0) {
-                        const lastQueueItem = service.chatQueue[service.chatQueue.length - 1];
-                        if (lastQueueItem.type === "redemption" &&
+                    const lastQueueItem = service.chatQueue[service.chatQueue.length - 1];
+                    if (lastQueueItem.type === "redemption" &&
                             lastQueueItem.data.reward.id === chatMessage.customRewardId &&
                             lastQueueItem.data.user.id === chatMessage.userId) {
-                            messageItem.rewardMatched = true;
-                        }
+                        messageItem.rewardMatched = true;
                     }
-
-                    service.chatQueue.push(messageItem);
-
-                    service.pruneChatQueue();
                 }
+
+                service.chatQueue.push(messageItem);
+
+                service.pruneChatQueue();
             });
 
-            service.allEmotes = [];
-            service.filteredEmotes = [];
+            service.allEmotes = {
+                streamer: [],
+                bot: [],
+                thirdParty: []
+            };
+
+            service.filteredEmotes = {
+                streamer: [],
+                bot: [],
+                thirdParty: []
+            };
+
             service.refreshEmotes = () => {
-                const showBttvEmotes = settingsService.getShowBttvEmotes();
-                const showFfzEmotes = settingsService.getShowFfzEmotes();
-                const showSevenTvEmotes = settingsService.getShowSevenTvEmotes();
+                const showBttvEmotes = settingsService.getSetting("ChatShowBttvEmotes");
+                const showFfzEmotes = settingsService.getSetting("ChatShowFfzEmotes");
+                const showSevenTvEmotes = settingsService.getSetting("ChatShowSevenTvEmotes");
 
-                service.filteredEmotes = service.allEmotes.filter(e => {
-                    if (showBttvEmotes !== true && e.origin === "BTTV") {
-                        return false;
-                    }
+                service.filteredEmotes = {
+                    streamer: service.allEmotes.streamer,
+                    bot: service.allEmotes.bot,
+                    thirdParty: service.allEmotes.thirdParty.filter((e) => {
+                        if (showBttvEmotes !== true && e.origin === "BTTV") {
+                            return false;
+                        }
 
-                    if (showFfzEmotes !== true && e.origin === "FFZ") {
-                        return false;
-                    }
+                        if (showFfzEmotes !== true && e.origin === "FFZ") {
+                            return false;
+                        }
 
-                    if (showSevenTvEmotes !== true && e.origin === "7TV") {
-                        return false;
-                    }
+                        if (showSevenTvEmotes !== true && e.origin === "7TV") {
+                            return false;
+                        }
 
-                    return true;
-                });
+                        return true;
+                    })
+                };
             };
 
             backendCommunicator.on("all-emotes", (emotes) => {
@@ -488,25 +524,7 @@
 
             // Watches for an chat update from main process
             // This handles clears, deletions, timeouts, etc... Anything that isn't a message.
-            listenerService.registerListener(
-                { type: listenerService.ListenerType.CHAT_UPDATE },
-                data => {
-                    if (settingsService.getRealChatFeed() === true) {
-                        service.chatUpdateHandler(data);
-                    }
-                }
-            );
-
-            // Connection Monitor
-            // Receives event from main process that connection has been established or disconnected.
-            listenerService.registerListener(
-                { type: listenerService.ListenerType.CHAT_CONNECTION_STATUS },
-                isChatConnected => {
-                    if (isChatConnected) {
-                        service.chatQueue = [];
-                    }
-                }
-            );
+            backendCommunicator.on("chatUpdate", service.chatUpdateHandler);
 
             return service;
         });

@@ -1,13 +1,12 @@
 "use strict";
 
 (function() {
-    const uuidv1 = require("uuid/v4");
     angular.module("firebotApp").component("addOrEditCounterModal", {
         template: `
             <context-menu-modal-header
                 class="edit-preset-effect-list-header"
                 on-close="$ctrl.dismiss()"
-                trigger-type="カウンタ"
+                trigger-type="counter"
                 trigger-name="$ctrl.counter.name"
                 sort-tags="$ctrl.counter.sortTags"
                 show-trigger-name="true"
@@ -20,91 +19,77 @@
                 </div>
 
                 <div class="counter-wrapper">
-                    <div class="small-num clickable" ng-click="$ctrl.editMinimum()" aria-label="最低値を設定">
+                    <div class="small-num clickable" ng-click="$ctrl.editMinimum()" aria-label="最小値を編集">
                         <div class="value" ng-show="$ctrl.counter.minimum != null">{{$ctrl.counter.minimum}}<span class="edit-icon"><i class="fas fa-edit"></i></span></div>
                         <div class="not-set" ng-show="$ctrl.counter.minimum == null">(未設定)<span class="edit-icon"><i class="fas fa-edit"></i></span></div>
-                        <div class="counter-title">最小値 <tooltip text="'このカウンタの最小値（任意）'"></tooltip></div>
+                        <div class="counter-title">最小値 <tooltip text="'このカウンタに設定できる最小値（任意）'"></tooltip></div>
                     </div>
                     <div class="bar"></div>
-                    <div class="big-num clickable" ng-click="$ctrl.editCurrentValue()" aria-label="カウンタの現在値を編集">
+                    <div class="big-num clickable" ng-click="$ctrl.editCurrentValue()" aria-label="現在値を編集">
                         <div class="value">{{$ctrl.counter.value}}<span class="edit-icon"><i class="fas fa-edit"></i></span></div>
                         <div class="counter-title">現在値</div>
                     </div>
                     <div class="bar"></div>
-                    <div class="small-num clickable" ng-click="$ctrl.editMaximum()" aria-label="最大値を設定">
+                    <div class="small-num clickable" ng-click="$ctrl.editMaximum()" aria-label="最大値を編集">
                         <div class="value" ng-show="$ctrl.counter.maximum != null">{{$ctrl.counter.maximum}}<span class="edit-icon"><i class="fas fa-edit"></i></span></div>
                         <div class="not-set" ng-show="$ctrl.counter.maximum == null">(未設定)<span class="edit-icon"><i class="fas fa-edit"></i></span></div>
-                        <div class="counter-title">最大値 <tooltip text="'このカウンタの最大値（任意）'"></tooltip></div>
+                        <div class="counter-title">最大値 <tooltip text="'このカウンタに設定できる最大値（任意）'"></tooltip></div>
                     </div>
                 </div>
 
-                <collapsable-panel header="これをどう使えばいい？">
-                    <h3 class="use-title">使い方：</h3>
-                    <p>- コマンドやボタンなどの<b>カウンタ更新</b>演出を使って、このカウンタを動かすようにします</p>
-                    <p>- 変数<b>$counter[{{$ctrl.counter.name}}]でこのカウンタの値にアクセスできます</b></p>
-                    <p>- 下記のテキストファイルを配信ソフトのテキストソースで読み込むことで、配信画面に値を表示することができます。</b></p>
-                    <div><b>このカウンタのテキストファイル名:</b></div>
+                <collapsable-panel header="使い方">
+                    <h3 class="use-title">使い方:</h3>
+                    <p>- コマンドやボタン等の <b>Update Counter</b> エフェクトでこのカウンタを自動更新できます。</p>
+                    <p>- <b>$counter[{{$ctrl.counter.name}}]</b> でこのカウンタの値を参照できます。</p>
+                    <p>- カウンタごとに値を保存する txt ファイルが作成されます。配信ソフトに読み込むことで配信画面に表示できます。</p>
+                    <div><b>このカウンタの txt ファイルパス:</b></div>
                     <div style="margin: 15px 0;">
                         <div class="input-group" style="width:75%;">
                             <input type="text" class="form-control" style="cursor:text;" ng-model="$ctrl.txtFilePath" disabled>
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="$ctrl.copyTxtFilePath()">Copy</button>
+                                <button class="btn btn-default" type="button" ng-click="$ctrl.copyTxtFilePath()">コピー</button>
                             </span>
                         </div>
                     </div>
                 </collapsable-panel>
 
                 <div class="mt-12">
-                    <h3>更新時の演出</h3>
-                    <p>これらの演出は、<b>カウンタの更新</b>によってカウンタの値が更新されるたびに発生します。</h3>
-                    ただし、値が最大値または最小値に達した場合は除きます。{{$ctrl.counter.minimum != null || $ctrl.counter.maximum != null ? ', except when the value hits the maximum or minimum' : ''}}.</p>
-<<<<<<< HEAD
-                    <effect-list header="What should this Counter do on every update?" effects="$ctrl.counter.updateEffects" trigger="counter" trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'update'}" update="$ctrl.updateEffectsListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
-=======
+                    <h3>更新時のエフェクト</h3>
+                    <p>これらのエフェクトは <b>Update Counter</b> によりカウンタ値が更新されるたびに実行されます{{$ctrl.counter.minimum != null || $ctrl.counter.maximum != null ? '（ただし最小値または最大値に達した場合を除く）' : ''}}。</p>
                     <effect-list
-                        header="What should this Counter do on every update?"
+                        header="カウンタ更新時に実行する内容"
                         effects="$ctrl.counter.updateEffects"
                         trigger="counter"
                         trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'update', rootEffects: $ctrl.counter.updateEffects}"
                         update="$ctrl.updateEffectsListUpdated(effects)"
                         modalId="{{$ctrl.modalId}}"
                     ></effect-list>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
 
                 <div class="mt-12" ng-show="$ctrl.counter.minimum !== undefined && $ctrl.counter.minimum !== null">
-                    <h3>最小値</h3>
-                    <p>最小値に達したときに発火する。</p>
-<<<<<<< HEAD
-                    <effect-list header="カウンタが最小値に達したとき、このカウンタは何をすべきか？" effects="$ctrl.counter.minimumEffects" trigger="counter" trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'minimum'}" update="$ctrl.minimumEffectsListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
-=======
+                    <h3>最小値到達時のエフェクト</h3>
+                    <p>最小値に達したときに実行されます。</p>
                     <effect-list
-                        header="カウンタが最小値に達したとき、このカウンタは何をすべきか？"
+                        header="最小値到達時に実行する内容"
                         effects="$ctrl.counter.minimumEffects"
                         trigger="counter"
                         trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'minimum', rootEffects: $ctrl.counter.minimumEffects}"
                         update="$ctrl.minimumEffectsListUpdated(effects)"
                         modalId="{{$ctrl.modalId}}"
                     ></effect-list>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
 
                 <div class="mt-12" ng-show="$ctrl.counter.maximum !== undefined && $ctrl.counter.maximum !== null">
-                    <h3>最大値</h3>
-<<<<<<< HEAD
-                    <p>最大値に達したときに発火する。.</p>
-                    <effect-list header="カウンタが最大値に達したとき、このカウンタは何をすべきでしょうか？" effects="$ctrl.counter.maximumEffects" trigger="counter" trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'maximum'}" update="$ctrl.maximumEffectsListUpdated(effects)" modalId="{{$ctrl.modalId}}"></effect-list>
-=======
-                    <p>最大値に達したときに発火する。</p>
+                    <h3>最大値到達時のエフェクト</h3>
+                    <p>最大値に達したときに実行されます。</p>
                     <effect-list
-                        header="カウンタが最大値に達したとき、このカウンタは何をすべきか？"
+                        header="最大値到達時に実行する内容"
                         effects="$ctrl.counter.maximumEffects"
                         trigger="counter"
                         trigger-meta="{triggerId: $ctrl.counter.id,counterEffectListType: 'maximum', rootEffects: $ctrl.counter.maximumEffects}"
                         update="$ctrl.maximumEffectsListUpdated(effects)"
                         modalId="{{$ctrl.modalId}}"
                     ></effect-list>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 </div>
             </div>
 
@@ -136,27 +121,26 @@
 
                 ngToast.create({
                     className: 'success',
-                    content: 'ファイルのパスをコピーしました'
+                    content: 'カウンタの txt ファイルパスをコピーしました。'
                 });
             };
 
             $ctrl.save = () => {
                 if ($ctrl.counter.name == null || $ctrl.counter.name === "") {
-                    ngToast.create("このカウンタの名前を入力してください");
+                    ngToast.create("カウンタ名を入力してください。");
                     return;
                 }
 
-                countersService.saveCounter($ctrl.counter).then(successful => {
-                    if (successful) {
-                        $ctrl.close({
-                            $value: {
-                                counter: $ctrl.counter
-                            }
-                        });
-                    } else {
-                        ngToast.create("Fカウンタの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
-                    }
-                });
+                const successful = countersService.saveCounter($ctrl.counter);
+                if (successful) {
+                    $ctrl.close({
+                        $value: {
+                            counter: $ctrl.counter
+                        }
+                    });
+                } else {
+                    ngToast.create("カウンタの保存に失敗しました。再試行するかログをご確認ください。");
+                }
             };
 
             $ctrl.editMinimum = () => {
@@ -164,9 +148,9 @@
                     {
                         model: $ctrl.counter.minimum,
                         inputType: "number",
-                        label: "最小値の設定",
-                        saveText: "保存する",
-                        descriptionText: "このカウンタの最小値を設定（任意）",
+                        label: "最小値を設定",
+                        saveText: "保存",
+                        descriptionText: "このカウンタの最小値を設定します（任意）。",
                         inputPlaceholder: "数値を入力",
                         validationFn: async (value) => {
                             if (value != null) {
@@ -177,7 +161,7 @@
 
                             return true;
                         },
-                        validationText: `最小値は最大値を超えないでください (${$ctrl.counter.maximum}).`
+                        validationText: `最小値は最大値未満である必要があります (${$ctrl.counter.maximum})。`
                     },
                     (editedValue) => {
                         $ctrl.counter.minimum = editedValue;
@@ -193,9 +177,9 @@
                     {
                         model: $ctrl.counter.maximum,
                         inputType: "number",
-                        label: "最大値の設定",
-                        saveText: "保存する",
-                        descriptionText: "このカウンタの最大値を設定（任意）",
+                        label: "最大値を設定",
+                        saveText: "保存",
+                        descriptionText: "このカウンタの最大値を設定します（任意）。",
                         inputPlaceholder: "数値を入力",
                         validationFn: async (value) => {
                             if (value != null) {
@@ -206,7 +190,7 @@
 
                             return true;
                         },
-                        validationText: `最大値は最低値を下回らないでください (${$ctrl.counter.minimum})`
+                        validationText: `最大値は最小値より大きい必要があります (${$ctrl.counter.minimum})。`
                     },
                     (editedValue) => {
                         $ctrl.counter.maximum = editedValue;
@@ -222,26 +206,26 @@
                     {
                         model: $ctrl.counter.value,
                         inputType: "number",
-                        label: "現在値の設定",
-                        saveText: "保存する",
-                        descriptionText: "このカウンタの現在値を設定",
+                        label: "現在値を設定",
+                        saveText: "保存",
+                        descriptionText: "このカウンタの現在値を更新します。",
                         inputPlaceholder: "数値を入力",
                         validationFn: async (value) => {
                             if (value == null) {
                                 return {
                                     success: false,
-                                    reason: `数値を入力してください`
+                                    reason: `カウンタ値は空にできません。`
                                 };
                             }
                             if ($ctrl.counter.minimum != null && value < $ctrl.counter.minimum) {
                                 return {
                                     success: false,
-                                    reason: `現在値は最小値以上にしてください (${$ctrl.counter.minimum}).`
+                                    reason: `カウンタ値は最小値未満にできません (${$ctrl.counter.minimum})。`
                                 };
                             } else if ($ctrl.counter.maximum != null && value > $ctrl.counter.maximum) {
                                 return {
                                     success: false,
-                                    reason: `現在値は最小値以下にしてください (${$ctrl.counter.maximum}).`
+                                    reason: `カウンタ値は最大値を超えられません (${$ctrl.counter.maximum})。`
                                 };
                             }
                             return true;
@@ -274,10 +258,6 @@
                     }
 
                     $ctrl.isNewCounter = false;
-                }
-
-                if ($ctrl.isNewCounter && $ctrl.counter.id == null) {
-                    $ctrl.counter.id = uuidv1();
                 }
 
                 $ctrl.txtFilePath = countersService.getTxtFilePath($ctrl.counter.name);

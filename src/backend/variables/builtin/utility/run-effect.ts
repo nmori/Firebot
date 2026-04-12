@@ -1,22 +1,21 @@
-import { ReplaceVariable, Trigger } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import { randomUUID } from "crypto";
+import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 
-const { v4: uuid } = require("uuid");
+import effectRunner from "../../../common/effect-runner";
+import logger from "../../../logwrapper";
 
-const logger = require("../../../../backend/logwrapper");
-const effectRunner = require("../../../common/effect-runner");
 
 const model : ReplaceVariable = {
     definition: {
         handle: "runEffect",
         usage: "runEffect[effectJson]",
-        description: "jsonで定義された演出を実行します。空の文字列を出力します。この変数が持つパワーと柔軟性は、非常にエラーが起こりやすいことを意味することに留意してください。自分が何をしているかわかっている場合にのみ使用してください。",
+        description: "Run an effect defined as json. Outputs an empty string. Please keep in mind that the power and flexibility afforded by this variable means it is very error prone. Only use if you know what you are doing.",
         examples: [{
             usage: "runEffect[``{\"type\":\"firebot:chat\",\"message\":\"Hello world\"}``]",
-            description: "チャットメッセージ演出を実行します。演出のJSONデータは、演出編集画面の右上にあるメニューで取得できます。(演出Jsonをコピー > $runEffect[]の場合)"
+            description: "Runs a chat message effect. You can get an effects JSON data via the UI via the overflow menu in the top right of the Edit Effect modal. (Copy Effect Json > For $runEffect[])"
         }],
-        categories: [VariableCategory.ADVANCED],
-        possibleDataOutput: [OutputDataType.TEXT]
+        categories: ["advanced"],
+        possibleDataOutput: ["text"]
     },
     evaluator: async (
         trigger: Trigger,
@@ -27,7 +26,7 @@ const model : ReplaceVariable = {
             await effectRunner.processEffects({
                 trigger,
                 effects: {
-                    id: uuid(),
+                    id: randomUUID(),
                     list: effectJsonModels
                         .map((json) => {
                             if (typeof json !== 'string' && !(json instanceof String)) {
@@ -35,7 +34,7 @@ const model : ReplaceVariable = {
                             }
 
                             try {
-                                return JSON.parse(`${json}`);
+                                return JSON.parse(`${json.toString()}`);
                             } catch (error) {
                                 logger.warn("Failed to parse effect json in $runEffect", json, error);
                                 return null;

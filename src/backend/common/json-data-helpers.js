@@ -52,7 +52,7 @@ exports.parseData = (newData, currentData, propertyPath) => {
     }
 
     if (!currentData) {
-        throw new Error("プロパティのパスは定義されているが、データがありません");
+        throw new Error("Property path is defined but there is no current data.");
     }
 
     let cursor = currentData;

@@ -6,8 +6,12 @@
  * @enum {string}
  */
 const OutputDataType = Object.freeze({
-    TEXT: "text",
+    NULL: "null",
+    BOOLEAN: "bool",
     NUMBER: "number",
+    TEXT: "text",
+    ARRAY: "array",
+    OBJECT: "object",
     ALL: "ALL"
 });
 
@@ -23,12 +27,8 @@ const VariableCategory = Object.freeze({
     TEXT: "text",
     NUMBERS: "numbers",
     ADVANCED: "advanced",
-<<<<<<< HEAD
-    JP: "jp"
-=======
     INTEGRATION: "integrations",
     OBS: "obs"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 });
 
 exports.OutputDataType = OutputDataType;

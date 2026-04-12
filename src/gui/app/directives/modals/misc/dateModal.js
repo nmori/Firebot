@@ -6,7 +6,7 @@
         .component("dateModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">{{$ctrl.label}}</h4>
             </div>
             <div class="modal-body">
@@ -38,16 +38,15 @@
                 const $ctrl = this;
 
                 const isUSLocale = firebotAppDetails.locale === "en-US";
-                const isJPLocale = firebotAppDetails.locale === "ja-JP";
-                $ctrl.dateFormat = isUSLocale ? "MM/dd/yyyy" : (isJPLocale ? "yyyy/MM/dd" : "dd/MM/yyyy" );
+                $ctrl.dateFormat = isUSLocale ? "MM/dd/yyyy" : "dd/MM/yyyy";
 
                 $ctrl.model = "";
 
-                $ctrl.label = "テキストを入力";
-                $ctrl.inputPlaceholder = "テキストを入力";
+                $ctrl.label = "日付を入力";
+                $ctrl.inputPlaceholder = "日付を入力";
                 $ctrl.saveText = "保存";
-                $ctrl.validationFn = (value) => value != null;
-                $ctrl.validationText = "日付を入力してください.";
+                $ctrl.validationFn = value => value != null;
+                $ctrl.validationText = "日付を入力してください。";
                 $ctrl.hasValidationError = false;
                 $ctrl.inputType = "text";
 

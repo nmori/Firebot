@@ -7,22 +7,29 @@ const firebotRoleConstants = require("../../shared/firebot-roles");
 
     angular
         .module("firebotApp")
-        .factory("viewerRolesService", function(backendCommunicator) {
+        .factory("viewerRolesService", function(backendCommunicator, utilityService, accountAccess) {
             const service = {};
 
             let customRoles = {};
 
             let teamRoles = [];
 
-            service.loadCustomRoles = async function() {
-                const roles = await backendCommunicator.fireEventAsync("getCustomRoles");
+            service.loadCustomRoles = function() {
+                // Check for legacy custom roles file and alert the user if it still exists (it shouldn't by this point)
+                const hasLegacyCustomRoles = backendCommunicator.fireEventSync("check-for-legacy-custom-roles");
+                if (hasLegacyCustomRoles === true) {
+                    utilityService.showErrorModal("Firebot ran into an issue while migrating your custom roles to the new format. Please make sure your streamer account is logged in, then restart Firebot to try again. If you continue to receive this message, please reach out for support in our Discord.");
+                    return;
+                }
+
+                const roles = backendCommunicator.fireEventSync("get-custom-roles");
                 if (roles != null) {
                     customRoles = roles;
                 }
             };
             service.loadCustomRoles();
 
-            backendCommunicator.on("custom-role-update", () => {
+            backendCommunicator.on("custom-roles-updated", () => {
                 service.loadCustomRoles();
             });
 
@@ -34,8 +41,8 @@ const firebotRoleConstants = require("../../shared/firebot-roles");
                 return customRoles[id];
             };
 
-            service.addUserToRole = function(roleId, username) {
-                if (!roleId || !username) {
+            service.addViewerToRole = function(roleId, viewer) {
+                if (!roleId || !viewer) {
                     return;
                 }
 
@@ -44,16 +51,16 @@ const firebotRoleConstants = require("../../shared/firebot-roles");
                     return;
                 }
 
-                if (role.viewers.some(v => v.toLowerCase() === username.toLowerCase())) {
+                if (role.viewers.some(v => v.id === viewer.id)) {
                     return;
                 }
 
-                role.viewers.push(username);
+                role.viewers.push(viewer);
                 service.saveCustomRole(role);
             };
 
-            service.removeUserFromRole = function(roleId, username) {
-                if (!roleId || !username) {
+            service.removeViewerFromRole = function(roleId, userId) {
+                if (!roleId || !userId) {
                     return;
                 }
 
@@ -62,11 +69,11 @@ const firebotRoleConstants = require("../../shared/firebot-roles");
                     return;
                 }
 
-                if (!role.viewers.some(v => v.toLowerCase() === username.toLowerCase())) {
+                if (!role.viewers.some(v => v.id === userId)) {
                     return;
                 }
 
-                role.viewers = role.viewers.filter(v => v.toLowerCase() !== username.toLowerCase());
+                role.viewers = role.viewers.filter(v => v.id !== userId);
                 service.saveCustomRole(role);
             };
 
@@ -76,7 +83,7 @@ const firebotRoleConstants = require("../../shared/firebot-roles");
                 }
 
                 customRoles[role.id] = role;
-                backendCommunicator.fireEvent("saveCustomRole", role);
+                backendCommunicator.fireEvent("save-custom-role", role);
             };
 
             service.deleteCustomRole = function(roleId) {
@@ -85,11 +92,11 @@ const firebotRoleConstants = require("../../shared/firebot-roles");
                 }
 
                 delete customRoles[roleId];
-                backendCommunicator.fireEvent("deleteCustomRole", roleId);
+                backendCommunicator.fireEvent("delete-custom-role", roleId);
             };
 
             service.loadTeamRoles = async function() {
-                teamRoles = await backendCommunicator.fireEventAsync("getTeamRoles");
+                teamRoles = await backendCommunicator.fireEventAsync("get-team-roles");
             };
             service.loadTeamRoles();
 
@@ -103,6 +110,37 @@ const firebotRoleConstants = require("../../shared/firebot-roles");
             };
 
             const twitchRoles = twitchRoleConstants.getTwitchRoles();
+            service.getViewersForTwitchRole = (id) => {
+                switch (id) {
+                    case "broadcaster":
+                        return [accountAccess.accounts.streamer];
+                    case "mod":
+                        return backendCommunicator.fireEventSync("twitch-roles:get-moderators");
+                    case "vip":
+                        return backendCommunicator.fireEventSync("twitch-roles:get-vips");
+                    case "sub":
+                        return backendCommunicator.fireEventSync("twitch-roles:get-subscribers");
+                    case "tier1":
+                        return backendCommunicator.fireEventSync("twitch-roles:get-subscribers").filter(s => s.subTier === "tier1");
+                    case "tier2":
+                        return backendCommunicator.fireEventSync("twitch-roles:get-subscribers").filter(s => s.subTier === "tier2");
+                    case "tier3":
+                        return backendCommunicator.fireEventSync("twitch-roles:get-subscribers").filter(s => s.subTier === "tier3");
+                    case "viewerlistbot":
+                        return backendCommunicator.fireEventSync("chat-roles:get-known-bots");
+                    default:
+                        return [];
+                }
+            };
+
+            service.updateModRoleForUser = (username, shouldBeMod) => {
+                backendCommunicator.fireEvent("update-user-mod-status", { username, shouldBeMod });
+            };
+
+            service.updateVipRoleForUser = (username, shouldBeVip) => {
+                backendCommunicator.fireEvent("update-user-vip-status", { username, shouldBeVip });
+            };
+
             service.getTwitchRoles = function() {
                 return twitchRoles;
             };

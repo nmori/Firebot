@@ -1,5 +1,4 @@
-import axios from "axios";
-import accountAccess from "../../common/account-access";
+import { AccountAccess } from "../../common/account-access";
 import logger from "../../logwrapper";
 
 export class ThirdPartyEmote {
@@ -16,7 +15,7 @@ export abstract class ThirdPartyEmoteProvider<
     abstract providerName: string;
 
     abstract globalEmoteUrl: string;
-    abstract getChannelEmotesUrl(streamerUserId: number): string;
+    abstract getChannelEmotesUrl(streamerUserId: string): string;
 
     abstract globalEmotesMapper(response: GlobalEmotesResponse): ThirdPartyEmote[];
     abstract channelEmotesMapper(response: ChannelEmotesResponse): ThirdPartyEmote[];
@@ -24,7 +23,7 @@ export abstract class ThirdPartyEmoteProvider<
     async getAllEmotes(): Promise<ThirdPartyEmote[]> {
         let globalEmotes: ThirdPartyEmote[] = [];
         try {
-            const globalEmotesResponse = (await axios.get<GlobalEmotesResponse>(this.globalEmoteUrl)).data;
+            const globalEmotesResponse = await (await fetch(this.globalEmoteUrl)).json() as GlobalEmotesResponse;
 
             globalEmotes = this.globalEmotesMapper(globalEmotesResponse);
 
@@ -33,14 +32,14 @@ export abstract class ThirdPartyEmoteProvider<
                 globalEmotes = [];
             }
         } catch (error) {
-            logger.error(`Failed to get global ${this.providerName} emotes:`, error.message);
+            logger.error(`Failed to get global ${this.providerName} emotes: ${(error as Error).message}`);
         }
 
         let channelEmotes: ThirdPartyEmote[] = [];
         try {
-            const channelEmotesResponse = (
-                await axios.get<ChannelEmotesResponse>(this.getChannelEmotesUrl(accountAccess.getAccounts().streamer.channelId))
-            ).data;
+            const channelEmotesResponse = await (
+                await fetch(this.getChannelEmotesUrl(AccountAccess.getAccounts().streamer.channelId))
+            ).json() as ChannelEmotesResponse;
 
             channelEmotes = this.channelEmotesMapper(channelEmotesResponse);
 
@@ -49,7 +48,7 @@ export abstract class ThirdPartyEmoteProvider<
                 channelEmotes = [];
             }
         } catch (error) {
-            logger.error(`Failed to get channel ${this.providerName} emotes:`, error.message);
+            logger.error(`Failed to get channel ${this.providerName} emotes: ${(error as Error).message}`);
         }
 
         return [...globalEmotes, ...channelEmotes];

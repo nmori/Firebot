@@ -6,54 +6,58 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">視聴者を削除</h4>
+                    <h4 class="modal-title">視聴者をパージ</h4>
                 </div>
                 <div class="modal-body">
                     <div>
                         <h4 style="margin-top: 15px;">Twitch</h4>
-                        <b>どの視聴者を削除するか...</b>
-                        <label class="control-fb control--checkbox" style="font-size: 13px;margin-top: 5px;"> n日以上来訪していない
+                        <b>次の条件に一致する視聴者をパージ...</b>
+                        <label class="control-fb control--checkbox" style="font-size: 13px;margin-top: 5px;"> X 日以上アクティブでない
                             <input type="checkbox" ng-model="$ctrl.options.daysSinceActive.enabled">
                             <div class="control__indicator"></div>
                         </label>
                         <div style="padding: 0 0 20px 0px;" ng-show="$ctrl.options.daysSinceActive.enabled">
                             <form class="form-inline">
                                 <div class="form-group">
+                                    <span>日数: </span>
                                     <input type="number" class="form-control" ng-model="$ctrl.options.daysSinceActive.value" style="width: 85px;">
-                                    <span>日</span>
                                 </div>
                             </form>
                         </div>
-                        <label class="control-fb control--checkbox" style="font-size: 13px;"> 視聴時間がn時間以内
+                        <label class="control-fb control--checkbox" style="font-size: 13px;"> 視聴時間が X 時間未満
                             <input type="checkbox" ng-model="$ctrl.options.viewTimeHours.enabled">
                             <div class="control__indicator"></div>
                         </label>
                         <div style="padding: 0 0 20px 0px;" ng-show="$ctrl.options.viewTimeHours.enabled">
                             <form class="form-inline">
                                 <div class="form-group">
+                                    <span>時間: </span>
                                     <input type="number" class="form-control" ng-model="$ctrl.options.viewTimeHours.value" style="width: 85px;">
-                                    <span>時間</span>
                                 </div>
                             </form>
                         </div>
-                        <label class="control-fb control--checkbox" style="font-size: 13px;"> チャット送信回数が n回未満
+                        <label class="control-fb control--checkbox" style="font-size: 13px;"> チャット送信数が X 件未満
                             <input type="checkbox" ng-model="$ctrl.options.chatMessagesSent.enabled">
                             <div class="control__indicator"></div>
                         </label>
                         <div style="padding: 0 0 20px 0px;" ng-show="$ctrl.options.chatMessagesSent.enabled">
                             <form class="form-inline">
                                 <div class="form-group">
-                                    <span>チャット: </span>
+                                    <span>メッセージ数: </span>
                                     <input type="number" class="form-control" ng-model="$ctrl.options.chatMessagesSent.value" style="width: 85px;">
                                 </div>
                             </form>
                         </div>
-                        <p class="muted">注：視聴者が削除（フィルタ）されるには、上記の選択された基準をすべて満たす必要があります。</p>
+                        <label class="control-fb control--checkbox" style="font-size: 13px;"> BAN されている
+                            <input type="checkbox" ng-model="$ctrl.options.banned.enabled">
+                            <div class="control__indicator"></div>
+                        </label>
+                        <p class="muted">補足: パージ対象になるには、上で選択した条件をすべて満たす必要があります（AND 条件）。</p>
                     </div>
                 </div>
                 <div class="modal-footer" style="text-align: center;">
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.getPurgePreview()">削除対象を表示</button>
-                    <button type="button" class="btn btn-danger" ng-click="$ctrl.confirmPurge()">削除を実行</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.getPurgePreview()">パージをプレビュー</button>
+                    <button type="button" class="btn btn-danger" ng-click="$ctrl.confirmPurge()">パージを実行</button>
                 </div>
             `,
             bindings: {
@@ -76,19 +80,23 @@
                     chatMessagesSent: {
                         enabled: false,
                         value: 0
+                    },
+                    banned: {
+                        enabled: false
                     }
                 };
 
                 $ctrl.getPurgePreview = () => {
                     $rootScope.showSpinner = true;
-                    $q.when(backendCommunicator.fireEventAsync("getPurgePreview", $ctrl.options))
-                        .then(users => {
+                    $q.when(backendCommunicator.fireEventAsync("get-purge-preview", $ctrl.options))
+                        .then((viewers) => {
                             $rootScope.showSpinner = false;
                             utilityService.showModal({
                                 component: "previewPurgeModal",
+                                size: "lg",
                                 backdrop: true,
                                 resolveObj: {
-                                    viewers: () => users
+                                    viewers: () => viewers
                                 }
                             });
                         });
@@ -97,20 +105,20 @@
                 $ctrl.confirmPurge = () => {
                     utilityService
                         .showConfirmationModal({
-                            title: "削除を承認",
-                            question: `本当に削除しますか？もし必要であれば、最初にプレビューを使用して、何を削除するかを確認することができます。`,
-                            confirmLabel: "削除を実施",
+                            title: "パージを確認",
+                            question: `このパージを実行してもよろしいですか？必要であれば先に「パージをプレビュー」で対象を確認できます。`,
+                            confirmLabel: "パージ",
                             confirmBtnType: "btn-danger"
                         })
-                        .then(confirmed => {
+                        .then((confirmed) => {
                             if (confirmed) {
                                 $rootScope.showSpinner = true;
-                                $q.when(backendCommunicator.fireEventAsync("purgeUsers", $ctrl.options))
-                                    .then(purgedCount => {
+                                $q.when(backendCommunicator.fireEventAsync("purge-viewers", $ctrl.options))
+                                    .then((purgedCount) => {
                                         $rootScope.showSpinner = false;
                                         ngToast.create({
                                             className: 'success',
-                                            content: ` ${purgedCount} 人の視聴者を削除しました`
+                                            content: `${purgedCount} 人の視聴者をパージしました。`
                                         });
                                         $ctrl.close();
                                     });

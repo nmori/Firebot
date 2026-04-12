@@ -1,34 +1,28 @@
 "use strict";
 
 (function() {
-    const uuid = require("uuid/v4");
+    const { randomUUID } = require("crypto");
 
     angular.module("firebotApp")
         .component("manageSortTagsModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Edit Tags</h4>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">タグを編集</h4>
             </div>
             <div class="modal-body">
-                <div ui-sortable="$ctrl.sortableOptions" ng-model="$ctrl.tags">
-                    <div ng-repeat="tag in $ctrl.tags track by tag.id" class="list-item selectable" style="padding: 1px 15px;border-radius: 7px;" ng-click="$ctrl.openAddOrEditTagModal(tag)" aria-label="{{item + ' (Click to edit)'}}">
-                        <span class="dragHandle" ng-click="$event.stopPropagation();" style="height: 38px; width: 15px; align-items: center; justify-content: center; display: flex">
-                            <i class="fal fa-bars" aria-hidden="true"></i>
-                        </span>
-                        <span>{{tag.name}}</span>
-                        <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeTag(tag.id);$event.stopPropagation();">
-                            <i class="fad fa-trash-alt" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                </div>
-                <div ng-show="$ctrl.tags.length < 1" class="muted" style="margin: 10px 0;">No tags created yet.</div>
-                <div style="margin: 10px 0 5px 0px;">
-                    <button class="btn btn-default" ng-click="$ctrl.openAddOrEditTagModal()"><i class="far fa-plus-circle"></i> Add Tag</button>
-                </div>
+                <firebot-list
+                    ng-model="$ctrl.tags"
+                    name="tags"
+                    id="tags"
+                    settings="$ctrl.tagListSettings"
+                    on-add-new-clicked="$ctrl.addNewTag()"
+                    on-edit-clicked="$ctrl.editTag(index)"
+                    on-delete-clicked="$ctrl.deleteTag(index)"
+                ></firebot-list>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
                 <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
             `,
@@ -38,28 +32,28 @@
                 dismiss: "&",
                 modalInstance: "<"
             },
-            controller: function($scope, utilityService) {
+            controller: function(utilityService) {
                 const $ctrl = this;
 
-                $ctrl.sortableOptions = {
-                    handle: ".dragHandle",
-                    stop: () => {}
+                $ctrl.tagListSettings = {
+                    sortable: true,
+                    nameProperty: 'name',
+                    connectItems: false,
+                    showIndex: false,
+                    addLabel: 'タグを追加',
+                    noneAddedText: 'タグはまだ追加されていません。'
                 };
 
                 $ctrl.tags = [];
 
-                $ctrl.removeTag = tagId => {
-                    $ctrl.tags = $ctrl.tags.filter(t => t.id !== tagId);
-                };
-
-                $ctrl.openAddOrEditTagModal = (tag) => {
+                const openAddOrEditTagModal = (tag) => {
                     utilityService.openGetInputModal(
                         {
                             model: tag ? tag.name : "",
-                            label: tag ? "タグを編集" : "タグを追加",
+                            label: tag ? "Edit Tag Name" : "Add Tag",
                             saveText: "OK",
                             validationFn: (value) => {
-                                return new Promise(resolve => {
+                                return new Promise((resolve) => {
                                     if (value == null || value.trim().length < 1) {
                                         resolve(false);
                                     } else {
@@ -67,41 +61,36 @@
                                     }
                                 });
                             },
-                            validationText: "タグ名を入力してください"
+                            validationText: "Tag name cannot be empty"
                         },
                         (name) => {
                             if (tag != null) {
                                 tag.name = name;
                             } else {
                                 $ctrl.tags.push({
-                                    id: uuid(),
+                                    id: randomUUID(),
                                     name: name
                                 });
                             }
                         });
                 };
 
+                $ctrl.addNewTag = () => {
+                    openAddOrEditTagModal();
+                };
+
+                $ctrl.editTag = (index) => {
+                    openAddOrEditTagModal($ctrl.tags[index]);
+                };
+
+                $ctrl.deleteTag = (index) => {
+                    $ctrl.tags.splice(index, 1);
+                };
+
                 $ctrl.$onInit = () => {
                     if ($ctrl.resolve.tags != null) {
                         $ctrl.tags = JSON.parse(angular.toJson($ctrl.resolve.tags));
                     }
-
-                    const modalId = $ctrl.resolve.modalId;
-                    utilityService.addSlidingModal(
-                        $ctrl.modalInstance.rendered.then(() => {
-                            const modalElement = $(`.${modalId}`).children();
-                            return {
-                                element: modalElement,
-                                name: "",
-                                id: modalId,
-                                instance: $ctrl.modalInstance
-                            };
-                        })
-                    );
-
-                    $scope.$on("modal.closing", function() {
-                        utilityService.removeSlidingModal();
-                    });
                 };
 
                 $ctrl.save = () => {

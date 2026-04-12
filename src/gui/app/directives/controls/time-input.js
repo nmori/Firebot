@@ -9,7 +9,9 @@
                 ngModel: "<",
                 validationError: "<?",
                 large: "<?",
-                disabled: "<?"
+                disabled: "<?",
+                maxTimeUnit: "<?",
+                minTimeUnit: "<?"
             },
             require: { ngModelCtrl: 'ngModel' },
             template: `
@@ -31,71 +33,63 @@
                 $ctrl.display = null;
 
                 $ctrl.timeUnits = [
-<<<<<<< HEAD
-                    "秒",
-                    "分",
-                    "時間",
-                    "日"
-=======
                     "Seconds",
                     "Minutes",
                     "Hours",
                     "Days",
                     "Weeks",
                     "Months",
-                    "Years",
-                    "秒",
-                    "分",
-                    "時間",
-                    "日",
-                    "週",
-                    "月",
-                    "年"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    "Years"
                 ];
 
                 // units of time in secs
+                const SECOND = 1;
                 const MINUTE = 60;
                 const HOUR = 3600;
                 const DAY = 86400;
+                const WEEK = 7 * DAY;
+                const MONTH = 31 * DAY;
+                const YEAR = 365 * DAY;
 
                 function getTimeScaleSeconds(unit) {
-                    let timeScale = 1;
-                    if (unit === "Minutes") {
-                        timeScale = MINUTE;
-                    } else if (unit === "Hours") {
-                        timeScale = HOUR;
-                    } else if (unit === "Days") {
-                        timeScale = DAY;
+                    switch (unit) {
+                        case "Minutes":
+                            return MINUTE;
+                        case "Hours":
+                            return HOUR;
+                        case "Days":
+                            return DAY;
+                        case "Weeks":
+                            return WEEK;
+                        case "Months":
+                            return MONTH;
+                        case "Years":
+                            return YEAR;
+                        default:
+                            return SECOND;
                     }
-                    return timeScale;
                 }
 
-                $ctrl.selectedTimeUnit = $ctrl.timeUnits[0];
-
                 function determineTimeUnit(seconds) {
-<<<<<<< HEAD
-=======
                     if (seconds % YEAR === 0) {
-                        return "年";
+                        return "Years";
                     }
                     if (seconds % MONTH === 0) {
-                        return "月";
+                        return "Months";
                     }
                     if (seconds % WEEK === 0) {
-                        return "週";
+                        return "Weeks";
                     }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     if (seconds % DAY === 0) {
-                        return "日";
+                        return "Days";
                     }
                     if (seconds % HOUR === 0) {
-                        return "時間";
+                        return "Hours";
                     }
                     if (seconds % MINUTE === 0) {
-                        return "分";
+                        return "Minutes";
                     }
-                    return "秒";
+                    return "Seconds";
                 }
 
                 $ctrl.valueChange = () => {
@@ -118,6 +112,16 @@
                 };
 
                 $ctrl.$onInit = () => {
+                    if ($ctrl.minTimeUnit != null && $ctrl.timeUnits.includes($ctrl.minTimeUnit)) {
+                        $ctrl.timeUnits = $ctrl.timeUnits.slice($ctrl.timeUnits.findIndex(unit => unit === $ctrl.minTimeUnit));
+                    }
+
+                    if ($ctrl.maxTimeUnit != null && $ctrl.timeUnits.includes($ctrl.maxTimeUnit)) {
+                        $ctrl.timeUnits.length = $ctrl.timeUnits.findIndex(unit => unit === $ctrl.maxTimeUnit) + 1;
+                    }
+
+                    $ctrl.selectedTimeUnit = $ctrl.timeUnits[0];
+
                     if ($ctrl.ngModel != null) {
                         $ctrl.selectedTimeUnit = determineTimeUnit($ctrl.ngModel);
 

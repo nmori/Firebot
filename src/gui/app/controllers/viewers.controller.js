@@ -4,15 +4,25 @@
 
     angular
         .module("firebotApp")
-        .controller("viewersController", function($route, $scope, viewersService, currencyService,
-            utilityService, settingsService) {
+        .controller("viewersController", function(
+            $route, 
+            $scope, 
+            viewersService, 
+            currencyService,
+            utilityService, 
+            settingsService, 
+            ngToast
+        ) {
+            $scope.isViewerDBOn = settingsService.getSetting("ViewerDB");
+            $scope.viewerTablePageSize = settingsService.getSetting("ViewerListPageSize");
 
-            $scope.viewerTablePageSize = settingsService.getViewerListPageSize();
+            $scope.turnOnDatabase = () => {
+                settingsService.saveSetting("ViewerDB", true);
+                $scope.isViewerDBOn = true;
+            };
 
             $scope.showUserDetailsModal = (userId) => {
-                const closeFunc = () => {
-                    viewersService.updateViewers();
-                };
+                const closeFunc = () => {};
                 utilityService.showModal({
                     component: "viewerDetailsModal",
                     backdrop: true,
@@ -33,6 +43,36 @@
                 });
             };
 
+            $scope.showExportViewersModal = () => {
+                utilityService.showModal({
+                    component: "exportViewersModal",
+                    closeCallback: (response) => {
+                        if (response.success) {
+                            ngToast.create({
+                                className: 'success',
+                                content: 'Viewers exported!'
+                            });
+                        } else {
+                            ngToast.create({
+                                className: 'danger',
+                                content: '視聴者データのエクスポートに失敗しました'
+                            });
+                        }
+
+                        $route.reload();
+                    }
+                });
+            };
+
+            $scope.showPurgeViewersModal = () => {
+                utilityService.showModal({
+                    component: "purgeViewersModal",
+                    size: 'sm',
+                    backdrop: false,
+                    keyboard: true
+                });
+            };
+
             $scope.viewerRowClicked = (data) => {
                 $scope.showUserDetailsModal(data._id);
             };
@@ -40,8 +80,8 @@
             $scope.showViewerSearchModal = () => {
                 utilityService.openViewerSearchModal(
                     {
-                        label: "Viewer Search",
-                        saveText: "Select"
+                        label: "視聴者検索",
+                        saveText: "選択"
                     },
                     (user) => {
                         $scope.showUserDetailsModal(user.id);
@@ -67,18 +107,18 @@
                     cellController: () => {}
                 },
                 {
-                    name: "視聴者名",
+                    name: "USERNAME",
                     icon: "fa-user",
                     dataField: "username",
                     headerStyles: {
                         'min-width': '125px'
                     },
                     sortable: true,
-                    cellTemplate: `{{data.displayName || data.username}}`,
+                    cellTemplate: `{{data.displayName || data.username}}<span ng-if="data.displayName && data.username.toLowerCase() !== data.displayName.toLowerCase()" class="muted"> ({{data.username}})</span>`,
                     cellController: () => {}
                 },
                 {
-                    name: "参加日",
+                    name: "JOIN DATE",
                     icon: "fa-sign-in",
                     dataField: "joinDate",
                     sortable: true,
@@ -86,7 +126,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "最終視聴",
+                    name: "LAST SEEN",
                     icon: "fa-eye",
                     dataField: "lastSeen",
                     sortable: true,
@@ -94,19 +134,19 @@
                     cellController: () => {}
                 },
                 {
-                    name: "視聴時間(Hr)",
+                    name: "VIEW TIME (hours)",
                     icon: "fa-tv",
                     dataField: "minutesInChannel",
                     sortable: true,
                     cellTemplate: `{{getViewTimeDisplay(data.minutesInChannel)}}`,
                     cellController: ($scope) => {
                         $scope.getViewTimeDisplay = (minutesInChannel) => {
-                            return minutesInChannel < 60 ? '1時間以内' : Math.round(minutesInChannel / 60);
+                            return minutesInChannel < 60 ? '1時間未満' : Math.round(minutesInChannel / 60);
                         };
                     }
                 },
                 {
-                    name: "チャットメッセージ",
+                    name: "CHAT MESSAGES",
                     icon: "fa-comments",
                     dataField: "chatMessages",
                     sortable: true,

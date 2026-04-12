@@ -1,6 +1,5 @@
-import axios from "axios";
 import { TypedEmitter } from "tiny-typed-emitter";
-import eventManager from "../../../events/EventManager";
+import { EventManager } from "../../../events/event-manager";
 import logger from "../../../logwrapper";
 
 type ExtraLifeDonation = {
@@ -44,11 +43,11 @@ class ExtraLifePollService extends TypedEmitter<ConnectionEvents> {
 
     private async getDonations(): Promise<ExtraLifeDonation[] | null> {
         try {
-            return (
-                await axios.get<ExtraLifeDonation[]>(
+            return await (
+                await fetch(
                     `https://www.extra-life.org/api/participants/${this.participantId}/donations`
                 )
-            ).data;
+            ).json() as ExtraLifeDonation[];
         } catch (error) {
             logger.error("Failed to get ExtraLife donations", error);
             return null;
@@ -68,7 +67,7 @@ class ExtraLifePollService extends TypedEmitter<ConnectionEvents> {
             }
             this.cacheDonation(d);
 
-            eventManager.triggerEvent("extralife", "donation", {
+            void EventManager.triggerEvent("extralife", "donation", {
                 formattedDonationAmount: `$${d.amount}`,
                 donationAmount: d.amount,
                 donationMessage: d.message,

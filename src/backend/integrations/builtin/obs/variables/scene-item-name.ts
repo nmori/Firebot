@@ -1,31 +1,33 @@
-import { TriggerType } from "../../../../common/EffectType";
-import { ReplaceVariable } from "../../../../../types/variables";
+import { ReplaceVariable, TriggersObject } from "../../../../../types/variables";
 import { OBS_EVENT_SOURCE_ID, OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID } from "../constants";
-import { getSceneItem } from "../obs-remote";
+import { getGroupItem, getSceneItem } from "../obs-remote";
 
-const triggers = {};
-triggers[TriggerType.EVENT] = [
+const triggers: TriggersObject = {};
+triggers["event"] = [
     `${OBS_EVENT_SOURCE_ID}:${OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID}`
 ];
+triggers["manual"] = true;
 
 export const SceneItemNameVariable: ReplaceVariable = {
     definition: {
         handle: "obsSceneItemName",
         description:
-      "イベントをトリガーしたOBSシーンアイテムの名前。",
-<<<<<<< HEAD
-        possibleDataOutput: ["number"],
-=======
+            "イベントを発火した OBS シーンアイテム名です。",
         possibleDataOutput: ["text"],
-        categories: [VariableCategory.ADVANCED, VariableCategory.INTEGRATION, VariableCategory.OBS],
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+        categories: ["advanced", "integrations", "obs"],
         triggers: triggers
     },
     evaluator: async (trigger) => {
+        if (typeof trigger.metadata?.eventData?.groupItemId === "number" && typeof trigger.metadata?.eventData?.groupName === "string") {
+            return (await getGroupItem(
+                trigger.metadata.eventData.groupName,
+                trigger.metadata.eventData.groupItemId
+            ))?.name ?? "Unknown";
+        }
         const sceneItem = await getSceneItem(
             trigger.metadata?.eventData?.sceneName as string,
             trigger.metadata?.eventData?.sceneItemId as number
         );
-        return sceneItem?.name ?? "不明";
+        return sceneItem?.name ?? "Unknown";
     }
 };

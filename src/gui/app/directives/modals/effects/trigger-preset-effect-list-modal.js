@@ -59,7 +59,7 @@
                     );
                     ngToast.create({
                         className: 'success',
-                        content: `"${$ctrl.presetEffectList.name}"を実行しました`
+                        content: `「${$ctrl.presetEffectList.name}」を実行しました！`
                     });
                     $ctrl.close();
                 };

@@ -1,28 +1,28 @@
 "use strict";
 
+/** @import { FirebotSetup } from "../../../../../types/setups" */
+
 (function() {
     const sanitizeFileName = require("sanitize-filename");
-    const fs = require("fs");
-    const fsp = require("fs/promises");
     angular.module("firebotApp")
         .component("createSetupModal", {
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">新規セットアップスクリプト</h4>
+                    <h4 class="modal-title">新しいセットアップを作成</h4>
                 </div>
                 <div class="modal-body">
                     <h3>名前</h3>
                     <input type="text" class="form-control" ng-model="$ctrl.setup.name" placeholder="名前を入力">
 
                     <h3>説明</h3>
-                    <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.setup.description" placeholder="説明を入力 (Markdown記法が使えます)"></textarea>
+                    <textarea type="text" class="form-control" rows="3" ng-model="$ctrl.setup.description" placeholder="説明を入力（Markdown対応）"></textarea>
 
                     <h3>バージョン</h3>
                     <input type="number" class="form-control" ng-model="$ctrl.setup.version" placeholder="バージョンを入力">
 
-                    <h3>構成部品</h3>
-                    <p class="muted">Firebotセットアップに含める部品を選択します。.</p>
+                    <h3>コンポーネント</h3>
+                    <p class="muted">この Firebot セットアップに含めるコンポーネントを選択してください。</p>
                     <div ng-repeat="componentConfig in $ctrl.components track by $index" style="margin-bottom: 20px;">
                         <h4>{{componentConfig.label}}</h4>
                         <div style="padding-left: 5px">
@@ -41,39 +41,39 @@
 
                     <h3>オプション</h3>
                     <div>
-                        <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity.0.9;"> ユーザーに通貨を選択させる  <tooltip text="'設定を取り込む前に、ユーザーに通貨の種類を選択させます。Firebotは、選択された通貨を使用するように、含まれるコンポーネントのすべての通貨演出、変数、制限を更新します。これはチャットゲームに最適です。'"></tooltip>
+                        <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity.0.9;"> インポート前にユーザーへ通貨選択を必須化 <tooltip text="'インポート前に、ユーザー自身の通貨から1つを選択してもらいます。含まれるコンポーネント内の通貨エフェクト・変数・制限は選択された通貨を使うよう更新されます。チャットゲームに便利です。'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.setup.requireCurrency">
                             <div class="control__indicator"></div>
                         </label>
                     </div>
 
-                    <h3>取り込みに関する質問 <tooltip text="'ユーザーは、このセットアップを取り込む前に、これらの質問に対する回答を提供する必要があります。Firebotは、指定されたトークンのすべての設定をユーザーの回答に自動的に置き換えます。'"/></h3>
+                    <h3>インポート質問 <tooltip text="'このセットアップをインポートする前に、ユーザーがこれらの質問に回答する必要があります。Firebot は指定されたトークンを自動的にユーザーの回答へ置換します。'"/></h3>
                     <div>
                         <div>
                             <div ng-repeat="question in $ctrl.setup.importQuestions track by question.id" class="list-item selectable" ng-click="$ctrl.addImportQuestion(question)">
                                 <div uib-tooltip="クリックして編集" style="font-weight: 400;">
-                                    <div><b>Question:</b> {{question.question}}</div>
-                                    <div><b>Replace Token:</b> {{question.replaceToken}}</div>
-                                    <div ng-show="question.defaultAnswer"><b>初期値:</b> {{question.defaultAnswer}}</div>
+                                    <div><b>質問:</b> {{question.question}}</div>
+                                    <div><b>置換トークン:</b> {{question.replaceToken}}</div>
+                                    <div ng-show="question.defaultAnswer"><b>デフォルト回答:</b> {{question.defaultAnswer}}</div>
                                 </div>
-                                <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeImportQuestion(question.id);$event.stopPropagation();" aria-label="除外">
+                                <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeImportQuestion(question.id);$event.stopPropagation();" aria-label="項目を削除">
                                     <i class="fad fa-trash-alt" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
-                        <button class="filter-bar" ng-click="$ctrl.addImportQuestion()" uib-tooltip="質問の追加" tooltip-append-to-body="true">
+                        <button class="filter-bar" ng-click="$ctrl.addImportQuestion()" uib-tooltip="インポート質問を追加" tooltip-append-to-body="true">
                             <i class="far fa-plus"></i>
                         </button>
                     </div>
 
                     <div style="margin-top: 20px;">
-                        <div class="alert alert-warning" role="alert" style="opacity: 0.8;margin-bottom: 0;"><b>注意</b> 演出で参照されるメディアファイル（画像、ビデオ、サウンド、スクリプトなど）は、このセットアップには<b>含まれません</b>。</div>
+                        <div class="alert alert-warning" role="alert" style="opacity: 0.8;margin-bottom: 0;"><b>警告!</b> エフェクト内で参照されるメディアファイル（画像、動画、音声、カスタムスクリプトなど）は、このセットアップに<b>含まれません</b>。</div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPreviousSetup()">以前の設定を読み込む</button>
+                    <button type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPreviousSetup()">前回の設定を読み込む</button>
                     <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">セットアップを生成</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">セットアップを作成</button>
                 </div>
             `,
             bindings: {
@@ -83,8 +83,8 @@
             },
             controller: function(commandsService, countersService, currencyService,
                 effectQueuesService, eventsService, hotkeyService, presetEffectListsService,
-                timerService, viewerRolesService, quickActionsService, accountAccess, utilityService,
-                ngToast, backendCommunicator, $q) {
+                timerService, scheduledTaskService, viewerRolesService, quickActionsService, variableMacroService, viewerRanksService, accountAccess, utilityService,
+                ngToast, backendCommunicator, sortTagsService, overlayWidgetsService, settingsService) {
 
                 const $ctrl = this;
 
@@ -96,7 +96,7 @@
                         key: "commands"
                     },
                     {
-                        label: "カウンタ",
+                        label: "カウンター",
                         all: countersService.counters,
                         nameField: "name",
                         key: "counters"
@@ -108,7 +108,7 @@
                         key: "currencies"
                     },
                     {
-                        label: "演出キュー",
+                        label: "エフェクトキュー",
                         all: effectQueuesService.getEffectQueues(),
                         nameField: "name",
                         key: "effectQueues"
@@ -127,12 +127,18 @@
                     },
                     {
                         label: "ホットキー",
-                        all: hotkeyService.getHotkeys(),
+                        all: hotkeyService.hotkeys,
                         nameField: "name",
                         key: "hotkeys"
                     },
                     {
-                        label: "プリセット演出リスト",
+                        label: "オーバーレイウィジェット",
+                        all: overlayWidgetsService.overlayWidgetConfigs,
+                        nameField: "name",
+                        key: "overlayWidgetConfigs"
+                    },
+                    {
+                        label: "プリセットエフェクトリスト",
                         all: presetEffectListsService.getPresetEffectLists(),
                         nameField: "name",
                         key: "presetEffectLists"
@@ -144,48 +150,52 @@
                         key: "timers"
                     },
                     {
-<<<<<<< HEAD
-=======
-                        label: "Scheduled Effect Lists",
+                        label: "スケジュール済みエフェクトリスト",
                         all: scheduledTaskService.getScheduledTasks(),
                         nameField: "name",
                         key: "scheduledTasks"
                     },
                     {
-                        label: "Variable Macros",
+                        label: "変数マクロ",
                         all: variableMacroService.macros,
                         nameField: "name",
                         key: "variableMacros"
                     },
                     {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                        label: "視聴者の役割",
+                        label: "視聴者ロール",
                         all: viewerRolesService.getCustomRoles(),
                         nameField: "name",
                         key: "viewerRoles"
                     },
                     {
-<<<<<<< HEAD
-=======
-                        label: "視聴者ランク",
+                        label: "視聴者ランクラダー",
                         all: viewerRanksService.rankLadders,
                         nameField: "name",
                         key: "viewerRankLadders"
                     },
                     {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         label: "クイックアクション",
                         all: quickActionsService.quickActions.filter(qa => qa.type === "custom"),
                         nameField: "name",
                         key: "quickActions"
+                    },
+                    {
+                        label: "グローバル値",
+                        all: settingsService.getSetting("GlobalValues", true).map(v => ({
+                            id: `GlobalValue:${v.name}`,
+                            ...v
+                        })),
+                        nameField: "name",
+                        key: "globalValues"
                     }
                 ];
 
                 $ctrl.addOrEditComponent = (componentConfig) => {
-                    const components = componentConfig.all.map(c => {
+                    const components = componentConfig.all.map((c) => {
                         return {
                             id: c.id,
-                            name: c[componentConfig.nameField]
+                            name: c[componentConfig.nameField],
+                            tags: sortTagsService.getSortTagsForItem(componentConfig.key, c.sortTags).map(st => st.name)
                         };
                     });
                     const selectedIds = $ctrl.setup.components[componentConfig.key].map(c => c.id);
@@ -194,12 +204,13 @@
                     });
                 };
 
+                /** @type { FirebotSetup } */
                 $ctrl.setup = {
                     name: "",
                     description: "",
                     version: 1,
                     author: accountAccess.accounts.streamer.loggedIn ?
-                        accountAccess.accounts.streamer.username : "不明",
+                        accountAccess.accounts.streamer.username : "Unknown",
                     components: {
                         commands: [],
                         counters: [],
@@ -210,107 +221,112 @@
                         hotkeys: [],
                         presetEffectLists: [],
                         timers: [],
+                        scheduledTasks: [],
+                        variableMacros: [],
                         viewerRoles: [],
-                        quickActions: []
+                        viewerRankLadders: [],
+                        quickActions: [],
+                        overlayWidgetConfigs: [],
+                        globalValues: []
                     },
                     requireCurrency: false,
                     importQuestions: []
                 };
 
-                $ctrl.save = () => {
+                $ctrl.save = async () => {
                     if ($ctrl.setup.name == null || $ctrl.setup.name === "") {
-                        ngToast.create("セットアップ名を入れてください");
+                        ngToast.create("セットアップ名を入力してください。");
                         return;
                     }
 
                     if ($ctrl.setup.description == null || $ctrl.setup.description === "") {
-                        ngToast.create("説明を入れてください");
+                        ngToast.create("セットアップの説明を入力してください。");
                         return;
                     }
 
                     if ($ctrl.setup.version == null || $ctrl.setup.version <= 0) {
-                        ngToast.create("バージョンは 0より大きくしてください");
+                        ngToast.create("セットアップのバージョンは 0 より大きい値を指定してください。");
                         return;
                     }
 
                     if (Object.values($ctrl.setup.components)
                         .every(array => array == null || array.length < 1)) {
-                        ngToast.create("構成部品は１つ以上必要です");
+                        ngToast.create("少なくとも1つのコンポーネントを選択してください。");
                         return;
                     }
 
                     /**@type {Electron.SaveDialogOptions} */
                     const saveDialogOptions = {
-                        buttonLabel: "セットアップ設定を保存",
-<<<<<<< HEAD
-                        defaultPath: sanitizeFileName($ctrl.setup.name),
-=======
+                        buttonLabel: "セットアップを保存",
                         defaultPath: `${sanitizeFileName($ctrl.setup.name)}.firebotsetup`,
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                        title: "セットアップ設定ファイルの保存",
+                        title: "セットアップファイルを保存",
                         filters: [
-                            {name: "Firebot Setup Files", extensions: ['firebotsetup']}
+                            { name: "Firebot セットアップファイル", extensions: ['firebotsetup'] }
                         ],
                         properties: ["showOverwriteConfirmation", "createDirectory"]
                     };
 
-                    $q.when(backendCommunicator.fireEventAsync("show-save-dialog", {
+                    const dialogResponse = await backendCommunicator.fireEventAsync("show-save-dialog", {
                         options: saveDialogOptions
-                    }))
-                        .then(saveResponse => {
-                            if (saveResponse.canceled) {
-                                return;
-                            }
-                            fs.writeFileSync(saveResponse.filePath, angular.toJson($ctrl.setup), { encoding: "utf8" });
-                            ngToast.create({
-                                className: '成功',
-                                content: 'セットアップ設定を保存しました'
-                            });
-                            $ctrl.close();
+                    });
+
+                    if (dialogResponse.canceled) {
+                        return;
+                    }
+
+                    const success = await backendCommunicator.fireEventAsync("setups:create-setup", {
+                        setupFilePath: dialogResponse.filePath,
+                        setup: angular.copy($ctrl.setup)
+                    });
+
+                    if (success) {
+                        ngToast.create({
+                            className: 'success',
+                            content: 'Firebot セットアップを保存しました！'
                         });
+                        $ctrl.close();
+                    } else {
+                        ngToast.create({
+                            className: 'error',
+                            content: 'Firebot セットアップの保存に失敗しました。'
+                        });
+                    }
                 };
 
                 $ctrl.$onInit = () => {};
 
-                $ctrl.onFileSelected = (filepath) => {
-                    $q.when(fsp.readFile(filepath))
-                        .then(setup => {
-                            setup = JSON.parse(setup);
-                            if (setup == null || setup.components == null) {
-                                ngToast.create("以前の設定が読み込めませんでした");
-                                return;
-                            }
-                            for (const [componentKey, componentList] of Object.entries(setup.components)) {
-                                const componentConfig = $ctrl.components.find(c => c.key === componentKey);
-                                if (!componentConfig) {
-                                    continue;
-                                }
+                $ctrl.onFileSelected = async (filepath) => {
+                    /** @type {import("../../../../../backend/setups/setup-manager").LoadSetupResult} */
+                    const result = await backendCommunicator.fireEventAsync("setups:load-setup", filepath);
 
-                                setup.components[componentConfig.key] = componentConfig.all
-                                    .filter(c => componentList.some(cy => cy.id === c.id));
+                    if (result.success) {
+                        for (const [componentKey, componentList] of Object.entries(result.setup.components)) {
+                            const componentConfig = $ctrl.components.find(c => c.key === componentKey);
+                            if (!componentConfig) {
+                                continue;
                             }
-                            $ctrl.setup = setup;
-                        }, (reason) => {
-                            console.log(reason);
-                            ngToast.create("以前の設定が読み込めませんでした");
-                            return;
-                        });
+
+                            result.setup.components[componentConfig.key] = componentConfig.all
+                                .filter(c => componentList.some(cy => cy.id === c.id));
+                        }
+                        $ctrl.setup = result.setup;
+                    } else {
+                        ngToast.create("前回の Firebot セットアップを読み込めませんでした。");
+                    }
                 };
 
-                $ctrl.loadPreviousSetup = () => {
-                    $q
-                        .when(backendCommunicator.fireEventAsync("open-file-browser", {
-                            options: {
-                                filters: [{name: 'Firebot Setups', extensions: ['firebotsetup']}]
-                            }
-                        }))
-                        .then(response => {
-                            if (response.path == null) {
-                                return;
-                            }
+                $ctrl.loadPreviousSetup = async () => {
+                    const response = await backendCommunicator.fireEventAsync("open-file-browser", {
+                        options: {
+                            filters: [{ name: 'Firebot セットアップ', extensions: ['firebotsetup'] }]
+                        }
+                    });
 
-                            $ctrl.onFileSelected(response.path);
-                        });
+                    if (response.path == null) {
+                        return;
+                    }
+
+                    $ctrl.onFileSelected(response.path);
                 };
 
                 $ctrl.removeImportQuestion = (id) => {
@@ -356,4 +372,4 @@
                 };
             }
         });
-}());
+})();

@@ -2,27 +2,26 @@
 
 const { EffectCategory } = require("../../../../../shared/effect-constants");
 const integrationManager = require("../../../integration-manager");
-const axios = require("axios").default;
 const logger = require("../../../../logwrapper");
 
 const effect = {
     definition: {
         id: "streamlabs:spin-wheel",
-        name: "スピンホイール",
-        description: "StreamLabの \"スピンホイール\" を起動",
+            name: "ホイールスピン",
+            description: "Streamlabs の Spin the Wheel 機能を実行します",
         icon: "fad fa-tire",
-        categories: [EffectCategory.INTEGRATIONS],
+        categories: ["integrations"],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
             <div class="effect-info alert alert-info">
-            これにより、StreamLabのの「スピンホイール」機能が作動します。
+                This will trigger StreamLab's "Spin the Wheel" feature.
             </div>
         </eos-container>
     `,
-    optionsController: () => { },
+    optionsController: () => {},
     optionsValidator: () => {
     },
     onTriggerEvent: async () => {
@@ -31,16 +30,20 @@ const effect = {
 
         if (accessToken) {
             try {
-<<<<<<< HEAD
-                await axios.post("https://streamlabs.com/api/v1.0/wheel/spin",
-=======
-                const response = await fetch("https://streamlabs.com/api/v2.0/wheel/spin",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                const response = await fetch("https://streamlabs.com/api/v1.0/wheel/spin",
                     {
-                        "access_token": accessToken
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ "access_token": accessToken })
                     });
 
-                return true;
+                if (response.ok) {
+                    return true;
+                }
+
+                throw new Error(`Request failed with status ${response.status}`);
             } catch (error) {
                 logger.error("Failed to spin Streamlabs wheel", error.message);
                 return false;

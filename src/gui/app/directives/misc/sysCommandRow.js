@@ -11,22 +11,18 @@
           <div style="flex-basis: 25%;padding-left: 20px;">{{$ctrl.command.name}}</div>
           <div style="width: 20%">{{$ctrl.command.trigger}}</div>
           <div style="width: 20%">
-            <span style="min-width: 51px; display: inline-block;" uib-tooltip="再実行可能になるまでの待ち時間(全般)">
+                        <span style="min-width: 51px; display: inline-block;" uib-tooltip="グローバルクールダウン">
                 <i class="far fa-globe-americas"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
             </span>
-            <span uib-tooltip="再実行可能になるまでの待ち時間(ユーザ)">
+                        <span uib-tooltip="ユーザークールダウン">
                 <i class="far fa-user"></i> {{$ctrl.command.cooldown.user ? $ctrl.command.cooldown.user + "s" : "-" }}
             </span>
           </div>
           <div style="width: 20%"><span style="text-transform: capitalize;">{{$ctrl.getPermissionType($ctrl.command)}}</span> <tooltip type="info" text="$ctrl.getPermissionTooltip($ctrl.command)"></tooltip></div>
           <div style="width: 20%">
             <div style="min-width: 75px">
-                <span class="status-dot" ng-class="{'active': $ctrl.command.active, 'notactive': !$ctrl.command.active}"></span> {{$ctrl.command.active ? "有効" : "無効"}}
-<<<<<<< HEAD
-            </div> 
-=======
+                                <span class="status-dot" ng-class="{'active': $ctrl.command.active, 'notactive': !$ctrl.command.active}"></span> {{$ctrl.command.active ? "有効" : "無効"}}
             </div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
           </div>
           <div style="flex-basis:30px; flex-shrink: 0;">
             <i class="fas" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
@@ -34,23 +30,23 @@
         </div>
         <div uib-collapse="hidePanel" class="sys-command-expanded">
           <div style="padding: 15px 20px 10px 20px;">
-            <div class="muted" style="font-weight:bold; font-size: 12px;">説明</div>
+                        <div class="muted" style="font-weight:bold; font-size: 12px;">説明</div>
             <p style="font-size: 18px">{{$ctrl.command.description}}</p>
             <div>
-              <div class="muted" style="font-weight:bold; font-size: 12px;">使い方</div>
+                            <div class="muted" style="font-weight:bold; font-size: 12px;">使い方</div>
               <p ng-if="!$ctrl.command.subCommands || $ctrl.command.subCommands.length < 1" style="font-size: 15px;font-weight: 600;">{{$ctrl.command.trigger}} {{$ctrl.command.usage ? $ctrl.command.usage : ''}}</p>
             </div>
-            
+
             <div ng-if="$ctrl.command.subCommands && $ctrl.command.subCommands.length > 0">
 
               <div ng-if="$ctrl.command.baseCommandDescription" style="padding-bottom: 15px;">
                 <span style="font-weight: 600;">{{$ctrl.command.trigger}}</span>  —  <span style="font-size: 13px;">{{$ctrl.command.baseCommandDescription}}</span>
-              </div>        
+              </div>
               <div ng-repeat="subCmd in $ctrl.command.subCommands track by $index" style="padding-top: 5px; padding-bottom: 15px;">
                 <span style="font-weight: 600;">{{$ctrl.command.trigger}} {{subCmd.usage}}</span>  —  <span style="font-size: 13px;">{{subCmd.description}}</span>
                 <!--<div style="padding-left:15px;">
                     <div style="display: inline-block; margin-right: 25px;">
-                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> 再実行可能になるまでの待ち時間</span></div>
+                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> COOLDOWNS</span></div>
                         <div>
                             <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
                                 <i class="fal fa-globe"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
@@ -61,25 +57,21 @@
                         </div>
                     </div>
                     <div style="display: inline-block;">
-                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> 権限</span></div>
+                        <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> PERMISSIONS</span></div>
                         <div><span style="text-transform: capitalize;">{{$ctrl.getPermissionType(subCmd, true)}}</span> <tooltip type="info" text="$ctrl.getPermissionTooltip(subCmd, true)"></tooltip></div>
                     </div>
-                </div>-->                
+                </div>-->
               </div>
             </div>
             <div style="padding-top: 10px">
-              <button class="btn btn-primary" ng-click="$ctrl.openEditSystemCommandModal()">編集</button>
-              <button class="btn btn-default" ng-click="$ctrl.toggleCommandActiveState()">有効化の切り替え</button>
-<<<<<<< HEAD
-            </div>  
-=======
+                            <button class="btn btn-primary" ng-click="$ctrl.openEditSystemCommandModal()">編集</button>
+                            <button class="btn btn-default" ng-click="$ctrl.toggleCommandActiveState()">{{$ctrl.command.active ? "コマンドを無効化" : "コマンドを有効化"}}</button>
             </div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
           </div>
         </div>
       </div>
     `,
-        controller: function(utilityService, commandsService, listenerService, viewerRolesService) {
+        controller: function(utilityService, commandsService, backendCommunicator, viewerRolesService) {
             const $ctrl = this;
 
             $ctrl.$onInit = function() {};
@@ -119,7 +111,7 @@
 
                 if (permissions) {
                     if (permissions.mode === "roles") {
-                        return "役割";
+                        return "ロール";
                     } else if (permissions.mode === "viewer") {
                         return "視聴者";
                     }
@@ -139,22 +131,22 @@
                 if (permissions) {
                     if (permissions.mode === "roles") {
                         const roleIds = permissions.roleIds;
-                        let output = "選択なし";
+                        let output = "未選択";
                         if (roleIds.length > 0) {
                             output = roleIds
                                 .filter(id => viewerRolesService.getRoleById(id) != null)
                                 .map(id => viewerRolesService.getRoleById(id).name)
                                 .join(", ");
                         }
-                        return `役割 (${output})`;
+                        return `ロール (${output})`;
                     } else if (permissions.mode === "viewer") {
-                        return `視聴者 (${permissions.username ? permissions.username : '名無し'})`;
+                        return `視聴者 (${permissions.username ? permissions.username : '名前なし'})`;
                     }
                 } else {
                     if (isSub) {
-                        return "ベースコマンドの権限を採用します";
+                        return "このサブコマンドはベースコマンドの権限を使用します。";
                     }
-                    return "誰でも利用できる";
+                    return "このコマンドは全員が利用できます";
                 }
             };
 
@@ -167,15 +159,23 @@
                     resolveObj: {
                         command: () => cmd
                     },
-                    closeCallback: resp => {
+                    closeCallback: (resp) => {
                         const action = resp.action;
                         if (action === "save") {
                             commandsService.saveSystemCommandOverride(resp.command);
                         } else if (action === "reset") {
-                            listenerService.fireEvent("removeSystemCommandOverride", cmd.id);
+                            backendCommunicator.fireEvent("remove-system-command-override", cmd.id);
                         }
                     }
                 });
+            };
+
+            $ctrl.resetCooldownsForCommand = () => {
+                commandsService.resetCooldownsForCommand($ctrl.command.id);
+            };
+
+            $ctrl.resetPerStreamUsagesForCommand = () => {
+                commandsService.resetPerStreamUsagesForCommand($ctrl.command.id);
             };
 
             $ctrl.toggleCommandActiveState = function() {
@@ -192,22 +192,19 @@
                         }
                     },
                     {
-<<<<<<< HEAD
-=======
-                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> 再実行待ちを解除</a>`,
+                        html: `<a href ><i class="iconify" data-icon="mdi:clock-fast" style="margin-right: 10px;"></i> クールダウンをクリア</a>`,
                         click: () => {
                             $ctrl.resetCooldownsForCommand();
                         }
                     },
                     {
-                        html: `<a href ><i class="iconify" data-icon="mdi:tally-mark-5" style="margin-right: 10px;"></i> 使用量をクリア</a>`,
+                        html: `<a href ><i class="iconify" data-icon="mdi:tally-mark-5" style="margin-right: 10px;"></i> 配信ごとの使用回数をクリア</a>`,
                         click: () => {
                             $ctrl.resetPerStreamUsagesForCommand();
                         }
                     },
                     {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${$ctrl.command.active ? "Disable Command" : "Enable Command"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${$ctrl.command.active ? "コマンドを無効化" : "コマンドを有効化"}</a>`,
                         click: function () {
                             $ctrl.command.active = !$ctrl.command.active;
                             commandsService.saveSystemCommandOverride($ctrl.command);

@@ -1,9 +1,8 @@
-import { validate } from "uuid";
-import { EffectCategory } from '../../../shared/effect-constants';
 import { SavedChannelReward } from "../../../types/channel-rewards";
 import { EffectType } from "../../../types/effects";
 import channelRewardsManager from "../../channel-rewards/channel-reward-manager";
 import logger from "../../logwrapper";
+import { isValidUUID } from "../../utils";
 
 type StringUpdatable = { update: boolean, newValue: string };
 type StatusUpdatable = { update: boolean, newValue: 'toggle' | boolean };
@@ -23,7 +22,7 @@ type EffectMeta = {
     customId: string;
     useTag?: boolean;
     sortTagId?: string;
-}
+};
 
 function updateRewardEnabledOrPaused(effect: EffectMeta, channelReward: SavedChannelReward) {
     if (effect.rewardSettings.enabled.update) {
@@ -38,13 +37,13 @@ function updateRewardEnabledOrPaused(effect: EffectMeta, channelReward: SavedCha
     }
 }
 
-const model: EffectType<EffectMeta> = {
+const effect: EffectType<EffectMeta> = {
     definition: {
         id: "firebot:update-channel-reward",
         name: "チャンネル特典の更新",
         description: "チャンネル特典の設定を更新する",
         icon: "fad fa-gifts",
-        categories: [EffectCategory.ADVANCED, EffectCategory.TWITCH],
+        categories: ["advanced", "twitch", "fun", "firebot control"],
         dependencies: []
     },
     optionsTemplate: `
@@ -73,6 +72,9 @@ const model: EffectType<EffectMeta> = {
 
         <eos-container ng-if="effect.rewardSelectMode == 'custom'" header="Channel Reward Name/ID">
             <firebot-input placeholder="Channel Reward Name/ID" model="effect.customId" menu-position="under" />
+            <div class="effect-info alert alert-warning">
+                NOTE: Firebot can only update channel rewards that were originally created in Firebot.
+            </div>
         </eos-container>
 
         <eos-container ng-show="showRewardSettings()" header="Reward Settings" pad-top="true">
@@ -237,7 +239,7 @@ const model: EffectType<EffectMeta> = {
         }
     },
     optionsValidator: (effect) => {
-        const errors = [];
+        const errors: string[] = [];
 
         if (
             effect.rewardSelectMode === null
@@ -252,7 +254,7 @@ const model: EffectType<EffectMeta> = {
                 effect.customId == null
             )
         ) {
-            errors.push("Please specify a channel reward to update.");
+            errors.push("更新するチャンネル特典を指定してください。");
         }
 
         if (
@@ -270,28 +272,28 @@ const model: EffectType<EffectMeta> = {
                 !effect.rewardSettings.enabled.update
             )
         ) {
-            errors.push("Please select at least one property to update.");
+            errors.push("更新する項目を最低1つ選択してください。");
         }
 
         if (effect.rewardSettings.name.update &&
             (effect.rewardSettings.name.newValue == null ||
             effect.rewardSettings.name.newValue === "")
         ) {
-            errors.push("Please provide a new name for the reward.");
+            errors.push("特典の新しい名前を入力してください。");
         }
 
         if (effect.rewardSettings.description.update &&
             (effect.rewardSettings.description.newValue == null ||
             effect.rewardSettings.description.newValue === "")
         ) {
-            errors.push("Please provide a new description for the reward.");
+            errors.push("特典の新しい説明を入力してください。");
         }
 
         if (effect.rewardSettings.cost.update &&
             (effect.rewardSettings.cost.newValue == null ||
             effect.rewardSettings.cost.newValue === "")
         ) {
-            errors.push("Please provide a new cost for the reward.");
+            errors.push("特典の新しいコストを入力してください。");
         }
 
         return errors;
@@ -381,16 +383,16 @@ const model: EffectType<EffectMeta> = {
                 return;
             }
 
-            let rewardId;
+            let rewardId: string;
             switch (effect.rewardSelectMode) {
                 case "dropdown":
                     rewardId = effect.channelRewardId;
                     break;
                 case "associated":
-                    rewardId = trigger.metadata.eventData?.rewardId ?? trigger.metadata.rewardId;
+                    rewardId = (trigger.metadata.eventData?.rewardId ?? trigger.metadata.rewardId) as string;
                     break;
                 case "custom":
-                    rewardId = validate(effect.customId)
+                    rewardId = isValidUUID(effect.customId)
                         ? effect.customId
                         : channelRewardsManager.getChannelRewardIdByName(effect.customId);
                     break;
@@ -435,4 +437,4 @@ const model: EffectType<EffectMeta> = {
     }
 };
 
-export = model;
+export = effect;

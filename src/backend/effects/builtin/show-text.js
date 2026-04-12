@@ -1,9 +1,9 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
+const { SettingsManager } = require("../../common/settings-manager");
 const webServer = require("../../../server/http-server-manager");
 const logger = require("../../logwrapper");
-const { EffectCategory } = require('../../../shared/effect-constants');
+const mediaProcessor = require("../../common/handlers/mediaProcessor");
 
 /**
  * The Show Text effect
@@ -14,10 +14,10 @@ const showText = {
    */
     definition: {
         id: "firebot:showtext",
-        name: "テキストを表示",
-        description: "指定したテキストをオーバーレイに表示する。",
+            name: "テキスト表示",
+            description: "指定したテキストをオーバーレイに表示します。",
         icon: "fad fa-text",
-        categories: [EffectCategory.COMMON, EffectCategory.OVERLAY],
+        categories: ["common", "overlay"],
         dependencies: []
     },
     /**
@@ -30,16 +30,16 @@ const showText = {
    */
     optionsTemplate: `
     <eos-container header="Text">
-        <div ng-class="editorClass" replace-variables on-variable-insert="onVariableInsert(variable)" menu-position="bottom">
+        <div ng-class="editorClass" replace-variables on-variable-insert="onVariableInsert(text)" menu-position="bottom">
             <summernote on-editor-ready="editorReady(editor)" ng-model="effect.text" config="editorOptions" editor="editor" editable="editable"></summernote>
         </div>
         <div style="margin-top: 10px;">
             <div class="form-group">
-                <label class="form-label">背景</label>
+                <label class="form-label">Editor Background</label>
                 <div>
                     <div class="btn-group">
-                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'white'">白</label>
-                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'black'">黒</label>
+                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'white'">White</label>
+                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'black'">Black</label>
                     </div>
                 </div>
             </div>
@@ -47,71 +47,11 @@ const showText = {
     </eos-container>
 
     <eos-container header="Text Settings" pad-top="true">
-        <label class="control-fb control--checkbox"> ドロップシャドウ
+        <label class="control-fb control--checkbox"> Drop shadow
             <input type="checkbox" ng-model="effect.dropShadow" />
             <div class="control__indicator"></div>
         </label>
     </eos-container>
-
-    <eos-container header="Container Settings" class="setting-padtop">
-        <p>これは、上記のテキストが配置される（見えない）ボックスのサイズを定義します。</p>
-        <div class="input-group" style="margin-bottom: 10px;">
-            <span class="input-group-addon">幅 (pixels)</span>
-            <input
-                class="form-control"
-                type="number"
-                min="1" max="10000"
-                ng-model="effect.width">
-            <span class="input-group-addon">高さ(pixels)</span>
-            <input
-                class="form-control"
-                type="number"
-                min="1" max="10000"
-                ng-model="effect.height">
-        </div>
-
-        <label class="control-fb control--checkbox"> テキストを折り返さない
-            <input type="checkbox" ng-model="effect.dontWrap" />
-            <div class="control__indicator"></div>
-        </label>
-
-        <label class="control-fb control--checkbox"> デバッグ・ボーダーを表示する<tooltip text="'テキストボックスの位置を見やすくするため、テキストボックスの周囲に赤い枠線を表示します。'"></tooltip>
-            <input type="checkbox" ng-model="effect.debugBorder" />
-            <div class="control__indicator"></div>
-        </label>
-
-        <p>Justification</p>
-        <label class="control-fb control--radio">左
-            <input type="radio" ng-model="effect.justify" value="flex-start"/>
-            <div class="control__indicator"></div>
-        </label>
-        <label class="control-fb control--radio" >中央
-            <input type="radio" ng-model="effect.justify" value="center"/>
-            <div class="control__indicator"></div>
-        </label>
-        <label class="control-fb control--radio" >右
-            <input type="radio" ng-model="effect.justify" value="flex-end"/>
-            <div class="control__indicator"></div>
-        </label>
-
-        <p>Align</p>
-        <label class="control-fb control--radio">上
-            <input type="radio" ng-model="effect.align" value="flex-start"/>
-            <div class="control__indicator"></div>
-        </label>
-        <label class="control-fb control--radio" >中央
-            <input type="radio" ng-model="effect.align" value="center"/>
-            <div class="control__indicator"></div>
-        </label>
-        <label class="control-fb control--radio" >下
-            <input type="radio" ng-model="effect.align" value="flex-end"/>
-            <div class="control__indicator"></div>
-        </label>
-    </eos-container>
-
-    <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
-
-    <eos-enter-exit-animations effect="effect" class="setting-padtop"></eos-enter-exit-animations>
 
     <eos-container header="Duration" class="setting-padtop">
         <div class="input-group">
@@ -124,10 +64,71 @@ const showText = {
         </div>
     </eos-container>
 
-    <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
+    <eos-container header="Container Settings" class="setting-padtop">
+        <p>This defines the size of the (invisible) box that the above text will be placed in.</p>
+        <div class="input-group" style="margin-bottom: 10px;">
+            <span class="input-group-addon">Width (in pixels)</span>
+            <input
+                class="form-control"
+                type="number"
+                min="1" max="10000"
+                ng-model="effect.width">
+            <span class="input-group-addon">Height (in pixels)</span>
+            <input
+                class="form-control"
+                type="number"
+                min="1" max="10000"
+                ng-model="effect.height">
+        </div>
 
+        <label class="control-fb control--checkbox"> Don't Wrap Text
+            <input type="checkbox" ng-model="effect.dontWrap" />
+            <div class="control__indicator"></div>
+        </label>
+
+        <label class="control-fb control--checkbox"> Show Debug Border <tooltip text="'Show a red border around the text box to make it easier to see its position.'"></tooltip>
+            <input type="checkbox" ng-model="effect.debugBorder" />
+            <div class="control__indicator"></div>
+        </label>
+
+        <p>Justification</p>
+        <label class="control-fb control--radio">Left
+            <input type="radio" ng-model="effect.justify" value="flex-start"/>
+            <div class="control__indicator"></div>
+        </label>
+        <label class="control-fb control--radio" >Center
+            <input type="radio" ng-model="effect.justify" value="center"/>
+            <div class="control__indicator"></div>
+        </label>
+        <label class="control-fb control--radio" >Right
+            <input type="radio" ng-model="effect.justify" value="flex-end"/>
+            <div class="control__indicator"></div>
+        </label>
+
+        <p>Align</p>
+        <label class="control-fb control--radio">Top
+            <input type="radio" ng-model="effect.align" value="flex-start"/>
+            <div class="control__indicator"></div>
+        </label>
+        <label class="control-fb control--radio" >Center
+            <input type="radio" ng-model="effect.align" value="center"/>
+            <div class="control__indicator"></div>
+        </label>
+        <label class="control-fb control--radio" >Bottom
+            <input type="radio" ng-model="effect.align" value="flex-end"/>
+            <div class="control__indicator"></div>
+        </label>
+    </eos-container>
+
+    <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
+
+    <eos-overlay-rotation effect="effect" pad-top="true"></eos-overlay-rotation>
+
+    <eos-enter-exit-animations effect="effect" class="setting-padtop"></eos-enter-exit-animations>
+
+    <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
     <div class="effect-info alert alert-warning">
-    この演出を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">今すぐ学ぶ</a>
+        This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
     </div>
     `,
     /**
@@ -139,7 +140,7 @@ const showText = {
         $scope.editorClass = "text-editor-white-bg";
 
         $scope.editorSettings = {
-            editorBackground: settingsService.getWysiwygBackground()
+            editorBackground: settingsService.getSetting("WysiwygBackground")
         };
 
         function updateEditorClass() {
@@ -152,7 +153,7 @@ const showText = {
         updateEditorClass();
 
         $scope.editorBackgroundChanged = function() {
-            settingsService.setWysiwygBackground($scope.editorSettings.editorBackground);
+            settingsService.saveSetting("WysiwygBackground", $scope.editorSettings.editorBackground);
             updateEditorClass();
         };
 
@@ -180,15 +181,14 @@ const showText = {
             $scope.editor = editor;
         };
 
-        $scope.onVariableInsert = (variable) => {
+        $scope.onVariableInsert = (text) => {
             if ($scope.editor == null) {
                 return;
             }
             $scope.editor.summernote('restoreRange');
             $scope.editor.summernote("focus");
             $timeout(() => {
-                const display = variable.usage ? variable.usage : variable.handle;
-                $scope.editor.summernote("insertText", `$${display}`);
+                $scope.editor.summernote("insertText", text);
             }, 100);
 
         };
@@ -221,17 +221,17 @@ const showText = {
    * When the effect is triggered by something
    * Used to validate fields in the option template.
    */
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.text == null) {
-            errors.push("表示するテキストを入力してください。");
+            errors.push("Please enter some text to show.");
         }
         return errors;
     },
     /**
    * When the effect is triggered by something
    */
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
 
         // What should this do when triggered.
         const effect = event.effect;
@@ -257,19 +257,21 @@ const showText = {
             dontWrap: effect.dontWrap,
             debugBorder: effect.debugBorder,
             dropShadow: effect.dropShadow,
-            overlayInstance: effect.overlayInstance
+            overlayInstance: effect.overlayInstance,
+            rotation: effect.rotation ? effect.rotation + effect.rotType : "0deg",
+            zIndex: effect.zIndex
         };
 
         const position = dto.position;
         if (position === "Random") {
             logger.debug("Getting random preset location");
-            dto.position = getRandomPresetLocation(); //eslint-disable-line no-undef
+            dto.position = mediaProcessor.randomLocation();
         }
 
-        if (settings.useOverlayInstances()) {
+        if (SettingsManager.getSetting("UseOverlayInstances")) {
             if (dto.overlayInstance != null) {
                 //reset overlay if it doesnt exist
-                if (!settings.getOverlayInstances().includes(dto.overlayInstance)) {
+                if (!SettingsManager.getSetting("OverlayInstances").includes(dto.overlayInstance)) {
                     dto.overlayInstance = null;
                 }
             }
@@ -317,7 +319,7 @@ const showText = {
         },
         event: {
             name: "text",
-            onOverlayEvent: event => {
+            onOverlayEvent: (event) => {
 
                 const data = event;
 
@@ -351,6 +353,10 @@ const showText = {
 
                 styles += `justify-content:${data.justify};text-align:${textAlign};align-items:${data.align};`;
 
+                if (data.rotation) {
+                    styles += `transform: rotate(${data.rotation});`;
+                }
+
                 let innerStyles = "width: 100%;";
                 if (data.dontWrap) {
                     innerStyles += "overflow: hidden; white-space: nowrap;";
@@ -370,7 +376,7 @@ const showText = {
                 if (borderColor) {
                     styles += `border: 2px solid ${borderColor};`;
                 }
-
+                styles += data.zIndex ? `position: relative; z-index: ${data.zIndex};` : '';
                 const textDiv = `
                     <div class="text-container"
                         style="${styles}">

@@ -1,6 +1,5 @@
-import { EffectType } from "../../../types/effects";
-import { EffectCategory } from "../../../shared/effect-constants";
-import { handleTriggeredEvent } from "../../events/activity-feed-manager";
+import type { EffectType } from "../../../types/effects";
+import { ActivityFeedManager } from "../../events/activity-feed-manager";
 
 const effect: EffectType<{
     message: string;
@@ -11,7 +10,7 @@ const effect: EffectType<{
         name: "アクティビティフィードにアラートを出す",
         description: "Firebotのアクティビティフィードにアラートを表示する",
         icon: "fad fa-comment-exclamation",
-        categories: [EffectCategory.FUN],
+        categories: ["dashboard"],
         dependencies: []
     },
     optionsTemplate: `
@@ -19,35 +18,35 @@ const effect: EffectType<{
         <p>Firebotのアクティビティフィードでアラートを送信します。</p>
     </eos-container>
     <eos-container header="Message" pad-top="true">
-        <firebot-input 
-            model="effect.message" 
+        <firebot-input
+            model="effect.message"
             placeholder-text="メッセージ"
             use-text-area="true"
             rows="4"
             cols="40"
             menu-position="under"
         />
-    </eos-container> 
+    </eos-container>
     <eos-container header="アイコン" pad-top="true">
-        <input 
-			maxlength="2" 
-			type="text" 
-			class="form-control" 
-			ng-model="effect.icon" 
+        <input
+			maxlength="2"
+			type="text"
+			class="form-control"
+			ng-model="effect.icon"
 			icon-picker required
 		/>
-    </eos-container> 
+    </eos-container>
     `,
     optionsController: () => { },
     optionsValidator: (effect) => {
-        const errors = [];
+        const errors: string[] = [];
         if (effect.message == null || effect.message === "") {
             errors.push("アラートメッセージを空白にすることはできません。");
         }
         return errors;
     },
-    onTriggerEvent: async ({ effect }) => {
-        handleTriggeredEvent(
+    onTriggerEvent: ({ effect }) => {
+        ActivityFeedManager.handleTriggeredEvent(
             {
                 id: "firebot",
                 name: "Firebot"
@@ -74,4 +73,4 @@ const effect: EffectType<{
     }
 };
 
-module.exports = effect;
+export = effect;

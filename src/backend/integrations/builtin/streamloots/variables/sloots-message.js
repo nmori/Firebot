@@ -10,9 +10,9 @@ triggers[EffectTrigger.MANUAL] = true;
 const model = {
     definition: {
         handle: "slootsMessage",
-        description: "StreamLootsチェスト/カードに含まれるユーザーメッセージ。",
+        description: "StreamLoots チェスト/カードに含まれるユーザーメッセージです。",
         triggers: triggers,
-        categories: [VariableCategory.COMMON, VariableCategory.TRIGGER],
+        categories: [VariableCategory.COMMON, VariableCategory.INTEGRATION],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (trigger) => {

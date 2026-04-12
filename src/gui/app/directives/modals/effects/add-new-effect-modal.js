@@ -2,73 +2,59 @@
 
 const { EffectCategory } = require("../../shared/effect-constants");
 
-(function () {
+(function() {
     angular.module("firebotApp").component("addNewEffectModal", {
         template: `
-            <div class="modal-header" style="background: #43454A;border-bottom: 2px solid #373C3E;border-top-right-radius: 8px;border-top-left-radius: 8px;">
+            <div class="select-effect-header modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">新規演出</h4>
+                <h4 class="modal-title">新しいエフェクトを選択</h4>
             </div>
             <div class="modal-body">
-<<<<<<< HEAD
-                <div style="height: 55px;background: #43454A;border-bottom: 2px solid #373C3E;display:flex; align-items: center;padding: 0 13px;">
-                    <searchbar search-id="effectSearch" placeholder-text="演出を選ぶ..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
-                </div>
-                <div style="display: flex;flex-direction:row;height: 450px;">
-                    <div style="width: 150px;display:flex;flex-direction:column;height: 100%; flex-shrink: 0;background: #27292c;">
-                        <div class="effect-category-header">カテゴリ</div>
-=======
                 <div class="select-effect-search">
-                    <searchbar search-id="effectSearch" placeholder-text="演出を選ぶ..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
+                    <searchbar search-id="effectSearch" placeholder-text="エフェクトを検索..." query="$ctrl.effectSearch" style="width: 100%"></searchbar>
                 </div>
                 <div style="display: flex;flex-direction:row;height: 450px;">
-                    <div class="effect-categories">
-                        <div class="effect-category-header muted">Categories</div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                        <div class="effect-category-wrapper" ng-class="{'selected': $ctrl.activeCategory == null}" ng-click="$ctrl.activeCategory = null;">
-                            <div class="category-text">All</div>
+                    <div class="select-effect-categories">
+                        <div class="select-effect-category-header muted">カテゴリ</div>
+                        <div class="select-effect-category" ng-class="{'selected': $ctrl.activeCategory == null}" ng-click="$ctrl.activeCategory = null;">
+                            <div>すべて</div>
                         </div>
-                        <div class="effect-category-wrapper" ng-repeat="category in $ctrl.categories" ng-class="{'selected': $ctrl.activeCategory === category}" ng-click="$ctrl.activeCategory = category;">
-                            <div class="category-text">
+                        <div class="select-effect-category" ng-repeat="category in $ctrl.categories" ng-class="{'selected': $ctrl.activeCategory === category}" ng-click="$ctrl.activeCategory = category;">
+                            <div>
                                 {{category}}
                                 <tooltip
                                     style="margin-left: 5px"
                                     ng-if="category === 'integrations'"
-<<<<<<< HEAD
-                                    text="'効果的に動作させるには、設定 -> 連携で設定をする必要があります。'"
-=======
-                                    text="'Integrations need to be linked / configured in Settings -> Integrations in order for the effects to work.'"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                                    text="'連携カテゴリのエフェクトを使用するには、設定 -> 連携 でリンク/設定が必要です。'"
                                 ></tooltip>
                             </div>
                         </div>
                     </div>
-                    <div style="width: 100%; height: 100%;overflow-y:scroll;padding: 15px 15px 0;">
-                        <div class="effect-def-wrapper" ng-repeat="effect in $ctrl.effectDefs | effectCategoryFilter:$ctrl.activeCategory | filter:$ctrl.effectSearch track by effect.id" ng-click="$ctrl.selectedEffectDef = effect" ng-class="{'selected': $ctrl.selectedEffectDef === effect}">
-                            <div class="effect-icon-wrapper">
-                                <i ng-class="effect.icon"></i>
-                            </div>
+                    <div class="select-effect-list-container">
+                        <div class="select-effect-def" ng-repeat="effect in $ctrl.effectDefs | effectCategoryFilter:$ctrl.activeCategory | filter:$ctrl.effectSearch track by effect.id" ng-click="$ctrl.selectedEffectDef = effect" ng-class="{'selected': $ctrl.selectedEffectDef === effect}">
+                            <effect-icon effect-id="effect.id" effect-definition="effect"></effect-icon>
                             <div style="width: 100%;">
                                 <div>{{effect.name}}</div>
                                 <div class="muted" style="font-size: 13px;">{{effect.description}}</div>
                             </div>
-                            <div class="effect-selected-wrapper">
+                            <div class="select-effect-selected">
                                 <i class="fad fa-check-circle"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="background:#43454A;display:flex;align-items: center;justify-content: space-between;padding: 20px;border-top: solid 2px #373C3E;border-bottom-right-radius: 8px;border-bottom-left-radius: 8px;">
+            <div class="sticky-bottom-element select-effect-footer">
                 <div>
-                    <div style="font-size: 12px;font-weight: 600;" class="muted">選択した演出:</div>
+                    <div style="font-size: 12px;font-weight: 600;" class="muted">選択中のエフェクト:</div>
                     <div style="font-size: 20px;font-weight: 100;">{{$ctrl.selectedEffectDef ? $ctrl.selectedEffectDef.name : "なし"}}</div>
                 </div>
-                <div style="display:flex;align-items: center; justify-content: flex-end;">
-                    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()" style="margin-right: 10px;">キャンセル</button>
+                <div class="flex">
+                    <button type="button" class="btn btn-link mr-4" ng-click="$ctrl.dismiss()">キャンセル</button>
                     <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="$ctrl.selectedEffectDef == null">選択</button>
                 </div>
             </div>
+            <scroll-sentinel element-class="select-effect-footer"></scroll-sentinel>
             `,
         bindings: {
             resolve: "<",
@@ -76,7 +62,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function (ngToast, backendCommunicator, utilityService, $scope, $timeout) {
+        controller: function(ngToast, backendCommunicator, $timeout) {
             const $ctrl = this;
 
             $ctrl.activeCategory = null;
@@ -85,7 +71,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
             $ctrl.selectedEffectDef = null;
 
             $ctrl.effectDefs = [];
-            $ctrl.$onInit = async function () {
+            $ctrl.$onInit = async function() {
                 const effectDefs = await backendCommunicator
                     .fireEventAsync("getEffectDefinitions", {
                         triggerType: $ctrl.resolve.trigger,
@@ -103,36 +89,14 @@ const { EffectCategory } = require("../../shared/effect-constants");
                     $ctrl.selectedEffectDef = $ctrl.effectDefs.find(e => e.id === $ctrl.resolve.selectedEffectTypeId);
                 }
 
-<<<<<<< HEAD
-                if (!$ctrl.selectedEffectDef) {
-                    const modalId = $ctrl.resolve.modalId;
-                    utilityService.addSlidingModal(
-                        $ctrl.modalInstance.rendered.then(() => {
-                            const modalElement = $(`.${modalId}`).children();
-                            return {
-                                element: modalElement,
-                                name: "演出を選択",
-                                id: modalId,
-                                instance: $ctrl.modalInstance
-                            };
-                        })
-                    );
-
-                    $scope.$on("modal.closing", function() {
-                        utilityService.removeSlidingModal();
-                    });
-                }
-
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 $timeout(() => {
                     angular.element("#effectSearch").trigger("focus");
                 }, 50);
             };
 
-            $ctrl.save = function () {
+            $ctrl.save = function() {
                 if ($ctrl.selectedEffectDef == null) {
-                    ngToast.create("演出を選んでください");
+                    ngToast.create("エフェクトを選択してください！");
                     return;
                 }
 

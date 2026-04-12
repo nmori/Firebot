@@ -1,6 +1,6 @@
 "use strict";
 
-const eventManager = require("../../../events/EventManager");
+const { EventManager } = require("../../../events/event-manager");
 
 const EVENT_SOURCE_ID = "streamelements";
 const EventId = {
@@ -11,35 +11,31 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "StreamElements",
-    description: "StreamElementsからの寄付イベント",
+    description: "StreamElements 由来の寄付イベント",
     events: [
         {
             id: EventId.DONATION,
-            name: "ドネーション",
-            description: "誰かが寄付をしたとき.",
+            name: "寄付",
+            description: "誰かが寄付したとき。",
             cached: false,
             manualMetadata: {
                 from: "StreamElements",
                 donationAmount: 5,
-<<<<<<< HEAD
-                donationMessage: "テストメッセージ"
-=======
                 formattedDonationAmount: 5,
-                donationMessage: "Test message"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                donationMessage: "テストメッセージ"
             },
             isIntegration: true,
             activityFeed: {
                 icon: "fad fa-money-bill",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** からドネートがありました **$${eventData.donationAmount}**${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                    return `**${eventData.from}** が **$${eventData.donationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                 }
             }
         },
         {
             id: EventId.FOLLOW,
             name: "フォロー",
-            description: "誰かがあなたのTwitchチャンネルをフォローした場合（StreamElementsより）",
+            description: "誰かがあなたの Twitch チャンネルをフォローしたとき（StreamElements 経由）。",
             cacheMetaKey: "username",
             cached: true,
             manualMetadata: {
@@ -49,7 +45,7 @@ const eventSourceDefinition = {
             activityFeed: {
                 icon: "fas fa-heart",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** followed`;
+                    return `**${eventData.username}** がフォローしました`;
                 }
             }
         }
@@ -57,7 +53,7 @@ const eventSourceDefinition = {
 };
 
 exports.registerEvents = () => {
-    eventManager.registerEventSource(eventSourceDefinition);
+    EventManager.registerEventSource(eventSourceDefinition);
 };
 
 const currencies = new Map([
@@ -90,7 +86,7 @@ const currencies = new Map([
 ]);
 
 exports.processDonationEvent = (eventData) => {
-    eventManager.triggerEvent(EVENT_SOURCE_ID, EventId.DONATION, {
+    EventManager.triggerEvent(EVENT_SOURCE_ID, EventId.DONATION, {
         donationAmount: eventData.amount,
         formattedDonationAmount: currencies.get(eventData.currency) + eventData.amount,
         donationMessage: eventData.message,
@@ -99,7 +95,7 @@ exports.processDonationEvent = (eventData) => {
 };
 
 exports.processFollowEvent = (eventData) => {
-    eventManager.triggerEvent(EVENT_SOURCE_ID, EventId.FOLLOW, {
+    EventManager.triggerEvent(EVENT_SOURCE_ID, EventId.FOLLOW, {
         username: eventData.displayName
     });
 };

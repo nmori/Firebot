@@ -4,18 +4,21 @@
     angular.module("firebotApp").component("editIntegrationUserSettingsModal", {
         template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">
-                    <div style="font-size: 22px;">連携の設定:</div>
+                    <div style="font-size: 22px;">連携を設定:</div>
                     <div style="font-weight:bold;font-size: 24px;">{{$ctrl.integration.name}}</div>
                 </h4>
             </div>
             <div class="modal-body">
 
                 <setting-container ng-if="$ctrl.integration.settingCategories != null" ng-repeat="categoryMeta in $ctrl.settingCategoriesArray | orderBy:'sortRank'"  header="{{categoryMeta.title}}" description="{{categoryMeta.description}}" pad-top="$index > 0 ? true : false" collapsed="false">
-                    <command-option ng-repeat="setting in categoryMeta.settingsArray | orderBy:'sortRank'"
-                                name="setting.settingName"
-                                metadata="setting"></command-option>
+                    <dynamic-parameter
+                        ng-repeat="setting in categoryMeta.settingsArray | orderBy:'sortRank'"
+                        name="{{setting.settingName}}"
+                        schema="setting"
+                        ng-model="$ctrl.integration.settingCategories[categoryMeta.categoryName].settings[setting.settingName].value"
+                    ></dynamic-parameter>
                 </setting-container>
 
             </div>
@@ -41,8 +44,9 @@
             $ctrl.$onInit = function() {
                 if ($ctrl.resolve.integration) {
                     $ctrl.integration = JSON.parse(JSON.stringify($ctrl.resolve.integration));
-                    $ctrl.settingCategoriesArray = Object.values($ctrl.integration.settingCategories)
-                        .map(sc => {
+                    $ctrl.settingCategoriesArray = Object.entries($ctrl.integration.settingCategories)
+                        .map(([categoryName, sc]) => {
+                            sc.categoryName = categoryName;
                             sc.settingsArray = [];
                             const settingNames = Object.keys(sc.settings);
                             for (const settingName of settingNames) {
@@ -60,12 +64,12 @@
             $ctrl.resetToDefaults = () => {
                 utilityService
                     .showConfirmationModal({
-                        title: `初期設定に戻す`,
-                        question: `${$ctrl.integration.name} の設定を初期にもどしますか？`,
-                        confirmLabel: "リセットする",
+                        title: "デフォルトに戻す",
+                        question: `${$ctrl.integration.name} をデフォルト設定に戻しますか？`,
+                        confirmLabel: "リセット",
                         confirmBtnType: "btn-danger"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             $ctrl.close({
                                 $value: {
@@ -84,23 +88,23 @@
                             if (setting.validation) {
                                 if (setting.validation.required) {
                                     if (setting.type === 'string' && setting.value === "") {
-                                        ngToast.create(`値を設定して下さい： ${setting.title} `);
+                                        ngToast.create(`Please input a value for the ${setting.title} option`);
                                         return false;
                                     } else if (setting.type === 'editable-list' && (setting.value == null || setting.value.length === 0)) {
-                                        ngToast.create(`値を設定して下さい： ${setting.title} `);
+                                        ngToast.create(`Please input some text for the ${setting.title} option`);
                                         return false;
                                     } else if (setting.value === null || setting.value === undefined) {
-                                        ngToast.create(`値を選択して下さい： ${setting.title} `);
+                                        ngToast.create(`Please select/input a value for the ${setting.title} option`);
                                         return false;
                                     }
                                 }
                                 if (setting.type === "number") {
                                     if (!isNaN(setting.validation.min) && setting.value < setting.validation.min) {
-                                        ngToast.create(`${setting.title} の設定は ${setting.validation.min}以上にしてください`);
+                                        ngToast.create(`The value for the ${setting.title} option must be at least ${setting.validation.min}`);
                                         return false;
                                     }
                                     if (!isNaN(setting.validation.max) && setting.value > setting.validation.max) {
-                                        ngToast.create(`${setting.title}  の設定は ${setting.validation.max}以下にしてください`);
+                                        ngToast.create(`The value for the ${setting.title} option must be no more than ${setting.validation.max}`);
                                         return false;
                                     }
                                 }

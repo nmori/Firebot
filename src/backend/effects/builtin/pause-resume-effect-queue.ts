@@ -1,19 +1,18 @@
-import { EffectType } from "../../../types/effects";
-import { EffectCategory } from "../../../shared/effect-constants";
-import effectQueueManager, { EffectQueue } from "../queues/effect-queue-manager";
-import effectQueueRunner from "../queues/effect-queue-runner";
+import type { EffectType, EffectQueueConfig } from "../../../types/effects";
+import { EffectQueueConfigManager } from "../queues/effect-queue-config-manager";
 import logger from "../../logwrapper";
 
-const model: EffectType<{
+const effect: EffectType<{
     effectQueue: string;
     action: "Pause" | "Resume" | "Toggle";
+    runEffectsImmediatelyWhenPaused?: boolean;
 }> = {
     definition: {
         id: "firebot:pause-effect-queue",
         name: "演出キューの一時停止／再開",
         description: "演出キューを一時停止または再開します。一時停止されたキューに送られた演出は、キューが再開されると実行されます。",
         icon: "fad fa-pause-circle",
-        categories: [EffectCategory.SCRIPTING]
+        categories: ["scripting", "firebot control"]
     },
     optionsTemplate: `
         <eos-container header="演出キュー">
@@ -28,7 +27,7 @@ const model: EffectType<{
                 </ul>
             </div>
             <div ng-if="!effectQueues.length">
-                演出キューが保存されていない。 
+                演出キューが保存されていない。
             </div>
         </eos-container>
 
@@ -49,9 +48,17 @@ const model: EffectType<{
                     </li>
                 </ul>
             </div>
+            <firebot-checkbox
+                ng-if="effect.action === 'Pause' || effect.action === 'Toggle'"
+                label="一時停止中は演出を即時実行"
+                tooltip="キューが一時停止中に演出が追加された場合、再開を待たずに即時実行します。キュー機能を一時的に止めたいが、演出は通常通り流したい場合に便利です。"
+                model="effect.runEffectsImmediatelyWhenPaused"
+                allow-indeterminate="true"
+                style="margin-top: 15px; margin-bottom: 0px;"
+            />
         </eos-container>
     `,
-    optionsController: ($scope, effectQueuesService: any) => {
+    optionsController: ($scope, effectQueuesService) => {
         $scope.effectQueues = effectQueuesService.getEffectQueues();
         $scope.effectQueueName = null;
 
@@ -64,7 +71,7 @@ const model: EffectType<{
             }
         }
 
-        $scope.selectEffectQueue = (queue: EffectQueue) => {
+        $scope.selectEffectQueue = (queue: EffectQueueConfig) => {
             $scope.effect.effectQueue = queue.id;
             $scope.effectQueueName = queue.name;
         };
@@ -80,24 +87,27 @@ const model: EffectType<{
 
         return errors;
     },
-    onTriggerEvent: async ({ effect }) => {
-        const queue = effectQueueManager.getItem(effect.effectQueue);
+    getDefaultLabel: (effect, effectQueuesService) => {
+        const queue = effectQueuesService.getEffectQueue(effect.effectQueue);
+        return `${effect.action} ${queue?.name ?? "Unknown Queue"}`;
+    },
+    onTriggerEvent: ({ effect }) => {
+        const queue = EffectQueueConfigManager.getItem(effect.effectQueue);
 
         if (queue == null) {
             logger.debug(`Effect queue ${effect.effectQueue} not found`);
             return false;
         }
         if (effect.action === "Pause") {
-            effectQueueManager.pauseQueue(effect.effectQueue);
+            EffectQueueConfigManager.pauseQueue(effect.effectQueue, effect.runEffectsImmediatelyWhenPaused);
         } else if (effect.action === "Resume") {
-            effectQueueManager.resumeQueue(effect.effectQueue);
+            EffectQueueConfigManager.resumeQueue(effect.effectQueue);
         } else {
-            effectQueueManager.toggleQueue(effect.effectQueue);
+            EffectQueueConfigManager.toggleQueue(effect.effectQueue, effect.runEffectsImmediatelyWhenPaused);
         }
-
 
         return true;
     }
 };
 
-module.exports = model;
+export = effect;

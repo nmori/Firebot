@@ -4,9 +4,9 @@
     angular.module("firebotApp").component("editGameSettingsModal", {
         template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">
-                    <div style="font-size: 22px;">ゲームの編集:</div>
+                    <div style="font-size: 22px;">ゲームを編集:</div>
                     <div style="font-weight:bold;font-size: 24px;">{{$ctrl.game.name}}</div>
                 </h4>
             </div>
@@ -18,23 +18,26 @@
 
                 <setting-container>
                     <div class="controls-fb-inline" style="margin-bottom: 12px;">
-                        <label class="control-fb control--checkbox">有効化
+                        <label class="control-fb control--checkbox">有効
                             <input type="checkbox" ng-model="$ctrl.game.active" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
                     </div>
-                    <p class="muted" style="margin-top: 20px;">注意: 有効にすると、このゲームに関連するコマンドの表示、起動条件の編集、権限調整ができます。</p>
+                    <p class="muted" style="margin-top: 20px;">注: 有効化すると、このゲームに紐づく !command を確認でき、<strong>コマンド</strong> タブ &gt; <strong>システムコマンド</strong> でトリガーや権限を調整できます。</p>
                 </setting-container>
 
                 <setting-container ng-if="$ctrl.game.settingCategories != null" ng-repeat="categoryMeta in $ctrl.settingCategoriesArray | orderBy:'sortRank'"  header="{{categoryMeta.title}}" description="{{categoryMeta.description}}" pad-top="$index > 0 ? true : false" collapsed="true">
-                    <command-option ng-repeat="setting in categoryMeta.settingsArray | orderBy:'sortRank'"
-                                name="setting.settingName"
-                                metadata="setting"></command-option>
+                    <dynamic-parameter
+                        ng-repeat="setting in categoryMeta.settingsArray | orderBy:'sortRank'"
+                        name="{{setting.settingName}}"
+                        schema="setting"
+                        ng-model="$ctrl.game.settingCategories[categoryMeta.categoryName].settings[setting.settingName].value"
+                    ></dynamic-parameter>
                 </setting-container>
 
             </div>
             <div class="modal-footer sticky-footer edit-game-footer">
-                <button ng-show="$ctrl.game != null" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.resetToDefaults()">初期値に戻す</button>
+                <button ng-show="$ctrl.game != null" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.resetToDefaults()">デフォルトに戻す</button>
                 <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
                 <button ng-show="$ctrl.game != null" type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
@@ -55,8 +58,9 @@
             $ctrl.$onInit = function() {
                 if ($ctrl.resolve.game) {
                     $ctrl.game = JSON.parse(JSON.stringify($ctrl.resolve.game));
-                    $ctrl.settingCategoriesArray = Object.values($ctrl.game.settingCategories)
-                        .map(sc => {
+                    $ctrl.settingCategoriesArray = Object.entries($ctrl.game.settingCategories)
+                        .map(([categoryName, sc]) => {
+                            sc.categoryName = categoryName;
                             sc.settingsArray = [];
                             const settingNames = Object.keys(sc.settings);
                             for (const settingName of settingNames) {
@@ -74,12 +78,12 @@
             $ctrl.resetToDefaults = () => {
                 utilityService
                     .showConfirmationModal({
-                        title: `初期値に戻す`,
-                        question: `本当に${$ctrl.game.name}を初期設定にリセットしますか？`,
-                        confirmLabel: "リセットする",
+                        title: "デフォルトに戻す",
+                        question: `${$ctrl.game.name} をデフォルト設定に戻しますか？`,
+                        confirmLabel: "リセット",
                         confirmBtnType: "btn-danger"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             $ctrl.close({
                                 $value: {
@@ -98,27 +102,34 @@
                             if (setting.validation) {
                                 if (setting.validation.required) {
                                     if (setting.type === 'string' && setting.value === "") {
-                                        ngToast.create(`値を入力してください：${setting.title}`);
+                                        ngToast.create(`Please input a value for the ${setting.title} option`);
                                         return false;
                                     } else if (setting.type === 'editable-list' && (setting.value == null || setting.value.length === 0)) {
-                                        ngToast.create(`値を入力してください：${setting.title}`);
+                                        ngToast.create(`Please input some text for the ${setting.title} option`);
                                         return false;
                                     } else if (setting.type === 'multiselect' && (setting.value == null || setting.value.length === 0)) {
-                                        ngToast.create(`値を選択してください：${setting.title} `);
+                                        ngToast.create(`Please select values for the ${setting.title} option`);
                                         return false;
                                     } else if (setting.value === null || setting.value === undefined) {
-                                        ngToast.create(`値を入力してください：${setting.title} `);
+                                        ngToast.create(`Please select/input a value for the ${setting.title} option`);
                                         return false;
                                     }
                                 }
                                 if (setting.type === "number") {
-                                    if (!isNaN(setting.validation.min) && setting.value < setting.validation.min) {
-                                        ngToast.create(`設定値 ${setting.title} は ${setting.validation.min} 以上に設定してください`);
+                                    if (setting.validation.required && setting.value == null) {
+                                        ngToast.create(`Please input a value for the ${setting.title} option`);
                                         return false;
                                     }
-                                    if (!isNaN(setting.validation.max) && setting.value > setting.validation.max) {
-                                        ngToast.create(`設定値 ${setting.title} は ${setting.validation.max} 以下に設定してください`);
-                                        return false;
+
+                                    if (setting.value != null) {
+                                        if (!isNaN(setting.validation.min) && setting.value < setting.validation.min) {
+                                            ngToast.create(`The value for the ${setting.title} option must be at least ${setting.validation.min}`);
+                                            return false;
+                                        }
+                                        if (!isNaN(setting.validation.max) && setting.value > setting.validation.max) {
+                                            ngToast.create(`The value for the ${setting.title} option must be no more than ${setting.validation.max}`);
+                                            return false;
+                                        }
                                     }
                                 }
                             }

@@ -5,13 +5,13 @@
     //This handles updates
     const VersionCompare = require('../../shared/compare-versions');
     const UpdateType = VersionCompare.UpdateType;
-    const marked = require("marked");
+    const { marked } = require("marked");
 
     const { sanitize } = require("dompurify");
 
     angular
         .module('firebotApp')
-        .factory('updatesService', function (logger, $q, $http, $sce, settingsService, utilityService, listenerService) {
+        .factory('updatesService', function (logger, $q, $http, $sce, settingsService, utilityService, backendCommunicator) {
             // factory/service object
             const service = {};
 
@@ -28,6 +28,10 @@
             service.hasCheckedForUpdates = false;
 
             service.hasReleaseData = false;
+
+            service.willAutoUpdate = false;
+
+            service.newBetaAvailable = false;
 
             service.updateIsAvailable = function() {
                 return service.hasCheckedForUpdates ? (service.updateData?.updateIsAvailable || service.majorUpdate != null) : false;
@@ -84,7 +88,8 @@
 
                             if (!foundMajorRelease && (updateType === UpdateType.MAJOR || updateType === UpdateType.MAJOR_PRERELEASE)) {
                                 foundMajorRelease = true;
-                                if (settingsService.notifyOnBeta()) {
+                                if (settingsService.getSetting("NotifyOnBeta")) {
+                                    service.newBetaAvailable = true;
                                     service.majorUpdate = {
                                         gitName: release.name,
                                         gitVersion: release.tag_name,
@@ -95,9 +100,12 @@
                                 updateType === UpdateType.PATCH ||
                                 updateType === UpdateType.MINOR ||
                                 updateType === UpdateType.NONE ||
-                                (updateType === UpdateType.PRERELEASE && settingsService.notifyOnBeta())) {
+                                (updateType === UpdateType.PRERELEASE && settingsService.getSetting("NotifyOnBeta"))) {
                                 latestRelease = release;
                                 latestUpdateType = updateType;
+                                if (updateType === UpdateType.PRERELEASE) {
+                                    service.newBetaAvailable = true;
+                                }
                                 break;
                             }
                         }
@@ -110,19 +118,19 @@
                             const gitDate = gitNewest.published_at;
                             const gitLink = gitNewest.html_url;
                             const gitNotes = sanitize(marked(gitNewest.body));
-                            const gitZipDownloadUrl = gitNewest.assets[0].browser_download_url;
 
                             // Now lets look to see if there is a newer version.
 
                             let updateIsAvailable = false;
                             if (latestUpdateType !== UpdateType.NONE) {
                                 updateIsAvailable = true;
-                                const autoUpdateLevel = settingsService.getAutoUpdateLevel();
+                                const autoUpdateLevel = settingsService.getSetting("AutoUpdateLevel");
 
                                 // Check if we should auto update based on the users setting
                                 if (shouldAutoUpdate(autoUpdateLevel, latestUpdateType)) {
+                                    service.willAutoUpdate = true;
                                     utilityService.showDownloadModal();
-                                    listenerService.fireEvent(listenerService.EventType.DOWNLOAD_UPDATE);
+                                    backendCommunicator.send("downloadUpdate");
                                 }
                             }
 
@@ -132,8 +140,8 @@
                                 gitDate: gitDate,
                                 gitLink: gitLink,
                                 gitNotes: $sce.trustAsHtml(gitNotes),
-                                gitZipDownloadUrl: gitZipDownloadUrl,
-                                updateIsAvailable: updateIsAvailable
+                                updateIsAvailable,
+                                latestUpdateType
                             };
                         }
 
@@ -153,20 +161,26 @@
             service.downloadUpdate = function() {
                 if (service.updateIsAvailable()) {
                     utilityService.showDownloadModal();
-                    listenerService.fireEvent(listenerService.EventType.DOWNLOAD_UPDATE);
+                    backendCommunicator.send("downloadUpdate");
                 }
             };
 
             service.installUpdate = function() {
                 if (service.updateIsAvailable()) {
                     utilityService.showDownloadModal();
-                    listenerService.fireEvent(listenerService.EventType.INSTALL_UPDATE);
+                    backendCommunicator.send("installUpdate");
                 }
             };
 
             service.downloadAndInstallUpdate = function() {
-                service.downloadUpdate();
-                service.installUpdate();
+                if (service.updateData?.updateIsAvailable === true
+                    && service.updateData?.latestUpdateType === UpdateType.PRERELEASE
+                ) {
+                    window.open(`https://github.com/nmori/Firebot/releases/${service.updateData.gitVersion}`, "_blank");
+                } else {
+                    service.downloadUpdate();
+                    service.installUpdate();
+                }
             };
 
             return service;

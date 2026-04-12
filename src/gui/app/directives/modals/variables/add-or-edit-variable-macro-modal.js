@@ -9,13 +9,13 @@
                     <button
                         type="button"
                         class="close"
-                        aria-label="Close"
+                        aria-label="閉じる"
                         ng-click="$ctrl.dismiss()"
                     >
                         <i class="fal fa-times" aria-hidden="true"></i>
                     </button>
                     <h4 class="modal-title">
-                        <div class="action text-4xl">{{$ctrl.isNewMacro ? 'マクロ変数を追加' : 'マクロ変数を編集:'}}</div>
+                        <div class="action text-4xl">{{$ctrl.isNewMacro ? '新しいマクロを追加' : 'マクロを編集:'}}</div>
                         <div class="text-4xl font-semibold" ng-show="!$ctrl.isNewMacro">{{$ctrl.macro.name}}</div>
                     </h4>
                 </div>
@@ -32,7 +32,7 @@
                                     ui-validate="{valid:'$ctrl.macroNameIsValid($value)', taken:'!$ctrl.macroNameIsTaken($value)'}"
                                     required
                                     class="form-control input-lg"
-                                    placeholder="マクロ変数名"
+                                    placeholder="マクロ名を入力"
                                     ng-model="$ctrl.macro.name"
                                     ng-disabled="$ctrl.nameFieldLocked"
                                     ng-style="{'padding-right': $ctrl.nameFieldLocked ? '77px' : ''}"
@@ -51,15 +51,15 @@
                                 </div>
                             </div>
                             <div ng-if="$ctrl.formFieldHasError('name')">
-                                <span ng-if="macroSettings.name.$error.required" class="help-block">名前の入力が必要です</span>
-                                <span ng-if="macroSettings.name.$error.minlength" class="help-block">名前は３文字以上でつけてください</span>
-                                <span ng-if="macroSettings.name.$error.valid && !macroSettings.name.$error.required && !macroSettings.name.$error.minlength" class="help-block">名前の形式が不正です</span>
-                                <span ng-if="macroSettings.name.$error.taken" class="help-block">その名前はすでに使われています</span>
+                                <span ng-if="macroSettings.name.$error.required" class="help-block">名前は必須です。</span>
+                                <span ng-if="macroSettings.name.$error.minlength" class="help-block">名前は3文字以上で入力してください。</span>
+                                <span ng-if="macroSettings.name.$error.valid && !macroSettings.name.$error.required && !macroSettings.name.$error.minlength" class="help-block">名前の形式が正しくありません。</span>
+                                <span ng-if="macroSettings.name.$error.taken" class="help-block">この名前はすでに使用されています。</span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="expression" class="control-label">概要</label>
+                            <label for="expression" class="control-label">説明</label>
                             <input
                                 type="text"
                                 id="description"
@@ -83,7 +83,7 @@
                                 required
                                 class="form-control input-lg"
                                 style="font-size: 16px; padding: 10px 16px; height: 100px;"
-                                placeholder="式を入力"
+                                placeholder="変数式を入力"
                                 rows="4"
                                 cols="40"
                                 ng-model="$ctrl.macro.expression"
@@ -136,15 +136,16 @@
                     hintTemplate: "$^{name}",
                     showCopyButton: true,
                     copyTemplate: "$^{name}",
-                    addLabel: "引数を追加",
-                    editLabel: "引数を変数",
-                    inputPlaceholder: "Enter Argument Name",                    noDuplicates: true,
+                    addLabel: "マクロ引数を追加",
+                    editLabel: "マクロ引数を編集",
+                    inputPlaceholder: "引数名を入力",
+                    noDuplicates: true,
                     customValidators: [
                         (argName) => {
                             if (/^\d+$/.test(argName)) {
                                 return {
                                     success: false,
-                                    reason: "数字のみの名前は使えません"
+                                    reason: "引数名を数字のみにはできません。"
                                 };
                             }
                             return true;
@@ -153,8 +154,8 @@
                             if (!/^.{2,}$/.test(argName)) {
                                 return {
                                     success: false,
-                                    reason: "Argument Name length must be at least 2 characters."
-                                }
+                                    reason: "引数名は2文字以上である必要があります。"
+                                };
                             }
                             return true;
                         },
@@ -162,8 +163,8 @@
                             if (!/^[a-z]+/.test(argName)) {
                                 return {
                                     success: false,
-                                    reason: "Argument Name must start with a lowercase letter."
-                                }
+                                    reason: "引数名は小文字で開始する必要があります。"
+                                };
                             }
                             return true;
                         },
@@ -171,7 +172,7 @@
                             if (!/^[a-z][a-zA-Z0-9]+$/.test(argName)) {
                                 return {
                                     success: false,
-                                    reason: "変数名は、空白や特殊文字を含まず、アルファベットから始まる名前にしてください"
+                                    reason: "引数名は英数字のみ（スペース・記号不可）で入力してください。"
                                 };
                             }
                             return true;
@@ -208,9 +209,8 @@
                     utilityService
                         .showConfirmationModal({
                             title: "警告",
-                            question: `名前を変更した場合、このマクロ変数を参照している設定を手動ですべて更新する必要があります。このマクロの名前を変更してもよろしいですか?
-`,
-                            confirmLabel: "はい、変更します",
+                            question: "マクロ名を変更すると、エフェクト内の参照を手動更新する必要があります。名前を変更しますか？",
+                            confirmLabel: "変更する",
                             confirmBtnType: "btn-default"
                         })
                         .then((confirmed) => {
@@ -241,7 +241,7 @@
                         if (successful) {
                             $ctrl.dismiss();
                         } else {
-                            ngToast.create("保存に失敗しました。もう一度試すか、詳細についてはログを表示してください。");
+                            ngToast.create("マクロの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
                         }
                     });
                 };
@@ -253,8 +253,8 @@
 
                     utilityService
                         .showConfirmationModal({
-                            title: "マクロ変数を削除",
-                            question: `削除してもよろしいですか`,
+                            title: "マクロを削除",
+                            question: "このマクロを削除しますか？",
                             confirmLabel: "削除",
                             confirmBtnType: "btn-danger"
                         })

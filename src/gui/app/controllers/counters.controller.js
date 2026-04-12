@@ -12,24 +12,32 @@
 
             $scope.headers = [
                 {
-                    name: "名前",
+                    name: "NAME",
                     icon: "fa-user",
+                    dataField: "name",
+                    sortable: true,
                     cellTemplate: `{{data.name}}`
                 },
                 {
-                    name: "値",
+                    name: "VALUE",
                     icon: "fa-tally",
+                    dataField: "value",
+                    sortable: true,
                     cellTemplate: `{{data.value}}`
                 },
                 {
-                    name: "最小",
+                    name: "MINIMUM",
                     icon: "fa-arrow-to-bottom",
-                    cellTemplate: `{{data.minimum ? data.minimum : 'n/a'}}`
+                    dataField: "minimum",
+                    sortable: true,
+                    cellTemplate: `{{data.minimum ? data.minimum : '該当なし'}}`
                 },
                 {
-                    name: "最大",
+                    name: "MAXIMUM",
                     icon: "fa-arrow-to-top",
-                    cellTemplate: `{{data.maximum ? data.maximum : 'n/a'}}`
+                    dataField: "maximum",
+                    sortable: true,
+                    cellTemplate: `{{data.maximum ? data.maximum : '該当なし'}}`
                 }
             ];
 
@@ -52,12 +60,12 @@
                         click: () => {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "カウンタの削除",
-                                    question: `カウンタ「"${item.name}"」を削除しますか?`,
-                                    confirmLabel: "Delete",
+                                    title: "カウンターを削除",
+                                    question: `カウンター "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
-                                .then(confirmed => {
+                                .then((confirmed) => {
                                     if (confirmed) {
                                         countersService.deleteCounter(item.id);
                                     }
@@ -74,10 +82,10 @@
                 utilityService.openGetInputModal(
                     {
                         model: counter.name,
-                        label: "名前変更",
+                        label: "カウンター名を変更",
                         saveText: "保存",
                         validationFn: (value) => {
-                            return new Promise(resolve => {
+                            return new Promise((resolve) => {
                                 if (value == null || value.trim().length < 1) {
                                     resolve(false);
                                 } else if (countersService.counterNameExists(value)) {
@@ -87,7 +95,7 @@
                                 }
                             });
                         },
-                        validationText: "カウンタ名は他で使用されていない名前である必要があります"
+                        validationText: "カウンター名は空にできず、一意である必要があります。"
                     },
                     (newName) => {
                         counter.name = newName;

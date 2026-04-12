@@ -1,6 +1,6 @@
 "use strict";
 
-const eventManager = require("../../../../events/EventManager");
+const { EventManager } = require("../../../../events/event-manager");
 
 const EVENT_SOURCE_ID = "streamlabs";
 const EventId = {
@@ -12,60 +12,50 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "Streamlabs",
-    description: "ストリームラボからのドネーションイベント",
+    description: "Streamlabs 由来の寄付関連イベント",
     events: [
         {
             id: EventId.DONATION,
-            name: "ドネーション",
-            description: "誰かがストリームラボを通じてあなたに寄付をした場合。",
+            name: "寄付",
+            description: "誰かが Streamlabs 経由であなたに寄付したとき。",
             cached: false,
             manualMetadata: {
                 from: "StreamLabs",
                 formattedDonationAmount: 5,
-<<<<<<< HEAD
-                donationMessage: "テストメッセージ"
-=======
                 donationAmount: 5,
-                donationMessage: "Test message"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                donationMessage: "テストメッセージ"
             },
             isIntegration: true,
-            queued: true,
             activityFeed: {
                 icon: "fad fa-money-bill",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** がドネーションしました **${eventData.formattedDonationAmount}**${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                    return `**${eventData.from}** が **${eventData.formattedDonationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                 }
             }
         },
         {
             id: EventId.EXTRA_LIFE_DONATION,
-            name: "Extra Life からのドネーション",
-            description: "誰かがあなたのExtra Lifeキャンペーンに寄付した場合",
+            name: "Extra Life 寄付",
+            description: "誰かがあなたの Extra Life キャンペーンへ寄付したとき。",
             cached: false,
             manualMetadata: {
                 from: "Extra Life",
                 formattedDonationAmount: 5,
-<<<<<<< HEAD
-                donationMessage: "テストメッセージ"
-=======
                 donationAmount: 5,
-                donationMessage: "Test message"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                donationMessage: "テストメッセージ"
             },
             isIntegration: true,
-            queued: true,
             activityFeed: {
                 icon: "fad fa-money-bill",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** がドネーションしました **${eventData.formattedDonationAmount}** to ExtraLife${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                    return `**${eventData.from}** が Extra Life に **${eventData.formattedDonationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                 }
             }
         },
         {
             id: EventId.FOLLOW,
             name: "フォロー",
-            description: "誰かがあなたのTwitchチャンネルをフォローした場合（StreamLabsより）",
+            description: "誰かがあなたの Twitch チャンネルをフォローしたとき（Streamlabs 経由）。",
             cacheMetaKey: "username",
             cached: true,
             manualMetadata: {
@@ -83,7 +73,7 @@ const eventSourceDefinition = {
 };
 
 exports.registerEvents = () => {
-    eventManager.registerEventSource(eventSourceDefinition);
+    EventManager.registerEventSource(eventSourceDefinition);
 };
 
 exports.processStreamLabsEvent = (eventData) => {
@@ -92,7 +82,7 @@ exports.processStreamLabsEvent = (eventData) => {
     }
     if (eventData.type === "donation") {
         const donoData = eventData.message[0];
-        eventManager.triggerEvent(EVENT_SOURCE_ID, EventId.DONATION, {
+        EventManager.triggerEvent(EVENT_SOURCE_ID, EventId.DONATION, {
             formattedDonationAmount: donoData.formatted_amount,
             donationAmount: donoData.amount,
             donationMessage: donoData.message,
@@ -100,7 +90,7 @@ exports.processStreamLabsEvent = (eventData) => {
         });
     } else if (eventData.type === "eldonation") {
         const donoData = eventData.message[0];
-        eventManager.triggerEvent(
+        EventManager.triggerEvent(
             EVENT_SOURCE_ID,
             EventId.EXTRA_LIFE_DONATION,
             {
@@ -112,7 +102,7 @@ exports.processStreamLabsEvent = (eventData) => {
         );
     } else if (eventData.type === "follow" && eventData.for === 'twitch_account') {
         for (const message of eventData.message) {
-            eventManager.triggerEvent(
+            EventManager.triggerEvent(
                 EVENT_SOURCE_ID,
                 EventId.FOLLOW,
                 {
@@ -123,4 +113,3 @@ exports.processStreamLabsEvent = (eventData) => {
         }
     }
 };
-

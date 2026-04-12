@@ -1,21 +1,32 @@
-import { EventEmitter } from "events";
-import ClientOAuth2 from "client-oauth2";
-import logger from "../logwrapper";
-import { AuthProvider, AuthProviderDefinition } from "./auth";
-import { settings } from "../common/settings-access";
-import frontendCommunicator from "../common/frontend-communicator";
 import { Notification, app } from "electron";
-import windowManagement from "../app-management/electron/window-management";
+import { TypedEmitter } from "tiny-typed-emitter";
+import ClientOAuth2 from "client-oauth2";
 
-class AuthManager extends EventEmitter {
-    private readonly _httpPort: string;
+import type { AuthDetails, AuthProvider, AuthProviderDefinition } from "../../types/auth";
+
+import { SettingsManager } from "../common/settings-manager";
+import windowManagement from "../app-management/electron/window-management";
+import frontendCommunicator from "../common/frontend-communicator";
+import logger from "../logwrapper";
+
+type Events = {
+    "auth-success": (event: AuthSuccessEventArgs) => void;
+};
+
+interface AuthSuccessEventArgs {
+    providerId: string;
+    tokenData: AuthDetails;
+}
+
+class AuthManager extends TypedEmitter<Events> {
+    private readonly _httpPort: number;
     private _authProviders: AuthProvider[];
 
     constructor() {
         super();
 
         this._authProviders = [];
-        this._httpPort = settings.getWebServerPort();
+        this._httpPort = SettingsManager.getSetting("WebServerPort");
     }
 
     registerAuthProvider(provider: AuthProviderDefinition): void {
@@ -40,7 +51,7 @@ class AuthManager extends EventEmitter {
                 break;
 
             case "device":
-                authorizationUri = `${provider.auth.tokenHost}${provider.auth.authorizePath}`;
+                authorizationUri = `${provider.auth.authorizeHost ?? provider.auth.tokenHost}${provider.auth.authorizePath}`;
                 break;
         }
 
@@ -62,11 +73,11 @@ class AuthManager extends EventEmitter {
     }
 
     getAuthProvider(providerId: string): AuthProvider {
-        return this._authProviders.find((p) => p.id === providerId);
+        return this._authProviders.find(p => p.id === providerId);
     }
 
     buildOAuthClientForProvider(provider: AuthProviderDefinition, redirectUri: string): ClientOAuth2 {
-        let scopes;
+        let scopes: string[];
         if (provider.scopes) {
             scopes = Array.isArray(provider.scopes)
                 ? (scopes = provider.scopes)
@@ -75,7 +86,7 @@ class AuthManager extends EventEmitter {
             scopes = [];
         }
 
-        const authUri = `${provider.auth.tokenHost}${provider.auth.authorizePath}`;
+        const authUri = `${provider.auth.authorizeHost ?? provider.auth.tokenHost}${provider.auth.authorizePath}`;
         const tokenUri = `${provider.auth.tokenHost}${provider.auth.tokenPath ?? ""}`;
 
         return new ClientOAuth2({
@@ -120,11 +131,11 @@ class AuthManager extends EventEmitter {
             // Revokes both tokens, refresh token is only revoked if the access_token is properly revoked
             // TODO
         } catch (error) {
-            logger.error("Error revoking token: ", error.message);
+            logger.error("Error revoking token: ", (error as Error).message);
         }
     }
 
-    successfulAuth(providerId: string, tokenData: unknown): void {
+    successfulAuth(providerId: string, tokenData: AuthDetails): void {
         this.emit("auth-success", { providerId: providerId, tokenData: tokenData });
     }
 }
@@ -151,7 +162,7 @@ frontendCommunicator.onAsync("begin-device-auth", async (providerId: string): Pr
     });
 
     if (response.ok) {
-        const deviceAuthData = await response.json();
+        const deviceAuthData = await response.json() as ClientOAuth2.Data;
 
         frontendCommunicator.send("device-code-received", {
             loginUrl: deviceAuthData.verification_uri,
@@ -176,7 +187,7 @@ frontendCommunicator.onAsync("begin-device-auth", async (providerId: string): Pr
             if (tokenResponse.ok) {
                 clearInterval(tokenCheckInterval);
 
-                const tokenData = await tokenResponse.json();
+                const tokenData = await tokenResponse.json() as AuthDetails;
                 manager.successfulAuth(providerId, tokenData);
 
                 if (
@@ -185,8 +196,8 @@ frontendCommunicator.onAsync("begin-device-auth", async (providerId: string): Pr
                     !windowManagement.mainWindow.isFocused()
                 ) {
                     const successfulAuthNotification = new Notification({
-                        title: "Twitch認証が完了しました",
-                        body: "Firebotに戻って作業を続けて大丈夫です。"
+                        title: "Successfully authenticated with Twitch!",
+                        body: "You can return to Firebot now."
                     });
                     successfulAuthNotification.show();
                     successfulAuthNotification.on("click", () => {
@@ -196,7 +207,7 @@ frontendCommunicator.onAsync("begin-device-auth", async (providerId: string): Pr
                     });
                 }
             }
-        }, deviceAuthData.interval * 1000);
+        }, Number(deviceAuthData.interval) * 1000);
 
         frontendCommunicator.on("cancel-device-token-check", () => {
             if (tokenCheckInterval) {

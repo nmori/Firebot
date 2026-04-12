@@ -2,22 +2,20 @@
     items="effectQueuesService.effectQueues"
     on-items-update="onEffectQueuesUpdated(items)"
     headers="headers"
-    sort-tag-context="演出キュー"
+    sort-tag-context="effect queues"
     orderable="true"
-    add-new-button-text="新規演出キュー"
+    add-new-button-text="新しいエフェクトキュー"
     on-add-new-clicked="effectQueuesService.showAddEditEffectQueueModal()"
     context-menu-options="effectQueueOptions(item)"
-    no-data-message="演出キューは作成されていません"
-    none-found-message="演出キューはみつかりません"
-    search-placeholder="演出キューを検索"
+    no-data-message="保存されたエフェクトキューがありません。作成してみましょう！"
+    none-found-message="エフェクトキューが見つかりません。"
+    search-placeholder="エフェクトキューを検索"
     status-field="active"
-<<<<<<< HEAD
-></firebot-item-table>
-=======
+    status-enabled-label="有効"
+    status-disabled-label="一時停止"
 >
     <fb-item-table-toolbar>
       <firebot-button type="default" text="モニターを開く" ng-click="openEffectQueueMonitor()" />
     </fb-item-table-toolbar>
   </firebot-item-table>
 </firebot-item-table>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20

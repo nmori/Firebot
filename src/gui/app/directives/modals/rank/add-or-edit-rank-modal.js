@@ -1,7 +1,7 @@
 "use strict";
-(function () {
+(function() {
 
-    const { v4: uuid } = require("uuid");
+    const { randomUUID } = require("crypto");
 
     angular.module("firebotApp").component("addOrEditRankModal", {
         template: `
@@ -9,13 +9,13 @@
                 <button
                     type="button"
                     class="close"
-                    aria-label="Close"
+                    aria-label="閉じる"
                     ng-click="$ctrl.dismiss()"
                 >
                     <i class="fal fa-times" aria-hidden="true"></i>
                 </button>
                 <h4 class="modal-title">
-                    <div class="action text-4xl"> ランクの{{ $ctrl.isNewRank ? '追加' : '編集' }}</div>
+                    <div class="action text-4xl">{{ $ctrl.isNewRank ? 'ランクを追加' : 'ランクを編集' }}</div>
                 </h4>
             </div>
             <div class="modal-body">
@@ -30,13 +30,13 @@
                             ui-validate="{taken:'!$ctrl.isNameTaken($value)'}"
                             required
                             class="form-control input-lg"
-                            placeholder="ランクに名前をつける"
+                            placeholder="ランク名を入力"
                             ng-model="$ctrl.rank.name"
                         />
                         <div ng-if="$ctrl.formFieldHasError('name')">
                             <span ng-if="rankSettings.name.$error.required" class="help-block">名前は必須です。</span>
-                            <span ng-if="rankSettings.name.$error.minlength" class="help-block">名前は3文字以上にしてください。</span>
-                            <span ng-if="rankSettings.name.$error.taken" class="help-block">名前はすでに使われています。</span>
+                            <span ng-if="rankSettings.name.$error.minlength" class="help-block">名前は3文字以上で入力してください。</span>
+                            <span ng-if="rankSettings.name.$error.taken" class="help-block">この名前はすでに使用されています。</span>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                             id="value"
                             name="value"
                             required
-                            placeholder="Amount"
+                            placeholder="値"
                             class="form-control input-lg"
                             ng-model="$ctrl.rank.value"
                         />
@@ -65,7 +65,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function ($scope) {
+        controller: function($scope) {
             const $ctrl = this;
 
             $ctrl.isNewRank = true;
@@ -78,7 +78,7 @@
             $ctrl.currentRanks = [];
 
             $ctrl.rank = {
-                id: uuid(),
+                id: randomUUID(),
                 name: "",
                 value: undefined
             };

@@ -1,27 +1,51 @@
 "use strict";
 
-<<<<<<< HEAD
-const { viewerHasRoles } = require("../../../../../roles/role-helpers");
-=======
-const twitchApi = require("../../../../../twitch-api/api");
+const { TwitchApi } = require("../../../../../streaming-platforms/twitch/api");
 const roleHelpers = require("../../../../../roles/role-helpers").default;
-const { ComparisonType } = require("../../../../../../shared/filter-constants");
-const { mapLegacyComparisonType } = require("../../../../../../shared/filter-helpers");
-const logger = require("../../../../../logwrapper");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+
+function normalizeViewerRoleComparisonType(comparisonType) {
+    const hasRoleAliases = new Set([
+        "has role",
+        "include",
+        "is in role",
+        "including",
+        "contains",
+        "含んでいる",
+        "を配列に含む",
+        "厳格に一致"
+    ]);
+
+    const hasNotRoleAliases = new Set([
+        "doesn't have role",
+        "doesn't include",
+        "isn't in role",
+        "not including",
+        "doesn't contain",
+        "含まない",
+        "を配列に含まない",
+        "厳格に不一致"
+    ]);
+
+    if (hasRoleAliases.has(comparisonType)) {
+        return "has role";
+    }
+
+    if (hasNotRoleAliases.has(comparisonType)) {
+        return "doesn't have role";
+    }
+
+    return comparisonType;
+}
 
 module.exports = {
     id: "firebot:viewerroles",
     name: "視聴者の役割",
     description: "与えられた視聴者の役割に基づく条件",
-    comparisonTypes: [
-        ComparisonType.HAS_ROLE,
-        ComparisonType.HAS_NOT_ROLE
-    ],
+    comparisonTypes: ["has role", "doesn't have role"],
     leftSideValueType: "text",
     leftSideTextPlaceholder: "ユーザ名を入力",
     rightSideValueType: "preset",
-    getRightSidePresetValues: viewerRolesService => {
+    getRightSidePresetValues: (viewerRolesService) => {
         return viewerRolesService.getAllRoles()
             .map(r => ({
                 value: r.id,
@@ -47,25 +71,30 @@ module.exports = {
     predicate: async (conditionSettings, trigger) => {
 
         const { comparisonType, leftSideValue, rightSideValue, rawLeftSideValue } = conditionSettings;
-        
-        // 旧式のComparisonTypeを標準化
-        const standardComparisonType = mapLegacyComparisonType(comparisonType);
+        const normalizedComparisonType = normalizeViewerRoleComparisonType(comparisonType);
 
         let username = leftSideValue;
         if ((username == null || username === "") && (rawLeftSideValue == null || rawLeftSideValue === "")) {
             username = trigger.metadata.username;
         }
 
-        const hasRole = await viewerHasRoles(username, [rightSideValue]);
+        const user = await TwitchApi.users.getUserByName(username);
+        if (user == null) {
+            return false;
+        }
 
-        // シンプル化されたswitch文
-        switch (standardComparisonType) {
-            case ComparisonType.HAS_ROLE:
+        const hasRole = await roleHelpers.viewerHasRoles(user.id, [rightSideValue]);
+
+        switch (normalizedComparisonType) {
+            case "include":
+            case "is in role":
+            case "has role":
                 return hasRole;
-            case ComparisonType.HAS_NOT_ROLE:
+            case "doesn't include":
+            case "isn't in role":
+            case "doesn't have role":
                 return !hasRole;
             default:
-                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType} (標準化後: ${standardComparisonType})`);
                 return false;
         }
     }

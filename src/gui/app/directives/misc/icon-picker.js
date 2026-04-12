@@ -57,16 +57,16 @@
                         <div class="icon-picker" ng-show="showIconPicker">
                             <div class="p-4" style="border-bottom: 1px solid #48474a;">
                                 <div class="input-group" style="position: relative;">
-                                    <input id="icon-search" type="text" class="form-control pl-11" aria-label="Search icons" placeholder="Search icons..." ng-model="searchText" style="background: #484848;border-radius: 3px;">
+                                    <input id="icon-search" type="text" class="form-control pl-11" aria-label="アイコンを検索" placeholder="アイコンを検索..." ng-model="searchText" style="background: #484848;border-radius: 3px;">
                                     <span class="searchbar-icon"><i class="far fa-search"></i></span>
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter <span class="caret"></span></button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">絞り込み <span class="caret"></span></button>
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="#" ng-click="searchFilter = 'Solid'">Solid</a></li>
-                                            <li><a href="#" ng-click="searchFilter = 'Regular'">Regular</a></li>
-                                            <li><a href="#" ng-click="searchFilter = 'Light'">Light</a></li>
-                                            <li><a href="#" ng-click="searchFilter = 'Duotone'">Duotone</a></li>
-                                            <li><a href="#" ng-click="searchFilter = 'Brands'">Brands</a></li>
+                                            <li><a ng-click="searchFilter = 'Solid'">ソリッド</a></li>
+                                            <li><a ng-click="searchFilter = 'Regular'">レギュラー</a></li>
+                                            <li><a ng-click="searchFilter = 'Light'">ライト</a></li>
+                                            <li><a ng-click="searchFilter = 'Duotone'">Duotone</a></li>
+                                            <li><a ng-click="searchFilter = 'Brands'">ブランド</a></li>
                                         </ul>
                                     </div>
                                 </div>

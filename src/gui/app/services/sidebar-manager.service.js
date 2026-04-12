@@ -3,24 +3,30 @@
 (function() {
     angular
         .module("firebotApp")
-        .factory("sidebarManager", function($timeout, $rootScope, settingsService) {
+        .factory("sidebarManager", function($timeout, $rootScope, $location, $translate, settingsService, uiExtensionsService, backendCommunicator) {
             const service = {};
 
-            service.navExpanded = settingsService.getSidebarExpanded();
+            service.navExpanded = settingsService.getSetting("SidebarExpanded");
 
             service.toggleNav = function() {
                 service.navExpanded = !service.navExpanded;
                 $rootScope.$broadcast("navToggled");
-                settingsService.setSidebarExpanded(service.navExpanded);
+                settingsService.saveSetting("SidebarExpanded", service.navExpanded);
             };
 
             service.currentTab = "chat feed";
             service.currentTabName = "ダッシュボード";
 
-            service.setTab = function(tabId, name) {
+            service.fullPage = true;
+            service.disableScroll = true;
+
+            service.setTab = function(tabId, name, extensionId, extensionPageId) {
                 service.currentTab = tabId.toLowerCase();
 
                 service.currentTabName = name ? name : tabId;
+
+                service.fullPage = service.currentTabIsFullScreen(extensionId, extensionPageId);
+                service.disableScroll = service.currentTabShouldntScroll(extensionId, extensionPageId);
 
                 //hack that somewhat helps with the autoupdate slider styling issues on first load
                 $timeout(function() {
@@ -32,7 +38,12 @@
                 return service.currentTab.toLowerCase() === tabId.toLowerCase();
             };
 
-            service.currentTabIsFullScreen = function() {
+            service.currentTabIsFullScreen = function(extensionId, extensionPageId) {
+                const isExtensionPage = extensionId != null;
+                if (isExtensionPage) {
+                    const page = uiExtensionsService.getPage(extensionId, extensionPageId);
+                    return page?.fullPage ?? false;
+                }
                 return [
                     "chat feed",
                     "commands",
@@ -41,6 +52,7 @@
                     "events",
                     "timers",
                     "channel rewards",
+                    "roles and ranks",
                     "moderation",
                     "buttons",
                     "settings",
@@ -49,22 +61,96 @@
                     "effect queues",
                     "currency",
                     "quotes",
-                    "viewers"
+                    "viewers",
+                    "variable macros",
+                    "overlay widgets"
                 ].includes(service.currentTab.toLowerCase());
             };
 
-            service.currentTabShouldntScroll = function() {
+            service.currentTabShouldntScroll = function(extensionId, extensionPageId) {
+                const isExtensionPage = extensionId != null;
+                if (isExtensionPage) {
+                    const page = uiExtensionsService.getPage(extensionId, extensionPageId);
+                    return page?.disableScroll ?? false;
+                }
                 return [
                     "chat feed",
                     "commands",
-                    "preset effect lists",
                     "events",
                     "timers",
                     "channel rewards",
-                    "buttons",
-                    "settings"
+                    "roles and ranks",
+                    "preset effect lists",
+                    "variable macros",
+                    "counters",
+                    "effect queues",
+                    "settings",
+                    "overlay widgets"
                 ].includes(service.currentTab.toLowerCase());
             };
+
+            backendCommunicator.on("navigate", (tabId) => {
+                switch (tabId) {
+                    case "dashboard":
+                        $translate("SIDEBAR.CHAT.CHAT_FEED").then((tabName) => {
+                            service.setTab("chat feed", tabName);
+                            $location.path("/chat-feed");
+                        });
+                        break;
+
+                    case "commands":
+                        $translate("SIDEBAR.CHAT.COMMANDS").then((tabName) => {
+                            service.setTab("commands", tabName);
+                            $location.path("/commands");
+                        });
+                        break;
+
+                    case "events":
+                        $translate("SIDEBAR.OTHER.EVENTS").then((tabName) => {
+                            service.setTab("events", tabName);
+                            $location.path("/events");
+                        });
+                        break;
+
+                    case "time-based":
+                        $translate("SIDEBAR.OTHER.TIME_BASED").then((tabName) => {
+                            service.setTab("timers", tabName);
+                            $location.path("/timers");
+                        });
+                        break;
+
+                    case "channel-rewards":
+                        $translate("SIDEBAR.OTHER.CHANNELREWARDS").then((tabName) => {
+                            service.setTab("channel rewards", tabName);
+                            $location.path("/channel-rewards");
+                        });
+                        break;
+
+                    case "preset-effect-lists":
+                        $translate("SIDEBAR.OTHER.PRESET_EFFECT_LISTS").then((tabName) => {
+                            service.setTab("preset effect lists", tabName);
+                            $location.path("/preset-effect-lists");
+                        });
+                        break;
+
+                    case "hotkeys":
+                        $translate("SIDEBAR.OTHER.HOTKEYS").then((tabName) => {
+                            service.setTab("hotkeys", tabName);
+                            $location.path("/hotkeys");
+                        });
+                        break;
+
+                    case "counters":
+                        $translate("SIDEBAR.OTHER.COUNTERS").then((tabName) => {
+                            service.setTab("counters", tabName);
+                            $location.path("/counters");
+                        });
+                        break;
+
+                    default:
+                        break;
+                }
+            });
 
             return service;
         });
@@ -76,104 +162,86 @@
         function($routeProvider) {
             $routeProvider
 
-<<<<<<< HEAD
-                .when("/viewer-roles", {
-                templateUrl: "./templates/_viewerroles.html",
-                controller: "viewerRolesController"
-            })
-=======
                 .when("/roles-and-ranks", {
                     templateUrl: "./templates/_roles-and-ranks.html",
                     controller: "rolesAndRanksController"
                 })
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
-            .when("/", {
-                templateUrl: "./templates/chat/_chat-messages.html",
-                controller: "chatMessagesController"
-            })
+                .when("/", {
+                    templateUrl: "./templates/chat/_chat-messages.html",
+                    controller: "chatMessagesController"
+                })
 
-            .when("/chat-feed", {
-                templateUrl: "./templates/chat/_chat-messages.html",
-                controller: "chatMessagesController"
-            })
+                .when("/chat-feed", {
+                    templateUrl: "./templates/chat/_chat-messages.html",
+                    controller: "chatMessagesController"
+                })
 
-            .when("/commands", {
-                templateUrl: "./templates/chat/_commands.html",
-                controller: "commandsController"
-            })
+                .when("/commands", {
+                    templateUrl: "./templates/chat/_commands.html",
+                    controller: "commandsController"
+                })
 
-            .when("/preset-effect-lists", {
-                templateUrl: "./templates/_preset-effect-lists.html",
-                controller: "presetEffectListsController"
-            })
+                .when("/preset-effect-lists", {
+                    templateUrl: "./templates/_preset-effect-lists.html",
+                    controller: "presetEffectListsController"
+                })
 
-            .when("/effect-queues", {
-                templateUrl: "./templates/_effect-queues.html",
-                controller: "effectQueuesController"
-            })
+                .when("/effect-queues", {
+                    templateUrl: "./templates/_effect-queues.html",
+                    controller: "effectQueuesController"
+                })
 
-            .when("/channel-rewards", {
-                templateUrl: "./templates/_channel-rewards.html",
-                controller: "channelRewardsController"
-            })
+                .when("/channel-rewards", {
+                    templateUrl: "./templates/_channel-rewards.html",
+                    controller: "channelRewardsController"
+                })
 
-            .when("/moderation", {
-                templateUrl: "./templates/_moderation.html",
-                controller: "moderationController"
-            })
+                .when("/moderation", {
+                    templateUrl: "./templates/_moderation.html",
+                    controller: "moderationController"
+                })
 
-            .when("/settings", {
-                templateUrl: "./templates/_settings.html",
-                controller: "settingsController"
-            })
+                .when("/settings", {
+                    templateUrl: "./templates/_settings.html",
+                    controller: "settingsController"
+                })
 
-            .when("/updates", {
-                templateUrl: "./templates/_updates.html",
-                controller: "updatesController"
-            })
+                .when("/events", {
+                    templateUrl: "./templates/live-events/_events.html",
+                    controller: "eventsController"
+                })
 
-            .when("/events", {
-                templateUrl: "./templates/live-events/_events.html",
-                controller: "eventsController"
-            })
+                .when("/hotkeys", {
+                    templateUrl: "./templates/_hotkeys.html",
+                    controller: "hotkeysController"
+                })
 
-            .when("/hotkeys", {
-                templateUrl: "./templates/_hotkeys.html",
-                controller: "hotkeysController"
-            })
+                .when("/currency", {
+                    templateUrl: "./templates/_currency.html",
+                    controller: "currencyController"
+                })
 
-            .when("/currency", {
-                templateUrl: "./templates/_currency.html",
-                controller: "currencyController"
-            })
+                .when("/timers", {
+                    templateUrl: "./templates/_timers.html",
+                    controller: "timersController"
+                })
 
-            .when("/timers", {
-                templateUrl: "./templates/_timers.html",
-                controller: "timersController"
-            })
+                .when("/viewers", {
+                    templateUrl: "./templates/viewers/_viewers.html",
+                    controller: "viewersController"
+                })
 
-            .when("/viewers", {
-                templateUrl: "./templates/viewers/_viewers.html",
-                controller: "viewersController"
-            })
+                .when("/quotes", {
+                    templateUrl: "./templates/_quotes.html",
+                    controller: "quotesController"
+                })
 
-            .when("/quotes", {
-                templateUrl: "./templates/_quotes.html",
-                controller: "quotesController"
-            })
+                .when("/counters", {
+                    templateUrl: "./templates/_counters.html",
+                    controller: "countersController"
+                })
 
-            .when("/counters", {
-                templateUrl: "./templates/_counters.html",
-                controller: "countersController"
-            })
-
-<<<<<<< HEAD
-            .when("/games", {
-                templateUrl: "./templates/_games.html",
-                controller: "gamesController"
-            });
-=======
                 .when("/games", {
                     templateUrl: "./templates/_games.html",
                     controller: "gamesController"
@@ -184,11 +252,15 @@
                     controller: "variableMacrosController"
                 })
 
+                .when("/overlay-widgets", {
+                    templateUrl: "./templates/_overlay-widgets.html",
+                    controller: "overlayWidgetsController"
+                })
+
                 .when("/extension/:extensionId/:pageId", {
                     templateUrl: "./templates/_extension-page.html",
                     controller: "extensionPageController"
                 });
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
     ]);
 }(window.angular));

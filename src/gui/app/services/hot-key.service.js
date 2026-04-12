@@ -1,25 +1,90 @@
 "use strict";
-const profileManager = require("../../backend/common/profile-manager.js");
-const uuidv1 = require("uuid/v1");
 
 (function() {
-    // This provides methods for handling hotkeys
-
     angular
         .module("firebotApp")
-        .factory("hotkeyService", function($rootScope, logger, backendCommunicator) {
+        .factory("hotkeyService", function($rootScope, logger, backendCommunicator, modalService, platformService) {
             const service = {};
 
+            service.hotkeys = [];
+
+            const updateHotkey = (hotkey) => {
+                const index = service.hotkeys.findIndex(hk => hk.id === hotkey.id);
+                if (index > -1) {
+                    service.hotkeys[index] = hotkey;
+                } else {
+                    service.hotkeys.push(hotkey);
+                }
+            };
+
+            service.loadHotkeys = () => {
+                service.hotkeys = backendCommunicator.fireEventSync("hotkeys:get-hotkeys");
+            };
+
+            service.deleteHotkey = (hotkeyId) => {
+                service.hotkeys = service.hotkeys.filter(hk => hk.id !== hotkeyId);
+                backendCommunicator.fireEvent("hotkeys:delete-hotkey", hotkeyId);
+            };
+
+            service.saveHotkey = (hotkey) => {
+                if (hotkey == null) {
+                    return;
+                }
+
+                const savedHotkey = backendCommunicator.fireEventSync("hotkeys:save-hotkey", hotkey);
+                if (savedHotkey) {
+                    updateHotkey(savedHotkey);
+                    return true;
+                }
+
+                return false;
+            };
+
+            service.saveAllHotkeys = (hotkeys) => {
+                if (hotkeys) {
+                    service.hotkeys = hotkeys;
+                }
+
+                backendCommunicator.fireEvent("hotkeys:save-all-hotkeys", service.hotkeys);
+            };
+
+            service.toggleHotkeyActiveState = (hotkey) => {
+                if (hotkey) {
+                    hotkey.active = !hotkey.active;
+                    service.saveHotkey(hotkey);
+                }
+            };
+
+            service.showAddEditHotkeyModal = (hotkey) => {
+                modalService.showModal({
+                    component: "AddOrEditHotkeyModal",
+                    size: "mdlg",
+                    keyboard: false,
+                    resolveObj: {
+                        hotkey: () => hotkey
+                    },
+                    closeCallback: (response) => {
+                        if (response && response.hotkey) {
+                            backendCommunicator.send("hotkeys:resume-hotkeys");
+                        }
+                    }
+                });
+            };
+
+            backendCommunicator.on("all-hotkeys-updated", (hotkeys) => {
+                service.hotkeys = hotkeys;
+            });
+
             /**
-       * Hotkey Capturing
-       */
+             * Hotkey Capturing
+             */
             service.isCapturingHotkey = false;
 
             // keys not accepted by Electron for global shortcuts
             const prohibitedKeys = ["CapsLock", "NumLock", "ScrollLock", "Pause"];
 
             // this maps keys to codes accepted in Electron's Accelerator strings, used for global shortcuts
-            function mapKeyToAcceleratorCode(key, location) {
+            const mapKeyToAcceleratorCode = (key, location) => {
                 if (location === 3) {
                     switch (key) {
                         case "0":
@@ -78,9 +143,9 @@ const uuidv1 = require("uuid/v1");
                         }
                         return key;
                 }
-            }
+            };
 
-            function getDisplayNameFromKeyCode(keyCode) {
+            const getDisplayNameFromKeyCode = (keyCode) => {
                 if (keyCode.startsWith("num")) {
                     switch (keyCode) {
                         case "numadd":
@@ -101,14 +166,20 @@ const uuidv1 = require("uuid/v1");
                 switch (keyCode) {
                     case "CmdOrCtrl":
                         return "Ctrl";
-                    case "Super":
+                    case "Super": {
+                        if (platformService.isMacOs) {
+                            return "Cmd";
+                        } else if (platformService.isLinux) {
+                            return "Super";
+                        }
                         return "Windows";
+                    }
                     default:
                         return keyCode;
                 }
-            }
+            };
 
-            function keyCodeIsModifier(keyCode) {
+            const keyCodeIsModifier = (keyCode) => {
                 switch (keyCode) {
                     case "CmdOrCtrl":
                     case "Super":
@@ -118,17 +189,17 @@ const uuidv1 = require("uuid/v1");
                     default:
                         return false;
                 }
-            }
+            };
 
-            function getAcceleratorCodeFromKeys(keys) {
+            const getAcceleratorCodeFromKeys = (keys) => {
                 return keys.map(k => k.code).join("+");
-            }
+            };
 
             let cachedKeys = [];
             let releasedKeyCodes = [];
             let stopCallback;
 
-            const keyDownListener = function(event) {
+            const keyDownListener = (event) => {
                 if (!service.isCapturingHotkey) {
                     return;
                 }
@@ -147,7 +218,7 @@ const uuidv1 = require("uuid/v1");
                 }
 
                 //clear out any keys that have since been released
-                releasedKeyCodes.forEach(k => {
+                releasedKeyCodes.forEach((k) => {
                     const normalizedK = k.toUpperCase();
                     if (
                         cachedKeys.some(key => key.rawKey.toUpperCase() === normalizedK)
@@ -177,7 +248,7 @@ const uuidv1 = require("uuid/v1");
                 }
             };
 
-            const keyUpListener = function(event) {
+            const keyUpListener = (event) => {
                 if (!service.isCapturingHotkey) {
                     return;
                 }
@@ -185,7 +256,7 @@ const uuidv1 = require("uuid/v1");
                 releasedKeyCodes.push(event.key);
             };
 
-            const clickListener = function(event) {
+            const clickListener = (event) => {
                 if (service.isCapturingHotkey) {
                     event.stopPropagation();
                     event.stopImmediatePropagation();
@@ -194,10 +265,10 @@ const uuidv1 = require("uuid/v1");
                 service.stopHotkeyCapture();
             };
 
-            service.startHotkeyCapture = function(callback) {
+            service.startHotkeyCapture = (callback) => {
                 if (service.isCapturingHotkey) {
                     throw new Error(
-                        "キャプチャがすでに実行されているときに、ホットキーキャプチャを開始しようとしました。"
+                        "Attempted to start a hotkey capture when capturing is already in progress."
                     );
                 }
 
@@ -210,7 +281,7 @@ const uuidv1 = require("uuid/v1");
                 window.addEventListener("click", clickListener, true);
             };
 
-            service.stopHotkeyCapture = function() {
+            service.stopHotkeyCapture = () => {
                 if (service.isCapturingHotkey) {
                     logger.info("Stopping hotkey recording");
                     window.removeEventListener("keydown", keyDownListener, true);
@@ -225,11 +296,11 @@ const uuidv1 = require("uuid/v1");
                 window.removeEventListener("click", clickListener, true);
             };
 
-            service.getCurrentlyPressedHotkey = function() {
+            service.getCurrentlyPressedHotkey = () => {
                 return JSON.parse(JSON.stringify(cachedKeys));
             };
 
-            service.getDisplayFromAcceleratorCode = function(code) {
+            service.getDisplayFromAcceleratorCode = (code) => {
                 if (code == null) {
                     return "";
                 }
@@ -241,79 +312,11 @@ const uuidv1 = require("uuid/v1");
                 return keys.join(" + ");
             };
 
-            /**
-             * Hotkey Data Access
-             */
-
-            let userHotkeys = [];
-
-            service.loadHotkeys = function() {
-                const hotkeyDb = profileManager.getJsonDbInProfile("/hotkeys");
-                try {
-                    const hotkeyData = hotkeyDb.getData("/");
-                    if (hotkeyData != null && hotkeyData.length > 0) {
-                        userHotkeys = hotkeyData || [];
-                    }
-                } catch (err) {
-                    logger.error(err);
-                }
-            };
-
-            function saveHotkeysToFile() {
-                const hotkeyDb = profileManager.getJsonDbInProfile("/hotkeys");
-                try {
-                    hotkeyDb.push("/", userHotkeys);
-                } catch (err) {
-                    logger.error(err);
-                }
-
-                // Refresh the backend hotkeycache
-                ipcRenderer.send("refreshHotkeyCache");
-            }
-
-            service.saveHotkey = function(hotkey) {
-                hotkey.id = uuidv1();
-
-                userHotkeys.push(hotkey);
-
-                saveHotkeysToFile();
-            };
-
-            service.updateHotkey = function(hotkey) {
-                const index = userHotkeys.findIndex(k => k.id === hotkey.id);
-
-                userHotkeys[index] = hotkey;
-
-                saveHotkeysToFile();
-            };
-
-            service.deleteHotkey = function(hotkey) {
-                userHotkeys = userHotkeys.filter(k => k.id !== hotkey.id);
-
-                saveHotkeysToFile();
-            };
-
-            service.hotkeyCodeExists = function(hotkeyId, hotkeyCode) {
-                return userHotkeys.some(
+            service.hotkeyCodeExists = (hotkeyId, hotkeyCode) => {
+                return service.hotkeys.some(
                     k => k.code === hotkeyCode && k.id !== hotkeyId
                 );
             };
-
-            service.getHotkeys = function() {
-                return userHotkeys;
-            };
-
-            service.loadHotkeys();
-
-            backendCommunicator.on("import-hotkeys-update", () => {
-                service.loadHotkeys();
-            });
-
-            backendCommunicator.on("remove-hotkey", (hotkeyId) => {
-                service.service.deleteHotkey({
-                    id: hotkeyId
-                });
-            });
 
             return service;
         });

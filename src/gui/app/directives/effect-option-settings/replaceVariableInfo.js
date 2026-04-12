@@ -6,7 +6,7 @@
             trigger: "<"
         },
         template: `
-            <eos-collapsable-panel show-label="Show Text Variables" hide-label="Hide Text Variables">
+            <eos-collapsable-panel show-label="テキスト変数を表示" hide-label="テキスト変数を非表示">
                 <div>
 
                 </div>

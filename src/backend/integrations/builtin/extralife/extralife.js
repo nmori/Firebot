@@ -1,6 +1,7 @@
 "use strict";
 const EventEmitter = require("events");
 const { extraLifePollService } = require("./extralife-poll");
+const extraLifeVariableLoader = require("./variables/extralife-variable-loader");
 
 const integrationDefinition = {
     id: "extralife",
@@ -10,11 +11,11 @@ const integrationDefinition = {
     linkType: "id",
     idDetails: {
         steps:
-            `1. ナビリンクの**Your Page** からExtraLifeページに移動します。
+`1. **Your Page** ナビリンクから ExtraLife ページを開きます。
 
-2. URLバーにある「参加者ID」を探してください \`participantID=\`.
+2. URL バーの "Participant ID" を確認します。\`participantID=\` の後ろの数字が対象です。
 
-3. 参加者IDを以下に貼り付けてください。`
+3. その Participant ID を下に貼り付けてください。`
     }
 };
 
@@ -24,38 +25,35 @@ class ExtraLifeIntegration extends EventEmitter {
         this.connected = false;
     }
     init() {
-        const eventManager = require("../../../events/EventManager");
-        eventManager.registerEventSource({
+        const { EventManager } = require("../../../events/event-manager");
+        EventManager.registerEventSource({
             id: "extralife",
             name: "ExtraLife",
-            description: "ExtraLife 寄付イベント",
+            description: "ExtraLife 由来の寄付イベント",
             events: [
                 {
                     id: "donation",
-                    name: "ドネートされたとき",
-                    description: "誰かがあなたのExtraLife キャンペーンに寄付した場合",
+                    name: "寄付",
+                    description: "誰かがあなたの ExtraLife キャンペーンへ寄付したとき。",
                     cached: false,
                     manualMetadata: {
                         from: "ExtraLife",
                         formattedDonationAmount: 5,
-<<<<<<< HEAD
-                        donationMessage: "テストメッセージ"
-=======
                         donationAmount: 5,
-                        donationMessage: "Test message"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                        donationMessage: "テストメッセージ"
                     },
                     isIntegration: true,
-                    queued: true,
                     activityFeed: {
                         icon: "fad fa-money-bill",
                         getMessage: (eventData) => {
-                            return `**${eventData.from}** donated **${eventData.formattedDonationAmount}** to ExtraLife${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                            return `**${eventData.from}** が ExtraLife に **${eventData.formattedDonationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                         }
                     }
                 }
             ]
         });
+
+        extraLifeVariableLoader.registerVariables();
 
         extraLifePollService.on("connected", () => {
             this.connected = true;
@@ -87,7 +85,7 @@ class ExtraLifeIntegration extends EventEmitter {
         extraLifePollService.stop();
         this.emit("disconnected", integrationDefinition.id);
     }
-    link() { }
+    link() {}
     unlink() {
         if (this.connected) {
             this.connected = false;

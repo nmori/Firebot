@@ -1,6 +1,11 @@
 // Global
 notificationShown = false;
 
+// Shim for default generation
+function uuid() {
+    return uuidv4();
+}
+
 // https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
 function uuidv4() {
 	return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -18,9 +23,9 @@ function notification(status, text){
 		notificationShown = true;
 		$('body').prepend('<div class="notification" style="display:none"><p>'+text+'</p></div>');
 		$('.notification').fadeIn('fast');
-		setTimeout(function(){ 
+		setTimeout(function(){
 			$(".notification p").text("I'll keep trying in the background...");
-			setTimeout(function(){ 
+			setTimeout(function(){
 				$(".notification").fadeOut(300, function() { $(this).remove(); });
 			}, 5000);
 		}, 30000);
@@ -62,29 +67,33 @@ $.fn.extend({
 				if(animationDelay) {
 					element.css("animation-delay", "");
 				}
-	
+
 				element.removeClass('animated ' + animationName);
 
-				callback(data);
+                if(callback != null) {
+                    callback(data);
+                }
 			});
 		} else {
-			callback(data);
-		}	
+            if(callback != null) {
+                callback(data);
+            }
+		}
         return this;
     }
 });
 
 function showTimedAnimatedElement(
-	elementClass, 
-	enterAnimation, 
+	elementClass,
+	enterAnimation,
 	enterDuration,
 	inbetweenAnimation,
 	inbetweenDelay,
-	inbetweenDuration, 
+	inbetweenDuration,
 	inbetweenRepeat,
-	exitAnimation, 
-	exitDuration, 
-	duration, 
+	exitAnimation,
+	exitDuration,
+	duration,
 	tokenArg,
 	completeCallback = null) {
 	enterAnimation = enterAnimation ? enterAnimation : "fadeIn";
@@ -92,19 +101,15 @@ function showTimedAnimatedElement(
 	inbetweenAnimation = inbetweenAnimation ? inbetweenAnimation : "none";
 	var id = `${elementClass}`;
 	$(id).find(".inner-position").animateCss(enterAnimation, enterDuration, null, null, (data) => {
-		
-		$(data.id).find(".inner-position").animateCss(data.inbetweenAnimation, data.inbetweenDuration, data.inbetweenDelay, data.inbetweenRepeat);
-<<<<<<< HEAD
 
-		setTimeout(function(){ 
-=======
+		$(data.id).find(".inner-position").animateCss(data.inbetweenAnimation, data.inbetweenDuration, data.inbetweenDelay, data.inbetweenRepeat);
+
 		setTimeout(function(){
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 			if(data.inbetweenAnimation) {
 				$(data.id).find(".inner-position").css("animation-duration", "");
 				$(data.id).find(".inner-position").css("animation-delay", "");
 				$(data.id).find(".inner-position").css("animation-iteration-count", "");
-				$(data.id).find(".inner-position").removeClass('animated ' + data.inbetweenAnimation);				
+				$(this).find(".inner-position").removeClass('animated ' + data.inbetweenAnimation);
 			}
 			$(data.id).find(".inner-position").animateCss(data.exitAnimation, data.exitDuration, null, null, (data1) => {
 				$(data1.id).remove();
@@ -112,30 +117,21 @@ function showTimedAnimatedElement(
 					completeCallback();
 				}
 			}, data);
-<<<<<<< HEAD
 		}, (duration === 0 || duration != null) ? duration : 5000);
-	}, { 
-		token: tokenArg, 
-		id: id, 
-		exitAnimation: exitAnimation, 
-=======
-		}, (data.duration != null && data.duration > 0) ? data.duration : 500);
 	}, {
 		token: tokenArg,
 		id: id,
 		exitAnimation: exitAnimation,
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 		exitDuration: exitDuration,
 		inbetweenAnimation: inbetweenAnimation,
 		inbetweenDuration: inbetweenDuration,
 		inbetweenDelay: inbetweenDelay,
-		inbetweenRepeat: inbetweenRepeat,
-		duration: duration
+		inbetweenRepeat: inbetweenRepeat
 	});
 }
 
 function getPositionWrappedHTML(uniqueId, positionData, html) {
-    
+
     // when using 'Custom' position, the user has defined exact top/left pixels
 	let styles = "";
 	if (positionData.position === "Custom") {
@@ -143,17 +139,17 @@ function getPositionWrappedHTML(uniqueId, positionData, html) {
 	}
 
 	//normalize position
-	let position = positionData.position ? 
+	let position = positionData.position ?
 		positionData.position.replace(/\s/, "-").toLowerCase() : "middle";
 
 	let positionWrappedHtml = `
 		<div id="${uniqueId}" class="position-wrapper ${position}">
 			<div class="inner-position" style="${styles}">
 				${html}
-			</div>		
+			</div>
 		</div>
     `;
-    
+
     return positionWrappedHtml;
 }
 
@@ -162,43 +158,45 @@ function showElement(
 	positionData,
 	animationData
 ){
-	let uniqueId = uuidv4();
+	let uniqueId = uuid();
 
 	let positionWrappedHtml = getPositionWrappedHTML(uniqueId, positionData, effectHTML);
 
 	$('.wrapper').append(positionWrappedHtml);
 
 	showTimedAnimatedElement(
-		"#" + uniqueId, 
-		animationData.enterAnimation, 
+		"#" + uniqueId,
+		animationData.enterAnimation,
 		animationData.enterDuration,
 		animationData.inbetweenAnimation,
 		animationData.inbetweenDelay,
-		animationData.inbetweenDuration, 
+		animationData.inbetweenDuration,
 		animationData.inbetweenRepeat,
-		animationData.exitAnimation, 
-		animationData.exitDuration, 
-		animationData.totalDuration, 
+		animationData.exitAnimation,
+		animationData.exitDuration,
+		animationData.totalDuration,
 		animationData.resourceToken
 	);
+
+    return uniqueId;
 }
 
 function getStylesForCustomCoords(customCoords) {
-	
+
 	var style = "position:absolute;margin:auto;"
-	if(customCoords.top !== null) {
+	if(customCoords.top != null) {
 		style = style + "top:" + customCoords.top.toString() + "px;"
 	}
-	if(customCoords.bottom !== null) {
+	if(customCoords.bottom != null) {
 		style = style + "bottom:" + customCoords.bottom.toString() + "px;"
 	}
-	if(customCoords.left !== null) {
+	if(customCoords.left != null) {
 		style = style + "left:" + customCoords.left.toString() + "px;"
 	}
-	if(customCoords.right !== null) {
+	if(customCoords.right != null) {
 		style = style + "right:" + customCoords.right.toString() + "px;"
 	}
-	
+
 	return style;
 }
 

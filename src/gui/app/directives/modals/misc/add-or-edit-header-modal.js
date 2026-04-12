@@ -6,14 +6,14 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">ヘッダーの{{$ctrl.isNew ? '追加' : '編集'}}</h4>
+                    <h4 class="modal-title">{{$ctrl.isNew ? '追加' : '編集'}} ヘッダー</h4>
                 </div>
                 <div class="modal-body">
 
                     <form name="headerInfo">
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('key')}">
-                            <label for="key" class="control-label">Key</label>
+                            <label for="key" class="control-label">キー</label>
                             <input 
                                 type="text" 
                                 id="key" 
@@ -29,13 +29,13 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('value')}">
-                            <label for="value" class="control-label">Value</label>
+                            <label for="value" class="control-label">値</label>
                             <input 
                                 type="text" 
                                 id="value" 
                                 name="value" 
                                 class="form-control input-lg" 
-                                placeholder="値の入力"
+                                placeholder="値を入力"
                                 ng-model="$ctrl.header.value"
                                 ui-validate="'$value != null && $value.length > 0'" 
                                 required

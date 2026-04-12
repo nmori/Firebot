@@ -1,19 +1,40 @@
 "use strict";
-const electron = require("electron");
-const { app, ipcMain, dialog, shell } = electron;
 
-const path = require("path");
-
+const { app, dialog, shell, autoUpdater } = require("electron");
+const os = require('os');
 const logger = require("../logwrapper");
+const { restartApp } = require("../app-management/electron/app-helpers");
+const { copyDebugInfoToClipboard } = require("../common/debug-info");
+
+function getLocalIpAddress() {
+    try {
+        const networkInterfaces = os.networkInterfaces();
+        for (const interfaceName of Object.keys(networkInterfaces)) {
+            const addresses = networkInterfaces[interfaceName];
+            for (const address of addresses) {
+                // Look for IPv4 addresses that are not internal (loopback)
+                if (address.family === 'IPv4' && !address.internal) {
+                    return address.address;
+                }
+            }
+        }
+    } catch {}
+    return null;
+}
 
 exports.setupCommonListeners = () => {
-
     const frontendCommunicator = require("./frontend-communicator");
-    const dataAccess = require("./data-access");
-    const profileManager = require("./profile-manager");
-    const { settings } = require("./settings-access");
-    const backupManager = require("../backup-manager");
+    const { SettingsManager } = require("./settings-manager");
+    const { BackupManager } = require("../backup-manager");
     const webServer = require("../../server/http-server-manager");
+
+    frontendCommunicator.onAsync("get-ip-address", async () => {
+        return getLocalIpAddress();
+    });
+
+    frontendCommunicator.onAsync("getPlatform", async () => {
+        return process.platform;
+    });
 
     frontendCommunicator.on("show-twitch-preview", () => {
         const windowManagement = require("../app-management/electron/window-management");
@@ -25,7 +46,7 @@ exports.setupCommonListeners = () => {
         windowManagement.createVariableInspectorWindow();
     });
 
-    frontendCommunicator.onAsync("show-save-dialog", async data => {
+    frontendCommunicator.onAsync("show-save-dialog", async (data) => {
         /**@type {Electron.SaveDialogOptions} */
         const options = data.options || {};
 
@@ -39,7 +60,7 @@ exports.setupCommonListeners = () => {
         return dialogResult;
     });
 
-    frontendCommunicator.onAsync("open-file-browser", async data => {
+    frontendCommunicator.onAsync("open-file-browser", async (data) => {
         const uuid = data.uuid,
             options = data.options || {};
 
@@ -64,191 +85,58 @@ exports.setupCommonListeners = () => {
         return { path: path, id: uuid };
     });
 
-    frontendCommunicator.on("highlight-message", data => {
-        const eventsManager = require("../events/EventManager");
-        eventsManager.triggerEvent("firebot", "highlight-message", data);
+    frontendCommunicator.on("highlight-message", (data) => {
+        const { EventManager } = require("../events/event-manager");
+        EventManager.triggerEvent("firebot", "highlight-message", data);
     });
 
-    frontendCommunicator.on("category-changed", category => {
-        const eventsManager = require("../events/EventManager");
-        eventsManager.triggerEvent("firebot", "category-changed", {category: category});
+    frontendCommunicator.on("category-changed", (category) => {
+        const { EventManager } = require("../events/event-manager");
+        EventManager.triggerEvent("firebot", "category-changed", { category: category });
     });
 
-    // Front old main
+    frontendCommunicator.on("restartApp", () => restartApp());
 
-    // restarts the app
-    ipcMain.on("restartApp", () => {
-        const chatModerationManager = require("../chat/moderation/chat-moderation-manager");
-        chatModerationManager.stopService();
-        setTimeout(() => {
-            app.relaunch({ args: process.argv.slice(1).concat(["--relaunch"]) });
-            app.exit(0);
-        }, 100);
-    });
-
-    // Opens the firebot root folder
-    ipcMain.on("openRootFolder", () => {
-        const rootFolder = path.resolve(
-            profileManager.getPathInProfile("/")
-        );
-        shell.openPath(rootFolder);
-    });
-
-    // Opens the firebot root folder
-    ipcMain.on("openLogsFolder", () => {
-        const rootFolder = path.resolve(
-            dataAccess.getPathInUserData("/logs/")
-        );
-        shell.openPath(rootFolder);
-    });
-
-    // Get Import Folder Path
-    // This listens for an event from the render media.js file to open a dialog to get a filepath.
-    ipcMain.on("getImportFolderPath", (event, uniqueid) => {
-        const path = dialog.showOpenDialogSync({
-            title: "Select 'user-settings' folder",
-            buttonLabel: "Import 'user-settings'",
-            properties: ["openDirectory"]
-        });
-        event.sender.send("gotImportFolderPath", { path: path, id: uniqueid });
-    });
-
-    // Get Get Backup Zip Path
-    // This listens for an event from the render media.js file to open a dialog to get a filepath.
-    ipcMain.on("getBackupZipPath", (event, uniqueid) => {
-        const backupsFolderPath = path.resolve(
-            `${dataAccess.getUserDataPath() + path.sep}backups${path.sep}`
-        );
-
-        const fs = require("fs");
-        let backupsFolderExists = false;
-        try {
-            backupsFolderExists = fs.existsSync(backupsFolderPath);
-        } catch (err) {
-            logger.warn("cannot check if backup folder exists", err);
-        }
-
-        const zipPath = dialog.showOpenDialogSync({
-            title: "Select backup zp",
-            buttonLabel: "Select Backup",
-            defaultPath: backupsFolderExists ? backupsFolderPath : undefined,
-            filters: [{ name: "Zip", extensions: ["zip"] }]
-        });
-        event.sender.send("gotBackupZipPath", { path: zipPath, id: uniqueid });
-    });
-
-    // Opens the firebot backup folder
-    ipcMain.on("openBackupFolder", () => {
-        // We include "fakefile.txt" as a workaround to make it open into the 'root' folder instead
-        // of opening to the poarent folder with 'Firebot'folder selected.
-        const backupFolder = path.resolve(`${dataAccess.getUserDataPath() + path.sep}backups${path.sep}`);
-        shell.openPath(backupFolder);
-    });
-
-    ipcMain.on("startBackup", (event, manualActivation = false) => {
-        backupManager.startBackup(manualActivation, () => {
-            logger.info("backup complete");
-            renderWindow.webContents.send("backupComplete", manualActivation);
-        });
-    });
-
-    // When we get an event from the renderer to create a new profile.
-    ipcMain.on("createProfile", (_, profileName) => {
-        profileManager.createNewProfile(profileName);
-    });
-
-    // When we get an event from the renderer to delete a particular profile.
-    ipcMain.on("deleteProfile", () => {
-        profileManager.deleteProfile();
+    frontendCommunicator.on("open-backup-folder", () => {
+        shell.openPath(BackupManager.backupFolderPath);
     });
 
     // Change profile when we get event from renderer
-    ipcMain.on("switchProfile", function(_, profileId) {
-        profileManager.logInProfile(profileId);
-    });
-
-    ipcMain.on("renameProfile", function(_, newProfileId) {
-        profileManager.renameProfile(newProfileId);
-    });
-
-    // Get Any kind of file Path
-    // This listens for an event from the front end.
-    ipcMain.on("getAnyFilePath", (event, data) => {
-        const uuid = data.uuid,
-            options = data.options || {};
-
-        const path = dialog.showOpenDialogSync({
-            title: options.title ? options.title : undefined,
-            buttonLabel: options.buttonLabel ? options.buttonLabel : undefined,
-            properties: options.directoryOnly ? ["openDirectory"] : ["openFile"],
-            filters: options.filters ? options.filters : undefined,
-            defaultPath: data.currentPath ? data.currentPath : undefined
-        });
-
-        event.sender.send("gotAnyFilePath", { path: path, id: uuid });
-    });
-
-    // Change profile when we get event from renderer
-    ipcMain.on("sendToOverlay", function(_, data) {
+    frontendCommunicator.on("sendToOverlay", (data) => {
         if (data == null) {
             return;
         }
         webServer.sendToOverlay(data.event, data.meta);
     });
 
-    const updaterOptions = {
-        repo: "nmori/firebot",
-        currentVersion: app.getVersion()
-    };
+    const updateFeedUrl = `https://update.electronjs.org/nmori/Firebot/win32/${app.getVersion()}`;
 
-    ipcMain.on("downloadUpdate", async () => {
-        const GhReleases = require("electron-gh-releases");
-
+    frontendCommunicator.on("downloadUpdate", async () => {
         //back up first
-        if (settings.backupBeforeUpdates()) {
-            await backupManager.startBackup();
+        if (SettingsManager.getSetting("BackupBeforeUpdates")) {
+            await BackupManager.startBackup();
         }
 
-        // Download Update
-        const updater = new GhReleases(updaterOptions);
-
-        updater.check(err => {
-            // Download the update
-            updater.download();
-
-            if (err) {
-                logger.info(err);
-            }
-        });
+        autoUpdater.setFeedURL({ url: updateFeedUrl });
+        autoUpdater.checkForUpdates();
 
         // When an update has been downloaded
-        updater.on("update-downloaded", () => {
+        autoUpdater.on("update-downloaded", () => {
             logger.info("Updated downloaded.");
             //let the front end know and wait a few secs.
-            renderWindow.webContents.send("updateDownloaded");
+            frontendCommunicator.send("updateDownloaded");
 
             // Prepare for update install on next run
-            settings.setJustUpdated(true);
+            SettingsManager.saveSetting("JustUpdated", true);
         });
     });
 
-    ipcMain.on("installUpdate", () => {
+    frontendCommunicator.on("installUpdate", () => {
         logger.info("Installing update...");
-        renderWindow.webContents.send("installingUpdate");
+        frontendCommunicator.send("installingUpdate");
 
-        const GhReleases = require("electron-gh-releases");
-
-        // Download Update
-        const updater = new GhReleases(updaterOptions);
-
-        updater.install();
-
-        // Access electrons autoUpdater
-        // eslint-disable-next-line no-unused-expressions
-        updater.autoUpdater;
+        autoUpdater.quitAndInstall();
     });
-};
-<<<<<<< HEAD
 
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+    frontendCommunicator.on("copy-debug-info-to-clipboard", copyDebugInfoToClipboard);
+};

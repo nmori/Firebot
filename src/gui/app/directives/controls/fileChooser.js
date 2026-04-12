@@ -13,13 +13,9 @@
             },
             template: `
             <div style="display: flex;flex-direction: row;align-items: center;">
-                <button class="btn btn-default" ng-click="$ctrl.openFileExporer()">
-                    {{ $ctrl.isFile ? 'ファイルを選ぶ' : 'フォルダを選ぶ' }}
-                </button>
-                <span style="padding-left: 10px;font-size: 12px;max-width: 400px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
-                    {{ $ctrl.model ? $ctrl.model : "選択されていません" }}
-                </span>
-                <span ng-hide="$ctrl.hideManualEdit" class="clickable" style="margin-left: 10px" ng-click="$ctrl.editFilePath()" uib-tooltip="Edit filepath manually" tooltip-append-to-body="true"><i class="fal fa-edit"></i></span>
+                <button class="btn btn-default" ng-click="$ctrl.openFileExporer()">{{ $ctrl.isFile ? 'ファイルを選択' : 'フォルダーを選択' }}</button>
+                <span style="padding-left: 10px;font-size: 12px;max-width: 400px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{$ctrl.model ? $ctrl.model : "ファイルが選択されていません。"}}</span>
+                <span ng-hide="$ctrl.hideManualEdit" class="clickable" style="margin-left: 10px" ng-click="$ctrl.editFilePath()" uib-tooltip="ファイルパスを手動で編集" tooltip-append-to-body="true"><i class="fal fa-edit"></i></span>
                 <span ng-if="$ctrl.model != null && $ctrl.model !== ''" class="clickable" style="margin-left: 10px" ng-click="$ctrl.model = null"><i class="fal fa-times-circle"></i></span>
             </div>
             `,
@@ -35,7 +31,7 @@
 
                 ctrl.clearPath = function() {
                     ctrl.model = null;
-                    ctrl.onUpdate({filepath: ''});
+                    ctrl.onUpdate({ filepath: '' });
                 };
 
                 const { trigger, triggerMeta } = $scope.$parent;
@@ -43,15 +39,15 @@
                     utilityService.openGetInputModal(
                         {
                             model: ctrl.model,
-                            label: "ファイルの位置を編集",
-                            saveText: "保存する",
+                            label: "ファイルパスを編集",
+                            saveText: "保存",
                             validationFn: () => true,
                             trigger: trigger,
                             triggerMeta: triggerMeta
                         },
                         (path) => {
                             ctrl.model = path;
-                            ctrl.onUpdate({filepath: path});
+                            ctrl.onUpdate({ filepath: path });
                         });
                 };
 
@@ -61,13 +57,13 @@
                             options: ctrl.options,
                             currentPath: ctrl.model && ctrl.model !== "" ? ctrl.model : undefined
                         }))
-                        .then(response => {
+                        .then((response) => {
                             if (response.path == null) {
                                 return;
                             }
 
                             ctrl.model = response.path;
-                            ctrl.onUpdate({filepath: response.path});
+                            ctrl.onUpdate({ filepath: response.path });
                         });
                 };
             }

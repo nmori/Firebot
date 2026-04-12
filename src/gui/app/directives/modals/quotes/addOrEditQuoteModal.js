@@ -9,29 +9,29 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">{{$ctrl.isNewQuote ? '引用IDの追加' : '引用IDの編集 ' + $ctrl.quote._id}}</h4>
+                    <h4 class="modal-title">{{$ctrl.isNewQuote ? '新しい引用を追加' : '引用ID ' + $ctrl.quote._id + ' を編集'}}</h4>
                 </div>
                 <div class="modal-body">
                     <div>
                         <div class="modal-subheader" style="padding: 0 0 4px 0">
-                            引用文
+                            引用テキスト
                         </div>
                         <div style="width: 100%; position: relative;">
                             <div class="form-group" ng-class="{'has-error': $ctrl.textError}">
                                 <textarea id="textField" ng-model="$ctrl.quote.text" class="form-control" name="text" placeholder="テキストを入力" rows="4" cols="40" aria-describedby="textHelpBlock"></textarea>
-                                <span id="textHelpBlock" class="help-block" ng-show="$ctrl.textError">引用文をいれてください</span>
+                                <span id="textHelpBlock" class="help-block" ng-show="$ctrl.textError">引用テキストを入力してください。</span>
                             </div>
                         </div>
                     </div>
 
                     <div>
                         <div class="modal-subheader" style="padding: 0 0 4px 0">
-                            作成者
+                            投稿者
                         </div>
                         <div style="width: 100%; position: relative;">
                             <div class="form-group" ng-class="{'has-error': $ctrl.authorError}">
-                                <input type="text" id="authorField" class="form-control" ng-model="$ctrl.quote.originator" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="authorHelpBlock" placeholder="ユーザ名を入力">
-                                <span id="authorHelpBlock" class="help-block" ng-show="$ctrl.authorError">ユーザ名を入れてください.</span>
+                                <input type="text" id="authorField" class="form-control" ng-model="$ctrl.quote.originator" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="authorHelpBlock" placeholder="ユーザー名を入力">
+                                <span id="authorHelpBlock" class="help-block" ng-show="$ctrl.authorError">投稿者のユーザー名を入力してください。</span>
                             </div>
                         </div>
                     </div>
@@ -54,12 +54,12 @@
 
                     <div>
                         <div class="modal-subheader" style="padding: 0 0 4px 0">
-                            カテゴリ/ゲーム
+                            カテゴリー/ゲーム
                         </div>
                         <div style="width: 100%; position: relative;">
                             <div class="form-group" ng-class="{'has-error': $ctrl.gameError}">
                                 <input type="text" id="gameField" class="form-control" ng-model="$ctrl.quote.game" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="gameHelpBlock" placeholder="ゲーム名を入力">
-                                <span id="gameHelpBlock" class="help-block" ng-show="$ctrl.gameError">カテゴリかゲーム名を入れてください</span>
+                                <span id="gameHelpBlock" class="help-block" ng-show="$ctrl.gameError">カテゴリー/ゲーム名を入力してください。</span>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function(accountAccess) {
+            controller: function(accountAccess, utilityService) {
                 const $ctrl = this;
 
                 $ctrl.isNewQuote = true;
@@ -112,12 +112,23 @@
                         return;
                     }
 
-                    $ctrl.close({
-                        $value: {
-                            quote: $ctrl.quote,
-                            action: "delete"
-                        }
-                    });
+                    utilityService
+                        .showConfirmationModal({
+                            title: "引用を削除",
+                            question: "この引用を削除してもよろしいですか？",
+                            confirmLabel: "削除",
+                            confirmBtnType: "btn-danger"
+                        })
+                        .then((confirmed) => {
+                            if (confirmed) {
+                                $ctrl.close({
+                                    $value: {
+                                        quote: $ctrl.quote,
+                                        action: "delete"
+                                    }
+                                });
+                            }
+                        });
                 };
 
                 $ctrl.textError = false;

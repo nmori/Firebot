@@ -4,22 +4,22 @@ import { setCurrentScene } from "../obs-remote";
 export const ChangeSceneEffectType: EffectType<{
     sceneName: string;
 }> = {
-  definition: {
-    id: "ebiggz:obs-change-scene",
-    name: "OBSシーン切替",
-    description: "OBSシーンに切替える",
-    icon: "fad fa-tv",
-    categories: ["common"],
-  },
-  optionsTemplate: `
-    <eos-container header="切り替え先シーン">
+    definition: {
+        id: "ebiggz:obs-change-scene",
+        name: "OBSシーン変更",
+        description: "有効な OBS シーンを変更します",
+        icon: "fad fa-tv",
+        categories: ["common", "integrations"]
+    },
+    optionsTemplate: `
+    <eos-container header="New Scene">
         <div ng-hide="effect.custom === true">
-            <button class="btn btn-link" ng-click="getScenes()">リストを更新</button>
-            <span class="muted">({{ isObsConfigured ? "" : "OBSの接続設定と" }}OBSの起動状態を確認してください)</span>
+            <button class="btn btn-link" ng-click="getScenes()">Refresh Scenes</button>
+            <span class="muted">(Make sure {{ isObsConfigured ? "" : "the OBS integration is configured and " }}OBS is running)</span>
         </div>
 
         <ui-select ng-model="selected" on-select="selectScene($select.selected)">
-          <ui-select-match placeholder="切替先...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-match placeholder="Select a Scene...">{{$select.selected.name}}</ui-select-match>
           <ui-select-choices repeat="scene in scenes | filter: {name: $select.search}">
             <li ng-show="scene.custom === true" role="separator" class="divider"></li>
             <div ng-bind-html="scene.name | highlight: $select.search"></div>
@@ -27,11 +27,7 @@ export const ChangeSceneEffectType: EffectType<{
         </ui-select>
 
         <div ng-show="effect.custom === true" style="margin-top:10px;">
-<<<<<<< HEAD
-            <firebot-input input-title="カスタムシーン" model="effect.sceneName"></firebot-input>
-=======
-            <firebot-input input-title="カスタムシーン" model="effect.sceneName" menu-position="under"></firebot-input>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+            <firebot-input input-title="Custom Scene" model="effect.sceneName" menu-position="under"></firebot-input>
         </div>
     </eos-container>
   `,
@@ -56,7 +52,7 @@ export const ChangeSceneEffectType: EffectType<{
                 (scenes: string[]) => {
                     $scope.scenes = [];
                     if (scenes != null) {
-                        scenes.forEach(scene => {
+                        scenes.forEach((scene) => {
                             $scope.scenes.push({name: scene, custom: false});
                         });
                     }
@@ -76,6 +72,9 @@ export const ChangeSceneEffectType: EffectType<{
             return ["Please select a scene."];
         }
         return [];
+    },
+    getDefaultLabel: (effect) => {
+        return effect.sceneName;
     },
     onTriggerEvent: async ({ effect }) => {
         await setCurrentScene(effect.sceneName);

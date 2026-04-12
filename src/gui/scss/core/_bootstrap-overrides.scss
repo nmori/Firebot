@@ -6,6 +6,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
     .close {
         order: 2;
         margin: 0;
@@ -15,46 +18,59 @@
         float: none;
         margin-left: auto;
     }
+}
 
-    &.sticky-header {
-        position: sticky;
-        top: 22px;
-        background-color: $light-background-color;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        z-index: 999;
-        &.is-stuck {
-            border-bottom: 1px solid #24262A;
-            margin-bottom: 10px;
-            box-shadow: 0 6px 9px -2px #0000004d;
-        }
+.modal-header.sticky-header,
+.sticky-element {
+    position: sticky;
+    background-color: $light-background-color;
+    z-index: 999;
+    top: 22px;
+    &.is-stuck {
+        border-bottom: 1px solid #24262a;
+        margin-bottom: 10px;
+        box-shadow: 0 6px 9px -2px #0000004d;
     }
 }
 
 .modal-footer {
     border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 
     &.sticky-footer {
         position: sticky;
         bottom: 0;
         z-index: 999;
         background-color: $light-background-color;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
         &.is-stuck {
-            border-top: 1px solid #24262A;
+            border-top: 1px solid #24262a;
             margin-top: 10px;
             box-shadow: 0 -6px 9px -2px #0000004d;
         }
     }
 }
 
-.effect-footer-sentinel, .fb-scroll-sentinel {
+.sticky-bottom-element {
+    position: sticky;
+    bottom: 0;
+    z-index: 999;
+    &.is-stuck {
+        border-top: 1px solid #24262a;
+        margin-top: 10px;
+        box-shadow: 0 -6px 9px -2px #0000004d;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+}
+
+.effect-footer-sentinel,
+.fb-scroll-sentinel {
     width: 100%;
 }
 
 .modal-content {
-    border-radius: 8px;
+    border-radius: 10px;
     background-color: $light-background-color;
     position: relative;
     border: 1px solid transparent;
@@ -69,13 +85,16 @@
     outline: none;
 }
 
-
 .modal-sm {
     width: 400px;
 }
 
 .modal-md {
     width: 500px;
+}
+
+.modal-mdlg {
+    width: 700px;
 }
 
 .modal-body {
@@ -106,17 +125,15 @@
     border: none;
 }
 
-textarea.form-control {
-    resize: vertical;
-}
-
 /* Tabs */
 
 .nav-tabs {
     border-bottom: 1px solid #b1b1b1;
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
     color: #ffffff;
     background-color: transparent;
     border: 1px solid transparent;
@@ -127,12 +144,13 @@ textarea.form-control {
     color: #c5c5c5;
 }
 
-.nav>li>a:focus, .nav>li>a:hover {
+.nav > li > a:focus,
+.nav > li > a:hover {
     text-decoration: none;
     background-color: transparent;
 }
 
-.nav-tabs>li>a:hover {
+.nav-tabs > li > a:hover {
     border-color: transparent;
     border-bottom: 1px solid #e4e4e4;
 }
@@ -144,21 +162,29 @@ textarea.form-control {
 // Buttons
 
 .btn {
+    border-radius: 10px;
+    padding: 9px 12px;
+    transform: scale(1) translateZ(0);
+    transition-property: transform;
+    transition-duration: 0.3s;
     &.btn-lg {
         height: 40px;
         font-size: 14px;
     }
-    border-radius: 8px;
-    padding: 9px 12px;
-    transform: scale(1.0) translateZ(0);
-    transition-property: transform;
-    transition-duration: 0.3s;
-    &:hover {
-        // transform: scale(1.02) translateZ(0);
+    &.btn-sm {
+        padding: 5px 10px !important;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    &.btn-xs {
+        padding: 3px 6px !important;
+        font-size: 12px !important;
+        line-height: 1.5 !important;
     }
 }
 
-.btn.dropdown-toggle, .btn.form-control {
+.btn.dropdown-toggle,
+.btn.form-control {
     &:hover {
         transform: none;
     }
@@ -179,44 +205,110 @@ textarea.form-control {
 }
 
 .btn-primary {
-    background-color: #16809c;
+    background: linear-gradient(135deg, lighten($primary-button-bg, 8%) 0%, $primary-button-bg 100%);
     border-color: transparent;
+    border: 0;
     &:hover {
-        background-color: #1f849e;
+        background: linear-gradient(135deg, lighten($primary-button-hover-bg, 8%) 0%, $primary-button-hover-bg 100%);
     }
+    &:active,
+    &:focus {
+        background: linear-gradient(135deg, lighten($primary-button-bg, 8%) 0%, $primary-button-bg 100%) !important;
+    }
+}
+
+.btn-primary[disabled]:hover {
+    background: linear-gradient(135deg, lighten($primary-button-bg, 8%) 0%, $primary-button-bg 100%);
+    opacity: 0.75;
+    transform: none;
 }
 
 .btn-default {
     border: 1px solid transparent;
     background-color: $default-btn-bg-color;
     color: $default-btn-text-color;
+    &:disabled {
+        background-color: $default-btn-bg-color;
+        color: $default-btn-text-color;
+        opacity: 0.5;
+        &:hover {
+            background-color: $default-btn-bg-color;
+            color: $default-btn-text-color;
+            opacity: 0.75;
+        }
+    }
     &:hover {
         background-color: $default-btn-hover-bg;
-        // border-color: $default-btn-hover-border;
         color: $default-btn-text-color;
     }
 }
 
-.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+.btn-default-outlined {
+    border: 2px solid $default-btn-bg-color;
+    background-color: transparent;
     color: $default-btn-text-color;
-    background-color: $default-btn-hover-bg;
-    // border-color: $default-btn-hover-border;
+    &:focus {
+        border: 2px solid $default-btn-bg-color;
+        background-color: transparent;
+        color: $default-btn-text-color;
+        border-color: $default-btn-bg-color !important;
+    }
+    &:disabled {
+        border: 2px solid $default-btn-bg-color;
+        background-color: transparent;
+        color: $default-btn-text-color;
+        opacity: 0.5;
+        &:hover {
+            background-color: $default-btn-bg-color;
+            color: $default-btn-text-color;
+            opacity: 0.75;
+        }
+    }
+    &:hover {
+        background-color: $default-btn-hover-bg;
+        color: $default-btn-text-color;
+    }
 }
 
-.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+
+.btn-default.active.focus,
+.btn-default.active:focus,
+.btn-default.active:hover,
+.btn-default:active.focus,
+.btn-default:active:focus,
+.btn-default:active:hover,
+.open > .dropdown-toggle.btn-default.focus,
+.open > .dropdown-toggle.btn-default:focus,
+.open > .dropdown-toggle.btn-default:hover {
+    color: $default-btn-text-color;
+    background-color: $default-btn-hover-bg;
+}
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
     outline: 5px auto lightgray;
     outline-offset: -2px;
 }
 
-.btn.active, .btn:active {
+.btn.active,
+.btn:active {
     box-shadow: none;
 }
 
-.btn-danger, .btn-primary, .btn-success, .btn-secondary {
+.btn-danger,
+.btn-primary,
+.btn-success,
+.btn-secondary {
     padding: 9px 12px;
 }
 
-.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+.btn-default.active,
+.btn-default:active,
+.open > .dropdown-toggle.btn-default {
     color: $default-btn-text-color;
     background-color: $default-btn-hover-bg;
     border-color: transparent;
@@ -226,16 +318,22 @@ textarea.form-control {
     margin-left: 5px;
 }
 
-.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
     outline: none;
     outline-offset: 0;
     border-color: transparent;
 }
 
 .btn-link {
-    color: #12d0ff;
-    &:hover, &:focus {
-        color: #11add4;
+    color: $link-button-color;
+    &:hover,
+    &:focus {
+        color: $link-button-hover-color;
     }
 }
 
@@ -244,7 +342,8 @@ textarea.form-control {
 .table-hover > tbody > tr:hover {
     background-color: $light-background-color;
 }
-.control-list:hover>td, .command-list:hover>td {
+.control-list:hover > td,
+.command-list:hover > td {
     color: $content-text-color;
 }
 
@@ -317,7 +416,7 @@ textarea.form-control {
 }
 
 .dropdown-menu {
-    border-radius: 8px;
+    border-radius: 10px;
     border: 2px solid $dropdown-menu-border;
     background-color: $dropdown-menu-bg;
     z-index: 999999999;
@@ -327,9 +426,10 @@ textarea.form-control {
     }
 }
 
-.dropdown-menu>li>a {
+.dropdown-menu > li > a {
     color: $dropdown-menu-text;
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
         color: $dropdown-menu-text;
         background-color: adjust-color($dropdown-menu-bg, $red: -15, $green: -15, $blue: -15);
     }
@@ -343,17 +443,19 @@ textarea.form-control {
     color: $muted-text-color;
 }
 
-.ui-select-bootstrap .ui-select-choices-row>span {
+.ui-select-bootstrap .ui-select-choices-row > span {
     color: $dropdown-menu-text;
 }
 
-.ui-select-bootstrap .ui-select-choices-row>span:hover, .ui-select-bootstrap .ui-select-choices-row>span:focus {
+.ui-select-bootstrap .ui-select-choices-row > span:hover,
+.ui-select-bootstrap .ui-select-choices-row > span:focus {
     text-decoration: none;
     color: $dropdown-menu-text;
     background-color: adjust-color($dropdown-menu-bg, $red: -15, $green: -15, $blue: -15);
 }
 
-.ui-select-bootstrap > .ui-select-choices, .ui-select-bootstrap > .ui-select-no-choice {
+.ui-select-bootstrap > .ui-select-choices,
+.ui-select-bootstrap > .ui-select-no-choice {
     max-height: 332px;
 }
 
@@ -361,7 +463,6 @@ textarea.form-control {
     padding: 5px 0px;
     white-space: unset;
 }
-
 
 // Form Control
 .input-group-addon {
@@ -378,7 +479,7 @@ textarea.form-control {
     box-shadow: none;
     background-color: $form-control-bg;
     color: $form-control-text;
-    border-radius: 8px;
+    border-radius: 10px;
     &:focus {
         box-shadow: none;
         background-color: adjust-color($form-control-bg, $red: -10, $green: -10, $blue: -10);
@@ -394,8 +495,12 @@ textarea.form-control {
     float: none;
 }
 
+.input-group .ui-select-bootstrap .form-control {
+    float: left !important;
+}
+
 .form-group {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     & .form-label {
         font-size: 15px;
         font-weight: 500;
@@ -404,6 +509,9 @@ textarea.form-control {
     & .help-block {
         font-size: 13px;
         color: #9a9a9a;
+    }
+    &.has-error .help-block {
+        color: #a94442;
     }
 }
 
@@ -414,22 +522,61 @@ textarea.form-control {
 }
 
 .color-picker-wrapper .input-group .input-group-addon {
-    width: 40px;
-    border: 1px solid #24262A !important;
-    border-radius: 6px;
+    width: 45px;
+    border: transparent !important;
+    border-radius: 10px;
     &:first-child {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 }
 
+.color-picker-group-wrapper {
+    .color-picker-wrapper .input-group .input-group-addon:first-child {
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+    }
+}
+
+.form-control:focus {
+    border-color: lighten($primary-button-bg, 25%);
+}
+
 .input-group .form-control:focus {
     z-index: 0;
 }
 
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-    background-color: adjust-color($form-control-bg, $red: 50, $green: 50, $blue: 50);
-    opacity: 1;
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: $form-control-bg;
+    opacity: 0.75;
+}
+
+textarea.form-control {
+    resize: vertical;
+    padding-top: 9px;
+    min-height: 40px;
+    &.single-line-textarea {
+        height: 40px;
+        scrollbar-width: none;
+        scrollbar-color: transparent transparent;
+    }
+}
+
+.input-group > textarea.form-control {
+    float: left !important;
+}
+
+.progress {
+    background-color: $form-control-bg;
+    border-radius: 8px;
+    height: 30px;
+}
+
+.progress-bar {
+    line-height: 30px;
+    text-wrap: nowrap;
 }
 
 label {
@@ -441,24 +588,52 @@ label {
 
 .alert {
     border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
 }
 
 .alert-info {
     color: $alert-info-text-color;
     background-color: $alert-info-bg;
-    border-color: transparent;
+    border-color: $alert-info-border;
 }
 
 .alert-warning {
     color: $alert-warning-text-color;
     background-color: $alert-warning-bg;
-    border-color: transparent;
+    border-color: $alert-warning-border;
 }
 
 .alert-danger {
     color: $alert-danger-text-color;
     background-color: $alert-danger-bg;
-    border-color: transparent;
+    border-color: $alert-danger-border;
+}
+
+.alert-success {
+    color: $alert-success-text-color;
+    background-color: $alert-success-bg;
+    border-color: $alert-success-border;
+}
+
+// Toast notifications need solid backgrounds for visibility
+.ng-toast__message {
+    background-color: #373c3e;
+    border-radius: 8px;
+    max-width: fit-content;
+    margin: auto;
+    .alert {
+        margin-bottom: 0px;
+    }
+    margin-bottom: 20px;
+}
+
+.fb-tabbed-page {
+    min-width: 500px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 // This is for pages that use tabbed navigation. IE: Commands
@@ -468,9 +643,9 @@ label {
     flex-direction: column;
     justify-content: flex-end;
     border-bottom: 1px solid $fb-tab-wrapper-border-color;
-  }
+}
 
-  .fb-center-tabs {
+.fb-center-tabs {
     font-weight: 600;
     font-size: 12px;
     display: flex;
@@ -483,7 +658,7 @@ label {
             cursor: pointer;
         }
         &.active {
-            &:hover{
+            &:hover {
                 color: $fb-tab-active-text-color;
                 cursor: default;
             }
@@ -498,31 +673,33 @@ label {
             width: 3px;
         }
     }
-  }
+}
 
-  .fb-tabs {
+.fb-tabs {
     margin: 0 10px;
     border-bottom: 0px solid #eaecec;
     font-weight: 600;
     font-size: 12px;
-    & > li.active > a, & > li.active > a:focus, & > li.active > a:hover {
-      color: $fb-tab-hightlight-color;
-      background-color: transparent;
-      border: 1px solid transparent;
-      border-bottom: 3px solid $fb-tab-hightlight-color;
-      &.nounderline {
-        border-bottom: 0;
-        border: 0;
-      }
+    & > li.active > a,
+    & > li.active > a:focus,
+    & > li.active > a:hover {
+        color: $fb-tab-hightlight-color;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-bottom: 3px solid $fb-tab-hightlight-color;
+        &.nounderline {
+            border-bottom: 0;
+            border: 0;
+        }
     }
     & > li > a:hover {
-      border-color: transparent;
-      border-bottom: 3px solid $fb-tab-border-bottom-hover;
-      color:  $fb-tab-border-bottom-hover;
-      &.nounderline {
-        border-bottom: 0;
-        border: 0;
-      }
+        border-color: transparent;
+        border-bottom: 3px solid $fb-tab-border-bottom-hover;
+        color: $fb-tab-border-bottom-hover;
+        &.nounderline {
+            border-bottom: 0;
+            border: 0;
+        }
     }
     & > li > a {
         margin-right: 2px;
@@ -531,10 +708,10 @@ label {
         border-radius: 4px 4px 0 0;
         color: $fb-unselected-text-color;
     }
-  }
+}
 
 a {
-    color: #41a7ff;
+    color: $link-button-color;
     &:hover {
         opacity: 0.8;
     }
@@ -554,7 +731,7 @@ a {
 }
 
 // This is for pages that do NOT use tabbed navigation. IE: Live Events
-.fb-notab-header-wrapper{
+.fb-notab-header-wrapper {
     height: 55px;
     background: $fb-tab-wrapper-bg;
     display: flex;
@@ -562,9 +739,9 @@ a {
     flex-shrink: 0;
     border-bottom: 1px solid $fb-tab-wrapper-border-color;
 
-    .fb-notab-title{
+    .fb-notab-title {
         margin: 0 10px;
-        padding:10px 15px;
+        padding: 10px 15px;
         border-bottom: 0px solid #eaecec;
         font-weight: 600;
         font-size: 12px;
@@ -574,9 +751,9 @@ a {
         text-transform: uppercase;
     }
 
-    .fb-notab-dropdown .noselect{
+    .fb-notab-dropdown .noselect {
         margin: 0 10px;
-        padding:10px 15px;
+        padding: 10px 15px;
         border-bottom: 0px solid #eaecec;
         font-weight: 600;
         font-size: 12px;
@@ -589,7 +766,7 @@ a {
         &.project-dropdown-text {
             color: $project-dropdown-text-color;
             font-size: 14px;
-            font-family: 'Quicksand';
+            font-family: "Quicksand";
             border: 0px;
             border-bottom: 0px;
         }
@@ -601,8 +778,8 @@ a {
     user-select: none;
 }
 
-
-.glyphicon.glyphicon-chevron-left, .glyphicon.glyphicon-chevron-right {
+.glyphicon.glyphicon-chevron-left,
+.glyphicon.glyphicon-chevron-right {
     vertical-align: -0%;
     font-family: "Font Awesome 5 Pro";
     font-weight: 900;
@@ -623,28 +800,42 @@ a {
 }
 
 /* pagination */
-.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
+.pagination > .disabled > a,
+.pagination > .disabled > a:focus,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > span,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > span:hover {
     color: #b9b9b9;
-    background-color: #68696C;
-    border-color: #2F3136;
+    background-color: #68696c;
+    border-color: #2f3136;
 }
 
-.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
     color: #fff;
     background-color: #337ab7;
-    border-color: #2F3136;
+    border-color: #2f3136;
 }
 
-.pagination > li > a, .pagination > li > span {
+.pagination > li > a,
+.pagination > li > span {
     color: #ffffff;
-    background-color: #68696C;
-    border: 1px solid #2F3136;
+    background-color: #68696c;
+    border: 1px solid #2f3136;
 }
 
-.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
     color: white;
     background-color: #888888;
-    border-color: #2F3136;
+    border-color: #2f3136;
 }
 
 .list-group-item {
@@ -654,4 +845,37 @@ a {
 
 .ui-select-container {
     border-radius: 8px;
+}
+
+code {
+    color: #daf4fc;
+    background-color: #334557;
+}
+
+.update-notes img {
+    max-width: 80%;
+}
+
+.input-group .form-control:has(~ .variables-btn:last-child) {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.input-group .form-control:has(~ .variables-btn.below:last-child) {
+    border-bottom-right-radius: 0px;
+}
+
+.input-editor-selector-container .form-control,
+.input-editor-selector-container .CodeMirror {
+    border-top-left-radius: 0px !important;
+}
+
+hr {
+    border-top: 1px solid #53545b;
+}
+
+// any input group addon that doesn't also have the class .color-picker-swatch
+.input-group-addon-normalize .input-group-addon:not(.color-picker-swatch) {
+    --fb-input-group-addon-width: 100px;
+    min-width: var(--fb-input-group-addon-width);
 }

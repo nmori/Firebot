@@ -8,7 +8,7 @@
         `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNewFilter ? '新規フィルタ' : 'フィルタを編集'}}</h4>
+                <h4 class="modal-title">{{$ctrl.isNewFilter ? '新しいフィルタを作成' : 'フィルタを編集'}}</h4>
             </div>
             <div class="modal-body">
 
@@ -20,6 +20,17 @@
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
                             <li role="menuitem" ng-repeat="filter in $ctrl.availableFilters" ng-click="$ctrl.selectFilter(filter.id)">
                                 <a href>{{filter.name}} <tooltip text="filter.description"></tooltip></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group" style="margin-right: 5px;margin-bottom:5px;" uib-dropdown>
+                        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
+                        {{$ctrl.getComparisonTypeLabel($ctrl.selectedFilter.comparisonType)}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem" ng-repeat="comparisonType in $ctrl.currentFilterDef.comparisonTypes" ng-click="$ctrl.selectedFilter.comparisonType = comparisonType">
+                                <a href>{{$ctrl.getComparisonTypeLabel(comparisonType)}}</a>
                             </li>
                         </ul>
                     </div>
@@ -40,20 +51,9 @@
 
                         </div>
                         <div ng-switch-default>
-                            <input type="{{$ctrl.currentFilterDef.valueType}}" class="form-control" style="min-width: 100px;" ng-model="$ctrl.selectedFilter.value" placeholder="Value">
+                            <input type="{{$ctrl.currentFilterDef.valueType}}" class="form-control" style="min-width: 100px;" ng-model="$ctrl.selectedFilter.value" placeholder="値">
                         </div>
                     </div>
-
-                    <div class="btn-group" style="margin-right: 5px;margin-bottom:5px;" uib-dropdown>
-                        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
-                        {{$ctrl.selectedFilter.comparisonType}} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                            <li role="menuitem" ng-repeat="comparisonType in $ctrl.currentFilterDef.comparisonTypes" ng-click="$ctrl.selectedFilter.comparisonType = comparisonType">
-                                <a href>{{comparisonType}}</a>
-                            </li>
-                        </ul>
-                    </div>                    
                 </div>
 
             </div>
@@ -78,6 +78,31 @@
 
             $ctrl.selectedFilter = {};
 
+            const comparisonTypeLabels = {
+                "is": "一致",
+                "is not": "不一致",
+                "is strictly": "厳格に一致",
+                "is not strictly": "厳格に不一致",
+                "is less than": "未満",
+                "is less than or equal to": "以下",
+                "is greater than": "より大きい",
+                "is greater than or equal to": "以上",
+                "contains": "含む",
+                "doesn't contain": "含まない",
+                "does not contain": "含まない",
+                "starts with": "で始まる",
+                "doesn't start with": "で始まらない",
+                "ends with": "で終わる",
+                "doesn't end with": "で終わらない",
+                "matches regex": "正規表現に一致",
+                "doesn't matches regex": "正規表現に不一致",
+                "matches regex (case insensitive)": "正規表現に一致（大小無視）",
+                "doesn't match regex (case insensitive)": "正規表現に不一致（大小無視）",
+                "follows": "フォローしている",
+                "has role": "ロールを持つ",
+                "doesn't have role": "ロールを持たない"
+            };
+
             $ctrl.presetValues = [];
             async function loadPresetValues() {
                 if ($ctrl.currentFilterDef && $ctrl.currentFilterDef.valueType === "preset") {
@@ -97,7 +122,11 @@
                         return presetValue.display;
                     }
                 }
-                return "選んでください";
+                return "1つ選択";
+            };
+
+            $ctrl.getComparisonTypeLabel = function(comparisonType) {
+                return comparisonTypeLabels[comparisonType] || comparisonType;
             };
 
 

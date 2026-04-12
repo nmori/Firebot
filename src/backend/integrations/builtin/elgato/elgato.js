@@ -2,15 +2,16 @@
 
 const EventEmitter = require("events");
 const { ElgatoKeyLightController, ElgatoLightStripController } = require("@zunderscore/elgato-light-control");
-const effectManager = require("../../../effects/effectManager");
+const tinycolor = require("tinycolor2");
+
+const { EffectManager } = require("../../../effects/effect-manager");
 const frontendCommunicator = require("../../../common/frontend-communicator");
 const logger = require("../../../logwrapper");
-const colorConvert = require('color-convert');
 
 const integrationDefinition = {
     id: "elgato",
     name: "Elgato",
-    description: "Elgato Lightsと対話",
+    description: "Elgato ライトと連携します。",
     linkType: "none",
     connectionToggle: false,
     configurable: false
@@ -25,8 +26,8 @@ class ElgatoIntegration extends EventEmitter {
     }
 
     init() {
-        effectManager.registerEffect(require('./effects/update-key-lights'));
-        effectManager.registerEffect(require('./effects/update-light-strips'));
+        EffectManager.registerEffect(require('./effects/update-key-lights'));
+        EffectManager.registerEffect(require('./effects/update-light-strips'));
 
         this.keyLightController = new ElgatoKeyLightController();
         this.lightStripController = new ElgatoLightStripController();
@@ -41,7 +42,7 @@ class ElgatoIntegration extends EventEmitter {
     }
 
     async updateKeyLights(selectedKeyLights) {
-        selectedKeyLights.forEach(keyLight => {
+        selectedKeyLights.forEach((keyLight) => {
             const light = this.keyLightController.keyLights.find(kl => kl.name === keyLight.light.name);
             const settings = {};
 
@@ -81,7 +82,7 @@ class ElgatoIntegration extends EventEmitter {
     }
 
     async updateLightStrips(selectedLightStrips) {
-        selectedLightStrips.forEach(lightStrip => {
+        selectedLightStrips.forEach((lightStrip) => {
             const light = this.lightStripController.lightStrips.find(ls => ls.name === lightStrip.light.name);
             const settings = {};
 
@@ -98,35 +99,11 @@ class ElgatoIntegration extends EventEmitter {
             }
 
             if (lightStrip.options.color) {
-                let colorValue;
+                const color = tinycolor(lightStrip.options.color).setAlpha(1).toHsv();
 
-                // Strip out the # for #RRGGBB values
-                if (lightStrip.options.color.startsWith("#")) {
-                    colorValue = lightStrip.options.color.slice(1);
-                } else {
-                    colorValue = lightStrip.options.color;
-                }
-
-                const hexCodeRegEx = /^[0-9a-fA-F]{6}$/;
-                let hsvColor = [];
-
-                // If the color value is a hex RRGGBB value, convert from that hex value
-                if (hexCodeRegEx.test(colorValue) === true) {
-                    hsvColor = colorConvert.hex.hsv(colorValue);
-
-                // Otherwise, convert from the color name
-                } else {
-                    try {
-                        hsvColor = colorConvert.keyword.hsv(colorValue.toLowerCase());
-                    } catch {
-                        logger.debug(`Unable to convert "${colorValue}" to HSV color`);
-                        return;
-                    }
-                }
-
-                settings.hue = parseInt(hsvColor[0]);
-                settings.saturation = parseInt(hsvColor[1]);
-                settings.brightness = parseInt(hsvColor[2]);
+                settings.hue = color.h;
+                settings.saturation = color.s * 100;
+                settings.brightness = color.v * 100;
             }
 
             /** @type {import("@zunderscore/elgato-light-control").LightStripOptions} */

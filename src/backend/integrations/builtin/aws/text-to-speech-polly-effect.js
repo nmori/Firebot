@@ -1,10 +1,10 @@
 "use strict";
 
 const { getPathInTmpDir } = require("../../../common/data-access");
-const { settings } = require("../../../common/settings-access");
-const resourceTokenManager = require("../../../resourceTokenManager");
+const { SettingsManager } = require("../../../common/settings-manager");
+const { ResourceTokenManager } = require("../../../resource-token-manager");
 const webServer = require("../../../../server/http-server-manager");
-const uuid = require("uuid/v4");
+const { randomUUID } = require("crypto");
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require("path");
@@ -12,7 +12,7 @@ const logger = require("../../../logwrapper");
 const frontendCommunicator = require("../../../common/frontend-communicator");
 const integrationManager = require("../../integration-manager");
 const { EffectCategory } = require('../../../../shared/effect-constants');
-const { wait } = require("../../../utility");
+const { wait } = require("../../../utils");
 const { PollyClient, DescribeVoicesCommand, SynthesizeSpeechCommand, ListLexiconsCommand } = require('@aws-sdk/client-polly');
 
 frontendCommunicator.onAsync("getAwsPollyVoices", async () => {
@@ -117,10 +117,10 @@ const playSound = {
    */
     definition: {
         id: "aws:polly",
-        name: "合成音声(Text-To-Speech：mazon Polly)",
-        description: "Amazon Pollyを使ってFirebotにテキストを読み上げさせます",
+        name: "Text-To-Speech (Amazon Polly)",
+        description: "Amazon Polly を使用して Firebot にテキストを読み上げさせます。",
         icon: "fad fa-microphone-alt",
-        categories: [EffectCategory.FUN, EffectCategory.INTEGRATIONS],
+        categories: ["integrations"],
         dependencies: []
     },
     /**
@@ -133,29 +133,29 @@ const playSound = {
    */
     optionsTemplate: `
     <div ng-hide="fetchError">
-        <eos-container header="エンジン">
+        <eos-container header="Engine">
             <div class="controls-fb-inline" style="padding-bottom: 5px;">
-                <label class="control-fb control--radio">ニューラル
+                <label class="control-fb control--radio">Neural
                     <input type="radio" ng-model="effect.engine" ng-change="ensureSelectedVoiceValid()" value="neural"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">スタンダード
+                <label class="control-fb control--radio">Standard
                     <input type="radio" ng-model="effect.engine" ng-change="ensureSelectedVoiceValid()" value="standard"/>
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="テキスト">
-            <textarea ng-model="effect.text" class="form-control" name="text" placeholder="テキストを入力" rows="4" cols="40" replace-variables menu-position="under"></textarea>
+        <eos-container header="Text">
+            <textarea ng-model="effect.text" class="form-control" name="text" placeholder="Enter text" rows="4" cols="40" replace-variables menu-position="under"></textarea>
 
             <div style="padding-top:10px">
-                <label class="control-fb control--checkbox"> 有効
+                <label class="control-fb control--checkbox"> Enable
                     <a
                     ng-click="openLink('https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html')"
                     class="clickable"
-                    uib-tooltip="SSML 記法のドキュメントを見る"
-                    aria-label="SSML 記法のドキュメントを見る"
+                    uib-tooltip="View SSML Documentation"
+                    aria-label="View SSML Documentation"
                     tooltip-append-to-body="true">
                         SSML
                     </a>
@@ -165,7 +165,7 @@ const playSound = {
             </div>
         </eos-container>
 
-        <eos-container header="音声" pad-top="true" ng-hide="isFetchingVoices">
+        <eos-container header="Voice" pad-top="true" ng-hide="isFetchingVoices">
             <div style="display: flex;">
                 <div class="dropdown" style="margin-right: 1em">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -192,30 +192,30 @@ const playSound = {
             </div>
         </eos-container>
 
-        <eos-container header="辞書" pad-top="true" ng-hide="isFetchingLexicons || lexiconFetchError !== false || lexicons.length === 0">
+        <eos-container header="Lexicon" pad-top="true" ng-hide="isFetchingLexicons || lexiconFetchError !== false || lexicons.length === 0">
             <ui-select multiple limit="5" ng-model="effect.lexicons">
-                <ui-select-match placeholder="最大5つの辞書を選択">{{$item}}</ui-select-match>
+                <ui-select-match placeholder="Select up to 5 lexicons.">{{$item}}</ui-select-match>
                 <ui-select-choices repeat="lexicon in lexicons | filter: $select.search">
                     <div ng-bind-html="lexicon | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
         </eos-container>
 
-        <eos-container header="最大継続時間" pad-top="true">
+        <eos-container header="Maximum Duration" pad-top="true">
             <div class="input-group">
+                <span class="input-group-addon" id="delay-length-effect-type">Seconds</span>
                 <input ng-model="effect.maxSoundLength" type="text" class="form-control" aria-describedby="delay-length-effect-type" type="text" replace-variables="number">
-                <span class="input-group-addon" id="delay-length-effect-type">秒</span>
             </div>
         </eos-container>
 
-        <eos-container header="サウンド" pad-top="true">
-            <label class="control-fb control--checkbox"> 音が終わるのを待つ <tooltip text="'次のエフェクトを再生させる前に、音が終わるのを待つ'"></tooltip>
+        <eos-container header="Sound" pad-top="true">
+            <label class="control-fb control--checkbox"> Wait for sound to finish <tooltip text="'Wait for the sound to finish before letting the next effect play.'"></tooltip>
                 <input type="checkbox" ng-model="effect.waitForSound">
                 <div class="control__indicator"></div>
             </label>
         </eos-container>
 
-        <eos-container header="音量" pad-top="true">
+        <eos-container header="Volume" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 1, ceil: 10, hideLimitLabels: true, showSelectionBar: true}"></rzslider>
@@ -230,25 +230,25 @@ const playSound = {
 
     <div ng-hide="fetchError.$metadata.httpStatusCode !== 403">
         <eos-container>
-            <span class="muted"> AWS認証に失敗しました. AWS認証情報が適切に設定されていることを確認してください。<b>設定</b> > <b>連携</b> > AWS で設定できます。</span>
+            <span class="muted">Failed to authenticate to AWS. Make sure your AWS Credentials are properly configured. You can configure them in <b>Settings</b> > <b>Integrations</b> > <b>AWS</b>.</span>
         </eos-container>
     </div>
 
     <div ng-hide="fetchError === false || fetchError === 'NotConfigured' || fetchError.$metadata.httpStatusCode === 403">
         <eos-container>
-            <span class="muted">AWSから利用可能な音声を読み込もうとしてエラーが発生しました。エラー: <b>{{ fetchError }}</b>. 後でもう一度お試しください。</span>
+            <span class="muted">An error as occurred while trying to read the available voices from AWS. The error was: <b>{{ fetchError }}</b>. Please try again later.</span>
         </eos-container>
     </div>
 
     <div ng-hide="lexiconFetchError === false">
         <eos-container>
-            <span class="muted">AWSから利用可能な辞書を読み込もうとしてエラーが発生しました。エラー:<b>{{ lexiconFetchError }}</b>.</span>
+            <span class="muted">An error has occurred while trying to read available lexicons from AWS. The error was: <b>{{ lexiconFetchError }}</b>.</span>
         </eos-container>
     </div>
 
     <div ng-hide="fetchError !== 'NotConfigured'">
         <eos-container>
-            <span class="muted">AWS認証情報の設定が必要です。<b>設定</b> > <b>連携</b> > AWS で設定できます</span>
+            <span class="muted">Your AWS Credentials are not configured yet! You can configure them in <b>Settings</b> > <b>Integrations</b> > <b>AWS</b></span>
         </eos-container>
     </div>
     `,
@@ -296,7 +296,7 @@ const playSound = {
                 return $scope.validVoices[voiceId].LanguageFormattedName;
             }
 
-            return "無効なキャスト";
+            return "Invalid Locale";
         };
 
         $scope.getSelectedVoiceName = () => {
@@ -306,12 +306,12 @@ const playSound = {
                 return $scope.getVoiceDisplayName($scope.validVoices[voiceId]);
             }
 
-            return "無効な音声";
+            return "Invalid Voice";
         };
 
         $scope.getVoiceDisplayName = (voice) => {
             if (!voice) {
-                return "無効な音声";
+                return "Invalid Voice";
             }
 
             return `${voice.Id}, ${voice.Gender}`;
@@ -359,7 +359,7 @@ const playSound = {
         };
 
         $q.when(backendCommunicator.fireEventAsync("getAwsPollyVoices"))
-            .then(voices => {
+            .then((voices) => {
                 $scope.isFetchingVoices = false;
 
                 const voicesArray = voices.voices;
@@ -455,7 +455,7 @@ const playSound = {
             });
 
         $q.when(backendCommunicator.fireEventAsync("getAwsPollyLexicons"))
-            .then(lexicons => {
+            .then((lexicons) => {
                 $scope.isFetchingLexicons = false;
 
                 $scope.lexicons = lexicons.lexicons;
@@ -471,19 +471,19 @@ const playSound = {
     /**
    * When the effect is saved
    */
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
 
         if (effect.engine !== "standard" && effect.engine !== "neural") {
-            errors.push("エンジンを選んでください");
+            errors.push("Please select a valid Polly engine.");
         }
 
         if (!effect.voiceId) {
-            errors.push("音声を選んでください");
+            errors.push("Please select a valid Polly voice.");
         }
 
         if (effect.text == null || effect.text.length < 1) {
-            errors.push("読み上げテキストを設定してください");
+            errors.push("Please input some text.");
         }
 
         return errors;
@@ -491,7 +491,7 @@ const playSound = {
     /**
    * When the effect is triggered by something
    */
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         const effect = event.effect;
 
         const awsIntegration = integrationManager.getIntegrationDefinitionById("aws");
@@ -539,13 +539,13 @@ const playSound = {
                     break;
                 }
             } while (listLexiconsResponse && listLexiconsResponse.NextToken);
+
             if (lexiconError) {
                 logger.error("Error while trying to fetch lexicons before speech synthesis, proceeding without lexicons.");
                 effect.lexicons = [];
             } else {
                 effect.lexicons = effect.lexicons.filter(lexicon => lexicons.includes(lexicon));
             }
-
         }
 
         const synthSpeechCommand = new SynthesizeSpeechCommand({
@@ -571,7 +571,7 @@ const playSound = {
                 await fsp.mkdir(POLLY_TMP_DIR, { recursive: true });
             }
 
-            mp3Path = path.join(POLLY_TMP_DIR, `${uuid()}.mp3`);
+            mp3Path = path.join(POLLY_TMP_DIR, `${randomUUID()}.mp3`);
 
             const destination = fs.createWriteStream(mp3Path);
             const stream = synthSpeedResponse.AudioStream.pipe(destination, { end: true });
@@ -590,18 +590,14 @@ const playSound = {
 
         // Set output device.
         let selectedOutputDevice = effect.audioOutputDevice;
-        if (selectedOutputDevice == null || selectedOutputDevice.deviceId === "") {
-<<<<<<< HEAD
-            selectedOutputDevice = settings.getAudioOutputDevice();
-=======
+        if (selectedOutputDevice == null || selectedOutputDevice.label === "App Default") {
             selectedOutputDevice = SettingsManager.getSetting("AudioOutputDevice");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
         data.audioOutputDevice = selectedOutputDevice;
 
         // Generate token if going to overlay, otherwise send to gui.
         if (selectedOutputDevice.deviceId === "overlay") {
-            const resourceToken = resourceTokenManager.storeResourcePath(
+            const resourceToken = ResourceTokenManager.storeResourcePath(
                 data.filepath,
                 30
             );
@@ -611,7 +607,7 @@ const playSound = {
             webServer.sendToOverlay("sound", data);
         } else {
             // Send data back to media.js in the gui.
-            renderWindow.webContents.send("playsound", data);
+            frontendCommunicator.send("playsound", data);
         }
 
         try {

@@ -1,47 +1,11 @@
 "use strict";
 
-const { ipcMain, dialog } = require("electron");
-const settings = require("../settings-access").settings;
-const resourceTokenManager = require("../../resourceTokenManager.js");
-const util = require("../../utility");
+const { SettingsManager } = require("../settings-manager");
+const { ResourceTokenManager } = require("../../resource-token-manager");
+const { getRandomInt } = require("../../utils");
 const logger = require("../../logwrapper");
+const { ReplaceVariableManager } = require("../../variables/replace-variable-manager");
 const webServer = require("../../../server/http-server-manager");
-
-// Get Sound File Path
-// This listens for an event from the render media.js file to open a dialog to get a filepath.
-ipcMain.on("getSoundPath", function(event, uniqueid) {
-    const path = dialog.showOpenDialogSync({
-        properties: ["openFile"],
-        filters: [{ name: "Audio", extensions: ["mp3", "ogg", "wav", "flac"] }]
-    });
-    event.sender.send("gotSoundFilePath", { path: path, id: uniqueid });
-});
-
-// Get Video File Path
-// This listens for an event from the render media.js file to open a dialog to get a filepath.
-ipcMain.on("getVideoPath", function(event, uniqueid) {
-    const path = dialog.showOpenDialogSync({
-        properties: ["openFile"],
-        filters: [{ name: "Video", extensions: ["mp4", "webm", "ogv"] }]
-    });
-    event.sender.send("gotVideoFilePath", { path: path, id: uniqueid });
-});
-
-// Get Image File Path
-// This listens for an event from the render media.js file to open a dialog to get a filepath.
-ipcMain.on("getImagePath", function(event, uniqueid) {
-    const path = dialog.showOpenDialogSync({
-        properties: ["openFile"],
-        filters: [{ name: "Image", extensions: ["jpg", "gif", "png", "jpeg"] }]
-    });
-    event.sender.send("gotImageFilePath", { path: path, id: uniqueid });
-});
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 function getRandomPresetLocation() {
     const presetPositions = [
@@ -58,40 +22,6 @@ function getRandomPresetLocation() {
 
     const randomIndex = getRandomInt(0, presetPositions.length - 1);
     return presetPositions[randomIndex];
-}
-
-// Sound Processor
-// This takes info passed from the controls router and sends it back to the render process in order to play media.
-function soundProcessor(effect) {
-    const data = {
-        filepath: effect.file,
-        volume: effect.volume
-    };
-
-    let selectedOutputDevice = effect.audioOutputDevice;
-    if (
-        selectedOutputDevice == null ||
-        selectedOutputDevice.deviceId === ""
-    ) {
-        selectedOutputDevice = settings.getAudioOutputDevice();
-    }
-    data.audioOutputDevice = selectedOutputDevice;
-
-    if (selectedOutputDevice.deviceId === "overlay") {
-        const resourceToken = resourceTokenManager.storeResourcePath(effect.file, 30);
-        data.resourceToken = resourceToken;
-    }
-
-    if (settings.useOverlayInstances()) {
-        if (effect.overlayInstance != null) {
-            if (settings.getOverlayInstances().includes(effect.overlayInstance)) {
-                data.overlayInstance = effect.overlayInstance;
-            }
-        }
-    }
-
-    // Send data back to media.js in the gui.
-    renderWindow.webContents.send("playsound", data);
 }
 
 // Image Processor
@@ -125,9 +55,9 @@ async function imageProcessor(effect, trigger) {
         "customCoords": effect.customCoords
     };
 
-    if (settings.useOverlayInstances()) {
+    if (SettingsManager.getSetting("UseOverlayInstances")) {
         if (effect.overlayInstance != null) {
-            if (settings.getOverlayInstances().includes(effect.overlayInstance)) {
+            if (SettingsManager.getSetting("OverlayInstances").includes(effect.overlayInstance)) {
                 data.overlayInstance = effect.overlayInstance;
             }
         }
@@ -138,14 +68,14 @@ async function imageProcessor(effect, trigger) {
     }
 
     if (effect.imageType === "local") {
-        const resourceToken = resourceTokenManager.storeResourcePath(
+        const resourceToken = ResourceTokenManager.storeResourcePath(
             effect.file,
             effect.length
         );
         data.resourceToken = resourceToken;
     } else {
         logger.debug("Populating show image effect url with variables");
-        data.url = await util.populateStringWithTriggerData(data.url, trigger);
+        data.url = await ReplaceVariableManager.populateStringWithTriggerData(data.url, trigger);
     }
 
     webServer.sendToOverlay("image", data);
@@ -181,15 +111,15 @@ function videoProcessor(effect) {
         "loop": effect.loop === true
     };
 
-    if (settings.useOverlayInstances()) {
+    if (SettingsManager.getSetting("UseOverlayInstances")) {
         if (effect.overlayInstance != null) {
-            if (settings.getOverlayInstances().includes(effect.overlayInstance)) {
+            if (SettingsManager.getSetting("OverlayInstances").includes(effect.overlayInstance)) {
                 data.overlayInstance = effect.overlayInstance;
             }
         }
     }
 
-    const resourceToken = resourceTokenManager.storeResourcePath(
+    const resourceToken = ResourceTokenManager.storeResourcePath(
         effect.file,
         effect.length
     );
@@ -222,7 +152,7 @@ async function showText(effect, trigger) {
     };
 
     logger.debug("Populating show text effect text with variables");
-    dto.text = await util.populateStringWithTriggerData(dto.text, trigger);
+    dto.text = await ReplaceVariableManager.populateStringWithTriggerData(dto.text, trigger);
 
     const position = dto.position;
     if (position === "Random") {
@@ -230,10 +160,10 @@ async function showText(effect, trigger) {
         dto.position = getRandomPresetLocation();
     }
 
-    if (settings.useOverlayInstances()) {
+    if (SettingsManager.getSetting("UseOverlayInstances")) {
         if (dto.overlayInstance != null) {
             //reset overlay if it doesnt exist
-            if (!settings.getOverlayInstances().includes(dto.overlayInstance)) {
+            if (!SettingsManager.getSetting("OverlayInstances").includes(dto.overlayInstance)) {
                 dto.overlayInstance = null;
             }
         }
@@ -272,7 +202,6 @@ async function showText(effect, trigger) {
 }
 
 // Export Functions
-exports.sound = soundProcessor;
 exports.image = imageProcessor;
 exports.video = videoProcessor;
 exports.text = showText;

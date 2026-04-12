@@ -1,16 +1,9 @@
 "use strict";
 
-const webServer = require("../../../server/http-server-manager");
-const fs = require('fs-extra');
 const logger = require("../../logwrapper");
-const path = require("path");
-const frontendCommunicator = require("../../common/frontend-communicator");
 const { EffectCategory } = require('../../../shared/effect-constants');
-const { wait } = require("../../utility");
 
-const voicelists = [];
-
-const playSound = {
+const effect = {
     definition: {
         id: "firebot:call-vtubestudio",
         name: "VTubeStudioキーバインドを起動",
@@ -21,7 +14,6 @@ const playSound = {
     },
     globalSettings: {},
     optionsTemplate: `
-
         <eos-container header="起動するキーバインド設定名" pad-top="true">
             <textarea ng-model="effect.tag" class="form-control" name="text" placeholder="キーバインド名" rows="1" cols="40" replace-variables></textarea>
         </eos-container>
@@ -29,61 +21,54 @@ const playSound = {
         <eos-container header="通信設定" pad-top="true">
         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
             <label for="port" class="control-label">ゆかコネAPIのHTTPポート</label>
-            <input 
-                type="number" 
-                class="form-control input-lg" 
-                id="port" 
+            <input
+                type="number"
+                class="form-control input-lg"
+                id="port"
                 name="port"
-                placeholder="ポート" 
+                placeholder="ポート"
                 ng-model="effect.port"
                 required
-                min="0" 
-                style="width: 50%;" 
+                min="0"
+                style="width: 50%;"
             />
             <p class="help-block">ゆかりネットコネクターNEO v2.1～のVTubeStudioプラグインが必要です。</p>
         </div>
-
-        <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
-        
     `,
-    optionsController: async ($scope) => {
-
+    optionsController: ($scope) => {
         if ($scope.effect.port == null || $scope.effect.port === "") {
             $scope.effect.port = 15520;
         }
-
     },
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
 
         if (effect.port == null || effect.port === "") {
             errors.push("ポート番号を指定してください");
         }
+
         if (effect.tag == null || effect.tag === "") {
             errors.push("タグを指定してください");
         }
+
         return errors;
     },
-    onTriggerEvent: async event => {
-        const effect = event.effect;
+    onTriggerEvent: async (event) => {
+        const { effect } = event;
 
         try {
-            // HTTP header
-
-            const response = await fetch(
+            await fetch(
                 `http://127.0.0.1:${effect.port}/api/command?target=Plugin_VtubeStudio&command=call&tag=${encodeURIComponent(effect.tag)}`,
                 {
-                    method: 'GET'
-                });
-
-            let responseData = JSON.parse(await response.text());
-
+                    method: "GET"
+                }
+            );
         } catch (error) {
             logger.error("Error running http request", error.message);
         }
 
         return true;
-    },
+    }
 };
 
-module.exports = playSound;
+module.exports = effect;

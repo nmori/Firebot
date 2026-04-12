@@ -3,7 +3,7 @@
 
     const { VariableCategory } = require("../../shared/variable-constants");
 
-    const marked = require("marked");
+    const { marked } = require("marked");
     const { sanitize } = require("dompurify");
 
     angular.module("firebotApp")
@@ -18,13 +18,25 @@
                     menuPosition: "@",
                     buttonPosition: "@"
                 },
-                controller: function($scope, $element, replaceVariableService, $timeout, $sce) {
+                controller: function($scope, $element, replaceVariableService, $timeout, $sce, variableMacroService, backendCommunicator, modalService, settingsService) {
 
                     const insertAt = (str, sub, pos) => `${str.slice(0, pos)}${sub}${str.slice(pos)}`;
 
                     $scope.showMenu = false;
 
                     $scope.variables = [];
+
+                    $scope.magicVariables = {
+                        customVariables: [],
+                        effectOutputs: [],
+                        presetListArgs: []
+                    };
+
+                    $scope.hasMagicVariables = false;
+
+                    $scope.variableMacroService = variableMacroService;
+
+                    $scope.settingsService = settingsService;
 
                     $scope.activeCategory = "common";
                     $scope.setActiveCategory = (category) => {
@@ -33,13 +45,9 @@
                     $scope.categories = Object.values(VariableCategory);
 
                     $scope.searchUpdated = () => {
-                        $scope.activeCategory = null;
-                    };
-
-                    const parseMarkdown = (text) => {
-                        return $sce.trustAsHtml(
-                            sanitize(marked(text))
-                        );
+                        if ($scope.activeCategory !== "magic") {
+                            $scope.activeCategory = null;
+                        }
                     };
 
                     function findTriggerDataScope(currentScope) {
@@ -55,24 +63,68 @@
                         return findTriggerDataScope(currentScope.$parent);
                     }
 
+                    const parseMarkdown = (text) => {
+                        return $sce.trustAsHtml(
+                            sanitize(marked(text))
+                        );
+                    };
+
+                    $scope.suggestionsLoading = {};
+
+                    function getSuggestionsForVariable(variableHandle) {
+                        $scope.suggestionsLoading[variableHandle] = true;
+
+                        const { trigger, triggerMeta } = findTriggerDataScope();
+
+                        backendCommunicator.fireEventAsync("variables:get-variable-suggestions", {
+                            variableHandle,
+                            triggerType: trigger,
+                            triggerMeta
+                        })
+                            .then((suggestions) => {
+                                const variable = $scope.variables.find(v => v.handle === variableHandle);
+                                if (variable != null) {
+                                    variable.suggestions = suggestions?.map((s) => {
+                                        return {
+                                            ...s,
+                                            description: s.description ? parseMarkdown(s.description) : undefined
+                                        };
+                                    }) ?? [];
+                                }
+                                $scope.suggestionsLoading[variableHandle] = false;
+                            });
+                    }
+
+                    $scope.suggestionsToggled = (variable, isOpen) => {
+                        if (isOpen && !variable.suggestions?.length) {
+                            getSuggestionsForVariable(variable.handle);
+                        }
+                    };
+
                     function getVariables() {
                         const { trigger, triggerMeta } = findTriggerDataScope();
+
+                        if (triggerMeta?.magicVariables) {
+                            $scope.magicVariables = triggerMeta.magicVariables;
+                            $scope.hasMagicVariables = Object.values($scope.magicVariables).some(v => v.length > 0);
+                        }
 
                         if (!$scope.disableVariableMenu) {
                             $scope.variables = replaceVariableService.getVariablesForTrigger({
                                 type: trigger,
                                 id: triggerMeta && triggerMeta.triggerId,
                                 dataOutput: $scope.replaceVariables
-                            }).map(v => {
+                            }).map((v) => {
                                 return {
                                     ...v,
                                     description: parseMarkdown(v.description || ""),
-                                    examples: v.examples?.map(e => {
+                                    examples: v.examples?.map((e) => {
                                         return {
                                             ...e,
-                                            description: parseMarkdown(e.description || "")
+                                            description: e.description ? parseMarkdown(e.description) : undefined
                                         };
-                                    })
+                                    }),
+                                    suggestions: []
                                 };
                             });
                         }
@@ -95,27 +147,63 @@
                         } else {
                             $timeout(() => {
                                 $element.next(".variable-menu").find("#variable-search").focus();
-                            }, 5);
+
+                                const offset = $element.offset();
+                                const menuHeight = $element.next(".variable-menu").height();
+
+                                if (offset.top <= menuHeight && ($scope.menuPosition === "above" || $scope.menuPosition == null || $scope.menuPosition === "")) {
+                                    $scope.menuPosition = "under";
+                                }
+                            }, 1);
                         }
                     };
 
-                    $scope.addVariable = (variable) => {
+                    $scope.insertText = (text) => {
                         if ($scope.onVariableInsert != null) {
-                            $scope.onVariableInsert({ variable: variable});
+                            $scope.onVariableInsert({ text });
                             $scope.toggleMenu();
                         } else {
                             const currentModel = $scope.modelValue ? $scope.modelValue : "";
 
                             const insertIndex = $element.prop("selectionStart") || currentModel.length;
 
-                            const display = variable.usage ? variable.usage : variable.handle;
-
-                            const updatedModel = insertAt(currentModel, `$${display}`, insertIndex);
+                            const updatedModel = insertAt(currentModel, text, insertIndex);
 
                             $scope.modelValue = updatedModel;
                         }
                     };
 
+                    $scope.addMacro = (macro) => {
+                        let baseVariableText = `$%${macro.name}`;
+                        if (macro.argNames?.length) {
+                            baseVariableText += `[${macro.argNames.join(", ")}]`;
+                        }
+                        $scope.insertText(baseVariableText);
+                    };
+
+                    $scope.addVariable = (variable) => {
+                        const display = variable.usage ? variable.usage : variable.handle;
+                        $scope.insertText(`$${display}`);
+                    };
+
+                    $scope.showAddOrEditVariableMacroModal = (macro) => {
+                        $scope.keepMenuOpen = true;
+                        variableMacroService.showAddOrEditVariableMacroModal(macro, () => {
+                            $element.next(".variable-menu").find("#variable-search").focus();
+                            $scope.keepMenuOpen = false;
+                        });
+                    };
+
+                    $scope.getAliases = (variable) => {
+                        return variable.aliases?.map(a => `$${a}`).join(", ");
+                    };
+
+                    $scope.openEditGlobalValuesModal = function () {
+                        modalService.showModal({
+                            component: "editGlobalValuesModal",
+                            size: "sm"
+                        });
+                    };
                 },
                 link: function(scope, element) {
 
@@ -134,7 +222,7 @@
                         element.wrap(compiled);
                     }
 
-                    const button = angular.element(`<span class="variables-btn ${scope.buttonPosition ? scope.buttonPosition : ''}" ng-click="toggleMenu()">$変数</span>`);
+                    const button = angular.element(`<span class="variables-btn ${scope.buttonPosition ? scope.buttonPosition : ''}" ng-click="toggleMenu()">$vars</span>`);
                     $compile(button)(scope);
 
                     if (!scope.disableVariableMenu) {
@@ -146,50 +234,158 @@
                     }
 
                     const menu = angular.element(`
-                        <div class="variable-menu" ng-show="showMenu" ng-class="menuPosition">
+                        <div class="variable-menu" ng-show="showMenu" ng-class="[menuPosition, { 'has-magic-vars': hasMagicVariables }]">
                             <div style="padding:10px;border-bottom: 1px solid #48474a;">
-                                <div style="position: relative;">
-                                    <input id="variable-search" type="text" class="form-control" placeholder="検索..." ng-model="variableSearchText" ng-change="searchUpdated()" style="padding-left: 27px;">
+                                <div class="relative">
+                                    <input id="variable-search" type="text" class="form-control" placeholder="変数を検索..." ng-model="variableSearchText" ng-change="searchUpdated()" style="padding-left: 27px;">
                                     <span class="searchbar-icon"><i class="far fa-search"></i></span>
                                 </div>
                             </div>
 
-                            <div style="display: flex; flex-direction: row;">
-                                <div style="width: 125px;display:flex;flex-direction:column;flex-shrink: 0;background: #18191b;">
-                                    <div class="effect-category-header">Categories</div>
-                                    <div class="effect-category-wrapper dark" ng-class="{'selected': activeCategory == null}" ng-click="setActiveCategory(null);">
-                                        <div class="category-text">All</div>
+                            <div class="flex">
+                                <div class="variable-categories dark">
+                                    <div
+                                        class="variable-category"
+                                        ng-class="{'selected': activeCategory === 'macros'}"
+                                        ng-click="setActiveCategory('macros');"
+                                    >
+                                        <div><i class="fas fa-layer-group"></i> マクロ</div>
                                     </div>
-                                    <div class="effect-category-wrapper dark" ng-repeat="category in categories" ng-class="{'selected': activeCategory === category}" ng-click="setActiveCategory(category);">
-                                        <div class="category-text">{{category}}</div>
+                                    <div
+                                        class="variable-category"
+                                        ng-class="{'selected': activeCategory === 'global-values'}"
+                                        ng-click="setActiveCategory('global-values');"
+                                    >
+                                        <div><i class="fas fa-globe"></i> グローバル値</div>
+                                    </div>
+                                    <div
+                                        class="variable-category"
+                                        ng-class="{'selected': activeCategory === 'magic'}"
+                                        ng-click="setActiveCategory('magic');"
+                                        ng-show="hasMagicVariables"
+                                    >
+                                        <div><i class="far fa-magic"></i> マジック</div>
+                                    </div>
+                                    <div class="variable-category-header muted pt-2">カテゴリ</div>
+                                    <div class="variable-category" ng-class="{'selected': activeCategory == null}" ng-click="setActiveCategory(null);">
+                                        <div>すべて</div>
+                                    </div>
+                                    <div class="variable-category" ng-repeat="category in categories" ng-class="{'selected': activeCategory === category}" ng-click="setActiveCategory(category);">
+                                        <div>{{category}}
+                                            <tooltip
+                                                style="margin-left: 5px"
+                                                ng-if="category === 'integrations' || category === 'obs'"
+                                                text="'変数を利用するには、Settings -> Integrations で連携を接続/設定する必要があります。'"
+                                            ></tooltip>
+                                        </div>
                                     </div>
                                 </div>
-<<<<<<< HEAD
-                                <div style="padding: 10px;overflow-y: auto; height: 250px;width: 100%;">
-                                    <div ng-repeat="variable in variables | orderBy:'handle' | variableCategoryFilter:activeCategory | variableSearch:variableSearchText" style="margin-bottom: 8px;">
-                                        <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="追加する" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
-=======
-                                <div style="overflow-y: auto;width: 100%;" ng-style="{ height: hasMagicVariables ? '408px': '375px', padding: activeCategory === 'macros' ? '10px 0' : '10px' }">
-                                    <div ng-hide="activeCategory === 'magic' || activeCategory === 'macros'" ng-repeat="variable in variables | orderBy:'handle' | variableCategoryFilter:activeCategory | variableSearch:variableSearchText" style="margin-bottom: 8px;">
-                                        <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="追加する" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
+                                <div style="overflow-y: auto;width: 100%;" ng-style="{ height: hasMagicVariables ? '441px': '403px', padding: activeCategory === 'macros' ? '10px 0' : '10px' }">
+                                    <div ng-hide="activeCategory === 'magic' || activeCategory === 'macros' || activeCategory === 'global-values'" ng-repeat="variable in variables | orderBy:'handle' | variableCategoryFilter:activeCategory | variableSearch:variableSearchText" style="margin-bottom: 8px;">
+                                        <div style="font-weight: 900;">\${{variable.usage ? variable.usage : variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="addVariable(variable)"></i></div>
+                                        <div ng-if="variable.sensitive === true" class="text-danger"><strong>警告</strong>: 機密データを含む可能性があります。<tooltip text="'この変数には機密情報や個人情報が含まれる場合があります。チャット投稿、オーバーレイ表示、ログファイルなど安全でない場所への出力は避けてください。'"></tooltip></div>
                                         <div ng-if="variable.aliases && variable.aliases.length > 0">
-                                            <div style="font-size: 12px; opacity: 0.75;">Aliases: {{getAliases(variable)}}</div>
+                                            <div style="font-size: 12px; opacity: 0.75;">エイリアス: {{getAliases(variable)}}</div>
                                         </div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                         <div class="muted" ng-bind-html="variable.description"></div>
-                                        <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
-                                            <collapsable-section show-text="使用例" hide-text="使用例" text-color="#0b8dc6">
-                                                <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
-                                                    <div style="font-weight: 900;">\${{example.usage}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="addVariable(example)"></i></div>
-                                                    <div class="muted" ng-bind-html="example.description"></div>
+                                        <div ng-show="variable.hasSuggestions" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
+                                            <collapsable-section show-text="候補" hide-text="候補" text-color="#0b8dc6" on-toggle="suggestionsToggled(variable, isOpen)">
+                                                <div ng-repeat="suggestion in variable.suggestions" style="margin-top: 3px; margin-bottom: 3px;">
+                                                    <div style="font-weight: 900;">\${{suggestion.usage}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="addVariable(suggestion)"></i></div>
+                                                    <div class="muted" ng-bind-html="suggestion.description"></div>
+                                                </div>
+                                                <div ng-if="suggestionsLoading[variable.handle]" style="padding: 3px 10px;">
+                                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                                </div>
+                                                <div ng-if="!suggestionsLoading[variable.handle] && (!variable.suggestions || variable.suggestions.length === 0)" style="text-align: center; padding: 1px 10px;" class="muted">
+                                                   {{ variable.noSuggestionsText || "候補はありません" }}
                                                 </div>
                                             </collapsable-section>
+                                        </div>
+                                        <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
+                                            <collapsable-section show-text="他の例" hide-text="他の例" text-color="#0b8dc6">
+                                                <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
+                                                    <div style="font-weight: 900;">\${{example.usage}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="addVariable(example)"></i></div>
+                                                    <div ng-if="example.description" class="muted" ng-bind-html="example.description"></div>
+                                                </div>
+                                            </collapsable-section>
+                                        </div>
+                                    </div>
+                                    <div ng-show="activeCategory === 'macros'" style="position: relative;">
+                                        <div class="mb-2 pr-4" style="text-align: right;">
+                                            <firebot-button type="primary" size="small" icon="fas fa-plus-circle" text="マクロを追加" ng-click="showAddOrEditVariableMacroModal()" />
+                                        </div>
+                                        <macro-list-item
+                                            ng-repeat="macro in variableMacroService.macros | filter: { name: variableSearchText } track by macro.name"
+                                            macro="macro"
+                                            on-edit-clicked="showAddOrEditVariableMacroModal(macro)"
+                                            on-add-to-text-clicked="addMacro(macro)"
+                                        />
+                                    </div>
+                                    <div ng-show="activeCategory === 'global-values'" style="position: relative;">
+                                        <div class="mb-2 pr-4" style="text-align: right;">
+                                            <firebot-button type="primary" size="small" text="グローバル値を管理" ng-click="openEditGlobalValuesModal()" />
+                                        </div>
+                                        <div
+                                            ng-repeat="globalValue in settingsService.getSetting('GlobalValues') | filter: { name: variableSearchText } track by globalValue.name"
+                                            style="margin-bottom: 8px;"
+                                        >
+                                            <div style="font-weight: 900;">$!{{globalValue.name}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText('$!' + globalValue.name)"></i></div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="activeCategory === 'magic'" style="position: relative;">
+                                        <div style="position: absolute; right: 0;">
+                                            <a
+                                                class="magic-tooltip"
+                                                uib-tooltip="これは、このエフェクトに関連しそうだと Firebot が判断したカスタム変数・エフェクト出力・プリセットリスト引数変数です。網羅一覧ではなく、実行時に利用可能とは限りません。保証ではなく参考情報として扱ってください。"
+                                                tooltip-append-to-body="true"
+                                                tooltip-placement="auto top"
+                                            >これは何ですか？</a>
+                                        </div>
+                                        <div ng-if="magicVariables.customVariables.length > 0">
+                                            <div class="variable-category-header" style="padding-top: 0; padding-left: 0;">カスタム変数</div>
+                                            <div ng-repeat="variable in magicVariables.customVariables | variableSearch:variableSearchText track by variable.name" style="margin-bottom: 8px;">
+                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
+                                                <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
+                                                    <collapsable-section show-text="他の例" hide-text="他の例" text-color="#0b8dc6">
+                                                        <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
+                                                            <div style="font-weight: 900;">{{example.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(example.handle)"></i></div>
+                                                            <div class="muted" ng-bind-html="example.description"></div>
+                                                        </div>
+                                                    </collapsable-section>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="magicVariables.effectOutputs.length > 0">
+                                            <div class="variable-category-header" style="padding-left: 0;">エフェクト出力</div>
+                                            <div ng-repeat="variable in magicVariables.effectOutputs | variableSearch:variableSearchText track by variable.name" style="margin-bottom: 8px;">
+                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
+                                                <div ng-show="variable.description" class="muted">{{variable.description}}</div>
+                                                <div ng-show="variable.effectLabel" style="font-size: 12px; opacity: 0.75;">エフェクト: {{variable.effectLabel}}</div>
+                                                <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
+                                                    <collapsable-section show-text="他の例" hide-text="他の例" text-color="#0b8dc6">
+                                                        <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
+                                                            <div style="font-weight: 900;">{{example.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(example.handle)"></i></div>
+                                                            <div class="muted" ng-bind-html="example.description"></div>
+                                                        </div>
+                                                    </collapsable-section>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="magicVariables.presetListArgs.length > 0">
+                                            <div class="variable-category-header pl-0">プリセットリスト引数</div>
+                                            <div ng-repeat="variable in magicVariables.presetListArgs | variableSearch:variableSearchText track by variable.name" style="margin-bottom: 8px;">
+                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>`
                     );
+
                     $compile(menu)(scope);
                     menu.insertAfter(element);
 
@@ -198,7 +394,8 @@
                             scope.showMenu &&
                             !wrapper[0].contains(event.target) &&
                             !button[0].contains(event.target) &&
-                            !menu[0].contains(event.target)
+                            !menu[0].contains(event.target) &&
+                            !scope.keepMenuOpen
                         ) {
                             scope.setMenu(false);
                         }
@@ -208,7 +405,7 @@
 
                     scope.$on("$destroy", function() {
                         $document.unbind("mousedown", documentClick);
-                    });                    
+                    });
                 }
             };
         });

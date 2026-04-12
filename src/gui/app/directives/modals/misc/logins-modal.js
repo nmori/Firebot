@@ -5,8 +5,8 @@
         .component("loginsModal", {
             template: `
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="$ctrl.goBack()"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title" style="text-transform: capitalize">Twitchへのログイン</h3>
+                    <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.goBack()"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" style="text-transform: capitalize">Twitch ログイン</h3>
                 </div>
                 <div class="modal-body">
                     <div ng-if="$ctrl.dcfAccount == null" class="mb-3">

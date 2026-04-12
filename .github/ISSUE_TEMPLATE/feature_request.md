@@ -1,16 +1,11 @@
 ---
-name: 機能リクエスト
-about: Firebotのアイデアを提案する
-title: "[機能要求] "
-<<<<<<< HEAD
-labels: Enhancement
-
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+name: Feature request
+about: Suggest an idea for Firebot
+type: "Feature"
 ---
 
-**ご希望のソリューションをご記入ください。**
-起こしてほしいことを明確かつ簡潔に入力してください。
+**Describe the solution you'd like**
+Enter a clear and concise description of what you want to happen.
 
-**追加コンテキスト**
-機能リクエストに関するその他の情報やスクリーンショットをここに追加してください。
+**Additional context**
+Add any other context or screenshots about the feature request here.

@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-<div class="p-6 mx-0 my-6" style="display: flex;flex-direction: row;justify-content: space-between;">
-=======
 <div class="p-6 mx-0" style="display: flex;flex-direction: row;justify-content: space-between;">
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-    <button ng-click="showAddOrEditQuoteModal()" class="btn btn-primary"><i class="fas fa-plus-circle mr-2"></i> 引用文の追加</button>
-    <button ng-click="showImportQuotesModal()" class="btn btn-primary ml-2"><i class="fas fa-cloud-download-alt mr-2"></i>引用文の取り込み</button>
+    <button ng-click="showAddOrEditQuoteModal()" class="btn btn-primary"><i class="fas fa-plus-circle mr-2"></i> 引用を追加</button>
+    <button ng-click="showImportQuotesModal()" class="btn btn-primary ml-2"><i class="fas fa-cloud-download-alt mr-2"></i>引用をインポート</button>
+    <button ng-click="exportQuotesToFile()" class="btn btn-default ml-2"><i class="fas fa-file-export mr-2"></i>引用をエクスポート</button>
     <div style="display: flex;flex-direction: row;justify-content: space-between;margin-left: auto;">
-        <searchbar placeholder-text="検索..." query="quoteSearch" style="flex-basis: 250px;"></searchbar>
+        <searchbar placeholder-text="引用を検索..." query="quoteSearch" style="flex-basis: 250px;"></searchbar>
     </div>
 </div>
 
@@ -20,6 +17,6 @@
         track-by-field="_id"
         starting-sort-field="createdAt"
         sort-initially-reversed="true"
-        no-data-message="引用文は作成されていません">
+        no-data-message="まだ引用がありません。">
     </sortable-table>
 </div>

@@ -1,8 +1,8 @@
 "use strict";
 
-const logger = require("../../../logwrapper");
-const profileManager = require("../../../common/profile-manager");
+const { ProfileManager } = require("../../../common/profile-manager");
 const frontendCommunicator = require("../../../common/frontend-communicator");
+const logger = require("../../../logwrapper");
 const { runStartUpScript, startUpScriptSaved, startUpScriptDeleted } = require("./custom-script-runner");
 
 /**
@@ -19,7 +19,7 @@ const { runStartUpScript, startUpScriptSaved, startUpScriptDeleted } = require("
 let startupScripts = {};
 
 function getStartupScriptsConfig() {
-    return profileManager
+    return ProfileManager
         .getJsonDbInProfile("startup-scripts-config");
 }
 
@@ -44,7 +44,7 @@ function loadStartupConfig() {
 /**
  * @param {ScriptData} startupScriptData
  */
-function saveStartupScriptData(startupScriptData) {
+async function saveStartupScriptData(startupScriptData) {
     if (startupScriptData == null) {
         return;
     }
@@ -56,12 +56,12 @@ function saveStartupScriptData(startupScriptData) {
 
         startupScriptsConfig.push(`/${startupScriptData.id}`, startupScriptData);
 
-        logger.debug(`Saved preset effect list ${startupScriptData.id} to file.`);
+        logger.debug(`Saved startup script data ${startupScriptData.id} to file.`);
     } catch (err) {
-        logger.warn(`There was an error saving a preset effect list.`, err);
+        logger.warn(`There was an error saving startup script data.`, err);
     }
 
-    startUpScriptSaved(startupScriptData);
+    await startUpScriptSaved(startupScriptData);
 }
 
 /**
@@ -98,6 +98,10 @@ function getStartupScriptData(startupScriptDataId) {
     return startupScripts[startupScriptDataId];
 }
 
+function getLoadedStartupScripts() {
+    return { ...startupScripts };
+}
+
 /**
  * Turns startup script data into valid Custom Script effects and runs them
  */
@@ -109,8 +113,12 @@ async function runStartupScripts() {
 
 frontendCommunicator.onAsync("getStartupScripts", async () => startupScripts);
 
-frontendCommunicator.on("saveStartupScriptData", (startupScriptData) => {
-    saveStartupScriptData(startupScriptData);
+frontendCommunicator.onAsync("saveStartupScriptData", async (startupScriptData) => {
+    try {
+        await saveStartupScriptData(startupScriptData);
+    } catch (error) {
+        logger.error("Error saving startup script", error);
+    }
 });
 
 frontendCommunicator.on("deleteStartupScriptData", (startupScriptDataId) => {
@@ -120,3 +128,4 @@ frontendCommunicator.on("deleteStartupScriptData", (startupScriptDataId) => {
 exports.runStartupScripts = runStartupScripts;
 exports.loadStartupConfig = loadStartupConfig;
 exports.getStartupScriptData = getStartupScriptData;
+exports.getLoadedStartupScripts = getLoadedStartupScripts;

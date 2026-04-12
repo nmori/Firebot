@@ -1,74 +1,70 @@
-name: バグレポート
-description: バグレポートファイル
-<<<<<<< HEAD
-title: "[Bug] "
-labels: ["Bug"]
-=======
+name: Bug Report
+description: File a bug report
 type: "Bug"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 body:
   - type: markdown
     attributes:
       value: |
-        バグレポートにご協力いただきありがとうございます！
+        Thanks for taking the time to fill out this bug report!
   - type: checkboxes
     attributes:
-      label: この件に関する既存のレポートはありますか？
-      description: あなたが遭遇したバグについて、すでにissueが存在するかどうか検索してください。
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
       options:
-      - label: 既存のissueを検索しました
+      - label: I have searched the existing issues
         required: true
   - type: textarea
     attributes:
-      label: 現在の行動
-      description: あなたが経験していることを簡潔に説明してください。
+      label: Current Behavior
+      description: A concise description of what you're experiencing.
     validations:
       required: false
   - type: textarea
     attributes:
-      label: 期待される行動
-      description: 何が起こると予想したかを簡潔に説明すること。
+      label: Expected Behavior
+      description: A concise description of what you expected to happen.
     validations:
       required: false
   - type: textarea
     attributes:
-      label: 再現の手順
-      description: 動作を再現するための手順
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
       placeholder: |
-        1. この画面を出して...
-        2. このボタンを押して...
-        3. このエラーが出た...
+        1. Go to...
+        2. Click on...
+        3. See error...
     validations:
       required: false
   - type: input
     id: version
     attributes:
-      label: バージョン
-      description: Firebotのバージョンは？
+      label: Version
+      description: What version of Firebot are you running?
     validations:
       required: true
   - type: dropdown
     id: os
     attributes:
-      label: Firebotをお使いのOSは？
+      label: What operating system are you using Firebot on?
       options:
         - Windows 10
         - Windows 11
         - Linux Distro
+        - MacOS
         - Other
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: 関連ログ出力
-      description: 関連するログ出力をコピー＆ペーストしてください。(自動的に整形されますので、バックティックは不要です。） 
-      render: Shell
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. (This will be automatically formatted, so no need for backticks)
+      render: shell
   - type: input
     id: contact
     attributes:
-      label: 連絡先の詳細（オプション）
-      description: もっと情報が必要な場合、どのように連絡すればよいですか？
+      label: Contact Details (Optional)
+      description: How can we get in touch with you if we need more info?
       placeholder: ex. DiscordUsername#0000
     validations:
       required: false

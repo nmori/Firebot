@@ -14,17 +14,15 @@
       "EVENTS": "Events",
       "PRESET_EFFECT_LISTS": "Preset Effect Lists",
       "EFFECT_QUEUES": "Effect Queues",
-      "VARIABLE_MACROS": "Variable Macros",
-      "MODERATION": "Moderation",
-      "GAMES": "Games",
       "TIME_BASED": "Time-Based",
       "HOTKEYS": "Hotkeys",
-      "CHANNELREWARDS": "Channel Rewards"
+      "CHANNELREWARDS": "Channel Rewards",
+      "COUNTERS": "Counters"
     },
     "MANAGEMENT": {
       "MANAGEMENT": "Management",
       "VIEWER_GROUPS": "Viewer Groups",
-      "VIEWER_ROLES": "Viewer Roles",
+      "VIEWER_ROLES": "Roles & Ranks",
       "MODERATION": "Moderation",
       "VIEWERS": "Viewers",
       "SETTINGS": "Settings",
@@ -34,7 +32,7 @@
     },
     "CONNECTIONS": {
       "CONNECTIONS": "Connections",
-      "MIXER_TOGGLE": "Click to toggle connections",
+      "TOGGLE": "Click to toggle connections",
       "OPEN_CONNECTION_PANNEL": "Open Connection Panel"
     },
     "ABOUT": "About"

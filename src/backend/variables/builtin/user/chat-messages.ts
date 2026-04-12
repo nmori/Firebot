@@ -1,5 +1,4 @@
-import { ReplaceVariable } from "../../../../types/variables";
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
+import type { ReplaceVariable } from "../../../../types/variables";
 
 import viewerDatabase from "../../../viewers/viewer-database";
 
@@ -7,7 +6,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "chatMessages",
         usage: "chatMessages",
-        description: "ビューアのチャットメッセージ数を表示します。",
+        description: "Displays the number of chat messages for a viewer (leave blank to use current viewer)",
         examples: [
             {
                 usage: "chatMessages",
@@ -18,8 +17,8 @@ const model : ReplaceVariable = {
                 description: "Returns the number of chat messages for the specified user"
             }
         ],
-        categories: [VariableCategory.USER],
-        possibleDataOutput: [OutputDataType.NUMBER]
+        categories: ["user based"],
+        possibleDataOutput: ["number"]
     },
     evaluator: async (trigger, username: string) => {
         if (username == null) {

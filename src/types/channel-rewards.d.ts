@@ -1,25 +1,26 @@
-import { CustomReward } from "../backend/twitch-api/resource/channel-rewards";
-import { EffectList } from "./effects";
+import type { CustomReward } from "../backend/streaming-platforms/twitch/api/resource/channel-rewards";
+import type { EffectList } from "./effects";
+import type { RestrictionData } from "./restrictions";
 
 export type SavedChannelReward = {
-    id: string,
-    twitchData: CustomReward,
-    manageable: boolean,
-    effects?: EffectList
+    id: string;
+    twitchData: CustomReward;
+    manageable: boolean;
+    effects?: EffectList;
+    effectsFulfilled?: EffectList;
+    effectsCanceled?: EffectList;
+    restrictionData?: RestrictionData;
+    autoApproveRedemptions?: boolean;
 };
 
 export type RewardRedemptionMetadata = {
-    username: string,
-<<<<<<< HEAD
-    displayName: string,
-=======
-    userId: string,
-    userDisplayName: string,
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-    messageText: string,
-    redemptionId: string,
-    rewardId: string,
-    rewardImage: string,
-    rewardName: string,
-    rewardCost: number
+    username: string;
+    userId: string;
+    userDisplayName: string;
+    messageText: string;
+    redemptionId: string;
+    rewardId: string;
+    rewardImage: string;
+    rewardName: string;
+    rewardCost: number;
 };

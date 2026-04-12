@@ -11,11 +11,11 @@
                 <div>
                     <div class="role-bar" ng-repeat="tagId in $ctrl.currentTagIds track by $index">
                         <span>{{$ctrl.getTagName(tagId)}}</span>
-                        <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeTag(tagId)" uib-tooltip="Remove tag" tooltip-append-to-body="true">
+                        <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeTag(tagId)" uib-tooltip="タグを削除" tooltip-append-to-body="true">
                             <i class="far fa-times"></i>
                         </span>
                     </div>
-                    <div class="role-bar clickable" ng-if="$ctrl.hasTagsAvailable" ng-click="$ctrl.addTag()" uib-tooltip="Add tag" tooltip-append-to-body="true">
+                    <div class="role-bar clickable" ng-if="$ctrl.hasTagsAvailable" ng-click="$ctrl.addTag()" uib-tooltip="タグを追加" tooltip-append-to-body="true">
                         <i class="far fa-plus"></i>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
             controller: function(utilityService) {
                 const $ctrl = this;
 
-                $ctrl.getTagName = id => {
+                $ctrl.getTagName = (id) => {
                     const tag = $ctrl.allTags.find(t => t.id === id);
                     return tag ? tag.name : "";
                 };
@@ -33,7 +33,7 @@
                     $ctrl.hasTagsAvailable = $ctrl.allTags.filter(t => !$ctrl.currentTagIds.some(id => id === t.id)).length > 0;
                 }
 
-                $ctrl.removeTag = tagId => {
+                $ctrl.removeTag = (tagId) => {
                     $ctrl.currentTagIds = $ctrl.currentTagIds.filter(id => id !== tagId);
                     updateTagsAvailable();
                 };
@@ -44,10 +44,10 @@
 
                     utilityService.openSelectModal(
                         {
-                            label: "タグの追加",
+                            label: "タグを追加",
                             options: remainingTags,
-                            saveText: "追加する",
-                            validationText: "タグを選んでください"
+                            saveText: "追加",
+                            validationText: "タグを選択してください。"
 
                         },
                         (tagId) => {

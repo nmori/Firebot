@@ -1,8 +1,9 @@
 "use strict";
 
-const deepmerge = require("deepmerge");
-
 (function() {
+
+    const deepmerge = require("deepmerge");
+
     angular
         .module('firebotApp')
         .component("editableList", {
@@ -14,14 +15,26 @@ const deepmerge = require("deepmerge");
             template: `
                 <div>
                     <div ui-sortable="$ctrl.sortableOptions" ng-model="$ctrl.model">
-                        <div ng-repeat="item in $ctrl.model track by $index" class="list-item selectable" ng-click="$ctrl.editItem($index)">
-                            <span ng-show="$ctrl.settings.sortable" class="dragHandle" style="height: 38px; width: 15px; align-items: center; justify-content: center; display: flex">
-                                <i class="fal fa-bars" aria-hidden="true"></i>
-                            </span>
-                            <div uib-tooltip="Click to edit"  style="font-weight: 400;" aria-label="{{item + ' (Click to edit)'}}">{{item}}</div>
-                            <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeItem($index);$event.stopPropagation();" aria-label="Remove item">
-                                <i class="fad fa-trash-alt" aria-hidden="true"></i>
-                            </span>
+                        <div ng-repeat="item in $ctrl.model track by $index" class="list-item">
+                            <div style="display: flex;align-items: center;column-gap: 10px;">
+                                <span ng-show="$ctrl.settings.sortable" class="dragHandle" style="height: 38px; width: 15px; align-items: center; justify-content: center; display: flex">
+                                    <i class="fal fa-bars" aria-hidden="true"></i>
+                                </span>
+                                <span ng-if="$ctrl.settings.showIndex" class="muted">{{ $ctrl.settings.indexTemplate.replace("{index}", $ctrl.settings.indexZeroBased ? $index : $index + 1).replace("{name}", item) }}</span>
+                                <div style="font-weight: 400;" aria-label="{{item}}">{{item}}</div>
+                                <span ng-if="$ctrl.settings.hintTemplate != null" class="muted">{{ $ctrl.settings.hintTemplate.replace("{index}", $ctrl.settings.indexZeroBased ? $index : $index + 1).replace("{name}", item) }}</span>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <div ng-if="$ctrl.settings.showCopyButton" uib-tooltip="コピー" class="clickable mr-4" style="color: white;" ng-click="$ctrl.copyItem($index);" aria-label="項目をコピー">
+                                    <i class="fas fa-copy" aria-hidden="true"></i>
+                                </div>
+                                <div uib-tooltip="編集" class="clickable mr-4" style="color: white;" ng-click="$ctrl.editItem($index);" aria-label="項目を編集">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </div>
+                                <div uib-tooltip="削除" class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeItem($index);$event.stopPropagation();" aria-label="項目を削除">
+                                    <i class="fad fa-trash-alt" aria-hidden="true"></i>
+                                </div>
+                            </div>
                         </div>
                         <p class="muted" ng-show="$ctrl.model.length < 1">{{$ctrl.settings.noneAddedText}}</p>
                     </div>
@@ -31,7 +44,7 @@ const deepmerge = require("deepmerge");
                             ng-disabled="$ctrl.maxItemsReached()"
                             class="filter-bar"
                             ng-class="{ muted: $ctrl.maxItemsReached() }"
-                            uib-tooltip="{{!$ctrl.maxItemsReached() ? $ctrl.settings.addLabel : 'Maximum reached' }}"
+                                uib-tooltip="{{!$ctrl.maxItemsReached() ? $ctrl.settings.addLabel : '上限に達しました' }}"
                             tooltip-append-to-body="true"
                             aria-label="{{$ctrl.settings.addLabel}}"
                         >
@@ -40,7 +53,7 @@ const deepmerge = require("deepmerge");
                     </div>
                 </div>
             `,
-            controller: function(utilityService, ngToast) {
+            controller: function(utilityService, ngToast, $rootScope) {
 
                 const $ctrl = this;
 
@@ -51,12 +64,6 @@ const deepmerge = require("deepmerge");
 
                 const defaultSettings = {
                     sortable: false,
-<<<<<<< HEAD
-                    addLabel: "追加",
-                    editLabel: "編集",
-                    validationText: "テキストは空欄にできません",
-                    noneAddedText: "保存しない",
-=======
                     showIndex: false,
                     indexZeroBased: false,
                     indexTemplate: "{index}.",
@@ -66,13 +73,13 @@ const deepmerge = require("deepmerge");
                     addLabel: "追加",
                     editLabel: "編集",
                     customValidators: undefined,
-                    validationText: "空欄は許容されていません",
-                    noneAddedText: "未保存",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    validationText: "テキストは空にできません",
+                    noneAddedText: "保存済み項目はありません",
                     noDuplicates: false,
                     maxItems: undefined,
                     trigger: undefined,
-                    triggerMeta: undefined
+                    triggerMeta: undefined,
+                    inputPlaceholder: undefined
                 };
 
 
@@ -99,23 +106,46 @@ const deepmerge = require("deepmerge");
                             label: isNew ? $ctrl.settings.addLabel : $ctrl.settings.editLabel,
                             useTextArea: $ctrl.settings.useTextArea,
                             saveText: "保存",
-<<<<<<< HEAD
-                            validationFn: (value) => {
-                                return new Promise(resolve => {
-=======
                             validationFn: $ctrl.settings.validationFn ?? ((value, initialValue) => {
                                 return new Promise(async (resolve) => {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                     if (value == null || value.trim().length < 1) {
-                                        resolve(false);
+                                        resolve({
+                                            success: false,
+                                            reason: "テキストは空にできません"
+                                        });
+                                    } else if ($ctrl.settings.noDuplicates && value !== initialValue && $ctrl.model.some(i => i === value)) {
+                                        resolve({
+                                            success: false,
+                                            reason: "一意である必要があります"
+                                        });
                                     } else {
+                                        if ($ctrl.settings.customValidators) {
+                                            for (const validator of $ctrl.settings.customValidators) {
+                                                try {
+                                                    const result = await validator(value, initialValue);
+                                                    const failed = result != null && (result === false || (typeof result === "object" && result.success == false));
+                                                    if (failed) {
+                                                        resolve(result);
+                                                        return;
+                                                    }
+                                                } catch (e) {
+                                                    console.error(e);
+                                                    resolve({
+                                                        success: false,
+                                                        reason: "エラーが発生しました"
+                                                    });
+                                                    return;
+                                                }
+                                            }
+                                        }
                                         resolve(true);
                                     }
                                 });
-                            },
+                            }),
                             validationText: $ctrl.settings.validationText,
                             trigger: $ctrl.settings.trigger,
-                            triggerMeta: $ctrl.settings.triggerMeta
+                            triggerMeta: $ctrl.settings.triggerMeta,
+                            inputPlaceholder: $ctrl.settings.inputPlaceholder
                         },
                         cb);
                 }
@@ -126,8 +156,21 @@ const deepmerge = require("deepmerge");
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model[index] = newItem;
                         } else {
-                            ngToast.create("追加できません。複製がすでにあります");
+                            ngToast.create("編集できません: 重複する項目があります");
                         }
+                    });
+                };
+
+                $ctrl.copyItem = (index) => {
+                    const item = $ctrl.model[index];
+                    const copyText = $ctrl.settings.copyTemplate
+                        .replace("{name}", item)
+                        .replace("{index}", index);
+                    $rootScope.copyTextToClipboard(copyText);
+
+                    ngToast.create({
+                        className: 'info',
+                        content: `「${copyText}」をクリップボードにコピーしました`
                     });
                 };
 
@@ -137,7 +180,7 @@ const deepmerge = require("deepmerge");
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model.push(newItem);
                         } else {
-                            ngToast.create("追加できません。複製がすでにあります");
+                            ngToast.create("追加できません: 重複する項目があります");
                         }
                     });
                 };

@@ -1,67 +1,60 @@
 "use strict";
 
-(function () {
+(function() {
     angular.module("firebotApp")
         .component("addOrEditChannelReward", {
             template: `
                 <scroll-sentinel element-class="edit-reward-header"></scroll-sentinel>
                 <div class="modal-header sticky-header edit-reward-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">チャンネル特典を編集</h4>
+                    <h4 class="modal-title">チャンネル報酬を編集</h4>
                 </div>
                 <div class="modal-body" style="padding-top: 15px;">
-                    <div ng-if="!$ctrl.reward.manageable" style="display: flex; flex-direction: column;">
+                    <div ng-if="!$ctrl.reward.manageable" style="display: flex; flex-direction: column; padding-left: 15px; padding-right: 15px;">
                         <div style="font-size:30px;margin: 0 auto;">{{$ctrl.reward.twitchData.title}}</div>
 
-                        <div style="margin: 10px auto; padding: 12.5px; border-radius: 6px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center;" ng-style="{background: $ctrl.reward.twitchData.backgroundColor}">             
-                            <img 
-                                ng-src="{{$ctrl.reward.twitchData.image ? $ctrl.reward.twitchData.image.url4x : $ctrl.reward.twitchData.defaultImage.url4x}}" 
+                        <div style="margin: 10px auto; padding: 12.5px; border-radius: 6px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center;" ng-style="{background: $ctrl.reward.twitchData.backgroundColor}">
+                            <img
+                                ng-src="{{$ctrl.reward.twitchData.image ? $ctrl.reward.twitchData.image.url4x : $ctrl.reward.twitchData.defaultImage.url4x}}"
                                 style="width: 75px; height: 75px; display: block;"
                             />
                         </div>
-                        
+
                         <p class="help-block" style="text-align: center;">
-                            この特典はFirebotの外部で作成されたか、Firebotの古いバージョンで作成されたものなので、ここで設定を変更することはできません。ただし、演出を作成することはできます。この特典設定を更新したい場合は、Twitchで行うことができます。
+                            この報酬は Firebot 外部で作成されたか、古い Firebot で作成されたため、ここでは設定を変更できません。エフェクトの作成は可能です。設定を更新する場合は Twitch 側で行ってください。
                         </p>
-                        <collapsable-panel header="チャンネル特典の編集・更新を有効にする方法">
-                            <p>このチャンネル特典をFirebotで編集したり、<strong>チャンネル特典の更新</strong>演出を使用したい場合は、<strong>チャンネル特典/strong>画面から<strong>複製</strong>することができます。これにより、すでに設定されている演出や設定（画像を除く）が保持されます。</p>
-                            <p>その後、Twitchダッシュボードから古い特典を削除できます。また、新しく作成した特典を参照するために、既存の<strong>チャンネル特典の更新</strong>演出を更新する必要があります。</p>
+                        <collapsable-panel header="編集を有効にする / チャンネル報酬を更新する方法">
+                            <p>Firebot でこのチャンネル報酬を編集したい、または <strong>チャンネル報酬を更新</strong> エフェクトを使いたい場合は、<strong>チャンネル報酬</strong> 画面でこの報酬を <strong>複製</strong> してください。これにより、現在の設定（画像を除く）とエフェクトを維持できます。</p>
+                            <p>その後、Twitch ダッシュボードから古い報酬を削除できます。既存の <strong>チャンネル報酬を更新</strong> エフェクトは、新しく作成した報酬を参照するよう更新してください。</p>
                         </collapsable-panel>
                     </div>
-                    <form ng-show="$ctrl.reward.manageable" name="rewardSettings">
+                    <form ng-show="$ctrl.reward.manageable" name="rewardSettings" style="padding-left: 15px; padding-right: 15px;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('name')}">
-                            <label for="name" class="control-label">チャンネル特典名</label>
-<<<<<<< HEAD
-                            <input 
-                                type="text" 
-                                id="name" 
-                                name="name" 
-=======
+                            <label for="name" class="control-label">報酬名</label>
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 ng-maxlength="45"
                                 ui-validate="'!$ctrl.rewardNameExists($value)'"
-                                required 
-                                class="form-control input-lg" 
-                                placeholder="特典に名前をつける" 
-                                ng-model="$ctrl.reward.twitchData.title" 
+                                required
+                                class="form-control input-lg"
+                                placeholder="報酬名を入力"
+                                ng-model="$ctrl.reward.twitchData.title"
                             />
                         </div>
 
                         <div class="form-group">
-                            <label for="description" class="control-label">概要</label>
-                            <textarea 
-                                id="description" 
-                                maxlength="200" 
-                                ng-model="$ctrl.reward.twitchData.prompt" 
-                                class="form-control" 
-                                style="font-size: 16px; padding: 10px 16px;" 
-                                name="text" 
-                                placeholder="視聴者に何をリクエストしてほしいか、ひとこと添えてください" 
-                                rows="4" 
+                            <label for="description" class="control-label">説明</label>
+                            <textarea
+                                id="description"
+                                maxlength="200"
+                                ng-model="$ctrl.reward.twitchData.prompt"
+                                class="form-control"
+                                style="font-size: 16px; padding: 10px 16px;"
+                                name="text"
+                                placeholder="視聴者にリクエストしてほしい内容を入力"
+                                rows="4"
                                 cols="40"
                             />
                             <p class="help-block">任意</p>
@@ -69,8 +62,8 @@
 
                         <div class="form-group flex-row jspacebetween">
                             <div>
-                                <label class="control-label" style="margin:0;">視聴者にテキスト入力を求める</label>
-                                <p class="help-block">有効にすると、特典を受け取る視聴者に入力を求める枠が表示されます。</p>
+                                <label class="control-label" style="margin:0;">視聴者にテキスト入力を必須化</label>
+                                <p class="help-block">有効にすると、報酬の引き換え時に視聴者へ必須入力欄が表示されます。</p>
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.reward.twitchData.isUserInputRequired" auto-update-value="true" font-size="32"></toggle-button>
@@ -78,26 +71,19 @@
                         </div>
 
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
-                            <label for="cost" class="control-label">金額</label>
-<<<<<<< HEAD
-                            <input 
-                                type="number" 
-                                class="form-control input-lg" 
-                                id="cost" 
-=======
+                            <label for="cost" class="control-label">コスト</label>
                             <input
                                 type="number"
                                 class="form-control input-lg"
                                 id="cost"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 name="cost"
-                                placeholder="金額を入力" 
+                                placeholder="数量を入力"
                                 ng-model="$ctrl.reward.twitchData.cost"
                                 required
-                                min="0" 
-                                style="width: 50%;" 
+                                min="0"
+                                style="width: 50%;"
                             />
-                            <p class="help-block">ヒント：視聴者は1時間あたり平均220ポイントを獲得。サブは最大2倍の倍率を獲得。</p>
+                            <p class="help-block">ヒント: 視聴者は平均で1時間あたり220ポイントを獲得します。サブスクは最大2倍の倍率が適用されます。</p>
                         </div>
 
                         <div class="form-group">
@@ -109,28 +95,23 @@
 
                         <div class="form-group flex-row jspacebetween">
                             <div>
-<<<<<<< HEAD
-                                <label class="control-label" style="margin:0;">特典を引き換え順待ちに入れずに引き換え済みにする</label>
-                                <p class="help-block">有効にすると、引き換え待ちに入れず引き換え済みにします</p>
-=======
-                                <label class="control-label" style="margin:0;">Twitch特典リクエストをスキップする</label>
-                                <p class="help-block">If enabled, only future viewer requests will skip the queue for review.</p>
-                                <p class="help-block">リクエストは Twitch によって直ちに承認されます。払い戻しはできません。</p>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                                <label class="control-label" style="margin:0;">Twitch 報酬リクエストのキューをスキップ</label>
+                                <p class="help-block">有効にすると、今後の視聴者リクエストのみ審査キューをスキップします。</p>
+                                <p class="help-block">リクエストは Twitch により即時承認され、払い戻しできません。</p>
                             </div>
                             <div>
                                 <toggle-button toggle-model="$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue" auto-update-value="true" font-size="32"></toggle-button>
                             </div>
                         </div>
 
-                        <div 
-                            style="margin-bottom: 30px;" 
+                        <div
+                            style="margin-bottom: 30px;"
                             ng-class="{'has-error': $ctrl.formFieldHasError('cooldownSeconds')}"
                         >
                             <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
                                 <div>
-                                    <label class="control-label" style="margin:0;">再実行可能になるまでの待ち時間</label>
-                                    <p class="help-block">付与までの期間(最長7日間)</p>
+                                    <label class="control-label" style="margin:0;">引き換えクールダウン</label>
+                                    <p class="help-block">引き換え間隔（最大7日）</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.globalCooldownSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
@@ -139,80 +120,81 @@
                             <div style="width: 50%;">
                                 <time-input
                                     ng-model="$ctrl.reward.twitchData.globalCooldownSetting.globalCooldownSeconds"
+                                    max-time-unit="'Days'"
                                     name="cooldownSeconds"
                                     ui-validate="'!$ctrl.reward.twitchData.globalCooldownSetting.isEnabled || ($value != null && $value > -1 && $value <= 604800)'"
-                                    ui-validate-watch="'$ctrl.reward.twitchData.globalCooldownSetting.isEnabled'" 
+                                    ui-validate-watch="'$ctrl.reward.twitchData.globalCooldownSetting.isEnabled'"
                                     large="true"
                                     disabled="!$ctrl.reward.twitchData.globalCooldownSetting.isEnabled"
                                 />
                             </div>
                         </div>
 
-                        <div 
+                        <div
                             style="margin-bottom: 30px;"
                             ng-class="{'has-error': $ctrl.formFieldHasError('maxPerStream')}"
                         >
-                            <div 
-                                class="form-group flex-row jspacebetween" 
+                            <div
+                                class="form-group flex-row jspacebetween"
                                 style="margin-bottom: 0;"
                             >
                                 <div>
-                                    <label class="control-label" style="margin:0;">ストリームごとの利用制限</label>
-                                    <p class="help-block">視聴者の最大合計交換額</p>
+                                    <label class="control-label" style="margin:0;">配信ごとの引き換え回数を制限</label>
+                                    <p class="help-block">視聴者全体の引き換え最大回数</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
                                 </div>
                             </div>
-                            <input 
+                            <input
                                 type="number"
-                                class="form-control input-lg" 
+                                class="form-control input-lg"
                                 name="maxPerStream"
-                                placeholder="金額を入力" 
-                                ng-model="$ctrl.reward.twitchData.maxPerStreamSetting.maxPerStream" 
-                                ng-disabled="!$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled" 
+                                placeholder="数量を入力"
+                                ng-model="$ctrl.reward.twitchData.maxPerStreamSetting.maxPerStream"
+                                ng-disabled="!$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled"
                                 ui-validate="'!$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled || ($value != null && $value > -1)'"
-                                ui-validate-watch="'$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled'" 
+                                ui-validate-watch="'$ctrl.reward.twitchData.maxPerStreamSetting.isEnabled'"
                                 style="width: 50%;"
                             />
                         </div>
 
-                        <div 
+                        <div
                             style="margin-bottom: 30px;"
                             ng-class="{'has-error': $ctrl.formFieldHasError('maxPerUserPerStream') }"
                         >
-                            <div 
-                                class="form-group flex-row jspacebetween" 
-                                style="margin-bottom: 0;" 
+                            <div
+                                class="form-group flex-row jspacebetween"
+                                style="margin-bottom: 0;"
                             >
                                 <div>
-                                    <label class="control-label" style="margin:0;">1ユーザーあたりの利用回数制限</label>
-                                    <p class="help-block">視聴者1人・1ストリームあたりの最大個人交換額</p>
+                                    <label class="control-label" style="margin:0;">配信ごとのユーザー別引き換え回数を制限</label>
+                                    <p class="help-block">視聴者1人あたりの引き換え最大回数</p>
                                 </div>
                                 <div>
                                     <toggle-button toggle-model="$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled" auto-update-value="true" font-size="32"></toggle-button>
                                 </div>
                             </div>
-                            <input 
-                                type="number" 
-                                class="form-control input-lg" 
-                                name="maxPerUserPerStream" 
-                                placeholder="金額を入れる" 
-                                ng-model="$ctrl.reward.twitchData.maxPerUserPerStreamSetting.maxPerUserPerStream" 
+                            <input
+                                type="number"
+                                class="form-control input-lg"
+                                name="maxPerUserPerStream"
+                                placeholder="数量を入力"
+                                ng-model="$ctrl.reward.twitchData.maxPerUserPerStreamSetting.maxPerUserPerStream"
                                 ng-disabled="!$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled"
                                 ui-validate="'!$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled || ($value != null && $value > -1)'"
-                                ui-validate-watch="'$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled'" 
-                                style="width: 50%;" 
+                                ui-validate-watch="'$ctrl.reward.twitchData.maxPerUserPerStreamSetting.isEnabled'"
+                                style="width: 50%;"
                             />
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label" style="margin:0;">特典アイコン</label>
-                            <p class="help-block"><b>Important</b>: 特典のアイコンはX(旧Twitter)でのみ変更可能</p>
+                            <label class="control-label" style="margin:0;">報酬アイコン</label>
+                            <p class="help-block"><b>重要</b>: 報酬アイコンは Twitch 上でのみ変更できます</p>
                             <div>
                                 <div style="display: inline-flex; align-items: center; justify-content: center;padding: 12.5px;border: 2px gray dashed;border-radius: 6px;">
-                                    <img 
-                                        ng-src="{{$ctrl.reward.twitchData.image ? $ctrl.reward.twitchData.image.url4x : $ctrl.reward.twitchData.defaultImage.url4x}}" 
+                                    <img
+                                        ng-src="{{$ctrl.reward.twitchData.image ? $ctrl.reward.twitchData.image.url4x : $ctrl.reward.twitchData.defaultImage.url4x}}"
                                         style="width: 75px; height: 75px;"
                                     />
                                 </div>
@@ -220,8 +202,86 @@
                         </div>
                     </form>
 
-                    <div style="margin-top:15px;">
-                        <effect-list effects="$ctrl.reward.effects" trigger="channel_reward" update="$ctrl.effectListUpdated(effects)"></effect-list>
+                    <div ng-if="$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue" style="padding-left: 15px; padding-right: 15px;">
+                        <div class="mt-10" ng-if="$ctrl.reward.manageable">
+                            <h3 class="mb-2">
+                                制限
+                                <span class="muted pl-1 text-xl" style="font-family: 'Quicksand';">（権限、通貨コストなど）</span>
+                            </h3>
+                            <restrictions-list
+                                restriction-data="$ctrl.reward.restrictionData"
+                                trigger="channel_reward"
+                                trigger-meta="{}"
+                            >
+                            </restrictions-list>
+                            <div
+                                class="ml-3.5"
+                                ng-if="!$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue && $ctrl.reward.restrictionData.restrictions.length > 0"
+                            >
+                                <firebot-checkbox
+                                    label="制限条件の結果に基づいて引き換えを自動承認/自動拒否する"
+                                    model="$ctrl.reward.autoApproveRedemptions"
+                                />
+                            </div>
+                        </div>
+
+                        <effect-list
+                            effects="$ctrl.reward.effects"
+                            trigger="channel_reward"
+                            trigger-meta="{ rootEffects: $ctrl.reward.effects }"
+                            update="$ctrl.effectListUpdated(effects)"
+                        ></effect-list>
+                    </div>
+
+                    <div ng-if="!$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue">
+                        <setting-container header="引き換え時" collapsed="false">
+                            <div class="mt-10" ng-if="$ctrl.reward.manageable">
+                                <h3 class="mb-2">
+                                    制限
+                                    <span class="muted pl-1 text-xl" style="font-family: 'Quicksand';">（権限、通貨コストなど）</span>
+                                </h3>
+                                <restrictions-list
+                                    restriction-data="$ctrl.reward.restrictionData"
+                                    trigger="channel_reward"
+                                    trigger-meta="{}"
+                                >
+                                </restrictions-list>
+                                <div
+                                    class="ml-3.5"
+                                    ng-if="!$ctrl.reward.twitchData.shouldRedemptionsSkipRequestQueue && $ctrl.reward.restrictionData.restrictions.length > 0"
+                                >
+                                    <firebot-checkbox
+                                        label="制限条件の結果に基づいて引き換えを自動承認/自動拒否する"
+                                        model="$ctrl.reward.autoApproveRedemptions"
+                                    />
+                                </div>
+                            </div>
+
+                            <effect-list
+                                effects="$ctrl.reward.effects"
+                                trigger="channel_reward"
+                                trigger-meta="{ rootEffects: $ctrl.reward.effects }"
+                                update="$ctrl.effectListUpdated(effects)"
+                            ></effect-list>
+                        </setting-container>
+
+                        <setting-container header="承認時" collapsed="true" pad-top="true">
+                            <effect-list
+                                effects="$ctrl.reward.effectsFulfilled"
+                                trigger="channel_reward"
+                                trigger-meta="{ rootEffects: $ctrl.reward.effectsFulfilled }"
+                                update="$ctrl.fulfilledEffectListUpdated(effects)"
+                            ></effect-list>
+                        </setting-container>
+
+                        <setting-container header="拒否時" collapsed="true" pad-top="true">
+                            <effect-list
+                                effects="$ctrl.reward.effectsCanceled"
+                                trigger="channel_reward"
+                                trigger-meta="{ rootEffects: $ctrl.reward.effectsCanceled }"
+                                update="$ctrl.canceledEffectListUpdated(effects)"
+                            ></effect-list>
+                        </setting-container>
                     </div>
 
                 </div>
@@ -236,10 +296,10 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function ($scope, ngToast, channelRewardsService) {
+            controller: function($scope, ngToast, channelRewardsService) {
                 const $ctrl = this;
 
-                const generateRandomColor = () => `#${Math.floor(Math.random() * 8 ** 8).toString(16)}`;
+                const generateRandomColor = () => `#${Math.floor(Math.random() * 8 ** 8).toString(16).padStart(6, '0')}`;
 
                 $ctrl.formFieldHasError = (fieldName) => {
                     return ($scope.rewardSettings.$submitted || $scope.rewardSettings[fieldName].$touched)
@@ -297,21 +357,18 @@
                     effects: null
                 };
 
-                $ctrl.effectListUpdated = function (effects) {
+                $ctrl.effectListUpdated = function(effects) {
                     $ctrl.reward.effects = effects;
                 };
 
-<<<<<<< HEAD
-=======
-                $ctrl.fulfilledEffectListUpdated = function (effects) {
+                $ctrl.fulfilledEffectListUpdated = function(effects) {
                     $ctrl.reward.effectsFulfilled = effects;
                 };
 
-                $ctrl.canceledEffectListUpdated = function (effects) {
+                $ctrl.canceledEffectListUpdated = function(effects) {
                     $ctrl.reward.effectsCanceled = effects;
                 };
 
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 $ctrl.$onInit = () => {
                     if ($ctrl.resolve.reward != null) {
                         $ctrl.reward = JSON.parse(angular.toJson($ctrl.resolve.reward));
@@ -327,11 +384,11 @@
                         }
                     }
 
-                    channelRewardsService.saveChannelReward($ctrl.reward).then(successful => {
+                    channelRewardsService.saveChannelReward($ctrl.reward).then((successful) => {
                         if (successful) {
                             $ctrl.dismiss();
                         } else {
-                            ngToast.create("Failed to save channel reward. Please try again or view logs for details.");
+                            ngToast.create("チャンネル報酬の保存に失敗しました。再試行するか、ログを確認してください。");
                         }
                     });
                 };

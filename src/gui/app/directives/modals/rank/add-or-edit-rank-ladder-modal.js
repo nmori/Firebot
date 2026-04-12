@@ -1,5 +1,5 @@
 "use strict";
-(function () {
+(function() {
 
     angular.module("firebotApp").component("addOrEditRankLadderModal", {
         template: `
@@ -7,13 +7,13 @@
                 <button
                     type="button"
                     class="close"
-                    aria-label="Close"
+                    aria-label="閉じる"
                     ng-click="$ctrl.dismiss()"
                 >
                     <i class="fal fa-times" aria-hidden="true"></i>
                 </button>
                 <h4 class="modal-title">
-                    <div class="action text-4xl">ラダーランクの作成</div>
+                    <div class="action text-4xl">ランクラダーを作成</div>
                 </h4>
             </div>
             <div class="modal-body">
@@ -28,13 +28,13 @@
                             ui-validate="{taken:'!$ctrl.nameIsTaken($value)'}"
                             required
                             class="form-control input-lg"
-                            placeholder="ラダーランクに名前をつける"
+                            placeholder="ラダー名を入力"
                             ng-model="$ctrl.rankLadder.name"
                         />
                         <div ng-if="$ctrl.formFieldHasError('name')">
                             <span ng-if="ladderSettings.name.$error.required" class="help-block">名前は必須です。</span>
-                            <span ng-if="ladderSettings.name.$error.minlength" class="help-block">氏名は3文字以上必要です。</span>
-                            <span ng-if="ladderSettings.name.$error.taken" class="help-block">この名前はすでに使われている。</span>
+                            <span ng-if="ladderSettings.name.$error.minlength" class="help-block">名前は3文字以上で入力してください。</span>
+                            <span ng-if="ladderSettings.name.$error.taken" class="help-block">この名前はすでに使用されています。</span>
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@
 
                     <div ng-show="$ctrl.rankLadder.mode == 'auto'">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('trackBy')}">
-                            <label for="trackBy" class="control-label">トラック</label>
+                            <label for="trackBy" class="control-label">追跡項目</label>
                             <firebot-radio-cards
                                 options="$ctrl.trackByOptions"
                                 ng-model="$ctrl.rankLadder.settings.trackBy"
@@ -77,10 +77,10 @@
                                     name="metadata"
                                     ng-required="$ctrl.rankLadder.mode == 'auto' && $ctrl.rankLadder.settings.trackBy == 'metadata'"
                                     class="form-control input-lg"
-                                    placeholder="Enter metadata key"
+                                    placeholder="メタデータキーを入力"
                                     ng-model="$ctrl.rankLadder.settings.metadataKey"
                                 />
-                                <p class="help-block">このキーに対する視聴者のメタデータの値が数値でない場合、ランクなしとして扱われます。</p>
+                                <p class="help-block">このキーのメタデータ値が数値でない視聴者は、ランクなしとして扱われます。</p>
                             </div>
                         </div>
                     </div>
@@ -90,18 +90,18 @@
                         ng-if="$ctrl.rankLadder.mode === 'auto'"
                         ng-class="{'has-error': $ctrl.formFieldHasError('restrictedToRoles')}"
                     >
-                        <label class="control-label">役割への制限</label>
+                        <label class="control-label">対象ロール制限</label>
                         <div>
-                            <span class="help-block">ここに役割が指定されている場合、視聴者はこれらの役割のいずれかを持っていなければ、このランクの資格を得ることができません。</span>
+                            <span class="help-block">ここでロールを指定すると、指定ロールのいずれかを持つ視聴者のみこのランクの対象になります。</span>
                         </div>
                         <div>
                             <div class="role-bar" ng-repeat="roleId in $ctrl.rankLadder.settings.viewerRestrictions.roleIds track by $index">
                                 <span>{{$ctrl.roleIdNameMap[roleId]}}</span>
-                                <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeRole(roleId)" uib-tooltip="役割の削除" tooltip-append-to-body="true">
+                                <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeRole(roleId)" uib-tooltip="ロールを削除" tooltip-append-to-body="true">
                                     <i class="far fa-times"></i>
                                 </span>
                             </div>
-                            <div class="role-bar clickable" ng-click="$ctrl.openAddRoleModal()" uib-tooltip="役割の追加" tooltip-append-to-body="true">
+                            <div class="role-bar clickable" ng-click="$ctrl.openAddRoleModal()" uib-tooltip="ロールを追加" tooltip-append-to-body="true">
                                 <i class="far fa-plus"></i>
                             </div>
                         </div>
@@ -109,8 +109,8 @@
 
                     <div class="form-group flex justify-between">
                         <div>
-                            <label class="control-label" style="margin:0;">チャットでプロモーションを告知</label>
-                            <p class="help-block">有効にすると、視聴者がチャットでアクティブな場合にのみ、視聴者がより高いランクに移動したときにチャットメッセージを送信します。</p>
+                            <label class="control-label" style="margin:0;">チャットで昇格を通知</label>
+                            <p class="help-block">有効時、視聴者が上位ランクへ移動し、かつチャットでアクティブな場合に通知メッセージを送信します。</p>
                         </div>
                         <div class="ml-5">
                             <toggle-button toggle-model="$ctrl.rankLadder.settings.announcePromotionsInChat" auto-update-value="true" font-size="32"></toggle-button>
@@ -118,16 +118,26 @@
                     </div>
 
                      <div class="form-group" ng-if="$ctrl.rankLadder.settings.announcePromotionsInChat">
-                        <label for="promotionMessageTemplate" class="control-label">プロモーションメッセージのテンプレート</label>
-                        <p class="help-block">Variables: {{$ctrl.getApplicableMessageVariables()}}</p>
+                        <label for="promotionMessageTemplate" class="control-label">昇格メッセージテンプレート</label>
+                        <p class="help-block">変数: {{$ctrl.getApplicableMessageVariables()}}</p>
                         <textarea
                             class="form-control"
                             name="text"
-                            placeholder="メッセージを入力（デフォルトは空白のまま）"
+                            placeholder="メッセージを入力（空欄でデフォルト）"
                             rows="4"
                             cols="40"
-                            ng-model="$ctrl.rankLadder.customPromotionMessageTemplate"
+                            ng-model="$ctrl.rankLadder.settings.customPromotionMessageTemplate"
                         />
+                    </div>
+
+                    <div class="form-group flex justify-between">
+                        <div>
+                            <label class="control-label" style="margin:0;">チャットでバッジ表示</label>
+                            <p class="help-block">有効時、このラダーでランク付けされたユーザーに Firebot チャット内バッジを表示します。</p>
+                        </div>
+                        <div class="ml-5">
+                            <toggle-button toggle-model="$ctrl.rankLadder.settings.showBadgeInChat" auto-update-value="true" font-size="32"></toggle-button>
+                        </div>
                     </div>
 
                     <div
@@ -137,7 +147,7 @@
                     >
                         <label class="control-label">ランク</label>
                         <div ng-if="$ctrl.formFieldHasError('ranks')">
-                            <span ng-if="ladderSettings.ranks.$error.valid" class="help-block">すべてのランクには値が設定されていなければなりません。</span>
+                            <span ng-if="ladderSettings.ranks.$error.valid" class="help-block">すべてのランクに値を設定してください。</span>
                         </div>
                         <div>
                             <firebot-list
@@ -165,7 +175,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function ($scope, ngToast, viewerRanksService, viewerRolesService, utilityService, currencyService) {
+        controller: function($scope, ngToast, viewerRanksService, viewerRolesService, utilityService, currencyService) {
             const $ctrl = this;
 
             $ctrl.isNewLadder = true;
@@ -206,9 +216,9 @@
                     nameProperty: 'name',
                     connectItems: true,
                     showIndex: true,
-                    addLabel: 'ランクを追加',
+                    addLabel: 'Add Rank',
                     hintTemplate,
-                    noneAddedText: 'まだランクは追加されていません。'
+                    noneAddedText: 'No ranks added yet.'
                 };
             };
 
@@ -254,15 +264,15 @@
                 return true;
             };
 
-            $scope.$watch("$ctrl.rankLadder.mode", function () {
+            $scope.$watch("$ctrl.rankLadder.mode", function() {
                 $ctrl.rankListSettings = getRankListSettings();
             });
 
-            $scope.$watch("$ctrl.rankLadder.settings.trackBy", function () {
+            $scope.$watch("$ctrl.rankLadder.settings.trackBy", function() {
                 $ctrl.rankListSettings = getRankListSettings();
             });
 
-            $scope.$watch("$ctrl.rankLadder.settings.currencyId", function () {
+            $scope.$watch("$ctrl.rankLadder.settings.currencyId", function() {
                 $ctrl.rankListSettings = getRankListSettings();
             });
 
@@ -347,8 +357,8 @@
                 }
                 utilityService
                     .showConfirmationModal({
-                        title: "ランクの削除",
-                        question: `本当にランク「${rank.name}」を削除しますか？`,
+                        title: "ランクを削除",
+                        question: `ランク「${rank.name}」を削除しますか？`,
                         confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
@@ -370,7 +380,7 @@
                         if (successful) {
                             $ctrl.dismiss();
                         } else {
-                            ngToast.create("ラダーランクの保存に失敗しました。再試行するか、ログを参照してください。");
+                            ngToast.create("ランクラダーの保存に失敗しました。再試行するか、ログで詳細を確認してください。");
                         }
                     });
             };
@@ -387,10 +397,10 @@
                     .filter(r => !$ctrl.rankLadder.settings.viewerRestrictions.roleIds.includes(r.id));
                 utilityService.openSelectModal(
                     {
-                        label: "役割の追加",
+                        label: "Add Role",
                         options: options,
-                        saveText: "追加",
-                        validationText: "役割を選択してください。"
+                        saveText: "Add",
+                        validationText: "Please select a role."
 
                     },
                     (roleId) => {

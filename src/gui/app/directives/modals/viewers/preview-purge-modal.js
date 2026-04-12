@@ -7,22 +7,23 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">プレビューを削除</h4>
+                <h4 class="modal-title">削除プレビュー</h4>
             </div>
             <div class="modal-body">
                 <div style="margin: 0 0 25px;display: flex;flex-direction: row;justify-content: space-between;">
                     <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                        <searchbar placeholder-text="視聴者を探す..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
+                        <searchbar placeholder-text="ユーザーを検索..." query="$ctrl.search" style="flex-basis: 250px;"></searchbar>
                     </div>
                 </div>
                 <sortable-table
                     table-data-set="$ctrl.viewers"
                     headers="$ctrl.headers"
                     query="$ctrl.search"
-                    clickable="false"
+                    clickable="true"
+                    on-row-click="$ctrl.viewerRowClicked(data)"
                     track-by-field="_id"
                     starting-sort-field="username"
-                    no-data-message="基準を満たした視聴者はいません" >
+                    no-data-message="削除条件に一致する視聴者はいません">
                 </sortable-table>
             </div>
             <div class="modal-footer" style="text-align:center;">
@@ -34,7 +35,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function() {
+            controller: function(modalService) {
                 const $ctrl = this;
 
                 $ctrl.search = "";
@@ -49,7 +50,15 @@
 
                 $ctrl.headers = [
                     {
-                        name: "視聴者名",
+                        headerStyles: {
+                            'width': '50px'
+                        },
+                        sortable: false,
+                        cellTemplate: `<img ng-src="{{data.twitch ? data.profilePicUrl : '../images/placeholders/default-profile-pic.png'}}"  style="width: 25px;height: 25px;border-radius: 25px;"/>`,
+                        cellController: () => {}
+                    },
+                    {
+                        name: "USERNAME",
                         icon: "fa-user",
                         dataField: "username",
                         headerStyles: {
@@ -60,7 +69,7 @@
                         cellController: () => {}
                     },
                     {
-                        name: "最終訪問",
+                        name: "LAST SEEN",
                         icon: "fa-eye",
                         dataField: "lastSeen",
                         sortable: true,
@@ -68,26 +77,54 @@
                         cellController: () => {}
                     },
                     {
-                        name: "視聴時間(時間)",
+                        name: "VIEW TIME (hours)",
                         icon: "fa-tv",
                         dataField: "minutesInChannel",
                         sortable: true,
                         cellTemplate: `{{getViewTimeDisplay(data.minutesInChannel)}}`,
                         cellController: ($scope) => {
                             $scope.getViewTimeDisplay = (minutesInChannel) => {
-                                return minutesInChannel < 60 ? '1時間以内' : Math.round(minutesInChannel / 60);
+                                    return minutesInChannel < 60 ? '1時間未満' : Math.round(minutesInChannel / 60);
                             };
                         }
                     },
                     {
-                        name: "チャット",
+                        name: "CHAT MESSAGES",
                         icon: "fa-comments",
                         dataField: "chatMessages",
                         sortable: true,
                         cellTemplate: `{{data.chatMessages}}`,
                         cellController: () => {}
+                    },
+                    {
+                        headerStyles: {
+                            'width': '15px'
+                        },
+                        cellStyles: {
+                            'width': '15px'
+                        },
+                        sortable: false,
+                        cellTemplate: `<i class="fal fa-chevron-right"></i>`,
+                        cellController: () => {}
                     }
                 ];
+
+                $ctrl.viewerRowClicked = (data) => {
+                    $ctrl.showUserDetailsModal(data._id);
+                };
+
+                $ctrl.showUserDetailsModal = (userId) => {
+                    const closeFunc = () => {};
+                    modalService.showModal({
+                        component: "viewerDetailsModal",
+                        backdrop: true,
+                        resolveObj: {
+                            userId: () => userId
+                        },
+                        closeCallback: closeFunc,
+                        dismissCallback: closeFunc
+                    });
+                };
             }
         });
 }());

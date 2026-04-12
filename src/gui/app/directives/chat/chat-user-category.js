@@ -22,7 +22,7 @@
                         <span
                             class="chat-user-status"
                             ng-class="{ active: user.active }"
-                            uib-tooltip="{{user.active ? 'アクティブユーザ' : '非アクティブユーザ'}}"
+                            uib-tooltip="{{user.active ? 'アクティブなチャットユーザー' : '非アクティブなチャットユーザー（閲覧中）'}}"
                             tooltip-append-to-body="true"
                         ></span>
                         </div>
@@ -30,7 +30,7 @@
                         class="chat-user-name clickable"
                         ng-click="showUserDetailsModal(user.id)"
                         >
-                        {{user.username}}
+                        {{user.displayName}}<span ng-if="user.username && user.username.toLowerCase() !== user.displayName.toLowerCase()">&nbsp;({{user.username}})</span>
                     </div>
                 </div>
             </div>

@@ -1,52 +1,42 @@
 "use strict";
 
-<<<<<<< HEAD
 (function() {
-
-    const moment = require("moment");
-    const path = require("path");
-    const fs = require("fs");
-
-=======
-(function () {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     angular
         .module("firebotApp")
         .component("backupsSettings", {
             template: `
                 <div>
-<<<<<<< HEAD
-=======
-                    <div><strong>注：これらの設定は、すべてのユーザープロファイルに影響します。</strong></div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    <div><strong>注: これらの設定はすべてのユーザープロファイルに影響します。</strong></div>
 
                     <firebot-setting
                         name="バックアップ上限"
-                        description="保持するバックアップの最大数。Firebot が新しいバックアップを作成する際、この数に達した場合は最も古いバックアップを削除します。"
+                        description="保持するバックアップの最大数です。この数に達している場合、新しいバックアップ作成時に最も古いバックアップが削除されます。"
                     >
                         <dropdown-select
-                            ng-init="currentMaxBackups = settings.maxBackupCount()"
+                            ng-init="currentMaxBackups = settings.getSetting('MaxBackupCount')"
                             options="[3,5,10,25,'All']"
                             selected="currentMaxBackups"
-                            on-update="settings.setMaxBackupCount(option)"
+                            on-update="settings.saveSetting('MaxBackupCount', option)"
+                            aria-label="Choose your Max Number of backups"
+
                         ></dropdown-select>
                     </firebot-setting>
 
                     <firebot-setting
                         name="自動バックアップオプション"
-                        description="自動バックアップでFirebotが無視する項目を選択します。"
+                        description="自動バックアップ時に除外する項目を選択します。"
                     >
                         <div>
                         <label class="control-fb control--checkbox"
-                            >オーバーレイのデータフォルダを含まない
+                            >オーバーレイリソースフォルダを含めない
                             <tooltip
-                                text="'overlay-resourceフォルダが非常に大きいためにバックアップシステムの速度が低下している場合は、バックアップ対象から外すことで高速化できます。使う場合はこの機能をオンにしてください。注：手動バックアップは影響を受けません'"
+                                text="'overlay-resource フォルダが大きくなってバックアップが遅い場合に有効です。注: 手動バックアップには影響しません。'"
                             ></tooltip>
                             <input
                                 type="checkbox"
-                                ng-click="settings.setBackupIgnoreResources(!settings.backupIgnoreResources())"
-                                ng-checked="settings.backupIgnoreResources()"
-                                aria-label="..."
+                                ng-click="settings.saveSetting('BackupIgnoreResources', !settings.getSetting('BackupIgnoreResources'))"
+                                ng-checked="settings.getSetting('BackupIgnoreResources')"
+                                aria-label="Don't include overlay resource folder in backups"
                             />
                             <div class="control__indicator"></div>
                         </label>
@@ -55,38 +45,38 @@
 
                     <firebot-setting
                         name="自動バックアップ"
-                        description="Firebotが自動バックアップを作成するタイミングを選択します。"
+                        description="Firebot が自動バックアップを作成するタイミングを選択します。"
                     >
                         <div>
                         <label class="control-fb control--checkbox"
-                            >Firebotが終了するとき
+                            >Firebot 終了時
                             <input
                                 type="checkbox"
-                                ng-click="settings.setBackupOnExit(!settings.backupOnExit())"
-                                ng-checked="settings.backupOnExit()"
-                                aria-label="..."
+                                ng-click="settings.saveSetting('BackupOnExit', !settings.getSetting('BackupOnExit'))"
+                                ng-checked="settings.getSetting('BackupOnExit')"
+                                aria-label="Automatic update when Firebot closes"
                             />
                             <div class="control__indicator"></div>
                         </label>
                         <label class="control-fb control--checkbox"
-                            >毎日
+                            >1日1回
                             <input
                                 type="checkbox"
-                                ng-click="settings.setBackupOnceADay(!settings.backupOnceADay())"
-                                ng-checked="settings.backupOnceADay()"
-                                aria-label="..."
+                                ng-click="settings.saveSetting('BackupOnceADay', !settings.getSetting('BackupOnceADay'))"
+                                ng-checked="settings.getSetting('BackupOnceADay')"
+                                aria-label="Automatic update Once a day"
                             />
                             <div class="control__indicator"></div>
                         </label>
                         <label class="control-fb control--checkbox"
-                            >視聴者データを消す前
+                            >視聴者データ削除前
                             <tooltip
-                                text="'Firebotは、視聴者データの削除を行う前に常にバックアップを行います。'"
+                                text="'視聴者データの削除前には必ずバックアップが作成されます。'"
                             ></tooltip>
                             <input
                                 type="checkbox"
                                 ng-checked="true"
-                                aria-label="..."
+                                aria-label="Automatic update Before viewer purges. Firebot will always backup before you do viewer purges"
                                 disabled
                             />
                             <div class="control__indicator" disabled></div>
@@ -94,12 +84,12 @@
                         <label class="control-fb control--checkbox"
                             >アップデート前
                             <tooltip
-                                text="'Firebotはアップデート前に必ずバックアップを取ります。これをオフにすることはできません。これはあなたのためです。'"
+                                text="'アップデート前には必ずバックアップが作成されます。この設定は無効化できません。'"
                             ></tooltip>
                             <input
                                 type="checkbox"
                                 ng-checked="true"
-                                aria-label="..."
+                                aria-label="Automatic update before updates. This cannot be turned off. It's for your own good <3"
                                 disabled
                             />
                             <div class="control__indicator" disabled></div>
@@ -109,7 +99,7 @@
 
                     <firebot-setting
                         name="手動バックアップ"
-                        description="バックアップを手動で開始します"
+                        description="今すぐ手動バックアップを実行します。"
                     >
                         <div>
                             <span
@@ -118,11 +108,11 @@
                             >
                                 <span ng-if="isBackingUp"> バックアップ中... </span>
                                 <span ng-if="backupCompleted" style="color: green">
-                                    <i class="fal fa-check-circle"></i> バックアップ完了
+                                    <i class="fal fa-check-circle"></i> バックアップ成功
                                 </span>
                             </span>
                             <firebot-button
-                                text="バックアップ開始"
+                                text="今すぐバックアップ"
                                 ng-click="startBackup()"
                                 ng-disabled="isBackingUp"
                             />
@@ -131,26 +121,23 @@
 
                     <firebot-setting
                         name="バックアップ管理"
-                        description="管理状態リストを見たり、データ削除、バックアップから復元する指示ができます。"
+                        description="過去のバックアップの確認、復元、削除を行います。"
                     >
                         <div>
                             <firebot-button
-                                text="バックアップの管理"
-<<<<<<< HEAD
-                                ng-click="showBackupListModal()"
-=======
+                                text="バックアップを管理"
                                 ng-click="backupService.showBackupListModal()"
                             />
                         </div>
                     </firebot-setting>
 
                     <firebot-setting
-                        name="バックアップフォルダの指定"
+                        name="バックアップフォルダの移動"
                         description="Firebot がバックアップを保存する場所を選択します。">
 
                         <setting-description-addon>
-                            <div style="margin-top: 10px;"><strong>メモ</strong>: この設定を変更すると、既存のバックアップが現在の場所から新しい場所にコピーされます。これにより、新しい場所にある同じ名前のファイルが上書きされます。</div>
-                            <div style="margin-top: 10px;">現在のバックアップ先： <a ng-click="backupService.openBackupFolder()" ng-bind="backupService.backupFolderPath" href></a></div>
+                            <div style="margin-top: 10px;"><strong>注</strong>: この設定を変更すると、現在の場所から新しい場所へ既存のバックアップがコピーされます。新しい場所に同名ファイルがある場合は上書きされます。</div>
+                            <div style="margin-top: 10px;">現在のバックアップ先: <a ng-click="backupService.openBackupFolder()" ng-bind="backupService.backupFolderPath" href></a></div>
                         </setting-description-addon>
 
                         <div>
@@ -158,39 +145,35 @@
                                 ng-if="isMovingBackupFolder || backupFolderMoveCompleted"
                                 style="padding-left: 10px"
                             >
-                                <span ng-if="isMovingBackupFolder"> バックアップを新しいフォルダに移動中... </span>
+                                <span ng-if="isMovingBackupFolder"> バックアップを新しいフォルダへ移動中... </span>
                                 <span ng-if="backupFolderMoveCompleted && backupFolderMoveSuccess" style="color: green">
-                                    <i class="fal fa-check-circle"></i> 移動に成功しました
+                                    <i class="fal fa-check-circle"></i> 移動成功
                                 </span>
                                 <span ng-if="backupFolderMoveCompleted && !backupFolderMoveSuccess" style="color: red">
-                                    <i class="fal fa-check-circle"></i> 移動に失敗しました
+                                    <i class="fal fa-check-circle"></i> 移動失敗
                                 </span>
                             </span>
                             <firebot-button
-                                text="移動する"
+                                text="バックアップフォルダを移動"
                                 ng-click="backupService.initiateBackupFolderMove()"
                                 ng-disabled="isMovingBackupFolder"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             />
                         </div>
                     </firebot-setting>
 
                 </div>
           `,
-<<<<<<< HEAD
-            controller: function($scope, settingsService, backupService, backendCommunicator, $timeout, utilityService) {
-=======
-            controller: function ($scope, settingsService, backupService, backendCommunicator, $timeout) {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+            controller: function($scope, settingsService, backupService, backendCommunicator, $timeout) {
                 $scope.settings = settingsService;
+                $scope.backupService = backupService;
 
-                $scope.startBackup = function () {
+                $scope.startBackup = function() {
                     $scope.isBackingUp = true;
                     $scope.backupCompleted = false;
                     backupService.startBackup();
                 };
 
-                backendCommunicator.on("backupComplete", (manualActivation) => {
+                backendCommunicator.on("backups:backup-complete", (manualActivation) => {
                     $scope.isBackingUp = false;
 
                     if (manualActivation) {
@@ -205,137 +188,23 @@
                     }
                 });
 
-<<<<<<< HEAD
-                $scope.showBackupListModal = function() {
-                    const showBackupListModalContext = {
-                        templateUrl: "backupListModal.html",
-                        size: "sm",
-                        controllerFunc: (
-                            $scope,
-                            $uibModalInstance,
-                            $q,
-                            listenerService,
-                            utilityService,
-                            dataAccess
-                        ) => {
-                            $scope.backups = [];
-
-                            const backupFolderPath = path.resolve(`${dataAccess.getUserDataPath() + path.sep}backups`) + path.sep;
-
-                            $scope.loadingBackups = true;
-                            $q
-                                .when(
-                                    new Promise(resolve => {
-                                        fs.readdir(backupFolderPath, (err, files) => {
-                                            const backups = files
-                                                .filter(f => f.endsWith(".zip"))
-                                                .map(function(v) {
-                                                    const fileStats = fs.statSync(backupFolderPath + v);
-                                                    const backupDate = moment(fileStats.birthtime);
-
-                                                    let version = "不明なバージョン";
-                                                    const versionRe = /_(v?\d+\.\d+\.\d+(?:-[a-zA-Z0-9]+(?:\.\d+)?)?)(?:_|\b)/;
-                                                    const match = v.match(versionRe);
-                                                    if (match != null) {
-                                                        version = match[1];
-                                                    }
-
-                                                    return {
-                                                        name: v.replace(".zip", ""),
-                                                        backupTime: backupDate.toDate().getTime(),
-                                                        backupDateDisplay: backupDate.format(
-                                                            "MMM Do, A h:mm"
-                                                        ),
-                                                        backupDateFull: backupDate.format(
-                                                            "YYYY/MMM/ddd Do, A h:mm:ss"
-                                                        ),
-                                                        fromNowDisplay: utilityService.capitalize(
-                                                            backupDate.fromNow()
-                                                        ),
-                                                        dayDifference: moment().diff(backupDate, "days"),
-                                                        version: version,
-                                                        size: Math.round(fileStats.size / 1000),
-                                                        isManual: v.includes("manual"),
-                                                        neverDelete: v.includes("NODELETE")
-                                                    };
-                                                })
-                                                .sort(function(a, b) {
-                                                    return b.backupTime - a.backupTime;
-                                                });
-
-                                            resolve(backups);
-                                        });
-                                    })
-                                )
-                                .then(backups => {
-                                    $scope.loadingBackups = false;
-                                    $scope.backups = backups;
-                                });
-
-                            $scope.togglePreventDeletion = function(backup) {
-                                backup.neverDelete = !backup.neverDelete;
-                                const oldName = `${backup.name}.zip`;
-                                backup.name = backup.neverDelete
-                                    ? (backup.name += "_NODELETE")
-                                    : backup.name.replace("_NODELETE", "");
-
-                                fs.renameSync(
-                                    backupFolderPath + oldName,
-                                    `${backupFolderPath + backup.name}.zip`
-                                );
-                            };
-
-                            $scope.deleteBackup = function(index, backup) {
-                                utilityService
-                                    .showConfirmationModal({
-                                        title: "バックアップ削除",
-                                        question: "このバックアップデータを削除しますか?",
-                                        confirmLabel: "削除実行"
-                                    })
-                                    .then(confirmed => {
-                                        if (confirmed) {
-                                            $scope.backups.splice(index, 1);
-                                            fs.unlinkSync(`${backupFolderPath + backup.name}.zip`);
-                                        }
-                                    });
-                            };
-
-                            $scope.restoreBackup = function(backup) {
-                                utilityService
-                                    .showConfirmationModal({
-                                        title: "バックアップから復元",
-                                        question: "バックアップデータから復元をしますか?",
-                                        confirmLabel: "復元開始"
-                                    })
-                                    .then(confirmed => {
-                                        if (confirmed) {
-                                            $uibModalInstance.dismiss("cancel");
-
-                                            const backupFilePath =
-                                                path.join(backupService.BACKUPS_FOLDER_PATH, `${backup.name}.zip`);
-
-                                            backupService.initiateBackupRestore(backupFilePath);
-                                        }
-                                    });
-                            };
-
-                            $scope.openBackupFolder = function() {
-                                listenerService.fireEvent(listenerService.EventType.OPEN_BACKUP);
-                            };
-
-                            $scope.dismiss = function() {
-                                $uibModalInstance.dismiss("cancel");
-                            };
-                        }
-                    };
-                    utilityService.showModal(showBackupListModalContext);
-=======
                 $scope.moveBackupFolder = () => {
                     $scope.isMovingBackupFolder = true;
                     $scope.backupFolderMoveCompleted = false;
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 };
 
+                backendCommunicator.on("backups:move-backup-folder-completed", (success) => {
+                    $scope.isMovingBackupFolder = false;
+                    $scope.backupFolderMoveCompleted = true;
+                    $scope.backupFolderMoveSuccess = success;
+
+                    // after 5 seconds, hide the completed message
+                    $timeout(() => {
+                        if ($scope.backupFolderMoveCompleted) {
+                            $scope.backupFolderMoveCompleted = false;
+                        }
+                    }, 5000);
+                });
             }
         });
 }());

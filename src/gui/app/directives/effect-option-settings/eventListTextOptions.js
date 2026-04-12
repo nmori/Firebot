@@ -7,12 +7,12 @@
         },
         template: `
                 <div>
-                    <eos-container header="Text Settings" ng-hide="$ctrl.isGlobal">
-                        <label class="control-fb control--radio">プリセットを使う<span class="muted"><br />プリセットは、設定 → オーバーレイで編集できます。<a href ng-click="$event.stopPropagation();$ctrl.openPresetModal();">here</a>. </span>
+                    <eos-container header="テキスト設定" ng-hide="$ctrl.isGlobal">
+                        <label class="control-fb control--radio">プリセットを使用 <span class="muted"><br />プリセットは「設定 > オーバーレイ」で編集するか、<a href ng-click="$event.stopPropagation();$ctrl.openPresetModal();">こちら</a>をクリックして編集できます。 </span>
                             <input type="radio" ng-model="$ctrl.model.override" ng-value="false"/> 
                             <div class="control__indicator"></div>
                         </label>
-                        <label class="control-fb control--radio" >カスタマイズ <span class="muted"><br />プリセットを上書き</span>
+                        <label class="control-fb control--radio" >カスタマイズ <span class="muted"><br />プリセットを上書きします</span>
                             <input type="radio" ng-model="$ctrl.model.override" ng-value="true"/>
                             <div class="control__indicator"></div>
                         </label>
@@ -21,7 +21,7 @@
                     <div ng-if="$ctrl.model.override || $ctrl.isGlobal">
                         <eos-container>
                             <div class="input-group">
-                                <span class="input-group-addon">Text</span>
+                                <span class="input-group-addon">テキスト</span>
                                 <input 
                                 type="text" 
                                 class="form-control" 
@@ -29,12 +29,12 @@
                                 ng-model="$ctrl.model.text">
                             </div>
 
-                            <eos-collapsable-panel show-label="変数を表示" hide-label="変数を隠す">
+                            <eos-collapsable-panel show-label="変数を表示" hide-label="変数を非表示">
                                 <ul>
-                                    <li><b>$(user)</b> - ボタンを実行している人、またはコマンドを使用している人の名前に置換</li>
-                                    <li><b>$(text)</b> - 対話ボタンのテキストまたはチャットコマンドIDに置換</li>
-                                    <li><b>$(cost)</b> - コマンドまたはボタンのコストに置換</li>
-                                    <li><b>$(cooldown)</b> - コマンドまたはボタンの待ち時間に置換</li>
+                                    <li><b>$(user)</b> - ボタンを実行した人、またはコマンドを使用した人の名前に置き換わります。</li>
+                                    <li><b>$(text)</b> - インタラクティブボタンのテキスト、またはチャットコマンドIDに置き換わります。</li>
+                                    <li><b>$(cost)</b> - コマンドまたはボタンのコストに置き換わります。</li>
+                                    <li><b>$(cooldown)</b> - コマンドまたはボタンのクールダウンに置き換わります。</li>
                                 </ul>
                             </eos-collapsable-panel>
                         </eos-container>
@@ -59,7 +59,7 @@
                                 class="form-control" 
                                 aria-describedby="showEvents-text-effect-type" 
                                 ng-model="$ctrl.model.backgroundColor"
-                                placeholder="#000000 or transparent"
+                                placeholder="#000000 または transparent"
                                 >
                             </div>
                         </eos-container>
@@ -79,11 +79,11 @@
 
                         <eos-container>
                             <div class="input-group" style="width: 100%">
-                                <span class="input-group-addon">テキスト位置</span>
+                                <span class="input-group-addon">テキスト配置</span>
                                 <select class="fb-select form-control" ng-model="$ctrl.model.textAlignment">
-                                    <option label="Left" value="left" selected="selected">左</option>
-                                    <option label="Center" value="center">中央</option>
-                                    <option label="Right" value="right">右</option>
+                                    <option label="左" value="left" selected="selected">左</option>
+                                    <option label="中央" value="center">中央</option>
+                                    <option label="右" value="right">右</option>
                                 </select>
                             </div>
                         </eos-container>
@@ -92,7 +92,7 @@
 
                         <eos-container>
                             <div class="input-group">
-                                <span class="input-group-addon">継続時間(秒)</span>
+                                <span class="input-group-addon">表示時間（秒）</span>
                                 <input 
                                 type="number"
                                 class="form-control" 
@@ -113,7 +113,7 @@
 
             ctrl.$onInit = function() {
                 if (ctrl.model.text == null) {
-                    ctrl.model.text = "$(user) pressed $(text)!";
+                    ctrl.model.text = "$(user) が $(text) を押しました！";
                 }
                 if (ctrl.model.override == null) {
                     ctrl.model.override = false;

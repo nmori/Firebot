@@ -2,7 +2,7 @@
 <div style="min-width: 500px; height: 100%">
   <div style="height: 100%; display: flex; flex-direction: column">
     <div id="testDivFb" class="flex-row" style="height: 100%">
-      <div class="editior-column pt-6" style="flex-shrink: 0">
+      <div class="editor-column pt-6" style="flex-shrink: 0">
         <div
           class="flex-row-center jspacebetween scene-row"
           style="flex-shrink: 0"
@@ -70,7 +70,7 @@
           <span
             >イベントセット
             <tooltip
-              text="'Event Sets allow you to create different sets of events (ie for specific games or holiday themes) and selectively activate them.'"
+              text="'イベントセットを使うと、ゲーム別や季節テーマ別など複数のイベント構成を作成し、必要なものだけ有効化できます。'"
             ></tooltip
           ></span>
           <div class="clickable" ng-click="showCreateEventGroupModal()" aria-label="新規イベントセット">
@@ -78,7 +78,11 @@
           </div>
         </div>
 
-        <div style="height: 100%; overflow-y: auto">
+        <div
+          style="height: 100%; overflow-y: auto"
+          ui-sortable="sortableOptions"
+          ng-model="eventSets"
+        >
           <div
             class="muted ml-7"
             ng-if="es.getEventGroups().length < 1"
@@ -88,7 +92,7 @@
           </div>
 
           <div
-            ng-repeat="group in es.getEventGroups() track by group.id"
+            ng-repeat="group in es.getEventGroups() | orderBy: sortEventSets track by group.id"
             class="flex-row-center jspacebetween scene-row"
             ng-class="{'selected': es.tabIsSelected(group.id)}"
             ng-click="es.setSelectedTab(group.id)"
@@ -99,13 +103,16 @@
               </div>
             </div>
             <div class="flex-row-center jspacebetween">
-              <span aria-label="Currently Active"
+              <span aria-label="現在有効"
                 ng-if="group.active"
                 class="status-dot active"
-                uib-tooltip="This event set is active"
+                uib-tooltip="このイベントセットは有効です"
                 tooltip-append-to-body="true"
               ></span>
-              <button aria-label="Event Set Options"
+              <span class="event-set-drag-handle dragHandle">
+                <i class="fas fa-bars"></i>
+              </span>
+              <button aria-label="イベントセットオプション"
                 class="noselect clickable text-3xl mx-3"
                 style="background: transparent; border: none"
                 context-menu="eventSetMenuOptions(group)"
@@ -120,32 +127,6 @@
         </div>
       </div>
 
-<<<<<<< HEAD
-      <div style="width: 100%; height: 100%">
-        <firebot-item-table
-          items="getSelectedEvents()"
-          on-items-update="updateEventsForCurrentGroup(items)"
-          headers="tableConfig"
-          sort-tag-context="events"
-          orderable="true"
-          add-new-button-text="新規イベント"
-          on-add-new-clicked="showAddOrEditEventModal()"
-          context-menu-options="eventMenuOptions(item)"
-          no-data-message="まだイベントは作成されていません。作りましょう"
-          none-found-message="イベントは見つかりません"
-          search-placeholder="イベントを探す"
-          test-button="true"
-          on-test-button-clicked="fireEventManually(itemId)"
-          status-field="active"
-        >
-          <fb-item-table-toolbar>
-            <button ng-click="simulateEventsByType()" class="btn btn-default">
-              <i class="fas fa-play-circle ml-2"></i> 模擬イベントを発生させる
-            </button>
-          </fb-item-table-toolbar>
-        </firebot-item-table>
-      </div>
-=======
       <firebot-item-table
         items="getSelectedEvents()"
         on-items-update="updateEventsForCurrentGroup(items)"
@@ -168,7 +149,6 @@
           </button>
         </fb-item-table-toolbar>
       </firebot-item-table>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     </div>
   </div>
 </div>

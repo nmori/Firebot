@@ -8,20 +8,20 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">テキストを取り込み</h4>
+                <h4 class="modal-title">TXT から項目をインポート</h4>
             </div>
             <div class="modal-body">
 
                 <div>
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        Txt File
+                        TXT ファイル
                     </div>
                     <file-chooser model="$ctrl.filePath" options="{ filters: [ {name:'Text',extensions:['txt']} ]}"></file-chooser>
                 </div>
 
                 <div style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        区切り記号 <tooltip text="'Firebotにtxtファイルの項目の区切り方を教える'"></tooltip>
+                        区切り文字 <tooltip text="'TXT ファイル内で項目がどのように区切られているかを指定します'"></tooltip>
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="options-sounds" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -39,7 +39,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.import()">取り込み開始</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.import()">インポート</button>
             </div>
             `,
             bindings: {

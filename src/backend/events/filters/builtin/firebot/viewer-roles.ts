@@ -2,14 +2,13 @@ import customRolesManager from "../../../../roles/custom-roles-manager";
 import teamRolesManager from "../../../../roles/team-roles-manager";
 import twitchRolesManager from "../../../../../shared/twitch-roles";
 import chatRolesManager from "../../../../roles/chat-roles-manager";
-import twitchApi from "../../../../twitch-api/api";
+import { TwitchApi } from "../../../../streaming-platforms/twitch/api";
 import { EventFilter } from "../../../../../types/events";
-import { ComparisonType } from "../../../../../shared/filter-constants";
 
 const filter: EventFilter = {
     id: "firebot:viewerroles",
-    name: "視聴者の役割",
-    description: "視聴者の役割にフィルターをかける",
+    name: "Viewer's Roles",
+    description: "Filter to a given viewer role",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -28,10 +27,7 @@ const filter: EventFilter = {
         { eventSourceId: "firebot", eventId: "viewer-rank-updated" },
         { eventSourceId: "firebot", eventId: "currency-update" }
     ],
-    comparisonTypes: [
-        ComparisonType.INCLUDING,
-        ComparisonType.NOT_INCLUDING
-    ],
+    comparisonTypes: ["include", "doesn't include"],
     valueType: "preset",
     presetValues: (viewerRolesService: any) => {
         return viewerRolesService
@@ -76,7 +72,7 @@ const filter: EventFilter = {
 
         try {
             if (userId == null) {
-                const user = await twitchApi.users.getUserByName(username);
+                const user = await TwitchApi.users.getUserByName(username);
 
                 if (user == null) {
                     return false;
@@ -111,14 +107,9 @@ const filter: EventFilter = {
             const hasRole = allRoles.some(r => r.id === value);
 
             switch (comparisonType) {
-                case ComparisonType.INCLUDING:
-                case ComparisonType.COMPAT_INCLUDING:
-                case ComparisonType.COMPAT2_INCLUDING:
-                case ComparisonType.ORG_INCLUDING:
+                case "include":
                     return hasRole;
-                case ComparisonType.NOT_INCLUDING:
-                case ComparisonType.COMPAT_NOT_INCLUDING:
-                case ComparisonType.ORG_NOT_INCLUDING:
+                case "doesn't include":
                     return !hasRole;
                 default:
                     return false;

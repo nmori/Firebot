@@ -1,5 +1,5 @@
 "use strict";
-(function () {
+(function() {
     angular
         .module('firebotApp')
         .component("channelRewardQueueManager", {
@@ -9,7 +9,7 @@
                 <div
                     ng-if="channelRewardsService.loadingRedemptions"
                     class="queue-loader-overlay">
-                    <div>読み込み中...</div>
+                    <div>リクエストを読み込み中...</div>
                 </div>
                 <div class="queue-manager-content">
                     <div class="queue-rewards-column">
@@ -17,7 +17,7 @@
                             selected="selectedReward == null"
                             ng-click="setSelectedReward(null)"
                         >
-                            <span>すべて ({{totalRedemptionsCount()}})</span>
+                            <span>すべてのリクエスト ({{totalRedemptionsCount()}})</span>
                         </queue-reward-wrapper>
                         <queue-reward-item
                             ng-repeat="(rewardId, redemptions) in channelRewardsService.redemptions | hideEmptyRewardQueues track by rewardId"
@@ -38,7 +38,7 @@
                        </div>
                        <div class="queue-footer">
                           <firebot-button
-                                text="すべて許可"
+                                text="すべて完了"
                                 size="small"
                                 icon="fa-check"
                                 ng-click="approveOrRejectAll(true)"
@@ -59,7 +59,7 @@
                 </div>
             </div>
             `,
-            controller: function ($scope, channelRewardsService, utilityService) {
+            controller: function($scope, channelRewardsService, utilityService) {
                 $scope.channelRewardsService = channelRewardsService;
 
                 $scope.selectedReward = null;
@@ -82,9 +82,9 @@
                 $scope.approveOrRejectAll = (approve = false) => {
                     utilityService
                         .showConfirmationModal({
-                            title: approve ? "すべてを許可" : "すべてを却下",
-                            question: `すべてのリクエストを ${approve ? "許可" : "却下"} しますか?`,
-                            confirmLabel: approve ? "すべて許可" : "却下",
+                            title: approve ? "すべてのリクエストを完了" : "すべてのリクエストを却下",
+                            question: `すべてのリクエストを${approve ? "完了" : "却下"}しますか？`,
+                            confirmLabel: approve ? "すべて完了" : "すべて却下",
                             confirmBtnType: approve ? "btn-info" : "btn-danger"
                         })
                         .then((confirmed) => {

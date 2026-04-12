@@ -12,12 +12,12 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function($scope, utilityService, currencyService, viewerRolesService, logger) {
-            const uuidv1 = require("uuid/v1");
+        controller: function(utilityService, currencyService, viewerRolesService, logger) {
+            const { randomUUID } = require("crypto");
             const $ctrl = this;
 
             $ctrl.currency = {
-                id: uuidv1(),
+                id: randomUUID(),
                 name: "Points",
                 active: true,
                 payout: 5,
@@ -34,33 +34,23 @@
                     $ctrl.currency = JSON.parse(JSON.stringify($ctrl.resolve.currency));
                 }
 
-<<<<<<< HEAD
-                const modalId = $ctrl.resolve.modalId;
-                utilityService.addSlidingModal(
-                    $ctrl.modalInstance.rendered.then(() => {
-                        const modalElement = $(`.${modalId}`).children();
-                        return {
-                            element: modalElement,
-                            name: "通貨の編集",
-                            id: modalId,
-                            instance: $ctrl.modalInstance
-                        };
-                    })
-                );
-
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 // Set our transfer status.
                 $ctrl.setTransferEnabled = function(state) {
                     $ctrl.currency.transfer = state;
                 };
 
+                $ctrl.getTransferLabel = function(state) {
+                    if (state === "Allow") {
+                        return "許可";
+                    }
+                    if (state === "Disallow") {
+                        return "不許可";
+                    }
+                    return state;
+                };
+
                 // Get the groups we want people to be able to give bonus currency to...
                 $ctrl.viewerRoles = viewerRolesService.getAllRoles().filter(r => r.id !== "Owner");
-
-                $scope.$on("modal.closing", function() {
-                    utilityService.removeSlidingModal();
-                });
             };
 
             $ctrl.delete = function() {
@@ -74,6 +64,18 @@
             $ctrl.save = function() {
                 if ($ctrl.currency.name == null || $ctrl.currency.name === "") {
                     return;
+                }
+
+                if ($ctrl.isNewCurrency && currencyService.currencies.some(c => c.name === $ctrl.currency.name)) {
+                    utilityService.showErrorModal(
+                        "他の通貨と同じ名前の通貨は作成できません。"
+                    );
+                    logger.error(`User tried to create currency with the same name as another currency: ${$ctrl.currency.name}.`);
+                    return;
+                }
+
+                if (!$ctrl.currency.offline) {
+                    $ctrl.currency.offline = undefined;
                 }
 
                 logger.debug($ctrl.currency);
@@ -93,13 +95,13 @@
             $ctrl.showCurrencyDeleteModal = function(currency) {
                 utilityService
                     .showConfirmationModal({
-                        title: "通貨の削除",
+                        title: "通貨を削除",
                         question: "この通貨を削除してもよろしいですか？",
-                        confirmLabel: "削除する"
+                        confirmLabel: "削除"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
-                            currencyService.deleteCurrency(currency);
+                            currencyService.deleteCurrency(currency.id);
                             $ctrl.close({
                                 $value: {
                                     action: "close"
@@ -115,12 +117,12 @@
             $ctrl.showCurrencyPurgeModal = function(currency) {
                 utilityService
                     .showConfirmationModal({
-                        title: "通貨のリセット",
+                        title: "通貨をパージ",
                         question:
-              "本当にこの通貨をリセットしますか？この通貨はすべてのユーザーに対して0に設定されます。.",
-                        confirmLabel: "リセット"
+              "この通貨をパージしてもよろしいですか？この通貨はすべてのユーザーで 0 に設定されます。",
+                        confirmLabel: "パージ"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             currencyService.purgeCurrency(currency.id);
                             $ctrl.close({

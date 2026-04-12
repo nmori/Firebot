@@ -5,15 +5,15 @@ export const SetOBSMediaSourceFileEffectType: EffectType<{
     mediaSourceName: string;
     file: string;
 }> = {
-  definition: {
-    id: "firebot:obs-set-media-source-file",
-    name: "OBSメディアソースにファイルを設定",
-    description: "OBSメディアソースのファイルを設定する",
-    icon: "fad fa-film",
-    categories: ["common"],
-  },
-  optionsTemplate: `
-    <eos-container header="OBS メディアソース">
+    definition: {
+        id: "firebot:obs-set-media-source-file",
+            name: "OBSメディアソースファイル設定",
+            description: "OBS メディアソースのファイルを設定します",
+        icon: "fad fa-film",
+        categories: ["common", "integrations"]
+    },
+    optionsTemplate: `
+    <eos-container header="OBS Media Source">
         <div>
             <button class="btn btn-link" ng-click="getMediaSources()">Refresh Source Data</button>
         </div>
@@ -31,7 +31,7 @@ export const SetOBSMediaSourceFileEffectType: EffectType<{
         </div>
     </eos-container>
 
-    <eos-container ng-if="mediaSources != null && effect.mediaSourceName != null" header="File" style="margin-top: 10px;">
+    <eos-container ng-if="mediaSources != null && effect.mediaSourceName != null" header="File" style="margin-top: 10px;" pad-top="true">
         <file-chooser model="effect.file" options="{ filters: [ {name: 'OBS-Supported Video Files', extensions: ['mp4', 'm4v', 'ts', 'mov', 'mxf', 'flv', 'mkv', 'avi', 'gif', 'webm']}, {name: 'OBS-Supported Audio Files', extensions: ['mp3', 'aac', 'ogg', 'wav']}, {name: 'All Files', extensions: ['*']} ]}"></file-chooser>
     </eos-container>
   `,
@@ -66,6 +66,9 @@ export const SetOBSMediaSourceFileEffectType: EffectType<{
         }
 
         return errors;
+    },
+    getDefaultLabel: (effect) => {
+        return effect.mediaSourceName;
     },
     onTriggerEvent: async ({ effect }) => {
         await setMediaSourceSettings(effect.mediaSourceName, {

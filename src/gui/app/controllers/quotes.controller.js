@@ -14,7 +14,7 @@
                         quote: () => quote
                     },
                     closeCallback: (data) => {
-                        const {action, quote} = data;
+                        const { action, quote } = data;
                         switch (action) {
                             case "add":
                                 quotesService.addQuote(quote);
@@ -37,6 +37,10 @@
                     component: "importQuotesModal",
                     size: "lg"
                 });
+            };
+
+            $scope.exportQuotesToFile = () => {
+                quotesService.exportQuotesToFile();
             };
 
             $scope.quoteRowClicked = (quote) => {
@@ -65,7 +69,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "引用",
+                    name: "QUOTE",
                     icon: "fa-quote-right",
                     dataField: "text",
                     headerStyles: {
@@ -81,7 +85,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "作成者",
+                    name: "AUTHOR",
                     icon: "fa-user",
                     dataField: "originator",
                     headerStyles: {
@@ -95,7 +99,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "日付",
+                    name: "DATE",
                     icon: "fa-calendar",
                     dataField: "createdAt",
                     sortable: true,
@@ -109,7 +113,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "カテゴリ/ゲーム",
+                    name: "CATEGORY/GAME",
                     icon: "fa-gamepad-alt",
                     dataField: "game",
                     sortable: true,
@@ -121,7 +125,7 @@
                         'width': '175px',
                         'padding': '0px 3px'
                     },
-                    cellTemplate: `<div style="width:175px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{data.game || "Unknown Category/Game"}}</div>`,
+                    cellTemplate: `<div style="width:175px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{data.game || "不明なカテゴリ/ゲーム"}}</div>`,
                     cellController: () => {}
                 },
                 {

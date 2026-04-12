@@ -1,9 +1,11 @@
 "use strict";
 
-const currencyDatabase = require("../../database/currencyDatabase");
-const twitchChat = require("../../chat/twitch-chat");
+const currencyAccess = require("../../currency/currency-access").default;
+const currencyManager = require("../../currency/currency-manager");
 const logger = require("../../logwrapper");
 const { EffectCategory } = require('../../../shared/effect-constants');
+const { ReplaceVariableManager } = require("../../variables/replace-variable-manager");
+const { TwitchApi } = require("../../streaming-platforms/twitch/api");
 
 /**
  * The Currency effect
@@ -14,18 +16,19 @@ const currency = {
    */
     definition: {
         id: "firebot:currency",
-        name: "通貨を更新",
-        description: "視聴者の通貨を更新",
+        name: "通貨更新",
+        description: "視聴者の通貨を更新します。",
         icon: "fad fa-money-bill",
-        categories: [EffectCategory.COMMON, EffectCategory.FUN],
+        categories: ["common", "fun", "firebot control"],
         dependencies: [],
         outputs: [
             {
-                label: "通貨金額",
-                description: "ランダムな金額を使用する場合に便利。",
+                label: "Currency Amount",
+                description: "The amount of currency given. Useful if you use a random amount",
                 defaultName: "currencyAmount"
             }
-        ]
+        ],
+        keysExemptFromAutoVariableReplacement: ["message"]
     },
     /**
    * Global settings that will be available in the Settings tab
@@ -37,10 +40,10 @@ const currency = {
    */
     optionsTemplate: `
 
-    <eos-container header="通貨">
+    <eos-container header="Currency">
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="currency-name">{{effect.currency ? getCurrencyName(effect.currency) : '選択...'}}</span> <span class="caret"></span>
+                <span class="currency-name">{{effect.currency ? getCurrencyName(effect.currency) : 'Pick one'}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu currency-name-dropdown">
                 <li ng-repeat="currency in currencies"
@@ -52,20 +55,20 @@ const currency = {
     </eos-container>
 
     <div ng-if="effect.currency">
-        <eos-container header="操作内容" pad-top="true">
+        <eos-container header="Operation" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="currency-action">{{effect.action ? effect.action : 'Pick one'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu currency-action-dropdown">
                     <li ng-click="effect.action = 'Add'">
-                        <a href>追加</a>
+                        <a href>Add</a>
                     </li>
                     <li ng-click="effect.action = 'Remove'">
-                        <a href>削除</a>
+                        <a href>Remove</a>
                     </li>
                     <li ng-click="effect.action = 'Set'">
-                        <a href>設定</a>
+                        <a href>Set</a>
                     </li>
                 </ul>
             </div>
@@ -75,22 +78,22 @@ const currency = {
 
         <div ng-if="effect.action">
 
-            <eos-container header="対象" pad-top="true">
+            <eos-container header="Target" pad-top="true">
 
                 <div class="permission-type controls-fb">
-                    <label class="control-fb control--radio">ユーザ
+                    <label class="control-fb control--radio">Single User
                         <input type="radio" ng-model="effect.target" value="individual"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">オンライン状態の役割
+                    <label class="control-fb control--radio">Online Users in Role
                         <input type="radio" ng-model="effect.target" value="group"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">全オンライン視聴者
+                    <label class="control-fb control--radio">All Online Users
                         <input type="radio" ng-model="effect.target" value="allOnline"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">全視聴者
+                    <label class="control-fb control--radio">All Viewers
                         <input type="radio" ng-model="effect.target" value="allViewers"/>
                         <div class="control__indicator"></div>
                     </label>
@@ -99,7 +102,7 @@ const currency = {
                 <div class="settings-permission" style="padding-bottom:1em">
                     <div class=" viewer-group-list" ng-if="effect.target === 'group'">
                         <div ng-show="hasCustomRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">カスタム</div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Custom</div>
                             <label ng-repeat="customRole in getCustomRoles()" class="control-fb control--checkbox">{{customRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(customRole)" ng-checked="isRoleChecked(customRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -113,7 +116,7 @@ const currency = {
                             </label>
                         </div>
                         <div ng-show="hasTeamRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">チーム</div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Teams</div>
                             <label ng-repeat="teamRole in getTeamRoles()" class="control-fb control--checkbox">{{teamRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(teamRole)" ng-checked="isRoleChecked(teamRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -128,7 +131,7 @@ const currency = {
                         </div>
                     </div>
                     <div ng-if="effect.target === 'individual'" class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">視聴者名</span>
+                        <span class="input-group-addon" id="basic-addon3">Username</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.userTarget" replace-variables>
                     </div>
                 </div>
@@ -137,7 +140,7 @@ const currency = {
 
             <eos-container header="Amount" ng-if="effect.target != null" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon" id="currency-units-type">金額</span>
+                    <span class="input-group-addon" id="currency-units-type">Amount</span>
                     <input type="text" ng-model="effect.amount" class="form-control" id="currency-units-setting" aria-describedby="currency-units-type" type="text" replace-variables="number">
                 </div>
             </eos-container>
@@ -145,7 +148,7 @@ const currency = {
         </div>
 
         <div ng-if="effect.target">
-            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> 送るチャットメッセージ
+            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> Send Chat Message
                 <input type="checkbox" ng-model="effect.sendChat">
                 <div class="control__indicator"></div>
             </label>
@@ -153,18 +156,18 @@ const currency = {
             <div ng-show="effect.sendChat">
                 <eos-chatter-select effect="effect" title="Chat as"></eos-chatter-select>
 
-                <eos-container header="送信メッセージ" pad-top="true">
+                <eos-container header="Message To Send" pad-top="true">
                     <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
-                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">チャットメッセージは360文字を超えることはできません。すべての置換変数が入力された後でも長すぎる場合、このメッセージは自動的にトリミングされます。</div>
+                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">Chat messages cannot be longer than 360 characters. This message will get automatically trimmed if the length is still too long after all replace variables have been populated.</div>
                     <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
-                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> ささやく
+                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Whisper
                             <input type="checkbox" ng-init="whisper = (effect.whisper != null && effect.whisper !== '')" ng-model="whisper" ng-click="effect.whisper = ''">
                             <div class="control__indicator"></div>
                         </label>
                         <div ng-show="whisper">
                             <div class="input-group">
-                                <span class="input-group-addon" id="chat-whisper-effect-type">宛先</span>
-                                <input ng-model="effect.whisper" type="text" class="form-control" id="chat-whisper-setting" aria-describedby="chat-text-effect-type" placeholder="ユーザ名">
+                                <span class="input-group-addon" id="chat-whisper-effect-type">To</span>
+                                <input ng-model="effect.whisper" type="text" class="form-control" id="chat-whisper-setting" aria-describedby="chat-text-effect-type" placeholder="Username">
                             </div>
                         </div>
                     </div>
@@ -186,8 +189,8 @@ const currency = {
 
         $scope.currencies = currencyService.getCurrencies();
 
-        $scope.getCurrencyName = function(currencyId) {
-            const currency = currencyService.getCurrencies(currencyId);
+        $scope.getCurrencyName = function (currencyId) {
+            const currency = currencyService.getCurrency(currencyId);
             return currency.name;
         };
 
@@ -198,11 +201,11 @@ const currency = {
         $scope.getTwitchRoles = viewerRolesService.getTwitchRoles;
         $scope.getTeamRoles = viewerRolesService.getTeamRoles;
 
-        $scope.isRoleChecked = function(role) {
+        $scope.isRoleChecked = function (role) {
             return $scope.effect.roleIds.includes(role.id);
         };
 
-        $scope.toggleRole = function(role) {
+        $scope.toggleRole = function (role) {
             if ($scope.isRoleChecked(role)) {
                 $scope.effect.roleIds = $scope.effect.roleIds.filter(id => id !== role.id);
             } else {
@@ -214,20 +217,50 @@ const currency = {
    * When the effect is triggered by something
    * Used to validate fields in the option template.
    */
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.currency == null) {
-            errors.push("使用する通貨を選択してください。");
+            errors.push("Please select a currency to use.");
         }
         return errors;
+    },
+    getDefaultLabel: (effect, currencyService) => {
+        if (effect.action == null || effect.target == null || effect.amount == null || String(effect.amount).trim() === "") {
+            return "";
+        }
+        const currencyName = currencyService.getCurrency(effect.currency)?.name ?? "Unknown Currency";
+        let subject;
+        switch (effect.target) {
+            case "individual":
+                subject = effect.userTarget;
+                break;
+            case "group":
+                subject = `Online Viewers in ${effect.roleIds?.length ?? 0} Role${(effect.roleIds?.length ?? 0) === 1 ? "" : "s"}`;
+                break;
+            case "allOnline":
+                subject = "All Online Viewers";
+                break;
+            case "allViewers":
+                subject = "All Viewers";
+                break;
+        }
+
+        switch (effect.action) {
+            case "Add":
+                return `Give ${effect.amount} ${currencyName} to ${subject}`;
+            case "Remove":
+                return `Remove ${effect.amount} ${currencyName} from ${subject}`;
+            case "Set":
+                return `Set ${currencyName} to ${effect.amount} for ${subject}`;
+        }
     },
     /**
    * When the effect is triggered by something
    */
-    onTriggerEvent: event => {
-        return new Promise(async resolve => {
+    onTriggerEvent: (event) => {
+        return new Promise(async (resolve) => {
             // Make sure viewer DB is on before continuing.
-            if (!currencyDatabase.isViewerDBOn()) {
+            if (currencyAccess.isViewerDBOn() !== true) {
                 return resolve(true);
             }
 
@@ -239,7 +272,7 @@ const currency = {
             if (isNaN(amount)) {
                 return resolve({
                     success: false,
-                    reason: "数字ではない金額： " + amount
+                    reason: `Amount not a number: ${amount}`
                 });
             }
 
@@ -250,8 +283,8 @@ const currency = {
             try {
                 switch (event.effect.target) {
                     case "individual":
-                    // Give currency to one person.
-                        await currencyDatabase.adjustCurrencyForUser(
+                        // Give currency to one person.
+                        await currencyManager.adjustCurrencyForViewer(
                             userTarget,
                             event.effect.currency,
                             currency,
@@ -259,8 +292,8 @@ const currency = {
                         );
                         break;
                     case "allOnline":
-                    // Give currency to all online.
-                        await currencyDatabase.addCurrencyToOnlineUsers(
+                        // Give currency to all online.
+                        await currencyManager.addCurrencyToOnlineViewers(
                             event.effect.currency,
                             currency,
                             true,
@@ -268,8 +301,8 @@ const currency = {
                         );
                         break;
                     case "allViewers":
-                    // Give currency to all viewers.
-                        await currencyDatabase.adjustCurrencyForAllUsers(
+                        // Give currency to all viewers.
+                        await currencyManager.adjustCurrencyForAllViewers(
                             event.effect.currency,
                             currency,
                             true,
@@ -277,8 +310,8 @@ const currency = {
                         );
                         break;
                     case "group":
-                    // Give currency to group.
-                        await currencyDatabase.addCurrencyToUserGroupOnlineUsers(
+                        // Give currency to group.
+                        await currencyManager.addCurrencyToViewerGroupOnlineViewers(
                             event.effect.roleIds,
                             event.effect.currency,
                             currency,
@@ -293,7 +326,23 @@ const currency = {
                 // Send chat if we have it.
                 if (event.effect.sendChat) {
                     const { message, whisper, chatter } = event.effect;
-                    await twitchChat.sendChatMessage(message, whisper, chatter);
+
+                    // We need to manually evaluate the message here since we skip it in the auto variable replacement step.
+                    // This is because we don't want to replace variables for currency amount before it's been updated.
+                    const evaluatedMessage = await ReplaceVariableManager.populateStringWithTriggerData(
+                        message,
+                        {
+                            ...event.trigger,
+                            effectOutputs: event.outputs
+                        }
+                    );
+
+                    if (whisper) {
+                        const user = await TwitchApi.users.getUserByName(whisper);
+                        await TwitchApi.whispers.sendWhisper(user.id, evaluatedMessage, chatter.toLowerCase() === "bot");
+                    } else {
+                        await TwitchApi.chat.sendChatMessage(evaluatedMessage, null, chatter.toLowerCase() === "bot");
+                    }
                 }
             } catch (error) {
                 logger.error("Error updating currency", error);

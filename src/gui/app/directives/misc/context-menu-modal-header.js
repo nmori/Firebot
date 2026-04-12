@@ -11,11 +11,12 @@
                 showTriggerName: "<"
             },
             template: `
+            <scroll-sentinel element-class="context-menu-modal-header"></scroll-sentinel>
             <div class="modal-header context-menu-modal-header sticky-header">
                 <button
                     type="button"
                     class="close"
-                    aria-label="Close"
+                    aria-label="閉じる"
                     ng-click="$ctrl.onClose()"
                 >
                     <i class="fal fa-times" aria-hidden="true"></i>
@@ -31,8 +32,8 @@
                     </span>
                 </div>
                 <h4 class="modal-title">
+                    <div class="action text-4xl">{{$ctrl.triggerName ? '編集' : '新規追加'}} {{$ctrl.triggerType}}<span ng-if="$ctrl.triggerName">:</span></div>
                     <div class="text-4xl font-semibold" ng-if="$ctrl.triggerName && $ctrl.showTriggerName">{{$ctrl.triggerName}}</div>
-                    <div class="action text-4xl">{{$ctrl.triggerType}} を {{$ctrl.triggerName ? '編集' : '追加'}} <span ng-if="$ctrl.triggerName">:</span></div>
                 </h4>
             </div>
 
@@ -51,11 +52,12 @@
                     if ($ctrl.sortTagContext != null) {
                         if ($ctrl.allSortTags.length > 0) {
                             menuItems.push({
-                                text: "Tags...",
-                                children: $ctrl.allSortTags.map(st => {
+                                text: "タグ...",
+                                childrenMenuClass: "sort-tag-menu",
+                                children: $ctrl.allSortTags.map((st) => {
                                     const isSelected = $ctrl.sortTags && $ctrl.sortTags.includes(st.id);
                                     return {
-                                        html: `<a href><i class="${isSelected ? 'fas fa-check' : ''}" style="margin-right: ${isSelected ? '10' : '27'}px;"></i> ${st.name}</a>`,
+                                        html: `<a href class="sort-tag-item"><i class="${isSelected ? 'fas fa-check' : ''}" style="margin-right: ${isSelected ? '10' : '27'}px;"></i> ${st.name}</a>`,
                                         click: () => {
                                             $ctrl.toggleSortTag(st.id);
                                         }

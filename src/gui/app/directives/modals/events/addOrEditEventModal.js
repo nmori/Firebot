@@ -4,14 +4,14 @@
 
 (function() {
 
-    const uuidv1 = require("uuid/v1");
+    const { randomUUID } = require("crypto");
 
     angular.module("firebotApp").component("addOrEditEventModal", {
         template:
         `
         <context-menu-modal-header
             on-close="$ctrl.dismiss()"
-            trigger-type="イベント"
+            trigger-type="event"
             trigger-name="$ctrl.event.name"
             sort-tags="$ctrl.event.sortTags"
             show-trigger-name="true"
@@ -20,13 +20,13 @@
             <div class="general-event-settings">
 
                 <div class="effect-setting-container">
-                    <h3>イベントの起動条件：</h3>
+                    <h3>トリガー条件</h3>
                     <searchable-event-dropdown selected="{ eventId: $ctrl.event.eventId, sourceId: $ctrl.event.sourceId }" style="width:100%" update="$ctrl.eventChanged(event)"></searchable-event-dropdown>
                 </div>
 
                 <div class="effect-setting-container">
                     <h3>名前</h3>
-                    <input type="text" class="form-control event-id" aria-describedby="basic-addon3" placeholder="名前を入れる" ng-model="$ctrl.event.name" ng-change="$ctrl.nameChanged()">
+                    <input type="text" class="form-control event-id" aria-describedby="basic-addon3" placeholder="名前を入力" ng-model="$ctrl.event.name" ng-change="$ctrl.nameChanged()">
                 </div>
 
                 <div ng-if="$ctrl.event.eventId != null">
@@ -40,42 +40,30 @@
 
                     <div class="controls-fb-inline effect-setting-container">
                         <label class="control-fb control--checkbox">有効
-<<<<<<< HEAD
-                            <input type="checkbox" ng-model="$ctrl.event.active" aria-label="..." checked>
-=======
-                            <input type="checkbox" ng-model="$ctrl.event.active" aria-label="Is Active" checked>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                            <input type="checkbox" ng-model="$ctrl.event.active" aria-label="有効" checked>
                             <div class="control__indicator"></div>
                         </label>
                     </div>
                 </div>
-                
                 <div class="cooldown-title">
                     <div class="controls-fb-inline effect-custom-cooldown-container">
-                        <label class="control-fb control--checkbox">再実行可能になるまでの待ち時間
-                            <input type="checkbox" ng-model="$ctrl.event.customCooldown" aria-label="Use Custom Cooldown" >
+                        <label class="control-fb control--checkbox">カスタムクールダウン
+                            <input type="checkbox" ng-model="$ctrl.event.customCooldown" aria-label="カスタムクールダウンを使用" >
                             <div class="control__indicator"></div>
                         </label>
                         <div id="cooldown-options" ng-if="$ctrl.event.customCooldown" class="nav-body-wrapper" style="padding-left: 29px;">
-                            <input type="number" class="form-control event-id" aria-describedby="basic-addon3" placeholder="秒数を入れる" ng-model="$ctrl.event.customCooldownSecs" style="margin-bottom: 6px;">
-                            <label class="control-fb control--checkbox">ユーザー毎に待ち時間を適用
-<<<<<<< HEAD
-                                <input type="checkbox" ng-model="$ctrl.event.customCooldownPerUser" aria-label="..." >
-=======
-                                <input type="checkbox" ng-model="$ctrl.event.customCooldownPerUser" aria-label="Apply Cooldown Per User" >
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                            <input type="number" class="form-control event-id" aria-describedby="basic-addon3" placeholder="秒数を入力" ng-model="$ctrl.event.customCooldownSecs" style="margin-bottom: 6px;">
+                            <label class="control-fb control--checkbox">ユーザーごとに適用
+                                <input type="checkbox" ng-model="$ctrl.event.customCooldownPerUser" aria-label="ユーザーごとにクールダウンを適用" >
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
                     </div>
-                </div>
+            </div>
             </div>
             <div ng-if="$ctrl.event.eventId != null" class="effect-setting-container setting-padtop">
-<<<<<<< HEAD
-                <effect-list header="このイベントは何をすべきですか？" effects="$ctrl.event.effects" trigger="event" trigger-meta="$ctrl.triggerMeta" update="$ctrl.effectListUpdated(effects)" modalId="{{modalId}}" is-array="true"></effect-list>
-=======
                 <effect-list
-                    header="このイベントは何をすべきですか？"
+                    header="このイベントで実行する内容"
                     effects="$ctrl.event.effects"
                     trigger="event"
                     trigger-meta="$ctrl.triggerMeta"
@@ -83,7 +71,6 @@
                     modalId="{{modalId}}"
                     is-array="true"
                 ></effect-list>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             </div>
         </div>
         <div class="modal-footer sticky-footer edit-event-footer">
@@ -116,7 +103,9 @@
                 sortTags: []
             };
 
-            $ctrl.triggerMeta = {};
+            $ctrl.triggerMeta = {
+                rootEffects: $ctrl.event.effects
+            };
 
             function updateTriggerId() {
                 if ($ctrl.event.sourceId && $ctrl.event.eventId) {
@@ -132,28 +121,9 @@
                 } else {
                     $ctrl.isNewEvent = false;
                     $ctrl.event = JSON.parse(angular.toJson($ctrl.resolve.event));
+                    $ctrl.triggerMeta.rootEffects = $ctrl.event.effects;
                 }
 
-<<<<<<< HEAD
-                const modalId = $ctrl.resolve.modalId;
-                utilityService.addSlidingModal(
-                    $ctrl.modalInstance.rendered.then(() => {
-                        const modalElement = $(`.${modalId}`).children();
-                        return {
-                            element: modalElement,
-                            name: "イベントを編集",
-                            id: modalId,
-                            instance: $ctrl.modalInstance
-                        };
-                    })
-                );
-
-                $scope.$on("modal.closing", function() {
-                    utilityService.removeSlidingModal();
-                });
-
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 updateTriggerId();
             };
 
@@ -178,11 +148,11 @@
                 utilityService
                     .showConfirmationModal({
                         title: "イベントを削除",
-                        question: `イベントを削除しますか？`,
-                        confirmLabel: "削除する",
+                        question: "このイベントを削除してもよろしいですか？",
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             $ctrl.close({
                                 $value: {
@@ -198,12 +168,12 @@
 
             $ctrl.save = function() {
                 if ($ctrl.event.name == null || $ctrl.event.name === "") {
-                    ngToast.create("イベント名を入力してください");
+                    ngToast.create("イベント名を入力してください。");
                     return;
                 }
 
                 if ($ctrl.isNewEvent) {
-                    $ctrl.event.id = uuidv1();
+                    $ctrl.event.id = randomUUID();
                 }
 
                 $ctrl.close({

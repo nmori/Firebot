@@ -10,33 +10,33 @@
                 padTop: "<"
             },
             template: `
-            <eos-container header="Audio Output Device" pad-top="$ctrl.padTop">
+            <eos-container header="音声出力デバイス" pad-top="$ctrl.padTop">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="chat-effect-type">{{$ctrl.effect.audioOutputDevice ? $ctrl.effect.audioOutputDevice.label : 'アプリ(既定)'}}</span> <span class="caret"></span>
+                        <span class="chat-effect-type">{{$ctrl.effect.audioOutputDevice ? $ctrl.effect.audioOutputDevice.label : 'アプリ既定'}}</span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu chat-effect-dropdown">
                         <li ng-repeat="device in $ctrl.audioOutputDevices" ng-click="$ctrl.effect.audioOutputDevice = device"><a href>{{device.label}}</a></li>
                         <li class="divider"></li>
-                        <li role="menuitem" ng-click="$ctrl.effect.audioOutputDevice = {label: 'オーバーレイに送る', deviceId: 'overlay'}">
-                            <a href>オーバーレイに送る</a>
+                        <li role="menuitem" ng-click="$ctrl.effect.audioOutputDevice = {label: 'オーバーレイに送信', deviceId: 'overlay'}">
+                            <a href>オーバーレイに送信</a>
                         </li>
                     </ul>
                 </div>
             </eos-container>
             `,
-            controller: function($q, settingsService) {
+            controller: function($q, soundService, settingsService) {
                 const ctrl = this;
 
                 ctrl.settings = settingsService;
 
                 ctrl.audioOutputDevices = [
                     {
-                        label: "アプリ(既定)",
+                        label: "アプリ既定",
                         deviceId: ""
                     },
                     {
-                        label: "システム(既定)",
+                        label: "システム既定",
                         deviceId: "default"
                     }
                 ];
@@ -44,31 +44,22 @@
                 ctrl.$onInit = function() {
                     if (ctrl.effect.audioOutputDevice == null) {
                         ctrl.effect.audioOutputDevice = {
-                            label: "アプリ(既定)",
+                            label: "アプリ既定",
                             deviceId: ""
                         };
                     }
 
-                    $q.when(navigator.mediaDevices.enumerateDevices()).then(deviceList => {
-                        deviceList = deviceList
-                            .filter(
-                                d =>
-                                    d.kind === "audiooutput" &&
-                d.deviceId !== "communications" &&
-                d.deviceId !== "default"
-                            )
-                            .map(d => {
-                                return { label: d.label, deviceId: d.deviceId };
-                            });
-
-                        ctrl.audioOutputDevices = ctrl.audioOutputDevices.concat(deviceList);
+                    $q.when(soundService.getOutputDevices()).then((deviceList) => {
+                        ctrl.audioOutputDevices = ctrl.audioOutputDevices.concat(
+                            deviceList.toSorted((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }))
+                        );
                     });
 
                     // Reset overlay instance to default (or null) if the saved instance doesnt exist anymore
                     if (ctrl.effect.overlayInstance != null) {
                         if (
                             !settingsService
-                                .getOverlayInstances()
+                                .getSetting("OverlayInstances")
                                 .includes(ctrl.effect.overlayInstance)
                         ) {
                             ctrl.effect.overlayInstance = null;

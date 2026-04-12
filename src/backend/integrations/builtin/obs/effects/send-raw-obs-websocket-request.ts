@@ -5,26 +5,26 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
     functionName: string,
     payload: string
 }> = {
-  definition: {
-    id: "firebot:send-raw-obs-websocket-request",
-    name: "OBS WebSocket コマンド送信",
-    description: "OBS WebSocket の生リクエストを送信します",
-    icon: "fad fa-plug",
-    categories: ["advanced"],
-    outputs: [
-      {
-        label: "API 応答",
-        description: "OBS WebSocket APIからの応答",
-        defaultName: "apiResponse"
-      }
-    ]
-  },
-  optionsTemplate: `
+    definition: {
+        id: "firebot:send-raw-obs-websocket-request",
+        name: "OBS生WebSocketリクエスト送信",
+        description: "OBS に生の WebSocket リクエストを送信します",
+        icon: "fad fa-plug",
+        categories: ["advanced", "integrations"],
+        outputs: [
+            {
+                label: "APIレスポンス",
+                description: "OBS WebSocket API からの生レスポンス",
+                defaultName: "apiResponse"
+            }
+        ]
+    },
+    optionsTemplate: `
     <eos-container header="関数名">
-        <firebot-input model="effect.functionName" placeholder-text="OBS Websocketの関数名" menu-position="below" disable-variables="true"></firebot-input>
+        <firebot-input model="effect.functionName" placeholder-text="OBS WebSocket の関数名を入力" menu-position="below" disable-variables="true"></firebot-input>
     </eos-container>
 
-    <eos-container header="リクエストデータ" pad-top="true">
+    <eos-container header="リクエストペイロード" pad-top="true">
         <div
             ui-codemirror="{onLoad : codemirrorLoaded}"
             ui-codemirror-opts="editorSettings"
@@ -36,7 +36,7 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
 
     <eos-container pad-top="true">
       <div class="effect-info alert alert-warning">
-        <b>警告!</b> これはOBSにおいて望ましくない演出を引き起こす可能性があります。この演出を使用する際はご注意ください。
+                <b>警告！</b> OBS で意図しない動作を引き起こす可能性があります。このエフェクトの使用には注意してください。
       </div>
     </eos-container>
   `,
@@ -62,9 +62,12 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
     },
     optionsValidator: (effect) => {
         if (effect.functionName == null || effect.functionName.length === 0) {
-        return [ "関数名をいれてください" ]
+            return ["関数名を入力してください。"];
         }
         return [];
+    },
+    getDefaultLabel: (effect) => {
+        return `${effect.functionName}`;
     },
     onTriggerEvent: async ({ effect }) => {
         const response = await sendRawObsRequest(effect.functionName, effect.payload);

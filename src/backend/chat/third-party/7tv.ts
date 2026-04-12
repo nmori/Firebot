@@ -11,29 +11,41 @@ type SevenTVEmotesResponse = {
                     name: string;
                     static_name: string;
                 }>;
-            }
-            urls: Array<[string, string]>;
-        }
-    }>
+            };
+        };
+    }>;
 };
 
-export class SevenTVEmoteProvider extends ThirdPartyEmoteProvider<SevenTVEmotesResponse> {
+type SevenTVChannelEmotesResponse = {
+    emote_set: SevenTVEmotesResponse;
+};
+
+export class SevenTVEmoteProvider extends ThirdPartyEmoteProvider<SevenTVEmotesResponse, SevenTVChannelEmotesResponse> {
     providerName = "7TV";
 
     globalEmoteUrl = "https://7tv.io/v3/emote-sets/global";
-    getChannelEmotesUrl(streamerUserId: number): string {
+    getChannelEmotesUrl(streamerUserId: string): string {
         return `https://7tv.io/v3/users/twitch/${streamerUserId}`;
     }
 
-    private emoteMapper(response: SevenTVEmotesResponse): ThirdPartyEmote[] {
-        return response.emotes.map(e => ({
+    private globalEmoteMapper(response: SevenTVEmotesResponse): ThirdPartyEmote[] {
+        return response?.emotes?.map(e => ({
             url: `https:${e.data.host.url}/4x.webp`,
             code: e.name,
             animated: e.data.animated ?? false,
             origin: this.providerName
-        }));
+        })) ?? [];
     }
 
-    globalEmotesMapper = this.emoteMapper;
-    channelEmotesMapper = this.emoteMapper;
+    private channelEmoteMapper(response: SevenTVChannelEmotesResponse): ThirdPartyEmote[] {
+        return response?.emote_set?.emotes?.map(e => ({
+            url: `https:${e.data.host.url}/4x.webp`,
+            code: e.name,
+            animated: e.data.animated ?? false,
+            origin: this.providerName
+        })) ?? [];
+    }
+
+    globalEmotesMapper = this.globalEmoteMapper;
+    channelEmotesMapper = this.channelEmoteMapper;
 }

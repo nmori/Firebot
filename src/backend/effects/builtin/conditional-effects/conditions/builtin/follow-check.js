@@ -1,15 +1,12 @@
 "use strict";
 
 const userAccess = require("../../../../../common/user-access");
-const { ComparisonType } = require("../../../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:followcheck",
     name: "フォローチェック",
     description: "カンマで区切られたリスト内のすべてのユーザーをフォローしているかどうかを条件とする。",
-    comparisonTypes: [
-        ComparisonType.FOLLOW
-    ],
+    comparisonTypes: ["follows"],
     leftSideValueType: "none",
     rightSideValueType: "text",
     predicate: async (conditionSettings, trigger) => {

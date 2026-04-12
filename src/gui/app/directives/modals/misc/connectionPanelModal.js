@@ -14,14 +14,14 @@
                     </div>
                     <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
                         <div class="connection-tile">
-                            <span class="connection-title">チャット&イベント<tooltip text="'コマンド、チャット演出、チャットフィード、イベントなどのためのセット'"></tooltip></span>
+                            <span class="connection-title">チャットとイベント <tooltip text="'コマンド、チャットエフェクト、チャットフィード、イベントなどに使用されます。'"></tooltip></span>
                             <connection-button
                                 connected="$ctrl.conn.connections['chat'] === 'connected'"
                                 connecting="$ctrl.conn.connections['chat'] === 'connecting'"
                                 connection-name="Chat"
                                 on-connection-click="$ctrl.conn.toggleConnectionToService('chat')"></connection-button>
                             <div class="sub-title">
-                                <div style="padding-bottom: 4px;">サイドバーで制御<tooltip text="'チャットをサイドバーの接続ボタンで制御するには、このチェックボックスをオンにします。.'"></tooltip></div>
+                                <div style="padding-bottom: 4px;">サイドバーで制御 <tooltip text="'これを有効にすると、サイドバーの接続ボタンでチャット接続を制御できます。'"></tooltip></div>
                                 <label class="control-fb control--checkbox" style="position: relative;height: 20px;padding: 0;margin: 0;width: 20px;">
                                     <input type="checkbox" ng-checked="$ctrl.serviceIsChecked('chat')" ng-click="$ctrl.toggledServiceIsChecked('chat')">
                                     <div class="control__indicator"></div>
@@ -48,7 +48,7 @@
                 </div>
                 <div ng-if="$ctrl.is.oneIntegrationIsLinked()">
                     <div style="text-align: center;font-size: 18px;color: gray;font-weight: 100;padding-bottom: 15px; padding-top: 30px;">
-                        <i class="fas fa-globe"></i> 統合
+                        <i class="fas fa-globe"></i> 連携サービス
                     </div>
                     <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
                         <div class="connection-tile" style="margin-right: 10px;" ng-repeat="integration in $ctrl.is.getLinkedIntegrations()">
@@ -59,7 +59,7 @@
                                 connection-name="{{integration.name}}"
                                 on-connection-click="$ctrl.is.toggleConnectionForIntegration(integration.id)"></connection-button>
                             <div class="sub-title">
-                                <div style="padding-bottom: 4px;">サイドバーで制御 <tooltip text="'Check this to have ' + integration.name + ' be controlled by the sidebar connect button.'"></tooltip></div>
+                                <div style="padding-bottom: 4px;">サイドバーで制御 <tooltip text="'これを有効にすると、サイドバーの接続ボタンで ' + integration.name + ' の接続を制御できます。'"></tooltip></div>
                                 <label class="control-fb control--checkbox" style="position: relative;height: 20px;padding: 0;margin: 0;width: 20px;">
                                     <input type="checkbox" ng-checked="$ctrl.serviceIsChecked('integration.' + integration.id)" ng-click="$ctrl.toggledServiceIsChecked('integration.' + integration.id)">
                                     <div class="control__indicator"></div>
@@ -91,7 +91,7 @@
 
 
             $ctrl.toggledServiceIsChecked = function(service) {
-                let sidebarControlledServices = settingsService.getSidebarControlledServices();
+                let sidebarControlledServices = settingsService.getSetting("SidebarControlledServices");
                 if (sidebarControlledServices.includes(service)) {
                     sidebarControlledServices = sidebarControlledServices.filter(
                         s => s !== service
@@ -99,11 +99,11 @@
                 } else {
                     sidebarControlledServices.push(service);
                 }
-                settingsService.setSidebarControlledServices(sidebarControlledServices);
+                settingsService.saveSetting("SidebarControlledServices", sidebarControlledServices);
             };
 
             $ctrl.serviceIsChecked = function(service) {
-                const sidebarControlledServices = settingsService.getSidebarControlledServices();
+                const sidebarControlledServices = settingsService.getSetting("SidebarControlledServices");
                 return sidebarControlledServices.includes(service);
             };
 
@@ -115,13 +115,13 @@
 
                 if (connectionStatus === "connected") {
                     overlayStatusId = 1;
-                    return "接続済";
+                    return "接続済み";
                 } else if (connectionStatus === "warning") {
                     overlayStatusId = 0;
-                    return "準備ができました。接続を待っています";
+                    return "準備完了ですが、現在接続されていません。";
                 }
                 overlayStatusId = -1;
-                return "エラー発生。再起動が必要です";
+                return "Webサーバーの起動エラー。アプリの再起動が必要です。";
             };
 
             $ctrl.getOverlayStatusId = function() {

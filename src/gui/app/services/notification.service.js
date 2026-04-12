@@ -1,223 +1,120 @@
 "use strict";
 
 (function() {
-    // This provides methods for notifications
-    const profileManager = require("../../backend/common/profile-manager.js");
+
 
     angular
         .module("firebotApp")
-        .factory("notificationService", function($http, $interval, logger) {
+        .factory("notificationService", function(backendCommunicator, ngToast) {
             const service = {};
-            let notifications = [];
+            let notificationCache = [];
 
             const NotificationType = {
-<<<<<<< HEAD
-                EXTERNAL: "外部",
-                INTERNAL: "内部"
-            };
-
-            const NotificationIconType = {
-                UPDATE: "更新",
-                INFO: "情報",
-                TIP: "ヒント",
-                ALERT: "警告"
-            };
-            /* Helpers */
-            function getNotificationsFile() {
-                return profileManager.getJsonDbInProfile("/notifications");
-            }
-
-            function deleteDataFromFile(path) {
-                try {
-                    getNotificationsFile().delete(path);
-                } catch (err) {} //eslint-disable-line no-empty
-            }
-            function getDataFromFile(path) {
-                let data = null;
-                try {
-                    data = getNotificationsFile().getData(path, true);
-                } catch (err) {} //eslint-disable-line no-empty
-                return data;
-            }
-            function getSavedNotifications() {
-                const saveNotis = getDataFromFile("/notifications");
-                return saveNotis ? saveNotis : [];
-            }
-            function pushDataToFile(path, data) {
-                try {
-                    getNotificationsFile().push(path, data, true);
-                } catch (err) {} //eslint-disable-line no-empty
-            }
-
-            function pushSavedNotification(notification) {
-                pushDataToFile("/notifications[]", notification);
-            }
-
-            function updateSavedNotificationAtIndex(notification, index) {
-                pushDataToFile(`/notifications[${index}]`, notification);
-            }
-
-            function deleteSavedNotificationAtIndex(index) {
-                deleteDataFromFile(`/notifications[${index}]`);
-            }
-
-            function getKnownExternalNotifications() {
-                const externalNotiIds = getDataFromFile("/knownExternalIds");
-                return externalNotiIds ? externalNotiIds : [];
-            }
-
-            function setKnownExternalNotifications(notis) {
-                pushDataToFile("/knownExternalIds", notis);
-            }
-
-            function getIndexOfUuid(uuid) {
-                let foundIndex = null;
-
-                for (let i = 0; i < notifications.length; i++) {
-                    const n = notifications[i];
-                    if (n.uuid === uuid) {
-                        foundIndex = i;
-                        break;
-                    }
-                }
-
-                return foundIndex;
-            }
-
-            function uuid() {
-                return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-                    (
-                        c ^
-            (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-                    ).toString(16)
-                );
-            }
-
-            function loadSavedNotifications() {
-                notifications = getSavedNotifications();
-            }
-
-            function loadExternalNotifications() {
-                $http
-                    .get(
-                        "https://raw.githubusercontent.com/crowbartools/Firebot/metadata/notifications/notifications.json"
-                    )
-                    .then(response => {
-                        const externalNotifications = response.data;
-
-                        const knownExtNotis = getKnownExternalNotifications();
-
-                        const newKnownExtNotis = [];
-
-                        externalNotifications.forEach(
-                            n => {
-                                newKnownExtNotis.push(n.id);
-
-                                if (!knownExtNotis.includes(n.id)) {
-                                    n.type = NotificationType.EXTERNAL;
-                                    n.externalId = n.id;
-                                    n.id = undefined;
-
-                                    service.addNotification(n, true);
-                                }
-                            },
-                            err => {
-                                logger.error(err);
-                            }
-                        );
-
-                        setKnownExternalNotifications(newKnownExtNotis);
-                    });
-            }
-
-
-            service.getStatusIcon = () => {
-                return "fa-check-circle";
-=======
                 UPDATE: "update",
                 INFO: "info",
                 TIP: "tip",
                 ALERT: "alert"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
-            service.NotificationIconType = NotificationIconType;
             service.NotificationType = NotificationType;
 
             service.getNotifications = function() {
-                return notifications;
-            };
-
-            service.notificationsContainsId = function(id) {
-                return notifications.some(n => n.id === id);
+                return notificationCache;
             };
 
             service.getUnreadCount = function() {
-                return notifications.filter(n => !n.read).length;
+                return notificationCache.filter(n => !n.read).length;
             };
 
-            service.markNotificationAsRead = function(notification) {
-                notification.read = true;
+            service.markNotificationAsRead = (id) => {
+                backendCommunicator.send("notifications:mark-notification-as-read", id);
+            };
 
-                if (notification.saved) {
-                    const index = getIndexOfUuid(notification.uuid);
-                    if (index != null) {
-                        updateSavedNotificationAtIndex(notification, index);
-                    }
+            service.deleteNotification = (id) => {
+                backendCommunicator.send("notifications:delete-notification", id);
+            };
+
+            service.loadAllNotifications = () => {
+                notificationCache = backendCommunicator.fireEventSync("notifications:get-all-notifications") ?? [];
+            };
+
+            service.getIconClass = (type) => {
+                let iconClass = "";
+                switch (type) {
+                    case NotificationType.UPDATE:
+                        iconClass = "download";
+                        break;
+                    case NotificationType.ALERT:
+                        iconClass = "exclamation-circle";
+                        break;
+                    case NotificationType.TIP:
+                        iconClass = "question-circle";
+                        break;
+                    case NotificationType.INFO:
+                    default:
+                        iconClass = "info-circle";
                 }
+                return `fa-${iconClass}`;
             };
 
-            service.deleteNotification = function(notification) {
-                if (notification.saved) {
-                    const index = getIndexOfUuid(notification.uuid);
-                    if (index != null) {
-                        deleteSavedNotificationAtIndex(index);
-                    }
-                }
+            backendCommunicator.on("notifications:new-notification", (notification) => {
+                notificationCache.push(notification);
+                let toastClass;
 
-                notifications = notifications.filter(n => n.uuid !== notification.uuid);
-            };
+                switch (notification.type) {
+                    case NotificationType.ALERT:
+                        toastClass = "danger";
+                        break;
 
-            service.addNotification = function(
-                notification,
-                permenantlySave = false
-            ) {
-                notification.uuid = uuid();
-                notification.timestamp = new Date();
-                notification.read = false;
+                    case NotificationType.UPDATE:
+                        toastClass = "warning";
+                        break;
 
-                notification.type = notification.type
-                    ? notification.type
-                    : NotificationType.INTERNAL;
-                notification.icon = notification.icon
-                    ? notification.icon
-                    : NotificationIconType.INFO;
+                    case NotificationType.TIP:
+                        toastClass = "success";
+                        break;
 
-                if (permenantlySave) {
-                    notification.saved = true;
-                    pushSavedNotification(notification);
-                }
-
-                notifications.push(notification);
-            };
-
-            service.loadAllNotifications = function() {
-                notifications = [];
-                loadSavedNotifications();
-                loadExternalNotifications();
-            };
-
-            let externalIntervalCheck = null;
-            service.startExternalIntervalCheck = function() {
-                //check for new external notifications every 5 minutes
-                if (externalIntervalCheck != null) {
-                    $interval.cancel(externalIntervalCheck);
+                    case NotificationType.INFO:
+                    default:
+                        toastClass = "info";
                 }
 
-                externalIntervalCheck = $interval(() => {
-                    loadExternalNotifications();
-                }, 5 * 60000);
-            };
+                const content = `<div class="rich-toast">
+                    ${notification.title?.length ? `<div class="rich-toast-header">${notification.title}</div>` : ``}
+                    <div class="rich-toast-body">
+                        <div class="modal-icon"><i class="fad ${service.getIconClass(notification.type)}" aria-hidden="true"></i></div>
+                        <div class="rich-toast-body-content">${notification.message}</div>
+                    </div>
+                </div>`;
+
+                ngToast.create({
+                    className: toastClass,
+                    content: content,
+                    dismissOnTimeout: false,
+                    dismissOnClick: false,
+                    dismissButton: true
+                });
+            });
+
+            backendCommunicator.on("notifications:notification-marked-as-read", (id) => {
+                const notification = notificationCache.find(n => n.id === id);
+                if (notification != null) {
+                    notification.read = true;
+                }
+            });
+
+            backendCommunicator.on("notifications:notification-deleted", (id) => {
+                notificationCache = notificationCache.filter(n => n.id !== id);
+            });
+
+            backendCommunicator.on("notifications:notification-updated", (updatedNotification) => {
+                const index = notificationCache.findIndex(n => n.id === updatedNotification.id);
+                if (index >= 0) {
+                    notificationCache[index] = updatedNotification;
+                }
+            });
+
+            backendCommunicator.send("notifications:start-external-notification-check");
 
             return service;
         });

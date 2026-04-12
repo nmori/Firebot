@@ -2,29 +2,29 @@
 
 // Modal for adding or editing a command
 
-(function() {
-    const uuid = require("uuid/v4");
+(function () {
+    const { randomUUID } = require("crypto");
 
     angular.module("firebotApp").component("addOrEditCustomCommandModal", {
         templateUrl:
-      "./directives/modals/commands/addOrEditCustomCommand/addOrEditCustomCommandModal.html",
+            "./directives/modals/commands/addOrEditCustomCommand/addOrEditCustomCommandModal.html",
         bindings: {
             resolve: "<",
             close: "&",
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function($scope, utilityService, commandsService, ngToast, settingsService) {
+        controller: function ($scope, utilityService, commandsService, ngToast, settingsService) {
             const $ctrl = this;
 
             $ctrl.command = {
                 active: true,
-                simple: !settingsService.getDefaultToAdvancedCommandMode(),
+                simple: !settingsService.getSetting("DefaultToAdvancedCommandMode"),
                 sendCooldownMessage: true,
-                cooldownMessage: "再実行可能になるまでの待ち時間: 残り {timeLeft} 秒",
+                cooldownMessage: "このコマンドはまだクールダウン中です: {timeLeft}",
                 cooldown: {},
                 effects: {
-                    id: uuid(),
+                    id: randomUUID(),
                     list: []
                 },
                 restrictionData: {
@@ -34,27 +34,23 @@
                 },
                 aliases: [],
                 sortTags: [],
-<<<<<<< HEAD
-                treatQuotedTextAsSingleArg: false
-=======
                 treatQuotedTextAsSingleArg: false,
                 allowTriggerBySharedChat: "inherit"
             };
 
             $ctrl.sharedChatRadioOptions = {
-                true: "Allow",
-                false: "Ignore",
-                inherit: { text: "Inherit", tooltip: "設定 > トリガー > 共有チャットがコマンドをトリガーすることを許可する から設定を継承します。" }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                true: "許可",
+                false: "無視",
+                inherit: { text: "継承", tooltip: "設定 > トリガー > 共有チャットでコマンド実行を許可 の設定を継承します" }
             };
 
             $scope.trigger = "command";
 
             $scope.aliasesListOptions = {
                 useTextArea: false,
-                addLabel: "新規",
-                editLabel: "編集",
-                validationText: "空欄は許容できません",
+                addLabel: "新しいエイリアス",
+                editLabel: "エイリアスを編集",
+                validationText: "エイリアスは空にできません",
                 noDuplicates: true
             };
 
@@ -63,16 +59,12 @@
                 if (currentlyAdvanced) {
                     const willBeRemoved = [];
                     if ($ctrl.command.effects.list.length > 1 ||
-<<<<<<< HEAD
-                            $ctrl.command.effects.list.some(e => e.type !== "firebot:chat")) {
-=======
                         $ctrl.command.effects.list.some(e => e.type !== "firebot:chat")) {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                        willBeRemoved.push("単一のチャット演出を除く、すべての演出");
+                        willBeRemoved.push("チャットエフェクトを1つ残し、それ以外のエフェクト");
                     }
                     if ($ctrl.command.restrictionData.restrictions.length > 1 ||
                         $ctrl.command.restrictionData.restrictions.some(r => r.type !== "firebot:permissions")) {
-                        willBeRemoved.push("許可されたもの以外のすべて制限");
+                        willBeRemoved.push("権限以外の制限");
                     }
                     if ($ctrl.command.fallbackSubcommand != null ||
                         ($ctrl.command.subCommands && $ctrl.command.subCommands.length > 0)) {
@@ -80,11 +72,11 @@
                     }
                     if (willBeRemoved.length > 0) {
                         utilityService.showConfirmationModal({
-                            title: "簡単モードに戻す",
-                            question: `簡単モードに切り替えると ${willBeRemoved.join(", ")} が消えます。切り替えますか？`,
+                            title: "シンプルモードに切り替え",
+                            question: `シンプルモードへ切り替えると、${willBeRemoved.join("、")}が削除されます。切り替えますか？`,
                             confirmLabel: "切り替える",
                             confirmBtnType: "btn-danger"
-                        }).then(confirmed => {
+                        }).then((confirmed) => {
                             if (confirmed) {
                                 $ctrl.command.simple = !$ctrl.command.simple;
                                 $ctrl.command.subCommands = [];
@@ -104,23 +96,23 @@
                     $ctrl.command.simple = !$ctrl.command.simple;
 
                     if ($ctrl.isNewCommand &&
-                        !settingsService.getDefaultToAdvancedCommandMode() &&
-                        !settingsService.getSeenAdvancedCommandModePopup()) {
-                        settingsService.setSeenAdvancedCommandModePopup(true);
+                        !settingsService.getSetting("DefaultToAdvancedCommandMode") &&
+                        !settingsService.getSetting("SeenAdvancedCommandModePopup")) {
+                        settingsService.saveSetting("SeenAdvancedCommandModePopup", true);
                         utilityService.showConfirmationModal({
-                            title: "最初の状態",
-                            question: `応用モードを使う様にしますか？`,
-                            tip: "この決定は、いつでも 設定 > コマンド で戻せます",
+                            title: "デフォルトモード",
+                            question: `新しいコマンドで常に詳細モードを使用しますか？`,
+                            tip: "補足: この設定は 設定 > トリガー でいつでも変更できます",
                             confirmLabel: "はい",
                             confirmBtnType: "btn-default",
-                            cancelLabel: "やめる",
+                            cancelLabel: "今はしない",
                             cancelBtnType: "btn-default"
-                        }).then(confirmed => {
+                        }).then((confirmed) => {
                             if (confirmed) {
-                                settingsService.setDefaultToAdvancedCommandMode(true);
+                                settingsService.saveSetting("DefaultToAdvancedCommandMode", true);
                                 ngToast.create({
                                     className: 'success',
-                                    content: "最初の状態を応用モードにしました",
+                                    content: "新しいコマンドのデフォルトを詳細モードにしました。",
                                     timeout: 7000
                                 });
                             }
@@ -129,7 +121,9 @@
                 }
             };
 
-            $ctrl.$onInit = function() {
+            $ctrl.$onInit = function () {
+                $ctrl.activeTab = 'general';
+
                 if ($ctrl.resolve.command == null) {
                     $ctrl.isNewCommand = true;
                 } else {
@@ -143,8 +137,12 @@
                     $ctrl.command.sendCooldownMessage = true;
                 }
 
+                if ($ctrl.command.sendCooldownMessageAsReply == null) {
+                    $ctrl.command.sendCooldownMessageAsReply = true;
+                }
+
                 if ($ctrl.command.cooldownMessage == null) {
-                    $ctrl.command.cooldownMessage = "再実行可能になるまでの待ち時間: 残り {timeLeft} 秒";
+                    $ctrl.command.cooldownMessage = "このコマンドはまだクールダウン中です: {timeLeft}";
                 }
 
                 if ($ctrl.command.aliases == null) {
@@ -155,42 +153,43 @@
                     $ctrl.command.treatQuotedTextAsSingleArg = false;
                 }
 
-<<<<<<< HEAD
-                const modalId = $ctrl.resolve.modalId;
-                utilityService.addSlidingModal(
-                    $ctrl.modalInstance.rendered.then(() => {
-                        const modalElement = $(`.${modalId}`).children();
-                        return {
-                            element: modalElement,
-                            name: "編集",
-                            id: modalId,
-                            instance: $ctrl.modalInstance
-                        };
-                    })
-                );
-
-                $scope.$on("modal.closing", function() {
-                    utilityService.removeSlidingModal();
-                });
-=======
                 if ($ctrl.command.allowTriggerBySharedChat == null) {
                     $ctrl.command.allowTriggerBySharedChat = "inherit";
                 }
                 $ctrl.command.allowTriggerBySharedChat = String($ctrl.command.allowTriggerBySharedChat);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             };
 
-            $ctrl.effectListUpdated = function(effects) {
+            $ctrl.effectListUpdated = function (effects) {
                 $ctrl.command.effects = effects;
             };
 
             $ctrl.deleteSubcommand = (id) => {
+                let name = "フォールバック";
+
+                if (id !== "fallback-subcommand") {
+                    const subCmd = $ctrl.command.subCommands.find(c => c.id === id);
+
+                    switch (subCmd.type) {
+                        case "Username":
+                            name = "ユーザー名";
+                            break;
+
+                        case "Number":
+                            name = "数値";
+                            break;
+
+                        case "Custom":
+                            name = `"${subCmd.arg}"`;
+                            break;
+                    }
+                }
+
                 utilityService.showConfirmationModal({
-                    title: "削除",
-                    question: `本当にこのコマンドを削除しますか?`,
-                    confirmLabel: "削除する",
+                    title: "サブコマンドを削除",
+                    question: `${name} サブコマンドを削除してもよろしいですか？`,
+                    confirmLabel: "削除",
                     confirmBtnType: "btn-danger"
-                }).then(confirmed => {
+                }).then((confirmed) => {
                     if (confirmed) {
                         if (id === "fallback-subcommand") {
                             $ctrl.command.fallbackSubcommand = null;
@@ -219,12 +218,14 @@
                     size: "sm",
                     resolveObj: {
                         arg: () => arg,
+                        hasAnyArgs: () => !!$ctrl.command.subCommands?.length,
                         hasNumberArg: () => $ctrl.command.subCommands && $ctrl.command.subCommands.some(sc => sc.arg === "\\d+"),
                         hasUsernameArg: () => $ctrl.command.subCommands && $ctrl.command.subCommands.some(sc => sc.arg === "@\\w+"),
                         hasFallbackArg: () => $ctrl.command.fallbackSubcommand != null,
-                        otherArgNames: () => $ctrl.command.subCommands && $ctrl.command.subCommands.filter(c => !c.regex && (arg ? c.arg !== arg.arg : true)).map(c => c.arg.toLowerCase()) || []
+                        otherArgNames: () => $ctrl.command.subCommands && $ctrl.command.subCommands.filter(c => !c.regex && (arg ? c.arg !== arg.arg : true)).map(c => c.arg.toLowerCase()) || [],
+                        parentTrigger: () => $ctrl.command.trigger
                     },
-                    closeCallback: newArg => {
+                    closeCallback: (newArg) => {
                         if (newArg.fallback) {
                             $ctrl.command.fallbackSubcommand = newArg;
                         } else {
@@ -239,41 +240,46 @@
                 });
             };
 
-            $ctrl.delete = function() {
+            $ctrl.delete = function () {
                 if ($ctrl.isNewCommand) {
                     return;
                 }
                 utilityService.showConfirmationModal({
-                    title: "削除",
-                    question: `本当にこのコマンドを削除しますか？`,
+                    title: "コマンドを削除",
+                    question: `このコマンドを削除してもよろしいですか？`,
                     confirmLabel: "削除",
                     confirmBtnType: "btn-danger"
-                }).then(confirmed => {
+                }).then((confirmed) => {
                     if (confirmed) {
                         $ctrl.close({ $value: { command: $ctrl.command, action: "delete" } });
                     }
                 });
             };
 
-            $ctrl.save = function() {
+            $ctrl.save = function () {
                 if ($ctrl.command.trigger == null || $ctrl.command.trigger === "") {
-                    ngToast.create("起動をセットしてください.");
+                    ngToast.create("トリガーを入力してください。");
                     return;
                 }
 
                 if ($ctrl.command.simple) {
                     const responseMessage = $ctrl.command.effects.list[0] && $ctrl.command.effects.list[0].message && $ctrl.command.effects.list[0].message.trim();
                     if (!responseMessage || responseMessage === "") {
-                        ngToast.create("メッセージを送信してください");
+                        ngToast.create("返信メッセージを入力してください。");
                         return;
                     }
                 }
 
                 if (commandsService.triggerExists($ctrl.command.trigger, $ctrl.command.id)) {
-                    ngToast.create("この起動コマンドはすでに存在します");
+                    ngToast.create("このトリガーを使ったカスタムコマンドは既に存在します。");
                     return;
                 }
 
+                if ($ctrl.command.allowTriggerBySharedChat === "true") {
+                    $ctrl.command.allowTriggerBySharedChat = true;
+                } else if ($ctrl.command.allowTriggerBySharedChat === "false") {
+                    $ctrl.command.allowTriggerBySharedChat = false;
+                }
 
                 const action = $ctrl.isNewCommand ? "add" : "update";
                 $ctrl.close({

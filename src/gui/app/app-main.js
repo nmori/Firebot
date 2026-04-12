@@ -1,9 +1,12 @@
+/* eslint-disable angular/di-unused */
+/* eslint-disable angular/no-run-logic */
+
+
 "use strict";
 (function() {
     const electron = require("electron");
     const shell = electron.shell;
 
-    const profileManager = require("../../backend/common/profile-manager");
     const secrets = require("../../secrets.json");
 
     const moment = require("moment");
@@ -33,10 +36,17 @@
         'color.picker',
         'ngAria',
         'ui.codemirror'
-    ]);
+    ], function($controllerProvider, $compileProvider, $provide, $filterProvider) {
+        global.ngProviders = {
+            $controllerProvider: $controllerProvider,
+            $compileProvider: $compileProvider,
+            $provide: $provide,
+            $filterProvider: $filterProvider
+        };
+    });
 
     app.factory("$exceptionHandler", function(logger) {
-        // this catches angular exceptions so we can send it to winston
+    // this catches angular exceptions so we can send it to winston
         return function(exception, cause) {
             console.log(exception || "", cause || {});
             logger.error(exception || "", cause || {});
@@ -44,6 +54,7 @@
     });
 
     app.directive('focusOn', function() {
+        // eslint-disable-next-line angular/prefer-component
         return function(scope, elem, attr) {
             scope.$on('focusOn', function(e, name) {
                 if (name === attr.focusOn) {
@@ -70,8 +81,8 @@
                     suffix: ".json"
                 })
                 .preferredLanguage("en");
-            $translateProvider.preferredLanguage('ja');
-            $translateProvider.fallbackLanguage('en');
+            $translateProvider.preferredLanguage("ja");
+            $translateProvider.fallbackLanguage("en");
         }
     ]);
 
@@ -80,6 +91,10 @@
             'self',
             'https://kit.fontawesome.com/**'
         ]);
+    });
+
+    app.config(function($animateProvider) {
+        $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
     });
 
     app.config([
@@ -104,6 +119,7 @@
         chatMessagesService,
         activityFeedService,
         viewerRolesService,
+        viewerRanksService,
         connectionService,
         notificationService,
         $timeout,
@@ -115,6 +131,7 @@
         ttsService,
         settingsService,
         countersService,
+        hotkeyService,
         gamesService,
         presetEffectListsService,
         startupScriptsService,
@@ -125,14 +142,21 @@
         sortTagsService,
         iconsService,
         videoService,
-        replaceVariableService
+        replaceVariableService,
+        variableMacroService,
+        uiExtensionsService,
+        webhooksService,
+        overlayWidgetsService,
+        dynamicParameterRegistry,
+        platformService
     ) {
         // 'chatMessagesService' and 'videoService' are included so they're instantiated on app start
 
         connectionService.loadProfiles();
 
-        //load viewer roles
+        //load viewer roles and ranks
         viewerRolesService.loadCustomRoles();
+        viewerRanksService.loadRankLadders();
 
         //load commands
         commandsService.refreshCommands();
@@ -150,6 +174,8 @@
 
         countersService.loadCounters();
 
+        hotkeyService.loadHotkeys();
+
         gamesService.loadGames();
 
         presetEffectListsService.loadPresetEffectLists();
@@ -159,15 +185,23 @@
         effectQueuesService.loadEffectQueues();
 
         channelRewardsService.loadChannelRewards();
+        channelRewardsService.refreshChannelRewardRedemptions();
 
         sortTagsService.loadSortTags();
 
         iconsService.loadFontAwesomeIcons();
 
+        variableMacroService.loadMacros();
+
+        webhooksService.loadWebhookConfigs();
+
+        overlayWidgetsService.loadOverlayWidgetTypesAndConfigs();
+
+        platformService.loadPlatform();
+
         //start notification check
         $timeout(() => {
             notificationService.loadAllNotifications();
-            notificationService.startExternalIntervalCheck();
         }, 1000);
 
         //check for updates
@@ -179,14 +213,57 @@
         connectionService.validateAccounts();
 
         ttsService.obtainVoices().then(() => {
-            if (settingsService.getDefaultTtsVoiceId() == null) {
-                settingsService.setDefaultTtsVoiceId(ttsService.getOsDefaultVoiceId());
+            if (settingsService.getSetting("DefaultTtsVoiceId") == null) {
+                settingsService.saveSetting("DefaultTtsVoiceId", ttsService.getOsDefaultVoiceId());
             }
         });
+
+        // Register built-in dynamic parameter types
+        dynamicParameterRegistry.register("string", { tag: "fb-param-string" });
+        dynamicParameterRegistry.register("number", { tag: "fb-param-number" });
+        dynamicParameterRegistry.register("password", { tag: "fb-param-password" });
+        dynamicParameterRegistry.register("boolean", { tag: "fb-param-boolean", hideTitle: true, hideDescription: true });
+        dynamicParameterRegistry.register("date-time", { tag: "fb-param-date-time",
+            validators: {
+                futureOnly: {
+                    fn: (view, isFuture) => (
+                        view == null || view === ""
+                            ? true
+                            : isFuture
+                                ? new Date(view) > new Date()
+                                : new Date(view) < new Date()
+                    ),
+                    message: isFuture => `Must be in the ${isFuture ? "future" : "past"}.`,
+                    async: false
+                }
+            }
+        });
+        dynamicParameterRegistry.register("enum", { tag: "fb-param-enum" });
+        dynamicParameterRegistry.register("filepath", { tag: "fb-param-filepath" });
+        dynamicParameterRegistry.register("role-percentages", { tag: "fb-param-role-percentages" });
+        dynamicParameterRegistry.register("role-numbers", { tag: "fb-param-role-numbers" });
+        dynamicParameterRegistry.register("currency-select", { tag: "fb-param-currency-select" });
+        dynamicParameterRegistry.register("chatter-select", { tag: "fb-param-chatter-select" });
+        dynamicParameterRegistry.register("editable-list", { tag: "fb-param-editable-list" });
+        dynamicParameterRegistry.register("multiselect", { tag: "fb-param-multiselect" });
+        dynamicParameterRegistry.register("discord-channel-webhooks", { tag: "fb-param-discord-channel-webhooks" });
+        dynamicParameterRegistry.register("gift-receivers-list", { tag: "fb-param-gift-receivers-list" });
+        dynamicParameterRegistry.register("poll-choice-list", { tag: "fb-param-poll-choice-list" });
+        dynamicParameterRegistry.register("effectlist", { tag: "fb-param-effect-list" });
+        dynamicParameterRegistry.register("button", { tag: "fb-param-button" });
+        dynamicParameterRegistry.register("hexcolor", { tag: "fb-param-hex-color" });
+        dynamicParameterRegistry.register("font-name", { tag: "fb-param-font-name" });
+        dynamicParameterRegistry.register("font-options", { tag: "fb-param-font-options" });
+        dynamicParameterRegistry.register("radio-cards", { tag: "fb-param-radio-cards" });
+        dynamicParameterRegistry.register("codemirror", { tag: "fb-param-code-mirror" });
+        dynamicParameterRegistry.register("counter-select", { tag: "fb-param-counter-select" });
+        dynamicParameterRegistry.register("sort-tag-select", { tag: "fb-param-sort-tag-select" });
+
+        uiExtensionsService.setAsReady();
     });
 
     app.controller("MainController", function($scope, $rootScope, $timeout, connectionService, utilityService,
-        settingsService, backupService, sidebarManager, logger, backendCommunicator) {
+        settingsService, backupService, sidebarManager, logger, backendCommunicator, fontManager, ngToast, modalFactory) {
         $rootScope.showSpinner = true;
 
         $scope.fontAwesome5KitUrl = `https://kit.fontawesome.com/${secrets.fontAwesome5KitId}.js`;
@@ -204,45 +281,31 @@
             }
         };
 
-        $rootScope.copyTextToClipboard = function(text) {
-            const textArea = document.createElement("textarea");
-            // Place in top-left corner of screen regardless of scroll position.
-            textArea.style.position = "fixed";
-            textArea.style.top = 0;
-            textArea.style.left = 0;
+        $rootScope.copyTextToClipboard = function(text, toastConfig = { show: false }) {
+            navigator.clipboard.writeText(text).then(function() {
+                logger.info("Text copied to clipboard");
 
-            // Ensure it has a small width and height. Setting to 1px / 1em
-            // doesn't work as this gives a negative w/h on some browsers.
-            textArea.style.width = "2em";
-            textArea.style.height = "2em";
+                if (toastConfig?.show) {
+                    ngToast.create({
+                        className: 'info',
+                        content: toastConfig.message || `Copied '${text}' to clipboard`
+                    });
+                }
 
-            // We don't need padding, reducing the size if it does flash render.
-            textArea.style.padding = 0;
+            }, function(err) {
+                logger.error("Could not copy text: ", err);
+            });
+        };
 
-            // Clean up any borders.
-            textArea.style.border = "none";
-            textArea.style.outline = "none";
-            textArea.style.boxShadow = "none";
-
-            // Avoid flash of white box if rendered for any reason.
-            textArea.style.background = "transparent";
-
-            textArea.value = text;
-
-            document.body.appendChild(textArea);
-
-            textArea.select();
-
-            try {
-                const successful = document.execCommand("copy");
-                const msg = successful ? "successful" : "unsuccessful";
-                logger.info(`Copying text command was ${msg}`);
-            } catch (err) {
-                logger.error("Oops, unable to copy text to clipboard.");
+        backendCommunicator.on("copy-to-clipboard", (data) => {
+            if (!data?.text?.length) {
+                return;
             }
 
-            document.body.removeChild(textArea);
-        };
+            $rootScope.copyTextToClipboard(data.text, { show: !data.silent, message: data.toastMessage });
+
+            return;
+        });
 
         $rootScope.openLinkExternally = function(url) {
             shell.openExternal(url);
@@ -270,7 +333,7 @@
                     // Login Kickoff
                     $scope.createNewProfile = function() {
                         if ($scope.profileName == null || $scope.profileName === "") {
-                            ngToast.create("Please provide a profile name.");
+                            ngToast.create("プロファイル名を入力してください。");
                             return;
                         }
                         $uibModalInstance.close();
@@ -294,7 +357,7 @@
                 templateUrl: "renameProfileModal.html",
                 size: 'sm',
                 resolveObj: {
-                    currentProfileId: () => profileManager.getLoggedInProfile()
+                    currentProfileId: () => ipcRenderer.sendSync("profiles:get-logged-in-profile")
                 },
                 // This is the controller to be used for the modal.
                 controllerFunc: ($scope, $uibModalInstance, connectionService, ngToast, currentProfileId) => {
@@ -304,7 +367,7 @@
                     // Login Kickoff
                     $scope.renameProfile = function() {
                         if ($scope.profileName == null || $scope.profileName === "") {
-                            ngToast.create("Please provide a profile name.");
+                            ngToast.create("プロファイル名を入力してください。");
                             return;
                         }
                         $uibModalInstance.close();
@@ -351,12 +414,12 @@
             if (profileId !== $scope.currentProfileId) {
                 utilityService
                     .showConfirmationModal({
-                        title: "Switch Profile",
-                        question: "Switching profiles will cause the app to restart. Do you still want to switch profiles?",
-                        confirmLabel: "Switch & Restart App",
+                        title: "プロファイルを切り替え",
+                        question: "プロファイルを切り替えるとアプリが再起動します。切り替えますか？",
+                        confirmLabel: "切り替えて再起動",
                         confirmBtnType: "btn-info"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             connectionService.switchProfiles(profileId);
                         }
@@ -364,7 +427,7 @@
             }
         };
 
-        $scope.currentProfileId = profileManager.getLoggedInProfile();
+        $scope.currentProfileId = ipcRenderer.sendSync("profiles:get-logged-in-profile");
 
         /**
          * Initial App Load
@@ -373,12 +436,12 @@
         //$scope.accounts = connectionService.accounts;
         //$scope.profiles = connectionService.profiles;
 
-        if (settingsService.hasJustUpdated()) {
+        if (settingsService.getSetting("JustUpdated")) {
             utilityService.showUpdatedModal();
-            settingsService.setJustUpdated(false);
-        } else if (settingsService.isFirstTimeUse()) {
+            settingsService.saveSetting("JustUpdated", false);
+        } else if (settingsService.getSetting("FirstTimeUse")) {
             utilityService.showSetupWizard();
-            settingsService.setFirstTimeUse(false);
+            settingsService.saveSetting("FirstTimeUse", false);
         }
 
         /**
@@ -389,7 +452,12 @@
         const appVersion = firebotAppDetails.version;
         $scope.appTitle = `Firebot v${appVersion}`;
 
-        $scope.customFontCssPath = profileManager.getPathInProfile("/fonts/fonts.css");
+        const url = require("url");
+        $scope.customFontCssPath = url.pathToFileURL(fontManager.getFontCssPath());
+
+        backendCommunicator.on("fonts:reload-font-css", () => {
+            $scope.customFontCssPath = `${url.pathToFileURL(fontManager.getFontCssPath())}?reload=${new Date().getTime()}`;
+        });
 
         //make sure sliders render properly
         $timeout(function() {
@@ -398,7 +466,7 @@
 
         // Apply Theme
         $scope.appTheme = function() {
-            return settingsService.getTheme();
+            return settingsService.getSetting("Theme");
         };
 
         $rootScope.showSpinner = false;
@@ -425,17 +493,17 @@
             });
         });
 
-        backendCommunicator.on("restore-backup", () => {
+        backendCommunicator.on("backups:start-restore-backup", () => {
             backupService.openBackupZipFilePicker()
-                .then(backupFilePath => {
+                .then((backupFilePath) => {
                     if (backupFilePath != null) {
                         utilityService
                             .showConfirmationModal({
-                                title: "Restore From Backup",
-                                question: "Are you sure you'd like to restore from this backup?",
-                                confirmLabel: "Restore"
+                                title: "バックアップから復元",
+                                question: "このバックアップから復元してもよろしいですか？",
+                                confirmLabel: "復元"
                             })
-                            .then(confirmed => {
+                            .then((confirmed) => {
                                 if (confirmed) {
                                     backupService.initiateBackupRestore(backupFilePath);
                                 }
@@ -450,6 +518,11 @@
             keyboard: false,
             backdrop: "static"
         });*/
+
+        if (settingsService.getSetting("BackupLocationReset") === true) {
+            modalFactory.showInfoModal("以前のバックアップ保存先が見つかりませんでした。保存先はデフォルトにリセットされました。設定 > バックアップ から変更できます。");
+            settingsService.deleteSetting("BackupLocationReset");
+        }
     });
 
     // This adds a filter that we can use for ng-repeat, useful when we want to paginate something
@@ -460,6 +533,13 @@
             }
             startFrom = +startFrom;
             return input.slice(startFrom);
+        };
+    });
+
+    // eslint-disable-next-line angular/no-services
+    app.filter("dynamicFilter", ($filter) => {
+        return function(items, filterName, ...args) {
+            return $filter(filterName ?? "filter")(items, ...args);
         };
     });
 
@@ -481,7 +561,7 @@
             if (elements == null || tag == null) {
                 return elements;
             }
-            return elements.filter(e => {
+            return elements.filter((e) => {
                 if (tag.id === "none" && (e.sortTags == null || e.sortTags.length < 1)) {
                     return true;
                 }
@@ -493,12 +573,12 @@
 
     app.filter("hideBotMessages", function(settingsService, accountAccess) {
         return function(elements) {
-            const shouldHide = settingsService.chatHideBotAccountMessages();
+            const shouldHide = settingsService.getSetting("ChatHideBotAccountMessages");
             if (!shouldHide) {
                 return elements;
             }
             const botAccountName = accountAccess.accounts.bot.username.toLowerCase();
-            return elements.filter(e => {
+            return elements.filter((e) => {
                 if (e.type !== 'message') {
                     return true;
                 }
@@ -508,13 +588,25 @@
         };
     });
 
+    app.filter("hideHiddenMessages", function() {
+        return function(elements) {
+            return elements.filter((e) => {
+                if (e.type !== 'message') {
+                    return true;
+                }
+                return e.data.isHiddenFromChatFeed !== true;
+            }
+            );
+        };
+    });
+
     app.filter("hideWhispers", function(settingsService) {
         return function(elements) {
-            const shouldHide = settingsService.getChatHideWhispers();
+            const shouldHide = settingsService.getSetting("ChatHideWhispers");
             if (!shouldHide) {
                 return elements;
             }
-            return elements.filter(e => {
+            return elements.filter((e) => {
                 if (e.type !== 'message') {
                     return true;
                 }
@@ -529,7 +621,7 @@
             if (users == null || role == null) {
                 return users;
             }
-            return users.filter(u => {
+            return users.filter((u) => {
                 if (role === "broadcaster") {
                     return u.roles.includes("broadcaster");
                 } else if (role === "viewer") {
@@ -560,7 +652,7 @@
             const normalizedQuery = query.replace("$", "").toLowerCase();
             return variables
                 .filter(v =>
-                    v.handle.toLowerCase().includes(normalizedQuery)
+                    v.handle.toLowerCase().includes(normalizedQuery) || v.aliases?.some(a => a.toLowerCase().includes(normalizedQuery))
                 );
         };
     });
@@ -573,7 +665,7 @@
             }
             const normalizedQuery = query.toLowerCase();
             return icons
-                .filter(v => {
+                .filter((v) => {
                     const terms = `${v.style} ${v.name} ${v.searchTerms.join(" ")}`;
 
                     return terms.toLowerCase().includes(normalizedQuery);
@@ -619,9 +711,35 @@
         };
     });
 
+    app.filter('timeFromNow', function() {
+        return function(input, hideSuffix = false) {
+            return moment(input).fromNow(hideSuffix);
+        };
+    });
+
+    app.filter('hideEmptyRewardQueues', function() {
+        return function(queue) {
+            const newQueueObj = { ...queue };
+            for (const key in newQueueObj) {
+                if (newQueueObj[key].length === 0) {
+                    delete newQueueObj[key];
+                }
+            }
+            return newQueueObj;
+        };
+    });
+
     app.filter('commify', function() {
         return function(input) {
             return input ? input.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "";
+        };
+    });
+
+    app.filter('reverseChat', function() {
+        return (items, reverse) => {
+            return reverse === true
+                ? items.toReversed()
+                : items;
         };
     });
 

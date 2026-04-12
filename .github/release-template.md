@@ -1,42 +1,37 @@
-## v{0} 更新ノート
+## v{0} Update Notes
 
-**✨ 新機能**
+**✨ New**
 
-**🛠️ 改善**
+**🛠️ Improved**
 
-**✅ 修正**
+**✅ Fixed**
 
-**🔗 APIの変更**
+**🔗 API Changes**
 
-**全般**
+**Misc**
 {1}
 
-## Windows での導入方法
+## Windows Install
 - Download and run Firebot-v{0}-setup.exe
 
-## MacOS での導入方法
-- Firebot-v{0}-macos-x64.dmg をダウンロードします
-- .dmgを右クリックし、"開く "を選択する。
-- 表示されたダイアログで "キャンセル "をクリックする。
-- .dmgをもう一度右クリックし、"開く "を選択する。
-- 表示されたダイアログで "開く "をクリックする。
+## MacOS Install
+- Download Firebot-v{0}-macos-arm64.dmg (Apple Silicon) or Firebot-v{0}-macos-x64.dmg (Intel Macs)
+- Right click the .dmg and select "Open"
+- In the dialog that appears click "Cancel"
+- Right click the .dmg again and select "Open"
+- In the dialog that appears click "Open"
 
-**注意**： Mac OS版は自動アップデート機能に対応していません。
+**Note**: Mac OS does not receive auto-updates
 
-## Linux での導入方法
-- Firebot-v{0}-linux-x64.tar.gz をダウンロードします
-- 下記の手順で起動します
-```bash
-mkdir firebot
-cd firebot
-sudo wget https://github.com/nmori/Firebot/releases/download/v5.60.0/Firebot-v{0}-linux-x64.tar.gz
-sudo tar -zxvf firebot-v{0}-linux-x64.tar.gz
-./Firebot\ v5
-```
-<<<<<<< HEAD
-=======
+## Linux Install
+- DEB or RPM based distributions:
+  - Download Firebot-v{0}-linux-x64.deb or Firebot-v{0}-linux-x64.rpm
+  - Install the file using your system package manager
+  - Open Firebot v5 from your system program runner
+- Other distributions:
+  - Download Firebot-v{0}-linux-x64.tar.gz
+  - Unpack Firebot-v{0}-linux-x64.tar.gz
+  - Change into the directory where you unpacked the archive
+  - Run the `Firebot v5` executable.
 
-これはターミナル・ウィンドウで行うか、解凍したアーカイブの正しいパスを「作業ディレクトリ」として含むショートカットを作成する必要があります。
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-
-**注意**： Linux版は自動アップデート機能に対応していません。
+**Note**: Linux does not receive auto-updates

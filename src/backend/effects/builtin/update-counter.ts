@@ -1,9 +1,8 @@
 import { EffectType } from "../../../types/effects";
-import { EffectCategory } from '../../../shared/effect-constants';
-import counterManager from "../../counters/counter-manager";
+import { CounterManager } from "../../counters/counter-manager";
 import logger from "../../logwrapper";
 
-const model: EffectType<{
+const effect: EffectType<{
     counterId: string;
     mode: string;
     value: string;
@@ -13,7 +12,7 @@ const model: EffectType<{
         name: "カウンタを更新",
         description: "カウンタの値を更新",
         icon: "fad fa-tally",
-        categories: [EffectCategory.COMMON, EffectCategory.ADVANCED],
+        categories: ["common", "advanced", "firebot control"],
         dependencies: []
     },
     optionsTemplate: `
@@ -63,7 +62,7 @@ const model: EffectType<{
 
     },
     optionsValidator: (effect, $scope) => {
-        const errors = [];
+        const errors: string[] = [];
         if (effect.counterId == null) {
             errors.push("カウンタを選択してください。");
         } else if (effect.mode == null) {
@@ -80,6 +79,10 @@ const model: EffectType<{
 
         return errors;
     },
+    getDefaultLabel: (effect, countersService) => {
+        const counterName = countersService.getCounter(effect.counterId)?.name ?? "Unknown Counter";
+        return `${effect.mode === "increment" ? "Update" : "Set"} ${counterName} ${effect.mode === "increment" ? "by" : "to"} ${effect.value}`;
+    },
     onTriggerEvent: async (event) => {
         const { effect } = event;
 
@@ -94,10 +97,10 @@ const model: EffectType<{
             return false;
         }
 
-        await counterManager.updateCounterValue(effect.counterId, value, effect.mode === "set");
+        await CounterManager.updateCounterValue(effect.counterId, value, effect.mode === "set");
 
         return true;
     }
 };
 
-export = model;
+export = effect;

@@ -1,15 +1,14 @@
-import { OutputDataType, VariableCategory } from "../../../../shared/variable-constants";
-import { ReplaceVariable } from "../../../../types/variables";
-import activeUserHandler from '../../../chat/chat-listeners/active-user-handler';
-import logger from "../../../logwrapper";
+import type { ReplaceVariable } from "../../../../types/variables";
+import { ActiveUserHandler } from '../../../chat/active-user-handler';
 import customRolesManager from '../../../roles/custom-roles-manager';
-import { getRandomInt } from '../../../utility';
+import logger from "../../../logwrapper";
+import { getRandomInt } from '../../../utils';
 
 const model : ReplaceVariable = {
     definition: {
         handle: "randomActiveViewer",
         usage: "randomActiveViewer",
-        description: "アクティブユーザをランダムに取得します",
+        description: "Get a random active chatter's username.",
         examples: [
             {
                 usage: "randomActiveViewer[customRolesToInclude, usersToExclude, customRolesToExclude, username|id|raw]",
@@ -17,11 +16,11 @@ const model : ReplaceVariable = {
             },
             {
                 usage: "randomActiveViewer[roleName]",
-                description: "特定の役割のアクティブな視聴者にフィルタをかける。"
+                description: "Filter to an active viewer in a specific role."
             },
             {
                 usage: "randomActiveViewer[null, ignoreUser]",
-                description: "無視ユーザーではないランダムなアクティブユーザーを取得する"
+                description: "Get a random active user that is NOT the ignored user."
             },
             {
                 usage: "randomActiveViewer[$arrayFrom[roleOne, roleTwo], $arrayFrom[$streamer, $bot], $arrayFrom[roleC, roleD]]",
@@ -36,14 +35,14 @@ const model : ReplaceVariable = {
                 description: "Get an object representing a random active chatter. The result will include `username` and `id` properties."
             }
         ],
-        categories: [VariableCategory.USER],
-        possibleDataOutput: [OutputDataType.TEXT, OutputDataType.OBJECT]
+        categories: ["user based"],
+        possibleDataOutput: ["text", "object"]
     },
-    evaluator: async (_trigger, roles?: string | string[], ignoreUsers?: string | string[], ignoreRoles?: string | string[], propName?: string) => {
+    evaluator: (_trigger, roles?: string | string[], ignoreUsers?: string | string[], ignoreRoles?: string | string[], propName?: string) => {
         const failResult = "[Unable to get random active user]";
         logger.debug("Getting random active viewer...");
 
-        const activeViewerCount = activeUserHandler.getActiveUserCount();
+        const activeViewerCount = ActiveUserHandler.getActiveUserCount();
         if (activeViewerCount === 0) {
             logger.debug("randomActiveViewer: no active viewers are available to select from");
             return failResult;
@@ -55,7 +54,7 @@ const model : ReplaceVariable = {
                     return [...new Set(param.filter(p => p != null))]; // defensive de-duplication
                 } else if (typeof param === "string" && param.toLowerCase() !== "null") {
                     return [param];
-        }
+                }
             }
             return [];
         }
@@ -89,12 +88,12 @@ const model : ReplaceVariable = {
             const unknownRoleNames = excludedRoleNames
                 .filter(roleName => !excludedRoles.some(role => role.name.toLowerCase() === roleName.toLowerCase()));
             logger.warn(`randomActiveViewer ignoring unknown excluded role(s): ${unknownRoleNames.join(", ")}`);
-            }
+        }
 
-        let selectableViewers = activeUserHandler.getAllActiveUsers();
+        let selectableViewers = ActiveUserHandler.getAllActiveUsers();
         if (excludedUserNames.length > 0) {
             selectableViewers = selectableViewers.filter(user => !excludedUserNames.includes(user.username));
-            }
+        }
         if (excludedRoles.length > 0) {
             const excludedRoleIds = excludedRoles.map(role => role.id);
             selectableViewers = selectableViewers.filter(user => !customRolesManager.userIsInRole(user.id, [], excludedRoleIds));
@@ -114,7 +113,7 @@ const model : ReplaceVariable = {
                 case "username":
                 default:
                     return selectableViewers[randIndex].username;
-        }
+            }
         }
 
         logger.warn(`randomActiveViewer failed to get a user; +${activeViewerCount}/-${

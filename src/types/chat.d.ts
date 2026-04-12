@@ -1,3 +1,58 @@
+type FirebotChatMessagePartType =
+    | "text"
+    | "link"
+    | "emote"
+    | "third-party-emote"
+    | "cheermote"
+    | "mention";
+
+type FirebotChatMessagePartBase = {
+    type: FirebotChatMessagePartType;
+    id?: string;
+    text: string;
+};
+
+type FirebotChatMessageTextPart = FirebotChatMessagePartBase & {
+    type: "text";
+    flagged?: boolean;
+};
+
+type FirebotChatMessageLinkPart = FirebotChatMessagePartBase & {
+    type: "link";
+    url: string;
+};
+
+type FirebotChatMessageEmotePart = FirebotChatMessagePartBase & {
+    type: "emote" | "third-party-emote";
+    name: string;
+    origin: string;
+    url: string;
+    animatedUrl?: string;
+};
+
+type FirebotChatMessageCheermotePart = FirebotChatMessagePartBase & {
+    type: "cheermote";
+    name: string;
+    url: string;
+    animatedUrl: string;
+    amount: number;
+    color: string;
+};
+
+type FirebotChatMessageMentionPart = FirebotChatMessagePartBase & {
+    type: "mention";
+    username: string;
+    userId: string;
+    userDisplayName: string;
+};
+
+export type FirebotChatMessagePart =
+    | FirebotChatMessageTextPart
+    | FirebotChatMessageLinkPart
+    | FirebotChatMessageEmotePart
+    | FirebotChatMessageCheermotePart
+    | FirebotChatMessageMentionPart;
+
 export type FirebotParsedMessagePart = {
     type: string;
     id?: string;
@@ -5,6 +60,7 @@ export type FirebotParsedMessagePart = {
     name?: string;
     origin?: string;
     position?: number;
+    flagged?: boolean;
     length?: number;
     url?: string;
     animatedUrl?: string;
@@ -15,20 +71,19 @@ export type FirebotParsedMessagePart = {
 export type FirebotChatMessage = {
     id: string;
     username: string;
-<<<<<<< HEAD
-    displayName: string;
-    userIdName: string;
-    profilePicUrl?: string;
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     userId: string;
+    userDisplayName?: string;
+    profilePicUrl?: string;
     isExtension?: boolean;
     roles: string[];
-    badges: unknown[];
+    badges: Array<{
+        title: string;
+        url: string;
+    }>;
     customRewardId?: string;
     color?: string;
     rawText: string;
-    parts: FirebotParsedMessagePart[];
+    parts: FirebotParsedMessagePart[] | FirebotChatMessagePart[];
     whisper: boolean;
     whisperTarget?: string;
     action: boolean;
@@ -44,7 +99,7 @@ export type FirebotChatMessage = {
     isCheer?: boolean;
     isHighlighted?: boolean;
     isAutoModHeld?: boolean;
-    autoModStatus?: string;
+    autoModStatus?: "pending" | "approved" | "denied" | "expired";
     autoModReason?: string;
     isFirstChat?: boolean;
     isReturningChatter?: boolean;
@@ -59,6 +114,24 @@ export type FirebotChatMessage = {
     threadParentMessageId?: string;
     threadParentMessageSenderUserId?: string;
     threadParentMessageSenderDisplayName?: string;
+    isSharedChatMessage: boolean;
+    sharedChatRoomId?: string;
+    sharedChatRoomUsername?: string;
+    sharedChatRoomDisplayName?: string;
+    sharedChatRoomProfilePicUrl?: string;
+    isHiddenFromChatFeed?: boolean;
+    viewerRanks?: Record<string, string>;
+    viewerCustomRoles?: string[];
+    customHighlightColor?: string;
+    customBannerIcon?: string;
+    customBannerText?: string;
+    reward?: {
+        id: string;
+        name: string;
+        cost: number;
+        imageUrl: string;
+    };
+    isGigantified?: boolean;
 };
 
 export type FirebotEmote = {
@@ -74,4 +147,11 @@ export type FirebotCheermoteInstance = {
     url: string;
     animatedUrl: string;
     color: string;
+};
+
+export type SharedChatParticipant = {
+    broadcasterId: string;
+    broadcasterName: string;
+    broadcasterDisplayName: string;
+    profilePictureUrl: string;
 };

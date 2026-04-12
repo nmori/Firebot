@@ -5,17 +5,17 @@ export const SetOBSBrowserSourceUrlEffectType: EffectType<{
     browserSourceName: string;
     url: string;
 }> = {
-  definition: {
-    id: "firebot:obs-set-browser-source-url",
-    name: "OBSブラウザソースのURLを変更",
-    description: "OBSブラウザソースのURLを変更します",
-    icon: "fad fa-browser",
-    categories: ["common"],
-  },
-  optionsTemplate: `
-    <eos-container header="OBS ブラウザソース">
+    definition: {
+        id: "firebot:obs-set-browser-source-url",
+        name: "OBSブラウザソースURL設定",
+        description: "OBS ブラウザソースの URL を設定します",
+        icon: "fad fa-browser",
+        categories: ["common", "integrations"]
+    },
+    optionsTemplate: `
+    <eos-container header="OBS Browser Source">
         <div>
-            <button class="btn btn-link" ng-click="getBrowserSources()">再読み込み/button>
+            <button class="btn btn-link" ng-click="getBrowserSources()">Refresh Source Data</button>
         </div>
 
         <ui-select ng-if="browserSources != null" ng-model="selected" on-select="selectBrowserSource($select.selected.name)">
@@ -24,15 +24,15 @@ export const SetOBSBrowserSourceUrlEffectType: EffectType<{
                 <div ng-bind-html="source.name | highlight: $select.search"></div>
             </ui-select-choices>
             <ui-select-no-choice>
-                <b>ブラウザソースはありません.</b>
+                <b>No browser sources found.</b>
             </ui-select-no-choice>
         </ui-select>
 
         <div ng-if="browserSources == null" class="muted">
-            ソースが見つかりません。 {{ isObsConfigured ? "OBSは動いていますか？" : "Have you configured the OBS integration?" }}
+            No sources found. {{ isObsConfigured ? "Is OBS running?" : "Have you configured the OBS integration?" }}
         </div>
     </eos-container>
-    <eos-container ng-if="browserSources != null && effect.browserSourceName != null" header="URL" style="margin-top: 10px;">
+    <eos-container ng-if="browserSources != null && effect.browserSourceName != null" header="URL" style="margin-top: 10px;" pad-top="true">
         <firebot-input model="effect.url"></firebot-input>
     </eos-container>
   `,
@@ -62,6 +62,9 @@ export const SetOBSBrowserSourceUrlEffectType: EffectType<{
             return ["Please select a browser source."];
         }
         return [];
+    },
+    getDefaultLabel: (effect) => {
+        return effect.browserSourceName;
     },
     onTriggerEvent: async ({ effect }) => {
         await setBrowserSourceSettings(effect.browserSourceName, {

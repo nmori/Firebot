@@ -1,14 +1,12 @@
 "use strict";
 
-const { EffectCategory } = require('../../../shared/effect-constants');
-
 const model = {
     definition: {
         id: "firebot:cooldown-command",
-        name: "再実行可能になるまでの時間",
-        description: "コマンドが再実行可能になるまでの時間を手動で追加または削除します",
+        name: "コマンドクールダウン管理",
+        description: "コマンドのクールダウンを手動で追加または削除します",
         icon: "fad fa-hourglass-half",
-        categories: [EffectCategory.COMMON, EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
+        categories: ["common", "advanced", "scripting", "firebot control"],
         dependencies: []
     },
     globalSettings: {},
@@ -16,34 +14,19 @@ const model = {
         <eos-container header="Selection Type" ng-init="showSubcommands = effect.subcommandId != null">
             <div ng-if="sortTags && sortTags.length">
                 <label class="control-fb control--radio">Single Command
-                    <input type="radio" ng-model="effect.selectionType" value="command" />
+                    <input type="radio" ng-model="effect.selectionType" value="command" ng-change="typeSelected()" />
                     <div class="control__indicator"></div>
                 </label>
                 <label class="control-fb control--radio">Commands With Tag
-                    <input type="radio" ng-model="effect.selectionType" value="sortTag" />
+                    <input type="radio" ng-model="effect.selectionType" value="sortTag" ng-change="typeSelected()" />
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
-<<<<<<< HEAD
-            <ui-select ng-if="effect.selectionType && effect.selectionType === 'command'" ng-model="effect.commandId" theme="bootstrap" on-select="commandSelected($item, $model)">
-                <ui-select-match placeholder="コマンドを選択または検索... ">{{$select.selected.trigger}}</ui-select-match>
-                <ui-select-choices repeat="command.id as command in commands | filter: { trigger: $select.search }" style="position:relative;">
-                    <div ng-bind-html="command.trigger | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
-
-            <ui-select ng-if="effect.selectionType && effect.selectionType === 'sortTag'" ng-model="effect.sortTagId" theme="bootstrap">
-                <ui-select-match placeholder="タグを選択または検索... ">{{$select.selected.name}}</ui-select-match>
-                <ui-select-choices repeat="sortTag.id as sortTag in sortTags | filter: { name: $select.search }" style="position:relative;">
-                    <div ng-bind-html="sortTag.name | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
-=======
             <div ng-if="effect.selectionType && effect.selectionType === 'command'">
                 <firebot-searchable-select
                     ng-model="effect.commandId"
-                    placeholder="コマンドを選択または検索..."
+                    placeholder="Select or search for a command..."
                     items="commands"
                     item-name="trigger"
                     on-select="commandSelected(item)"
@@ -53,24 +36,23 @@ const model = {
             <div ng-if="effect.selectionType && effect.selectionType === 'sortTag'">
                 <firebot-searchable-select
                     ng-model="effect.sortTagId"
-                    placeholder="タグを選択または検索..."
+                    placeholder="Select or search for a tag..."
                     items="sortTags"
                 />
             </div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             <div ng-show="subcommands && !!subcommands.length" class="mt-4 pl-4">
-                <label class="control-fb control--radio">再実行可能になるまでの時間（基本コマンド）
+                <label class="control-fb control--radio">Cooldown base command
                     <input type="radio" ng-model="showSubcommands" ng-value="false" ng-click="effect.subcommandId = null"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >再実行可能になるまでの時間（サブコマンド）
+                <label class="control-fb control--radio" >Cooldown subcommand
                     <input type="radio" ng-model="showSubcommands" ng-value="true"/>
                     <div class="control__indicator"></div>
                 </label>
 
                 <div ng-show="showSubcommands">
-                    <dropdown-select selected="effect.subcommandId" options="subcommandOptions" placeholder="選択してください"></dropdown-select>
+                    <dropdown-select selected="effect.subcommandId" options="subcommandOptions" placeholder="Please select"></dropdown-select>
                 </div>
             </div>
         </eos-container>
@@ -82,10 +64,10 @@ const model = {
                 </button>
                 <ul class="dropdown-menu cooldown-effect-dropdown">
                     <li ng-click="effect.action = 'Add'">
-                        <a href>追加</a>
+                        <a href>Add</a>
                     </li>
                     <li ng-click="effect.action = 'Clear'">
-                        <a href>クリア</a>
+                        <a href>Clear</a>
                     </li>
                 </ul>
             </div>
@@ -111,33 +93,33 @@ const model = {
                 </label>
                 <div uib-collapse="!showUser" class="mb-6 ml-6">
                     <div class="input-group">
-                        <span class="input-group-addon" id="username">ユーザ名</span>
-                        <input type="text" class="form-control" aria-describedby="username" replace-variables ng-model="effect.username" placeholder="ユーザ名を入力">
+                        <span class="input-group-addon" id="username">Username</span>
+                        <input type="text" class="form-control" aria-describedby="username" replace-variables ng-model="effect.username" placeholder="Enter name">
                     </div>
                     <div class="muted ml-1 mt-px text-lg">Tip: Use <b>$user</b> to apply the cooldown to the associated user</div>
                     <div class="input-group mt-6">
-                        <input type="text" class="form-control" aria-describedby="usersecs" replace-variables="number" ng-model="effect.userCooldownSecs" placeholder="秒数を入力">
-                        <span class="input-group-addon" id="usersecs">秒</span>
+                        <span class="input-group-addon" id="usersecs">Secs</span>
+                        <input type="text" class="form-control" aria-describedby="usersecs" replace-variables="number" ng-model="effect.userCooldownSecs" placeholder="Enter secs">
                     </div>
                 </div>
             </div>
         </eos-container>
         <eos-container header="Cooldowns" pad-top="true" ng-show="effect.action === 'Clear'">
             <div class="mt-2">
-                <label class="control-fb control--checkbox"> 再実行可能になるまでの待ち時間設定を解除(全員)
+                <label class="control-fb control--checkbox"> Clear Global Cooldown
                     <input type="checkbox" ng-model="effect.clearGlobalCooldown">
                     <div class="control__indicator"></div>
                 </label>
             </div>
             <div class="mt-2">
-                <label class="control-fb control--checkbox"> 再実行可能になるまでの待ち時間設定を解除(ユーザ)
+                <label class="control-fb control--checkbox"> Clear User Cooldown
                     <input type="checkbox" ng-model="effect.clearUserCooldown">
                     <div class="control__indicator"></div>
                 </label>
                 <div uib-collapse="!effect.clearUserCooldown" class="mb-6 ml-6">
                     <div class="input-group">
-                        <span class="input-group-addon" id="username">ユーザ名</span>
-                        <input type="text" class="form-control" aria-describedby="username" replace-variables ng-model="effect.clearUsername" placeholder="名前を入力">
+                        <span class="input-group-addon" id="username">Username</span>
+                        <input type="text" class="form-control" aria-describedby="username" replace-variables ng-model="effect.clearUsername" placeholder="Enter name">
                     </div>
                 </div>
             </div>
@@ -163,8 +145,8 @@ const model = {
         $scope.createSubcommandOptions = () => {
             const options = {};
             if ($scope.subcommands) {
-                $scope.subcommands.forEach(sc => {
-                    options[sc.id] = sc.regex || sc.fallback ? (sc.usage || "").split(" ")[0] : sc.arg;
+                $scope.subcommands.forEach((sc) => {
+                    options[sc.id] = sc.regex || sc.fallback ? (sc.usage || (sc.fallback ? "Fallback" : "")).split(" ")[0] : sc.arg;
                 });
             }
             $scope.subcommandOptions = options;
@@ -183,28 +165,45 @@ const model = {
             if (command.subCommands) {
                 $scope.subcommands = command.subCommands;
             }
+
+            if (command.fallbackSubcommand) {
+                $scope.subcommands.push(command.fallbackSubcommand);
+            }
+
             $scope.createSubcommandOptions();
         };
+
+        $scope.typeSelected = () => {
+            if ($scope.effect.selectionType === "sortTag") {
+                $scope.effect.commandId = null;
+                $scope.showSubcommands = false;
+                $scope.subcommands = [];
+                $scope.effect.subcommandId = null;
+            } else {
+                $scope.effect.sortTagId = null;
+            }
+        };
+
         $scope.commandSelected = (command) => {
             $scope.effect.commandId = command.id;
             $scope.getSubcommands();
         };
         $scope.getSubcommands();
     },
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.commandId == null && effect.sortTagId == null) {
-            errors.push("コマンドまたはタグを選択してください");
+            errors.push("Please select a command or tag");
         }
         if (effect.userCooldownSecs != null && (effect.username == null || effect.username === '')) {
-            errors.push("再実行可能になるまでの待ち時間を設定するユーザー名を入力してください。");
+            errors.push("Please provide a username for the user cooldown");
         }
         if (effect.clearUserCooldown != null && (effect.clearUsername == null || effect.clearUsername === '')) {
-            errors.push("再実行可能になるまでの待ち時間を解除するユーザ名を入力してください。");
+            errors.push("Please provide a username for clearing user cooldown.");
         }
         return errors;
     },
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         const { effect } = event;
         const commandIds = [];
 
@@ -217,15 +216,15 @@ const model = {
         }
 
         if (effect.sortTagId != null && effect.selectionType === "sortTag") {
-            const commandManager = require("../../chat/commands/CommandManager");
-            const commands = commandManager.getAllCustomCommands().filter(c => c.sortTags.includes(effect.sortTagId));
+            const { CommandManager } = require("../../chat/commands/command-manager");
+            const commands = CommandManager.getAllCustomCommands().filter(c => c.sortTags?.includes(effect.sortTagId));
             commands.forEach(c => commandIds.push(c.id));
         }
 
-        const commandHandler = require("../../chat/commands/commandHandler");
-        commandIds.forEach(id => {
+        const commandCooldownManager = require("../../chat/commands/command-cooldown-manager");
+        commandIds.forEach((id) => {
             if (effect.action === "Add") {
-                commandHandler.manuallyCooldownCommand({
+                commandCooldownManager.manuallyCooldownCommand({
                     commandId: id,
                     subcommandId: effect.subcommandId,
                     username: effect.username,
@@ -235,7 +234,7 @@ const model = {
                     }
                 });
             } else if (effect.action === "Clear") {
-                commandHandler.manuallyClearCooldownCommand({
+                commandCooldownManager.manuallyClearCooldownCommand({
                     commandId: id,
                     subcommandId: effect.subcommandId,
                     username: effect.clearUsername,

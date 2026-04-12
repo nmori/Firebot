@@ -6,10 +6,9 @@ name: Build and Draft Release
 on:
   workflow_dispatch:
   push:
-    branches: master
+    branches: [master]
 
 jobs:
-
   checkversion:
     name: Check if version has corrosponding tag
     runs-on: ubuntu-latest
@@ -20,14 +19,14 @@ jobs:
       dobuild: ${{ steps.dobuild.outputs.dobuild }}
 
     steps:
-      - name: Checkout crowbartools/firebot
-        uses: actions/checkout@v3
+      - name: Checkout nmori/firebot
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Read package.json
         id: package
-        uses: gregoranders/nodejs-project-info@v0.0.19
+        uses: gregoranders/nodejs-project-info@v0.0.21
 
       - name: Retrieve package.json version
         id: version
@@ -53,13 +52,13 @@ jobs:
           echo "${TEMPLATE}" >> $GITHUB_OUTPUT
           echo "${EOF}" >> $GITHUB_OUTPUT
 
-      - name: 'Check: package version has corrosponding git tag'
+      - name: "Check: package version has corrosponding git tag"
         id: dobuild
         shell: bash
         run: echo dobuild=$(git show-ref --tags --verify --quiet -- "refs/tags/v${{ steps.version.outputs.version }}" && echo 0 || echo 1) >> $GITHUB_OUTPUT
 
   compile:
-    name: 'Compile'
+    name: "Compile"
     needs: [checkversion]
     if: needs.checkversion.outputs.dobuild == 1
     strategy:
@@ -69,23 +68,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Install Python deps
+        run: python -m pip install --upgrade packaging pip setuptools
 
       - name: Setup Nodejs
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-<<<<<<< HEAD
-          node-version: '18.17.1'
-=======
-          node-version: '20.14.0'
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-          
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          
+          node-version: "20.14.0"
+
       - name: Install correct npm version
-        run: npm install -g npm@10.2.4
+        run: npm install -g npm@10.8.1
 
       - name: Linux Build Prep
         if: runner.os == 'linux'
@@ -93,15 +87,11 @@ jobs:
 
       - name: MacOS Build Prep
         if: runner.os == 'macOS'
-        # Force install this dep until node-appdmg then electron-installer-dmg gets updated
-        run: npm install github:SReject/electron-installer-dmg#9bdb5217b078c724918271549f34d362aecbf6bb
-
-      - name: MacOS Build Prep (appdmg)
-        if: runner.os == 'macOS'
-        run: npm install appdmg
+        # appdmg will fail to install without python setuptools since gh runners now use python 3.12. See: https://github.com/electron/forge/issues/3371
+        run: brew install python-setuptools
 
       - name: Install Global Dependencies
-        run: npm install --global --production --omit=dev grunt-cli
+        run: npm install --global --production --omit=dev grunt-cli node-gyp
 
       - name: Install Project Dependencies
         run: npm install
@@ -115,7 +105,7 @@ jobs:
         run: grunt build
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}
           path: ./dist/install/${{ runner.os == 'macOS' && 'darwin' || runner.os }}/
@@ -127,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Compilation Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: ./bundles/
 
@@ -148,4 +138,7 @@ jobs:
             ./bundles/Windows/firebot-${{ needs.checkversion.outputs.version }}-full.nupkg
             ./bundles/Windows/RELEASES
             ./bundles/Linux/firebot-v${{ needs.checkversion.outputs.version }}-linux-x64.tar.gz
+            ./bundles/Linux/firebot-v${{ needs.checkversion.outputs.version }}-linux-x64.deb
+            ./bundles/Linux/firebot-v${{ needs.checkversion.outputs.version }}-linux-x64.rpm
             ./bundles/macOS/firebot-v${{ needs.checkversion.outputs.version }}-macos-x64.dmg
+            ./bundles/macOS/firebot-v${{ needs.checkversion.outputs.version }}-macos-arm64.dmg

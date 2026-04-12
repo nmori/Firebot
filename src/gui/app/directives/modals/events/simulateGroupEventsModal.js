@@ -1,21 +1,15 @@
 "use strict";
 
-<<<<<<< HEAD
-// Basic template for a modal component, copy this and rename to build a modal.
-
 (function() {
-=======
-(function () {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     angular.module("firebotApp")
         .component("simulateGroupEventsModal", {
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">イベントを模擬</h4>
+                    <h4 class="modal-title">イベントをシミュレート</h4>
                 </div>
                 <div class="modal-body">
-                    <p class="muted">保存した演出をテストするために、模擬するイベントを選択します。</p>
+                    <p class="muted">保存済みエフェクトをテストするため、シミュレートするイベントを選択してください。</p>
                     <div class="form-group" ng-class="{'has-error': $ctrl.eventError}">
                         <label class="control-label">イベント</label>
                         <searchable-event-dropdown
@@ -25,32 +19,20 @@
                         ></searchable-event-dropdown>
                     </div>
 
-<<<<<<< HEAD
-                    <div>
-                        <label class="control-fb control--checkbox"> イベントの強制実行 <tooltip text="'模擬されたイベントは確実に実行します'"></tooltip>
-                            <input type="checkbox" ng-model="$ctrl.eventData.forceRetrigger">
-                            <div class="control__indicator"></div>
-                        </label>
+                    <div ng-if="$ctrl.metadata">
+                        <dynamic-parameter
+                            ng-repeat="data in $ctrl.metadata"
+                            name="{{data.key}}"
+                            schema="data"
+                            ng-model="$ctrl.eventData.metadata[data.key]"
+                            ng-change="$ctrl.checkForAnon(data.key)"
+                        ></dynamic-parameter>
                     </div>
 
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                    <div ng-if="$ctrl.metadata">
-                        <command-option
-                            ng-repeat="data in $ctrl.metadata"
-                            name="data.title"
-                            metadata="data"
-                            on-update="$ctrl.isAnon(value)"
-                        ></command-option>
-                    </div>
                 </div>
                 <div class="modal-footer">
-<<<<<<< HEAD
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.simulate()">模擬実行</button>
-=======
-                    <button ng-if="$ctrl.hasPreviousProperties" type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPrevious()">前回値で実行</button>
-                    <button type="button" ng-disabled="$ctrl.eventData.eventId == null" class="btn btn-primary" ng-click="$ctrl.simulate()">模擬実行</button>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    <button ng-if="$ctrl.hasPreviousProperties" type="button" class="btn btn-default pull-left" ng-click="$ctrl.loadPrevious()">前回の値を読み込む</button>
+                    <button type="button" ng-disabled="$ctrl.eventData.eventId == null" class="btn btn-primary" ng-click="$ctrl.simulate()">シミュレート</button>
                 </div>
             `,
             bindings: {
@@ -58,37 +40,50 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function(backendCommunicator, ngToast) {
+            controller: function(backendCommunicator, ngToast, simulatedEventsCache) {
                 const $ctrl = this;
 
                 $ctrl.metadata = [];
+                $ctrl.manualMetadata = {};
                 $ctrl.eventData = {
                     eventId: null,
                     sourceId: null,
-                    metadata: {},
-                    forceRetrigger: false
+                    metadata: {}
                 };
                 $ctrl.eventError = false;
 
+                $ctrl.hasPreviousProperties = false;
+
                 $ctrl.changeUsername = (key, usernameType, isAnon) => {
                     const username = $ctrl.metadata.find(md => md.key === key);
-                    if (username === undefined) {
-                        $ctrl.metadata[key] = "";
+
+                    if (isAnon) {
+                        $ctrl.eventData.metadata[key] = `An Anonymous ${usernameType}`;
                     } else {
-                        username.value = "";
+                        const originalUsername = $ctrl.manualMetadata[key];
+
+                        if (originalUsername) {
+                            $ctrl.eventData.metadata[key] = originalUsername;
+                        }
                     }
+
                     const index = $ctrl.metadata.findIndex(md => md.key === key);
                     $ctrl.metadata[index] = username;
                 };
 
-                $ctrl.isAnon = (isAnon) => {
+                $ctrl.checkForAnon = (key) => {
+                    const isAnonKey = key === 'isAnonymous';
+                    if (!isAnonKey) {
+                        return;
+                    }
+
+                    const isAnon = $ctrl.eventData.metadata[key];
+
                     if ($ctrl.eventData.eventId === 'subs-gifted' || $ctrl.eventData.eventId === 'community-subs-gifted') {
                         $ctrl.changeUsername('gifterUsername', 'Gifter', isAnon);
-                        $ctrl.changeUsername('gifterDisplayName', 'Gifter', isAnon);
                         return;
                     } else if ($ctrl.eventData.eventId === 'cheer') {
                         $ctrl.changeUsername('username', 'Cheerer', isAnon);
-                        $ctrl.changeUsername('displayName', 'Cheerer', isAnon);
                     }
                 };
 
@@ -99,19 +94,31 @@
                     return capitalized.join(" ");
                 };
 
-                $ctrl.eventChanged = async (event) => {
+                $ctrl.eventChanged = (event) => {
                     $ctrl.eventData.eventId = event.eventId;
                     $ctrl.eventData.sourceId = event.sourceId;
                     $ctrl.eventData.metadata = {};
 
-                    const eventSource = await backendCommunicator.fireEventAsync("getEventSource", event);
+                    $ctrl.hasPreviousProperties = simulatedEventsCache.hasPreviouslySimulatedEvent(
+                        event.sourceId,
+                        event.eventId
+                    );
+
+                    const eventSource = backendCommunicator.fireEventSync("events:get-event-source", event);
                     if (eventSource.manualMetadata) {
-                        $ctrl.metadata = Object.keys(eventSource.manualMetadata).map(mmd => {
+                        $ctrl.manualMetadata = eventSource.manualMetadata;
+                        $ctrl.eventData.metadata = {
+                            ...eventSource.manualMetadata
+                        };
+                        $ctrl.metadata = Object.keys(eventSource.manualMetadata).map((mmd) => {
+                            const meta = eventSource.manualMetadata[mmd];
+                            const dataType = meta == null ? "string" : meta.type || typeof meta;
                             const data = {
                                 key: mmd,
                                 title: getTitle(mmd),
-                                type: eventSource.manualMetadata[mmd].type || typeof eventSource.manualMetadata[mmd],
-                                options: eventSource.manualMetadata[mmd].options || {}
+                                type: dataType,
+                                value: dataType !== "enum" ? (meta.value ?? meta) : undefined,
+                                options: meta?.options || {}
                             };
 
                             return data;
@@ -119,6 +126,27 @@
                     } else {
                         $ctrl.metadata = [];
                     }
+                };
+
+                $ctrl.loadPrevious = () => {
+                    if (!simulatedEventsCache.hasPreviouslySimulatedEvent(
+                        $ctrl.eventData.sourceId,
+                        $ctrl.eventData.eventId
+                    )) {
+                        return;
+                    }
+
+                    const previousProperties = simulatedEventsCache.getPreviouslySimulatedEventProperties(
+                        $ctrl.eventData.sourceId,
+                        $ctrl.eventData.eventId
+                    );
+
+                    $ctrl.metadata.forEach((md) => {
+                        const previousValue = previousProperties[md.key];
+                        if (previousValue != null) {
+                            $ctrl.eventData.metadata[md.key] = previousValue;
+                        }
+                    });
                 };
 
                 $ctrl.simulate = () => {
@@ -129,14 +157,16 @@
                         return;
                     }
 
-                    if ($ctrl.metadata.length > 0) {
-                        $ctrl.metadata.forEach(md => $ctrl.eventData.metadata[md.key] = md.value);
-                    }
+                    simulatedEventsCache.setSimulatedEventProperties(
+                        $ctrl.eventData.sourceId,
+                        $ctrl.eventData.eventId,
+                        $ctrl.eventData.metadata
+                    );
 
-                    backendCommunicator.fireEventSync("simulateEvent", $ctrl.eventData);
+                    backendCommunicator.fireEventSync("events:simulate-event", $ctrl.eventData);
                     ngToast.create({
                         className: 'success',
-                        content: "イベントの模擬を実行しました"
+                        content: "Event simulated!"
                     });
                     $ctrl.close();
                 };

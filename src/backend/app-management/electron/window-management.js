@@ -1,19 +1,102 @@
 "use strict";
-
-const electron = require("electron");
-const { ipcMain, BrowserWindow, BrowserView, Menu, shell, dialog, nativeImage } = electron;
+const { BrowserWindow, BrowserView, Menu, shell, dialog, nativeImage } = require("electron");
 const path = require("path");
 const url = require("url");
-const windowStateKeeper = require("electron-window-state");
-const fileOpenHelpers = require("../file-open-helpers");
-const createTray = require('./tray-creation.js');
-const logger = require("../../logwrapper");
 const { setupTitlebar, attachTitlebarToWindow } = require("custom-electron-titlebar/main");
+const windowStateKeeper = require("electron-window-state");
+
+const { BackupManager } = require("../../backup-manager");
+const { SettingsManager } = require("../../common/settings-manager");
+const { createTray } = require('./tray-creation.js');
+const fileOpenHelpers = require("../file-open-helpers");
 const screenHelpers = require("./screen-helpers");
 const frontendCommunicator = require("../../common/frontend-communicator");
-const { settings } = require("../../common/settings-access");
+const logger = require("../../logwrapper");
+
+const EventEmitter = require("events");
+
+const { copyDebugInfoToClipboard } = require("../../common/debug-info");
+
+/**
+ * Firebot's main window
+ * Keeps a global reference of the window object, if you don't, the window will
+ * be closed automatically when the JavaScript object is garbage collected.
+ *@type {Electron.BrowserWindow}
+ */
+let mainWindow = null;
+
+/**
+ * @type {import("tiny-typed-emitter").TypedEmitter<{
+*    "main-window-closed": () => void;
+*  }>}
+*/
+exports.events = new EventEmitter();
+
+// hold a reference to the effect queue monitor window module
+const { createEffectQueueMonitorWindow, getEffectQueueMonitorWindow } = require("./windows/effect-queue-monitor-window");
+
+const argv = require('../../common/argv-parser');
 
 setupTitlebar();
+
+/**
+ *@type {Electron.BrowserWindow}
+ */
+let variableInspectorWindow = null;
+
+async function createVariableInspectorWindow() {
+    if (variableInspectorWindow != null && !variableInspectorWindow.isDestroyed()) {
+        if (variableInspectorWindow.isMinimized()) {
+            variableInspectorWindow.restore();
+        }
+        variableInspectorWindow.focus();
+        return;
+    }
+
+    const variableInspectorWindowState = windowStateKeeper({
+        defaultWidth: 720,
+        defaultHeight: 1280,
+        file: "variable-inspector-window-state.json"
+    });
+
+    variableInspectorWindow = new BrowserWindow({
+        frame: true,
+        alwaysOnTop: true,
+        backgroundColor: "#2F3137",
+        title: "Custom Variable Inspector",
+        parent: mainWindow,
+        width: variableInspectorWindowState.width,
+        height: variableInspectorWindowState.height,
+        x: variableInspectorWindowState.x,
+        y: variableInspectorWindowState.y,
+        webPreferences: {
+            preload: path.join(__dirname, "../../../gui/variable-inspector/preload.js")
+        },
+        icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png")
+    });
+    variableInspectorWindow.setMenu(null);
+
+    variableInspectorWindowState.manage(variableInspectorWindow);
+
+    variableInspectorWindow.on("close", () => {
+        variableInspectorWindow = null;
+    });
+
+    global.variableInspectorWindow = variableInspectorWindow;
+
+    await variableInspectorWindow.loadURL(
+        url.format({
+            pathname: path.join(__dirname, "../../../gui/variable-inspector/index.html"),
+            protocol: "file:",
+            slashes: true
+        }));
+
+    await variableInspectorWindow.on("close", () => {
+        variableInspectorWindow.destroy();
+        global.variableInspectorWindow = null;
+    });
+}
+
 
 /**
  * The stream preview popout window.
@@ -33,8 +116,8 @@ function createStreamPreviewWindow() {
         return;
     }
 
-    const accountAccess = require("../../common/account-access");
-    const streamer = accountAccess.getAccounts().streamer;
+    const { AccountAccess } = require("../../common/account-access");
+    const streamer = AccountAccess.getAccounts().streamer;
 
     if (!streamer.loggedIn) {
         return;
@@ -51,7 +134,7 @@ function createStreamPreviewWindow() {
         alwaysOnTop: true,
         backgroundColor: "#1E2023",
         title: "Stream Preview",
-        parent: exports.mainWindow,
+        parent: mainWindow,
         width: streamPreviewWindowState.width,
         height: streamPreviewWindowState.height,
         x: streamPreviewWindowState.x,
@@ -60,6 +143,10 @@ function createStreamPreviewWindow() {
         webPreferences: {},
         icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png")
     });
+    streamPreview.setBounds({
+        height: streamPreviewWindowState.height || 480,
+        width: streamPreviewWindowState.width || 815
+    }, false);
     streamPreview.setMenu(null);
 
     const view = new BrowserView();
@@ -83,8 +170,8 @@ function createStreamPreviewWindow() {
     streamPreviewWindowState.manage(streamPreview);
 
     streamPreview.on("close", () => {
-        if (!view.isDestroyed()) {
-            view.destroy();
+        if (!view.webContents.isDestroyed()) {
+            view.webContents.destroy();
         }
     });
 }
@@ -105,13 +192,339 @@ async function createIconImage(relativeIconPath) {
     return iconPath;
 }
 
-/**
- * Firebot's main window
- * Keeps a global reference of the window object, if you don't, the window will
- * be closed automatically when the JavaScript object is garbage collected.
- *@type {Electron.BrowserWindow}
- */
-exports.mainWindow = null;
+async function createAppMenu() {
+    const { ProfileManager } = require("../../common/profile-manager");
+    const dataAccess = require("../../common/data-access");
+
+    const overlayInstances = SettingsManager.getSetting("OverlayInstances");
+
+    /**
+     * Steps to get new icon images:
+     * - Select icon from https://pictogrammers.com/library/mdi/
+     * - Do an Advanced PNG Export with 48x48 size and a white foreground
+     */
+
+    /**
+     * @type {Electron.MenuItemConstructorOptions[]}
+     */
+    const menuTemplate = [
+        {
+            label: 'ファイル',
+            submenu: [
+                {
+                    label: "Firebot セットアップ",
+                    toolTip: "Firebot セットアップでカスタム要素の作成・取り込み・削除を行います",
+                    sublabel: "Firebot セットアップでカスタム要素の作成・取り込み・削除を行います",
+                    icon: await createIconImage("../../../gui/images/icons/mdi/file-document-multiple-outline.png"),
+                    submenu: [
+                        {
+                            label: 'Firebot セットアップを作成...',
+                            toolTip: "コマンド・イベント・通貨などを含む Firebot セットアップを作成して共有します",
+                            sublabel: "コマンド・イベント・通貨などを含む Firebot セットアップを作成して共有します",
+                            click: () => {
+                                frontendCommunicator.send("open-modal", {
+                                    component: "createSetupModal"
+                                });
+                            },
+                            icon: await createIconImage("../../../gui/images/icons/mdi/export.png")
+                        },
+                        {
+                            label: 'Firebot セットアップを取り込み...',
+                            toolTip: "他の人が作成した Firebot セットアップ（.firebotsetup）を取り込みます",
+                            sublabel: "他の人が作成した Firebot セットアップ（.firebotsetup）を取り込みます",
+                            click: () => {
+                                frontendCommunicator.send("open-modal", {
+                                    component: "importSetupModal"
+                                });
+                            },
+                            icon: await createIconImage("../../../gui/images/icons/mdi/import.png")
+                        },
+                        {
+                            label: 'Firebot セットアップを削除...',
+                            toolTip: "セットアップファイルを選択し、保存済みの一致する要素（コマンド・イベント等）を削除します",
+                            sublabel: "セットアップファイルを選択し、保存済みの一致する要素（コマンド・イベント等）を削除します",
+                            click: () => {
+                                frontendCommunicator.send("open-modal", {
+                                    component: "removeSetupModal"
+                                });
+                            },
+                            icon: await createIconImage("../../../gui/images/icons/mdi/file-remove-outline.png")
+                        }
+                    ]
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    label: 'データフォルダを開く',
+                    toolTip: "Firebot のデータが保存されているフォルダを開きます",
+                    sublabel: "Firebot のデータが保存されているフォルダを開きます",
+                    click: () => {
+                        const rootFolder = path.resolve(
+                            ProfileManager.getPathInProfile("/")
+                        );
+                        shell.openPath(rootFolder);
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/folder-account-outline.png")
+                },
+                {
+                    label: 'ログフォルダを開く',
+                    toolTip: "ログが保存されているフォルダを開きます",
+                    sublabel: "ログが保存されているフォルダを開きます",
+                    click: () => {
+                        const rootFolder = path.resolve(
+                            dataAccess.getPathInUserData("/logs/")
+                        );
+                        shell.openPath(rootFolder);
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/folder-text-outline.png")
+                },
+                {
+                    label: 'バックアップフォルダを開く',
+                    toolTip: "バックアップが保存されているフォルダを開きます",
+                    sublabel: "バックアップが保存されているフォルダを開きます",
+                    click: () => {
+                        const backupFolder = BackupManager.backupFolderPath;
+                        shell.openPath(backupFolder);
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/folder-refresh-outline.png")
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    label: 'アプリを終了',
+                    role: 'quit',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/exit-run.png")
+                }
+            ]
+        },
+        {
+            label: '編集',
+            submenu: [
+                {
+                    label: '切り取り',
+                    role: 'cut',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/content-cut.png")
+                },
+                {
+                    label: 'コピー',
+                    role: 'copy',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/content-copy.png")
+                },
+                {
+                    label: '貼り付け',
+                    role: 'paste',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/content-paste.png")
+                },
+                {
+                    label: '元に戻す',
+                    role: "undo",
+                    icon: await createIconImage("../../../gui/images/icons/mdi/undo.png")
+                },
+                {
+                    label: 'やり直し',
+                    role: "redo",
+                    icon: await createIconImage("../../../gui/images/icons/mdi/redo.png")
+                },
+                {
+                    label: 'すべて選択',
+                    role: "selectAll",
+                    icon: await createIconImage("../../../gui/images/icons/mdi/select-all.png")
+                }
+            ]
+        },
+        {
+            label: 'ウィンドウ',
+            submenu: [
+                {
+                    label: '最小化',
+                    role: 'minimize',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/window-minimize.png")
+                },
+                {
+                    label: '閉じる',
+                    role: 'close',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/window-close.png")
+                }
+            ]
+        },
+        {
+            label: 'ツール',
+            submenu: [
+                {
+                    label: 'セットアップウィザード',
+                    toolTip: "セットアップウィザードを再実行します",
+                    sublabel: "セットアップウィザードを再実行します",
+                    click: () => {
+                        frontendCommunicator.send("open-modal", {
+                            component: "setupWizardModal"
+                        });
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/auto-fix.png")
+                },
+                {
+                    label: 'バックアップから復元...',
+                    toolTip: "バックアップから Firebot を復元します",
+                    sublabel: "バックアップから Firebot を復元します",
+                    click: async () => {
+                        frontendCommunicator.send("backups:start-restore-backup");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/backup-restore.png")
+                },
+                {
+                    label: 'カスタム変数インスペクタ',
+                    toolTip: "カスタム変数インスペクタを開きます",
+                    sublabel: "カスタム変数インスペクタを開きます",
+                    click: () => {
+                        createVariableInspectorWindow();
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/text-search.png")
+                },
+                {
+                    label: 'エフェクトキューモニター',
+                    toolTip: "エフェクトキューモニターを開きます",
+                    sublabel: "エフェクトキューモニターを開きます",
+                    click: createEffectQueueMonitorWindow,
+                    icon: await createIconImage("../../../gui/images/icons/mdi/queue-first-in-last-out.png")
+                },
+                {
+                    label: 'オーバーレイをブラウザで開く',
+                    toolTip: "Firebot のオーバーレイを既定のブラウザで開きます",
+                    sublabel: "Firebot のオーバーレイを既定のブラウザで開きます",
+                    submenu: [
+                        {
+                            label: "デフォルト",
+                            toolTip: "Firebot のデフォルトオーバーレイを既定のブラウザで開きます",
+                            sublabel: "Firebot のデフォルトオーバーレイを既定のブラウザで開きます",
+                            click: () => {
+                                const port = SettingsManager.getSetting("WebServerPort");
+                                shell.openExternal(`http://localhost:${port}/overlay`);
+                            }
+                        },
+                        ...overlayInstances.map(instance => ({
+                            label: instance,
+                            toolTip: `Firebot の ${instance} オーバーレイを既定のブラウザで開きます`,
+                            sublabel: `Firebot の ${instance} オーバーレイを既定のブラウザで開きます`,
+                            click: () => {
+                                const port = SettingsManager.getSetting("WebServerPort");
+                                shell.openExternal(`http://localhost:${port}/overlay?instance=${instance}`);
+                            }
+                        }))
+                    ],
+                    icon: await createIconImage("../../../gui/images/icons/mdi/open-in-app.png")
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    label: '開発者ツールを開く',
+                    role: 'toggledevtools',
+                    icon: await createIconImage("../../../gui/images/icons/mdi/tools.png")
+                }
+            ]
+        },
+        {
+            label: 'ヘルプ',
+            role: 'help',
+            submenu: [
+                {
+                    label: '開発Discordに参加',
+                    click: () => {
+                        shell.openExternal("https://discord.gg/crowbartools-372817064034959370");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/discord.png")
+                },
+                {
+                    label: '@firebot.app をBlueskyでフォロー',
+                    click: () => {
+                        shell.openExternal("https://bsky.app/profile/firebot.app");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/bluesky.png")
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    label: 'GitHubでソースを見る',
+                    click: () => {
+                        shell.openExternal("https://github.com/nmori/Firebot");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/source-branch.png")
+                },
+                {
+                    label: '不具合を報告',
+                    click: () => {
+                        shell.openExternal("https://github.com/nmori/Firebot/issues/new?assignees=&template=bug_report.yml");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/bug-outline.png")
+                },
+                {
+                    label: '機能をリクエスト',
+                    click: () => {
+                        shell.openExternal("https://github.com/nmori/Firebot/issues/new?assignees=&template=feature_request.md");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/star-circle-outline.png")
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    label: 'マーチストア',
+                    click: () => {
+                        shell.openExternal("https://crowbar-tools.myspreadshop.com");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/shopping-outline.png")
+                },
+                {
+                    label: '寄付する',
+                    click: () => {
+                        shell.openExternal("https://opencollective.com/crowbartools");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/hand-heart-outline.png")
+                },
+                {
+                    label: '感想を投稿',
+                    click: () => {
+                        shell.openExternal("https://firebot.app/testimonial-submission");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/account-heart-outline.png")
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    label: 'デバッグ情報をコピー...',
+                    click: () => {
+                        copyDebugInfoToClipboard();
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/bug-outline.png")
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    label: 'Firebotについて...',
+                    click: () => {
+                        frontendCommunicator.send("open-about-modal");
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/information-outline.png")
+                },
+                {
+                    label: 'リリースノート...',
+                    click: () => {
+                        frontendCommunicator.send("open-modal", {
+                            component: "updateModal"
+                        });
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/list-box-outline.png")
+                }
+            ]
+        }
+    ];
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
+}
 
 /**
  * The splashscreen window.
@@ -125,16 +538,14 @@ async function createMainWindow() {
         defaultHeight: 720
     });
 
-    ipcMain.on('preload.openDevTools', (event) => {
-        if (exports.mainWindow != null) {
-            exports.mainWindow.webContents.openDevTools();
-            event.returnValue = true;
-        }
-        event.returnValue = false;
-    });
+    const additionalArguments = [];
+
+    if (Object.hasOwn(argv, 'fbuser-data-directory') && argv['fbuser-data-directory'] != null && argv['fbuser-data-directory'] !== '') {
+        additionalArguments.push(`--fbuser-data-directory=${argv['fbuser-data-directory']}`);
+    }
 
     // Create the browser window.
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
         width: mainWindowState.width,
@@ -154,9 +565,14 @@ async function createMainWindow() {
             worldSafeExecuteJavaScript: false,
             enableRemoteModule: true,
             sandbox: false,
-            preload: path.join(__dirname, './preload.js')
+            preload: path.join(__dirname, './preload.js'),
+            additionalArguments
         }
     });
+    mainWindow.setBounds({
+        height: mainWindowState.height || 720,
+        width: mainWindowState.width || 1280
+    }, false);
 
     mainWindow.webContents.setWindowOpenHandler(({ frameName, url }) => {
         if (frameName === 'modal') {
@@ -179,341 +595,9 @@ async function createMainWindow() {
     });
 
     //set a global reference, lots of backend files depend on this being available globally
-    exports.mainWindow = mainWindow;
     global.renderWindow = mainWindow;
 
-    const profileManager = require("../../common/profile-manager");
-    const dataAccess = require("../../common/data-access");
-<<<<<<< HEAD
-=======
-
-    const overlayInstances = SettingsManager.getSetting("OverlayInstances");
-
-/**
-     * @type {Electron.MenuItemConstructorOptions[]}
- */
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-    const menuTemplate = [
-        {
-            label: 'ファイル',
-            submenu: [{
-                label: 'Firebot セットアップの取り込み...',
-                click: () => {
-                    frontendCommunicator.send("open-modal", {
-                        component: "importSetupModal"
-                    });
-                },
-                icon: await createIconImage("../../../gui/images/icons/mdi/import.png")
-            },
-            {
-                type: 'separator'
-            },
-            {
-                label: 'データフォルダを開く',
-                toolTip: "Firebotのデータが保存されているフォルダを開く",
-                sublabel: "Open the folder where Firebot data is stored",
-                click: () => {
-                    const rootFolder = path.resolve(
-                        profileManager.getPathInProfile("/")
-                    );
-                    shell.openPath(rootFolder);
-                },
-                icon: await createIconImage("../../../gui/images/icons/mdi/folder-account-outline.png")
-            },
-            {
-                label: 'ログフォルダを開く',
-                toolTip: "ログが保存されているフォルダを開く",
-                sublabel: "Open the folder where logs are stored",
-                click: () => {
-                    const rootFolder = path.resolve(
-                        dataAccess.getPathInUserData("/logs/")
-                    );
-                    shell.openPath(rootFolder);
-                },
-                icon: await createIconImage("../../../gui/images/icons/mdi/folder-text-outline.png")
-            },
-            {
-                label: 'バックアップフォルダを開く',
-                toolTip: "バックアップが保存されているフォルダを開く",
-                sublabel: "Open the folder where backups are stored",
-                click: () => {
-                    const backupFolder = BackupManager.backupFolderPath;
-                    shell.openPath(backupFolder);
-                },
-<<<<<<< HEAD
-                {
-                    label: 'バックアップフォルダを開く',
-                    toolTip: "バックアップが保存されているフォルダを開く",
-                    sublabel: "Open the folder where backups are stored",
-                    click: () => {
-                        const backupFolder = path.resolve(
-                            dataAccess.getPathInUserData("/backups/")
-                        );
-                        shell.openPath(backupFolder);
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/folder-refresh-outline.png")
-                },
-                {
-                    type: 'separator'
-                },
-                {
-                    label: 'アプリを終了',
-                    role: 'quit',
-                    icon: await createIconImage("../../../gui/images/icons/mdi/exit-run.png")
-                }
-=======
-                icon: await createIconImage("../../../gui/images/icons/mdi/folder-refresh-outline.png")
-            },
-            {
-                type: 'separator'
-            },
-            {
-                label: 'アプリを終了',
-                role: 'quit',
-                icon: await createIconImage("../../../gui/images/icons/mdi/exit-run.png")
-            }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-            ]
-        },
-        {
-            label: '編集',
-            submenu: [
-                {
-                    label: '切り取り',
-                    role: 'cut',
-                    icon: await createIconImage("../../../gui/images/icons/mdi/content-cut.png")
-                },
-                {
-                    label: 'コピー',
-                    role: 'copy',
-                    icon: await createIconImage("../../../gui/images/icons/mdi/content-copy.png")
-                },
-                {
-                    label: '貼り付け',
-                    role: 'paste',
-                    icon: await createIconImage("../../../gui/images/icons/mdi/content-paste.png")
-                },
-                {
-                    label: 'やり直し',
-                    role: "undo",
-                    icon: await createIconImage("../../../gui/images/icons/mdi/undo.png")
-                },
-                {
-                    label: 'やり直しのやり直し',
-                    role: "redo",
-                    icon: await createIconImage("../../../gui/images/icons/mdi/redo.png")
-                },
-                {
-                    label: 'すべて選択',
-                    role: "selectAll",
-                    icon: await createIconImage("../../../gui/images/icons/mdi/select-all.png")
-                }
-            ]
-        },
-        {
-            label: 'ウィンドウ',
-            submenu: [{
-                label: '最小化',
-                role: 'minimize',
-                icon: await createIconImage("../../../gui/images/icons/mdi/window-minimize.png")
-            },
-            {
-                label: '閉じる',
-                role: 'close',
-                icon: await createIconImage("../../../gui/images/icons/mdi/window-close.png")
-            }
-            ]
-        },
-        {
-            label: 'ツール',
-            submenu: [{
-                label: 'セットアップウィザード',
-                toolTip: "改めて初期セットアップを起動します",
-                sublabel: "セットアップウィザードを再度実行します",
-                click: () => {
-                    frontendCommunicator.send("open-modal", {
-                        component: "setupWizardModal"
-                    });
-                }
-            },
-            {
-                label: 'バックアップから戻す...',
-                toolTip: "バックアップからFirebotを復元",
-                sublabel: "バックアップからFirebotを復元",
-                click: async () => {
-                    frontendCommunicator.send("backups:start-restore-backup");
-                },
-<<<<<<< HEAD
-                {
-                    label: 'バックアップから戻す...',
-                    toolTip: "バックアップからFirebotを復元",
-                    sublabel: "バックアップからFirebotを復元",
-                    click: async () => {
-                        frontendCommunicator.send("restore-backup");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/backup-restore.png")
-                },
-                {
-                    label: 'カスタム変数一覧',
-                    toolTip: "カスタム変数インスペクタを開く",
-                    sublabel: "Open the custom variable inspector",
-                    click: () => {
-                        // eslint-disable-next-line no-use-before-define
-                        createVariableInspectorWindow();
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/text-search.png")
-                },
-                {
-                    type: 'separator'
-                },
-                {
-                    label: '開発ツールを開く',
-                    role: 'toggledevtools',
-                    icon: await createIconImage("../../../gui/images/icons/mdi/tools.png")
-                }
-=======
-                icon: await createIconImage("../../../gui/images/icons/mdi/backup-restore.png")
-            },
-            {
-                label: 'カスタム変数一覧',
-                toolTip: "カスタム変数インスペクタを開く",
-                sublabel: "Open the custom variable inspector",
-                click: () => {
-                    // eslint-disable-next-line no-use-before-define
-                    createVariableInspectorWindow();
-                },
-                icon: await createIconImage("../../../gui/images/icons/mdi/text-search.png")
-            },
-            {
-                    label: 'Effect Queue Monitor',
-                    toolTip: "Open the effect queue monitor",
-                    sublabel: "Open the effect queue monitor",
-                    click: createEffectQueueMonitorWindow,
-                    icon: await createIconImage("../../../gui/images/icons/mdi/queue-first-in-last-out.png")
-                },
-                {
-                    label: 'Open Overlay In Browser',
-                    toolTip: "Open Firebot's overlay in your default browser",
-                    sublabel: "Open Firebot's overlay in your default browser",
-                    submenu: [
-                        {
-                            label: "Default",
-                            toolTip: "Open Firebot's default overlay in your default browser",
-                            sublabel: "Open Firebot's default overlay in your default browser",
-                            click: () => {
-                                const port = SettingsManager.getSetting("WebServerPort");
-                                shell.openExternal(`http://localhost:${port}/overlay`);
-                            }
-                        },
-                        ...overlayInstances.map(instance => ({
-                            label: instance,
-                            toolTip: `Open Firebot's ${instance} overlay instance in your default browser`,
-                            sublabel: `Open Firebot's ${instance} overlay instance in your default browser`,
-                            click: () => {
-                                const port = SettingsManager.getSetting("WebServerPort");
-                                shell.openExternal(`http://localhost:${port}/overlay?instance=${instance}`);
-                            }
-                        }))
-                    ],
-                    icon: await createIconImage("../../../gui/images/icons/mdi/open-in-app.png")
-                },
-                {
-                type: 'separator'
-            },
-            {
-                label: '開発ツールを開く',
-                role: 'toggledevtools',
-                icon: await createIconImage("../../../gui/images/icons/mdi/tools.png")
-            }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-            ]
-        },
-        {
-            label: 'ヘルプ',
-            role: 'help',
-            submenu: [
-                {
-                    label: '開発Discordに参加',
-                    click: () => {
-                        shell.openExternal("https://discord.gg/tTmMbrG");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/discord.png")
-                },
-                {
-<<<<<<< HEAD
-                    label: '@FirebotApp をXでフォロー',
-=======
-                    label: 'Follow @firebot.app on Bluesky',
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                    click: () => {
-                        shell.openExternal("https://twitter.com/FirebotApp");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/twitter.png")
-                },
-                {
-                    type: 'separator'
-                },
-                {
-                    label: 'GitHubでソースを見る',
-                    click: () => {
-                        shell.openExternal("https://github.com/crowbartools/Firebot");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/source-branch.png")
-                },
-                {
-                    label: '不具合報告をする',
-                    click: () => {
-                        shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Bug&template=bug_report.yml&title=%5BBug%5D+");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/bug-outline.png")
-                },
-                {
-                    label: '機能リクエストをする',
-                    click: () => {
-                        shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&labels=Enhancement&template=feature_request.md&title=%5BFeature+Request%5D+");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/star-circle-outline.png")
-                },
-                {
-                    type: 'separator'
-                },
-                {
-                    label: 'マーチストア',
-                    click: () => {
-                        shell.openExternal("https://crowbar-tools.myspreadshop.com");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/shopping-outline.png")
-                },
-                {
-                    label: '寄付する',
-                    click: () => {
-                        shell.openExternal("https://opencollective.com/crowbartools");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/hand-heart-outline.png")
-                },
-                {
-                    label: 'お客様の声を書く',
-                    click: () => {
-                        shell.openExternal("https://firebot.app/testimonial-submission");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/account-heart-outline.png")
-                },
-                {
-                    type: 'separator'
-                },
-                {
-                    label: 'Firebotについて...',
-                    click: () => {
-                        frontendCommunicator.send("open-about-modal");
-                    },
-                    icon: await createIconImage("../../../gui/images/icons/mdi/information-outline.png")
-                }
-            ]
-        }
-    ];
-
-    const menu = Menu.buildFromTemplate(menuTemplate);
-    Menu.setApplicationMenu(menu);
+    await createAppMenu();
 
     attachTitlebarToWindow(mainWindow);
 
@@ -532,29 +616,29 @@ async function createMainWindow() {
     );
 
     // wait for the main window's content to load, then show it
-    mainWindow.webContents.on("did-finish-load", () => {
-
-
+    mainWindow.webContents.on("did-finish-load", async () => {
         createTray(mainWindow);
 
-        // mainWindow.webContents.openDevTools();
         mainWindow.show();
 
-        // mainWindow.show();
         if (splashscreenWindow) {
             splashscreenWindow.destroy();
         }
 
         const startupScriptsManager = require("../../common/handlers/custom-scripts/startup-scripts-manager");
-        startupScriptsManager.runStartupScripts();
+        await startupScriptsManager.runStartupScripts();
 
-        const eventManager = require("../../events/EventManager");
-        eventManager.triggerEvent("firebot", "firebot-started", {
+        const { EventManager } = require("../../events/event-manager");
+        EventManager.triggerEvent("firebot", "firebot-started", {
             username: "Firebot"
         });
 
-        if (settings.getOpenStreamPreviewOnLaunch() === true) {
+        if (SettingsManager.getSetting("OpenStreamPreviewOnLaunch") === true) {
             createStreamPreviewWindow();
+        }
+
+        if (SettingsManager.getSetting("OpenEffectQueueMonitorOnLaunch") === true) {
+            createEffectQueueMonitorWindow();
         }
 
         fileOpenHelpers.setWindowReady(true);
@@ -563,19 +647,44 @@ async function createMainWindow() {
 
     mainWindow.on("close", (event) => {
         const connectionManager = require("../../common/connection-manager");
-        if (!settings.hasJustUpdated() && connectionManager.chatIsConnected() && connectionManager.streamerIsOnline()) {
+        if (!SettingsManager.getSetting("JustUpdated") && connectionManager.chatIsConnected() && connectionManager.streamerIsOnline()) {
             event.preventDefault();
             dialog.showMessageBox(mainWindow, {
-                message: "Twitch接続中ですがFirebotを終了してもよろしいですか？",
-                title: "Firebotを閉じる",
+                message: "Are you sure you want to close Firebot while connected to Twitch?",
+                title: "Close Firebot",
                 type: "question",
-                buttons: ["Firebotを閉じる", "やめる"]
+                buttons: ["Close Firebot", "Cancel"]
 
-            }).then(({response}) => {
+            }).then(({ response }) => {
                 if (response === 0) {
                     mainWindow.destroy();
+                    global.renderWindow = null;
                 }
             }).catch(() => console.log("Error with close app confirmation"));
+        } else {
+            mainWindow.destroy();
+            global.renderWindow = null;
+        }
+    });
+
+    mainWindow.on("closed", () => {
+        exports.events.emit("main-window-closed");
+
+        if (variableInspectorWindow?.isDestroyed() === false) {
+            logger.debug("Closing variable inspector window");
+            variableInspectorWindow.destroy();
+            global.variableInspectorWindow = null;
+        }
+
+        const effectQueueMonitorWindow = getEffectQueueMonitorWindow();
+        if (effectQueueMonitorWindow?.isDestroyed() === false) {
+            logger.debug("Effect queue monitor window");
+            effectQueueMonitorWindow.destroy();
+        }
+
+        if (streamPreview?.isDestroyed() === false) {
+            logger.debug("Closing stream preview window");
+            streamPreview.destroy();
         }
     });
 }
@@ -586,7 +695,7 @@ async function createMainWindow() {
 const createSplashScreen = async () => {
     splashscreenWindow = new BrowserWindow({
         width: 375,
-        height: 420,
+        height: 450,
         icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png"),
         transparent: true,
         backgroundColor: undefined,
@@ -629,94 +738,7 @@ function updateSplashScreenStatus(newStatus) {
     splashscreenWindow.webContents.send("update-splash-screen-status", newStatus);
 }
 
-/**
- * The variable inspector window.
- *@type {Electron.BrowserWindow}
- */
-let variableInspectorWindow = null;
-
-async function createVariableInspectorWindow() {
-
-    if (variableInspectorWindow != null && !variableInspectorWindow.isDestroyed()) {
-        if (variableInspectorWindow.isMinimized()) {
-            variableInspectorWindow.restore();
-        }
-        variableInspectorWindow.focus();
-        return;
-    }
-
-    const variableInspectorWindowState = windowStateKeeper({
-        defaultWidth: 720,
-        defaultHeight: 1280,
-        file: "variable-inspector-window-state.json"
-    });
-
-    variableInspectorWindow = new BrowserWindow({
-        frame: true,
-        alwaysOnTop: true,
-        backgroundColor: "#2F3137",
-        title: "Custom Variable Inspector",
-        parent: exports.mainWindow,
-        width: variableInspectorWindowState.width,
-        height: variableInspectorWindowState.height,
-        x: variableInspectorWindowState.x,
-        y: variableInspectorWindowState.y,
-        webPreferences: {
-            preload: path.join(__dirname, "../../../gui/variable-inspector/preload.js")
-        },
-        icon: path.join(__dirname, "../../../gui/images/logo_transparent_2.png")
-    });
-    variableInspectorWindow.setMenu(null);
-
-    variableInspectorWindowState.manage(variableInspectorWindow);
-
-    variableInspectorWindow.on("close", () => {
-        variableInspectorWindow = null;
-    });
-
-    await variableInspectorWindow.loadURL(
-        url.format({
-            pathname: path.join(__dirname, "../../../gui/variable-inspector/index.html"),
-            protocol: "file:",
-            slashes: true
-        }));
-
-    const customVariableManager = require("../../common/custom-variable-manager");
-    variableInspectorWindow.webContents.send("all-variables", customVariableManager.getInitialInspectorVariables());
-}
-
-function sendVariableCreateToInspector(key, value, ttl) {
-    if (variableInspectorWindow == null || variableInspectorWindow.isDestroyed()) {
-        return;
-    }
-
-    variableInspectorWindow.webContents.send("variable-set", {
-        key,
-        value,
-        ttl
-    });
-}
-
-function sendVariableExpireToInspector(key, value) {
-    if (variableInspectorWindow == null || variableInspectorWindow.isDestroyed()) {
-        return;
-    }
-
-    variableInspectorWindow.webContents.send("variable-expire", {
-        key,
-        value
-    });
-}
-
-function sendVariableDeleteToInspector(key) {
-    if (variableInspectorWindow == null || variableInspectorWindow.isDestroyed()) {
-        return;
-    }
-
-    variableInspectorWindow.webContents.send("variable-deleted", {
-        key
-    });
-}
+SettingsManager.on("settings:setting-updated:OverlayInstances", createAppMenu);
 
 frontendCommunicator.on("getAllDisplays", () => {
     return screenHelpers.getAllDisplays();
@@ -732,9 +754,7 @@ frontendCommunicator.on("takeScreenshot", (displayId) => {
 
 exports.updateSplashScreenStatus = updateSplashScreenStatus;
 exports.createVariableInspectorWindow = createVariableInspectorWindow;
-exports.sendVariableCreateToInspector = sendVariableCreateToInspector;
-exports.sendVariableExpireToInspector = sendVariableExpireToInspector;
-exports.sendVariableDeleteToInspector = sendVariableDeleteToInspector;
 exports.createStreamPreviewWindow = createStreamPreviewWindow;
 exports.createMainWindow = createMainWindow;
 exports.createSplashScreen = createSplashScreen;
+exports.mainWindow = mainWindow;

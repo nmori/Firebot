@@ -1,30 +1,14 @@
-<<<<<<< HEAD
-<div class="p-6 mx-0 my-6">
-=======
-<div class="p-6 mx-0">
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-    <button class="btn btn-primary" ng-click="openAddOrEditHotkeyModal()"><i class="fas fa-plus-circle" class="mr-2"></i> 新規ホットキー</button>
-</div>
-
-
-<div class="p-6" style="display: flex;flex-wrap: wrap;">
-    <div ng-repeat="hotkey in getHotkeys() track by $index" class="fb-tile mint centered mr-4" ng-class="{'inactive' : !hotkey.active}" style="flex: 0 0 auto;width:250px;height:150px;">
-        <div class="edit-btn" ng-click="openAddOrEditHotkeyModal(hotkey)"></div>
-        <div class="header">
-            <div class="title edit-btn-spacer">
-                {{hotkey.name}}
-            </div>
-        </div>
-        <div class="content row">
-        <div class="detail-wrapper nomargin">
-            <div class="detail" style="font-size: 1.6em;">
-            {{getDisplayForCode(hotkey.code)}}
-            </div>
-            <div class="detail-description"></div>
-        </div>
-        </div>
-    </div>
-    <div ng-if="getHotkeys().length < 1" class="noselect muted pl-5">
-        <span class="hvr-bob"><i class="fas fa-arrow-up"></i></span><span class="ml-3">ホットキーは登録されていません </span>
-    </div>
-</div>
+<firebot-item-table
+    items="hotkeyService.hotkeys"
+    on-items-update="onHotkeysUpdated(items)"
+    headers="headers"
+    sort-tag-context="hotkeys"
+    orderable="true"
+    add-new-button-text="新しいホットキー"
+    on-add-new-clicked="hotkeyService.showAddEditHotkeyModal()"
+    context-menu-options="hotkeyOptions(item)"
+    no-data-message="保存されたホットキーがありません。作成してみましょう！"
+    none-found-message="ホットキーが見つかりません。"
+    search-placeholder="ホットキーを検索"
+    status-field="active"
+></firebot-item-table>

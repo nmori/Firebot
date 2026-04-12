@@ -1,7 +1,5 @@
 "use strict";
 
-const { EffectCategory } = require("../../../../../shared/effect-constants");
-const axios = require("axios").default;
 const logger = require("../../../../logwrapper");
 const integrationManager = require("../../../integration-manager");
 
@@ -14,10 +12,10 @@ const effect = {
    */
     definition: {
         id: "streamlabs:roll-credits",
-        name: "ロールクレジット",
-        description: "StreamLabのロールクレジットを起動する",
+        name: "クレジットロール",
+        description: "Streamlabs の Roll Credits 機能を実行します",
         icon: "fad fa-align-center",
-        categories: [EffectCategory.INTEGRATIONS],
+        categories: ["integrations"],
         dependencies: []
     },
     /**
@@ -31,14 +29,14 @@ const effect = {
     optionsTemplate: `
         <eos-container>
             <div class="effect-info alert alert-info">
-            これによりStreamLabsのロールクレジット機能が作動します。
+                This will trigger StreamLabs Roll Credits feature.
             </div>
         </eos-container>
     `,
     /**
    * The controller for the front end Options
    */
-    optionsController: () => { },
+    optionsController: () => {},
     /**
    * When the effect is saved
    */
@@ -53,18 +51,22 @@ const effect = {
 
         if (accessToken) {
             try {
-<<<<<<< HEAD
-                await axios.post("https://streamlabs.com/api/v1.0/credits/roll",
-=======
-                const response = await fetch("https://streamlabs.com/api/v2.0/credits/roll",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                const response = await fetch("https://streamlabs.com/api/v1.0/credits/roll",
                     {
-                        "access_token": accessToken
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ "access_token": accessToken })
                     });
 
-                return true;
+                if (response.ok) {
+                    return true;
+                }
+
+                throw new Error(`Request failed with status ${response.status}`);
             } catch (error) {
-                logger.error("Failed to roll Streamlabs credits", error.response.data.message);
+                logger.error("Failed to roll Streamlabs credits", error.message);
                 return false;
             }
         }

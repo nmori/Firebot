@@ -24,39 +24,39 @@ const effectDefinitions = [
     {
         id: "API_BUTTON",
         v5Id: "firebot:api",
-        name: "APIボタン",
+        name: "API Button",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.CHAT],
-        description: "サードパーティのAPIから情報を引き出す"
+        description: "Pull info from third-party APIs"
     },
     {
         id: "CELEBRATION",
         v5Id: "firebot:celebration",
-        name: "お祝い",
+        name: "Celebration",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "オーバーレイの楽しい演出"
+        description: "Fun effects in the overlay"
     },
     {
         id: "CHAT",
         v5Id: "firebot:chat",
-        name: "チャット",
+        name: "Chat",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.CHAT],
-        description: "チャットにメッセージを送る"
+        description: "Send a message to chat"
     },
     {
         id: "CUSTOM_SCRIPT",
         v5Id: "firebot:customscript",
-        name: "スクリプト",
+        name: "Custom Script",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "独自のスクリプトを実行する"
+        description: "Run your own script"
     },
     {
         id: "RUN_COMMAND",
         v5Id: null,
-        name: "コマンド実行",
+        name: "Run Command",
         triggers: [
             Trigger.CUSTOM_SCRIPT,
             Trigger.API,
@@ -64,198 +64,142 @@ const effectDefinitions = [
             Trigger.HOTKEY
         ],
         dependencies: [],
-        description: "別のトリガーを使ってコマンドを実行する"
+        description: "Run a command via another trigger"
     },
     {
         id: "DELAY",
         v5Id: "firebot:delay",
-        name: "遅延",
+        name: "Delay",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "演出間の待ち時間"
+        description: "Pause between effects"
     },
     {
         id: "DICE",
         v5Id: "firebot:dice",
-        name: "サイコロ",
+        name: "Dice",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.CHAT],
-        description: "サイコロを振る"
+        description: "Roll dice in chat"
     },
     {
         id: "GAME_CONTROL",
         v5Id: "firebot:controlemulation",
-        name: "ゲーム制御",
+        name: "Game Control",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "キーボードとマウスのクリックを操作"
+        description: "Emulate keyboard and mouse clicks"
     },
     {
         id: "HTML",
         v5Id: "firebot:html",
-        name: "HTMLの表示",
+        name: "HTML",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "オーバーレイにカスタムHTMLを表示する"
+        description: "Display custom HTML in the overlay"
     },
     {
         id: "SHOW_EVENTS",
         v5Id: null,
-        name: "イベント表示",
+        name: "Show Event",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "イベントをイベントリストに送る"
-    },
-    {
-        id: "SEND-VRCHAT",
-        v5Id: "firebot:send-vrchat",
-        name: "VRChatチャットに送付",
-        triggers: ALL_TRIGGERS,
-        dependencies: [],
-        description: "ゆかコネNEO経由でVRChatチャットに送付"
-    },
-    {
-        id: "ONECOMME-WORDPARTY",
-        v5Id: "firebot:oneccome-wordparty",
-        name: "わんコメ WordParty",
-        triggers: ALL_TRIGGERS,
-        dependencies: [],
-        description: "わんコメのWordPartyを起動します"
-    },
-    {
-        id: "ONECOMME-TRANSFER",
-        v5Id: "firebot:oneccome-transfer",
-        name: "わんコメへ転送",
-        triggers: ALL_TRIGGERS,
-        dependencies: [],
-        description: "わんコメのチャット欄に転送します"
+        description: "Send an event to the Event List"
     },
     {
         id: "PLAY_SOUND",
         v5Id: "firebot:playsound",
-        name: "サウンドを再生",
+        name: "Play Sound",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "音を再生する"
-    },
-    {
-        id: "SPEECH_BOUYOMICHAN",
-        v5Id: "firebot:playbouyomichan",
-        name: "棒読みちゃんで再生",
-        triggers: ALL_TRIGGERS,
-        dependencies: [],
-        description: "音を再生する"
-    },
-    {
-        id: "SPEECH_VOICEVOX",
-        v5Id: "firebot:playvoicevox",
-        name: "VOICEVOXで再生",
-        triggers: ALL_TRIGGERS,
-        dependencies: [],
-        description: "VOICEVOXに直接指示し、音声合成で話す"
-    },
-    {
-        id: "SPEECH_YNCNEO",
-        v5Id: "firebot:play-yncneo",
-        name: "音声を再生",
-        triggers: ALL_TRIGGERS,
-        dependencies: [],
-        description: "ゆかコネNEO経由で音声合成をつかって話す"
+        description: "Play a sound for listening pleasure"
     },
     {
         id: "RANDOM_EFFECT",
         v5Id: "firebot:randomeffect",
-        name: "演出をランダム実行",
+        name: "Random Effect",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "演出のリストからランダム演出を実行する"
+        description: "Run a random effect from a list of effects"
     },
     {
         id: "EFFECT_GROUP",
         v5Id: "firebot:run-effect-list",
-        name: "演出グループ",
+        name: "Effect Group",
         triggers: ALL_TRIGGERS,
         dependencies: [],
         description:
-            "複数の演出をグループ化し、1つの演出として扱う（ランダム演出の使用に適している）"
+      "Group multiple effects to be treated as one (good for Random Effect use)"
     },
     {
         id: "SHOW_IMAGE",
         v5Id: "firebot:showImage",
-        name: "画像を表示",
+        name: "Show Image",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "オーバーレイに画像を表示する"
+        description: "Display an image on the overlay"
     },
     {
         id: "CREATE_CLIP",
         v5Id: "firebot:clip",
-        name: "クリップを作成",
+        name: "Create Clip",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Mixer上で指定した時間だけクリップを作成する指示をします"
+        description: "Triggers a clip to be made on Mixer for a given duration."
     },
     {
         id: "SHOW_VIDEO",
         v5Id: "firebot:playvideo",
-        name: "動作を再生",
+        name: "Show Video",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "オーバーレイでビデオを再生する"
+        description: "Play a video in the overlay"
     },
     {
         id: "CLEAR_EFFECTS",
         v5Id: null,
-        name: "演出を消す",
+        name: "Clear Effects",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "現在実行中の演出（サウンドとオーバーレイ演出）を終了する。"
+        description: "Clear and stop any currently running effects (sounds and overlay effects)."
     },
     {
         id: "TEXT_TO_FILE",
         v5Id: "firebot:filewriter",
-        name: "テキストをファイルに書き込む",
+        name: "Write Text To File",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "テキストをファイルに書き込む"
-    },
-    {
-        id: "TRANSLATE",
-        v5Id: "firebot:translate-yncneo",
-        name: "翻訳を実行",
-        triggers: ALL_TRIGGERS,
-        dependencies: [],
-        description: "ゆかコネNEO経由で翻訳"
+        description: "Write customizable text to a file"
     },
     {
         id: "COMMAND_LIST",
         v5Id: null,
-        name: "コマンドリスト",
+        name: "Command List",
         triggers: [Trigger.COMMAND],
         dependencies: [Dependency.CHAT],
-        description: "チャットコマンドリストを返答します"
+        description: "Returns list of chat commands"
     },
     {
         id: "TOGGLE_CONNECTION",
         v5Id: "firebot:toggleconnection",
-        name: "接続状態を切替える",
+        name: "Toggle Connection",
         triggers: ALL_TRIGGERS,
         dependencies: [],
-        description: "Mixerサービスへの接続を切り替えます。"
+        description: "Toggles Firebot's connection to Mixer services"
     },
     {
         id: "SHOW_TEXT",
         v5Id: "firebot:showtext",
-        name: "テキストを表示",
+        name: "Show Text",
         triggers: ALL_TRIGGERS,
         dependencies: [Dependency.OVERLAY],
-        description: "テキストをオーバーレイに表示します。"
+        description: "Displays formattable text in the overlay."
     }
 ];
 
 function getEffects(triggerType) {
     // filter effects list to given triggerType
-    const filteredEffects = effectDefinitions.filter(e => {
+    const filteredEffects = effectDefinitions.filter((e) => {
         if (triggerType != null) {
             return e.triggers[triggerType] != null && e.triggers[triggerType] !== false;
         }
@@ -267,7 +211,7 @@ function getEffects(triggerType) {
 function generateEffectObjects(triggerType, triggerMeta, useV5Ids = false) {
     const effectsObject = {};
     const filteredEffects = getEffects(triggerType, triggerMeta);
-    filteredEffects.forEach(e => {
+    filteredEffects.forEach((e) => {
         effectsObject[e.id] = useV5Ids ? e.v5Id : e.name;
     });
     return effectsObject;
@@ -321,7 +265,7 @@ exports.getEffectByName = getEffectByName;
 exports.getDependenciesForEffect = getDependenciesForEffect;
 exports.getEffectById = getEffectById;
 
-exports.effectCanBeTriggered = function (effectName, triggerType) {
+exports.effectCanBeTriggered = function(effectName, triggerType) {
     const triggerTypes = getTriggerTypesForEffect(effectName);
     if (triggerTypes == null) {
         return false;
@@ -332,7 +276,7 @@ exports.effectCanBeTriggered = function (effectName, triggerType) {
 
 exports.getEffectDictionary = generateEffectObjects;
 
-exports.getAllEffectTypes = function (triggerType, triggerMeta) {
+exports.getAllEffectTypes = function(triggerType, triggerMeta) {
     // if triggerType is null, all effects are returned
     const effects = getEffects(triggerType, triggerMeta);
 
@@ -340,7 +284,7 @@ exports.getAllEffectTypes = function (triggerType, triggerMeta) {
     return effects.map(e => e.name);
 };
 
-exports.getEffect = function (effectIdOrName) {
+exports.getEffect = function(effectIdOrName) {
     const effects = effectDefinitions.filter(
         e => e.id === effectIdOrName || e.name === effectIdOrName
     );

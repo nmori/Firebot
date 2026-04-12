@@ -1,10 +1,9 @@
 "use strict";
 const EventEmitter = require("events");
 const io = require("socket.io-client");
-const axios = require("axios").default;
 const logger = require("../../../logwrapper");
 
-const { secrets } = require("../../../secrets-manager");
+const { SecretsManager } = require("../../../secrets-manager");
 
 const slEventHandler = require("./events/streamlabs-event-handler");
 const slEffectsLoader = require("./effects/streamlabs-effect-loader");
@@ -12,7 +11,7 @@ const slEffectsLoader = require("./effects/streamlabs-effect-loader");
 const integrationDefinition = {
     id: "streamlabs",
     name: "Streamlabs",
-    description: "ドネーション／Extra Lifeドネーション",
+    description: "寄付および Extra Life 寄付イベント",
     linkType: "auth",
     connectionToggle: true,
     authProviderDetails: {
@@ -20,14 +19,14 @@ const integrationDefinition = {
         name: "StreamLabs",
         redirectUriHost: "localhost",
         client: {
-            id: secrets.streamLabsClientId,
-            secret: secrets.streamLabsClientSecret
+            id: SecretsManager.secrets.streamLabsClientId,
+            secret: SecretsManager.secrets.streamLabsClientSecret
         },
         auth: {
             type: "code",
             tokenHost: 'https://streamlabs.com',
-            tokenPath: '/api/v2.0/token',
-            authorizePath: '/api/v2.0/authorize'
+            tokenPath: '/api/v1.0/token',
+            authorizePath: '/api/v1.0/authorize'
         },
         autoRefreshToken: false,
         scopes: 'donations.read socket.token wheel.write credits.write'
@@ -36,27 +35,14 @@ const integrationDefinition = {
 
 const getStreamlabsSocketToken = async (accessToken) => {
     try {
-<<<<<<< HEAD
-        const response = await axios.get("https://streamlabs.com/api/v1.0/socket/token",
-            {
-                params: {
-                    "access_token": accessToken
-                }
-            });
+        const response = await fetch(`https://streamlabs.com/api/v1.0/socket/token?access_token=${accessToken}`);
 
-        if (response && response.data && response.data.socket_token) {
-            return response.data.socket_token;
-=======
-        const response = await fetch(`https://streamlabs.com/api/v2.0/socket/token`, {
-            headers: {
-                "Authorization": `Bearer ${accessToken}`
-            }
-        });
         if (response.ok) {
             const data = await response.json();
             return data.socket_token;
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
+
+        throw new Error(`Response failed with status ${response.status}`);
     } catch (error) {
         logger.error("Failed to get socket token for Streamlabs", error.message);
         return null;
@@ -88,7 +74,7 @@ class StreamlabsIntegration extends EventEmitter {
             }
         );
 
-        this._socket.on("event", eventData => {
+        this._socket.on("event", (eventData) => {
             slEventHandler.processStreamLabsEvent(eventData);
         });
 

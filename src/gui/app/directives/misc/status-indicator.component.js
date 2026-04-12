@@ -5,8 +5,8 @@
         .component("statusIndicator", {
             bindings: {
                 status: "<",
-                enabledLabel: "@",
-                disabledLabel: "@?"
+                enabledLabel: "<?",
+                disabledLabel: "<?"
             },
             template: `
                 <div
@@ -28,11 +28,11 @@
                 const $ctrl = this;
 
                 $ctrl.$onInit = () => {
-                    if ($ctrl.enabledLabel == null) {
-                        $ctrl.enabledLabel = "ON";
+                    if (!$ctrl.enabledLabel) {
+                        $ctrl.enabledLabel = "Active";
                     }
-                    if ($ctrl.disabledLabel == null) {
-                        $ctrl.disabledLabel = "OFF";
+                    if (!$ctrl.disabledLabel) {
+                        $ctrl.disabledLabel = "Disabled";
                     }
                 };
 

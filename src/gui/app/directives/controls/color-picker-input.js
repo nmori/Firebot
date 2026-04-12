@@ -8,13 +8,16 @@
             bindings: {
                 model: "=",
                 label: "@?",
+                alpha: "<",
                 style: "@",
                 lgInput: "<",
-                showClear: "<"
+                showClear: "<",
+                onBlur: "&?",
+                name: "@?"
             },
             template: `
             <div style="{{$ctrl.style}}">
-                <div ng-if="$ctrl.label != null" class="input-group settings-buttontext">
+                <div ng-if="$ctrl.label != null" class="input-group settings-buttontext color-picker-group-wrapper">
                     <span class="input-group-addon" id="basic-addon3">{{$ctrl.label}}</span>
                     <color-picker
                         ng-model="$ctrl.model"
@@ -39,13 +42,14 @@
                         required: true,
                         inputClass: `form-control ${$ctrl.lgInput ? 'input-lg' : ''}`,
                         allowEmpty: false,
-                        format: "hexString",
+                        format: $ctrl.alpha ? "hex8String" : "hexString",
                         placeholder: "#ffffff",
                         case: "lower",
-                        alpha: false,
+                        alpha: $ctrl.alpha,
+                        name: $ctrl.name,
                         clear: {
                             show: $ctrl.showClear !== false,
-                            label: 'クリア',
+                            label: 'Clear',
                             class: "btn btn-danger clear-btn-width"
                         }
                     };
@@ -55,6 +59,11 @@
                     onChange: (_, color) => {
                         if (color == null || color.trim() === "") {
                             $ctrl.model = null;
+                        }
+                    },
+                    onBlur: () => {
+                        if ($ctrl.onBlur != null) {
+                            $ctrl.onBlur();
                         }
                     }
                 };

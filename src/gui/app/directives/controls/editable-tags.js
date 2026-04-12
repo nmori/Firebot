@@ -19,14 +19,14 @@
                         <span
                             class="tag-name clickable"
                             ng-click="$ctrl.editItem($index)"
-                            aria-label="{{item + ' (クリックして編集)'}}"
+                            aria-label="{{item + '（クリックして編集）'}}"
                         >
                             {{item}}
                         </span>
                         <span
                             class="tag-remove clickable"
                             ng-click="$ctrl.removeItem($index)"
-                            aria-label="アイテムを削除"
+                            aria-label="項目を削除"
                         >
                             <i class="far fa-times"></i>
                         </span>
@@ -49,7 +49,7 @@
                 const defaultSettings = {
                     addLabel: "追加",
                     editLabel: "編集",
-                    validationText: "空欄にはできません",
+                    validationText: "テキストは空にできません",
                     noDuplicates: false
                 };
 
@@ -73,7 +73,7 @@
                             useTextArea: $ctrl.settings.useTextArea,
                             saveText: "保存",
                             validationFn: (value) => {
-                                return new Promise(resolve => {
+                                return new Promise((resolve) => {
                                     if (value == null || value.trim().length < 1) {
                                         resolve(false);
                                     } else {
@@ -92,7 +92,7 @@
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model[index] = newItem;
                         } else {
-                            ngToast.create("追加できません。複製がすでにあります");
+                            ngToast.create("編集できません: 重複する項目があります");
                         }
                     });
                 };
@@ -103,7 +103,7 @@
                         if (!$ctrl.settings.noDuplicates || !foundDuplicate) {
                             $ctrl.model.push(newItem);
                         } else {
-                            ngToast.create("追加できません。複製がすでにあります");
+                            ngToast.create("追加できません: 重複する項目があります");
                         }
                     });
                 };

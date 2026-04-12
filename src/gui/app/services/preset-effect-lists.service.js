@@ -4,7 +4,7 @@
 
     angular
         .module("firebotApp")
-        .factory("presetEffectListsService", function($q, backendCommunicator,
+        .factory("presetEffectListsService", function(backendCommunicator,
             utilityService, objectCopyHelper, ngToast) {
             const service = {};
 
@@ -19,16 +19,11 @@
                 }
             }
 
-            service.loadPresetEffectLists = async function() {
-                $q.when(backendCommunicator.fireEventAsync("getPresetEffectLists"))
-                    .then(presetEffectLists => {
-                        if (presetEffectLists) {
-                            service.presetEffectLists = presetEffectLists;
-                        }
-                    });
+            service.loadPresetEffectLists = () => {
+                service.presetEffectLists = backendCommunicator.fireEventSync("preset-effect-lists:get-preset-effect-lists");
             };
 
-            backendCommunicator.on("all-preset-lists", presetEffectLists => {
+            backendCommunicator.on("all-preset-lists", (presetEffectLists) => {
                 if (presetEffectLists != null) {
                     service.presetEffectLists = presetEffectLists;
                 }
@@ -42,20 +37,21 @@
                 return service.presetEffectLists.find(pel => pel.id === presetEffectListId);
             };
 
-            service.savePresetEffectList = function(presetEffectList) {
-                return $q.when(backendCommunicator.fireEventAsync("savePresetEffectList", presetEffectList))
-                    .then(savedPresetEffectList => {
-                        if (savedPresetEffectList) {
-                            updatePresetEffectList(savedPresetEffectList);
-                            return true;
-                        }
-                        return false;
-                    });
+            service.savePresetEffectList = (presetEffectList, isNew = false) => {
+                const savedPresetEffectList = backendCommunicator.fireEventSync(
+                    "preset-effect-lists:save-preset-effect-list",
+                    { presetEffectList, isNew }
+                );
+                if (savedPresetEffectList) {
+                    updatePresetEffectList(savedPresetEffectList);
+                    return savedPresetEffectList;
+                }
+                return null;
             };
 
             service.saveAllPresetEffectLists = (presetEffectLists) => {
                 service.presetEffectLists = presetEffectLists;
-                backendCommunicator.fireEvent("saveAllPresetEffectLists", presetEffectLists);
+                backendCommunicator.fireEvent("preset-effect-lists:save-all-preset-effect-lists", presetEffectLists);
             };
 
             service.presetEffectListNameExists = (name) => {
@@ -73,7 +69,7 @@
                     if (!isQuickAction) {
                         ngToast.create({
                             className: 'success',
-                            content: `"${list.name}"を実行しました`
+                            content: `Ran "${list.name}"!`
                         });
                     }
                     return;
@@ -95,7 +91,7 @@
 
             service.manuallyTriggerPresetEffectList = (presetEffectListId, args, isQuickAction) => {
                 const presetEffectList = service.presetEffectLists.find(pel => pel.id === presetEffectListId);
-                ipcRenderer.send('runEffectsManually', {
+                backendCommunicator.send('runEffectsManually', {
                     effects: presetEffectList.effects,
                     metadata: args ? { presetListArgs: args } : undefined,
                     triggerType: isQuickAction ? "quick_action" : undefined
@@ -111,36 +107,38 @@
                 copiedPresetEffectList.id = null;
 
                 while (service.presetEffectListNameExists(copiedPresetEffectList.name)) {
-                    copiedPresetEffectList.name += " 複製";
+                    copiedPresetEffectList.name += " copy";
                 }
 
-                service.savePresetEffectList(copiedPresetEffectList).then(successful => {
-                    if (successful) {
-                        ngToast.create({
-                            className: 'success',
-                            content: '演出リストの複製に成功しました'
-                        });
-                    } else {
-                        ngToast.create("演出リストの複製に失敗しました");
-                    }
-                });
+                const savedList = service.savePresetEffectList(copiedPresetEffectList, true);
+                if (savedList != null) {
+                    ngToast.create({
+                        className: 'success',
+                        content: 'Successfully duplicated a preset effect list!'
+                    });
+                } else {
+                    ngToast.create("プリセットエフェクトリストの複製に失敗しました。");
+                }
             };
 
-            service.deletePresetEffectList = function(presetEffectListId) {
+            service.deletePresetEffectList = (presetEffectListId) => {
                 service.presetEffectLists = service.presetEffectLists.filter(pel => pel.id !== presetEffectListId);
-                backendCommunicator.fireEvent("deletePresetEffectList", presetEffectListId);
+                backendCommunicator.fireEvent("preset-effect-lists:delete-preset-effect-list", presetEffectListId);
             };
 
             service.showAddEditPresetEffectListModal = function(presetEffectList) {
-                return new Promise(resolve => {
+                return new Promise((resolve) => {
                     utilityService.showModal({
                         component: "addOrEditPresetEffectListModal",
                         size: "md",
                         resolveObj: {
                             presetList: () => presetEffectList
                         },
-                        closeCallback: response => {
+                        closeCallback: (response) => {
                             resolve(response.presetEffectList);
+                        },
+                        dismissCallback: () => {
+                            resolve(null);
                         }
                     });
                 });

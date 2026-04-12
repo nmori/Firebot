@@ -22,26 +22,22 @@
             update: "&"
         },
         template: `
-<<<<<<< HEAD
-      <ui-select ng-model="$ctrl.selectedEvent" on-select="$ctrl.selectOption($item, $model)" theme="bootstrap">
-=======
-      <ui-select ng-model="$ctrl.selectedEvent" on-select="$ctrl.selectOption($item, $model)" theme="bootstrap" title="{{$select.selected != null ? $select.selected.name + ' ' + $select.selected.source.name : 'Select or search for an event...'}}">
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-        <ui-select-match placeholder="イベントの選択や検索... ">{{$select.selected.name}}</ui-select-match>
-        <ui-select-choices repeat="option in $ctrl.options | filter: { name: $select.search }" style="position:relative;">
+            <ui-select ng-model="$ctrl.selectedEvent" on-select="$ctrl.selectOption($item, $model)" theme="bootstrap" title="{{$select.selected != null ? $select.selected.name + ' ' + $select.selected.source.name : 'イベントを選択または検索...'}}">
+                <ui-select-match placeholder="イベントを選択または検索... ">{{$select.selected.name}} ({{$select.selected.source.name}})</ui-select-match>
+        <ui-select-choices repeat="option in $ctrl.options | eventfilter: $select.search" style="position:relative;">
           <div>
             <div ng-bind-html="option.name | highlight: $select.search" style="display: inline-block"></div>
-            <tooltip ng-if="option.isIntegration" text="$ctrl.getSourceName(option.sourceId) +'このイベントが機能するためには、設定->連携でリンクされている必要があります。'"></tooltip>
+                        <tooltip ng-if="option.isIntegration" text="option.source.name + ' をこのイベントで使うには、設定 -> 連携 でリンクする必要があります。'"></tooltip>
           </div>
-          <small class="muted"><strong>{{option.source.name}}</strong> | {{option.description}}</small>
+          <small class="muted" style="white-space: normal"><strong>{{option.source.name}}</strong> | {{option.description}}</small>
         </ui-select-choices>
       </ui-select>
       `,
-        controller: function(listenerService) {
+        controller: function(backendCommunicator) {
             const ctrl = this;
 
-            const events = listenerService.fireEventSync("getAllEvents", false);
-            const sources = listenerService.fireEventSync("getAllEventSources", false);
+            const events = backendCommunicator.fireEventSync("events:get-all-events", false);
+            const sources = backendCommunicator.fireEventSync("events:get-all-event-sources", false);
 
             const getSelected = () => {
                 // sort events by name
@@ -64,7 +60,7 @@
                 getSelected();
 
                 // Add source info to event objects for filtering
-                events.forEach(e => {
+                events.forEach((e) => {
                     e.source = {
                         id: e.sourceId,
                         name: ctrl.getSourceName(e.sourceId)

@@ -1,6 +1,6 @@
 "use strict";
 const logger = require('../../../../logwrapper');
-const eventManager = require("../../../../events/EventManager");
+const { EventManager } = require("../../../../events/event-manager");
 
 const EVENT_SOURCE_ID = "tipeeestream";
 const EventId = {
@@ -11,31 +11,31 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "TipeeeStream",
-    description: "tipeeestreamからの寄付/チップイベント",
+    description: "TipeeeStream 由来の寄付/チップイベント",
     events: [
         {
             id: EventId.DONATION,
-            name: "ドネーション",
-            description: "TipeeeStream経由で誰かがあなたに寄付をした場合",
+            name: "寄付",
+            description: "誰かが TipeeeStream 経由であなたに寄付したとき。",
             cached: false,
             manualMetadata: {
                 from: "TipeeeStream",
                 formattedDonationAmount: 5,
-                donationMessage: "Test message"
+                donationAmount: 5,
+                donationMessage: "テストメッセージ"
             },
             isIntegration: true,
-            queued: true,
             activityFeed: {
                 icon: "fad fa-money-bill",
                 getMessage: (eventData) => {
-                    return `**${eventData.from}** donated **${eventData.formattedDonationAmount}**${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
+                    return `**${eventData.from}** が **${eventData.formattedDonationAmount}** を寄付${eventData.donationMessage && !!eventData.donationMessage.length ? `: *${eventData.donationMessage}*` : ''}`;
                 }
             }
         },
         {
             id: EventId.FOLLOW,
             name: "フォロー",
-            description: "誰かがあなたのTwitchチャンネルをフォローしたとき（TipeeeStream経由）",
+            description: "誰かがあなたの Twitch チャンネルをフォローしたとき（TipeeeStream 経由）。",
             cacheMetaKey: "username",
             cached: true,
             manualMetadata: {
@@ -45,7 +45,7 @@ const eventSourceDefinition = {
             activityFeed: {
                 icon: "fas fa-heart",
                 getMessage: (eventData) => {
-                    return `**${eventData.username}** followed`;
+                    return `**${eventData.username}** がフォローしました`;
                 }
             }
         }
@@ -53,7 +53,7 @@ const eventSourceDefinition = {
 };
 
 exports.registerEvents = () => {
-    eventManager.registerEventSource(eventSourceDefinition);
+    EventManager.registerEventSource(eventSourceDefinition);
 };
 
 exports.processTipeeeStreamEvent = (eventData) => {
@@ -63,14 +63,14 @@ exports.processTipeeeStreamEvent = (eventData) => {
     }
     if (eventData.type === "donation") {
         const donoData = eventData.parameters;
-        eventManager.triggerEvent(EVENT_SOURCE_ID, EventId.DONATION, {
+        EventManager.triggerEvent(EVENT_SOURCE_ID, EventId.DONATION, {
             formattedDonationAmount: eventData.formattedAmount,
             donationAmount: donoData.amount,
             donationMessage: donoData.formattedMessage,
             from: donoData.username
         });
     } else if (eventData.type === "follow" && eventData.origin === "twitch") {
-        eventManager.triggerEvent(
+        EventManager.triggerEvent(
             EVENT_SOURCE_ID,
             EventId.FOLLOW,
             {

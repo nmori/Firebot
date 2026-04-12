@@ -16,10 +16,10 @@ export const TransformSourceEffectType: EffectType<{
 }> = {
     definition: {
         id: "firebot:obs-transform-source",
-        name: "Transform OBS Source",
-        description: "Transforms the position, scale, or rotation of an OBS source either instantly or animated over time",
+        name: "OBSソース変形",
+        description: "OBS ソースの位置・拡大率・回転を即時またはアニメーションで変更します",
         icon: "fad fa-arrows",
-        categories: ["common"]
+        categories: ["common", "integrations"]
     },
     optionsTemplate: `
         <eos-container ng-if="isUsingInvalidItemId" pad-top="true">
@@ -149,19 +149,19 @@ export const TransformSourceEffectType: EffectType<{
                     </div>
                 </div>
                 <firebot-checkbox 
-                    label="回転" 
-                    tooltip="OBSソースを回転します" 
+                    label="Rotation" 
+                    tooltip="Transform the rotation of the OBS source" 
                     model="effect.isTransformingRotation" />
                 <div ng-if="effect.isTransformingRotation" style="margin-bottom: 20px">
                     <div style="display: flex; gap: 20px; margin-bottom: 20px;">
                         <firebot-input
-                            input-title="開始角度"
-                            placeholder-text="角度を入れます"
+                            input-title="Start Rotation"
+                            placeholder-text="Current Rotation"
                             model="effect.startTransform.rotation"
                             style="flex-basis: 50%" />
                         <firebot-input
-                            input-title="終了角度"
-                            placeholder-text="角度を入れます"
+                            input-title="End Rotation"
+                            placeholder-text="rotation in degrees"
                             model="effect.endTransform.rotation"
                             style="flex-basis: 50%" />
                     </div>

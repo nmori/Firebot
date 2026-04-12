@@ -1,12 +1,14 @@
 "use strict";
-const { ipcMain, shell } = require("electron");
-const uuid = require("uuid/v4");
-const logger = require("../../../logwrapper");
-const { settings } = require("../../settings-access");
-const utils = require("../../../utility");
-const profileManager = require("../../profile-manager");
-const { getScriptPath, buildRunRequest, mapParameters, mapV4EffectToV5 } = require("./custom-script-helpers");
+const { shell } = require("electron");
+const { randomUUID } = require("crypto");
+
+const { SettingsManager } = require("../../settings-manager");
+const { ProfileManager } = require("../../profile-manager");
 const effectRunner = require("../../effect-runner.js");
+const frontendCommunicator = require("../../frontend-communicator");
+const logger = require("../../../logwrapper");
+const { wait, simpleClone } = require("../../../utils");
+const { getScriptPath, buildRunRequest, mapParameters } = require("./custom-script-helpers");
 
 /**
  * @typedef { import('./script-types').ScriptData } ScriptData
@@ -25,11 +27,7 @@ const activeCustomScripts = {};
  * @param {Trigger} trigger
  */
 async function executeScript(scriptData, trigger, isStartupScript = false) {
-<<<<<<< HEAD
-    const { scriptName, parameters } = scriptData;
-=======
     const { scriptName, parameters, id } = scriptData;
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     const scriptFilePath = getScriptPath(scriptName);
 
@@ -40,32 +38,28 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
     let customScript;
     try {
         // Make sure we first remove the cached version, incase there was any changes
-        if (settings.getClearCustomScriptCache()) {
+        if (SettingsManager.getSetting("ClearCustomScriptCache")) {
             delete require.cache[require.resolve(scriptFilePath)];
         }
         customScript = require(scriptFilePath);
     } catch (error) {
-<<<<<<< HEAD
-        renderWindow.webContents.send("error", `${scriptName}'を読み込めません \n\n ${error}`);
-=======
         frontendCommunicator.send("error", `Error loading the script '${scriptName}' \n\n ${error}`);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         logger.error(error);
         return;
     }
 
     // Verify the script contains the "run" function
     if (typeof customScript.run !== "function") {
-        renderWindow.webContents.send(
+        frontendCommunicator.send(
             "error",
-            `'${scriptName}'を実行できません。スクリプトに 'run' 関数が含まれていません。`
+            `Error running '${scriptName}', script does not contain an exported 'run' function.`
         );
         return;
     }
 
     const manifest = {
-        name: "不明なスクリプト",
-        version: "不明なバージョン",
+        name: "Unknown Script",
+        version: "Unknown Version",
         startupOnly: false
     };
 
@@ -80,9 +74,9 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
     }
 
     if (manifest.startupOnly && !isStartupScript) {
-        renderWindow.webContents.send(
+        frontendCommunicator.send(
             "error",
-            `スクリプト「${manifest.name}」はスタートアップ専用スクリプトです。Firebotのスタートアップ以外では実行できません。`
+            `Could not run startup-only script "${manifest.name}" as it was executed outside of Firebot startup (Settings > Scripts > Startup Scripts)`
         );
         return;
     }
@@ -92,10 +86,14 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
     // wait for script to finish for a maximum of 10 secs
     let response;
     try {
-        response = await Promise.race([Promise.resolve(customScript.run(runRequest)), utils.wait(10 * 1000)]);
+        response = await Promise.race([Promise.resolve(customScript.run(runRequest)), wait(10 * 1000)]);
     } catch (error) {
         logger.error(`Error while running script '${scriptName}'`, error);
         return;
+    }
+
+    if (isStartupScript) {
+        activeCustomScripts[id] = customScript;
     }
 
     if (response == null || typeof response !== "object") {
@@ -104,16 +102,12 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
 
     if (!response.success) {
         logger.error("Script failed with message:", response.errorMessage);
-<<<<<<< HEAD
-        renderWindow.webContents.send("error", "スクリプトの実行に失敗しました： " + response.errorMessage);
-=======
         frontendCommunicator.send("error", `Custom script failed with the message: ${response.errorMessage}`);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         return;
     }
 
     if (typeof response.callback !== "function") {
-        response.callback = () => { };
+        response.callback = () => {};
     }
 
     const effects = response.effects;
@@ -128,19 +122,18 @@ async function executeScript(scriptData, trigger, isStartupScript = false) {
         effectsObj = effects;
     } else if (effectsIsArray) {
         effectsObj = {
-            id: uuid(),
+            id: randomUUID(),
             list: effects
-                .filter((e) => e.type != null && e.type !== "")
+                .filter(e => e.type != null && e.type !== "")
                 .map((e) => {
-                    e = mapV4EffectToV5(e);
                     if (e.id == null) {
-                        e.id = uuid();
+                        e.id = randomUUID();
                     }
                     return e;
                 })
         };
 
-        const clonedTrigger = JSON.parse(JSON.stringify(trigger || {}));
+        const clonedTrigger = simpleClone(trigger || {});
 
         const processEffectsRequest = {
             trigger: clonedTrigger,
@@ -176,7 +169,7 @@ async function runStartUpScript(startUpScriptConfig) {
     const { scriptName } = startUpScriptConfig;
     logger.debug(`running startup script: ${scriptName}`);
 
-    if (!settings.isCustomScriptsEnabled()) {
+    if (SettingsManager.getSetting("RunCustomScripts") !== true) {
         logger.warn("Attempted to run startup script but custom scripts are disabled.");
         return;
     }
@@ -194,11 +187,11 @@ async function runStartUpScript(startUpScriptConfig) {
 async function startUpScriptSaved(startUpScriptConfig) {
     const activeScript = activeCustomScripts[startUpScriptConfig.id];
     if (activeScript == null) {
-        runStartUpScript(startUpScriptConfig);
+        await runStartUpScript(startUpScriptConfig);
         return;
     }
     if (activeScript.parametersUpdated) {
-        activeScript.parametersUpdated(mapParameters(startUpScriptConfig.parameters));
+        await activeScript.parametersUpdated(mapParameters(startUpScriptConfig.parameters));
     }
 }
 
@@ -212,7 +205,7 @@ async function startUpScriptDeleted(startUpScriptConfig) {
     }
     if (activeScript.stop != null) {
         try {
-            await Promise.resolve(activeScript.stop());
+            await Promise.resolve(activeScript.stop(true));
         } catch (error) {
             logger.error(`Error when attempting to stop custom script`, error);
         }
@@ -223,6 +216,8 @@ async function startUpScriptDeleted(startUpScriptConfig) {
     } catch (error) {
         logger.error(`Error when attempting to remove script from memory`, error);
     }
+
+    delete activeCustomScripts[startUpScriptConfig.id];
 }
 
 /**
@@ -235,10 +230,10 @@ function runScript(effect, trigger) {
 
     logger.debug(`running script: ${scriptName}`);
 
-    if (!settings.isCustomScriptsEnabled()) {
-        renderWindow.webContents.send(
+    if (!SettingsManager.getSetting("RunCustomScripts")) {
+        frontendCommunicator.send(
             "error",
-            "スクリプトの実行を試みましたが、この機能は無効化されており実行できません"
+            "Something attempted to run a custom script but this feature is disabled!"
         );
         return;
     }
@@ -246,11 +241,26 @@ function runScript(effect, trigger) {
     return executeScript(effect, trigger);
 }
 
-ipcMain.on("openScriptsFolder", function () {
-    shell.openPath(profileManager.getPathInProfile("/scripts"));
+async function stopAllScripts() {
+    logger.info("Stopping all custom scripts...");
+    for (const activeScript of Object.values(activeCustomScripts)) {
+        if (activeScript.stop != null) {
+            try {
+                await Promise.resolve(activeScript.stop(false));
+            } catch (error) {
+                logger.error(`Error when attempting to stop custom script`, error);
+            }
+        }
+    }
+    logger.info("Stopped all custom scripts");
+}
+
+frontendCommunicator.on("openScriptsFolder", () => {
+    shell.openPath(ProfileManager.getPathInProfile("/scripts"));
 });
 
 exports.runScript = runScript;
 exports.runStartUpScript = runStartUpScript;
 exports.startUpScriptSaved = startUpScriptSaved;
 exports.startUpScriptDeleted = startUpScriptDeleted;
+exports.stopAllScripts = stopAllScripts;

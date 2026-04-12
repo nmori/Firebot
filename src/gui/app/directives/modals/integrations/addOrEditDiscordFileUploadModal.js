@@ -1,36 +1,42 @@
 "use strict";
 
 (function() {
+    const path = require("path");
 
     angular.module("firebotApp")
         .component("addOrEditDiscordFileUploadModal", {
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Discord チャネル</h4>
+                <h4 class="modal-title">Discord チャンネル</h4>
             </div>
             <div class="modal-body">
 
                 <div>
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        ファイル名
+                        ファイル
                     </div>
                     <div style="width: 100%; position: relative;">
-                        <div class="form-group" ng-class="{'has-error': $ctrl.nameError}">
-                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.file.name" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="ファイル名の入力">
-                            <span id="helpBlock" class="help-block" ng-show="$ctrl.nameError">ファイル名をいれてください</span>
+                        <div class="form-group" ng-class="{'has-error': $ctrl.descError}">
+                            <file-chooser
+                                model="$ctrl.file.path"
+                                on-update="$ctrl.onPathUpdated(filepath)"
+                                aria-describedby="pathHelpBlock"
+                                options="{ filters: [ {name: 'Any File', extensions: ['*']} ]}"
+                            ></file-chooser>
+                            <span id="pathHelpBlock" class="help-block" ng-show="$ctrl.pathError">ファイルを選択してください。</span>
                         </div>
                     </div>
                 </div>
 
                 <div style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        ファイル
+                        ファイル名
                     </div>
                     <div style="width: 100%; position: relative;">
-                        <div class="form-group" ng-class="{'has-error': $ctrl.descError}">
-                            <file-chooser model="$ctrl.file.path" aria-describedby="pathHelpBlock" options="{ filters: [ {name: 'ファイル', extensions: ['*']} ]}"></file-chooser>
-                            <span id="pathHelpBlock" class="help-block" ng-show="$ctrl.pathError">ファイルを選択してください</span>
+                        <div class="form-group" ng-class="{'has-error': $ctrl.nameError}">
+                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.file.name" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="ファイル名を入力">
+                            <span id="helpBlock" class="help-block" ng-show="$ctrl.nameError">ファイル名を入力してください。</span>
                         </div>
                     </div>
                 </div>
@@ -68,6 +74,12 @@
                 $ctrl.nameError = false;
                 $ctrl.descError = false;
                 $ctrl.pathError = false;
+
+                $ctrl.onPathUpdated = (filepath) => {
+                    if (!$ctrl.file.name?.length) {
+                        $ctrl.file.name = path.basename(filepath);
+                    }
+                };
 
                 function validateName() {
                     const name = $ctrl.file.name;

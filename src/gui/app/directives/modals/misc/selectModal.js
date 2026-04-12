@@ -8,22 +8,16 @@
         .component("selectModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="閉じる" ng-click="$ctrl.dismiss()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">{{$ctrl.label}}</h4>
             </div>
             <div class="modal-body">
                 <div ng-class="{'has-error': $ctrl.hasValidationError}">
-                    <ui-select ng-model="$ctrl.model" theme="bootstrap" class="control-type-list">
-                        <ui-select-match placeholder="{{$ctrl.selectPlaceholder}}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="option.id as option in $ctrl.options | filter: { name: $select.search }" style="position:relative;">
-                            <div class="flex-row-center">
-                                <div style="padding-left: 10px;">
-                                    <div ng-bind-html="option.name | highlight: $select.search"></div>
-                                    <small class="muted" ng-show="option.description">{{option.description}}</small>
-                                </div>                 
-                            </div>                  
-                        </ui-select-choices>
-                    </ui-select>
+                    <firebot-searchable-select
+                        ng-model="$ctrl.model"
+                        items="$ctrl.options"
+                        placeholder="{{$ctrl.selectPlaceholder}}"
+                    />
                     <div id="helpBlock2" class="help-block" ng-show="$ctrl.hasValidationError">{{$ctrl.validationText}}</div>
                 </div>
             </div>
@@ -43,10 +37,10 @@
                 $ctrl.model = null;
                 $ctrl.options = [];
 
-                $ctrl.label = "テキストを入力";
-                $ctrl.selectPlaceholder = "１つ選ぶ";
+                $ctrl.label = "選択してください";
+                $ctrl.selectPlaceholder = "1つ選択";
                 $ctrl.saveText = "保存";
-                $ctrl.validationText = "リストから１つ選んでください";
+                $ctrl.validationText = "リストから項目を選択してください。";
                 $ctrl.hasValidationError = false;
 
                 $ctrl.$onInit = function () {

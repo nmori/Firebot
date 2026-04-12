@@ -1,19 +1,18 @@
 "use strict";
 
-const { settings } = require("../../common/settings-access");
-const resourceTokenManager = require("../../resourceTokenManager");
+const { SettingsManager } = require("../../common/settings-manager");
+const { ResourceTokenManager } = require("../../resource-token-manager");
 const webServer = require("../../../server/http-server-manager");
 const mediaProcessor = require("../../common/handlers/mediaProcessor");
-const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
 const logger = require("../../logwrapper");
-const accountAccess = require("../../common/account-access");
-const util = require("../../utility");
+const { AccountAccess } = require("../../common/account-access");
 const fs = require('fs/promises');
 const path = require("path");
 const frontendCommunicator = require('../../common/frontend-communicator');
-const { wait } = require("../../utility");
+const { wait } = require("../../utils");
 const { parseYoutubeId } = require("../../../shared/youtube-url-parser");
-const uuid = require("uuid");
+const { randomUUID } = require("crypto");
+const { resolveTwitchClipVideoUrl } = require("../../common/handlers/twitch-clip-url-resolver");
 
 /**
  * The Play Video effect
@@ -24,11 +23,18 @@ const playVideo = {
      */
     definition: {
         id: "firebot:playvideo",
-        name: "ビデオを再生する",
-        description: "オーバーレイでローカル、Youtube、Twitchのビデオを再生する。",
+        name: "動画再生",
+        description: "ローカル、YouTube、または Twitch の動画をオーバーレイで再生します。",
         icon: "fad fa-video",
-        categories: [EffectCategory.COMMON, EffectCategory.OVERLAY, EffectCategory.TWITCH],
-        dependencies: []
+        categories: ["common", "overlay", "fun"],
+        dependencies: [],
+        outputs: [
+            {
+                label: "Video Duration",
+                description: "The Duration of the playing video",
+                defaultName: "videoDuration"
+            }
+        ]
     },
     /**
      * Global settings that will be available in the Settings tab
@@ -39,16 +45,13 @@ const playVideo = {
      * You can alternatively supply a url to a html file via optionTemplateUrl
      */
     optionsTemplate: `
-    <eos-container header="ビデオ">
+    <eos-container header="Video">
         <div style="padding-bottom: 10px">
-            <div ng-if="shouldShowVideoPlaceholder()" >
-                <img src="../images/placeholders/video.png" style="width: 350px;object-fit: scale-down;background: #d7d7d7">
-            </div>
-            <div ng-if="effect.videoType == 'Local Video' && !shouldShowVideoPlaceholder()">
-                <video width="350" controls ng-src="{{effect.file}}">
+            <div ng-if="effect.videoType == 'Local Video'">
+                <video width="350" controls ng-src="{{encodeFilePath(effect.file)}}">
                 </video>
             </div>
-            <div ng-if="effect.videoType == 'YouTube Video' && !shouldShowVideoPlaceholder()">
+            <div ng-if="effect.videoType == 'YouTube Video'">
                 <!--<ng-youtube-embed
                     video="effect.youtube"
                     color="white"
@@ -70,19 +73,19 @@ const playVideo = {
             </button>
             <ul class="dropdown-menu">
                 <li ng-click="effect.reset = false">
-                    <a ng-click="setVideoType('Local Video')" href>ローカルビデオ</a>
+                    <a ng-click="setVideoType('Local Video')" href>Local Video</a>
                 </li>
                 <li ng-click="effect.reset = false">
-                    <a ng-click="setVideoType('Random From Folder')" href>フォルダからランダムに選ぶ</a>
+                    <a ng-click="setVideoType('Random From Folder')" href>Random From Folder</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('YouTube Video')" href>YouTube ビデオ</a>
+                    <a ng-click="setVideoType('YouTube Video')" href>YouTube Video</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('Twitch Clip')" href>Twitch クリップ</a>
+                    <a ng-click="setVideoType('Twitch Clip')" href>Twitch Clip</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('Random Twitch Clip')" href>Twitch クリップをランダムに選ぶ</a>
+                    <a ng-click="setVideoType('Random Twitch Clip')" href>Random Twitch Clip</a>
                 </li>
             </ul>
         </div>
@@ -96,7 +99,7 @@ const playVideo = {
         <div ng-show="effect.videoType == 'Random From Folder'" class="input-group">
             <file-chooser
                 model="effect.folder"
-                options="{ directoryOnly: true, filters: [], title: '映像フォルダを選ぶ'}"
+                options="{ directoryOnly: true, filters: [], title: 'Select Video Folder'}"
             />
         </div>
         <div ng-show="effect.videoType == 'YouTube Video'" class="input-group">
@@ -114,16 +117,47 @@ const playVideo = {
             <firebot-input
                 input-title="Twitch Clip Url/ID"
                 model="effect.twitchClipUrl"
-                placeholder-text="例: HealthyBlazingLyrebirdTinyFace"
+                placeholder-text="Ex: HealthyBlazingLyrebirdTinyFace"
             />
         </div>
 
         <div ng-show="effect.videoType == 'Random Twitch Clip'">
             <firebot-input
-                input-title="Twitch ユーザ名"
+                input-title="Twitch Username"
                 model="effect.twitchClipUsername"
-                placeholder-text="例: $streamer, $user, etc"
+                placeholder-text="Ex: $streamer, $user, etc"
+                menu-position="under"
             />
+            <div class="mt-10 form-group flex-row jspacebetween" style="margin-bottom: 0;">
+                <firebot-checkbox
+                    label="Only Featured Clips"
+                    model="effect.isFeatured"
+                    style="margin: 0px 15px 0px 0px"
+                />
+            </div>
+            <div
+                class="mt-6 mb-2"
+                ng-class="{'has-error': $ctrl.formFieldHasError('clipSeconds')}"
+            >
+                <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
+                    <firebot-checkbox
+                        label="Maximum Clip Age"
+                        model="effect.useMaxClipAge"
+                        style="margin: 0px 15px 0px 0px"
+                    />
+                </div>
+                <div class="mt-2">
+                    <time-input
+                        ng-model="effect.maxClipAge"
+                        min-time-unit="'Days'"
+                        name="clipSeconds"
+                        ui-validate="'!effect.useMaxClipAge || ($value != null && $value >= 86400)'"
+                        ui-validate-watch="'effect.useMaxClipAge'"
+                        large="true"
+                        disabled="!effect.useMaxClipAge"
+                    />
+                </div>
+            </div>
         </div>
 
     </eos-container>
@@ -131,7 +165,7 @@ const playVideo = {
     <div ng-show="effect.videoType">
 
         <div ng-show="effect.videoType == 'YouTube Video'">
-            <eos-container header="再生開始ポジション" pad-top="true">
+            <eos-container header="Start Time Position" pad-top="true">
                 <div class="input-group">
                     <span class="input-group-addon">Start time location</span>
                     <input
@@ -145,9 +179,6 @@ const playVideo = {
             </eos-container>
         </div>
 
-<<<<<<< HEAD
-        <eos-container header="長さ" pad-top="true">
-=======
         <eos-container ng-if="shouldShowVolumeControl()" header="Volume" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
@@ -157,8 +188,8 @@ const playVideo = {
         </eos-container>
 
         <eos-container header="Duration" pad-top="true">
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <div class="input-group">
+                <span class="input-group-addon">Seconds</span>
                 <input
                     type="text"
                     class="form-control"
@@ -166,7 +197,6 @@ const playVideo = {
                     placeholder="Optional"
                     replace-variables="number"
                     ng-model="effect.length">
-                <span class="input-group-addon">秒</span>
             </div>
             <label ng-if="effect.videoType != 'Random Twitch Clip' && effect.videoType != 'Twitch Clip'" class="control-fb control--checkbox" style="margin-top:15px;"> Loop <tooltip text="'Loop the video until the duration is reached.'"></tooltip>
                 <input type="checkbox" ng-model="effect.loop" ng-disabled="effect.wait">
@@ -178,26 +208,13 @@ const playVideo = {
             </label>
         </eos-container>
 
-<<<<<<< HEAD
-        <eos-container header="音量" pad-top="true">
-            <div class="volume-slider-wrapper">
-                <i class="fal fa-volume-down volume-low"></i>
-                <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 0, ceil: 10, hideLimitLabels: true}"></rzslider>
-                <i class="fal fa-volume-up volume-high"></i>
-            </div>
-        </eos-container>
-
-        <eos-overlay-position effect="effect" pad-top="true"></eos-overlay-position>
-
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         <eos-container header="Size" pad-top="true">
-            <label class="control-fb control--checkbox"> アスペクト比を 16:9 に強制する
+            <label class="control-fb control--checkbox"> Force 16:9 Ratio
                 <input type="checkbox" ng-click="forceRatioToggle();" ng-checked="forceRatio">
                 <div class="control__indicator"></div>
             </label>
             <div class="input-group">
-                <span class="input-group-addon">幅 (pixels)</span>
+                <span class="input-group-addon">Width (in pixels)</span>
                 <input
                     type="text"
                     class="form-control"
@@ -205,7 +222,7 @@ const playVideo = {
                     type="number"
                     ng-change="calculateSize('Width', effect.width)"
                     ng-model="effect.width">
-                <span class="input-group-addon">高さ (pixels)</span>
+                <span class="input-group-addon">Height (in pixels)</span>
                 <input
                     type="text"
                     class="form-control"
@@ -215,9 +232,13 @@ const playVideo = {
                     ng-model="effect.height">
             </div>
             <div class="effect-info alert alert-info">
-                フィールドに数字を入れるだけです（例：250）。これで動画の最大幅/高さが設定され、それに比例して縮小されます。
+                Just put numbers in the fields (ex: 250). This will set the max width/height of the video and scale it down proportionally.
             </div>
         </eos-container>
+
+        <eos-overlay-position effect="effect" pad-top="true"></eos-overlay-position>
+
+        <eos-overlay-rotation effect="effect" pad-top="true"></eos-overlay-rotation>
 
         <eos-enter-exit-animations effect="effect" pad-top="true"></eos-enter-exit-animations>
 
@@ -225,9 +246,9 @@ const playVideo = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                この演出を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。<a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
+                This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
                 <br>
-                <strong>情報</strong>: Streamlabs Desktop（旧称：SLOBS）は、ブラウザのソースでmp4ビデオをサポートしていません。Streamlabs Desktopで表示したいmp4動画をお持ちの場合は、<strong>.webm</strong>形式に変換する必要があります。
+                <strong>NOTE</strong>: Streamlabs Desktop (formerly known as SLOBS) does not support mp4 videos in their browser source. If you have mp4 videos that you want to display in Streamlabs Desktop, you will need to convert them to the <strong>.webm</strong> format.
             </div>
         </eos-container>
     </div>
@@ -236,7 +257,7 @@ const playVideo = {
      * The controller for the front end Options
      * Port over from effectHelperService.js
      */
-    optionsController: ($scope, $rootScope, $timeout, utilityService) => {
+    optionsController: ($scope, $rootScope, $timeout, utilityService, settingsService) => {
         $scope.waitChange = () => {
             if ($scope.effect.videoType !== 'Random Twitch Clip' && $scope.effect.videoType !== 'Twitch Clip') {
                 if ($scope.effect.wait) {
@@ -247,6 +268,9 @@ const playVideo = {
         $scope.showOverlayInfoModal = function (overlayInstance) {
             utilityService.showOverlayInfoModal(overlayInstance);
         };
+
+        $scope.shouldShowVolumeControl = () => !['Random Twitch Clip', 'Twitch Clip'].includes($scope.effect.videoType) || settingsService.getSetting("UseExperimentalTwitchClipUrlResolver");
+
 
         $scope.videoPositions = [
             "Top Left",
@@ -277,6 +301,10 @@ const playVideo = {
             $scope.effect.volume = 5;
         }
 
+        if ($scope.effect.maxClipAge === undefined) {
+            $scope.effect.maxClipAge = 8035200;
+        }
+
         // Force ratio toggle
         $scope.forceRatio = true;
         $scope.forceRatioToggle = function () {
@@ -301,6 +329,10 @@ const playVideo = {
                 $scope.effect.width = "";
             }
         };
+
+        $scope.encodeFilePath = function (/** @type {string} */ filepath) {
+            return filepath?.replaceAll("%", "%25").replaceAll("#", "%23");
+        };
     },
     /**
      * When the effect is triggered by something
@@ -311,6 +343,13 @@ const playVideo = {
         if (effect.videoType == null) {
             errors.push("Please select a video type.");
         }
+
+        if (effect.videoType === "Random Twitch Clip") {
+            if (effect.useMaxClipAge && !effect.maxClipAge || effect.maxClipAge < 86400) {
+                errors.push("Maximum Clip Age must be at least 1 day");
+            }
+        }
+
         return errors;
     },
     /**
@@ -344,7 +383,9 @@ const playVideo = {
             inbetweenDuration: effect.inbetweenDuration,
             inbetweenRepeat: effect.inbetweenRepeat,
             customCoords: effect.customCoords,
-            loop: effect.loop === true
+            loop: effect.loop === true,
+            rotation: effect.rotation ? effect.rotation + effect.rotType : "0deg",
+            zIndex: effect.zIndex
         };
 
         // Get random sound
@@ -368,58 +409,67 @@ const playVideo = {
             }
         }
 
-        if (settings.useOverlayInstances()) {
+        if (SettingsManager.getSetting("UseOverlayInstances")) {
             if (effect.overlayInstance != null) {
-                if (settings.getOverlayInstances().includes(effect.overlayInstance)) {
+                if (SettingsManager.getSetting("OverlayInstances").includes(effect.overlayInstance)) {
                     data.overlayInstance = effect.overlayInstance;
                 }
             }
         }
 
-        if (effect.videoType === "Twitch Clip" || effect.videoType === "Random Twitch Clip") {
-            const twitchApi = require("../../twitch-api/api");
-            const client = twitchApi.streamerClient;
+        const overlayInstance = data.overlayInstance ?? "Default";
 
-            let clipId;
+        async function waitFunction(duration) {
+            if (SettingsManager.getSetting("ForceOverlayEffectsToContinueOnRefresh") === true) {
+                let currentDuration = 0;
+                let returnNow = false;
+
+                webServer.on("overlay-connected", (instance) => {
+                    if (instance === overlayInstance) {
+                        returnNow = true;
+                    }
+                });
+
+                while (currentDuration < duration) {
+                    if (returnNow) {
+                        return;
+                    }
+
+                    currentDuration += 1;
+                    await wait(1000);
+                }
+            } else {
+                await wait(duration * 1000);
+            }
+        }
+
+        if (effect.videoType === "Twitch Clip" || effect.videoType === "Random Twitch Clip") {
+            const { TwitchApi } = require("../../streaming-platforms/twitch/api");
 
             /**@type {import('@twurple/api').HelixClip} */
             let clip;
+
             if (effect.videoType === "Twitch Clip") {
-                clipId = effect.twitchClipUrl.split("/").pop();
-                try {
-                    clip = await client.clips.getClipById(clipId);
-                } catch (error) {
-                    logger.error(`Unable to find clip by id: ${clipId}`, error);
-                    return true;
-                }
+                clip = await TwitchApi.clips.getClipFromClipUrl(effect.twitchClipUrl);
             } else if (effect.videoType === "Random Twitch Clip") {
-                const username = effect.twitchClipUsername || accountAccess.getAccounts().streamer.username;
-                try {
-                    const user = await twitchApi.users.getUserByName(username);
+                const username = effect.twitchClipUsername || AccountAccess.getAccounts().streamer.username;
+                const dateNow = new Date();
 
-                    if (user == null) {
-                        logger.warn(`Could not found a user by the username ${username}`);
-                        return true;
-                    }
-
-                    const clips = await client.clips.getClipsForBroadcaster(user.id, { limit: 100 });
-
-                    if (clips.data.length < 1) {
-                        logger.warn(`User ${username} has no clips. Unable to get random.`);
-                        return true;
-                    }
-
-                    const randomClipIndex = util.getRandomInt(0, clips.data.length - 1);
-                    clip = clips.data[randomClipIndex];
-
-                    clipId = clip.id;
-                } catch (error) {
-                    logger.error(`Unable to find clip random clip for: ${username}`, error);
-                    return true;
-                }
+                clip = await TwitchApi.clips.getRandomClipForUserByName(
+                    username,
+                    100,
+                    effect.isFeatured || undefined,
+                    effect.useMaxClipAge === true ? new Date(dateNow - (effect.maxClipAge * 1000)) : undefined,
+                    effect.useMaxClipAge === true ? dateNow : undefined
+                );
             }
 
-            const clipVideoUrl = `${clip.thumbnailUrl.split("-preview-")[0]}.mp4`;
+            if (clip == null) {
+                logger.error("Unable to find clip");
+                return true;
+            }
+
+            const { url, useIframe } = await resolveTwitchClipVideoUrl(clip);
             const clipDuration = clip.duration;
             const volume = parseInt(effect.volume) / 10;
 
@@ -432,7 +482,8 @@ const playVideo = {
             }
 
             webServer.sendToOverlay("playTwitchClip", {
-                clipVideoUrl: clipVideoUrl,
+                clipVideoUrl: url,
+                useIframe,
                 volume: volume,
                 width: effect.width,
                 height: effect.height,
@@ -447,11 +498,13 @@ const playVideo = {
                 inbetweenRepeat: effect.inbetweenRepeat,
                 exitAnimation: effect.exitAnimation,
                 exitDuration: effect.exitDuration,
-                overlayInstance: data.overlayInstance
+                overlayInstance: data.overlayInstance,
+                rotation: effect.rotation ? effect.rotation + effect.rotType : "0deg",
+                zIndex: effect.zIndex
             });
 
             if (effect.wait) {
-                await util.wait(effectDuration * 1000);
+                await waitFunction(effectDuration);
             }
 
             return true;
@@ -468,14 +521,14 @@ const playVideo = {
                 data.videoStarttime = youtubeData.startTime;
             }
 
-            resourceToken = uuid();
+            resourceToken = randomUUID();
 
         } else if (effect.videoType === "Local Video" || effect.videoType === "Random From Folder") {
             const result = await frontendCommunicator.fireEventAsync("getVideoDuration", data.filepath);
             if (!isNaN(result)) {
                 duration = result;
             }
-            resourceToken = resourceTokenManager.storeResourcePath(data.filepath, duration);
+            resourceToken = ResourceTokenManager.storeResourcePath(data.filepath, duration);
         }
         if ((data.videoDuration == null || data.videoDuration === "" || data.videoDuration === 0) && duration != null) {
             data.videoDuration = duration;
@@ -489,17 +542,17 @@ const playVideo = {
 
                 let overlayTimeout;
                 waitPromise = new Promise((resolve, reject) => {
-                    function callbackAvailable({name}) {
+                    function callbackAvailable({ name }) {
                         if (name === `play-video:callback:available:${resourceToken}`) {
                             clearTimeout(overlayTimeout);
                             webServer.off("overlay-event", callbackAvailable);
                         }
                     }
 
-                    function callbackDuration({name, data}) {
+                    function callbackDuration({ name, data }) {
                         if (name === `play-video:callback:duration:${resourceToken}`) {
                             webServer.off("overlay-event", callbackDuration);
-                            wait(data.duration).then(resolve);
+                            waitFunction(Math.ceil(data.duration / 1000)).then(resolve);
                         }
                     }
 
@@ -512,7 +565,7 @@ const playVideo = {
                     webServer.on("overlay-event", callbackDuration);
                 });
             } else {
-                waitPromise = wait(data.videoDuration * 1000);
+                waitPromise = waitFunction(data.videoDuration);
             }
         }
 
@@ -520,11 +573,17 @@ const playVideo = {
         if (effect.wait) {
             try {
                 await waitPromise;
-            } catch (error) {
+            } catch {
                 return false;
             }
         }
-        return true;
+
+        return {
+            success: true,
+            outputs: {
+                videoDuration: data.videoDuration != null ? data.videoDuration : 0
+            }
+        };
     },
     /**
      * Code to run in the overlay
@@ -539,7 +598,7 @@ const playVideo = {
             onOverlayEvent: (event) => {
                 // eslint-disable-next-line no-undef
                 if (!startedVidCache) {
-                    // eslint-disable-line no-undef
+
                     startedVidCache = {}; // eslint-disable-line no-undef
                 }
 
@@ -602,9 +661,10 @@ const playVideo = {
                 const filepathNew = `http://${window.location.hostname}:7472/resource/${token}`;
 
                 // Generate UUID to use as id
+
                 // eslint-disable-next-line no-undef
-                const uuid = uuidv4();
-                const videoPlayerId = `${uuid}-video`;
+                const elementId = uuid();
+                const videoPlayerId = `${elementId}-video`;
 
                 const enterAnimation = data.enterAnimation ? data.enterAnimation : "fadeIn";
                 const exitAnimation = data.exitAnimation ? data.exitAnimation : "fadeIn";
@@ -623,7 +683,10 @@ const playVideo = {
 
                 const sizeStyles =
                     (data.videoWidth ? `width: ${data.videoWidth}px;` : "") +
-                    (data.videoHeight ? `height: ${data.videoHeight}px;` : "");
+                    (data.videoHeight ? `height: ${data.videoHeight}px;` : "") +
+                    (data.rotation ? `transform: rotate(${data.rotation});` : '') +
+                    (data.zIndex ? `position: relative; z-index: ${data.zIndex};` : '');
+
 
                 if (videoType === "Local Video") {
                     const loopAttribute = loop ? "loop" : "";
@@ -635,7 +698,7 @@ const playVideo = {
                     `;
 
                     // eslint-disable-next-line no-undef
-                    const wrapperId = uuidv4();
+                    const wrapperId = uuid();
                     const wrappedHtml = getPositionWrappedHTML(wrapperId, positionData, videoElement); // eslint-disable-line no-undef
 
                     $(".wrapper").append(wrappedHtml);
@@ -652,7 +715,7 @@ const playVideo = {
                     video.oncanplay = function () {
                         // eslint-disable-next-line no-undef
                         if (startedVidCache[this.id]) {
-                            // eslint-disable-line no-undef
+
                             return;
                         }
 
@@ -696,12 +759,12 @@ const playVideo = {
                     };
                 } else {
                     // eslint-disable-next-line no-undef
-                    const ytPlayerId = `yt-${uuidv4()}`;
+                    const ytPlayerId = `yt-${uuid()}`;
 
                     const youtubeElement = `<div id="${ytPlayerId}" style="display:none;${sizeStyles}"></div>`;
 
                     // eslint-disable-next-line no-undef
-                    const wrapperId = uuidv4();
+                    const wrapperId = uuid();
                     const wrappedHtml = getPositionWrappedHTML(wrapperId, positionData, youtubeElement); // eslint-disable-line no-undef
 
                     $(".wrapper").append(wrappedHtml);
@@ -745,13 +808,13 @@ const playVideo = {
 
                                 if (event.target.getDuration() === 0) { // Error state
                                     // eslint-disable-next-line no-undef
-                                    sendWebsocketEvent(`play-video:callback:duration:${data.resourceToken}`, {duration: 0});
+                                    sendWebsocketEvent(`play-video:callback:duration:${data.resourceToken}`, { duration: 0 });
                                 } else if (videoDuration) {
                                     // eslint-disable-next-line no-undef
-                                    sendWebsocketEvent(`play-video:callback:duration:${data.resourceToken}`, {duration: videoDuration});
+                                    sendWebsocketEvent(`play-video:callback:duration:${data.resourceToken}`, { duration: videoDuration });
                                 } else {
                                     // eslint-disable-next-line no-undef
-                                    sendWebsocketEvent(`play-video:callback:duration:${data.resourceToken}`, {duration: (event.target.getDuration() - parseInt(videoStarttime)) * 1000});
+                                    sendWebsocketEvent(`play-video:callback:duration:${data.resourceToken}`, { duration: (event.target.getDuration() - parseInt(videoStarttime)) * 1000 });
                                 }
 
                                 $(`#${ytPlayerId}`).show();

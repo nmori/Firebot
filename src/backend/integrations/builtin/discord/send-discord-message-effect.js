@@ -1,6 +1,5 @@
 "use strict";
 
-const { EffectCategory } = require("../../../../shared/effect-constants");
 const integrationManager = require("../../integration-manager");
 const discordEmbedBuilder = require('./discord-embed-builder');
 const discord = require("./discord-message-sender");
@@ -23,20 +22,20 @@ frontEndCommunicator.onAsync("getDiscordChannels", async () => {
 module.exports = {
     definition: {
         id: "discord:send-message",
-        name: "Discordメッセージを送信",
-        description: "Discordチャンネルにチャットメッセージや埋め込みメッセージを送る",
+        name: "Discordメッセージ送信",
+        description: "Discord チャンネルにメッセージや埋め込みを送信します",
         icon: "fab fa-discord",
-        categories: [EffectCategory.INTEGRATIONS],
+        categories: ["integrations"],
         dependencies: [],
         outputs: [
             {
-                label: "送信結果",
-                description: "メッセージが正常に送信された場合はtrueを返し、そうでない場合はfalseを返す。",
+                label: "送信成功ステータス",
+                description: "メッセージ送信に成功した場合は true、失敗した場合は false を返します。",
                 defaultName: "discordSuccess"
             },
             {
-                label: "メッセージ",
-                description: "メッセージが正常に送信された場合は discord メッセージオブジェクトを返し、そうでない場合はエラーを返します。",
+                label: "メッセージ出力",
+                description: "メッセージ送信に成功した場合は Discord メッセージオブジェクト、失敗時はエラーを返します。",
                 defaultName: "discordMessage"
             }
         ]
@@ -46,7 +45,7 @@ module.exports = {
         <div>
             <div ng-show="hasChannels">
 
-                <eos-container header="Discord チャネル">
+                <eos-container header="Discord Channel">
                     <dropdown-select options="channelOptions" selected="effect.channelId"></dropdown-select>
                 </eos-container>
 
@@ -59,7 +58,7 @@ module.exports = {
             </div>
             <div ng-hide="hasChannels">
                 <eos-container>
-                    <span class="muted">Discordチャンネルはまだ設定されていません。<b>設定</b> > <b>連携</b> > <b>Discord</b>で設定できます</span>
+                    <span class="muted">Discordチャンネルがまだ設定されていません。<b>設定</b> > <b>連携</b> > <b>Discord</b> で設定できます。</span>
                 </eos-container>
             </div>
         </div>
@@ -69,7 +68,7 @@ module.exports = {
         $scope.hasChannels = false;
         $scope.channelOptions = {};
         $q.when(backendCommunicator.fireEventAsync("getDiscordChannels"))
-            .then(channels => {
+            .then((channels) => {
                 if (channels && channels.length > 0) {
                     const newChannels = {};
 
@@ -96,10 +95,10 @@ module.exports = {
         const errors = [];
         const rgbRegexp = /^#?[0-9a-f]{6}$/ig;
         if (!effect.includeEmbed && !(Array.isArray(effect.files) && effect.files.length !== 0) && (effect.message == null || effect.message.trim().length < 1)) {
-            errors.push("メッセージ、埋め込み、またはファイルを入力してください。");
+            errors.push("Please provide a message, embed or file.");
         }
         if (effect.includeEmbed && (effect.embedType == null || effect.embedType === "")) {
-            errors.push("埋め込みタイプを選択してください");
+            errors.push("Please select a rich embed type");
         }
         if (effect.includeEmbed && !rgbRegexp.test(effect.embedColor)) {
             errors.push("Discord Embed Color must be in RGB format (#0066FF)");
@@ -119,7 +118,7 @@ module.exports = {
 
         if (effect.files != null && effect.files.length !== 0) {
             files = [];
-            effect.files.forEach(file => {
+            effect.files.forEach((file) => {
                 if (fs.existsSync(file.path)) {
                     files.push({name: file.name, file: fs.readFileSync(file.path)});
                 } else {

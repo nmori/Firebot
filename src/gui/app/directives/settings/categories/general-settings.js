@@ -1,67 +1,52 @@
 "use strict";
 
-(function() {
-
-    angular
-        .module("firebotApp")
-        .component("generalSettings", {
-            template: `
+(function () {
+    angular.module("firebotApp").component("generalSettings", {
+        template: `
                 <div>
                     <firebot-setting
-                        name="Theme"
-                        description="Firebotのカラーテーマをお選びください"
+                        name="テーマ"
+                        description="Firebotのカラーテーマを選択します。"
                     >
                         <firebot-select
-                            options="['Light', 'Midnight', 'Obsidian']"
-                            ng-init="selectedTheme = settings.getTheme()"
+                            aria-label="アプリテーマ"
+                            options="{'Light': 'Light', 'Midnight': 'Midnight', 'PurpleSky': 'Purple Sky', 'Obsidian': 'Obsidian',}"
+                            ng-init="selectedTheme = settings.getSetting('Theme')"
                             selected="selectedTheme"
-                            on-update="settings.setTheme(option)"
+                            on-update="settings.saveSetting('Theme', option)"
                             right-justify="true"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="最小化時はタスクトレイに入れる"
-                        description="最小化すると、タスクバーではなくトレイの中に最小化します"
+                        name="トレイに最小化"
+                        description="最小化時にタスクバーではなくトレイへ格納します"
                     >
                         <toggle-button
-<<<<<<< HEAD
-                            toggle-model="settings.getMinimizeToTray()"
-                            on-toggle="settings.setMinimizeToTray(!settings.getMinimizeToTray())"
-                            font-size="40"
-                        />
-                    </firebot-setting>
-
-                    <firebot-setting
-                        name="ベータ版通知"
-                        description="Firebot は新しい安定版へ自動更新します。ベータ版やメジャーリリース時は自動更新されません。
-                        新しいベータ版の通知を希望する場合は有効にしてください。"
-                    >
-                        <toggle-button
-                            toggle-model="settings.notifyOnBeta()"
-                            on-toggle="settings.setNotifyOnBeta(!settings.notifyOnBeta())"
-=======
                             toggle-model="settings.getSetting('MinimizeToTray')"
                             on-toggle="settings.saveSetting('MinimizeToTray', !settings.getSetting('MinimizeToTray'))"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             font-size="40"
+                            aria-label="Minimize to Tray, When minimized, Firebot will minimize to tray instead of task bar"
+                            accessibility-label="(settings.getSetting('MinimizeToTray') ? '有効' : '無効') + ' 最小化時にタスクバーではなくトレイへ格納します'"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="接続時のサウンド"
-                        description="Firebotの接続・切断を音声でお知らせします。"
+                        name="接続サウンド"
+                        description="Firebotの接続/切断時にサウンド通知します。"
                     >
                         <toggle-button
-                            toggle-model="settings.soundsEnabled() === 'On'"
-                            on-toggle="settings.setSoundsEnabled(settings.soundsEnabled() === 'On' ? 'Off' : 'On')"
+                            toggle-model="settings.getSetting('SoundsEnabled') === 'On'"
+                            on-toggle="settings.saveSetting('SoundsEnabled', settings.getSetting('SoundsEnabled') === 'On' ? 'Off' : 'On')"
                             font-size="40"
+                            aria-label="Connection Sounds: Get audible alerts when Firebot connects or disconnects"
+                            accessibility-label="(settings.getSetting('SoundsEnabled') === 'On' ? '有効' : '無効') + ' Firebotの接続/切断時にサウンド通知します'"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="サウンドの出力先"
-                        description="アプリのサウンド（接続/切断サウンドなど）やサウンド演出を送信する出力デバイスを変更します。"
+                        name="サウンド出力デバイス"
+                        description="アプリ音（接続/切断音など）やサウンドエフェクトの出力先を変更します。"
                     >
                         <div class="dropdown">
                             <button
@@ -71,36 +56,32 @@
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="true"
+                                aria-label="Choose your audio output device {{settings.getSetting('AudioOutputDevice').label}}"
                             >
-                                <span class="dropdown-text">{{settings.getAudioOutputDevice().label}}</span>
+                                <span class="dropdown-text">{{settings.getSetting('AudioOutputDevice').label}}</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu right-justified-dropdown">
                                 <li ng-repeat="device in audioOutputDevices">
                                     <a
                                         href
-                                        ng-click="settings.setAudioOutputDevice(device)"
+                                        ng-click="settings.saveSetting('AudioOutputDevice', device)"
                                     >{{device.label}}</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li
                                     role="menuitem"
-                                    ng-click="settings.setAudioOutputDevice({label: 'Send To Overlay', deviceId: 'overlay'})"
+                                    ng-click="settings.saveSetting('AudioOutputDevice', {label: 'オーバーレイに送信', deviceId: 'overlay'})"
                                 >
-                                    <a href>オーバーレイに送る</a>
+                                    <a href>オーバーレイに送信</a>
                                 </li>
                             </ul>
                         </div>
                     </firebot-setting>
 
                     <firebot-setting
-<<<<<<< HEAD
-                        name="配信統計"
-                        description="配信時に上部に表示される統計内容を選択します。"
-=======
-                        name="ベータ版の通知"
-                        description="Firebot は自動的に安定版をダウンロードしますが、ベータ版リリースは自動更新の対象外です。
-                        新しいベータ版リリースの通知を受けたい場合は有効にしてください。"
+                        name="ベータ通知"
+                        description="Firebot は安定版への自動更新は行いますが、ベータ版やメジャー新バージョンは自動更新しません。ベータ版の通知を受け取りたい場合に有効化してください。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('NotifyOnBeta')"
@@ -108,22 +89,21 @@
                             font-size="40"
                             aria-label="Firebot automatically updates to new stable versions. It does not automatically update to betas or major new
                         releases however. Enable if you want to be notified of new beta releases."
-                            accessibility-label="(settings.getSetting('NotifyOnBeta') ? 'Enabled' : 'Disabled') + ' Firebot automatically updates to new stable versions. It does not automatically update to betas or major new
-                        releases however. Enable if you want to be notified of new beta releases.'"
+                            accessibility-label="(settings.getSetting('NotifyOnBeta') ? '有効' : '無効') + ' ベータ版リリース通知を受け取ります'"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Firebot ホームページ上の紹介"
+                        name="Firebot.appで配信を紹介"
                         description=""
                     >
 
                         <setting-description-addon>
                             <div style="margin-top: 10px;">
-                                この設定を有効にすると、配信を開始したときに <a
+                                この設定を有効にすると、配信中に <a
                                     class="clickable"
                                     ng-click="openLink('https://firebot.app/watch')"
-                                >Firebotのウェブサイト</a> で紹介されます。
+                                >Firebotのウェブサイト</a> に配信が掲載されます。
                             </div>
                         </setting-description-addon>
 
@@ -132,23 +112,22 @@
                             on-toggle="settings.saveSetting('WebOnlineCheckin', !settings.getSetting('WebOnlineCheckin'))"
                             font-size="40"
                             aria-label="Enable this setting to have your stream displayed on Firebot's website when you're live"
-                            accessibility-label="(settings.getSetting('WebOnlineCheckin') ? 'Enabled' : 'Disabled') + ' Enable this setting to have your stream displayed on Firebot\\'s website when you\\'re live'"
+                            accessibility-label="(settings.getSetting('WebOnlineCheckin') ? '有効' : '無効') + ' 配信中に Firebot のサイトへ配信情報を掲載します'"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="ライブ・ストリーム"
-                        description="配信時にトップバーに表示される配信統計を選択します。"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                        name="配信中ステータス"
+                        description="配信中に上部バーへ表示する統計情報を選択します。"
                     >
                         <div>
                             <label class="control-fb control--checkbox"
                                 >配信時間
                                 <input
                                     type="checkbox"
-                                    ng-click="settings.setShowUptimeStat(!settings.getShowUptimeStat())"
-                                    ng-checked="settings.getShowUptimeStat()"
-                                    aria-label="..."
+                                    ng-click="settings.saveSetting('ShowUptimeStat', !settings.getSetting('ShowUptimeStat'))"
+                                    ng-checked="settings.getSetting('ShowUptimeStat')"
+                                    aria-label="Uptime"
                                 />
                                 <div class="control__indicator"></div>
                             </label>
@@ -156,11 +135,6 @@
                                 >視聴者数
                                 <input
                                     type="checkbox"
-<<<<<<< HEAD
-                                    ng-click="settings.setShowViewerCountStat(!settings.getShowViewerCountStat())"
-                                    ng-checked="settings.getShowViewerCountStat()"
-                                    aria-label="..."
-=======
                                     ng-click="settings.saveSetting('ShowViewerCountStat', !settings.getSetting('ShowViewerCountStat'))"
                                     ng-checked="settings.getSetting('ShowViewerCountStat')"
                                     aria-label="Viewer count"
@@ -178,13 +152,12 @@
                                 <div class="control__indicator"></div>
                             </label>
                             <label class="control-fb control--checkbox"
-                                >広告（アドブレイク）
+                                >広告ブレイク
                                 <input
                                     type="checkbox"
                                     ng-click="settings.saveSetting('ShowAdBreakIndicator', !settings.getSetting('ShowAdBreakIndicator'))"
                                     ng-checked="settings.getSetting('ShowAdBreakIndicator')"
                                     aria-label="Ad Breaks"
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                                 />
                                 <div class="control__indicator"></div>
                             </label>
@@ -192,71 +165,56 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="非アクティブ視聴時間"
-                        description="アクティブな視聴者が最後のチャットメッセージの後、非アクティブとして記録されるまでの時間."
+                        name="非アクティブ視聴者時間"
+                        description="最後のチャット後、アクティブ視聴者を非アクティブ扱いにするまでの時間です。"
                     >
                         <firebot-select
                             options="[5,10,15,20,25,30,35,40,45,50,55,60]"
-                            ng-init="selectedTimeout = settings.getActiveChatUserListTimeout()"
+                            ng-init="selectedTimeout = settings.getSetting('ActiveChatUserListTimeout')"
                             selected="selectedTimeout"
                             on-update="setActiveChatUserTimeout(option)"
                             right-justify="true"
+                            aria-label="非アクティブ視聴者までの時間を選択"
                         />
                         <span> 分</span>
                     </firebot-setting>
 
                     <firebot-setting
-                        name="立ち上げ時にストリームのプレビューを開く"
-                        description="Firebot起動時に自動的にストリームプレビューウィンドウを開きます。"
+                        name="起動時に配信プレビューを開く"
+                        description="Firebot起動時に配信プレビューウィンドウを自動で開きます。"
                     >
                         <toggle-button
-                            toggle-model="settings.getOpenStreamPreviewOnLaunch()"
-                            on-toggle="settings.setOpenStreamPreviewOnLaunch(!settings.getOpenStreamPreviewOnLaunch())"
+                            toggle-model="settings.getSetting('OpenStreamPreviewOnLaunch')"
+                            on-toggle="settings.saveSetting('OpenStreamPreviewOnLaunch', !settings.getSetting('OpenStreamPreviewOnLaunch'))"
                             font-size="40"
-                            accessibility-label="(settings.getOpenStreamPreviewOnLaunch() ? 'Disable' : 'Enable') + ' Stream Preview on Launch'"
+                            accessibility-label="(settings.getSetting('OpenStreamPreviewOnLaunch') ? '有効' : '無効') + ' 起動時に配信プレビューを開きます'"
                         />
                     </firebot-setting>
                 </div>
           `,
-            controller: function($scope, settingsService, $q) {
-                $scope.settings = settingsService;
+        controller: function ($rootScope, $scope, soundService, settingsService, $q) {
+            $scope.openLink = $rootScope.openLinkExternally;
+            $scope.settings = settingsService;
 
-<<<<<<< HEAD
-                $scope.audioOutputDevices = [{
-=======
             $scope.audioOutputDevices = [
                 {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                    label: "システムの既定デバイス",
+                    label: "システム既定",
                     deviceId: "default"
-                }];
+                }
+            ];
 
-                $q
-                    .when(navigator.mediaDevices.enumerateDevices())
-                    .then(deviceList => {
-                        deviceList = deviceList
-                            .filter(
-                                d =>
-                                    d.kind === "audiooutput" &&
-                                d.deviceId !== "communications" &&
-                                d.deviceId !== "default"
-                            )
-                            .map(d => {
-                                return { label: d.label, deviceId: d.deviceId };
-                            });
+            $q.when(soundService.getOutputDevices()).then((deviceList) => {
+                $scope.audioOutputDevices = $scope.audioOutputDevices.concat(
+                    deviceList.toSorted((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }))
+                );
+            });
 
-                        $scope.audioOutputDevices = $scope.audioOutputDevices.concat(
-                            deviceList
-                        );
-                    });
-
-                $scope.setActiveChatUserTimeout = (value) => {
-                    if (value == null) {
-                        value = "10";
-                    }
-                    settingsService.setActiveChatUserListTimeout(value);
-                    ipcRenderer.send('setActiveChatUserTimeout', value);
-                };
-            }
-        });
-}());
+            $scope.setActiveChatUserTimeout = (value) => {
+                if (value == null) {
+                    value = "10";
+                }
+                settingsService.saveSetting("ActiveChatUserListTimeout", value);
+            };
+        }
+    });
+})();

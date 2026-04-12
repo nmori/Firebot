@@ -1,8 +1,8 @@
 "use strict";
 
 const webServer = require("../../../server/http-server-manager");
-const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
-const { settings } = require("../../common/settings-access");
+const { EffectCategory } = require('../../../shared/effect-constants');
+const { SettingsManager } = require("../../common/settings-manager");
 
 /**
  * The Celebration effect
@@ -43,14 +43,7 @@ const celebration = {
     </eos-container>
 
     <eos-container header="継続時間" pad-top="true">
-<<<<<<< HEAD
-        <div class="input-group">
-            <input type="text" ng-model="effect.length" class="form-control" id="celebration-amount-setting" aria-describedby="celebration-length-effect-type" replace-variables="number">
-            <span class="input-group-addon" id="celebration-length-effect-type">秒</span>
-        </div>
-=======
         <firebot-input input-title="Seconds" data-type="number" model="effect.length" placeholder-text="5" menu-position="under"/>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     </eos-container>
 
     <eos-overlay-instance effect="effect" pad-top="true"></eos-overlay-instance>
@@ -71,7 +64,7 @@ const celebration = {
             $scope.effect.length = 5;
         }
 
-        $scope.showOverlayInfoModal = function(overlayInstance) {
+        $scope.showOverlayInfoModal = function (overlayInstance) {
             utilityService.showOverlayInfoModal(overlayInstance);
         };
     },
@@ -79,17 +72,20 @@ const celebration = {
    * When the effect is triggered by something
    * Used to validate fields in the option template.
    */
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.celebration == null) {
             errors.push("お祝いの方法をお選びください");
         }
         return errors;
     },
+    getDefaultLabel: (effect) => {
+        return `${effect.celebration} - ${effect.length} seconds`;
+    },
     /**
    * When the effect is triggered by something
    */
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         // What should this do when triggered.
         const effect = event.effect;
 
@@ -104,9 +100,9 @@ const celebration = {
             celebrationDuration: celebrationDuration
         };
 
-        if (settings.useOverlayInstances()) {
+        if (SettingsManager.getSetting("UseOverlayInstances")) {
             if (effect.overlayInstance != null) {
-                if (settings.getOverlayInstances().includes(effect.overlayInstance)) {
+                if (SettingsManager.getSetting("OverlayInstances").includes(effect.overlayInstance)) {
                     data.overlayInstance = effect.overlayInstance;
                 }
             }
@@ -126,7 +122,7 @@ const celebration = {
         },
         event: {
             name: "celebrate",
-            onOverlayEvent: data => {
+            onOverlayEvent: (data) => {
 
                 // Celebrate Packet
                 //{"event": "celebration", "celebrationType": celebrationType, "celebrationDuration":celebrationDuration};
@@ -135,7 +131,7 @@ const celebration = {
 
                 // Generate UUID to use as class name.
                 // eslint-disable-next-line no-undef
-                const divClass = uuidv4();
+                const divClass = uuid();
 
                 if (type === "Fireworks") {
                     const canvas = `<canvas id="fireworks" class="${divClass}-fireworks celebration ${type}" style="display:none; z-index: 99;"></canvas>`;
@@ -146,14 +142,14 @@ const celebration = {
 
                     const stage = fireworks(); // eslint-disable-line no-undef
 
-                    setTimeout(function(stage) {
+                    setTimeout(function (stage) {
 
                         stage.removeAllChildren();
                         stage.removeAllEventListeners();
                         stage.canvas = null;
                         stage._eventListeners = null;
 
-                        $(`.${divClass}-fireworks`).fadeOut('fast', function() {
+                        $(`.${divClass}-fireworks`).fadeOut('fast', function () {
                             $(`.${divClass}-fireworks`).remove();
                         });
                     }, duration, stage);
@@ -171,31 +167,31 @@ const celebration = {
                         useWorker: true
                     });
 
-                    const confettiParty = setInterval(function() {
+                    const confettiParty = setInterval(function () {
                         // launch a few confetti from the left edge
-                        confettiStage({ // eslint-disable-line no-undef
+                        confettiStage({
                             particleCount: 10,
                             angle: 60,
                             spread: 40,
                             startVelocity: 90,
                             shapes: ['circle', 'circle', 'square'],
                             scalar: 1.65,
-                            origin: { x: 0, y: 0.9}
+                            origin: { x: 0, y: 0.9 }
                         });
                         // and launch a few from the right edge
-                        confettiStage({ // eslint-disable-line no-undef
+                        confettiStage({
                             particleCount: 10,
                             angle: 120,
                             spread: 40,
                             startVelocity: 90,
                             shapes: ['circle', 'circle', 'square'],
                             scalar: 1.65,
-                            origin: { x: 1, y: 0.9}
+                            origin: { x: 1, y: 0.9 }
                         });
                     }, 250);
 
-                    setTimeout(function(confettiStage) {
-                        $(`.${divClass}-confetti`).fadeOut('slow', function() {
+                    setTimeout(function (confettiStage) {
+                        $(`.${divClass}-confetti`).fadeOut('slow', function () {
                             $(`.${divClass}-confetti`).remove();
                             confettiStage.reset();
                             clearInterval(confettiParty);

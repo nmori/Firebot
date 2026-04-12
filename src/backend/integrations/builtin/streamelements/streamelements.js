@@ -8,19 +8,19 @@ const seEventsHandler = require("./streamelements-event-handler");
 const integrationDefinition = {
     id: "streamelements",
     name: "StreamElements",
-    description: "寄付とフォローイベント",
+    description: "寄付およびフォローイベント",
     connectionToggle: true,
     linkType: "id",
     idDetails: {
         label: "JWT Token",
         steps:
-`1.[StreamElements](https://www.streamelements.com/)へログインします.
+`1. [StreamElements](https://www.streamelements.com/) にログインします。
 
-2. あなたの [アカウント/チャンネル設定](https://streamelements.com/dashboard/account/channels)を開きます.
+2. [Account/Channel settings](https://streamelements.com/dashboard/account/channels) を開きます。
 
-3. チャンネルタブで, **Show Secrets** をクリックします.
+3. Channels タブで **Show Secrets** トグルをクリックします。
 
-4. **JWT Token** をコピーし、ここに貼り付けてください ("JWT Token"の文字は不要です).`
+4. **JWT Token** をコピーしてここに貼り付けます（"JWT Token" の文字列自体は含めないでください）。`
     }
 };
 
@@ -65,7 +65,7 @@ class StreamElementsIntegration extends EventEmitter {
             this.reconnect();
         });
 
-        this._socket.on('disconnect', reason => {
+        this._socket.on('disconnect', (reason) => {
             this.disconnect();
 
             if (reason !== "io client disconnect") {

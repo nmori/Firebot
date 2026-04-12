@@ -2,14 +2,14 @@
 
 (function() {
 
-    const uuid = require("uuid/v4");
+    const { randomUUID } = require("crypto");
 
     angular.module("firebotApp")
         .component("addOrEditDiscordWebhookModal", {
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Discord チャネル</h4>
+                <h4 class="modal-title">Discord チャンネル</h4>
             </div>
             <div class="modal-body">
 
@@ -19,31 +19,31 @@
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.nameError}">
-                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.channel.name" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="名前の入力">
-                            <span id="helpBlock" class="help-block" ng-show="$ctrl.nameError">名前を入れてください</span>
+                            <input type="text" id="nameField" class="form-control" ng-model="$ctrl.channel.name" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="helpBlock" placeholder="名前を入力">
+                            <span id="helpBlock" class="help-block" ng-show="$ctrl.nameError">名前を入力してください。</span>
                         </div>
                     </div>
                 </div>
 
                 <div style="margin-top: 15px;">
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
-                        WebhookのURL
+                        Webhook URL
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group" ng-class="{'has-error': $ctrl.urlError}">
-                            <input type="text" id="urlField" class="form-control" ng-model="$ctrl.channel.webhookUrl" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="urlHelpBlock" placeholder="Enter url">
-                            <span id="urlHelpBlock" class="help-block" ng-show="$ctrl.urlError">Discord で提供された Webhook URLを指定します</span>
+                            <input type="text" id="urlField" class="form-control" ng-model="$ctrl.channel.webhookUrl" ng-keyup="$event.keyCode == 13 && $ctrl.save() " aria-describedby="urlHelpBlock" placeholder="URLを入力">
+                            <span id="urlHelpBlock" class="help-block" ng-show="$ctrl.urlError">有効な Discord Webhook URL を入力してください</span>
                         </div>
-                        <collapsable-section show-text="WebhookのURLはどこで入手できますか？" hide-text="WebhookのURLはどこで入手できますか？  text-color="#0b8dc6">
+                        <collapsable-section show-text="Webhook URL はどこで取得しますか？" hide-text="Webhook URL はどこで取得しますか？"  text-color="#0b8dc6">
                             <ol style="font-weight: 100;font-size: 15px;">
-                                <li style="margin: 5px 0;">Discordで、Firebotにメッセージを投稿させたいチャンネルの<span class="muted">チャンネル設定を開きます。</span></li>
-                                <li style="margin: 5px 0;"><b>連携</b>タブに移動する。</li>
-                                <li style="margin: 5px 0;"><b>Webhookを作成</b>をクリックします。</li>
-                                <li style="margin: 5px 0;">Webhook 二名前をつけます。<span class="muted">(任意。チャンネル名かボットアカウント名を指定します。Firebot でオーバーライドを設定することもできます)</span></li>
-                                <li style="margin: 5px 0;">WebHook用のアバター画像をアップロードします。<span class="muted">(任意。Firebotのオーバーライドを設定することもできます)</span></li>
-                                <li style="margin: 5px 0;">下部のWebhook URLを<b>コピー</b>します</li>
-                                <li style="margin: 5px 0;"><b>保存</b>を押します。 <span class="muted">(重要!)</span></li>
-                                <li style="margin: 5px 0;">上記のWebhookのURLを貼り付けてください</li>
+                                <li style="margin: 5px 0;">Discord で、Firebot から投稿したいチャンネルの設定を開きます <span class="muted">（チャンネル名横の歯車）</span></li>
+                                <li style="margin: 5px 0;"><b>連携（Integrations）</b> タブを開きます</li>
+                                <li style="margin: 5px 0;"><b>Webhook を作成（Create Webhook）</b> をクリックします</li>
+                                <li style="margin: 5px 0;">Webhook 名を設定します <span class="muted">（任意。チャンネル名やBotアカウント名がおすすめ。Firebot側でも上書き設定できます）</span></li>
+                                <li style="margin: 5px 0;">Webhook のアバター画像をアップロードします <span class="muted">（任意。Firebot側でも上書き設定できます）</span></li>
+                                <li style="margin: 5px 0;">下部の Webhook URL を<b>コピー</b>します</li>
+                                <li style="margin: 5px 0;"><b>保存（Save）</b> をクリックします <span class="muted">（重要）</span></li>
+                                <li style="margin: 5px 0;">上の入力欄に Webhook URL を貼り付けます</li>
                             </ol>
                         </collapsable-section>
                     </div>
@@ -68,7 +68,7 @@
 
 
                 $ctrl.channel = {
-                    id: uuid(),
+                    id: randomUUID(),
                     name: "",
                     webhookUrl: ""
                 };

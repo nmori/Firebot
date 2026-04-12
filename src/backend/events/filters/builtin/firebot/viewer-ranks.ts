@@ -1,13 +1,11 @@
-import twitchApi from "../../../../twitch-api/api";
+import { TwitchApi } from "../../../../streaming-platforms/twitch/api";
 import viewerDatabase from "../../../../viewers/viewer-database";
 import { EventFilter } from "../../../../../types/events";
-import { ComparisonType } from "../../../../../shared/filter-constants";
-import { mapLegacyComparisonType } from "../../../../../shared/filter-helpers";
 
 const filter: EventFilter = {
     id: "firebot:viewerranks",
-    name: "視聴者ランク",
-    description: "指定された視聴者ランクにフィルターをかける",
+    name: "Viewer's Ranks",
+    description: "Filter to a given viewer rank",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -67,7 +65,7 @@ const filter: EventFilter = {
 
         try {
             if (userId == null) {
-                const user = await twitchApi.users.getUserByName(username);
+                const user = await TwitchApi.users.getUserByName(username);
 
                 if (user == null) {
                     return false;
@@ -80,16 +78,10 @@ const filter: EventFilter = {
 
             const hasRank = await viewerDatabase.viewerHasRankById(userId, ladderId, rankId);
 
-            // 旧式のComparisonTypeを標準化
-            const standardComparisonType = mapLegacyComparisonType(comparisonType);
-            
-            switch (standardComparisonType) {
-                case ComparisonType.HAS_ROLE:
-                case ComparisonType.INCLUDING:
+            switch (comparisonType) {
+                case "include":
                     return hasRank;
-
-                case ComparisonType.HAS_NOT_ROLE:
-                case ComparisonType.NOT_INCLUDING:
+                case "doesn't include":
                     return !hasRank;
                 default:
                     return false;

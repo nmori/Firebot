@@ -29,10 +29,10 @@
                                     <span ng-if="$ctrl.storedSettings.hintTemplate != null" class="muted">{{ $ctrl.populateTemplate($ctrl.storedSettings.hintTemplate, item, $index) }}</span>
                                 </div>
                                 <div class="flex items-center justify-center">
-                                    <div uib-tooltip="Edit" class="clickable mr-4" style="color: white;" ng-click="$ctrl.onEdit($index)" aria-label="Edit item">
+                                    <div uib-tooltip="編集" class="clickable mr-4" style="color: white;" ng-click="$ctrl.onEdit($index)" aria-label="項目を編集">
                                         <i class="fas fa-edit" aria-hidden="true"></i>
                                     </div>
-                                    <div uib-tooltip="Remove" class="clickable" style="color: #fb7373;" ng-click="$ctrl.onDelete($index)" aria-label="Remove item">
+                                    <div uib-tooltip="削除" class="clickable" style="color: #fb7373;" ng-click="$ctrl.onDelete($index)" aria-label="項目を削除">
                                         <i class="fad fa-trash-alt" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                             ng-disabled="$ctrl.maxItemsReached()"
                             class="list-add-btn"
                             ng-class="{ muted: $ctrl.maxItemsReached() }"
-                            uib-tooltip="{{!$ctrl.maxItemsReached() ? '' : 'Maximum reached' }}"
+                            uib-tooltip="{{!$ctrl.maxItemsReached() ? '' : '上限に達しました' }}"
                             tooltip-append-to-body="true"
                             aria-label="{{$ctrl.storedSettings.addLabel}}"
                             type="button"
@@ -82,7 +82,7 @@
                     nameProperty: "name",
                     hintTemplate: undefined,
                     addLabel: "追加",
-                    noneAddedText: "未保存",
+                    noneAddedText: "保存済み項目はありません",
                     maxItems: undefined,
                     connectItems: false
                 };

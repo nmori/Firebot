@@ -10,11 +10,11 @@
                 </div>
                 <div class="modal-body">
                     <div style="text-align:center;">
-                        <p class="muted">{{$ctrl.resolve.message}} Note: Code only valid for <strong>1 hour</strong>.</p>
+                        <p class="muted">{{$ctrl.resolve.message}} 注: コードの有効期限は <strong>1時間</strong> です。</p>
                         <div class="input-group">
                             <input type="text" class="form-control" style="cursor:text;" ng-model="$ctrl.shareCode" disabled>
                             <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button" ng-click="$ctrl.copy()">Copy</button>
+                                <button class="btn btn-primary" type="button" ng-click="$ctrl.copy()">コピー</button>
                             </span>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
 
                     ngToast.create({
                         className: 'success',
-                        content: 'Share code copied!'
+                        content: '共有コードをコピーしました！'
                     });
                 };
             }

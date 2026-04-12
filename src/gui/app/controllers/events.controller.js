@@ -1,20 +1,60 @@
 "use strict";
-(function () {
+(function() {
 
     // This handles the Events tab
     angular
         .module("firebotApp")
-<<<<<<< HEAD
         .controller("eventsController", function($scope, eventsService, utilityService,
-            listenerService, objectCopyHelper) {
-=======
-        .controller("eventsController", function ($scope, eventsService, utilityService,
             backendCommunicator, objectCopyHelper) {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
             $scope.es = eventsService;
 
-            const sources = listenerService.fireEventSync("getAllEventSources");
+            $scope.getEventSets = () => {
+                $scope.eventSets = eventsService.getEventGroups()
+                    .sort((a, b) => {
+                        return eventsService.eventSetSettings[a.id]?.position - eventsService.eventSetSettings[b.id]?.position;
+                    });
+            };
+            $scope.getEventSets();
+
+            backendCommunicator.on("event-access:event-set-saved",
+                () => $scope.getEventSets()
+            );
+
+            backendCommunicator.on("event-access:all-event-sets-saved",
+                () => $scope.getEventSets()
+            );
+
+            backendCommunicator.on("event-access:event-set-deleted",
+                () => $scope.getEventSets()
+            );
+
+            backendCommunicator.on("event-access:event-set-settings-updated",
+                () => $scope.getEventSets()
+            );
+
+            $scope.sortableOptions = {
+                handle: ".dragHandle",
+                'ui-floating': false,
+                stop: () => {
+                    $scope.saveEventSetSettings();
+                }
+            };
+
+            $scope.sortEventSets = (eventSet) => {
+                return eventsService.eventSetSettings[eventSet.id]?.position;
+            };
+
+            $scope.saveEventSetSettings = () => {
+                $scope.eventSets.forEach((set, index) => {
+                    eventsService.eventSetSettings[set.id].position = index;
+                });
+
+                eventsService.saveEventSetSettings();
+                $scope.getEventSets();
+            };
+
+            const sources = backendCommunicator.fireEventSync("events:get-all-event-sources");
 
             function friendlyEventTypeName(sourceId, eventId) {
                 const source = sources.find(s => s.id === sourceId);
@@ -29,29 +69,34 @@
 
             $scope.tableConfig = [
                 {
-                    name: "名前",
+                    name: "NAME",
                     icon: "fa-tag",
                     headerStyles: {
                         'min-width': '150px'
                     },
+                    dataField: "name",
+                    sortable: true,
                     cellTemplate: `{{data.name}}`,
-                    cellController: () => { }
+                    cellController: () => {}
                 },
                 {
-                    name: "種類",
+                    name: "TYPE",
                     icon: "fa-exclamation-square",
                     headerStyles: {
                         'min-width': '100px'
                     },
+                    dataField: "eventId",
+                    sortable: true,
                     cellTemplate: `{{data.eventId && data.sourceId ?
-                        friendlyEventTypeName(data.sourceId, data.eventId) : "なし"}}`,
+                        friendlyEventTypeName(data.sourceId, data.eventId) : "種類
+                        なし"}}`,
                     cellController: ($scope) => {
                         $scope.friendlyEventTypeName = friendlyEventTypeName;
                     }
                 }
             ];
 
-            $scope.getSelectedEvents = function () {
+            $scope.getSelectedEvents = function() {
                 const selectedTab = eventsService.getSelectedTab();
                 if (selectedTab === "mainevents") {
                     return eventsService.getMainEvents();
@@ -96,14 +141,14 @@
                 eventsService.updateEventsForCurrentGroup(events);
             };
 
-            $scope.showCreateEventGroupModal = function () {
+            $scope.showCreateEventGroupModal = function() {
                 utilityService.openGetInputModal(
                     {
                         model: "",
-                        label: "新規イベントセットの作成",
+                        label: "新しいイベントセット名",
                         saveText: "作成",
                         validationFn: (value) => {
-                            return new Promise(resolve => {
+                            return new Promise((resolve) => {
                                 if (value == null || value.trim().length < 1) {
                                     resolve(false);
                                 } else {
@@ -111,7 +156,7 @@
                                 }
                             });
                         },
-                        validationText: "イベントセット名は空欄にできません."
+                        validationText: "イベントセット名は空にできません。"
 
                     },
                     (name) => {
@@ -119,14 +164,14 @@
                     });
             };
 
-            $scope.showRenameEventGroupModal = function (group) {
+            $scope.showRenameEventGroupModal = function(group) {
                 utilityService.openGetInputModal(
                     {
                         model: group.name,
-                        label: "イベントセットの名前を変える",
+                        label: "イベントセット名を変更",
                         saveText: "保存",
                         validationFn: (value) => {
-                            return new Promise(resolve => {
+                            return new Promise((resolve) => {
                                 if (value == null || value.trim().length < 1) {
                                     resolve(false);
                                 } else {
@@ -134,7 +179,7 @@
                                 }
                             });
                         },
-                        validationText: "イベントセット名は空欄にできません."
+                        validationText: "イベントセット名は空にできません。"
 
                     },
                     (name) => {
@@ -143,22 +188,22 @@
                     });
             };
 
-            $scope.showDeleteGroupModal = function (group) {
+            $scope.showDeleteGroupModal = function(group) {
                 utilityService
                     .showConfirmationModal({
-                        title: "イベントセットの削除",
-                        question: `イベントセット「"${group.name}"」を削除しますか? （イベントセット内に登録したイベントは消えます）`,
-                        confirmLabel: "Delete",
+                        title: "イベントセットを削除",
+                        question: `イベントセット "${group.name}" を削除してもよろしいですか？この中のイベントもすべて削除されます。`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             eventsService.deleteGroup(group.id);
                         }
                     });
             };
 
-            $scope.showAddOrEditEventModal = function (eventId) {
+            $scope.showAddOrEditEventModal = function(eventId) {
 
                 const selectedGroupId = eventsService.getSelectedTab();
                 let event;
@@ -170,15 +215,12 @@
 
                 utilityService.showModal({
                     component: "addOrEditEventModal",
-<<<<<<< HEAD
-=======
                     breadcrumbName: "イベントを編集",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     resolveObj: {
                         event: () => event,
                         groupId: () => selectedGroupId
                     },
-                    closeCallback: resp => {
+                    closeCallback: (resp) => {
                         const { action, event, groupId } = resp;
 
                         switch (action) {
@@ -203,15 +245,15 @@
                 });
             };
 
-            $scope.showDeleteEventModal = function (eventId, name) {
+            $scope.showDeleteEventModal = function(eventId, name) {
                 utilityService
                     .showConfirmationModal({
-                        title: "イベントの削除",
-                        question: `イベント「"${name}"」を消しますか?`,
-                        confirmLabel: "削除する",
+                        title: "イベントを削除",
+                        question: `イベント "${name}" を削除してもよろしいですか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
-                    .then(confirmed => {
+                    .then((confirmed) => {
                         if (confirmed) {
                             const groupId = eventsService.getSelectedTab();
                             deleteEvent(groupId, eventId);
@@ -219,7 +261,7 @@
                     });
             };
 
-            $scope.toggleEventActiveStatus = function (eventId) {
+            $scope.toggleEventActiveStatus = function(eventId) {
                 const groupId = eventsService.getSelectedTab();
                 if (groupId === "mainevents") {
                     const event = eventsService.getMainEvents().find(e => e.id === eventId);
@@ -250,13 +292,13 @@
                 addEventToGroup(event, groupId);
             }
 
-            $scope.duplicateEvent = function (eventId) {
+            $scope.duplicateEvent = function(eventId) {
                 const groupId = eventsService.getSelectedTab();
                 if (groupId === "mainevents") {
                     const event = eventsService.getMainEvents().find(e => e.id === eventId);
 
                     const copiedEvent = objectCopyHelper.copyObject("events", [event])[0];
-                    copiedEvent.name += " copy";
+                    copiedEvent.name += " のコピー";
 
                     eventsService.getMainEvents().push(copiedEvent);
                     eventsService.saveMainEvents();
@@ -266,14 +308,14 @@
 
                     const copiedEvent = objectCopyHelper.copyObject("events", [event])[0];
 
-                    copiedEvent.name += " copy";
+                    copiedEvent.name += " のコピー";
 
                     group.events.push(copiedEvent);
                     eventsService.saveGroup(group);
                 }
             };
 
-            $scope.copyEvent = function (eventId) {
+            $scope.copyEvent = function(eventId) {
                 const groupId = eventsService.getSelectedTab();
                 if (groupId === "mainevents") {
                     const event = eventsService.getMainEvents().find(e => e.id === eventId);
@@ -285,11 +327,11 @@
                 }
             };
 
-            $scope.hasCopiedEvents = function () {
+            $scope.hasCopiedEvents = function() {
                 return objectCopyHelper.hasObjectCopied("events");
             };
 
-            $scope.copyEvents = function (groupId) {
+            $scope.copyEvents = function(groupId) {
                 if (groupId === "mainevents") {
                     const events = eventsService.getMainEvents();
                     objectCopyHelper.copyObject("events", events);
@@ -299,7 +341,7 @@
                 }
             };
 
-            $scope.pasteEvents = function (groupId) {
+            $scope.pasteEvents = function(groupId) {
                 if (!$scope.hasCopiedEvents()) {
                     return;
                 }
@@ -327,7 +369,27 @@
                 eventsService.setSelectedTab(groupId);
             };
 
-            $scope.eventMenuOptions = function (event) {
+            $scope.pasteEventsAtIndex = (index, above) => {
+                if ($scope.hasCopiedEvents()) {
+                    if (!above) {
+                        index++;
+                    }
+
+                    const groupId = eventsService.getSelectedTab();
+                    const copiedEvents = objectCopyHelper.getCopiedObject("events");
+
+                    if (groupId === "mainevents") {
+                        eventsService.getMainEvents().splice(index, 0, ...copiedEvents);
+                        eventsService.saveMainEvents();
+                    } else {
+                        const group = eventsService.getEventGroup(groupId);
+                        group.events.splice(index, 0, ...copiedEvents);
+                        eventsService.saveGroup(group);
+                    }
+                }
+            };
+
+            $scope.eventMenuOptions = function(event) {
 
                 const currentGroupId = eventsService.getSelectedTab();
                 const availableGroups = [
@@ -343,7 +405,7 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> 有効化の切り替え</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${event.active ? "イベントを無効化" : "イベントを有効化"}</a>`,
                         click: () => {
                             $scope.toggleEventActiveStatus(event.id);
                         }
@@ -363,16 +425,39 @@
                     {
                         html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                         click: () => {
-                            $scope.showDeleteEventModal(event.id, event.name ? event.name : '名無し');
+                            $scope.showDeleteEventModal(event.id, event.name ? event.name : '名称未設定');
                         }
                     },
                     {
+                        text: "貼り付け...",
+                        hasTopDivider: true,
+                        enabled: function () {
+                            return $scope.hasCopiedEvents();
+                        },
+                        children: [
+                            {
+                                html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 前に貼り付け</a>`,
+                                click: function ($itemScope) {
+                                    const $index = $itemScope.$index;
+                                    if ($scope.hasCopiedEvents()) {
+                                        $scope.pasteEventsAtIndex($index, true);
+                                    }
+                                }
+                            },
+                            {
+                                html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 後に貼り付け</a>`,
+                                click: function ($itemScope) {
+                                    const $index = $itemScope.$index;
+                                    if ($scope.hasCopiedEvents()) {
+                                        $scope.pasteEventsAtIndex($index, false);
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
                         text: "移動先...",
-<<<<<<< HEAD
-                        children: availableGroups.map(g => {
-=======
                         children: availableGroups.map((g) => {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             return {
                                 html: `<a href>${g.name}</a>`,
                                 click: () => {
@@ -387,42 +472,42 @@
                 return options;
             };
 
-            $scope.eventSetMenuOptions = function (group) {
+            $scope.eventSetMenuOptions = function(group) {
 
                 return [
                     {
-                        html: `<a href ><i class="far fa-pen mr-4"></i> 名前の変更</a>`,
+                        html: `<a href ><i class="far fa-pen mr-4"></i> 名前変更</a>`,
                         click: () => {
                             $scope.showRenameEventGroupModal(group);
                         }
                     },
                     {
-                        html: `<a href ><i class="fas mr-4 ${group.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> ${group.active ? 'OFF' : 'ON'}</a>`,
+                        html: `<a href ><i class="fas mr-4 ${group.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i> ${group.active ? '無効化' : '有効化'}</a>`,
                         click: () => {
                             eventsService.toggleEventGroupActiveStatus(group.id);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-clone mr-4"></i> 複製</a>`,
+                        html: `<a href ><i class="far fa-clone mr-4"></i> セットを複製</a>`,
                         click: () => {
                             eventsService.duplicateEventGroup(group);
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373"><i class="far fa-trash-alt mr-4"></i> 削除</a>`,
+                        html: `<a href style="color: #fb7373"><i class="far fa-trash-alt mr-4"></i> セットを削除</a>`,
                         click: () => {
                             $scope.showDeleteGroupModal(group);
                         }
                     },
                     {
-                        html: `<a href ><span class="iconify mr-4" data-icon="mdi:content-copy"></span> コピー</a>`,
+                        html: `<a href ><span class="iconify mr-4" data-icon="mdi:content-copy"></span> イベントをコピー</a>`,
                         click: () => {
                             $scope.copyEvents(group.id);
                         },
                         hasTopDivider: true
                     },
                     {
-                        html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste" ng-class="{'disabled': !hasCopiedEvents()}"></span> 貼り付け</a>`,
+                        html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste" ng-class="{'disabled': !hasCopiedEvents()}"></span> イベントを貼り付け</a>`,
                         click: () => {
                             $scope.pasteEvents(group.id);
                         },
@@ -431,7 +516,7 @@
                 ];
             };
 
-            $scope.simulateEventsByType = function () {
+            $scope.simulateEventsByType = function() {
                 utilityService.showModal({
                     component: "simulateGroupEventsModal",
                     size: "sm"
@@ -441,7 +526,7 @@
             /**
              * Returns an integer of total number of effects in an event.
              */
-            $scope.getEventEffectsCount = function (event) {
+            $scope.getEventEffectsCount = function(event) {
                 if (event.effects && event.effects.list) {
                     return event.effects.list.length;
                 }
@@ -449,10 +534,10 @@
             };
 
             // Fire event manually
-            $scope.fireEventManually = function (eventId) {
+            $scope.fireEventManually = function(eventId) {
                 const event = $scope.getSelectedEvents().find(e => e.id === eventId);
                 if (event != null) {
-                    ipcRenderer.send("triggerManualEvent", {
+                    backendCommunicator.send("events:trigger-manual-event", {
                         eventId: event.eventId,
                         sourceId: event.sourceId,
                         eventSettingsId: event.id

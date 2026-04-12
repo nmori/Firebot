@@ -2,19 +2,20 @@
 const EventEmitter = require("events");
 const logger = require("../../../logwrapper");
 const hueManager = require("./hue-manager");
-const v3 = require('node-hue-api').v3,
-    discovery = v3.discovery,
-    hueApi = v3.api;
+const nodeApi = require('node-hue-api'),
+    discovery = nodeApi.discovery,
+    hueApi = nodeApi.api;
 
 const appName = 'Firebot';
 const deviceName = 'Firebot-Hue';
 
-const effectManager = require("../../../effects/effectManager");
+const { EffectManager } = require("../../../effects/effect-manager");
+const frontendCommunicator = require("../../../common/frontend-communicator");
 
 const integrationDefinition = {
     id: "hue",
     name: "Philips Hue",
-    description: "ユーザーがhue特有の演出を実行できるようにします。hueブリッジのリンクボタンを押してから、リンクを押してください。",
+    description: "Philips Hue専用エフェクトを実行できます。Hueブリッジのリンクボタンを押した後、Firebot側でリンクを実行してください。",
     linkType: "other",
     connectionToggle: false
 };
@@ -26,9 +27,9 @@ async function connectToHue(hueUser) {
         return true;
     }
 
-    renderWindow.webContents.send(
+    frontendCommunicator.send(
         "error",
-        "Could not connect to hue. The bridge might have changed ip addresses or lost user info. Try re-linking to hue."
+        "Hueに接続できませんでした。ブリッジのIPアドレス変更、またはユーザー情報消失の可能性があります。Hueを再リンクしてください。"
     );
     return false;
 }
@@ -39,9 +40,9 @@ class HueIntegration extends EventEmitter {
         this.connected = false;
     }
     init(linked, integrationData) {
-        // Register hue specific events and variables here.
 
-        effectManager.registerEffect(require("./effects/hue-scenes"));
+        EffectManager.registerEffect(require("./effects/hue-scenes"));
+        EffectManager.registerEffect(require("./effects/control-light"));
 
         if (linked) {
             if (integrationData && integrationData.settings && integrationData.settings.user) {
@@ -50,7 +51,6 @@ class HueIntegration extends EventEmitter {
         }
     }
     disconnect() {
-        // TODO: Disconnect from authed instance.
         this.emit("disconnected", integrationDefinition.id);
     }
     async link() {
@@ -67,20 +67,27 @@ class HueIntegration extends EventEmitter {
             return;
         }
 
-        renderWindow.webContents.send(
+        frontendCommunicator.send(
             "error",
-            "Please press the link button on your hue bridge, then click the link button in Firebot."
+            "Hueブリッジのリンクボタンを押してから、Firebotでリンクボタンをクリックしてください。"
         );
-        throw new Error("Please press the link button on your hue bridge, then click the link button in Firebot.");
+        throw new Error("Hueブリッジのリンクボタンを押してから、Firebotでリンクボタンをクリックしてください。");
     }
     async unlink() {
         await hueManager.deleteHueUser();
     }
     async discoverBridge() {
-        const discoveryResults = await discovery.nupnpSearch();
+        logger.info('Attempting to discover Hue Bridges via mDNS');
+        let discoveryResults = await discovery.mdnsSearch();
 
         if (discoveryResults.length === 0) {
-            logger.error('Failed to resolve any Hue Bridges');
+            logger.warn('Failed to resolve any Hue Bridges via MDNS');
+            logger.info('Attempting to discover Hue Bridges via N-UPnP');
+            discoveryResults = await discovery.nupnpSearch();
+        }
+
+        if (discoveryResults.length === 0) {
+            logger.error('Failed to resolve any Hue Bridges via N-UPnP');
             return null;
         }
         // Ignoring that you could have more than one Hue Bridge on a network as this is unlikely in 99.9% of users situations
@@ -88,6 +95,11 @@ class HueIntegration extends EventEmitter {
     }
     async discoverAndCreateUser() {
         const ipAddress = await this.discoverBridge();
+
+        if (ipAddress == null) {
+            logger.warn('Failed to discover any Hue Bridges');
+            return false;
+        }
 
         // Create an unauthenticated instance of the Hue API so that we can create a new user
         const unauthenticatedApi = await hueApi.createLocal(ipAddress).connect();

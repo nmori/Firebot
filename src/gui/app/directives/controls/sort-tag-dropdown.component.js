@@ -26,7 +26,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul
-                    class="dropdown-menu"
+                    class="dropdown-menu dropdown-menu-right"
                     uib-dropdown-menu
                     role="menu"
                     aria-labelledby="single-button"
@@ -36,7 +36,7 @@
                         role="menuitem"
                         ng-click="sts.setSelectedSortTag($ctrl.context, null)"
                     >
-                        <a href>すべての {{$ctrl.context}}</a>
+                        <a href>All {{$ctrl.context}}</a>
                     </li>
                     <li
                         class="divider"
@@ -46,7 +46,7 @@
                         class="dropdown-header"
                         ng-show="sts.getSortTags($ctrl.context).length > 0"
                     >
-                        タグ
+                        Tags
                     </li>
                     <li
                         ng-repeat="tag in sts.getSortTags($ctrl.context)"
@@ -60,7 +60,7 @@
                         role="menuitem"
                         ng-click="sts.showEditSortTagsModal($ctrl.context)"
                     >
-                        <a href>タグの編集</a>
+                        <a href>Edit tags</a>
                     </li>
                 </ul>
             </div>

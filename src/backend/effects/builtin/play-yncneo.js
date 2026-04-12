@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const logger = require("../../logwrapper");
 const { EffectCategory } = require('../../../shared/effect-constants');
@@ -7,7 +7,7 @@ const playSound = {
     definition: {
         id: "firebot:play-yncneo",
         name: "ゆかコネNEO経由で読み上げ",
-        description: "ゆかコネNEOをつかって合成音声を読み上げ",
+        description: "ゆかコネNEOを使って音声読み上げを行います",
         icon: "fad fa-waveform",
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
@@ -21,37 +21,37 @@ const playSound = {
                     <span class="voicecast-name">{{effect.voicecast ? effect.voicecast.name : '選択...'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu voicecast-name-dropdown">
-                    <li ng-repeat="voicelist in effect.voicelists""
+                    <li ng-repeat="voicelist in effect.voicelists"
                         ng-click="effect.voicecast = voicelist">
                         <a href>{{voicelist.name}}</a>
                     </li>
                 </ul>
             </div>
-        </eos-container>        
+        </eos-container>
 
         <eos-container header="メッセージ" pad-top="true">
             <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージの入力" rows="4" cols="40" replace-variables></textarea>
         </eos-container>
 
         <eos-container header="通信設定" pad-top="true">
-        <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
-            <label for="port" class="control-label">連携サーバのHTTPポート</label>
-            <input 
-                type="number" 
-                class="form-control input-lg" 
-                id="port" 
-                name="port"
-                placeholder="ポート" 
-                ng-model="effect.port"
-                required
-                min="0" 
-                style="width: 50%;" 
-            />
-            <p class="help-block">ゆかりネットコネクターNEO v2.1～の翻訳/発話連携プラグインと読み上げ連携プラグインが必要です。</p>
-        </div>
+            <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
+                <label for="port" class="control-label">連携サーバのHTTPポート</label>
+                <input
+                    type="number"
+                    class="form-control input-lg"
+                    id="port"
+                    name="port"
+                    placeholder="ポート"
+                    ng-model="effect.port"
+                    required
+                    min="0"
+                    style="width: 50%;"
+                />
+                <p class="help-block">ゆかりネットコネクターNEO v2.1〜の翻訳/発話連携プラグインと読み上げ連携プラグインが必要です。</p>
+            </div>
 
-        <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
-        
+            <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
+        </eos-container>
     `,
     optionsController: async ($scope) => {
 
@@ -129,7 +129,7 @@ const playSound = {
                 }
             );
 
-            let responseData = await response.text();
+            await response.text();
 
         } catch (error) {
             logger.error("Error running http request", error.message);

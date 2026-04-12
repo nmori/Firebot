@@ -1,8 +1,9 @@
 "use strict";
 
 const apiProcessor = require("../../common/handlers/apiProcessor");
-const twitchChat = require("../../chat/twitch-chat");
 const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
+const { TwitchApi } = require("../../streaming-platforms/twitch/api");
+
 /**
  * The API effect
  */
@@ -122,7 +123,7 @@ const api = {
    * The controller for the front end Options
    */
     optionsController: ($scope) => {
-    // The name of the api and if it has images available to show or not.
+        // The name of the api and if it has images available to show or not.
         $scope.apiTypes = [
             { name: "Advice", image: false },
             { name: "Cat Fact", image: false },
@@ -133,7 +134,7 @@ const api = {
         ];
 
         // When an api is clicked in the dropdown save its name and if it has images available.
-        $scope.effectClick = function(api) {
+        $scope.effectClick = function (api) {
             $scope.effect.api = api.name;
             $scope.effect.imageAvailable = api.image;
         };
@@ -141,7 +142,7 @@ const api = {
     /**
    * When the effect is triggered by something
    */
-    optionsValidator: effect => {
+    optionsValidator: (effect) => {
         const errors = [];
         if (effect.api == null) {
             errors.push("リストからAPIを選択してください。");
@@ -152,16 +153,19 @@ const api = {
         }
         return errors;
     },
+    getDefaultLabel: (effect) => {
+        return effect.api;
+    },
     /**
    * When the effect is triggered by something
    */
-    onTriggerEvent: async event => {
+    onTriggerEvent: async (event) => {
         const chatter = event.effect.chatter;
         const apiType = event.effect.api;
 
         const apiResponse = await apiProcessor.getApiResponse(apiType);
 
-        await twitchChat.sendChatMessage(`${apiType}: ${apiResponse}`, null, chatter);
+        await TwitchApi.chat.sendChatMessage(`${apiType}: ${apiResponse}`, null, chatter.toLowerCase() === "bot");
 
         return {
             success: true,

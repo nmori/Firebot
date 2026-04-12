@@ -1,23 +1,23 @@
 "use strict";
 const EventEmitter = require("events");
 
-const effectManager = require("../../../effects/effectManager");
+const { EffectManager } = require("../../../effects/effect-manager");
 
 const integrationDefinition = {
     id: "aws",
     name: "AWS",
-    description: "アマゾン・ウェブ・サービスと連携する",
+    description: "Amazon Web Services と連携します。",
     linkType: "none",
     connectionToggle: false,
     configurable: true,
     settingCategories: {
         iamCredentials: {
-            title: "IAM 資格情報",
+            title: "IAM認証情報",
             sortRank: 1,
             settings: {
                 accessKeyId: {
-                    title: "アクセスキー",
-                    description: "IAM ユーザーまたはロールに関連付けられた AWS アクセスキーを指定します",
+                    title: "アクセスキーID",
+                    description: "IAM ユーザーまたはロールに紐づく AWS アクセスキーを指定します。",
                     type: "string",
                     sortRank: 1,
                     validation: {
@@ -25,8 +25,8 @@ const integrationDefinition = {
                     }
                 },
                 secretAccessKey: {
-                    title: "シークレットキー",
-                    description: "アクセスキーに関連付けられたシークレットキーを指定する。",
+                    title: "シークレットアクセスキー",
+                    description: "アクセスキーに対応するシークレットキーを指定します。",
                     type: "string",
                     showBottomHr: true,
                     sortRank: 2,
@@ -36,10 +36,10 @@ const integrationDefinition = {
                 },
                 region: {
                     title: "リージョン",
-                    description: "サービスのためにやりとりするAWSリージョン（地域）。",
+                    description: "連携に使用する AWS リージョンを指定します。",
                     type: "string",
-                    default: "ap-northeast-1",
-                    tip: "初期設定は 'ap-northeast-1' です.",
+                    default: "us-east-1",
+                    tip: "既定値は 'us-east-1' です。",
                     sortRank: 3,
                     validation: {
                         required: true
@@ -55,7 +55,7 @@ class AwsIntegration extends EventEmitter {
         super();
     }
     init() {
-        effectManager.registerEffect(require('./text-to-speech-polly-effect'));
+        EffectManager.registerEffect(require('./text-to-speech-polly-effect'));
     }
 }
 

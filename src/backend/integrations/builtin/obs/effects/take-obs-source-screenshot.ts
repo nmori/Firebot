@@ -30,10 +30,10 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
 } & screenshotHelpers.ScreenshotEffectData> = {
     definition: {
         id: "firebot:obs-source-screenshot",
-        name: "OBSソースのスクリーンショットを撮る",
-        description: "OBSソースのスクリーンショットを撮って保存します",
+        name: "OBSソーススクリーンショット撮影",
+        description: "OBS ソースのスクリーンショットを撮影して保存します。",
         icon: "fad fa-camera-retro",
-        categories: ["common"],
+        categories: ["common", "integrations"],
         outputs: [
             {
                 label: "Screenshot Data URL",
@@ -44,11 +44,11 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
     },
     optionsTemplate: `
     <div>
-        <eos-container header="OBS ソース">
+        <eos-container header="OBS Source">
             <div>
                 <button class="btn btn-link" ng-click="getSources()">Refresh Source Data</button>
             </div>
-            <ui-select ng-if="sources != null" ng-hide="effect.useActiveScene" ng-model="effect.source" theme="bootstrap">
+                <ui-select ng-if="sources != null" ng-hide="effect.useActiveScene" ng-model="effect.source" theme="bootstrap">
                     <ui-select-match>{{$select.selected.name}} ({{$select.selected.type}})</ui-select-match>
                     <ui-select-choices repeat="item.name as item in sources | filter: $select.search">
                         <div ng-bind-html="item.name | highlight: $select.search"></div>
@@ -69,7 +69,7 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
         </eos-container>
 
         <div class="effect-setting-container setting-padtop">
-            <div class="effect-specific-title"><h4>イメージの設定 <span class="muted">(任意)</span></h4></div>
+            <div class="effect-specific-title"><h4>Image Settings <span class="muted">(Optional)</span></h4></div>
             <div class="effect-setting-content">
                 <div class="input-group">
                     <span class="input-group-addon">Quality</span>
@@ -130,16 +130,16 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
         const errors: string[] = [];
         const rgbRegexp = /^#?[0-9a-f]{6}$/ig;
         if (!effect.useActiveScene && effect.source == null) {
-            errors.push("ソースを指定してください");
+            errors.push("You need to select a source!");
         }
         if (!(effect.saveLocally || effect.overwriteExisting || effect.postInDiscord || effect.showInOverlay)) {
-            errors.push("出力設定を選んでください");
+            errors.push("You need to select an output option!");
         }
         if (effect.saveLocally && !effect.folderPath) {
             errors.push("You need to select a folder path!");
         }
         if (effect.overwriteExisting && !effect.file) {
-            errors.push("ファイルを指定してください");
+            errors.push("You need to select a file!");
         }
         if (effect.postInDiscord && !effect.discordChannelId) {
             errors.push("You need to select a discord channel!");
@@ -149,6 +149,9 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
         }
         return errors;
     },
+    getDefaultLabel: (effect) => {
+        return effect.useActiveScene ? "Active Scene" : effect.source;
+    },
     onTriggerEvent: async ({ effect }) => {
         // Compatibility for effects made before 5.60
         const isLegacyEffect = !(effect.saveLocally || effect.overwriteExisting || effect.postInDiscord || effect.showInOverlay) && effect.file;
@@ -157,7 +160,7 @@ export const TakeOBSSourceScreenshotEffectType: EffectType<{
         }
 
         const screenshotSettings: OBSSourceScreenshotSettings = {
-            sourceName: effect.useActiveScene ? await getCurrentSceneName() : effect.source,
+            sourceName: effect.useActiveScene ? getCurrentSceneName() : effect.source,
             imageFormat: isLegacyEffect && effect.format ? effect.format : "png",
             imageHeight: effect.height,
             imageWidth: effect.width,

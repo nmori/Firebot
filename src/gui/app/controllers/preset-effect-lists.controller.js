@@ -17,6 +17,8 @@
                 {
                     name: "NAME",
                     icon: "fa-user",
+                    dataField: "name",
+                    sortable: true,
                     cellTemplate: `{{data.name}}`,
                     cellController: () => {}
                 },
@@ -47,12 +49,12 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "プリセット演出リストを消す",
-                                    question: `本当に削除しますか "${item.name}"?`,
-                                    confirmLabel: "削除する",
+                                    title: "プリセットエフェクトリストを削除",
+                                    question: `プリセットエフェクトリスト "${item.name}" を削除してもよろしいですか？`,
+                                    confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })
-                                .then(confirmed => {
+                                .then((confirmed) => {
                                     if (confirmed) {
                                         presetEffectListsService.deletePresetEffectList(item.id);
                                     }

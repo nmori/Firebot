@@ -3,8 +3,6 @@
 const {
     EffectTrigger
 } = require("../../../../../../shared/effect-constants");
-const { ComparisonType } = require("../../../../../../shared/filter-constants");
-const logger = require("../../../../../logwrapper");
 
 const triggers = {};
 triggers[EffectTrigger.COMMAND] = true;
@@ -15,12 +13,7 @@ module.exports = {
     name: "コマンド引数カウント",
     description: "コマンドの引数の数に基づく条件",
     triggers: triggers,
-    comparisonTypes: [
-        ComparisonType.IS,
-        ComparisonType.IS_NOT,
-        ComparisonType.LESS_THAN,
-        ComparisonType.GREATER_THAN
-    ],
+    comparisonTypes: ["is", "is not", "is less than", "is greater than"],
     leftSideValueType: "none",
     rightSideValueType: "number",
     predicate: (conditionSettings, trigger) => {
@@ -32,25 +25,15 @@ module.exports = {
         const argsCount = args.length;
 
         switch (comparisonType) {
-            case ComparisonType.IS:
-            case ComparisonType.COMPAT_IS:
-            case ComparisonType.COMPAT2_IS:
-            case ComparisonType.ORG_IS:
+            case "is":
                 return argsCount === rightSideValue;
-            case ComparisonType.IS_NOT:
-            case ComparisonType.COMPAT_IS_NOT:
-            case ComparisonType.COMPAT2_IS_NOT:
-            case ComparisonType.ORG_IS_NOT:
+            case "is not":
                 return argsCount !== rightSideValue;
-            case ComparisonType.LESS_THAN:
-            case ComparisonType.ORG_THAN:
+            case "is less than":
                 return argsCount < rightSideValue;
-            case ComparisonType.GREATER_THAN:
-            case ComparisonType.COMPAT_GREATER_THAN:
-            case ComparisonType.ORG_GREATER_THAN:
+            case "is greater than":
                 return argsCount > rightSideValue;
             default:
-                logger.warn(`(${this.name})判定条件が不正です: :${comparisonType}`);
                 return false;
         }
     }

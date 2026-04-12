@@ -2,7 +2,7 @@
 
 const logger = require("../../../logwrapper");
 
-const eventManager = require("../../../events/EventManager");
+const { EventManager } = require("../../../events/event-manager");
 
 const EVENT_SOURCE_ID = "streamloots";
 const EventId = {
@@ -13,16 +13,16 @@ const EventId = {
 const eventSourceDefinition = {
     id: EVENT_SOURCE_ID,
     name: "StreamLoots",
-    description: "StreamLootsからの購入／交換イベント",
+    description: "StreamLoots 由来の購入／引き換えイベント",
     events: [
         {
             id: EventId.PURCHASE,
             name: "チェスト購入",
-            description: "誰かがチェストを購入したり贈ったりする場合",
+            description: "誰かがチェストを購入またはギフトしたとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                message: "Test message",
+                message: "テストメッセージ",
                 quantity: 5,
                 giftee: "ebiggz"
             },
@@ -30,24 +30,24 @@ const eventSourceDefinition = {
         },
         {
             id: EventId.REDEMPTION,
-            name: "カード交換",
-            description: "誰かがカードを換金したとき",
+            name: "カード引き換え",
+            description: "誰かがカードを引き換えたとき。",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
                 message: "テストメッセージ",
-                alertMessage: "アラート",
+                alertMessage: "アラートメッセージ",
                 cardRarity: {
                     type: "enum",
                     options: {
-                        "common": "Common",
-                        "rare": "Rare",
-                        "epic": "Epic",
-                        "legendary": "Legendary"
+                        "common": "コモン",
+                        "rare": "レア",
+                        "epic": "エピック",
+                        "legendary": "レジェンダリー"
                     },
                     value: "common"
                 },
-                cardName: "GIFを隠す"
+                cardName: "Hidden GIF"
             },
             isIntegration: true
         }
@@ -55,7 +55,7 @@ const eventSourceDefinition = {
 };
 
 exports.registerEvents = () => {
-    eventManager.registerEventSource(eventSourceDefinition);
+    EventManager.registerEventSource(eventSourceDefinition);
 };
 
 function getFieldValue(fieldName, fields) {
@@ -103,5 +103,5 @@ exports.processStreamLootsEvent = (eventData) => {
         metadata.cardName = eventData.data.cardName;
     }
 
-    eventManager.triggerEvent(EVENT_SOURCE_ID, eventId, metadata);
+    EventManager.triggerEvent(EVENT_SOURCE_ID, eventId, metadata);
 };
