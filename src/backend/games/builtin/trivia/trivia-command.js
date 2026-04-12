@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const util = require("../../../utility");
 const twitchChat = require("../../../chat/twitch-chat");
@@ -65,15 +65,9 @@ twitchListeners.events.on("chat-message", async data => {
 
         const currency = currencyDatabase.getCurrencyById(currencyId);
 
-<<<<<<< HEAD
-        await twitchChat.sendChatMessage(`${username}, 正解！ ${util.commafy(winnings)} ${currency.name} を手に入れた`, null, chatter);
+        await twitchChat.sendChatMessage(`${chatMessage.userDisplayName ?? username}, 豁｣隗｣・・${util.commafy(winnings)} ${currency.name} 繧呈焔縺ｫ蜈･繧後◆`, null, chatter);
     } else {
-        await twitchChat.sendChatMessage(`残念! ${username}, 不正解。次回チャレンジしてね`, null, chatter);
-=======
-        await twitchChat.sendChatMessage(`${chatMessage.userDisplayName ?? username}, 正解！ ${util.commafy(winnings)} ${currency.name} を手に入れた`, null, chatter);
-    } else {
-        await twitchChat.sendChatMessage(`Sorry ${chatMessage.userDisplayName ?? username}, 不正解！.${postCorrectAnswer ? ` 正解は ${question.answers[question.correctIndex - 1]}.` : ""} 次回チャレンジしてね`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+        await twitchChat.sendChatMessage(`Sorry ${chatMessage.userDisplayName ?? username}, 荳肴ｭ｣隗｣・・${postCorrectAnswer ? ` 豁｣隗｣縺ｯ ${question.answers[question.correctIndex - 1]}.` : ""} 谺｡蝗槭メ繝｣繝ｬ繝ｳ繧ｸ縺励※縺ｭ`, null, chatter);
     }
     clearCurrentQuestion();
 });
@@ -88,7 +82,7 @@ const triviaCommand = {
         name: "Trivia",
         active: true,
         trigger: "!trivia",
-        description: "トリビアで遊ぶ",
+        description: "繝医Μ繝薙い縺ｧ驕翫・",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
@@ -98,7 +92,7 @@ const triviaCommand = {
                 arg: "\\d+",
                 regex: true,
                 usage: "[wager]",
-                description: "指定された賭け金額でトリビアの質問を開始する",
+                description: "謖・ｮ壹＆繧後◆雉ｭ縺鷹≡鬘阪〒繝医Μ繝薙い縺ｮ雉ｪ蝠上ｒ髢句ｧ九☆繧・,
                 hideCooldowns: true
             }
         ]
@@ -119,59 +113,36 @@ const triviaCommand = {
 
             if (currentQuestion) {
                 if (currentQuestion.username === username) {
-<<<<<<< HEAD
-                    await twitchChat.sendChatMessage(`${username}, あなたはすでにトリビアを出題されている！`, null, chatter);
+                    await twitchChat.sendChatMessage(`${user.displayName}, 縺ゅ↑縺溘・縺吶〒縺ｫ繝医Μ繝薙い繧貞・鬘後＆繧後※縺・ｋ・～, null, chatter);
                     return;
                 }
-                await twitchChat.sendChatMessage(`${username}, 現在、他の方が質問に回答中です。回答が終わるまでお待ちください。`, null, chatter);
-=======
-                    await twitchChat.sendChatMessage(`${user.displayName}, あなたはすでにトリビアを出題されている！`, null, chatter);
-                    return;
-                }
-                await twitchChat.sendChatMessage(`${user.displayName}, 現在、他の方が質問に回答中です。回答が終わるまでお待ちください。`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                await twitchChat.sendChatMessage(`${user.displayName}, 迴ｾ蝨ｨ縲∽ｻ悶・譁ｹ縺瑚ｳｪ蝠上↓蝗樒ｭ比ｸｭ縺ｧ縺吶ょ屓遲斐′邨ゅｏ繧九∪縺ｧ縺雁ｾ・■縺上□縺輔＞縲Ａ, null, chatter);
                 return;
             }
 
             const cooldownExpireTime = cooldownCache.get(username);
             if (cooldownExpireTime && moment().isBefore(cooldownExpireTime)) {
                 const timeRemainingDisplay = util.secondsForHumans(Math.abs(moment().diff(cooldownExpireTime, 'seconds')));
-<<<<<<< HEAD
-                await twitchChat.sendChatMessage(`${username}, 次の開催までお待ち下さい。残り時間: ${timeRemainingDisplay}`, null, chatter);
-=======
-                await twitchChat.sendChatMessage(`${user.displayName}, 次の開催までお待ち下さい。残り時間: ${timeRemainingDisplay}`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                await twitchChat.sendChatMessage(`${user.displayName}, 谺｡縺ｮ髢句ぎ縺ｾ縺ｧ縺雁ｾ・■荳九＆縺・よｮ九ｊ譎る俣: ${timeRemainingDisplay}`, null, chatter);
                 return;
             }
 
             if (wagerAmount < 1) {
-<<<<<<< HEAD
-                await twitchChat.sendChatMessage(`${username}, 賭け金は0以上でなければなりません。`, null, chatter);
-=======
-                await twitchChat.sendChatMessage(`${user.displayName}, 賭け金は0以上でなければなりません。`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                await twitchChat.sendChatMessage(`${user.displayName}, 雉ｭ縺鷹≡縺ｯ0莉･荳翫〒縺ｪ縺代ｌ縺ｰ縺ｪ繧翫∪縺帙ｓ縲Ａ, null, chatter);
                 return;
             }
 
             const minWager = triviaSettings.settings.currencySettings.minWager;
             if (minWager != null & minWager > 0) {
                 if (wagerAmount < minWager) {
-<<<<<<< HEAD
-                    await twitchChat.sendChatMessage(`${username}, 賭け金の額は少なくとも ${minWager} 以上にしてください.`, null, chatter);
-=======
-                    await twitchChat.sendChatMessage(`${user.displayName}, 賭け金の額は少なくとも ${minWager} 以上にしてください.`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    await twitchChat.sendChatMessage(`${user.displayName}, 雉ｭ縺鷹≡縺ｮ鬘阪・蟆代↑縺上→繧・${minWager} 莉･荳翫↓縺励※縺上□縺輔＞.`, null, chatter);
                     return;
                 }
             }
             const maxWager = triviaSettings.settings.currencySettings.maxWager;
             if (maxWager != null & maxWager > 0) {
                 if (wagerAmount > maxWager) {
-<<<<<<< HEAD
-                    await twitchChat.sendChatMessage(`${username}, 賭け金額は ${maxWager} 以下にしてください`, null, chatter);
-=======
-                    await twitchChat.sendChatMessage(`${user.displayName}, 賭け金額は ${maxWager} 以下にしてください`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                    await twitchChat.sendChatMessage(`${user.displayName}, 雉ｭ縺鷹≡鬘阪・ ${maxWager} 莉･荳九↓縺励※縺上□縺輔＞`, null, chatter);
                     return;
                 }
             }
@@ -186,11 +157,7 @@ const triviaCommand = {
             }
 
             if (userBalance < wagerAmount) {
-<<<<<<< HEAD
-                await twitchChat.sendChatMessage(`${username}, 手持ち金額が足りません`, null, chatter);
-=======
-                await twitchChat.sendChatMessage(`${user.displayName}, 手持ち金額が足りません`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                await twitchChat.sendChatMessage(`${user.displayName}, 謇区戟縺｡驥鷹｡阪′雜ｳ繧翫∪縺帙ｓ`, null, chatter);
                 return;
             }
 
@@ -201,11 +168,7 @@ const triviaCommand = {
             );
 
             if (question == null) {
-<<<<<<< HEAD
-                await twitchChat.sendChatMessage(`${username}, トリビアの問題が見つかりませんでした。賭け金は返却されました。`, null, chatter);
-=======
-                await twitchChat.sendChatMessage(`${user.displayName}, トリビアの問題が見つかりませんでした。賭け金は返却されました。`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                await twitchChat.sendChatMessage(`${user.displayName}, 繝医Μ繝薙い縺ｮ蝠城｡後′隕九▽縺九ｊ縺ｾ縺帙ｓ縺ｧ縺励◆縲りｳｭ縺鷹≡縺ｯ霑泌唆縺輔ｌ縺ｾ縺励◆縲Ａ, null, chatter);
                 return;
             }
 
@@ -219,11 +182,7 @@ const triviaCommand = {
                 await currencyDatabase.adjustCurrencyForUser(username, currencyId, -Math.abs(wagerAmount));
             } catch (error) {
                 logger.error(error.message);
-<<<<<<< HEAD
-                await twitchChat.sendChatMessage(`${username}, 残高から通貨を差し引く際にエラーが発生したため、トリビアはキャンセルされました。`, null, chatter);
-=======
-                await twitchChat.sendChatMessage(`${user.displayName}, 残高から通貨を差し引く際にエラーが発生したため、トリビアはキャンセルされました。`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                await twitchChat.sendChatMessage(`${user.displayName}, 谿矩ｫ倥°繧蛾夊ｲｨ繧貞ｷｮ縺怜ｼ輔￥髫帙↓繧ｨ繝ｩ繝ｼ縺檎匱逕溘＠縺溘◆繧√√ヨ繝ｪ繝薙い縺ｯ繧ｭ繝｣繝ｳ繧ｻ繝ｫ縺輔ｌ縺ｾ縺励◆縲Ａ, null, chatter);
                 return;
             }
 
@@ -285,22 +244,14 @@ const triviaCommand = {
                 if (currentQuestion == null || currentQuestion.username !== username) {
                     return;
                 }
-<<<<<<< HEAD
-                await twitchChat.sendChatMessage(`@${username}, 5秒以内にお答えください...`, null, chatter);
-=======
-                await twitchChat.sendChatMessage(`@${user.displayName}, 5秒以内にお答えください...`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                await twitchChat.sendChatMessage(`@${user.displayName}, 5遘剃ｻ･蜀・↓縺顔ｭ斐∴縺上□縺輔＞...`, null, chatter);
             }, (answerTimeout - 6) * 1000);
 
             answerTimeoutId = setTimeout(async () => {
                 if (currentQuestion == null || currentQuestion.username !== username) {
                     return;
                 }
-<<<<<<< HEAD
-                await twitchChat.sendChatMessage(`@${username},回答は間に合わなかった！`, null, chatter);
-=======
-                await twitchChat.sendChatMessage(`@${user.displayName},回答は間に合わなかった！`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+                await twitchChat.sendChatMessage(`@${user.displayName},蝗樒ｭ斐・髢薙↓蜷医ｏ縺ｪ縺九▲縺滂ｼ～, null, chatter);
                 clearCurrentQuestion();
             }, answerTimeout * 1000);
         } else {

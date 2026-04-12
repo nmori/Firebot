@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 (function () {
     angular.module("firebotApp")
@@ -6,7 +6,7 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">配信情報を編集</h4>
+                    <h4 class="modal-title">驟堺ｿ｡諠・ｱ繧堤ｷｨ髮・/h4>
                 </div>
                 <div class="modal-body">
 
@@ -20,36 +20,20 @@
 
                     <form ng-show="$ctrl.dataLoaded" name="streamInfo">
                         <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('title')}">
-                            <label for="title" class="control-label">配信タイトル</label>
+                            <label for="title" class="control-label">驟堺ｿ｡繧ｿ繧､繝医Ν</label>
                             <input
                                 type="text"
                                 id="title"
                                 name="title"
                                 required
                                 class="form-control input-lg"
-                                placeholder="配信タイトルを入力"
+                                placeholder="驟堺ｿ｡繧ｿ繧､繝医Ν繧貞・蜉・
                                 ng-model="$ctrl.streamInfo.title"
                             />
                         </div>
 
                         <div class="form-group">
-                            <label for="game" class="control-label">カテゴリ</label>
-<<<<<<< HEAD
-                            <ui-select ng-model="$ctrl.selectedGame" required input-id="game" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.gameSelected($item)">
-                                <ui-select-match placeholder="カテゴリを探す...">
-                                    <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
-                                        <img style="height: 21px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
-                                        <div style="font-weight: 100;font-size: 17px;">{{$select.selected.name}}</div>
-                                    </div>
-                                </ui-select-match>
-                                <ui-select-choices minimum-input-length="1" repeat="game in $ctrl.games | filter: $select.search" refresh="$ctrl.searchGames($select.search)" refresh-delay="200" style="position:relative;">
-                                    <div style="height: 35px; display:flex; flex-direction: row; align-items: center;">
-                                        <img style="height: 30px; width: 30px; border-radius: 5px; margin-right:10px;" ng-src="{{game.boxArtUrl}}">
-                                        <div style="font-weight: 100;font-size: 17px;">{{game.name}}</div>
-                                    </div>
-                                </ui-select-choices>
-                            </ui-select>
-=======
+                            <label for="game" class="control-label">繧ｫ繝・ざ繝ｪ</label>
                             <div style="display:flex">
                                 <ui-select style="width: 100%" ng-model="$ctrl.selectedGame" required input-id="game" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.gameSelected($item)">
                                     <ui-select-match placeholder="Search for category...">
@@ -75,11 +59,10 @@
                                     </button>
                                 </div>
                             </div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                         </div>
 
                         <div class="form-group" style="margin-bottom: 0;">
-                            <label for="tags" class="control-label">配信タグ</label>
+                            <label for="tags" class="control-label">驟堺ｿ｡繧ｿ繧ｰ</label>
                             <div style="display: block" role="list">
                                 <div class="role-bar" id="tags" ng-repeat="tag in $ctrl.streamInfo.tags" role="listitem">
                                     <span>{{tag}}</span>
@@ -87,8 +70,8 @@
                                         role="button"
                                         class="clickable"
                                         style="padding-left: 10px;"
-                                        aria-label="{{tag}} を削除"
-                                        uib-tooltip="タグを削除"
+                                        aria-label="{{tag}} 繧貞炎髯､"
+                                        uib-tooltip="繧ｿ繧ｰ繧貞炎髯､"
                                         tooltip-append-to-body="true"
                                         ng-click="$ctrl.removeStreamTag(tag)"
                                     >
@@ -99,8 +82,8 @@
                                     class="role-bar clickable"
                                     ng-show="$ctrl.streamInfo.tags.length < 10"
                                     role="button"
-                                    aria-label="タグの追加"
-                                    uib-tooltip="タグの追加"
+                                    aria-label="繧ｿ繧ｰ縺ｮ霑ｽ蜉"
+                                    uib-tooltip="繧ｿ繧ｰ縺ｮ霑ｽ蜉"
                                     tooltip-append-to-body="true"
                                     ng-click="$ctrl.openAddStreamTagsModal()"
                                 >
@@ -112,8 +95,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">繧ｭ繝｣繝ｳ繧ｻ繝ｫ</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">菫晏ｭ・/button>
                 </div>
             `,
             bindings: {
@@ -169,15 +152,6 @@
 
                 $ctrl.openAddStreamTagsModal = function () {
                     utilityService.openGetInputModal({
-<<<<<<< HEAD
-                            label: "Add Stream Tag",
-                            saveText: "Add",
-                            inputPlaceholder: "Enter a tag",
-                            validationFn: (value) => {
-                                return new Promise(resolve => {
-                                    // Must be alphanumeric no more than 25 characters
-                                    const tagRegExp = /^[a-z0-9]{1,25}$/ig;
-=======
                         label: "Add Stream Tag",
                         saveText: "Add",
                         inputPlaceholder: "Enter a tag",
@@ -185,7 +159,6 @@
                             return new Promise((resolve) => {
                                 // Must be alphanumeric no more than 25 characters
                                 const tagRegExp = /^[a-z0-9]{1,25}$/ig;
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
                                 if (value == null || value.trim().length < 1) {
                                     resolve(false);
@@ -221,9 +194,6 @@
                     }
                 };
 
-<<<<<<< HEAD
-                $ctrl.removeStreamTag = function(tag) {
-=======
                 $ctrl.removeCategory = function () {
                     $ctrl.selectedGame = null;
                     $ctrl.streamInfo.gameId = '';
@@ -231,7 +201,6 @@
                 };
 
                 $ctrl.removeStreamTag = function (tag) {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     $ctrl.streamInfo.tags = $ctrl.streamInfo.tags.filter(element => tag.toLowerCase() !== element.toLowerCase());
                 };
 

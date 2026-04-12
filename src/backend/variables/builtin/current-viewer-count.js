@@ -1,12 +1,8 @@
-// Migration: done
+﻿// Migration: done
 
-<<<<<<< HEAD:src/backend/variables/builtin/current-viewer-count.js
-"use strict";
-=======
 const logger = require("../../../../../backend/logwrapper");
 const accountAccess = require("../../../../common/account-access");
 const twitchApi = require("../../../../twitch-api/api");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/stream/current-viewer-count.ts
 
 const logger = require("../../logwrapper");
 const accountAccess = require("../../common/account-access");
@@ -17,7 +13,7 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "currentViewerCount",
-        description: "あなたの配信を視聴している人数を取得します。",
+        description: "縺ゅ↑縺溘・驟堺ｿ｡繧定ｦ冶・縺励※縺・ｋ莠ｺ謨ｰ繧貞叙蠕励＠縺ｾ縺吶・,
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

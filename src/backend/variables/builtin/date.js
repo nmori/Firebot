@@ -1,4 +1,4 @@
-// Migration: done
+﻿// Migration: done
 
 "use strict";
 
@@ -12,35 +12,28 @@ const model = {
         examples: [
             {
                 usage: "date[dddd MMMM Do]",
-<<<<<<< HEAD:src/backend/variables/builtin/date.js
-                description: "優先トークンを使ったフォーマット."
-=======
                 description: 'Format with the preferred tokens. Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
             },
             {
                 usage: "date[YYYY-DD-MM HH:mm:ss]",
                 description: "Format with the preferred tokens."
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/date.ts
             },
             {
                 usage: "date[MMM Do YYYY, 2, days,locale]",
-                description: "現在の日付に2日足す（月、年など他の単位を使うこともできる）。"
+                description: "迴ｾ蝨ｨ縺ｮ譌･莉倥↓2譌･雜ｳ縺呻ｼ域怦縲∝ｹｴ縺ｪ縺ｩ莉悶・蜊倅ｽ阪ｒ菴ｿ縺・％縺ｨ繧ゅ〒縺阪ｋ・峨・
             },
             {
                 usage: "date[MMM Do YYY, -2, days,locale]",
-                description: "現在の日付から2日を引く（または月、年など他の単位を使う）。"
+                description: "迴ｾ蝨ｨ縺ｮ譌･莉倥°繧・譌･繧貞ｼ輔￥・医∪縺溘・譛医∝ｹｴ縺ｪ縺ｩ莉悶・蜊倅ｽ阪ｒ菴ｿ縺・ｼ峨・
             }
         ],
-        description: "MMM Do YYYYとしてフォーマットされた現在の日付。 (日本語版拡張:localeに ja,en などの国を指定できます）",
+        description: "MMM Do YYYY縺ｨ縺励※繝輔か繝ｼ繝槭ャ繝医＆繧後◆迴ｾ蝨ｨ縺ｮ譌･莉倥・(譌･譛ｬ隱樒沿諡｡蠑ｵ:locale縺ｫ ja,en 縺ｪ縺ｩ縺ｮ蝗ｽ繧呈欠螳壹〒縺阪∪縺呻ｼ・,
         categories: [VariableCategory.COMMON],
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: (_, template = 'MMM Do YYYY', steps = 0, key = 'days', locale = 'ja') => {
         const now = moment().locale(locale);
-<<<<<<< HEAD:src/backend/variables/builtin/date.js
-=======
         const stepNumber =Number(steps);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/date.ts
 
         if (stepNumber > 0 && key !== null) {
             now.add(steps, key);

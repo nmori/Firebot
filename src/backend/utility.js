@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const { randomInt } = require('node:crypto');
 const moment = require("moment");
@@ -60,55 +60,10 @@ const secondsForHumans = (seconds) => {
 const formattedSeconds = (secs, simpleOutput = false) => {
     let allSecs = secs;
 
-<<<<<<< HEAD
-    allSecs = Math.round(allSecs);
-    const hours = Math.floor(allSecs / (60 * 60));
-
-    const divisorForMinutes = allSecs % (60 * 60);
-    const minutes = Math.floor(divisorForMinutes / 60);
-
-    const divisorForSeconds = divisorForMinutes % 60;
-    const seconds = Math.ceil(divisorForSeconds);
-
-    const hasHours = hours > 0,
-        hasMins = minutes > 0,
-        hasSecs = seconds > 0;
-
-    if (simpleOutput) {
-        return `${hours}:${minutes.toString().padStart(2, "0")}`;
-    }
-
-    let uptimeStr = "";
-
-    if (hasHours) {
-        uptimeStr = hours + " 時間";
-        // if (hours > 0) {
-        //     uptimeStr = uptimeStr + "s";
-        // }
-    }
-    if (hasMins) {
-        // if (hasHours) {
-        //     uptimeStr = uptimeStr + ",";
-        // }
-        uptimeStr = uptimeStr + " " + minutes + " 分";
-        // if (minutes > 0) {
-        //     uptimeStr = uptimeStr + "s";
-        // }
-    }
-    if (hasSecs) {
-        // if (hasHours || hasMins) {
-        //     uptimeStr = uptimeStr + ",";
-        // }
-        uptimeStr = uptimeStr + " " + seconds + " 秒";
-        // if (seconds > 0) {
-        //     uptimeStr = uptimeStr + "s";
-        // }
-=======
     if (simpleOutput === true) {
         if (simpleOutput) {
             return duration.shiftTo("hours", "minutes").toFormat("h:mm");
         }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     }
 
     return uptimeStr;
@@ -142,7 +97,7 @@ const getUptime = async () => {
     const channelData = await client.streams.getStreamByUserId(streamerAccount.userId);
 
     if (channelData == null) {
-        return "配信されていません";
+        return "驟堺ｿ｡縺輔ｌ縺ｦ縺・∪縺帙ｓ";
     }
 
     const startedDate = channelData.startDate;
@@ -153,19 +108,12 @@ const getUptime = async () => {
     return exports.formattedSeconds(durationSecs);
 };
 
-<<<<<<< HEAD
-const getDateDiffString = (date1, date2) => {
-    const b = moment(date1),
-        a = moment(date2),
-=======
 const getDateDiffString = (date1, date2, includeSeconds = false) => {
 
-    // 表示用の日本語単位
-    const japaneseLabels = ["年", "ヵ月", "日", "時間", "分", "秒"];
+    // 陦ｨ遉ｺ逕ｨ縺ｮ譌･譛ｬ隱槫腰菴・    const japaneseLabels = ["蟷ｴ", "繝ｵ譛・, "譌･", "譎る俣", "蛻・, "遘・];
 
     let b = DateTime.fromJSDate(date1);
     const a = DateTime.fromJSDate(date2),
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         intervals = ["years", "months", "days", "hours", "minutes"],
         out = [];
 
@@ -177,21 +125,15 @@ const getDateDiffString = (date1, date2, includeSeconds = false) => {
             continue;
         }
 
-<<<<<<< HEAD
-        let interval = intervals[i];
-        if (diff === 1) {
-=======
         b = b.plus(Duration.fromDurationLike({ [intervals[i]]: numericDiff }));
 
         let interval = japaneseLabels[i];
         if (numericDiff === 1) {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             interval = interval.slice(0, -1);
         }
         out.push(`${diff} ${interval}`);
     }
-    //日本語だと and が必要ないのでコメントアウト
-    // if (out.length > 1) {
+    //譌･譛ｬ隱槭□縺ｨ and 縺悟ｿ・ｦ√↑縺・・縺ｧ繧ｳ繝｡繝ｳ繝医い繧ｦ繝・    // if (out.length > 1) {
     //     const last = out[out.length - 1];
     //     out[out.length - 1] = `and ${last}`;
     // }

@@ -1,28 +1,21 @@
-"use strict";
+﻿"use strict";
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 
 const model = {
     definition: {
         handle: "rawUserMetadata",
-<<<<<<< HEAD:src/backend/variables/builtin/user-metadata-raw.js
-=======
-        description: "ユーザーに関連付けられている生のメタデータを取得する。(廃止: $userMetaDataを使ってください)",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/user/user-metadata-raw.ts
+        description: "繝ｦ繝ｼ繧ｶ繝ｼ縺ｫ髢｢騾｣莉倥￠繧峨ｌ縺ｦ縺・ｋ逕溘・繝｡繧ｿ繝・・繧ｿ繧貞叙蠕励☆繧九・蟒・ｭ｢: $userMetaData繧剃ｽｿ縺｣縺ｦ縺上□縺輔＞)",
         usage: "rawUserMetadata[username, metadataKey]",
         examples: [
             {
                 usage: "rawUserMetadata[username, metadataKey, defaultValue]",
-                description: "ユーザーにデフォルト値が存在しない場合は、デフォルト値を指定します。"
+                description: "繝ｦ繝ｼ繧ｶ繝ｼ縺ｫ繝・ヵ繧ｩ繝ｫ繝亥､縺悟ｭ伜惠縺励↑縺・ｴ蜷医・縲√ョ繝輔か繝ｫ繝亥､繧呈欠螳壹＠縺ｾ縺吶・
             },
             {
                 usage: "rawUserMetadata[username, metadataKey, null, propertyPath]",
-                description: "第2引数にプロパティパス（ドット記法）または配列インデックスを指定する。"
+                description: "隨ｬ2蠑墓焚縺ｫ繝励Ο繝代ユ繧｣繝代せ・医ラ繝・ヨ險俶ｳ包ｼ峨∪縺溘・驟榊・繧､繝ｳ繝・ャ繧ｯ繧ｹ繧呈欠螳壹☆繧九・
             }
         ],
-<<<<<<< HEAD:src/backend/variables/builtin/user-metadata-raw.js
-        description: "ユーザーに関連付けられている生のメタデータを取得する。",
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/user/user-metadata-raw.ts
         categories: [VariableCategory.ADVANCED],
         possibleDataOutput: [OutputDataType.NUMBER, OutputDataType.TEXT]
     },

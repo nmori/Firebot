@@ -1,29 +1,24 @@
-"use strict";
+﻿"use strict";
 
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 const expressionish = require('expressionish');
 const moment = require("moment");
-<<<<<<< HEAD:src/backend/variables/builtin/bits-cheered.js
-const logger = require("../../logwrapper");
-const twitchApi = require("../../twitch-api/api");
-=======
 const logger = require("../../../../../backend/logwrapper");
 const twitchApi = require("../../../../twitch-api/api");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/cheer/bits-cheered.ts
 
 const model = {
     definition: {
         handle: "bitsCheered",
         usage: "bitsCheered[username]",
-        description: "指定されたユーザーが配信者のチャンネルで応援したビッツの全時間数を返す。",
+        description: "謖・ｮ壹＆繧後◆繝ｦ繝ｼ繧ｶ繝ｼ縺碁・菫｡閠・・繝√Ε繝ｳ繝阪Ν縺ｧ蠢懈抄縺励◆繝薙ャ繝・・蜈ｨ譎る俣謨ｰ繧定ｿ斐☆縲・,
         examples: [
             {
                 usage: "bitsCheered[username, period]",
-                description: "指定したユーザが、指定した期間中に配信者のチャンネルで応援したビッツ数を返します。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれか。"
+                description: "謖・ｮ壹＠縺溘Θ繝ｼ繧ｶ縺後∵欠螳壹＠縺滓悄髢謎ｸｭ縺ｫ驟堺ｿ｡閠・・繝√Ε繝ｳ繝阪Ν縺ｧ蠢懈抄縺励◆繝薙ャ繝・焚繧定ｿ斐＠縺ｾ縺吶よ悄髢薙・ 'day'縲・week'縲・month'縲・year' 縺ゅｋ縺・・ 'all' 縺ｮ縺・★繧後°縲・
             },
             {
                 usage: "bitsCheered[username, period, startDate]",
-                description: "指定された日付に発生した配信者のチャンネルで、指定された期間中に指定されたユーザが応援したビッツ数を返します。期間は 'day'、'week'、'month'、'year' あるいは 'all' のいずれか。"
+                description: "謖・ｮ壹＆繧後◆譌･莉倥↓逋ｺ逕溘＠縺滄・菫｡閠・・繝√Ε繝ｳ繝阪Ν縺ｧ縲∵欠螳壹＆繧後◆譛滄俣荳ｭ縺ｫ謖・ｮ壹＆繧後◆繝ｦ繝ｼ繧ｶ縺悟ｿ懈抄縺励◆繝薙ャ繝・焚繧定ｿ斐＠縺ｾ縺吶よ悄髢薙・ 'day'縲・week'縲・month'縲・year' 縺ゅｋ縺・・ 'all' 縺ｮ縺・★繧後°縲・
             }
         ],
         categories: [VariableCategory.COMMON, VariableCategory.ADVANCED],

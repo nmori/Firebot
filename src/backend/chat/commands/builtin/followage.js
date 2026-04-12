@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const twitchApi = require("../../../twitch-api/api");
 const moment = require("moment");
@@ -11,10 +11,10 @@ const util = require("../../../utility");
 const followage = {
     definition: {
         id: "firebot:followage",
-        name: "フォロー期間",
+        name: "繝輔か繝ｭ繝ｼ譛滄俣",
         active: true,
         trigger: "!followage",
-        description: "ユーザーがチャンネルをフォローしている期間を表示します",
+        description: "繝ｦ繝ｼ繧ｶ繝ｼ縺後メ繝｣繝ｳ繝阪Ν繧偵ヵ繧ｩ繝ｭ繝ｼ縺励※縺・ｋ譛滄俣繧定｡ｨ遉ｺ縺励∪縺・,
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -24,10 +24,10 @@ const followage = {
         options: {
             displayTemplate: {
                 type: "string",
-                title: "出力テンプレート",
-                description: "フォローメッセージのフォーマット",
-                tip: "変数: {user}, {followage}, {followdate}",
-                default: `{user} は {followage} 前 ( {followdate} (UTC) )よりフォローしています`,
+                title: "蜃ｺ蜉帙ユ繝ｳ繝励Ξ繝ｼ繝・,
+                description: "繝輔か繝ｭ繝ｼ繝｡繝・そ繝ｼ繧ｸ縺ｮ繝輔か繝ｼ繝槭ャ繝・,
+                tip: "螟画焚: {user}, {followage}, {followdate}",
+                default: `{user} 縺ｯ {followage} 蜑・( {followdate} (UTC) )繧医ｊ繝輔か繝ｭ繝ｼ縺励※縺・∪縺兪,
                 useTextArea: true
             }
         }
@@ -41,20 +41,12 @@ const followage = {
 
         const followDate = await twitchApi.users.getFollowDateForUser(commandSender);
 
-<<<<<<< HEAD:src/backend/chat/commands/builtin/followage.js
-        if (followDate === null) {
-            await chat.sendChatMessage(`${commandSender} はこのチャンネルをフォローしていません.`);
-        } else {
-            const followDateMoment = moment(followDate),
-                nowMoment = moment();
-=======
         if (rawFollowDate === null) {
-            await chat.sendChatMessage(`${commandSender} はこのチャンネルをフォローしていません.`);
+            await chat.sendChatMessage(`${commandSender} 縺ｯ縺薙・繝√Ε繝ｳ繝阪Ν繧偵ヵ繧ｩ繝ｭ繝ｼ縺励※縺・∪縺帙ｓ.`);
         } else {
             const followDate = DateTime.fromJSDate(rawFollowDate),
                 now = DateTime.utc(),
                 nowLocal = DateTime.now();
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/follow-age.ts
 
             const followAgeString = util.getDateDiffString(
                 followDateMoment,
@@ -64,11 +56,7 @@ const followage = {
             await chat.sendChatMessage(commandOptions.displayTemplate
                 .replace("{user}", commandSender)
                 .replace("{followage}", followAgeString)
-<<<<<<< HEAD:src/backend/chat/commands/builtin/followage.js
-                .replace("{followdate}", followDateMoment.format("YYYY/MMMM/DD HH:mm"))
-=======
                 .replace("{followdate}", nowLocal.toFormat("YYYY/MMMM/DD HH:mm"))
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/follow-age.ts
             );
         }
     }

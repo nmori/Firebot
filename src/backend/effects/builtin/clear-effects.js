@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const webServer = require("../../../server/http-server-manager");
 const frontendCommunicator = require("../../common/frontend-communicator");
@@ -15,8 +15,8 @@ const delay = {
    */
     definition: {
         id: "firebot:clear-effects",
-        name: "演出クリア",
-        description: "オーバーレイ演出の削除、サウンドの停止、演出キューのクリア",
+        name: "貍泌・繧ｯ繝ｪ繧｢",
+        description: "繧ｪ繝ｼ繝舌・繝ｬ繧､貍泌・縺ｮ蜑企勁縲√し繧ｦ繝ｳ繝峨・蛛懈ｭ｢縲∵ｼ泌・繧ｭ繝･繝ｼ縺ｮ繧ｯ繝ｪ繧｢",
         icon: "fad fa-minus-circle",
         categories: [EffectCategory.COMMON, EffectCategory.OVERLAY],
         dependencies: []
@@ -31,22 +31,14 @@ const delay = {
    */
     optionsTemplate: `
         <eos-container>
-            <p>この演出は、現在実行中の演出をクリアします。カットシーンに入るときなどに便利です。また、演出キューを削除するのにも使えます。</p>
+            <p>縺薙・貍泌・縺ｯ縲∫樟蝨ｨ螳溯｡御ｸｭ縺ｮ貍泌・繧偵け繝ｪ繧｢縺励∪縺吶ゅき繝・ヨ繧ｷ繝ｼ繝ｳ縺ｫ蜈･繧九→縺阪↑縺ｩ縺ｫ萓ｿ蛻ｩ縺ｧ縺吶ゅ∪縺溘∵ｼ泌・繧ｭ繝･繝ｼ繧貞炎髯､縺吶ｋ縺ｮ縺ｫ繧ゆｽｿ縺医∪縺吶・/p>
         </eos-container>
         <eos-container header="Effects To Clear">
-<<<<<<< HEAD
-            <label class="control-fb control--checkbox"> オーバーレイ効果
-                <input type="checkbox" ng-model="effect.overlay">
-                <div class="control__indicator"></div>
-            </label>
-            <div class="mt-0 mr-0 mb-6 ml-6" uib-collapse="!effect.overlay || !settings.useOverlayInstances()">
-=======
             <firebot-checkbox
-                label="オーバーレイ演出"
+                label="繧ｪ繝ｼ繝舌・繝ｬ繧､貍泌・"
                 model="effect.overlay"
             />
             <div class="mt-0 mr-0 mb-6 ml-6" uib-collapse="!effect.overlay || !settings.getSetting('UseOverlayInstances')">
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="chat-effect-type">{{ getSelectedOverlayDisplay() }}</span> <span class="caret"></span>
@@ -59,29 +51,16 @@ const delay = {
                     </ul>
                 </div>
             </div>
-<<<<<<< HEAD
-            <label class="control-fb control--checkbox"> サウンド
-                <input type="checkbox" ng-model="effect.sounds">
-                <div class="control__indicator"></div>
-            </label>
-            <label class="control-fb control--checkbox"> 演出キュー
-                <input type="checkbox" ng-model="effect.queues">
-                <div class="control__indicator"></div>
-            </label>
-            <div uib-collapse="!effect.queues" style="margin: 0 0 15px 15px;">
-                <div class="btn-group" uib-dropdown>
-=======
             <firebot-checkbox
-                label="サウンド"
+                label="繧ｵ繧ｦ繝ｳ繝・
                 model="effect.sounds"
             />
             <firebot-checkbox
-                label="演出キュー"
+                label="貍泌・繧ｭ繝･繝ｼ"
                 model="effect.queues"
             />
             <div uib-collapse="!effect.queues" style="margin: 0 0 15px 15px;" class="mb-6">
                 <div class="btn-group mb-5" uib-dropdown>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                     <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
                     {{ getSelectedEffectQueueDisplay() }} <span class="caret"></span>
                     </button>
@@ -110,11 +89,11 @@ const delay = {
 
         $scope.getSelectedOverlayDisplay = () => {
             if ($scope.effect.overlayInstance == null) {
-                return "既定値";
+                return "譌｢螳壼､";
             }
 
             if ($scope.effect.overlayInstance === "all") {
-                return "すべて";
+                return "縺吶∋縺ｦ";
             }
 
             const overlayInstance = $scope.overlayInstances.find(oi => oi === $scope.effect.overlayInstance);
@@ -134,18 +113,18 @@ const delay = {
 
         $scope.getSelectedEffectQueueDisplay = () => {
             if (!$scope.effect.queues) {
-                return "なし";
+                return "縺ｪ縺・;
             }
 
             if ($scope.effect.queueId === "all") {
-                return "すべて";
+                return "縺吶∋縺ｦ";
             }
 
             const effectQueue = $scope.effectQueues.find(q => q.id === $scope.effect.queueId);
             if (effectQueue) {
                 return effectQueue.name;
             }
-            return "なし";
+            return "縺ｪ縺・;
         };
     },
     /**

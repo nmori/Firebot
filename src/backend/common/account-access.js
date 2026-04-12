@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const profileManager = require("./profile-manager");
 const logger = require("../logwrapper");
@@ -173,11 +173,7 @@ function updateAccount(accountType, account, emitUpdate = true) {
     const otherAccount = accountType === "streamer" ? cache.bot : cache.streamer;
     if (otherAccount != null && otherAccount.loggedIn) {
         if (otherAccount.userId === account.userId) {
-<<<<<<< HEAD
-            renderWindow.webContents.send("error", "配信者アカウントとBotアカウントの両方に同じユーザーでログインすることはできません。Botアカウントは別のTwitchユーザーにしてください。もし別のユーザーをお持ちでない場合は、Botアカウント機能を使用する必要はありません。");
-=======
             frontendCommunicator.send("error", "You cannot sign into the same user for both Streamer and Bot accounts. The bot account should be a separate Twitch user. If you don't have a separate user, simply don't use the Bot account feature as it is not required.");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             return;
         }
     }

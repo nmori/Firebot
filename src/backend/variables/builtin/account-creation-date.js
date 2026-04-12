@@ -1,4 +1,4 @@
-
+﻿
 "use strict";
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 const twitchApi = require("../../twitch-api/api");
@@ -6,30 +6,26 @@ const accountAccess = require("../../common/account-access");
 const moment = require("moment");
 const logger = require("../../logwrapper");
 
-<<<<<<< HEAD:src/backend/variables/builtin/account-creation-date.js
-const model = {
-=======
 const twitchApi = require("../../../twitch-api/api");
 const accountAccess = require("../../../common/account-access");
 const logger = require("../../../../backend/logwrapper");
 
 const model : ReplaceVariable = {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/account-creation-date.ts
     definition: {
         handle: "accountCreationDate",
-        description: "Twitchアカウントの作成日。",
+        description: "Twitch繧｢繧ｫ繧ｦ繝ｳ繝医・菴懈・譌･縲・,
         examples: [
             {
                 usage: "accountCreationDate[$target]",
-                description: "コマンドを入力すると、対象ユーザーのTwitchアカウントの作成日を取得します。"
+                description: "繧ｳ繝槭Φ繝峨ｒ蜈･蜉帙☆繧九→縲∝ｯｾ雎｡繝ｦ繝ｼ繧ｶ繝ｼ縺ｮTwitch繧｢繧ｫ繧ｦ繝ｳ繝医・菴懈・譌･繧貞叙蠕励＠縺ｾ縺吶・
             },
             {
                 usage: "accountCreationDate[$user]",
-                description: "関連するユーザーのTwitchアカウントの作成日を取得します。"
+                description: "髢｢騾｣縺吶ｋ繝ｦ繝ｼ繧ｶ繝ｼ縺ｮTwitch繧｢繧ｫ繧ｦ繝ｳ繝医・菴懈・譌･繧貞叙蠕励＠縺ｾ縺吶・
             },
             {
                 usage: "accountCreationDate[ChannelOne]",
-                description: "特定のユーザーのTwitchアカウント/チャンネルの作成日を取得します。"
+                description: "迚ｹ螳壹・繝ｦ繝ｼ繧ｶ繝ｼ縺ｮTwitch繧｢繧ｫ繧ｦ繝ｳ繝・繝√Ε繝ｳ繝阪Ν縺ｮ菴懈・譌･繧貞叙蠕励＠縺ｾ縺吶・
             }
         ],
         categories: [VariableCategory.USER],

@@ -1,24 +1,21 @@
-"use strict";
+﻿"use strict";
 
 const { EffectCategory, EffectDependency } = require('../../../shared/effect-constants');
 
 const effect = {
     definition: {
         id: "firebot:chat-feed-alert",
-        name: "チャットアラート",
-        description: "Firebotのチャットフィードにアラートを表示する",
+        name: "繝√Ε繝・ヨ繧｢繝ｩ繝ｼ繝・,
+        description: "Firebot縺ｮ繝√Ε繝・ヨ繝輔ぅ繝ｼ繝峨↓繧｢繝ｩ繝ｼ繝医ｒ陦ｨ遉ｺ縺吶ｋ",
         icon: "fad fa-comment-exclamation",
         categories: [EffectCategory.COMMON, EffectCategory.CHAT_BASED],
         dependencies: [EffectDependency.CHAT]
     },
     optionsTemplate: `
     <eos-container>
-        <p>この演出を使うと、実際のチャットメッセージを使わずにFirebotのチャットフィードにアラートを送ることができます。つまり、アラートはあなただけに表示されます。</p>
+        <p>縺薙・貍泌・繧剃ｽｿ縺・→縲∝ｮ滄圀縺ｮ繝√Ε繝・ヨ繝｡繝・そ繝ｼ繧ｸ繧剃ｽｿ繧上★縺ｫFirebot縺ｮ繝√Ε繝・ヨ繝輔ぅ繝ｼ繝峨↓繧｢繝ｩ繝ｼ繝医ｒ騾√ｋ縺薙→縺後〒縺阪∪縺吶ゅ▽縺ｾ繧翫√い繝ｩ繝ｼ繝医・縺ゅ↑縺溘□縺代↓陦ｨ遉ｺ縺輔ｌ縺ｾ縺吶・/p>
     </eos-container>
-    <eos-container header="アラート" pad-top="true">
-<<<<<<< HEAD
-        <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
-=======
+    <eos-container header="繧｢繝ｩ繝ｼ繝・ pad-top="true">
         <firebot-input
             model="effect.message"
             use-text-area="true"
@@ -27,7 +24,6 @@ const effect = {
             cols="40"
             menu-position="under"
         />
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     </eos-container>
 
     `,
@@ -35,7 +31,7 @@ const effect = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.message == null || effect.message === "") {
-            errors.push("アラートメッセージは空白にはできません");
+            errors.push("繧｢繝ｩ繝ｼ繝医Γ繝・そ繝ｼ繧ｸ縺ｯ遨ｺ逋ｽ縺ｫ縺ｯ縺ｧ縺阪∪縺帙ｓ");
         }
         return errors;
     },

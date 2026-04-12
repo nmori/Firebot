@@ -1,4 +1,4 @@
-import { EffectType } from "../../../../types/effects";
+﻿import { EffectType } from "../../../../types/effects";
 import { EffectCategory } from "../../../../shared/effect-constants";
 import logger from "../../../logwrapper";
 import twitchApi from "../../../twitch-api/api";
@@ -12,8 +12,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "twitch:create-poll",
-        name: "Twitch投票を作成する",
-        description: "Twitch投票を作成する",
+        name: "Twitch謚慕･ｨ繧剃ｽ懈・縺吶ｋ",
+        description: "Twitch謚慕･ｨ繧剃ｽ懈・縺吶ｋ",
         icon: "fad fa-poll-h",
         categories: [EffectCategory.COMMON, EffectCategory.TWITCH],
         dependencies: {
@@ -21,49 +21,42 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="投票タイトル">
-            <firebot-input input-title="Title" model="effect.title" placeholder-text="投票タイトルを入れる"  menu-position="under" />
-<<<<<<< HEAD
-=======
+        <eos-container header="謚慕･ｨ繧ｿ繧､繝医Ν">
+            <firebot-input input-title="Title" model="effect.title" placeholder-text="謚慕･ｨ繧ｿ繧､繝医Ν繧貞・繧後ｋ"  menu-position="under" />
             <div class="effect-info alert alert-warning" ng-if="doesTitleUseAVariable(effect)">
                 Warning: Title must be shorter than 60 characters after variable expansion.
             </div>
             <div class="effect-info alert alert-danger" ng-if="doesTitleExceedLength(effect)">
                 Error: Title must be shorter than 60 characters ({{effect.title.length}}/60).
             </div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
-        <eos-container header="投票期間" pad-top="true">
-            <firebot-input input-title="Duration" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="秒数を入れる" />
+        <eos-container header="謚慕･ｨ譛滄俣" pad-top="true">
+            <firebot-input input-title="Duration" input-type="number" disable-variables="true" model="effect.duration" placeholder-text="遘呈焚繧貞・繧後ｋ" />
         </eos-container>
 
-        <eos-container header="チャンネルポイント投票" pad-top="true">
-            <firebot-checkbox model="effect.allowChannelPointVoting" label="チャンネルポイント投票を許可する" />
-            <firebot-input ng-if="effect.allowChannelPointVoting" input-title="1票あたりのチャンネル・ポイント" input-type="number" disable-variables="true" model="effect.channelPointsPerVote" placeholder-text="チャンネルポイント数を入力" />
+        <eos-container header="繝√Ε繝ｳ繝阪Ν繝昴う繝ｳ繝域兜逾ｨ" pad-top="true">
+            <firebot-checkbox model="effect.allowChannelPointVoting" label="繝√Ε繝ｳ繝阪Ν繝昴う繝ｳ繝域兜逾ｨ繧定ｨｱ蜿ｯ縺吶ｋ" />
+            <firebot-input ng-if="effect.allowChannelPointVoting" input-title="1逾ｨ縺ゅ◆繧翫・繝√Ε繝ｳ繝阪Ν繝ｻ繝昴う繝ｳ繝・ input-type="number" disable-variables="true" model="effect.channelPointsPerVote" placeholder-text="繝√Ε繝ｳ繝阪Ν繝昴う繝ｳ繝域焚繧貞・蜉・ />
         </eos-container>
 
-        <eos-container header="選択肢" pad-top="true">
-<<<<<<< HEAD
-=======
+        <eos-container header="驕ｸ謚櫁い" pad-top="true">
             <div class="effect-info alert alert-warning" ng-if="doAnyChoicesUseAVariable(effect)">
                 Warning: All choices must be between 1 and 25 characters after variable expansion.
             </div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <editable-list settings="optionSettings" model="effect.choices" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                注：一度に実行できる投票は1つだけです。
-            </div>
+                豕ｨ・壻ｸ蠎ｦ縺ｫ螳溯｡後〒縺阪ｋ謚慕･ｨ縺ｯ1縺､縺縺代〒縺吶・            </div>
         </eos-container>
     `,
     optionsValidator: (effect) => {
         const errors: string[] = [];
 
         if (!effect.title?.length || effect.title.length === 0) {
-            errors.push("タイトルを入れてください");
+            errors.push("繧ｿ繧､繝医Ν繧貞・繧後※縺上□縺輔＞");
         }
 
         if (!(effect.duration >= 15 && effect.duration <= 1800)) {

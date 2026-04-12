@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const { settings } = require("../../common/settings-access");
 const resourceTokenManager = require("../../resourceTokenManager");
@@ -13,17 +13,17 @@ const { wait } = require("../../utility");
 const playSound = {
     definition: {
         id: "firebot:playsound",
-        name: "サウンドを再生",
-        description: "演出音を再生します",
+        name: "繧ｵ繧ｦ繝ｳ繝峨ｒ蜀咲函",
+        description: "貍泌・髻ｳ繧貞・逕溘＠縺ｾ縺・,
         icon: "fad fa-waveform",
         categories: [EffectCategory.COMMON],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-    <eos-container header="メディアタイプ">
+    <eos-container header="繝｡繝・ぅ繧｢繧ｿ繧､繝・>
         <firebot-radios 
-            options="{ local: 'ローカルファイル', folderRandom: 'フォルダ内のファイルをランダム再生', url: 'ネット上のものを再生' }"
+            options="{ local: '繝ｭ繝ｼ繧ｫ繝ｫ繝輔ぃ繧､繝ｫ', folderRandom: '繝輔か繝ｫ繝蜀・・繝輔ぃ繧､繝ｫ繧偵Λ繝ｳ繝繝蜀咲函', url: '繝阪ャ繝井ｸ翫・繧ゅ・繧貞・逕・ }"
             model="effect.soundType"
             inline="true"
             style="padding-bottom: 5px;"
@@ -31,9 +31,9 @@ const playSound = {
     </eos-container>
 
     <div ng-hide="effect.soundType == null">
-        <eos-container header="音源" pad-top="true">
+        <eos-container header="髻ｳ貅・ pad-top="true">
             <div ng-if="effect.soundType === 'folderRandom'">
-                <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: '音源のフォルダを選択'}"></file-chooser>
+                <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: '髻ｳ貅舌・繝輔か繝ｫ繝繧帝∈謚・}"></file-chooser>
             </div>
 
             <div ng-if="effect.soundType === 'local'">
@@ -50,14 +50,14 @@ const playSound = {
             </div>
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox">再生終了を待つ <tooltip text="'音が鳴り終わるのを待ってから、次の演出に移ります'"></tooltip>
+                <label class="control-fb control--checkbox">蜀咲函邨ゆｺ・ｒ蠕・▽ <tooltip text="'髻ｳ縺碁ｳｴ繧顔ｵゅｏ繧九・繧貞ｾ・▲縺ｦ縺九ｉ縲∵ｬ｡縺ｮ貍泌・縺ｫ遘ｻ繧翫∪縺・"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="音量" pad-top="true">
+        <eos-container header="髻ｳ驥・ pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 1, ceil: 10, hideLimitLabels: true, showSelectionBar: true}"></rzslider>
@@ -84,14 +84,14 @@ const playSound = {
 
         if (effect.soundType === "local" || effect.soundType == null) {
             if (effect.filepath == null || effect.filepath.length < 1) {
-                errors.push("音源ファイルを指定してください");
+                errors.push("髻ｳ貅舌ヵ繧｡繧､繝ｫ繧呈欠螳壹＠縺ｦ縺上□縺輔＞");
             }
         } else if (effect.soundType === "folderRandom") {
             if (effect.folder == null || effect.folder.length < 1) {
-                errors.push("音源フォルダを指定してください");
+                errors.push("髻ｳ貅舌ヵ繧ｩ繝ｫ繝繧呈欠螳壹＠縺ｦ縺上□縺輔＞");
             }
         } else if (effect.soundType === "url" && (effect.url == null || effect.url.trim() === "")) {
-            errors.push("URLをいれてください");
+            errors.push("URL繧偵＞繧後※縺上□縺輔＞");
         }
 
         return errors;
@@ -133,11 +133,7 @@ const playSound = {
         // Set output device.
         let selectedOutputDevice = effect.audioOutputDevice;
         if (selectedOutputDevice == null || selectedOutputDevice.deviceId === "") {
-<<<<<<< HEAD
-            selectedOutputDevice = settings.getAudioOutputDevice();
-=======
             selectedOutputDevice = SettingsManager.getSetting("AudioOutputDevice");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
         data.audioOutputDevice = selectedOutputDevice;
 

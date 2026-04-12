@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const customVariableManager = require("../../common/custom-variable-manager");
 const { EffectCategory } = require('../../../shared/effect-constants');
@@ -6,59 +6,51 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const fileWriter = {
     definition: {
         id: "firebot:customvariable",
-        name: "カスタム変数",
-        description: "データをカスタム変数に保存し、他の場所で使用することができます。",
+        name: "繧ｫ繧ｹ繧ｿ繝螟画焚",
+        description: "繝・・繧ｿ繧偵き繧ｹ繧ｿ繝螟画焚縺ｫ菫晏ｭ倥＠縲∽ｻ悶・蝣ｴ謇縺ｧ菴ｿ逕ｨ縺吶ｋ縺薙→縺後〒縺阪∪縺吶・,
         icon: "fad fa-value-absolute",
         categories: [EffectCategory.SCRIPTING],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-        <eos-container header="変数名">
-            <p class="muted">この名前は、 $customVariable[name] を経由して他の場所で参照する際に使用します</p>
-            <input ng-model="effect.name" type="text" class="form-control" id="chat-text-setting" placeholder="名前を入れる" replace-variables menu-position="below">
+        <eos-container header="螟画焚蜷・>
+            <p class="muted">縺薙・蜷榊燕縺ｯ縲・$customVariable[name] 繧堤ｵ檎罰縺励※莉悶・蝣ｴ謇縺ｧ蜿ら・縺吶ｋ髫帙↓菴ｿ逕ｨ縺励∪縺・/p>
+            <input ng-model="effect.name" type="text" class="form-control" id="chat-text-setting" placeholder="蜷榊燕繧貞・繧後ｋ" replace-variables menu-position="below">
         </eos-container>
 
-        <eos-container header="変数の中身" pad-top="true">
-            <p class="muted">変数に保存されるデータ。テキストまたは別の置換フレーズを指定できます。</p>
-<<<<<<< HEAD
-            <textarea ng-model="effect.variableData" rows="3" class="form-control" id="chat-text-setting" placeholder="テキストを入力" replace-variables></textarea>
-=======
+        <eos-container header="螟画焚縺ｮ荳ｭ霄ｫ" pad-top="true">
+            <p class="muted">螟画焚縺ｫ菫晏ｭ倥＆繧後ｋ繝・・繧ｿ縲ゅユ繧ｭ繧ｹ繝医∪縺溘・蛻･縺ｮ鄂ｮ謠帙ヵ繝ｬ繝ｼ繧ｺ繧呈欠螳壹〒縺阪∪縺吶・/p>
             <selectable-input-editors
                 editors="editors"
                 initial-editor-label="initialEditorLabel"
                 model="effect.variableData"
             />
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <p class="muted" style="font-size: 11px;"><b>Note:</b> If variable data is a valid JSON string, it will be parsed into an object or array.</p>
         </eos-container>
 
-        <eos-container header="プロパティのパス（任意）" pad-top="true">
-            <p class="muted">変数にすでにオブジェクトや配列の形でデータが保存されている場合、上記のデータで更新する特定のプロパティやインデックスへのパス（ドット記法を使用）を定義することができます。何も指定しなければ、変数全体が置き換えられる。既存のデータがなく、プロパティのパスが提供された場合は、何も起こりません。</p>
-<<<<<<< HEAD
-=======
+        <eos-container header="繝励Ο繝代ユ繧｣縺ｮ繝代せ・井ｻｻ諢擾ｼ・ pad-top="true">
+            <p class="muted">螟画焚縺ｫ縺吶〒縺ｫ繧ｪ繝悶ず繧ｧ繧ｯ繝医ｄ驟榊・縺ｮ蠖｢縺ｧ繝・・繧ｿ縺御ｿ晏ｭ倥＆繧後※縺・ｋ蝣ｴ蜷医∽ｸ願ｨ倥・繝・・繧ｿ縺ｧ譖ｴ譁ｰ縺吶ｋ迚ｹ螳壹・繝励Ο繝代ユ繧｣繧・う繝ｳ繝・ャ繧ｯ繧ｹ縺ｸ縺ｮ繝代せ・医ラ繝・ヨ險俶ｳ輔ｒ菴ｿ逕ｨ・峨ｒ螳夂ｾｩ縺吶ｋ縺薙→縺後〒縺阪∪縺吶ゆｽ輔ｂ謖・ｮ壹＠縺ｪ縺代ｌ縺ｰ縲∝､画焚蜈ｨ菴薙′鄂ｮ縺肴鋤縺医ｉ繧後ｋ縲よ里蟄倥・繝・・繧ｿ縺後↑縺上√・繝ｭ繝代ユ繧｣縺ｮ繝代せ縺梧署萓帙＆繧後◆蝣ｴ蜷医・縲∽ｽ輔ｂ襍ｷ縺薙ｊ縺ｾ縺帙ｓ縲・/p>
             <p class="muted">If no property path is provided and the existing variable does NOT contain an array, the entire variable is replaced. If the existing variable contains an array and the new value is NOT an array, the new value will be appended to the array.</p>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             <eos-collapsable-panel show-label="Show examples" hide-label="Hide examples" hide-info-box="true">
-                <span>例:</span>
+                <span>萓・</span>
                 <ul>
                     <li>some.property</li>
                     <li>1</li>
                     <li>1.value</li>
                 </ul>
             </eos-collapsable-panel>
-            <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="パスを入力">
+            <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="繝代せ繧貞・蜉・>
         </eos-container>
 
-        <eos-container header="有効期間(オプション)" pad-top="true">
-            <p class="muted">この変数がキャッシュに保持される期間(秒)。無期限(Firebotが再起動するまで)には0を使用します。 </p>
-            <input ng-model="effect.ttl" type="number" class="form-control" id="chat-text-setting" placeholder="秒数を入力">
+        <eos-container header="譛牙柑譛滄俣(繧ｪ繝励す繝ｧ繝ｳ)" pad-top="true">
+            <p class="muted">縺薙・螟画焚縺後く繝｣繝・す繝･縺ｫ菫晄戟縺輔ｌ繧区悄髢・遘・縲ら┌譛滄剞(Firebot縺悟・襍ｷ蜍輔☆繧九∪縺ｧ)縺ｫ縺ｯ0繧剃ｽｿ逕ｨ縺励∪縺吶・</p>
+            <input ng-model="effect.ttl" type="number" class="form-control" id="chat-text-setting" placeholder="遘呈焚繧貞・蜉・>
         </eos-container>
 
         <eos-container pad-top="true">
             <div class="effect-info well">
-                デバッグのためにリアルタイムで変数を確認したいですか？ <a ng-click="openVariableInspector()" style="color:#53afff;cursor:pointer;">変数確認画面</a>を開いてみてください。
-            </div>
+                繝・ヰ繝・げ縺ｮ縺溘ａ縺ｫ繝ｪ繧｢繝ｫ繧ｿ繧､繝縺ｧ螟画焚繧堤｢ｺ隱阪＠縺溘＞縺ｧ縺吶°・・<a ng-click="openVariableInspector()" style="color:#53afff;cursor:pointer;">螟画焚遒ｺ隱咲判髱｢</a>繧帝幕縺・※縺ｿ縺ｦ縺上□縺輔＞縲・            </div>
         </eos-container>
     `,
     optionsController: ($scope, backendCommunicator) => {
@@ -73,7 +65,7 @@ const fileWriter = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.name == null || effect.name === "") {
-            errors.push("変数名を入れてください");
+            errors.push("螟画焚蜷阪ｒ蜈･繧後※縺上□縺輔＞");
         }
         return errors;
     },

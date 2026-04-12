@@ -1,17 +1,13 @@
-<<<<<<< HEAD:src/backend/events/filters/builtin/chat-mode.js
-"use strict";
-=======
-import { EventFilter, PresetValue } from "../../../../../types/events";
+﻿import { EventFilter, PresetValue } from "../../../../../types/events";
 import { ComparisonType } from "../../../../../shared/filter-constants";
 import { mapLegacyComparisonType } from "../../../../../shared/filter-helpers";
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/events/filters/builtin/twitch/chat-mode.ts
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:chatmode",
-    name: "チャットモード",
-    description: "チャットモードにフィルターをかける",
+    name: "繝√Ε繝・ヨ繝｢繝ｼ繝・,
+    description: "繝√Ε繝・ヨ繝｢繝ｼ繝峨↓繝輔ぅ繝ｫ繧ｿ繝ｼ繧偵°縺代ｋ",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],
@@ -21,72 +17,36 @@ module.exports = {
         return [
             {
                 value: "emoteonly",
-                display: "エモートのみ"
+                display: "繧ｨ繝｢繝ｼ繝医・縺ｿ"
             },
             {
                 value: "followers",
-                display: "フォロワーのみ"
+                display: "繝輔か繝ｭ繝ｯ繝ｼ縺ｮ縺ｿ"
             },
             {
                 value: "subscribers",
-                display: "サブスクライバーのみ"
+                display: "繧ｵ繝悶せ繧ｯ繝ｩ繧､繝舌・縺ｮ縺ｿ"
             },
             {
                 value: "slow",
-                display: "スローモード"
+                display: "繧ｹ繝ｭ繝ｼ繝｢繝ｼ繝・
             },
             {
-<<<<<<< HEAD:src/backend/events/filters/builtin/chat-mode.js
-                value: "r9kbeta",
-=======
                 value: "uniquechat",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/events/filters/builtin/twitch/chat-mode.ts
-                display: "ユニークチャット"
+                display: "繝ｦ繝九・繧ｯ繝√Ε繝・ヨ"
             }
         ];
     },
-<<<<<<< HEAD:src/backend/events/filters/builtin/chat-mode.js
-    getSelectedValueDisplay: (filterSettings) => {
-        switch (filterSettings.value) {
-        case "emoteonly":
-            return "エモートのみ";
-        case "followers":
-            return "フォロワーのみ";
-        case "subscribers":
-            return "サブスクライバーのみ";
-        case "slow":
-            return "スローモード";
-        case "r9kbeta":
-            return "ユニークチャット";
-        default:
-            return "[未設定]";
-        }
-=======
     getSelectedValueDisplay: async (filterSettings, presetValues: PresetValue[]) => {
         return presetValues
             .find(pv => pv.value === filterSettings.value || (filterSettings.value === "r9kbeta" && pv.value === "uniquechat"))?.display ?? "[Not Set]";
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/events/filters/builtin/twitch/chat-mode.ts
     },
     predicate: async (filterSettings, eventData) => {
 
         const { comparisonType, value } = filterSettings;
         const { eventMeta } = eventData;
 
-<<<<<<< HEAD:src/backend/events/filters/builtin/chat-mode.js
-        switch (comparisonType) {
-        case "is":
-        case "一致":
-            return eventMeta.chatMode.includes(value);
-        case "is not":
-        case "不一致":
-            return !eventMeta.chatMode.includes(value);
-        default:
-            return false;
-        }
-    }
-};
-=======
-        // 旧式のComparisonTypeを標準化
+        // 譌ｧ蠑上・ComparisonType繧呈ｨ呎ｺ門喧
         const standardComparisonType = mapLegacyComparisonType(comparisonType);
 
         switch (standardComparisonType) {
@@ -101,4 +61,3 @@ module.exports = {
 };
 
 export default filter;
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/events/filters/builtin/twitch/chat-mode.ts

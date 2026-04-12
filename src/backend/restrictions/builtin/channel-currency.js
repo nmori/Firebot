@@ -1,30 +1,29 @@
-"use strict";
+﻿"use strict";
 
 const model = {
     definition: {
         id: "firebot:channelcurrency",
-        name: "チャネル通貨",
-        description: "チャネル通貨の金額に基づいて制限する。",
+        name: "繝√Ε繝阪Ν騾夊ｲｨ",
+        description: "繝√Ε繝阪Ν騾夊ｲｨ縺ｮ驥鷹｡阪↓蝓ｺ縺･縺・※蛻ｶ髯舌☆繧九・,
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div ng-show="hasCurrencies">
                 <div id="channelCurrency" class="modal-subheader" style="padding: 0 0 4px 0">
-                    チャネル通貨
+                    繝√Ε繝阪Ν騾夊ｲｨ
                 </div>
                 <div class="">
                     <select class="fb-select" ng-model="restriction.selectedCurrency" ng-options="currency.id as currency.name for currency in currencies"></select>
                 </div>
 
                 <div id="channelCurrencyOption" class="modal-subheader" style="padding: 0 0 4px 0">
-                    比較
-                </div>
+                    豈碑ｼ・                </div>
                 <div>
                     <select class="fb-select" ng-model="restriction.comparison">
-                    <option label="Greater than (or equal to)" value="greater">以上</option>
-                    <option label="Less than" value="less">未満</option>
-                    <option label="Equal to" value="equal">同等</option>
+                    <option label="Greater than (or equal to)" value="greater">莉･荳・/option>
+                    <option label="Less than" value="less">譛ｪ貅</option>
+                    <option label="Equal to" value="equal">蜷檎ｭ・/option>
                     </select>
                 </div>
 
@@ -32,18 +31,18 @@ const model = {
                     Amount
                 </div>
                 <div class="form-group">
-                    <input type="number" class="form-control" ng-model="restriction.amount" placeholder="通貨の金額を入力">
+                    <input type="number" class="form-control" ng-model="restriction.amount" placeholder="騾夊ｲｨ縺ｮ驥鷹｡阪ｒ蜈･蜉・>
                 </div>
 
                 <div ng-if="showAutoDeduct()" style="margin-top:20px">
-                    <label class="control-fb control--checkbox"> 制限を通過した場合、ユーザーから自動的に通貨を差し引く</tooltip>
+                    <label class="control-fb control--checkbox"> 蛻ｶ髯舌ｒ騾夐℃縺励◆蝣ｴ蜷医√Θ繝ｼ繧ｶ繝ｼ縺九ｉ閾ｪ蜍慕噪縺ｫ騾夊ｲｨ繧貞ｷｮ縺怜ｼ輔￥</tooltip>
                         <input type="checkbox" ng-model="restriction.autoDeductCurrency">
                         <div class="control__indicator"></div>
                     </label>
                 </div>
             </div>
             <div ng-show="!hasCurrencies">
-                <p>あなたはこの制限で使用する通貨を作成していない！</p>
+                <p>縺ゅ↑縺溘・縺薙・蛻ｶ髯舌〒菴ｿ逕ｨ縺吶ｋ騾夊ｲｨ繧剃ｽ懈・縺励※縺・↑縺・ｼ・/p>
             </div>
         </div>
     `,
@@ -87,7 +86,7 @@ const model = {
 
         const currency = currencyService.getCurrency(currencyId);
 
-        const currencyName = currency ? currency.name : "[未選択]";
+        const currencyName = currency ? currency.name : "[譛ｪ驕ｸ謚枉";
 
         return `${currencyName} is ${comparisonDisplay} ${amount}`;
     },
@@ -112,14 +111,10 @@ const model = {
         }
 
         if (!passed) {
-<<<<<<< HEAD
-            const currency = currencyDatabase.getCurrencyById(selectedCurrency);
-=======
             const currency = currencyAccess.getCurrencyById(selectedCurrency);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-            const currencyName = currency ? currency.name.toLowerCase() : "不明な通貨";
+            const currencyName = currency ? currency.name.toLowerCase() : "荳肴・縺ｪ騾夊ｲｨ";
             const amountText = comparison !== "equal" ? `${comparison} than ${currencyAmount}` : `${currencyAmount}`;
-            throw new Error(`以下が必要です：${amountText} ${currencyName}`);
+            throw new Error(`莉･荳九′蠢・ｦ√〒縺呻ｼ・{amountText} ${currencyName}`);
         }
     },
     onSuccessful: async ({ metadata }, {

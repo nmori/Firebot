@@ -1,29 +1,18 @@
-"use strict";
+﻿"use strict";
 
 const { EffectCategory } = require('../../../shared/effect-constants');
 
 const model = {
     definition: {
         id: "firebot:stop-effect-execution",
-        name: "演出の実行停止",
-        description: "現在の演出リストの実行を停止する。",
+        name: "貍泌・縺ｮ螳溯｡悟●豁｢",
+        description: "迴ｾ蝨ｨ縺ｮ貍泌・繝ｪ繧ｹ繝医・螳溯｡後ｒ蛛懈ｭ｢縺吶ｋ縲・,
         icon: "fad fa-stop-circle",
         categories: [EffectCategory.SCRIPTING],
         dependencies: []
     },
     globalSettings: {},
     optionsTemplate: `
-<<<<<<< HEAD
-        <eos-container>
-            <p>現在の演出リストのうち、演出中のものを実行停止します。</p>
-
-            <div style="margin-top:15px">
-                <label class="control-fb control--checkbox"> 親演出リストへ停止演出の実行<tooltip text="'演出の実行停止要求をすべての親演出リストにバブルします (この演出が条件付き演出の中にネストされている場合などに便利です)。'"></tooltip>
-                    <input type="checkbox" ng-model="effect.bubbleStop">
-                    <div class="control__indicator"></div>
-                </label>
-            </div>
-=======
         <eos-container header="Target">
             <firebot-radios
                 options="targetOptions"
@@ -69,7 +58,6 @@ const model = {
                 tooltip="Bubble the stop effect execution request to all parent effect lists (useful if nested within a conditional effect, etc)"
                 model="effect.bubbleStop"
             />
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
     `,
     optionsController: () => {},

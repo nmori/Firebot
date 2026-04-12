@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 (function() {
 
     const uuidv1 = require("uuid/v1");
@@ -21,21 +21,20 @@
             <div class="effect-list">
                 <div class="flex-row-center jspacebetween effect-list-header">
                     <div class="flex items-center">
-                        <h3 class="{{$ctrl.headerClasses}} m-0" style="display:inline;font-weight: 600;">演出</h3>
+                        <h3 class="{{$ctrl.headerClasses}} m-0" style="display:inline;font-weight: 600;">貍泌・</h3>
                         <span class="ml-1" style="font-size: 11px;"><tooltip text="$ctrl.header" ng-if="$ctrl.header"></tooltip></span>
                     </div>
 
                     <div class="flex items-center">
                         <div class="mr-7" ng-if="$ctrl.getSelectedQueueModeIsCustom()">
-                            <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="演出の持続時間： キューがこの演出リストを起動した後、次の演出を実行するまでに待つべき合計時間 (秒)。">
-                                演出の持続時間
-                                <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'この演出リストを起動してキューにいれた後、次の演出リストを実行するまでの合計時間（秒）。'"></tooltip>
+                            <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="貍泌・縺ｮ謖∫ｶ壽凾髢難ｼ・繧ｭ繝･繝ｼ縺後％縺ｮ貍泌・繝ｪ繧ｹ繝医ｒ襍ｷ蜍輔＠縺溷ｾ後∵ｬ｡縺ｮ貍泌・繧貞ｮ溯｡後☆繧九∪縺ｧ縺ｫ蠕・▽縺ｹ縺榊粋險域凾髢・(遘・縲・>
+                                貍泌・縺ｮ謖∫ｶ壽凾髢・                                <tooltip role="tooltip" aria-label="The total duration in seconds the queue should wait after triggering this effect list before running the next one." text="'縺薙・貍泌・繝ｪ繧ｹ繝医ｒ襍ｷ蜍輔＠縺ｦ繧ｭ繝･繝ｼ縺ｫ縺・ｌ縺溷ｾ後∵ｬ｡縺ｮ貍泌・繝ｪ繧ｹ繝医ｒ螳溯｡後☆繧九∪縺ｧ縺ｮ蜷郁ｨ域凾髢難ｼ育ｧ抵ｼ峨・"></tooltip>
                             </div>
                             <div
                                 class="flex justify-end items-center"
                                 style="font-size: 12px;"
                                 ng-click="$ctrl.openEditQueueDurationModal()"
-                                aria-label="演出の持続時間: {{$ctrl.effectsData.queueDuration || 0}} 秒"
+                                aria-label="貍泌・縺ｮ謖∫ｶ壽凾髢・ {{$ctrl.effectsData.queueDuration || 0}} 遘・
                                 role="button"
                             >
                                 <b>{{$ctrl.effectsData.queueDuration || 0}}</b>s<span class="muted ml-2" style="font-size: 9px;"><i class="fal fa-edit"></i></span>
@@ -44,19 +43,18 @@
 
                         <div class="mr-7" ng-if="$ctrl.validQueueSelected()">
                             <div style="font-size: 10px;opacity: 0.8;text-align: right;" aria-label="Queue Priority: If an effect list has priority, it will get added in front of other lists in the queue that do not have priority.">
-                                キューの優先順位
-                                <tooltip role="tooltip" aria-label="If an effect list has priority, it will get added in front of other lists in the queue that do not have priority." text="'演出リストに優先順位がある場合、キュー内の優先順位を持たない他のリストの前に追加されます。'"></tooltip>
+                                繧ｭ繝･繝ｼ縺ｮ蜆ｪ蜈磯・ｽ・                                <tooltip role="tooltip" aria-label="If an effect list has priority, it will get added in front of other lists in the queue that do not have priority." text="'貍泌・繝ｪ繧ｹ繝医↓蜆ｪ蜈磯・ｽ阪′縺ゅｋ蝣ｴ蜷医√く繝･繝ｼ蜀・・蜆ｪ蜈磯・ｽ阪ｒ謖√◆縺ｪ縺・ｻ悶・繝ｪ繧ｹ繝医・蜑阪↓霑ｽ蜉縺輔ｌ縺ｾ縺吶・"></tooltip>
                             </div>
                             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
-                                <a href role="button" class="ddtext" style="font-size: 12px;" aria-label="Selected: {{$ctrl.getSelectedQueuePriority() === 'Yes' ? '高' : 'なし'}}">
+                                <a href role="button" class="ddtext" style="font-size: 12px;" aria-label="Selected: {{$ctrl.getSelectedQueuePriority() === 'Yes' ? '鬮・ : '縺ｪ縺・}}">
                                     {{$ctrl.getSelectedQueuePriority()}}<span class="fb-arrow down ddtext"></span>
                                 </a>
                                 <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                                     <li role="none">
-                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'high'" class="pl-4" role="menuitem" aria-label="高">Yes</a>
+                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'high'" class="pl-4" role="menuitem" aria-label="鬮・>Yes</a>
                                     </li>
                                     <li role="none">
-                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'none'" class="pl-4" role="menuitem" aria-label="なし">No</a>
+                                        <a href ng-click="$ctrl.effectsData.queuePriority = 'none'" class="pl-4" role="menuitem" aria-label="縺ｪ縺・>No</a>
                                     </li>
                                 </ul>
                             </div>
@@ -64,8 +62,8 @@
 
                         <div class="flex flex-col items-end mr-8">
                             <div style="font-size: 10px;opacity: 0.8;text-align: right;">
-                                キュー
-                                <tooltip role="tooltip" aria-label="演出キューでは、演出が重ならないようにキューに入れて順番に実行することができます。特にイベントに便利です。" text="'演出キューは、演出が重ならないようにキューに入れて順番に実行することができます。特にイベントに役立ちます'"></tooltip>
+                                繧ｭ繝･繝ｼ
+                                <tooltip role="tooltip" aria-label="貍泌・繧ｭ繝･繝ｼ縺ｧ縺ｯ縲∵ｼ泌・縺碁㍾縺ｪ繧峨↑縺・ｈ縺・↓繧ｭ繝･繝ｼ縺ｫ蜈･繧後※鬆・分縺ｫ螳溯｡後☆繧九％縺ｨ縺後〒縺阪∪縺吶ら音縺ｫ繧､繝吶Φ繝医↓萓ｿ蛻ｩ縺ｧ縺吶・ text="'貍泌・繧ｭ繝･繝ｼ縺ｯ縲∵ｼ泌・縺碁㍾縺ｪ繧峨↑縺・ｈ縺・↓繧ｭ繝･繝ｼ縺ｫ蜈･繧後※鬆・分縺ｫ螳溯｡後☆繧九％縺ｨ縺後〒縺阪∪縺吶ら音縺ｫ繧､繝吶Φ繝医↓蠖ｹ遶九■縺ｾ縺・"></tooltip>
                             </div>
                             <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
                                 <a href role="button" class="ddtext" style="font-size: 12px;"> "{{$ctrl.getSelectedEffectQueueName()}}" <span class="fb-arrow down ddtext"></span></a>
@@ -77,7 +75,7 @@
                                             ng-click="$ctrl.effectsData.queue = null"
                                             role="menuitem"
                                         >
-                                            解除 <tooltip role="tooltip" aria-label="Effects will always play immediately when triggered" text="'演出は起動されると即座に再生されます'"></tooltip>
+                                            隗｣髯､ <tooltip role="tooltip" aria-label="Effects will always play immediately when triggered" text="'貍泌・縺ｯ襍ｷ蜍輔＆繧後ｋ縺ｨ蜊ｳ蠎ｧ縺ｫ蜀咲函縺輔ｌ縺ｾ縺・"></tooltip>
                                             <span ng-show="$ctrl.effectsData.queue == null" style="color:green;display: inline-block;"><i class="fas fa-check"></i></span>
                                         </a>
                                     </li>
@@ -90,37 +88,37 @@
                                     </li>
 
                                     <li ng-show="$ctrl.eqs.getEffectQueues().length < 1" role="none">
-                                        <a class="muted pl-4" role="menuitem">キューは作成されていません.</a>
+                                        <a class="muted pl-4" role="menuitem">繧ｭ繝･繝ｼ縺ｯ菴懈・縺輔ｌ縺ｦ縺・∪縺帙ｓ.</a>
                                     </li>
 
                                     <li role="separator" class="divider"></li>
                                     <li role="none">
-                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal()" role="menuitem">キューを作成</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal()" role="menuitem">繧ｭ繝･繝ｼ繧剃ｽ懈・</a>
                                     </li>
 
                                     <li role="none" ng-show="$ctrl.validQueueSelected()">
-                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">編集："{{$ctrl.getSelectedEffectQueueName()}}"</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showAddEditEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">邱ｨ髮・ｼ・{{$ctrl.getSelectedEffectQueueName()}}"</a>
                                     </li>
 
                                     <li role="none" ng-show="$ctrl.validQueueSelected()">
-                                        <a href class="pl-4" ng-click="$ctrl.showDeleteEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">削除："{{$ctrl.getSelectedEffectQueueName()}}"</a>
+                                        <a href class="pl-4" ng-click="$ctrl.showDeleteEffectQueueModal($ctrl.effectsData.queue)" role="menuitem">蜑企勁・・{{$ctrl.getSelectedEffectQueueName()}}"</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="test-effects-btn clickable" uib-tooltip="演出のテスト実行" aria-label="Test effects" ng-click="$ctrl.testEffects()" role="button">
+                        <div class="test-effects-btn clickable" uib-tooltip="貍泌・縺ｮ繝・せ繝亥ｮ溯｡・ aria-label="Test effects" ng-click="$ctrl.testEffects()" role="button">
                             <i class="far fa-play-circle"></i>
                         </div>
 
                         <div>
                             <a
                                 href role="button"
-                                aria-label="演出メニューを開く"
+                                aria-label="貍泌・繝｡繝九Η繝ｼ繧帝幕縺・
                                 class="effects-actions-btn"
                                 context-menu="$ctrl.createAllEffectsMenuOptions()"
                                 context-menu-on="click"
-                                uib-tooltip="演出メニューを開く"
+                                uib-tooltip="貍泌・繝｡繝九Η繝ｼ繧帝幕縺・
                                 tooltip-append-to-body="true"
                             >
                                 <i class="fal fa-ellipsis-v"></i>
@@ -173,7 +171,7 @@
 
                     <div class="add-more-functionality mt-7 ml-5">
                         <a href role="button" class="clickable" ng-click="$ctrl.openNewEffectModal($ctrl.effectsData.list.length)" aria-label="Add new effect">
-                            <i class="far fa-plus-circle mr-2"></i>演出の追加
+                            <i class="far fa-plus-circle mr-2"></i>貍泌・縺ｮ霑ｽ蜉
                         </a>
                     </div>
                 </div>
@@ -220,23 +218,20 @@
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
-                            html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 貼り付け</a>`,
+                            html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 雋ｼ繧贋ｻ倥￠</a>`,
                             click: function () {
                                 ctrl.pasteEffects(true);
                             },
                             enabled: ctrl.hasCopiedEffects()
                         },
                         {
-                            html: `<a href role="menuitem" style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i>  すべて削除</a>`,
+                            html: `<a href role="menuitem" style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i>  縺吶∋縺ｦ蜑企勁</a>`,
                             click: function () {
                                 ctrl.removeAllEffects();
                             },
                             enabled: ctrl.effectsData.list.length > 0
                         },
                         {
-<<<<<<< HEAD
-                            html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> 演出を共有</a>`,
-=======
                             text: "Advanced...",
                             hasTopDivider: true,
                             children: [
@@ -261,7 +256,6 @@
                         },
                         {
                             html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> Share effects</a>`,
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             click: function () {
                                 ctrl.shareEffects();
                             },
@@ -269,7 +263,7 @@
                             hasTopDivider: true
                         },
                         {
-                            html: `<a href ><i class="far fa-cloud-download-alt mr-4"></i> 共有演出を取り込み</a>`,
+                            html: `<a href ><i class="far fa-cloud-download-alt mr-4"></i> 蜈ｱ譛画ｼ泌・繧貞叙繧願ｾｼ縺ｿ</a>`,
                             click: function () {
                                 ctrl.importSharedEffects();
                             }
@@ -282,17 +276,7 @@
                 ctrl.createEffectMenuOptions = (effect) => {
                     const effectMenuOptions = [
                         {
-<<<<<<< HEAD
-                            html: `<a href ><i class="far fa-tag mr-4"></i> ラベルを編集</a>`,
-                            click: function ($itemScope) {
-                                const $index = $itemScope.$index;
-                                ctrl.editLabelForEffectAtIndex($index);
-                            }
-                        },
-                        {
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                            html: `<a href ><i class="far fa-edit mr-4"></i> 演出を編集</a>`,
+                            html: `<a href ><i class="far fa-edit mr-4"></i> 貍泌・繧堤ｷｨ髮・/a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 const effect = $itemScope.effect;
@@ -300,47 +284,41 @@
                             }
                         },
                         {
-<<<<<<< HEAD
-=======
-                            html: `<a href ><i class="far fa-tag mr-4"></i> ラベルを編集</a>`,
+                            html: `<a href ><i class="far fa-tag mr-4"></i> 繝ｩ繝吶Ν繧堤ｷｨ髮・/a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.editLabelForEffectAtIndex($index);
                             }
                         },
                         {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                            html: `<a href ><i class="fal fa-toggle-off mr-4"></i> 有効化の切り替え</a>`,
+                            html: `<a href ><i class="fal fa-toggle-off mr-4"></i> 譛牙柑蛹悶・蛻・ｊ譖ｿ縺・/a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.toggleEffectActiveState($index);
                             }
                         },
                         {
-                            html: `<a href ><i class="far fa-clone mr-4"></i> 複製</a>`,
+                            html: `<a href ><i class="far fa-clone mr-4"></i> 隍・｣ｽ</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.duplicateEffectAtIndex($index);
                             }
                         },
                         {
-                            html: `<a href ><span class="iconify mr-4" data-icon="mdi:content-copy"></span> コピー</a>`,
+                            html: `<a href ><span class="iconify mr-4" data-icon="mdi:content-copy"></span> 繧ｳ繝斐・</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.copyEffectAtIndex($index);
                             }
                         },
                         {
-                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> 削除</a>`,
+                            html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i> 蜑企勁</a>`,
                             click: function ($itemScope) {
                                 const $index = $itemScope.$index;
                                 ctrl.removeEffectAtIndex($index);
                             }
                         },
                         {
-<<<<<<< HEAD
-                            text: "貼り付け...",
-=======
                             text: "Advanced...",
                             hasTopDivider: true,
                             children: [
@@ -371,12 +349,11 @@
                         },
                         {
                             text: "Paste...",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
                             hasTopDivider: true,
                             enabled: ctrl.hasCopiedEffects(),
                             children: [
                                 {
-                                    html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 前に</a>`,
+                                    html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 蜑阪↓</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         if (ctrl.hasCopiedEffects()) {
@@ -385,7 +362,7 @@
                                     }
                                 },
                                 {
-                                    html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 後に</a>`,
+                                    html: `<a href><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 蠕後↓</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         if (ctrl.hasCopiedEffects()) {
@@ -396,17 +373,17 @@
                             ]
                         },
                         {
-                            text: "新規...",
+                            text: "譁ｰ隕・..",
                             children: [
                                 {
-                                    html: `<a href><i class="far fa-plus mr-4"></i> 前に</a>`,
+                                    html: `<a href><i class="far fa-plus mr-4"></i> 蜑阪↓</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         ctrl.openNewEffectModal($index - 1);
                                     }
                                 },
                                 {
-                                    html: `<a href><i class="far fa-plus mr-4"></i> 後に</a>`,
+                                    html: `<a href><i class="far fa-plus mr-4"></i> 蠕後↓</a>`,
                                     click: function ($itemScope) {
                                         const $index = $itemScope.$index;
                                         ctrl.openNewEffectModal($index);
@@ -422,15 +399,15 @@
                 ctrl.shareEffects = async () => {
                     const shareCode = await backendCommunicator.fireEventAsync("getEffectsShareCode", ctrl.effectsData.list);
                     if (shareCode == null) {
-                        ngToast.create("共有演出を有効にできません");
+                        ngToast.create("蜈ｱ譛画ｼ泌・繧呈怏蜉ｹ縺ｫ縺ｧ縺阪∪縺帙ｓ");
                     } else {
                         utilityService.showModal({
                             component: "copyShareCodeModal",
                             size: 'sm',
                             resolveObj: {
                                 shareCode: () => shareCode,
-                                title: () => "演出の共有コード",
-                                message: () => "他の人がこれらの演出を取り込むには、以下のコードを共有してください。"
+                                title: () => "貍泌・縺ｮ蜈ｱ譛峨さ繝ｼ繝・,
+                                message: () => "莉悶・莠ｺ縺後％繧後ｉ縺ｮ貍泌・繧貞叙繧願ｾｼ繧縺ｫ縺ｯ縲∽ｻ･荳九・繧ｳ繝ｼ繝峨ｒ蜈ｱ譛峨＠縺ｦ縺上□縺輔＞縲・
                             }
                         });
                     }
@@ -452,9 +429,9 @@
                     utilityService.openGetInputModal(
                         {
                             model: "",
-                            label: "共有演出を受信するためのコードを入力",
-                            saveText: "追加する",
-                            inputPlaceholder: "コードの入力",
+                            label: "蜈ｱ譛画ｼ泌・繧貞女菫｡縺吶ｋ縺溘ａ縺ｮ繧ｳ繝ｼ繝峨ｒ蜈･蜉・,
+                            saveText: "霑ｽ蜉縺吶ｋ",
+                            inputPlaceholder: "繧ｳ繝ｼ繝峨・蜈･蜉・,
                             validationFn: (shareCode) => {
                                 return new Promise(async resolve => {
                                     if (shareCode == null || shareCode.trim().length < 1) {
@@ -470,7 +447,7 @@
                                     }
                                 });
                             },
-                            validationText: "有効な演出コードではない."
+                            validationText: "譛牙柑縺ｪ貍泌・繧ｳ繝ｼ繝峨〒縺ｯ縺ｪ縺・"
 
                         },
                         async (shareCode) => {
@@ -512,9 +489,9 @@
 
                 ctrl.getLabelButtonTextForLabel = function(labelModel) {
                     if (labelModel == null || labelModel.length === 0) {
-                        return "ラベルの追加";
+                        return "繝ｩ繝吶Ν縺ｮ霑ｽ蜉";
                     }
-                    return "ラベルの編集";
+                    return "繝ｩ繝吶Ν縺ｮ邱ｨ髮・;
                 };
 
                 ctrl.editLabelForEffectAtIndex = function(index) {
@@ -524,7 +501,7 @@
                         {
                             model: label,
                             label: ctrl.getLabelButtonTextForLabel(label),
-                            saveText: "ラベルを保存"
+                            saveText: "繝ｩ繝吶Ν繧剃ｿ晏ｭ・
                         },
                         (newLabel) => {
                             if (newLabel == null || newLabel.length === 0) {
@@ -650,7 +627,7 @@
                 ctrl.eqs = effectQueuesService;
 
                 ctrl.getSelectedEffectQueueName = () => {
-                    const unsetDisplay = "未設定";
+                    const unsetDisplay = "譛ｪ險ｭ螳・;
                     if (ctrl.effectsData.queue == null) {
                         return unsetDisplay;
                     }
@@ -665,7 +642,7 @@
 
                 ctrl.getSelectedQueuePriority = () => {
                     const priority = ctrl.effectsData.queuePriority;
-                    return priority === 'high' ? 'はい' : 'いいえ';
+                    return priority === 'high' ? '縺ｯ縺・ : '縺・＞縺・;
                 };
 
                 ctrl.getSelectedQueueModeIsCustom = () => {
@@ -718,9 +695,9 @@
                     utilityService.openGetInputModal(
                         {
                             model: ctrl.effectsData.queueDuration || 0,
-                            label: "時間の編集",
-                            saveText: "保存",
-                            inputPlaceholder: "秒数を入力",
+                            label: "譎る俣縺ｮ邱ｨ髮・,
+                            saveText: "菫晏ｭ・,
+                            inputPlaceholder: "遘呈焚繧貞・蜉・,
                             validationFn: (value) => {
                                 return new Promise(resolve => {
                                     if (value == null || value < 0) {
@@ -729,7 +706,7 @@
                                     resolve(true);
                                 });
                             },
-                            validationText: "数字は０より大きい必要があります."
+                            validationText: "謨ｰ蟄励・・舌ｈ繧雁､ｧ縺阪＞蠢・ｦ√′縺ゅｊ縺ｾ縺・"
 
                         },
                         (newDuration) => {

@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const effectRunner = require("../../common/effect-runner");
 const util = require("../../utility");
@@ -15,8 +15,8 @@ const randomEffect = {
    */
     definition: {
         id: "firebot:randomeffect",
-        name: "演出をランダムに実行",
-        description: "演出リストからランダムで実行する",
+        name: "貍泌・繧偵Λ繝ｳ繝繝縺ｫ螳溯｡・,
+        description: "貍泌・繝ｪ繧ｹ繝医°繧峨Λ繝ｳ繝繝縺ｧ螳溯｡後☆繧・,
         icon: "fad fa-random",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: []
@@ -33,22 +33,15 @@ const randomEffect = {
 
 
     <eos-container>
-        <p>以下の演出リストからランダム実行する。.</p>
+        <p>莉･荳九・貍泌・繝ｪ繧ｹ繝医°繧峨Λ繝ｳ繝繝螳溯｡後☆繧九・</p>
 
         <div style="padding-top: 10px;">
-<<<<<<< HEAD
-            <label class="control-fb control--checkbox"> 繰り返さない <tooltip text="'チェックした場合、リスト内の各演出は、再度シャッフルされる前に一度だけ再生され、同じ演出が連続して繰り返されるのを防ぎます。'"></tooltip>
-                <input type="checkbox" ng-model="effect.dontRepeat">
-                <div class="control__indicator"></div>
-            </label>
-=======
             <firebot-checkbox
                 model="effect.weighted"
                 label="Weighted Chances"
-                tooltip="チェックすると、演出確率は重みの値によって決まります。チェックを外した場合、各演出は同じ確率で選択されます。"
+                tooltip="繝√ぉ繝・け縺吶ｋ縺ｨ縲∵ｼ泌・遒ｺ邇・・驥阪∩縺ｮ蛟､縺ｫ繧医▲縺ｦ豎ｺ縺ｾ繧翫∪縺吶ゅメ繧ｧ繝・け繧貞､悶＠縺溷ｴ蜷医∝推貍泌・縺ｯ蜷後§遒ｺ邇・〒驕ｸ謚槭＆繧後∪縺吶・
                 style="margin-bottom: 0"
             />
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </div>
     </eos-container>
 
@@ -57,25 +50,22 @@ const randomEffect = {
             trigger="{{trigger}}"
             trigger-meta="triggerMeta"
             update="effectListUpdated(effects)"
-            header="演出"
+            header="貍泌・"
             modalId="{{modalId}}"
             hide-numbers="true"></effect-list>
     </eos-container>
 
-    <eos-container header="オプション" pad-top="true">
+    <eos-container header="繧ｪ繝励す繝ｧ繝ｳ" pad-top="true">
         <firebot-checkbox
-<<<<<<< HEAD
-=======
             ng-hide="effect.weighted"
             model="effect.dontRepeat"
-            label="繰り返さない"
-            tooltip="チェックした場合、リスト内の各演出は、再度シャッフルされる前に一度だけ再生され、同じ演出が連続して繰り返されるのを防ぎます。"
+            label="郢ｰ繧願ｿ斐＆縺ｪ縺・
+            tooltip="繝√ぉ繝・け縺励◆蝣ｴ蜷医√Μ繧ｹ繝亥・縺ｮ蜷・ｼ泌・縺ｯ縲∝・蠎ｦ繧ｷ繝｣繝・ヵ繝ｫ縺輔ｌ繧句燕縺ｫ荳蠎ｦ縺縺大・逕溘＆繧後∝酔縺俶ｼ泌・縺碁｣邯壹＠縺ｦ郢ｰ繧願ｿ斐＆繧後ｋ縺ｮ繧帝亟縺弱∪縺吶・
         />
         <firebot-checkbox
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             model="effect.bubbleOutputs"
-            label="親リストに演出出力を適用する"
-            tooltip="演出出力を親演出リストで利用可能にするかどうか"
+            label="隕ｪ繝ｪ繧ｹ繝医↓貍泌・蜃ｺ蜉帙ｒ驕ｩ逕ｨ縺吶ｋ"
+            tooltip="貍泌・蜃ｺ蜉帙ｒ隕ｪ貍泌・繝ｪ繧ｹ繝医〒蛻ｩ逕ｨ蜿ｯ閭ｽ縺ｫ縺吶ｋ縺九←縺・°"
         />
     </eos-container>
     `,

@@ -1,10 +1,6 @@
-"use strict";
+﻿"use strict";
 
-<<<<<<< HEAD
-const {checkForFirebotSetupPath} = require("../../file-open-helpers");
-=======
 const {checkForFirebotSetupPathInArgs} = require("../../file-open-helpers");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
 exports.whenReady = async () => {
     const logger = require("../../../logwrapper");
@@ -33,13 +29,13 @@ exports.whenReady = async () => {
     ensureRequiredFoldersExist();
 
     // load twitch auth
-    windowManagement.updateSplashScreenStatus("Twitch接続を読込中...");
+    windowManagement.updateSplashScreenStatus("Twitch謗･邯壹ｒ隱ｭ霎ｼ荳ｭ...");
     require("../../../auth/auth-manager");
     const twitchAuth = require("../../../auth/twitch-auth");
     twitchAuth.registerTwitchAuthProviders();
 
     // load accounts
-    windowManagement.updateSplashScreenStatus("アカウント設定を読込中...");
+    windowManagement.updateSplashScreenStatus("繧｢繧ｫ繧ｦ繝ｳ繝郁ｨｭ螳壹ｒ隱ｭ霎ｼ荳ｭ...");
     const accountAccess = require("../../../common/account-access");
     await accountAccess.updateAccountCache(false);
 
@@ -48,42 +44,29 @@ exports.whenReady = async () => {
 
     const connectionManager = require("../../../common/connection-manager");
 
-    windowManagement.updateSplashScreenStatus("タイマーを読込中...");
+    windowManagement.updateSplashScreenStatus("繧ｿ繧､繝槭・繧定ｪｭ霎ｼ荳ｭ...");
     const timerManager = require("../../../timers/timer-manager");
     await timerManager.loadItems();
     timerManager.startTimers();
 
-    windowManagement.updateSplashScreenStatus("計画された演出を読込中...");
+    windowManagement.updateSplashScreenStatus("險育判縺輔ｌ縺滓ｼ泌・繧定ｪｭ霎ｼ荳ｭ...");
     const scheduledTaskManager = require("../../../timers/scheduled-task-manager");
     scheduledTaskManager.loadItems();
     scheduledTaskManager.start();
 
-    windowManagement.updateSplashScreenStatus("Twitchとデータ同期中...");
+    windowManagement.updateSplashScreenStatus("Twitch縺ｨ繝・・繧ｿ蜷梧悄荳ｭ...");
     await accountAccess.refreshTwitchData();
 
-<<<<<<< HEAD
-    const twitchFrontendListeners = require("../../../twitch-api/frontend-twitch-listeners");
-    twitchFrontendListeners.setupListeners();
-
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-    windowManagement.updateSplashScreenStatus("配信ステータス監視を開始...");
+    windowManagement.updateSplashScreenStatus("驟堺ｿ｡繧ｹ繝・・繧ｿ繧ｹ逶｣隕悶ｒ髢句ｧ・..");
     connectionManager.startOnlineCheckInterval();
 
     // load effects
     logger.debug("Loading effects...");
-    windowManagement.updateSplashScreenStatus("演出を読込中...");
+    windowManagement.updateSplashScreenStatus("貍泌・繧定ｪｭ霎ｼ荳ｭ...");
     const { loadEffects } = require("../../../effects/builtin-effect-loader");
     loadEffects();
 
-<<<<<<< HEAD
-    // load commands
-    logger.debug("Loading sys commands...");
-    windowManagement.updateSplashScreenStatus("システムコマンドを読込中...");
-    const { loadCommands } = require("../../../chat/commands/systemCommandLoader");
-    loadCommands();
-=======
-    windowManagement.updateSplashScreenStatus("通貨情報を読込中...");
+    windowManagement.updateSplashScreenStatus("騾夊ｲｨ諠・ｱ繧定ｪｭ霎ｼ荳ｭ...");
     const currencyAccess = require("../../../currency/currency-access").default;
     currencyAccess.loadCurrencies();
 
@@ -93,139 +76,106 @@ exports.whenReady = async () => {
 
     // load commands
     logger.debug("Loading sys commands...");
-    windowManagement.updateSplashScreenStatus("システムコマンドを読込中...");
+    windowManagement.updateSplashScreenStatus("繧ｷ繧ｹ繝・Β繧ｳ繝槭Φ繝峨ｒ隱ｭ霎ｼ荳ｭ...");
     const { loadSystemCommands } = require("../../../chat/commands/system-command-loader");
     loadSystemCommands();
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     // load event sources
     logger.debug("Loading event sources...");
-    windowManagement.updateSplashScreenStatus("イベントを読込中...");
+    windowManagement.updateSplashScreenStatus("繧､繝吶Φ繝医ｒ隱ｭ霎ｼ荳ｭ...");
     const { loadEventSources } = require("../../../events/builtin-event-source-loader");
     loadEventSources();
 
     // load event filters
     logger.debug("Loading event filters...");
-    windowManagement.updateSplashScreenStatus("フィルタを読込中...");
+    windowManagement.updateSplashScreenStatus("繝輔ぅ繝ｫ繧ｿ繧定ｪｭ霎ｼ荳ｭ...");
     const { loadFilters } = require("../../../events/filters/builtin-filter-loader");
     loadFilters();
 
     // load integrations
     logger.debug("Loading integrations...");
-    windowManagement.updateSplashScreenStatus("統合機能を読込中...");
+    windowManagement.updateSplashScreenStatus("邨ｱ蜷域ｩ溯・繧定ｪｭ霎ｼ荳ｭ...");
     const { loadIntegrations } = require("../../../integrations/builtin-integration-loader");
     loadIntegrations();
 
     // load variables
     logger.debug("Loading variables...");
-    windowManagement.updateSplashScreenStatus("変数を読込中...");
-<<<<<<< HEAD
-    const { loadReplaceVariables } = require("../../../variables/builtin-variable-loader");
-=======
+    windowManagement.updateSplashScreenStatus("螟画焚繧定ｪｭ霎ｼ荳ｭ...");
     const { loadReplaceVariables } = require("../../../variables/variable-loader");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     loadReplaceVariables();
 
     // load restrictions
     logger.debug("Loading restrictions...");
-    windowManagement.updateSplashScreenStatus("制限データを読込中...");
+    windowManagement.updateSplashScreenStatus("蛻ｶ髯舌ョ繝ｼ繧ｿ繧定ｪｭ霎ｼ荳ｭ...");
     const { loadRestrictions } = require("../../../restrictions/builtin-restrictions-loader");
     loadRestrictions();
 
     const fontManager = require("../../../fontManager");
     fontManager.generateAppFontCssFile();
 
-    windowManagement.updateSplashScreenStatus("イベントを読込中...");
+    windowManagement.updateSplashScreenStatus("繧､繝吶Φ繝医ｒ隱ｭ霎ｼ荳ｭ...");
     const eventsAccess = require("../../../events/events-access");
     eventsAccess.loadEventsAndGroups();
 
-    windowManagement.updateSplashScreenStatus("チームの役割を読込中...");
+    windowManagement.updateSplashScreenStatus("繝√・繝縺ｮ蠖ｹ蜑ｲ繧定ｪｭ霎ｼ荳ｭ...");
     const teamRolesManager = require("../../../roles/team-roles-manager");
     teamRolesManager.loadTeamRoles();
 
-    windowManagement.updateSplashScreenStatus("カスタムの役割を読込中...");
+    windowManagement.updateSplashScreenStatus("繧ｫ繧ｹ繧ｿ繝縺ｮ蠖ｹ蜑ｲ繧定ｪｭ霎ｼ荳ｭ...");
     const customRolesManager = require("../../../roles/custom-roles-manager");
     customRolesManager.loadCustomRoles();
 
-<<<<<<< HEAD
-    windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
-    const chatRolesManager = require("../../../roles/chat-roles-manager");
-    chatRolesManager.cacheViewerListBots();
-
-    windowManagement.updateSplashScreenStatus("演出キューを読込中...");
-    const effectQueueManager = require("../../../effects/queues/effect-queue-manager");
-=======
     const chatRolesManager = require("../../../roles/chat-roles-manager");
 
-    windowManagement.updateSplashScreenStatus("BOTリストを読込中...");
+    windowManagement.updateSplashScreenStatus("BOT繝ｪ繧ｹ繝医ｒ隱ｭ霎ｼ荳ｭ...");
     await chatRolesManager.cacheViewerListBots();
 
-    windowManagement.updateSplashScreenStatus("モデレータ情報読込中...");
+    windowManagement.updateSplashScreenStatus("繝｢繝・Ξ繝ｼ繧ｿ諠・ｱ隱ｭ霎ｼ荳ｭ...");
     await chatRolesManager.loadModerators();
 
-    windowManagement.updateSplashScreenStatus("VIP情報読込中...");
+    windowManagement.updateSplashScreenStatus("VIP諠・ｱ隱ｭ霎ｼ荳ｭ...");
     await chatRolesManager.loadVips();
 
-    windowManagement.updateSplashScreenStatus("演出キューを読込中...");
+    windowManagement.updateSplashScreenStatus("貍泌・繧ｭ繝･繝ｼ繧定ｪｭ霎ｼ荳ｭ...");
     const effectQueueManager = require("../../../effects/queues/effect-queue-config-manager");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     effectQueueManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("プリセット演出リストを読込中...");
+    windowManagement.updateSplashScreenStatus("繝励Μ繧ｻ繝・ヨ貍泌・繝ｪ繧ｹ繝医ｒ隱ｭ霎ｼ荳ｭ...");
     const presetEffectListManager = require("../../../effects/preset-lists/preset-effect-list-manager");
     presetEffectListManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("クイックアクションを読込中...");
+    windowManagement.updateSplashScreenStatus("繧ｯ繧､繝・け繧｢繧ｯ繧ｷ繝ｧ繝ｳ繧定ｪｭ霎ｼ荳ｭ...");
     const quickActionManager = require("../../../quick-actions/quick-action-manager");
     quickActionManager.loadItems();
 
-    windowManagement.updateSplashScreenStatus("スタートアップスクリプト実行中...");
+    windowManagement.updateSplashScreenStatus("繧ｹ繧ｿ繝ｼ繝医い繝・・繧ｹ繧ｯ繝ｪ繝励ヨ螳溯｡御ｸｭ...");
     const startupScriptsManager = require("../../../common/handlers/custom-scripts/startup-scripts-manager");
     startupScriptsManager.loadStartupConfig();
 
-    windowManagement.updateSplashScreenStatus("チャットモデレートを起動中...");
-<<<<<<< HEAD
-    const chatModerationManager = require("../../../chat/moderation/chat-moderation-manager");
-    chatModerationManager.load();
-
-    windowManagement.updateSplashScreenStatus("カウンターを読込中...");
-    const countersManager = require("../../../counters/counter-manager");
-    countersManager.loadItems();
-=======
+    windowManagement.updateSplashScreenStatus("繝√Ε繝・ヨ繝｢繝・Ξ繝ｼ繝医ｒ襍ｷ蜍穂ｸｭ...");
     const { ChatModerationManager } = require("../../../chat/moderation/chat-moderation-manager");
     ChatModerationManager.load();
 
-    windowManagement.updateSplashScreenStatus("カウンターを読込中...");
+    windowManagement.updateSplashScreenStatus("繧ｫ繧ｦ繝ｳ繧ｿ繝ｼ繧定ｪｭ霎ｼ荳ｭ...");
     const { CounterManager } = require("../../../counters/counter-manager");
     CounterManager.loadItems();
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
-    windowManagement.updateSplashScreenStatus("ゲームを読込中...");
+    windowManagement.updateSplashScreenStatus("繧ｲ繝ｼ繝繧定ｪｭ霎ｼ荳ｭ...");
     const gamesManager = require("../../../games/game-manager");
     gamesManager.loadGameSettings();
 
     const builtinGameLoader = require("../../../games/builtin-game-loader");
     builtinGameLoader.loadGames();
 
-    windowManagement.updateSplashScreenStatus("カスタム変数を読込中...");
-<<<<<<< HEAD
-    const {settings} = require("../../../common/settings-access");
-    if (settings.getPersistCustomVariables()) {
-=======
+    windowManagement.updateSplashScreenStatus("繧ｫ繧ｹ繧ｿ繝螟画焚繧定ｪｭ霎ｼ荳ｭ...");
     const { SettingsManager } = require("../../../common/settings-manager");
     if (SettingsManager.getSetting("PersistCustomVariables")) {
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         const customVariableManager = require("../../../common/custom-variable-manager");
         customVariableManager.loadVariablesFromFile();
     }
 
     // get importer in memory
-    windowManagement.updateSplashScreenStatus("インポートを読込中...");
-<<<<<<< HEAD
-    const v4Importer = require("../../../import/v4/v4-importer");
-    v4Importer.setupListeners();
-=======
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+    windowManagement.updateSplashScreenStatus("繧､繝ｳ繝昴・繝医ｒ隱ｭ霎ｼ荳ｭ...");
 
     const setupImporter = require("../../../import/setups/setup-importer");
     setupImporter.setupListeners();
@@ -236,33 +186,28 @@ exports.whenReady = async () => {
     const { setupCommonListeners } = require("../../../common/common-listeners");
     setupCommonListeners();
 
-    windowManagement.updateSplashScreenStatus("ホットキーを読込中...");
-<<<<<<< HEAD
-    const hotkeyManager = require("../../../hotkeys/hotkey-manager");
-    hotkeyManager.refreshHotkeyCache();
-=======
+    windowManagement.updateSplashScreenStatus("繝帙ャ繝医く繝ｼ繧定ｪｭ霎ｼ荳ｭ...");
     const { HotkeyManager } = require("../../../hotkeys/hotkey-manager");
     HotkeyManager.loadHotkeys();
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
-    windowManagement.updateSplashScreenStatus("通貨を読込中...");
+    windowManagement.updateSplashScreenStatus("騾夊ｲｨ繧定ｪｭ霎ｼ荳ｭ...");
     const currencyManager = require("../../../currency/currencyManager");
     currencyManager.startTimer();
 
     // Connect to DBs.
-    windowManagement.updateSplashScreenStatus("視聴者データを読込中...");
+    windowManagement.updateSplashScreenStatus("隕冶・閠・ョ繝ｼ繧ｿ繧定ｪｭ霎ｼ荳ｭ...");
     logger.info("Creating or connecting user database");
     const userdb = require("../../../database/userDatabase");
     userdb.connectUserDatabase();
     // Set users in user db to offline if for some reason they are still set to online. (app crash or something)
     userdb.setAllUsersOffline();
 
-    windowManagement.updateSplashScreenStatus("ステータスを読込中...");
+    windowManagement.updateSplashScreenStatus("繧ｹ繝・・繧ｿ繧ｹ繧定ｪｭ霎ｼ荳ｭ...");
     logger.info("Creating or connecting stats database");
     const statsdb = require("../../../database/statsDatabase");
     statsdb.connectStatsDatabase();
 
-    windowManagement.updateSplashScreenStatus("引用文を読込中...");
+    windowManagement.updateSplashScreenStatus("蠑慕畑譁・ｒ隱ｭ霎ｼ荳ｭ...");
     logger.info("Creating or connecting quotes database");
     const quotesdb = require("../../../quotes/quotes-manager");
     quotesdb.loadQuoteDatabase();
@@ -275,29 +220,20 @@ exports.whenReady = async () => {
     const profileManager = require("../../../common/profile-manager");
     global.SCRIPTS_DIR = profileManager.getPathInProfile("/scripts/");
 
-    windowManagement.updateSplashScreenStatus("バックアップ実行中...");
-<<<<<<< HEAD
-    const backupManager = require("../../../backup-manager");
-    await backupManager.onceADayBackUpCheck();
-=======
+    windowManagement.updateSplashScreenStatus("繝舌ャ繧ｯ繧｢繝・・螳溯｡御ｸｭ...");
     const { BackupManager } = require("../../../backup-manager");
     await BackupManager.onceADayBackUpCheck();
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     // start the REST api server
-    windowManagement.updateSplashScreenStatus("Webサーバ起動中...");
+    windowManagement.updateSplashScreenStatus("Web繧ｵ繝ｼ繝占ｵｷ蜍穂ｸｭ...");
     const httpServerManager = require("../../../../server/http-server-manager");
     httpServerManager.start();
 
-<<<<<<< HEAD
-    windowManagement.updateSplashScreenStatus("チャンネル報酬を読込中...");
-=======
     // register websocket event handlers
     const websocketEventsHandler = require("../../../../server/websocket-events-handler");
     websocketEventsHandler.createComponentEventListeners();
 
-    windowManagement.updateSplashScreenStatus("チャンネル特典を読込中...");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+    windowManagement.updateSplashScreenStatus("繝√Ε繝ｳ繝阪Ν迚ｹ蜈ｸ繧定ｪｭ霎ｼ荳ｭ...");
     const channelRewardManager = require("../../../channel-rewards/channel-reward-manager");
     await channelRewardManager.loadChannelRewards();
 
@@ -307,22 +243,19 @@ exports.whenReady = async () => {
     const iconManager = require("../../../common/icon-manager");
     iconManager.loadFontAwesomeIcons();
 
-    windowManagement.updateSplashScreenStatus("配信情報を読込中...");
+    windowManagement.updateSplashScreenStatus("驟堺ｿ｡諠・ｱ繧定ｪｭ霎ｼ荳ｭ...");
     const streamInfoPoll = require("../../../twitch-api/stream-info-manager");
     streamInfoPoll.startStreamInfoPoll();
 
-<<<<<<< HEAD
-=======
-    windowManagement.updateSplashScreenStatus("通知管理を起動中...");
+    windowManagement.updateSplashScreenStatus("騾夂衍邂｡逅・ｒ襍ｷ蜍穂ｸｭ...");
     const notificationManager = require("../../../notifications/notification-manager").default;
     notificationManager.loadNotificationCache();
 
     // get ui extension manager in memory
     require("../../../ui-extensions/ui-extension-manager");
 
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     logger.debug('...loading main window');
-    windowManagement.updateSplashScreenStatus("準備完了、さぁ始めよう！");
+    windowManagement.updateSplashScreenStatus("貅門ｙ螳御ｺ・√＆縺∝ｧ九ａ繧医≧・・);
     await windowManagement.createMainWindow();
 
     // forward backend logs to front end

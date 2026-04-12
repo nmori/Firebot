@@ -1,4 +1,4 @@
-// Migration: done
+﻿// Migration: done
 
 "use strict";
 
@@ -9,20 +9,17 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "time",
-        description: "現在時刻を出力.",
+        description: "迴ｾ蝨ｨ譎ょ綾繧貞・蜉・",
         categories: [VariableCategory.COMMON],
         possibleDataOutput: [OutputDataType.TEXT],
         examples: [
             {
                 usage: "time[format,locale]",
-                description: '現在時刻を特定のフォーマットで出力する。書式は <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> に従います.(日本語版拡張:localeに ja,en などの国を指定できます）'
-<<<<<<< HEAD:src/backend/variables/builtin/time.js
-=======
+                description: '迴ｾ蝨ｨ譎ょ綾繧堤音螳壹・繝輔か繝ｼ繝槭ャ繝医〒蜃ｺ蜉帙☆繧九よ嶌蠑上・ <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> 縺ｫ蠕薙＞縺ｾ縺・(譌･譛ｬ隱樒沿諡｡蠑ｵ:locale縺ｫ ja,en 縺ｪ縺ｩ縺ｮ蝗ｽ繧呈欠螳壹〒縺阪∪縺呻ｼ・
             },
             {
                 usage: "time[YYYY-DD-MM HH:mm:ss]",
                 description: "Format with the preferred tokens."
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/time.ts
             }
         ]
     },

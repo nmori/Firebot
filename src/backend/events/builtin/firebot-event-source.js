@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 /**
  * The firebot event source
@@ -6,17 +6,17 @@
 const firebotEventSource = {
     id: "firebot",
     name: "Firebot",
-    description: "Firebot 内で発生する可能性のある重要なイベント",
+    description: "Firebot 蜀・〒逋ｺ逕溘☆繧句庄閭ｽ諤ｧ縺ｮ縺ゅｋ驥崎ｦ√↑繧､繝吶Φ繝・,
     events: [
         {
             id: "chat-connected",
-            name: "Twitch 接続時",
-            description: "FirebotがTwitchに接続したとき",
+            name: "Twitch 謗･邯壽凾",
+            description: "Firebot縺卦witch縺ｫ謗･邯壹＠縺溘→縺・,
             cached: false,
             activityFeed: {
                 icon: "fad fa-plug",
                 getMessage: () => {
-                    return `Twitch に接続しました`;
+                    return `Twitch 縺ｫ謗･邯壹＠縺ｾ縺励◆`;
                 }
             }
         },
@@ -37,8 +37,8 @@ const firebotEventSource = {
         },
         {
             id: "view-time-update",
-            name: "時間情報更新時",
-            description: "視聴時間が更新されたとき",
+            name: "譎る俣諠・ｱ譖ｴ譁ｰ譎・,
+            description: "隕冶・譎る俣縺梧峩譁ｰ縺輔ｌ縺溘→縺・,
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -48,20 +48,20 @@ const firebotEventSource = {
         },
         {
             id: "currency-update",
-            name: "通貨更新時",
-            description: "視聴者の通貨が変わったとき",
+            name: "騾夊ｲｨ譖ｴ譁ｰ譎・,
+            description: "隕冶・閠・・騾夊ｲｨ縺悟､峨ｏ縺｣縺溘→縺・,
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                currencyName: "コイン",
+                currencyName: "繧ｳ繧､繝ｳ",
                 previousCurrencyAmount: 1,
                 newCurrencyAmount: 2
             }
         },
         {
             id: "viewer-created",
-            name: "視聴者情報追加時",
-            description: "視聴者が最初に視聴者データベースに保存されるとき",
+            name: "隕冶・閠・ュ蝣ｱ霑ｽ蜉譎・,
+            description: "隕冶・閠・′譛蛻昴↓隕冶・閠・ョ繝ｼ繧ｿ繝吶・繧ｹ縺ｫ菫晏ｭ倥＆繧後ｋ縺ｨ縺・,
             cached: false,
             manualMetadata: {
                 username: "Firebot"
@@ -69,36 +69,36 @@ const firebotEventSource = {
         },
         {
             id: "firebot-started",
-            name: "Firebot 起動時",
-            description: "Firebotが起動したとき",
+            name: "Firebot 襍ｷ蜍墓凾",
+            description: "Firebot縺瑚ｵｷ蜍輔＠縺溘→縺・,
             cached: false
         },
         {
             id: "custom-variable-expired",
-            name: "カスタム変数の有効期限切れ時",
-            description: "カスタム変数の有効期限が切れたとき",
+            name: "繧ｫ繧ｹ繧ｿ繝螟画焚縺ｮ譛牙柑譛滄剞蛻・ｌ譎・,
+            description: "繧ｫ繧ｹ繧ｿ繝螟画焚縺ｮ譛牙柑譛滄剞縺悟・繧後◆縺ｨ縺・,
             cached: false
         },
         {
             id: "custom-variable-set",
-            name: "カスタム変数の作成時",
-            description: "カスタム変数が作成されたとき",
+            name: "繧ｫ繧ｹ繧ｿ繝螟画焚縺ｮ菴懈・譎・,
+            description: "繧ｫ繧ｹ繧ｿ繝螟画焚縺御ｽ懈・縺輔ｌ縺溘→縺・,
             cached: false
         },
         {
             id: "highlight-message",
-            name: "チャットスポットライト時",
-            description: "オーバーレイ表示など、メッセージにスポットライトを当てた時",
+            name: "繝√Ε繝・ヨ繧ｹ繝昴ャ繝医Λ繧､繝域凾",
+            description: "繧ｪ繝ｼ繝舌・繝ｬ繧､陦ｨ遉ｺ縺ｪ縺ｩ縲√Γ繝・そ繝ｼ繧ｸ縺ｫ繧ｹ繝昴ャ繝医Λ繧､繝医ｒ蠖薙※縺滓凾",
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                messageText: "テストメッセージ"
+                messageText: "繝・せ繝医Γ繝・そ繝ｼ繧ｸ"
             }
         },
         {
             id: "category-changed",
-            name: "カテゴリー変更時",
-            description: "ダッシュボードで配信カテゴリーを変更した時",
+            name: "繧ｫ繝・ざ繝ｪ繝ｼ螟画峩譎・,
+            description: "繝繝・す繝･繝懊・繝峨〒驟堺ｿ｡繧ｫ繝・ざ繝ｪ繝ｼ繧貞､画峩縺励◆譎・,
             cached: false,
             manualMetadata: {
                 category: "Just Chatting"
@@ -106,19 +106,17 @@ const firebotEventSource = {
         },
         {
             id: "effect-queue-cleared",
-            name: "演出キューがクリアされたとき",
-            description: "演出キューの実行が終了し、クリアされたとき",
+            name: "貍泌・繧ｭ繝･繝ｼ縺後け繝ｪ繧｢縺輔ｌ縺溘→縺・,
+            description: "貍泌・繧ｭ繝･繝ｼ縺ｮ螳溯｡後′邨ゆｺ・＠縲√け繝ｪ繧｢縺輔ｌ縺溘→縺・,
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting"
             }
-<<<<<<< HEAD
-=======
         },
         {
             id: "effect-queue-added",
-            name: "演出キュー追加",
-            description: "演出キューに新しい項目が追加されたとき。",
+            name: "貍泌・繧ｭ繝･繝ｼ霑ｽ蜉",
+            description: "貍泌・繧ｭ繝･繝ｼ縺ｫ譁ｰ縺励＞鬆・岼縺瑚ｿｽ蜉縺輔ｌ縺溘→縺阪・,
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting"
@@ -126,8 +124,8 @@ const firebotEventSource = {
         },
         {
             id: "effect-queue-status",
-            name: "演出キューのステータス変更",
-            description: "演出キューのステータスが変更されたとき。",
+            name: "貍泌・繧ｭ繝･繝ｼ縺ｮ繧ｹ繝・・繧ｿ繧ｹ螟画峩",
+            description: "貍泌・繧ｭ繝･繝ｼ縺ｮ繧ｹ繝・・繧ｿ繧ｹ縺悟､画峩縺輔ｌ縺溘→縺阪・,
             cached: false,
             manualMetadata: {
                 queueName: "Just Chatting",
@@ -136,14 +134,14 @@ const firebotEventSource = {
         },
         {
             id: "before-firebot-closed",
-            name: "Firebotが終了するとき",
-            description: "Firebotが終了するとき",
+            name: "Firebot縺檎ｵゆｺ・☆繧九→縺・,
+            description: "Firebot縺檎ｵゆｺ・☆繧九→縺・,
             cached: false
         },
         {
             id: "viewer-rank-updated",
-            name: "視聴者ランクが更新されたとき",
-            description: "視聴者のランクが更新されたとき。",
+            name: "隕冶・閠・Λ繝ｳ繧ｯ縺梧峩譁ｰ縺輔ｌ縺溘→縺・,
+            description: "隕冶・閠・・繝ｩ繝ｳ繧ｯ縺梧峩譁ｰ縺輔ｌ縺溘→縺阪・,
             cached: false,
             manualMetadata: {
                 username: "Firebot",
@@ -164,7 +162,6 @@ const firebotEventSource = {
                 metadataKey: "testKey",
                 metadataValue: "testValue"
             }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
     ]
 };

@@ -1,4 +1,4 @@
-// Migration: done
+﻿// Migration: done
 
 "use strict";
 const quoteManager = require("../../quotes/quotes-manager");
@@ -6,22 +6,18 @@ const commandsManager = require("../../chat/commands/CommandManager");
 const moment = require("moment");
 const logger = require("../../logwrapper");
 
-<<<<<<< HEAD:src/backend/variables/builtin/quote.js
-const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
-=======
 const quoteManager = require("../../../quotes/quotes-manager");
 const commandManager = require("../../../chat/commands/command-manager");
 const logger = require("../../../../backend/logwrapper");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/quote.ts
 
 const model = {
     definition: {
         handle: "quote",
-        description: "ランダム見積もり",
+        description: "繝ｩ繝ｳ繝繝隕狗ｩ阪ｂ繧・,
         examples: [
             {
                 usage: "quote[#]",
-                description: "特定の見積もりIDを取得します。"
+                description: "迚ｹ螳壹・隕狗ｩ阪ｂ繧蟹D繧貞叙蠕励＠縺ｾ縺吶・
             }
         ],
         categories: [VariableCategory.TEXT],

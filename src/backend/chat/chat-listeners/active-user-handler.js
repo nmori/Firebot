@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const chatHelpers = require("../chat-helpers");
 const { settings } = require("../../common/settings-access");
@@ -122,15 +122,8 @@ exports.getRandomOnlineUser = (ignoreUser = "") => {
 exports.getAllOnlineUsers = () => {
     return onlineUsers.keys().filter(v => !isNaN(v)).map(id => {
         return {
-<<<<<<< HEAD
-            id: parseInt(id),
-            username: onlineUsers.get(id).username,
-            displayName: onlineUsers.get(id).displayName,
-            twitchRoles: onlineUsers.get(id).twitchRoles
-=======
             id: id,
             ...onlineUsers.get(id)
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         };
     });
 };

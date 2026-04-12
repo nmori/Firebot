@@ -1,4 +1,4 @@
-import NodeCache from "node-cache";
+﻿import NodeCache from "node-cache";
 import { DateTime } from "luxon";
 import { settings } from "../../common/settings-access";
 import eventManager from "../../events/EventManager";
@@ -93,16 +93,9 @@ export function triggerSubGift(
 }
 
 export function triggerSubGiftUpgrade(
-<<<<<<< HEAD
-    gifteeUserName: string,
-    gifteeDisplayName: string,
-    gifteeUserId: string,
-    gifterUserName: string,
-=======
     gifteeUsername: string,
     gifteeUserId: string,
     gifteeDisplayName: string,
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
     gifterDisplayName: string,
     subPlan: string
 ): void {
@@ -110,16 +103,9 @@ export function triggerSubGiftUpgrade(
         username: gifteeDisplayName,
         userIdName: gifteeUserName,
         userId: gifteeUserId,
-<<<<<<< HEAD
-        gifteeUsername: gifteeUserName,
-        gifteeDisplayName: gifteeDisplayName,
-        gifterUsername: gifterUserName,
-        gifterDisplayName: gifterDisplayName,
-=======
         userDisplayName: gifteeDisplayName,
         gifterUsername: gifterDisplayName,
         gifteeUsername: gifteeDisplayName,
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         subPlan
     });
 }

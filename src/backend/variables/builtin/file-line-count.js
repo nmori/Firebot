@@ -1,12 +1,9 @@
-// Migration: done
+﻿// Migration: done
 
 "use strict";
 
 const fs = require("fs");
-<<<<<<< HEAD:src/backend/variables/builtin/file-line-count.js
-=======
 const logger = require("../../../../backend/logwrapper");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/utility/file-line-count.ts
 
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 
@@ -16,7 +13,7 @@ const model = {
     definition: {
         handle: "fileLineCount",
         usage: "fileLineCount[\"path/to/file.txt\"]",
-        description: "テキストファイルの行数を数える。",
+        description: "繝・く繧ｹ繝医ヵ繧｡繧､繝ｫ縺ｮ陦梧焚繧呈焚縺医ｋ縲・,
         categories: [VariableCategory.NUMBERS],
         possibleDataOutput: [OutputDataType.NUMBER]
     },

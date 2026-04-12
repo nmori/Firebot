@@ -1,4 +1,4 @@
-import logger from '../../logwrapper';
+﻿import logger from '../../logwrapper';
 import accountAccess from "../../common/account-access";
 import { ApiClient, CommercialLength, HelixChannel, HelixChannelUpdate, HelixUser } from "@twurple/api";
 
@@ -104,9 +104,6 @@ export class TwitchChannelsApi {
             return true;
         } catch (error) {
             /** @ts-ignore */
-<<<<<<< HEAD
-            renderWindow.webContents.send("error", `AdBreakの起動に失敗しました。: ${error.message}`);
-=======
             frontendCommunicator.send("error", `Failed to trigger ad-break because: ${error.message}`);
             return false;
         }
@@ -130,7 +127,6 @@ export class TwitchChannelsApi {
             return true;
         } catch (error) {
             logger.error("Failed to snooze ads", error.message);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             return false;
         }
     }

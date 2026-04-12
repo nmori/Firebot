@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const Steam = require("./steam-access");
 const twitchChat = require("../../../twitch-chat");
@@ -7,11 +7,11 @@ const TwitchApi = require("../../../../twitch-api/api");
 const steam = {
     definition: {
         id: "firebot:steam",
-        name: "Steam 検索",
+        name: "Steam 讀懃ｴ｢",
         active: true,
         trigger: "!steam",
         usage: "[game name]",
-        description: "steam上のゲームに関する情報を表示します",
+        description: "steam荳翫・繧ｲ繝ｼ繝縺ｫ髢｢縺吶ｋ諠・ｱ繧定｡ｨ遉ｺ縺励∪縺・,
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -21,9 +21,9 @@ const steam = {
         options: {
             outputTemplate: {
                 type: "string",
-                title: "出力テンプレート",
-                tip: "変数: {gameName}, {price}, {releaseDate}, {metaCriticScore}, {steamUrl}, {steamShortDescription}",
-                default: `{gameName} (価格: {price} - 発売: {releaseDate} - 制作: {metaCriticScore}) {steamUrl}`,
+                title: "蜃ｺ蜉帙ユ繝ｳ繝励Ξ繝ｼ繝・,
+                tip: "螟画焚: {gameName}, {price}, {releaseDate}, {metaCriticScore}, {steamUrl}, {steamShortDescription}",
+                default: `{gameName} (萓｡譬ｼ: {price} - 逋ｺ螢ｲ: {releaseDate} - 蛻ｶ菴・ {metaCriticScore}) {steamUrl}`,
                 useTextArea: true
             }
         }
@@ -31,7 +31,7 @@ const steam = {
     onTriggerEvent: async event => {
         const { commandOptions } = event;
         let gameName = event.userCommand.args.join(" ").trim();
-        let message = "その名前のSteamゲームは見つかりません";
+        let message = "縺昴・蜷榊燕縺ｮSteam繧ｲ繝ｼ繝縺ｯ隕九▽縺九ｊ縺ｾ縺帙ｓ";
 
         if (gameName == null || gameName.length < 1) {
 
@@ -46,15 +46,11 @@ const steam = {
             if (gameDetails !== null) {
                 message = commandOptions.outputTemplate
                     .replace("{gameName}", gameDetails.name)
-                    .replace("{price}", gameDetails.price || "不明")
-                    .replace("{releaseDate}", gameDetails.releaseDate || "不明")
-<<<<<<< HEAD:src/backend/chat/commands/builtin/steam/steam.js
-                    .replace("{metaCriticScore}", gameDetails.score || "不明")
-=======
-                    .replace("{metaCriticScore}", gameDetails.score.toString() || "不明")
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/steam/steam.ts
+                    .replace("{price}", gameDetails.price || "荳肴・")
+                    .replace("{releaseDate}", gameDetails.releaseDate || "荳肴・")
+                    .replace("{metaCriticScore}", gameDetails.score.toString() || "荳肴・")
                     .replace("{steamUrl}", gameDetails.url)
-                    .replace("{steamShortDescription}", gameDetails.shortDescription || "不明");
+                    .replace("{steamShortDescription}", gameDetails.shortDescription || "荳肴・");
             }
         }
 

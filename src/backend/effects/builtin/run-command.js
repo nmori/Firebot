@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const { EffectCategory } = require('../../../shared/effect-constants');
 const commandHandler = require("../../chat/commands/commandHandler");
@@ -12,8 +12,8 @@ const model = {
    */
     definition: {
         id: "firebot:runcommand",
-        name: "コマンドを実行",
-        description: "選択したカスタムコマンドに保存されている演出を実行します。",
+        name: "繧ｳ繝槭Φ繝峨ｒ螳溯｡・,
+        description: "驕ｸ謚槭＠縺溘き繧ｹ繧ｿ繝繧ｳ繝槭Φ繝峨↓菫晏ｭ倥＆繧後※縺・ｋ貍泌・繧貞ｮ溯｡後＠縺ｾ縺吶・,
         icon: "fad fa-exclamation-square",
         categories: [EffectCategory.ADVANCED],
         dependencies: []
@@ -27,30 +27,15 @@ const model = {
    * You can alternatively supply a url to a html file via optionTemplateUrl
    */
     optionsTemplate: `
-    <eos-container header="コマンドの種類" pad-top="true">
+    <eos-container header="繧ｳ繝槭Φ繝峨・遞ｮ鬘・ pad-top="true">
         <dropdown-select options="{ system: 'System', custom: 'Custom'}" selected="effect.commandType"></dropdown-select>
     </eos-container>
 
-        <eos-container header="実行コマンド" pad-top="true">
-<<<<<<< HEAD
-            <ui-select ng-model="effect.systemCommandId" theme="bootstrap" ng-show="effect.commandType === 'system'">
-                <ui-select-match placeholder="コマンドの選択または検索... ">{{$select.selected.trigger}}</ui-select-match>
-                <ui-select-choices repeat="command.id as command in systemCommands | filter: { trigger: $select.search }" style="position:relative;">
-                    <div ng-bind-html="command.trigger | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
-
-            <ui-select ng-model="effect.commandId" theme="bootstrap" ng-show="effect.commandType === 'custom'">
-                <ui-select-match placeholder="コマンドの選択または検索... ">{{$select.selected.trigger}}</ui-select-match>
-                <ui-select-choices repeat="command.id as command in customCommands | filter: { trigger: $select.search }" style="position:relative;">
-                    <div ng-bind-html="command.trigger | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
-=======
+        <eos-container header="螳溯｡後さ繝槭Φ繝・ pad-top="true">
             <firebot-searchable-select
                 ng-show="effect.commandType === 'system'"
                 ng-model="effect.systemCommandId"
-                placeholder="プリセット演出リストの選択または検索..."
+                placeholder="繝励Μ繧ｻ繝・ヨ貍泌・繝ｪ繧ｹ繝医・驕ｸ謚槭∪縺溘・讀懃ｴ｢..."
                 items="systemCommands"
                 item-name="trigger"
             />
@@ -58,25 +43,23 @@ const model = {
             <firebot-searchable-select
                 ng-show="effect.commandType === 'custom'"
                 ng-model="effect.commandId"
-                placeholder="プリセット演出リストの選択または検索..."
+                placeholder="繝励Μ繧ｻ繝・ヨ貍泌・繝ｪ繧ｹ繝医・驕ｸ謚槭∪縺溘・讀懃ｴ｢..."
                 items="customCommands"
                 item-name="trigger"
             />
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
-        <eos-container header="引数(任意)" pad-top="true">
+        <eos-container header="蠑墓焚(莉ｻ諢・" pad-top="true">
             <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.args" placeholder="Enter some arguments..." replace-variables>
         </eos-container>
 
-        <eos-container header="コマンドを起動する視聴者（任意）" pad-top="true">
+        <eos-container header="繧ｳ繝槭Φ繝峨ｒ襍ｷ蜍輔☆繧玖ｦ冶・閠・ｼ井ｻｻ諢擾ｼ・ pad-top="true">
             <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.username" placeholder="Enter a username..." replace-variables>
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-info" pad-top="true">
-            選択されたコマンドのエフェクトがコマンド固有のもの($arg変数など)を持っている場合、チャットイベントのコンテキスト外で実行すると、予期しない結果になる可能性があることに留意してください。
-            </div>
+            驕ｸ謚槭＆繧後◆繧ｳ繝槭Φ繝峨・繧ｨ繝輔ぉ繧ｯ繝医′繧ｳ繝槭Φ繝牙崋譛峨・繧ゅ・($arg螟画焚縺ｪ縺ｩ)繧呈戟縺｣縺ｦ縺・ｋ蝣ｴ蜷医√メ繝｣繝・ヨ繧､繝吶Φ繝医・繧ｳ繝ｳ繝・く繧ｹ繝亥､悶〒螳溯｡後☆繧九→縲∽ｺ域悄縺励↑縺・ｵ先棡縺ｫ縺ｪ繧句庄閭ｽ諤ｧ縺後≠繧九％縺ｨ縺ｫ逡呎э縺励※縺上□縺輔＞縲・            </div>
         </eos-container>
     `,
     /**
@@ -98,10 +81,10 @@ const model = {
     optionsValidator: effect => {
         const errors = [];
         if (effect.commandType === "custom" && (effect.commandId == null || effect.commandId === "")) {
-            errors.push("実行するカスタムコマンドを選択してください。");
+            errors.push("螳溯｡後☆繧九き繧ｹ繧ｿ繝繧ｳ繝槭Φ繝峨ｒ驕ｸ謚槭＠縺ｦ縺上□縺輔＞縲・);
         }
         if (effect.commandType === "system" && (effect.systemCommandId == null || effect.systemCommandId === "")) {
-            errors.push("実行するシステムコマンドを選択してください。");
+            errors.push("螳溯｡後☆繧九す繧ｹ繝・Β繧ｳ繝槭Φ繝峨ｒ驕ｸ謚槭＠縺ｦ縺上□縺輔＞縲・);
         }
         return errors;
     },

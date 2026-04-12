@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const TwitchApi = require("../../twitch-api/api");
 const accountAccess = require("../../common/account-access");
@@ -7,33 +7,25 @@ const { OutputDataType, VariableCategory } = require("../../../shared/variable-c
 const model = {
     definition: {
         handle: "category",
-<<<<<<< HEAD:src/backend/variables/builtin/category.js
-=======
         aliases: ["game"],
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/stream/category.ts
-        description: "あなたのチャンネルに設定されている現在のカテゴリ/ゲームを取得します。",
+        description: "縺ゅ↑縺溘・繝√Ε繝ｳ繝阪Ν縺ｫ險ｭ螳壹＆繧後※縺・ｋ迴ｾ蝨ｨ縺ｮ繧ｫ繝・ざ繝ｪ/繧ｲ繝ｼ繝繧貞叙蠕励＠縺ｾ縺吶・,
         examples: [
             {
                 usage: "category[$target]",
-                description: "コマンドの場合、ターゲットユーザーに設定されているカテゴリ/ゲームを取得します。"
+                description: "繧ｳ繝槭Φ繝峨・蝣ｴ蜷医√ち繝ｼ繧ｲ繝・ヨ繝ｦ繝ｼ繧ｶ繝ｼ縺ｫ險ｭ螳壹＆繧後※縺・ｋ繧ｫ繝・ざ繝ｪ/繧ｲ繝ｼ繝繧貞叙蠕励＠縺ｾ縺吶・
             },
             {
                 usage: "category[$user]",
-                description: "関連するユーザー（コマンドをトリガーした人、ボタンを押した人など）に設定されているカテゴリー/ゲームを取得します。"
+                description: "髢｢騾｣縺吶ｋ繝ｦ繝ｼ繧ｶ繝ｼ・医さ繝槭Φ繝峨ｒ繝医Μ繧ｬ繝ｼ縺励◆莠ｺ縲√・繧ｿ繝ｳ繧呈款縺励◆莠ｺ縺ｪ縺ｩ・峨↓險ｭ螳壹＆繧後※縺・ｋ繧ｫ繝・ざ繝ｪ繝ｼ/繧ｲ繝ｼ繝繧貞叙蠕励＠縺ｾ縺吶・
             },
             {
                 usage: "category[ChannelOne]",
-                description: "特定のチャンネルに設定されているカテゴリ/ゲームを取得します。"
+                description: "迚ｹ螳壹・繝√Ε繝ｳ繝阪Ν縺ｫ險ｭ螳壹＆繧後※縺・ｋ繧ｫ繝・ざ繝ｪ/繧ｲ繝ｼ繝繧貞叙蠕励＠縺ｾ縺吶・
             }
         ],
         categories: [VariableCategory.COMMON, VariableCategory.USER],
         possibleDataOutput: [OutputDataType.TEXT]
     },
-<<<<<<< HEAD:src/backend/variables/builtin/category.js
-    evaluator: async (_, username) => {
-        if (username == null) {
-            username = accountAccess.getAccounts().streamer.username;
-=======
     evaluator: async (trigger, username) => {
         if (username === undefined || username == null) {
             if (trigger.metadata?.username === undefined || trigger.metadata?.username == null) {
@@ -41,7 +33,6 @@ const model = {
             } else {
                 username = trigger.metadata?.username;
             }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/twitch/stream/category.ts
         }
 
         const channelInfo = await TwitchApi.channels.getChannelInformationByUsername(username);

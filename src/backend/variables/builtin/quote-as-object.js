@@ -1,35 +1,31 @@
-// Migration: done
+﻿// Migration: done
 
 "use strict";
 const quoteManager = require("../../quotes/quotes-manager");
 const commandsManager = require("../../chat/commands/CommandManager");
 const moment = require("moment");
-<<<<<<< HEAD:src/backend/variables/builtin/quote-as-object.js
-const logger = require("../../logwrapper");
-=======
 const quoteManager = require("../../../quotes/quotes-manager");
 const commandManager = require("../../../chat/commands/command-manager");
 const logger = require("../../../../backend/logwrapper");
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/misc/quote-as-object.ts
 
 const { OutputDataType, VariableCategory } = require("../../../shared/variable-constants");
 
 const model = {
     definition: {
         handle: "quoteAsObject",
-        description: "JSONオブジェクトの形式でランダムな引用を取得します。",
+        description: "JSON繧ｪ繝悶ず繧ｧ繧ｯ繝医・蠖｢蠑上〒繝ｩ繝ｳ繝繝縺ｪ蠑慕畑繧貞叙蠕励＠縺ｾ縺吶・,
         examples: [
             {
                 usage: "quoteAsObject[#]",
-                description: "特定の見積もりIDを取得します。"
+                description: "迚ｹ螳壹・隕狗ｩ阪ｂ繧蟹D繧貞叙蠕励＠縺ｾ縺吶・
             },
             {
                 usage: "quoteAsObject[#, property]",
-                description: "特定の見積もりの特定のプロパティのみを取得します。有効なプロパティは、id、createdAt、creator、originator、text、gameです。"
+                description: "迚ｹ螳壹・隕狗ｩ阪ｂ繧翫・迚ｹ螳壹・繝励Ο繝代ユ繧｣縺ｮ縺ｿ繧貞叙蠕励＠縺ｾ縺吶よ怏蜉ｹ縺ｪ繝励Ο繝代ユ繧｣縺ｯ縲（d縲…reatedAt縲…reator縲｛riginator縲》ext縲“ame縺ｧ縺吶・
             },
             {
                 usage: "quoteAsObject[null, property]",
-                description: "ランダムな引用の特定のプロパティのみを取得します。有効なプロパティは、id、createdAt、creator、originator、text、gameです。"
+                description: "繝ｩ繝ｳ繝繝縺ｪ蠑慕畑縺ｮ迚ｹ螳壹・繝励Ο繝代ユ繧｣縺ｮ縺ｿ繧貞叙蠕励＠縺ｾ縺吶よ怏蜉ｹ縺ｪ繝励Ο繝代ユ繧｣縺ｯ縲（d縲…reatedAt縲…reator縲｛riginator縲》ext縲“ame縺ｧ縺吶・
             }
         ],
         categories: [VariableCategory.TEXT],

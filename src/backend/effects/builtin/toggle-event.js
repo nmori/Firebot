@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const eventAccess = require("../../events/events-access");
 const { EffectCategory } = require('../../../shared/effect-constants');
@@ -6,8 +6,8 @@ const { EffectCategory } = require('../../../shared/effect-constants');
 const chat = {
     definition: {
         id: "firebot:toggle-event",
-        name: "イベントを切り替え",
-        description: "イベントのアクティブ・ステータスを切り替える",
+        name: "繧､繝吶Φ繝医ｒ蛻・ｊ譖ｿ縺・,
+        description: "繧､繝吶Φ繝医・繧｢繧ｯ繝・ぅ繝悶・繧ｹ繝・・繧ｿ繧ｹ繧貞・繧頑崛縺医ｋ",
         icon: "fad fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: []
@@ -15,22 +15,18 @@ const chat = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>この演出を使うと、イベント（イベントタブで作成できます）のアクティブステータスを自動的に切り替えることができます。</p>
+            <p>縺薙・貍泌・繧剃ｽｿ縺・→縲√う繝吶Φ繝茨ｼ医う繝吶Φ繝医ち繝悶〒菴懈・縺ｧ縺阪∪縺呻ｼ峨・繧｢繧ｯ繝・ぅ繝悶せ繝・・繧ｿ繧ｹ繧定・蜍慕噪縺ｫ蛻・ｊ譖ｿ縺医ｋ縺薙→縺後〒縺阪∪縺吶・/p>
         </eos-container>
 
-        <eos-container header="イベントグループ" pad-top="true">
+        <eos-container header="繧､繝吶Φ繝医げ繝ｫ繝ｼ繝・ pad-top="true">
             <dropdown-select options="eventGroupNames" selected="effect.selectedGroupName"></dropdown-select>
         </eos-container>
 
-        <eos-container header="イベント" pad-top="true" ng-show="effect.selectedGroupName">
-<<<<<<< HEAD
-            <dropdown-select options="eventOptions[effect.selectedGroupName]" selected="effect.selectedEventId"></dropdown-select>
-=======
+        <eos-container header="繧､繝吶Φ繝・ pad-top="true" ng-show="effect.selectedGroupName">
             <dropdown-select options="eventOptions[effect.selectedGroupName]" selected="effect.selectedEventId" value-mode="object"></dropdown-select>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
-        <eos-container header="切り替え" pad-top="true">
+        <eos-container header="蛻・ｊ譖ｿ縺・ pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,

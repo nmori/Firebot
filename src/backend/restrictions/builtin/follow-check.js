@@ -1,30 +1,25 @@
-"use strict";
+﻿"use strict";
 
 const model = {
     definition: {
         id: "firebot:followcheck",
-        name: "フォローチェック",
-        description: "カンマ区切りのリストで、ユーザが全員をフォローしているかどうかに基づいて制限する.",
+        name: "繝輔か繝ｭ繝ｼ繝√ぉ繝・け",
+        description: "繧ｫ繝ｳ繝槫玄蛻・ｊ縺ｮ繝ｪ繧ｹ繝医〒縲√Θ繝ｼ繧ｶ縺悟・蜩｡繧偵ヵ繧ｩ繝ｭ繝ｼ縺励※縺・ｋ縺九←縺・°縺ｫ蝓ｺ縺･縺・※蛻ｶ髯舌☆繧・",
         triggers: []
     },
     optionsTemplate: `
         <div>
-<<<<<<< HEAD
-            <div id="userFollowList" class="modal-subheader" style="padding: 0 0 4px 0">
-                フォロー
-=======
             <firebot-radio-container>
-                <firebot-radio label="私のチャンネルをフォロー" model="restriction.checkMode" value="'streamer'"/>
-                <firebot-radio label="指定したチャンネルをフォロー" model="restriction.checkMode" value="'custom'" />
+                <firebot-radio label="遘√・繝√Ε繝ｳ繝阪Ν繧偵ヵ繧ｩ繝ｭ繝ｼ" model="restriction.checkMode" value="'streamer'"/>
+                <firebot-radio label="謖・ｮ壹＠縺溘メ繝｣繝ｳ繝阪Ν繧偵ヵ繧ｩ繝ｭ繝ｼ" model="restriction.checkMode" value="'custom'" />
                 <div ng-show="restriction.checkMode === 'custom'" style="padding-top: 4px;">
                     <div id="userFollowList" class="modal-subheader" style="padding: 0 0 4px 0">
-                        フォローユーザー
+                        繝輔か繝ｭ繝ｼ繝ｦ繝ｼ繧ｶ繝ｼ
                     </div>
-                    <input type="text" class="form-control" placeholder="値をいれる" ng-model="restriction.value">
+                    <input type="text" class="form-control" placeholder="蛟､繧偵＞繧後ｋ" ng-model="restriction.value">
 
                     <div style="margin-top: 10px;" class="alert alert-warning">
-                        チャンネルのフォローをチェックするには、ストリーマーかモデレーターである必要があります。
-                    </div>
+                        繝√Ε繝ｳ繝阪Ν縺ｮ繝輔か繝ｭ繝ｼ繧偵メ繧ｧ繝・け縺吶ｋ縺ｫ縺ｯ縲√せ繝医Μ繝ｼ繝槭・縺九Δ繝・Ξ繝ｼ繧ｿ繝ｼ縺ｧ縺ゅｋ蠢・ｦ√′縺ゅｊ縺ｾ縺吶・                    </div>
                 </div>
             </firebot-radio-container>
 
@@ -32,7 +27,7 @@ const model = {
                 <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
                     <div>
                         <label class="control-label" style="margin:0;">Follow Age</label>
-                        <p class="help-block">ユーザーがチャンネルをフォローしなければならない時間</p>
+                        <p class="help-block">繝ｦ繝ｼ繧ｶ繝ｼ縺後メ繝｣繝ｳ繝阪Ν繧偵ヵ繧ｩ繝ｭ繝ｼ縺励↑縺代ｌ縺ｰ縺ｪ繧峨↑縺・凾髢・/p>
                     </div>
                     <div>
                         <toggle-button toggle-model="restriction.useFollowAge" auto-update-value="true" font-size="32"></toggle-button>
@@ -48,9 +43,8 @@ const model = {
                         disabled="!restriction.useFollowAge"
                     />
                 </div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             </div>
-            <input type="text" class="form-control" placeholder="値を入れる" ng-model="restriction.value">
+            <input type="text" class="form-control" placeholder="蛟､繧貞・繧後ｋ" ng-model="restriction.value">
         </div>
     `,
     optionsValueDisplay: (restriction) => {
@@ -86,7 +80,7 @@ const model = {
                 return resolve();
             }
 
-            return reject("次の操作が必要です: " + restrictionData.value);
+            return reject("谺｡縺ｮ謫堺ｽ懊′蠢・ｦ√〒縺・ " + restrictionData.value);
         });
     }
 };

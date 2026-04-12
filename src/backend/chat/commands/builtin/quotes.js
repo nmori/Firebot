@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const app = require('electron').app;
 
@@ -8,30 +8,30 @@ moment.locale(app.getLocale());
 const quotesManagement = {
     definition: {
         id: "firebot:quotesmanagement",
-        name: "引用管理",
+        name: "蠑慕畑邂｡逅・,
         active: true,
         trigger: "!quote",
-        description: "チャットから引用管理を実施.",
+        description: "繝√Ε繝・ヨ縺九ｉ蠑慕畑邂｡逅・ｒ螳滓命.",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
             user: 0,
             global: 0
         },
-        baseCommandDescription: "ランダムに引用表示する",
+        baseCommandDescription: "繝ｩ繝ｳ繝繝縺ｫ蠑慕畑陦ｨ遉ｺ縺吶ｋ",
         options: {
             quoteDisplayTemplate: {
                 type: "string",
-                title: "引用テンプレートを表示",
-                description: "チャットでの引用の表示方法.",
-                tip: "変数: {id}, {text}, {author}, {game}, {date}",
+                title: "蠑慕畑繝・Φ繝励Ξ繝ｼ繝医ｒ陦ｨ遉ｺ",
+                description: "繝√Ε繝・ヨ縺ｧ縺ｮ蠑慕畑縺ｮ陦ｨ遉ｺ譁ｹ豕・",
+                tip: "螟画焚: {id}, {text}, {author}, {game}, {date}",
                 default: `Quote {id}: "{text}" - @{author} [{game}] [{date}]`,
                 useTextArea: true
             },
             quoteDateFormat: {
                 type: "enum",
-                title: "引用テンプレートフォーマット",
-                description: "!quote'コマンドと'!quote editdate'コマンドで日付をどのように表示するか。",
+                title: "蠑慕畑繝・Φ繝励Ξ繝ｼ繝医ヵ繧ｩ繝ｼ繝槭ャ繝・,
+                description: "!quote'繧ｳ繝槭Φ繝峨→'!quote editdate'繧ｳ繝槭Φ繝峨〒譌･莉倥ｒ縺ｩ縺ｮ繧医≧縺ｫ陦ｨ遉ｺ縺吶ｋ縺九・,
                 options: [
                     "YYYY/MM/DD",
                     "MM/DD/YYYY",
@@ -41,8 +41,8 @@ const quotesManagement = {
             },
             useTTS: {
                 type: "boolean",
-                title: "引用をTTSで読み上げる",
-                description: "引用が作成されたり検索されたりするたびに、TTSが引用を読み上げる。.",
+                title: "蠑慕畑繧探TS縺ｧ隱ｭ縺ｿ荳翫￡繧・,
+                description: "蠑慕畑縺御ｽ懈・縺輔ｌ縺溘ｊ讀懃ｴ｢縺輔ｌ縺溘ｊ縺吶ｋ縺溘・縺ｫ縲ゝTS縺悟ｼ慕畑繧定ｪｭ縺ｿ荳翫￡繧九・",
                 default: false
             }
         },
@@ -51,13 +51,13 @@ const quotesManagement = {
                 id: "quotelookup",
                 arg: "\\d+",
                 regex: true,
-                usage: "[引用ID]",
-                description: "指定されたIDの引用を表示します。"
+                usage: "[蠑慕畑ID]",
+                description: "謖・ｮ壹＆繧後◆ID縺ｮ蠑慕畑繧定｡ｨ遉ｺ縺励∪縺吶・
             },
             {
                 arg: "add",
-                usage: "add [@ユーザ名] [引用文]",
-                description: "引用を追加します",
+                usage: "add [@繝ｦ繝ｼ繧ｶ蜷江 [蠑慕畑譁Ⅹ",
+                description: "蠑慕畑繧定ｿｽ蜉縺励∪縺・,
                 restrictionData: {
                     restrictions: [
                         {
@@ -74,8 +74,8 @@ const quotesManagement = {
             },
             {
                 arg: "remove",
-                usage: "remove [引用ID]",
-                description: "引用を削除します",
+                usage: "remove [蠑慕畑ID]",
+                description: "蠑慕畑繧貞炎髯､縺励∪縺・,
                 restrictionData: {
                     restrictions: [
                         {
@@ -92,8 +92,8 @@ const quotesManagement = {
             },
             {
                 arg: "edittext",
-                usage: "edittext [引用ID] [新規文]",
-                description: "引用文を編集する.",
+                usage: "edittext [蠑慕畑ID] [譁ｰ隕乗枚]",
+                description: "蠑慕畑譁・ｒ邱ｨ髮・☆繧・",
                 restrictionData: {
                     restrictions: [
                         {
@@ -110,8 +110,8 @@ const quotesManagement = {
             },
             {
                 arg: "edituser",
-                usage: "edituser [引用ID] [ユーザー名]",
-                description: "指定された引用のユーザー名を編集する",
+                usage: "edituser [蠑慕畑ID] [繝ｦ繝ｼ繧ｶ繝ｼ蜷江",
+                description: "謖・ｮ壹＆繧後◆蠑慕畑縺ｮ繝ｦ繝ｼ繧ｶ繝ｼ蜷阪ｒ邱ｨ髮・☆繧・,
                 restrictionData: {
                     restrictions: [
                         {
@@ -128,9 +128,9 @@ const quotesManagement = {
             },
             {
                 arg: "editgame",
-                usage: "editgame [引用ID] [ゲーム]",
+                usage: "editgame [蠑慕畑ID] [繧ｲ繝ｼ繝]",
                 minArgs: 3,
-                description: "指定された引用のゲームを編集します。",
+                description: "謖・ｮ壹＆繧後◆蠑慕畑縺ｮ繧ｲ繝ｼ繝繧堤ｷｨ髮・＠縺ｾ縺吶・,
                 restrictionData: {
                     restrictions: [
                         {
@@ -147,9 +147,9 @@ const quotesManagement = {
             },
             {
                 arg: "editdate",
-                usage: "editdate [引用ID] [新規日付]",
+                usage: "editdate [蠑慕畑ID] [譁ｰ隕乗律莉肋",
                 minArgs: 3,
-                description: "引用の日付を編集する",
+                description: "蠑慕畑縺ｮ譌･莉倥ｒ邱ｨ髮・☆繧・,
                 restrictionData: {
                     restrictions: [
                         {
@@ -167,31 +167,31 @@ const quotesManagement = {
             {
                 arg: "list",
                 usage: "list",
-                description: "すべての引用をリスト表示します"
+                description: "縺吶∋縺ｦ縺ｮ蠑慕畑繧偵Μ繧ｹ繝郁｡ｨ遉ｺ縺励∪縺・
             },
             {
                 arg: "search",
-                usage: "search [検索文字]",
+                usage: "search [讀懃ｴ｢譁・ｭ余",
                 minArgs: 2,
-                description: "検索語句を使用して引用を表示します"
+                description: "讀懃ｴ｢隱槫唱繧剃ｽｿ逕ｨ縺励※蠑慕畑繧定｡ｨ遉ｺ縺励∪縺・
             },
             {
                 arg: "searchuser",
-                usage: "searchuser @ユーザ名",
+                usage: "searchuser @繝ｦ繝ｼ繧ｶ蜷・,
                 minArgs: 2,
-                description: "指定されたユーザーによる引用を表示します"
+                description: "謖・ｮ壹＆繧後◆繝ｦ繝ｼ繧ｶ繝ｼ縺ｫ繧医ｋ蠑慕畑繧定｡ｨ遉ｺ縺励∪縺・
             },
             {
                 arg: "searchdate",
                 usage: "searchdate DD MM YYYY",
                 minArgs: 3,
-                description: "指定された日付の引用を設定します"
+                description: "謖・ｮ壹＆繧後◆譌･莉倥・蠑慕畑繧定ｨｭ螳壹＠縺ｾ縺・
             },
             {
                 arg: "searchgame",
-                usage: "searchgame [検索文字]",
+                usage: "searchgame [讀懃ｴ｢譁・ｭ余",
                 minArgs: 2,
-                description: "指定されたゲームの引用を表示します"
+                description: "謖・ｮ壹＆繧後◆繧ｲ繝ｼ繝縺ｮ蠑慕畑繧定｡ｨ遉ｺ縺励∪縺・
             }
         ]
     },
@@ -240,7 +240,7 @@ const quotesManagement = {
 
                     logger.debug(`We pulled a quote by id: ${formattedQuote}`);
                 } else {
-                    await twitchChat.sendChatMessage(`引用は見つかりませんでした`);
+                    await twitchChat.sendChatMessage(`蠑慕畑縺ｯ隕九▽縺九ｊ縺ｾ縺帙ｓ縺ｧ縺励◆`);
                 }
                 return resolve();
             }
@@ -257,47 +257,12 @@ const quotesManagement = {
                     logger.debug(`We pulled a quote using an id: ${formattedQuote}`);
                 } else {
                     // If we get here, it's likely the command was used wrong. Tell the sender they done fucked up
-                    await twitchChat.sendChatMessage(`そのIDの引用は見つかりませんでした`);
+                    await twitchChat.sendChatMessage(`縺昴・ID縺ｮ蠑慕畑縺ｯ隕九▽縺九ｊ縺ｾ縺帙ｓ縺ｧ縺励◆`);
                 }
                 return resolve();
             }
 
             switch (triggeredArg) {
-<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
-            case "add": {
-                if (args.length < 3) {
-                    await twitchChat.sendChatMessage(`引用文を指定してください`);
-                    return resolve();
-                }
-
-                    const channelData = await TwitchApi.channels.getChannelInformation();
-
-                const currentGameName = channelData && channelData.gameName ? channelData.gameName : "不明なゲーム";
-
-                const newQuote = {
-                    text: args.slice(2, args.length).join(" "),
-                    originator: args[1].replace(/@/g, ""),
-                    creator: event.userCommand.commandSender,
-                    game: currentGameName,
-                    createdAt: moment().toISOString()
-                };
-                const newQuoteId = await quotesManager.addQuote(newQuote);
-                const newQuoteText = await quotesManager.getQuote(newQuoteId);
-                const formattedQuote = getFormattedQuoteString(newQuoteText);
-                await twitchChat.sendChatMessage(
-                    `追加しました： ${formattedQuote}`
-                );
-                sendToTTS(formattedQuote);
-                logger.debug(`Quote #${newQuoteId} added!`);
-                return resolve();
-            }
-            case "remove": {
-                const quoteId = parseInt(args[1]);
-                if (!isNaN(quoteId)) {
-                    await quotesManager.removeQuote(quoteId);
-                    await twitchChat.sendChatMessage(`Quote ${quoteId} was removed.`);
-                    logger.debug('A quote was removed: ' + quoteId);
-=======
                 case "add": {
                     const shouldInsertStreamerUsername =
                         (commandOptions.defaultStreamerAttribution && args.length === 1) ||
@@ -307,12 +272,12 @@ const quotesManagement = {
                         : 3;
 
                     if (args.length < expectedArgs) {
-                        await twitchChat.sendChatMessage(`引用文を指定してください`);
+                        await twitchChat.sendChatMessage(`蠑慕畑譁・ｒ謖・ｮ壹＠縺ｦ縺上□縺輔＞`);
                         return resolve();
                     }
                     // Once we've evaluated that the syntax is correct we make our API calls
                     const channelData = await TwitchApi.channels.getChannelInformation();
-                    const currentGameName = channelData && channelData.gameName ? channelData.gameName : "不明なゲーム";
+                    const currentGameName = channelData && channelData.gameName ? channelData.gameName : "荳肴・縺ｪ繧ｲ繝ｼ繝";
 
                     // If shouldInsertStreamerUsername and no @ is included in the originator arg, set originator @streamerName and treat the rest as the quote
                     if (shouldInsertStreamerUsername) {
@@ -330,11 +295,10 @@ const quotesManagement = {
                     const newQuoteText = await quotesManager.getQuote(newQuoteId);
                     const formattedQuote = getFormattedQuoteString(newQuoteText);
                     await twitchChat.sendChatMessage(
-                        `追加しました： ${formattedQuote}`
+                        `霑ｽ蜉縺励∪縺励◆・・${formattedQuote}`
                     );
                     sendToTTS(formattedQuote);
                     logger.debug(`Quote #${newQuoteId} added!`);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
                     return resolve();
                 }
                 case "remove": {
@@ -346,21 +310,12 @@ const quotesManagement = {
                         return resolve();
                     }
 
-<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
-                await twitchChat.sendChatMessage(`その番号の引用が見つかりませんでした`);
-                logger.error('Quotes: NaN passed to remove quote command.');
-                return resolve();
-            }
-            case "list": {
-                const cloudSync = require('../../../cloud-sync/profile-sync');
-=======
-                    await twitchChat.sendChatMessage(`その番号の引用が見つかりませんでした`);
+                    await twitchChat.sendChatMessage(`縺昴・逡ｪ蜿ｷ縺ｮ蠑慕畑縺瑚ｦ九▽縺九ｊ縺ｾ縺帙ｓ縺ｧ縺励◆`);
                     logger.error('Quotes: NaN passed to remove quote command.');
                     return resolve();
                 }
                 case "list": {
                     const cloudSync = require('../../../cloud-sync/profile-sync');
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
 
                     const profileJSON = {
                         username: event.chatMessage.username,
@@ -371,13 +326,9 @@ const quotesManagement = {
                     const binId = await cloudSync.syncProfileData(profileJSON);
 
                     if (binId == null) {
-                        await twitchChat.sendChatMessage("引用はありませｎ");
+                        await twitchChat.sendChatMessage("蠑慕畑縺ｯ縺ゅｊ縺ｾ縺幢ｽ・);
                     } else {
-<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
-                    await twitchChat.sendChatMessage(`引用のリストはこちら： https://firebot.app/profile?id=${binId}`);
-=======
-                        await twitchChat.sendChatMessage(`引用のリストはこちら： https://firebot.app/profile?id=${binId}`);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
+                        await twitchChat.sendChatMessage(`蠑慕畑縺ｮ繝ｪ繧ｹ繝医・縺薙■繧会ｼ・https://firebot.app/profile?id=${binId}`);
                     }
 
                     return resolve();
@@ -446,7 +397,7 @@ const quotesManagement = {
 
                     if (day == null || month == null || day > 31 || day < 1 ||
                     month > 12 || month < 1) {
-                        await twitchChat.sendChatMessage(`日付が無効です`);
+                        await twitchChat.sendChatMessage(`譌･莉倥′辟｡蜉ｹ縺ｧ縺兪);
                         return resolve();
                     }
 
@@ -473,23 +424,16 @@ const quotesManagement = {
 
                     const quoteId = parseInt(args[1]);
                     if (isNaN(quoteId)) {
-                        await twitchChat.sendChatMessage(`IDが異なります`);
+                        await twitchChat.sendChatMessage(`ID縺檎焚縺ｪ繧翫∪縺兪);
                         return resolve();
                     }
 
                     const quote = await quotesManager.getQuote(quoteId);
 
-<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
-                if (quote == null) {
-                    await twitchChat.sendChatMessage(`ID ${quoteId} の引用が見つからない`);
-                    return resolve();
-                }
-=======
                     if (quote == null) {
-                        await twitchChat.sendChatMessage(`ID ${quoteId} の引用が見つからない`);
+                        await twitchChat.sendChatMessage(`ID ${quoteId} 縺ｮ蠑慕畑縺瑚ｦ九▽縺九ｉ縺ｪ縺Я);
                         return resolve();
                     }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
 
                     const newText = args.slice(2).join(" ");
                     quote.text = newText;
@@ -497,14 +441,14 @@ const quotesManagement = {
                     try {
                         await quotesManager.updateQuote(quote);
                     } catch (err) {
-                        await twitchChat.sendChatMessage(`${quoteId} を更新中にエラーがおきました`);
+                        await twitchChat.sendChatMessage(`${quoteId} 繧呈峩譁ｰ荳ｭ縺ｫ繧ｨ繝ｩ繝ｼ縺後♀縺阪∪縺励◆`);
                         return resolve();
                     }
 
                     const formattedQuote = getFormattedQuoteString(quote);
 
                     await twitchChat.sendChatMessage(
-                        `編集しました： ${formattedQuote}`
+                        `邱ｨ髮・＠縺ｾ縺励◆・・${formattedQuote}`
                     );
 
                     // resolve promise
@@ -518,23 +462,16 @@ const quotesManagement = {
 
                     const quoteId = parseInt(args[1]);
                     if (isNaN(quoteId)) {
-                        await twitchChat.sendChatMessage(`無効な引用ID`);
+                        await twitchChat.sendChatMessage(`辟｡蜉ｹ縺ｪ蠑慕畑ID`);
                         return resolve();
                     }
 
                     const quote = await quotesManager.getQuote(quoteId);
 
-<<<<<<< HEAD:src/backend/chat/commands/builtin/quotes.js
-                if (quote == null) {
-                    await twitchChat.sendChatMessage(`${quoteId} をもつIDのものがみつからない`);
-                    return resolve();
-                }
-=======
                     if (quote == null) {
-                        await twitchChat.sendChatMessage(`${quoteId} をもつIDのものがみつからない`);
+                        await twitchChat.sendChatMessage(`${quoteId} 繧偵ｂ縺､ID縺ｮ繧ゅ・縺後∩縺､縺九ｉ縺ｪ縺Я);
                         return resolve();
                     }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/chat/commands/builtin/quotes.ts
 
                     const newGameName = args.slice(2).join(" ");
                     quote.game = newGameName;

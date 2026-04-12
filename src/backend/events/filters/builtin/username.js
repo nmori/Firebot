@@ -1,18 +1,13 @@
-"use strict";
+﻿"use strict";
 
 const { ComparisonType } = require("../../../../shared/filter-constants");
 
 module.exports = {
     id: "firebot:username",
-<<<<<<< HEAD:src/backend/events/filters/builtin/username.js
-    name: "視聴者名",
-    description: "特定の視聴者名にフィルタ",
-=======
     name: "Username",
     caseInsensitive: true,
     description: "Filter to a specific username",
     eventMetaKey: "username",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/events/filters/builtin/twitch/username.ts
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "bits-badge-unlocked" },
@@ -40,30 +35,4 @@ module.exports = {
     valueType: "text",
     predicate: (filterSettings, eventData) => {
 
-<<<<<<< HEAD:src/backend/events/filters/builtin/username.js
-        const { comparisonType, value } = filterSettings;
-        const { eventMeta } = eventData;
-
-        // normalize usernames
-        const eventUsername = eventMeta.username ? eventMeta.username.toLowerCase() : "";
-        const filterUsername = value ? value.toLowerCase() : "";
-
-        switch (comparisonType) {
-            case ComparisonType.IS:
-                return eventUsername === filterUsername;
-            case ComparisonType.IS_NOT:
-                return eventUsername !== filterUsername;
-            case ComparisonType.CONTAINS:
-                return eventUsername.includes(filterUsername);
-            case ComparisonType.MATCHES_REGEX: {
-                const regex = new RegExp(filterUsername, "gi");
-                return regex.test(eventUsername);
-            }
-            default:
-                return false;
-        }
-    }
-};
-=======
 export default filter;
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/events/filters/builtin/twitch/username.ts

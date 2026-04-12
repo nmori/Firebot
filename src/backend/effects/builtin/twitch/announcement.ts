@@ -1,4 +1,4 @@
-import { EffectType } from "../../../../types/effects";
+﻿import { EffectType } from "../../../../types/effects";
 import { EffectCategory } from "../../../../shared/effect-constants";
 import { HelixChatAnnouncementColor } from "@twurple/api";
 import twitchApi from "../../../twitch-api/api";
@@ -10,8 +10,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:announcement",
-        name: "アナウンス",
-        description: "アナウンスを送ります",
+        name: "繧｢繝翫え繝ｳ繧ｹ",
+        description: "繧｢繝翫え繝ｳ繧ｹ繧帝√ｊ縺ｾ縺・,
         icon: "fad fa-bullhorn",
         categories: [EffectCategory.COMMON, EffectCategory.CHAT_BASED, EffectCategory.TWITCH],
         dependencies: {
@@ -19,13 +19,9 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-chatter-select effect="effect" title="アナウンスの内容"></eos-chatter-select>
+        <eos-chatter-select effect="effect" title="繧｢繝翫え繝ｳ繧ｹ縺ｮ蜀・ｮｹ"></eos-chatter-select>
 
         <eos-container header="Message" pad-top="true">
-<<<<<<< HEAD
-            <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージを入力" rows="4" cols="40" replace-variables></textarea>
-            <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">アナウンスメッセージは500文字を超えることはできません。このメッセージは、すべての置換変数が入力された後、長すぎる場合は自動的に複数のメッセージに分割されます。</div>
-=======
             <firebot-input
                 model="effect.message"
                 use-text-area="true"
@@ -35,10 +31,9 @@ const model: EffectType<{
                 menu-position="under"
             />
             <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">Announcement messages cannot be longer than 500 characters. This message will get automatically chunked into multiple messages if it is too long after all replace variables have been populated.</div>
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         </eos-container>
 
-        <eos-container header="色" pad-top="true">
+        <eos-container header="濶ｲ" pad-top="true">
             <dropdown-select options="announcementColors" selected="effect.color"></dropdown-select>
         </eos-container>
     `,
@@ -52,7 +47,7 @@ const model: EffectType<{
     optionsValidator: ({ message }) => {
         const errors = [];
         if (message?.length < 1) {
-            errors.push("アナウンスメッセージを空白にすることはできません.");
+            errors.push("繧｢繝翫え繝ｳ繧ｹ繝｡繝・そ繝ｼ繧ｸ繧堤ｩｺ逋ｽ縺ｫ縺吶ｋ縺薙→縺ｯ縺ｧ縺阪∪縺帙ｓ.");
         }
         return errors;
     },

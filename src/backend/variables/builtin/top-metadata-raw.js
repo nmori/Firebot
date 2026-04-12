@@ -1,4 +1,4 @@
-// Migration: info - Needs implementation details
+﻿// Migration: info - Needs implementation details
 
 "use strict";
 
@@ -8,18 +8,14 @@ const userDatabase = require("../../database/userDatabase");
 const model = {
     definition: {
         handle: "rawTopMetadata",
-<<<<<<< HEAD:src/backend/variables/builtin/top-metadata-raw.js
-        description: "指定したメタデータのキーが最も多いユーザの生の配列を返します。項目は 'username'、'place' および 'amount' プロパティを含む。",
-=======
         description: "Returns a raw array of users with the most of a given metadata key. Items contain `username`, `place` and `amount` properties.",
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20:src/backend/variables/builtin/metadata/top-metadata-raw.ts
         usage: "rawTopMetadata[metadataKey]",
         possibleDataOutput: [OutputDataType.TEXT]
     },
     evaluator: async (_, metadataKey, count = 10) => {
 
         if (metadataKey == null) {
-            return "[無効なメタデータ・キー]";
+            return "[辟｡蜉ｹ縺ｪ繝｡繧ｿ繝・・繧ｿ繝ｻ繧ｭ繝ｼ]";
         }
 
         // limit to max of 50

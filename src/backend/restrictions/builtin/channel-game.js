@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const accountAccess = require("../../common/account-access");
 const TwitchApi = require("../../twitch-api/api");
@@ -6,14 +6,14 @@ const TwitchApi = require("../../twitch-api/api");
 const model = {
     definition: {
         id: "firebot:channelGame",
-        name: "チャンネルカテゴリー/ゲーム",
-        description: "カテゴリ/ゲームが特定のカテゴリ/ゲームである場合に使用を制限する。",
+        name: "繝√Ε繝ｳ繝阪Ν繧ｫ繝・ざ繝ｪ繝ｼ/繧ｲ繝ｼ繝",
+        description: "繧ｫ繝・ざ繝ｪ/繧ｲ繝ｼ繝縺檎音螳壹・繧ｫ繝・ざ繝ｪ/繧ｲ繝ｼ繝縺ｧ縺ゅｋ蝣ｴ蜷医↓菴ｿ逕ｨ繧貞宛髯舌☆繧九・,
         triggers: []
     },
     optionsTemplate: `
         <div>
             <ui-select ng-model="selectedGame" theme="bootstrap" spinner-enabled="true" on-select="gameSelected($item)" style="margin-bottom:10px;">
-                <ui-select-match placeholder="カテゴリー/ゲーム検索">
+                <ui-select-match placeholder="繧ｫ繝・ざ繝ｪ繝ｼ/繧ｲ繝ｼ繝讀懃ｴ｢">
                     <div style="height: 21px; display:flex; flex-direction: row; align-items: center;">
                         <img style="height: 28px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
                         <div style="font-weight: 100;font-size: 17px;">{{$select.selected.name}}</div>
@@ -60,7 +60,7 @@ const model = {
             if (restriction.name != null) {
                 resolve(restriction.name);
             } else {
-                resolve('[未設定]');
+                resolve('[譛ｪ險ｭ螳咯');
             }
         });
     },
@@ -76,12 +76,12 @@ const model = {
             const channel = await TwitchApi.channels.getChannelInformation(streamerId);
 
             if (channel == null) {
-                return reject(`チャンネル情報が取得できない.`);
+                return reject(`繝√Ε繝ｳ繝阪Ν諠・ｱ縺悟叙蠕励〒縺阪↑縺・`);
             }
 
             const currentGameId = channel.gameId;
             if (currentGameId == null) {
-                return reject(`プレイしているカテゴリー／ゲームが特定できない.`);
+                return reject(`繝励Ξ繧､縺励※縺・ｋ繧ｫ繝・ざ繝ｪ繝ｼ・上ご繝ｼ繝縺檎音螳壹〒縺阪↑縺・`);
             }
 
             let passed = false;
@@ -92,14 +92,10 @@ const model = {
             if (passed) {
                 resolve();
             } else {
-<<<<<<< HEAD
-                reject(`チャンネルのカテゴリー/ゲームが正しく設定されていない`);
-=======
                 const expectedGame = await TwitchApi.categories.getCategoryById(expectedGameId);
                 reject(
                     `Channel category/game isn't set to ${expectedGame?.name ?? "the correct category/game"}.`
                 );
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
             }
         });
     }

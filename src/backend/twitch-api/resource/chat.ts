@@ -1,9 +1,5 @@
-import logger from '../../logwrapper';
+﻿import logger from '../../logwrapper';
 import accountAccess from "../../common/account-access";
-<<<<<<< HEAD
-import frontendCommunicator from "../../common/frontend-communicator";
-import { ApiClient, HelixChatAnnouncementColor, HelixSendChatAnnouncementParams, HelixUpdateChatSettingsParams } from "@twurple/api";
-=======
 import { ApiClient, HelixChatAnnouncementColor, HelixChatChatter, HelixSendChatAnnouncementParams, HelixSentChatMessage, HelixUpdateChatSettingsParams } from "@twurple/api";
 
 interface ResultWithError<TResult, TError> {
@@ -11,7 +7,6 @@ interface ResultWithError<TResult, TError> {
     result?: TResult;
     error?: TError;
 }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
 export class TwitchChatApi {
     private _streamerClient: ApiClient;
@@ -31,17 +26,7 @@ export class TwitchChatApi {
         try {
             const streamerUserId: string = accountAccess.getAccounts().streamer.userId;
 
-<<<<<<< HEAD
-            let result = await this._streamerClient.chat.getChatters(streamerUserId);
-            chatters.push(...result.data.map(c => c.userName));
-
-            while (result.cursor) {
-                result = await this._streamerClient.chat.getChatters(streamerUserId, { after: result.cursor });
-                chatters.push(...result.data.map(c => c.userName));
-            }
-=======
             chatters.push(...await this._streamerClient.chat.getChattersPaginated(streamerUserId).getAll());
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         } catch (error) {
             logger.error("Error getting chatter list", error.message);
         }
@@ -94,13 +79,7 @@ export class TwitchChatApi {
 
             return true;
         } catch (error) {
-<<<<<<< HEAD
-            logger.error("Error sending announcemnt", error.message);
-            frontendCommunicator.send("error", `アナウンスに失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
-
-=======
             logger.error("Error sending announcement", error.message);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
 
         return false;
@@ -118,13 +97,8 @@ export class TwitchChatApi {
             await this._streamerClient.chat.shoutoutUser(streamerId, targetUserId);
         } catch (error) {
             logger.error("Error sending shoutout", error.message);
-<<<<<<< HEAD
-            frontendCommunicator.send("error", `シャウトアウトに失敗。理由:${JSON.parse(error.message.split('\n')[5]).message}`);
-            return false;
-=======
             const body = JSON.parse(error._body);
             return { success: false, error: body.message };
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
         }
 
         return true;

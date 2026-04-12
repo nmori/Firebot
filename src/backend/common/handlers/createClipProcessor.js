@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const twitchChat = require("../../chat/twitch-chat");
 const logger = require("../../logwrapper");
@@ -19,20 +19,13 @@ exports.createClip = async function(effect) {
     const broadcast = await client.streams.getStreamByUserId(streamerAccount.userId);
     const channelId = (await twitchApi.users.getUserById(streamerAccount.userId)).id;
 
-<<<<<<< HEAD
-    if (broadcast == null) {
-        renderWindow.webContents.send('error', `クリップの作成に失敗しました。配信中ではないためです。`);
-        return null;
-    }
-=======
     // if (broadcast == null) {
     //     frontendCommunicator.send('error', `Failed to create a clip. Reason: Streamer is not live.`);
     //     return null;
     // }
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
 
     if (effect.postLink) {
-        await twitchChat.sendChatMessage("クリップ作成中...");
+        await twitchChat.sendChatMessage("繧ｯ繝ｪ繝・・菴懈・荳ｭ...");
     }
 
     let clipId;
@@ -47,7 +40,7 @@ exports.createClip = async function(effect) {
 
     if (clipId == null) {
         if (effect.postLink) {
-            await twitchChat.sendChatMessage("おっと！クリップの作成時に何か問題が発生しました:(");
+            await twitchChat.sendChatMessage("縺翫▲縺ｨ・√け繝ｪ繝・・縺ｮ菴懈・譎ゅ↓菴輔°蝠城｡後′逋ｺ逕溘＠縺ｾ縺励◆:(");
         }
         return null;
     }
@@ -70,19 +63,19 @@ exports.createClip = async function(effect) {
 
     if (clip != null) {
         if (effect.postLink) {
-            const message = `クリップしました: ${clip.url}`;
+            const message = `繧ｯ繝ｪ繝・・縺励∪縺励◆: ${clip.url}`;
             await twitchChat.sendChatMessage(message);
         }
 
         if (effect.postInDiscord) {
             const clipEmbed = await discordEmbedBuilder.buildClipEmbed(clip, effect.embedColor);
-            discord.sendDiscordMessage(effect.discordChannelId, "新規クリップを作成しました!", clipEmbed);
+            discord.sendDiscordMessage(effect.discordChannelId, "譁ｰ隕上け繝ｪ繝・・繧剃ｽ懈・縺励∪縺励◆!", clipEmbed);
         }
 
         logger.info("Successfully created a clip!");
     } else {
         if (effect.postLink) {
-            await twitchChat.sendChatMessage("おっと！クリップの作成時に何か問題が発生しました :(");
+            await twitchChat.sendChatMessage("縺翫▲縺ｨ・√け繝ｪ繝・・縺ｮ菴懈・譎ゅ↓菴輔°蝠城｡後′逋ｺ逕溘＠縺ｾ縺励◆ :(");
         }
     }
     return clip;

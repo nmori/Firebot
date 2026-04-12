@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const util = require("../../../utility");
 const twitchChat = require("../../../chat/twitch-chat");
@@ -29,13 +29,9 @@ function purgeCaches() {
 async function stopBidding(chatter) {
     clearTimeout(bidTimer);
     if (activeBiddingInfo.topBidder) {
-<<<<<<< HEAD
-        await twitchChat.sendChatMessage(`${activeBiddingInfo.topBidder} が ${activeBiddingInfo.currentBid} を落札した。`, null, chatter);
-=======
-        await twitchChat.sendChatMessage(`${activeBiddingInfo.topBidderDisplayName} が ${activeBiddingInfo.currentBid} を落札した。`, null, chatter);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+        await twitchChat.sendChatMessage(`${activeBiddingInfo.topBidderDisplayName} 縺・${activeBiddingInfo.currentBid} 繧定誠譛ｭ縺励◆縲Ａ, null, chatter);
     } else {
-        await twitchChat.sendChatMessage(`誰も入札しなかったので、勝者はいない！`, null, chatter);
+        await twitchChat.sendChatMessage(`隱ｰ繧ょ・譛ｭ縺励↑縺九▲縺溘・縺ｧ縲∝享閠・・縺・↑縺・ｼ～, null, chatter);
     }
 
     purgeCaches();
@@ -47,7 +43,7 @@ const bidCommand = {
         name: "Bid",
         active: true,
         trigger: "!bid",
-        description: "視聴者が入札ゲームに参加できるようにする。",
+        description: "隕冶・閠・′蜈･譛ｭ繧ｲ繝ｼ繝縺ｫ蜿ょ刈縺ｧ縺阪ｋ繧医≧縺ｫ縺吶ｋ縲・,
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         hideCooldowns: true,
@@ -56,7 +52,7 @@ const bidCommand = {
                 id: "bidStart",
                 arg: "start",
                 usage: "start [currencyAmount]",
-                description: "指定された金額で入札を開始する。",
+                description: "謖・ｮ壹＆繧後◆驥鷹｡阪〒蜈･譛ｭ繧帝幕蟋九☆繧九・,
                 hideCooldowns: true,
                 restrictionData: {
                     restrictions: [
@@ -76,7 +72,7 @@ const bidCommand = {
                 id: "bidStop",
                 arg: "stop",
                 usage: "stop",
-                description: "手動で入札を止める。最高額入札者が落札する。",
+                description: "謇句虚縺ｧ蜈･譛ｭ繧呈ｭ｢繧√ｋ縲よ怙鬮倬｡榊・譛ｭ閠・′關ｽ譛ｭ縺吶ｋ縲・,
                 hideCooldowns: true,
                 restrictionData: {
                     restrictions: [
@@ -97,7 +93,7 @@ const bidCommand = {
                 arg: "\\d+",
                 regex: true,
                 usage: "[currencyAmount]",
-                description: "指定された金額で入札に参加する.",
+                description: "謖・ｮ壹＆繧後◆驥鷹｡阪〒蜈･譛ｭ縺ｫ蜿ょ刈縺吶ｋ.",
                 hideCooldowns: true
             }
         ]
@@ -117,17 +113,17 @@ const bidCommand = {
             const bidAmount = parseInt(triggeredArg);
 
             if (isNaN(bidAmount)) {
-                await twitchChat.sendChatMessage(`無効な金額です。入札を開始するには数字を入力してください。`, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`辟｡蜉ｹ縺ｪ驥鷹｡阪〒縺吶ょ・譛ｭ繧帝幕蟋九☆繧九↓縺ｯ謨ｰ蟄励ｒ蜈･蜉帙＠縺ｦ縺上□縺輔＞縲Ａ, null, chatter, chatMessage.id);
                 return;
             }
 
             if (activeBiddingInfo.active !== false) {
-                await twitchChat.sendChatMessage(`すでに入札が行われています。 終了するには !bid stop と入力してください`, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`縺吶〒縺ｫ蜈･譛ｭ縺瑚｡後ｏ繧後※縺・∪縺吶・邨ゆｺ・☆繧九↓縺ｯ !bid stop 縺ｨ蜈･蜉帙＠縺ｦ縺上□縺輔＞`, null, chatter, chatMessage.id);
                 return;
             }
 
             if (bidAmount < bidSettings.settings.currencySettings.minBid) {
-                await twitchChat.sendChatMessage(`スタート価格は、${bidSettings.settings.currencySettings.minBid} 以上必要です。 `, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`繧ｹ繧ｿ繝ｼ繝井ｾ｡譬ｼ縺ｯ縲・{bidSettings.settings.currencySettings.minBid} 莉･荳雁ｿ・ｦ√〒縺吶・`, null, chatter, chatMessage.id);
                 return;
             }
 
@@ -139,7 +135,7 @@ const bidCommand = {
 
             const raiseMinimum = bidSettings.settings.currencySettings.minIncrement;
             const minimumBidWithRaise = activeBiddingInfo.currentBid + raiseMinimum;
-            await twitchChat.sendChatMessage(`${bidAmount} ${currencyName}で入札を開始しました。 !bid ${minimumBidWithRaise} と打つとで入札します`, null, chatter);
+            await twitchChat.sendChatMessage(`${bidAmount} ${currencyName}縺ｧ蜈･譛ｭ繧帝幕蟋九＠縺ｾ縺励◆縲・!bid ${minimumBidWithRaise} 縺ｨ謇薙▽縺ｨ縺ｧ蜈･譛ｭ縺励∪縺兪, null, chatter);
 
             const timeLimit = bidSettings.settings.timeSettings.timeLimit * 60000;
             bidTimer = setTimeout(async () => {
@@ -155,66 +151,58 @@ const bidCommand = {
             const username = userCommand.commandSender;
 
             if (activeBiddingInfo.active === false) {
-                await twitchChat.sendChatMessage(`現在、入札は行われていません。`, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`迴ｾ蝨ｨ縲∝・譛ｭ縺ｯ陦後ｏ繧後※縺・∪縺帙ｓ縲Ａ, null, chatter, chatMessage.id);
                 return;
             }
 
             const cooldownExpireTime = cooldownCache.get(username);
             if (cooldownExpireTime && moment().isBefore(cooldownExpireTime)) {
                 const timeRemainingDisplay = util.secondsForHumans(Math.abs(moment().diff(cooldownExpireTime, 'seconds')));
-                await twitchChat.sendChatMessage(`次の入札開始をお待ちください 待ち時間： ${timeRemainingDisplay} `, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`谺｡縺ｮ蜈･譛ｭ髢句ｧ九ｒ縺雁ｾ・■縺上□縺輔＞ 蠕・■譎る俣・・${timeRemainingDisplay} `, null, chatter, chatMessage.id);
                 return;
             }
 
             if (activeBiddingInfo.topBidder === username) {
-                await twitchChat.sendChatMessage("あなたは最高入札者です。追加入札はできません。", null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage("縺ゅ↑縺溘・譛鬮伜・譛ｭ閠・〒縺吶りｿｽ蜉蜈･譛ｭ縺ｯ縺ｧ縺阪∪縺帙ｓ縲・, null, chatter, chatMessage.id);
                 return;
             }
 
             if (bidAmount < 1) {
-                await twitchChat.sendChatMessage("入札金額は 0 より大きくしてください。", null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage("蜈･譛ｭ驥鷹｡阪・ 0 繧医ｊ螟ｧ縺阪￥縺励※縺上□縺輔＞縲・, null, chatter, chatMessage.id);
                 return;
             }
 
             const minBid = bidSettings.settings.currencySettings.minBid;
             if (minBid != null & minBid > 0) {
                 if (bidAmount < minBid) {
-                    await twitchChat.sendChatMessage(`入札額は少なくとも ${minBid} ${currencyName} 以上必要です.`, null, chatter, chatMessage.id);
+                    await twitchChat.sendChatMessage(`蜈･譛ｭ鬘阪・蟆代↑縺上→繧・${minBid} ${currencyName} 莉･荳雁ｿ・ｦ√〒縺・`, null, chatter, chatMessage.id);
                     return;
                 }
             }
 
             const userBalance = await currencyDatabase.getUserCurrencyAmount(username, currencyId);
             if (userBalance < bidAmount) {
-                await twitchChat.sendChatMessage(`${currencyName} が不足しています`, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`${currencyName} 縺御ｸ崎ｶｳ縺励※縺・∪縺兪, null, chatter, chatMessage.id);
                 return;
             }
 
             const raiseMinimum = bidSettings.settings.currencySettings.minIncrement;
             const minimumBidWithRaise = activeBiddingInfo.currentBid + raiseMinimum;
             if (bidAmount < minimumBidWithRaise) {
-                await twitchChat.sendChatMessage(`少なくとも ${minimumBidWithRaise} ${currencyName} は必要です.`, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`蟆代↑縺上→繧・${minimumBidWithRaise} ${currencyName} 縺ｯ蠢・ｦ√〒縺・`, null, chatter, chatMessage.id);
                 return;
             }
 
             const previousHighBidder = activeBiddingInfo.topBidder;
             const previousHighBidAmount = activeBiddingInfo.currentBid;
             if (previousHighBidder != null && previousHighBidder !== "") {
-<<<<<<< HEAD
-                await currencyDatabase.adjustCurrencyForUser(previousHighBidder, currencyId, previousHighBidAmount);
-=======
                 await currencyManager.adjustCurrencyForViewer(previousHighBidder, currencyId, previousHighBidAmount);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
-                await twitchChat.sendChatMessage(`落札されました！ ${previousHighBidAmount} ${currencyName} が返金されました.`, null, chatter, chatMessage.id);
+                await twitchChat.sendChatMessage(`關ｽ譛ｭ縺輔ｌ縺ｾ縺励◆・・${previousHighBidAmount} ${currencyName} 縺瑚ｿ秘≡縺輔ｌ縺ｾ縺励◆.`, null, chatter, chatMessage.id);
             }
 
             await currencyDatabase.adjustCurrencyForUser(username, currencyId, -Math.abs(bidAmount));
             const newTopBidWithRaise = bidAmount + raiseMinimum;
-<<<<<<< HEAD
-            await twitchChat.sendChatMessage(`${username} が高値を更新しました。${bidAmount} ${currencyName}. 入札するには !bid ${newTopBidWithRaise} か、それ以上の額を入力してください`);
-=======
-            await twitchChat.sendChatMessage(`${userDisplayName} が高値を更新しました。${bidAmount} ${currencyName}. 入札するには !bid ${newTopBidWithRaise} か、それ以上の額を入力してください`);
->>>>>>> acc0d1650948b571be1965b088227ce437aabd20
+            await twitchChat.sendChatMessage(`${userDisplayName} 縺碁ｫ伜､繧呈峩譁ｰ縺励∪縺励◆縲・{bidAmount} ${currencyName}. 蜈･譛ｭ縺吶ｋ縺ｫ縺ｯ !bid ${newTopBidWithRaise} 縺九√◎繧御ｻ･荳翫・鬘阪ｒ蜈･蜉帙＠縺ｦ縺上□縺輔＞`);
 
             // eslint-disable-next-line no-use-before-define
             setNewHighBidder(username, bidAmount);
@@ -225,7 +213,7 @@ const bidCommand = {
                 cooldownCache.set(username, expireTime, cooldownSecs);
             }
         } else {
-            await twitchChat.sendChatMessage(`入札コマンドが不正です。使い方） ${userCommand.trigger} [金額]`, null, chatter, chatMessage.id);
+            await twitchChat.sendChatMessage(`蜈･譛ｭ繧ｳ繝槭Φ繝峨′荳肴ｭ｣縺ｧ縺吶ゆｽｿ縺・婿・・${userCommand.trigger} [驥鷹｡江`, null, chatter, chatMessage.id);
         }
     }
 };
