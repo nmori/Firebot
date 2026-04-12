@@ -448,21 +448,21 @@ async function createAppMenu() {
                 {
                     label: 'GitHubでソースを見る',
                     click: () => {
-                        shell.openExternal("https://github.com/crowbartools/Firebot");
+                        shell.openExternal("https://github.com/nmori/Firebot");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/source-branch.png")
                 },
                 {
                     label: '不具合を報告',
                     click: () => {
-                        shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&template=bug_report.yml");
+                        shell.openExternal("https://github.com/nmori/Firebot/issues/new?assignees=&template=bug_report.yml");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/bug-outline.png")
                 },
                 {
                     label: '機能をリクエスト',
                     click: () => {
-                        shell.openExternal("https://github.com/crowbartools/Firebot/issues/new?assignees=&template=feature_request.md");
+                        shell.openExternal("https://github.com/nmori/Firebot/issues/new?assignees=&template=feature_request.md");
                     },
                     icon: await createIconImage("../../../gui/images/icons/mdi/star-circle-outline.png")
                 },

@@ -15,7 +15,7 @@
             // factory/service object
             const service = {};
 
-            const FIREBOT_RELEASES_URL = "https://api.github.com/repos/crowbartools/Firebot/releases";
+            const FIREBOT_RELEASES_URL = "https://api.github.com/repos/nmori/Firebot/releases";
 
             const APP_VERSION = firebotAppDetails.version;
             const isDev = !firebotAppDetails.isPackaged;
@@ -176,7 +176,7 @@
                 if (service.updateData?.updateIsAvailable === true
                     && service.updateData?.latestUpdateType === UpdateType.PRERELEASE
                 ) {
-                    window.open(`https://github.com/crowbartools/Firebot/releases/${service.updateData.gitVersion}`, "_blank");
+                    window.open(`https://github.com/nmori/Firebot/releases/${service.updateData.gitVersion}`, "_blank");
                 } else {
                     service.downloadUpdate();
                     service.installUpdate();

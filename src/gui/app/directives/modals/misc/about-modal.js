@@ -74,20 +74,20 @@
                 </section>
 
                 <section>
-                    <h5><b>Connect With Us</b></h5>
+                    <h5><b>お問い合わせ</b></h5>
                     <div id="aboutModalSocialButtons">
-                        <a href ng-click="$root.openLinkExternally('https://discord.gg/crowbartools-372817064034959370')" title="Discord"><i class="fab fa-discord"></i></a>
+                        <a href ng-click="$root.openLinkExternally('https://discord.com/invite/h4r5HnR')" title="Discord"><i class="fab fa-discord"></i></a>
                         <a href class="bluesky" ng-click="$root.openLinkExternally('https://bsky.app/profile/firebot.app')" title="Bluesky"></a>
-                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot')" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href ng-click="$root.openLinkExternally('https://github.com/nmori/Firebot')" title="GitHub"><i class="fab fa-github"></i></a>
                     </div>
                 </section>
 
                 <section>
-                    <h5><b>Versions</b></h5>
+                    <h5><b>バージョン情報</b></h5>
                     <div class="about-version-list">
                         <div class="version-list-item">
                             <div>Firebot</div>
-                            <div>{{$ctrl.version}}</div>
+                            <div>{{$ctrl.version}} (Japanese)</div>
                         </div>
                         <div class="version-list-item">
                             <div>OS</div>
@@ -97,25 +97,25 @@
                 </section>
 
                 <section>
-                    <h5><b>License</b></h5>
+                    <h5><b>ライセンス</b></h5>
                     <p>
-                        Firebot is licensed under GPLv3<br/>
-                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/blob/master/license.txt')">View License</a>
+                        Firebot は GPLv3 の下でライセンスされています<br/>
+                        <a href ng-click="$root.openLinkExternally('https://github.com/nmori/Firebot/blob/master/license.txt')">ライセンスを見る</a>
                     </p>
                 </section>
 
                 <section>
-                    <h5><b>Support</b></h5>
+                    <h5><b>サポート</b></h5>
                     <p>
-                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/issues/new?assignees=&template=bug_report.yml')">Report a Bug</a> |
-                        <a href ng-click="$root.openLinkExternally('https://github.com/crowbartools/Firebot/issues/new?assignees=&template=feature_request.md')">Request a Feature</a> |
-                        <a href ng-click="$root.openLinkExternally('https://opencollective.com/crowbartools')">Donate</a> |
-                        <a href ng-click="$root.openLinkExternally('https://crowbar-tools.myspreadshop.com')">Merch Store</a> |
-                        <a href ng-click="$root.openLinkExternally('https://firebot.app/testimonial-submission')">Submit a Testimonial</a>
+                        <a href ng-click="$root.openLinkExternally('https://github.com/nmori/Firebot/issues/new?assignees=&template=bug_report.yml')">バグを報告する</a> |
+                        <a href ng-click="$root.openLinkExternally('https://github.com/nmori/Firebot/issues/new?assignees=&template=feature_request.md')">機能をリクエストする</a> |
+                        <a href ng-click="$root.openLinkExternally('https://opencollective.com/crowbartools')">寄付する</a> |
+                        <a href ng-click="$root.openLinkExternally('https://crowbar-tools.myspreadshop.com')">グッズストア</a> |
+                        <a href ng-click="$root.openLinkExternally('https://firebot.app/testimonial-submission')">推薦文を送信する</a>
                     </p>
                 </section>
                 <section>
-                    <button class="btn btn-sm btn-default-outlined" style="width: 100%;" ng-click="$ctrl.copyDebugInfoToClipboard()">Copy Debug Info</button>
+                    <button class="btn btn-sm btn-default-outlined" style="width: 100%;" ng-click="$ctrl.copyDebugInfoToClipboard()">デバッグ情報をコピー</button>
                 </button>
             </div>
             `,

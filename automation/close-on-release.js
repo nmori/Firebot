@@ -8,7 +8,7 @@ const octokit = new Octokit({
 async function closeReleasedIssues() {
     console.log("Getting latest Firebot release...");
     const { data: release } = await octokit.repos.getLatestRelease({
-        owner: "crowbartools",
+        owner: "nmori",
         repo: "Firebot"
     });
 
@@ -16,7 +16,7 @@ async function closeReleasedIssues() {
 
     console.log("Getting all issues pending release...");
     const issuesToClose = await octokit.paginate(octokit.issues.listForRepo, {
-        owner: "crowbartools",
+        owner: "nmori",
         repo: "Firebot",
         state: "open",
         labels: "Release Pending"
@@ -35,7 +35,7 @@ async function closeReleasedIssues() {
 
         // Add the release version comment
         await octokit.issues.createComment({
-            owner: "crowbartools",
+            owner: "nmori",
             repo: "Firebot",
             issue_number: issue.number,
             body: `Released in ${release.tag_name}`
@@ -43,7 +43,7 @@ async function closeReleasedIssues() {
 
         // Close the issue
         await octokit.issues.update({
-            owner: "crowbartools",
+            owner: "nmori",
             repo: "Firebot",
             issue_number: issue.number,
             labels: newLabels,

@@ -15,7 +15,7 @@
                         <setting-description-addon>
                             <div style="margin-top: 10px;">独自スクリプトの作り方は <a
                                 class="clickable"
-                                ng-click="openLink('https://github.com/crowbartools/Firebot/wiki/Writing-Custom-Scripts')"
+                                ng-click="openLink('https://github.com/nmori/Firebot/wiki/Writing-Custom-Scripts')"
                             >こちら</a
                             > を参照してください。</div>
                         </setting-description-addon>

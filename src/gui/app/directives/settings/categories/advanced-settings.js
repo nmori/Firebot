@@ -189,7 +189,7 @@
                         />
 
                         <setting-description-addon>
-                            <strong>警告: このオプションを無効にすると、Firebot を最新に保つ責任は利用者側にあります。古いバージョンは公式サポート対象外です。詳細は <a href="https://github.com/crowbartools/Firebot/blob/master/.github/SUPPORT.md">サポートポリシー</a> を参照してください。</strong>
+                            <strong>警告: このオプションを無効にすると、Firebot を最新に保つ責任は利用者側にあります。古いバージョンは公式サポート対象外です。詳細は <a href="https://github.com/nmori/Firebot/blob/master/.github/SUPPORT.md">サポートポリシー</a> を参照してください。</strong>
                         </setting-description-addon>
                     </firebot-setting>
 

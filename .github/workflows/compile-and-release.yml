@@ -19,7 +19,7 @@ jobs:
       dobuild: ${{ steps.dobuild.outputs.dobuild }}
 
     steps:
-      - name: Checkout crowbartools/firebot
+      - name: Checkout nmori/firebot
         uses: actions/checkout@v4
         with:
           fetch-depth: 0

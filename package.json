@@ -1,5 +1,5 @@
 {
-    "name": "firebotv5",
+    "name": "firebotv5-jp",
     "version": "5.65.4",
     "description": "Powerful all-in-one bot for Twitch streamers.",
     "main": "build/main.js",
@@ -9,7 +9,7 @@
         "build": "grunt build",
         "lint": "grunt lint"
     },
-    "repository": "https://github.com/crowbartools/Firebot",
+    "repository": "https://github.com/nmori/Firebot",
     "keywords": [
         "twitch",
         "twitch.tv",

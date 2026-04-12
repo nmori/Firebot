@@ -109,7 +109,7 @@ exports.setupCommonListeners = () => {
         webServer.sendToOverlay(data.event, data.meta);
     });
 
-    const updateFeedUrl = `https://update.electronjs.org/crowbartools/Firebot/win32/${app.getVersion()}`;
+    const updateFeedUrl = `https://update.electronjs.org/nmori/Firebot/win32/${app.getVersion()}`;
 
     frontendCommunicator.on("downloadUpdate", async () => {
         //back up first

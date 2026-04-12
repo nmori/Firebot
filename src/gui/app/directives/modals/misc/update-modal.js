@@ -41,8 +41,8 @@
                 </div>
                 <div class="modal-footer update-buttons sticky-footer" ng-if="$ctrl.getUpdateData() != null">
                     <a class="github-link" href><button class="btn btn-primary" ng-if="$ctrl.getUpdateData().updateIsAvailable" ng-click="$ctrl.downloadAndInstallUpdate()">更新する</button></a>
-                    <a href ng-click="$ctrl.openLink('https://github.com/crowbartools/Firebot/issues/new?assignees=&template=bug_report.yml')"><button class="btn btn-danger">不具合を報告</button></a>
-                    <a href ng-click="$ctrl.openLink('https://github.com/crowbartools/Firebot/issues/new?assignees=&template=feature_request.md')"><button class="btn btn-info">機能を提案</button></a>
+                    <a href ng-click="$ctrl.openLink('https://github.com/nmori/Firebot/issues/new?assignees=&template=bug_report.yml')"><button class="btn btn-danger">不具合を報告</button></a>
+                    <a href ng-click="$ctrl.openLink('https://github.com/nmori/Firebot/issues/new?assignees=&template=feature_request.md')"><button class="btn btn-info">機能を提案</button></a>
                 </div>
                 `,
             bindings: {

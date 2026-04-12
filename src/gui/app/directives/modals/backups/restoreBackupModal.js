@@ -22,7 +22,7 @@
                 <p ng-if="$ctrl.restoreHasError" style="color:#ed5e5e;">
                     <b>復元に失敗しました:</b><br>{{$ctrl.errorMessage}}
                 </p>
-                <p ng-if="$ctrl.restoreHasError" class="muted" style="font-size:12px;">補足: <a href="https://github.com/crowbartools/Firebot/wiki/Firebot-V5-Manual-Restore" style="color:#7bddfa;text-decoration:underline;">こちらの手順</a>に従って<br>手動復元することも可能です。</p>
+                <p ng-if="$ctrl.restoreHasError" class="muted" style="font-size:12px;">補足: <a href="https://github.com/nmori/Firebot/wiki/Firebot-V5-Manual-Restore" style="color:#7bddfa;text-decoration:underline;">こちらの手順</a>に従って<br>手動復元することも可能です。</p>
                 <p ng-if="$ctrl.restoreComplete">
                     復元が完了しました。下の <b>Firebotを再起動</b> をクリックして再起動してください。復元したデータを正しく読み込むために必要です。
                 </p>
