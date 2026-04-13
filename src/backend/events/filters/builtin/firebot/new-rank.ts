@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:new-rank",
-    name: "New Rank",
-    description: "Filter to a given new rank",
+    name: "新しいランク",
+    description: "指定した新しいランクでフィルタ",
     events: [
         { eventSourceId: "firebot", eventId: "viewer-rank-updated" }
     ],
@@ -13,7 +13,7 @@ const filter = createPresetFilter({
         .rankLadders
         .flatMap(l => l
             .ranks
-            .map(r => ({ value: r.id, display: `${r.name} (${l.name})`}))
+            .map(r => ({ value: r.id, display: `${r.name} (${l.name})` }))
         ),
     valueIsStillValid: async (filterSettings, viewerRanksService: any) => viewerRanksService
         .rankLadders
@@ -25,7 +25,7 @@ const filter = createPresetFilter({
 
         const rank = ladderWithRank?.ranks?.find(r => r.id === filterSettings.value);
 
-        return rank ? `${rank?.name} (${ladderWithRank?.name})` : "Not set";
+        return rank ? `${rank?.name} (${ladderWithRank?.name})` : "未設定";
     }
 });
 

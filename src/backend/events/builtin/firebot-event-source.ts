@@ -23,7 +23,7 @@ export const FirebotEventSource: EventSource = {
             description: "Firebot オーバーレイが接続されたとき。",
             cached: false,
             manualMetadata: {
-                instanceName: "Default"
+                instanceName: "デフォルト"
             },
             activityFeed: {
                 icon: "fad fa-tv-alt",
@@ -50,7 +50,7 @@ export const FirebotEventSource: EventSource = {
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                currencyName: "Coins",
+                currencyName: "コイン",
                 previousCurrencyAmount: 1,
                 newCurrencyAmount: 2
             }
@@ -89,7 +89,7 @@ export const FirebotEventSource: EventSource = {
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                messageText: "Test message"
+                messageText: "テストメッセージ"
             }
         },
         {
@@ -98,7 +98,7 @@ export const FirebotEventSource: EventSource = {
             description: "Firebot ダッシュボードで配信カテゴリを変更したとき。",
             cached: false,
             manualMetadata: {
-                category: "Just Chatting"
+                category: "雑談"
             }
         },
         {
@@ -107,7 +107,7 @@ export const FirebotEventSource: EventSource = {
             description: "エフェクトキューの実行が完了してクリアされたとき。",
             cached: false,
             manualMetadata: {
-                queueName: "Just Chatting"
+                queueName: "雑談"
             }
         },
         {
@@ -116,7 +116,7 @@ export const FirebotEventSource: EventSource = {
             description: "エフェクトキューに新しいエントリが追加されたとき。",
             cached: false,
             manualMetadata: {
-                queueName: "Just Chatting"
+                queueName: "雑談"
             }
         },
         {
@@ -125,7 +125,7 @@ export const FirebotEventSource: EventSource = {
             description: "エフェクトキューの状態が変更されたとき。",
             cached: false,
             manualMetadata: {
-                queueName: "Just Chatting",
+                queueName: "雑談",
                 status: "paused"
             }
         },
@@ -142,9 +142,9 @@ export const FirebotEventSource: EventSource = {
             cached: false,
             manualMetadata: {
                 username: "Firebot",
-                rankLadderName: "Rank Ladder",
-                newRankName: "New Rank",
-                previousRankName: "Previous Rank",
+                rankLadderName: "ランクラダー",
+                newRankName: "新しいランク",
+                previousRankName: "前のランク",
                 isPromotion: true,
                 isDemotion: false
             }
@@ -162,12 +162,12 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "webhook-received",
-            name: "Webhook 受信",
-            description: "プロキシされた Webhook を受信したとき。Webhook は設定の詳細タブでセットアップできます。",
+            name: "ウェブフック受信",
+            description: "プロキシされたウェブフックを受信したとき。ウェブフックは設定の詳細タブでセットアップできます。",
             cached: false,
             manualMetadata: {
                 webhookId: "testWebhookId",
-                webhookName: "Test Webhook",
+                webhookName: "テストウェブフック",
                 webhookPayload: {
                     foo: "bar"
                 },
@@ -181,7 +181,7 @@ export const FirebotEventSource: EventSource = {
             cached: false,
             manualMetadata: {
                 dynamicCountdownWidgetId: "testCountdownId",
-                dynamicCountdownWidgetName: "Test Countdown"
+                dynamicCountdownWidgetName: "テストカウントダウン"
             }
         },
         {
@@ -191,8 +191,8 @@ export const FirebotEventSource: EventSource = {
             cached: false,
             manualMetadata: {
                 customWidgetId: "testCountdownId",
-                customWidgetName: "Test Countdown",
-                messageName: "testMessage",
+                customWidgetName: "テストカウントダウン",
+                messageName: "テストメッセージ",
                 messageData: {
                     foo: "bar"
                 }

@@ -51,14 +51,14 @@ function incrementUsages(commandKey: string, userKey: string) {
 const limitPerStreamRestriction: RestrictionType<RestrictionData> = {
     definition: {
         id: "firebot:limit-per-stream",
-        name: "Limit Per Stream",
-        description: "Limit the number of times a command can be used in a stream.",
+        name: "配信ごとの使用回数制限",
+        description: "1回の配信でコマンドを使用できる回数を制限します。",
         triggers: ["command"]
     },
     optionsTemplate: `
         <div>
             <div class="modal-subheader" style="padding: 0 0 4px 0">
-                Global Limit
+                全体上限
             </div>
             <firebot-input
               placeholder-text="Enter number"
@@ -67,7 +67,7 @@ const limitPerStreamRestriction: RestrictionType<RestrictionData> = {
               model="restriction.globalLimit"
             />
             <div class="modal-subheader" style="padding: 0 0 4px 0; margin-top: 8px">
-                Per User Limit
+                ユーザーごとの上限
             </div>
             <firebot-input
               placeholder-text="Enter number"
@@ -80,13 +80,13 @@ const limitPerStreamRestriction: RestrictionType<RestrictionData> = {
     optionsValueDisplay: (restriction) => {
         const limits: string[] = [];
         if (restriction.perUserLimit) {
-            limits.push(`Per User: ${restriction.perUserLimit}`);
+            limits.push(`ユーザーごと: ${restriction.perUserLimit}`);
         }
         if (restriction.globalLimit) {
-            limits.push(`Global: ${restriction.globalLimit}`);
+            limits.push(`全体: ${restriction.globalLimit}`);
         }
         if (limits.length === 0) {
-            return "No Limits Set";
+            return "上限未設定";
         }
         return limits.join(", ");
     },
@@ -95,23 +95,23 @@ const limitPerStreamRestriction: RestrictionType<RestrictionData> = {
             const streamer = AccountAccess.getAccounts().streamer;
 
             if (!streamer.loggedIn) {
-                return reject("Streamer account is not logged in.");
+                return reject("配信者アカウントがログインしていません。");
             }
 
             const username = triggerData.metadata.username;
             if (!username) {
-                return reject("Trigger data does not have a username.");
+                return reject("トリガーデータにユーザー名がありません。");
             }
 
             const commandId = triggerData.metadata.command?.id;
             if (!commandId) {
-                return reject("Only command triggers are supported.");
+                return reject("コマンドトリガーのみ対応しています。");
             }
 
             const isOnline = connectionManager.streamerIsOnline();
 
             if (!isOnline) {
-                return reject("Streamer is not live.");
+                return reject("配信者が配信中ではありません。");
             }
 
             const { perUserLimit, globalLimit } = restrictionData;
@@ -119,11 +119,11 @@ const limitPerStreamRestriction: RestrictionType<RestrictionData> = {
             const usages = getUsages(getCommandKey(triggerData, inherited));
 
             if (globalLimit && usages.globalUsages >= globalLimit) {
-                return reject("Global per-stream limit reached.");
+                return reject("この配信での全体上限に達しました。");
             }
 
             if (perUserLimit && (usages.perUserUsages[username] ?? 0) >= perUserLimit) {
-                return reject("You reached your per-stream limit.");
+                return reject("この配信でのあなたの使用上限に達しました。");
             }
 
             return resolve(true);

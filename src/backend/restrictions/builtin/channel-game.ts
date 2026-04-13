@@ -11,14 +11,14 @@ const model: RestrictionType<{
 }> = {
     definition: {
         id: "firebot:channelGame",
-        name: "Channel Category/Game",
-        description: "Restricts use to when the category/game is a specific category/game.",
+        name: "チャンネルカテゴリ/ゲーム",
+        description: "カテゴリ/ゲームが指定したカテゴリ/ゲームのときのみに制限します。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <ui-select ng-model="selectedGame" theme="bootstrap" spinner-enabled="true" on-select="gameSelected($item)" style="margin-bottom:10px;">
-                <ui-select-match placeholder="Search for category/game">
+                <ui-select-match placeholder="カテゴリ/ゲームを検索">
                     <div style="height: 21px; display:flex; flex-direction: row; align-items: center;">
                         <img style="height: 28px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
                         <div style="font-weight: 100;font-size: 17px;">{{$select.selected.name}}</div>
@@ -68,7 +68,7 @@ const model: RestrictionType<{
         if (restriction.name != null) {
             return restriction.name;
         }
-        return "[Category/Game Not Set]";
+        return "[カテゴリ/ゲーム未設定]";
     },
     predicate: (_, restrictionData) => {
         return new Promise(async (resolve, reject) => {
@@ -81,12 +81,12 @@ const model: RestrictionType<{
             const channel = await TwitchApi.channels.getChannelInformation(streamerId);
 
             if (channel == null) {
-                return reject(`Can't get channel information.`);
+                return reject(`チャンネル情報を取得できません。`);
             }
 
             const currentGameId = channel.gameId;
             if (currentGameId == null) {
-                return reject(`Can't determine the category/game being played.`);
+                return reject(`現在のカテゴリ/ゲームを判定できません。`);
             }
 
             let passed = false;
@@ -100,6 +100,9 @@ const model: RestrictionType<{
                 const expectedGame = await TwitchApi.categories.getCategoryById(expectedGameId);
                 reject(
                     `Channel category/game isn't set to ${expectedGame?.name ?? "the correct category/game"}.`
+                    .replace("Channel category/game isn't set to ", "チャンネルカテゴリ/ゲームは ")
+                    .replace("the correct category/game", "正しいカテゴリ/ゲーム")
+                    .concat(" に設定されている必要があります。")
                 );
             }
         });

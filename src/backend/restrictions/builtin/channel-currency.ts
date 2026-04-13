@@ -96,7 +96,7 @@ const model: RestrictionType<{
 
         const currency = currencyService.getCurrency(currencyId) as Currency;
 
-        const currencyName = currency ? currency.name : "[None Selected]";
+        const currencyName = currency ? currency.name : "[未選択]";
 
         return `${currencyName} が ${amount} ${comparisonDisplay}`;
     },

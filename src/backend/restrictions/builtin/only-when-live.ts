@@ -7,18 +7,18 @@ import twitchStreamInfoManager from "../../streaming-platforms/twitch/stream-inf
 const restriction: RestrictionType = {
     definition: {
         id: "firebot:only-when-live",
-        name: "Only When Live",
-        description: "Limit usage to when you are live."
+        name: "配信中のみ",
+        description: "配信中のときだけ使用できるように制限します。"
     },
     optionsTemplate: `
         <div>
-            <p>Usage will be restricted to when you are live.</p>
+            <p>配信中のときだけ使用できます。</p>
         </div>
     `,
     predicate: async () => {
         return new Promise((resolve, reject) => {
             if (!twitchStreamInfoManager.streamInfo.isLive) {
-                return reject("Stream is not live.");
+                return reject("現在配信中ではありません。");
             }
 
             return resolve(true);

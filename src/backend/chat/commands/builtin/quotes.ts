@@ -22,30 +22,30 @@ export const QuotesManagementSystemCommand: SystemCommand<{
 }> = {
     definition: {
         id: "firebot:quotesmanagement",
-        name: "Quotes Management",
+        name: "引用管理",
         active: true,
         trigger: "!quote",
-        description: "Allows quote management via chat.",
+        description: "チャットから引用を管理できます。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
             user: 0,
             global: 0
         },
-        baseCommandDescription: "Display a random quote",
+        baseCommandDescription: "ランダムな引用を表示",
         options: {
             quoteDisplayTemplate: {
                 type: "string",
-                title: "Quote Display Template",
-                description: "How quotes are displayed in chat.",
-                tip: "Variables: {id}, {text}, {author}, {game}, {date}",
-                default: `Quote {id}: "{text}" - @{author} [{game}] [{date}]`,
+                title: "引用表示テンプレート",
+                description: "チャットで引用をどう表示するか設定します。",
+                tip: "変数: {id}, {text}, {author}, {game}, {date}",
+                default: `引用 {id}: 「{text}」 - @{author} [{game}] [{date}]`,
                 useTextArea: true
             },
             quoteDateFormat: {
                 type: "enum",
-                title: "Quote Date Format",
-                description: "How dates should be formatted for the '!quote' and '!quote editdate' commands.",
+                title: "引用の日付形式",
+                description: "!quote と !quote editdate コマンドでの日付表示形式です。",
                 options: [
                     "MM/DD/YYYY",
                     "DD/MM/YYYY"
@@ -54,14 +54,14 @@ export const QuotesManagementSystemCommand: SystemCommand<{
             },
             useTTS: {
                 type: "boolean",
-                title: "Read Quotes via TTS",
-                description: "Have quotes read by TTS whenever one is created or looked up.",
+                title: "引用を TTS で読み上げる",
+                description: "引用を作成または検索したときに TTS で読み上げます。",
                 default: false
             },
             defaultStreamerAttribution: {
                 type: "boolean",
-                title: "Attribute new quote to streamer if nobody is explicitly tagged with @",
-                description: "If @username is not included when adding a quote, it is attributed to the streamer.",
+                title: "@ 指定がない場合は配信者の引用として追加する",
+                description: "引用追加時に @username が含まれていない場合、配信者の引用として登録します。",
                 default: false
             }
         },
@@ -71,12 +71,12 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 arg: "\\d+",
                 regex: true,
                 usage: "[quoteId]",
-                description: "Displays the quote with the given ID."
+                description: "指定した ID の引用を表示します。"
             },
             {
                 arg: "add",
                 usage: "add [@username] [quoteText]",
-                description: "Adds a new quote.",
+                description: "新しい引用を追加します。",
                 restrictionData: {
                     restrictions: [
                         {
@@ -94,7 +94,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
             {
                 arg: "remove",
                 usage: "remove [quoteId]",
-                description: "Removes a quote using its id.",
+                description: "ID を指定して引用を削除します。",
                 restrictionData: {
                     restrictions: [
                         {
@@ -112,7 +112,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
             {
                 arg: "edittext",
                 usage: "edittext [quoteId] [newText]",
-                description: "Edit the text given quote.",
+                description: "指定した引用の本文を編集します。",
                 restrictionData: {
                     restrictions: [
                         {
@@ -130,7 +130,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
             {
                 arg: "edituser",
                 usage: "edituser [quoteId] [newUsername]",
-                description: "Edit the user of the given quote.",
+                description: "指定した引用の発言者を編集します。",
                 restrictionData: {
                     restrictions: [
                         {
@@ -149,7 +149,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 arg: "editgame",
                 usage: "editgame [quoteId] [newGame]",
                 minArgs: 3,
-                description: "Edit the game of the given quote.",
+                description: "指定した引用のゲーム名を編集します。",
                 restrictionData: {
                     restrictions: [
                         {
@@ -168,7 +168,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 arg: "editdate",
                 usage: "editdate [quoteId] [newDate]",
                 minArgs: 3,
-                description: "Edit the date of the given quote.",
+                description: "指定した引用の日付を編集します。",
                 restrictionData: {
                     restrictions: [
                         {
@@ -186,31 +186,31 @@ export const QuotesManagementSystemCommand: SystemCommand<{
             {
                 arg: "list",
                 usage: "list",
-                description: "Gives a link that lists out all quotes."
+                description: "引用一覧ページのリンクを表示します。"
             },
             {
                 arg: "search",
                 usage: "search [searchTerm]",
                 minArgs: 2,
-                description: "Gives a random quote using the search term(s)."
+                description: "検索語に一致するランダムな引用を表示します。"
             },
             {
                 arg: "searchuser",
                 usage: "searchuser @username",
                 minArgs: 2,
-                description: "Gives a random quote said by the given user."
+                description: "指定ユーザーのランダムな引用を表示します。"
             },
             {
                 arg: "searchdate",
                 usage: "searchdate DD MM YYYY",
                 minArgs: 3,
-                description: "Gives a random quote at the given date."
+                description: "指定日付のランダムな引用を表示します。"
             },
             {
                 arg: "searchgame",
                 usage: "searchgame [searchTerm]",
                 minArgs: 2,
-                description: "Gives a random quote at the given game."
+                description: "指定ゲームのランダムな引用を表示します。"
             }
         ]
     },
@@ -223,7 +223,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
         const args = event.userCommand.args;
 
         const getFormattedQuoteString = (quote: Quote) => {
-            const prettyDate = quote.createdAt != null ? moment(quote.createdAt).format(commandOptions.quoteDateFormat) : "No Date";
+            const prettyDate = quote.createdAt != null ? moment(quote.createdAt).format(commandOptions.quoteDateFormat) : "日付なし";
             return commandOptions.quoteDisplayTemplate
                 .replaceAll("{id}", quote._id.toString())
                 .replaceAll("{text}", quote.text)
@@ -252,7 +252,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
 
                 logger.debug(`We pulled a quote by id: ${formattedQuote}`);
             } else {
-                await TwitchApi.chat.sendChatMessage(`Could not find a random quote!`, null, true);
+                await TwitchApi.chat.sendChatMessage("ランダムな引用が見つかりませんでした。", null, true);
             }
             return;
         }
@@ -268,8 +268,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 sendToTTS(formattedQuote);
                 logger.debug(`We pulled a quote using an id: ${formattedQuote}`);
             } else {
-                // If we get here, it's likely the command was used wrong. Tell the sender they done fucked up
-                await TwitchApi.chat.sendChatMessage(`Sorry! We could not find a quote with that id.`, null, true);
+                await TwitchApi.chat.sendChatMessage("その ID の引用は見つかりませんでした。", null, true);
             }
             return;
         }
@@ -284,12 +283,12 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                     : 3;
 
                 if (args.length < expectedArgs) {
-                    await TwitchApi.chat.sendChatMessage(`Please provide some quote text!`, null, true);
+                    await TwitchApi.chat.sendChatMessage("引用文を入力してください。", null, true);
                     return;
                 }
                 // Once we've evaluated that the syntax is correct we make our API calls
                 const channelData = await TwitchApi.channels.getChannelInformation();
-                const currentGameName = channelData && channelData.gameName ? channelData.gameName : "Unknown game";
+                const currentGameName = channelData && channelData.gameName ? channelData.gameName : "不明なゲーム";
 
                 // If shouldInsertStreamerUsername and no @ is included in the originator arg, set originator @streamerName and treat the rest as the quote
                 if (shouldInsertStreamerUsername) {
@@ -306,7 +305,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 const newQuoteId = await QuoteManager.addQuote(newQuote);
                 const newQuoteText = await QuoteManager.getQuote(newQuoteId);
                 const formattedQuote = getFormattedQuoteString(newQuoteText);
-                await TwitchApi.chat.sendChatMessage(`Added ${formattedQuote}`, null, true);
+                await TwitchApi.chat.sendChatMessage(`引用を追加しました: ${formattedQuote}`, null, true);
                 sendToTTS(formattedQuote);
                 logger.debug(`Quote #${newQuoteId} added!`);
                 return;
@@ -315,12 +314,12 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 const quoteId = parseInt(args[1]);
                 if (!isNaN(quoteId)) {
                     await QuoteManager.removeQuote(quoteId);
-                    await TwitchApi.chat.sendChatMessage(`Quote ${quoteId} was removed.`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`引用 ${quoteId} を削除しました。`, null, true);
                     logger.debug(`A quote was removed: ${quoteId}`);
                     return;
                 }
 
-                await TwitchApi.chat.sendChatMessage(`Sorry! We could not find a quote with that id.`, null, true);
+                await TwitchApi.chat.sendChatMessage("その ID の引用は見つかりませんでした。", null, true);
                 logger.error('Quotes: NaN passed to remove quote command.');
                 return;
             }
@@ -331,7 +330,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                     profilePage: 'quotes'
                 });
 
-                await TwitchApi.chat.sendChatMessage(`Here is a list of quotes! https://firebot.app/profile/${streamerName}`, null, true);
+                await TwitchApi.chat.sendChatMessage(`引用一覧はこちらです: https://firebot.app/profile/${streamerName}`, null, true);
 
                 return;
             }
@@ -358,7 +357,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
 
                     // no matching quote found
                 } else {
-                    await TwitchApi.chat.sendChatMessage(`Sorry! We could not find a quote using those terms.`, null, true);
+                    await TwitchApi.chat.sendChatMessage("その検索条件に一致する引用は見つかりませんでした。", null, true);
                 }
 
                 // resolve promise
@@ -375,7 +374,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                     sendToTTS(formattedQuote);
                     await TwitchApi.chat.sendChatMessage(formattedQuote, null, true);
                 } else {
-                    await TwitchApi.chat.sendChatMessage(`Sorry! We could not find a quote by ${username}`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`${username} の引用は見つかりませんでした。`, null, true);
                 }
                 return;
             }
@@ -387,7 +386,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                     await TwitchApi.chat.sendChatMessage(formattedQuote, null, true);
                     sendToTTS(formattedQuote);
                 } else {
-                    await TwitchApi.chat.sendChatMessage(`Sorry! We could not find a quote with game ${searchTerm}`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`ゲーム「${searchTerm}」の引用は見つかりませんでした。`, null, true);
                 }
                 return;
             }
@@ -402,7 +401,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
 
                 if (day == null || month == null || day > 31 || day < 1 ||
                     month > 12 || month < 1) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid quote date search!`, null, true);
+                    await TwitchApi.chat.sendChatMessage("引用の日付検索が正しくありません。", null, true);
                     return;
                 }
 
@@ -417,26 +416,26 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                     await TwitchApi.chat.sendChatMessage(formattedQuote, null, true);
                     sendToTTS(formattedQuote);
                 } else {
-                    await TwitchApi.chat.sendChatMessage(`Sorry! We could not find a quote with date ${day}/${month}/${year || "*"}`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`${day}/${month}/${year || "*"} の引用は見つかりませんでした。`, null, true);
                 }
                 return;
             }
             case "edittext": {
                 if (args.length < 3) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid usage! ${event.userCommand.trigger} edittext [quoteId] [newText]`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`使い方が正しくありません。${event.userCommand.trigger} edittext [quoteId] [newText]`, null, true);
                     return;
                 }
 
                 const quoteId = parseInt(args[1]);
                 if (isNaN(quoteId)) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid Quote Id!`, null, true);
+                    await TwitchApi.chat.sendChatMessage("引用 ID が正しくありません。", null, true);
                     return;
                 }
 
                 const quote = await QuoteManager.getQuote(quoteId);
 
                 if (quote == null) {
-                    await TwitchApi.chat.sendChatMessage(`Could not find a quote with id ${quoteId}`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`ID ${quoteId} の引用は見つかりませんでした。`, null, true);
                     return;
                 }
 
@@ -446,33 +445,33 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 try {
                     await QuoteManager.updateQuote(quote);
                 } catch {
-                    await TwitchApi.chat.sendChatMessage(`Failed to update quote ${quoteId}!`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`引用 ${quoteId} の更新に失敗しました。`, null, true);
                     return;
                 }
 
                 const formattedQuote = getFormattedQuoteString(quote);
 
-                await TwitchApi.chat.sendChatMessage(`Edited ${formattedQuote}`, null, true);
+                await TwitchApi.chat.sendChatMessage(`引用を編集しました: ${formattedQuote}`, null, true);
 
                 // resolve promise
                 return;
             }
             case "editgame": {
                 if (args.length < 3) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid usage! ${event.userCommand.trigger} editgame [quoteId] [newGame]`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`使い方が正しくありません。${event.userCommand.trigger} editgame [quoteId] [newGame]`, null, true);
                     return;
                 }
 
                 const quoteId = parseInt(args[1]);
                 if (isNaN(quoteId)) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid Quote Id!`, null, true);
+                    await TwitchApi.chat.sendChatMessage("引用 ID が正しくありません。", null, true);
                     return;
                 }
 
                 const quote = await QuoteManager.getQuote(quoteId);
 
                 if (quote == null) {
-                    await TwitchApi.chat.sendChatMessage(`Could not find a quote with id ${quoteId}`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`ID ${quoteId} の引用は見つかりませんでした。`, null, true);
                     return;
                 }
 
@@ -482,12 +481,12 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 try {
                     await QuoteManager.updateQuote(quote);
                 } catch {
-                    await TwitchApi.chat.sendChatMessage(`Failed to update quote ${quoteId}!`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`引用 ${quoteId} の更新に失敗しました。`, null, true);
                     return;
                 }
 
                 const formattedQuote = getFormattedQuoteString(quote);
-                await TwitchApi.chat.sendChatMessage(`Edited ${formattedQuote}`, null, true);
+                await TwitchApi.chat.sendChatMessage(`引用を編集しました: ${formattedQuote}`, null, true);
 
                 // resolve promise
                 return;
@@ -497,20 +496,20 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 const dateFormat = commandOptions.quoteDateFormat;
 
                 if (args.length < 3) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid usage! ${event.userCommand.trigger} editdate [quoteId] ${dateFormat}`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`使い方が正しくありません。${event.userCommand.trigger} editdate [quoteId] ${dateFormat}`, null, true);
                     return;
                 }
 
                 const quoteId = parseInt(args[1]);
                 if (isNaN(quoteId)) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid Quote Id!`, null, true);
+                    await TwitchApi.chat.sendChatMessage("引用 ID が正しくありません。", null, true);
                     return;
                 }
 
                 const quote = await QuoteManager.getQuote(quoteId);
 
                 if (quote == null) {
-                    await TwitchApi.chat.sendChatMessage(`Could not find a quote with id ${quoteId}`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`ID ${quoteId} の引用は見つかりませんでした。`, null, true);
                     return;
                 }
 
@@ -518,7 +517,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
 
                 const date = moment(newDate, dateFormat);
                 if (!date.isValid()) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid date format!`, null, true);
+                    await TwitchApi.chat.sendChatMessage("日付形式が正しくありません。", null, true);
                     return;
                 }
 
@@ -527,12 +526,12 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 try {
                     await QuoteManager.updateQuote(quote);
                 } catch {
-                    await TwitchApi.chat.sendChatMessage(`Failed to update quote ${quoteId}!`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`引用 ${quoteId} の更新に失敗しました。`, null, true);
                     return;
                 }
 
                 const formattedQuote = getFormattedQuoteString(quote);
-                await TwitchApi.chat.sendChatMessage(`Edited ${formattedQuote}`, null, true);
+                await TwitchApi.chat.sendChatMessage(`引用を編集しました: ${formattedQuote}`, null, true);
 
                 // resolve promise
                 return;
@@ -540,7 +539,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
             case "edituser": {
                 if (args.length < 3) {
                     await TwitchApi.chat.sendChatMessage(
-                        `Invalid usage! ${event.userCommand.trigger} edituser [quoteId] [newUsername]`,
+                        `使い方が正しくありません。${event.userCommand.trigger} edituser [quoteId] [newUsername]`,
                         null,
                         true
                     );
@@ -549,14 +548,14 @@ export const QuotesManagementSystemCommand: SystemCommand<{
 
                 const quoteId = parseInt(args[1]);
                 if (isNaN(quoteId)) {
-                    await TwitchApi.chat.sendChatMessage(`Invalid Quote Id!`, null, true);
+                    await TwitchApi.chat.sendChatMessage("引用 ID が正しくありません。", null, true);
                     return;
                 }
 
                 const quote = await QuoteManager.getQuote(quoteId);
 
                 if (quote == null) {
-                    await TwitchApi.chat.sendChatMessage(`Could not find a quote with id ${quoteId}`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`ID ${quoteId} の引用は見つかりませんでした。`, null, true);
                     return;
                 }
 
@@ -566,12 +565,12 @@ export const QuotesManagementSystemCommand: SystemCommand<{
                 try {
                     await QuoteManager.updateQuote(quote);
                 } catch {
-                    await TwitchApi.chat.sendChatMessage(`Failed to update quote ${quoteId}!`, null, true);
+                    await TwitchApi.chat.sendChatMessage(`引用 ${quoteId} の更新に失敗しました。`, null, true);
                     return;
                 }
 
                 const formattedQuote = getFormattedQuoteString(quote);
-                await TwitchApi.chat.sendChatMessage(`Edited ${formattedQuote}`, null, true);
+                await TwitchApi.chat.sendChatMessage(`引用を編集しました: ${formattedQuote}`, null, true);
 
                 // resolve promise
                 return;
@@ -587,7 +586,7 @@ export const QuotesManagementSystemCommand: SystemCommand<{
 
                     logger.debug(`We pulled a quote by id: ${formattedQuote}`);
                 } else {
-                    await TwitchApi.chat.sendChatMessage(`Could not find a random quote!`, null, true);
+                    await TwitchApi.chat.sendChatMessage("ランダムな引用が見つかりませんでした。", null, true);
                 }
             }
         }

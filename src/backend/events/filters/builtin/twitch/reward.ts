@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:reward",
-    name: "Reward",
-    description: "Filter to a Custom Channel Reward",
+    name: "報酬",
+    description: "カスタムチャンネル報酬でフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "channel-reward-redemption" }
     ],

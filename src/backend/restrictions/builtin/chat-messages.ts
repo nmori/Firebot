@@ -8,14 +8,14 @@ const model: RestrictionType<{
 }> = {
     definition: {
         id: "firebot:chatMessages",
-        name: "Chat Messages",
-        description: "Restricts to users who have sent a certain number of chat messages.",
+        name: "チャットメッセージ数",
+        description: "一定数以上のチャットメッセージを送信したユーザーのみに制限します。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div id="chatMessageRestriction" class="modal-subheader" style="padding: 0 0 4px 0">
-                Minimum # of Messages
+                最低メッセージ数
             </div>
             <input type="number" class="form-control" placeholder="0" ng-model="restriction.messages">
         </div>
@@ -41,7 +41,7 @@ const model: RestrictionType<{
             if (passed) {
                 resolve(true);
             } else {
-                reject("You have not sent enough chat messages in this channel");
+                reject("このチャンネルで送信したチャットメッセージ数が足りません");
             }
         });
     }

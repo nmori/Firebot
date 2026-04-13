@@ -52,10 +52,10 @@ class CurrencyCommandManager {
         }> = {
             definition: {
                 id: `firebot:currency:${currencyId}`,
-                name: `${currencyName} Management`,
+                name: `${currencyName} 管理`,
                 active: true,
                 trigger: `!${cleanName}`,
-                description: `Allows management of the "${currencyName}" currency`,
+                description: `「${currencyName}」通貨を管理できます`,
                 autoDeleteTrigger: false,
                 scanWholeMessage: false,
                 currency: {
@@ -66,59 +66,59 @@ class CurrencyCommandManager {
                     user: 0,
                     global: 0
                 },
-                baseCommandDescription: "See your balance",
+                baseCommandDescription: "残高を確認する",
                 options: {
                     currencyBalanceMessageTemplate: {
                         type: "string",
-                        title: "Currency Balance Message Template",
-                        description: "How the currency balance message appears in chat.",
-                        tip: "Variables: {user}, {currency}, {amount}",
-                        default: `{user}'s {currency} total is {amount}`,
+                        title: "通貨残高メッセージのテンプレート",
+                        description: "チャットでの通貨残高メッセージの表示形式です。",
+                        tip: "変数: {user}, {currency}, {amount}",
+                        default: `{user} の {currency} は {amount} です`,
                         useTextArea: true
                     },
                     whisperCurrencyBalanceMessage: {
                         type: "boolean",
-                        title: "Whisper Currency Balance Message",
+                        title: "通貨残高をウィスパーで通知する",
                         default: false
                     },
                     addMessageTemplate: {
                         type: "string",
-                        title: "Add Currency Message Template",
-                        description: "How the !currency add message appears in chat.",
-                        tip: "Variables: {user}, {currency}, {amount}",
-                        default: `Added {amount} {currency} to {user}.`,
+                        title: "通貨追加メッセージのテンプレート",
+                        description: "!currency add メッセージの表示形式です。",
+                        tip: "変数: {user}, {currency}, {amount}",
+                        default: `{user} に {currency} を {amount} 追加しました。`,
                         useTextArea: true
                     },
                     removeMessageTemplate: {
                         type: "string",
-                        title: "Remove Currency Message Template",
-                        description: "How the !currency remove message appears in chat.",
-                        tip: "Variables: {user}, {currency}, {amount}",
-                        default: `Removed {amount} {currency} from {user}.`,
+                        title: "通貨削除メッセージのテンプレート",
+                        description: "!currency remove メッセージの表示形式です。",
+                        tip: "変数: {user}, {currency}, {amount}",
+                        default: `{user} から {currency} を {amount} 削除しました。`,
                         useTextArea: true
                     },
                     addAllMessageTemplate: {
                         type: "string",
-                        title: "Add All Currency Message Template",
-                        description: "How the !currency addall message appears in chat.",
-                        tip: "Variables: {currency}, {amount}",
-                        default: `Added {amount} {currency} to everyone!`,
+                        title: "全員への通貨追加メッセージのテンプレート",
+                        description: "!currency addall メッセージの表示形式です。",
+                        tip: "変数: {currency}, {amount}",
+                        default: `全員に {currency} を {amount} 追加しました！`,
                         useTextArea: true
                     },
                     removeAllMessageTemplate: {
                         type: "string",
-                        title: "Remove All Currency Message Template",
-                        description: "How the !currency removeall message appears in chat.",
-                        tip: "Variables: {currency}, {amount}",
-                        default: `Removed {amount} {currency} from everyone!`,
+                        title: "全員からの通貨削除メッセージのテンプレート",
+                        description: "!currency removeall メッセージの表示形式です。",
+                        tip: "変数: {currency}, {amount}",
+                        default: `全員から {currency} を {amount} 削除しました！`,
                         useTextArea: true
                     },
                     setMessageTemplate: {
                         type: "string",
-                        title: "Set Currency Message Template",
-                        description: "How the !currency set message appears in chat.",
-                        tip: "Variables: {user}, {currency}, {amount}",
-                        default: `Set {user}'s {currency} to {amount} !`,
+                        title: "通貨設定メッセージのテンプレート",
+                        description: "!currency set メッセージの表示形式です。",
+                        tip: "変数: {user}, {currency}, {amount}",
+                        default: `{user} の {currency} を {amount} に設定しました！`,
                         useTextArea: true
                     }
                 },
@@ -128,7 +128,7 @@ class CurrencyCommandManager {
                         arg: "@\\w+",
                         regex: true,
                         usage: "@username",
-                        description: "Gets the currency of the specified user",
+                        description: "指定ユーザーの通貨残高を表示します",
                         restrictionData: {
                             restrictions: [
                                 {
@@ -146,7 +146,7 @@ class CurrencyCommandManager {
                     {
                         arg: "add",
                         usage: "add [@user] [amount]",
-                        description: "Adds currency for a given user.",
+                        description: "指定ユーザーの通貨を追加します。",
                         restrictionData: {
                             restrictions: [
                                 {
@@ -164,7 +164,7 @@ class CurrencyCommandManager {
                     {
                         arg: "remove",
                         usage: "remove [@user] [amount]",
-                        description: "Removes currency for a given user.",
+                        description: "指定ユーザーの通貨を削除します。",
                         restrictionData: {
                             restrictions: [
                                 {
@@ -182,12 +182,12 @@ class CurrencyCommandManager {
                     {
                         arg: "give",
                         usage: "give [@user] [amount]",
-                        description: "Gives currency from one user to another user."
+                        description: "別のユーザーに通貨を渡します。"
                     },
                     {
                         arg: "set",
                         usage: "set [@user] [amount]",
-                        description: "Sets currency to the amount.",
+                        description: "通貨を指定数値に設定します。",
                         restrictionData: {
                             restrictions: [
                                 {
@@ -205,7 +205,7 @@ class CurrencyCommandManager {
                     {
                         arg: "addall",
                         usage: "addall [amount]",
-                        description: "Adds currency to all online users.",
+                        description: "オンラインのすべてのユーザーに通貨を追加します。",
                         restrictionData: {
                             restrictions: [
                                 {
@@ -223,7 +223,7 @@ class CurrencyCommandManager {
                     {
                         arg: "removeall",
                         usage: "removeall [amount]",
-                        description: "Removes currency from all online users.",
+                        description: "オンラインのすべてのユーザーから通貨を削除します。",
                         restrictionData: {
                             restrictions: [
                                 {
@@ -291,7 +291,7 @@ class CurrencyCommandManager {
                         } else {
                             // Error removing currency.
                             logger.error(`Error adding currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not add currency to user.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー: ユーザーへの通貨追加に失敗しました。`, null, true);
                         }
 
                         break;
@@ -312,7 +312,7 @@ class CurrencyCommandManager {
                         } else {
                             // Error removing currency.
                             logger.error(`Error removing currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not remove currency from user.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー: ユーザーからの通貨削除に失敗しました。`, null, true);
                         }
 
                         break;
@@ -334,7 +334,7 @@ class CurrencyCommandManager {
                         } else {
                             // Error removing currency.
                             logger.error(`Error setting currency for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not set currency for user.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー: ユーザーへの通貨設定に失敗しました。`, null, true);
                         }
 
                         break;
@@ -349,7 +349,7 @@ class CurrencyCommandManager {
                         const currencyCheck = currencyAccess.getCurrencies();
                         if (currencyCheck[currencyId].transfer === "Disallow") {
                             logger.debug(`${event.userCommand.commandSender} tried to give currency, but transfers are turned off for it. ${currencyId}`);
-                            await TwitchApi.chat.sendChatMessage('Transfers are not allowed for this currency.', null, true);
+                            await TwitchApi.chat.sendChatMessage('この通貨はトランスファーが許可されていません。', null, true);
                             return false;
                         }
 
@@ -357,7 +357,7 @@ class CurrencyCommandManager {
                         if (event.userCommand.commandSender.toLowerCase() === username.toLowerCase()) {
                             logger.debug(`${username} tried to give themselves currency.`);
                             await TwitchApi.chat.sendChatMessage(
-                                `${event.userCommand.commandSender}, you can't give yourself currency.`,
+                                `${event.userCommand.commandSender}、自分自身に通貨を渡すことはできません。`,
                                 null,
                                 true
                             );
@@ -370,13 +370,13 @@ class CurrencyCommandManager {
 
                         // If we get null, there was an error.
                         if (userAmount == null) {
-                            await TwitchApi.chat.sendChatMessage('Error: Could not retrieve currency.', null, true);
+                            await TwitchApi.chat.sendChatMessage('エラー: 通貨残高を取得できませんでした。', null, true);
                             return false;
                         }
 
                         // Check to make sure we have enough currency to give.
                         if (userAmount < currencyAdjust) {
-                            await TwitchApi.chat.sendChatMessage(`You do not have enough ${currencyName} to do this action.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`${currencyName} が足りません。`, null, true);
                             return false;
                         }
 
@@ -388,12 +388,12 @@ class CurrencyCommandManager {
                             const status = await currencyManager.adjustCurrencyForViewer(event.userCommand.commandSender, currencyId, currencyAdjustNeg);
 
                             if (status) {
-                                await TwitchApi.chat.sendChatMessage(`Gave ${commafy(currencyAdjust)} ${currencyName} to ${username}.`, null, true);
+                                await TwitchApi.chat.sendChatMessage(`${username} に ${currencyName} を ${commafy(currencyAdjust)} 渡しました。`, null, true);
                             } else {
                                 // Error removing currency.
                                 logger.error(`Error removing currency during give transaction for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
                                 await TwitchApi.chat.sendChatMessage(
-                                    `Error: Could not remove currency to user during give transaction.`,
+                                    `エラー: give トランザクション中のユーザーからの通貨削除に失敗しました。`,
                                     null,
                                     true
                                 );
@@ -402,7 +402,7 @@ class CurrencyCommandManager {
                         } else {
                             // Error removing currency.
                             logger.error(`Error adding currency during give transaction for user (${username}) via chat command. Currency: ${currencyId}. Value: ${currencyAdjust}`);
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not add currency to user. Was there a typo in the username?`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー: ユーザーへの通貨追加に失敗しました。ユーザー名の入力ミスはありませんか？`, null, true);
                             return false;
                         }
 
@@ -411,7 +411,7 @@ class CurrencyCommandManager {
                     case "addall": {
                         const currencyAdjust = Math.abs(parseInt(args[1]));
                         if (isNaN(currencyAdjust)) {
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not add currency to all online users.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー: オンラインユーザーへの通貨一括追加に失敗しました。`, null, true);
                             return;
                         }
                         void currencyManager.addCurrencyToOnlineViewers(currencyId, currencyAdjust, true);
@@ -426,7 +426,7 @@ class CurrencyCommandManager {
                     case "removeall": {
                         const currencyAdjust = -Math.abs(parseInt(args[1]));
                         if (isNaN(currencyAdjust)) {
-                            await TwitchApi.chat.sendChatMessage(`Error: Could not remove currency from all online users.`, null, true);
+                            await TwitchApi.chat.sendChatMessage(`エラー: オンラインユーザーからの通貨一括削除に失敗しました。`, null, true);
                             return;
                         }
                         void currencyManager.addCurrencyToOnlineViewers(currencyId, currencyAdjust, true);

@@ -2,8 +2,8 @@ import { createNumberFilter } from "../../filter-factory";
 
 const filter = createNumberFilter({
     id: "firebot:chatmodeduration",
-    name: "Duration",
-    description: "Filter by a chat mode's duration (only for Slow (seconds) and Follower (minutes))",
+    name: "継続時間",
+    description: "チャットモードの継続時間でフィルタ（スローは秒、フォロワーは分のみ）",
     eventMetaKey: "duration",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }

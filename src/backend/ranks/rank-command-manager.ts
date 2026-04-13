@@ -37,26 +37,26 @@ class RankCommandManager {
         const sharedCommandOptions: Partial<SystemCommand<RankCommandOptions>["definition"]["options"]> = {
             selfRankMessageTemplate: {
                 type: "string",
-                title: "Self Rank Message Template",
-                description: "The message to show the user their rank",
-                tip: "Variables: {rank}, {user}",
-                default: `You currently have the rank of {rank}.`,
+                title: "自分のランクメッセージテンプレート",
+                description: "ユーザー自身のランクを表示するメッセージです。",
+                tip: "変数: {rank}, {user}",
+                default: `あなたの現在のランクは {rank} です。`,
                 useTextArea: true
             },
             otherRankMessageTemplate: {
                 type: "string",
-                title: "Other Rank Message Template",
-                description: "The message to show the rank of another user",
-                tip: "Variables: {rank}, {user}",
-                default: `{user} currently has the rank of {rank}.`,
+                title: "他ユーザーのランクメッセージテンプレート",
+                description: "別のユーザーのランクを表示するメッセージです。",
+                tip: "変数: {rank}, {user}",
+                default: `{user} の現在のランクは {rank} です。`,
                 useTextArea: true
             },
             rankListMessageTemplate: {
                 type: "string",
-                title: "Rank List Message Template",
-                description: "The message to show the list of ranks",
-                tip: "Variables: {ranks}",
-                default: `The ranks in this ladder are: {ranks}`,
+                title: "ランク一覧メッセージテンプレート",
+                description: "ランク一覧を表示するメッセージです。",
+                tip: "変数: {ranks}",
+                default: `このラダーのランク一覧: {ranks}`,
                 useTextArea: true
             }
         };
@@ -64,34 +64,34 @@ class RankCommandManager {
         const manualCommandOptions: Partial<SystemCommand<RankCommandOptions>["definition"]["options"]> = {
             promoteRankMessageTemplate: {
                 type: "string",
-                title: "Promote Rank Message Template",
-                description: "The message to show when promoting a user",
-                tip: "Variables: {user}, {rank}",
-                default: `@{user} has been promoted to {rank}.`,
+                title: "昇格メッセージテンプレート",
+                description: "ユーザーを昇格したときのメッセージです。",
+                tip: "変数: {user}, {rank}",
+                default: `@{user} が {rank} に昇格しました。`,
                 useTextArea: true
             },
             demoteRankMessageTemplate: {
                 type: "string",
-                title: "Demote Rank Message Template",
-                description: "The message to show when demoting a user",
-                tip: "Variables: {user}, {rank}",
-                default: `@{user} has been demoted to {rank}.`,
+                title: "降格メッセージテンプレート",
+                description: "ユーザーを降格したときのメッセージです。",
+                tip: "変数: {user}, {rank}",
+                default: `@{user} が {rank} に降格しました。`,
                 useTextArea: true
             },
             setRankMessageTemplate: {
                 type: "string",
-                title: "Set Rank Message Template",
-                description: "The message to show when setting a user's rank",
-                tip: "Variables: {user}, {rank}",
-                default: `@{user}'s rank has been updated to {rank}.`,
+                title: "ランク設定メッセージテンプレート",
+                description: "ユーザーのランクを設定したときのメッセージです。",
+                tip: "変数: {user}, {rank}",
+                default: `@{user} のランクを {rank} に更新しました。`,
                 useTextArea: true
             },
             removeRankMessageTemplate: {
                 type: "string",
-                title: "Remove Rank Message Template",
-                description: "The message to show when removing a user from the rank ladder",
-                tip: "Variables: {user}",
-                default: `@{user}'s rank has been removed.`,
+                title: "ランク削除メッセージテンプレート",
+                description: "ユーザーをランクラダーから削除したときのメッセージです。",
+                tip: "変数: {user}",
+                default: `@{user} のランクを削除しました。`,
                 useTextArea: true
             }
         };
@@ -99,10 +99,10 @@ class RankCommandManager {
         const rankManagement: SystemCommand<RankCommandOptions> = {
             definition: {
                 id: `firebot:rank-ladder:${rankLadder.id}`,
-                name: `${rankLadder.name} Rank Management`,
+                name: `${rankLadder.name} ランク管理`,
                 active: true,
                 trigger: `!${cleanRankLadderName}`,
-                description: `Allows management of the "${rankLadder.name}" rank ladder`,
+                description: `「${rankLadder.name}」ランクラダーを管理できます`,
                 autoDeleteTrigger: false,
                 scanWholeMessage: false,
                 treatQuotedTextAsSingleArg: true,
@@ -110,7 +110,7 @@ class RankCommandManager {
                     user: 0,
                     global: 0
                 },
-                baseCommandDescription: "See your current rank",
+                baseCommandDescription: "現在のランクを確認する",
                 options: {
                     ...sharedCommandOptions,
                     ...(rankLadder.mode === "manual" ? manualCommandOptions : {})
@@ -119,14 +119,14 @@ class RankCommandManager {
                     {
                         arg: "list",
                         usage: "list",
-                        description: "Lists all ranks in this ladder"
+                        description: "このラダーのランク一覧を表示します"
                     },
                     {
                         id: "viewer-rank",
                         arg: "@\\w+",
                         regex: true,
                         usage: "@username",
-                        description: "Gets the rank of the specified user in this ladder",
+                        description: "このラダーでの指定ユーザーのランクを表示します",
                         restrictionData: {
                             restrictions: [
                                 {
@@ -145,7 +145,7 @@ class RankCommandManager {
                         {
                             arg: "promote",
                             usage: "promote [@user]",
-                            description: "Promotes a user to the next rank in this ladder",
+                            description: "このラダーでユーザーを昇格させます",
                             minArgs: 2,
                             restrictionData: {
                                 restrictions: [
@@ -164,7 +164,7 @@ class RankCommandManager {
                         {
                             arg: "demote",
                             usage: "demote [@user]",
-                            description: "DEmotes a user to the previous rank in this ladder",
+                            description: "このラダーでユーザーを降格させます",
                             minArgs: 2,
                             restrictionData: {
                                 restrictions: [
@@ -183,7 +183,7 @@ class RankCommandManager {
                         {
                             arg: "set",
                             usage: "set [@user] [rankname]",
-                            description: "Sets a user's rank to the specified rank",
+                            description: "ユーザーのランクを指定したランクに設定します",
                             minArgs: 3,
                             restrictionData: {
                                 restrictions: [
@@ -202,7 +202,7 @@ class RankCommandManager {
                         {
                             arg: "remove",
                             usage: "remove [@user]",
-                            description: "Removes a user from the rank ladder",
+                            description: "ユーザーをランクラダーから削除します",
                             minArgs: 2,
                             restrictionData: {
                                 restrictions: [
@@ -238,14 +238,14 @@ class RankCommandManager {
                                 .replaceAll("{user}", event.userCommand.commandSender);
                         await sendMessage(rankMessage);
                     } else {
-                        await sendMessage("You are currently not ranked.");
+                        await sendMessage("あなたはまだランクが割り当てられていません。");
                     }
                 } else {
                     if (triggeredSubcmd.id === "viewer-rank") {
                         const username = args[0].replace("@", "");
                         const viewer = await viewerDatabase.getViewerByUsername(username);
                         if (!viewer) {
-                            await sendMessage(`${username} not found.`);
+                            await sendMessage(`${username} が見つかりません。`);
                             return;
                         }
 
@@ -257,7 +257,7 @@ class RankCommandManager {
                                     .replaceAll("{user}", username);
                             await sendMessage(rankMessage);
                         } else {
-                            await sendMessage(`${username} is currently not ranked.`);
+                            await sendMessage(`${username} はまだランクが割り当てられていません。`);
                         }
                     } else if (triggeredSubcmd.arg === "list") {
                         const ranks = rankLadder.ranks
@@ -274,14 +274,14 @@ class RankCommandManager {
                         await sendMessage(rankListMessage);
                     } else if (triggeredSubcmd.arg === "promote") {
                         if (rankLadder.mode === "auto") {
-                            await sendMessage("This rank ladder is in automatic mode and cannot be managed directly.");
+                            await sendMessage("このランクラダーは自動モードです。直接管理はできません。");
                             return;
                         }
 
                         const username = args[1].replace("@", "");
                         const viewer = await viewerDatabase.getViewerByUsername(username);
                         if (!viewer) {
-                            await sendMessage(`${username} not found.`);
+                            await sendMessage(`${username} が見つかりません。`);
                             return;
                         }
                         const ladderHelper = rankManager.getRankLadderHelper(rankLadder.id);
@@ -289,7 +289,7 @@ class RankCommandManager {
                         const nextRankId = ladderHelper.getNextRankId(currentRank?.id);
 
                         if (!nextRankId) {
-                            await sendMessage(`@${username} is already at the highest rank.`);
+                            await sendMessage(`@${username} はすでに最高ランクです。`);
                             return;
                         }
 
@@ -304,21 +304,21 @@ class RankCommandManager {
                         await sendMessage(promoteMessage);
                     } else if (triggeredSubcmd.arg === "demote") {
                         if (rankLadder.mode === "auto") {
-                            await sendMessage("This rank ladder is in automatic mode and cannot be managed directly.");
+                            await sendMessage("このランクラダーは自動モードです。直接管理はできません。");
                             return;
                         }
 
                         const username = args[1].replace("@", "");
                         const viewer = await viewerDatabase.getViewerByUsername(username);
                         if (!viewer) {
-                            await sendMessage(`${username} not found.`);
+                            await sendMessage(`${username} が見つかりません。`);
                             return;
                         }
                         const ladderHelper = rankManager.getRankLadderHelper(rankLadder.id);
                         const currentRank = await viewerDatabase.getViewerRankForLadder(viewer._id, rankLadder.id);
 
                         if (!currentRank) {
-                            await sendMessage(`${username} is not ranked and cannot be demoted.`);
+                            await sendMessage(`${username} はランクが割り当てられておらず、降格できません。`);
                             return;
                         }
 
@@ -329,12 +329,12 @@ class RankCommandManager {
 
                         const demoteMessage = commandOptions.demoteRankMessageTemplate
                             .replaceAll("{user}", username)
-                            .replaceAll("{rank}", previousRank?.name ?? "not ranked");
+                            .replaceAll("{rank}", previousRank?.name ?? "ランクなし");
 
                         await sendMessage(demoteMessage);
                     } else if (triggeredSubcmd.arg === "set") {
                         if (rankLadder.mode === "auto") {
-                            await sendMessage("This rank ladder is in automatic mode and cannot be managed directly.");
+                            await sendMessage("このランクラダーは自動モードです。直接管理はできません。");
                             return;
                         }
 
@@ -343,14 +343,14 @@ class RankCommandManager {
 
                         const viewer = await viewerDatabase.getViewerByUsername(username);
                         if (!viewer) {
-                            await sendMessage(`${username} not found.`);
+                            await sendMessage(`${username} が見つかりません。`);
                             return;
                         }
 
                         const ladderHelper = rankManager.getRankLadderHelper(rankLadder.id);
                         const rank = ladderHelper.getRankByName(rankName);
                         if (!rank) {
-                            await sendMessage(`Rank "${rankName}" not found.`);
+                            await sendMessage(`ランク「${rankName}」が見つかりません。`);
                             return;
                         }
 
@@ -363,14 +363,14 @@ class RankCommandManager {
                         await sendMessage(setRankMessage);
                     } else if (triggeredSubcmd.arg === "remove") {
                         if (rankLadder.mode === "auto") {
-                            await sendMessage("This rank ladder is in automatic mode and cannot be managed directly.");
+                            await sendMessage("このランクラダーは自動モードです。直接管理はできません。");
                             return;
                         }
 
                         const username = args[1].replace("@", "");
                         const viewer = await viewerDatabase.getViewerByUsername(username);
                         if (!viewer) {
-                            await sendMessage(`${username} not found.`);
+                            await sendMessage(`${username} が見つかりません。`);
                             return;
                         }
 
@@ -381,7 +381,7 @@ class RankCommandManager {
 
                         await sendMessage(removeRankMessage);
                     } else {
-                        await sendMessage("Invalid command.");
+                        await sendMessage("無効なコマンドです。");
                     }
                 }
             }

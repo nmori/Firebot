@@ -13,11 +13,11 @@ export const MarkerSystemCommand: SystemCommand<{
 }> = {
     definition: {
         id: "firebot:create-marker",
-        name: "Create Stream Marker",
+        name: "配信マーカー作成",
         active: true,
         trigger: "!marker",
-        usage: "[marker name]",
-        description: "Create a stream marker.",
+        usage: "[マーカー名]",
+        description: "配信マーカーを作成します。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         minArgs: 1,
@@ -41,24 +41,24 @@ export const MarkerSystemCommand: SystemCommand<{
         options: {
             successTemplate: {
                 type: "string",
-                title: "Output Template",
-                description: "The chat message to send when the marker is created.",
-                tip: "Variables: {timestamp}",
-                default: `Marker created at {timestamp}.`,
+                title: "出力テンプレート",
+                description: "マーカー作成時に送信するチャットメッセージ。",
+                tip: "変数: {timestamp}",
+                default: `マーカーを {timestamp} に作成しました。`,
                 useTextArea: true
             },
             unableTemplate: {
                 type: "string",
-                title: "Unable Output Template",
-                description: "The chat message to send a marker is unable to be created.",
-                default: "Unable to create a stream marker.",
+                title: "作成不可テンプレート",
+                description: "マーカーを作成できないときに送信するチャットメッセージ。",
+                default: "配信マーカーを作成できませんでした。",
                 useTextArea: true
             },
             errorTemplate: {
                 type: "string",
-                title: "Error Output Template",
-                description: "The chat message to send when there was an error creating a marker.",
-                default: "Failed to create a stream marker.",
+                title: "エラーテンプレート",
+                description: "マーカー作成時にエラーが発生したときに送信するチャットメッセージ。",
+                default: "配信マーカーの作成に失敗しました。",
                 useTextArea: true
             }
         }

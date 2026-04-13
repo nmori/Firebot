@@ -12,23 +12,23 @@ const model: RestrictionType<{
 }> = {
     definition: {
         id: "firebot:followcheck",
-        name: "Follow Check",
-        description: "Restrict based on if user is following everyone in a comma separated list.",
+        name: "フォローチェック",
+        description: "カンマ区切りリスト内の全チャンネルをフォローしているかで制限します。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <firebot-radio-container>
-                <firebot-radio label="Follows my channel" model="restriction.checkMode" value="'streamer'"/>
-                <firebot-radio label="Follows custom channel" model="restriction.checkMode" value="'custom'" />
+                <firebot-radio label="自分のチャンネルをフォロー" model="restriction.checkMode" value="'streamer'"/>
+                <firebot-radio label="指定チャンネルをフォロー" model="restriction.checkMode" value="'custom'" />
                 <div ng-show="restriction.checkMode === 'custom'" style="padding-top: 4px;">
                     <div id="userFollowList" class="modal-subheader" style="padding: 0 0 4px 0">
-                        User follows
+                        フォロー対象
                     </div>
-                    <input type="text" class="form-control" placeholder="Enter value" ng-model="restriction.value">
+                    <input type="text" class="form-control" placeholder="値を入力" ng-model="restriction.value">
 
                     <div style="margin-top: 10px;" class="alert alert-warning">
-                        You must be the streamer or a moderator to check follows for a channel.
+                        チャンネルのフォロー状況を確認するには、配信者またはモデレーターである必要があります。
                     </div>
                 </div>
             </firebot-radio-container>
@@ -36,8 +36,8 @@ const model: RestrictionType<{
             <div style="margin-bottom: 30px;">
                 <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
                     <div>
-                        <label class="control-label" style="margin:0;">Follow Age</label>
-                        <p class="help-block">Time the user must be followed to the channel.</p>
+                        <label class="control-label" style="margin:0;">フォロー期間</label>
+                        <p class="help-block">ユーザーが対象チャンネルをフォローしている必要がある期間。</p>
                     </div>
                     <div>
                         <toggle-button toggle-model="restriction.useFollowAge" auto-update-value="true" font-size="32"></toggle-button>
@@ -62,7 +62,7 @@ const model: RestrictionType<{
         }
     },
     optionsValueDisplay: (restriction) => {
-        const value = restriction.checkMode === "custom" ? restriction.value : "Follows my channel";
+        const value = restriction.checkMode === "custom" ? restriction.value : "自分のチャンネルをフォロー";
 
         if (value == null) {
             return "";
@@ -92,7 +92,7 @@ const model: RestrictionType<{
             if (followCheck) {
                 resolve(true);
             } else {
-                reject(`You must be following: ${followListString}`);
+                reject(`次のチャンネルをフォローしている必要があります: ${followListString}`);
             }
         });
     }

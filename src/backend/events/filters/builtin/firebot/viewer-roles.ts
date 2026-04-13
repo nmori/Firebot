@@ -5,10 +5,38 @@ import chatRolesManager from "../../../../roles/chat-roles-manager";
 import { TwitchApi } from "../../../../streaming-platforms/twitch/api";
 import { EventFilter } from "../../../../../types/events";
 
+function normalizeViewerRoleComparisonType(comparisonType?: string) {
+    const includeAliases = new Set([
+        "含む",
+        "を含む",
+        "include",
+        "including",
+        "contains"
+    ]);
+
+    const excludeAliases = new Set([
+        "含まない",
+        "を含まない",
+        "doesn't include",
+        "not including",
+        "doesn't contain"
+    ]);
+
+    if (includeAliases.has(comparisonType ?? "")) {
+        return "include";
+    }
+
+    if (excludeAliases.has(comparisonType ?? "")) {
+        return "doesn't include";
+    }
+
+    return comparisonType;
+}
+
 const filter: EventFilter = {
     id: "firebot:viewerroles",
-    name: "Viewer's Roles",
-    description: "Filter to a given viewer role",
+    name: "視聴者の役割",
+    description: "指定した視聴者ロールでフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -27,7 +55,7 @@ const filter: EventFilter = {
         { eventSourceId: "firebot", eventId: "viewer-rank-updated" },
         { eventSourceId: "firebot", eventId: "currency-update" }
     ],
-    comparisonTypes: ["include", "doesn't include"],
+    comparisonTypes: ["含む", "含まない"],
     valueType: "preset",
     presetValues: (viewerRolesService: any) => {
         return viewerRolesService
@@ -62,6 +90,7 @@ const filter: EventFilter = {
     predicate: async (filterSettings, eventData) => {
         const { comparisonType, value } = filterSettings;
         const { eventMeta } = eventData;
+        const normalizedComparisonType = normalizeViewerRoleComparisonType(comparisonType);
 
         const username = eventMeta.username as string;
         let userId = eventMeta.userId as string;
@@ -106,7 +135,7 @@ const filter: EventFilter = {
 
             const hasRole = allRoles.some(r => r.id === value);
 
-            switch (comparisonType) {
+            switch (normalizedComparisonType) {
                 case "include":
                     return hasRole;
                 case "doesn't include":

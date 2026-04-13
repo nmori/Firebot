@@ -12,10 +12,10 @@ export const FollowAgeSystemCommand: SystemCommand<{
 }> = {
     definition: {
         id: "firebot:followage",
-        name: "Follow Age",
+        name: "フォロー期間",
         active: true,
         trigger: "!followage",
-        description: "Displays how long the user has been following the channel.",
+        description: "ユーザーがチャンネルをフォローしている期間を表示します。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -25,10 +25,10 @@ export const FollowAgeSystemCommand: SystemCommand<{
         options: {
             displayTemplate: {
                 type: "string",
-                title: "Output Template",
-                description: "How the followage message is formatted",
-                tip: "Variables: {user}, {followage}, {followdate}",
-                default: `{user} followed {followage} ago on {followdate} UTC`,
+                title: "出力テンプレート",
+                description: "フォロー期間メッセージの表示形式",
+                tip: "変数: {user}, {followage}, {followdate}",
+                default: `{user} は {followdate} UTC にフォローしました（{followage}前）`,
                 useTextArea: true
             }
         }
@@ -40,7 +40,7 @@ export const FollowAgeSystemCommand: SystemCommand<{
         const rawFollowDate = await TwitchApi.users.getFollowDateForUser(commandSender);
 
         if (rawFollowDate === null) {
-            await TwitchApi.chat.sendChatMessage(`${commandSender} is not following the channel.`, null, true);
+            await TwitchApi.chat.sendChatMessage(`${commandSender} はこのチャンネルをフォローしていません。`, null, true);
         } else {
             const followDate = DateTime.fromJSDate(rawFollowDate),
                 now = DateTime.utc();

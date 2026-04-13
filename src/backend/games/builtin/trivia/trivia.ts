@@ -9,13 +9,13 @@ const game: FirebotGame = {
     icon: "fa-head-side-brain",
     settingCategories: {
         currencySettings: {
-            title: "Currency Settings",
+            title: "通貨設定",
             sortRank: 1,
             settings: {
                 currencyId: {
                     type: "currency-select",
-                    title: "Currency",
-                    description: "Which currency to use for bidding.",
+                    title: "通貨",
+                    description: "このゲームで使用する通貨。",
                     sortRank: 1,
                     validation: {
                         required: true
@@ -23,10 +23,10 @@ const game: FirebotGame = {
                 },
                 defaultWager: {
                     type: "number",
-                    title: "Default Wager Amount",
-                    description: "The default wager amount to use if a viewer doesn't specify one.",
-                    placeholder: "Enter amount",
-                    tip: "Optional",
+                    title: "デフォルト賭け金額",
+                    description: "視聴者が賭け金を指定しない場合のデフォルト値。",
+                    placeholder: "金額を入力",
+                    tip: "任意",
                     sortRank: 2,
                     validation: {
                         min: 1
@@ -34,8 +34,8 @@ const game: FirebotGame = {
                 },
                 minWager: {
                     type: "number",
-                    title: "Min Wager Amount",
-                    placeholder: "Enter amount",
+                    title: "最小賭け金額",
+                    placeholder: "金額を入力",
                     default: 1,
                     sortRank: 3,
                     validation: {
@@ -45,9 +45,9 @@ const game: FirebotGame = {
                 },
                 maxWager: {
                     type: "number",
-                    title: "Max Wager Amount",
-                    placeholder: "Enter amount",
-                    tip: "Optional",
+                    title: "最大賭け金額",
+                    placeholder: "金額を入力",
+                    tip: "任意",
                     sortRank: 4,
                     validation: {
                         min: 1
@@ -56,13 +56,13 @@ const game: FirebotGame = {
             }
         },
         questionSettings: {
-            title: "Question Settings",
+            title: "問題設定",
             sortRank: 2,
             settings: {
                 enabledCategories: {
                     type: "multiselect",
-                    title: "Enabled Categories",
-                    description: "Categories of questions that are enabled",
+                    title: "有効なカテゴリ",
+                    description: "有効にする問題カテゴリ",
                     default: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32],
                     settings: {
                         options: [
@@ -171,7 +171,7 @@ const game: FirebotGame = {
                 },
                 enabledDifficulties: {
                     type: "multiselect",
-                    title: "Enabled Difficulties",
+                    title: "有効な難易度",
                     default: ["easy", "medium", "hard"],
                     settings: {
                         options: [
@@ -196,7 +196,7 @@ const game: FirebotGame = {
                 },
                 enabledTypes: {
                     type: "multiselect",
-                    title: "Enabled Question Types",
+                    title: "有効な問題形式",
                     default: ["multiple", "boolean"],
                     settings: {
                         options: [
@@ -217,9 +217,9 @@ const game: FirebotGame = {
                 },
                 answerTime: {
                     type: "number",
-                    title: "Answer Time (secs)",
-                    description: "The amount of time in seconds users have to answer a question.",
-                    placeholder: "Enter secs",
+                    title: "回答時間（秒）",
+                    description: "視聴者が問題に回答するための時間（秒）。",
+                    placeholder: "秒を入力",
                     default: 30,
                     sortRank: 4,
                     validation: {
@@ -230,14 +230,14 @@ const game: FirebotGame = {
             }
         },
         multiplierSettings: {
-            title: "Winnings Multipliers",
+            title: "獲得倍率",
             sortRank: 3,
             settings: {
                 easyMultipliers: {
-                    title: "Easy Multiplier",
+                    title: "簡単 倍率",
                     type: "role-numbers",
-                    description: "The winnings multiplier per user role for Easy questions",
-                    tip: "The winnings are calculated as: WagerAmount * Multiplier",
+                    description: "簡単な問題のユーザーロールごとの獲得倍率",
+                    tip: "報酬は 賭け金 × 倍率 で計算されます",
                     sortRank: 1,
                     settings: {
                         defaultBase: 1.50,
@@ -247,10 +247,10 @@ const game: FirebotGame = {
                     }
                 },
                 mediumMultipliers: {
-                    title: "Medium Multiplier",
+                    title: "普通 倍率",
                     type: "role-numbers",
-                    description: "The winnings multiplier per user role for Medium questions",
-                    tip: "The winnings are calculated as: WagerAmount * Multiplier",
+                    description: "普通の問題のユーザーロールごとの獲得倍率",
+                    tip: "報酬は 賭け金 × 倍率 で計算されます",
                     sortRank: 2,
                     settings: {
                         defaultBase: 2.00,
@@ -260,10 +260,10 @@ const game: FirebotGame = {
                     }
                 },
                 hardMultipliers: {
-                    title: "Hard Multiplier",
+                    title: "難しい 倍率",
                     type: "role-numbers",
-                    description: "The winnings multiplier per user role for Hard questions",
-                    tip: "The winnings are calculated as: WagerAmount * Multiplier",
+                    description: "難しい問題のユーザーロールごとの獲得倍率",
+                    tip: "報酬は 賭け金 × 倍率 で計算されます",
                     sortRank: 3,
                     settings: {
                         defaultBase: 3,
@@ -275,15 +275,15 @@ const game: FirebotGame = {
             }
         },
         cooldownSettings: {
-            title: "Cooldown",
+            title: "クールダウン",
             sortRank: 4,
             settings: {
                 cooldown: {
                     type: "number",
-                    title: "Cooldown (secs)",
-                    placeholder: "Enter secs",
-                    description: "Cooldown is applied per viewer.",
-                    tip: "Optional.",
+                    title: "クールダウン（秒）",
+                    placeholder: "秒を入力",
+                    description: "視聴者ごとにクールダウンが適用されます。",
+                    tip: "任意",
                     default: 300,
                     validation: {
                         min: 0
@@ -292,19 +292,19 @@ const game: FirebotGame = {
             }
         },
         chatSettings: {
-            title: "Chat Settings",
+            title: "チャット設定",
             sortRank: 5,
             settings: {
                 chatter: {
                     type: "chatter-select",
-                    title: "Chat As",
+                    title: "発言者",
                     sortRank: 1
                 },
                 noWagerMessage: {
                     type: "string",
-                    title: "No Wager Message",
+                    title: "賭け金未入力メッセージ",
                     useTextArea: true,
-                    default: "Incorrect trivia usage: !trivia [wager]",
+                    default: "トリビアの使い方が正しくありません: !trivia [賭け金]",
                     tip: "Available variables: {user}",
                     sortRank: 2,
                     validation: {
@@ -313,8 +313,8 @@ const game: FirebotGame = {
                 },
                 postCorrectAnswer: {
                     type: "boolean",
-                    title: "Post Correct Answer",
-                    tip: "Post the correct answer in chat if the viewer answered incorrectly.",
+                    title: "正解を投稿する",
+                    tip: "視聴者が間違えた場合、チャットに正解を投稿します。",
                     default: false,
                     sortRank: 3,
                     validation: {

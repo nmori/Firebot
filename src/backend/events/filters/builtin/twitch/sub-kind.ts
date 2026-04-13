@@ -3,8 +3,8 @@ import { ComparisonType } from "../../../../../shared/filter-constants";
 
 const filter: EventFilter = {
     id: "firebot:sub-kind",
-    name: "Kind of Sub",
-    description: "Filter by the kind of sub (resub vs first sub)",
+    name: "サブ種別",
+    description: "サブの種類（初回サブか再サブか）でフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "sub" }
     ],
@@ -13,16 +13,16 @@ const filter: EventFilter = {
     presetValues: () => [
         {
             value: "first",
-            display: "First Sub"
+            display: "初回サブ"
         },
         {
             value: "resub",
-            display: "Resub"
+            display: "再サブ"
         }
     ],
     getSelectedValueDisplay: (filterSettings, presetValues: PresetValue[]) => {
         return presetValues
-            .find(pv => pv.value === filterSettings.value)?.display ?? "[Not Set]";
+            .find(pv => pv.value === filterSettings.value)?.display ?? "[未設定]";
     },
     predicate: (filterSettings, eventData) => {
         const { value } = filterSettings;

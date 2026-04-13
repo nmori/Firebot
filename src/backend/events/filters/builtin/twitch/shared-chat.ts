@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:is-shared-chat-message",
-    name: "Shared Chat",
-    description: "Filter by whether the event was triggered by a shared chat message",
+    name: "共有チャット",
+    description: "イベントが共有チャットメッセージによるものかどうかでフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "chat-message" },
         { eventSourceId: "twitch", eventId: "announcement" },
@@ -14,11 +14,11 @@ const filter = createPresetFilter({
     presetValues: async () => [
         {
             value: "true",
-            display: "True"
+            display: "はい"
         },
         {
             value: "false",
-            display: "False"
+            display: "いいえ"
         }
     ]
 });

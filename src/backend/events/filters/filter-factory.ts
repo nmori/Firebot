@@ -208,7 +208,7 @@ export function createPresetFilter({
     }
 
     const valueDisplay = getSelectedValueDisplay ?? ((filterSettings, presetValues?: PresetValue[]) => {
-        return presetValues.find(pv => pv.value === filterSettings.value)?.display ?? "[Not Set]";
+        return presetValues.find(pv => pv.value === filterSettings.value)?.display ?? "[未設定]";
     });
 
     return {

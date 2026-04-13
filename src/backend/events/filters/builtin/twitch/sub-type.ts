@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:sub-type",
-    name: "Sub Tier",
-    description: "Filter by the tier of sub (Prime, Tier 1, 2, 3, etc)",
+    name: "サブティア",
+    description: "サブのティア（プライム、ティア1、2、3 など）でフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "sub" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -16,19 +16,19 @@ const filter = createPresetFilter({
     presetValues: () => [
         {
             value: "Prime",
-            display: "Prime"
+            display: "プライム"
         },
         {
             value: "1000",
-            display: "Tier 1"
+            display: "ティア1"
         },
         {
             value: "2000",
-            display: "Tier 2"
+            display: "ティア2"
         },
         {
             value: "3000",
-            display: "Tier 3"
+            display: "ティア3"
         }
     ]
 });

@@ -8,22 +8,22 @@ const model: RestrictionType<{
 }> = {
     definition: {
         id: "firebot:viewTime",
-        name: "View Time",
-        description: "Restricts to users who have been in the stream for X minutes.",
+        name: "視聴時間",
+        description: "配信に X 分以上滞在しているユーザーのみに制限します。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div id="viewTimeRestriction" class="modal-subheader" style="padding: 0 0 4px 0">
-                View Time Minimum
+                最低視聴時間
             </div>
-            <input type="number" class="form-control" placeholder="Enter minutes" ng-model="restriction.time">
+            <input type="number" class="form-control" placeholder="分数を入力" ng-model="restriction.time">
         </div>
     `,
     optionsValueDisplay: (restriction) => {
         const time = restriction.time || 0;
 
-        return `${time}+ min(s)`;
+        return `${time}分以上`;
     },
     /*
       function that resolves/rejects a promise based on if the restriction criteria is met
@@ -41,7 +41,7 @@ const model: RestrictionType<{
             if (passed) {
                 resolve(true);
             } else {
-                reject("You have not spent enough time in the channel to use this");
+                reject("この機能を使うには、チャンネルでの視聴時間が足りません");
             }
         });
     }

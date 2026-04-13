@@ -3,8 +3,8 @@ import { ComparisonType } from "../../../../../shared/filter-constants";
 
 const filter: EventFilter = {
     id: "firebot:chatmode",
-    name: "Chat Mode",
-    description: "Filter by a chat mode",
+    name: "チャットモード",
+    description: "チャットモードでフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "chat-mode-changed" }
     ],
@@ -14,29 +14,29 @@ const filter: EventFilter = {
         return [
             {
                 value: "emoteonly",
-                display: "Emote Only"
+                display: "エモートのみ"
             },
             {
                 value: "followers",
-                display: "Followers"
+                display: "フォロワーのみ"
             },
             {
                 value: "subscribers",
-                display: "Subscribers Only"
+                display: "サブスクライバーのみ"
             },
             {
                 value: "slow",
-                display: "Slow"
+                display: "スローモード"
             },
             {
                 value: "uniquechat",
-                display: "Unique Chat"
+                display: "ユニークチャット"
             }
         ];
     },
     getSelectedValueDisplay: async (filterSettings, presetValues: PresetValue[]) => {
         return presetValues
-            .find(pv => pv.value === filterSettings.value || (filterSettings.value === "r9kbeta" && pv.value === "uniquechat"))?.display ?? "[Not Set]";
+            .find(pv => pv.value === filterSettings.value || (filterSettings.value === "r9kbeta" && pv.value === "uniquechat"))?.display ?? "[未設定]";
     },
     predicate: async (filterSettings, eventData) => {
 

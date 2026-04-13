@@ -9,21 +9,21 @@ const model: RestrictionType<{
 }> = {
     definition: {
         id: "firebot:customvariable",
-        name: "Custom Variable",
-        description: "Restrict based on a custom variable set with the Custom Variable effect.",
+        name: "カスタム変数",
+        description: "カスタム変数エフェクトで設定したカスタム変数に基づいて制限します。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div id="customVariableName" class="modal-subheader" style="padding: 0 0 4px 0">
-                Custom Variable Name
+                カスタム変数名
             </div>
-            <input type="text" class="form-control" placeholder="Enter name" ng-model="restriction.name">
+            <input type="text" class="form-control" placeholder="名前を入力" ng-model="restriction.name">
 
             <div id="customVariableName" class="modal-subheader" style="padding: 0 0 4px 0">
-                Value
+                値
             </div>
-            <input type="text" class="form-control" placeholder="Enter value" ng-model="restriction.value">
+            <input type="text" class="form-control" placeholder="値を入力" ng-model="restriction.value">
         </div>
     `,
     optionsValueDisplay: (restriction) => {
@@ -34,7 +34,7 @@ const model: RestrictionType<{
             return "";
         }
 
-        return `${name} is ${value}`;
+        return `${name} = ${value}`;
     },
     predicate: (_, restrictionData) => {
         return new Promise((resolve, reject) => {
@@ -56,7 +56,7 @@ const model: RestrictionType<{
             if (passed) {
                 resolve(true);
             } else {
-                reject("A flag is not set to the correct value");
+                reject("フラグが正しい値に設定されていません");
             }
         });
     }

@@ -4,8 +4,8 @@ import twitchStreamInfoManager from "../../../../streaming-platforms/twitch/stre
 
 const filter: EventFilter = {
     id: "firebot:channel-live",
-    name: "Channel is Live",
-    description: "Filter by whether or not channel is live",
+    name: "チャンネルが配信中",
+    description: "チャンネルが配信中かどうかでフィルタ",
     events: [
         { eventSourceId: "firebot", eventId: "category-changed" },
         { eventSourceId: "twitch", eventId: "announcement" },
@@ -34,11 +34,11 @@ const filter: EventFilter = {
         return [
             {
                 value: "true",
-                display: "True"
+                display: "はい"
             },
             {
                 value: "false",
-                display: "False"
+                display: "いいえ"
             }
         ];
     },

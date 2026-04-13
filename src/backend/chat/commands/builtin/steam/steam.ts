@@ -11,11 +11,11 @@ export const SteamSystemCommand: SystemCommand<{
 }> = {
     definition: {
         id: "firebot:steam",
-        name: "Steam Search",
+        name: "Steam検索",
         active: true,
         trigger: "!steam",
-        usage: "[game name]",
-        description: "Displays information about a game on Steam.",
+        usage: "[ゲーム名]",
+        description: "Steam 上のゲーム情報を表示します。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -25,15 +25,15 @@ export const SteamSystemCommand: SystemCommand<{
         options: {
             outputTemplate: {
                 type: "string",
-                title: "Output Template",
-                tip: "Variables: {gameName}, {price}, {releaseDate}, {metaCriticScore}, {steamUrl}, {steamShortDescription}",
-                default: `{gameName} (Price: {price} - Released: {releaseDate} - Metacritic: {metaCriticScore}) {steamUrl}`,
+                title: "出力テンプレート",
+                tip: "変数: {gameName}, {price}, {releaseDate}, {metaCriticScore}, {steamUrl}, {steamShortDescription}",
+                default: `{gameName}（価格: {price} / 発売日: {releaseDate} / Metacritic: {metaCriticScore}） {steamUrl}`,
                 useTextArea: true
             },
             countryCode: {
                 type: "string",
-                title: "Country Code (Optional)",
-                tip: "A two-letter [ISO-3166](https://wikipedia.org/wiki/List_of_ISO_3166_country_codes) country code. Examples: US, CA, SE, NO",
+                title: "国コード（任意）",
+                tip: "2文字の [ISO-3166](https://wikipedia.org/wiki/List_of_ISO_3166_country_codes) 国コード。例: US, CA, SE, NO",
                 default: ""
             }
         }
@@ -41,7 +41,7 @@ export const SteamSystemCommand: SystemCommand<{
     onTriggerEvent: async (event) => {
         const { commandOptions } = event;
         let gameName = event.userCommand.args.join(" ").trim();
-        let message = "Couldn't find a Steam game using that name";
+        let message = "その名前の Steam ゲームは見つかりませんでした";
 
         if (gameName == null || gameName.length < 1) {
 
@@ -56,11 +56,11 @@ export const SteamSystemCommand: SystemCommand<{
             if (gameDetails !== null) {
                 message = commandOptions.outputTemplate
                     .replaceAll("{gameName}", gameDetails.name)
-                    .replaceAll("{price}", gameDetails.price || "Unknown")
-                    .replaceAll("{releaseDate}", gameDetails.releaseDate || "Unknown")
-                    .replaceAll("{metaCriticScore}", gameDetails.score?.toString() || "Unknown")
+                    .replaceAll("{price}", gameDetails.price || "不明")
+                    .replaceAll("{releaseDate}", gameDetails.releaseDate || "不明")
+                    .replaceAll("{metaCriticScore}", gameDetails.score?.toString() || "不明")
                     .replaceAll("{steamUrl}", gameDetails.url)
-                    .replaceAll("{steamShortDescription}", gameDetails.shortDescription || "Unknown");
+                    .replaceAll("{steamShortDescription}", gameDetails.shortDescription || "不明");
             }
         }
 

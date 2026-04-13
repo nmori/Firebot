@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:countdown-dynamic",
-    name: "Countdown Timer (Dynamic)",
-    description: "Filter to a Countdown Timer (Dynamic) overlay widget",
+    name: "カウントダウンタイマー（動的）",
+    description: "カウントダウンタイマー（動的）オーバーレイウィジェットでフィルタ",
     events: [
         { eventSourceId: "firebot", eventId: "dynamic-countdown-finished" }
     ],

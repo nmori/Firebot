@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:custom-widget",
-    name: "Custom Widget",
-    description: "Filter to a Custom overlay widget (both Basic and Advanced types)",
+    name: "カスタムウィジェット",
+    description: "カスタムオーバーレイウィジェット（Basic と Advanced の両方）でフィルタ",
     events: [
         { eventSourceId: "firebot", eventId: "custom-widget-message-received" }
     ],

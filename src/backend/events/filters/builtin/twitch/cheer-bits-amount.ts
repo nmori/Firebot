@@ -2,8 +2,8 @@ import { createNumberFilter } from "../../filter-factory";
 
 const filter = createNumberFilter({
     id: "firebot:cheerbitsamount",
-    name: "Cheer Bits Amount",
-    description: "Filter by the amount of bits in a Cheer",
+    name: "チアーのビット数",
+    description: "チアーに含まれるビット数でフィルタ",
     eventMetaKey: "bits",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" }

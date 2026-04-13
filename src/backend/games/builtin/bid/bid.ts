@@ -9,13 +9,13 @@ const game: FirebotGame = {
     icon: "fa-gavel",
     settingCategories: {
         currencySettings: {
-            title: "Currency Settings",
+            title: "通貨設定",
             sortRank: 1,
             settings: {
                 currencyId: {
                     type: "currency-select",
-                    title: "Currency",
-                    description: "Which currency to use for bidding.",
+                    title: "通貨",
+                    description: "入札で使用する通貨。",
                     sortRank: 1,
                     validation: {
                         required: true
@@ -23,10 +23,10 @@ const game: FirebotGame = {
                 },
                 minBid: {
                     type: "number",
-                    title: "Minimum Opening Bid",
-                    placeholder: "Enter amount",
-                    description: "The minimum amount for the opening bid.",
-                    tip: "Optional.",
+                    title: "最低開始入札額",
+                    placeholder: "金額を入力",
+                    description: "開始入札の最低金額。",
+                    tip: "任意",
                     default: 1,
                     sortRank: 2,
                     validation: {
@@ -35,10 +35,10 @@ const game: FirebotGame = {
                 },
                 minIncrement: {
                     type: "number",
-                    title: "Minimum Bid Raise",
-                    placeholder: "Enter amount",
-                    description: "User must bid at least this amount over the highest bidder.",
-                    tip: "Optional.",
+                    title: "最低入札増加額",
+                    placeholder: "金額を入力",
+                    description: "現在の最高入札額より少なくともこの金額以上入札する必要があります。",
+                    tip: "任意",
                     default: 1,
                     sortRank: 4,
                     validation: {
@@ -48,15 +48,15 @@ const game: FirebotGame = {
             }
         },
         timeSettings: {
-            title: "Time Settings",
+            title: "時間設定",
             sortRank: 2,
             settings: {
                 timeLimit: {
                     type: "number",
-                    title: "Time Limit (min)",
-                    placeholder: "Enter minutes",
-                    description: "Whoever is the highest bidder after this time will win.",
-                    tip: "Optional.",
+                    title: "制限時間（分）",
+                    placeholder: "分を入力",
+                    description: "この時間が経過した時点で最高入札者が落札します。",
+                    tip: "任意",
                     default: 2,
                     sortRank: 1,
                     validation: {
@@ -66,15 +66,15 @@ const game: FirebotGame = {
             }
         },
         cooldownSettings: {
-            title: "Cooldown",
+            title: "クールダウン",
             sortRank: 3,
             settings: {
                 cooldown: {
                     type: "number",
-                    title: "Cooldown (secs)",
-                    placeholder: "Enter secs",
-                    description: "Cooldown is applied per viewer. A user can only place a bid this often.",
-                    tip: "Optional.",
+                    title: "クールダウン（秒）",
+                    placeholder: "秒を入力",
+                    description: "視聴者ごとのクールダウン。この頻度でしか入札できません。",
+                    tip: "任意",
                     default: 5,
                     validation: {
                         min: 0
@@ -83,12 +83,12 @@ const game: FirebotGame = {
             }
         },
         chatSettings: {
-            title: "Chat Settings",
+            title: "チャット設定",
             sortRank: 4,
             settings: {
                 chatter: {
                     type: "chatter-select",
-                    title: "Chat As"
+                    title: "発言者"
                 }
             }
         }

@@ -5,6 +5,9 @@ const roleHelpers = require("../../../../../roles/role-helpers").default;
 
 function normalizeViewerRoleComparisonType(comparisonType) {
     const hasRoleAliases = new Set([
+        "役割を担当",
+        "を含む",
+        "含む",
         "has role",
         "include",
         "is in role",
@@ -16,6 +19,8 @@ function normalizeViewerRoleComparisonType(comparisonType) {
     ]);
 
     const hasNotRoleAliases = new Set([
+        "役割を担当していない",
+        "を含まない",
         "doesn't have role",
         "doesn't include",
         "isn't in role",
@@ -41,7 +46,7 @@ module.exports = {
     id: "firebot:viewerroles",
     name: "視聴者の役割",
     description: "与えられた視聴者の役割に基づく条件",
-    comparisonTypes: ["has role", "doesn't have role"],
+    comparisonTypes: ["役割を担当", "役割を担当していない"],
     leftSideValueType: "text",
     leftSideTextPlaceholder: "ユーザ名を入力",
     rightSideValueType: "preset",
@@ -86,12 +91,8 @@ module.exports = {
         const hasRole = await roleHelpers.viewerHasRoles(user.id, [rightSideValue]);
 
         switch (normalizedComparisonType) {
-            case "include":
-            case "is in role":
             case "has role":
                 return hasRole;
-            case "doesn't include":
-            case "isn't in role":
             case "doesn't have role":
                 return !hasRole;
             default:

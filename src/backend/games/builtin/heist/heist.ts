@@ -9,13 +9,13 @@ const game: FirebotGame = {
     icon: "fa-sack-dollar",
     settingCategories: {
         currencySettings: {
-            title: "Currency Settings",
+            title: "通貨設定",
             sortRank: 1,
             settings: {
                 currencyId: {
                     type: "currency-select",
-                    title: "Currency",
-                    description: "Which currency to use for this game.",
+                    title: "通貨",
+                    description: "このゲームで使用する通貨。",
                     sortRank: 1,
                     validation: {
                         required: true
@@ -23,10 +23,10 @@ const game: FirebotGame = {
                 },
                 defaultWager: {
                     type: "number",
-                    title: "Default Wager Amount",
-                    description: "The default wager amount to use if a viewer doesn't specify one.",
-                    placeholder: "Enter amount",
-                    tip: "Optional",
+                    title: "デフォルト賭け金額",
+                    description: "視聴者が賭け金を指定しない場合のデフォルト値。",
+                    placeholder: "金額を入力",
+                    tip: "任意",
                     sortRank: 2,
                     validation: {
                         min: 1
@@ -34,8 +34,8 @@ const game: FirebotGame = {
                 },
                 minWager: {
                     type: "number",
-                    title: "Min Wager Amount",
-                    placeholder: "Enter amount",
+                    title: "最小賭け金額",
+                    placeholder: "金額を入力",
                     default: 1,
                     sortRank: 3,
                     validation: {
@@ -45,9 +45,9 @@ const game: FirebotGame = {
                 },
                 maxWager: {
                     type: "number",
-                    title: "Max Wager Amount",
-                    placeholder: "Enter amount",
-                    tip: "Optional",
+                    title: "最大賭け金額",
+                    placeholder: "金額を入力",
+                    tip: "任意",
                     sortRank: 4,
                     validation: {
                         min: 1
@@ -56,26 +56,26 @@ const game: FirebotGame = {
             }
         },
         successChanceSettings: {
-            title: "Success Chances",
+            title: "成功確率",
             sortRank: 3,
             settings: {
                 successChances: {
                     type: "role-percentages",
                     title: undefined,
-                    description: "The chances the viewer has of being surviving a heist",
-                    tip: "The success chance for the first user role a viewer has in this list is used, so ordering is important!"
+                    description: "視聴者が強盗で生き残る確率",
+                    tip: "一番最初に該当するユーザーロールでの成功確率が使われるため、順序が重要です！"
                 }
             }
         },
         winningsMultiplierSettings: {
-            title: "Winnings Multiplier",
+            title: "強盗報酬倍率",
             sortRank: 4,
             settings: {
                 multipliers: {
                     type: "role-numbers",
                     title: undefined,
-                    description: "The winnings multiplier per user role",
-                    tip: "The winnings are calculated as: WagerAmount * Multiplier",
+                    description: "ユーザーロールごとの報酬倍率",
+                    tip: "報酬は 賭け金 × 倍率 で計算されます",
                     settings: {
                         defaultBase: 1.5,
                         defaultOther: 2,
@@ -86,14 +86,14 @@ const game: FirebotGame = {
             }
         },
         generalSettings: {
-            title: "General Settings",
+            title: "一般設定",
             sortRank: 2,
             settings: {
                 minimumUsers: {
                     type: "number",
-                    title: "Minimum Users",
-                    description: "The minimum required users before starting.",
-                    placeholder: "Enter count",
+                    title: "最少メンバー数",
+                    description: "開始に必要な最小の参加人数。",
+                    placeholder: "数を入力",
                     default: 1,
                     sortRank: 1,
                     validation: {
@@ -103,9 +103,9 @@ const game: FirebotGame = {
                 },
                 startDelay: {
                     type: "number",
-                    title: "Start Delay (mins)",
-                    description: "The delay time before a heist starts to allow people to join.",
-                    placeholder: "Enter mins",
+                    title: "開始までの待機時間（分）",
+                    description: "参加者を待つための待機時間。",
+                    placeholder: "分を入力",
                     default: 2,
                     sortRank: 2,
                     validation: {
@@ -115,9 +115,9 @@ const game: FirebotGame = {
                 },
                 cooldown: {
                     type: "number",
-                    title: "Cooldown (mins)",
-                    description: "The cooldown before another heist can be triggered.",
-                    placeholder: "Enter mins",
+                    title: "クールダウン（分）",
+                    description: "次の強盗を開始できるまでのクールダウン。",
+                    placeholder: "分を入力",
                     default: 5,
                     sortRank: 3,
                     validation: {
@@ -128,260 +128,260 @@ const game: FirebotGame = {
             }
         },
         entryMessages: {
-            title: "Entry Messages",
+            title: "参加メッセージ",
             sortRank: 6,
             settings: {
                 onJoin: {
                     type: "string",
-                    title: "On Join",
-                    description: "Sent when a user joins the heist (leave empty for no message).",
+                    title: "参加時",
+                    description: "ユーザーが強盗に参加したとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "{user} has joined the heist with {wager} {currency}!",
-                    tip: "Available variables: {user}, {wager}, {currency}",
+                    default: "{user} が {wager} {currency} で強盗に参加しました！",
+                    tip: "使用可能な変数: {user}, {wager}, {currency}",
                     sortRank: 1
                 },
                 alreadyJoined: {
                     type: "string",
-                    title: "Already Joined",
-                    description: "Sent when a user has already joined the heist (leave empty for no message).",
+                    title: "参加済み",
+                    description: "ユーザーがすでに参加しているとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "{user}, you've already joined the heist team!",
-                    tip: "Available variables: {user}",
+                    default: "{user}、すでにチームに参加しています！",
+                    tip: "使用可能な変数: {user}",
                     sortRank: 2
                 },
                 noWagerAmount: {
                     type: "string",
-                    title: "No Wager Amount",
-                    description: "Sent when a user leaves out the wager amount (leave empty for no message).",
+                    title: "賭け金未入力",
+                    description: "ユーザーが賭け金を入力しなかったとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "{user}, please include a wager amount!",
-                    tip: "Available variables: {user}",
+                    default: "{user}、賭け金を入力してください！",
+                    tip: "使用可能な変数: {user}",
                     sortRank: 3
                 },
                 invalidWagerAmount: {
                     type: "string",
-                    title: "Invalid Wager Amount",
-                    description: "Sent when a user uses an invalid wager amount (leave empty for no message).",
+                    title: "無効な賭け金",
+                    description: "ユーザーが無効な賭け金を入力したとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "{user}, please include a valid wager amount!",
-                    tip: "Available variables: {user}",
+                    default: "{user}、有効な賭け金を入力してください！",
+                    tip: "使用可能な変数: {user}",
                     sortRank: 4
                 },
                 wagerAmountTooLow: {
                     type: "string",
-                    title: "Wager Amount Too Low",
-                    description: "Sent when a user uses a wager amount below the minimum (leave empty for no message).",
+                    title: "賭け金が小さすぎる",
+                    description: "ユーザーが最小金額未満の賭け金を入力したとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "{user}, the wager amount must be at least {minWager}!",
-                    tip: "Available variables: {user}, {minWager}",
+                    default: "{user}、賭け金は {minWager} 以上入力してください！",
+                    tip: "使用可能な変数: {user}, {minWager}",
                     sortRank: 5
                 },
                 wagerAmountTooHigh: {
                     type: "string",
-                    title: "Wager Amount Too High",
-                    description: "Sent when a user uses a wager amount above the maximum (leave empty for no message).",
+                    title: "賭け金が大きすぎる",
+                    description: "ユーザーが最大金額超過の賭け金を入力したとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "{user}, the wager amount can be no more than {maxWager}!",
-                    tip: "Available variables: {user}, {maxWager}",
+                    default: "{user}、賭け金は {maxWager} 以下にしてください！",
+                    tip: "使用可能な変数: {user}, {maxWager}",
                     sortRank: 6
                 },
                 notEnoughToWager: {
                     type: "string",
-                    title: "Not Enough To Wager",
-                    description: "Sent when a user tries to wager more than they have (leave empty for no message).",
+                    title: "賭け金が足りない",
+                    description: "ユーザーが所持より多い賭け金の入力を試みたとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "{user}, you don't have enough to wager this amount!",
-                    tip: "Available variables: {user}",
+                    default: "{user}、賭け金が足りません！",
+                    tip: "使用可能な変数: {user}",
                     sortRank: 7
                 }
             }
         },
         generalMessages: {
-            title: "General Messages",
+            title: "一般メッセージ",
             sortRank: 5,
             settings: {
                 teamCreation: {
                     type: "string",
-                    title: "Team Creation",
-                    description: "Sent when a heist is triggered by someone (leave empty for no message).",
+                    title: "チーム結成",
+                    description: "強盗が開始されたとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "@{user} is looking to put a team together for a heist! To join the team, type {command} [amount]",
-                    tip: "Available variables: {user}, {command}, {maxWager}, {minWager}, {minimumUsers}"
+                    default: "@{user} が強盗チームを結成しようとしています！参加するには {command} [金額] と入力。",
+                    tip: "使用可能な変数: {user}, {command}, {maxWager}, {minWager}, {minimumUsers}"
                 },
                 onCooldown: {
                     type: "string",
-                    title: "When On Cooldown",
-                    description: "Sent when someone tries to trigger the heist and it is on cooldown (leave empty for no message).",
+                    title: "クールダウン中",
+                    description: "クールダウン中に強盗をトリガーしたとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "The area is still too hot! Better wait awhile. Cooldown: {cooldown}",
-                    tip: "Available variables: {cooldown}"
+                    default: "まだ状況が悪いです！少し待ちましょう。クールダウン: {cooldown}",
+                    tip: "使用可能な変数: {cooldown}"
                 },
                 cooldownOver: {
                     type: "string",
-                    title: "Cooldown Over",
-                    description: "Sent when the cooldown is over (leave empty for no message).",
+                    title: "クールダウン終了",
+                    description: "クールダウンが終わったとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "The coast is clear! Time to get a team together for another heist, type {command} [amount]",
-                    tip: "Available variables: {command}"
+                    default: "もう安全です！次の強盗を始めましょう。 {command} [金額] で参加！",
+                    tip: "使用可能な変数: {command}"
                 },
                 startMessage: {
                     type: "string",
-                    title: "Heist Started",
-                    description: "Sent when the heist has started (leave empty for no message).",
+                    title: "強盗開始",
+                    description: "強盗が始まったとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "It's time! Everyone checks their weapons and equipment before jumping out of the getaway car and running into the bank."
+                    default: "いよいよだ！全員が武器と装備を確認し、逃走車から飛び出して銀行へ突進する。"
                 },
                 teamTooSmall: {
                     type: "string",
-                    title: "Team Too Small",
-                    description: "Sent when the start delay has ended and team size doesn't mean the Required Users count (leave empty for no message).",
+                    title: "チーム人数不足",
+                    description: "待機時間が終わったがチーム人数が足りないとき（不要なら空欄）。",
                     useTextArea: true,
-                    default: "Unfortunately @{user} wasn't able to get a team together in time and the heist has been canceled.",
-                    tip: "Available variables: {user}"
+                    default: "残念ながら @{user} は時間内にチームをまとめられず、強盗はキャンセルされました。",
+                    tip: "使用可能な変数: {user}"
                 },
                 heistWinnings: {
                     type: "string",
-                    title: "Heist Winnings",
-                    description: "Sent at the completion of the heist, lists those who survived and their winnings (leave empty for no message).",
+                    title: "強盗報酬",
+                    description: "強盗の終了時に生き残ったメンバーと報酬を表示（不要なら空欄）。",
                     useTextArea: true,
-                    default: "Winnings: {winnings}",
-                    tip: "Available variables: {winnings}"
+                    default: "報酬: {winnings}",
+                    tip: "使用可能な変数: {winnings}"
                 }
             }
         },
         groupOutcomeMessages: {
-            title: "Group Outcome Messages",
+            title: "グループ結果メッセージ",
             sortRank: 7,
             settings: {
                 hundredPercent: {
                     type: "editable-list",
-                    title: "100% Victory",
+                    title: "100% 勝利",
                     default: [
-                        "The heist was a complete success and everyone escaped in the getaway car!"
+                        "強盗は完全成功！全員が逃走車で逃げ切った！"
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "ランダムに選ばれます。",
                     sortRank: 5,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "メッセージを追加",
+                        editLabel: "メッセージを編集",
+                        noneAddedText: "未登録"
                     }
                 },
                 top25Percent: {
                     type: "editable-list",
-                    title: "75-99% Victory",
+                    title: "75-99% 勝利",
                     default: [
-                        "A few went down as they exited the bank, but most of the team made it!"
+                        "数名が銀行出口で倒れたが、多くのメンバーが逃げ切った！"
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "ランダムに選ばれます。",
                     sortRank: 4,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "メッセージを追加",
+                        editLabel: "メッセージを編集",
+                        noneAddedText: "未登録"
                     }
                 },
                 mid50Percent: {
                     type: "editable-list",
-                    title: "25-74% Victory",
+                    title: "25-74% 勝利",
                     default: [
-                        "The security was tighter than expected and many were lost in the gunfire, but some made it out with cash."
+                        "警備が予想以上に固く多くのメンバーが倒れたが、一部は現金を持って逃げ切った。"
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "ランダムに選ばれます。",
                     sortRank: 3,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "メッセージを追加",
+                        editLabel: "メッセージを編集",
+                        noneAddedText: "未登録"
                     }
                 },
                 bottom25Percent: {
                     type: "editable-list",
-                    title: "1-24% Victory",
+                    title: "1-24% 勝利",
                     default: [
-                        "Just about everybody died, a lucky few made it to the boat with what cash was left..."
+                        "ほぼ全滅だった。数人が残った現金を持って逃げた..."
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "ランダムに選ばれます。",
                     sortRank: 2,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "メッセージを追加",
+                        editLabel: "メッセージを編集",
+                        noneAddedText: "未登録"
                     }
                 },
                 zeroPercent: {
                     type: "editable-list",
-                    title: "0% Victory",
+                    title: "0% 勝利",
                     default: [
-                        "Despite your best efforts, the entire team was lost..."
+                        "全力を尽くしたが、チーム全員が失われた..."
                     ],
-                    description: "One of these will be chosen at random.",
+                    description: "ランダムに選ばれます。",
                     sortRank: 1,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "メッセージを追加",
+                        editLabel: "メッセージを編集",
+                        noneAddedText: "未登録"
                     }
                 }
             }
         },
         soloOutcomeMessages: {
-            title: "Solo Outcome Messages",
+            title: "ソロ結果メッセージ",
             sortRank: 8,
             settings: {
                 soloSuccess: {
                     type: "editable-list",
-                    title: "Solo Success",
-                    description: "Sent when a heist is successful with a solo team (One message is chosen at random)",
+                    title: "ソロ成功",
+                    description: "ソロで強盗が成功したとき（ランダムに選ばれます）",
                     default: [
-                        "@{user} managed to complete the heist on their own and made out with a huge bag of money!"
+                        "@{user} は一人で強盗を成就、大金を手に入れた！"
                     ],
-                    tip: "Available variables: {user}",
+                    tip: "使用可能な変数: {user}",
                     sortRank: 1,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "メッセージを追加",
+                        editLabel: "メッセージを編集",
+                        noneAddedText: "未登録"
                     }
                 },
                 soloFail: {
                     type: "editable-list",
-                    title: "Solo Fail",
-                    description: "Sent when a heist fails with a solo team (One message is chosen at random)",
+                    title: "ソロ失敗",
+                    description: "ソロで強盗が失敗したとき（ランダムに選ばれます）",
                     default: [
-                        "Nothing went right for @{user} and they were apprehended!"
+                        "@{user} はすべてが裏目に出て、逆捕されてしまった！"
                     ],
-                    tip: "Available variables: {user}",
+                    tip: "使用可能な変数: {user}",
                     sortRank: 2,
                     settings: {
                         useTextArea: true,
                         sortable: false,
-                        addLabel: "New Message",
-                        editLabel: "Edit Message",
-                        noneAddedText: "None saved"
+                        addLabel: "メッセージを追加",
+                        editLabel: "メッセージを編集",
+                        noneAddedText: "未登録"
                     }
                 }
             }
         },
         chatSettings: {
-            title: "Chat Settings",
+            title: "チャット設定",
             sortRank: 9,
             settings: {
                 chatter: {
                     type: "chatter-select",
-                    title: "Chat As"
+                    title: "発言者"
                 }
             }
         }

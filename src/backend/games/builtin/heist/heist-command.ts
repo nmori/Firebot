@@ -57,7 +57,7 @@ const heistCommand: SystemCommand = {
         // make sure the currency still exists
         if (currency == null) {
             await TwitchApi.chat.sendChatMessage(
-                "Unable to start a Heist game as the selected currency appears to not exist anymore.",
+                "選択された通貨が存在しないため、強盗ゲームを開始できません。",
                 null,
                 sendAsBot
             );

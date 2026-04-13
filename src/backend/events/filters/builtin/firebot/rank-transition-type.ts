@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:rank-transition-type",
-    name: "Rank Transition Type",
-    description: "Filter to a given rank transition type (promotion or demotion)",
+    name: "ランク変動種別",
+    description: "指定したランク変動種別（昇格または降格）でフィルタ",
     events: [
         { eventSourceId: "firebot", eventId: "viewer-rank-updated" }
     ],
@@ -17,8 +17,8 @@ const filter = createPresetFilter({
         return "";
     },
     presetValues: () => [
-        { value: "Promotion", display: "Promotion" },
-        { value: "Demotion", display: "Demotion" }
+        { value: "Promotion", display: "昇格" },
+        { value: "Demotion", display: "降格" }
     ]
 });
 

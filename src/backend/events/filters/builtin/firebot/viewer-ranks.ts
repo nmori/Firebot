@@ -2,10 +2,38 @@ import { TwitchApi } from "../../../../streaming-platforms/twitch/api";
 import viewerDatabase from "../../../../viewers/viewer-database";
 import { EventFilter } from "../../../../../types/events";
 
+function normalizeViewerRankComparisonType(comparisonType?: string) {
+    const includeAliases = new Set([
+        "含む",
+        "を含む",
+        "include",
+        "including",
+        "contains"
+    ]);
+
+    const excludeAliases = new Set([
+        "含まない",
+        "を含まない",
+        "doesn't include",
+        "not including",
+        "doesn't contain"
+    ]);
+
+    if (includeAliases.has(comparisonType ?? "")) {
+        return "include";
+    }
+
+    if (excludeAliases.has(comparisonType ?? "")) {
+        return "doesn't include";
+    }
+
+    return comparisonType;
+}
+
 const filter: EventFilter = {
     id: "firebot:viewerranks",
-    name: "Viewer's Ranks",
-    description: "Filter to a given viewer rank",
+    name: "視聴者のランク",
+    description: "指定した視聴者ランクでフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "cheer" },
         { eventSourceId: "twitch", eventId: "subs-gifted" },
@@ -22,7 +50,7 @@ const filter: EventFilter = {
         { eventSourceId: "streamloots", eventId: "redemption" },
         { eventSourceId: "firebot", eventId: "view-time-update" }
     ],
-    comparisonTypes: ["include", "doesn't include"],
+    comparisonTypes: ["含む", "含まない"],
     valueType: "preset",
     presetValues: (viewerRanksService: any) => {
         return viewerRanksService
@@ -46,7 +74,7 @@ const filter: EventFilter = {
         const rank = ladder?.ranks.find(r => r.id === rankId);
 
         if (!ladder || !rank) {
-            return "Unknown";
+            return "不明";
         }
 
         return `${rank.name} (${ladder.name})`;
@@ -55,6 +83,7 @@ const filter: EventFilter = {
     predicate: async (filterSettings, eventData) => {
         const { comparisonType, value } = filterSettings;
         const { eventMeta } = eventData;
+        const normalizedComparisonType = normalizeViewerRankComparisonType(comparisonType);
 
         const username = eventMeta.username as string;
         let userId = eventMeta.userId as string;
@@ -78,7 +107,7 @@ const filter: EventFilter = {
 
             const hasRank = await viewerDatabase.viewerHasRankById(userId, ladderId, rankId);
 
-            switch (comparisonType) {
+            switch (normalizedComparisonType) {
                 case "include":
                     return hasRank;
                 case "doesn't include":

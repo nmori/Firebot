@@ -253,7 +253,7 @@ class CommandHandler {
         }
 
         if (userCmd.isInvalidSubcommandTrigger === true) {
-            await TwitchApi.chat.sendChatMessage(`Invalid Command: unknown arg used.`, null, true);
+            await TwitchApi.chat.sendChatMessage("無効なコマンドです。不明な引数が指定されました。", null, true);
             return result;
         }
 
@@ -267,7 +267,7 @@ class CommandHandler {
         const minArgs = triggeredSubcmd ? triggeredSubcmd.minArgs || 0 : command.minArgs || 0;
         if (userCmd.args.length < minArgs) {
             const usage = triggeredSubcmd ? triggeredSubcmd.usage : command.usage;
-            await TwitchApi.chat.sendChatMessage(`Invalid command. Usage: ${command.trigger} ${usage || ""}`, null, true);
+            await TwitchApi.chat.sendChatMessage(`無効なコマンドです。使い方: ${command.trigger} ${usage || ""}`, null, true);
             return result;
         }
 

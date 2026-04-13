@@ -25,21 +25,21 @@ const model: RestrictionType<{
 }> = {
     definition: {
         id: "firebot:permissions",
-        name: "Permissions",
-        description: "Restrict based on viewer roles or username.",
+        name: "権限",
+        description: "視聴者ロール、ランク、またはユーザー名に基づいて制限します。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div class="modal-subheader" style="padding: 0 0 4px 0">
-                Mode
+                モード
             </div>
             <div style="margin-bottom: 10px">
-                <label class="control-fb control--radio">Roles & Ranks <span class="muted"><br />Restrict access to select viewer roles & ranks</span>
+                <label class="control-fb control--radio">ロールとランク <span class="muted"><br />選択した視聴者ロールとランクのみに制限</span>
                     <input type="radio" ng-model="restriction.mode" value="roles"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >Single Viewer <span class="muted"><br />Restrict access to a single viewer name</span>
+                <label class="control-fb control--radio" >単一視聴者 <span class="muted"><br />単一の視聴者名のみに制限</span>
                     <input type="radio" ng-model="restriction.mode" value="viewer"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -47,11 +47,11 @@ const model: RestrictionType<{
 
             <div ng-if="restriction.mode === 'roles'">
                 <div id="roles" class="modal-subheader" style="padding: 0 0 4px 0">
-                    Roles
+                    ロール
                 </div>
                 <div class="viewer-group-list">
                     <div ng-show="hasCustomRoles" style="margin-bottom: 10px;">
-                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Custom</div>
+                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">カスタム</div>
                         <label ng-repeat="customRole in getCustomRoles()" class="control-fb control--checkbox">{{customRole.name}}
                             <input type="checkbox" ng-click="toggleRole(customRole)" ng-checked="isRoleChecked(customRole)"  aria-label="..." >
                             <div class="control__indicator"></div>
@@ -63,7 +63,7 @@ const model: RestrictionType<{
                         <div class="control__indicator"></div>
                     </label>
                     <div ng-show="getTeamRoles().length > 0" style="margin-bottom: 10px;">
-                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Teams</div>
+                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">チーム</div>
                         <label ng-repeat="teamRole in getTeamRoles()" class="control-fb control--checkbox">{{teamRole.name}}
                             <input type="checkbox" ng-click="toggleRole(teamRole)" ng-checked="isRoleChecked(teamRole)"  aria-label="..." >
                             <div class="control__indicator"></div>
@@ -72,7 +72,7 @@ const model: RestrictionType<{
                 </div>
 
                 <div id="roles" class="modal-subheader mt-4" style="padding: 0 0 4px 0">
-                    Ranks
+                    ランク
                 </div>
                 <div class="viewer-group-list">
                     <div ng-show="hasRankLadders" style="margin-bottom: 10px;" ng-repeat="ladder in rankLadders">
@@ -83,16 +83,16 @@ const model: RestrictionType<{
                         </label>
                     </div>
                     <div ng-if="!hasRankLadders" style="margin-bottom: 10px;">
-                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">No ranks saved.</div>
+                        <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">保存済みランクはありません。</div>
                     </div>
                 </div>
             </div>
 
             <div ng-if="restriction.mode === 'viewer'">
                 <div id="username" class="modal-subheader" style="padding: 0 0 4px 0">
-                    Username
+                    ユーザー名
                 </div>
-                <input type="text" class="form-control" aria-describedby="username" ng-model="restriction.username" placeholder="Enter name">
+                <input type="text" class="form-control" aria-describedby="username" ng-model="restriction.username" placeholder="名前を入力">
             </div>
         </div>
     `,
@@ -144,17 +144,17 @@ const model: RestrictionType<{
     optionsValueDisplay: (restriction, viewerRolesService, viewerRanksService) => {
         if (restriction.mode === "roles") {
             const roleIds = restriction.roleIds;
-            let rolesOutput = "None selected";
+            let rolesOutput = "未選択";
             if (roleIds.length > 0) {
                 rolesOutput = roleIds
                     .filter(id => viewerRolesService.getRoleById(id) != null)
                     .map(id => viewerRolesService.getRoleById(id).name)
                     .join(", ");
             }
-            const rolesDisplay = `Roles (${rolesOutput})`;
+            const rolesDisplay = `ロール（${rolesOutput}）`;
 
             const ranks = restriction.ranks ?? [];
-            let ranksOutput = "None selected";
+            let ranksOutput = "未選択";
             if (ranks.length > 0) {
                 const groupedByLadder = ranks.reduce((acc, r) => {
                     if (!acc.some(l => l.ladderId === r.ladderId)) {
@@ -176,18 +176,18 @@ const model: RestrictionType<{
                     })
                     .join(", ");
             }
-            const ranksDisplay = `Ranks (${ranksOutput})`;
+            const ranksDisplay = `ランク（${ranksOutput}）`;
 
             const itemsToDisplay = [];
-            if (rolesOutput !== "None selected") {
+            if (rolesOutput !== "未選択") {
                 itemsToDisplay.push(rolesDisplay);
             }
-            if (ranksOutput !== "None selected") {
+            if (ranksOutput !== "未選択") {
                 itemsToDisplay.push(ranksDisplay);
             }
-            return itemsToDisplay.length > 0 ? itemsToDisplay.join(", ") : "Roles/Ranks (None selected)";
+            return itemsToDisplay.length > 0 ? itemsToDisplay.join(", ") : "ロール/ランク（未選択）";
         } else if (restriction.mode === "viewer") {
-            return `Viewer (${restriction.username ? restriction.username : 'No name'})`;
+            return `視聴者（${restriction.username ? restriction.username : '名前なし'}）`;
         }
         return "";
     },
@@ -201,7 +201,7 @@ const model: RestrictionType<{
                     const user = await TwitchApi.users.getUserByName(username);
 
                     if (user == null) {
-                        reject("User does not exist");
+                        reject("ユーザーが存在しません");
                     }
 
                     userId = user.id;
@@ -258,14 +258,14 @@ const model: RestrictionType<{
                 if (hasARole || hasARank) {
                     resolve(true);
                 } else {
-                    reject("You do not have permission");
+                    reject("権限がありません");
                 }
             } else if (restrictionData.mode === "viewer") {
                 const username = (triggerData.metadata.username || "").toLowerCase();
                 if (username === restrictionData.username.toLowerCase()) {
                     resolve(true);
                 } else {
-                    reject("You do not have permission");
+                    reject("権限がありません");
                 }
             } else {
                 resolve(true);

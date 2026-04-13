@@ -3,8 +3,8 @@ import { EventFilter } from "../../../../../types/events";
 
 const filter: EventFilter = {
     id: "firebot:triggered-command",
-    name: "Triggered Command",
-    description: "Filter by whether or not the chat message triggered a command",
+    name: "コマンド発火",
+    description: "チャットメッセージがコマンドを発火したかどうかでフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "chat-message" },
         { eventSourceId: "twitch", eventId: "action" }
@@ -15,11 +15,11 @@ const filter: EventFilter = {
         return [
             {
                 value: "true",
-                display: "True"
+                display: "はい"
             },
             {
                 value: "false",
-                display: "False"
+                display: "いいえ"
             }
         ];
     },

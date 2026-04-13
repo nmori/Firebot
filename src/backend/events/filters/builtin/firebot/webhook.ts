@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "firebot:webhook",
-    name: "Webhook",
-    description: "Filter to a Webhook",
+    name: "ウェブフック",
+    description: "指定したウェブフックでフィルタ",
     events: [
         { eventSourceId: "firebot", eventId: "webhook-received" }
     ],

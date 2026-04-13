@@ -9,10 +9,10 @@ export const UptimeSystemCommand: SystemCommand<{
 }> = {
     definition: {
         id: "firebot:uptime",
-        name: "Uptime",
+        name: "配信時間",
         active: true,
         trigger: "!uptime",
-        description: "Displays how long the stream has been live in chat.",
+        description: "配信が始まってからの経過時間をチャットに表示します。",
         autoDeleteTrigger: false,
         scanWholeMessage: false,
         cooldown: {
@@ -22,10 +22,10 @@ export const UptimeSystemCommand: SystemCommand<{
         options: {
             uptimeDisplayTemplate: {
                 type: "string",
-                title: "Output Template",
-                description: "How the uptime message is formatted",
-                tip: "Variables: {uptime}",
-                default: `Broadcasting time: {uptime}`,
+                title: "出力テンプレート",
+                description: "配信時間メッセージの表示形式",
+                tip: "変数: {uptime}",
+                default: `配信時間: {uptime}`,
                 useTextArea: true
             }
         }

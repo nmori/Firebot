@@ -86,7 +86,7 @@ const model: RestrictionType<{
             }
 
             if (currentViewers) {
-                return reject(`Can't determine the current number of viewers.`);
+                return reject(`現在の視聴者数を判定できません。`);
             }
 
             const comparison = restrictionData.comparison;

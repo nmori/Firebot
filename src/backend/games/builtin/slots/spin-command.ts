@@ -180,7 +180,7 @@ const spinCommand: SystemCommand = {
             await currencyManager.adjustCurrencyForViewerById(user.id, currencyId, 0 - Math.abs(wagerAmount));
         } catch (error) {
             logger.error(error);
-            await TwitchApi.chat.sendChatMessage(`Sorry ${user.displayName}, there was an error deducting currency from your balance so the spin has been canceled.`, null, sendAsBot);
+            await TwitchApi.chat.sendChatMessage(`${user.displayName}、残高から通貨を差し引く際にエラーが発生したため、スピンはキャンセルされました。`, null, sendAsBot);
             activeSpinners.del(username);
             return;
         }

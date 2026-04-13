@@ -2,8 +2,8 @@ import { createTextFilter } from "../../filter-factory";
 
 const filter = createTextFilter({
     id: "firebot:message-text",
-    name: "Message Text",
-    description: "Filter based on chat message text",
+    name: "メッセージ本文",
+    description: "チャットメッセージ本文でフィルタ",
     eventMetaKey: "messageText",
     events: [
         { eventSourceId: "twitch", eventId: "chat-message" },

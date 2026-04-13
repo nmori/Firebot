@@ -6,14 +6,14 @@ import { ActiveUserHandler } from "../../chat/active-user-handler";
 const model: RestrictionType<never> = {
     definition: {
         id: "firebot:activeChatUsers",
-        name: "Active Chat Users",
-        description: "Restricts to only active chat users.",
+        name: "アクティブチャットユーザー",
+        description: "最近チャットしたアクティブユーザーのみに制限します。",
         triggers: []
     },
     optionsTemplate: `
         <div>
             <div>
-                <p>Limits to only active chat users (someone who has chatted recently)</p>
+                <p>最近チャットしたアクティブユーザーのみに制限します。</p>
             </div>
         </div>
     `,
@@ -24,7 +24,7 @@ const model: RestrictionType<never> = {
             if (ActiveUserHandler.userIsActive(username)) {
                 resolve(true);
             } else {
-                reject("You haven't sent a chat message recently");
+                reject("最近チャットメッセージを送信していません");
             }
         });
     }
