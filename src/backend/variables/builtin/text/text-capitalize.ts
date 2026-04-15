@@ -3,16 +3,16 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "capitalize",
-        description: "Capitalizes the first letter of the given text, converting the rest into lowercase",
+        description: "先頭文字を大文字にし、残りを小文字に変換します。",
         usage: "capitalize[text]",
         examples: [
             {
                 usage: `capitalize["hello world"]`,
-                description: `Returns "Hello world".`
+                description: `"Hello world" を返します。`
             },
             {
                 usage: `capitalize["HELLO WORLD"]`,
-                description: `Returns "Hello world".`
+                description: `"Hello world" を返します。`
             }
         ],
         categories: ["text"],

@@ -12,6 +12,7 @@ interface EffectScope<EffectModel> extends ng.IScope {
 export type EffectCategory =
     | "common"
     | "twitch"
+    | "jp original"
     | "moderation"
     | "chat based"
     | "dashboard"

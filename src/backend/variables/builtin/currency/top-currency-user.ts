@@ -6,7 +6,7 @@ import currencyManager from "../../../currency/currency-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "topCurrencyUser",
-        description: "Get the username or amount for a specific position in the top currency",
+        description: "通貨ランキングの特定順位のユーザー名または金額を取得します。",
         usage: "topCurrencyUser[currencyName, position, username/amount]",
         categories: ["user based", "advanced"],
         possibleDataOutput: ["text", "number"]

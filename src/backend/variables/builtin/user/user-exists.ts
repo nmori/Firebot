@@ -6,7 +6,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "userExists",
         usage: "userExists[username]",
-        description: "Outputs 'true' if a user exists in Firebot's database, 'false' if not",
+        description: "Firebot のデータベースにユーザーが存在する場偂は 'true' 、存在しない場偂は 'false' を返します。",
         categories: ["advanced"],
         possibleDataOutput: ["text", "bool"]
     },

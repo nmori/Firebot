@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "scrambleText",
         usage: "scrambleText[text]",
-        description: "Scrambles the input text",
+        description: "入力テキストをランダムにシャッフルします。",
         categories: ["text"],
         possibleDataOutput: ["text"]
     },

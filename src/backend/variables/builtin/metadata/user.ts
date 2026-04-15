@@ -11,7 +11,7 @@ triggers["channel_reward"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "user",
-        description: "The associated user (if there is one) for the given trigger",
+        description: "トリガーに関連付けられたユーザー名を返します（存在する場合）。",
         triggers: triggers,
         categories: ["trigger based", "common", "user based"],
         possibleDataOutput: ["text"]

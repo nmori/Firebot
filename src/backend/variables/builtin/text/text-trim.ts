@@ -4,7 +4,7 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "trim",
-        description: "Removes any whitespace from the beginning and end of input text.",
+        description: "入力テキストの先頭と末尾の空白を除去します。",
         usage: "trim[text]",
         categories: ["text"],
         possibleDataOutput: ["text"]

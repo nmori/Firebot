@@ -27,8 +27,8 @@ export const counterDisplay: OverlayWidgetType<Settings, State> = {
     settingsSchema: [
         {
             name: "counterId",
-            title: "Counter",
-            description: "The counter to display the value of. Make sure to set up a counter in the Counters tab if you haven't already.",
+            title: "カウンター",
+            description: "値を表示するカウンターを選択します。まだカウンターを設定していない場合は、カウンタータブで設定してください。",
             type: "counter-select",
             validation: {
                 required: true
@@ -36,8 +36,8 @@ export const counterDisplay: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "counterFontOptions",
-            title: "Counter Font Options",
-            description: "Font options for the counter number value.",
+            title: "カウンタフォント設定",
+            description: "カウンター数値のフォント設定です。",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -51,15 +51,15 @@ export const counterDisplay: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "showCounterName",
-            title: "Show Counter Name",
-            description: "Whether to show the name of the counter above the value.",
+            title: "カウンター名を表示",
+            description: "カウンター値の上にカウンター名を表示するかどうかです。",
             type: "boolean",
             default: true
         },
         {
             name: "nameFontOptions",
-            title: "Counter Name Font Options",
-            description: "Font options for the counter name, if shown.",
+            title: "カウンター名フォント設定",
+            description: "カウンター名（表示する場合）のフォント設定です。",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -73,13 +73,13 @@ export const counterDisplay: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "textAlignment",
-            title: "Text Alignment",
-            description: "Alignment of the counter text within the widget area.",
+            title: "テキスト揃え",
+            description: "ウィジェット内のカウンタテキストの揃えです。",
             type: "radio-cards",
             options: [
-                { value: "left", label: "Left", iconClass: "fa-align-left" },
-                { value: "center", label: "Center", iconClass: "fa-align-center" },
-                { value: "right", label: "Right", iconClass: "fa-align-right" }
+                { value: "left", label: "左", iconClass: "fa-align-left" },
+                { value: "center", label: "中央", iconClass: "fa-align-center" },
+                { value: "right", label: "右", iconClass: "fa-align-right" }
             ],
             settings: {
                 gridColumns: 3

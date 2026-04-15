@@ -19,7 +19,7 @@ const effect: EffectType<{
             <p class="muted">Enter the name of the event you'd like to send.</p>
             <firebot-input
                 model="effect.eventName"
-                placeholder-text="Enter event name"
+                placeholder-text="イベント名を入力"
                 menu-position="under"
             />
             <p class="help-block">It will be sent as: <code>custom-event:{{effect.eventName || 'eventname'}}</code></p>

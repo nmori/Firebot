@@ -1,9 +1,13 @@
-"use strict";
+import { randomUUID } from "node:crypto";
+import type { EffectType } from "../../../types/effects";
+import { EffectCategory } from "../../../shared/effect-constants";
+import logger from "../../logwrapper";
 
-const logger = require("../../logwrapper");
-const { EffectCategory } = require("../../../shared/effect-constants");
-
-const effect = {
+const model: EffectType<{
+    message: string;
+    port: number;
+    username: string;
+}> = {
     definition: {
         id: "firebot:send-vrchat",
         name: "ゆかコネNEO経由でVRChatへチャット送信",
@@ -12,7 +16,6 @@ const effect = {
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
-    globalSettings: {},
     optionsTemplate: `
         <eos-container header="メッセージ" pad-top="true">
             <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージの入力" rows="4" cols="40" replace-variables></textarea>
@@ -34,35 +37,29 @@ const effect = {
                 />
                 <p class="help-block">ゆかりネットコネクターNEO v2.1～の翻訳/発話連携プラグインと読み上げ連携プラグインが必要です。</p>
             </div>
-
-            <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
         </eos-container>
     `,
-    optionsController: async ($scope) => {
+    optionsController: ($scope) => {
         if ($scope.effect.port == null) {
             $scope.effect.port = 8080;
         }
     },
     optionsValidator: (effect) => {
-        const errors = [];
-
-        if (effect.port == null || effect.port === "") {
+        const errors: string[] = [];
+        if (effect.port == null) {
             errors.push("ポート番号を指定してください");
         }
-
         return errors;
     },
     onTriggerEvent: async (event) => {
         const { effect } = event;
 
         try {
-            const crypto = require("crypto");
-
             const voiceQuery = {
                 operation: "chat",
                 params: [
                     {
-                        id: crypto.randomUUID(),
+                        id: randomUUID(),
                         text: effect.message,
                         talker: effect.username,
                         target: ["vrchat"]
@@ -76,11 +73,11 @@ const effect = {
                 body: JSON.stringify(voiceQuery)
             });
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
 
         return true;
     }
 };
 
-module.exports = effect;
+export = model;

@@ -2,7 +2,7 @@ import { createEventDataVariable } from "../../variable-factory";
 
 export default createEventDataVariable({
     handle: "webhookRawPayload",
-    description: "The raw payload of the webhook",
+    description: "Webhook の生のペイロード（テキスト）を返します。",
     events: ["firebot:webhook-received"],
     type: "text",
     eventMetaKey: "webhookRawPayload"

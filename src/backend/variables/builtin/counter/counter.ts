@@ -5,7 +5,7 @@ const model: ReplaceVariable = {
     definition: {
         handle: "counter",
         usage: "counter[name]",
-        description: "Displays the value of the given counter.",
+        description: "指定したカウンターの値を表示します。",
         categories: ["numbers"],
         possibleDataOutput: ["number"]
     },

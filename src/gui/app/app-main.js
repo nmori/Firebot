@@ -245,6 +245,7 @@
         dynamicParameterRegistry.register("currency-select", { tag: "fb-param-currency-select" });
         dynamicParameterRegistry.register("chatter-select", { tag: "fb-param-chatter-select" });
         dynamicParameterRegistry.register("editable-list", { tag: "fb-param-editable-list" });
+        dynamicParameterRegistry.register("fukubiki-prize-list", { tag: "fb-param-fukubiki-prize-list", hideTitle: true, hideDescription: true });
         dynamicParameterRegistry.register("multiselect", { tag: "fb-param-multiselect" });
         dynamicParameterRegistry.register("discord-channel-webhooks", { tag: "fb-param-discord-channel-webhooks" });
         dynamicParameterRegistry.register("gift-receivers-list", { tag: "fb-param-gift-receivers-list" });

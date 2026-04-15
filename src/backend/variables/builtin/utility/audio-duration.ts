@@ -5,15 +5,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "audioDuration",
         usage: "audioDuration[filePathOrUrl]",
-        description: "Attempts to retrieve audio duration.",
+        description: "オーディオの再生時間を取得しようとします。",
         examples: [
             {
                 usage: `audioDuration["path/to/audio.mp3"]`,
-                description: "Returns the duration of the audio file in seconds."
+                description: "オーディオファイルの再生時間を秒単位で返します。"
             },
             {
                 usage: `audioDuration["https://example.com/audio.mp3"]`,
-                description: "Returns the duration of the audio file from a URL in seconds."
+                description: "URL のオーディオファイルの再生時間を秒単位で返します。"
             }
         ],
         categories: ["advanced"],

@@ -20,57 +20,57 @@ const divide = (nom: number, dom: number) => [Math.trunc(nom / dom), nom % dom];
 const model : ReplaceVariable = {
     definition: {
         handle: 'formatDuration',
-        description: 'Formats an input number of seconds into a human-readable duration',
+        description: '入力した秒数を人間が読みやすい時間形式にフォーマットします。',
         usage: 'formatDuration[seconds]',
         examples: [
             {
                 usage: 'formatDuration[61, raw]',
-                description: 'Returns an array containing the number of years, weeks, days, hours, minutes and seconds in that order for the duration'
+                description: '年・週・日・時・分・秒の順に数値を含む配列を返します。'
             }, {
                 usage: 'formatDuration[61, long]',
-                description: 'Returns the duration in the long format, omitting 0-based values: 1 minute and 1 second'
+                description: '0 の値を省略した long 形式で返します: 1 minute and 1 second'
             }, {
                 usage: 'formatDuration[61, long, true]',
-                description: 'Returns the duration in the long format, omitting 0-based values: 1 minute and 1 second'
+                description: '0 の値を省略した long 形式で返します: 1 minute and 1 second'
             }, {
                 usage: 'formatDuration[61, long, false]',
-                description: 'Returns the duration in the long format: 0 years, 0 weeks, 0 days, 0 hours, 1 minute and 1 second'
+                description: 'すべての値を含む long 形式で返します: 0 years, 0 weeks, 0 days, 0 hours, 1 minute and 1 second'
             }, {
                 usage: 'formatDuration[61, colon]',
-                description: 'Returns the duration in the colon format, omitting leading 0-based values: 1:1'
+                description: '先頭の 0 を省略したコロン形式で返します: 1:1'
             }, {
                 usage: 'formatDuration[61, colon, true]',
-                description: 'Returns the duration in the colon format, omitting leading 0-based values: 1:1'
+                description: '先頭の 0 を省略したコロン形式で返します: 1:1'
             }, {
                 usage: 'formatDuration[61, colon, false]',
-                description: 'Returns the duration in the colon format: 0:0:0:0:1:1'
+                description: 'すべての値を含むコロン形式で返します: 0:0:0:0:1:1'
             }, {
                 usage: 'formatDuration[61, colon-alt]',
-                description: 'Returns the duration in the colon with padding format, omitting leading 0-based values: 01:01'
+                description: '先頭の 0 を省略したゼロ埋めコロン形式で返します: 01:01'
             }, {
                 usage: 'formatDuration[61, colon-alt, true]',
-                description: 'Returns the duration in the colon with padding format, omitting leading 0-based values: 01:01'
+                description: '先頭の 0 を省略したゼロ埋めコロン形式で返します: 01:01'
             }, {
                 usage: 'formatDuration[61, colon-alt, false]',
-                description: 'Returns the duration in the colon with padding format: 00:00:00:00:01:01'
+                description: 'すべての値を含むゼロ埋めコロン形式で返します: 00:00:00:00:01:01'
             }, {
                 usage: 'formatDuration[61, short]',
-                description: 'Returns the duration in the short format, omitting 0-based values: 1min 1sec'
+                description: '0 の値を省略した short 形式で返します: 1min 1sec'
             }, {
                 usage: 'formatDuration[61, short, true]',
-                description: 'Returns the duration in the short format, omitting 0-based values: 1min 1sec'
+                description: '0 の値を省略した short 形式で返します: 1min 1sec'
             }, {
                 usage: 'formatDuration[61, short, false]',
-                description: 'Returns the duration in the short format: 0yrs 0wks 0days 0hrs 1min 1sec'
+                description: 'すべての値を含む short 形式で返します: 0yrs 0wks 0days 0hrs 1min 1sec'
             }, {
                 usage: 'formatDuration[61, short-alt]',
-                description: 'Returns the duration in the short with spaces format, omitting 0-based values: 1 min 1 sec'
+                description: '0 の値を省略したスペース付き short 形式で返します: 1 min 1 sec'
             }, {
                 usage: 'formatDuration[61, short-alt, true]',
-                description: 'Returns the duration in the short with spaces format, omitting 0-based values: 1 min 1 sec'
+                description: '0 の値を省略したスペース付き short 形式で返します: 1 min 1 sec'
             }, {
                 usage: 'formatDuration[61, short-alt, false]',
-                description: 'Returns the duration in the short with spaces format: 0 yrs 0 wks 0 days 0 hrs 1 min 1 sec'
+                description: 'すべての値を含むスペース付き short 形式で返します: 0 yrs 0 wks 0 days 0 hrs 1 min 1 sec'
             }
         ],
         categories: ["numbers"],

@@ -5,15 +5,15 @@ import viewerMetadataManager from "../../../viewers/viewer-metadata-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "topMetadataUser",
-        description: "Get the username or amount for a specific position in the top metadata list",
+        description: "メタデータランキングの特定順位のユーザー名または値を取得します。",
         examples: [
             {
                 usage: "topMetadataUser[slaps, 1, username]",
-                description: "Get the username for the top slapper"
+                description: "スラップ数1位のユーザー名を取得します。"
             },
             {
                 usage: "topMetadataUser[slaps, 5, amount]",
-                description: "Get the number of slaps for the top 5th slapper"
+                description: "5位のユーザーのスラップ数を取得します。"
             }
         ],
         usage: "topMetadataUser[metadataKey, position, username/amount]",

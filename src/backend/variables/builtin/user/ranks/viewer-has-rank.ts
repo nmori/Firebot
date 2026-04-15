@@ -7,7 +7,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "viewerHasRank",
         usage: "viewerHasRank[username, rankLadderName, rankName]",
-        description: "Whether the viewer has the specified rank in the specified rank ladder",
+        description: "視聴者が指定ランクラダーの指定ランクを保持しているかどうかを返します。",
         categories: ["common", "user based"],
         possibleDataOutput: ["bool"]
     },

@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "evalVars",
         usage: "evalVars[text]",
-        description: "Evaluate $variables in a string of text. Useful for evaluating text $vars from an external source (ie a txt file or API)",
+        description: "テキスト内の $変数 を評価します。テキストファイルや API などの外部ソースから取得したテキスト内の変数を評価する際に便利です。",
         categories: ["advanced"],
         possibleDataOutput: ["text"]
     },

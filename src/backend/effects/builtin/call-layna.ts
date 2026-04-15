@@ -1,9 +1,19 @@
-"use strict";
+import type { EffectType } from "../../../types/effects";
+import { EffectCategory } from "../../../shared/effect-constants";
+import logger from "../../logwrapper";
 
-const logger = require("../../logwrapper");
-const { EffectCategory } = require("../../../shared/effect-constants");
+type ActionItem = {
+    id: string;
+    name: string;
+};
 
-const effect = {
+const model: EffectType<{
+    actionItem: ActionItem;
+    actionList: ActionItem[];
+    name: string;
+    message: string;
+    port: number;
+}> = {
     definition: {
         id: "firebot:call-layna",
         name: "まるっとれいなにトリガーを出す",
@@ -12,7 +22,6 @@ const effect = {
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
-    globalSettings: {},
     optionsTemplate: `
         <eos-container header="カスタムアクション">
             <div class="btn-group">
@@ -31,6 +40,7 @@ const effect = {
         <eos-container header="名前" pad-top="true">
             <textarea ng-model="effect.name" class="form-control" name="text" placeholder="入力" rows="4" cols="40" replace-variables></textarea>
         </eos-container>
+
         <eos-container header="チャット文" pad-top="true">
             <textarea ng-model="effect.message" class="form-control" name="text" placeholder="入力" rows="4" cols="40" replace-variables></textarea>
         </eos-container>
@@ -51,8 +61,6 @@ const effect = {
                 />
                 <p class="help-block">まるっとれいな v1.0.28～が必要です。</p>
             </div>
-
-            <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
         </eos-container>
     `,
     optionsController: async ($scope) => {
@@ -66,23 +74,19 @@ const effect = {
             const response = await fetch(`http://127.0.0.1:${$scope.effect.port}/get-actions`, {
                 method: "GET"
             });
-
-            const responseData = JSON.parse(await response.text());
-
+            const responseData: Array<{ id: string; Title: string }> = JSON.parse(await response.text());
             for (const actionItem of responseData) {
                 $scope.effect.actionList.push({ id: actionItem.id, name: actionItem.Title });
             }
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
     },
     optionsValidator: (effect) => {
-        const errors = [];
-
-        if (effect.port == null || effect.port === "") {
+        const errors: string[] = [];
+        if (effect.port == null) {
             errors.push("ポート番号を指定してください");
         }
-
         return errors;
     },
     onTriggerEvent: async (event) => {
@@ -94,11 +98,11 @@ const effect = {
                 { method: "GET" }
             );
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
 
         return true;
     }
 };
 
-module.exports = effect;
+export = model;

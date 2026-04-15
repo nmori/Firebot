@@ -15,12 +15,12 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "target",
-        description: "Similar to the $arg variable but strips out any leading '@' symbols. Useful when the argument is expected to be a username.",
+        description: "$arg 変数に似ていますが、先頭の '@' 記号を自動的に取り除きます。引数がユーザー名として想定される場合に便利です。",
         usage: "target",
         examples: [
             {
                 usage: "target[#]",
-                description: "Grab the target at the given index (IE with '!command @ebiggz @TheLastMage', $target[2] would be 'TheLastMage')"
+                description: "指定したインデックスのターゲットを取得します（例: '!command @ebiggz @TheLastMage' に対して $target[2] は 'TheLastMage' を返します）"
             }
         ],
         triggers: triggers,

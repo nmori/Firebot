@@ -11,7 +11,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "scanWholeMessage",
-        description: "Returns `true` if the command has the **Scan Whole Message** option enabled, or `false` otherwise.",
+        description: "コマンドの **メッセージ全体をスキャン** オプションが有効な場合は `true`、無効な場合は `false` を返します。",
         triggers: triggers,
         categories: ["trigger based"],
         possibleDataOutput: ["bool"]

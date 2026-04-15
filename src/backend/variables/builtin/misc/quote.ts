@@ -10,11 +10,11 @@ import logger from "../../../logwrapper";
 const model : ReplaceVariable = {
     definition: {
         handle: "quote",
-        description: "Get a random quote",
+        description: "ランダムな引用を取得します。",
         examples: [
             {
                 usage: "quote[#]",
-                description: "Get a specific quote id."
+                description: "指定した ID の引用を取得します。"
             }
         ],
         categories: ["text"],

@@ -16,10 +16,10 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "userBadgeUrls[1]",
-                description: "Get the URL of a chatter's selected badge image."
+                description: "チャッターのバッジ画像 URL を取得します。"
             }
         ],
-        description: "Outputs the URLs of a chatter's selected badge images from the associated command or event.",
+        description: "チャットのコマンドまたはイベントからチャッターのバッジ画像 URL 一覧を返します。",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["text"]

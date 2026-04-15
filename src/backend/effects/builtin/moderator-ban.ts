@@ -41,8 +41,8 @@ const effect: EffectType<{
 
         <eos-container header="Reason" pad-top="true" ng-show="effect.action === 'Ban'">
             <firebot-input
-                input-title="Reason"
-                placeholder-text="Banned by Firebot"
+                input-title="理由"
+                placeholder-text="Firebot によって BAN"
                 model="effect.reason"
             />
         </eos-container>

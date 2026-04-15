@@ -7,35 +7,35 @@ const model : ReplaceVariable = {
     definition: {
         handle: "userRoles",
         usage: "userRoles[username, all|twitch|team|firebot|custom]",
-        description: "Returns an array containing all roles of the user",
+        description: "ユーザーの全ロールを含む配列を返します。",
         examples: [
             {
                 usage: "userRoles",
-                description: "Returns all roles for the user"
+                description: "現在のユーザーの全ロールを返します。"
             },
             {
                 usage: "userRoles[$user]",
-                description: "Returns all roles of the specified user"
+                description: "指定したユーザーの全ロールを返します。"
             },
             {
                 usage: "userRoles[$user, all]",
-                description: "Returns all roles of the specified user as nested arrays in the order of: twitch, team, firebot and custom"
+                description: "指定したユーザーの全ロールをネストした配列（twitch、team、firebot、custom の順）で返します。"
             },
             {
                 usage: "userRoles[$user, firebot]",
-                description: "Returns all firebot roles of the specified user"
+                description: "指定したユーザーの Firebot ロールを返します。"
             },
             {
                 usage: "userRoles[$user, custom]",
-                description: "Returns all custom roles of the specified user"
+                description: "指定したユーザーのカスタムロールを返します。"
             },
             {
                 usage: "userRoles[$user, twitch]",
-                description: "Returns all Twitch roles of the specified user"
+                description: "指定したユーザーの Twitch ロールを返します。"
             },
             {
                 usage: "userRoles[$user, team]",
-                description: "Returns all Twitch team roles of the specified user"
+                description: "指定したユーザーの Twitch チームロールを返します。"
             }
         ],
         categories: ["common", "user based"],

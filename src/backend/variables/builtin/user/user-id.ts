@@ -8,13 +8,13 @@ const model : ReplaceVariable = {
     definition: {
         handle: "userId",
         usage: "userId",
-        description: "Gets the user ID of the associated user (if there is one) for the given trigger.",
+        description: "トリガーに関連するユーザーの ID を取得します。",
         categories: ["user based"],
         possibleDataOutput: ["text"],
         examples: [
             {
                 usage: "userId[username]",
-                description: "The user ID for the given username. Searches local viewer DB first, then Twitch API."
+                description: "指定したユーザー名の ID を返します。まずビューアー DB、次に Twitch API を検索します。"
             }
         ]
     },

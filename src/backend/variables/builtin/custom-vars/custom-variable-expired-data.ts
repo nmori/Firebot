@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "expiredCustomVariableData",
-        description: "Data from the expired custom variable.",
+        description: "期限切れになったカスタム変数のデータを返します。",
         triggers: triggers,
         categories: ["trigger based", "common"],
         possibleDataOutput: ["text"]

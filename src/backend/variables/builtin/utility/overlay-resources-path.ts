@@ -6,11 +6,11 @@ const model : ReplaceVariable = {
     definition: {
         handle: "overlayResourcesPath",
         usage: "overlayResourcesPath",
-        description: "Evaluate the full path to the overlay-resources folder as a text string. Useful for for when images/sounds/videos are stored in the overlay-resources folder.",
+        description: "overlay-resources フォルダへの絶対パスを文字列で返します。画像・音声・動画を overlay-resources フォルダに保存している場合に便利です。",
         examples: [
             {
                 usage: "overlayResourcesPath[sub, dir, path, image.gif]",
-                description: "Gets the full path to the `/sub/dir/path/image.gif` in the overlay-resources folder as a text string."
+                description: "overlay-resources フォルダ内の `/sub/dir/path/image.gif` への絶対パスを文字列で返します。"
             }
         ],
         categories: ["advanced"],

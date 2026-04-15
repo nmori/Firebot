@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "math",
         usage: "math[expression]",
-        description: 'Evaluate a math equation using <a href="https://mathjs.org/docs/index.html">math.js</a>',
+        description: '<a href="https://mathjs.org/docs/index.html">math.js</a> を使って数式を計算します。',
         examples: [
             {
                 usage: "math[2 + 2]",
-                description: `Returns 4`
+                description: `4 を返します`
             },
             {
                 usage: "math[5 * (3 + 2)]",
-                description: `Returns 25`
+                description: `25 を返します`
             }
         ],
         categories: ["common", "numbers"],

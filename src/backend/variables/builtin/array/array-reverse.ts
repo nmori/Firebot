@@ -3,16 +3,16 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "arrayReverse",
-        description: "Returns a new reversed array",
+        description: "逆順にした新しい配列を返します。",
         usage: "arrayReverse[array]",
         examples: [
             {
                 usage: `arrayReverse["[1,2,3]"]`,
-                description: "Returns [3,2,1]."
+                description: "[3,2,1] を返します。"
             },
             {
                 usage: "arrayReverse[rawArray]",
-                description: "Returns the reversed raw array."
+                description: "生配列を逆順にして返します。"
             }
         ],
         categories: ["advanced"],

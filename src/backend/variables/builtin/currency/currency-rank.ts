@@ -6,7 +6,7 @@ import currencyManager from "../../../currency/currency-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "currencyRank",
-        description: "Returns the rank of the current user based on how much of the given currency they have.",
+        description: "指定した通貨の保持量に基づく現在のユーザーのランクを返します。",
         usage: "currencyRank[currencyName]",
         hasSuggestions: true,
         noSuggestionsText: "No currencies have been created yet.",

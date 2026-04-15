@@ -6,7 +6,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "fileLineCount",
         usage: "fileLineCount[\"path/to/file.txt\"]",
-        description: "Count the number of lines in a text file.",
+        description: "テキストファイルの行数を返します。",
         categories: ["numbers"],
         possibleDataOutput: ["number"]
     },

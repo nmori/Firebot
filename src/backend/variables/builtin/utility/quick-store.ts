@@ -4,14 +4,14 @@ const model : ReplaceVariable = {
     definition: {
         handle: "quickStore",
         usage: "quickStore[key]",
-        description: "Retrieves or stores a value until the expression has finished evaluation",
+        description: "式の評価が完了するまでの間、値を一時的に保存・取得します。",
         examples: [
             {
                 usage: 'quickStore[name, value]',
-                description: 'Stores "value" under the key "name"'
+                description: '"value" を "name" というキーで保存します。'
             }, {
                 usage: 'quickStore[name]',
-                description: 'Retrieves the value of what was stored under the key of "name"'
+                description: '"name" というキーで保存した値を取得します。'
 
             }
         ],

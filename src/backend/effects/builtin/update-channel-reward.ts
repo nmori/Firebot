@@ -73,16 +73,16 @@ const effect: EffectType<EffectMeta> = {
         <eos-container ng-if="effect.rewardSelectMode == 'custom'" header="Channel Reward Name/ID">
             <firebot-input placeholder="Channel Reward Name/ID" model="effect.customId" menu-position="under" />
             <div class="effect-info alert alert-warning">
-                NOTE: Firebot can only update channel rewards that were originally created in Firebot.
+                NOTE: Firebot で作成したチャンネルリワードのみ更新できます。
             </div>
         </eos-container>
 
         <eos-container ng-show="showRewardSettings()" header="Reward Settings" pad-top="true">
 
             <firebot-checkbox
-                label="Update Enabled"
+                label="有効化の更新"
                 model="effect.rewardSettings.enabled.update"
-                aria-label="Toggle enabled"
+                aria-label="有効化の切り替え"
             />
             <div ng-show="effect.rewardSettings.enabled.update" style="margin-bottom: 15px;">
                 <div class="btn-group" uib-dropdown>
@@ -100,7 +100,7 @@ const effect: EffectType<EffectMeta> = {
             <firebot-checkbox
                 label="更新を一時停止する"
                 model="effect.rewardSettings.paused.update"
-                aria-label="Toggle paused"
+                aria-label="一時停止の切り替え"
             />
             <div ng-show="effect.rewardSettings.paused.update" style="margin-bottom: 15px;">
                 <div class="btn-group" uib-dropdown>
@@ -117,7 +117,7 @@ const effect: EffectType<EffectMeta> = {
 
             <div ng-hide="effect.rewardSelectMode === 'sortTag'">
                 <firebot-checkbox
-                    label="Update Name"
+                    label="名前を更新"
                     model="effect.rewardSettings.name.update"
                     aria-label="更新名"
                 />
@@ -126,7 +126,7 @@ const effect: EffectType<EffectMeta> = {
                 </div>
 
                 <firebot-checkbox
-                    label="Update Description"
+                    label="説明を更新"
                     model="effect.rewardSettings.description.update"
                     aria-label="更新内容"
                 />
@@ -135,7 +135,7 @@ const effect: EffectType<EffectMeta> = {
                 </div>
 
                 <firebot-checkbox
-                    label="Update Cost"
+                    label="コストを更新"
                     model="effect.rewardSettings.cost.update"
                     aria-label="新しい価格"
                 />

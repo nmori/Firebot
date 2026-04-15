@@ -7,29 +7,29 @@ import { getRandomInt } from "../../../utils";
 const model : ReplaceVariable = {
     definition: {
         handle: "randomViewer",
-        description: "Get a random viewer's username that is presently in your channel's chat.",
+        description: "チャンネルのチャットに現在いるランダムな視聴者のユーザー名を取得します。",
         categories: ["user based"],
         possibleDataOutput: ["text", "object"],
         examples: [
             {
                 usage: "randomViewer[customRolesToInclude, usersToExclude, customRolesToExclude, username|displayName|id|raw]",
-                description: "Get a random online viewer that is a member of the custom role(s), ignoring the excluded username(s) and members in the excluded role(s)."
+                description: "指定したカスタムロールのメンバーからランダムな在線視聴者を取得します（除外ユーザー・ロールも指定可）。"
             },
             {
                 usage: "randomViewer[roleOne, $streamer, null, displayName]",
-                description: "Get a random online viewer's display name that is a member of the roleOne custom role, excluding your own user name."
+                description: "roleOne のメンバーからストリーマーを除くランダム視聴者の表示名を取得します。"
             },
             {
                 usage: "randomViewer[null, ebiggz, roleC, id]",
-                description: "Get a random online viewer's unique user id, excluding ebiggz, and excluding any members of the roleC custom role."
+                description: "ebiggz と roleC のメンバーを除くランダム視聴者のユーザー ID を取得します。"
             },
             {
                 usage: "randomViewer[$arrayFrom[roleOne, roleTwo], $arrayFrom[$streamer, $bot], $arrayFrom[roleC, roleD]]",
-                description: "Filter to members of roleOne or roleTwo, excluding your own streamer and bot accounts, and excluding any members of roleC or roleD."
+                description: "roleOne/roleTwo のメンバーに絞り込み、ストリーマー・ボットおよび roleC/roleD のメンバーを除外します。"
             },
             {
                 usage: "randomViewer[null, null, null, raw]",
-                description: "Get an object representing an online viewer. The result will include `username`, `displayName` and `id` properties."
+                description: "在線視聴者をオブジェクト形式で取得します（`username`、`displayName`、`id` プロパティを含む）。"
             }
         ]
     },

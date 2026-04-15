@@ -28,7 +28,7 @@ const effect: EffectType<{
         </eos-container>
         <eos-container header="Effects To Clear">
             <firebot-checkbox
-                label="Overlay Effects"
+                label="オーバーレイエフェクト"
                 model="effect.overlay"
             />
             <div class="mt-0 mr-0 mb-6 ml-6" uib-collapse="!effect.overlay || !settings.getSetting('UseOverlayInstances')">
@@ -45,11 +45,11 @@ const effect: EffectType<{
                 </div>
             </div>
             <firebot-checkbox
-                label="Sounds"
+                label="サウンド"
                 model="effect.sounds"
             />
             <firebot-checkbox
-                label="Effect Queues"
+                label="エフェクトキュー"
                 model="effect.queues"
             />
             <div uib-collapse="!effect.queues" style="margin: 0 0 15px 15px;" class="mb-6">
@@ -64,14 +64,14 @@ const effect: EffectType<{
                     </ul>
                 </div>
                 <firebot-checkbox
-                    label="Abort running effect lists for queue(s)"
-                    tooltip="Abort any effect lists from the queue(s) that are actively executing effects"
+                    label="キューで実行中のエフェクトリストを中止"
+                    tooltip="キューで現在実行中のエフェクトリストを中止します。"
                     model="effect.abortActiveQueueEffectLists"
                 />
             </div>
             <firebot-checkbox
-                label="All Running Effect Lists"
-                tooltip="Abort any effect lists that are actively running effects"
+                label="実行中のすべてのエフェクトリスト"
+                tooltip="現在実行中のすべてのエフェクトリストを中止します。"
                 model="effect.activeEffectLists"
             />
         </eos-container>

@@ -4,11 +4,11 @@ const model : ReplaceVariable = {
     definition: {
         handle: "OR",
         usage: "OR[condition, condition, ...]",
-        description: 'Returns true if any of the conditions are true. Only works within $if[]',
+        description: 'いずれかの条件が true の場合に true を返します。$if[] 内でのみ機能します。',
         examples: [
             {
                 usage: 'OR[a === b, c === c]',
-                description: "Returns true as c equals c"
+                description: "c が c に等しいため true を返します。"
             }
         ],
         categories: ["advanced"],

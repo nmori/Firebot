@@ -4,7 +4,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "loopCount",
         usage: "loopCount",
-        description: "0 based count for the current loop iteration inside of a Loop Effects effect",
+        description: "ループエフェクト内の現在のループ回数（0 始まり）を返します。",
         categories: ["advanced"],
         possibleDataOutput: ["number"]
     },

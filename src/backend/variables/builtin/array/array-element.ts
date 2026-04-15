@@ -4,31 +4,31 @@ const model : ReplaceVariable = {
     definition: {
         handle: "arrayElement",
         usage: "arrayElement[array, index]",
-        description: "Returns the element at the given index of the input array.",
+        description: "入力配列の指定インデックスの要素を返します。",
         examples: [
             {
                 usage: 'arrayElement["[1,2,3]", 0]',
-                description: "Returns the element at the 0 index (1)"
+                description: "インデックス 0 の要素（1）を返します。"
             },
             {
                 usage: 'arrayElement["[1,2,3]", first]',
-                description: "Returns the element at the first index (1)"
+                description: "最初の要素（1）を返します。"
             },
             {
                 usage: 'arrayElement["[1,2,3]", last]',
-                description: 'Returns the element at the last index (3)'
+                description: '最後の要素（3）を返します。'
             },
             {
                 usage: 'arrayElement[rawArray, 0]',
-                description: "Returns the element at the 0 index"
+                description: "インデックス 0 の要素を返します。"
             },
             {
                 usage: 'arrayElement[rawArray, first]',
-                description: 'Returns the element at the first index'
+                description: '最初の要素を返します。'
             },
             {
                 usage: 'arrayElement[rawArray, last]',
-                description: 'Returns the element at the last index'
+                description: '最後の要素を返します。'
             }
         ],
         categories: ["advanced"],

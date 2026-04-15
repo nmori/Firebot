@@ -8,7 +8,7 @@ const triggers: TriggersObject = {
 const model: ReplaceVariable = {
     definition: {
         handle: "counterName",
-        description: "The name of the counter",
+        description: "カウンターの名前を返します。",
         triggers: triggers,
         categories: ["trigger based", "text"],
         possibleDataOutput: ["text"]

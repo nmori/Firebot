@@ -1,11 +1,18 @@
-"use strict";
+import { randomUUID } from "node:crypto";
+import type { EffectType } from "../../../types/effects";
+import { EffectCategory, EffectTrigger } from "../../../shared/effect-constants";
+import logger from "../../logwrapper";
+import twitchChat from "../../chat/twitch-chat";
 
-
-const logger = require("../../logwrapper");
-const { EffectCategory } = require('../../../shared/effect-constants');
-const twitchChat = require("../../chat/twitch-chat");
-
-const playSound = {
+const model: EffectType<{
+    premise: string;
+    prompt: string;
+    message: string;
+    chatter: string;
+    whisper: string;
+    sendAsReply: boolean;
+    port: number;
+}> = {
     definition: {
         id: "firebot:gpt-yncneo",
         name: "ゆかコネNEO経由でAIと会話",
@@ -14,15 +21,15 @@ const playSound = {
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
-    globalSettings: {},
     optionsTemplate: `
-  
         <eos-container header="設定" pad-top="true">
             <textarea ng-model="effect.premise" class="form-control" name="text" placeholder="キャラ設定の入力" rows="4" cols="40" replace-variables></textarea>
         </eos-container>
+
         <eos-container header="問い（プロンプト）" pad-top="true">
             <textarea ng-model="effect.prompt" class="form-control" name="text" placeholder="質問の入力" rows="4" cols="40" replace-variables></textarea>
         </eos-container>
+
         <eos-chatter-select effect="effect" title="返信アカウント"></eos-chatter-select>
 
         <eos-container header="返信メッセージ" pad-top="true">
@@ -49,60 +56,47 @@ const playSound = {
                 </label>
             </div>
         </eos-container>
+
         <eos-container header="通信設定" pad-top="true">
-        <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
-            <label for="port" class="control-label">連携サーバのHTTPポート</label>
-            <input 
-                type="number" 
-                class="form-control input-lg" 
-                id="port" 
-                name="port"
-                placeholder="ポート" 
-                ng-model="effect.port"
-                required
-                min="0" 
-                style="width: 50%;" 
-            />
-            <p class="help-block">ゆかりネットコネクターNEO v2.1～の翻訳/発話連携プラグインとGPTプラグインが必要です。</p>
-        </div>
-
-        <eos-overlay-instance ng-if="effect.audioOutputDevice && effect.audioOutputDevice.deviceId === 'overlay'" effect="effect" pad-top="true"></eos-overlay-instance>
-        
+            <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
+                <label for="port" class="control-label">連携サーバのHTTPポート</label>
+                <input
+                    type="number"
+                    class="form-control input-lg"
+                    id="port"
+                    name="port"
+                    placeholder="ポート"
+                    ng-model="effect.port"
+                    required
+                    min="0"
+                    style="width: 50%;"
+                />
+                <p class="help-block">ゆかりネットコネクターNEO v2.1～の翻訳/発話連携プラグインとGPTプラグインが必要です。</p>
+            </div>
+        </eos-container>
     `,
-    optionsController: async ($scope) => {
-
-        $scope.successEffectsUpdated = async (effects) => {
-
-        };
-
-        if ($scope.effect.port == null || $scope.effect.port === "") {
+    optionsController: ($scope) => {
+        if ($scope.effect.port == null) {
             $scope.effect.port = 8080;
         }
-
     },
-    optionsValidator: effect => {
-        const errors = [];
-
-        if (effect.port == null || effect.port === "") {
+    optionsValidator: (effect) => {
+        const errors: string[] = [];
+        if (effect.port == null) {
             errors.push("ポート番号を指定してください");
         }
-
         return errors;
     },
     onTriggerEvent: async ({ effect, trigger }) => {
+        const chatHelpers = require("../../chat/chat-helpers");
+        const commandHandler = require("../../chat/commands/commandHandler");
 
         try {
-            const { EffectTrigger } = require("../../../shared/effect-constants");
-            const chatHelpers = require("../../chat/chat-helpers");
-            const commandHandler = require("../../chat/commands/commandHandler");
-
-            const crypto = require("crypto");
-
             const voiceQuery = {
-                operation: 'gpt',
+                operation: "gpt",
                 params: [
                     {
-                        id: crypto.randomUUID(),
+                        id: randomUUID(),
                         command: "question",
                         premise: effect.premise,
                         prompt: effect.prompt,
@@ -115,38 +109,41 @@ const playSound = {
             const response = await fetch(
                 `http://127.0.0.1:${effect.port}/`,
                 {
-                    method: 'POST',
-                    header: { 'Content-Type': 'application/json' },
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(voiceQuery)
                 }
             );
 
-            let responseData = JSON.parse(await response.text());
+            const responseData: { text?: string } = JSON.parse(await response.text());
+            const replyText = responseData.text ?? "";
 
-            if (effect.status === 'success') {
-                let messageId = null;
-                if (trigger.type === EffectTrigger.COMMAND) {
-                    messageId = trigger.metadata.chatMessage.id;
-                } else if (trigger.type === EffectTrigger.EVENT) {
-                    messageId = trigger.metadata.eventData?.chatMessage?.id;
-                }
+            let messageId: string | null = null;
+            if (trigger.type === EffectTrigger.COMMAND) {
+                messageId = trigger.metadata.chatMessage?.id ?? null;
+            } else if (trigger.type === EffectTrigger.EVENT) {
+                messageId = trigger.metadata.eventData?.chatMessage?.id ?? null;
+            }
 
-                const message = effect.message
-                    .replace("{replyMessage}", response.text);
+            const message = effect.message.replace("{replyMessage}", replyText);
 
-                await twitchChat.sendChatMessage(message, effect.whisper, effect.chatter, !effect.whisper && effect.sendAsReply ? messageId : undefined);
+            await twitchChat.sendChatMessage(
+                message,
+                effect.whisper,
+                effect.chatter,
+                !effect.whisper && effect.sendAsReply ? messageId : undefined
+            );
 
-                if (effect.chatter === "Streamer" && (effect.whisper == null || !effect.whisper.length)) {
-                    const firebotMessage = await chatHelpers.buildStreamerFirebotChatMessageFromText(message);
-                    commandHandler.handleChatMessage(firebotMessage);
-                }
+            if (effect.chatter === "Streamer" && (effect.whisper == null || !effect.whisper.length)) {
+                const firebotMessage = await chatHelpers.buildStreamerFirebotChatMessageFromText(message);
+                commandHandler.handleChatMessage(firebotMessage);
             }
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
 
         return true;
-    },
+    }
 };
 
-module.exports = playSound;
+export = model;

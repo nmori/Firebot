@@ -3,24 +3,24 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: 'arrayAdd',
-        description: 'Returns a new array with the added element',
+        description: '要素を追加した新しい配列を返します。',
         usage: 'arrayAdd[array, new-item, at-start]',
         examples: [
             {
                 usage: 'arrayAdd["[1,2,3]", 4]',
-                description: 'Returns a new array with 4 added to the end of the array. (1,2,3,4)'
+                description: '4 を末尾に追加した新しい配列を返します。(1,2,3,4)'
             },
             {
                 usage: 'arrayAdd["[1,2,3]", 4, true]',
-                description: 'Returns a new array with 4 added to the start of the array. (4,1,2,3)'
+                description: '4 を先頭に追加した新しい配列を返します。(4,1,2,3)'
             },
             {
                 usage: 'arrayAdd[rawArray, 4]',
-                description: 'Returns a new array with 4 added to the end of the raw array'
+                description: '4 を末尾に追加した新しい生配列を返します。'
             },
             {
                 usage: 'arrayAdd[rawArray, 4, true]',
-                description: 'Returns a new array with 4 added to the start of the raw array'
+                description: '4 を先頭に追加した新しい生配列を返します。'
             }
         ],
         categories: ["advanced"],

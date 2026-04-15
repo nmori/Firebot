@@ -8,13 +8,13 @@ const model : ReplaceVariable = {
     definition: {
         handle: "userDisplayName",
         usage: "userDisplayName",
-        description: "Gets the formatted display name of the associated user (if there is one) for the given trigger.",
+        description: "トリガーに関連するユーザーのフォーマットされた表示名を取得します。",
         categories: ["user based"],
         possibleDataOutput: ["text"],
         examples: [
             {
                 usage: "userDisplayName[username]",
-                description: "The formatted display name for the given username. Searches local viewer DB first, then Twitch API."
+                description: "指定したユーザー名の表示名を返します。まずビューアー DB、次に Twitch API を検索します。"
             }
         ]
     },

@@ -30,8 +30,8 @@ export const dynamicCountdown: OverlayWidgetType<Settings, State> = {
     settingsSchema: [
         {
             name: "fontOptions",
-            title: "Font Options",
-            description: "Customize the countdown display.",
+            title: "フォント設定",
+            description: "カウントダウン表示をカスタマイズします。",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -44,15 +44,15 @@ export const dynamicCountdown: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "alignment",
-            title: "Text Alignment",
-            description: "Alignment of the countdown text within the widget area.",
+            title: "テキスト揃え",
+            description: "ウィジェット内のカウントダウンテキストの揃えです。",
             type: "radio-cards",
             options: [{
-                value: "left", label: "Left", iconClass: "fa-align-left"
+                value: "left", label: "左", iconClass: "fa-align-left"
             }, {
-                value: "center", label: "Center", iconClass: "fa-align-center"
+                value: "center", label: "中央", iconClass: "fa-align-center"
             }, {
-                value: "right", label: "Right", iconClass: "fa-align-right"
+                value: "right", label: "右", iconClass: "fa-align-right"
             }],
             settings: {
                 gridColumns: 3
@@ -62,15 +62,15 @@ export const dynamicCountdown: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "runWhenInactive",
-            title: "Run When Inactive",
-            description: "Whether the countdown should continue running when the widget is not active (visible).",
+            title: "非アクティブ時も動作",
+            description: "ウィジェットが非表示のときもカウントダウンを継続するかどうかです。",
             type: "boolean",
             default: false
         },
         {
             name: "onCompleteEffects",
-            title: "On Complete Effects",
-            description: "Effects to run when the countdown reaches zero.",
+            title: "完了時エフェクト",
+            description: "カウントダウンがゼロに達したときに実行するエフェクトです。",
             type: "effectlist"
         }
     ],
@@ -92,7 +92,7 @@ export const dynamicCountdown: OverlayWidgetType<Settings, State> = {
     uiActions: [
         {
             id: "toggle",
-            label: "Start/Pause",
+            label: "開始/一時停止",
             icon: "fa-play-circle",
             click: (config) => {
                 if ((config.state?.remainingSeconds ?? 0) > 0) {
@@ -108,18 +108,18 @@ export const dynamicCountdown: OverlayWidgetType<Settings, State> = {
         },
         {
             id: "add-time",
-            label: "Add Time",
+            label: "時間を追加",
             icon: "fa-plus-circle",
             click: async (config) => {
                 const seconds = await frontendCommunicator.fireEventAsync<number>("openGetInputModal", {
                     config: {
                         model: config.state?.remainingSeconds ?? 0,
                         inputType: "number",
-                        label: "Add Seconds",
-                        saveText: "Save",
-                        descriptionText: "Enter number of seconds to add to the countdown. Can be negative to subtract time.",
-                        inputPlaceholder: "Enter number",
-                        validationText: 'Please enter a valid number.'
+                        label: "秒数を追加",
+                        saveText: "保存",
+                        descriptionText: "カウントダウンに追加する秒数を入力してください。負の値を入れると時間を減らすことができます。",
+                        inputPlaceholder: "数値を入力",
+                        validationText: '有効な数値を入力してください。'
                     },
                     validation: {
                         required: true
@@ -144,18 +144,18 @@ export const dynamicCountdown: OverlayWidgetType<Settings, State> = {
         },
         {
             id: "set-time",
-            label: "Set Time",
+            label: "時間をセット",
             icon: "fa-clock",
             click: async (config) => {
                 const seconds = await frontendCommunicator.fireEventAsync("openGetInputModal", {
                     config: {
                         model: 0,
                         inputType: "number",
-                        label: "Set Time",
-                        saveText: "Save",
-                        descriptionText: "Enter the total seconds for the countdown. The countdown will be set to this value.",
-                        inputPlaceholder: "Enter number",
-                        validationText: 'Please enter a valid number.'
+                        label: "時間をセット",
+                        saveText: "保存",
+                        descriptionText: "カウントダウンの合計秒数を入力してください。この値にカウントダウンが設定されます。",
+                        inputPlaceholder: "数値を入力",
+                        validationText: '有効な数値を入力してください。'
                     },
                     validation: {
                         required: true

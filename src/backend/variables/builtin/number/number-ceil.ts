@@ -3,12 +3,12 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "ceil",
-        description: "Rounds up the given number to the nearest whole number.",
+        description: "指定した数値を最も近い整数に切り上げます。",
         usage: "ceil[num]",
         examples: [
             {
                 usage: "ceil[3.2]",
-                description: "Returns 4"
+                description: "4 を返します"
             }
         ],
         categories: ["numbers"],

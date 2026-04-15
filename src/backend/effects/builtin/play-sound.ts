@@ -54,17 +54,17 @@ const model: EffectType<{
             </div>
 
             <div ng-if="effect.soundType === 'url'">
-               <firebot-input input-title="Url" model="effect.url" />
+               <firebot-input input-title="URL" model="effect.url" />
             </div>
 
             <div ng-if="effect.soundType === 'rawData'">
                <firebot-input input-title="MIME Type"
                     model="effect.mimeType"
-                    placeholder-text="Example: audio/mpeg"
+                    placeholder-text="例: audio/mpeg"
                     style="margin-bottom: 2rem;" />
-               <firebot-input input-title="Binary Data"
+               <firebot-input input-title="バイナリデータ"
                     model="effect.rawData"
-                    placeholder-text="Variable containing binary data" />
+                    placeholder-text="バイナリデータを含む変数" />
             </div>
 
             <div style="padding-top:20px">

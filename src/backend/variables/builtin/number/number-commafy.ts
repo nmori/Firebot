@@ -3,16 +3,16 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "commafy",
-        description: "Adds the appropriate commas to a number.",
+        description: "数値に適切なカンマ区切りを追加します。",
         usage: "commafy[number]",
         examples: [
             {
                 usage: "commafy[1000000]",
-                description: `Returns "1,000,000"`
+                description: `"1,000,000" を返します`
             },
             {
                 usage: "commafy[1000000, 2]",
-                description: `Returns "1,000,000.00"`
+                description: `"1,000,000.00" を返します`
             }
         ],
         categories: ["numbers"],

@@ -3,7 +3,7 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "ensureNumber",
-        description: "Guarantees a number output. If the input is a number, it is passed through. If it's not, the given default number is used instead.",
+        description: "数値を確実に出力します。入力が数値の場合はそのまま返し、数値でない場合はデフォルト値を使用します。",
         usage: "ensureNumber[input, defaultNumber]",
         categories: ["numbers"],
         possibleDataOutput: ["number"]

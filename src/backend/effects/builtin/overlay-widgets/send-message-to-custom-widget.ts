@@ -31,9 +31,9 @@ const model: EffectType<{
             <div ng-show="effect.customWidgetId">
                 <eos-container header="Message" pad-top="true">
                     <firebot-input
-                        input-title="Name"
+                        input-title="名前"
                         model="effect.messageName"
-                        placeholder-text="Enter message name"
+                        placeholder-text="メッセージ名を入力"
                         menu-position="under"
                     />
 

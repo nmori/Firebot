@@ -89,11 +89,11 @@ const effect: EffectType<{
                 initial-editor-label="initialEditorLabel"
                 model="effect.data"
             />
-            <p class="muted" style="font-size: 11px;"><b>Note:</b> If output data is a valid JSON string, it will be parsed into an object or array.</p>
+            <p class="muted" style="font-size: 11px;"><b>注意:</b> 出力データが有効な JSON 文字列の場合、オブジェクトまたは配列にパースされます。</p>
         </eos-container>
 
         <eos-container header="Property Path (Optional)" pad-top="true">
-            <eos-collapsable-panel show-label="Show details" hide-label="Hide details" hide-info-box="true">
+            <eos-collapsable-panel show-label="詳細を表示" hide-label="詳細を非表示" hide-info-box="true">
                 <p class="muted">If the output already has data saved in the form of an object or array, you can define a path (using dot notation) to a specific property or index to update with the above data.</p>
                 <p class="muted">If a property path is provided and there is no existing data in the output, nothing happens.</p>
                 <p class="muted">If no property path is provided and the existing output does NOT contain an array, the entire output is replaced. If the existing output contains an array and the new value is NOT an array, the new value will be appended to the array.</p>

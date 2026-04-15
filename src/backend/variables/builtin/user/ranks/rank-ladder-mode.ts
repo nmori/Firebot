@@ -6,7 +6,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "rankLadderMode",
         usage: "rankLadderMode[rankLadderName]",
-        description: "Returns the mode of the specified rank ladder (e.g. 'auto' or 'manual')",
+        description: "指定したランクラダーのモード（'auto' または 'manual'）を返します。",
         categories: ["common", "user based"],
         possibleDataOutput: ["text"]
     },

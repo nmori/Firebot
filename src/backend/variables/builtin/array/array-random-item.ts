@@ -4,15 +4,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "arrayRandomItem",
         usage: "arrayRandomItem[array]",
-        description: "Returns a random item from the given array",
+        description: "指定した配列からランダムな要素を返します。",
         examples: [
             {
                 usage: `arrayRandomItem["[1,2,3]"]`,
-                description: "Returns a random item from the array [1,2,3]."
+                description: "[1,2,3] からランダムな要素を返します。"
             },
             {
                 usage: "arrayRandomItem[rawArray]",
-                description: "Returns a random item from the raw array."
+                description: "生配列からランダムな要素を返します。"
             }
         ],
         categories: ["advanced", "numbers"],

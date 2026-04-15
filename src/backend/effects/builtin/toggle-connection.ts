@@ -41,7 +41,7 @@ const effect: EffectType<{
         <eos-container ng-show="effect.mode === 'custom'" header="Connections" pad-top="true">
             <div ng-repeat="service in services">
                 <label class="control-fb control--checkbox">{{service.name}}
-                    <input type="checkbox" ng-click="toggleServiceSelected(service.id)" ng-checked="serviceIsSelected(service.id)"  aria-label="Toggle {{service.name}}" >
+                    <input type="checkbox" ng-click="toggleServiceSelected(service.id)" ng-checked="serviceIsSelected(service.id)"  aria-label="{{service.name}} の切り替え" >
                     <div class="control__indicator"></div>
                 </label>
                 <div ng-show="serviceIsSelected(service.id)" style="margin-bottom: 15px;">

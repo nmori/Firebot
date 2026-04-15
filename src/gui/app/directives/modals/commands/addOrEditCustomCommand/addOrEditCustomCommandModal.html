@@ -89,8 +89,8 @@
                 </div>
 
                 <eos-collapsable-panel
-                    show-label="RegEx オプションを表示"
-                    hide-label="RegEx オプションを非表示"
+                    show-label="正規表現オプションを表示"
+                    hide-label="正規表現オプションを非表示"
                 >
                     <p class="pb-3">
                         上級者向けです。これを有効にすると Firebot はトリガーを
@@ -98,7 +98,7 @@
                         より複雑な一致パターンを定義できます。
                     </p>
                     <label class="control-fb control--checkbox"
-                        >トリガーを RegEx として扱う
+                        >トリガーを正規表現として扱う
                         <input
                             type="checkbox"
                             ng-model="$ctrl.command.triggerIsRegex"
@@ -113,7 +113,7 @@
                         <span class="input-group-addon" id="tooltip-desc"
                             >説明
                             <tooltip
-                                text="'RegEx の用途メモを入力できます。メインのコマンドページでツールチップ表示されます。'"
+                                text="'正規表現の用途メモを入力できます。メインのコマンドページでツールチップ表示されます。'"
                             >
                             </tooltip
                         ></span>

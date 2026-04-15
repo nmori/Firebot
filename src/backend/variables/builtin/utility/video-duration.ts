@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "videoDuration",
         usage: "videoDuration[filePathOrUrl]",
-        description: "Attempts to retrieve video duration.",
+        description: "動画の再生時間を取得しようとします。",
         examples: [
             {
                 usage: `videoDuration["path/to/video.mp4"]`,
-                description: "Returns the duration of the video file in seconds."
+                description: "動画ファイルの再生時間を秒単位で返します。"
             },
             {
                 usage: `videoDuration["https://example.com/video.mp4"]`,
-                description: "Returns the duration of the video file from a URL in seconds."
+                description: "URL の動画ファイルの再生時間を秒単位で返します。"
             }
         ],
         categories: ["advanced"],

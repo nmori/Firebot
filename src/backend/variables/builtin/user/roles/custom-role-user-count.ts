@@ -4,7 +4,7 @@ import customRolesManager from "../../../../roles/custom-roles-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "customRoleUserCount",
-        description: "Get the number of people in a custom role.",
+        description: "指定したカスタムロールのメンバー数を取得します。",
         usage: "customRoleUserCount[role]",
         categories: ["numbers"],
         possibleDataOutput: ["number"]

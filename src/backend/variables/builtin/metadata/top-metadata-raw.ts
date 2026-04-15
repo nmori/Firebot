@@ -5,7 +5,7 @@ import viewerMetadataManager from "../../../viewers/viewer-metadata-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "rawTopMetadata",
-        description: "Returns a raw array of users with the most of a given metadata key. Items contain `username`, `place` and `amount` properties.",
+        description: "指定したメタデータキーの値が多いユーザーを生の配列で返します。各要素は `username`、`place`、`amount` プロパティを持ちます。",
         usage: "rawTopMetadata[metadataKey]",
         possibleDataOutput: ["array", "text"]
     },

@@ -5,16 +5,16 @@ import viewerMetadataManager from "../../../viewers/viewer-metadata-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "userMetadata",
-        description: "Get the metadata associated with the user.",
+        description: "ユーザーに関連するメタデータを取得します。",
         usage: "userMetadata[username, metadataKey]",
         examples: [
             {
                 usage: "userMetadata[username, metadataKey, defaultValue]",
-                description: "Provide a default value if one doesn't exist for the user."
+                description: "ユーザーに値がない場偂のデフォルト値を指定します。"
             },
             {
                 usage: "userMetadata[username, metadataKey, null, propertyPath]",
-                description: "Provide a property path (using dot notation) or array index as a second argument."
+                description: "ドット表記のプロパティパスまたは配列インデックスで値を取得します。"
             }
         ],
         categories: ["advanced"],

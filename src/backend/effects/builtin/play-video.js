@@ -246,7 +246,7 @@ const playVideo = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
+                このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
                 <br>
                 <strong>NOTE</strong>: Streamlabs Desktop (formerly known as SLOBS) does not support mp4 videos in their browser source. If you have mp4 videos that you want to display in Streamlabs Desktop, you will need to convert them to the <strong>.webm</strong> format.
             </div>

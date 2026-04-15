@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "isUserInChat",
         usage: "isUserInChat[username]",
-        description: "Outputs `true` if a user is currently connected to Twitch chat, `false` if not",
+        description: "ユーザーが Twitch チャットに接続中の場合は `true` 、そうでない場合は `false` を返します。",
         categories: ["advanced"],
         possibleDataOutput: ["bool"]
     },

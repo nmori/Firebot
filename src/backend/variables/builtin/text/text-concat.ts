@@ -4,12 +4,12 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "concat",
-        description: "Appends text together",
+        description: "文字列を結合します。",
         usage: "concat[text, text, ...]",
         examples: [
             {
                 usage: `concat[Hello, " ", World]`,
-                description: `Returns "Hello World"`
+                description: `"Hello World" を返します。`
             }
         ],
         categories: ["text"],

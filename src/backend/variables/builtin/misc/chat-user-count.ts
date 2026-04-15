@@ -6,13 +6,13 @@ import logger from "../../../logwrapper";
 const model : ReplaceVariable = {
     definition: {
         handle: "chatUserCount",
-        description: "Get the total number of current viewers in chat, both active and lurking.",
+        description: "アクティブ・ルーキングを含むチャットの視聴者数の合計を取得します。",
         categories: ["numbers"],
         possibleDataOutput: ["number"],
         examples: [
             {
                 usage: "chatUserCount[CustomRole]",
-                description: "Gets the total number of current chat viewers in the specified custom role."
+                description: "指定したカスタムロール内の視聴者数の合計を取得します。"
             }
         ]
     },

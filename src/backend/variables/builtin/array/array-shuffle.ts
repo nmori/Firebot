@@ -14,16 +14,16 @@ const shuffle = (subject: unknown[]) : unknown[] => {
 const model : ReplaceVariable = {
     definition: {
         handle: "arrayShuffle",
-        description: "Returns a new shuffled array",
+        description: "シャッフルした新しい配列を返します。",
         usage: "arrayShuffle[array]",
         examples: [
             {
                 usage: `arrayShuffle["[1,2,3]"]`,
-                description: "Returns a shuffled version of [1,2,3], e.g., [2,1,3]."
+                description: "[1,2,3] をシャッフルして返します。（例: [2,1,3]）"
             },
             {
                 usage: "arrayShuffle[rawArray]",
-                description: "Returns a shuffled version of the raw array."
+                description: "生配列をシャッフルして返します。"
             }
         ],
         categories: ["advanced"],

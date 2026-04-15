@@ -3,12 +3,12 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "convertToJSON",
-        description: "Converts a raw value into JSON text",
+        description: "生の値を JSON テキストに変換します。",
         usage: "convertToJSON[rawValue]",
         examples: [
             {
                 usage: "convertToJSON[rawValue, true]",
-                description: "Converts a raw value into pretty-printed JSON text"
+                description: "生の値をインデント整形した JSON テキストに変換します。"
             }
         ],
         categories: ["advanced"],

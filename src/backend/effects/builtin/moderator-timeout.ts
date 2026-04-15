@@ -32,8 +32,8 @@ const effect: EffectType<{
 
         <eos-container header="Reason" pad-top="true">
             <firebot-input
-                input-title="Reason"
-                placeholder-text="Timed out by Firebot"
+                input-title="理由"
+                placeholder-text="Firebot によってタイムアウト"
                 model="effect.reason"
             />
         </eos-container>

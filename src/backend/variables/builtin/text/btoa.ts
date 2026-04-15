@@ -5,11 +5,11 @@ const model: ReplaceVariable = {
     definition: {
         handle: 'btoa',
         usage: 'btoa[string]',
-        description: 'Encodes a string into base64.',
+        description: '文字列を Base64 形式にエンコードします。',
         examples: [
             {
                 usage: 'btoa["Hello, World!"]',
-                description: 'Encodes the string "Hello, World!" in to base64 (yielding "SGVsbG8sIFdvcmxkIQ==").'
+                description: '"Hello, World!" を Base64 エンコードします（結果: "SGVsbG8sIFdvcmxkIQ=="）。'
             }
         ],
         categories: ["advanced"],

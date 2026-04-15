@@ -52,16 +52,16 @@ const model: EffectType<{
                 <eos-container header="{{effect.action === 'set' ? 'New Value' : 'Value'}}" pad-top="true" ng-show="effect.action && effect.action !== 'change-mode'">
                     <firebot-input
                         model="effect.value"
-                        input-title="Secs"
+                        input-title="秒数"
                         data-type="number"
-                        placeholder-text="Enter number of seconds"
+                        placeholder-text="秒数を入力"
                     />
 
                     <firebot-checkbox
                         style="margin-top: 10px"
                         model="effect.startIfPaused"
-                        label="Start Countdown If Paused"
-                        tooltip="Whether or not you want the countdown to start if it is currently paused."
+                        label="一時停止中でも開始する"
+                        tooltip="現在一時停止中の場合にカウントダウンを開始するかどうかを設定します。"
                     />
                 </eos-container>
             </div>

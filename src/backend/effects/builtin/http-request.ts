@@ -41,22 +41,22 @@ const effect: EffectType<{
         dependencies: [],
         outputs: [
             {
-                label: "Response Body",
-                description: "The raw response from the request",
+                label: "レスポンスボディ",
+                description: "リクエストの生レスポンス",
                 defaultName: "httpResponse"
             }
         ]
     },
     optionsTemplate: `
     <eos-container header="URL">
-        <firebot-input model="effect.url" placeholder-text="Enter url" menu-position="below"></firebot-input>
+        <firebot-input model="effect.url" placeholder-text="URL を入力" menu-position="below"></firebot-input>
     </eos-container>
 
-    <eos-container header="Method" pad-top="true">
+    <eos-container header="メソッド" pad-top="true">
         <dropdown-select options="['GET', 'POST', 'PUT', 'PATCH', 'DELETE']" selected="effect.method"></dropdown-select>
     </eos-container>
 
-    <eos-container header="Body (JSON)" pad-top="true" ng-show="['POST', 'PUT', 'PATCH'].includes(effect.method)">
+    <eos-container header="ボディ（JSON）" pad-top="true" ng-show="['POST', 'PUT', 'PATCH'].includes(effect.method)">
         <div
             ui-codemirror="{onLoad : codemirrorLoaded}"
             ui-codemirror-opts="editorSettings"
@@ -66,63 +66,63 @@ const effect: EffectType<{
         </div>
     </eos-container>
 
-    <eos-container header="Headers" pad-top="true">
+    <eos-container header="ヘッダー" pad-top="true">
         <div ui-sortable="sortableOptions" ng-model="effect.headers">
             <div ng-repeat="header in effect.headers track by $index" class="list-item selectable" ng-click="showAddOrEditHeaderModal(header)">
                 <span class="dragHandle" style="height: 38px; width: 15px; align-items: center; justify-content: center; display: flex">
                     <i class="fal fa-bars" aria-hidden="true"></i>
                 </span>
-                <div uib-tooltip="Click to edit"  style="font-weight: 400;width: 100%;margin-left: 20px;" aria-label="{{header.key + ' (Click to edit)'}}"><b>{{header.key}}</b>: {{header.value}}</div>
-                <span class="clickable" style="color: #fb7373;" ng-click="removeHeaderAtIndex($index);$event.stopPropagation();" aria-label="Remove header">
+                <div uib-tooltip="クリックして編集"  style="font-weight: 400;width: 100%;margin-left: 20px;" aria-label="{{header.key + ' (クリックして編集)'}}"><b>{{header.key}}</b>: {{header.value}}</div>
+                <span class="clickable" style="color: #fb7373;" ng-click="removeHeaderAtIndex($index);$event.stopPropagation();" aria-label="ヘッダーを削除">
                     <i class="fad fa-trash-alt" aria-hidden="true"></i>
                 </span>
             </div>
-            <p class="muted" ng-show="effect.headers.length < 1">No headers added.</p>
+            <p class="muted" ng-show="effect.headers.length < 1">ヘッダーが追加されていません。</p>
         </div>
         <div style="margin: 5px 0 10px 0px;">
-            <button class="filter-bar" ng-click="showAddOrEditHeaderModal()" uib-tooltip="Add header" tooltip-append-to-body="true" aria-label="Add header">
+            <button class="filter-bar" ng-click="showAddOrEditHeaderModal()" uib-tooltip="ヘッダーを追加" tooltip-append-to-body="true" aria-label="ヘッダーを追加">
                 <i class="far fa-plus"></i>
             </button>
         </div>
     </eos-container>
 
-    <eos-container header="Options" pad-top="true">
+    <eos-container header="オプション" pad-top="true">
         <firebot-checkbox
-            label="Include Twitch auth header"
-            tooltip="Automatically include an Authorization header with the streamers twitch access token. Only use when calling the Twitch API!"
+            label="Twitch 認証ヘッダーを含める"
+            tooltip="ストリーマーの Twitch アクセストークンを Authorization ヘッダーとして自動付与します。Twitch API を呼び出す場合のみ使用してください！"
             model="effect.options.useTwitchAuth"
         />
-        <label ng-show="effect.options.putResponseInVariable" class="control-fb control--checkbox"> Put response body in a variable <tooltip text="'Put the response body into a variable so you can use it later'"></tooltip>
+        <label ng-show="effect.options.putResponseInVariable" class="control-fb control--checkbox"> レスポンスボディを変数に保存 <tooltip text="'レスポンスボディを後で利用できるように変数に保存します'"></tooltip>
             <input type="checkbox" ng-model="effect.options.putResponseInVariable">
             <div class="control__indicator"></div>
         </label>
         <div ng-if="effect.options.putResponseInVariable" style="padding-left: 15px;">
-            <firebot-input input-title="Variable Name" model="effect.options.variableName" placeholder-text="Enter name" />
-            <firebot-input style="margin-top: 10px;" input-title="Variable TTL" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="Enter secs | Optional" />
-            <firebot-input style="margin-top: 10px;" input-title="Variable Property Path" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="Optional" />
+            <firebot-input input-title="変数名" model="effect.options.variableName" placeholder-text="名前を入力" />
+            <firebot-input style="margin-top: 10px;" input-title="変数の有効期限（秒）" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="秒を入力（省略可）" />
+            <firebot-input style="margin-top: 10px;" input-title="変数プロパティパス" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="省略可" />
         </div>
         <firebot-checkbox
             ng-init="timeoutRequest = effect.options.timeout != null"
-            label="Set timeout"
-            tooltip="Set a timeout for the request"
+            label="タイムアウトを設定"
+            tooltip="リクエストのタイムアウトを設定します。"
             model="timeoutRequest"
         />
         <div ng-show="timeoutRequest" style="padding-left: 15px;" class="mb-6">
-            <firebot-input input-title="Timeout (ms)" model="effect.options.timeout" input-type="number" disable-variables="true" placeholder-text="Enter ms" />
+            <firebot-input input-title="タイムアウト（ミリ秒）" model="effect.options.timeout" input-type="number" disable-variables="true" placeholder-text="ミリ秒を入力" />
         </div>
         <firebot-checkbox
-            label="Store output as binary (advanced)"
-            tooltip="Stores the response body as a binary array instead of a text string."
+            label="出力をバイナリとして保存（上級者向け）"
+            tooltip="レスポンスボディをテキスト文字列ではなくバイナリ配列として保存します。"
             model="effect.options.storeOutputAsBinary"
         />
         <firebot-checkbox
-            label="Run effects on error"
-            tooltip="Run a list of effects if the request fails. Useful for when you want to do clean up or stop effect execution all together."
+            label="エラー時にエフェクトを実行"
+            tooltip="リクエストが失敗した場合にエフェクトリストを実行します。クリーンアップやエフェクト実行の停止に便利です。"
             model="effect.options.runEffectsOnError"
         />
     </eos-container>
 
-    <eos-container header="Error Effects" pad-top="true" ng-if="effect.options.runEffectsOnError">
+    <eos-container header="エラーエフェクト" pad-top="true" ng-if="effect.options.runEffectsOnError">
         <effect-list effects="effect.errorEffects"
             trigger="{{trigger}}"
             trigger-meta="triggerMeta"
@@ -132,7 +132,7 @@ const effect: EffectType<{
 
     <eos-container pad-top="true">
         <div class="effect-info alert alert-warning">
-            Note: Request errors will be logged to the console, which you can access via Window > Toggle Developer Tools.
+            注意: リクエストエラーはコンソールに記録されます。Window &gt; 開発者ツールの切り替え からアクセスできます。
         </div>
     </eos-container>
 

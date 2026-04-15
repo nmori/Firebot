@@ -8,7 +8,7 @@ const triggers: TriggersObject = {
 const model: ReplaceVariable = {
     definition: {
         handle: "counterMaximum",
-        description: "The maximum value of the counter, or an empty string if there isn't one",
+        description: "カウンターの最大値を返します。最大値がない場合は空文字を返します。",
         triggers: triggers,
         categories: ["trigger based", "numbers"],
         possibleDataOutput: ["number"]

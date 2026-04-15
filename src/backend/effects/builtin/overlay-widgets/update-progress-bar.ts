@@ -39,9 +39,9 @@ const model: EffectType<{
 
             <eos-container header="{{effect.action == 'increment' ? 'Increment Amount' : 'New Value'}}" pad-top="true" ng-show="effect.action">
                 <firebot-input
-                    input-title="Value"
+                    input-title="値"
                     model="effect.value"
-                    placeholder-text="Enter value"
+                    placeholder-text="値を入力"
                     data-type="number"
                 />
             </eos-container>

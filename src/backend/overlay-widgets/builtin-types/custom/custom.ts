@@ -20,7 +20,7 @@ export const custom: OverlayWidgetType<Settings, State> = {
             name: "html",
             type: "codemirror",
             title: "HTML",
-            description: "The initial HTML to display.",
+            description: "最初に表示する HTML です。",
             default: `<div id="my-widget">Hello, world!</div>`,
             settings: {
                 mode: "htmlmixed",
@@ -34,7 +34,7 @@ export const custom: OverlayWidgetType<Settings, State> = {
             name: "onShowJs",
             type: "codemirror",
             title: "onShow JS",
-            description: "Optional code that runs when the widget is shown. Ran in an async function (await is supported).",
+            description: "ウィジェットが表示されたときに実行されるコードです（任意）。async 関数として実行されます（await 使用可）。",
             default: `// Example: Change the text color of the widget's\n// content to red\ncontainerElement\n   .querySelector('#my-widget')\n   .style.color = 'red';`,
             tip:
 `The following variables are available:
@@ -54,7 +54,7 @@ export const custom: OverlayWidgetType<Settings, State> = {
             name: "onStateUpdateJs",
             type: "codemirror",
             title: "onStateUpdate JS",
-            description: "Optional code that runs when the widget's state is updated via the Update Custom Widget State effect. Ran in an async function (await is supported).",
+            description: "「カスタムウィジェット状態を更新」エフェクトでウィジェットの状態が更新されたときに実行されるコードです（任意）。async 関数として実行されます（await 使用可）。",
             default: ``,
             tip:
 `The following variables are available:
@@ -74,7 +74,7 @@ export const custom: OverlayWidgetType<Settings, State> = {
             name: "onMessageJs",
             type: "codemirror",
             title: "onMessage JS",
-            description: "Optional code that runs when the widget receives a message from the Send Message To Custom Widget effect. Ran in an async function (await is supported).",
+            description: "「カスタムウィジェットにメッセージを送信」エフェクトからメッセージを受信したときに実行されるコードです（任意）。async 関数として実行されます（await 使用可）。",
             default: ``,
             tip:
 `The following variables are available:

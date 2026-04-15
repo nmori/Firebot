@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "randomDadJoke",
         usage: "randomDadJoke",
-        description: "Get a random dad joke!",
+        description: "ランダムなダッドジョークを取得します！",
         possibleDataOutput: ["text"]
     },
     evaluator: async () => {

@@ -6,12 +6,12 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "encodeForHtml",
-        description: "Encodes input text for safe use within HTML templates",
+        description: "HTML テンプレートで安全に使用できるように文字列を HTML エンコードします。",
         usage: "encodeForHtml[text]",
         examples: [
             {
                 usage: "encodeForHtml[<p>Hello & Welcome!</p>]",
-                description: `Returns "&lt;p&gt;Hello &amp; Welcome!&lt;/p&gt;"`
+                description: `"&lt;p&gt;Hello &amp; Welcome!&lt;/p&gt;" を返します。`
             }
         ],
         categories: ["text"],

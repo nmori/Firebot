@@ -4,7 +4,7 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "uppercase",
-        description: "Makes the entire given text string uppercase.",
+        description: "入力テキスト全体を大文字に変換します。",
         usage: "uppercase[text]",
         categories: ["text"],
         possibleDataOutput: ["text"]

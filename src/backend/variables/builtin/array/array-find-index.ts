@@ -92,27 +92,27 @@ const model : ReplaceVariable = {
     definition: {
         handle: 'arrayFindIndex',
         usage: 'arrayFindIndex[array, matcher, propertyPath?, exact?]',
-        description: "Finds a matching element in the array and returns its index, or null if the element is absent",
+        description: "配列内で一致する要素のインデックスを返します。要素がない場合は null を返します。",
         examples: [
             {
                 usage: 'arrayFindIndex["[\\"a\\",\\"b\\",\\"c\\"]", b]',
-                description: 'Returns 1 , the index of "b"'
+                description: '"b" のインデックスである 1 を返します。'
             },
             {
                 usage: 'arrayFindIndex["[{\\"username\\": \\"alastor\\"},{\\"username\\": \\"ebiggz\\"}]", alastor, username]',
-                description: 'Returns 0, the index of the object where "username"="alastor"'
+                description: '"username"="alastor" のオブジェクトのインデックス 0 を返します。'
             },
             {
                 usage: 'arrayFindIndex["[0,1,2,"1"]", "1", null, $true]',
-                description: 'Returns 3, the index of the text "1"'
+                description: 'テキスト "1" のインデックス 3 を返します。'
             },
             {
                 usage: 'arrayFindIndex[rawArray, b]',
-                description: 'Returns 1, the index of "b"'
+                description: '"b" のインデックス 1 を返します。'
             },
             {
                 usage: 'arrayFindIndex[rawArray, value, key]',
-                description: 'Searches the array for an item with a key with the value of "value"'
+                description: 'key プロパティに "value" を持つ要素のインデックスを返します。'
             }
         ],
         categories: ["advanced"],

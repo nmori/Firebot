@@ -4,7 +4,7 @@ import { AccountAccess } from "../../../common/account-access";
 const model : ReplaceVariable = {
     definition: {
         handle: "streamer",
-        description: "Outputs the Streamer account username.",
+        description: "ストリーマーアカウントのユーザー名を返します。",
         possibleDataOutput: ["text"]
     },
     evaluator: () => {

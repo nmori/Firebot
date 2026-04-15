@@ -4,12 +4,12 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "encodeForUrl",
-        description: "Encodes input text for use in a URL",
+        description: "URL 内で使用できるように文字列を URL エンコードします。",
         usage: "encodeForUrl[text]",
         examples: [
             {
                 usage: "encodeForUrl[Hello World!]",
-                description: `Returns "Hello%20World%21"`
+                description: `"Hello%20World%21" を返します。`
             }
         ],
         categories: ["text"],

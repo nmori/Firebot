@@ -11,7 +11,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "argArray",
-        description: "Returns an array of command arguments",
+        description: "コマンドの引数を配列として返します。",
         triggers: triggers,
         categories: ["trigger based", "advanced"],
         possibleDataOutput: ["array"]

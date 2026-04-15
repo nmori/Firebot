@@ -8,7 +8,7 @@ const triggers: TriggersObject = {
 const model: ReplaceVariable = {
     definition: {
         handle: "counterChange",
-        description: "How much the counter has increased/decreased",
+        description: "カウンターの増減量を返します。",
         triggers: triggers,
         categories: ["trigger based", "numbers"],
         possibleDataOutput: ["number"]

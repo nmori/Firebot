@@ -3,32 +3,32 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "arrayRemove",
-        description: "Returns a new array with the element at the given index removed",
+        description: "指定したインデックスの要素を取り除いた新しい配列を返します。",
         usage: "arrayRemove[array, index]",
         examples: [
             {
                 usage: 'arrayRemove["[1,2,3]", 0]',
-                description: "Removes the element at the 0 index (2,3)"
+                description: "インデックス 0 の要素を削除します。(2,3)"
             },
             {
                 usage: 'arrayRemove["[1,2,3]", first]',
-                description: "Removes the element at the first index (2,3)"
+                description: "最初の要素を削除します。(2,3)"
             },
             {
                 usage: 'arrayRemove["[1,2,3]", last]',
-                description: 'Removes the element at the last index (1,2)'
+                description: '最後の要素を削除します。(1,2)'
             },
             {
                 usage: 'arrayRemove[rawArray, 0]',
-                description: "Removes the element at the 0 index"
+                description: "インデックス 0 の要素を削除します。"
             },
             {
                 usage: 'arrayRemove[rawArray, first]',
-                description: 'Removes the element at the first index'
+                description: '最初の要素を削除します。'
             },
             {
                 usage: 'arrayRemove[rawArray, last]',
-                description: 'Removes the element at the last index'
+                description: '最後の要素を削除します。'
             }
         ],
         categories: ["advanced"],

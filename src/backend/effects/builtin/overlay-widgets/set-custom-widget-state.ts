@@ -40,8 +40,8 @@ const model: EffectType<{
 
                 <eos-container header="Options" pad-top="true">
                     <firebot-checkbox
-                        label="Merge with existing state (if any)"
-                        tooltip="If checked, the new state will be merged with the existing state instead of replacing it."
+                        label="既存の状態とマージする（存在する場合）"
+                        tooltip="チェックを入れると、新しい状態は置き換えではなく既存の状態とマージされます。"
                         model="effect.mergeWithExistingState"
                     />
                 </eos-container>

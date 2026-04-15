@@ -4,16 +4,16 @@ import { stringify, escapeRegExp } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "replace",
-        description: "Replaces a search value with a replacement value",
+        description: "検索値を置換値で置換します。",
         usage: "replace[textInput, searchValue, replacement]",
         examples: [
             {
                 usage: "replace[textInput, searchValue, replacement, true]",
-                description: "Allows searching using a [regular expression](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)."
+                description: "[正規表現](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)を使って検索できます。"
             },
             {
                 usage: "replace[textInput, searchValue, replacement, true, flags]",
-                description: "Add flags when using a [regular expression](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)."
+                description: "[正規表現](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)使用時にフラグを追加できます。"
             }
         ],
         categories: ["text"],

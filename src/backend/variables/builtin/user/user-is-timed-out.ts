@@ -5,7 +5,7 @@ const UserIsTimedOutVariable: ReplaceVariable = {
     definition: {
         handle: "userIsTimedOut",
         usage: "userIsTimedOut[username]",
-        description: "Returns `true` if the specified user is currently timed out, otherwise returns `false`.",
+        description: "指定したユーザーが現在タイムアウト中の場合は `true` を、そうでない場偂は `false` を返します。",
         categories: ["common", "user based"],
         possibleDataOutput: ["text", "bool"]
     },

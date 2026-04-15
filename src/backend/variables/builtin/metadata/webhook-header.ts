@@ -4,7 +4,7 @@ export const webhookHeader: ReplaceVariable = {
     definition: {
         handle: "webhookHeader",
         usage: "webhookHeader[key]",
-        description: "The value of a specific header included with the webhook request.",
+        description: "Webhook リクエストに含まれる指定ヘッダーの値を返します。",
         possibleDataOutput: ["text"],
         triggers: {
             ["event"]: ["firebot:webhook-received"],

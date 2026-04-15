@@ -1,9 +1,13 @@
-"use strict";
+import type { EffectType } from "../../../types/effects";
+import { EffectCategory } from "../../../shared/effect-constants";
+import logger from "../../logwrapper";
 
-const logger = require("../../logwrapper");
-const { EffectCategory } = require("../../../shared/effect-constants");
-
-const effect = {
+const model: EffectType<{
+    message: string;
+    communicateMode: string;
+    port: number;
+    voiceid: number;
+}> = {
     definition: {
         id: "firebot:playbouyomichan",
         name: "棒読みちゃんで発話",
@@ -12,7 +16,6 @@ const effect = {
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
-    globalSettings: {},
     optionsTemplate: `
         <eos-container header="メッセージ" pad-top="true">
             <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージの入力" rows="4" cols="40" replace-variables></textarea>
@@ -65,11 +68,11 @@ const effect = {
         }
     },
     optionsValidator: (effect) => {
-        const errors = [];
-        if (effect.port === "" || effect.port == null) {
+        const errors: string[] = [];
+        if (effect.port == null) {
             errors.push("ポート番号を指定してください");
         }
-        if (effect.voiceid === "" || effect.voiceid == null) {
+        if (effect.voiceid == null) {
             errors.push("音声IDを入れてください。");
         }
         return errors;
@@ -83,20 +86,11 @@ const effect = {
                 { method: "GET" }
             );
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
 
-        return {
-            success: true
-        };
-    },
-    overlayExtension: {
-        dependencies: {
-            css: [],
-            js: []
-        },
-        event: {}
+        return true;
     }
 };
 
-module.exports = effect;
+export = model;

@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
         handle: "userBio",
         aliases: ["userAbout", "userDescription"],
         usage: "userBio",
-        description: "Gets the bio/description of the associated user (ie who triggered command, pressed button, etc).",
+        description: "トリガーに関連するユーザーのプロフィール诳明を取得します。",
         examples: [
             {
                 usage: "userBio[$target]",
-                description: "When in a command, gets the the bio/description of the target user."
+                description: "コマンド内でターゲットユーザーのプロフィール诳明を取得します。"
             },
             {
                 usage: "userBio[ebiggz]",
-                description: "Gets the bio/description of a specific user."
+                description: "指定したユーザーのプロフィール诳明を取得します。"
             }
         ],
         categories: ["user based"],

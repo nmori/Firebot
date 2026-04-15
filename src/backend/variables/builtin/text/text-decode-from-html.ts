@@ -6,12 +6,12 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "decodeFromHtml",
-        description: "Decodes input text from an HTML-encoded string",
+        description: "HTML エンコードされた文字列をデコードします。",
         usage: "decodeFromHtml[text]",
         examples: [
             {
                 usage: `decodeFromHtml[&lt;p&gt;Hello &amp; Welcome!&lt;/p&gt;]`,
-                description: `Returns "<p>Hello & Welcome!</p>"`
+                description: `"<p>Hello & Welcome!</p>" を返します。`
             }
         ],
         categories: ["text"],

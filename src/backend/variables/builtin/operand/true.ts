@@ -3,7 +3,7 @@ import type { ReplaceVariable } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "true",
-        description: "Returns a literal true boolean value; Useful in comparisons such as in $if[]",
+        description: "リテラルの true（真値）を返します。$if[] などの比較で使用できます。",
         usage: "true",
         categories: ["advanced"],
         possibleDataOutput: ["bool"]

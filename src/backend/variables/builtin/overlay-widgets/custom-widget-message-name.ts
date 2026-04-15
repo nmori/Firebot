@@ -2,7 +2,7 @@ import { createEventDataVariable } from "../../variable-factory";
 
 export default createEventDataVariable({
     handle: "customWidgetMessageName",
-    description: "The name of the custom widget message",
+    description: "カスタムウィジェットメッセージの名前",
     events: ["firebot:custom-widget-message-received"],
     type: "text",
     eventMetaKey: "customWidgetMessageName"

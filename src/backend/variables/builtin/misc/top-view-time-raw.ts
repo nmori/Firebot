@@ -5,7 +5,7 @@ import viewerOnlineStatusManager from "../../../viewers/viewer-online-status-man
 const model : ReplaceVariable = {
     definition: {
         handle: "rawTopViewTime",
-        description: "Returns a raw array containing users with the most view time (in hours). Items contain `username`, 'place` and `minutes` properties.",
+        description: "視聴時間（時間）が多いユーザー内容を生の配列で返します。各要素は `username`、`place`、`minutes` プロパティを持ちます。",
         usage: "rawTopViewTime[count]",
         possibleDataOutput: ["array"]
     },

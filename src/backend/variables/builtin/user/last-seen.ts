@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "lastSeen",
         usage: "lastSeen",
-        description: "Displays the date that a viewer was last seen in chat (by Firebot).",
+        description: "Firebot が視聴者を最後に検出した日付を返します。",
         examples: [
             {
                 usage: "lastSeen",
-                description: "Returns the last seen date for the current viewer."
+                description: "現在の視聴者の最後検出日を返します。"
             },
             {
                 usage: "lastSeen[username]",
-                description: "Returns the last seen date for the specified viewer."
+                description: "指定した視聴者の最後検出日を返します。"
             }
         ],
         categories: ["user based"],

@@ -6,11 +6,11 @@ const model: ReplaceVariable = {
     definition: {
         handle: 'base64Encode',
         usage: 'base64Encode[string]',
-        description: 'Encodes a string into base64.',
+        description: '文字列を Base64 形式にエンコードします。',
         examples: [
             {
                 usage: 'base64Encode["Hello, World!"]',
-                description: 'Encodes the string "Hello, World!" in to base64 (yielding "SGVsbG8sIFdvcmxkIQ==").'
+                description: '"Hello, World!" を Base64 エンコードします（結果: "SGVsbG8sIFdvcmxkIQ=="）。'
             }
         ],
         categories: ["advanced"],

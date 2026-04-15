@@ -90,7 +90,7 @@ const model: EffectType<{
 
         <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
         <div class="effect-info alert alert-warning">
-            This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">Learn more</a>
+            このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">詳細を見る</a>
         </div>
     </div>
 

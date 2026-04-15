@@ -8,7 +8,7 @@ const triggers: TriggersObject = {
 const model: ReplaceVariable = {
     definition: {
         handle: "counterPreviousValue",
-        description: "The previous value of the counter",
+        description: "カウンターの更新前の値を返します。",
         triggers: triggers,
         categories: ["trigger based", "numbers"],
         possibleDataOutput: ["number"]

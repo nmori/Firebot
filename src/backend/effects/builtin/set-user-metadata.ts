@@ -32,13 +32,13 @@ const effect: EffectType<{
                 initial-editor-label="initialEditorLabel"
                 model="effect.data"
             />
-            <p class="muted" style="font-size: 11px;"><b>Note:</b> If data is a valid JSON string, it will be parsed into an object or array.</p>
+            <p class="muted" style="font-size: 11px;"><b>注意:</b> データが有効な JSON 文字列の場合、オブジェクトまたは配列にパースされます。</p>
 
             <div style="margin-top: 10px;">
-                <eos-collapsable-panel show-label="Advanced" hide-label="Advanced" hide-info-box="true">
+                <eos-collapsable-panel show-label="詳細設定" hide-label="詳細設定" hide-info-box="true">
                     <h4>Property Path (Optional)</h4>
                     <p class="muted">If the metadata key already has data saved in the form of an object or array, you can define a path (using dot notation) to a specific property or index to update with the above data. If nothing is provided, the entire metadata entry is replaced. If there is no existing data and a property path is provided, nothing happens.</p>
-                    <eos-collapsable-panel show-label="Show examples" hide-label="Hide examples" hide-info-box="true">
+                    <eos-collapsable-panel show-label="例を表示" hide-label="例を非表示" hide-info-box="true">
                         <span>Examples:</span>
                         <ul>
                             <li>some.property</li>

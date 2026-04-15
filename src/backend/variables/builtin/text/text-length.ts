@@ -4,7 +4,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "textLength",
         usage: "textLength[text]",
-        description: "Returns the length of the input text",
+        description: "入力テキストの文字数を返します。",
         categories: ["text"],
         possibleDataOutput: ["number"]
     },

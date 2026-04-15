@@ -5,29 +5,29 @@ const model: ReplaceVariable = {
     definition: {
         handle: "arrayFuzzySearch",
         usage: "arrayFuzzySearch[array, search, propertyPaths?, defaultValue?, threshold?, ignoreDiacritics?]",
-        description: "Finds the first element in an array that is closest to the given search. You can optionally include a threshold between 0.0 and 1.0 to filter results where 0.0 is strict and 1.0 is loose, and ignore diacritics on characters (ie é, à, ç, ñ)",
+        description: "配列内で指定した検索に最も近い要素を返します。threshold（0.0〜1.0）でフィルタ可能（0.0 が厳格、1.0 が緩やか）。ダイアクリティカルマーク（é, à, ç, ñ 等）の無視も設定できます。",
         categories: ["advanced"],
         possibleDataOutput: ["text", "number"],
         examples: [
             {
                 usage: 'arrayFuzzySearch["[\\"apple\\", \\"banana\\", \\"cherry\\"]", apfl]',
-                description: 'Returns the text "apple"'
+                description: 'テキスト "apple" を返します。'
             },
             {
                 usage: 'arrayFuzzySearch["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"Oceanity\\"}]", eggz, username]',
-                description: 'Finds object with username of "ebiggz"'
+                description: 'username が "ebiggz" のオブジェクトを返します。'
             },
             {
                 usage: 'arrayFuzzySearch["[{\\"username\\": \\"ebiggz\\",\\"id\\": 1234567},{\\"username\\": \\"Oceanity\\",\\"id\\": 9876543}]", 2455678, "[\\"username\\",\\"id\\"]"]',
-                description: 'Searches objects using multiple properties for a match'
+                description: '複数のプロパティを使ってオブジェクトを検索します。'
             },
             {
                 usage: 'arrayFuzzySearch["[\\"apple\\", \\"banana\\", \\"cherry\\"]", apfl, nothing, null, 0.2]',
-                description: 'Returns the default text "nothing" as the search results are all outside the threshold'
+                description: 'しきい値を超えた結果のため、デフォルトテキスト "nothing" を返します。'
             },
             {
                 usage: 'arrayFuzzySearch["[\\"piñata\\"]", pinata, null, nothing, 0.0, true]',
-                description: 'Returns the text "piñata" with threshold set to find only exact matches because diacritics are ignored'
+                description: 'ダイアクリティカルマークを無視して完全一致のみ検索し、"piñata" を返します。'
             }
         ]
     },

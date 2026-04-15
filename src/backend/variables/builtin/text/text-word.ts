@@ -4,12 +4,12 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "word",
-        description: "Get a word at the specified position in a given sentence",
+        description: "指定した文中の指定位置の単語を取得します。",
         usage: "word[text, #]",
         examples: [
             {
                 usage: 'word[This is a test, 4]',
-                description: "Get the 4th word. In this example: 'test'"
+                description: "4番目の単語を取得します。この例では 'test' を返します。"
             }
         ],
         categories: ["text"],

@@ -4,7 +4,7 @@ import { TwitchApi } from "../../../streaming-platforms/twitch/api";
 const model : ReplaceVariable = {
     definition: {
         handle: "uptime",
-        description: "The current stream uptime",
+        description: "現在のストリームの配信時間を返します。",
         possibleDataOutput: ["text"]
     },
     evaluator: async () => {

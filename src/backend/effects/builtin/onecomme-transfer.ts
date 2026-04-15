@@ -1,9 +1,19 @@
-"use strict";
+import { createHash, randomUUID } from "node:crypto";
+import type { EffectType } from "../../../types/effects";
+import { EffectCategory } from "../../../shared/effect-constants";
+import logger from "../../logwrapper";
 
-const logger = require("../../logwrapper");
-const { EffectCategory } = require('../../../shared/effect-constants');
+type SlotName = {
+    id: string;
+    name: string;
+};
 
-const onecommeTransfer = {
+const model: EffectType<{
+    slotname: SlotName;
+    slotnames: SlotName[];
+    writerName: string;
+    message: string;
+}> = {
     definition: {
         id: "firebot:onecomme-transfer",
         name: "わんコメに転送",
@@ -12,7 +22,6 @@ const onecommeTransfer = {
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
-    globalSettings: {},
     optionsTemplate: `
         <eos-container header="転送先">
             <div class="btn-group">
@@ -42,41 +51,30 @@ const onecommeTransfer = {
         try {
             const response = await fetch("http://127.0.0.1:11180/api/services", {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                headers: { "Content-Type": "application/json" }
             });
-
-            const responseData = JSON.parse(await response.text());
-
+            const responseData: Array<{ id: string; name: string }> = JSON.parse(await response.text());
             for (const slotname of responseData) {
-                $scope.effect.slotnames.push({
-                    name: slotname.name,
-                    id: slotname.id
-                });
+                $scope.effect.slotnames.push({ name: slotname.name, id: slotname.id });
             }
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
     },
     optionsValidator: (effect) => {
-        const errors = [];
-
-        if (effect.slotname == null || effect.slotname.id === "") {
+        const errors: string[] = [];
+        if (effect.slotname == null) {
             errors.push("転送先を指定してください");
         }
-
         if (effect.writerName == null || effect.writerName === "") {
             errors.push("名前を指定してください");
         }
-
         return errors;
     },
     onTriggerEvent: async (event) => {
         const { effect } = event;
 
         try {
-            const { createHash, randomUUID } = require("node:crypto");
             const hash = createHash("sha1");
             hash.update(effect.writerName);
 
@@ -90,7 +88,7 @@ const onecommeTransfer = {
                 },
                 comment: {
                     id: randomUUID(),
-                    userId: String(hash.digest("hex")),
+                    userId: hash.digest("hex"),
                     name: effect.writerName,
                     badges: [],
                     profileImage: "",
@@ -103,17 +101,15 @@ const onecommeTransfer = {
 
             await fetch("http://localhost:11180/api/comments", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(sendData)
             });
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
 
         return true;
     }
 };
 
-module.exports = onecommeTransfer;
+export = model;

@@ -3,7 +3,7 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "padNumber",
-        description: "Pads the given number up to the specified number of decimal places.",
+        description: "指定した小数点以下の桁数まで数値をゼロ埋めします。",
         usage: "padNumber[value, places]",
         categories: ["numbers"],
         possibleDataOutput: ["text"]

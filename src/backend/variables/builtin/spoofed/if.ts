@@ -4,15 +4,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "if",
         usage: "if[condition, when_true, when_false]",
-        description: 'Returns the parameter based on the condition\'s result.',
+        description: '条件の結果に基づいてパラメータを返します。',
         examples: [
             {
                 usage: 'if[$user === Jim, JIM]',
-                description: "Returns JIM if the user is Jim, otherwise returns empty text"
+                description: "ユーザーが Jim の場合は JIM を返し、そうでない場合は空文字を返します。"
             },
             {
                 usage: 'if[$user === Jim, JIM, JOHN]',
-                description: "Returns JIM if the user is Jim, otherwise returns JOHN"
+                description: "ユーザーが Jim の場合は JIM を、そうでない場合は JOHN を返します。"
             }
         ],
         categories: ["advanced"],

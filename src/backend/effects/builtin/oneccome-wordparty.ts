@@ -1,9 +1,12 @@
-"use strict";
+import type { EffectType } from "../../../types/effects";
+import { EffectCategory } from "../../../shared/effect-constants";
+import logger from "../../logwrapper";
 
-const logger = require("../../logwrapper");
-const { EffectCategory } = require('../../../shared/effect-constants');
-
-const effect = {
+const model: EffectType<{
+    key: string;
+}, {
+    httpResponse: string;
+}> = {
     definition: {
         id: "firebot:oneccome-wordparty",
         name: "わんコメ WordParty",
@@ -13,7 +16,6 @@ const effect = {
         dependencies: [],
         outputs: []
     },
-    globalSettings: {},
     optionsTemplate: `
         <eos-container header="送信する起動キー">
             <firebot-input model="effect.key" placeholder-text="起動キーの入力" menu-position="below"></firebot-input>
@@ -27,8 +29,8 @@ const effect = {
     `,
     optionsController: () => {},
     optionsValidator: (effect) => {
-        const errors = [];
-        if (effect.key === "" || effect.key == null) {
+        const errors: string[] = [];
+        if (effect.key == null || effect.key === "") {
             errors.push("起動キーをいれてください");
         }
         return errors;
@@ -39,9 +41,7 @@ const effect = {
         try {
             const response = await fetch("http://localhost:11180/api/reactions", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     reactions: [{ key: effect.key, value: 1 }],
                     effect: true
@@ -56,21 +56,14 @@ const effect = {
                 }
             };
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
 
         return {
             success: false,
             outputs: {}
         };
-    },
-    overlayExtension: {
-        dependencies: {
-            css: [],
-            js: []
-        },
-        event: {}
     }
 };
 
-module.exports = effect;
+export = model;

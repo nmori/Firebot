@@ -5,7 +5,7 @@ import logger from '../../../logwrapper';
 const model : ReplaceVariable = {
     definition: {
         handle: "objectKeys",
-        description: "Gets an array of the keys for a given object.",
+        description: "指定したオブジェクトのキーの配列を返します。",
         usage: "objectKeys[object]",
         categories: ["advanced"],
         possibleDataOutput: ["array"]

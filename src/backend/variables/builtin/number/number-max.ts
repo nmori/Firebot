@@ -8,24 +8,24 @@ const normalizeNumber = (input) => {
 const model : ReplaceVariable = {
     definition: {
         handle: "max",
-        description: "Returns the highest-value number",
+        description: "最大値の数値を返します。",
         usage: "max[num1, num2, ...]",
         examples: [
             {
                 usage: "max[1, 5, 3, 10]",
-                description: "Returns 10, the highest value from the input numbers"
+                description: "入力した数値の中から最大値 10 を返します"
             },
             {
                 usage: "max[numberArray]",
-                description: "Returns the highest value from the input array of numbers"
+                description: "数値の配列から最大値を返します"
             },
             {
                 usage: "max[``[1, 5, 3, 10]``]",
-                description: "Returns 10, the highest value from the input stringified array of numbers"
+                description: "文字列化された数値配列の中から最大値 10 を返します"
             },
             {
                 usage: "max[``[8, 12]``, 5, 3, 10]",
-                description: "Returns 12, the highest value from the input stringified array and numbers"
+                description: "文字列配列と数値を組み合わせた中から最大値 12 を返します"
             }
         ],
         categories: ["numbers"],

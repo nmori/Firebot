@@ -3,16 +3,16 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "textPadEnd",
-        description: "Pads the end of text",
+        description: "テキストの末尾にパディングします。",
         usage: "textPadEnd[input, count, countIsLength, padChar]",
         examples: [
             {
                 usage: "textPadEnd[input, count, $false, \" \"]",
-                description: "Adds 'count' number of spaces to the end of input"
+                description: "入力の末尾に count 個のスペースを追加します。"
             },
             {
                 usage: "textPadEnd[input, count, $true, \" \"]",
-                description: "Adds spaces to the end of the input until the length of the output equals 'count'"
+                description: "出力の文字数が count になるまで末尾にスペースを追加します。"
             }
         ],
         categories: ["text"],

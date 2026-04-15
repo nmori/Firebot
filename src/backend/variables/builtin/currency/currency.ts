@@ -6,7 +6,7 @@ import currencyManager from "../../../currency/currency-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "currency",
-        description: "How much of the given currency the current user has.",
+        description: "現在のユーザーが指定した通貨をいくら持っているかを返します。",
         usage: "currency[currencyName, user]",
         hasSuggestions: true,
         noSuggestionsText: "No currencies have been created yet.",

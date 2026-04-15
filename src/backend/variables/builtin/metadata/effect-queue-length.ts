@@ -7,7 +7,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "effectQueueLength",
         usage: "effectQueueLength[queueName]",
-        description: "Returns the length of an effect queue. Useful for showing queue length in a command response.",
+        description: "エフェクトキューの現在の長さを返します。コマンド応答でキューの長さを表示するのに便利です。",
         categories: ["advanced"],
         possibleDataOutput: ["text"]
     },

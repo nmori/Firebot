@@ -4,7 +4,7 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "trimStart",
-        description: "Removes any whitespace from the beginning of input text.",
+        description: "入力テキストの先頭の空白を除去します。",
         usage: "trimStart[text]",
         categories: ["text"],
         possibleDataOutput: ["text"]

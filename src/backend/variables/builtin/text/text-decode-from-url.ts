@@ -4,12 +4,12 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "decodeFromUrl",
-        description: "Decodes input text from a URL-encoded string",
+        description: "URL エンコードされた文字列をデコードします。",
         usage: "decodeFromUrl[text]",
         examples: [
             {
                 usage: `decodeFromUrl["Hello%20World%21"]`,
-                description: `Returns "Hello World!"`
+                description: `"Hello World!" を返します。`
             }
         ],
         categories: ["text"],

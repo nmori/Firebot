@@ -21,7 +21,7 @@ const effect: EffectType<{
             <firebot-input
                 title="Message"
                 model="effect.message"
-                placeholder-text="Enter toast notification text"
+                placeholder-text="トースト通知テキストを入力"
                 menu-position="under"
             />
         </eos-container>
@@ -42,9 +42,9 @@ const effect: EffectType<{
 
         <eos-container ng-if="effect.dismissType === 'timeout'" header="Timeout" pad-top="true">
             <firebot-input
-                input-title="Seconds"
+                input-title="秒数"
                 model="effect.timeout"
-                placeholder-text="Enter duration"
+                placeholder-text="秒数を入力"
                 menu-position="under"
                 data-type="number"
             />

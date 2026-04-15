@@ -26,11 +26,11 @@ const model: ReplaceVariable = {
     definition: {
         handle: "readApi",
         usage: "readApi[url]",
-        description: 'Calls the given URL and returns the response as a string.',
+        description: '指定した URL を呼び出し、レスポンスを文字列で返します。',
         examples: [
             {
                 usage: 'readApi[url, object.path.here]',
-                description: "Traverse a JSON response object."
+                description: "JSON レスポンスオブジェクトをパスで辿ります。"
             }
         ],
         categories: ["advanced"],

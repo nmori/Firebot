@@ -3,12 +3,12 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "regexMatches",
-        description: "Filter a string with a [regular expression](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions) and return an array of all matches",
+        description: "[正規表現](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)で文字列をフィルタリングし、マッチした全結果の配列を返します。",
         usage: "regexMatches[string, expression]",
         examples: [
             {
                 usage: "regexMatches[string, expression, flags]",
-                description: "Add flags to the regex evaluation."
+                description: "正規表現にフラグを追加します。"
             }
         ],
         categories: ["advanced"],

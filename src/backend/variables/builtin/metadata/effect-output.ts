@@ -7,22 +7,22 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "effectOutput[name, 1]",
-                description: "Get an array item by providing an array index as a second argument."
+                description: "第2引数に配列インデックスを指定して、配列の要素を取得します。"
             },
             {
                 usage: "effectOutput[name, property]",
-                description: "Get a property by providing a property path (using dot notation) as a second argument."
+                description: "第2引数にドット記法のプロパティパスを指定して、プロパティを取得します。"
             },
             {
                 usage: "effectOutput[name, null, exampleString]",
-                description: "Set a default value in case the effect output doesn't exist yet."
+                description: "エフェクト出力がまだ存在しない場合のデフォルト値を設定します。"
             },
             {
                 usage: "effectOutput[name, property, exampleString]",
-                description: "Set a default value in case the effect output doesn't have data at the specified property path."
+                description: "指定したプロパティパスにデータがない場合のデフォルト値を設定します。"
             }
         ],
-        description: "Get data that was outputted by a prior effect.",
+        description: "前のエフェクトが出力したデータを取得します。",
         categories: ["advanced"],
         possibleDataOutput: ["number", "text"]
     },

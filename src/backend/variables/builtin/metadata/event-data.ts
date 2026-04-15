@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "eventData",
-        description: "An object containing all the metadata included with the event.",
+        description: "イベントに含まれるすべてのメタデータを格納したオブジェクトを返します。",
         triggers: triggers,
         categories: ["trigger based", "advanced"],
         possibleDataOutput: ["object"]

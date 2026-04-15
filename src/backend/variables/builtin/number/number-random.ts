@@ -6,7 +6,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "randomNumber",
         usage: "randomNumber[min, max]",
-        description: "Get a random number between the given range.",
+        description: "指定した範囲内のランダムな数値を返します。",
         categories: ["common", "numbers"],
         possibleDataOutput: ["number"]
     },

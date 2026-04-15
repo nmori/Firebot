@@ -7,19 +7,19 @@ const model : ReplaceVariable = {
     definition: {
         handle: "arg",
         usage: "arg[#]",
-        description: "Grabs the command argument (aka a word after the command !trigger) at the given index.",
+        description: "コマンドの引数（!トリガーの後に続く単語）を、指定したインデックスの位置から取得します。",
         examples: [
             {
                 usage: "arg[1,2]",
-                description: "Grab a range of args."
+                description: "引数の範囲を取得します。"
             },
             {
                 usage: "arg[2,last]",
-                description: "Grab a range of args up to the last arg."
+                description: "2番目から最後の引数までの範囲を取得します。"
             },
             {
                 usage: "arg[all]",
-                description: "Grab all args. This is a good way to grab all text after the !command trigger."
+                description: "すべての引数を取得します。!コマンドトリガーの後のテキスト全体を取得するのに便利です。"
             }
         ],
         triggers: {

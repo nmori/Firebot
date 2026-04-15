@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "textContains",
         usage: "textContains[text, search]",
-        description: "Returns true if text contains search, otherwise returns false",
+        description: "文字列に検索内容が含まれる場合は true を、含まれない場偂は false を返します。",
         categories: ["text"],
         possibleDataOutput: ["text"]
     },

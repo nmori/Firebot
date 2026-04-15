@@ -31,18 +31,18 @@ const effect: EffectType<{
 
     <eos-container header="Highlight" pad-top="true">
         <firebot-checkbox
-            label="Highlight Message"
+            label="メッセージをハイライト"
             model="effect.highlightEnabled"
         />
 
         <p class="muted">Select the color for the highlight.</p>
 
-        <color-picker-input style="margin-top:10px" model="effect.customHighlightColor" label="Color"></color-picker-input>
+        <color-picker-input style="margin-top:10px" model="effect.customHighlightColor" label="カラー"></color-picker-input>
     </eos-container>
 
     <eos-container header="Banner" pad-top="true">
         <firebot-checkbox
-            label="Add a Banner"
+            label="バナーを追加"
             model="effect.bannerEnabled"
         />
 
@@ -50,7 +50,7 @@ const effect: EffectType<{
 
         <firebot-input
             model="effect.customBannerText"
-            placeholder-text="Enter banner text"
+            placeholder-text="バナーテキストを入力"
             pad-top="true"
             rows="4"
             useTextArea="true"

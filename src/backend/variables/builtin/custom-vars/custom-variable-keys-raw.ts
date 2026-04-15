@@ -12,10 +12,10 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "rawCustomVariableKeys[name, property|index]",
-                description: "Get the array of keys for an object property by providing a property path (using dot notation) as a second argument."
+                description: "第2引数にドット記法のプロパティパスを指定して、オブジェクトのプロパティのキー配列を取得します。"
             }
         ],
-        description: "Get the array of keys for an object saved in the custom variable.",
+        description: "カスタム変数に保存されたオブジェクトのキー配列を取得します。",
         categories: ["advanced"],
         possibleDataOutput: ["text"]
     },

@@ -8,7 +8,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "viewersInRankArray",
         usage: "viewersInRankArray[rankLadderName, rankName]",
-        description: "Returns an array of viewer objects in the specified rank. Viewer object properties: _id, username, displayName",
+        description: "指定したランクの視聴者オブジェクト配列を返します。プロパティ: _id, username, displayName。",
         categories: ["advanced"],
         possibleDataOutput: ["array"]
     },

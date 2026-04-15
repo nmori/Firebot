@@ -29,28 +29,28 @@ type State = {
 
 export const progressbar: OverlayWidgetType<Settings, State> = {
     id: "firebot:progressbar",
-    name: "Progress Bar",
-    description: "A simple progress bar that can be updated via commands or variables.",
+    name: "プログレスバー",
+    description: "コマンドや変数で更新できるプログレスバーウィジェットです。",
     icon: "fa-percentage",
     settingsSchema: [
         {
             name: "title",
-            title: "Title",
+            title: "タイトル",
             type: "string",
-            default: "Progress Bar",
+            default: "プログレスバー",
             validation: {
                 required: false
             }
         },
         {
             name: "currentValueDisplay",
-            title: "Current Value Display",
-            description: "How to display the current value in the center of the bar.",
+            title: "現在値の表示方法",
+            description: "バーの中央に現在値をどのように表示するかを選択します。",
             type: "radio-cards",
             options: [
-                { value: "hide", label: "Hide", iconClass: "fa-eye-slash" },
-                { value: "raw", label: "Raw Value", iconClass: "fa-hashtag" },
-                { value: "percentage", label: "Percentage", iconClass: "fa-percent" }
+                { value: "hide", label: "非表示", iconClass: "fa-eye-slash" },
+                { value: "raw", label: "数値", iconClass: "fa-hashtag" },
+                { value: "percentage", label: "パーセント", iconClass: "fa-percent" }
             ],
             settings: {
                 gridColumns: 3
@@ -62,15 +62,15 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "showMaxValue",
-            title: "Show Max Value",
-            description: "Display the maximum value at the end of the bar.",
+            title: "最大値を表示",
+            description: "バーの端に最大値を表示します。",
             type: "boolean",
             default: false
         },
         {
             name: "valuePrefix",
-            title: "Value Prefix",
-            description: "Optional prefix to display before values (e.g. $, #, etc.). Not shown when displaying percentage.",
+            title: "値のプレフィックス",
+            description: "数値の前に表示するプレフィックスです（例: $, # など）。パーセント表示時は無視されます。",
             type: "string",
             default: "",
             validation: {
@@ -79,7 +79,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "titleFontOptions",
-            title: "Font Options",
+            title: "フォント設定",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -93,7 +93,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "trackColor",
-            title: "Track Color",
+            title: "トラックカラー",
             type: "hexcolor",
             allowAlpha: true,
             default: "#000000",
@@ -104,7 +104,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "barColor",
-            title: "Bar Color",
+            title: "バーカラー",
             type: "hexcolor",
             allowAlpha: true,
             default: "#00FF00",
@@ -115,12 +115,12 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "endCapStyle",
-            title: "End Cap Style",
-            description: "The shape of the bar's ends.",
+            title: "端のスタイル",
+            description: "バーの端の形状を指定します。",
             type: "radio-cards",
             options: [
-                { value: "rounded", label: "Rounded", iconClass: "fa-circle" },
-                { value: "squared", label: "Squared", iconClass: "fa-square" }
+                { value: "rounded", label: "丸型", iconClass: "fa-circle" },
+                { value: "squared", label: "角型", iconClass: "fa-square" }
             ],
             settings: {
                 gridColumns: 2
@@ -133,12 +133,12 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "orientation",
-            title: "Bar Orientation",
-            description: "The overall orientation of the progress bar.",
+            title: "バーの向き",
+            description: "プログレスバー全体の向きです。",
             type: "radio-cards",
             options: [
-                { value: "horizontal", label: "Horizontal", iconClass: "fa-arrows-left-right" },
-                { value: "vertical", label: "Vertical", iconClass: "fa-arrows-up-down" }
+                { value: "horizontal", label: "横向き", iconClass: "fa-arrows-left-right" },
+                { value: "vertical", label: "縦向き", iconClass: "fa-arrows-up-down" }
             ],
             settings: {
                 gridColumns: 2
@@ -150,12 +150,12 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "horizontalFillDirection",
-            title: "Fill Direction",
-            description: "The direction the bar fills as progress increases.",
+            title: "塗りつぶし方向",
+            description: "進行に伴ってバーが塗りつぶされる方向です。",
             type: "radio-cards",
             options: [
-                { value: "left-to-right", label: "Left to Right", iconClass: "fa-arrow-right" },
-                { value: "right-to-left", label: "Right to Left", iconClass: "fa-arrow-left" }
+                { value: "left-to-right", label: "左から右", iconClass: "fa-arrow-right" },
+                { value: "right-to-left", label: "右から左", iconClass: "fa-arrow-left" }
             ],
             settings: {
                 gridColumns: 2
@@ -171,12 +171,12 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "verticalFillDirection",
-            title: "Fill Direction",
-            description: "The direction the bar fills as progress increases.",
+            title: "塗りつぶし方向",
+            description: "進行に伴ってバーが塗りつぶされる方向です。",
             type: "radio-cards",
             options: [
-                { value: "bottom-to-top", label: "Bottom to Top", iconClass: "fa-arrow-up" },
-                { value: "top-to-bottom", label: "Top to Bottom", iconClass: "fa-arrow-down" }
+                { value: "bottom-to-top", label: "下から上", iconClass: "fa-arrow-up" },
+                { value: "top-to-bottom", label: "上から下", iconClass: "fa-arrow-down" }
             ],
             settings: {
                 gridColumns: 2
@@ -192,7 +192,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "minValue",
-            title: "Minimum Value",
+            title: "最小値",
             type: "number",
             default: 0,
             validation: {
@@ -201,7 +201,7 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "maxValue",
-            title: "Maximum Value",
+            title: "最大値",
             type: "number",
             default: 100,
             validation: {
@@ -211,15 +211,15 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "onUpdateEffects",
-            title: "On Update Effects",
-            description: "Effects to run when the progress bar value is updated.",
+            title: "更新時エフェクト",
+            description: "プログレスバーの値が更新されたときに実行するエフェクトです。",
             type: "effectlist",
             showBottomHr: true
         },
         {
             name: "onCompleteEffects",
-            title: "On Complete Effects",
-            description: "Effects to run when the progress bar reaches its maximum value.",
+            title: "完了時エフェクト",
+            description: "プログレスバーが最大値に達したときに実行するエフェクトです。",
             type: "effectlist"
         }
     ],

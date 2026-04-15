@@ -8,24 +8,24 @@ const normalizeNumber = (input) => {
 const model : ReplaceVariable = {
     definition: {
         handle: "min",
-        description: "Returns the lowest-value number",
+        description: "最小値の数値を返します。",
         usage: "min[num1, num2, ...]",
         examples: [
             {
                 usage: "min[1, 5, 3, 10]",
-                description: "Returns 1, the lowest value from the input numbers"
+                description: "入力した数値の中から最小値 1 を返します"
             },
             {
                 usage: "min[numberArray]",
-                description: "Returns the lowest value from the input array of numbers"
+                description: "数値の配列から最小値を返します"
             },
             {
                 usage: "min[``[1, 5, 3, 10]``]",
-                description: "Returns 1, the lowest value from the input stringified array of numbers"
+                description: "文字列化された数値配列の中から最小値 1 を返します"
             },
             {
                 usage: "min[``[8, 12]``, 5, 3, 10]",
-                description: "Returns 3, the lowest value from the input stringified array and numbers"
+                description: "文字列配列と数値を組み合わせた中から最小値 3 を返します"
             }
         ],
         categories: ["numbers"],

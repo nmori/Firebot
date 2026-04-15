@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "textSubstring",
         usage: "textSubstring[text, start, end]",
-        description: "Returns a substring of the provided text based on the range",
+        description: "指定した範囲に基づいてテキストの部分文字列を返します。",
         categories: ["text"],
         possibleDataOutput: ["text"]
     },

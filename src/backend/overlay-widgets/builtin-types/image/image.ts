@@ -11,17 +11,17 @@ type State = {};
 
 export const image: OverlayWidgetType<Settings, State> = {
     id: "firebot:image",
-    name: "Image",
-    description: "A simple image widget that displays a static image in the overlay.",
+    name: "画像",
+    description: "オーバーレイに静止画像を表示するウィジェットです。",
     icon: "fa-image",
     settingsSchema: [
         {
             name: "imageType",
-            title: "Image Type",
-            description: "Choose between a local file or an external URL.",
+            title: "画像の種類",
+            description: "ローカルファイルまたは外部URLを選択してください。",
             type: "radio-cards",
             options: [{
-                value: "local", label: "Local File", iconClass: "fa-folder-open"
+                value: "local", label: "ローカルファイル", iconClass: "fa-folder-open"
             }, {
                 value: "url", label: "URL", iconClass: "fa-link"
             }],
@@ -35,12 +35,12 @@ export const image: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "filepath",
-            title: "Image File",
+            title: "画像ファイル",
             type: "filepath",
             default: "",
             fileOptions: {
-                title: "Select an Image File",
-                buttonLabel: "Select Image",
+                title: "画像ファイルを選択",
+                buttonLabel: "画像を選択",
                 directoryOnly: false,
                 filters: [
                     { name: 'Image', extensions: ['bmp', 'gif', 'jpg', 'jpeg', 'png', 'apng', 'svg', 'webp'] },
@@ -56,7 +56,7 @@ export const image: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "url",
-            title: "Image URL",
+            title: "画像URL",
             type: "string",
             default: "",
             validation: {

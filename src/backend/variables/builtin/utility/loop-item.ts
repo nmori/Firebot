@@ -4,7 +4,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "loopItem",
         usage: "loopItem",
-        description: "The item for current loop iteration inside of a Loop Effects effect using Array loop mode",
+        description: "配列ループモードのループエフェクト内で現在のループ反復のアイテムを返します。",
         categories: ["advanced"],
         possibleDataOutput: ["number", "text"]
     },

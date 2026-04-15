@@ -4,11 +4,11 @@ const model : ReplaceVariable = {
     definition: {
         handle: "#name",
         usage: "#name",
-        description: 'Retrieves the preset-list arg of the give name',
+        description: '指定した名前のプリセットリスト引数の値を取得します。',
         examples: [
             {
                 usage: '#example',
-                description: "Returns the value of the preset-list arg 'example'; Synonymous with $presetListArgs[example]"
+                description: "プリセットリスト引数 'example' の値を返します（$presetListArgs[example] と同義）。"
             }
         ],
         categories: ["advanced"],

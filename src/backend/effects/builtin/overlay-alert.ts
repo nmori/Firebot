@@ -220,7 +220,7 @@ const effect: EffectType<OverlayAlertEffect> = {
                     <file-chooser model="effect.imageFile" options="{ filters: [{ name: 'Image', extensions: [ 'bmp', 'gif', 'jpg', 'jpeg', 'png', 'apng', 'svg', 'webp' ]}, { name: 'All Files', extensions: ['*']} ]}"></file-chooser>
                 </div>
                 <div ng-if="effect.imageSourceType === 'url'">
-                    <firebot-input placeholder-text="Enter image URL" model="effect.imageUrl" />
+                    <firebot-input placeholder-text="画像 URL を入力" model="effect.imageUrl" />
                 </div>
             </div>
 
@@ -246,7 +246,7 @@ const effect: EffectType<OverlayAlertEffect> = {
 
             <div ng-if="effect.mediaType !== 'none'" class="mt-3">
                 <firebot-slider
-                    label="Media Scale (%)"
+                    label="メディアサイズ（%）"
                     ng-model="effect.mediaScale"
                     options="{ floor: 1, ceil: 100 }"
                     left-icon="fa-compress-arrows-alt"
@@ -256,12 +256,12 @@ const effect: EffectType<OverlayAlertEffect> = {
 
             <div ng-if="effect.mediaType === 'video'" class="mt-3">
                 <firebot-checkbox
-                    label="Mute Video"
+                    label="動画をミュート"
                     model="effect.muteVideo"
                 />
                 <firebot-slider
                     ng-if="!effect.muteVideo"
-                    label="Video Volume"
+                    label="動画の音量"
                     ng-model="effect.videoVolume"
                     options="{ floor: 1, ceil: 10 }"
                     left-icon="fa-volume-down"
@@ -273,7 +273,7 @@ const effect: EffectType<OverlayAlertEffect> = {
         <eos-container header="Text" pad-top="true">
             <firebot-input
                 model="effect.text"
-                placeholder-text="Enter alert text"
+                placeholder-text="アラートテキストを入力"
                 use-text-area="true"
             />
             <div class="mt-3">
@@ -295,24 +295,24 @@ const effect: EffectType<OverlayAlertEffect> = {
                 <p class="muted" style="font-size:11px;margin-bottom:10px;">
                     You can wrap text in &lt;accent&gt; tags to apply special styling. Example: &lt;accent&gt;$username&lt;/accent&gt; just followed!
                 </p>
-                <color-picker-input model="effect.accentColor" label="Accent Color" alpha="true"></color-picker-input>
+                <color-picker-input model="effect.accentColor" label="アクセントカラー" alpha="true"></color-picker-input>
                 <div class="mt-2">
                     <firebot-checkbox
-                        label="Bold"
+                        label="太字"
                         model="effect.accentBold"
                     />
                     <firebot-checkbox
-                        label="Italic"
+                        label="イタリック"
                         model="effect.accentItalic"
                     />
                     <firebot-checkbox
-                        label="Underline"
+                        label="下線"
                         model="effect.accentUnderline"
                     />
                 </div>
                 <div class="mt-2">
                     <firebot-checkbox
-                        label="Automatically accent $variables"
+                        label="$変数を自動的にアクセント表示"
                         model="effect.autoAccentVariables"
                     />
                 </div>
@@ -331,7 +331,7 @@ const effect: EffectType<OverlayAlertEffect> = {
 
         <eos-container header="Sound Effect" pad-top="true">
             <firebot-checkbox
-                label="Play Sound"
+                label="サウンドを再生"
                 model="effect.playSound"
             />
 
@@ -354,12 +354,12 @@ const effect: EffectType<OverlayAlertEffect> = {
                 </div>
 
                 <div ng-if="effect.soundType === 'url'">
-                    <firebot-input placeholder-text="Enter sound URL" model="effect.soundUrl" />
+                    <firebot-input placeholder-text="サウンド URL を入力" model="effect.soundUrl" />
                 </div>
 
                 <div class="mt-3">
                     <firebot-slider
-                        label="Volume"
+                        label="音量"
                         ng-model="effect.soundVolume"
                         options="{ floor: 1, ceil: 10 }"
                         left-icon="fa-volume-down"
@@ -378,9 +378,9 @@ const effect: EffectType<OverlayAlertEffect> = {
 
         <eos-container header="Duration" pad-top="true">
             <firebot-input
-                input-title="Seconds"
+                input-title="秒数"
                 model="effect.duration"
-                placeholder-text="Enter duration"
+                placeholder-text="秒数を入力"
                 menu-position="under"
                 data-type="number"
             />
@@ -404,7 +404,7 @@ const effect: EffectType<OverlayAlertEffect> = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
+                このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
             </div>
         </eos-container>
     `,

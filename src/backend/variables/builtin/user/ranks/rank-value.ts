@@ -6,7 +6,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "rankValue",
         usage: "rankValue[rankLadderName, rankName]",
-        description: "Returns the threshold value of the specified rank in the rank ladder. Only applicable to auto rank ladders.",
+        description: "指定したランクの閾値を返します。自動ランクラダーのみ有効。",
         categories: ["common", "user based"],
         possibleDataOutput: ["number"]
     },

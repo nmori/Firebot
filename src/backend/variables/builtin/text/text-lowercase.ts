@@ -4,7 +4,7 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "lowercase",
-        description: "Makes the entire given text string lowercase.",
+        description: "入力テキスト全体を小文字に変換します。",
         usage: "lowercase[text]",
         categories: ["text"],
         possibleDataOutput: ["text"]

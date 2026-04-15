@@ -5,17 +5,17 @@ const model : ReplaceVariable = {
     definition: {
         handle: "customRoleUsers",
         usage: "customRoleUsers[role]",
-        description: "Returns an array of all the user display names in the specified custom role.",
+        description: "指定したカスタムロールの全ユーザー表示名の配列を返します。",
         categories: ["user based"],
         possibleDataOutput: ["array"],
         examples: [
             {
                 usage: "customRoleUsers[role, username]",
-                description: "Returns an array of all the user names (instead of *display names*) in the specified custom role."
+                description: "指定したカスタムロールの全ユーザー名（表示名でなくユーザー名）の配列を返します。"
             },
             {
                 usage: "customRoleUsers[role, raw]",
-                description: "Returns an array of user objects (with `displayName`, `id`, and `username` properties) in the specified custom role."
+                description: "指定したカスタムロールのユーザーオブジェクト（`displayName`、`id`、`username` プロパティを含む）の配列を返します。"
             }
         ]
     },

@@ -8,22 +8,22 @@ const model : ReplaceVariable = {
         examples: [
             {
                 usage: "date[dddd MMMM Do]",
-                description: 'Format with the preferred tokens. Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
+                description: '希望のトークンでフォーマットします。<a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> のフォーマットルールに従います。'
             },
             {
                 usage: "date[YYYY-DD-MM HH:mm:ss]",
-                description: "Format with the preferred tokens."
+                description: "希望のトークンでフォーマットします。"
             },
             {
                 usage: "date[MMM Do YYYY, 2, days]",
-                description: "Adds 2 days to the current date (or use other units i.e. months, years, etc.)."
+                description: "現在日時に2日加算します（months、yearsなど他の単位も使用可）。"
             },
             {
                 usage: "date[MMM Do YYY, -2, days]",
-                description: "Subtract 2 days from the current date (or use other units i.e. months, years, etc.)."
+                description: "現在日時か㉈2日引きます（months、yearsなど他の単位も使用可）。"
             }
         ],
-        description: "The current date formatted as MMM Do YYYY",
+        description: "MMM Do YYYY 形式で現在の日付を返します。",
         categories: ["common"],
         possibleDataOutput: ["text"]
     },

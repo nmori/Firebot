@@ -5,7 +5,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "randomRedditImage",
         usage: "randomRedditImage[subredditName]",
-        description: "Get a random image from a subreddit. (We do our best to check for bad images, but content warning none the less.)",
+        description: "指定したサブレディットからランダムな画像を取得します。（不適切な画像が含まれる可能性があります）",
         possibleDataOutput: ["text"]
     },
     evaluator: async (_, subreddit: string) => {

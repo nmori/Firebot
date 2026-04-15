@@ -1,9 +1,19 @@
-﻿"use strict";
+import { randomUUID } from "node:crypto";
+import type { EffectType } from "../../../types/effects";
+import { EffectCategory } from "../../../shared/effect-constants";
+import logger from "../../logwrapper";
 
-const logger = require("../../logwrapper");
-const { EffectCategory } = require('../../../shared/effect-constants');
+type VoiceCast = {
+    name: string;
+};
 
-const playSound = {
+const model: EffectType<{
+    message: string;
+    voicecast: VoiceCast;
+    voicelists: VoiceCast[];
+    port: number;
+    username: string;
+}> = {
     definition: {
         id: "firebot:play-yncneo",
         name: "ゆかコネNEO経由で読み上げ",
@@ -12,9 +22,7 @@ const playSound = {
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
-    globalSettings: {},
     optionsTemplate: `
-
         <eos-container header="キャスト">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,7 +62,6 @@ const playSound = {
         </eos-container>
     `,
     optionsController: async ($scope) => {
-
         if ($scope.effect.port == null) {
             $scope.effect.port = 8080;
         }
@@ -62,56 +69,43 @@ const playSound = {
         $scope.effect.voicelists = [];
 
         try {
-
-            const crypto = require("crypto");
             const voiceQuery = {
-                operation: 'speech.getvoicelist',
-                params: [
-                    {
-                        id: crypto.randomUUID()
-                    }
-                ]
+                operation: "speech.getvoicelist",
+                params: [{ id: randomUUID() }]
             };
             const response = await fetch(
                 `http://127.0.0.1:${$scope.effect.port}/`,
                 {
-                    method: 'POST',
-                    header: { 'Content-Type': 'application/json' },
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(voiceQuery)
                 }
             );
-            const responseData = JSON.parse(await response.text());
+            const responseData: { voice: string[] } = JSON.parse(await response.text());
             for (const voicecast of responseData.voice) {
                 $scope.effect.voicelists.push({ name: voicecast });
             }
-
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
-
     },
-    optionsValidator: effect => {
-        const errors = [];
-
-        if (effect.port == null || effect.port === "") {
+    optionsValidator: (effect) => {
+        const errors: string[] = [];
+        if (effect.port == null) {
             errors.push("ポート番号を指定してください");
         }
-
         return errors;
     },
-    onTriggerEvent: async event => {
-        const effect = event.effect;
+    onTriggerEvent: async (event) => {
+        const { effect } = event;
 
         try {
-            // HTTP header
-            const crypto = require("crypto");
-            const engine = effect.voicecast.name.split('/');
-
+            const engine = effect.voicecast.name.split("/");
             const voiceQuery = {
-                operation: 'speech',
+                operation: "speech",
                 params: [
                     {
-                        id: crypto.randomUUID(),
+                        id: randomUUID(),
                         text: effect.message,
                         talker: effect.username,
                         voiceCast: engine[0],
@@ -120,23 +114,20 @@ const playSound = {
                 ]
             };
 
-            const response = await fetch(
+            await fetch(
                 `http://127.0.0.1:${effect.port}/`,
                 {
-                    method: 'POST',
-                    header: { 'Content-Type': 'application/json' },
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(voiceQuery)
                 }
             );
-
-            await response.text();
-
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
 
         return true;
-    },
+    }
 };
 
-module.exports = playSound;
+export = model;

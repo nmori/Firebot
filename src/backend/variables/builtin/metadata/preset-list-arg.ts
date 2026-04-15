@@ -9,7 +9,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "presetListArg",
         usage: "presetListArg[name]",
-        description: "Represents the given argument passed to this preset effect list.",
+        description: "このプリセットエフェクトリストに渡された指定の引数を返します。",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["number", "text"]

@@ -67,32 +67,32 @@ const fuzzyMatch = (value: unknown, match: unknown) : boolean => {
 const model : ReplaceVariable = {
     definition: {
         handle: "arrayFilter",
-        description: "Returns a new filtered array.",
+        description: "フィルタリングされた新しい配列を返します。",
         usage: "arrayFilter[array, matcher, propertyPath, removeMatches]",
         examples: [
             {
                 usage: 'arrayFilter["[1,2,3]", 1, null, false]',
-                description: "Filter out anything that doesn't equal 1 (new array: [1])"
+                description: "1 以外の要素を除外します（新配列: [1]）"
             },
             {
                 usage: 'arrayFilter["[1,2,3]", 1, null, true]',
-                description: 'Filter out anything that equals 1 (new array: [2,3])'
+                description: '1 と等しい要素を除外します（新配列: [2,3]）'
             },
             {
                 usage: 'arrayFilter["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"MageEnclave\\"}]", ebiggz, username, true]',
-                description: 'Filter out anything that has a username property which equals "ebiggz" (new array: [{\\"username\\": \\"MageEnclave\\"}])'
+                description: 'username プロパティが "ebiggz" の要素を除外します（新配列: [{\\"username\\": \\"MageEnclave\\"}]）'
             },
             {
                 usage: 'arrayFilter[rawArray, 1, null, false]',
-                description: "Filter out anything that doesn't equal 1"
+                description: "1 以外の要素を除外します。"
             },
             {
                 usage: 'arrayFilter[rawArray, 1, null, true]',
-                description: 'Filter out anything that equals 1'
+                description: '1 と等しい要素を除外します。'
             },
             {
                 usage: 'arrayFilter[rawArray, value, key, true]',
-                description: 'Filter out any item in the array that has a key property which equals "value"'
+                description: 'key プロパティが "value" と等しい要素を除外します。'
             }
         ],
         categories: ["advanced"],

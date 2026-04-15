@@ -4,15 +4,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "arrayLength",
         usage: "arrayLength[array]",
-        description: "Returns the length of the input array.",
+        description: "入力配列の長さを返します。",
         examples: [
             {
                 usage: `arrayLength["[1,2,3]"]`,
-                description: "Returns 3."
+                description: "3 を返します。"
             },
             {
                 usage: "arrayLength[rawArray]",
-                description: "Returns the length of the raw array."
+                description: "生配列の長さを返します。"
             }
         ],
         categories: ["advanced", "numbers"],

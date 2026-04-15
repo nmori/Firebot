@@ -6,19 +6,19 @@ const model : ReplaceVariable = {
     definition: {
         handle: "evalJs",
         usage: "evalJs[`` code ``, ...parameters]",
-        description: 'Evaluates the given js in a sandboxed browser instance.<br/><br/>Parameters can be accessed via parameters[N] within the js.<br/>Event metadata can be accessed via metadata.*<br/><br/>You must use return to return a result from the evaluation.',
+        description: 'サンドボックス化されたブラウザインスタンスで指定した JavaScript を実行します。<br/><br/>パラメータは JS 内で parameters[N] でアクセスできます。<br/>イベントメタデータは metadata.* でアクセスできます。<br/><br/>評価結果を返すには return を使用する必要があります。',
         examples: [
             {
                 usage: 'evalJs[``return parameters[0]``, test]',
-                description: 'Returns the first parameter passed to $evalJS: "test"'
+                description: '$evalJS に渡した最初のパラメータ "test" を返します。'
             },
             {
                 usage: 'evalJs[``return metadata.username``]',
-                description: 'Returns the username from the event\'s metadata'
+                description: 'イベントのメタデータからユーザー名を返します。'
             },
             {
                 usage: 'evalJs[``return await Firebot.sum[1,2,3,4]``]',
-                description: 'Calls the sum firebot api and returns the result'
+                description: 'Firebot の sum API を呼び出して結果を返します。'
             }
         ],
         categories: ["advanced"],

@@ -5,7 +5,7 @@ import viewerDatabase from "../../../viewers/viewer-database";
 const model : ReplaceVariable = {
     definition: {
         handle: "usernameArray",
-        description: "Returns an array of all usernames saved in the user db",
+        description: "ユーザー DB に保存されている全ユーザー名の配列を返します。",
         categories: ["advanced"],
         possibleDataOutput: ["array"]
     },

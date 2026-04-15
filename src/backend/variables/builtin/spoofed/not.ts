@@ -4,11 +4,11 @@ const model : ReplaceVariable = {
     definition: {
         handle: "NOT",
         usage: "NOT[condition]",
-        description: 'Returns the opposite of the condition\'s result. Only works within $if[]',
+        description: '条件の結果の逆を返します。$if[] 内でのみ機能します。',
         examples: [
             {
                 usage: 'NOT[1 === 1]',
-                description: "Returns false as the condition is true"
+                description: "条件が true であるため false を返します。"
             }
         ],
         categories: ["advanced"],

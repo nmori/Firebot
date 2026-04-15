@@ -32,20 +32,20 @@ const model: EffectType<{
 
         <eos-container header="Effect List" ng-if="effect.target === 'specificList'" pad-top="true">
             <firebot-input
-                input-title="Effect List ID"
-                title-tooltip="You can copy the ID of an effect list via its three-dot menu in the top right corner"
+                input-title="エフェクトリスト ID"
+                title-tooltip="エフェクトリストの ID は右上の三点メニューからコピーできます。"
                 model="effect.listId"
-                placeholder-text="Enter ID"
+                placeholder-text="ID を入力"
                 data-type="text"
             />
         </eos-container>
 
         <eos-container header="Effect" ng-if="effect.target === 'specificEffect'" pad-top="true">
             <firebot-input
-                input-title="Effect ID"
-                title-tooltip="You can copy the ID of an effect via its three-dot menu"
+                input-title="エフェクト ID"
+                title-tooltip="エフェクトの ID は三点メニューからコピーできます。"
                 model="effect.effectId"
-                placeholder-text="Enter ID"
+                placeholder-text="ID を入力"
                 data-type="text"
             />
         </eos-container>
@@ -64,8 +64,8 @@ const model: EffectType<{
             pad-top="true"
         >
             <firebot-checkbox
-                label="Bubble to parent effect lists"
-                tooltip="Bubble the stop effect execution request to all parent effect lists (useful if nested within a conditional effect, etc)"
+                label="親エフェクトリストに伝播"
+                tooltip="エフェクト実行停止リクエストをすべての親エフェクトリストに伝播します（条件エフェクト内のネスト等に便利です）。"
                 model="effect.bubbleStop"
             />
         </eos-container>

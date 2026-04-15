@@ -11,7 +11,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "commandTrigger",
-        description: "The trigger of the issued command.",
+        description: "実行されたコマンドのトリガー文字列を返します。",
         triggers: triggers,
         categories: ["trigger based"],
         possibleDataOutput: ["text"]

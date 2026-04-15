@@ -15,15 +15,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "hasRoles",
         usage: "hasRoles[user, any|all, role, role2, ...]",
-        description: "Returns true if the user has the specified roles. Only valid within `$if`",
+        description: "ユーザーが指定したロールを保持している場偂は true を返します。`$if` 内でのみ有効です。",
         examples: [
             {
                 usage: "hasRoles[$user, any, Moderator, VIP]",
-                description: "returns true if $user is a mod OR VIP"
+                description: "$user がモデレーターまたは VIP のいずれかの場偂は true を返します。"
             },
             {
                 usage: "hasRoles[$user, all, Moderator, VIP]",
-                description: "Returns true if $user is a mod AND a VIP"
+                description: "$user がモデレーターかつ VIP の場卂は true を返します。"
             }
         ],
         triggers: triggers,

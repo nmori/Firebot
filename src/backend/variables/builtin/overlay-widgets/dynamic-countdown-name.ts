@@ -2,7 +2,7 @@ import { createEventDataVariable } from "../../variable-factory";
 
 export default createEventDataVariable({
     handle: "dynamicCountdownName",
-    description: "The name of the dynamic countdown widget",
+    description: "ダイナミックカウントダウンウィジェットの名前",
     events: ["firebot:dynamic-countdown-finished"],
     type: "text",
     eventMetaKey: "dynamicCountdownWidgetName"

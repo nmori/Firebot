@@ -7,7 +7,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "viewerNamesInRank",
         usage: "viewerNamesInRank[rankLadderName, rankName]",
-        description: "Returns an comma separated list of viewer names in the specified rank",
+        description: "指定したランクの視聴者名をカンマ区切りで返します。",
         categories: ["user based"],
         possibleDataOutput: ["text"]
     },

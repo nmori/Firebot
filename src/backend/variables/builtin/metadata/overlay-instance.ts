@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model: ReplaceVariable = {
     definition: {
         handle: "overlayInstance",
-        description: "The name of the overlay instance that triggered the event.",
+        description: "イベントをトリガーしたオーバーレイインスタンスの名前を返します。",
         triggers: triggers,
         categories: ["trigger based"],
         possibleDataOutput: ["text"]

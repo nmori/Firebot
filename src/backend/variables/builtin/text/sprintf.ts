@@ -6,19 +6,19 @@ const model : ReplaceVariable = {
     definition: {
         handle: 'sprintf',
         usage: 'sprintf[template, ...values]',
-        description: 'Formats a string using the specified template and values.',
+        description: '指定したテンプレートと値で文字列をフォーマットします。',
         examples: [
             {
                 usage: 'sprintf["Hello, %s!", "World"]',
-                description: 'Formats the string into "Hello, World!".'
+                description: '"Hello, World!" にフォーマットします。'
             },
             {
                 usage: 'sprintf["%d + %d = %d", 2, 3, 5]',
-                description: 'Formats the string into "2 + 3 = 5".'
+                description: '"2 + 3 = 5" にフォーマットします。'
             },
             {
                 usage: 'sprintf["%s tipped $%0.2f", "Alice", 5]',
-                description: 'Formats the string into "Alice tipped $5.00".'
+                description: '"Alice tipped $5.00" にフォーマットします。'
             }
         ],
         categories: ["text"],

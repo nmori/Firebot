@@ -18,8 +18,8 @@ export const currentDateTime: OverlayWidgetType<Settings, State> = {
     settingsSchema: [
         {
             name: "format",
-            title: "Format",
-            description: 'Uses [luxon.js](https://moment.github.io/luxon/#/formatting?id=table-of-tokens) formatting rules.',
+            title: "表示形式",
+            description: '[luxon.js](https://moment.github.io/luxon/#/formatting?id=table-of-tokens) のフォーマットルールに従います。',
             type: "string",
             default: "DD h:mm:ss a",
             useTextArea: true,
@@ -29,7 +29,7 @@ export const currentDateTime: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "fontOptions",
-            title: "Font Options",
+            title: "フォント設定",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -43,15 +43,15 @@ export const currentDateTime: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "horizontalAlignment",
-            title: "Horizontal Alignment",
-            description: "Horizontal alignment of the text within the widget area.",
+            title: "水平揃え",
+            description: "ウィジェット内のテキストの水平方向の揃えを指定します。",
             type: "radio-cards",
             options: [{
-                value: "left", label: "Left", iconClass: "fa-align-left"
+                value: "left", label: "左", iconClass: "fa-align-left"
             }, {
-                value: "center", label: "Center", iconClass: "fa-align-center"
+                value: "center", label: "中央", iconClass: "fa-align-center"
             }, {
-                value: "right", label: "Right", iconClass: "fa-align-right"
+                value: "right", label: "右", iconClass: "fa-align-right"
             }],
             settings: {
                 gridColumns: 3
@@ -60,15 +60,15 @@ export const currentDateTime: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "verticalAlignment",
-            title: "Vertical Alignment",
-            description: "Vertical alignment of the text within the widget area.",
+            title: "垂直揃え",
+            description: "ウィジェット内のテキストの垂直方向の揃えを指定します。",
             type: "radio-cards",
             options: [{
-                value: "top", label: "Top", iconClass: "fa-arrow-to-top"
+                value: "top", label: "上", iconClass: "fa-arrow-to-top"
             }, {
-                value: "center", label: "Center", iconClass: "fa-border-center-h"
+                value: "center", label: "中央", iconClass: "fa-border-center-h"
             }, {
-                value: "bottom", label: "Bottom", iconClass: "fa-arrow-to-bottom"
+                value: "bottom", label: "下", iconClass: "fa-arrow-to-bottom"
             }],
             settings: {
                 gridColumns: 3

@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
         handle: "userAvatarUrl",
         aliases: ["userProfileImageUrl"],
         usage: "userAvatarUrl",
-        description: "Gets the url for the avatar of the associated user (Ie who triggered command, pressed button, etc).",
+        description: "トリガーに関連するユーザーのアバター URL を取得します。",
         examples: [
             {
                 usage: "userAvatarUrl[$target]",
-                description: "When in a command, gets the the url for the avatar of the target user."
+                description: "コマンド内でターゲットユーザーのアバター URL を取得します。"
             },
             {
                 usage: "userAvatarUrl[ebiggz]",
-                description: "Gets the url for the avatar of a specific user."
+                description: "指定したユーザーのアバター URL を取得します。"
             }
         ],
         categories: ["user based"],

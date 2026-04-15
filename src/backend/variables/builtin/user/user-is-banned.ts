@@ -5,7 +5,7 @@ const UserIsBannedVariable: ReplaceVariable = {
     definition: {
         handle: "userIsBanned",
         usage: "userIsBanned[username]",
-        description: "Returns `true` if the specified user is currently banned (not just timed out), otherwise returns `false`.",
+        description: "指定したユーザーが現在バンされている場合（タイムアウト除く）は `true` を、そうでない場合は `false` を返します。",
         categories: ["common", "user based"],
         possibleDataOutput: ["text", "bool"]
     },

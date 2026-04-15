@@ -4,7 +4,7 @@ import { AccountAccess } from "../../../common/account-access";
 const model : ReplaceVariable = {
     definition: {
         handle: "bot",
-        description: "Outputs the Bot account username.",
+        description: "ボットアカウントのユーザー名を返します。",
         possibleDataOutput: ["text"]
     },
     evaluator: () => {

@@ -43,9 +43,9 @@ const model: EffectType<{
 
                 <firebot-checkbox
                     ng-if="effect.mode == 'update'"
-                    label="Save Changes"
+                    label="変更を保存"
                     model="effect.saveChanges"
-                    tooltip="If checked, changes made to the widget settings will be saved to the widget configuration."
+                    tooltip="チェックを入れると、ウィジェット設定への変更がウィジェット構成に保存されます。"
                     style="margin: 15px 0 0 0"
                 />
             </eos-container>
@@ -55,7 +55,7 @@ const model: EffectType<{
                 <eos-container header="Customize" pad-top="true">
                     <div ng-if="selectedType && (!selectedType.userCanConfigure || selectedType.userCanConfigure.position !== false)">
                         <firebot-checkbox
-                            label="Edit Position"
+                            label="位置を編集"
                             ng-init="editPosition = (effect.position != null && effect.position !== ''); showTopLevelProp.position = editPosition"
                             model="editPosition"
                             on-change="topLevelPropToggled('position', newValue)"
@@ -72,7 +72,7 @@ const model: EffectType<{
 
                     <div>
                         <firebot-checkbox
-                            label="Edit z-index"
+                            label="z-index を編集"
                             ng-init="editZIndex = (effect.zIndex != null && effect.zIndex !== ''); showTopLevelProp.zIndex = editZIndex"
                             model="editZIndex"
                             on-change="topLevelPropToggled('zIndex', newValue)"
@@ -90,7 +90,7 @@ const model: EffectType<{
 
                     <div>
                         <firebot-checkbox
-                            label="Edit Overlay Instance"
+                            label="オーバーレイインスタンスを編集"
                             ng-init="editOverlayInstance = (effect.overlayInstance != null && effect.overlayInstance !== ''); showTopLevelProp.overlayInstance = editOverlayInstance"
                             model="editOverlayInstance"
                             on-change="topLevelPropToggled('overlayInstance', newValue)"
@@ -98,7 +98,7 @@ const model: EffectType<{
                         />
                         <div ng-if="showTopLevelProp.overlayInstance" class="ml-5 mb-10">
                             <select class="fb-select" id="overlay-instance" ng-model="effect.overlayInstance">
-                                <option label="Default" value="">Default</option>
+                                <option label="デフォルト" value="">デフォルト</option>
                                 <option ng-repeat="instance in overlayInstances" label="{{instance}}" value="{{instance}}">{{instance}}</option>
                             </select>
                         </div>
@@ -109,7 +109,7 @@ const model: EffectType<{
 
                         <div ng-repeat="setting in settingsSchema">
                             <firebot-checkbox
-                                label="Edit {{setting.title || setting.name}}"
+                                label="編集: {{setting.title || setting.name}}"
                                 ng-init="editSetting[setting.name] = (effect.settings[setting.name] != null && effect.settings[setting.name] !== ''); showSetting[setting.name] = editSetting[setting.name]"
                                 model="editSetting[setting.name]"
                                 on-change="settingsPropToggled(setting.name, newValue)"

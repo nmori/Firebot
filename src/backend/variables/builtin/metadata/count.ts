@@ -13,7 +13,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "count",
         usage: "count",
-        description: "Displays the number of times the given command has been run.",
+        description: "このコマンドが実行された回数を表示します。",
         triggers: triggers,
         categories: ["trigger based", "common"],
         possibleDataOutput: ["number"]

@@ -43,7 +43,7 @@ const model: ReplaceVariable = {
                 description: "returns decimal value"
             }
         ],
-        description: "outputs color in specified format",
+        description: "指定した形式で色を出力します。",
         possibleDataOutput: ["text"]
     },
     evaluator: (

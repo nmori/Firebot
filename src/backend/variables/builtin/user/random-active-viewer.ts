@@ -8,31 +8,31 @@ const model : ReplaceVariable = {
     definition: {
         handle: "randomActiveViewer",
         usage: "randomActiveViewer",
-        description: "Get a random active chatter's username.",
+        description: "アクティブなチャッターのユーザー名をランダムに取得します。",
         examples: [
             {
                 usage: "randomActiveViewer[customRolesToInclude, usersToExclude, customRolesToExclude, username|id|raw]",
-                description: "Get a random active chatter that is a member of the custom role(s), ignoring the excluded username(s) and members in the excluded role(s)."
+                description: "指定したカスタムロールに属するアクティブチャッターをランダムに取得します　2引数以降で除外ユーザーや除外ロールを指定できます。"
             },
             {
                 usage: "randomActiveViewer[roleName]",
-                description: "Filter to an active viewer in a specific role."
+                description: "指定のロールに属するアクティブ視聴者に絞り込みます。"
             },
             {
                 usage: "randomActiveViewer[null, ignoreUser]",
-                description: "Get a random active user that is NOT the ignored user."
+                description: "指定したユーザーを除くランダムなアクティブユーザーを取得します。"
             },
             {
                 usage: "randomActiveViewer[$arrayFrom[roleOne, roleTwo], $arrayFrom[$streamer, $bot], $arrayFrom[roleC, roleD]]",
-                description: "Filter to members of roleOne or roleTwo, excluding streamer and bot, and excluding any members of roleC or roleD."
+                description: "roleOne または roleTwo のメンバーに絞り込み、ストリーマー・ボットおよび roleC・ roleD のメンバーを除外します。"
             },
             {
                 usage: "randomActiveViewer[null, null, null, id]",
-                description: "Get the unique user ID for a random active chatter."
+                description: "ランダムなアクティブチャッターのユニークユーザー ID を取得します。"
             },
             {
                 usage: "randomActiveViewer[null, null, null, raw]",
-                description: "Get an object representing a random active chatter. The result will include `username` and `id` properties."
+                description: "ランダムなアクティブチャッターをオブジェクト形式で取得します（`username` と `id` プロパティを含む）。"
             }
         ],
         categories: ["user based"],

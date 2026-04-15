@@ -21,7 +21,7 @@ const effect: EffectType<{
         <firebot-input
             model="effect.message"
             use-text-area="true"
-            placeholder-text="Enter message"
+            placeholder-text="メッセージを入力"
             rows="4"
             cols="40"
             menu-position="under"

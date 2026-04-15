@@ -6,7 +6,7 @@ import currencyManager from "../../../currency/currency-manager";
 const model : ReplaceVariable = {
     definition: {
         handle: "rawTopCurrency",
-        description: "Returns a raw array containing those with the most of the specified currency. Items in the array contain `place`, `username` and `amount` properties.",
+        description: "指定した通貨を最も多く持つユーザーを生の配列で返します。各要素は `place`、`username`、`amount` プロパティを持ちます。",
         usage: "rawTopCurrency[currencyName]",
         hasSuggestions: true,
         noSuggestionsText: "No currencies have been created yet.",

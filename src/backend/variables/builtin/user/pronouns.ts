@@ -25,19 +25,19 @@ const callUrl = async (url: string): Promise<Response> => {
 const model : ReplaceVariable = {
     definition: {
         handle: "pronouns",
-        description: "Returns the pronouns of the given user. It uses https://pronouns.alejo.io/ to get the pronouns.",
+        description: "指定したユーザーの使用代名詞を返します。https://pronouns.alejo.io/ を使用します。",
         examples: [
             {
                 usage: 'pronouns[username, 0, they/them]',
-                description: "Returns 'she/her' if available, otherwise uses they/them."
+                description: "she/her が設定されていれば 'she/her' を、なければ they/them を返します。"
             },
             {
                 usage: 'pronouns[username, 1, they]',
-                description: "Returns 'she' pronoun in she/her set if available, otherwise uses they."
+                description: "she/her セットの 1番目プロノウン（she）を返します。なければ they を返します。"
             },
             {
                 usage: 'pronouns[username, 2, them]',
-                description: "Returns 'her' pronoun in she/her set if available, otherwise uses them."
+                description: "she/her セットの 2番目プロノウン（her）を返します。なければ them を返します。"
             }
         ],
         categories: ["common"],

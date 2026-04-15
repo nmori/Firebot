@@ -13,52 +13,52 @@ triggers["channel_reward"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "discordTimestamp",
-        description: "Outputs a discord timestamp that shows the appropriate time for all users in their own timezone.",
+        description: "各ユーザーのタイムゾーンに合わせた時刻を表示する Discord タイムスタンプを出力します。",
         usage: "discordTimestamp[]",
         examples: [
             {
                 usage: "discordTimestamp[]",
-                description: "Create discord timestamp using your current time."
+                description: "現在の時刻で Discord タイムスタンプを作成します。"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00]",
-                description: "Create discord timestamp using specified time, in default discord format."
+                description: "指定時刻でデフォルト形式の Discord タイムスタンプを作成します。"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:t]",
-                description: "Create a 'short time' discord timestamp. EX: 01:00 | 1:00 PM"
+                description: "短時間形式のタイムスタンプ。例: 01:00 | 1:00 PM"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:T]",
-                description: "Create a 'long time' discord timestamp. EX: 01:00:00 | 01:00:00 PM"
+                description: "長時間形式のタイムスタンプ。例: 01:00:00 | 01:00:00 PM"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:d]",
-                description: "Create a 'short date' discord timestamp. EX: 1/26/2076 | 26/01/2076"
+                description: "短日付形式のタイムスタンプ。例: 1/26/2076 | 26/01/2076"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:D]",
-                description: "Create a 'long date' discord timestamp. EX: January 26, 2076 | 26 January 2076"
+                description: "長日付形式のタイムスタンプ。例: January 26, 2076 | 26 January 2076"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:f]",
-                description: "Create a 'short date/time' discord timestamp. EX: January 26, 2076 1:00 PM | 26 January 2076 13:00"
+                description: "短日時形式のタイムスタンプ。例: January 26, 2076 1:00 PM | 26 January 2076 13:00"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:F]",
-                description: "Create a 'long date/time' discord timestamp. EX: Sunday, January 26, 2076 1:00 PM | Sunday, 26 January 2076, 13:00"
+                description: "長日時形式のタイムスタンプ。例: Sunday, January 26, 2076 1:00 PM | Sunday, 26 January 2076, 13:00"
             },
             {
                 usage: "discordTimestamp[2076-01-26 13:00:00:R]",
-                description: "Create a 'relative' discord timestamp. EX: 'in 53 years' | 'in 23 minutes'"
+                description: "相対形式のタイムスタンプ。例: 'in 53 years' | 'in 23 minutes'"
             },
             {
                 usage: "discordTimestamp[13:00:00]",
-                description: "Create discord timestamp using a specified time on the current date."
+                description: "当日の指定時刻で Discord タイムスタンプを作成します。"
             },
             {
                 usage: "discordTimestamp[now, R]",
-                description: "Create discord timestamp using current date and time in a specified format."
+                description: "指定形式で現在日時の Discord タイムスタンプを作成します。"
             }
         ],
         triggers: triggers,

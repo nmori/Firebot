@@ -6,7 +6,7 @@ import { commafy } from "../../../utils";
 const model : ReplaceVariable = {
     definition: {
         handle: "topViewTime",
-        description: "Comma separated list of users with the most view time (in hours). Defaults to top 10, you can provide a custom number as a second argument.",
+        description: "視聴時間（時間）の多いユーザーをカンマ区切りで返します。デフォルトはトップ10。第2引数で表示件数を変更できます。",
         usage: "topViewTime[count]",
         possibleDataOutput: ["text"]
     },

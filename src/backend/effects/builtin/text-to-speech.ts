@@ -35,8 +35,8 @@ const effect: EffectType<{
 
         <eos-container header="Wait" pad-top="true">
             <firebot-checkbox
-                label="Wait for speech to finish"
-                tooltip="Wait for the speech to finish or be cancelled before allowing the next effect to run."
+                label="音声が終わるまで待つ"
+                tooltip="音声が終了またはキャンセルされるまで、次のエフェクトの実行を待ちます。"
                 model="effect.wait"
                 style="margin: 0px 15px 0px 0px"
             />

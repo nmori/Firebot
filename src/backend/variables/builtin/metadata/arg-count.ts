@@ -11,7 +11,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "argCount",
-        description: "Returns the number of command args.",
+        description: "コマンドの引数の数を返します。",
         triggers: triggers,
         categories: ["trigger based", "numbers"],
         possibleDataOutput: ["number"]

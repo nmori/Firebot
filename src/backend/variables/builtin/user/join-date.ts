@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "joinDate",
         usage: "joinDate",
-        description: "Displays the date that a viewer was first seen in chat (by Firebot).",
+        description: "Firebot が初めて視聴者を検出した日付を返します。",
         examples: [
             {
                 usage: "joinDate",
-                description: "Returns the join date for the current viewer."
+                description: "現在の視聴者の初回検出日を返します。"
             },
             {
                 usage: "joinDate[username]",
-                description: "Returns the join date for the specified viewer."
+                description: "指定した視聴者の初回検出日を返します。"
             }
         ],
         categories: ["user based"],

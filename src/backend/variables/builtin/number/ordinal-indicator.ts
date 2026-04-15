@@ -5,7 +5,7 @@ const nth = (n: number) : string => ["st", "nd", "rd"][(((n < 0 ? -n : n) + 90) 
 const model : ReplaceVariable = {
     definition: {
         handle: "ordinalIndicator",
-        description: "Adds an ordinal indicator suffix to a number (ie 'st', 'nd', 'rd')",
+        description: "数値に序数サフィックス（'st'、'nd'、'rd' など）を追加します。",
         usage: "ordinalIndicator[number]",
         categories: ["numbers"],
         possibleDataOutput: ["text"]

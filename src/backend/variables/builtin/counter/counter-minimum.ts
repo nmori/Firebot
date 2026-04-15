@@ -8,7 +8,7 @@ const triggers: TriggersObject = {
 const model: ReplaceVariable = {
     definition: {
         handle: "counterMinimum",
-        description: "The minimum value of the counter, or an empty string if there isn't one",
+        description: "カウンターの最小値を返します。最小値がない場合は空文字を返します。",
         triggers: triggers,
         categories: ["trigger based", "numbers"],
         possibleDataOutput: ["number"]

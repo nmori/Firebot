@@ -7,11 +7,11 @@ const model : ReplaceVariable = {
     definition: {
         handle: "filesInDirectory",
         usage: 'filesInDirectory[path\\to\\dir\\]',
-        description: "Returns an array of full filepaths in the given directory. Does not include subdirectories",
+        description: "指定したディレクトリ内のファイルの絶対パスの配列を返します。サブディレクトリは含まれません。",
         examples: [
             {
                 usage: "filesInDirectory[path\\to\\dir\\, regexp, flags]",
-                description: "Lists files matching the regexp filter"
+                description: "正規表現フィルタに一致するファイルを一覧表示します。"
             }
         ],
         categories: ["advanced"],

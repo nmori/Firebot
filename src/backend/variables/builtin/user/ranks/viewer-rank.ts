@@ -7,7 +7,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "viewerRank",
         usage: "viewerRank[username, rankLadderName]",
-        description: "Returns the viewers current rank name for the specified rank ladder",
+        description: "指定したランクラダーでの視聴者の現在のランク名を返します。",
         categories: ["common", "user based"],
         possibleDataOutput: ["text"]
     },

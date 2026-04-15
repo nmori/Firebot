@@ -6,12 +6,12 @@ import { commafy } from "../../../utils";
 const model : ReplaceVariable = {
     definition: {
         handle: "topMetadata",
-        description: "Comma separated list of users with the most of the given metadata key. Defaults to top 10, you can provide a custom number as a second argument.",
+        description: "指定したメタデータキーの値が多いユーザーをカンマ区切りで返します。デフォルトはトップ10。第2引数で表示件数を変更できます。",
         usage: "topMetadata[metadataKey]",
         examples: [
             {
                 usage: "topMetadata[deaths, 5]",
-                description: "Returns comma-separated list of top 5 users with their death counts"
+                description: "デス数が多い上位5ユーザーをカンマ区切りで返します。"
             }
         ],
         possibleDataOutput: ["text"]

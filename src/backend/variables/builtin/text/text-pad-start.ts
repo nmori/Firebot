@@ -3,16 +3,16 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "textPadStart",
-        description: "Pads the start of text",
+        description: "テキストの先頭にパディングします。",
         usage: "textPadStart[input, count, countIsLength, padChar]",
         examples: [
             {
                 usage: "textPadStart[input, count, $false, \" \"]",
-                description: "Adds 'count' number of spaces to the start of input"
+                description: "入力の先頭に count 個のスペースを追加します。"
             },
             {
                 usage: "textPadStart[input, count, $true, \" \"]",
-                description: "Adds spaces to the start of the input until the length of the output equals 'count'"
+                description: "出力の文字数が count になるまで先頭にスペースを追加します。"
             }
         ],
         categories: ["text"],

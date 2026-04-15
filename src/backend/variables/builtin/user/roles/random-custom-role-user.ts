@@ -7,29 +7,29 @@ const model : ReplaceVariable = {
     definition: {
         handle: "randomCustomRoleUser",
         usage: "randomCustomRoleUser[role]",
-        description: "Returns a random user's display name that is in any of the specified custom role(s).",
+        description: "指定したカスタムロールに属するランダムなユーザーの表示名を返します。",
         categories: ["user based"],
         possibleDataOutput: ["text", "object"],
         examples: [
             {
                 usage: "randomCustomRoleUser[customRolesToInclude, usersToExclude, customRolesToExclude, displayName|username|id|raw]",
-                description: "Get a random user that is in any of the included role(s), ignoring the excluded username(s) or members in the excluded role(s)."
+                description: "指定ロールのメンバーから除外ユーザー・除外ロールを考慮してランダムに取得します。"
             },
             {
                 usage: "randomCustomRoleUser[roleOne, $streamer]",
-                description: "Get a random user's display name that is a member of roleOne, excluding your own streamer's account."
+                description: "roleOne のメンバーからストリーマーを除くランダムな表示名を取得します。"
             },
             {
                 usage: "randomCustomRoleUser[roleOne, null, roleC, username]",
-                description: "Get the username of a random member of roleOne, excluding any member of roleC."
+                description: "roleOne のメンバーから roleC のメンバーを除くランダムなユーザー名を取得します。"
             },
             {
                 usage: "randomCustomRoleUser[$arrayFrom[roleOne, roleTwo], $arrayFrom[$streamer, $bot], $arrayFrom[roleC, roleD]]",
-                description: "Get the display name of a member of roleOne or roleTwo, excluding streamer and bot, and excluding any members of roleC or roleD."
+                description: "roleOne/roleTwo のメンバーからストリーマー・ボットおよび roleC/roleD のメンバーを除外します。"
             },
             {
                 usage: "randomCustomRoleUser[roleOne, null, null, raw]",
-                description: "Get an object representing a random member of roleOne. The result will include `displayName`, `username`, and `id` properties."
+                description: "roleOne のメンバーをオブジェクト形式で取得します（`displayName`、`username`、`id` プロパティを含む）。"
             }
         ]
     },

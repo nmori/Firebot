@@ -1,16 +1,16 @@
-"use strict";
+import { randomUUID } from "node:crypto";
+import type { EffectType } from "../../../types/effects";
+import { EffectCategory, EffectTrigger } from "../../../shared/effect-constants";
+import logger from "../../logwrapper";
 
-const webServer = require("../../../server/http-server-manager");
-const fs = require('fs-extra');
-const logger = require("../../logwrapper");
-const path = require("path");
-const frontendCommunicator = require("../../common/frontend-communicator");
-const { EffectCategory } = require('../../../shared/effect-constants');
-const { wait } = require("../../utils");
-
-const voicelists = [];
-
-const playSound = {
+const model: EffectType<{
+    message: string;
+    language: string;
+    chatter: string;
+    whisper: string;
+    sendAsReply: boolean;
+    port: number;
+}> = {
     definition: {
         id: "firebot:translate-yncneo",
         name: "ゆかコネNEO経由で翻訳して書き込む",
@@ -19,9 +19,7 @@ const playSound = {
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: []
     },
-    globalSettings: {},
     optionsTemplate: `
-
         <eos-chatter-select effect="effect" title="送信アカウント"></eos-chatter-select>
 
         <eos-container header="送信メッセージ" pad-top="true">
@@ -54,31 +52,30 @@ const playSound = {
         </eos-container>
 
         <eos-container header="通信設定" pad-top="true">
-        <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
-            <label for="port" class="control-label">連携サーバのHTTPポート</label>
-            <input 
-                type="number" 
-                class="form-control input-lg" 
-                id="port" 
-                name="port"
-                placeholder="ポート" 
-                ng-model="effect.port"
-                required
-                min="0" 
-                style="width: 50%;" 
-            />
-            <p class="help-block">ゆかりネットコネクターNEO v2.1～の翻訳/発話連携プラグインと翻訳エンジン選択が必要です。</p>
-        </div>
-        
+            <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('cost')}">
+                <label for="port" class="control-label">連携サーバのHTTPポート</label>
+                <input
+                    type="number"
+                    class="form-control input-lg"
+                    id="port"
+                    name="port"
+                    placeholder="ポート"
+                    ng-model="effect.port"
+                    required
+                    min="0"
+                    style="width: 50%;"
+                />
+                <p class="help-block">ゆかりネットコネクターNEO v2.1～の翻訳/発話連携プラグインと翻訳エンジン選択が必要です。</p>
+            </div>
+        </eos-container>
     `,
-    optionsController: async ($scope) => {
-        $scope.successEffectsUpdated = async (effects) => {
-            $scope.effect.successEffects = effects;
-        };
-
+    optionsController: ($scope) => {
+        if ($scope.effect.port == null) {
+            $scope.effect.port = 8080;
+        }
     },
-    optionsValidator: effect => {
-        const errors = [];
+    optionsValidator: (effect) => {
+        const errors: string[] = [];
 
         if (effect.message == null || effect.message === "") {
             effect.message = "{message_to}({language_from}>{language_to})";
@@ -88,37 +85,31 @@ const playSound = {
             effect.language = "ja_JP\nen_US";
             errors.push("翻訳言語を指定してください");
         }
-
-        if (effect.port == null || effect.port === "") {
-            effect.port = "8080";
+        if (effect.port == null) {
+            errors.push("ポート番号を指定してください");
         }
+
         return errors;
     },
     onTriggerEvent: async ({ effect, trigger }) => {
-
         const chatHelpers = require("../../chat/chat-helpers");
         const commandHandler = require("../../chat/commands/commandHandler");
         const twitchChat = require("../../chat/twitch-chat");
-        const { EffectTrigger } = require("../../../shared/effect-constants");
 
-        let messageId = null;
+        let messageId: string | null = null;
         if (trigger.type === EffectTrigger.COMMAND) {
-            messageId = trigger.metadata.chatMessage.id;
+            messageId = trigger.metadata.chatMessage?.id ?? null;
         } else if (trigger.type === EffectTrigger.EVENT) {
-            messageId = trigger.metadata.eventData?.chatMessage?.id;
+            messageId = trigger.metadata.eventData?.chatMessage?.id ?? null;
         }
 
         try {
-            const crypto = require("crypto");
-
             const translateQuery = {
-                operation: 'translates',
+                operation: "translates",
                 params: [
                     {
-                        id: crypto.randomUUID(),
-                        lang: [
-                            effect.language.split('\n')
-                        ],
+                        id: randomUUID(),
+                        lang: [effect.language.split("\n")],
                         text: effect.message
                     }
                 ]
@@ -126,31 +117,39 @@ const playSound = {
             const response = await fetch(
                 `http://127.0.0.1:${effect.port}/`,
                 {
-                    headers: { 'Content-Type': 'application/json' },
-                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    method: "POST",
                     body: JSON.stringify(translateQuery)
-                });
+                }
+            );
 
-            const responseData = JSON.parse(await response.text());
+            const responseData: {
+                detect_language: string;
+                result: Array<{ lang: string; text: string }>;
+            } = JSON.parse(await response.text());
+
             let message = effect.message.replace("{lang}", responseData.detect_language);
-
-            for (let i = 0; i < responseData.result.length; i++) {
-                message = message.replace("{" + responseData.result[i].lang + "}", responseData.result[i].text);
+            for (const item of responseData.result) {
+                message = message.replace(`{${item.lang}}`, item.text);
             }
 
-            await twitchChat.sendChatMessage(message, effect.whisper, effect.chatter, !effect.whisper && effect.sendAsReply ? messageId : undefined);
+            await twitchChat.sendChatMessage(
+                message,
+                effect.whisper,
+                effect.chatter,
+                !effect.whisper && effect.sendAsReply ? messageId : undefined
+            );
 
             if (effect.chatter === "Streamer" && (effect.whisper == null || !effect.whisper.length)) {
                 const firebotMessage = await chatHelpers.buildStreamerFirebotChatMessageFromText(message);
                 commandHandler.handleChatMessage(firebotMessage);
             }
-
         } catch (error) {
-            logger.error("Error running http request", error.message);
+            logger.error("Error running http request", (error as Error).message);
         }
 
         return true;
-    },
+    }
 };
 
-module.exports = playSound;
+export = model;

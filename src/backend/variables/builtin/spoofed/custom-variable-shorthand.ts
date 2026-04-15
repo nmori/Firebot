@@ -4,15 +4,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "$name",
         usage: "$name[...path?]",
-        description: 'Retrieves the value for a customVariable. If path is specified, walks the item before returning the value',
+        description: 'カスタム変数の値を取得します。パスを指定するとその値を辿って返します。',
         examples: [
             {
                 usage: '$example',
-                description: "Returns the value of the customVariable 'example'; Synonymous with $customVariable[example]"
+                description: "カスタム変数 'example' の値を返します（$customVariable[example] と同義）。"
             },
             {
                 usage: '$example[path, to, value]',
-                description: "Returns the value of the customVariable 'example'; Synonymous with $customVariable[example, path.to.value]"
+                description: "カスタム変数 'example' の指定パスの値を返します（$customVariable[example, path.to.value] と同義）。"
             }
         ],
         categories: ["advanced"],

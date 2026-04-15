@@ -3,16 +3,16 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "arrayJoin",
-        description: "Returns a string with each array item joined together with the given separator",
+        description: "指定した区切り文字で配列の各要素を連結した文字列を返します。",
         usage: "arrayJoin[array, separator]",
         examples: [
             {
                 usage: `arrayJoin["[1,2,3]", ", "]`,
-                description: `Returns "1, 2, 3".`
+                description: `"1, 2, 3" を返します。`
             },
             {
                 usage: `arrayJoin["["apple","banana","cherry"]", " - "]`,
-                description: `Returns "apple - banana - cherry".`
+                description: `"apple - banana - cherry" を返します。`
             }
         ],
         categories: ["advanced"],

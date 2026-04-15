@@ -17,7 +17,7 @@ export const customAdvanced: OverlayWidgetType<Settings, State> = {
             name: "onEventJs",
             type: "codemirror",
             title: "onEvent JS",
-            description: "Code that runs when the widget receives any event. Ran in an async function (await is supported).",
+            description: "ウィジェットがイベントを受け取ったときに実行されるコードです。async 関数として実行されます（await 使用可）。",
             default:
 `// Example: show & hide a red box
 if (eventName === "show") {

@@ -7,7 +7,7 @@ import { commafy } from "../../../utils";
 const model : ReplaceVariable = {
     definition: {
         handle: "topCurrency",
-        description: "Comma separated list of users with the most of the given currency. Defaults to top 10, you can provide a custom number as a second argument.",
+        description: "指定した通貨を最も多く持つユーザーをカンマ区切りで返します。デフォルトはトップ10。第2引数で表示件数を変更できます。",
         usage: "topCurrency[currencyName]",
         hasSuggestions: true,
         noSuggestionsText: "No currencies have been created yet.",

@@ -5,15 +5,15 @@ const model: ReplaceVariable = {
     definition: {
         handle: 'atob',
         usage: 'atob[string]',
-        description: 'Decodes a base64 encoded string. If the string is not valid base64, it will return an empty string.',
+        description: 'Base64 エンコードされた文字列をデコードします。有効な Base64 でない場合は空文字列を返します。',
         examples: [
             {
                 usage: 'atob[SGVsbG8sIFdvcmxkIQ==]',
-                description: 'Decodes the base64 string "SGVsbG8sIFdvcmxkIQ==" back to "Hello, World!".'
+                description: 'Base64 文字列 "SGVsbG8sIFdvcmxkIQ==" を "Hello, World!" にデコードします。'
             },
             {
                 usage: 'atob[test string]',
-                description: 'Returns an empty string because "test string" is not valid base64.'
+                description: '"test string" は有効な Base64 ではないため、空文字列を返します。'
             }
         ],
         categories: ["advanced"],

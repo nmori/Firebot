@@ -23,8 +23,8 @@ const effect: EffectType<{
             <div style="padding-top: 10px;">
                 <firebot-checkbox
                     model="effect.weighted"
-                    label="Weighted Chances"
-                    tooltip="If checked, the effects chances are determined by their weight value. If unchecked, each effect will have an equal chance of being selected."
+                    label="重み付き確率"
+                    tooltip="チェックを入れると、各エフェクトの確率はその重み値によって決まります。チェックを外すと、各エフェクトが等確率で選択されます。"
                     style="margin-bottom: 0"
                 />
             </div>
@@ -47,13 +47,13 @@ const effect: EffectType<{
             <firebot-checkbox
                 ng-hide="effect.weighted"
                 model="effect.dontRepeat"
-                label="Don't Repeat"
-                tooltip="If checked, each effect in this list will be played once before the list is shuffled again, preventing the same effect from repeating successively."
+                label="繰り返しを防ぐ"
+                tooltip="チェックを入れると、リストが再シャッフルされる前に各エフェクトが一度ずつ再生され、同じエフェクトが連続して繰り返されるのを防ぎます。"
             />
             <firebot-checkbox
                 model="effect.bubbleOutputs"
-                label="Apply effect outputs to parent list"
-                tooltip="Whether or not you want any effect outputs to be made available to the parent effect list."
+                label="エフェクトの出力を親リストに適用"
+                tooltip="エフェクトの出力を親エフェクトリストで利用可能にするかどうかを設定します。"
             />
         </eos-container>
     `,

@@ -4,7 +4,7 @@ import logger from '../../../logwrapper';
 const model : ReplaceVariable = {
     definition: {
         handle: "objectWalkPath",
-        description: "Returns the value from an object at the given dot-notated path",
+        description: "指定したドット記法のパスに従ってオブジェクトの値を返します。",
         usage: "objectWalkPath[subject | JSON text, path.to.value]",
         categories: ["advanced"],
         possibleDataOutput: ["text"]

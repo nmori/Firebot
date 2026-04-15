@@ -7,15 +7,15 @@ const model: ReplaceVariable = {
     definition: {
         handle: "overlayWidgetState",
         usage: "overlayWidgetState[nameOrId]",
-        description: 'Retrieves the state of the specified overlay widget.',
+        description: '指定したオーバーレイウィジェットの状態を取得します。',
         examples: [
             {
                 usage: 'overlayWidgetState[myWidget]',
-                description: "Get the state of the overlay widget with ID 'myWidget'."
+                description: "ID が 'myWidget' のオーバーレイウィジェットの状態を取得します。"
             },
             {
                 usage: 'overlayWidgetState[myWidget, object.path.here]',
-                description: "Traverse the state JSON object."
+                description: "状態の JSON オブジェクトをパスで辿ります。"
             }
         ],
         categories: ["advanced"],

@@ -6,15 +6,15 @@ const model : ReplaceVariable = {
     definition: {
         handle: "chatMessages",
         usage: "chatMessages",
-        description: "Displays the number of chat messages for a viewer (leave blank to use current viewer)",
+        description: "視聴者のチャット発言数を返します（空白の場合は現在の視聴者を使用）。",
         examples: [
             {
                 usage: "chatMessages",
-                description: "Returns the number of chat messages for the current viewer"
+                description: "現在の視聴者のチャット発言数を返します。"
             },
             {
                 usage: "chatMessages[username]",
-                description: "Returns the number of chat messages for the specified user"
+                description: "指定したユーザーのチャット発言数を返します。"
             }
         ],
         categories: ["user based"],

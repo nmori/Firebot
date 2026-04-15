@@ -5,17 +5,17 @@ import type { ReplaceVariable } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: "time",
-        description: "Outputs the current time.",
+        description: "現在の時刻を返します。",
         categories: ["common"],
         possibleDataOutput: ["text"],
         examples: [
             {
                 usage: "time[format]",
-                description: 'Outputs the current time in a specific format. Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
+                description: '希望の形式で現在時刻を返します。<a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> のフォーマットルールに従います。'
             },
             {
                 usage: "time[YYYY-DD-MM HH:mm:ss]",
-                description: "Format with the preferred tokens."
+                description: "希望のトークンでフォーマットします。"
             }
         ]
     },

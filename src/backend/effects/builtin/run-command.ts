@@ -61,12 +61,12 @@ const effect: EffectType<{
         <eos-container header="Restrictions" pad-top="true">
             <firebot-checkbox
                 model="effect.enforceRestrictions"
-                label="Attempt to enforce restrictions"
+                label="制限を適用しようとする"
             />
             <firebot-checkbox
                 ng-if="effect.enforceRestrictions"
                 model="effect.sendRestrictionFailureMessage"
-                label="Send chat message on failure"
+                label="失敗時にチャットメッセージを送信"
             />
         </eos-container>
 

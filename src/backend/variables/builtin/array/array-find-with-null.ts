@@ -6,27 +6,27 @@ const model : ReplaceVariable = {
     definition: {
         handle: "arrayFindWithNull",
         usage: "arrayFindWithNull[array, matcher, propertyPath?, exact?]",
-        description: "Finds a matching element in the array or returns a literal null",
+        description: "配列内で一致する要素を返します。一致しない場合はリテラルの null を返します。",
         examples: [
             {
                 usage: 'arrayFindWithNull["[1,2,3]", 1]',
-                description: "Finds 1 in the array"
+                description: "配列内の 1 を検索します。"
             },
             {
                 usage: 'arrayFindWithNull["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"MageEnclave\\"}]", ebiggz, username]',
-                description: 'Finds object with username of "ebiggz"'
+                description: 'username が "ebiggz" のオブジェクトを返します。'
             },
             {
                 usage: 'arrayFindWithNull["[0,1,2,"1"]", 1, null, true]',
-                description: "Returns the text '1'"
+                description: "テキスト '1' を返します。"
             },
             {
                 usage: 'arrayFindWithNull[rawArray, value]',
-                description: 'Searches each item in the array for "value" and returns the first matched item'
+                description: '"value" と一致する最初の要素を返します。'
             },
             {
                 usage: 'arrayFindWithNull[rawArray, value, key]',
-                description: 'Searches each item in the array for an item that has a "key" property that equals "value"'
+                description: '"key" プロパティが "value" と等しい要素を返します。'
             }
         ],
         categories: ["advanced"],

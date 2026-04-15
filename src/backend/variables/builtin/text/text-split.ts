@@ -4,7 +4,7 @@ import { stringify } from '../../../utils';
 const model : ReplaceVariable = {
     definition: {
         handle: "splitText",
-        description: "Splits text with the given separator and returns an array. Useful for Custom Variables.",
+        description: "指定した区切り文字でテキストを分割し、配列で返します。カスタム変数と併用して便利です。",
         usage: "splitText[text, separator]",
         categories: ["text"],
         possibleDataOutput: ["text"]

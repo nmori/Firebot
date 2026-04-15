@@ -9,10 +9,10 @@ const model : ReplaceVariable = {
     definition: {
         handle: "runEffect",
         usage: "runEffect[effectJson]",
-        description: "Run an effect defined as json. Outputs an empty string. Please keep in mind that the power and flexibility afforded by this variable means it is very error prone. Only use if you know what you are doing.",
+        description: "JSON で定義されたエフェクトを実行します。空文字列を出力します。この変数は柔軟性が高い分エラーが起きやすいため、使い方を理解している場合のみ使用してください。",
         examples: [{
             usage: "runEffect[``{\"type\":\"firebot:chat\",\"message\":\"Hello world\"}``]",
-            description: "Runs a chat message effect. You can get an effects JSON data via the UI via the overflow menu in the top right of the Edit Effect modal. (Copy Effect Json > For $runEffect[])"
+            description: "チャットメッセージエフェクトを実行します。エフェクトの JSON データは UI の「エフェクトを編集」モーダル右上のオーバーフローメニューから取得できます。（エフェクト JSON をコピー > $runEffect[] 用）"
         }],
         categories: ["advanced"],
         possibleDataOutput: ["text"]

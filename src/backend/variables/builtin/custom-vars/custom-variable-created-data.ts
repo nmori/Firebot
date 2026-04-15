@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "createdCustomVariableData",
-        description: "Data from the created custom variable.",
+        description: "作成されたカスタム変数のデータを返します。",
         triggers: triggers,
         categories: ["trigger based", "common"],
         possibleDataOutput: ["text"]

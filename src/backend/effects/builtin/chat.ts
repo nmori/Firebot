@@ -23,7 +23,7 @@ const effect: EffectType<{
         <firebot-input
             model="effect.message"
             use-text-area="true"
-            placeholder-text="Enter message"
+            placeholder-text="メッセージを入力"
             rows="4"
             cols="40"
             menu-position="under"
@@ -31,22 +31,22 @@ const effect: EffectType<{
         <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">Chat messages cannot be longer than 500 characters. This message will get automatically chunked into multiple messages if it is too long after all replace variables have been populated.</div>
         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
             <firebot-checkbox
-                label="Use '/me'"
-                tooltip="Applies Italics to your Chat Message or your Chat Color if used in a Whisper"
+                label="'/me' を使用"
+                tooltip="チャットメッセージをイタリック表示にするか、ウィスパーで使用した場合はチャットカラーが変わります。"
                 model="effect.me"
                 style="margin: 0px 15px 0px 0px"
             />
             <firebot-checkbox
-                label="Whisper"
+                label="ウィスパー"
                 model="showWhisperInput"
                 style="margin: 0px 15px 0px 0px"
                 ng-click="effect.whisper = ''"
             />
             <div ng-show="showWhisperInput">
                 <firebot-input
-                    input-title="To"
+                    input-title="宛先"
                     model="effect.whisper"
-                    placeholder-text="Username"
+                    placeholder-text="ユーザー名"
                     force-input="true"
                 />
             </div>
@@ -54,8 +54,8 @@ const effect: EffectType<{
         <p ng-show="effect.whisper" class="muted" style="font-size:11px;"><b>ProTip:</b> To whisper the associated user, put <b>$user</b> in the whisper field.</p>
         <div ng-hide="effect.whisper">
             <firebot-checkbox
-                label="Send as reply"
-                tooltip="Replying only works within a Command or Chat Message event"
+                label="返信として送信"
+                tooltip="返信はコマンドまたはチャットメッセージイベント内でのみ機能します。"
                 model="effect.sendAsReply"
                 style="margin: 0px 15px 0px 0px"
             />
