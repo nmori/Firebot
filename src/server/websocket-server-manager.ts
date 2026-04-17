@@ -3,6 +3,7 @@ import http from "http";
 import WebSocket from "ws";
 
 import type { OverlayConnectedData, Message, ResponseMessage, EventMessage, InvokePluginMessage, CustomWebSocketHandler } from "../types/websocket";
+import type { WidgetOverlayEvent } from "../types/overlay-widgets";
 import type { EffectType } from "../types/effects";
 
 import { WebSocketClient } from "./websocket-client";

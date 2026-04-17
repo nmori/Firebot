@@ -111,7 +111,8 @@ const model: EffectType<{
         overlayWidgetsManager.sendWidgetEventToOverlay("message", customWidget, {
             messageName: effect.messageName,
             messageData
-        });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } as any);
 
         return true;
     }

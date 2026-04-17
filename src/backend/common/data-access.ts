@@ -6,7 +6,16 @@ import { JsonDB } from "node-json-db";
 
 import argv from "./argv-parser";
 import frontendCommunicator from "./frontend-communicator";
-import logger from "../logwrapper";
+// logwrapper は循環依存を避けるため遅延ロード
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let logger: any = null;
+function getLogger() {
+    if (logger == null) {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        logger = require("../logwrapper").default;
+    }
+    return logger;
+}
 
 const isDev = !app.isPackaged;
 
