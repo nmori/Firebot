@@ -28,13 +28,18 @@ function getPrizes(settings: ReturnType<typeof GameManager.getGameSettings>): Fu
     if (!Array.isArray(prizes)) {
         return [];
     }
-    return (prizes as FukubikiPrize[]).filter(
-        (p) =>
-            typeof p.name === "string" &&
-            typeof p.chance === "number" &&
-            typeof p.stock === "number" &&
-            typeof p.message === "string"
-    );
+    return (prizes as FukubikiPrize[])
+        .filter(
+            (p) =>
+                typeof p.name === "string" &&
+                typeof p.chance === "number" &&
+                typeof p.stock === "number" &&
+                typeof p.message === "string"
+        )
+        .map((p) => ({
+            ...p,
+            whisperMessage: typeof p.whisperMessage === "string" ? p.whisperMessage : ""
+        }));
 }
 
 const fukubikiCommand: SystemCommand = {
@@ -192,12 +197,28 @@ async function handleFukubiki(
     }
 
     // --- 結果をダイレクトチャット（リプライ）で送信 ---
-    const resultMsg = winner.message
-        .replaceAll("{username}", username)
-        .replaceAll("{displayName}", displayName)
-        .replaceAll("{prizeName}", winner.name);
+    if (winner.message && winner.message.trim() !== "") {
+        const resultMsg = winner.message
+            .replaceAll("{username}", username)
+            .replaceAll("{displayName}", displayName)
+            .replaceAll("{prizeName}", winner.name);
 
-    await TwitchApi.chat.sendChatMessage(resultMsg, messageId, sendAsBot);
+        await TwitchApi.chat.sendChatMessage(resultMsg, messageId, sendAsBot);
+    }
+
+    if (winner.whisperMessage && winner.whisperMessage.trim() !== "") {
+        const whisperMsg = winner.whisperMessage
+            .replaceAll("{username}", username)
+            .replaceAll("{displayName}", displayName)
+            .replaceAll("{prizeName}", winner.name);
+
+        try {
+            const user = await TwitchApi.users.getUserByName(username);
+            await TwitchApi.whispers.sendWhisper(user.id, whisperMsg, sendAsBot);
+        } catch (error) {
+            logger.error(error);
+        }
+    }
 
     // --- オーバーレイ表示 ---
     const useOverlay = settings.settings.overlaySettings?.useOverlay as boolean;

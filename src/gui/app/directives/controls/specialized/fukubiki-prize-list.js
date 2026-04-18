@@ -29,6 +29,9 @@
                             <div class="muted" style="font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                                 {{prize.message}}
                             </div>
+                            <div class="muted" style="font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" ng-if="prize.whisperMessage">
+                                個別: {{prize.whisperMessage}}
+                            </div>
                         </div>
                         <div class="flex items-center" style="column-gap:8px; flex-shrink:0;">
                             <span uib-tooltip="上へ" class="clickable" ng-show="!$first" ng-click="$ctrl.moveUp($index);$event.stopPropagation();" aria-label="上へ">

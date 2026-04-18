@@ -3,10 +3,38 @@ import fukubikiCommand from "./fukubiki-command";
 import { initializePrizeStocks, type FukubikiPrize } from "./fukubiki-machine";
 
 const DEFAULT_PRIZES: FukubikiPrize[] = [
-    { id: "default-1", name: "1等", chance: 5, stock: 3, message: "{displayName}さん、1等おめでとうございます！🎉" },
-    { id: "default-2", name: "2等", chance: 15, stock: 10, message: "{displayName}さん、2等当選！🎊" },
-    { id: "default-3", name: "3等", chance: 30, stock: 0, message: "{displayName}さん、3等当選！" },
-    { id: "default-hazure", name: "ハズレ", chance: 50, stock: 0, message: "{displayName}さん、残念でした…またチャレンジしてください！" }
+    {
+        id: "default-1",
+        name: "1等",
+        chance: 5,
+        stock: 3,
+        message: "{displayName}さん、1等おめでとうございます！🎉",
+        whisperMessage: ""
+    },
+    {
+        id: "default-2",
+        name: "2等",
+        chance: 15,
+        stock: 10,
+        message: "{displayName}さん、2等当選！🎊",
+        whisperMessage: ""
+    },
+    {
+        id: "default-3",
+        name: "3等",
+        chance: 30,
+        stock: 0,
+        message: "{displayName}さん、3等当選！",
+        whisperMessage: ""
+    },
+    {
+        id: "default-hazure",
+        name: "ハズレ",
+        chance: 50,
+        stock: 0,
+        message: "{displayName}さん、残念でした…またチャレンジしてください！",
+        whisperMessage: ""
+    }
 ];
 
 const game: FirebotGame = {

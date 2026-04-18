@@ -67,6 +67,18 @@
                             <p class="help-block muted" style="font-size:11px;">使える変数: {username}, {displayName}, {prizeName}</p>
                         </div>
 
+                        <div class="form-group">
+                            <label class="control-label">個別チャットメッセージ（ウィスパー）</label>
+                            <textarea
+                                name="whisperMessage"
+                                class="form-control"
+                                placeholder="例: {displayName}さん、当選おめでとうございます！"
+                                ng-model="$ctrl.prize.whisperMessage"
+                                rows="3"
+                            ></textarea>
+                            <p class="help-block muted" style="font-size:11px;">使える変数: {username}, {displayName}, {prizeName}</p>
+                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -88,7 +100,8 @@
                     name: "",
                     chance: 10,
                     stock: 0,
-                    message: "{displayName}さん、{prizeName}が当たりました！"
+                    message: "{displayName}さん、{prizeName}が当たりました！",
+                    whisperMessage: ""
                 };
 
                 $ctrl.$onInit = () => {
@@ -98,6 +111,9 @@
                     }
                     if (!$ctrl.prize.id) {
                         $ctrl.prize.id = randomUUID();
+                    }
+                    if ($ctrl.prize.whisperMessage == null) {
+                        $ctrl.prize.whisperMessage = "";
                     }
                 };
 

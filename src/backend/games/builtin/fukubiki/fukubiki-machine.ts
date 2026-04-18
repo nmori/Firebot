@@ -4,6 +4,7 @@ export interface FukubikiPrize {
     chance: number;
     stock: number;
     message: string;
+    whisperMessage?: string;
 }
 
 /** ストック残数を管理するマップ（賞名 → 残数） */

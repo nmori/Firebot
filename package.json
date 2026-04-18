@@ -1,6 +1,6 @@
 {
     "name": "firebotv5-jp",
-    "version": "5.65.4+3",
+    "version": "5.65.4+4",
     "description": "Powerful all-in-one bot for Twitch streamers.",
     "main": "build/main.js",
     "scripts": {
