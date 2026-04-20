@@ -50,7 +50,8 @@
         "grunt-shell": "^4.0.0",
         "sass": "^1.69.7",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.45.0"
+        "typescript-eslint": "^8.45.0",
+        "appdmg": "github:SReject/node-appdmg"
     },
     "dependencies": {
         "@aws-sdk/client-polly": "^3.26.0",
@@ -127,7 +128,7 @@
         "yargs-parser": "^21.1.1"
     },
     "overrides": {
-        "appdmg": "https://github.com/LinusU/node-appdmg/archive/refs/tags/v0.6.6.tar.gz",
+        "appdmg": "github:SReject/node-appdmg#1f5eaeb054a74ec917db7c75a8619b6d009f0f73",
         "lodash": "^4.17.21"
     },
     "optionalDependencies": {
