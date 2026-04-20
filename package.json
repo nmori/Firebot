@@ -127,7 +127,7 @@
         "yargs-parser": "^21.1.1"
     },
     "overrides": {
-        "appdmg": "https://github.com/LinusU/node-appdmg/archive/refs/tags/v0.6.6.tar.gz",
+        "appdmg": "github:SReject/node-appdmg#1f5eaeb054a74ec917db7c75a8619b6d009f0f73",
         "lodash": "^4.17.21"
     },
     "optionalDependencies": {
