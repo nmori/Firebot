@@ -178,6 +178,15 @@ class ViewerDatabase extends TypedEmitter<{
             logger.info("ViewerDB: Failed Database Path: ", path);
         }
 
+        // Indexes for commonly queried fields (施策7).
+        // `ensureIndex` is idempotent: safe to call on existing databases.
+        try {
+            this._db.ensureIndex({ fieldName: "username" });
+            this._db.ensureIndex({ fieldName: "twitch" });
+        } catch (error) {
+            logger.warn("ViewerDB: Failed to ensure index on users.db", error);
+        }
+
         // Setup our automatic compaction interval to shrink filesize.
         this._db.setAutocompactionInterval(this._dbCompactionInterval);
         setInterval(() => {

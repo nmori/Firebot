@@ -13,8 +13,57 @@
             // Chat Message Queue
             service.chatQueue = [];
 
+            // Secondary index for O(1) lookup by chat message id (施策8).
+            // Only populated for items whose `type === "message"` and have a data.id.
+            // NOTE: must be kept in sync with chatQueue by all mutation sites.
+            service.messagesById = new Map();
+
             // the number of messages to show at any given time. This helps performance
             service.chatMessageDisplayLimit = 75;
+
+            // Pre-computed list of chat items after applying hide/limit/reverse filters (施策3).
+            // Replaces the 4-stage filter chain that used to run every AngularJS digest.
+            service.visibleMessages = [];
+
+            service.recomputeVisibleMessages = function() {
+                const hideBot = settingsService.getSetting("ChatHideBotAccountMessages") === true;
+                const hideWhispers = settingsService.getSetting("ChatHideWhispers") === true;
+                const reverseOrder = settingsService.getSetting("ChatReverseOrder") === true;
+                const botUsername = accountAccess.accounts.bot && accountAccess.accounts.bot.username
+                    ? accountAccess.accounts.bot.username.toLowerCase()
+                    : "";
+
+                const limit = service.chatMessageDisplayLimit;
+                const queue = service.chatQueue;
+                const tail = [];
+
+                // Walk from newest to oldest, keeping up to `limit` visible items (most recent window).
+                for (let i = queue.length - 1; i >= 0 && tail.length < limit; i--) {
+                    const item = queue[i];
+                    if (item.type === "message") {
+                        const data = item.data;
+                        if (data && data.isHiddenFromChatFeed === true) {
+                            continue;
+                        }
+                        if (hideBot && botUsername && data && data.username
+                            && data.username.toLowerCase() === botUsername) {
+                            continue;
+                        }
+                        if (hideWhispers && data && data.whisper === true) {
+                            continue;
+                        }
+                    }
+                    tail.push(item);
+                }
+
+                // `tail` is newest-first. Default chat order shows newest at bottom,
+                // so we reverse to oldest-first unless the user opted into reverse order.
+                if (!reverseOrder) {
+                    tail.reverse();
+                }
+
+                service.visibleMessages = tail;
+            };
 
             // Chat User List
             service.chatUsers = [];
@@ -40,6 +89,8 @@
             // Clear Chat Queue
             service.clearChatQueue = function() {
                 service.chatQueue = [];
+                service.messagesById.clear();
+                service.recomputeVisibleMessages();
             };
 
             // Return User List
@@ -117,6 +168,8 @@
                     }
                 });
 
+                service.recomputeVisibleMessages();
+
                 if (data.cause && cachedUserName) {
                     if (data.cause.type === "timeout") {
                         service.chatAlertMessage(`${cachedUserName} was timed out by ${data.moderator.user_name} for ${data.cause.durationString}.`);
@@ -149,6 +202,7 @@
                 };
 
                 service.chatQueue.push(alertItem);
+                service.recomputeVisibleMessages();
             };
 
             backendCommunicator.on("chat-feed-system-message", (message, icon) => {
@@ -157,7 +211,7 @@
 
             // Custom Highlight and Banner
             service.customHighlightAndBanner = function(messageId, customHighlightColor, customBannerIcon, customBannerText) {
-                const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+                const messageItem = service.messagesById.get(messageId);
                 if (messageItem == null) {
                     return;
                 }
@@ -165,6 +219,7 @@
                 messageItem.data.customHighlightColor = customHighlightColor;
                 messageItem.data.customBannerIcon = customBannerIcon;
                 messageItem.data.customBannerText = customBannerText;
+                service.recomputeVisibleMessages();
             };
 
             backendCommunicator.on("chat-feed-custom-highlight", (data) => {
@@ -239,10 +294,24 @@
                     // message once we hit chatMessageDisplayLimit x 2.
                     const bufferOverflowAmount = arr.length - service.chatMessageDisplayLimit;
 
+                    // Remove the id→item index entries for the items we're about to drop (施策8).
+                    for (let i = 0; i < bufferOverflowAmount; i++) {
+                        const removed = arr[i];
+                        if (removed && removed.data && removed.data.id) {
+                            service.messagesById.delete(removed.data.id);
+                        }
+                    }
+
                     // Start at 0 in the array and delete X number of messages.
                     // The oldest messages are the first ones in the array.
                     arr.splice(0, bufferOverflowAmount);
                 }
+            };
+
+            // Invalidate visibleMessages whenever the queue was mutated directly by callers.
+            // Individual push/pop paths already call recomputeVisibleMessages themselves.
+            service.invalidateVisibleMessages = function() {
+                service.recomputeVisibleMessages();
             };
 
             service.getSubIcon = function() {
@@ -267,10 +336,11 @@
             };
 
             function markMessageAsDeleted(messageId) {
-                const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+                const messageItem = service.messagesById.get(messageId);
 
                 if (messageItem != null) {
                     messageItem.data.deleted = true;
+                    service.recomputeVisibleMessages();
                 }
             }
 
@@ -295,12 +365,13 @@
             backendCommunicator.on("twitch:chat:user:delete-messages", markUserMessagesAsDeleted);
 
             service.hideMessageInChatFeed = function(messageId) {
-                const messageItem = service.chatQueue.find(i => i.type === "message" && i.data.id === messageId);
+                const messageItem = service.messagesById.get(messageId);
                 if (messageItem == null) {
                     return;
                 }
 
                 messageItem.data.isHiddenFromChatFeed = true;
+                service.recomputeVisibleMessages();
             };
 
             backendCommunicator.on("chat-feed-message-hide", (data) => {
@@ -326,6 +397,7 @@
                     type: "redemption",
                     data: redemption
                 });
+                service.recomputeVisibleMessages();
             });
 
             backendCommunicator.on("twitch:chat:user-joined", (user) => {
@@ -344,11 +416,21 @@
                 service.clearUserList();
             });
 
+            function findMessageByIdOrHeldId(messageId) {
+                // Fast path: direct id index (施策8)
+                const direct = service.messagesById.get(messageId);
+                if (direct != null) {
+                    return direct;
+                }
+                // Fallback: automod-held messages may be updated by their held id.
+                return service.chatQueue.find(i => i.type === "message" &&
+                    i.data.autoModHeldMessageId === messageId
+                );
+            }
+
             backendCommunicator.on("twitch:chat:automod-update", ({ messageId, newStatus, resolverName }) => {
 
-                const messageItem = service.chatQueue.find(i => i.type === "message" &&
-                    (i.data.id === messageId || i.data.autoModHeldMessageId === messageId)
-                );
+                const messageItem = findMessageByIdOrHeldId(messageId);
 
                 if (messageItem == null) {
                     return;
@@ -356,18 +438,18 @@
 
                 messageItem.data.autoModStatus = newStatus;
                 messageItem.data.autoModResolvedBy = resolverName;
+                service.recomputeVisibleMessages();
             });
 
             backendCommunicator.on("twitch:chat:automod-update-error", ({ messageId, likelyExpired }) => {
-                const messageItem = service.chatQueue.find(i => i.type === "message" &&
-                    (i.data.id === messageId || i.data.autoModHeldMessageId === messageId)
-                );
+                const messageItem = findMessageByIdOrHeldId(messageId);
 
                 if (messageItem == null) {
                     return;
                 }
 
                 messageItem.data.autoModErrorMessage = `There was an error acting on this message. ${likelyExpired ? "The time to act has likely expired." : "You may need to reauth your Streamer account."}`;
+                service.recomputeVisibleMessages();
             });
 
             backendCommunicator.on("twitch:chat:clear-feed", (modUsername) => {
@@ -431,14 +513,18 @@
                 }
 
                 // when an automod held message is approved, the message is sent again,
-                // attempt to merge it with the existing message
+                // attempt to merge it with the existing message.
+                // 施策8: use numeric timestamp comparison (no per-iter moment() allocation).
+                const nowMs = Date.now();
                 const existingAutoModMessageIndex = service.chatQueue.findIndex(i =>
                     i.type === "message" &&
                     i.data.isAutoModHeld &&
                     i.data.autoModHeldMessageId == null &&
                     i.data.rawText === chatMessage.rawText &&
                     i.data.userId === chatMessage.userId &&
-                    moment().diff(i.data.timestamp, "minutes") <= 5
+                    (nowMs - (i.data.timestamp && typeof i.data.timestamp.valueOf === "function"
+                        ? i.data.timestamp.valueOf()
+                        : +i.data.timestamp || 0)) <= 5 * 60 * 1000
                 );
                 const existingAutoModMessage = service.chatQueue[existingAutoModMessageIndex]?.data;
                 if (existingAutoModMessage != null) {
@@ -453,7 +539,11 @@
                         autoModErrorMessage: existingAutoModMessage.autoModErrorMessage
                     };
                     // remove the existing automod message from the queue
+                    const removedItem = service.chatQueue[existingAutoModMessageIndex];
                     service.chatQueue.splice(existingAutoModMessageIndex, 1);
+                    if (removedItem && removedItem.data && removedItem.data.id) {
+                        service.messagesById.delete(removedItem.data.id);
+                    }
                 }
 
                 // Push new message to queue.
@@ -475,8 +565,12 @@
                 }
 
                 service.chatQueue.push(messageItem);
+                if (messageItem.data && messageItem.data.id) {
+                    service.messagesById.set(messageItem.data.id, messageItem);
+                }
 
                 service.pruneChatQueue();
+                service.recomputeVisibleMessages();
             });
 
             service.allEmotes = {

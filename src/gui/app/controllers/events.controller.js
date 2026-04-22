@@ -17,19 +17,19 @@
             };
             $scope.getEventSets();
 
-            backendCommunicator.on("event-access:event-set-saved",
+            backendCommunicator.onScoped($scope, "event-access:event-set-saved",
                 () => $scope.getEventSets()
             );
 
-            backendCommunicator.on("event-access:all-event-sets-saved",
+            backendCommunicator.onScoped($scope, "event-access:all-event-sets-saved",
                 () => $scope.getEventSets()
             );
 
-            backendCommunicator.on("event-access:event-set-deleted",
+            backendCommunicator.onScoped($scope, "event-access:event-set-deleted",
                 () => $scope.getEventSets()
             );
 
-            backendCommunicator.on("event-access:event-set-settings-updated",
+            backendCommunicator.onScoped($scope, "event-access:event-set-settings-updated",
                 () => $scope.getEventSets()
             );
 

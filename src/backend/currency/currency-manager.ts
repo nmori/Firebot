@@ -197,13 +197,11 @@ class CurrencyManager {
 
         try {
             const db = viewerDatabase.getViewerDb();
-            const viewers = await db.findAsync({});
-
-            for (let i = 0; i < viewers.length; i++) {
-                const viewer = viewers[i];
-                delete viewer.currency[currencyId];
-                await db.updateAsync({ _id: viewer._id }, { $set: viewer }, {});
-            }
+            await db.updateAsync(
+                {},
+                { $unset: { [`currency.${currencyId}`]: true } },
+                { multi: true }
+            );
         } catch (error) {
             logger.error("Error purging currency to all viewers", error);
         }
@@ -365,10 +363,17 @@ class CurrencyManager {
 
         const onlineViewers = await viewerOnlineStatusManager.getOnlineViewers();
 
+        // Fetch team roles for all online viewers in parallel (施策9).
+        // Previous implementation awaited sequentially, which scaled N×round-trip.
         const teamRoles: Record<string, Array<{ id: string, name: string }>> = {};
-        for (const viewer of onlineViewers) {
-            teamRoles[viewer._id] = await teamRolesManager
-                .getAllTeamRolesForViewer(viewer._id);
+        const teamRoleEntries = await Promise.all(
+            onlineViewers.map(async (viewer) => {
+                const roles = await teamRolesManager.getAllTeamRolesForViewer(viewer._id);
+                return [viewer._id, roles] as const;
+            })
+        );
+        for (const [viewerId, roles] of teamRoleEntries) {
+            teamRoles[viewerId] = roles;
         }
 
         const userIdsInRoles = onlineViewers
@@ -554,19 +559,20 @@ class CurrencyManager {
 
         const db = viewerDatabase.getViewerDb();
 
-        const sortObj = {};
-        sortObj[`currency.${currencyId}`] = -1;
-
-        const projectionObj = { username: 1, displayName: 1, currency: 1 };
-
         try {
-            const viewers = await db.findAsync({ twitch: true })
-                .sort(sortObj)
-                .projection(projectionObj);
+            // Rank = (number of twitch viewers with strictly more of this currency) + 1 (施策7).
+            // Replaces a full-sort-then-findIndex scan with a single count query.
+            const currencyField = `currency.${currencyId}`;
+            const viewerAmount = (viewer.currency && viewer.currency[currencyId]) != null
+                ? viewer.currency[currencyId]
+                : 0;
 
-            const rank = viewers.findIndex(v => v.username === viewer.username) + 1;
+            const higherCount = await db.countAsync({
+                twitch: true,
+                [currencyField]: { $gt: viewerAmount }
+            });
 
-            return rank;
+            return higherCount + 1;
         } catch (error) {
             logger.error("Error getting viewer currency rank: ", error);
             return 0;

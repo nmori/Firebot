@@ -84,6 +84,10 @@
                 $scope.customFontFamily = settingsService.getSetting("ChatCustomFontFamily");
                 $scope.customFontFamilyStyle = $scope.customFontFamilyEnabled ?
                     `font-family: '${$scope.customFontFamily}', 'Open Sans', sans-serif !important;` : "";
+
+                // Settings that affect the visibleMessages filter chain (施策3) —
+                // recompute once here instead of running the 4-stage filter every digest.
+                chatMessagesService.recomputeVisibleMessages();
             }
             getUpdatedChatSettings();
 

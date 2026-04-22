@@ -68,137 +68,230 @@ export async function whenReady() {
     const { loadEffects } = await import("../../../effects/builtin-effect-loader");
     loadEffects();
 
-    windowManagement.updateSplashScreenStatus("通貨を読み込み中...");
-    const currencyAccess = (await import("../../../currency/currency-access")).default;
-    currencyAccess.loadCurrencies();
+    // --- 並列読み込みブロック（施策2）---
+    // 以下のローダーは相互に依存しないため Promise.allSettled でまとめて実行する。
+    // 個別に失敗してもログだけ出して他をブロックしない。起動クリティカルパス短縮が目的。
+    windowManagement.updateSplashScreenStatus("各種データを読み込み中...");
 
-    windowManagement.updateSplashScreenStatus("ランクを読み込み中...");
-    const viewerRanksManager = (await import("../../../ranks/rank-manager")).default;
-    viewerRanksManager.loadItems();
+    const parallelStartupTasks: { name: string, task: Promise<unknown> }[] = [
+        {
+            name: "timers",
+            task: (async () => {
+                const { TimerManager } = await import("../../../timers/timer-manager");
+                TimerManager.loadItems();
+                TimerManager.startTimers();
+            })()
+        },
+        {
+            name: "scheduled-tasks",
+            task: (async () => {
+                const { ScheduledTaskManager } = await import("../../../timers/scheduled-task-manager");
+                ScheduledTaskManager.loadItems();
+                ScheduledTaskManager.start();
+            })()
+        },
+        {
+            name: "currencies",
+            task: (async () => {
+                const currencyAccess = (await import("../../../currency/currency-access")).default;
+                currencyAccess.loadCurrencies();
+            })()
+        },
+        {
+            name: "ranks",
+            task: (async () => {
+                const viewerRanksManager = (await import("../../../ranks/rank-manager")).default;
+                viewerRanksManager.loadItems();
+            })()
+        },
+        {
+            name: "system-commands",
+            task: (async () => {
+                const { loadSystemCommands } = await import("../../../chat/commands/system-command-loader");
+                loadSystemCommands();
+            })()
+        },
+        {
+            name: "event-sources",
+            task: (async () => {
+                const { loadEventSources } = await import("../../../events/builtin-event-source-loader");
+                loadEventSources();
+            })()
+        },
+        {
+            name: "event-filters",
+            task: (async () => {
+                const { loadFilters } = await import("../../../events/filters/builtin-filter-loader");
+                loadFilters();
+            })()
+        },
+        {
+            name: "integrations",
+            task: (async () => {
+                const { loadIntegrations } = await import("../../../integrations/builtin-integration-loader");
+                loadIntegrations();
+            })()
+        },
+        {
+            name: "replace-variables",
+            task: (async () => {
+                const { loadReplaceVariables } = await import("../../../variables/variable-loader");
+                loadReplaceVariables();
+            })()
+        },
+        {
+            name: "macros",
+            task: (async () => {
+                const macroManager = (await import("../../../variables/macro-manager")).default;
+                macroManager.loadItems();
+            })()
+        },
+        {
+            name: "restrictions",
+            task: (async () => {
+                const { loadRestrictions } = await import("../../../restrictions/builtin-restrictions-loader");
+                loadRestrictions();
+            })()
+        },
+        {
+            name: "fonts",
+            task: (async () => {
+                const { FontManager } = await import("../../../font-manager");
+                await FontManager.loadInstalledFonts();
+            })()
+        },
+        {
+            name: "events",
+            task: (async () => {
+                const { EventsAccess } = await import("../../../events/events-access");
+                EventsAccess.loadEventsAndGroups();
+            })()
+        },
+        {
+            name: "team-roles",
+            task: (async () => {
+                const teamRolesManager = (await import("../../../roles/team-roles-manager")).default;
+                await teamRolesManager.loadTeamRoles();
+            })()
+        },
+        {
+            name: "custom-roles",
+            task: (async () => {
+                const customRolesManager = (await import("../../../roles/custom-roles-manager")).default;
+                await customRolesManager.loadCustomRoles();
+            })()
+        },
+        {
+            name: "chat-roles",
+            task: (async () => {
+                const chatRolesManager = (await import("../../../roles/chat-roles-manager")).default;
+                chatRolesManager.setupListeners();
+                await chatRolesManager.cacheViewerListBots();
+            })()
+        },
+        {
+            name: "twitch-roles",
+            task: (async () => {
+                const twitchRolesManager = (await import("../../../roles/twitch-roles-manager")).default;
+                twitchRolesManager.setupListeners();
+                // Moderators / VIPs / Subscribers の3本は内部でも並列実行
+                await Promise.allSettled([
+                    twitchRolesManager.loadModerators(),
+                    twitchRolesManager.loadVips(),
+                    twitchRolesManager.loadSubscribers()
+                ]);
+            })()
+        },
+        {
+            name: "effect-queues",
+            task: (async () => {
+                const { EffectQueueConfigManager } = await import("../../../effects/queues/effect-queue-config-manager");
+                EffectQueueConfigManager.loadItems();
+            })()
+        },
+        {
+            name: "preset-effect-lists",
+            task: (async () => {
+                const { PresetEffectListManager } = await import("../../../effects/preset-lists/preset-effect-list-manager");
+                PresetEffectListManager.loadItems();
+            })()
+        },
+        {
+            name: "quick-actions",
+            task: (async () => {
+                const { QuickActionManager } = await import("../../../quick-actions/quick-action-manager");
+                QuickActionManager.loadItems();
+            })()
+        },
+        {
+            name: "webhooks",
+            task: (async () => {
+                const webhookConfigManager = (await import("../../../webhooks/webhook-config-manager")).default;
+                webhookConfigManager.loadItems();
+            })()
+        },
+        {
+            name: "overlay-widgets",
+            task: (async () => {
+                const { loadWidgetTypes } = await import("../../../overlay-widgets/builtin-widget-type-loader");
+                loadWidgetTypes();
+                const overlayWidgetConfigManager = (await import("../../../overlay-widgets/overlay-widget-config-manager")).default;
+                overlayWidgetConfigManager.loadItems();
+            })()
+        },
+        {
+            name: "startup-scripts",
+            task: (async () => {
+                const startupScriptsManager = await import("../../../common/handlers/custom-scripts/startup-scripts-manager");
+                startupScriptsManager.loadStartupConfig();
+            })()
+        },
+        {
+            name: "chat-moderation",
+            task: (async () => {
+                const { ChatModerationManager } = await import("../../../chat/moderation/chat-moderation-manager");
+                ChatModerationManager.load();
+            })()
+        },
+        {
+            name: "counters",
+            task: (async () => {
+                const { CounterManager } = await import("../../../counters/counter-manager");
+                CounterManager.loadItems();
+            })()
+        },
+        {
+            name: "games",
+            task: (async () => {
+                const { GameManager } = await import("../../../games/game-manager");
+                GameManager.loadGameSettings();
+                const builtinGameLoader = await import("../../../games/builtin-game-loader");
+                builtinGameLoader.loadGames();
+            })()
+        },
+        {
+            name: "custom-variables",
+            task: (async () => {
+                const { CustomVariableManager } = await import("../../../common/custom-variable-manager");
+                CustomVariableManager.loadVariablesFromFile();
+            })()
+        },
+        {
+            name: "sort-tags",
+            task: (async () => {
+                const { SortTagManager } = await import("../../../sort-tags/sort-tag-manager");
+                SortTagManager.loadSortTags();
+            })()
+        }
+    ];
 
-    // load commands
-    logger.debug("Loading sys commands...");
-    windowManagement.updateSplashScreenStatus("システムコマンドを読み込み中...");
-    const { loadSystemCommands } = await import("../../../chat/commands/system-command-loader");
-    loadSystemCommands();
-
-    // load event sources
-    logger.debug("Loading event sources...");
-    windowManagement.updateSplashScreenStatus("イベントソースを読み込み中...");
-    const { loadEventSources } = await import("../../../events/builtin-event-source-loader");
-    loadEventSources();
-
-    // load event filters
-    logger.debug("Loading event filters...");
-    windowManagement.updateSplashScreenStatus("フィルターを読み込み中...");
-    const { loadFilters } = await import("../../../events/filters/builtin-filter-loader");
-    loadFilters();
-
-    // load integrations
-    logger.debug("Loading integrations...");
-    windowManagement.updateSplashScreenStatus("連携を読み込み中...");
-    const { loadIntegrations } = await import("../../../integrations/builtin-integration-loader");
-    loadIntegrations();
-
-    // load variables
-    logger.debug("Loading variables...");
-    windowManagement.updateSplashScreenStatus("変数を読み込み中...");
-    const { loadReplaceVariables } = await import("../../../variables/variable-loader");
-    loadReplaceVariables();
-
-    windowManagement.updateSplashScreenStatus("変数マクロを読み込み中...");
-    const macroManager = (await import("../../../variables/macro-manager")).default;
-    macroManager.loadItems();
-
-    // load restrictions
-    logger.debug("Loading restrictions...");
-    windowManagement.updateSplashScreenStatus("制限を読み込み中...");
-    const { loadRestrictions } = await import("../../../restrictions/builtin-restrictions-loader");
-    loadRestrictions();
-
-    windowManagement.updateSplashScreenStatus("フォントを読み込み中...");
-    const { FontManager } = await import("../../../font-manager");
-    await FontManager.loadInstalledFonts();
-
-    windowManagement.updateSplashScreenStatus("イベントを読み込み中...");
-    const { EventsAccess } = await import("../../../events/events-access");
-    EventsAccess.loadEventsAndGroups();
-
-    windowManagement.updateSplashScreenStatus("チームロールを読み込み中...");
-    const teamRolesManager = (await import("../../../roles/team-roles-manager")).default;
-    await teamRolesManager.loadTeamRoles();
-
-    windowManagement.updateSplashScreenStatus("カスタムロールを読み込み中...");
-    const customRolesManager = (await import("../../../roles/custom-roles-manager")).default;
-    await customRolesManager.loadCustomRoles();
-
-    const chatRolesManager = (await import("../../../roles/chat-roles-manager")).default;
-    chatRolesManager.setupListeners();
-
-    windowManagement.updateSplashScreenStatus("既知ボット一覧を読み込み中...");
-    await chatRolesManager.cacheViewerListBots();
-
-    const twitchRolesManager = (await import("../../../roles/twitch-roles-manager")).default;
-    twitchRolesManager.setupListeners();
-
-    windowManagement.updateSplashScreenStatus("チャンネルモデレーターを読み込み中...");
-    await twitchRolesManager.loadModerators();
-
-    windowManagement.updateSplashScreenStatus("チャンネルVIPを読み込み中...");
-    await twitchRolesManager.loadVips();
-
-    windowManagement.updateSplashScreenStatus("チャンネル登録者を読み込み中...");
-    await twitchRolesManager.loadSubscribers();
-
-    windowManagement.updateSplashScreenStatus("エフェクトキューを読み込み中...");
-    const { EffectQueueConfigManager } = await import("../../../effects/queues/effect-queue-config-manager");
-    EffectQueueConfigManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("プリセット演出リストを読み込み中...");
-    const { PresetEffectListManager } = await import("../../../effects/preset-lists/preset-effect-list-manager");
-    PresetEffectListManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("クイックアクションを読み込み中...");
-    const { QuickActionManager } = await import("../../../quick-actions/quick-action-manager");
-    QuickActionManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("Webhookを読み込み中...");
-    const webhookConfigManager = (await import("../../../webhooks/webhook-config-manager")).default;
-    webhookConfigManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("オーバーレイウィジェットを読み込み中...");
-    const { loadWidgetTypes } = await import("../../../overlay-widgets/builtin-widget-type-loader");
-    loadWidgetTypes();
-
-    const overlayWidgetConfigManager = (await import("../../../overlay-widgets/overlay-widget-config-manager")).default;
-    overlayWidgetConfigManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("起動スクリプトデータを読み込み中...");
-    const startupScriptsManager = await import("../../../common/handlers/custom-scripts/startup-scripts-manager");
-    startupScriptsManager.loadStartupConfig();
-
-    windowManagement.updateSplashScreenStatus("チャットモデレーションマネージャーを開始中...");
-    const { ChatModerationManager } = await import("../../../chat/moderation/chat-moderation-manager");
-    ChatModerationManager.load();
-
-    windowManagement.updateSplashScreenStatus("カウンターを読み込み中...");
-    const { CounterManager } = await import("../../../counters/counter-manager");
-    CounterManager.loadItems();
-
-    windowManagement.updateSplashScreenStatus("ゲームを読み込み中...");
-    const { GameManager } = await import("../../../games/game-manager");
-    GameManager.loadGameSettings();
-
-    const builtinGameLoader = await import("../../../games/builtin-game-loader");
-    builtinGameLoader.loadGames();
-
-    windowManagement.updateSplashScreenStatus("カスタム変数を読み込み中...");
-    const { CustomVariableManager } = await import("../../../common/custom-variable-manager");
-    CustomVariableManager.loadVariablesFromFile();
-
-    windowManagement.updateSplashScreenStatus("ソートタグを読み込み中...");
-    const { SortTagManager } = await import("../../../sort-tags/sort-tag-manager");
-    SortTagManager.loadSortTags();
+    const parallelResults = await Promise.allSettled(parallelStartupTasks.map(t => t.task));
+    parallelResults.forEach((result, idx) => {
+        if (result.status === "rejected") {
+            logger.error(`Startup task "${parallelStartupTasks[idx].name}" failed during parallel load`, result.reason);
+        }
+    });
+    // --- 並列読み込みブロックここまで ---
 
     // get importer in memory
     windowManagement.updateSplashScreenStatus("インポーターを読み込み中...");

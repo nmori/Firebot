@@ -78,7 +78,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function(backendCommunicator, utilityService, importService, logger) {
+            controller: function($scope, backendCommunicator, utilityService, importService, logger) {
                 const $ctrl = this;
 
                 $ctrl.settings = {
@@ -183,7 +183,7 @@
                     }
 
                     if ($ctrl.importing) {
-                        backendCommunicator.on("import:cleanup-finished", () => {
+                        backendCommunicator.onScoped($scope, "import:cleanup-finished", () => {
                             $ctrl.aborting = false;
                             $ctrl.close();
                         });

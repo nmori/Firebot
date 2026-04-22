@@ -159,7 +159,7 @@ export function copyDefaultConfigToUserData(
     const destination = getPathInUserData(
         `${userDataDestination}/${configFileName}`
     );
-    fs.writeFileSync(destination, fs.readFileSync(source));
+    fs.copyFileSync(source, destination);
 };
 
 export function copyResourceToUserData(
@@ -177,7 +177,7 @@ export function copyResourceToUserData(
         const destination = getPathInUserData(
             path.join(userDataDestination, resourceName)
         );
-        fs.writeFileSync(destination, fs.readFileSync(source));
+        fs.copyFileSync(source, destination);
     } catch (error) {
         logger.error(`Failed to copy resource ${resourceName}`, error);
     }

@@ -173,7 +173,7 @@
                     backupService.startBackup();
                 };
 
-                backendCommunicator.on("backups:backup-complete", (manualActivation) => {
+                backendCommunicator.onScoped($scope, "backups:backup-complete", (manualActivation) => {
                     $scope.isBackingUp = false;
 
                     if (manualActivation) {
@@ -193,7 +193,7 @@
                     $scope.backupFolderMoveCompleted = false;
                 };
 
-                backendCommunicator.on("backups:move-backup-folder-completed", (success) => {
+                backendCommunicator.onScoped($scope, "backups:move-backup-folder-completed", (success) => {
                     $scope.isMovingBackupFolder = false;
                     $scope.backupFolderMoveCompleted = true;
                     $scope.backupFolderMoveSuccess = success;

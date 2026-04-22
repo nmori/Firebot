@@ -45,18 +45,18 @@
             </div>
         </div>
           `,
-        controller: function($rootScope, $timeout, backendCommunicator, utilityService) {
+        controller: function($scope, $rootScope, $timeout, backendCommunicator, utilityService) {
             const $ctrl = this;
             $ctrl.loaded = false;
             $ctrl.copiedLink = false;
 
-            backendCommunicator.on("device-code-received", (details) => {
+            backendCommunicator.onScoped($scope, "device-code-received", (details) => {
                 $ctrl.loaded = true;
                 $ctrl.loginUrl = details.loginUrl;
                 $ctrl.code = details.code;
             });
 
-            backendCommunicator.on("accounts:account-update", (accounts) => {
+            backendCommunicator.onScoped($scope, "accounts:account-update", (accounts) => {
                 switch ($ctrl.accountType) {
                     case "streamer":
                         if (accounts.streamer.loggedIn) {

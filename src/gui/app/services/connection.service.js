@@ -108,7 +108,8 @@
             backendCommunicator.on("accounts:invalidate-accounts", service.invalidateAccounts);
 
             service.validateAccounts = () => {
-                backendCommunicator.fireEventSync("validate-twitch-accounts");
+                // Fire-and-forget: no return value is consumed, avoid sync IPC block on startup (施策10)
+                backendCommunicator.send("validate-twitch-accounts");
             };
 
             // Create new profile

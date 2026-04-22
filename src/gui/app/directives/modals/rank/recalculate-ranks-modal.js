@@ -39,7 +39,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function(backendCommunicator, utilityService) {
+        controller: function($scope, backendCommunicator, utilityService) {
             const $ctrl = this;
 
             $ctrl.rankLadder = {};
@@ -64,14 +64,14 @@
                         $ctrl.totalViewers = viewerCount;
                     });
 
-                backendCommunicator.on("rank-recalculation:progress", (processedCount) => {
+                backendCommunicator.onScoped($scope, "rank-recalculation:progress", (processedCount) => {
                     $ctrl.processedViewers = processedCount;
                     if ($ctrl.totalViewers > 0) {
                         $ctrl.completionPercentage = Math.round(($ctrl.processedViewers / $ctrl.totalViewers) * 100);
                     }
                 });
 
-                backendCommunicator.on("rank-recalculation:complete", () => {
+                backendCommunicator.onScoped($scope, "rank-recalculation:complete", () => {
                     $ctrl.hasFinished = true;
                     $ctrl.hasStarted = false;
                 });

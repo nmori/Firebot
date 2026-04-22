@@ -64,6 +64,31 @@
 
             service.onAsync = (eventName, callback) => service.on(eventName, callback, true);
 
+            service.off = function(eventName, id) {
+                const bucket = listeners[eventName];
+                if (!bucket || !id) {
+                    return false;
+                }
+                const idx = bucket.findIndex(l => l.id === id);
+                if (idx === -1) {
+                    return false;
+                }
+                bucket.splice(idx, 1);
+                return true;
+            };
+
+            service.onScoped = function(scope, eventName, callback, async = false) {
+                const id = service.on(eventName, callback, async);
+                if (scope && typeof scope.$on === "function") {
+                    scope.$on("$destroy", () => service.off(eventName, id));
+                }
+                return id;
+            };
+
+            service.onScopedAsync = (scope, eventName, callback) => service.onScoped(scope, eventName, callback, true);
+
+            service.__listeners__ = listeners;
+
             service.fireEventAsync = function(type, data) {
                 if (data !== undefined) {
                     data = JSON.parse(JSON.stringify(data));
