@@ -16,31 +16,31 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Message Text">
-            <p class="muted">Enter the message you would like to display in the toast notification.</p>
+        <eos-container header="メッセージテキスト">
+            <p class="muted">トースト通知に表示したいメッセージを入力してください。</p>
             <firebot-input
-                title="Message"
+                title="メッセージ"
                 model="effect.message"
                 placeholder-text="トースト通知テキストを入力"
                 menu-position="under"
             />
         </eos-container>
 
-        <eos-container header="Alert Type" pad-top="true">
+        <eos-container header="アラート種別" pad-top="true">
             <firebot-select
-                options="{ info: 'Info', success: 'Success', warning: 'Warning', danger: 'Danger' }"
+                options="{ info: '情報', success: '成功', warning: '警告', danger: 'エラー' }"
                 selected="effect.alertType"
             />
         </eos-container>
 
-        <eos-container header="Dismiss Type" pad-top="true">
+        <eos-container header="閉じ方" pad-top="true">
             <firebot-select
-                options="{ timeout: 'Dismiss automatically', manual: 'Manually close' }"
+                options="{ timeout: '自動で閉じる', manual: '手動で閉じる' }"
                 selected="effect.dismissType"
             />
         </eos-container>
 
-        <eos-container ng-if="effect.dismissType === 'timeout'" header="Timeout" pad-top="true">
+        <eos-container ng-if="effect.dismissType === 'timeout'" header="自動クローズまでの時間" pad-top="true">
             <firebot-input
                 input-title="秒数"
                 model="effect.timeout"
@@ -57,13 +57,13 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!(effect.message?.length > 0)) {
-            errors.push("Please input a message.");
+            errors.push("メッセージを入力してください。");
         }
         if (effect.alertType == null) {
-            errors.push("Please select an alert type.");
+            errors.push("アラート種別を選択してください。");
         }
         if (effect.dismissType === "timeout" && !effect.timeout) {
-            errors.push("Please enter a timeout duration.");
+            errors.push("自動クローズまでの秒数を入力してください。");
         }
         return errors;
     },

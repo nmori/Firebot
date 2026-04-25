@@ -36,24 +36,24 @@ const model: EffectType<{
         hidden: true
     },
     optionsTemplate: `
-    <eos-container header="Subreddit Name">
+    <eos-container header="Subreddit 名">
         <div class="input-group">
             <span class="input-group-addon" id="reddit-effect-type">r/</span>
             <input ng-model="effect.reddit" type="text" class="form-control" id="reddit-setting" aria-describedby="chat-text-effect-type" placeholder="puppies">
         </div>
     </eos-container>
 
-    <eos-container header="Output Location" pad-top="true" ng-if="effect.reddit !== null && effect.reddit !== 'Pick one'">
+    <eos-container header="出力先" pad-top="true" ng-if="effect.reddit !== null && effect.reddit !== 'Pick one'">
         <div class="controls-fb-inline" style="padding-bottom: 5px;">
-            <label class="control-fb control--radio">Chat
+            <label class="control-fb control--radio">チャット
                 <input type="radio" ng-model="effect.show" value="chat"/>
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--radio">Overlay
+            <label class="control-fb control--radio">オーバーレイ
                 <input type="radio" ng-model="effect.show" value="overlay"/>
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--radio">Both
+            <label class="control-fb control--radio">両方
                 <input type="radio" ng-model="effect.show" value="both"/>
                 <div class="control__indicator"></div>
             </label>
@@ -61,15 +61,15 @@ const model: EffectType<{
     </eos-container>
 
     <div class="effect-reddit-settings" ng-if="effect.show === 'chat' || effect.show ==='both'">
-        <eos-chatter-select effect="effect" title="Chatter" class="setting-padtop"></eos-chatter-select>
+        <eos-chatter-select effect="effect" title="送信元" class="setting-padtop"></eos-chatter-select>
     </div>
 
     <div class="effect-reddit-settings" ng-if="effect.show === 'overlay' || effect.show ==='both'">
         <div class="effect-setting-container setting-padtop">
-            <div class="effect-specific-title"><h4>Duration</h4></div>
+            <div class="effect-specific-title"><h4>表示時間</h4></div>
             <div class="effect-setting-content">
                 <div class="input-group">
-                    <span class="input-group-addon">Seconds</span>
+                    <span class="input-group-addon">秒数</span>
                     <input
                     type="text"
                     class="form-control"
@@ -96,7 +96,7 @@ const model: EffectType<{
 
     <eos-container pad-top="true">
         <div class="effect-info alert alert-danger">
-        Warning: This effect pulls random images from subreddits. Highly moderated subreddits are fairly safe, but there is always the chance of naughty pictures. Just a warning!
+        警告: このエフェクトは subreddit からランダムな画像を取得します。モデレーションがしっかり行われている subreddit であれば概ね安全ですが、不適切な画像が表示される可能性が常にあります。利用は自己責任でお願いします。
         </div>
     </eos-container>
 
@@ -111,11 +111,11 @@ const model: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.reddit == null) {
-            errors.push("Please enter a subreddit.");
+            errors.push("subreddit を入力してください。");
         }
 
         if (effect.show == null) {
-            errors.push("Please select a place to show the reddit image.");
+            errors.push("Reddit 画像の表示場所を選択してください。");
         }
         return errors;
     },

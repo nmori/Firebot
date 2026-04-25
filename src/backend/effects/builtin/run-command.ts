@@ -28,15 +28,15 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-    <eos-container header="Command Type" pad-top="true">
-        <dropdown-select options="{ system: 'System', custom: 'Custom'}" selected="effect.commandType"></dropdown-select>
+    <eos-container header="コマンドの種類" pad-top="true">
+        <dropdown-select options="{ system: 'システム', custom: 'カスタム'}" selected="effect.commandType"></dropdown-select>
     </eos-container>
 
-        <eos-container header="Command To Run" pad-top="true">
+        <eos-container header="実行するコマンド" pad-top="true">
             <firebot-searchable-select
                 ng-show="effect.commandType === 'system'"
                 ng-model="effect.systemCommandId"
-                placeholder="Select or search for a command..."
+                placeholder="コマンドを選択または検索..."
                 items="systemCommands"
                 item-name="trigger"
             />
@@ -44,21 +44,21 @@ const effect: EffectType<{
             <firebot-searchable-select
                 ng-show="effect.commandType === 'custom'"
                 ng-model="effect.commandId"
-                placeholder="Select or search for a command..."
+                placeholder="コマンドを選択または検索..."
                 items="customCommands"
                 item-name="trigger"
             />
         </eos-container>
 
-        <eos-container header="Arguments (optional)" pad-top="true">
-            <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.args" placeholder="Enter some arguments..." replace-variables>
+        <eos-container header="引数（任意）" pad-top="true">
+            <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.args" placeholder="引数を入力..." replace-variables>
         </eos-container>
 
-        <eos-container header="User who triggers the command (optional)" pad-top="true">
-            <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.username" placeholder="Enter a username..." replace-variables>
+        <eos-container header="コマンドの実行者（任意）" pad-top="true">
+            <input type="text" style="margin-top: 20px;" class="form-control" ng-model="effect.username" placeholder="ユーザー名を入力..." replace-variables>
         </eos-container>
 
-        <eos-container header="Restrictions" pad-top="true">
+        <eos-container header="制限" pad-top="true">
             <firebot-checkbox
                 model="effect.enforceRestrictions"
                 label="制限を適用しようとする"
@@ -72,7 +72,7 @@ const effect: EffectType<{
 
         <eos-container>
             <div class="effect-info alert alert-info" pad-top="true">
-                Please keep in mind you may get unexpected results when attempting to enforce restrictions or if any effects in the selected command have command specific things (such as $arg variables) when running outside the context of a chat event.
+                注意: 制限を強制した場合や、選択したコマンド内のエフェクトが $arg などのコマンド固有の値に依存している場合は、チャットイベント以外のコンテキストで実行すると意図しない結果になることがあります。
             </div>
         </eos-container>
     `,
@@ -88,10 +88,10 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.commandType === "custom" && (effect.commandId == null || effect.commandId === "")) {
-            errors.push("Please select a custom command to run.");
+            errors.push("実行するカスタムコマンドを選択してください。");
         }
         if (effect.commandType === "system" && (effect.systemCommandId == null || effect.systemCommandId === "")) {
-            errors.push("Please select a system command to run.");
+            errors.push("実行するシステムコマンドを選択してください。");
         }
         return errors;
     },
@@ -105,7 +105,7 @@ const effect: EffectType<{
             command = (commandsService.getCustomCommands() as CommandDefinition[])
                 .find(cmd => cmd.id === effect.commandId);
         }
-        return command?.trigger ?? "Unknown Command";
+        return command?.trigger ?? "不明なコマンド";
     },
     /**
    * When the effect is triggered by something

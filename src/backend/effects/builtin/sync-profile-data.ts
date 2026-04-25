@@ -15,9 +15,9 @@ const effect: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Default Profile Page">
+        <eos-container header="デフォルトのプロフィールページ">
             <firebot-select
-                options="{ commands: 'Commands', quotes: 'Quotes' }"
+                options="{ commands: 'コマンド', quotes: '名言' }"
                 selected="effect.profilePage"
             />
         </eos-container>
@@ -36,7 +36,11 @@ const effect: EffectType<{
         }
     },
     getDefaultLabel: (effect) => {
-        return `Default page: ${effect.profilePage}`;
+        const pageMap: Record<string, string> = {
+            commands: "コマンド",
+            quotes: "名言"
+        };
+        return `デフォルトページ: ${pageMap[effect.profilePage] ?? effect.profilePage}`;
     },
     onTriggerEvent: async (event) => {
         await cloudSync.syncProfileData({

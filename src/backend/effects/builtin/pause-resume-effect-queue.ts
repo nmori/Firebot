@@ -18,7 +18,7 @@ const effect: EffectType<{
         <eos-container header="演出キュー">
             <div class="btn-group" ng-if="effectQueues.length">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="list-effect-type">{{effectQueueName ? effectQueueName : 'Pick one'}}</span> <span class="caret"></span>
+                    <span class="list-effect-type">{{effectQueueName ? effectQueueName : '選択してください'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-repeat="queue in effectQueues" ng-click="selectEffectQueue(queue)">
@@ -31,10 +31,10 @@ const effect: EffectType<{
             </div>
         </eos-container>
 
-        <eos-container header="Action" ng-if="effect.effectQueue != null" pad-top="true">
+        <eos-container header="操作" ng-if="effect.effectQueue != null" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="list-effect-type">{{effect.action ? effect.action : 'Pick One'}}</span> <span class="caret"></span>
+                    <span class="list-effect-type">{{effect.action ? actionLabel(effect.action) : '選択してください'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.action = 'Pause'">
@@ -75,6 +75,15 @@ const effect: EffectType<{
             $scope.effect.effectQueue = queue.id;
             $scope.effectQueueName = queue.name;
         };
+
+        $scope.actionLabel = (action: string) => {
+            switch (action) {
+                case "Pause": return "一時停止";
+                case "Resume": return "再開";
+                case "Toggle": return "切り替え";
+                default: return action;
+            }
+        };
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
@@ -89,7 +98,12 @@ const effect: EffectType<{
     },
     getDefaultLabel: (effect, effectQueuesService) => {
         const queue = effectQueuesService.getEffectQueue(effect.effectQueue);
-        return `${effect.action} ${queue?.name ?? "Unknown Queue"}`;
+        const actionMap: Record<string, string> = {
+            Pause: "一時停止",
+            Resume: "再開",
+            Toggle: "切り替え"
+        };
+        return `${queue?.name ?? "不明なキュー"} を ${actionMap[effect.action] ?? effect.action}`;
     },
     onTriggerEvent: ({ effect }) => {
         const queue = EffectQueueConfigManager.getItem(effect.effectQueue);

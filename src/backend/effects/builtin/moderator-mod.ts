@@ -15,24 +15,24 @@ const effect: EffectType<{
         dependencies: ["chat"]
     },
     optionsTemplate: `
-    <eos-container header="Action" pad-top="true">
+    <eos-container header="操作" pad-top="true">
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="list-effect-type">{{effect.action ? effect.action : 'Pick one'}}</span> <span class="caret"></span>
+                <span class="list-effect-type">{{effect.action ? (effect.action === 'Mod' ? '付与' : '解除') : '選択してください'}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu celebrate-effect-dropdown">
                 <li ng-click="effect.action = 'Mod'">
-                    <a href>Mod</a>
+                    <a href>付与</a>
                 </li>
                 <li ng-click="effect.action = 'Unmod'">
-                    <a href>Unmod</a>
+                    <a href>解除</a>
                 </li>
             </ul>
         </div>
     </eos-container>
-    <eos-container header="Target" pad-top="true" ng-show="effect.action != null">
+    <eos-container header="対象" pad-top="true" ng-show="effect.action != null">
         <div class="input-group">
-            <span class="input-group-addon" id="username-type">Username</span>
+            <span class="input-group-addon" id="username-type">ユーザー名</span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables>
         </div>
     </eos-container>
@@ -40,10 +40,10 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.action == null) {
-            errors.push("Please choose an action.");
+            errors.push("操作を選択してください。");
         }
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please put in a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         return errors;
     },

@@ -17,10 +17,10 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container ng-hide="hasProgressBarWidgets">
-            <p>You need to create a Progress Bar Overlay Widget to use this effect! Go to the <b>Overlay Widgets</b> tab to create one.</p>
+            <p>このエフェクトを使うにはプログレスバーのオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </eos-container>
         <div ng-show="hasProgressBarWidgets">
-            <eos-container header="Progress Bar">
+            <eos-container header="プログレスバー">
                 <firebot-overlay-widget-select
                     overlay-widget-types="['firebot:progressbar']"
                     ng-model="effect.progressBarWidgetId"
@@ -28,7 +28,7 @@ const model: EffectType<{
             </eos-container>
 
             <div ng-show="effect.progressBarWidgetId">
-                <eos-container header="Action" pad-top="true">
+                <eos-container header="操作" pad-top="true">
                     <firebot-radio-cards
                         options="actions"
                         ng-model="effect.action"
@@ -37,7 +37,7 @@ const model: EffectType<{
                 </eos-container>
             </div>
 
-            <eos-container header="{{effect.action == 'increment' ? 'Increment Amount' : 'New Value'}}" pad-top="true" ng-show="effect.action">
+            <eos-container header="{{effect.action == 'increment' ? '増減量' : '新しい値'}}" pad-top="true" ng-show="effect.action">
                 <firebot-input
                     input-title="値"
                     model="effect.value"
@@ -54,33 +54,35 @@ const model: EffectType<{
         $scope.actions = [
             {
                 value: "increment",
-                label: "Increment",
+                label: "増減",
                 iconClass: "fa-plus",
-                description: "Increment the progress bar by the given value (use negative to decrement)"
+                description: "プログレスバーを指定値だけ増やします（負数で減らせます）"
             },
             {
                 value: "set",
-                label: "Set",
+                label: "設定",
                 iconClass: "fa-equals",
-                description: "Set the progress bar to a new value."
+                description: "プログレスバーを新しい値に設定します。"
             }
         ];
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.progressBarWidgetId == null) {
-            errors.push("Please select a progress bar.");
+            errors.push("プログレスバーを選択してください。");
         } else if (effect.action == null) {
-            errors.push("Please select an update action.");
+            errors.push("更新操作を選択してください。");
         } else if (effect.value === undefined || effect.value === "") {
-            errors.push("Please enter an update value.");
+            errors.push("更新値を入力してください。");
         }
 
         return errors;
     },
     getDefaultLabel: (effect, overlayWidgetsService) => {
-        const progressBarName = overlayWidgetsService.getOverlayWidgetConfig(effect.progressBarWidgetId)?.name ?? "Unknown Progress Bar";
-        return `${effect.action === "increment" ? "Update" : "Set"} ${progressBarName} ${effect.action === "increment" ? "by" : "to"} ${effect.value}`;
+        const progressBarName = overlayWidgetsService.getOverlayWidgetConfig(effect.progressBarWidgetId)?.name ?? "不明なプログレスバー";
+        return effect.action === "increment"
+            ? `${progressBarName} を ${effect.value} 増減`
+            : `${progressBarName} を ${effect.value} に設定`;
     },
     onTriggerEvent: (event) => {
         const { effect } = event;

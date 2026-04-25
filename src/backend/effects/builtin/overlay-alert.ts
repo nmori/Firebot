@@ -178,7 +178,7 @@ const effect: EffectType<OverlayAlertEffect> = {
         keysExemptFromAutoVariableReplacement: ["text"]
     },
     optionsTemplate: `
-        <eos-container header="Preview">
+        <eos-container header="プレビュー">
             <style>${overlayAlertStyles}</style>
             <div style="display:flex; align-items: center; justify-content: center; width: 100%; min-height: 200px; background: #1a1a1a; padding: 20px; border-radius: 8px;">
                 <div style="max-width: 400px; width: 100%;">
@@ -200,7 +200,7 @@ const effect: EffectType<OverlayAlertEffect> = {
             </div>
         </eos-container>
 
-        <eos-container header="Media" pad-top="true">
+        <eos-container header="メディア" pad-top="true">
             <firebot-radio-cards
                 options="mediaTypes"
                 ng-model="effect.mediaType"
@@ -209,12 +209,12 @@ const effect: EffectType<OverlayAlertEffect> = {
 
             <div ng-if="effect.mediaType === 'image'" class="mt-3">
                 <firebot-select
-                    options="{ local: 'Local file', folderRandom: 'Random from folder', url: 'Url' }"
+                    options="{ local: 'ローカルファイル', folderRandom: 'フォルダからランダム', url: 'URL' }"
                     selected="effect.imageSourceType"
                     style="margin-bottom: 5px;"
                 />
                 <div ng-if="effect.imageSourceType === 'folderRandom'">
-                    <file-chooser model="effect.imageFolder" options="{ directoryOnly: true, filters: [], title: 'Select Image Folder'}"></file-chooser>
+                    <file-chooser model="effect.imageFolder" options="{ directoryOnly: true, filters: [], title: '画像フォルダを選択'}"></file-chooser>
                 </div>
                 <div ng-if="effect.imageSourceType === 'local'">
                     <file-chooser model="effect.imageFile" options="{ filters: [{ name: 'Image', extensions: [ 'bmp', 'gif', 'jpg', 'jpeg', 'png', 'apng', 'svg', 'webp' ]}, { name: 'All Files', extensions: ['*']} ]}"></file-chooser>
@@ -226,7 +226,7 @@ const effect: EffectType<OverlayAlertEffect> = {
 
             <div ng-if="effect.mediaType === 'video'" class="mt-3">
                 <firebot-select
-                    options="{ local: 'Local file', folderRandom: 'Random from folder' }"
+                    options="{ local: 'ローカルファイル', folderRandom: 'フォルダからランダム' }"
                     selected="effect.videoSourceType"
                     style="margin-bottom: 5px;"
                 />
@@ -234,7 +234,7 @@ const effect: EffectType<OverlayAlertEffect> = {
                     <file-chooser model="effect.videoFile" options="{ filters: [ {name: 'Video', extensions: ['mp4', 'webm', 'ogv']} ]}"></file-chooser>
                 </div>
                 <div ng-if="effect.videoSourceType === 'folderRandom'">
-                    <file-chooser model="effect.videoFolder" options="{ directoryOnly: true, filters: [], title: 'Select Video Folder'}"></file-chooser>
+                    <file-chooser model="effect.videoFolder" options="{ directoryOnly: true, filters: [], title: '動画フォルダを選択'}"></file-chooser>
                 </div>
                 <!-- <div ng-if="effect.videoSourceType === 'youtube'">
                     <firebot-input input-title="YouTube URL/ID" model="effect.youtubeId" placeholder-text="Ex: AAYrZ69XA8c" />
@@ -270,7 +270,7 @@ const effect: EffectType<OverlayAlertEffect> = {
             </div>
         </eos-container>
 
-        <eos-container header="Text" pad-top="true">
+        <eos-container header="テキスト" pad-top="true">
             <firebot-input
                 model="effect.text"
                 placeholder-text="アラートテキストを入力"
@@ -282,8 +282,8 @@ const effect: EffectType<OverlayAlertEffect> = {
 
             <div class="form-group flex justify-between">
                 <div>
-                    <label class="control-label" style="margin:0;">Shadow</label>
-                    <p class="help-block">Add a drop shadow to the text for better readability.</p>
+                    <label class="control-label" style="margin:0;">影</label>
+                    <p class="help-block">テキストにドロップシャドウを付けて読みやすくします。</p>
                 </div>
                 <div class="ml-5">
                     <toggle-button toggle-model="effect.textShadow" auto-update-value="true" font-size="32"></toggle-button>
@@ -291,9 +291,9 @@ const effect: EffectType<OverlayAlertEffect> = {
             </div>
 
             <div>
-                <h4>Accent Settings</h4>
+                <h4>アクセント設定</h4>
                 <p class="muted" style="font-size:11px;margin-bottom:10px;">
-                    You can wrap text in &lt;accent&gt; tags to apply special styling. Example: &lt;accent&gt;$username&lt;/accent&gt; just followed!
+                    テキストを &lt;accent&gt; タグで囲むと特別なスタイルを適用できます。例: &lt;accent&gt;$username&lt;/accent&gt; さんがフォローしてくれました！
                 </p>
                 <color-picker-input model="effect.accentColor" label="アクセントカラー" alpha="true"></color-picker-input>
                 <div class="mt-2">
@@ -319,17 +319,17 @@ const effect: EffectType<OverlayAlertEffect> = {
             </div>
 
             <div class="mt-4">
-                <h4>Text Position</h4>
+                <h4>テキスト位置</h4>
                 <firebot-dropdown
                     options="textPositionOptions"
                     ng-model="effect.textPosition"
-                    placeholder="Select text position"
+                    placeholder="テキストの位置を選択"
                     option-toggling="false"
                 />
             </div>
         </eos-container>
 
-        <eos-container header="Sound Effect" pad-top="true">
+        <eos-container header="効果音" pad-top="true">
             <firebot-checkbox
                 label="サウンドを再生"
                 model="effect.playSound"
@@ -337,13 +337,13 @@ const effect: EffectType<OverlayAlertEffect> = {
 
             <div ng-if="effect.playSound">
                 <firebot-select
-                    options="{ local: 'Local file', folderRandom: 'Random from folder', url: 'Url' }"
+                    options="{ local: 'ローカルファイル', folderRandom: 'フォルダからランダム', url: 'URL' }"
                     selected="effect.soundType"
                     style="margin-bottom: 10px;"
                 />
 
                 <div ng-if="effect.soundType === 'folderRandom'">
-                    <file-chooser model="effect.soundFolder" options="{ directoryOnly: true, filters: [], title: 'Select Sound Folder'}"></file-chooser>
+                    <file-chooser model="effect.soundFolder" options="{ directoryOnly: true, filters: [], title: 'サウンドフォルダを選択'}"></file-chooser>
                 </div>
 
                 <div ng-if="effect.soundType === 'local'">
@@ -368,7 +368,7 @@ const effect: EffectType<OverlayAlertEffect> = {
                 </div>
 
                 <div class="mt-3">
-                    <label class="form-label" style="margin-bottom: 0;display: block;">Output Device</label>
+                    <label class="form-label" style="margin-bottom: 0;display: block;">出力デバイス</label>
                     <firebot-audio-output-device-select
                         device="effect.audioOutputDevice"
                     ></firebot-audio-output-device-select>
@@ -376,7 +376,7 @@ const effect: EffectType<OverlayAlertEffect> = {
             </div>
         </eos-container>
 
-        <eos-container header="Duration" pad-top="true">
+        <eos-container header="表示時間" pad-top="true">
             <firebot-input
                 input-title="秒数"
                 model="effect.duration"
@@ -386,7 +386,7 @@ const effect: EffectType<OverlayAlertEffect> = {
             />
         </eos-container>
 
-        <eos-container header="Position & Size" pad-top="true">
+        <eos-container header="位置とサイズ" pad-top="true">
             <div class="pt-4">
                 <overlay-position-editor
                     model="effect.position"
@@ -412,17 +412,17 @@ const effect: EffectType<OverlayAlertEffect> = {
         $scope.mediaTypes = [
             {
                 value: "image",
-                label: "Image/GIF",
+                label: "画像/GIF",
                 iconClass: "fa-image"
             },
             {
                 value: "video",
-                label: "Video",
+                label: "動画",
                 iconClass: "fa-video"
             },
             {
                 value: "none",
-                label: "None",
+                label: "なし",
                 iconClass: "fa-ban"
             }
         ];
@@ -483,11 +483,11 @@ const effect: EffectType<OverlayAlertEffect> = {
         }
 
         $scope.textPositionOptions = [
-            { name: "Below Media", value: "below" },
-            { name: "Above Media", value: "above" },
-            { name: "Left of Media", value: "left" },
-            { name: "Right of Media", value: "right" },
-            { name: "On Top of Media", value: "overlay" }
+            { name: "メディアの下", value: "below" },
+            { name: "メディアの上", value: "above" },
+            { name: "メディアの左", value: "left" },
+            { name: "メディアの右", value: "right" },
+            { name: "メディアに重ねる", value: "overlay" }
         ];
 
         $scope.showOverlayInfoModal = function (overlayInstance: string) {
@@ -615,35 +615,31 @@ const effect: EffectType<OverlayAlertEffect> = {
 
         if (effect.mediaType === "image") {
             if (effect.imageSourceType === "local" && !effect.imageFile) {
-                errors.push("Please select an image file.");
+                errors.push("画像ファイルを選択してください。");
             } else if (effect.imageSourceType === "url" && !effect.imageUrl) {
-                errors.push("Please enter an image URL.");
+                errors.push("画像 URL を入力してください。");
             } else if (effect.imageSourceType === "folderRandom" && !effect.imageFolder) {
-                errors.push("Please select an image folder.");
+                errors.push("画像フォルダを選択してください。");
             }
         } else if (effect.mediaType === "video") {
             if (effect.videoSourceType === "local" && !effect.videoFile) {
-                errors.push("Please select a video file.");
-                // } else if (effect.videoSourceType === "youtube" && !effect.youtubeId) {
-                //     errors.push("Please enter a YouTube URL or ID.");
-                // } else if (effect.videoSourceType === "twitchClip" && !effect.twitchClipUrl) {
-                //     errors.push("Please enter a Twitch Clip URL or ID.");
+                errors.push("動画ファイルを選択してください。");
             } else if (effect.videoSourceType === "folderRandom" && !effect.videoFolder) {
-                errors.push("Please select a video folder.");
+                errors.push("動画フォルダを選択してください。");
             }
         }
 
         if (!effect.text && effect.mediaType === "none") {
-            errors.push("Please add either media or text to your alert.");
+            errors.push("メディアまたはテキストのいずれかを指定してください。");
         }
 
         if (effect.playSound) {
             if (effect.soundType === "local" && !effect.soundFile) {
-                errors.push("Please select a sound file.");
+                errors.push("サウンドファイルを選択してください。");
             } else if (effect.soundType === "url" && !effect.soundUrl) {
-                errors.push("Please enter a sound URL.");
+                errors.push("サウンド URL を入力してください。");
             } else if (effect.soundType === "folderRandom" && !effect.soundFolder) {
-                errors.push("Please select a sound folder.");
+                errors.push("サウンドフォルダを選択してください。");
             }
         }
 

@@ -18,10 +18,10 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container ng-hide="hasCustomWidgets">
-            <p>You need to create a Custom or Custom (Advanced) Overlay Widget to use this effect! Go to the <b>Overlay Widgets</b> tab to create one.</p>
+            <p>このエフェクトを使うには Custom または Custom（Advanced）のオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </eos-container>
         <div ng-show="hasCustomWidgets">
-            <eos-container header="Custom Widget">
+            <eos-container header="カスタムウィジェット">
                 <firebot-overlay-widget-select
                     overlay-widget-types="['firebot:custom', 'firebot:custom-advanced']"
                     ng-model="effect.customWidgetId"
@@ -29,7 +29,7 @@ const model: EffectType<{
             </eos-container>
 
             <div ng-show="effect.customWidgetId">
-                <eos-container header="Message" pad-top="true">
+                <eos-container header="メッセージ" pad-top="true">
                     <firebot-input
                         input-title="名前"
                         model="effect.messageName"
@@ -38,14 +38,14 @@ const model: EffectType<{
                     />
 
                     <div class="form-group mt-4">
-                        <label>Data (JSON)</label>
+                        <label>データ（JSON）</label>
                         <firebot-input
                             model="effect.messageDataJson"
                             input-type="codemirror"
                             code-mirror-options="codeMirrorOptions"
                             menu-position="under"
                         />
-                        <span class="help-block">Optional data to send with the message. Must be valid JSON.</span>
+                        <span class="help-block">メッセージと一緒に送信するデータ（任意）。有効な JSON である必要があります。</span>
                     </div>
                 </eos-container>
             </div>
@@ -68,9 +68,9 @@ const model: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.customWidgetId == null) {
-            errors.push("Please select a custom widget.");
+            errors.push("カスタムウィジェットを選択してください。");
         } else if (effect.messageName == null || effect.messageName.trim() === "") {
-            errors.push("Please enter a message name.");
+            errors.push("メッセージ名を入力してください。");
         }
 
         return errors;

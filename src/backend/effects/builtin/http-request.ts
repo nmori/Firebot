@@ -211,13 +211,13 @@ const effect: EffectType<{
         $scope.headerOptions = (item: KeyValuePair) => {
             const options = [
                 {
-                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 編集</a>`,
                     click: () => {
                         $scope.showAddOrEditHeaderModal(item);
                     }
                 },
                 {
-                    html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                    html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> 削除</a>`,
                     click: () => {
                         $scope.effect.headers = $scope.effect.headers.filter(h => h.key !== item.key);
                     }
@@ -229,10 +229,10 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.method === "" || effect.method == null) {
-            errors.push("Please select an HTTP method");
+            errors.push("HTTP メソッドを選択してください。");
         }
         if (effect.url === "" || effect.url == null) {
-            errors.push("Please provide a url");
+            errors.push("URL を入力してください。");
         }
         return errors;
     },

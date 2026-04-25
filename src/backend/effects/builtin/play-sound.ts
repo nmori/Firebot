@@ -30,18 +30,18 @@ const model: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-    <eos-container header="Type">
+    <eos-container header="種類">
         <firebot-select
-            options="{ local: 'Local file', folderRandom: 'Random from folder', url: 'Url', rawData: 'Raw Binary Audio Data (bytes)' }"
+            options="{ local: 'ローカルファイル', folderRandom: 'フォルダからランダム', url: 'URL', rawData: '生のバイナリ音声データ（バイト列）' }"
             selected="effect.soundType"
             style="padding-bottom: 5px;"
         />
     </eos-container>
 
     <div ng-hide="effect.soundType == null">
-        <eos-container header="Sound" pad-top="true">
+        <eos-container header="サウンド" pad-top="true">
             <div ng-if="effect.soundType === 'folderRandom'">
-                <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'Select Sound Folder'}"></file-chooser>
+                <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'サウンドフォルダを選択'}"></file-chooser>
             </div>
 
             <div ng-if="effect.soundType === 'local'">
@@ -58,7 +58,7 @@ const model: EffectType<{
             </div>
 
             <div ng-if="effect.soundType === 'rawData'">
-               <firebot-input input-title="MIME Type"
+               <firebot-input input-title="MIMEタイプ"
                     model="effect.mimeType"
                     placeholder-text="例: audio/mpeg"
                     style="margin-bottom: 2rem;" />
@@ -68,14 +68,14 @@ const model: EffectType<{
             </div>
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> Wait for sound to finish <tooltip text="'Wait for the sound to finish before letting the next effect play.'"></tooltip>
+                <label class="control-fb control--checkbox"> サウンドの終了を待つ <tooltip text="'サウンドの再生が終わるまで、次のエフェクトの再生を待ちます。'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="Volume" pad-top="true">
+        <eos-container header="音量" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 1, ceil: 10, hideLimitLabels: true, showSelectionBar: true}"></rzslider>
@@ -106,20 +106,20 @@ const model: EffectType<{
 
         if (effect.soundType === "local" || effect.soundType == null) {
             if (effect.filepath == null || effect.filepath.length < 1) {
-                errors.push("Please select a sound file.");
+                errors.push("サウンドファイルを選択してください。");
             }
         } else if (effect.soundType === "folderRandom") {
             if (effect.folder == null || effect.folder.length < 1) {
-                errors.push("Please select a sound folder.");
+                errors.push("サウンドフォルダを選択してください。");
             }
         } else if (effect.soundType === "url" && (effect.url == null || effect.url.trim() === "")) {
-            errors.push("Please input a url.");
+            errors.push("URLを入力してください。");
         } else if (effect.soundType === "rawData") {
             if (effect.mimeType == null || effect.mimeType.trim() === "") {
-                errors.push("Please input a MIME type for the raw data.");
+                errors.push("生データのMIMEタイプを入力してください。");
             }
             if (effect.rawData == null || effect.rawData.trim() === "") {
-                errors.push("Please input a value for the raw data.");
+                errors.push("生データの値を入力してください。");
             }
         }
 

@@ -47,39 +47,39 @@ const effect: EffectType<{
         dependencies: [],
         outputs: [
             {
-                label: "Program Response",
-                description: "The raw response from the program",
+                label: "プログラムの出力",
+                description: "プログラムの生の出力結果",
                 defaultName: "programResponse"
             }
         ]
     },
     optionsTemplate: `
-        <eos-container header="Program File Path">
+        <eos-container header="プログラムのファイルパス">
             <file-chooser model="effect.programPath" options="fileChooserOptions"></file-chooser>
         </eos-container>
-        <eos-container header="Program Arguments (Optional)" pad-top="true">
+        <eos-container header="プログラム引数（任意）" pad-top="true">
             <div class="input-group">
-                <span class="input-group-addon" id="delay-length-effect-type">Args</span>
+                <span class="input-group-addon" id="delay-length-effect-type">引数</span>
                 <input ng-model="effect.programArgs" type="text" class="form-control" type="text" replace-variables menu-position="bottom">
             </div>
         </eos-container>
-        <eos-container header="Options" pad-top="true">
+        <eos-container header="オプション" pad-top="true">
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Wait for program to finish
+                <label class="control-fb control--checkbox"> プログラムの終了を待つ
                     <input type="checkbox" ng-model="effect.waitForFinish">
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Hide windows
+                <label class="control-fb control--checkbox"> ウィンドウを非表示
                     <input type="checkbox" ng-model="effect.hideWindow">
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Run detached
+                <label class="control-fb control--checkbox"> デタッチモードで実行
                     <input type="checkbox" ng-model="effect.runDetached">
                     <div class="control__indicator"></div>
                 </label>
@@ -95,33 +95,33 @@ const effect: EffectType<{
         }
 
         // Windows defaults
-        let programName = "Program";
+        let programName = "プログラム";
         let programExtensions = ["exe", "bat", "com"];
 
         if (process.platform === "linux") {
-            programName = "Shell Script";
+            programName = "シェルスクリプト";
             programExtensions = ["sh"];
         } else if (process.platform === "darwin") {
-            programName = "App/Script";
+            programName = "アプリ/スクリプト";
             programExtensions = ["app", "command", "tool", "sh", "scpt", "scptd"];
         }
 
         $scope.fileChooserOptions = {
             filters: [
                 { name: programName, extensions: programExtensions },
-                { name: "All Files", extensions: ['*'] }
+                { name: "すべてのファイル", extensions: ['*'] }
             ]
         };
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.programPath == null) {
-            errors.push("Please select a program executable");
+            errors.push("実行するプログラムを選択してください。");
         }
         return errors;
     },
     getDefaultLabel: (effect) => {
-        return effect.programPath ?? "No Program Selected";
+        return effect.programPath ?? "プログラム未選択";
     },
     onTriggerEvent: async ({ effect }) => {
         return new Promise((resolve) => {

@@ -14,15 +14,15 @@ const effect: EffectType<{
         categories: ["scripting", "firebot control"]
     },
     optionsTemplate: `
-        <eos-container header="Manual Effect Queue">
+        <eos-container header="手動エフェクトキュー">
             <firebot-searchable-select
                 ng-if="manualEffectQueues.length"
                 ng-model="effect.effectQueueId"
-                placeholder="Select or search for a manual effect queue..."
+                placeholder="手動エフェクトキューを選択または検索..."
                 items="manualEffectQueues"
             />
             <div ng-if="!manualEffectQueues.length">
-                You have no manual effect queues saved.
+                手動エフェクトキューが保存されていません。
             </div>
         </eos-container>
     `,
@@ -41,14 +41,14 @@ const effect: EffectType<{
         const errors: string[] = [];
 
         if (effect.effectQueueId == null) {
-            errors.push("You must select a manual effect queue");
+            errors.push("手動エフェクトキューを選択してください。");
         }
 
         return errors;
     },
     getDefaultLabel: (effect, effectQueuesService) => {
         const queue = effectQueuesService.getEffectQueue(effect.effectQueueId);
-        return queue?.name ?? "Unknown Queue";
+        return queue?.name ?? "不明なキュー";
     },
     onTriggerEvent: ({ effect }) => {
         const queue = EffectQueueConfigManager.getItem(effect.effectQueueId);

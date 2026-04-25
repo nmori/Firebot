@@ -16,17 +16,17 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Username">
-            <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.username" placeholder="Enter username" replace-variables menu-position="below" />
+        <eos-container header="ユーザー名">
+            <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.username" placeholder="ユーザー名を入力" replace-variables menu-position="below" />
         </eos-container>
 
-        <eos-container header="Metadata Key" pad-top="true">
-            <p class="muted">You'll use this key to reference this elsewhere via the $userMetadata replace phrase.</p>
-            <input ng-model="effect.key" type="text" class="form-control" id="chat-text-setting" placeholder="Enter key name" replace-variables>
+        <eos-container header="メタデータキー" pad-top="true">
+            <p class="muted">このキーを $userMetadata 置換フレーズなどから参照して利用します。</p>
+            <input ng-model="effect.key" type="text" class="form-control" id="chat-text-setting" placeholder="キー名を入力" replace-variables>
         </eos-container>
 
-        <eos-container header="Data" pad-top="true">
-            <p class="muted">This is the data that will be saved under the above key in the user's data. Can be text or another replace phrase.</p>
+        <eos-container header="データ" pad-top="true">
+            <p class="muted">上のキーに紐づけて保存するデータです。文字列または別の置換フレーズを指定できます。</p>
             <selectable-input-editors
                 editors="editors"
                 initial-editor-label="initialEditorLabel"
@@ -36,17 +36,17 @@ const effect: EffectType<{
 
             <div style="margin-top: 10px;">
                 <eos-collapsable-panel show-label="詳細設定" hide-label="詳細設定" hide-info-box="true">
-                    <h4>Property Path (Optional)</h4>
-                    <p class="muted">If the metadata key already has data saved in the form of an object or array, you can define a path (using dot notation) to a specific property or index to update with the above data. If nothing is provided, the entire metadata entry is replaced. If there is no existing data and a property path is provided, nothing happens.</p>
+                    <h4>プロパティパス（任意）</h4>
+                    <p class="muted">メタデータキーにすでにオブジェクトや配列が保存されている場合、ドット表記でプロパティやインデックスを指定して、その箇所だけを上のデータで更新できます。指定しない場合は、メタデータエントリ全体が置き換えられます。既存データがなくプロパティパスを指定した場合は、何も起こりません。</p>
                     <eos-collapsable-panel show-label="例を表示" hide-label="例を非表示" hide-info-box="true">
-                        <span>Examples:</span>
+                        <span>例:</span>
                         <ul>
                             <li>some.property</li>
                             <li>1</li>
                             <li>1.value</li>
                         </ul>
                     </eos-collapsable-panel>
-                    <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="Enter path" replace-variables>
+                    <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="パスを入力" replace-variables>
                 </eos-collapsable-panel>
             </div>
         </eos-container>
@@ -54,15 +54,15 @@ const effect: EffectType<{
     optionsController: ($scope) => {
         $scope.editors = [
             {
-                label: "Basic",
+                label: "テキスト",
                 inputType: "text",
                 useTextArea: true,
-                placeholderText: "Enter text/data"
+                placeholderText: "テキスト/データを入力"
             },
             {
                 label: "JSON",
                 inputType: "codemirror",
-                placeholderText: "Enter text/data",
+                placeholderText: "テキスト/データを入力",
                 codeMirrorOptions: {
                     mode: { name: "javascript", json: true },
                     theme: 'blackboard',
@@ -73,15 +73,15 @@ const effect: EffectType<{
             }
         ];
 
-        $scope.initialEditorLabel = $scope.effect?.data?.startsWith("{") || $scope.effect?.data?.startsWith("[") ? "JSON" : "Basic";
+        $scope.initialEditorLabel = $scope.effect?.data?.startsWith("{") || $scope.effect?.data?.startsWith("[") ? "JSON" : "テキスト";
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.username == null || effect.username === "") {
-            errors.push("Please provide a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         if (effect.key == null || effect.key === "") {
-            errors.push("Please provide a key name.");
+            errors.push("キー名を入力してください。");
         }
         return errors;
     },

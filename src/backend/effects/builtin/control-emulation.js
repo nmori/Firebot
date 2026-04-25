@@ -14,8 +14,8 @@ const effect = {
     },
     globalSettings: {},
     optionsTemplate: `
-    <eos-container header="Mode">
-        <dropdown-select options="{ keyPress: 'Key Press', typeString: 'Type Text'}" selected="effect.mode"></dropdown-select>
+    <eos-container header="モード">
+        <dropdown-select options="{ keyPress: 'キー入力', typeString: 'テキスト入力'}" selected="effect.mode"></dropdown-select>
     </eos-container>
 
     <div ng-if="effect.mode == 'typeString'">
@@ -27,7 +27,7 @@ const effect = {
     <div ng-if="effect.mode == 'keyPress'">
         <eos-container header="キーを押す" pad-top="true">
             <div class="input-group game-press">
-                <span class="input-group-addon" id="button-press-effect-type">Press</span>
+                <span class="input-group-addon" id="button-press-effect-type">キー</span>
                 <input type="text" ng-model="effect.press" uib-typeahead="control for control in validControls | filter:$viewValue | limitTo:8" class="form-control" id="game-control-press-setting" aria-describedby="button-press-effect-type">
             </div>
         </eos-container>

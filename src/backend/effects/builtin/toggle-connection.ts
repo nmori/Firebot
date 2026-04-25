@@ -21,24 +21,24 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Mode">
+        <eos-container header="モード">
             <div style="padding-left: 10px;">
-                <label class="control-fb control--radio">All Connections <span class="muted"><br />Update all connections (Twitch and any linked integrations)</span>
+                <label class="control-fb control--radio">すべての接続 <span class="muted"><br />すべての接続（Twitch および連携済み Integrations）を更新</span>
                     <input type="radio" ng-model="effect.mode" value="all"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >Custom Connections <span class="muted"><br />Pick and choose which connections to update</span>
+                <label class="control-fb control--radio" >カスタム接続 <span class="muted"><br />更新する接続を個別に選択</span>
                     <input type="radio" ng-model="effect.mode" value="custom"/>
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container ng-show="effect.mode === 'all'" header="Action" pad-top="true">
-            <dropdown-select options="{ toggle: 'Toggle', true: 'Connect', false: 'Disconnect'}" selected="effect.allAction"></dropdown-select>
+        <eos-container ng-show="effect.mode === 'all'" header="操作" pad-top="true">
+            <dropdown-select options="{ toggle: '切り替え', true: '接続', false: '切断'}" selected="effect.allAction"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="effect.mode === 'custom'" header="Connections" pad-top="true">
+        <eos-container ng-show="effect.mode === 'custom'" header="接続" pad-top="true">
             <div ng-repeat="service in services">
                 <label class="control-fb control--checkbox">{{service.name}}
                     <input type="checkbox" ng-click="toggleServiceSelected(service.id)" ng-checked="serviceIsSelected(service.id)"  aria-label="{{service.name}} の切り替え" >
@@ -50,9 +50,9 @@ const effect: EffectType<{
                         {{getConnectionActionDisplay(service.id)}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                            <li role="menuitem" ng-click="setConnectionAction(service.id, true)"><a href>Connect</a></li>
-                            <li role="menuitem" ng-click="setConnectionAction(service.id, false)"><a href>Disconnect</a></li>
-                            <li role="menuitem" ng-click="setConnectionAction(service.id, 'toggle')"><a href>Toggle</a></li>
+                            <li role="menuitem" ng-click="setConnectionAction(service.id, true)"><a href>接続</a></li>
+                            <li role="menuitem" ng-click="setConnectionAction(service.id, false)"><a href>切断</a></li>
+                            <li role="menuitem" ng-click="setConnectionAction(service.id, 'toggle')"><a href>切り替え</a></li>
                         </ul>
                     </div>
                 </div>
@@ -116,12 +116,12 @@ const effect: EffectType<{
             }
 
             if (service.action === "toggle") {
-                return "Toggle";
+                return "切り替え";
             }
             if (service.action === true) {
-                return "Connect";
+                return "接続";
             }
-            return "Disconnect";
+            return "切断";
         };
 
 
@@ -129,22 +129,22 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.mode == null) {
-            errors.push("Please select a mode.");
+            errors.push("モードを選択してください。");
         } else if (effect.mode === "custom" && (effect.services == null || effect.services.length < 1)) {
-            errors.push("Please select at least one connection to update");
+            errors.push("更新する接続を 1 つ以上選択してください。");
         }
 
         return errors;
     },
     getDefaultLabel: (effect) => {
         const action = effect.allAction === "toggle"
-            ? "Toggle"
-            : effect.allAction === true ? "Connect" : "Disconnect";
+            ? "切り替え"
+            : effect.allAction === true ? "接続" : "切断";
         if (effect.mode === "all") {
-            return `${action} all connections`;
+            return `すべての接続を ${action}`;
         }
 
-        return `Update ${effect.services.length} connection${effect.services.length === 1 ? "" : "s"}`;
+        return `${effect.services.length} 件の接続を更新`;
     },
     onTriggerEvent: async ({ effect }) => {
         let services: Service[];

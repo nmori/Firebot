@@ -23,14 +23,14 @@ const model: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Target">
+        <eos-container header="対象">
             <firebot-radios
                 options="targetOptions"
                 model="effect.target"
             />
         </eos-container>
 
-        <eos-container header="Effect List" ng-if="effect.target === 'specificList'" pad-top="true">
+        <eos-container header="エフェクトリスト" ng-if="effect.target === 'specificList'" pad-top="true">
             <firebot-input
                 input-title="エフェクトリスト ID"
                 title-tooltip="エフェクトリストの ID は右上の三点メニューからコピーできます。"
@@ -40,7 +40,7 @@ const model: EffectType<{
             />
         </eos-container>
 
-        <eos-container header="Effect" ng-if="effect.target === 'specificEffect'" pad-top="true">
+        <eos-container header="エフェクト" ng-if="effect.target === 'specificEffect'" pad-top="true">
             <firebot-input
                 input-title="エフェクト ID"
                 title-tooltip="エフェクトの ID は三点メニューからコピーできます。"
@@ -50,16 +50,16 @@ const model: EffectType<{
             />
         </eos-container>
 
-        <eos-container header="Queue" ng-if="effect.target === 'queueActiveEffectLists'" pad-top="true">
+        <eos-container header="キュー" ng-if="effect.target === 'queueActiveEffectLists'" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.queueId"
-                placeholder="Select queue"
+                placeholder="キューを選択"
                 items="queueOptions"
             />
         </eos-container>
 
         <eos-container
-            header="Options"
+            header="オプション"
             ng-if="effect.target !== 'specificEffect'"
             pad-top="true"
         >
@@ -73,15 +73,15 @@ const model: EffectType<{
     optionsController: ($scope, effectQueuesService) => {
 
         $scope.targetOptions = {
-            currentList: { text: "Current effect list", description: "Stops execution of the effect list that this effect resides in" },
-            specificList: { text: "Specific effect list", description: "Abort the execution of a specific effect list by its ID" },
-            queueActiveEffectLists: { text: "Active effect lists for queue", description: "Abort the execution of active effect lists from a queue" },
-            allActiveEffectLists: { text: "All active effect lists", description: "Abort the execution of all actively running effect lists" },
-            specificEffect: { text: "Specific effect", description: "Abort the execution of a specific effect by its ID" }
+            currentList: { text: "現在のエフェクトリスト", description: "このエフェクトが含まれるエフェクトリストの実行を停止します" },
+            specificList: { text: "特定のエフェクトリスト", description: "指定した ID のエフェクトリストの実行を中断します" },
+            queueActiveEffectLists: { text: "キューの実行中エフェクトリスト", description: "指定したキューで現在実行中のエフェクトリストを中断します" },
+            allActiveEffectLists: { text: "実行中のすべてのエフェクトリスト", description: "現在実行中のすべてのエフェクトリストを中断します" },
+            specificEffect: { text: "特定のエフェクト", description: "指定した ID のエフェクトの実行を中断します" }
         };
 
         $scope.queueOptions = [
-            { id: "all", name: "All queues" },
+            { id: "all", name: "すべてのキュー" },
             ...(effectQueuesService.getEffectQueues() ?? [])
         ];
 
@@ -93,15 +93,15 @@ const model: EffectType<{
         const errors: string[] = [];
 
         if (effect.target === "specificList" && !effect.listId) {
-            errors.push("Please provide an effect list ID");
+            errors.push("エフェクトリスト ID を指定してください。");
         }
 
         if (effect.target === "specificEffect" && !effect.effectId) {
-            errors.push("Please provide an effect ID");
+            errors.push("エフェクト ID を指定してください。");
         }
 
         if (effect.target === "queueActiveEffectLists" && !effect.queueId) {
-            errors.push("Please select a queue");
+            errors.push("キューを選択してください。");
         }
 
         return errors;
@@ -109,18 +109,18 @@ const model: EffectType<{
     getDefaultLabel: (effect, effectQueuesService) => {
         switch (effect.target) {
             case "currentList":
-                return "Current effect list";
+                return "現在のエフェクトリスト";
             case "specificList":
-                return `Specific effect list)`;
+                return `特定のエフェクトリスト`;
             case "specificEffect":
-                return `Specific effect`;
+                return `特定のエフェクト`;
             case "queueActiveEffectLists":
                 if (effect.queueId === "all") {
-                    return "Active Effect Lists for All Queues";
+                    return "すべてのキューの実行中エフェクトリスト";
                 }
-                return `Active Effect Lists for Queue ${effectQueuesService.getEffectQueue(effect.queueId)?.name ?? "Unknown Queue"}`;
+                return `キュー「${effectQueuesService.getEffectQueue(effect.queueId)?.name ?? "不明なキュー"}」の実行中エフェクトリスト`;
             case "allActiveEffectLists":
-                return "All active effect lists";
+                return "実行中のすべてのエフェクトリスト";
         }
     },
     onTriggerEvent: (event) => {

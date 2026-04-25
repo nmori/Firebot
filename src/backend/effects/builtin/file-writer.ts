@@ -84,82 +84,82 @@ const fileWriter: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="File">
+        <eos-container header="ファイル">
             <file-chooser model="effect.filepath" options="{ filters: [ {name:'Text',extensions:['txt']}, {name:'All files',extensions:['*']} ]}"></file-chooser>
         </eos-container>
 
-        <eos-container header="Write Mode" pad-top="true">
+        <eos-container header="書き込みモード" pad-top="true">
             <div class="controls-fb" style="padding-bottom: 5px;">
-                <label class="control-fb control--radio">Replace   <tooltip text="'Replaces existing text with new text in the file.'"></tooltip>
+                <label class="control-fb control--radio">置換   <tooltip text="'ファイル内の既存テキストを新しいテキストで置き換えます。'"></tooltip>
                     <input type="radio" ng-model="effect.writeMode" value="replace"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Suffix <tooltip text="'Appends the given text to the file.'"></tooltip>
+                <label class="control-fb control--radio">末尾追記 <tooltip text="'ファイルの末尾にテキストをそのまま追記します。'"></tooltip>
                     <input type="radio" ng-model="effect.writeMode" value="suffix"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Append <tooltip text="'Appends a new line with the given text to the file.'"></tooltip>
+                <label class="control-fb control--radio">改行して追記 <tooltip text="'指定したテキストを新しい行として追記します。'"></tooltip>
                     <input type="radio" ng-model="effect.writeMode" value="append"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Delete Line(s) <tooltip text="'Deletes a specific line(s) in the file.'"></tooltip>
+                <label class="control-fb control--radio">行を削除 <tooltip text="'ファイル内の特定の行を削除します。'"></tooltip>
                     <input type="radio" ng-model="effect.writeMode" value="delete"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Replace Line(s) <tooltip text="'Replace a specific line in the file.'"></tooltip>
+                <label class="control-fb control--radio">行を置換 <tooltip text="'ファイル内の特定の行を置き換えます。'"></tooltip>
                     <input type="radio" ng-model="effect.writeMode" value="replace-line"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Clear File <tooltip text="'Clears all text from the file.'"></tooltip>
+                <label class="control-fb control--radio">ファイルをクリア <tooltip text="'ファイル内のすべてのテキストを消去します。'"></tooltip>
                     <input type="radio" ng-model="effect.writeMode" value="delete-all"/>
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="Append Options" pad-top="true" ng-if="effect.writeMode === 'append'">
-            <label class="control-fb control--checkbox"> Don't Repeat <tooltip text="'Do not append a new line if the given text already exists in the file.'"></tooltip>
+        <eos-container header="追記オプション" pad-top="true" ng-if="effect.writeMode === 'append'">
+            <label class="control-fb control--checkbox"> 重複しない <tooltip text="'同じテキストがファイル内に既に存在する場合は新しい行を追記しません。'"></tooltip>
                 <input type="checkbox" ng-model="effect.dontRepeat">
                 <div class="control__indicator"></div>
             </label>
         </eos-container>
 
-        <eos-container header="Delete Line(s) Options" pad-top="true" ng-if="effect.writeMode === 'delete'">
+        <eos-container header="行削除オプション" pad-top="true" ng-if="effect.writeMode === 'delete'">
             <div class="controls-fb" style="padding-bottom: 5px;">
-                <label class="control-fb control--radio">Delete by line number(s) <tooltip text="'Deletes line(s) at the specified number(s)'"></tooltip>
+                <label class="control-fb control--radio">行番号で削除 <tooltip text="'指定した行番号の行を削除します。'"></tooltip>
                     <input type="radio" ng-model="effect.deleteLineMode" value="lines"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Delete by text <tooltip text="'Deletes lines that equal the given text'"></tooltip>
+                <label class="control-fb control--radio">テキストで削除 <tooltip text="'指定したテキストと一致する行を削除します。'"></tooltip>
                     <input type="radio" ng-model="effect.deleteLineMode" value="text"/>
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="Replace Line(s) Options" pad-top="true" ng-if="effect.writeMode === 'replace-line'">
+        <eos-container header="行置換オプション" pad-top="true" ng-if="effect.writeMode === 'replace-line'">
             <div class="controls-fb" style="padding-bottom: 5px;">
-                <label class="control-fb control--radio">Replace by line number(s) <tooltip text="'Replace line(s) at the specified number(s)'"></tooltip>
+                <label class="control-fb control--radio">行番号で置換 <tooltip text="'指定した行番号の行を置き換えます。'"></tooltip>
                     <input type="radio" ng-model="effect.replaceLineMode" value="lineNumbers"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Replace by text <tooltip text="'Replace lines that equal the given text'"></tooltip>
+                <label class="control-fb control--radio">テキストで置換 <tooltip text="'指定したテキストと一致する行を置き換えます。'"></tooltip>
                     <input type="radio" ng-model="effect.replaceLineMode" value="text"/>
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="Text" pad-top="true" ng-if="effect.writeMode === 'replace' || effect.writeMode === 'suffix' || effect.writeMode === 'append' || (effect.writeMode === 'delete' && effect.deleteLineMode === 'text') || (effect.writeMode === 'replace-line' && effect.replaceLineMode === 'text')">
+        <eos-container header="テキスト" pad-top="true" ng-if="effect.writeMode === 'replace' || effect.writeMode === 'suffix' || effect.writeMode === 'append' || (effect.writeMode === 'delete' && effect.deleteLineMode === 'text') || (effect.writeMode === 'replace-line' && effect.replaceLineMode === 'text')">
             <firebot-input model="effect.text" type="text" placeholder-text="テキストを入力" use-text-area="true"></firebot-input>
         </eos-container>
 
-        <eos-container header="Line Number(s)" pad-top="true" ng-if="(effect.writeMode === 'delete' && effect.deleteLineMode === 'lines') || (effect.writeMode === 'replace-line' && effect.replaceLineMode === 'lineNumbers')">
-            <p class="muted">Enter a line number or list of line numbers (separated by commas) to {{effect.writeMode === 'delete' ? 'delete' : 'replace'}}.</p>
-            <input ng-model="effect.lineNumbers" type="text" class="form-control" id="chat-line-numbers-setting" placeholder="Enter line number(s)" replace-variables="number">
+        <eos-container header="行番号" pad-top="true" ng-if="(effect.writeMode === 'delete' && effect.deleteLineMode === 'lines') || (effect.writeMode === 'replace-line' && effect.replaceLineMode === 'lineNumbers')">
+            <p class="muted">{{effect.writeMode === 'delete' ? '削除' : '置換'}}したい行番号を入力します。複数行はカンマ区切りで指定できます。</p>
+            <input ng-model="effect.lineNumbers" type="text" class="form-control" id="chat-line-numbers-setting" placeholder="行番号を入力" replace-variables="number">
         </eos-container>
 
-        <eos-container header="Replacement Text" pad-top="true" ng-if="effect.writeMode === 'replace-line'">
+        <eos-container header="置換後のテキスト" pad-top="true" ng-if="effect.writeMode === 'replace-line'">
             <firebot-input model="effect.replacementText" type="text" placeholder-text="テキストを入力" use-text-area="true"></firebot-input>
         </eos-container>
     `,
@@ -179,19 +179,19 @@ const fileWriter: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.filepath == null || effect.filepath === "") {
-            errors.push("Please select a text file to write to.");
+            errors.push("書き込み対象のテキストファイルを選択してください。");
         }
         if (effect.writeMode === 'delete' && (effect.deleteLineMode === 'lines' && (effect.lineNumbers == null || effect.lineNumbers === ""))) {
-            errors.push("Please set the line number to be deleted.");
+            errors.push("削除する行の行番号を指定してください。");
         }
         if (effect.writeMode === 'delete' && (effect.deleteLineMode === 'text' && (effect.text == null || effect.text === ""))) {
-            errors.push("Please set the line text to be deleted.");
+            errors.push("削除する行のテキストを指定してください。");
         }
         if (effect.writeMode === 'replace-line' && (effect.replaceLineMode === 'lineNumbers' && (effect.lineNumbers == null || effect.lineNumbers === ""))) {
-            errors.push("Please set the line number to be replaced.");
+            errors.push("置換する行の行番号を指定してください。");
         }
         if (effect.writeMode === 'replace-line' && (effect.replaceLineMode === 'text' && (effect.text == null || effect.text === ""))) {
-            errors.push("Please set the line text to be replaced.");
+            errors.push("置換する行のテキストを指定してください。");
         }
         return errors;
     },

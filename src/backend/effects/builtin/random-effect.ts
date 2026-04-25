@@ -18,7 +18,7 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect will run a random effect from the list below.</p>
+            <p>下のリストからランダムにエフェクトを 1 つ実行します。</p>
 
             <div style="padding-top: 10px;">
                 <firebot-checkbox
@@ -35,7 +35,7 @@ const effect: EffectType<{
                 trigger="{{trigger}}"
                 trigger-meta="triggerMeta"
                 update="effectListUpdated(effects)"
-                header="Effects"
+                header="エフェクト"
                 modalId="{{modalId}}"
                 mode="random"
                 weighted="effect.weighted"
@@ -43,7 +43,7 @@ const effect: EffectType<{
             ></effect-list>
         </eos-container>
 
-        <eos-container header="Options" pad-top="true">
+        <eos-container header="オプション" pad-top="true">
             <firebot-checkbox
                 ng-hide="effect.weighted"
                 model="effect.dontRepeat"

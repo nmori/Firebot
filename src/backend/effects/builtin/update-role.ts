@@ -27,7 +27,7 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Custom Role Actions" pad-top="true">
+        <eos-container header="カスタム役割の操作" pad-top="true">
             <div>
                 <label class="control-fb control--checkbox"> ユーザに役割を付与</tooltip>
                     <input type="checkbox" ng-init="shouldAddRole = (effect.addRoleId != null && effect.addRoleId !== '')" ng-model="shouldAddRole" ng-click="effect.addRoleId = undefined">
@@ -80,13 +80,13 @@ const effect: EffectType<{
             </div>
         </eos-container>
 
-        <eos-container header="Viewer" ng-show="effect.removeRoleId != null || effect.addRoleId != null">
+        <eos-container header="対象視聴者" ng-show="effect.removeRoleId != null || effect.addRoleId != null">
             <div style="padding: 0 10px 0 0;">
                 <label class="control-fb control--radio">関連視聴者 <tooltip text="'このボタンを押した視聴者、コマンドを実行した視聴者など'"></tooltip>
                     <input type="radio" ng-model="effect.viewerType" value="current"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" style="margin-bottom: 10px;">Custom viewer
+                <label class="control-fb control--radio" style="margin-bottom: 10px;">指定視聴者
                     <input type="radio" ng-model="effect.viewerType" value="custom"/>
                     <div class="control__indicator"></div>
                 </label>
@@ -109,25 +109,25 @@ const effect: EffectType<{
 
         $scope.getRoleName = (roleId) => {
             const role = $scope.roles.find(r => r.id === roleId);
-            return role ? role.name : "Select one";
+            return role ? role.name : "選択してください";
         };
     },
     getDefaultLabel: (effect, viewerRolesService) => {
         if (effect.addRoleId && effect.removeRoleId || effect.addRoleId && effect.removeAllRoleId || effect.removeRoleId && effect.removeAllRoleId) {
-            return "Multiple actions";
+            return "複数の操作";
         }
-        const viewer = effect.viewerType === "current" ? "Associated Viewer" : effect.customViewer;
+        const viewer = effect.viewerType === "current" ? "関連視聴者" : effect.customViewer;
 
         if (effect.addRoleId) {
-            return `Add ${viewer} to ${viewerRolesService.getRoleById(effect.addRoleId)?.name ?? "Unknown Role"}`;
+            return `${viewer} を ${viewerRolesService.getRoleById(effect.addRoleId)?.name ?? "不明な役割"} に追加`;
         }
 
         if (effect.removeRoleId) {
-            return `Remove ${viewer} from ${viewerRolesService.getRoleById(effect.removeRoleId)?.name ?? "Unknown Role"}`;
+            return `${viewer} を ${viewerRolesService.getRoleById(effect.removeRoleId)?.name ?? "不明な役割"} から削除`;
         }
 
         if (effect.removeAllRoleId) {
-            return `Clear Role ${viewerRolesService.getRoleById(effect.removeAllRoleId)?.name ?? "Unknown Role"}`;
+            return `役割 ${viewerRolesService.getRoleById(effect.removeAllRoleId)?.name ?? "不明な役割"} をクリア`;
         }
 
         return "";

@@ -16,21 +16,21 @@ const effect: EffectType<{
         dependencies: ["chat"]
     },
     optionsTemplate: `
-        <eos-container header="Target" pad-top="true">
+        <eos-container header="対象" pad-top="true">
             <div class="input-group">
-                <span class="input-group-addon" id="username-type">Username</span>
+                <span class="input-group-addon" id="username-type">ユーザー名</span>
                 <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables menu-position="below">
             </div>
         </eos-container>
 
-        <eos-container header="Time" pad-top="true">
+        <eos-container header="時間" pad-top="true">
             <div class="input-group">
-                <span class="input-group-addon" id="time-type">Time (Seconds)</span>
-                <input ng-model="effect.time" type="text" class="form-control" id="list-username-setting" aria-describedby="list-time-type" placeholder="Seconds" replace-variables="number">
+                <span class="input-group-addon" id="time-type">時間（秒）</span>
+                <input ng-model="effect.time" type="text" class="form-control" id="list-username-setting" aria-describedby="list-time-type" placeholder="秒数" replace-variables="number">
             </div>
         </eos-container>
 
-        <eos-container header="Reason" pad-top="true">
+        <eos-container header="理由" pad-top="true">
             <firebot-input
                 input-title="理由"
                 placeholder-text="Firebot によってタイムアウト"
@@ -41,10 +41,10 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please enter a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         if (effect.time == null && (effect.time.toString() !== "" || effect.time < 0)) {
-            errors.push("Please enter an amount of time.");
+            errors.push("時間を入力してください。");
         }
         return errors;
     },

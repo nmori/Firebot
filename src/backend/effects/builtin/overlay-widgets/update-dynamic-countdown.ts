@@ -21,10 +21,10 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container ng-hide="hasCountdownWidgets">
-            <p>You need to create a Countdown (Dynamic) Overlay Widget to use this effect! Go to the <b>Overlay Widgets</b> tab to create one.</p>
+            <p>このエフェクトを使うには Countdown（Dynamic）のオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </eos-container>
         <div ng-show="hasCountdownWidgets">
-            <eos-container header="Countdown">
+            <eos-container header="カウントダウン">
                 <firebot-overlay-widget-select
                     overlay-widget-types="['firebot:countdown-dynamic']"
                     ng-model="effect.countdownWidgetId"
@@ -33,7 +33,7 @@ const model: EffectType<{
 
             <div ng-show="effect.countdownWidgetId">
 
-                <eos-container header="Action" pad-top="true">
+                <eos-container header="操作" pad-top="true">
                     <firebot-radio-cards
                         options="actions"
                         ng-model="effect.action"
@@ -41,7 +41,7 @@ const model: EffectType<{
                     ></firebot-radio-cards>
                 </eos-container>
 
-                <eos-container header="Mode" pad-top="true" ng-if="effect.action == 'change-mode'">
+                <eos-container header="モード" pad-top="true" ng-if="effect.action == 'change-mode'">
                     <firebot-radio-cards
                         options="modes"
                         ng-model="effect.mode"
@@ -49,7 +49,7 @@ const model: EffectType<{
                     ></firebot-radio-cards>
                 </eos-container>
 
-                <eos-container header="{{effect.action === 'set' ? 'New Value' : 'Value'}}" pad-top="true" ng-show="effect.action && effect.action !== 'change-mode'">
+                <eos-container header="{{effect.action === 'set' ? '新しい値' : '値'}}" pad-top="true" ng-show="effect.action && effect.action !== 'change-mode'">
                     <firebot-input
                         model="effect.value"
                         input-title="秒数"
@@ -73,22 +73,22 @@ const model: EffectType<{
         $scope.actions = [
             {
                 value: "add",
-                label: "Add Time",
+                label: "時間を追加",
                 iconClass: "fa-plus"
             },
             {
                 value: "subtract",
-                label: "Subtract Time",
+                label: "時間を減らす",
                 iconClass: "fa-minus"
             },
             {
                 value: "set",
-                label: "Set Time",
+                label: "時間を設定",
                 iconClass: "fa-equals"
             },
             {
                 value: "change-mode",
-                label: "Change Mode",
+                label: "モード変更",
                 iconClass: "fa-exchange"
             }
         ];
@@ -96,17 +96,17 @@ const model: EffectType<{
         $scope.modes = [
             {
                 value: "toggle",
-                label: "Toggle",
+                label: "切り替え",
                 iconClass: "fa-exchange"
             },
             {
                 value: "running",
-                label: "Start/Resume",
+                label: "開始/再開",
                 iconClass: "fa-play"
             },
             {
                 value: "paused",
-                label: "Pause",
+                label: "一時停止",
                 iconClass: "fa-pause"
             }
         ];
@@ -114,20 +114,30 @@ const model: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.countdownWidgetId == null) {
-            errors.push("Please select a countdown widget.");
+            errors.push("カウントダウンウィジェットを選択してください。");
         } else if (effect.action == null) {
-            errors.push("Please select an action to take.");
+            errors.push("操作を選択してください。");
         } else if (effect.action === "change-mode" && effect.mode == null) {
-            errors.push("Please select a mode to change to.");
+            errors.push("変更するモードを選択してください。");
         } else if (effect.action !== "change-mode" && effect.value == null) {
-            errors.push("Please enter a value.");
+            errors.push("値を入力してください。");
         }
 
         return errors;
     },
     getDefaultLabel: (effect, overlayWidgetsService) => {
-        const countdownName = overlayWidgetsService.getOverlayWidgetConfig(effect.countdownWidgetId)?.name ?? "Unknown Countdown";
-        return `${effect.action === "add" ? "Update" : "Set"} ${countdownName} ${effect.action === "add" ? "by" : "to"} ${effect.value}`;
+        const countdownName = overlayWidgetsService.getOverlayWidgetConfig(effect.countdownWidgetId)?.name ?? "不明なカウントダウン";
+        const actionMap: Record<string, string> = {
+            add: "に加算",
+            subtract: "から減算",
+            set: "を設定",
+            "change-mode": "のモードを変更"
+        };
+        const verb = actionMap[effect.action] ?? effect.action;
+        if (effect.action === "change-mode") {
+            return `${countdownName} ${verb}`;
+        }
+        return `${countdownName} ${verb} ${effect.value}`;
     },
     onTriggerEvent: (event) => {
         const { effect } = event;

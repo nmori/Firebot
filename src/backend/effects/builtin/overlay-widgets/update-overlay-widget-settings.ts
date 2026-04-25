@@ -23,19 +23,19 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <div ng-hide="hasWidgets">
-            <p>You need to create an Overlay Widget to use this effect! Go to the <b>Overlay Widgets</b> tab to create one.</p>
+            <p>このエフェクトを使うにはオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </div>
         <div ng-show="hasWidgets">
-            <eos-container header="Overlay Widget to Update">
+            <eos-container header="更新するオーバーレイウィジェット">
                 <firebot-searchable-select
                     ng-model="effect.widgetConfigId"
-                    placeholder="Select or search for a widget..."
+                    placeholder="ウィジェットを選択または検索..."
                     items="widgetOptions"
                     on-select="onSelectWidgetConfig(item)"
                 />
             </eos-container>
 
-            <eos-container header="Mode" pad-top="true" ng-if="effect.widgetConfigId != null">
+            <eos-container header="モード" pad-top="true" ng-if="effect.widgetConfigId != null">
                 <firebot-radio-cards
                     options="modes"
                     ng-model="effect.mode"
@@ -52,7 +52,7 @@ const model: EffectType<{
 
 
             <div ng-if="effect.mode == 'update'">
-                <eos-container header="Customize" pad-top="true">
+                <eos-container header="カスタマイズ" pad-top="true">
                     <div ng-if="selectedType && (!selectedType.userCanConfigure || selectedType.userCanConfigure.position !== false)">
                         <firebot-checkbox
                             label="位置を編集"
@@ -83,7 +83,7 @@ const model: EffectType<{
                                 type="number"
                                 class="form-control"
                                 ng-model="effect.zIndex"
-                                placeholder="Enter number"
+                                placeholder="数値を入力"
                             />
                         </div>
                     </div>
@@ -148,7 +148,7 @@ const model: EffectType<{
             return {
                 id: w.id,
                 name: w.name,
-                description: type ? type.name : "Unknown Type",
+                description: type ? type.name : "不明な種類",
                 iconClass: type ? type.icon : "fa-question"
             };
         });
@@ -156,14 +156,14 @@ const model: EffectType<{
         $scope.modes = [
             {
                 value: "update",
-                label: "Update",
-                description: "Update widget settings with new values.",
+                label: "更新",
+                description: "ウィジェット設定を新しい値で更新します。",
                 iconClass: "fa-edit"
             },
             {
                 value: "reset",
-                label: "Reset",
-                description: "Reset widget settings to their default values.",
+                label: "リセット",
+                description: "ウィジェット設定をデフォルト値にリセットします。",
                 iconClass: "fa-undo"
             }
         ];
@@ -249,18 +249,18 @@ const model: EffectType<{
         const errors: string[] = [];
 
         if (effect.widgetConfigId == null) {
-            errors.push("Please select a overlay widget.");
+            errors.push("オーバーレイウィジェットを選択してください。");
         }
 
         if (effect.mode == null) {
-            errors.push("Please select a mode.");
+            errors.push("モードを選択してください。");
         }
 
         return errors;
     },
     getDefaultLabel: (effect, overlayWidgetsService) => {
-        const overlayWidgetName = overlayWidgetsService.getOverlayWidgetConfig(effect.widgetConfigId)?.name ?? "Unknown Overlay Widget";
-        return `${effect.mode === "update" ? "Update" : "Reset"} ${overlayWidgetName}`;
+        const overlayWidgetName = overlayWidgetsService.getOverlayWidgetConfig(effect.widgetConfigId)?.name ?? "不明なオーバーレイウィジェット";
+        return `${overlayWidgetName} を ${effect.mode === "update" ? "更新" : "リセット"}`;
     },
     onTriggerEvent: (event) => {
         const { effect } = event;

@@ -23,8 +23,8 @@ const currency = {
         dependencies: [],
         outputs: [
             {
-                label: "Currency Amount",
-                description: "The amount of currency given. Useful if you use a random amount",
+                label: "通貨の金額",
+                description: "付与された通貨の金額。ランダム量を使う場合などに便利です。",
                 defaultName: "currencyAmount"
             }
         ],
@@ -40,10 +40,10 @@ const currency = {
    */
     optionsTemplate: `
 
-    <eos-container header="Currency">
+    <eos-container header="通貨">
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="currency-name">{{effect.currency ? getCurrencyName(effect.currency) : 'Pick one'}}</span> <span class="caret"></span>
+                <span class="currency-name">{{effect.currency ? getCurrencyName(effect.currency) : '選択してください'}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu currency-name-dropdown">
                 <li ng-repeat="currency in currencies"
@@ -55,20 +55,20 @@ const currency = {
     </eos-container>
 
     <div ng-if="effect.currency">
-        <eos-container header="Operation" pad-top="true">
+        <eos-container header="操作" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="currency-action">{{effect.action ? effect.action : 'Pick one'}}</span> <span class="caret"></span>
+                    <span class="currency-action">{{effect.action ? actionLabel(effect.action) : '選択してください'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu currency-action-dropdown">
                     <li ng-click="effect.action = 'Add'">
-                        <a href>Add</a>
+                        <a href>付与</a>
                     </li>
                     <li ng-click="effect.action = 'Remove'">
-                        <a href>Remove</a>
+                        <a href>減算</a>
                     </li>
                     <li ng-click="effect.action = 'Set'">
-                        <a href>Set</a>
+                        <a href>固定値で設定</a>
                     </li>
                 </ul>
             </div>
@@ -78,22 +78,22 @@ const currency = {
 
         <div ng-if="effect.action">
 
-            <eos-container header="Target" pad-top="true">
+            <eos-container header="対象" pad-top="true">
 
                 <div class="permission-type controls-fb">
-                    <label class="control-fb control--radio">Single User
+                    <label class="control-fb control--radio">単一ユーザー
                         <input type="radio" ng-model="effect.target" value="individual"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">Online Users in Role
+                    <label class="control-fb control--radio">指定ロールのオンライン視聴者
                         <input type="radio" ng-model="effect.target" value="group"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">All Online Users
+                    <label class="control-fb control--radio">オンライン視聴者全員
                         <input type="radio" ng-model="effect.target" value="allOnline"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <label class="control-fb control--radio">All Viewers
+                    <label class="control-fb control--radio">全視聴者
                         <input type="radio" ng-model="effect.target" value="allViewers"/>
                         <div class="control__indicator"></div>
                     </label>
@@ -102,7 +102,7 @@ const currency = {
                 <div class="settings-permission" style="padding-bottom:1em">
                     <div class=" viewer-group-list" ng-if="effect.target === 'group'">
                         <div ng-show="hasCustomRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Custom</div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">カスタム</div>
                             <label ng-repeat="customRole in getCustomRoles()" class="control-fb control--checkbox">{{customRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(customRole)" ng-checked="isRoleChecked(customRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -116,7 +116,7 @@ const currency = {
                             </label>
                         </div>
                         <div ng-show="hasTeamRoles" style="margin-bottom: 10px;">
-                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">Teams</div>
+                            <div style="font-size: 16px;font-weight: 900;color: #b9b9b9;font-family: 'Quicksand';margin-bottom: 5px;">チーム</div>
                             <label ng-repeat="teamRole in getTeamRoles()" class="control-fb control--checkbox">{{teamRole.name}}
                                 <input type="checkbox" ng-click="toggleRole(teamRole)" ng-checked="isRoleChecked(teamRole)"  aria-label="..." >
                                 <div class="control__indicator"></div>
@@ -131,16 +131,16 @@ const currency = {
                         </div>
                     </div>
                     <div ng-if="effect.target === 'individual'" class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">Username</span>
+                        <span class="input-group-addon" id="basic-addon3">ユーザー名</span>
                         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.userTarget" replace-variables>
                     </div>
                 </div>
 
             </eos-container>
 
-            <eos-container header="Amount" ng-if="effect.target != null" pad-top="true">
+            <eos-container header="金額" ng-if="effect.target != null" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon" id="currency-units-type">Amount</span>
+                    <span class="input-group-addon" id="currency-units-type">金額</span>
                     <input type="text" ng-model="effect.amount" class="form-control" id="currency-units-setting" aria-describedby="currency-units-type" type="text" replace-variables="number">
                 </div>
             </eos-container>
@@ -148,26 +148,26 @@ const currency = {
         </div>
 
         <div ng-if="effect.target">
-            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> Send Chat Message
+            <label class="control-fb control--checkbox" style="margin: 30px 0px 10px 10px"> チャットメッセージを送信
                 <input type="checkbox" ng-model="effect.sendChat">
                 <div class="control__indicator"></div>
             </label>
 
             <div ng-show="effect.sendChat">
-                <eos-chatter-select effect="effect" title="Chat as"></eos-chatter-select>
+                <eos-chatter-select effect="effect" title="送信元"></eos-chatter-select>
 
-                <eos-container header="Message To Send" pad-top="true">
-                    <textarea ng-model="effect.message" class="form-control" name="text" placeholder="Enter message" rows="4" cols="40" replace-variables></textarea>
-                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">Chat messages cannot be longer than 360 characters. This message will get automatically trimmed if the length is still too long after all replace variables have been populated.</div>
+                <eos-container header="送信するメッセージ" pad-top="true">
+                    <textarea ng-model="effect.message" class="form-control" name="text" placeholder="メッセージを入力" rows="4" cols="40" replace-variables></textarea>
+                    <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 360">チャットメッセージは360文字までです。変数を展開した結果が360文字を超える場合は、自動的に切り詰められます。</div>
                     <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
-                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> Whisper
+                        <label class="control-fb control--checkbox" style="margin: 0px 15px 0px 0px"> ウィスパー
                             <input type="checkbox" ng-init="whisper = (effect.whisper != null && effect.whisper !== '')" ng-model="whisper" ng-click="effect.whisper = ''">
                             <div class="control__indicator"></div>
                         </label>
                         <div ng-show="whisper">
                             <div class="input-group">
-                                <span class="input-group-addon" id="chat-whisper-effect-type">To</span>
-                                <input ng-model="effect.whisper" type="text" class="form-control" id="chat-whisper-setting" aria-describedby="chat-text-effect-type" placeholder="Username">
+                                <span class="input-group-addon" id="chat-whisper-effect-type">宛先</span>
+                                <input ng-model="effect.whisper" type="text" class="form-control" id="chat-whisper-setting" aria-describedby="chat-text-effect-type" placeholder="ユーザー名">
                             </div>
                         </div>
                     </div>
@@ -212,6 +212,15 @@ const currency = {
                 $scope.effect.roleIds.push(role.id);
             }
         };
+
+        $scope.actionLabel = function (action) {
+            switch (action) {
+                case "Add": return "付与";
+                case "Remove": return "減算";
+                case "Set": return "固定値で設定";
+                default: return action;
+            }
+        };
     },
     /**
    * When the effect is triggered by something
@@ -220,7 +229,7 @@ const currency = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.currency == null) {
-            errors.push("Please select a currency to use.");
+            errors.push("利用する通貨を選択してください。");
         }
         return errors;
     },
@@ -228,30 +237,30 @@ const currency = {
         if (effect.action == null || effect.target == null || effect.amount == null || String(effect.amount).trim() === "") {
             return "";
         }
-        const currencyName = currencyService.getCurrency(effect.currency)?.name ?? "Unknown Currency";
+        const currencyName = currencyService.getCurrency(effect.currency)?.name ?? "不明な通貨";
         let subject;
         switch (effect.target) {
             case "individual":
                 subject = effect.userTarget;
                 break;
             case "group":
-                subject = `Online Viewers in ${effect.roleIds?.length ?? 0} Role${(effect.roleIds?.length ?? 0) === 1 ? "" : "s"}`;
+                subject = `${effect.roleIds?.length ?? 0}個のロールに属するオンライン視聴者`;
                 break;
             case "allOnline":
-                subject = "All Online Viewers";
+                subject = "オンライン視聴者全員";
                 break;
             case "allViewers":
-                subject = "All Viewers";
+                subject = "全視聴者";
                 break;
         }
 
         switch (effect.action) {
             case "Add":
-                return `Give ${effect.amount} ${currencyName} to ${subject}`;
+                return `${subject}に${currencyName}を${effect.amount}付与`;
             case "Remove":
-                return `Remove ${effect.amount} ${currencyName} from ${subject}`;
+                return `${subject}から${currencyName}を${effect.amount}減算`;
             case "Set":
-                return `Set ${currencyName} to ${effect.amount} for ${subject}`;
+                return `${subject}の${currencyName}を${effect.amount}に設定`;
         }
     },
     /**

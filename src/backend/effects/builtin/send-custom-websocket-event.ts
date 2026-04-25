@@ -15,18 +15,18 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Event Name">
-            <p class="muted">Enter the name of the event you'd like to send.</p>
+        <eos-container header="イベント名">
+            <p class="muted">送信するイベントの名前を入力してください。</p>
             <firebot-input
                 model="effect.eventName"
                 placeholder-text="イベント名を入力"
                 menu-position="under"
             />
-            <p class="help-block">It will be sent as: <code>custom-event:{{effect.eventName || 'eventname'}}</code></p>
+            <p class="help-block">次の形式で送信されます: <code>custom-event:{{effect.eventName || 'eventname'}}</code></p>
         </eos-container>
 
-        <eos-container header="Event Data" pad-top="true">
-            <p class="muted">Enter any event data that you'd like to include with the event.</p>
+        <eos-container header="イベントデータ" pad-top="true">
+            <p class="muted">イベントと一緒に送信したいデータを入力してください。</p>
             <selectable-input-editors
                 editors="editors"
                 initial-editor-label="initialEditorLabel"
@@ -37,10 +37,10 @@ const effect: EffectType<{
     optionsController: ($scope) => {
         $scope.editors = [
             {
-                label: "Basic",
+                label: "テキスト",
                 inputType: "text",
                 useTextArea: true,
-                placeholderText: "Enter event data",
+                placeholderText: "イベントデータを入力",
                 menuPosition: "under"
             },
             {
@@ -57,12 +57,12 @@ const effect: EffectType<{
             }
         ];
 
-        $scope.initialEditorLabel = $scope.effect?.eventData?.startsWith("{") || $scope.effect?.eventData?.startsWith("[") ? "JSON" : "Basic";
+        $scope.initialEditorLabel = $scope.effect?.eventData?.startsWith("{") || $scope.effect?.eventData?.startsWith("[") ? "JSON" : "テキスト";
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!(effect.eventName?.length > 0)) {
-            errors.push("Please input an event name.");
+            errors.push("イベント名を入力してください。");
         }
         return errors;
     },

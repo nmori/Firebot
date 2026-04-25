@@ -42,14 +42,14 @@ const effect: EffectType<{
         dependencies: [],
         outputs: [
             {
-                label: "Screenshot Data URL",
-                description: "The base64 data URL for the screenshot.",
+                label: "スクリーンショットデータURL",
+                description: "スクリーンショットの base64 データURL。",
                 defaultName: "screenshotDataUrl"
             }
         ]
     },
     optionsTemplate: `
-        <eos-container header="Display">
+        <eos-container header="ディスプレイ">
             <dropdown-select options="displayOptions" selected="effect.displayId"></dropdown-select>
         </eos-container>
 
@@ -57,7 +57,7 @@ const effect: EffectType<{
 
         <eos-container pad-top="true">
             <div class="effect-info alert alert-info">
-                Note: Screenshots will capture the entirety of the selected display.
+                注意: スクリーンショットは選択したディスプレイ全体をキャプチャします。
             </div>
         </eos-container>
     `,
@@ -67,7 +67,7 @@ const effect: EffectType<{
 
         $scope.displayOptions = displays.reduce((acc, display, i) => {
             const isPrimary = display.id === primaryDisplay.id;
-            acc[display.id] = `Display ${i + 1}${isPrimary ? ` (Primary)` : ''}`;
+            acc[display.id] = `ディスプレイ ${i + 1}${isPrimary ? `（プライマリ）` : ''}`;
             return acc;
         }, {});
 
@@ -80,19 +80,19 @@ const effect: EffectType<{
         const errors: string[] = [];
         const rgbRegexp = /^#?[0-9a-f]{6}$/ig;
         if (!(effect.saveLocally || effect.overwriteExisting || effect.postInDiscord || effect.showInOverlay)) {
-            errors.push("You need to select an output option!");
+            errors.push("出力先を1つ以上選択してください。");
         }
         if (effect.saveLocally && !effect.folderPath) {
-            errors.push("You need to select a folder path!");
+            errors.push("保存先フォルダを選択してください。");
         }
         if (effect.overwriteExisting && !effect.file) {
-            errors.push("You need to select a file!");
+            errors.push("上書き対象のファイルを選択してください。");
         }
         if (effect.postInDiscord && !effect.discordChannelId) {
-            errors.push("You need to select a discord channel!");
+            errors.push("Discord チャンネルを選択してください。");
         }
         if (effect.postInDiscord && effect.embedType && !rgbRegexp.test(effect.embedColor)) {
-            errors.push("Discord Embed Color must be in RGB format (#0066FF)");
+            errors.push("Discord 埋め込みの色は RGB 形式（例: #0066FF）で指定してください。");
         }
         return errors;
     },

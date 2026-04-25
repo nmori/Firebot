@@ -17,20 +17,20 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-    <eos-container header="Rank Ladder">
+    <eos-container header="ランクラダー">
         <firebot-searchable-select
             items="manualRankLadders"
             ng-model="effect.rankLadderId"
-            placeholder="Select rank ladder"
+            placeholder="ランクラダーを選択"
         >
         </firebot-searchable-select>
 
         <div class="effect-info alert alert-info">
-            Note: only rank ladders set to "Manual" mode are available for this effect.
+            注意: このエフェクトでは「手動」モードに設定されたランクラダーのみが利用できます。
         </div>
     </eos-container>
 
-    <eos-container header="Action" ng-show="effect.rankLadderId != null">
+    <eos-container header="操作" ng-show="effect.rankLadderId != null">
         <firebot-radios
             options="actions"
             model="effect.action"
@@ -38,17 +38,17 @@ const effect: EffectType<{
         </firebot-radios>
     </eos-container>
 
-    <eos-container header="New Rank" ng-show="effect.action === 'set-specific-rank' || effect.action === 'set-variable-rank'">
+    <eos-container header="新しいランク" ng-show="effect.action === 'set-specific-rank' || effect.action === 'set-variable-rank'">
         <firebot-input
             ng-if="effect.action === 'set-variable-rank'"
             model="effect.variableRankName"
-            placeholder="Enter rank name"
+            placeholder="ランク名を入力"
         ></firebot-input>
         <firebot-searchable-select
             ng-if="effect.action === 'set-specific-rank'"
             items="getRanksForSelectedLadder()"
             ng-model="effect.rankId"
-            placeholder="Select rank"
+            placeholder="ランクを選択"
         >
         </firebot-searchable-select>
     </eos-container>
@@ -58,10 +58,10 @@ const effect: EffectType<{
             .filter(ladder => ladder.mode === "manual");
 
         $scope.actions = {
-            promote: "Promote To Next Rank",
-            demote: "Demote To Previous Rank",
-            "set-specific-rank": "Set Specific Rank",
-            "set-variable-rank": "Set Variable Rank"
+            promote: "次のランクに昇格",
+            demote: "前のランクに降格",
+            "set-specific-rank": "特定のランクに設定",
+            "set-variable-rank": "変数で指定したランクに設定"
         };
 
         $scope.getRanksForSelectedLadder = () => {
@@ -77,14 +77,14 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!effect.rankLadderId) {
-            errors.push("Please select a Rank Ladder");
+            errors.push("ランクラダーを選択してください。");
         }
         if (!effect.action) {
-            errors.push("Please select an change action");
+            errors.push("操作を選択してください。");
         } else if (effect.action === "set-specific-rank" && !effect.rankId) {
-            errors.push("Please select a Rank");
+            errors.push("ランクを選択してください。");
         } else if (effect.action === "set-variable-rank" && !effect.variableRankName) {
-            errors.push("Please enter a Rank Name");
+            errors.push("ランク名を入力してください。");
         }
         return errors;
     },
@@ -95,12 +95,12 @@ const effect: EffectType<{
         }
         switch (effect.action) {
             case "promote":
-                return `Promote Viewer in ${ladder.name}`;
+                return `${ladder.name} で視聴者を昇格`;
             case "demote":
-                return `Demote Viewer in ${ladder.name}`;
+                return `${ladder.name} で視聴者を降格`;
             case "set-specific-rank": {
                 const rank = ladder.ranks.find(r => r.id === effect.rankId);
-                return `${ladder.name} - ${rank?.name ?? "Unknown Rank"}`;
+                return `${ladder.name} - ${rank?.name ?? "不明なランク"}`;
             }
             case "set-variable-rank":
                 return `${ladder.name} - ${effect.variableRankName}`;

@@ -14,22 +14,22 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Username">
-            <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.username" placeholder="Enter username" replace-variables menu-position="below" />
+        <eos-container header="ユーザー名">
+            <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="effect.username" placeholder="ユーザー名を入力" replace-variables menu-position="below" />
         </eos-container>
 
-        <eos-container header="Metadata Key" pad-top="true">
-            <p class="muted">Define which key you want to delete from this users metadata.</p>
-            <input ng-model="effect.key" type="text" class="form-control" id="chat-text-setting" placeholder="Enter key name" replace-variables>
+        <eos-container header="メタデータキー" pad-top="true">
+            <p class="muted">このユーザーのメタデータから削除したいキー名を指定します。</p>
+            <input ng-model="effect.key" type="text" class="form-control" id="chat-text-setting" placeholder="キー名を入力" replace-variables>
         </eos-container>
     `,
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.username == null || effect.username === "") {
-            errors.push("Please provide a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         if (effect.key == null || effect.key === "") {
-            errors.push("Please provide a key name.");
+            errors.push("キー名を入力してください。");
         }
         return errors;
     },

@@ -24,9 +24,9 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect clears currently running effects. Useful, for example, if you are entering a cutscene. You can also use it to purge effect queues.</p>
+            <p>このエフェクトは現在実行中のエフェクトをクリアします。たとえばカットシーンに入る際などに便利です。エフェクトキューのパージにも使えます。</p>
         </eos-container>
-        <eos-container header="Effects To Clear">
+        <eos-container header="クリア対象">
             <firebot-checkbox
                 label="オーバーレイエフェクト"
                 model="effect.overlay"
@@ -37,10 +37,10 @@ const effect: EffectType<{
                         <span class="chat-effect-type">{{ getSelectedOverlayDisplay() }}</span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu chat-effect-dropdown">
-                        <li role="menuitem" ng-click="effect.overlayInstance = null"><a href>Default</a></li>
+                        <li role="menuitem" ng-click="effect.overlayInstance = null"><a href>デフォルト</a></li>
                         <li role="menuitem" ng-repeat="instanceName in overlayInstances" ng-click="effect.overlayInstance = instanceName"><a href>{{instanceName}}</a></li>
                         <li class="divider"></li>
-                        <li role="menuitem" ng-click="effect.overlayInstance = 'all'"><a href>All</a></li>
+                        <li role="menuitem" ng-click="effect.overlayInstance = 'all'"><a href>すべて</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,7 +58,7 @@ const effect: EffectType<{
                     {{ getSelectedEffectQueueDisplay() }} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" ng-click="effect.queueId = 'all'"><a href>All</a></li>
+                        <li role="menuitem" ng-click="effect.queueId = 'all'"><a href>すべて</a></li>
                         <li class="divider"></li>
                         <li role="menuitem" ng-repeat="queue in effectQueues" ng-click="effect.queueId = queue.id"><a href>{{queue.name}}</a></li>
                     </ul>
@@ -89,11 +89,11 @@ const effect: EffectType<{
 
         $scope.getSelectedOverlayDisplay = () => {
             if ($scope.effect.overlayInstance == null) {
-                return "Default";
+                return "デフォルト";
             }
 
             if ($scope.effect.overlayInstance === "all") {
-                return "All";
+                return "すべて";
             }
 
             const overlayInstance = $scope.overlayInstances.find(oi => oi === $scope.effect.overlayInstance);
@@ -113,18 +113,18 @@ const effect: EffectType<{
 
         $scope.getSelectedEffectQueueDisplay = () => {
             if (!$scope.effect.queues) {
-                return "None";
+                return "なし";
             }
 
             if ($scope.effect.queueId === "all") {
-                return "All";
+                return "すべて";
             }
 
             const effectQueue = $scope.effectQueues.find(q => q.id === $scope.effect.queueId);
             if (effectQueue) {
                 return effectQueue.name;
             }
-            return "None";
+            return "なし";
         };
     },
     onTriggerEvent: (event) => {

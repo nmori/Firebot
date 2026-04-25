@@ -16,18 +16,18 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect lets you automatically toggle the active status of an Event (which you can create in the Events tab).</p>
+            <p>このエフェクトを使うと、イベント（イベントタブで作成できます）の有効／無効を自動で切り替えられます。</p>
         </eos-container>
 
-        <eos-container header="Event Group" pad-top="true">
+        <eos-container header="イベントグループ" pad-top="true">
             <dropdown-select options="eventGroupNames" selected="effect.selectedGroupName"></dropdown-select>
         </eos-container>
 
-        <eos-container header="Event" pad-top="true" ng-show="effect.selectedGroupName">
+        <eos-container header="イベント" pad-top="true" ng-show="effect.selectedGroupName">
             <dropdown-select options="eventOptions[effect.selectedGroupName]" selected="effect.selectedEventId" value-mode="object"></dropdown-select>
         </eos-container>
 
-        <eos-container header="Toggle Action" pad-top="true">
+        <eos-container header="切り替え操作" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,
@@ -36,11 +36,11 @@ const effect: EffectType<{
         const groups = eventsService.getAllEventGroups();
 
         $scope.eventOptions = {
-            "General Events": {}
+            "一般イベント": {}
         };
 
         for (const mainEvent of mainEvents) {
-            $scope.eventOptions["General Events"][mainEvent.id] = mainEvent.name;
+            $scope.eventOptions["一般イベント"][mainEvent.id] = mainEvent.name;
         }
 
         for (const [groupId, group] of Object.entries(groups) as [string, any]) {
@@ -59,9 +59,9 @@ const effect: EffectType<{
         $scope.eventGroupNames = Object.keys($scope.eventOptions);
 
         $scope.toggleOptions = {
-            disable: "Deactivate",
-            enable: "Activate",
-            toggle: "Toggle"
+            disable: "無効化",
+            enable: "有効化",
+            toggle: "切り替え"
         };
 
         if ($scope.effect.toggleType == null) {
@@ -71,15 +71,15 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.selectedEventId == null) {
-            errors.push("Please select an event.");
+            errors.push("イベントを選択してください。");
         }
         return errors;
     },
     getDefaultLabel: (effect, eventsService) => {
         const event = eventsService.getAllEvents().find(ev => ev.id === effect.selectedEventId);
-        const action = effect.toggleType === "toggle" ? "Toggle"
-            : effect.toggleType === "enable" ? "Activate" : "Deactivate";
-        return `${action} ${event?.name ?? "Unknown Event"}`;
+        const action = effect.toggleType === "toggle" ? "切り替え"
+            : effect.toggleType === "enable" ? "有効化" : "無効化";
+        return `${event?.name ?? "不明なイベント"} を ${action}`;
     },
     onTriggerEvent: ({ effect }) => {
         const selectedEvent = EventsAccess.getEvent(effect.selectedEventId);

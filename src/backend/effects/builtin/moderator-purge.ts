@@ -14,9 +14,9 @@ const effect: EffectType<{
         dependencies: ["chat"]
     },
     optionsTemplate: `
-    <eos-container header="Target" pad-top="true">
+    <eos-container header="対象" pad-top="true">
         <div class="input-group">
-            <span class="input-group-addon" id="username-type">Username</span>
+            <span class="input-group-addon" id="username-type">ユーザー名</span>
             <input ng-model="effect.username" type="text" class="form-control" id="list-username-setting" aria-describedby="list-username-type" replace-variables menu-position="below">
         </div>
     </eos-container>
@@ -24,7 +24,7 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.username == null && effect.username !== "") {
-            errors.push("Please enter a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         return errors;
     },

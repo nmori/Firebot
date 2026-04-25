@@ -17,7 +17,7 @@ const effect: EffectType<{
     <eos-container>
         <p>Firebotのアクティビティフィードでアラートを送信します。</p>
     </eos-container>
-    <eos-container header="Message" pad-top="true">
+    <eos-container header="メッセージ" pad-top="true">
         <firebot-input
             model="effect.message"
             placeholder-text="メッセージ"

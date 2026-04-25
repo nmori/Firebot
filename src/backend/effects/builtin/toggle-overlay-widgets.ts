@@ -16,11 +16,11 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <div ng-hide="hasWidgets">
-            <p>You need to create an Overlay Widget to use this effect! Go to the <b>Overlay Widgets</b> tab to create one.</p>
+            <p>このエフェクトを使うにはオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </div>
         <div ng-show="hasWidgets">
 
-            <eos-container header="Mode">
+            <eos-container header="モード">
                 <firebot-radio-cards
                     options="modes"
                     ng-model="effect.mode"
@@ -28,7 +28,7 @@ const effect: EffectType<{
                 ></firebot-radio-cards>
             </eos-container>
 
-            <eos-container header="Overlay Widgets" pad-top="true" ng-if="effect.mode != null">
+            <eos-container header="オーバーレイウィジェット" pad-top="true" ng-if="effect.mode != null">
                 <multiselect-list
                     model="effect.widgetConfigIds"
                     options="widgetOptions"
@@ -45,7 +45,7 @@ const effect: EffectType<{
             return {
                 id: w.id,
                 name: w.name,
-                description: type ? type.name : "Unknown Type",
+                description: type ? type.name : "不明な種類",
                 iconClass: type ? type.icon : "fa-question"
             };
         });
@@ -53,17 +53,17 @@ const effect: EffectType<{
         $scope.modes = [
             {
                 value: "toggle",
-                label: "Toggle",
+                label: "切り替え",
                 iconClass: "fa-exchange"
             },
             {
                 value: "enable",
-                label: "Enable",
+                label: "有効化",
                 iconClass: "fa-toggle-on"
             },
             {
                 value: "disable",
-                label: "Disable",
+                label: "無効化",
                 iconClass: "fa-toggle-off"
             }
         ];
@@ -76,17 +76,22 @@ const effect: EffectType<{
         const errors: string[] = [];
 
         if (effect.mode == null) {
-            errors.push("Please select a mode.");
+            errors.push("モードを選択してください。");
         }
 
         if (!effect.widgetConfigIds?.length) {
-            errors.push("Please select at least one overlay widget.");
+            errors.push("オーバーレイウィジェットを 1 つ以上選択してください。");
         }
 
         return errors;
     },
-    getDefaultLabel: (effect, utilityService) => {
-        return `${utilityService.capitalize(effect.mode)} ${effect.widgetConfigIds?.length ?? 0} overlay widget(s)`;
+    getDefaultLabel: (effect) => {
+        const modeMap: Record<string, string> = {
+            toggle: "切り替え",
+            enable: "有効化",
+            disable: "無効化"
+        };
+        return `${effect.widgetConfigIds?.length ?? 0} 件のオーバーレイウィジェットを ${modeMap[effect.mode] ?? effect.mode}`;
     },
     onTriggerEvent: (event) => {
         const { effect } = event;

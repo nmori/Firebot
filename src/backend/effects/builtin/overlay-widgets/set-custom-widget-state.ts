@@ -17,10 +17,10 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container ng-hide="hasCustomWidgets">
-            <p>You need to create a Custom or Custom (Advanced) Overlay Widget to use this effect! Go to the <b>Overlay Widgets</b> tab to create one.</p>
+            <p>このエフェクトを使うには Custom または Custom（Advanced）のオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </eos-container>
         <div ng-show="hasCustomWidgets">
-            <eos-container header="Custom Widget">
+            <eos-container header="カスタムウィジェット">
                 <firebot-overlay-widget-select
                     overlay-widget-types="['firebot:custom', 'firebot:custom-advanced']"
                     ng-model="effect.customWidgetId"
@@ -29,7 +29,7 @@ const model: EffectType<{
 
             <div ng-show="effect.customWidgetId">
 
-                <eos-container header="New State JSON" pad-top="true">
+                <eos-container header="新しい状態（JSON）" pad-top="true">
                     <firebot-input
                         model="effect.newStateJson"
                         input-type="codemirror"
@@ -38,7 +38,7 @@ const model: EffectType<{
                     />
                 </eos-container>
 
-                <eos-container header="Options" pad-top="true">
+                <eos-container header="オプション" pad-top="true">
                     <firebot-checkbox
                         label="既存の状態とマージする（存在する場合）"
                         tooltip="チェックを入れると、新しい状態は置き換えではなく既存の状態とマージされます。"
@@ -66,7 +66,7 @@ const model: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.customWidgetId == null) {
-            errors.push("Please select a custom widget.");
+            errors.push("カスタムウィジェットを選択してください。");
         }
 
         return errors;

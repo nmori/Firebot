@@ -20,18 +20,18 @@ const effect: EffectType<{
             <p>この演出を使用するには、カウンタを作成する必要があります！カウンタを作成するには、<b>カウンタ</b>タブに移動してください</p>
         </div>
         <div ng-show="hasCounters">
-            <eos-container header="Counter">
+            <eos-container header="カウンタ">
                 <dropdown-select options="counters" selected="effect.counterId"></dropdown-select>
             </eos-container>
 
             <div ng-show="effect.counterId">
-                <eos-container header="Mode" pad-top="true">
+                <eos-container header="モード" pad-top="true">
                     <div class="controls-fb" style="padding-bottom: 5px;">
                         <label class="control-fb control--radio">増加 <tooltip text="'カウンタを指定された値だけ増加する（減少する場合は負の値を指定できる）'"></tooltip>
                             <input type="radio" ng-model="effect.mode" value="increment"/>
                             <div class="control__indicator"></div>
                         </label>
-                        <label class="control-fb control--radio">Set <tooltip text="'カウンタを新しい値に設定する'"></tooltip>
+                        <label class="control-fb control--radio">設定 <tooltip text="'カウンタを新しい値に設定する'"></tooltip>
                             <input type="radio" ng-model="effect.mode" value="set"/>
                             <div class="control__indicator"></div>
                         </label>
@@ -80,8 +80,10 @@ const effect: EffectType<{
         return errors;
     },
     getDefaultLabel: (effect, countersService) => {
-        const counterName = countersService.getCounter(effect.counterId)?.name ?? "Unknown Counter";
-        return `${effect.mode === "increment" ? "Update" : "Set"} ${counterName} ${effect.mode === "increment" ? "by" : "to"} ${effect.value}`;
+        const counterName = countersService.getCounter(effect.counterId)?.name ?? "不明なカウンタ";
+        return effect.mode === "increment"
+            ? `${counterName} を ${effect.value} 増加`
+            : `${counterName} を ${effect.value} に設定`;
     },
     onTriggerEvent: async (event) => {
         const { effect } = event;

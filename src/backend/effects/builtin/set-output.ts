@@ -74,16 +74,16 @@ const effect: EffectType<{
         icon: "fad fa-sign-out",
         categories: ["scripting"],
         dependencies: [],
-        outputs: [{ defaultName: "customOutput", description: "A custom output", label: "Output Name" }]
+        outputs: [{ defaultName: "customOutput", description: "カスタム出力", label: "出力名" }]
     },
     optionsTemplate: `
-        <eos-container header="Output Name">
-            <p class="muted">Use this name to reference this elsewhere in this effect list via <b>$effectOutput[{{effect.outputNames.customOutput || 'name'}}]</b></p>
-            <input ng-model="effect.outputNames.customOutput" type="text" class="form-control" id="chat-text-setting" placeholder="Enter name" replace-variables menu-position="below">
+        <eos-container header="出力名">
+            <p class="muted">この名前を使って、このエフェクトリスト内の他の場所から <b>$effectOutput[{{effect.outputNames.customOutput || 'name'}}]</b> として参照できます。</p>
+            <input ng-model="effect.outputNames.customOutput" type="text" class="form-control" id="chat-text-setting" placeholder="名前を入力" replace-variables menu-position="below">
         </eos-container>
 
-        <eos-container header="Output Data" pad-top="true">
-            <p class="muted">This is the data that will be saved to the output. Can be text or another replace phrase.</p>
+        <eos-container header="出力データ" pad-top="true">
+            <p class="muted">出力に保存するデータです。文字列または別の置換フレーズを指定できます。</p>
             <selectable-input-editors
                 editors="editors"
                 initial-editor-label="initialEditorLabel"
@@ -92,26 +92,26 @@ const effect: EffectType<{
             <p class="muted" style="font-size: 11px;"><b>注意:</b> 出力データが有効な JSON 文字列の場合、オブジェクトまたは配列にパースされます。</p>
         </eos-container>
 
-        <eos-container header="Property Path (Optional)" pad-top="true">
+        <eos-container header="プロパティパス（任意）" pad-top="true">
             <eos-collapsable-panel show-label="詳細を表示" hide-label="詳細を非表示" hide-info-box="true">
-                <p class="muted">If the output already has data saved in the form of an object or array, you can define a path (using dot notation) to a specific property or index to update with the above data.</p>
-                <p class="muted">If a property path is provided and there is no existing data in the output, nothing happens.</p>
-                <p class="muted">If no property path is provided and the existing output does NOT contain an array, the entire output is replaced. If the existing output contains an array and the new value is NOT an array, the new value will be appended to the array.</p>
-                <span>Examples:</span>
+                <p class="muted">出力に既にオブジェクトや配列が保存されている場合、ドット表記でプロパティやインデックスを指定して、その箇所だけを上のデータで更新できます。</p>
+                <p class="muted">プロパティパスを指定したのに既存データがない場合は何も起こりません。</p>
+                <p class="muted">プロパティパスを指定せず、既存出力が配列でない場合は出力全体が置き換えられます。既存出力が配列で、新しい値が配列でない場合は、新しい値が配列の末尾に追加されます。</p>
+                <span>例:</span>
                 <ul>
                     <li>some.property</li>
                     <li>1</li>
                     <li>1.value</li>
                 </ul>
             </eos-collapsable-panel>
-            <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="Enter path">
+            <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="パスを入力">
         </eos-container>
 
         <eos-container pad-top="true">
             <div class="effect-info alert alert-info">
-                Effect outputs are local to the current effect list and are cleared when execution completes. They are not shared globally like Custom Variables.
+                エフェクト出力は現在のエフェクトリスト内のみで有効で、実行が完了するとクリアされます。カスタム変数と異なり、グローバルには共有されません。
                 <br><br>
-                When using the "Run Effect List" effect, enable "Apply effect outputs to parent list" to return data from Preset Effect Lists to the parent list without relying on global variables.
+                「エフェクトリスト実行」エフェクトを使う場合、「親リストにエフェクト出力を適用」を有効にすると、グローバル変数を介さずにプリセットエフェクトリストから親リストへデータを返せます。
             </div>
         </eos-container>
     `,
@@ -125,10 +125,10 @@ const effect: EffectType<{
 
         $scope.editors = [
             {
-                label: "Basic",
+                label: "テキスト",
                 inputType: "text",
                 useTextArea: true,
-                placeholderText: "Enter output data",
+                placeholderText: "出力データを入力",
                 menuPosition: "under"
             },
             {
@@ -145,12 +145,12 @@ const effect: EffectType<{
             }
         ];
 
-        $scope.initialEditorLabel = $scope.effect?.data?.startsWith("{") || $scope.effect?.data?.startsWith("[") ? "JSON" : "Basic";
+        $scope.initialEditorLabel = $scope.effect?.data?.startsWith("{") || $scope.effect?.data?.startsWith("[") ? "JSON" : "テキスト";
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!effect.outputNames?.customOutput?.length) {
-            errors.push("Please provide an output name.");
+            errors.push("出力名を入力してください。");
         }
         return errors;
     },
