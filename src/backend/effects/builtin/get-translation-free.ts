@@ -2,9 +2,20 @@ import type { EffectType } from "../../../types/effects";
 import { EffectCategory, EffectTrigger } from "../../../shared/effect-constants";
 import { CustomVariableManager } from "../../common/custom-variable-manager";
 import logger from "../../logwrapper";
+import { SecretsManager } from "../../secrets-manager";
+
+type TranslationApiResponse = {
+    translation?: string;
+    from?: string;
+    sourceLang?: string;
+    detectedSourceLanguage?: string;
+    error?: string;
+    message?: string;
+};
 
 const model: EffectType<{
     text: string;
+    fromLang: string;
     targetLang: string;
     message: string;
     chatter: string;
@@ -14,22 +25,22 @@ const model: EffectType<{
     customVarTtl: number;
 }> = {
     definition: {
-        id: "firebot:get-translation-ms",
-        name: "Microsoft Translator で翻訳する",
-        description: "Azure Cognitive Services Translator を使ってテキストを翻訳します（設定 → 連携 → JP Original 外部API設定 で API キーを設定してください）",
+        id: "firebot:get-translation-free",
+        name: "翻訳 API で翻訳する",
+        description: "ローカライズ版で提供される翻訳 API を使ってテキストを翻訳します",
         icon: "fad fa-language",
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: [],
         outputs: [
             {
                 label: "翻訳結果",
-                defaultName: "msTranslation",
-                description: "Microsoft 翻訳による翻訳後テキスト"
+                defaultName: "freeTranslation",
+                description: "翻訳後テキスト"
             },
             {
                 label: "検出された言語",
-                defaultName: "msSourceLang",
-                description: "元テキストの自動検出された言語コード"
+                defaultName: "freeSourceLang",
+                description: "元言語コード"
             }
         ]
     },
@@ -37,6 +48,10 @@ const model: EffectType<{
         <eos-container header="翻訳するテキスト" pad-top="true">
             <textarea ng-model="effect.text" class="form-control" rows="4"
                 placeholder="翻訳したいテキストを入力" replace-variables></textarea>
+        </eos-container>
+
+        <eos-container header="翻訳元言語" pad-top="true">
+            <dropdown-select options="fromLangOptions" selected="effect.fromLang"></dropdown-select>
         </eos-container>
 
         <eos-container header="翻訳先言語" pad-top="true">
@@ -94,6 +109,9 @@ const model: EffectType<{
         </eos-container>
     `,
     optionsController: ($scope) => {
+        if ($scope.effect.fromLang == null) {
+            $scope.effect.fromLang = "";
+        }
         if ($scope.effect.targetLang == null) {
             $scope.effect.targetLang = "ja";
         }
@@ -101,24 +119,27 @@ const model: EffectType<{
             $scope.effect.customVarTtl = 0;
         }
 
-        $scope.langOptions = {
+        $scope.fromLangOptions = {
+            "": "自動検出",
             ja: "日本語",
             en: "英語",
-            "zh-Hans": "中国語（簡体字）",
-            "zh-Hant": "中国語（繁体字）",
+            "zh-CN": "中国語（簡体字）",
+            "zh-TW": "中国語（繁体字）",
             ko: "韓国語",
             fr: "フランス語",
             de: "ドイツ語",
-            es: "スペイン語",
-            pt: "ポルトガル語",
-            it: "イタリア語",
-            ru: "ロシア語",
-            nl: "オランダ語",
-            pl: "ポーランド語",
-            ar: "アラビア語",
-            th: "タイ語",
-            vi: "ベトナム語",
-            id: "インドネシア語"
+            es: "スペイン語"
+        };
+
+        $scope.langOptions = {
+            ja: "日本語",
+            en: "英語",
+            "zh-CN": "中国語（簡体字）",
+            "zh-TW": "中国語（繁体字）",
+            ko: "韓国語",
+            fr: "フランス語",
+            de: "ドイツ語",
+            es: "スペイン語"
         };
     },
     optionsValidator: (effect) => {
@@ -132,46 +153,45 @@ const model: EffectType<{
         return errors;
     },
     onTriggerEvent: async ({ effect, trigger }) => {
-        const integrationManager = require("../../integrations/integration-manager");
         const twitchChat = require("../../chat/twitch-chat");
         const chatHelpers = require("../../chat/chat-helpers");
-        const commandHandler = require("../../chat/commands/commandHandler");
+        const commandHandler = require("../../chat/commands/chat-command-handler");
 
-        const intDef = integrationManager.getIntegrationDefinitionById("jp-original-api");
-        const subscriptionKey: string | undefined = intDef?.userSettings?.microsoftTranslator?.subscriptionKey;
-        const region: string = intDef?.userSettings?.microsoftTranslator?.region ?? "global";
-
-        if (!subscriptionKey) {
-            logger.warn("Microsoft Translator サブスクリプションキーが設定されていません。設定 → 連携 → JP Original 外部API設定 で設定してください。");
+        const baseEndpoint = SecretsManager.secrets?.translationApiEndpoint?.trim();
+        if (!baseEndpoint) {
+            logger.warn("translationApiEndpoint が secrets.json に設定されていません。");
             return false;
         }
 
+        const endpoint = `${baseEndpoint.replace(/\/+$/, "")}`;
+
         try {
-            const response = await fetch(
-                `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=${encodeURIComponent(effect.targetLang)}`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Ocp-Apim-Subscription-Key": subscriptionKey,
-                        "Ocp-Apim-Subscription-Region": region,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify([{ text: effect.text }])
-                }
-            );
+            const response = await fetch(endpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    input: effect.text,
+                    to: effect.targetLang,
+                    from: effect.fromLang ?? ""
+                })
+            });
+
+            const data = await response.json() as TranslationApiResponse;
 
             if (!response.ok) {
-                logger.error(`Microsoft Translator リクエスト失敗: ${response.status} ${response.statusText}`);
+                logger.error(`Free 翻訳 API リクエスト失敗: ${response.status} ${data.error ?? data.message ?? response.statusText}`);
                 return false;
             }
 
-            const data: Array<{
-                translations: Array<{ text: string, to: string }>;
-                detectedLanguage?: { language: string, score: number };
-            }> = await response.json();
+            const translatedText = data.translation?.trim() ?? "";
+            const sourceLang = data.from ?? data.sourceLang ?? data.detectedSourceLanguage ?? "";
 
-            const translatedText = data[0]?.translations[0]?.text ?? "";
-            const sourceLang = data[0]?.detectedLanguage?.language ?? "";
+            if (!translatedText) {
+                logger.error("Free 翻訳 API から translation が返されませんでした。");
+                return false;
+            }
 
             if (effect.message) {
                 const chatMessage = effect.message.replace("{translatedText}", translatedText);
@@ -203,12 +223,12 @@ const model: EffectType<{
             return {
                 success: true,
                 outputs: {
-                    msTranslation: translatedText,
-                    msSourceLang: sourceLang
+                    freeTranslation: translatedText,
+                    freeSourceLang: sourceLang
                 }
             };
         } catch (error) {
-            logger.error("Microsoft Translator エラー", (error as Error).message);
+            logger.error("Free 翻訳 API エラー", (error as Error).message);
             return false;
         }
     }

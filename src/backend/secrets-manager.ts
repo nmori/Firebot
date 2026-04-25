@@ -10,6 +10,7 @@ interface FirebotSecrets {
     streamLabsClientId: string;
     streamLabsClientSecret: string;
     fontAwesome5KitId: string;
+    translationApiEndpoint: string;
 }
 
 class SecretsManager {
@@ -20,7 +21,8 @@ class SecretsManager {
         "tipeeeStreamClientSecret",
         "streamLabsClientId",
         "streamLabsClientSecret",
-        "fontAwesome5KitId"
+        "fontAwesome5KitId",
+        "translationApiEndpoint"
     ];
 
     constructor() {

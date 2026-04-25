@@ -578,7 +578,11 @@
             if (!shouldHide) {
                 return elements;
             }
-            const botAccountName = accountAccess.accounts.bot.username.toLowerCase();
+            const botUsername = accountAccess.accounts.bot?.username;
+            if (!botUsername) {
+                return elements;
+            }
+            const botAccountName = botUsername.toLowerCase();
             return elements.filter((e) => {
                 if (e.type !== 'message') {
                     return true;

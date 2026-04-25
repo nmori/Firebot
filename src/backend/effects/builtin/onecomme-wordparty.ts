@@ -8,7 +8,7 @@ const model: EffectType<{
     httpResponse: string;
 }> = {
     definition: {
-        id: "firebot:oneccome-wordparty",
+        id: "firebot:onecomme-wordparty",
         name: "わんコメ WordParty",
         description: "わんコメのWordPartyに起動トリガーを送ります",
         icon: "fad fa-paw",

@@ -40,16 +40,6 @@ export async function whenReady() {
 
     const connectionManager = (await import("../../../common/connection-manager")).default;
 
-    windowManagement.updateSplashScreenStatus("タイマーを読み込み中...");
-    const { TimerManager } = await import("../../../timers/timer-manager");
-    TimerManager.loadItems();
-    TimerManager.startTimers();
-
-    windowManagement.updateSplashScreenStatus("スケジュール演出リストを読み込み中...");
-    const { ScheduledTaskManager } = await import("../../../timers/scheduled-task-manager");
-    ScheduledTaskManager.loadItems();
-    ScheduledTaskManager.start();
-
     windowManagement.updateSplashScreenStatus("Twitchアカウント情報を更新中...");
 
     // Loading these first so that the refresh caches the account avatar URLs

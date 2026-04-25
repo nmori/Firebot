@@ -108,8 +108,9 @@
             backendCommunicator.on("accounts:invalidate-accounts", service.invalidateAccounts);
 
             service.validateAccounts = () => {
-                // Fire-and-forget: no return value is consumed, avoid sync IPC block on startup (施策10)
-                backendCommunicator.send("validate-twitch-accounts");
+                // Must use fireEventSync to ensure account validation completes before UI initialization
+                // The backend needs to update accounts before filters that use account data run
+                backendCommunicator.fireEventSync("validate-twitch-accounts");
             };
 
             // Create new profile
