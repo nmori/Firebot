@@ -132,9 +132,7 @@ const model: EffectType<{
 
             if (event.effect.show === "overlay" || event.effect.show === "both") {
                 // Send image to overlay.
-                const position = event.effect.position !== "Random"
-                    ? event.effect.position
-                    : mediaProcessor.randomLocation();
+                const position = mediaProcessor.resolveRandomPosition(event.effect.position);
 
                 const data = {
                     url: imageUrl,

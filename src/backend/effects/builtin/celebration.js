@@ -28,22 +28,22 @@ const celebration = {
    * You can alternatively supply a url to a html file via optionTemplateUrl
    */
     optionsTemplate: `
-    <eos-container header="Celebration Type">
+    <eos-container header="お祝いの種類">
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="celebrate-effect-type">{{effect.celebration ? effect.celebration : 'Pick one'}}</span> <span class="caret"></span>
+                <span class="celebrate-effect-type">{{effect.celebration ? celebrationLabel(effect.celebration) : '選択してください'}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu celebrate-effect-dropdown">
                 <li ng-repeat="celebration in celebrationTypes"
                     ng-click="effect.celebration = celebration">
-                    <a href>{{celebration}}</a>
+                    <a href>{{celebrationLabel(celebration)}}</a>
                 </li>
             </ul>
         </div>
     </eos-container>
 
-    <eos-container header="継続時間" pad-top="true">
-        <firebot-input input-title="Seconds" data-type="number" model="effect.length" placeholder-text="5" menu-position="under"/>
+    <eos-container header="表示時間" pad-top="true">
+        <firebot-input input-title="秒数" data-type="number" model="effect.length" placeholder-text="5" menu-position="under"/>
     </eos-container>
 
     <eos-overlay-instance effect="effect" pad-top="true"></eos-overlay-instance>
@@ -64,6 +64,14 @@ const celebration = {
             $scope.effect.length = 5;
         }
 
+        $scope.celebrationLabel = function (type) {
+            switch (type) {
+                case "Fireworks": return "花火";
+                case "Confetti": return "紙吹雪";
+                default: return type;
+            }
+        };
+
         $scope.showOverlayInfoModal = function (overlayInstance) {
             utilityService.showOverlayInfoModal(overlayInstance);
         };
@@ -80,7 +88,7 @@ const celebration = {
         return errors;
     },
     getDefaultLabel: (effect) => {
-        return `${effect.celebration} - ${effect.length} seconds`;
+        return `${effect.celebration} - ${effect.length}秒`;
     },
     /**
    * When the effect is triggered by something

@@ -20,10 +20,14 @@
                             <div>
                                 <b>{{prize.name}}</b>
                                 &nbsp;
-                                <span class="muted" style="font-size:12px;">
-                                    重み: {{prize.chance}}
-                                    &nbsp;|&nbsp;
-                                    ストック: {{prize.stock > 0 ? prize.stock + '個' : '無制限'}}
+                                <span style="font-size:12px;">
+                                    <span style="font-weight:600;"><i class="fas fa-dice"></i> 確率: {{$ctrl.chancePercent(prize)}}%</span>
+                                    <span class="muted">
+                                        &nbsp;|&nbsp;
+                                        重み: {{prize.chance}}
+                                        &nbsp;|&nbsp;
+                                        ストック: {{prize.stock > 0 ? prize.stock + '個' : '無制限'}}
+                                    </span>
                                 </span>
                             </div>
                             <div class="muted" style="font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
@@ -86,7 +90,8 @@
                         component: "addOrEditFukubikiPrizeModal",
                         size: "sm",
                         resolveObj: {
-                            prize: () => prize
+                            prize: () => prize,
+                            allPrizes: () => $ctrl.model
                         },
                         closeCallback: (savedPrize) => {
                             const idx = $ctrl.model.findIndex(p => p.id === savedPrize.id);

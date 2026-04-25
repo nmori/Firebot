@@ -21,9 +21,9 @@ const effect: EffectType<{
         triggers: triggers
     },
     optionsTemplate: `
-    <eos-container header="Explanation" pad-top="true">
-        <p class="muted">This effect hides a message within the chat feed in the Firebot dashboard.</p>
-        <p class="muted">This does <b>not</b> hide or delete the message in your Twitch chat, browser overlays, or any other chat client you may be using.</p>
+    <eos-container header="説明" pad-top="true">
+        <p class="muted">このエフェクトは Firebot ダッシュボードのチャットフィード内のメッセージを非表示にします。</p>
+        <p class="muted">Twitch チャット、ブラウザオーバーレイ、その他のチャットクライアント側のメッセージは<b>非表示にも削除にもなりません</b>。</p>
     </eos-container>
     `,
     optionsController: () => {

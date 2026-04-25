@@ -11,13 +11,13 @@ const model = {
     },
     globalSettings: {},
     optionsTemplate: `
-        <eos-container header="Selection Type" ng-init="showSubcommands = effect.subcommandId != null">
+        <eos-container header="選択方法" ng-init="showSubcommands = effect.subcommandId != null">
             <div ng-if="sortTags && sortTags.length">
-                <label class="control-fb control--radio">Single Command
+                <label class="control-fb control--radio">単一コマンド
                     <input type="radio" ng-model="effect.selectionType" value="command" ng-change="typeSelected()" />
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Commands With Tag
+                <label class="control-fb control--radio">タグでまとめて指定
                     <input type="radio" ng-model="effect.selectionType" value="sortTag" ng-change="typeSelected()" />
                     <div class="control__indicator"></div>
                 </label>
@@ -26,7 +26,7 @@ const model = {
             <div ng-if="effect.selectionType && effect.selectionType === 'command'">
                 <firebot-searchable-select
                     ng-model="effect.commandId"
-                    placeholder="Select or search for a command..."
+                    placeholder="コマンドを選択または検索..."
                     items="commands"
                     item-name="trigger"
                     on-select="commandSelected(item)"
@@ -36,90 +36,90 @@ const model = {
             <div ng-if="effect.selectionType && effect.selectionType === 'sortTag'">
                 <firebot-searchable-select
                     ng-model="effect.sortTagId"
-                    placeholder="Select or search for a tag..."
+                    placeholder="タグを選択または検索..."
                     items="sortTags"
                 />
             </div>
 
             <div ng-show="subcommands && !!subcommands.length" class="mt-4 pl-4">
-                <label class="control-fb control--radio">Cooldown base command
+                <label class="control-fb control--radio">親コマンドにクールダウン
                     <input type="radio" ng-model="showSubcommands" ng-value="false" ng-click="effect.subcommandId = null"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio" >Cooldown subcommand
+                <label class="control-fb control--radio" >サブコマンドにクールダウン
                     <input type="radio" ng-model="showSubcommands" ng-value="true"/>
                     <div class="control__indicator"></div>
                 </label>
 
                 <div ng-show="showSubcommands">
-                    <dropdown-select selected="effect.subcommandId" options="subcommandOptions" placeholder="Please select"></dropdown-select>
+                    <dropdown-select selected="effect.subcommandId" options="subcommandOptions" placeholder="選択してください"></dropdown-select>
                 </div>
             </div>
         </eos-container>
 
-        <eos-container header="Action" pad-top="true" ng-show="effect.commandId != null || effect.sortTagId != null">
+        <eos-container header="操作" pad-top="true" ng-show="effect.commandId != null || effect.sortTagId != null">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="list-effect-type">{{effect.action ? effect.action : 'Pick one'}}</span> <span class="caret"></span>
+                    <span class="list-effect-type">{{effect.action ? actionLabel(effect.action) : '選択してください'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu cooldown-effect-dropdown">
                     <li ng-click="effect.action = 'Add'">
-                        <a href>Add</a>
+                        <a href>追加</a>
                     </li>
                     <li ng-click="effect.action = 'Clear'">
-                        <a href>Clear</a>
+                        <a href>解除</a>
                     </li>
                 </ul>
             </div>
         </eos-container>
 
-        <eos-container header="Cooldowns" pad-top="true" ng-show="effect.action === 'Add'">
+        <eos-container header="クールダウン" pad-top="true" ng-show="effect.action === 'Add'">
             <div class="mt-2">
-                <label class="control-fb control--checkbox"> Global Cooldown
+                <label class="control-fb control--checkbox"> 全体クールダウン
                     <input type="checkbox" ng-init="showGlobal = (effect.globalCooldownSecs != null && effect.globalCooldownSecs !== '')" ng-model="showGlobal"  ng-click="effect.globalCooldownSecs = undefined">
                     <div class="control__indicator"></div>
                 </label>
                 <div uib-collapse="!showGlobal" class="mb-6 ml-6">
                     <div class="input-group">
-                        <span class="input-group-addon" id="globalsecs">Secs</span>
-                        <input type="text" class="form-control" aria-describedby="globalsecs" replace-variables="number" ng-model="effect.globalCooldownSecs" placeholder="Enter secs">
+                        <span class="input-group-addon" id="globalsecs">秒数</span>
+                        <input type="text" class="form-control" aria-describedby="globalsecs" replace-variables="number" ng-model="effect.globalCooldownSecs" placeholder="秒数を入力">
                     </div>
                 </div>
             </div>
             <div class="mt-2">
-                <label class="control-fb control--checkbox"> User Cooldown
+                <label class="control-fb control--checkbox"> ユーザー個別クールダウン
                     <input type="checkbox" ng-init="showUser = (effect.userCooldownSecs != null && effect.userCooldownSecs !== '' && effect.username != null && effect.username !== '')" ng-model="showUser" ng-click="effect.userCooldownSecs = undefined; effect.username = undefined;">
                     <div class="control__indicator"></div>
                 </label>
                 <div uib-collapse="!showUser" class="mb-6 ml-6">
                     <div class="input-group">
-                        <span class="input-group-addon" id="username">Username</span>
-                        <input type="text" class="form-control" aria-describedby="username" replace-variables ng-model="effect.username" placeholder="Enter name">
+                        <span class="input-group-addon" id="username">ユーザー名</span>
+                        <input type="text" class="form-control" aria-describedby="username" replace-variables ng-model="effect.username" placeholder="ユーザー名を入力">
                     </div>
-                    <div class="muted ml-1 mt-px text-lg">Tip: Use <b>$user</b> to apply the cooldown to the associated user</div>
+                    <div class="muted ml-1 mt-px text-lg">ヒント: <b>$user</b> を使うと関連ユーザーにクールダウンを適用できます</div>
                     <div class="input-group mt-6">
-                        <span class="input-group-addon" id="usersecs">Secs</span>
-                        <input type="text" class="form-control" aria-describedby="usersecs" replace-variables="number" ng-model="effect.userCooldownSecs" placeholder="Enter secs">
+                        <span class="input-group-addon" id="usersecs">秒数</span>
+                        <input type="text" class="form-control" aria-describedby="usersecs" replace-variables="number" ng-model="effect.userCooldownSecs" placeholder="秒数を入力">
                     </div>
                 </div>
             </div>
         </eos-container>
-        <eos-container header="Cooldowns" pad-top="true" ng-show="effect.action === 'Clear'">
+        <eos-container header="クールダウン" pad-top="true" ng-show="effect.action === 'Clear'">
             <div class="mt-2">
-                <label class="control-fb control--checkbox"> Clear Global Cooldown
+                <label class="control-fb control--checkbox"> 全体クールダウンを解除
                     <input type="checkbox" ng-model="effect.clearGlobalCooldown">
                     <div class="control__indicator"></div>
                 </label>
             </div>
             <div class="mt-2">
-                <label class="control-fb control--checkbox"> Clear User Cooldown
+                <label class="control-fb control--checkbox"> ユーザー個別クールダウンを解除
                     <input type="checkbox" ng-model="effect.clearUserCooldown">
                     <div class="control__indicator"></div>
                 </label>
                 <div uib-collapse="!effect.clearUserCooldown" class="mb-6 ml-6">
                     <div class="input-group">
-                        <span class="input-group-addon" id="username">Username</span>
-                        <input type="text" class="form-control" aria-describedby="username" replace-variables ng-model="effect.clearUsername" placeholder="Enter name">
+                        <span class="input-group-addon" id="username">ユーザー名</span>
+                        <input type="text" class="form-control" aria-describedby="username" replace-variables ng-model="effect.clearUsername" placeholder="ユーザー名を入力">
                     </div>
                 </div>
             </div>
@@ -188,18 +188,27 @@ const model = {
             $scope.effect.commandId = command.id;
             $scope.getSubcommands();
         };
+
+        $scope.actionLabel = function (action) {
+            switch (action) {
+                case "Add": return "追加";
+                case "Clear": return "解除";
+                default: return action;
+            }
+        };
+
         $scope.getSubcommands();
     },
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.commandId == null && effect.sortTagId == null) {
-            errors.push("Please select a command or tag");
+            errors.push("コマンドまたはタグを選択してください。");
         }
         if (effect.userCooldownSecs != null && (effect.username == null || effect.username === '')) {
-            errors.push("Please provide a username for the user cooldown");
+            errors.push("ユーザー個別クールダウンには対象ユーザー名を指定してください。");
         }
         if (effect.clearUserCooldown != null && (effect.clearUsername == null || effect.clearUsername === '')) {
-            errors.push("Please provide a username for clearing user cooldown.");
+            errors.push("ユーザー個別クールダウンの解除には対象ユーザー名を指定してください。");
         }
         return errors;
     },

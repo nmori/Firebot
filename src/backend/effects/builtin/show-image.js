@@ -34,14 +34,14 @@ const showImage = {
      */
     optionsTemplate: `
   <div class="effect-setting-container">
-    <div class="effect-specific-title"><h4>Image</h4></div>
+    <div class="effect-specific-title"><h4>画像</h4></div>
     <div class="effect-setting-content">
         <div style="padding-bottom: 10px;width: 100%;" ng-hide="effect.imageType === 'folderRandom'">
             <img ng-show="showImage" ng-src="{{getImagePreviewSrc()}}" imageonload="imageLoaded" style="height: 100px;width: 175px;object-fit: scale-down;background: #d7d7d7">
             <img ng-hide="showImage" src="{{placeHolderUrl}}" style="height: 100px;width: 175px;object-fit: scale-down;background: #d7d7d7">
         </div>
         <div class="controls-fb-inline" style="padding-bottom: 5px;">
-            <label class="control-fb control--radio">Local file
+            <label class="control-fb control--radio">ローカルファイル
                 <input type="radio" ng-model="effect.imageType" value="local" ng-change="imageTypeUpdated()"/>
                 <div class="control__indicator"></div>
             </label>
@@ -49,19 +49,19 @@ const showImage = {
                 <input type="radio" ng-model="effect.imageType" value="url" ng-change="imageTypeUpdated()"/>
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--radio">Random from folder
+            <label class="control-fb control--radio">フォルダからランダム
                 <input type="radio" ng-model="effect.imageType" value="folderRandom" ng-change="imageTypeUpdated()"/>
                 <div class="control__indicator"></div>
             </label>
         </div>
         <div ng-if="effect.imageType === 'folderRandom'" style="display: flex;flex-direction: row;align-items: center;">
-            <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: 'Select Image Folder'}"></file-chooser>
+            <file-chooser model="effect.folder" options="{ directoryOnly: true, filters: [], title: '画像フォルダを選択'}"></file-chooser>
         </div>
         <div ng-if="effect.imageType === 'local'" style="display: flex;flex-direction: row;align-items: center;">
             <file-chooser model="effect.file" options="{ filters: [{ name: 'Image', extensions: [ 'bmp', 'gif', 'jpg', 'jpeg', 'png', 'apng', 'svg', 'webp' ]}, { name: 'All Files', extensions: ['*']} ]}"></file-chooser>
         </div>
         <div ng-if="effect.imageType === 'url'">
-            <input type="text" class="form-control" ng-model="effect.url" placeholder="Enter url" replace-variables>
+            <input type="text" class="form-control" ng-model="effect.url" placeholder="URLを入力" replace-variables>
         </div>
     </div>
     </div>
@@ -71,10 +71,10 @@ const showImage = {
     <eos-overlay-position effect="effect" class="setting-padtop"></eos-overlay-position>
 
     <div class="effect-setting-container setting-padtop">
-    <div class="effect-specific-title"><h4>Duration</h4></div>
+    <div class="effect-specific-title"><h4>表示時間</h4></div>
     <div class="effect-setting-content">
         <div class="input-group">
-            <span class="input-group-addon">Seconds</span>
+            <span class="input-group-addon">秒数</span>
             <input
                 type="text"
                 class="form-control"
@@ -147,10 +147,10 @@ const showImage = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.imageType == null) {
-            errors.push("Please select an image type.");
+            errors.push("画像の種類を選択してください。");
         }
         if (effect.file == null && effect.url == null && effect.folder == null) {
-            errors.push("Please select an image source, either file path, url, or folder.");
+            errors.push("画像のソース（ファイルパス、URL、またはフォルダ）を指定してください。");
         }
         return errors;
     },
@@ -161,10 +161,7 @@ const showImage = {
         // What should this do when triggered.
         const effect = event.effect;
 
-        let position = effect.position;
-        if (position === "Random") {
-            position = mediaProcessor.randomLocation();
-        }
+        const position = mediaProcessor.resolveRandomPosition(effect.position);
 
         const data = {
             filepath: effect.file,

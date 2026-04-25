@@ -57,7 +57,7 @@ const model = {
             </div>
         </eos-container>
 
-        <eos-container header="Options" pad-top="true">
+        <eos-container header="オプション" pad-top="true">
             <firebot-checkbox
                 model="effect.bubbleOutputs"
                 label="親リストに演出出力を適用する"

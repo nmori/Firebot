@@ -30,8 +30,8 @@ const playVideo = {
         dependencies: [],
         outputs: [
             {
-                label: "Video Duration",
-                description: "The Duration of the playing video",
+                label: "動画の長さ",
+                description: "再生中の動画の長さ（秒）",
                 defaultName: "videoDuration"
             }
         ]
@@ -45,7 +45,7 @@ const playVideo = {
      * You can alternatively supply a url to a html file via optionTemplateUrl
      */
     optionsTemplate: `
-    <eos-container header="Video">
+    <eos-container header="動画">
         <div style="padding-bottom: 10px">
             <div ng-if="effect.videoType == 'Local Video'">
                 <video width="350" controls ng-src="{{encodeFilePath(effect.file)}}">
@@ -69,23 +69,23 @@ const playVideo = {
 
         <div class="btn-group" style="margin-bottom: 10px;">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="change-scene-type-effect-type">{{effect.videoType ? effect.videoType : "Pick one"}}</span> <span class="caret"></span>
+                <span class="change-scene-type-effect-type">{{effect.videoType ? videoTypeLabel(effect.videoType) : "選択してください"}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li ng-click="effect.reset = false">
-                    <a ng-click="setVideoType('Local Video')" href>Local Video</a>
+                    <a ng-click="setVideoType('Local Video')" href>ローカル動画</a>
                 </li>
                 <li ng-click="effect.reset = false">
-                    <a ng-click="setVideoType('Random From Folder')" href>Random From Folder</a>
+                    <a ng-click="setVideoType('Random From Folder')" href>フォルダからランダム</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('YouTube Video')" href>YouTube Video</a>
+                    <a ng-click="setVideoType('YouTube Video')" href>YouTube動画</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('Twitch Clip')" href>Twitch Clip</a>
+                    <a ng-click="setVideoType('Twitch Clip')" href>Twitchクリップ</a>
                 </li>
                 <li ng-click="effect.reset = true">
-                    <a ng-click="setVideoType('Random Twitch Clip')" href>Random Twitch Clip</a>
+                    <a ng-click="setVideoType('Random Twitch Clip')" href>ランダムTwitchクリップ</a>
                 </li>
             </ul>
         </div>
@@ -99,38 +99,38 @@ const playVideo = {
         <div ng-show="effect.videoType == 'Random From Folder'" class="input-group">
             <file-chooser
                 model="effect.folder"
-                options="{ directoryOnly: true, filters: [], title: 'Select Video Folder'}"
+                options="{ directoryOnly: true, filters: [], title: '動画フォルダを選択'}"
             />
         </div>
         <div ng-show="effect.videoType == 'YouTube Video'" class="input-group">
-            <span class="input-group-addon">YouTube Url/ID</span>
+            <span class="input-group-addon">YouTube URL/ID</span>
             <input
                 type="text"
                 class="form-control"
                 aria-describeby="video-youtube-setting-type"
                 type="text"
                 ng-model="effect.youtube"
-                placeholder="Ex: AAYrZ69XA8c">
+                placeholder="例: AAYrZ69XA8c">
         </div>
 
         <div ng-show="effect.videoType == 'Twitch Clip'">
             <firebot-input
-                input-title="Twitch Clip Url/ID"
+                input-title="Twitchクリップ URL/ID"
                 model="effect.twitchClipUrl"
-                placeholder-text="Ex: HealthyBlazingLyrebirdTinyFace"
+                placeholder-text="例: HealthyBlazingLyrebirdTinyFace"
             />
         </div>
 
         <div ng-show="effect.videoType == 'Random Twitch Clip'">
             <firebot-input
-                input-title="Twitch Username"
+                input-title="Twitchユーザー名"
                 model="effect.twitchClipUsername"
-                placeholder-text="Ex: $streamer, $user, etc"
+                placeholder-text="例: $streamer, $user など"
                 menu-position="under"
             />
             <div class="mt-10 form-group flex-row jspacebetween" style="margin-bottom: 0;">
                 <firebot-checkbox
-                    label="Only Featured Clips"
+                    label="注目クリップのみ"
                     model="effect.isFeatured"
                     style="margin: 0px 15px 0px 0px"
                 />
@@ -141,7 +141,7 @@ const playVideo = {
             >
                 <div class="form-group flex-row jspacebetween" style="margin-bottom: 0;">
                     <firebot-checkbox
-                        label="Maximum Clip Age"
+                        label="クリップの最大経過日数"
                         model="effect.useMaxClipAge"
                         style="margin: 0px 15px 0px 0px"
                     />
@@ -165,21 +165,21 @@ const playVideo = {
     <div ng-show="effect.videoType">
 
         <div ng-show="effect.videoType == 'YouTube Video'">
-            <eos-container header="Start Time Position" pad-top="true">
+            <eos-container header="開始位置" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon">Start time location</span>
+                    <span class="input-group-addon">開始秒数</span>
                     <input
                         type="text"
                         class="form-control"
                         aria-describeby="video-youtube-time-setting"
                         type="text"
                         ng-model="effect.starttime"
-                        placeholder="Ex: 12">
+                        placeholder="例: 12">
                 </div>
             </eos-container>
         </div>
 
-        <eos-container ng-if="shouldShowVolumeControl()" header="Volume" pad-top="true">
+        <eos-container ng-if="shouldShowVolumeControl()" header="音量" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 0, ceil: 10, hideLimitLabels: true}"></rzslider>
@@ -187,34 +187,34 @@ const playVideo = {
             </div>
         </eos-container>
 
-        <eos-container header="Duration" pad-top="true">
+        <eos-container header="表示時間" pad-top="true">
             <div class="input-group">
-                <span class="input-group-addon">Seconds</span>
+                <span class="input-group-addon">秒数</span>
                 <input
                     type="text"
                     class="form-control"
                     aria-describedby="video-length-effect-type"
-                    placeholder="Optional"
+                    placeholder="任意"
                     replace-variables="number"
                     ng-model="effect.length">
             </div>
-            <label ng-if="effect.videoType != 'Random Twitch Clip' && effect.videoType != 'Twitch Clip'" class="control-fb control--checkbox" style="margin-top:15px;"> Loop <tooltip text="'Loop the video until the duration is reached.'"></tooltip>
+            <label ng-if="effect.videoType != 'Random Twitch Clip' && effect.videoType != 'Twitch Clip'" class="control-fb control--checkbox" style="margin-top:15px;"> ループ再生 <tooltip text="'指定した表示時間に達するまで動画をループ再生します。'"></tooltip>
                 <input type="checkbox" ng-model="effect.loop" ng-disabled="effect.wait">
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--checkbox" style="margin-top:15px;"> Wait for video to finish <tooltip text="'Wait for the video to finish before allowing the next effect to play.'"></tooltip>
+            <label class="control-fb control--checkbox" style="margin-top:15px;"> 動画の終了を待つ <tooltip text="'動画の再生が終わるまで、次のエフェクトの再生を待ちます。'"></tooltip>
                 <input type="checkbox" ng-model="effect.wait" ng-change="waitChange()">
                 <div class="control__indicator"></div>
             </label>
         </eos-container>
 
-        <eos-container header="Size" pad-top="true">
-            <label class="control-fb control--checkbox"> Force 16:9 Ratio
+        <eos-container header="サイズ" pad-top="true">
+            <label class="control-fb control--checkbox"> 16:9 の比率を維持
                 <input type="checkbox" ng-click="forceRatioToggle();" ng-checked="forceRatio">
                 <div class="control__indicator"></div>
             </label>
             <div class="input-group">
-                <span class="input-group-addon">Width (in pixels)</span>
+                <span class="input-group-addon">幅（px）</span>
                 <input
                     type="text"
                     class="form-control"
@@ -222,7 +222,7 @@ const playVideo = {
                     type="number"
                     ng-change="calculateSize('Width', effect.width)"
                     ng-model="effect.width">
-                <span class="input-group-addon">Height (in pixels)</span>
+                <span class="input-group-addon">高さ（px）</span>
                 <input
                     type="text"
                     class="form-control"
@@ -232,7 +232,7 @@ const playVideo = {
                     ng-model="effect.height">
             </div>
             <div class="effect-info alert alert-info">
-                Just put numbers in the fields (ex: 250). This will set the max width/height of the video and scale it down proportionally.
+                数値（例: 250）を入力してください。動画の最大幅／高さが設定され、比率を保ったまま縮小されます。
             </div>
         </eos-container>
 
@@ -248,7 +248,7 @@ const playVideo = {
             <div class="effect-info alert alert-warning">
                 このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
                 <br>
-                <strong>NOTE</strong>: Streamlabs Desktop (formerly known as SLOBS) does not support mp4 videos in their browser source. If you have mp4 videos that you want to display in Streamlabs Desktop, you will need to convert them to the <strong>.webm</strong> format.
+                <strong>注意</strong>: Streamlabs Desktop（旧 SLOBS）はブラウザソースで mp4 動画をサポートしていません。Streamlabs Desktop で動画を表示したい場合は、<strong>.webm</strong> 形式に変換する必要があります。
             </div>
         </eos-container>
     </div>
@@ -283,6 +283,18 @@ const playVideo = {
             "Bottom Middle",
             "Bottom Right"
         ];
+
+        // 内部IDから表示用の日本語ラベルを返す
+        $scope.videoTypeLabel = function (type) {
+            switch (type) {
+                case "Local Video": return "ローカル動画";
+                case "Random From Folder": return "フォルダからランダム";
+                case "YouTube Video": return "YouTube動画";
+                case "Twitch Clip": return "Twitchクリップ";
+                case "Random Twitch Clip": return "ランダムTwitchクリップ";
+                default: return type;
+            }
+        };
 
         // Set Video Type
         $scope.setVideoType = function (type) {
@@ -341,12 +353,12 @@ const playVideo = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.videoType == null) {
-            errors.push("Please select a video type.");
+            errors.push("動画の種類を選択してください。");
         }
 
         if (effect.videoType === "Random Twitch Clip") {
             if (effect.useMaxClipAge && !effect.maxClipAge || effect.maxClipAge < 86400) {
-                errors.push("Maximum Clip Age must be at least 1 day");
+                errors.push("クリップの最大経過日数は1日以上に設定してください。");
             }
         }
 
@@ -358,10 +370,7 @@ const playVideo = {
     onTriggerEvent: async (event) => {
         const effect = event.effect;
         // What should this do when triggered.
-        let position = effect.position;
-        if (position === "Random") {
-            position = mediaProcessor.randomLocation();
-        }
+        const position = mediaProcessor.resolveRandomPosition(effect.position);
 
         // Send data back to media.js in the gui.
         const data = {

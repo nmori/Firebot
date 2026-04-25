@@ -17,9 +17,9 @@ const effect: EffectType<{
         dependencies: ["chat"]
     },
     optionsTemplate: `
-    <eos-chatter-select effect="effect" title="Chat as"></eos-chatter-select>
+    <eos-chatter-select effect="effect" title="送信元"></eos-chatter-select>
 
-    <eos-container header="Message To Send" pad-top="true">
+    <eos-container header="送信するメッセージ" pad-top="true">
         <firebot-input
             model="effect.message"
             use-text-area="true"
@@ -28,7 +28,7 @@ const effect: EffectType<{
             cols="40"
             menu-position="under"
         />
-        <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">Chat messages cannot be longer than 500 characters. This message will get automatically chunked into multiple messages if it is too long after all replace variables have been populated.</div>
+        <div style="color: #fb7373;" ng-if="effect.message && effect.message.length > 500">チャットメッセージは500文字までです。変数を展開した結果が500文字を超えた場合は、自動的に複数のメッセージに分割して送信されます。</div>
         <div style="display: flex; flex-direction: row; width: 100%; height: 36px; margin: 10px 0 10px; align-items: center;">
             <firebot-checkbox
                 label="'/me' を使用"
@@ -51,7 +51,7 @@ const effect: EffectType<{
                 />
             </div>
         </div>
-        <p ng-show="effect.whisper" class="muted" style="font-size:11px;"><b>ProTip:</b> To whisper the associated user, put <b>$user</b> in the whisper field.</p>
+        <p ng-show="effect.whisper" class="muted" style="font-size:11px;"><b>ヒント:</b> 関連ユーザーにウィスパーを送るには、宛先欄に <b>$user</b> と入力してください。</p>
         <div ng-hide="effect.whisper">
             <firebot-checkbox
                 label="返信として送信"
@@ -69,7 +69,7 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.message == null || effect.message === "") {
-            errors.push("Chat message can't be blank.");
+            errors.push("チャットメッセージを入力してください。");
         }
         return errors;
     },

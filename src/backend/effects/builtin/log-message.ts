@@ -16,18 +16,18 @@ const effect: EffectType<{
     optionsTemplate: `
         <eos-container header="メッセージテキスト">
             <p class="muted">Firebotのログファイルに書き込みたいメッセージを入力します。</p>
-            <textarea ng-model="effect.logMessage" id="log-message-text" class="form-control" placeholder="Enter log message text" menu-position="under" replace-variables></textarea>
+            <textarea ng-model="effect.logMessage" id="log-message-text" class="form-control" placeholder="ログメッセージを入力" menu-position="under" replace-variables></textarea>
         </eos-container>
 
-        <eos-container header="Log Level" pad-top="true">
+        <eos-container header="ログレベル" pad-top="true">
             <p class="muted">メッセージを書き込むログレベルを選択します。 デバッグ・レベルのメッセージは、デバッグ・モードが有効な場合にのみ書き込まれることに注意してください。</p>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="log-message-type-effect-log-level">{{effect.logLevel ? effect.logLevel : "Pick one"}}</span> <span class="caret"></span>
+                <span class="log-message-type-effect-log-level">{{effect.logLevel ? logLevelLabel(effect.logLevel) : "選択してください"}}</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li ng-repeat="logLevel in logLevelTypes"
                     ng-click="effect.logLevel = logLevel">
-                    <a href>{{logLevel}}</a>
+                    <a href>{{logLevelLabel(logLevel)}}</a>
                 </li>
             </ul>
         </eos-container>
@@ -35,6 +35,15 @@ const effect: EffectType<{
     optionsController: ($scope) => {
         $scope.logLevelTypes = ["Info", "Warning", "Error", "Debug"];
         $scope.effect.logLevel = $scope.effect.logLevel ?? "Info";
+        $scope.logLevelLabel = function (level) {
+            switch (level) {
+                case "Info": return "情報";
+                case "Warning": return "警告";
+                case "Error": return "エラー";
+                case "Debug": return "デバッグ";
+                default: return level;
+            }
+        };
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];

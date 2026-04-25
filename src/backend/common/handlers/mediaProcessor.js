@@ -24,6 +24,38 @@ function getRandomPresetLocation() {
     return presetPositions[randomIndex];
 }
 
+const RANDOM_X_ROWS = ["Top Random", "Middle Random", "Bottom Random"];
+const RANDOM_Y_COLS = ["Random Left", "Random Middle", "Random Right"];
+
+// 「Top Middle」のように Y 行 + X 列 の合成名称に整える。Middle/Middle は短縮表記の "Middle"。
+function combinePresetPosition(yRow, xCol) {
+    if (yRow === "Middle" && xCol === "Middle") {
+        return "Middle";
+    }
+    return `${yRow} ${xCol}`;
+}
+
+// 与えられた position を、必要に応じて抽選してプリセット9値の1つに正規化する。
+// 既存の "Random"（両軸）に加え、"Top Random" 等（X軸のみ）と "Random Left" 等（Y軸のみ）に対応。
+function resolveRandomPosition(position) {
+    if (position === "Random") {
+        return getRandomPresetLocation();
+    }
+    if (RANDOM_X_ROWS.includes(position)) {
+        const yRow = position.split(" ")[0]; // "Top" | "Middle" | "Bottom"
+        const xCols = ["Left", "Middle", "Right"];
+        const xCol = xCols[getRandomInt(0, xCols.length - 1)];
+        return combinePresetPosition(yRow, xCol);
+    }
+    if (RANDOM_Y_COLS.includes(position)) {
+        const xCol = position.split(" ")[1]; // "Left" | "Middle" | "Right"
+        const yRows = ["Top", "Middle", "Bottom"];
+        const yRow = yRows[getRandomInt(0, yRows.length - 1)];
+        return combinePresetPosition(yRow, xCol);
+    }
+    return position;
+}
+
 // Image Processor
 async function imageProcessor(effect, trigger) {
 
@@ -31,10 +63,7 @@ async function imageProcessor(effect, trigger) {
 
     // Send data back to media.js in the gui.
 
-    let position = effect.position;
-    if (position === "Random") {
-        position = getRandomPresetLocation();
-    }
+    const position = resolveRandomPosition(effect.position);
 
     const data = {
         "filepath": effect.file,
@@ -83,10 +112,7 @@ async function imageProcessor(effect, trigger) {
 
 // Video Processor
 function videoProcessor(effect) {
-    let position = effect.position;
-    if (position === "Random") {
-        position = getRandomPresetLocation();
-    }
+    const position = resolveRandomPosition(effect.position);
 
     // Send data back to media.js in the gui.
     const data = {
@@ -154,10 +180,10 @@ async function showText(effect, trigger) {
     logger.debug("Populating show text effect text with variables");
     dto.text = await ReplaceVariableManager.populateStringWithTriggerData(dto.text, trigger);
 
-    const position = dto.position;
-    if (position === "Random") {
+    const resolvedPosition = resolveRandomPosition(dto.position);
+    if (resolvedPosition !== dto.position) {
         logger.debug("Getting random preset location");
-        dto.position = getRandomPresetLocation();
+        dto.position = resolvedPosition;
     }
 
     if (SettingsManager.getSetting("UseOverlayInstances")) {
@@ -206,3 +232,4 @@ exports.image = imageProcessor;
 exports.video = videoProcessor;
 exports.text = showText;
 exports.randomLocation = getRandomPresetLocation;
+exports.resolveRandomPosition = resolveRandomPosition;

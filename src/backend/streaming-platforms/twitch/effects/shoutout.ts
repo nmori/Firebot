@@ -17,13 +17,13 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Target">
-            <firebot-input model="effect.username" placeholder-text="Enter username" menu-position="below" />
+        <eos-container header="対象">
+            <firebot-input model="effect.username" placeholder-text="ユーザー名を入力" menu-position="below" />
         </eos-container>
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You must be live for this effect to work. Per Twitch limits, you may only send a shoutout every two minutes and to the same user once per hour.
+                注意: このエフェクトを使用するには配信中である必要があります。Twitchの制限により、シャウトアウトの送信は2分に1回まで、同一ユーザーに対しては1時間に1回までとなります。
             </div>
         </eos-container>
     `,
@@ -32,7 +32,7 @@ const model: EffectType<{
         const username = effect.username?.trim();
 
         if (!username?.length) {
-            errors.push("You must specify a channel to shoutout");
+            errors.push("シャウトアウト先のチャンネルを指定してください。");
         }
 
         return errors;

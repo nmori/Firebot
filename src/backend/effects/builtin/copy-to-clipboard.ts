@@ -13,14 +13,14 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Text to Copy">
-            <textarea ng-model="effect.text" id="clipboard-text" class="form-control" placeholder="Enter text to copy" menu-position="under" replace-variables></textarea>
+        <eos-container header="コピーするテキスト">
+            <textarea ng-model="effect.text" id="clipboard-text" class="form-control" placeholder="コピーするテキストを入力" menu-position="under" replace-variables></textarea>
         </eos-container>
     `,
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!(effect.text?.length > 0)) {
-            errors.push("Please input some text.");
+            errors.push("テキストを入力してください。");
         }
         return errors;
     },

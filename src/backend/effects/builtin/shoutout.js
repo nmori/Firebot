@@ -132,7 +132,7 @@ const effect = {
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Preview">
+        <eos-container header="プレビュー">
             <style>${shoutoutStyles}</style>
             <div style="display:flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
                 <div>
@@ -170,45 +170,45 @@ const effect = {
                 </div>
             </div>
         </eos-container>
-        <eos-container header="Customization" pad-top="true">
-            <firebot-input input-title="Shoutout Text" model="effect.shoutoutText" placeholder-text="Enter text" />
+        <eos-container header="カスタマイズ" pad-top="true">
+            <firebot-input input-title="シャウトアウト文言" model="effect.shoutoutText" placeholder-text="文言を入力" />
 
-            <color-picker-input style="margin-top:10px" model="effect.bgColor1" label="Background Color 1"></color-picker-input>
+            <color-picker-input style="margin-top:10px" model="effect.bgColor1" label="背景色1"></color-picker-input>
 
-            <color-picker-input style="margin-top:10px" model="effect.bgColor2" label="Background Color 2"></color-picker-input>
+            <color-picker-input style="margin-top:10px" model="effect.bgColor2" label="背景色2"></color-picker-input>
 
-            <color-picker-input style="margin-top:10px" model="effect.textColor" label="Text Color"></color-picker-input>
+            <color-picker-input style="margin-top:10px" model="effect.textColor" label="文字色"></color-picker-input>
 
-            <firebot-input style="margin-top:10px" input-title="Scale" model="effect.scale" placeholder-text="Enter number (ie 1, 1.25, 0.75, etc)" input-type="number" disable-variables="true" />
+            <firebot-input style="margin-top:10px" input-title="スケール" model="effect.scale" placeholder-text="数値を入力（例: 1, 1.25, 0.75 など）" input-type="number" disable-variables="true" />
 
             <div style="padding-top:20px">
                 <firebot-checkbox
-                    label="Show last game/category"
+                    label="最後にプレイしたゲーム/カテゴリーを表示"
                     model="effect.showLastGame"
                 />
                 <firebot-checkbox
                     ng-if="effect.showLastGame"
-                    label="Hide game/category art"
+                    label="ゲーム/カテゴリーのアート画像を非表示"
                     model="effect.hideCategoryArt"
                 />
             </div>
 
-            <firebot-input ng-if="effect.showLastGame" input-title="Last Seen Text" model="effect.lastGameText" placeholder-text="Enter text" />
+            <firebot-input ng-if="effect.showLastGame" input-title="「最終配信」のキャプション" model="effect.lastGameText" placeholder-text="文言を入力" />
 
         </eos-container>
-        <eos-container header="Username" pad-top="true">
-            <firebot-input model="effect.username" placeholder-text="Enter username" />
+        <eos-container header="ユーザー名" pad-top="true">
+            <firebot-input model="effect.username" placeholder-text="ユーザー名を入力" />
             <p ng-show="trigger == 'command'" class="muted" style="font-size:11px;margin-top:6px;">
-                <b>ProTip:</b> Use <b>$target</b> to display the targeted user in a command.
+                <b>ヒント:</b> コマンドの対象ユーザーを表示するには <b>$target</b> を使用します。
             </p>
         </eos-container>
-        <eos-container header="Duration" pad-top="true">
-            <firebot-input input-title="Secs" model="effect.duration" placeholder-text="Enter duration" input-type="number" />
+        <eos-container header="表示時間" pad-top="true">
+            <firebot-input input-title="秒数" model="effect.duration" placeholder-text="秒数を入力" input-type="number" />
             <p class="muted" style="font-size:11px;margin-top:6px;">
-                <b>Note:</b> The total duration will be an additional 4 seconds (2 second enter animation, 2 second exit animation)
+                <b>備考:</b> 実際の総時間は表示時間 + 4秒となります（入場アニメーション2秒、退場アニメーション2秒）。
             </p>
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> Wait for shoutout to finish <tooltip text="'Wait for the shoutout to finish before letting the next effect play.'"></tooltip>
+                <label class="control-fb control--checkbox"> シャウトアウトの完了を待つ <tooltip text="'シャウトアウトが終わるまで次のエフェクトを再生しません。'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForShoutout">
                     <div class="control__indicator"></div>
                 </label>
@@ -228,7 +228,7 @@ const effect = {
         $scope.defaultGameBoxArt = "https://static-cdn.jtvnw.net/ttv-boxart/Science%20&%20Technology.jpg";
 
         if ($scope.effect.shoutoutText == null) {
-            $scope.effect.shoutoutText = "They are an amazing streamer. Go give them a follow!";
+            $scope.effect.shoutoutText = "とても素敵な配信者さんです。ぜひフォローしてみてください！";
         }
 
         if ($scope.effect.showLastGame == null) {
@@ -260,7 +260,7 @@ const effect = {
         }
 
         if ($scope.effect.lastGameText == null) {
-            $scope.effect.lastGameText = "Last seen streaming";
+            $scope.effect.lastGameText = "最終配信";
         }
 
         $scope.showOverlayInfoModal = function (overlayInstance) {
@@ -270,7 +270,7 @@ const effect = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.username == null || effect.username === "") {
-            errors.push("Please provide a username.");
+            errors.push("ユーザー名を入力してください。");
         }
         return errors;
     },
@@ -281,9 +281,7 @@ const effect = {
         // What should this do when triggered.
         const { effect } = event;
 
-        if (effect.position === "Random") {
-            effect.position = mediaProcessor.randomLocation();
-        }
+        effect.position = mediaProcessor.resolveRandomPosition(effect.position);
 
         if (SettingsManager.getSetting("UseOverlayInstances")) {
             if (effect.overlayInstance != null) {
@@ -383,7 +381,7 @@ const effect = {
                             <div class="firebot-shoutout-game-dimmer" />
                             <div class="firebot-shoutout-game-text-wrapper">
                                 <div class="firebot-shoutout-game-lastseen">
-                                    ${data.lastGameText || "LAST SEEN STREAMING"}
+                                    ${data.lastGameText || "最終配信"}
                                 </div>
                                 ${data.gameName}
                             </div>

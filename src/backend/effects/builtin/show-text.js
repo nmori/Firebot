@@ -29,33 +29,33 @@ const showText = {
    * You can alternatively supply a url to a html file via optionTemplateUrl
    */
     optionsTemplate: `
-    <eos-container header="Text">
+    <eos-container header="テキスト">
         <div ng-class="editorClass" replace-variables on-variable-insert="onVariableInsert(text)" menu-position="bottom">
             <summernote on-editor-ready="editorReady(editor)" ng-model="effect.text" config="editorOptions" editor="editor" editable="editable"></summernote>
         </div>
         <div style="margin-top: 10px;">
             <div class="form-group">
-                <label class="form-label">Editor Background</label>
+                <label class="form-label">エディタ背景</label>
                 <div>
                     <div class="btn-group">
-                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'white'">White</label>
-                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'black'">Black</label>
+                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'white'">白</label>
+                        <label class="btn btn-default btn-lg" ng-model="editorSettings.editorBackground" ng-change="editorBackgroundChanged()" uib-btn-radio="'black'">黒</label>
                     </div>
                 </div>
             </div>
         </div>
     </eos-container>
 
-    <eos-container header="Text Settings" pad-top="true">
-        <label class="control-fb control--checkbox"> Drop shadow
+    <eos-container header="テキスト設定" pad-top="true">
+        <label class="control-fb control--checkbox"> ドロップシャドウ
             <input type="checkbox" ng-model="effect.dropShadow" />
             <div class="control__indicator"></div>
         </label>
     </eos-container>
 
-    <eos-container header="Duration" class="setting-padtop">
+    <eos-container header="表示時間" class="setting-padtop">
         <div class="input-group">
-            <span class="input-group-addon">Seconds</span>
+            <span class="input-group-addon">秒数</span>
             <input
                 class="form-control"
                 type="text"
@@ -64,16 +64,16 @@ const showText = {
         </div>
     </eos-container>
 
-    <eos-container header="Container Settings" class="setting-padtop">
-        <p>This defines the size of the (invisible) box that the above text will be placed in.</p>
+    <eos-container header="コンテナ設定" class="setting-padtop">
+        <p>テキストを配置する（不可視の）ボックスのサイズを指定します。</p>
         <div class="input-group" style="margin-bottom: 10px;">
-            <span class="input-group-addon">Width (in pixels)</span>
+            <span class="input-group-addon">幅（px）</span>
             <input
                 class="form-control"
                 type="number"
                 min="1" max="10000"
                 ng-model="effect.width">
-            <span class="input-group-addon">Height (in pixels)</span>
+            <span class="input-group-addon">高さ（px）</span>
             <input
                 class="form-control"
                 type="number"
@@ -81,40 +81,40 @@ const showText = {
                 ng-model="effect.height">
         </div>
 
-        <label class="control-fb control--checkbox"> Don't Wrap Text
+        <label class="control-fb control--checkbox"> テキストを折り返さない
             <input type="checkbox" ng-model="effect.dontWrap" />
             <div class="control__indicator"></div>
         </label>
 
-        <label class="control-fb control--checkbox"> Show Debug Border <tooltip text="'Show a red border around the text box to make it easier to see its position.'"></tooltip>
+        <label class="control-fb control--checkbox"> デバッグ用の枠線を表示 <tooltip text="'テキストボックスの位置がわかりやすくなるように、ボックス周りに赤い枠線を表示します。'"></tooltip>
             <input type="checkbox" ng-model="effect.debugBorder" />
             <div class="control__indicator"></div>
         </label>
 
-        <p>Justification</p>
-        <label class="control-fb control--radio">Left
+        <p>水平揃え</p>
+        <label class="control-fb control--radio">左
             <input type="radio" ng-model="effect.justify" value="flex-start"/>
             <div class="control__indicator"></div>
         </label>
-        <label class="control-fb control--radio" >Center
+        <label class="control-fb control--radio" >中央
             <input type="radio" ng-model="effect.justify" value="center"/>
             <div class="control__indicator"></div>
         </label>
-        <label class="control-fb control--radio" >Right
+        <label class="control-fb control--radio" >右
             <input type="radio" ng-model="effect.justify" value="flex-end"/>
             <div class="control__indicator"></div>
         </label>
 
-        <p>Align</p>
-        <label class="control-fb control--radio">Top
+        <p>垂直揃え</p>
+        <label class="control-fb control--radio">上
             <input type="radio" ng-model="effect.align" value="flex-start"/>
             <div class="control__indicator"></div>
         </label>
-        <label class="control-fb control--radio" >Center
+        <label class="control-fb control--radio" >中央
             <input type="radio" ng-model="effect.align" value="center"/>
             <div class="control__indicator"></div>
         </label>
-        <label class="control-fb control--radio" >Bottom
+        <label class="control-fb control--radio" >下
             <input type="radio" ng-model="effect.align" value="flex-end"/>
             <div class="control__indicator"></div>
         </label>
@@ -224,7 +224,7 @@ const showText = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.text == null) {
-            errors.push("Please enter some text to show.");
+            errors.push("表示するテキストを入力してください。");
         }
         return errors;
     },
@@ -262,10 +262,10 @@ const showText = {
             zIndex: effect.zIndex
         };
 
-        const position = dto.position;
-        if (position === "Random") {
+        const resolvedPosition = mediaProcessor.resolveRandomPosition(dto.position);
+        if (resolvedPosition !== dto.position) {
             logger.debug("Getting random preset location");
-            dto.position = mediaProcessor.randomLocation();
+            dto.position = resolvedPosition;
         }
 
         if (SettingsManager.getSetting("UseOverlayInstances")) {

@@ -219,16 +219,22 @@ type ContextMenuItemScope = {
                                     <!-- Weighted Effect Panel -->
                                     <div ng-if="!$ctrl.isCommentEffect(effect)" class="flex items-center" style="width: 100%;">
                                         <div class="volume-slider-wrapper small-slider" style="flex-grow: 1">
-                                            <i class="fas fa-balance-scale-left mr-5" uib-tooltip="重み"></i>
+                                            <i class="fas fa-balance-scale-left mr-5 muted" uib-tooltip="重み（左右で割合を微調整）"></i>
                                             <rzslider rz-slider-model="effect.percentWeight" rz-slider-options="{floor: 0.0001, ceil: 1.0, step: 0.0001, precision: 4, hideLimitLabels: true, hidePointerLabels: true, showSelectionBar: true}"></rzslider>
                                         </div>
                                         <div class="ml-5 mr-5" style="width: 1px;height: 70%;background: rgb(255 255 255 / 25%);border-radius: 2px;flex-grow: 0; flex-shrink: 0;"></div>
-                                        <div>
-                                            <span uib-tooltip="計算後の確率">
-                                                <i class="fas fa-dice mr-2"></i>
-                                                <span style="font-family: monospace; width: 60px; display: inline-block; text-align: end;">{{$ctrl.getPercentChanceForEffect(effect)}}%</span>
-                                            </span>
-                                            <i class="fas fa-edit ml-2 muted" uib-tooltip="目標割合を設定" tooltip-append-to-body="true" ng-click="$ctrl.openSetTargetChancePercentageModal(effect)"></i>
+                                        <div
+                                            class="clickable flex items-center"
+                                            style="padding: 2px 6px; border-radius: 4px;"
+                                            uib-tooltip="クリックして確率(%)を直接設定"
+                                            tooltip-append-to-body="true"
+                                            ng-click="$ctrl.openSetTargetChancePercentageModal(effect)"
+                                            role="button"
+                                            aria-label="確率を直接設定"
+                                        >
+                                            <i class="fas fa-dice mr-2"></i>
+                                            <span style="font-family: monospace; font-size: 16px; font-weight: 600; min-width: 70px; display: inline-block; text-align: end;">{{$ctrl.getPercentChanceForEffect(effect)}}%</span>
+                                            <i class="fas fa-edit ml-2 muted"></i>
                                         </div>
                                     </div>
                                     <!-- Comment Effect Panel -->

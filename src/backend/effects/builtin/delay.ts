@@ -15,9 +15,9 @@ const effect: EffectType<{
         exemptFromAsync: true
     },
     optionsTemplate: `
-        <eos-container header="Duration">
+        <eos-container header="待機時間">
             <div class="input-group">
-                <span class="input-group-addon" id="delay-length-effect-type">Seconds</span>
+                <span class="input-group-addon" id="delay-length-effect-type">秒数</span>
                 <input ng-model="effect.delay" type="text" class="form-control" aria-describedby="delay-length-effect-type" type="text" menu-position="under" replace-variables="number">
             </div>
         </eos-container>
@@ -25,12 +25,12 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.delay == null || (effect.delay.toString()).length < 1) {
-            errors.push("Please input a delay duration.");
+            errors.push("待機時間を入力してください。");
         }
         return errors;
     },
     getDefaultLabel: (effect) => {
-        return effect.delay != null ? `${effect.delay} second${effect.delay > 1 ? "s" : ""}` : undefined;
+        return effect.delay != null ? `${effect.delay}秒` : undefined;
     },
     onTriggerEvent: async ({ effect }) => {
         await wait(effect.delay * 1000);

@@ -15,9 +15,9 @@ const effect: EffectType<{
     },
     optionsTemplate: `
     <eos-container>
-        <p>Use this effect to send yourself alerts in Firebot's chat feed without using actual chat messages. This means the alerts are only visible to you.</p>
+        <p>このエフェクトを使うと、実際のチャットメッセージを送らずに、Firebot のチャットフィードへ自分宛のアラートを表示できます。アラートはあなたにしか見えません。</p>
     </eos-container>
-    <eos-container header="Alert Message" pad-top="true">
+    <eos-container header="アラートのメッセージ" pad-top="true">
         <firebot-input
             model="effect.message"
             use-text-area="true"
@@ -27,7 +27,7 @@ const effect: EffectType<{
             menu-position="under"
         />
     </eos-container>
-    <eos-container header="Icon" pad-top="true">
+    <eos-container header="アイコン" pad-top="true">
         <input
 			maxlength="2"
 			type="text"
@@ -46,10 +46,10 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.message == null || effect.message === "") {
-            errors.push("Alert message can't be blank.");
+            errors.push("アラートのメッセージを入力してください。");
         }
         if (effect.icon == null || effect.icon === "") {
-            errors.push("Icon can't be blank.");
+            errors.push("アイコンを入力してください。");
         }
         return errors;
     },

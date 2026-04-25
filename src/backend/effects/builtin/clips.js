@@ -22,13 +22,13 @@ const clip = {
         dependencies: [EffectDependency.CHAT],
         outputs: [
             {
-                label: "Clip Url",
-                description: "The url of the created clip",
+                label: "クリップURL",
+                description: "作成されたクリップのURL",
                 defaultName: "clipUrl"
             },
             {
-                label: "Thumbnail Url",
-                description: "The url of the created clip's thumbnail",
+                label: "サムネイルURL",
+                description: "作成されたクリップのサムネイル画像のURL",
                 defaultName: "thumbnailUrl"
             }
         ]
@@ -37,48 +37,48 @@ const clip = {
     optionsTemplate: `
         <eos-container>
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Post clip link in chat
+                <label class="control-fb control--checkbox"> クリップのリンクをチャットに投稿
                     <input type="checkbox" ng-model="effect.postLink">
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
             <div style="padding-top:15px" ng-show="hasChannels">
-                <label class="control-fb control--checkbox"> Post clip in Discord channel
+                <label class="control-fb control--checkbox"> クリップを Discord チャンネルに投稿
                     <input type="checkbox" ng-model="effect.postInDiscord">
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
             <div ng-show="effect.postInDiscord" style="margin-left: 30px;">
-                <div>Discord Channel:</div>
+                <div>Discord チャンネル:</div>
                 <dropdown-select options="channelOptions" selected="effect.discordChannelId"></dropdown-select>
                 <div style="margin-top:10px;">
-                    <color-picker-input model="effect.embedColor" label="Embed Color"></color-picker-input>
+                    <color-picker-input model="effect.embedColor" label="埋め込みの色"></color-picker-input>
                 </div>
             </div>
 
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Show clip in overlay
+                <label class="control-fb control--checkbox"> オーバーレイにクリップを表示
                     <input type="checkbox" ng-model="effect.showInOverlay">
                     <div class="control__indicator"></div>
                 </label>
             </div>
 
             <div style="padding-top:15px">
-                <label class="control-fb control--checkbox"> Store the clip's URL in a $customVariable <tooltip text="'Store the URL of the clip in a $customVariable so you can use it later'"></tooltip>
+                <label class="control-fb control--checkbox"> クリップURLを $customVariable に保存 <tooltip text="'クリップURLを $customVariable に保存して、後から利用できるようにします。'"></tooltip>
                     <input type="checkbox" ng-model="effect.options.putClipUrlInVariable">
                     <div class="control__indicator"></div>
                 </label>
                 <div ng-if="effect.options.putClipUrlInVariable" style="padding-left: 15px;">
-                    <firebot-input input-title="Variable Name" model="effect.options.variableName" placeholder-text="Enter name" />
-                    <firebot-input style="margin-top: 10px;" input-title="Variable TTL" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="Enter secs | Optional" />
-                    <firebot-input style="margin-top: 10px;" input-title="Variable Property Path" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="Optional" />
+                    <firebot-input input-title="変数名" model="effect.options.variableName" placeholder-text="名前を入力" />
+                    <firebot-input style="margin-top: 10px;" input-title="変数の有効期間（TTL）" model="effect.options.variableTtl" input-type="number" disable-variables="true" placeholder-text="秒数を入力（任意）" />
+                    <firebot-input style="margin-top: 10px;" input-title="変数のプロパティパス" model="effect.options.variablePropertyPath" input-type="text" disable-variables="true" placeholder-text="任意" />
                 </div>
             </div>
 
             <!--<div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> Download clip <tooltip text="'You can change which folder clips save to in the Settings tab.'"></tooltip>
+                <label class="control-fb control--checkbox"> クリップをダウンロード <tooltip text="'クリップの保存先フォルダは設定タブで変更できます。'"></tooltip>
                     <input type="checkbox" ng-model="effect.download">
                     <div class="control__indicator"></div>
                 </label>
@@ -86,17 +86,17 @@ const clip = {
         </eos-container>
 
         <div ng-if="effect.showInOverlay">
-            <eos-container header="Wait for Video to Finish" class="setting-padtop">
-                <firebot-checkbox label="Wait for video to finish" tooltip="Wait for the video to finish before allowing the next effect to run." model="effect.wait" />
+            <eos-container header="動画の終了を待つ" class="setting-padtop">
+                <firebot-checkbox label="動画の終了を待つ" tooltip="動画の再生が終わるまで、次のエフェクトの実行を待ちます。" model="effect.wait" />
             </eos-container>
             <eos-overlay-position effect="effect"></eos-overlay-position>
-            <eos-container header="Dimensions">
-                <label class="control-fb control--checkbox"> Force 16:9 Ratio
+            <eos-container header="サイズ">
+                <label class="control-fb control--checkbox"> 16:9 の比率を維持
                     <input type="checkbox" ng-click="forceRatioToggle();" ng-checked="forceRatio">
                     <div class="control__indicator"></div>
                 </label>
                 <div class="input-group">
-                    <span class="input-group-addon">Width (in pixels)</span>
+                    <span class="input-group-addon">幅（px）</span>
                     <input
                         type="text"
                         class="form-control"
@@ -104,7 +104,7 @@ const clip = {
                         type="number"
                         ng-change="calculateSize('Width', effect.width)"
                         ng-model="effect.width">
-                    <span class="input-group-addon">Height (in pixels)</span>
+                    <span class="input-group-addon">高さ（px）</span>
                     <input
                         type="text"
                         class="form-control"
@@ -120,7 +120,7 @@ const clip = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You must be live for this effect to work.
+                注意: このエフェクトを使用するには配信中である必要があります。
             </div>
         </eos-container>
     `,
@@ -190,10 +190,10 @@ const clip = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.postInDiscord && effect.discordChannelId == null) {
-            errors.push("Please select Discord channel.");
+            errors.push("Discord チャンネルを選択してください。");
         }
         if (effect.options.putClipUrlInVariable && !(effect.options.variableName?.length > 0)) {
-            errors.push("Please enter a variable name.");
+            errors.push("変数名を入力してください。");
         }
         return errors;
     },
@@ -223,10 +223,7 @@ const clip = {
 
             if (effect.showInOverlay) {
 
-                let position = effect.position;
-                if (position === "Random") {
-                    position = mediaProcessor.randomLocation();
-                }
+                const position = mediaProcessor.resolveRandomPosition(effect.position);
 
                 let overlayInstance = null;
                 if (SettingsManager.getSetting("UseOverlayInstances")) {

@@ -18,14 +18,14 @@ const effectGroup = {
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="List Type">
-            <dropdown-select options="{ custom: 'Custom Effect List', preset: 'Preset Effect List'}" selected="effect.listType"></dropdown-select>
+        <eos-container header="リスト種別">
+            <dropdown-select options="{ custom: 'カスタムエフェクトリスト', preset: 'プリセットエフェクトリスト'}" selected="effect.listType"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="effect.listType === 'preset'" header="Preset Effect List" pad-top="true">
+        <eos-container ng-show="effect.listType === 'preset'" header="プリセットエフェクトリスト" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.presetListId"
-                placeholder="Select or search for a preset effect list..."
+                placeholder="プリセットエフェクトリストを選択または検索..."
                 items="presetEffectLists"
                 on-select="selectPresetList(item)"
             />
@@ -33,25 +33,25 @@ const effectGroup = {
             <div style="margin-top: 15px">
                 <button class="btn btn-default"
                     ng-show="effect.presetListId != null"
-                    ng-click="editSelectedPresetList()">Edit '{{getSelectedPresetListName()}}'</button>
+                    ng-click="editSelectedPresetList()">「{{getSelectedPresetListName()}}」を編集</button>
             </div>
         </eos-container>
 
-        <eos-container ng-show="effect.listType === 'preset' && selectedPresetList != null" header="Preset List Args" pad-top="true">
-            <p>Pass data to the preset select list.</p>
+        <eos-container ng-show="effect.listType === 'preset' && selectedPresetList != null" header="プリセットリスト引数" pad-top="true">
+            <p>プリセットリストに渡すデータを指定します。</p>
 
             <div ng-repeat="arg in selectedPresetList.args track by $index" style="margin-bottom: 5px;">
 
                 <div style="display: flex; align-items: center; justify-content: space-between;">
                     <span><b>{{arg.name}}: </b></span>
                     <div style="width: 100%; padding: 0 10px;">
-                    <textarea type="text" class="form-control" placeholder="Enter data" ng-model="effect.presetListArgs[arg.name]" replace-variables rows="1"></textarea>
+                    <textarea type="text" class="form-control" placeholder="値を入力" ng-model="effect.presetListArgs[arg.name]" replace-variables rows="1"></textarea>
                     </div>
                 </div>
             </div>
         </eos-container>
 
-        <eos-container ng-show="effect.listType === 'custom'" header="Custom Effect List" pad-top="true">
+        <eos-container ng-show="effect.listType === 'custom'" header="カスタムエフェクトリスト" pad-top="true">
             <effect-list effects="effect.effectList"
                     trigger="{{trigger}}"
                     trigger-meta="triggerMeta"
@@ -59,19 +59,19 @@ const effectGroup = {
                     modalId="{{modalId}}"></effect-list>
         </eos-container>
 
-        <eos-container header="Options" pad-top="true">
+        <eos-container header="オプション" pad-top="true">
             <firebot-checkbox
                 model="effect.dontWait"
-                label="Don't wait for effects to finish"
-                tooltip="Check this if you want the root effect list that triggers this list to continue its effect execution instead of waiting for these effects to complete."
+                label="エフェクトの完了を待たない"
+                tooltip="このエフェクトをトリガーした親のエフェクトリストが、ここで指定したエフェクトの完了を待たずに先に進む場合にチェックします。"
             />
 
             <firebot-checkbox
                 ng-if="!effect.dontWait"
                 style="margin-top: 10px"
                 model="effect.bubbleOutputs"
-                label="Apply effect outputs to parent list"
-                tooltip="Whether or not you want any effect outputs to be made available to the parent effect list."
+                label="親リストにエフェクト出力を適用"
+                tooltip="ここで実行されたエフェクトの出力を、親エフェクトリストでも利用できるようにするかどうか。"
             />
         </eos-container>
 
@@ -140,17 +140,17 @@ const effectGroup = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.listType === 'preset' && effect.presetListId == null) {
-            errors.push("Please select a preset list");
+            errors.push("プリセットリストを選択してください。");
         }
         return errors;
     },
     getDefaultLabel: (effect, presetEffectListsService) => {
         if (effect.listType === 'preset') {
             const presetList = presetEffectListsService.getPresetEffectList(effect.presetListId);
-            return effect.presetListId ? presetList?.name : "Unknown Preset Effect List";
+            return effect.presetListId ? presetList?.name : "不明なプリセットエフェクトリスト";
         }
         const length = effect.effectList?.list?.length ?? 0;
-        return `${length} Custom Effect${length === 1 ? "" : "s"}`;
+        return `${length}件のカスタムエフェクト`;
     },
     onTriggerEvent: (event) => {
         return new Promise((resolve) => {

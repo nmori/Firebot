@@ -15,14 +15,14 @@ const effect: EffectType<{
         dependencies: [],
         outputs: [
             {
-                label: "Code Result",
+                label: "コードの結果",
                 defaultName: "jsResult",
-                description: "The result of the JavaScript code. Note you must use 'return' for a result to be captured."
+                description: "JavaScript コードの実行結果。結果を出力として取得するには <code>return</code> を使用してください。"
             }
         ]
     },
     optionsTemplate: `
-    <eos-container header="Code">
+    <eos-container header="コード">
         <div
             ui-codemirror="{onLoad : codemirrorLoaded}"
             ui-codemirror-opts="editorSettings"
@@ -32,18 +32,18 @@ const effect: EffectType<{
         </div>
     </eos-container>
 
-    <eos-container header="Parameters" pad-top="true">
+    <eos-container header="パラメータ" pad-top="true">
         <editable-list settings="parameterSettings" model="effect.parameters" />
     </eos-container>
 
     <eos-container>
         <div class="effect-info alert alert-info">
-            Things to note:
+            注意点:
             <ul>
-                <li>JavaScript is evaluated in a sandboxed browser environment</li>
-                <li>You must use <code>return</code> to have a result captured as the output</li>
-                <li>Parameters can be accessed via <code>parameters[n]</code></li>
-                <li>Trigger metadata can be accessed via <code>metadata.*</code></li>
+                <li>JavaScript はサンドボックス化されたブラウザ環境で評価されます</li>
+                <li>結果を出力として取得するには <code>return</code> を使用してください</li>
+                <li>パラメータは <code>parameters[n]</code> でアクセスできます</li>
+                <li>トリガーのメタデータは <code>metadata.*</code> でアクセスできます</li>
             </ul>
         </div>
     </eos-container>
@@ -78,7 +78,7 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.code == null) {
-            errors.push("Please enter some JavaScript code.");
+            errors.push("JavaScript コードを入力してください。");
         }
         return errors;
     },

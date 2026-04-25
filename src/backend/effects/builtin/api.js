@@ -35,10 +35,10 @@ const api = {
    * You can alternatively supply a url to a html file via optionTemplateUrl
    */
     optionsTemplate: `
-        <eos-container header="API Type">
+        <eos-container header="APIの種類">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="api-effect-type">{{effect.api ? effect.api : 'Pick one'}}</span> <span class="caret"></span>
+                    <span class="api-effect-type">{{effect.api ? effect.api : '選択してください'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu api-effect-dropdown">
                     <li ng-repeat="api in apiTypes"
@@ -49,8 +49,8 @@ const api = {
             </div>
         </eos-container>
 
-        <div ng-if="effect.api != null && effect.api !== 'Pick one'">
-            <eos-container  header="Display Location" pad-top="true">
+        <div ng-if="effect.api != null && effect.api !== '選択してください'">
+            <eos-container  header="表示場所" pad-top="true">
                 <div class="controls-fb-inline" style="padding-bottom: 5px;">
                     <label class="control-fb control--radio">チャット
                         <input type="radio" ng-model="effect.show" value="chat"/>
@@ -69,7 +69,7 @@ const api = {
         </div>
 
         <div ng-if="effect.show === 'chat' || effect.show ==='both'" >
-            <eos-chatter-select effect="effect" title="Chat As" pad-top="true"></eos-chatter-select>
+            <eos-chatter-select effect="effect" title="送信元" pad-top="true"></eos-chatter-select>
         </div>
 
         <div ng-if="effect.show === 'overlay' && effect.imageAvailable || effect.show ==='both' && effect.imageAvailable">
@@ -77,7 +77,7 @@ const api = {
 
             <eos-enter-exit-animations effect="effect" pad-top="true"></eos-enter-exit-animations>
 
-            <eos-container header="Dimensions" pad-top="true">
+            <eos-container header="サイズ" pad-top="true">
                 <div class="input-group">
                     <span class="input-group-addon">幅</span>
                     <input
@@ -98,9 +98,9 @@ const api = {
                 </div>
             </eos-container>
 
-            <eos-container header="Duration" pad-top="true">
+            <eos-container header="表示時間" pad-top="true">
                 <div class="input-group">
-                    <span class="input-group-addon">秒</span>
+                    <span class="input-group-addon">秒数</span>
                     <input
                     type="text"
                     class="form-control"

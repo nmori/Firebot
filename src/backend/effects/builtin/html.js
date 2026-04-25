@@ -38,16 +38,16 @@ const html = {
         </div>
     </eos-container>
 
-    <eos-container header="Show Duration" pad-top="true">
+    <eos-container header="表示時間" pad-top="true">
         <div class="input-group">
-            <span class="input-group-addon" id="html-length-effect-type">Seconds</span>
+            <span class="input-group-addon" id="html-length-effect-type">秒数</span>
             <input ng-model="effect.length" type="text" class="form-control" id="html-length-setting" aria-describedby="html-length-effect-type" replace-variables="number">
         </div>
-        <eos-collapsable-panel show-label="Advanced" hide-label="Hide Advanced">
-            <h4>Custom Removal CSS Selector</h4>
-            <p style="margin-bottom:10px">Optionally define which element(s) to be removed after the given duration via a CSS class as a selector. Leave blank to have Firebot always remove all the html above (Recommended).</p>
+        <eos-collapsable-panel show-label="詳細設定" hide-label="詳細設定を隠す">
+            <h4>カスタム削除用CSSセレクタ</h4>
+            <p style="margin-bottom:10px">表示時間経過後に削除する要素を、CSSクラスをセレクタとして指定できます（任意）。空欄の場合は、上で指定したHTML全体が削除されます（推奨）。</p>
             <div class="input-group">
-                <span class="input-group-addon" id="html-selector-effect-type">CSS Class</span>
+                <span class="input-group-addon" id="html-selector-effect-type">CSSクラス</span>
                 <input ng-model="effect.removal" type="text" class="form-control" aria-describedby="html-selector-effect-type">
             </div>
         </eos-collapsable-panel>
@@ -61,9 +61,9 @@ const html = {
         <div class="effect-info alert alert-warning">
             このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">詳細を見る</a>
             <br /><br />
-            Please be aware that this effect is <i>extremely</i> prone to errors due to its open-ended nature.
+            このエフェクトは自由度が高い反面、<i>非常に</i>エラーが起きやすい点にご注意ください。
             <br /><br />
-            When using variables that are derived from user provided content, it is recommended to escape the value using <code>$encodeForHtml[$variable]</code>.
+            視聴者などから取得した内容を変数として埋め込む場合は、<code>$encodeForHtml[$variable]</code> を使ってエスケープすることを推奨します。
         </div>
     </eos-container>
     `,
@@ -102,10 +102,10 @@ const html = {
     optionsValidator: (effect) => {
         const errors = [];
         if (effect.html == null) {
-            errors.push("Please enter some HTML to show in the overlay.");
+            errors.push("オーバーレイに表示するHTMLを入力してください。");
         }
         if (effect.length == null) {
-            errors.push("Please input a show duration.");
+            errors.push("表示時間を入力してください。");
         }
         return errors;
     },

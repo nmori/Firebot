@@ -82,10 +82,7 @@ export type ScreenshotEffectData = {
 };
 
 export function sendScreenshotToOverlay(screenshotDataUrl: string, effect: ScreenshotEffectData) {
-    let position = effect.position;
-    if (position === "Random") {
-        position = mediaProcessor.randomLocation();
-    }
+    const position = mediaProcessor.resolveRandomPosition(effect.position);
 
     let overlayInstance = null;
     if (SettingsManager.getSetting("UseOverlayInstances")) {

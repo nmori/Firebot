@@ -17,13 +17,13 @@ const effect: EffectType<{
         dependencies: []
     },
     optionsTemplate: `
-        <eos-container header="Variable Name">
-            <p class="muted">You'll use this name to reference this elsewhere via $customVariable[name].</p>
-            <input ng-model="effect.name" type="text" class="form-control" id="chat-text-setting" placeholder="Enter name" replace-variables menu-position="below">
+        <eos-container header="変数名">
+            <p class="muted">この名前を $customVariable[name] のように参照して、他の場所で利用できます。</p>
+            <input ng-model="effect.name" type="text" class="form-control" id="chat-text-setting" placeholder="名前を入力" replace-variables menu-position="below">
         </eos-container>
 
-        <eos-container header="Variable Data" pad-top="true">
-            <p class="muted">This is the data that will be saved to the variable. Can be text or another replace phrase.</p>
+        <eos-container header="変数データ" pad-top="true">
+            <p class="muted">変数に保存するデータです。文字列または別の置換フレーズを指定できます。</p>
             <selectable-input-editors
                 editors="editors"
                 initial-editor-label="initialEditorLabel"
@@ -32,29 +32,29 @@ const effect: EffectType<{
             <p class="muted" style="font-size: 11px;"><b>注意:</b> 変数データが有効な JSON 文字列の場合、オブジェクトまたは配列にパースされます。</p>
         </eos-container>
 
-        <eos-container header="Property Path (Optional)" pad-top="true">
-            <p class="muted">If the variable already has data saved in the form of an object or array, you can define a path (using dot notation) to a specific property or index to update with the above data.</p>
-            <p class="muted">If a property path is provided and there is no existing data in the variable, nothing happens.</p>
-            <p class="muted">If no property path is provided and the existing variable does NOT contain an array, the entire variable is replaced. If the existing variable contains an array and the new value is NOT an array, the new value will be appended to the array.</p>
+        <eos-container header="プロパティパス（任意）" pad-top="true">
+            <p class="muted">変数に既にオブジェクトや配列が保存されている場合、ドット表記でプロパティやインデックスを指定して、その箇所だけを上のデータで更新できます。</p>
+            <p class="muted">プロパティパスを指定したのに既存データがない場合は何も起こりません。</p>
+            <p class="muted">プロパティパスを指定せず、既存変数が配列でない場合は変数全体が置き換えられます。既存変数が配列で、新しい値が配列でない場合、新しい値は配列の末尾に追加されます。</p>
             <eos-collapsable-panel show-label="例を表示" hide-label="例を非表示" hide-info-box="true">
-                <span>Examples:</span>
+                <span>例:</span>
                 <ul>
                     <li>some.property</li>
                     <li>1</li>
                     <li>1.value</li>
                 </ul>
             </eos-collapsable-panel>
-            <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="Enter path">
+            <input ng-model="effect.propertyPath" type="text" class="form-control" id="propertyPath" placeholder="パスを入力">
         </eos-container>
 
-        <eos-container header="Duration (Optional)" pad-top="true">
-            <p class="muted">Duration (in seconds) this variable should be kept in the cache. Use 0 for indefinite (until Firebot restarts unless persisted). </p>
-            <input ng-model="effect.ttl" type="number" class="form-control" id="chat-text-setting" placeholder="Enter seconds">
+        <eos-container header="保持時間（任意）" pad-top="true">
+            <p class="muted">この変数をキャッシュに保持する秒数です。0 にすると（永続化していない場合は Firebot 再起動まで）無期限に保持されます。</p>
+            <input ng-model="effect.ttl" type="number" class="form-control" id="chat-text-setting" placeholder="秒数を入力">
 
             <div class="form-group flex justify-between pt-10" ng-if="!persistAllVarsEnabled">
                 <div>
-                    <label class="control-label" style="margin:0;">Persist</label>
-                    <p class="help-block">If enabled, this variable will be saved to file and reloaded when Firebot restarts.</p>
+                    <label class="control-label" style="margin:0;">永続化</label>
+                    <p class="help-block">有効にすると、この変数はファイルに保存され、Firebot 再起動時に再読み込みされます。</p>
                 </div>
                 <div class="ml-5">
                     <toggle-button toggle-model="effect.persistToFile" auto-update-value="true" font-size="32"></toggle-button>
@@ -64,7 +64,7 @@ const effect: EffectType<{
 
         <eos-container pad-top="true">
             <div class="effect-info well">
-                Want to inspect variable values in real-time for debugging purposes? Open the <a ng-click="openVariableInspector()" style="color:#53afff;cursor:pointer;">Custom Variable Inspector</a>
+                変数の値をリアルタイムで確認したい場合は、<a ng-click="openVariableInspector()" style="color:#53afff;cursor:pointer;">カスタム変数インスペクター</a>を開いてください。
             </div>
         </eos-container>
     `,
@@ -79,10 +79,10 @@ const effect: EffectType<{
 
         $scope.editors = [
             {
-                label: "Basic",
+                label: "テキスト",
                 inputType: "text",
                 useTextArea: true,
-                placeholderText: "Enter variable data",
+                placeholderText: "変数データを入力",
                 menuPosition: "under"
             },
             {
@@ -101,12 +101,12 @@ const effect: EffectType<{
 
         $scope.persistAllVarsEnabled = settingsService.getSetting("PersistCustomVariables");
 
-        $scope.initialEditorLabel = $scope.effect?.variableData?.startsWith("{") || $scope.effect?.variableData?.startsWith("[") ? "JSON" : "Basic";
+        $scope.initialEditorLabel = $scope.effect?.variableData?.startsWith("{") || $scope.effect?.variableData?.startsWith("[") ? "JSON" : "テキスト";
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.name == null || effect.name === "") {
-            errors.push("Please provide a variable name.");
+            errors.push("変数名を入力してください。");
         }
         return errors;
     },
