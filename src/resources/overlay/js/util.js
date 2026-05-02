@@ -130,17 +130,79 @@ function showTimedAnimatedElement(
 	});
 }
 
+const RANDOM_LINEAR_POSITIONS = [
+	"Random Linear",
+	"Top Random Linear",
+	"Middle Random Linear",
+	"Bottom Random Linear",
+	"Random Left Linear",
+	"Random Middle Linear",
+	"Random Right Linear"
+];
+
+function isRandomLinearPosition(position) {
+	return RANDOM_LINEAR_POSITIONS.indexOf(position) >= 0;
+}
+
+// 連続値（リニア）抽選: 表示のたびにビューポートに対する % で top/left を抽選する。
+// プリセット9値（Top Left ... Bottom Right）の離散的な3〜9択ではなく、画面内を滑らかに動かしたい時に使う。
+function getStylesForRandomLinear(position) {
+	const stripped = position.replace(/\s*Linear$/i, "").trim();
+	const parts = stripped === "Random" ? ["Random", "Random"] : stripped.split(/\s+/);
+	const yMode = parts[0];
+	const xMode = parts[1];
+
+	// 0〜85% に抑えて、ウィジェット自身の幅・高さで画面外にはみ出しにくくする。
+	const yRandom = Math.floor(Math.random() * 86);
+	const xRandom = Math.floor(Math.random() * 86);
+
+	const decls = ["position:absolute", "margin:0"];
+	let translateX = 0;
+	let translateY = 0;
+
+	if (yMode === "Random") {
+		decls.push(`top:${yRandom}%`);
+	} else if (yMode === "Top") {
+		decls.push("top:1.5%");
+	} else if (yMode === "Middle") {
+		decls.push("top:50%");
+		translateY = -50;
+	} else if (yMode === "Bottom") {
+		decls.push("bottom:1.5%");
+	}
+
+	if (xMode === "Random") {
+		decls.push(`left:${xRandom}%`);
+	} else if (xMode === "Left") {
+		decls.push("left:1.5%");
+	} else if (xMode === "Middle") {
+		decls.push("left:50%");
+		translateX = -50;
+	} else if (xMode === "Right") {
+		decls.push("right:1.5%");
+	}
+
+	if (translateX !== 0 || translateY !== 0) {
+		decls.push(`transform:translate(${translateX}%, ${translateY}%)`);
+	}
+
+	return decls.join(";") + ";";
+}
+
 function getPositionWrappedHTML(uniqueId, positionData, html) {
 
     // when using 'Custom' position, the user has defined exact top/left pixels
 	let styles = "";
-	if (positionData.position === "Custom") {
-		styles = getStylesForCustomCoords(positionData.customCoords);
-	}
-
-	//normalize position
 	let position = positionData.position ?
 		positionData.position.replace(/\s/, "-").toLowerCase() : "middle";
+
+	if (positionData.position === "Custom") {
+		styles = getStylesForCustomCoords(positionData.customCoords);
+	} else if (isRandomLinearPosition(positionData.position)) {
+		// 連続値で抽選するため、wrapper の flex justify は使わず inner-position を絶対配置する。
+		styles = getStylesForRandomLinear(positionData.position);
+		position = "custom";
+	}
 
 	let positionWrappedHtml = `
 		<div id="${uniqueId}" class="position-wrapper ${position}">

@@ -50,6 +50,13 @@
                         </div>
                         <p class="muted" style="font-size:11px; margin-top:4px;" ng-if="$ctrl.randomMode === 'x'">上の3×3でクリックした「行」が固定されます。クリックした列は無視されます。</p>
                         <p class="muted" style="font-size:11px; margin-top:4px;" ng-if="$ctrl.randomMode === 'y'">上の3×3でクリックした「列」が固定されます。クリックした行は無視されます。</p>
+                        <div class="controls-fb-inline" style="margin-top:6px;">
+                            <label class="control-fb control--checkbox">連続値（リニア）で抽選する
+                                <input type="checkbox" ng-click="$ctrl.toggleRandomLinear()" ng-checked="$ctrl.randomLinear">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <p class="muted" style="font-size:11px; margin-top:2px;" ng-if="$ctrl.randomLinear">プリセット9点ではなく、毎回ピクセル単位で連続的にランダム抽選します。</p>
                     </div>
                 </div>
                 <div ng-if="$ctrl.effect.position === 'Custom'" style="margin: 5px 0 5px 0px;">
@@ -102,8 +109,13 @@
                 // "off" | "both" | "x" | "y"
                 ctrl.randomMode = "off";
 
+                // true の場合は連続値（リニア）抽選: 保存値に " Linear" サフィックスが付く。
+                ctrl.randomLinear = false;
+
                 const RANDOM_X_VALUES = ["Top Random", "Middle Random", "Bottom Random"];
                 const RANDOM_Y_VALUES = ["Random Left", "Random Middle", "Random Right"];
+                const RANDOM_X_LINEAR_VALUES = ["Top Random Linear", "Middle Random Linear", "Bottom Random Linear"];
+                const RANDOM_Y_LINEAR_VALUES = ["Random Left Linear", "Random Middle Linear", "Random Right Linear"];
 
                 ctrl.updateTopOrBottom = function(option) {
                     ctrl.topOrBottom = option;
@@ -154,12 +166,13 @@
                 ctrl.applyAnchorAndMode = function() {
                     const yRow = parseYRow(ctrl.anchorPosition) || "Middle";
                     const xCol = parseXCol(ctrl.anchorPosition) || "Middle";
+                    const linearSuffix = ctrl.randomLinear ? " Linear" : "";
                     if (ctrl.randomMode === "both") {
-                        ctrl.effect.position = "Random";
+                        ctrl.effect.position = `Random${linearSuffix}`;
                     } else if (ctrl.randomMode === "x") {
-                        ctrl.effect.position = `${yRow} Random`;
+                        ctrl.effect.position = `${yRow} Random${linearSuffix}`;
                     } else if (ctrl.randomMode === "y") {
-                        ctrl.effect.position = `Random ${xCol}`;
+                        ctrl.effect.position = `Random ${xCol}${linearSuffix}`;
                     } else {
                         ctrl.effect.position = combinePosition(yRow, xCol);
                     }
@@ -180,9 +193,15 @@
                 ctrl.toggleRandomPreset = function() {
                     if (ctrl.isRandom()) {
                         ctrl.randomMode = "off";
+                        ctrl.randomLinear = false;
                     } else {
                         ctrl.randomMode = "both";
                     }
+                    ctrl.applyAnchorAndMode();
+                };
+
+                ctrl.toggleRandomLinear = function() {
+                    ctrl.randomLinear = !ctrl.randomLinear;
                     ctrl.applyAnchorAndMode();
                 };
 
@@ -207,10 +226,12 @@
                 ctrl.togglePresetCustom = function() {
                     if (ctrl.presetOrCustom === "custom") {
                         ctrl.randomMode = "off";
+                        ctrl.randomLinear = false;
                         ctrl.effect.position = "Custom";
                     } else {
                         ctrl.anchorPosition = "Middle";
                         ctrl.randomMode = "off";
+                        ctrl.randomLinear = false;
                         ctrl.applyAnchorAndMode();
                     }
                 };
@@ -257,24 +278,43 @@
                     ctrl.presetOrCustom =
                         ctrl.effect.position === "Custom" ? "custom" : "preset";
 
-                    // 保存済み effect.position から anchorPosition と randomMode を復元する
+                    // 保存済み effect.position から anchorPosition と randomMode と randomLinear を復元する
                     const pos = ctrl.effect.position;
                     if (pos === "Random") {
                         ctrl.randomMode = "both";
+                        ctrl.randomLinear = false;
+                        ctrl.anchorPosition = "Middle";
+                    } else if (pos === "Random Linear") {
+                        ctrl.randomMode = "both";
+                        ctrl.randomLinear = true;
                         ctrl.anchorPosition = "Middle";
                     } else if (RANDOM_X_VALUES.indexOf(pos) >= 0) {
                         ctrl.randomMode = "x";
+                        ctrl.randomLinear = false;
+                        const yRow = pos.split(" ")[0];
+                        ctrl.anchorPosition = combinePosition(yRow, "Middle");
+                    } else if (RANDOM_X_LINEAR_VALUES.indexOf(pos) >= 0) {
+                        ctrl.randomMode = "x";
+                        ctrl.randomLinear = true;
                         const yRow = pos.split(" ")[0];
                         ctrl.anchorPosition = combinePosition(yRow, "Middle");
                     } else if (RANDOM_Y_VALUES.indexOf(pos) >= 0) {
                         ctrl.randomMode = "y";
+                        ctrl.randomLinear = false;
+                        const xCol = pos.split(" ")[1];
+                        ctrl.anchorPosition = combinePosition("Middle", xCol);
+                    } else if (RANDOM_Y_LINEAR_VALUES.indexOf(pos) >= 0) {
+                        ctrl.randomMode = "y";
+                        ctrl.randomLinear = true;
                         const xCol = pos.split(" ")[1];
                         ctrl.anchorPosition = combinePosition("Middle", xCol);
                     } else if (pos === "Custom") {
                         ctrl.randomMode = "off";
+                        ctrl.randomLinear = false;
                         ctrl.anchorPosition = "Middle";
                     } else {
                         ctrl.randomMode = "off";
+                        ctrl.randomLinear = false;
                         ctrl.anchorPosition = pos;
                     }
                 };

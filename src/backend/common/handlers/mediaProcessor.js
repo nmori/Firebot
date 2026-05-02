@@ -27,6 +27,19 @@ function getRandomPresetLocation() {
 const RANDOM_X_ROWS = ["Top Random", "Middle Random", "Bottom Random"];
 const RANDOM_Y_COLS = ["Random Left", "Random Middle", "Random Right"];
 
+// 連続値（リニア）抽選用の position 値。プリセット9値ではなく、オーバーレイ側でピクセル単位の
+// 位置を毎回ランダム計算する。バックエンドではそのまま透過する（オーバーレイのビューポートサイズに
+// 依存するため、抽選は overlay 側で実施する）。
+const RANDOM_LINEAR_POSITIONS = [
+    "Random Linear",
+    "Top Random Linear",
+    "Middle Random Linear",
+    "Bottom Random Linear",
+    "Random Left Linear",
+    "Random Middle Linear",
+    "Random Right Linear"
+];
+
 // 「Top Middle」のように Y 行 + X 列 の合成名称に整える。Middle/Middle は短縮表記の "Middle"。
 function combinePresetPosition(yRow, xCol) {
     if (yRow === "Middle" && xCol === "Middle") {
@@ -35,9 +48,17 @@ function combinePresetPosition(yRow, xCol) {
     return `${yRow} ${xCol}`;
 }
 
+function isRandomLinearPosition(position) {
+    return RANDOM_LINEAR_POSITIONS.includes(position);
+}
+
 // 与えられた position を、必要に応じて抽選してプリセット9値の1つに正規化する。
 // 既存の "Random"（両軸）に加え、"Top Random" 等（X軸のみ）と "Random Left" 等（Y軸のみ）に対応。
+// "* Linear" は連続値抽選なので overlay 側に委ね、ここではそのまま返す。
 function resolveRandomPosition(position) {
+    if (isRandomLinearPosition(position)) {
+        return position;
+    }
     if (position === "Random") {
         return getRandomPresetLocation();
     }
@@ -233,3 +254,5 @@ exports.video = videoProcessor;
 exports.text = showText;
 exports.randomLocation = getRandomPresetLocation;
 exports.resolveRandomPosition = resolveRandomPosition;
+exports.isRandomLinearPosition = isRandomLinearPosition;
+exports.RANDOM_LINEAR_POSITIONS = RANDOM_LINEAR_POSITIONS;
