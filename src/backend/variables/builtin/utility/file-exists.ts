@@ -15,7 +15,7 @@ const model : ReplaceVariable = {
         filePath: string
     ) : boolean => {
 
-        if (filePath == null) {
+        if (typeof filePath !== "string" || filePath.length === 0) {
             return false;
         }
 

@@ -65,10 +65,12 @@ export type OverlayDimensions = {
 export type OverlayPosition = {
     position: string;
     customCoords?: {
-        top: number;
-        bottom: number;
-        left: number;
-        right: number;
+        top: number | null;
+        bottom: number | null;
+        left: number | null;
+        right: number | null;
+        xMode?: "fixed" | "linear-random";
+        yMode?: "fixed" | "linear-random";
     };
 };
 

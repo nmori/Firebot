@@ -144,49 +144,103 @@ function isRandomLinearPosition(position) {
 	return RANDOM_LINEAR_POSITIONS.indexOf(position) >= 0;
 }
 
-// 連続値（リニア）抽選: 表示のたびにビューポートに対する % で top/left を抽選する。
-// プリセット9値（Top Left ... Bottom Right）の離散的な3〜9択ではなく、画面内を滑らかに動かしたい時に使う。
-function getStylesForRandomLinear(position) {
-	const stripped = position.replace(/\s*Linear$/i, "").trim();
-	const parts = stripped === "Random" ? ["Random", "Random"] : stripped.split(/\s+/);
-	const yMode = parts[0];
-	const xMode = parts[1];
+// リニアランダム配置が必要か判定する。
+function needsLinearRandomPlacement(positionData) {
+	if (isRandomLinearPosition(positionData.position)) {
+		return true;
+	}
+	if (positionData.position === "Custom" && positionData.customCoords) {
+		return positionData.customCoords.xMode === "linear-random" ||
+		       positionData.customCoords.yMode === "linear-random";
+	}
+	return false;
+}
 
-	// 0〜85% に抑えて、ウィジェット自身の幅・高さで画面外にはみ出しにくくする。
-	const yRandom = Math.floor(Math.random() * 86);
-	const xRandom = Math.floor(Math.random() * 86);
+// リニアランダム配置: DOM 挿入後に実際の要素サイズを測定し、画面内に収まる px 座標を算出して適用する。
+// preset の "* Linear" も Custom の軸別ランダムも同じ関数で処理する。
+function applyLinearRandomBounds(uniqueId, positionData) {
+	const wrapperEl = document.getElementById(uniqueId);
+	if (!wrapperEl) { return; }
+	const innerEl = wrapperEl.querySelector(".inner-position");
+	if (!innerEl) { return; }
 
-	const decls = ["position:absolute", "margin:0"];
-	let translateX = 0;
-	let translateY = 0;
+	const wW = wrapperEl.offsetWidth  || (window.innerWidth  || 1280);
+	const wH = wrapperEl.offsetHeight || (window.innerHeight || 720);
 
-	if (yMode === "Random") {
-		decls.push(`top:${yRandom}%`);
-	} else if (yMode === "Top") {
-		decls.push("top:1.5%");
-	} else if (yMode === "Middle") {
-		decls.push("top:50%");
-		translateY = -50;
-	} else if (yMode === "Bottom") {
-		decls.push("bottom:1.5%");
+	// ランダム値は一度だけ生成し、再計算時も同じ相対位置（比率）を維持する。
+	const rY = Math.random();
+	const rX = Math.random();
+
+	function computeAndApply() {
+		// サイズ未確定（読み込み前）の場合は画面の 15% をフォールバックとして使う。
+		const iW = innerEl.offsetWidth  > 0 ? innerEl.offsetWidth  : Math.round(wW * 0.15);
+		const iH = innerEl.offsetHeight > 0 ? innerEl.offsetHeight : Math.round(wH * 0.15);
+		const maxX = Math.max(0, wW - iW);
+		const maxY = Math.max(0, wH - iH);
+
+		var topPx = null, bottomPx = null, leftPx = null, rightPx = null;
+
+		if (positionData.position === "Custom") {
+			var coords = positionData.customCoords || {};
+			if (coords.yMode === "linear-random") {
+				topPx = Math.round(rY * maxY);
+			} else {
+				if      (coords.top    != null) { topPx    = coords.top;    }
+				else if (coords.bottom != null) { bottomPx = coords.bottom; }
+				else                            { topPx    = 0; }
+			}
+			if (coords.xMode === "linear-random") {
+				leftPx = Math.round(rX * maxX);
+			} else {
+				if      (coords.left  != null) { leftPx  = coords.left;  }
+				else if (coords.right != null) { rightPx = coords.right; }
+				else                           { leftPx  = 0; }
+			}
+		} else {
+			// preset の Random Linear 系
+			var stripped = positionData.position.replace(/\s*Linear$/i, "").trim();
+			var parts = stripped === "Random" ? ["Random", "Random"] : stripped.split(/\s+/);
+			var yMode = parts[0];
+			var xMode = (parts.length > 1) ? parts[1] : "Random";
+
+			if      (yMode === "Random") { topPx    = Math.round(rY * maxY); }
+			else if (yMode === "Top")    { topPx    = Math.round(wH * 0.015); }
+			else if (yMode === "Middle") { topPx    = Math.round((wH - iH) / 2); }
+			else if (yMode === "Bottom") { bottomPx = Math.round(wH * 0.015); }
+
+			if      (xMode === "Random") { leftPx  = Math.round(rX * maxX); }
+			else if (xMode === "Left")   { leftPx  = Math.round(wW * 0.015); }
+			else if (xMode === "Middle") { leftPx  = Math.round((wW - iW) / 2); }
+			else if (xMode === "Right")  { rightPx = Math.round(wW * 0.015); }
+		}
+
+		var style = "position:absolute;margin:0;";
+		if (topPx    !== null) { style += "top:"    + topPx    + "px;"; }
+		if (bottomPx !== null) { style += "bottom:" + bottomPx + "px;"; }
+		if (leftPx   !== null) { style += "left:"   + leftPx   + "px;"; }
+		if (rightPx  !== null) { style += "right:"  + rightPx  + "px;"; }
+		style += "visibility:visible;";
+
+		innerEl.style.cssText = style;
 	}
 
-	if (xMode === "Random") {
-		decls.push(`left:${xRandom}%`);
-	} else if (xMode === "Left") {
-		decls.push("left:1.5%");
-	} else if (xMode === "Middle") {
-		decls.push("left:50%");
-		translateX = -50;
-	} else if (xMode === "Right") {
-		decls.push("right:1.5%");
-	}
+	// 初回: DOM 挿入直後に同期計測して配置する。
+	computeAndApply();
 
-	if (translateX !== 0 || translateY !== 0) {
-		decls.push(`transform:translate(${translateX}%, ${translateY}%)`);
+	// 画像・動画は読み込み後にサイズが確定するため、再度配置を適用する。
+	var mediaEl = innerEl.querySelector("img, video");
+	if (mediaEl) {
+		var recompute = function() { computeAndApply(); };
+		if (mediaEl.tagName === "IMG") {
+			if (!mediaEl.complete || mediaEl.naturalWidth === 0) {
+				mediaEl.addEventListener("load", recompute, { once: true });
+			}
+		} else if (mediaEl.tagName === "VIDEO") {
+			if (mediaEl.readyState < 1) {
+				mediaEl.addEventListener("loadedmetadata", recompute, { once: true });
+			}
+		}
 	}
-
-	return decls.join(";") + ";";
 }
 
 function getPositionWrappedHTML(uniqueId, positionData, html) {
@@ -197,10 +251,17 @@ function getPositionWrappedHTML(uniqueId, positionData, html) {
 		positionData.position.replace(/\s/, "-").toLowerCase() : "middle";
 
 	if (positionData.position === "Custom") {
-		styles = getStylesForCustomCoords(positionData.customCoords);
+		var coords = positionData.customCoords;
+		if (coords && (coords.xMode === "linear-random" || coords.yMode === "linear-random")) {
+			// 軸別リニアランダム: DOM 挿入後に JS で配置するため不可視プレースホルダーとして挿入する。
+			styles = "position:absolute;margin:0;visibility:hidden;";
+			position = "custom";
+		} else {
+			styles = getStylesForCustomCoords(coords);
+		}
 	} else if (isRandomLinearPosition(positionData.position)) {
-		// 連続値で抽選するため、wrapper の flex justify は使わず inner-position を絶対配置する。
-		styles = getStylesForRandomLinear(positionData.position);
+		// 連続値で抽選するため、DOM 挿入後に JS で実寸計測して配置する。
+		styles = "position:absolute;margin:0;visibility:hidden;";
 		position = "custom";
 	}
 
@@ -225,6 +286,11 @@ function showElement(
 	let positionWrappedHtml = getPositionWrappedHTML(uniqueId, positionData, effectHTML);
 
 	$('.wrapper').append(positionWrappedHtml);
+
+	// リニアランダム配置が必要な場合は、DOM 挿入後に実寸を測って配置を確定する。
+	if (needsLinearRandomPlacement(positionData)) {
+		applyLinearRandomBounds(uniqueId, positionData);
+	}
 
 	showTimedAnimatedElement(
 		"#" + uniqueId,

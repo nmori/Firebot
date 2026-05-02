@@ -6,6 +6,7 @@ grunt compile
 'use strict';
 const path = require('path');
 const createWindowsInstaller = require('electron-winstaller').createWindowsInstaller;
+const signTools = require('electron-winstaller/lib/sign');
 
 /**
  *
@@ -55,7 +56,23 @@ module.exports = function (grunt) {
 
         const config = grunt.config(`${this.name}.${this.target}`);
         const done = this.async();
-        createWindowsInstaller(config).then(done, done);
+
+        const usesSigning = !!config.signWithParams
+            || !!(config.certificateFile && config.certificatePassword)
+            || !!config.windowsSign;
+
+        const originalResetSignTool = signTools.resetSignTool;
+        if (!usesSigning) {
+            // electron-winstaller calls resetSignTool even without signing config.
+            // Skipping it avoids Node DEP0187 warnings from existsSync(undefined).
+            signTools.resetSignTool = async () => { };
+        }
+
+        createWindowsInstaller(config)
+            .then(() => done(), done)
+            .finally(() => {
+                signTools.resetSignTool = originalResetSignTool;
+            });
     });
 
     grunt.registerMultiTask('create-macos-installer', 'Create the macos .dmg installers', function () {

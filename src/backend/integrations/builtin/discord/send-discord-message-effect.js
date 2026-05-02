@@ -119,8 +119,9 @@ module.exports = {
         if (effect.files != null && effect.files.length !== 0) {
             files = [];
             effect.files.forEach((file) => {
-                if (fs.existsSync(file.path)) {
-                    files.push({name: file.name, file: fs.readFileSync(file.path)});
+                const filePath = typeof file?.path === "string" ? file.path : null;
+                if (filePath != null && fs.existsSync(filePath)) {
+                    files.push({ name: file.name, file: fs.readFileSync(filePath) });
                 } else {
                     logger.info("File not found, skipping: ", file);
                 }

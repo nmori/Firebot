@@ -200,6 +200,11 @@ const fileWriter: EffectType<{
             return;
         }
 
+        const filePath = typeof effect.filepath === "string" ? effect.filepath : "";
+        if (filePath === "") {
+            return false;
+        }
+
         let text = effect.text || "";
         let escapedNewline = "␚";
         while (text.includes(escapedNewline)) {
@@ -212,17 +217,17 @@ const fileWriter: EffectType<{
         try {
             switch (effect.writeMode) {
                 case "suffix":
-                    await fsp.appendFile(effect.filepath, text, { encoding: "utf8" });
+                    await fsp.appendFile(filePath, text, { encoding: "utf8" });
                     break;
 
                 case "append":
-                    if (fs.existsSync(effect.filepath) && effect.dontRepeat) {
-                        if (!await doesTextExistInFile(effect.filepath, text)) {
-                            await fsp.appendFile(effect.filepath, `${text}\n`, { encoding: "utf8" });
+                    if (fs.existsSync(filePath) && effect.dontRepeat) {
+                        if (!await doesTextExistInFile(filePath, text)) {
+                            await fsp.appendFile(filePath, `${text}\n`, { encoding: "utf8" });
                         }
                     } else {
-                        await fsp.mkdir(path.dirname(effect.filepath), { recursive: true });
-                        await fsp.appendFile(effect.filepath, `${text}\n`, { encoding: "utf8" });
+                        await fsp.mkdir(path.dirname(filePath), { recursive: true });
+                        await fsp.appendFile(filePath, `${text}\n`, { encoding: "utf8" });
                     }
                     break;
 
@@ -234,9 +239,9 @@ const fileWriter: EffectType<{
                             .filter(l => !isNaN(Number(l)))
                             .map(l => parseInt(l, 10) - 1);
 
-                        await fsp.writeFile(effect.filepath, await removeLines(effect.filepath, lines), { encoding: "utf8" });
+                        await fsp.writeFile(filePath, await removeLines(filePath, lines), { encoding: "utf8" });
                     } else if (effect.deleteLineMode === 'text') {
-                        await fsp.writeFile(effect.filepath, await removeLinesWithText(effect.filepath, effect.text), { encoding: "utf8" });
+                        await fsp.writeFile(filePath, await removeLinesWithText(filePath, effect.text), { encoding: "utf8" });
                     }
                     break;
 
@@ -248,18 +253,18 @@ const fileWriter: EffectType<{
                             .filter(l => !isNaN(Number(l)))
                             .map(l => parseInt(l, 10) - 1);
 
-                        await fsp.writeFile(effect.filepath, await replaceLines(effect.filepath, lines, effect.replacementText), { encoding: "utf8" });
+                        await fsp.writeFile(filePath, await replaceLines(filePath, lines, effect.replacementText), { encoding: "utf8" });
                     } else if (effect.replaceLineMode === 'text') {
-                        await fsp.writeFile(effect.filepath, await replaceLinesWithText(effect.filepath, effect.text, effect.replacementText), { encoding: "utf8" });
+                        await fsp.writeFile(filePath, await replaceLinesWithText(filePath, effect.text, effect.replacementText), { encoding: "utf8" });
                     }
                     break;
 
                 case "delete-all":
-                    await fsp.writeFile(effect.filepath, "", { encoding: "utf8" });
+                    await fsp.writeFile(filePath, "", { encoding: "utf8" });
                     break;
 
                 default: // Replace (overwrite)
-                    await fsp.writeFile(effect.filepath, text, { encoding: "utf8" });
+                    await fsp.writeFile(filePath, text, { encoding: "utf8" });
                     break;
             }
         } catch (err) {

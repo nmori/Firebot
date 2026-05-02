@@ -51,16 +51,22 @@
                         <p class="muted" style="font-size:11px; margin-top:4px;" ng-if="$ctrl.randomMode === 'x'">上の3×3でクリックした「行」が固定されます。クリックした列は無視されます。</p>
                         <p class="muted" style="font-size:11px; margin-top:4px;" ng-if="$ctrl.randomMode === 'y'">上の3×3でクリックした「列」が固定されます。クリックした行は無視されます。</p>
                         <div class="controls-fb-inline" style="margin-top:6px;">
-                            <label class="control-fb control--checkbox">連続値（リニア）で抽選する
+                            <label class="control-fb control--checkbox">位置をランダムに細かく決める
                                 <input type="checkbox" ng-click="$ctrl.toggleRandomLinear()" ng-checked="$ctrl.randomLinear">
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
-                        <p class="muted" style="font-size:11px; margin-top:2px;" ng-if="$ctrl.randomLinear">プリセット9点ではなく、毎回ピクセル単位で連続的にランダム抽選します。</p>
+                        <p class="muted" style="font-size:11px; margin-top:2px;" ng-if="$ctrl.randomLinear">プリセット9点ではなく、毎回ピクセル単位で連続的にランダムに決定します。</p>
                     </div>
                 </div>
                 <div ng-if="$ctrl.effect.position === 'Custom'" style="margin: 5px 0 5px 0px;">
-                    <form class="form-inline">
+                    <div class="controls-fb-inline" style="margin-bottom: 4px;">
+                        <label class="control-fb control--checkbox">上下方向をリニアランダムにする
+                            <input type="checkbox" ng-click="$ctrl.toggleCustomYLinear()" ng-checked="$ctrl.customYLinear">
+                            <div class="control__indicator"></div>
+                        </label>
+                    </div>
+                    <form class="form-inline" ng-style="{'opacity': $ctrl.customYLinear ? 0.4 : 1, 'pointer-events': $ctrl.customYLinear ? 'none' : 'auto'}">
                         <div class="form-group">
                             <input type="number" class="form-control" ng-model="$ctrl.topOrBottomValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
                         </div>
@@ -69,15 +75,21 @@
                             <dropdown-select options="['top','bottom']" selected="$ctrl.topOrBottom" on-update="$ctrl.updateTopOrBottom(option)"></dropdown-select>
                             <span> から</span>
                         </div>
-                        <div style="margin-top: 15px;">
-                            <div class="form-group">
-                                <input type="number" class="form-control" ng-model="$ctrl.leftOrRightValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
-                            </div>
-                            <div class="form-group">
-                                <span> px を </span>
-                                <dropdown-select options="['left','right']" selected="$ctrl.leftOrRight" on-update="$ctrl.updateLeftOrRight(option)"></dropdown-select>
-                                <span> から</span>
-                            </div>
+                    </form>
+                    <div class="controls-fb-inline" style="margin-top: 14px; margin-bottom: 4px;">
+                        <label class="control-fb control--checkbox">左右方向をリニアランダムにする
+                            <input type="checkbox" ng-click="$ctrl.toggleCustomXLinear()" ng-checked="$ctrl.customXLinear">
+                            <div class="control__indicator"></div>
+                        </label>
+                    </div>
+                    <form class="form-inline" ng-style="{'opacity': $ctrl.customXLinear ? 0.4 : 1, 'pointer-events': $ctrl.customXLinear ? 'none' : 'auto'}">
+                        <div class="form-group">
+                            <dropdown-select options="['left','right']" selected="$ctrl.leftOrRight" on-update="$ctrl.updateLeftOrRight(option)"></dropdown-select>
+                            <span> を基準に</span>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" ng-model="$ctrl.leftOrRightValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
+                            <span> px </span>
                         </div>
                     </form>
                 </div>
@@ -109,8 +121,12 @@
                 // "off" | "both" | "x" | "y"
                 ctrl.randomMode = "off";
 
-                // true の場合は連続値（リニア）抽選: 保存値に " Linear" サフィックスが付く。
+                // true の場合は連続値（リニア）設定: 保存値に " Linear" サフィックスが付く。
                 ctrl.randomLinear = false;
+
+                // Custom 位置での軸別リニアランダムフラグ（上下 / 左右それぞれ独立）
+                ctrl.customYLinear = false;
+                ctrl.customXLinear = false;
 
                 const RANDOM_X_VALUES = ["Top Random", "Middle Random", "Bottom Random"];
                 const RANDOM_Y_VALUES = ["Random Left", "Random Middle", "Random Right"];
@@ -205,6 +221,16 @@
                     ctrl.applyAnchorAndMode();
                 };
 
+                ctrl.toggleCustomYLinear = function() {
+                    ctrl.customYLinear = !ctrl.customYLinear;
+                    ctrl.updateAllValues();
+                };
+
+                ctrl.toggleCustomXLinear = function() {
+                    ctrl.customXLinear = !ctrl.customXLinear;
+                    ctrl.updateAllValues();
+                };
+
                 ctrl.updateAllValues = function() {
                     if (ctrl.topOrBottom === "top") {
                         ctrl.effect.customCoords.top = ctrl.topOrBottomValue;
@@ -221,12 +247,17 @@
                         ctrl.effect.customCoords.left = null;
                         ctrl.effect.customCoords.right = ctrl.leftOrRightValue;
                     }
+
+                    ctrl.effect.customCoords.yMode = ctrl.customYLinear ? "linear-random" : "fixed";
+                    ctrl.effect.customCoords.xMode = ctrl.customXLinear ? "linear-random" : "fixed";
                 };
 
                 ctrl.togglePresetCustom = function() {
                     if (ctrl.presetOrCustom === "custom") {
                         ctrl.randomMode = "off";
                         ctrl.randomLinear = false;
+                        ctrl.customYLinear = false;
+                        ctrl.customXLinear = false;
                         ctrl.effect.position = "Custom";
                     } else {
                         ctrl.anchorPosition = "Middle";
@@ -312,6 +343,9 @@
                         ctrl.randomMode = "off";
                         ctrl.randomLinear = false;
                         ctrl.anchorPosition = "Middle";
+                        // Custom 位置の軸別リニアランダムを復元する
+                        ctrl.customYLinear = !!(ctrl.effect.customCoords && ctrl.effect.customCoords.yMode === "linear-random");
+                        ctrl.customXLinear = !!(ctrl.effect.customCoords && ctrl.effect.customCoords.xMode === "linear-random");
                     } else {
                         ctrl.randomMode = "off";
                         ctrl.randomLinear = false;

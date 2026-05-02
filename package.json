@@ -1,6 +1,6 @@
 {
     "name": "firebotv5-jp",
-    "version": "5.65.4+7",
+    "version": "5.65.4+8",
     "description": "Powerful all-in-one bot for Twitch streamers.",
     "main": "build/main.js",
     "scripts": {
@@ -128,7 +128,10 @@
     },
     "overrides": {
         "appdmg": "github:SReject/node-appdmg#1f5eaeb054a74ec917db7c75a8619b6d009f0f73",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "@aws-sdk/xml-builder": "3.972.22",
+        "fast-xml-parser": "5.7.2",
+        "@xmldom/xmldom": "0.8.13"
     },
     "optionalDependencies": {
         "@dennisrijsdijk/electron-installer-redhat": "^3.5.0",
