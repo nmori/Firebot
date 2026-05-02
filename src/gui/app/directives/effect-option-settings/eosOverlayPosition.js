@@ -61,23 +61,23 @@
                 </div>
                 <div ng-if="$ctrl.effect.position === 'Custom'" style="margin: 5px 0 5px 0px;">
                     <div class="controls-fb-inline" style="margin-bottom: 4px;">
-                        <label class="control-fb control--checkbox">上下方向をリニアランダムにする
+                        <label class="control-fb control--checkbox">上下方向はランダムに細かく位置決定
                             <input type="checkbox" ng-click="$ctrl.toggleCustomYLinear()" ng-checked="$ctrl.customYLinear">
                             <div class="control__indicator"></div>
                         </label>
                     </div>
                     <form class="form-inline" ng-style="{'opacity': $ctrl.customYLinear ? 0.4 : 1, 'pointer-events': $ctrl.customYLinear ? 'none' : 'auto'}">
                         <div class="form-group">
-                            <input type="number" class="form-control" ng-model="$ctrl.topOrBottomValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
+                            <dropdown-select options="['top','bottom']" selected="$ctrl.topOrBottom" on-update="$ctrl.updateTopOrBottom(option)"></dropdown-select>
+                            <span> を基準に</span>
                         </div>
                         <div class="form-group">
-                            <span> px を </span>
-                            <dropdown-select options="['top','bottom']" selected="$ctrl.topOrBottom" on-update="$ctrl.updateTopOrBottom(option)"></dropdown-select>
-                            <span> から</span>
+                            <input type="number" class="form-control" ng-model="$ctrl.topOrBottomValue" ng-change="$ctrl.updateAllValues()" style="width: 85px;">
+                            <span> px  </span>
                         </div>
                     </form>
                     <div class="controls-fb-inline" style="margin-top: 14px; margin-bottom: 4px;">
-                        <label class="control-fb control--checkbox">左右方向をリニアランダムにする
+                        <label class="control-fb control--checkbox">左右方向はランダムに細かく位置決定
                             <input type="checkbox" ng-click="$ctrl.toggleCustomXLinear()" ng-checked="$ctrl.customXLinear">
                             <div class="control__indicator"></div>
                         </label>
