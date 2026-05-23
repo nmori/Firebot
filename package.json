@@ -120,7 +120,7 @@
         "unzipper": "^0.12.3",
         "winston": "^3.18.3",
         "winston-daily-rotate-file": "^5.0.0",
-        "ws": "^8.2.2",
+        "ws": "^8.20.1",
         "yargs-parser": "^21.1.1"
     },
     "overrides": {
