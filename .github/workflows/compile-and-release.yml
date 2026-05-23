@@ -105,6 +105,16 @@ jobs:
       - name: Install Project Dependencies
         run: npm install --include=optional
 
+      - name: Install appdmg (macOS required)
+        if: runner.os == 'macOS'
+        run: npm install --no-save appdmg@0.6.6
+
+      - name: Verify appdmg resolution (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          node -e "console.log(require.resolve('appdmg'))"
+          npm ls appdmg electron-installer-dmg --depth=2
+
       - name: Decrypt Secrets.gpg
         env:
           PASSKEY_FOR_FIREBOT_SECRETS: ${{ secrets.PASSKEY_FOR_FIREBOT_SECRETS }}
