@@ -11,7 +11,7 @@ const filter = createPresetFilter({
     allowIsNot: true,
     presetValues: async (backendCommunicator: any) => {
         const rewards = await backendCommunicator.fireEventAsync("get-channel-rewards");
-        return rewards.map(r => ({value: r.id, display: r.twitchData.title}));
+        return rewards.map(r => ({ value: r.id, display: r.twitchData.title }));
     },
     valueIsStillValid: async (filterSettings, backendCommunicator: any) => {
         const rewards = await backendCommunicator.fireEventAsync("get-channel-rewards");

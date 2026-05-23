@@ -3,7 +3,8 @@ import { EventFilter } from "../../../../../types/events";
 import {
     OBS_EVENT_SOURCE_ID,
     OBS_SCENE_CHANGED_EVENT_ID,
-    OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID
+    OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID,
+    OBS_SCENE_ITEM_LIST_REINDEXED_EVENT_ID
 } from "../constants";
 
 const filter: EventFilter = createPresetFilter({
@@ -12,7 +13,8 @@ const filter: EventFilter = createPresetFilter({
     description: "現在アクティブな OBS シーン名でフィルターします",
     events: [
         { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_CHANGED_EVENT_ID },
-        { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID }
+        { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_ITEM_ENABLE_STATE_CHANGED_EVENT_ID },
+        { eventSourceId: OBS_EVENT_SOURCE_ID, eventId: OBS_SCENE_ITEM_LIST_REINDEXED_EVENT_ID }
     ],
     eventMetaKey: "sceneName",
     allowIsNot: true,

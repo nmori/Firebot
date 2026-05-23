@@ -1,5 +1,5 @@
-import type { EffectList, EffectType } from "../../../types/effects";
-import effectRunner from "../../common/effect-runner";
+import type { EffectList, EffectType } from "../../../../types/effects";
+import effectRunner from "../../../common/effect-runner";
 
 const effect: EffectType<{
     id: string;
@@ -12,11 +12,19 @@ const effect: EffectType<{
         description: "エフェクトリストから1つずつ順番に実行します",
         icon: "fad fa-list-ol",
         categories: ["advanced", "scripting"],
-        dependencies: []
+        dependencies: [],
+        hidden: true,
+        deprecated: true
     },
     optionsTemplate: `
     <eos-container>
-        <p>This effect will run a single effect sequentially from the list below. Particularly useful in Timers!</p>
+            <div class="effect-info alert alert-warning">
+                警告: このエフェクトは非推奨です。今後は任意のエフェクトリストで <strong>順次（単体）</strong> 実行モードを使用してください。
+            </div>
+        </eos-container>
+
+    <eos-container pad-top="true">
+        <p>下のリストからエフェクトを 1 つずつ順番に実行します。特にタイマーで便利です。</p>
     </eos-container>
 
     <eos-container pad-top="true">
@@ -24,7 +32,7 @@ const effect: EffectType<{
             trigger="{{trigger}}"
             trigger-meta="triggerMeta"
             update="effectListUpdated(effects)"
-            header="Effects"
+            header="エフェクト"
             mode="sequential"
             modalId="{{modalId}}"></effect-list>
     </eos-container>

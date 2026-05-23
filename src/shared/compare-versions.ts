@@ -11,8 +11,12 @@
 *     - 1.0.0-beta   (No version number after prereleaseTag is assumed as 1)
 *     - 1.0.0-beta2
 *     - 1.0.0-beta.3
+*
+* - Build metadata is ignored for comparison. These are also valid:
+*     - 1.0.0+1
+*     - 1.0.0-beta.3+local
 */
-const semverRegex = /^v?(\d+)(?:[.](\d+))?(?:[.](\d+))?(?:-([a-z]+([\d]*)?)[.]?((?:\d+[.]?)*))?$/i;
+const semverRegex = /^v?(\d+)(?:[.](\d+))?(?:[.](\d+))?(?:-([a-z]+([\d]*)?)[.]?((?:\d+[.]?)*))?(?:\+[0-9a-z.-]+)?$/i;
 
 enum UpdateType {
     NONE = "none",
@@ -43,8 +47,12 @@ function validate(version: string): void {
     }
 }
 
+function normalizeVersion(version: string): string {
+    return version.split("+")[0];
+}
+
 function parseVersion(version: string): VersionInfo {
-    const elements = version.match(semverRegex);
+    const elements = normalizeVersion(version).match(semverRegex);
     return {
         major: +elements[1],
         minor: elements[2] ? +elements[2] : 0,
@@ -57,6 +65,9 @@ function parseVersion(version: string): VersionInfo {
 
 function compareVersions(newVersion: string, currentVersion: string): UpdateType {
     [newVersion, currentVersion].forEach(validate);
+
+    newVersion = normalizeVersion(newVersion);
+    currentVersion = normalizeVersion(currentVersion);
 
     let updateType = UpdateType.NONE;
 

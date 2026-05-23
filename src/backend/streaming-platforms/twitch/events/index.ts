@@ -25,6 +25,7 @@ import * as sub from "./sub";
 import * as viewerArrived from "./viewer-arrived";
 import * as viewerBanned from "./viewer-banned";
 import * as viewerTimeout from "./viewer-timeout";
+import * as watchStreak from "./watch-streak";
 import * as whisper from "./whisper";
 
 export const TwitchEventHandlers = {
@@ -49,6 +50,7 @@ export const TwitchEventHandlers = {
     viewerArrived,
     viewerBanned,
     viewerTimeout,
+    watchStreak,
     whisper
 };
 
@@ -631,7 +633,7 @@ export const TwitchEventSource: EventSource = {
             manualMetadata: {
                 username: "alca",
                 userDisplayName: "Alca",
-                userId: "",
+                userId: "7676884",
                 timeoutDuration: "1",
                 moderator: "Firebot",
                 modReason: "They were naughty"
@@ -649,6 +651,38 @@ export const TwitchEventSource: EventSource = {
                     }
                     return message;
                 }
+            }
+        },
+        {
+            id: "power-up-redemption",
+            name: "Power-up Redemption",
+            description: "When someone redeems a custom power-up",
+            cached: true,
+            cacheMetaKey: "username",
+            cacheTtlInSecs: 1,
+            manualMetadata: {
+                username: "firebot",
+                userDisplayName: "Firebot",
+                userId: "",
+                powerUpName: "Test Power-up",
+                powerUpDescription: "Example Power-up Description",
+                powerUpImage: "https://static-cdn.jtvnw.net/custom-reward-images/default-4.png",
+                powerUpCost: 100,
+                messageText: "Test message"
+            },
+            activityFeed: {
+                icon: "fad fa-circle",
+                getMessage: (eventData) => {
+                    const showUserIdName = eventData.username.toLowerCase() !== eventData.userDisplayName.toLowerCase();
+                    return `**${eventData.userDisplayName}${
+                        showUserIdName ? ` (${eventData.username})` : ""
+                    }** redeemed **${eventData.powerUpName}**${
+                        eventData.messageText && !!eventData.messageText.length
+                            ? `: *${escape(eventData.messageText)}*`
+                            : ""
+                    }`;
+                },
+                excludeFromChatFeed: true
             }
         },
         {
@@ -937,7 +971,8 @@ export const TwitchEventSource: EventSource = {
                         { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "テスト選択肢 1" },
                         { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "テスト選択肢 2" },
                         { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "テスト選択肢 3" }
-                    ] },
+                    ]
+                },
                 title: "テスト投票名"
             },
             activityFeed: {
@@ -959,7 +994,8 @@ export const TwitchEventSource: EventSource = {
                         { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "テスト選択肢 1", totalVotes: 120, channelPointsVotes: 60 },
                         { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "テスト選択肢 2", totalVotes: 140, channelPointsVotes: 40 },
                         { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "テスト選択肢 3", totalVotes: 80, channelPointsVotes: 70 }
-                    ] },
+                    ]
+                },
                 title: "テスト投票名",
                 winningChoiceName: "テスト選択肢 2",
                 winningChoiceVotes: 140
@@ -983,7 +1019,8 @@ export const TwitchEventSource: EventSource = {
                         { id: "c0113c14-144e-475c-9647-a65f9177665d", title: "テスト選択肢 1", totalVotes: 125, channelPointsVotes: 62 },
                         { id: "6d86797a-d88a-4fc2-b4f6-1895afdc503e", title: "テスト選択肢 2", totalVotes: 145, channelPointsVotes: 42 },
                         { id: "791bc06c-c4d5-4c74-b950-8596c04dbb0d", title: "テスト選択肢 3", totalVotes: 85, channelPointsVotes: 72 }
-                    ] },
+                    ]
+                },
                 title: "テスト投票名",
                 winningChoiceName: "テスト選択肢 2",
                 winningChoiceVotes: 145
@@ -1482,6 +1519,26 @@ export const TwitchEventSource: EventSource = {
                     return `**${friendlyDuration}** の**${
                         eventData.isAdBreakScheduled ? "予定" : "手動"
                     }**広告ブレイクが終了しました`;
+                }
+            }
+        },
+        {
+            id: "watch-streak",
+            name: "Watch Streak",
+            description: "When a viewer hits a milestone for consecutive number of your streams watched.",
+            cached: false,
+            manualMetadata: {
+                username: "firebot",
+                userId: "",
+                userDisplayName: "Firebot",
+                streakCount: 5,
+                channelPointsAwarded: 450,
+                streakMessage: "I've been here the whole time!"
+            },
+            activityFeed: {
+                icon: "fad fa-fire",
+                getMessage: (eventData) => {
+                    return `**${eventData.userDisplayName}** reached a **${eventData.streakCount}-stream streak**`;
                 }
             }
         }

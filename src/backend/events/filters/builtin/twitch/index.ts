@@ -10,6 +10,7 @@ import goldenKappaTrain from "./golden-kappa-train";
 import isAnonymous from "./is-anonymous";
 import lifetimeGiftCount from "./lifetime-gift-count";
 import message from "./message";
+import powerUp from "./power-up";
 import raidViewerCount from "./raid-viewer-count";
 import reward from "./reward";
 import rewardName from "./reward-name";
@@ -17,6 +18,7 @@ import sharedChat from "./shared-chat";
 import sharedTrain from "./shared-train";
 import streamCategory from "./stream-category";
 import subKind from "./sub-kind";
+import subMonths from "./sub-months";
 import subType from "./sub-type";
 import treasureTrain from "./treasure-train";
 import username from "./username";
@@ -34,6 +36,7 @@ export default [
     isAnonymous,
     lifetimeGiftCount,
     message,
+    powerUp,
     raidViewerCount,
     rewardName,
     reward,
@@ -41,6 +44,7 @@ export default [
     sharedTrain,
     streamCategory,
     subKind,
+    subMonths,
     subType,
     treasureTrain,
     username

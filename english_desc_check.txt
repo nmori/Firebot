@@ -1,0 +1,1386 @@
+﻿=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/accounts/bot.ts ===
+  description: "Outputs the Bot account username.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/accounts/streamer.ts ===
+  description: "Outputs the Streamer account username.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-add.ts ===
+  description: 'Returns a new array with the added element',
+  usage: 'arrayAdd[array, new-item, at-start]',
+  usage: 'arrayAdd["[1,2,3]", 4]',
+  description: 'Returns a new array with 4 added to the end of the array. (1,2,3,4)'
+  usage: 'arrayAdd["[1,2,3]", 4, true]',
+  description: 'Returns a new array with 4 added to the start of the array. (4,1,2,3)'
+  usage: 'arrayAdd[rawArray, 4]',
+  description: 'Returns a new array with 4 added to the end of the raw array'
+  usage: 'arrayAdd[rawArray, 4, true]',
+  description: 'Returns a new array with 4 added to the start of the raw array'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-element.ts ===
+  usage: "arrayElement[array, index]",
+  description: "Returns the element at the given index of the input array.",
+  usage: 'arrayElement["[1,2,3]", 0]',
+  description: "Returns the element at the 0 index (1)"
+  usage: 'arrayElement["[1,2,3]", first]',
+  description: "Returns the element at the first index (1)"
+  usage: 'arrayElement["[1,2,3]", last]',
+  description: 'Returns the element at the last index (3)'
+  usage: 'arrayElement[rawArray, 0]',
+  description: "Returns the element at the 0 index"
+  usage: 'arrayElement[rawArray, first]',
+  description: 'Returns the element at the first index'
+  usage: 'arrayElement[rawArray, last]',
+  description: 'Returns the element at the last index'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-filter.ts ===
+  description: "Returns a new filtered array.",
+  usage: "arrayFilter[array, matcher, propertyPath, removeMatches]",
+  usage: 'arrayFilter["[1,2,3]", 1, null, false]',
+  description: "Filter out anything that doesn't equal 1 (new array: [1])"
+  usage: 'arrayFilter["[1,2,3]", 1, null, true]',
+  description: 'Filter out anything that equals 1 (new array: [2,3])'
+  usage: 'arrayFilter["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"MageEnclave\\"}]", ebiggz, username, true]',
+  description: 'Filter out anything that has a username property which equals "ebiggz" (new array: [{\\"username\\": \\"MageEnclave\\"}])'
+  usage: 'arrayFilter[rawArray, 1, null, false]',
+  description: "Filter out anything that doesn't equal 1"
+  usage: 'arrayFilter[rawArray, 1, null, true]',
+  description: 'Filter out anything that equals 1'
+  usage: 'arrayFilter[rawArray, value, key, true]',
+  description: 'Filter out any item in the array that has a key property which equals "value"'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-find-index.ts ===
+  usage: 'arrayFindIndex[array, matcher, propertyPath?, exact?]',
+  description: "Finds a matching element in the array and returns its index, or null if the element is absent",
+  usage: 'arrayFindIndex["[\\"a\\",\\"b\\",\\"c\\"]", b]',
+  description: 'Returns 1 , the index of "b"'
+  usage: 'arrayFindIndex["[{\\"username\\": \\"alastor\\"},{\\"username\\": \\"ebiggz\\"}]", alastor, username]',
+  description: 'Returns 0, the index of the object where "username"="alastor"'
+  usage: 'arrayFindIndex["[0,1,2,"1"]", "1", null, $true]',
+  description: 'Returns 3, the index of the text "1"'
+  usage: 'arrayFindIndex[rawArray, b]',
+  description: 'Returns 1, the index of "b"'
+  usage: 'arrayFindIndex[rawArray, value, key]',
+  description: 'Searches the array for an item with a key with the value of "value"'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-find-with-null.ts ===
+  usage: "arrayFindWithNull[array, matcher, propertyPath?, exact?]",
+  description: "Finds a matching element in the array or returns a literal null",
+  usage: 'arrayFindWithNull["[1,2,3]", 1]',
+  description: "Finds 1 in the array"
+  usage: 'arrayFindWithNull["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"MageEnclave\\"}]", ebiggz, username]',
+  description: 'Finds object with username of "ebiggz"'
+  usage: 'arrayFindWithNull["[0,1,2,"1"]", 1, null, true]',
+  description: "Returns the text '1'"
+  usage: 'arrayFindWithNull[rawArray, value]',
+  description: 'Searches each item in the array for "value" and returns the first matched item'
+  usage: 'arrayFindWithNull[rawArray, value, key]',
+  description: 'Searches each item in the array for an item that has a "key" property that equals "value"'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-find.ts ===
+  usage: "arrayFind[array, matcher, propertyPath?, exact?]",
+  description: "Finds a matching element in the array or returns the text 'null'",
+  usage: 'arrayFind["[1,2,3]", 1]',
+  description: "Finds 1 in the array"
+  usage: 'arrayFind["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"MageEnclave\\"}]", ebiggz, username]',
+  description: 'Finds object with username of "ebiggz"'
+  usage: 'arrayFind["[0,1,2,"1"]", 1, null, true]',
+  description: "Returns the text '1'"
+  usage: 'arrayFind[rawArray, value]',
+  description: 'Searches each item in the array for "value" and returns the first matched item'
+  usage: 'arrayFind[rawArray, value, key]',
+  description: 'Searches each item in the array for an item that has a "key" property that equals "value"'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-from.ts ===
+  usage: "arrayFrom[value, value, ...]",
+  description: "Returns a raw array containing the listed values",
+  usage: "arrayFrom[1, 2, 3]",
+  description: "Returns [1, 2, 3]."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-fuzzy-search.ts ===
+  usage: "arrayFuzzySearch[array, search, propertyPaths?, defaultValue?, threshold?, ignoreDiacritics?]",
+  description: "Finds the first element in an array that is closest to the given search. You can optionally include a threshold between 0.0 and 1.0 to filter results where 0.0 is strict and 1.0 is loose, and ignore diacritics on characters (ie é, à, ç, ñ)",
+  usage: 'arrayFuzzySearch["[\\"apple\\", \\"banana\\", \\"cherry\\"]", apfl]',
+  description: 'Returns the text "apple"'
+  usage: 'arrayFuzzySearch["[{\\"username\\": \\"ebiggz\\"},{\\"username\\": \\"Oceanity\\"}]", eggz, username]',
+  description: 'Finds object with username of "ebiggz"'
+  usage: 'arrayFuzzySearch["[{\\"username\\": \\"ebiggz\\",\\"id\\": 1234567},{\\"username\\": \\"Oceanity\\",\\"id\\": 9876543}]", 2455678, "[\\"username\\",\\"id\\"]"]',
+  description: 'Searches objects using multiple properties for a match'
+  usage: 'arrayFuzzySearch["[\\"apple\\", \\"banana\\", \\"cherry\\"]", apfl, nothing, null, 0.2]',
+  description: 'Returns the default text "nothing" as the search results are all outside the threshold'
+  usage: 'arrayFuzzySearch["[\\"piñata\\"]", pinata, null, nothing, 0.0, true]',
+  description: 'Returns the text "piñata" with threshold set to find only exact matches because diacritics are ignored'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-join.ts ===
+  description: "Returns a string with each array item joined together with the given separator",
+  usage: "arrayJoin[array, separator]",
+  usage: `arrayJoin["["apple","banana","cherry"]", " - "]`,
+  description: `Returns "apple - banana - cherry".`
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-length.ts ===
+  usage: "arrayLength[array]",
+  description: "Returns the length of the input array.",
+  description: "Returns 3."
+  usage: "arrayLength[rawArray]",
+  description: "Returns the length of the raw array."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-random-item.ts ===
+  usage: "arrayRandomItem[array]",
+  description: "Returns a random item from the given array",
+  description: "Returns a random item from the array [1,2,3]."
+  usage: "arrayRandomItem[rawArray]",
+  description: "Returns a random item from the raw array."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-remove.ts ===
+  description: "Returns a new array with the element at the given index removed",
+  usage: "arrayRemove[array, index]",
+  usage: 'arrayRemove["[1,2,3]", 0]',
+  description: "Removes the element at the 0 index (2,3)"
+  usage: 'arrayRemove["[1,2,3]", first]',
+  description: "Removes the element at the first index (2,3)"
+  usage: 'arrayRemove["[1,2,3]", last]',
+  description: 'Removes the element at the last index (1,2)'
+  usage: 'arrayRemove[rawArray, 0]',
+  description: "Removes the element at the 0 index"
+  usage: 'arrayRemove[rawArray, first]',
+  description: 'Removes the element at the first index'
+  usage: 'arrayRemove[rawArray, last]',
+  description: 'Removes the element at the last index'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-reverse.ts ===
+  description: "Returns a new reversed array",
+  usage: "arrayReverse[array]",
+  description: "Returns [3,2,1]."
+  usage: "arrayReverse[rawArray]",
+  description: "Returns the reversed raw array."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-shuffle.ts ===
+  description: "Returns a new shuffled array",
+  usage: "arrayShuffle[array]",
+  description: "Returns a shuffled version of [1,2,3], e.g., [2,1,3]."
+  usage: "arrayShuffle[rawArray]",
+  description: "Returns a shuffled version of the raw array."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/array-slice.ts ===
+  description: "Returns a slice of an array (see [JavaScript `Array.slice()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) for info on start/end behavior)",
+  usage: "arraySlice[array, start, end]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-add.ts ===
+  usage: 'rawArrayAdd[array, new-item, at-start]',
+  usage: 'rawArrayAdd[array, 4]',
+  description: 'Returns a new array with 4 added to the end of the raw array'
+  usage: 'rawArrayAdd[array, 4, true]',
+  description: 'Returns a new array with 4 added to the start of the raw array'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-element.ts ===
+  usage: "rawArrayElement[array, index]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-filter.ts ===
+  usage: "rawArrayFilter[rawArray, matcher, propertyPath, removeMatches]",
+  usage: 'rawArrayFilter[rawArray, 1, null, false]',
+  description: "Filter out anything that doesn't equal 1"
+  usage: 'rawArrayFilter[rawArray, 1, null, true]',
+  description: 'Filter out anything that equals 1'
+  usage: 'rawArrayFilter[rawArray, value, key, true]',
+  description: 'Filter out any item in the array that has a key property which equals "value"'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-find-index.ts ===
+  usage: "rawArrayFindIndex[array, matcher, propertyPath]",
+  usage: 'rawArrayFindIndex[array, b]',
+  description: 'Returns 1, the index of "b"'
+  usage: 'rawArrayFindIndex[array, value, key]',
+  description: 'Searches the array for an item with a key with the value of "value"'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-find.ts ===
+  usage: "rawArrayFind[array, matcher, propertyPath]",
+  usage: 'rawArrayFind[array, value]',
+  description: 'Searches each item in the array for "value" and returns the first matched item'
+  usage: 'rawArrayFind[array, value, key]',
+  description: 'Searches each item in the array for an item that has a "key" property that equals "value"'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-from.ts ===
+  usage: "rawArrayFrom[value, value, ...]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-join.ts ===
+  usage: "rawArrayJoin[array, separator]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-length.ts ===
+  usage: "rawArrayLength[array]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-remove.ts ===
+  usage: "rawArrayRemove[array, index]",
+  usage: 'rawArrayRemove[array, 0]',
+  description: "Removes the element at the 0 index"
+  usage: 'rawArrayRemove[array, last]',
+  description: 'Removes the element at the last index'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-reverse.ts ===
+  usage: "rawArrayReverse[array]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/array/raw-array-shuffle.ts ===
+  usage: "rawArrayShuffle[array]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/counter/counter-change.ts ===
+  description: "How much the counter has increased/decreased",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/counter/counter-maximum.ts ===
+  description: "The maximum value of the counter, or an empty string if there isn't one",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/counter/counter-minimum.ts ===
+  description: "The minimum value of the counter, or an empty string if there isn't one",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/counter/counter-name.ts ===
+  description: "The name of the counter",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/counter/counter-new-value.ts ===
+  description: "The new value of the counter",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/counter/counter-previous-value.ts ===
+  description: "The previous value of the counter",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/counter/counter.ts ===
+  usage: "counter[name]",
+  description: "Displays the value of the given counter.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/currency/currency-name.ts ===
+  description: "The name of the currency",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/currency/currency-rank.ts ===
+  description: "Returns the rank of the current user based on how much of the given currency they have.",
+  usage: "currencyRank[currencyName]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/currency/currency.ts ===
+  description: "How much of the given currency the current user has.",
+  usage: "currency[currencyName, user]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/currency/new-currency-amount.ts ===
+  description: "The new amount of currency the viewer has",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/currency/previous-currency-amount.ts ===
+  description: "The previous amount of currency the viewer had",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/currency/top-currency-raw.ts ===
+  description: "Returns a raw array containing those with the most of the specified currency. Items in the array contain `place`, `username` and `amount` properties.",
+  usage: "rawTopCurrency[currencyName]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/currency/top-currency-user.ts ===
+  description: "Get the username or amount for a specific position in the top currency",
+  usage: "topCurrencyUser[currencyName, position, username/amount]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/currency/top-currency.ts ===
+  description: "Comma separated list of users with the most of the given currency. Defaults to top 10, you can provide a custom number as a second argument.",
+  usage: "topCurrency[currencyName]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/custom-vars/custom-variable-created-data.ts ===
+  description: "Data from the created custom variable.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/custom-vars/custom-variable-created-name.ts ===
+  description: "Name of the created custom variable.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/custom-vars/custom-variable-expired-data.ts ===
+  description: "Data from the expired custom variable.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/custom-vars/custom-variable-expired-name.ts ===
+  description: "Name of the expired custom variable.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/custom-vars/custom-variable-keys-raw.ts ===
+  usage: "rawCustomVariableKeys[name]",
+  usage: "rawCustomVariableKeys[name, property|index]",
+  description: "Get the array of keys for an object property by providing a property path (using dot notation) as a second argument."
+  description: "Get the array of keys for an object saved in the custom variable.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/custom-vars/custom-variable-keys.ts ===
+  usage: "customVariableKeys[name]",
+  usage: "customVariableKeys[name, 1]",
+  description: "Get the array of keys for an object which is an array item by providing an array index as a second argument."
+  usage: "customVariableKeys[name, property]",
+  description: "Get the array of keys for an object property by providing a property path (using dot notation) as a second argument."
+  description: "Get the array of keys for an object saved in the custom variable.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/custom-vars/custom-variable-raw.ts ===
+  usage: "rawCustomVariable[name]",
+  usage: "rawCustomVariable[name, 1]",
+  description: "Get an array item by providing an array index as a second argument."
+  usage: "rawCustomVariable[name, property]",
+  description: "Get a property by providing a property path (using dot notation) as a second argument."
+  usage: "rawCustomVariable[name, null, exampleString]",
+  description: "Set a default value in case the custom variable doesn't exist yet."
+  description: "Get the data saved in the custom variable.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/custom-vars/custom-variable.ts ===
+  usage: "customVariable[name]",
+  usage: "customVariable[name, 1]",
+  description: "Get an array item by providing an array index as a second argument."
+  usage: "customVariable[name, property]",
+  description: "Get a property by providing a property path (using dot notation) as a second argument."
+  usage: "customVariable[name, null, exampleString]",
+  description: "Set a default value in case the custom variable doesn't exist yet."
+  description: "Get the data saved in the custom variable.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/macro/macro-arg.ts ===
+  description: 'gets the nth argument passed into the macro',
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/macro/macro.ts ===
+  description: 'calls a user-defined macro',
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/arg-array.ts ===
+  description: "Returns an array of command arguments",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/arg-count.ts ===
+  description: "Returns the number of command args.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/arg.ts ===
+  usage: "arg[#]",
+  description: "Grabs the command argument (aka a word after the command !trigger) at the given index.",
+  usage: "arg[1,2]",
+  description: "Grab a range of args."
+  usage: "arg[2,last]",
+  description: "Grab a range of args up to the last arg."
+  usage: "arg[all]",
+  description: "Grab all args. This is a good way to grab all text after the !command trigger."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/command-trigger.ts ===
+  description: "The trigger of the issued command.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/count.ts ===
+  usage: "count",
+  description: "Displays the number of times the given command has been run.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/effect-output.ts ===
+  usage: "effectOutput[name]",
+  usage: "effectOutput[name, 1]",
+  description: "Get an array item by providing an array index as a second argument."
+  usage: "effectOutput[name, property]",
+  description: "Get a property by providing a property path (using dot notation) as a second argument."
+  usage: "effectOutput[name, null, exampleString]",
+  description: "Set a default value in case the effect output doesn't exist yet."
+  usage: "effectOutput[name, property, exampleString]",
+  description: "Set a default value in case the effect output doesn't have data at the specified property path."
+  description: "Get data that was outputted by a prior effect.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/effect-queue-id.ts ===
+  description: "The ID of the effect queue.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/effect-queue-length.ts ===
+  usage: "effectQueueLength[queueName]",
+  description: "Returns the length of an effect queue. Useful for showing queue length in a command response.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/effect-queue-name.ts ===
+  description: "The name of the effect queue.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/effect-queue-status.ts ===
+  description: "The status of the effect queue.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/event-data.ts ===
+  description: "An object containing all the metadata included with the event.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/overlay-instance.ts ===
+  description: "The name of the overlay instance that triggered the event.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/preset-list-arg.ts ===
+  usage: "presetListArg[name]",
+  description: "Represents the given argument passed to this preset effect list.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/scan-whole-message.ts ===
+  description: "Returns `true` if the command has the **Scan Whole Message** option enabled, or `false` otherwise.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/target.ts ===
+  description: "Similar to the $arg variable but strips out any leading '@' symbols. Useful when the argument is expected to be a username.",
+  usage: "target",
+  usage: "target[#]",
+  description: "Grab the target at the given index (IE with '!command @ebiggz @TheLastMage', $target[2] would be 'TheLastMage')"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/top-metadata-raw.ts ===
+  description: "Returns a raw array of users with the most of a given metadata key. Items contain `username`, `place` and `amount` properties.",
+  usage: "rawTopMetadata[metadataKey]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/top-metadata-user.ts ===
+  description: "Get the username or amount for a specific position in the top metadata list",
+  usage: "topMetadataUser[slaps, 1, username]",
+  description: "Get the username for the top slapper"
+  usage: "topMetadataUser[slaps, 5, amount]",
+  description: "Get the number of slaps for the top 5th slapper"
+  usage: "topMetadataUser[metadataKey, position, username/amount]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/top-metadata.ts ===
+  description: "Comma separated list of users with the most of the given metadata key. Defaults to top 10, you can provide a custom number as a second argument.",
+  usage: "topMetadata[metadataKey]",
+  usage: "topMetadata[deaths, 5]",
+  description: "Returns comma-separated list of top 5 users with their death counts"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/user.ts ===
+  description: "The associated user (if there is one) for the given trigger",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/webhook-header.ts ===
+  usage: "webhookHeader[key]",
+  description: "The value of a specific header included with the webhook request.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/webhook-headers.ts ===
+  description: "The headers of the webhook",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/webhook-id.ts ===
+  description: "The ID of the webhook",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/webhook-name.ts ===
+  description: "The name of the webhook",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/webhook-payload.ts ===
+  description: "The payload of the webhook",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/metadata/webhook-raw-payload.ts ===
+  description: "The raw payload of the webhook",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/active-chat-user-count.ts ===
+  description: "Get the number of active viewers in chat.",
+  usage: "activeChatUserCount[CustomRole]",
+  description: "Gets the number of active viewers in the specified custom role."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/chat-user-count.ts ===
+  description: "Get the total number of current viewers in chat, both active and lurking.",
+  usage: "chatUserCount[CustomRole]",
+  description: "Gets the total number of current chat viewers in the specified custom role."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/color.ts ===
+  usage: 'color[red]',
+  description: "returns '#ff0000'"
+  usage: 'color[red, hex]',
+  description: "returns '#ff0000'"
+  usage: 'color[red, hexa, 255]',
+  description: "returns '#ff0000ff'"
+  usage: 'color[green, ahex, 255]',
+  description: "returns '#ff00ff00'"
+  usage: 'color[red, rgb]',
+  description: "returns 'rgb(255, 0, 0)'"
+  usage: 'color[red, rgbp]',
+  description: "returns 'rgb(100%, 0, 0)'"
+  usage: 'color[#00ff00, hsl]',
+  description: "returns 'hsl(0, 100%, 50%)'"
+  usage: 'color[#ff00ff00, hsv, 0.5]',
+  description: "returns 'hsv(0, 100%, 100%)'"
+  usage: 'color[#ff00ff00, dec]',
+  description: "returns decimal value"
+  description: "outputs color in specified format",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/date.ts ===
+  usage: "date[dddd MMMM Do]",
+  description: 'Format with the preferred tokens. Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
+  usage: "date[YYYY-DD-MM HH:mm:ss]",
+  description: "Format with the preferred tokens."
+  usage: "date[MMM Do YYYY, 2, days]",
+  description: "Adds 2 days to the current date (or use other units i.e. months, years, etc.)."
+  usage: "date[MMM Do YYY, -2, days]",
+  description: "Subtract 2 days from the current date (or use other units i.e. months, years, etc.)."
+  description: "The current date formatted as MMM Do YYYY",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/discord-timestamp.ts ===
+  description: "Outputs a discord timestamp that shows the appropriate time for all users in their own timezone.",
+  usage: "discordTimestamp[]",
+  usage: "discordTimestamp[]",
+  description: "Create discord timestamp using your current time."
+  usage: "discordTimestamp[2076-01-26 13:00:00]",
+  description: "Create discord timestamp using specified time, in default discord format."
+  usage: "discordTimestamp[2076-01-26 13:00:00:t]",
+  description: "Create a 'short time' discord timestamp. EX: 01:00 | 1:00 PM"
+  usage: "discordTimestamp[2076-01-26 13:00:00:T]",
+  description: "Create a 'long time' discord timestamp. EX: 01:00:00 | 01:00:00 PM"
+  usage: "discordTimestamp[2076-01-26 13:00:00:d]",
+  description: "Create a 'short date' discord timestamp. EX: 1/26/2076 | 26/01/2076"
+  usage: "discordTimestamp[2076-01-26 13:00:00:D]",
+  description: "Create a 'long date' discord timestamp. EX: January 26, 2076 | 26 January 2076"
+  usage: "discordTimestamp[2076-01-26 13:00:00:f]",
+  description: "Create a 'short date/time' discord timestamp. EX: January 26, 2076 1:00 PM | 26 January 2076 13:00"
+  usage: "discordTimestamp[2076-01-26 13:00:00:F]",
+  description: "Create a 'long date/time' discord timestamp. EX: Sunday, January 26, 2076 1:00 PM | Sunday, 26 January 2076, 13:00"
+  usage: "discordTimestamp[2076-01-26 13:00:00:R]",
+  description: "Create a 'relative' discord timestamp. EX: 'in 53 years' | 'in 23 minutes'"
+  usage: "discordTimestamp[13:00:00]",
+  description: "Create discord timestamp using a specified time on the current date."
+  usage: "discordTimestamp[now, R]",
+  description: "Create discord timestamp using current date and time in a specified format."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/profile-page-bytebin-token.ts ===
+  description: "Get bytebin id for streamer profile. Access the json by going to https://bytebin.lucko.me/ID-HERE.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/quote-as-object.ts ===
+  description: "Get a random quote in the form of a JSON Object.",
+  usage: "quoteAsObject[#]",
+  description: "Get a specific quote id."
+  usage: "quoteAsObject[#, property]",
+  description: "Get only a specific property for a specific quote. Valid properties are id, createdAt, creator, originator, text and game."
+  usage: "quoteAsObject[null, property]",
+  description: "Get only a specific property for a random quote. Valid properties are id, createdAt, creator, originator, text and game."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/quote-as-raw-object.ts ===
+  usage: "rawQuoteAsObject[#]",
+  description: "Get a specific quote id."
+  usage: "rawQuoteAsObject[#, property]",
+  description: "Get only a specific property for a specific quote. Valid properties are id, createdAt, creator, originator, text and game."
+  usage: "rawQuoteAsObject[null, property]",
+  description: "Get only a specific property for a random quote. Valid properties are id, createdAt, creator, originator, text and game."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/quote.ts ===
+  description: "Get a random quote",
+  usage: "quote[#]",
+  description: "Get a specific quote id."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/random-advice.ts ===
+  usage: "randomAdvice",
+  description: "Get some random advice!",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/random-dad-joke.ts ===
+  usage: "randomDadJoke",
+  description: "Get a random dad joke!",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/random-reddit-image.ts ===
+  usage: "randomRedditImage[subredditName]",
+  description: "Get a random image from a subreddit. (We do our best to check for bad images, but content warning none the less.)",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/roll-dice.ts ===
+  usage: "rollDice[diceConfig]",
+  usage: "rollDice[1d6]",
+  description: "Roll one 6-sided dice, outputs the sum"
+  usage: "rollDice[2d10+1d12]",
+  description: "Roll two 10-sided dice and one 12-sided die, outputs the sum"
+  usage: "rollDice[2d6, show each]",
+  description: "Outputs text containing both the sum of all roles and the values or each individual roll. IE: '10 (4, 6)"
+  description: "Rolls some dice based on the provided config, ie 2d6 or 2d10+1d12 or 1d10+3",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/time.ts ===
+  description: "Outputs the current time.",
+  usage: "time[format]",
+  description: 'Outputs the current time in a specific format. Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
+  usage: "time[YYYY-DD-MM HH:mm:ss]",
+  description: "Format with the preferred tokens."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/top-view-time-raw.ts ===
+  description: "Returns a raw array containing users with the most view time (in hours). Items contain `username`, 'place` and `minutes` properties.",
+  usage: "rawTopViewTime[count]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/top-view-time.ts ===
+  description: "Comma separated list of users with the most view time (in hours). Defaults to top 10, you can provide a custom number as a second argument.",
+  usage: "topViewTime[count]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/unix-timestamp.ts ===
+  usage: "unixTimestamp[2011-03-18 18:49 UTC]",
+  description: "Unix timestamp for provided date"
+  usage: "unixTimestamp[07/28/2024, MM/DD/YYYY]",
+  description: 'Unix timestamp for provided date with specified format.  Format uses <a href="https://momentjs.com/docs/#/displaying/format/">moment.js</a> formatting rules.'
+  usage: "unixTimestamp[$accountCreationDate]",
+  description: "Unix timestamp for provided account creation date"
+  usage: "unixTimestamp[$date[MMM Do YYYY, -14, days], MMM Do YYYY]",
+  description: "Unix timestamp for date variable set to 2 weeks ago formatted as MMM Do YYYY"
+  description: "The current date formatted as seconds since January 1, 1970 00:00:00 UTC",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/misc/uptime.ts ===
+  description: "The current stream uptime",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/ensure-number.ts ===
+  description: "Guarantees a number output. If the input is a number, it is passed through. If it's not, the given default number is used instead.",
+  usage: "ensureNumber[input, defaultNumber]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/math.ts ===
+  usage: "math[expression]",
+  description: 'Evaluate a math equation using <a href="https://mathjs.org/docs/index.html">math.js</a>',
+  usage: "math[2 + 2]",
+  usage: "math[5 * (3 + 2)]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/number-ceil.ts ===
+  description: "Rounds up the given number to the nearest whole number.",
+  usage: "ceil[num]",
+  usage: "ceil[3.2]",
+  description: "Returns 4"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/number-commafy.ts ===
+  description: "Adds the appropriate commas to a number.",
+  usage: "commafy[number]",
+  usage: "commafy[1000000]",
+  usage: "commafy[1000000, 2]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/number-floor.ts ===
+  description: "Rounds down the given number to the nearest whole number.",
+  usage: "floor[num]",
+  usage: "floor[3.7]",
+  description: "Returns 3"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/number-max.ts ===
+  description: "Returns the highest-value number",
+  usage: "max[num1, num2, ...]",
+  usage: "max[1, 5, 3, 10]",
+  description: "Returns 10, the highest value from the input numbers"
+  usage: "max[numberArray]",
+  description: "Returns the highest value from the input array of numbers"
+  usage: "max[``[1, 5, 3, 10]``]",
+  description: "Returns 10, the highest value from the input stringified array of numbers"
+  usage: "max[``[8, 12]``, 5, 3, 10]",
+  description: "Returns 12, the highest value from the input stringified array and numbers"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/number-min.ts ===
+  description: "Returns the lowest-value number",
+  usage: "min[num1, num2, ...]",
+  usage: "min[1, 5, 3, 10]",
+  description: "Returns 1, the lowest value from the input numbers"
+  usage: "min[numberArray]",
+  description: "Returns the lowest value from the input array of numbers"
+  usage: "min[``[1, 5, 3, 10]``]",
+  description: "Returns 1, the lowest value from the input stringified array of numbers"
+  usage: "min[``[8, 12]``, 5, 3, 10]",
+  description: "Returns 3, the lowest value from the input stringified array and numbers"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/number-pad.ts ===
+  description: "Pads the given number up to the specified number of decimal places.",
+  usage: "padNumber[value, places]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/number-random.ts ===
+  usage: "randomNumber[min, max]",
+  description: "Get a random number between the given range.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/number-round.ts ===
+  description: "Rounds the given number to the nearest whole number.",
+  usage: "round[num]",
+  usage: "round[num, places]",
+  description: "Rounds the given number to the specified number of decimal places."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/number/ordinal-indicator.ts ===
+  description: "Adds an ordinal indicator suffix to a number (ie 'st', 'nd', 'rd')",
+  usage: "ordinalIndicator[number]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/object/object-keys.ts ===
+  description: "Gets an array of the keys for a given object.",
+  usage: "objectKeys[object]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/object/object-set-property-raw.ts ===
+  usage: "rawSetObjectProperty[object, propertyPath, value]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/object/object-set-property.ts ===
+  description: "Adds or updates a property's value in the given JSON object. For nested properties, you can use dot notation (e.g. some.property). Set value to null to remove property.",
+  usage: "setObjectProperty[object, propertyPath, value]",
+  usage: `setObjectProperty[{"name": "John"}, age, 25]`,
+  description: `Adds/updates the age property to 25. Result: {"name": "John", "age": 25}`
+  usage: `setObjectProperty[{"user": {"name": "John"}}, user.age, 25]`,
+  description: `Adds/updates a nested property using dot notation. Result: {"user": {"name": "John", "age": 25}}`
+  usage: `setObjectProperty[{"name": "John", "age": 25}, age, null]`,
+  description: `Removes the age property. Result: {"name": "John"}`
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/object/object-walk-path-raw.ts ===
+  usage: "rawObjectWalkPath[rawobject, path.to.value]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/object/object-walk-path.ts ===
+  description: "Returns the value from an object at the given dot-notated path",
+  usage: "objectWalkPath[subject | JSON text, path.to.value]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/operand/false.ts ===
+  description: "Returns a literal false boolean value; Useful in comparisons such as in $if[]",
+  usage: "false",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/operand/null.ts ===
+  description: "Returns a literal null value; Useful in comparisons such as in $if[]",
+  usage: "null",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/operand/true.ts ===
+  description: "Returns a literal true boolean value; Useful in comparisons such as in $if[]",
+  usage: "true",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/overlay-widgets/custom-widget-id.ts ===
+  description: "The ID of the custom widget",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/overlay-widgets/custom-widget-message-data.ts ===
+  description: "The data of the custom widget message",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/overlay-widgets/custom-widget-message-name.ts ===
+  description: "The name of the custom widget message",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/overlay-widgets/custom-widget-name.ts ===
+  description: "The name of the custom widget",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/overlay-widgets/dynamic-countdown-id.ts ===
+  description: "The ID of the dynamic countdown widget",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/overlay-widgets/dynamic-countdown-name.ts ===
+  description: "The name of the dynamic countdown widget",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/overlay-widgets/overlay-widget-state.ts ===
+  usage: "overlayWidgetState[nameOrId]",
+  description: 'Retrieves the state of the specified overlay widget.',
+  usage: 'overlayWidgetState[myWidget]',
+  description: "Get the state of the overlay widget with ID 'myWidget'."
+  usage: 'overlayWidgetState[myWidget, object.path.here]',
+  description: "Traverse the state JSON object."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/all.ts ===
+  description: 'Returns true if all of the conditions are true. Only works within $if[]',
+  usage: "ALL[condition, condition, ...]",
+  usage: 'ALL[a === a, b === b]',
+  description: "Returns true as a equals a and b equals b"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/and.ts ===
+  usage: "AND[condition, condition, ...]",
+  description: 'Returns true if all of the conditions are true. Only works within $if[]',
+  usage: 'AND[a === a, b === b]',
+  description: "Returns true as a equals a and b equals b"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/any.ts ===
+  usage: "ANY[condition, condition, ...]",
+  description: 'Returns true if any of the conditions are true. Only works within $if[]',
+  usage: 'ANY[a === b, c === c]',
+  description: "Returns true as c equals c"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/custom-variable-shorthand.ts ===
+  description: 'Retrieves the value for a customVariable. If path is specified, walks the item before returning the value',
+  description: "Returns the value of the customVariable 'example'; Synonymous with $customVariable[example]"
+  description: "Returns the value of the customVariable 'example'; Synonymous with $customVariable[example, path.to.value]"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/effect-output-shorthand.ts ===
+  description: "Retrieves the value for an effectOutput. If path is specified, walks the item before returning the value",
+  description: "Returns the value of the effectOutput 'example'; Synonymous with $effectOutput[example]"
+  description: "Returns the value of the effectOutput 'example'; Synonymous with $effectOutput[example, path.to.value]"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/if.ts ===
+  usage: "if[condition, when_true, when_false]",
+  description: 'Returns the parameter based on the condition\'s result.',
+  usage: 'if[$user === Jim, JIM]',
+  description: "Returns JIM if the user is Jim, otherwise returns empty text"
+  usage: 'if[$user === Jim, JIM, JOHN]',
+  description: "Returns JIM if the user is Jim, otherwise returns JOHN"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/nall.ts ===
+  usage: "NALL[condition, condition, ...]",
+  description: 'Returns true if any of the conditions return false',
+  usage: 'NALL[a === a, b === c]',
+  description: "Returns true as b does not equals c"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/nand.ts ===
+  usage: "NAND[condition, condition, ...]",
+  description: 'Returns true if any of the conditions return false',
+  usage: 'NAND[a === a, b === c]',
+  description: "Returns true as b does not equals c"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/nany.ts ===
+  usage: "NANY[condition, condition, ...]",
+  description: 'Returns true if all of the conditions return false',
+  usage: 'NANY[a === b, b === c]',
+  description: "Returns true as a does not equal be and b does not equals c"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/nor.ts ===
+  usage: "NOR[condition, condition, ...]",
+  description: 'Returns true if all of the conditions return false',
+  usage: 'NOR[a === b, b === c]',
+  description: "Returns true as a does not equal be and b does not equals c"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/not.ts ===
+  usage: "NOT[condition]",
+  description: 'Returns the opposite of the condition\'s result. Only works within $if[]',
+  usage: 'NOT[1 === 1]',
+  description: "Returns false as the condition is true"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/or.ts ===
+  usage: "OR[condition, condition, ...]",
+  description: 'Returns true if any of the conditions are true. Only works within $if[]',
+  description: "Returns true as c equals c"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/spoofed/preset-list-args-shorthand.ts ===
+  description: 'Retrieves the preset-list arg of the give name',
+  description: "Returns the value of the preset-list arg 'example'; Synonymous with $presetListArgs[example]"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/atob.ts ===
+  usage: 'atob[string]',
+  description: 'Decodes a base64 encoded string. If the string is not valid base64, it will return an empty string.',
+  usage: 'atob[SGVsbG8sIFdvcmxkIQ==]',
+  description: 'Decodes the base64 string "SGVsbG8sIFdvcmxkIQ==" back to "Hello, World!".'
+  usage: 'atob[test string]',
+  description: 'Returns an empty string because "test string" is not valid base64.'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/base64-decode.ts ===
+  usage: 'base64Decode[string]',
+  description: 'Decodes a base64 encoded string. If the string is not valid base64, it will return an empty string.',
+  usage: 'base64Decode[SGVsbG8sIFdvcmxkIQ==]',
+  description: 'Decodes the base64 string "SGVsbG8sIFdvcmxkIQ==" back to "Hello, World!".'
+  usage: 'base64Decode[test string]',
+  description: 'Returns an empty string because "test string" is not valid base64.'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/base64-encode.ts ===
+  usage: 'base64Encode[string]',
+  description: 'Encodes a string into base64.',
+  usage: 'base64Encode["Hello, World!"]',
+  description: 'Encodes the string "Hello, World!" in to base64 (yielding "SGVsbG8sIFdvcmxkIQ==").'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/btoa.ts ===
+  usage: 'btoa[string]',
+  description: 'Encodes a string into base64.',
+  usage: 'btoa["Hello, World!"]',
+  description: 'Encodes the string "Hello, World!" in to base64 (yielding "SGVsbG8sIFdvcmxkIQ==").'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/regex-exec.ts ===
+  description: "Filter a string with a [regular expression](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)",
+  usage: "regexExec[string, expression]",
+  usage: "regexExec[string, expression, flags]",
+  description: "Add flags to the regex evaluation."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/regex-matches-raw.ts ===
+  usage: "rawRegexMatches[string, expression]",
+  usage: "rawRegexMatches[string, expression, flags]",
+  description: "Add flags to the regex evaluation."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/regex-matches.ts ===
+  description: "Filter a string with a [regular expression](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions) and return an array of all matches",
+  usage: "regexMatches[string, expression]",
+  usage: "regexMatches[string, expression, flags]",
+  description: "Add flags to the regex evaluation."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/regex-test.ts ===
+  description: "Check whether a string matches a [regular expression](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)",
+  usage: "regexTest[string, expression]",
+  usage: "regexTest[string, expression, flags]",
+  description: "Add flags to the regex evaluation."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/sprintf.ts ===
+  usage: 'sprintf[template, ...values]',
+  description: 'Formats a string using the specified template and values.',
+  usage: 'sprintf["Hello, %s!", "World"]',
+  description: 'Formats the string into "Hello, World!".'
+  usage: 'sprintf["%d + %d = %d", 2, 3, 5]',
+  description: 'Formats the string into "2 + 3 = 5".'
+  usage: 'sprintf["%s tipped $%0.2f", "Alice", 5]',
+  description: 'Formats the string into "Alice tipped $5.00".'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-capitalize.ts ===
+  description: "Capitalizes the first letter of the given text, converting the rest into lowercase",
+  usage: "capitalize[text]",
+  usage: `capitalize["hello world"]`,
+  description: `Returns "Hello world".`
+  usage: `capitalize["HELLO WORLD"]`,
+  description: `Returns "Hello world".`
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-concat.ts ===
+  description: "Appends text together",
+  usage: "concat[text, text, ...]",
+  description: `Returns "Hello World"`
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-contains.ts ===
+  usage: "textContains[text, search]",
+  description: "Returns true if text contains search, otherwise returns false",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-decode-from-html.ts ===
+  description: "Decodes input text from an HTML-encoded string",
+  usage: "decodeFromHtml[text]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-decode-from-url.ts ===
+  description: "Decodes input text from a URL-encoded string",
+  usage: "decodeFromUrl[text]",
+  usage: `decodeFromUrl["Hello%20World%21"]`,
+  description: `Returns "Hello World!"`
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-encode-for-html.ts ===
+  description: "Encodes input text for safe use within HTML templates",
+  usage: "encodeForHtml[text]",
+  usage: "encodeForHtml[<p>Hello & Welcome!</p>]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-encode-for-url.ts ===
+  description: "Encodes input text for use in a URL",
+  usage: "encodeForUrl[text]",
+  usage: "encodeForUrl[Hello World!]",
+  description: `Returns "Hello%20World%21"`
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-length.ts ===
+  usage: "textLength[text]",
+  description: "Returns the length of the input text",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-lowercase.ts ===
+  description: "Makes the entire given text string lowercase.",
+  usage: "lowercase[text]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-pad-end.ts ===
+  description: "Pads the end of text",
+  usage: "textPadEnd[input, count, countIsLength, padChar]",
+  usage: "textPadEnd[input, count, $false, \" \"]",
+  description: "Adds 'count' number of spaces to the end of input"
+  usage: "textPadEnd[input, count, $true, \" \"]",
+  description: "Adds spaces to the end of the input until the length of the output equals 'count'"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-pad-start.ts ===
+  description: "Pads the start of text",
+  usage: "textPadStart[input, count, countIsLength, padChar]",
+  usage: "textPadStart[input, count, $false, \" \"]",
+  description: "Adds 'count' number of spaces to the start of input"
+  usage: "textPadStart[input, count, $true, \" \"]",
+  description: "Adds spaces to the start of the input until the length of the output equals 'count'"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-replace.ts ===
+  description: "Replaces a search value with a replacement value",
+  usage: "replace[textInput, searchValue, replacement]",
+  usage: "replace[textInput, searchValue, replacement, true]",
+  description: "Allows searching using a [regular expression](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)."
+  usage: "replace[textInput, searchValue, replacement, true, flags]",
+  description: "Add flags when using a [regular expression](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_expressions)."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-scramble.ts ===
+  usage: "scrambleText[text]",
+  description: "Scrambles the input text",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-split-raw.ts ===
+  usage: "rawSplitText[text, separator]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-split.ts ===
+  description: "Splits text with the given separator and returns an array. Useful for Custom Variables.",
+  usage: "splitText[text, separator]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-substring.ts ===
+  usage: "textSubstring[text, start, end]",
+  description: "Returns a substring of the provided text based on the range",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-trim-end.ts ===
+  description: "Removes any whitespace from the end of input text.",
+  usage: "trimEnd[text]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-trim-start.ts ===
+  description: "Removes any whitespace from the beginning of input text.",
+  usage: "trimStart[text]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-trim.ts ===
+  description: "Removes any whitespace from the beginning and end of input text.",
+  usage: "trim[text]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-uppercase.ts ===
+  description: "Makes the entire given text string uppercase.",
+  usage: "uppercase[text]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/text/text-word.ts ===
+  description: "Get a word at the specified position in a given sentence",
+  usage: "word[text, #]",
+  usage: 'word[This is a test, 4]',
+  description: "Get the 4th word. In this example: 'test'"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/chat-messages.ts ===
+  usage: "chatMessages",
+  description: "Displays the number of chat messages for a viewer (leave blank to use current viewer)",
+  usage: "chatMessages",
+  description: "Returns the number of chat messages for the current viewer"
+  usage: "chatMessages[username]",
+  description: "Returns the number of chat messages for the specified user"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/is-user-in-chat.ts ===
+  usage: "isUserInChat[username]",
+  description: "Outputs `true` if a user is currently connected to Twitch chat, `false` if not",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/join-date.ts ===
+  usage: "joinDate",
+  description: "Displays the date that a viewer was first seen in chat (by Firebot).",
+  usage: "joinDate",
+  description: "Returns the join date for the current viewer."
+  usage: "joinDate[username]",
+  description: "Returns the join date for the specified viewer."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/last-seen.ts ===
+  usage: "lastSeen",
+  description: "Displays the date that a viewer was last seen in chat (by Firebot).",
+  usage: "lastSeen",
+  description: "Returns the last seen date for the current viewer."
+  usage: "lastSeen[username]",
+  description: "Returns the last seen date for the specified viewer."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/metadata-key.ts ===
+  description: "The metadata key associated with this event",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/metadata-value.ts ===
+  description: "The metadata value associated with this event",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/pronouns.ts ===
+  description: "Returns the pronouns of the given user. It uses https://pronouns.alejo.io/ to get the pronouns.",
+  usage: 'pronouns[username, 0, they/them]',
+  description: "Returns 'she/her' if available, otherwise uses they/them."
+  usage: 'pronouns[username, 1, they]',
+  description: "Returns 'she' pronoun in she/her set if available, otherwise uses they."
+  usage: 'pronouns[username, 2, them]',
+  description: "Returns 'her' pronoun in she/her set if available, otherwise uses them."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/random-active-viewer.ts ===
+  usage: "randomActiveViewer",
+  description: "Get a random active chatter's username.",
+  usage: "randomActiveViewer[customRolesToInclude, usersToExclude, customRolesToExclude, username|id|raw]",
+  description: "Get a random active chatter that is a member of the custom role(s), ignoring the excluded username(s) and members in the excluded role(s)."
+  usage: "randomActiveViewer[roleName]",
+  description: "Filter to an active viewer in a specific role."
+  usage: "randomActiveViewer[null, ignoreUser]",
+  description: "Get a random active user that is NOT the ignored user."
+  usage: "randomActiveViewer[$arrayFrom[roleOne, roleTwo], $arrayFrom[$streamer, $bot], $arrayFrom[roleC, roleD]]",
+  description: "Filter to members of roleOne or roleTwo, excluding streamer and bot, and excluding any members of roleC or roleD."
+  usage: "randomActiveViewer[null, null, null, id]",
+  description: "Get the unique user ID for a random active chatter."
+  usage: "randomActiveViewer[null, null, null, raw]",
+  description: "Get an object representing a random active chatter. The result will include `username` and `id` properties."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/random-viewer.ts ===
+  description: "Get a random viewer's username that is presently in your channel's chat.",
+  usage: "randomViewer[customRolesToInclude, usersToExclude, customRolesToExclude, username|displayName|id|raw]",
+  description: "Get a random online viewer that is a member of the custom role(s), ignoring the excluded username(s) and members in the excluded role(s)."
+  usage: "randomViewer[roleOne, $streamer, null, displayName]",
+  description: "Get a random online viewer's display name that is a member of the roleOne custom role, excluding your own user name."
+  usage: "randomViewer[null, ebiggz, roleC, id]",
+  description: "Get a random online viewer's unique user id, excluding ebiggz, and excluding any members of the roleC custom role."
+  usage: "randomViewer[$arrayFrom[roleOne, roleTwo], $arrayFrom[$streamer, $bot], $arrayFrom[roleC, roleD]]",
+  description: "Filter to members of roleOne or roleTwo, excluding your own streamer and bot accounts, and excluding any members of roleC or roleD."
+  usage: "randomViewer[null, null, null, raw]",
+  description: "Get an object representing an online viewer. The result will include `username`, `displayName` and `id` properties."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-avatar-url.ts ===
+  usage: "userAvatarUrl",
+  description: "Gets the url for the avatar of the associated user (Ie who triggered command, pressed button, etc).",
+  usage: "userAvatarUrl[$target]",
+  description: "When in a command, gets the the url for the avatar of the target user."
+  usage: "userAvatarUrl[ebiggz]",
+  description: "Gets the url for the avatar of a specific user."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-badge-urls.ts ===
+  usage: "userBadgeUrls[1]",
+  description: "Get the URL of a chatter's selected badge image."
+  description: "Outputs the URLs of a chatter's selected badge images from the associated command or event.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-bio.ts ===
+  usage: "userBio",
+  description: "Gets the bio/description of the associated user (ie who triggered command, pressed button, etc).",
+  usage: "userBio[$target]",
+  description: "When in a command, gets the the bio/description of the target user."
+  usage: "userBio[ebiggz]",
+  description: "Gets the bio/description of a specific user."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-display-name.ts ===
+  usage: "userDisplayName",
+  description: "Gets the formatted display name of the associated user (if there is one) for the given trigger.",
+  usage: "userDisplayName[username]",
+  description: "The formatted display name for the given username. Searches local viewer DB first, then Twitch API."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-exists.ts ===
+  usage: "userExists[username]",
+  description: "Outputs 'true' if a user exists in Firebot's database, 'false' if not",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-id.ts ===
+  usage: "userId",
+  description: "Gets the user ID of the associated user (if there is one) for the given trigger.",
+  usage: "userId[username]",
+  description: "The user ID for the given username. Searches local viewer DB first, then Twitch API."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-is-banned.ts ===
+  usage: "userIsBanned[username]",
+  description: "Returns `true` if the specified user is currently banned (not just timed out), otherwise returns `false`.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-is-timed-out.ts ===
+  usage: "userIsTimedOut[username]",
+  description: "Returns `true` if the specified user is currently timed out, otherwise returns `false`.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-metadata-raw.ts ===
+  usage: "rawUserMetadata[username, metadataKey]",
+  usage: "rawUserMetadata[username, metadataKey, defaultValue]",
+  description: "Provide a default value if one doesn't exist for the user."
+  usage: "rawUserMetadata[username, metadataKey, null, propertyPath]",
+  description: "Provide a property path (using dot notation) or array index as a second argument."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/user-metadata.ts ===
+  description: "Get the metadata associated with the user.",
+  usage: "userMetadata[username, metadataKey]",
+  usage: "userMetadata[username, metadataKey, defaultValue]",
+  description: "Provide a default value if one doesn't exist for the user."
+  usage: "userMetadata[username, metadataKey, null, propertyPath]",
+  description: "Provide a property path (using dot notation) or array index as a second argument."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/username-array.ts ===
+  description: "Returns an array of all usernames saved in the user db",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/view-time.ts ===
+  usage: "viewTime",
+  description: "Displays the view time (in hours) of a given viewer (leave blank to use current viewer)",
+  usage: "viewTime",
+  description: "Returns view time for current viewer"
+  usage: "viewTime[username]",
+  description: "Returns view time for specified viewer"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/is-demotion.ts ===
+  description: "Whether or not the new rank from the Viewer Rank Changed event is a demotion",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/is-promotion.ts ===
+  description: "Whether or not the new rank from the Viewer Rank Changed event is a promotion",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/new-rank.ts ===
+  description: "The name of the associated new rank of the Viewer Rank Changed event",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/previous-rank.ts ===
+  description: "The name of the associated previous rank of the Viewer Rank Changed event",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/rank-ladder-mode.ts ===
+  usage: "rankLadderMode[rankLadderName]",
+  description: "Returns the mode of the specified rank ladder (e.g. 'auto' or 'manual')",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/rank-ladder.ts ===
+  description: "The name of the associated rank ladder of the Viewer Rank Changed event",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/rank-value-description.ts ===
+  usage: "rankValueDescription[rankLadderName, rankName]",
+  description: "Returns the threshold value description of the specified rank in the rank ladder, i.e. '50 hours'. Only applicable to auto rank ladders.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/rank-value.ts ===
+  usage: "rankValue[rankLadderName, rankName]",
+  description: "Returns the threshold value of the specified rank in the rank ladder. Only applicable to auto rank ladders.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/viewer-has-rank.ts ===
+  usage: "viewerHasRank[username, rankLadderName, rankName]",
+  description: "Whether the viewer has the specified rank in the specified rank ladder",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/viewer-names-in-rank.ts ===
+  usage: "viewerNamesInRank[rankLadderName, rankName]",
+  description: "Returns an comma separated list of viewer names in the specified rank",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/viewer-next-rank.ts ===
+  usage: "viewerNextRank[username, rankLadderName]",
+  description: "Returns the the next rank in specified rank ladder for the user",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/viewer-rank.ts ===
+  usage: "viewerRank[username, rankLadderName]",
+  description: "Returns the viewers current rank name for the specified rank ladder",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/ranks/viewers-in-rank-array.ts ===
+  usage: "viewersInRankArray[rankLadderName, rankName]",
+  description: "Returns an array of viewer objects in the specified rank. Viewer object properties: _id, username, displayName",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/custom-role-user-count.ts ===
+  description: "Get the number of people in a custom role.",
+  usage: "customRoleUserCount[role]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/custom-role-users-raw.ts ===
+  usage: "rawCustomRoleUsers[role]",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/custom-role-users.ts ===
+  usage: "customRoleUsers[role]",
+  description: "Returns an array of all the user display names in the specified custom role.",
+  usage: "customRoleUsers[role, username]",
+  description: "Returns an array of all the user names (instead of *display names*) in the specified custom role."
+  usage: "customRoleUsers[role, raw]",
+  description: "Returns an array of user objects (with `displayName`, `id`, and `username` properties) in the specified custom role."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/has-role.ts ===
+  usage: "hasRole[user, role]",
+  description: "Returns true if the user has the specified role. Only valid within `$if`",
+  usage: "hasRole[user, Moderator]",
+  description: "Returns true if user is a mod"
+  usage: "hasRole[user, VIP]",
+  description: "Returns true if user is a VIP"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/has-roles.ts ===
+  usage: "hasRoles[user, any|all, role, role2, ...]",
+  description: "Returns true if the user has the specified roles. Only valid within `$if`",
+  usage: "hasRoles[$user, any, Moderator, VIP]",
+  description: "returns true if $user is a mod OR VIP"
+  usage: "hasRoles[$user, all, Moderator, VIP]",
+  description: "Returns true if $user is a mod AND a VIP"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/random-custom-role-user-raw.ts ===
+  usage: "rawRandomCustomRoleUser[role]",
+  description: "Returns a random user that has the specified custom role as an object containing `id`, `username`, and `displayName` properties.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/random-custom-role-user.ts ===
+  usage: "randomCustomRoleUser[role]",
+  description: "Returns a random user's display name that is in any of the specified custom role(s).",
+  usage: "randomCustomRoleUser[customRolesToInclude, usersToExclude, customRolesToExclude, displayName|username|id|raw]",
+  description: "Get a random user that is in any of the included role(s), ignoring the excluded username(s) or members in the excluded role(s)."
+  usage: "randomCustomRoleUser[roleOne, $streamer]",
+  description: "Get a random user's display name that is a member of roleOne, excluding your own streamer's account."
+  usage: "randomCustomRoleUser[roleOne, null, roleC, username]",
+  description: "Get the username of a random member of roleOne, excluding any member of roleC."
+  usage: "randomCustomRoleUser[$arrayFrom[roleOne, roleTwo], $arrayFrom[$streamer, $bot], $arrayFrom[roleC, roleD]]",
+  description: "Get the display name of a member of roleOne or roleTwo, excluding streamer and bot, and excluding any members of roleC or roleD."
+  usage: "randomCustomRoleUser[roleOne, null, null, raw]",
+  description: "Get an object representing a random member of roleOne. The result will include `displayName`, `username`, and `id` properties."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/user-roles-raw.ts ===
+  usage: "rawUserRoles[username, all|twitch|team|firebot|custom]",
+  usage: 'rawUserRoles',
+  description: "Returns all roles for the user"
+  usage: 'rawUserRoles[$user]',
+  description: "Returns all roles of the specified user"
+  usage: 'rawUserRoles[$user, all]',
+  description: "Returns all roles of the specified user as nested arrays in the order of: twitch, team, firebot and custom roles"
+  usage: 'rawUserRoles[$user, firebot]',
+  description: "Returns all firebot roles of the specified user"
+  usage: 'rawUserRoles[$user, custom]',
+  description: "Returns all custom roles of the specified user"
+  usage: 'rawUserRoles[$user, twitch]',
+  description: "Returns all Twitch roles of the specified user"
+  usage: 'rawUserRoles[$user, team]',
+  description: "Returns all Twitch team roles of the specified user"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/user/roles/user-roles.ts ===
+  usage: "userRoles[username, all|twitch|team|firebot|custom]",
+  description: "Returns an array containing all roles of the user",
+  usage: "userRoles",
+  description: "Returns all roles for the user"
+  usage: "userRoles[$user]",
+  description: "Returns all roles of the specified user"
+  usage: "userRoles[$user, all]",
+  description: "Returns all roles of the specified user as nested arrays in the order of: twitch, team, firebot and custom"
+  usage: "userRoles[$user, firebot]",
+  description: "Returns all firebot roles of the specified user"
+  usage: "userRoles[$user, custom]",
+  description: "Returns all custom roles of the specified user"
+  usage: "userRoles[$user, twitch]",
+  description: "Returns all Twitch roles of the specified user"
+  usage: "userRoles[$user, team]",
+  description: "Returns all Twitch team roles of the specified user"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/api-read-raw.ts ===
+  usage: "rawReadApi[url]",
+  usage: 'rawReadApi[url, object.path.here]',
+  description: "Traverse a JSON response object."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/api-read.ts ===
+  usage: "readApi[url]",
+  description: 'Calls the given URL and returns the response as a string.',
+  usage: 'readApi[url, object.path.here]',
+  description: "Traverse a JSON response object."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/audio-duration.ts ===
+  usage: "audioDuration[filePathOrUrl]",
+  description: "Attempts to retrieve audio duration.",
+  usage: `audioDuration["path/to/audio.mp3"]`,
+  description: "Returns the duration of the audio file in seconds."
+  usage: `audioDuration["https://example.com/audio.mp3"]`,
+  description: "Returns the duration of the audio file from a URL in seconds."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/convert-from-json.ts ===
+  description: "Converts JSON text into a raw object instance",
+  usage: "convertFromJSON[json text]",
+  usage: `convertFromJSON['{"name": "John", "age": 30}']`,
+  description: "Returns a raw object from JSON string"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/convert-to-json.ts ===
+  description: "Converts a raw value into JSON text",
+  usage: "convertToJSON[rawValue]",
+  usage: "convertToJSON[rawValue, true]",
+  description: "Converts a raw value into pretty-printed JSON text"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/eval-js.ts ===
+  usage: "evalJs[`` code ``, ...parameters]",
+  description: 'Evaluates the given js in a sandboxed browser instance.<br/><br/>Parameters can be accessed via parameters[N] within the js.<br/>Event metadata can be accessed via metadata.*<br/><br/>You must use return to return a result from the evaluation.',
+  usage: 'evalJs[``return parameters[0]``, test]',
+  description: 'Returns the first parameter passed to $evalJS: "test"'
+  usage: 'evalJs[``return metadata.username``]',
+  description: 'Returns the username from the event\'s metadata'
+  usage: 'evalJs[``return await Firebot.sum[1,2,3,4]``]',
+  description: 'Calls the sum firebot api and returns the result'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/eval-vars.ts ===
+  usage: "evalVars[text]",
+  description: "Evaluate $variables in a string of text. Useful for evaluating text $vars from an external source (ie a txt file or API)",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/file-exists.ts ===
+  usage: 'fileExists[path\\to\\file.txt]',
+  description: "Returns true if a file exists, otherwise returns false.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/file-line-count.ts ===
+  usage: "fileLineCount[\"path/to/file.txt\"]",
+  description: "Count the number of lines in a text file.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/file-name.ts ===
+  usage: 'fileName[path\\to\\file.txt]',
+  description: "Returns name of file without extension.",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/file-read.ts ===
+  usage: 'readFile[path\\to\\file.txt]',
+  description: "Read contents of a text file.",
+  usage: "readFile[path\\to\\file.txt, 1]",
+  description: "Read a specific line number from the file."
+  usage: "readFile[path\\to\\file.txt, first]",
+  description: "Read the first line from the file."
+  usage: "readFile[path\\to\\file.txt, first, true]",
+  description: "Removes leading, trailing, and empty lines before grabbing the first line"
+  usage: "readFile[path\\to\\file.txt, last]",
+  description: "Read the last line from the file."
+  usage: "readFile[path\\to\\file.txt, last, true]",
+  description: "Removes leading, trailing, and empty lines before grabbing the last line"
+  usage: "readFile[path\\to\\file.txt, random]",
+  description: "Read a random line from the file."
+  usage: "readFile[path\\to\\file.txt, random, true]",
+  description: "Removes leading, trailing, and empty lines before grabbing a random line"
+  usage: "readFile[path\\to\\file.txt, array]",
+  description: "Read contents of a text file as an array."
+  usage: "readFile[path\\to\\file.txt, array, true]",
+  description: "Removes leading, trailing, and empty lines before grabbing the array."
+  usage: "readFile[path\\to\\file.ogg, bytes]",
+  description: "Reads the content of a file and returns a byte array."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/files-in-directory.ts ===
+  usage: 'filesInDirectory[path\\to\\dir\\]',
+  description: "Returns an array of full filepaths in the given directory. Does not include subdirectories",
+  usage: "filesInDirectory[path\\to\\dir\\, regexp, flags]",
+  description: "Lists files matching the regexp filter"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/format-duration.ts ===
+  description: 'Formats an input number of seconds into a human-readable duration',
+  usage: 'formatDuration[seconds]',
+  usage: 'formatDuration[61, raw]',
+  description: 'Returns an array containing the number of years, weeks, days, hours, minutes and seconds in that order for the duration'
+  usage: 'formatDuration[61, long]',
+  description: 'Returns the duration in the long format, omitting 0-based values: 1 minute and 1 second'
+  usage: 'formatDuration[61, long, true]',
+  description: 'Returns the duration in the long format, omitting 0-based values: 1 minute and 1 second'
+  usage: 'formatDuration[61, long, false]',
+  description: 'Returns the duration in the long format: 0 years, 0 weeks, 0 days, 0 hours, 1 minute and 1 second'
+  usage: 'formatDuration[61, colon]',
+  description: 'Returns the duration in the colon format, omitting leading 0-based values: 1:1'
+  usage: 'formatDuration[61, colon, true]',
+  description: 'Returns the duration in the colon format, omitting leading 0-based values: 1:1'
+  usage: 'formatDuration[61, colon, false]',
+  description: 'Returns the duration in the colon format: 0:0:0:0:1:1'
+  usage: 'formatDuration[61, colon-alt]',
+  description: 'Returns the duration in the colon with padding format, omitting leading 0-based values: 01:01'
+  usage: 'formatDuration[61, colon-alt, true]',
+  description: 'Returns the duration in the colon with padding format, omitting leading 0-based values: 01:01'
+  usage: 'formatDuration[61, colon-alt, false]',
+  description: 'Returns the duration in the colon with padding format: 00:00:00:00:01:01'
+  usage: 'formatDuration[61, short]',
+  description: 'Returns the duration in the short format, omitting 0-based values: 1min 1sec'
+  usage: 'formatDuration[61, short, true]',
+  description: 'Returns the duration in the short format, omitting 0-based values: 1min 1sec'
+  usage: 'formatDuration[61, short, false]',
+  description: 'Returns the duration in the short format: 0yrs 0wks 0days 0hrs 1min 1sec'
+  usage: 'formatDuration[61, short-alt]',
+  description: 'Returns the duration in the short with spaces format, omitting 0-based values: 1 min 1 sec'
+  usage: 'formatDuration[61, short-alt, true]',
+  description: 'Returns the duration in the short with spaces format, omitting 0-based values: 1 min 1 sec'
+  usage: 'formatDuration[61, short-alt, false]',
+  description: 'Returns the duration in the short with spaces format: 0 yrs 0 wks 0 days 0 hrs 1 min 1 sec'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/loop-count.ts ===
+  usage: "loopCount",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/loop-item.ts ===
+  usage: "loopItem",
+  description: "The item for current loop iteration inside of a Loop Effects effect using Array loop mode",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/overlay-resources-path.ts ===
+  usage: "overlayResourcesPath",
+  description: "Evaluate the full path to the overlay-resources folder as a text string. Useful for for when images/sounds/videos are stored in the overlay-resources folder.",
+  usage: "overlayResourcesPath[sub, dir, path, image.gif]",
+  description: "Gets the full path to the `/sub/dir/path/image.gif` in the overlay-resources folder as a text string."
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/quick-store.ts ===
+  usage: "quickStore[key]",
+  description: "Retrieves or stores a value until the expression has finished evaluation",
+  usage: 'quickStore[name, value]',
+  description: 'Stores "value" under the key "name"'
+  usage: 'quickStore[name]',
+  description: 'Retrieves the value of what was stored under the key of "name"'
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/random-uuid.ts ===
+  usage: "randomUUID",
+  description: "Returns a random formated UUID eg 00000000-0000-0000-0000-000000000000",
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/run-effect.ts ===
+  usage: "runEffect[effectJson]",
+  description: "Run an effect defined as json. Outputs an empty string. Please keep in mind that the power and flexibility afforded by this variable means it is very error prone. Only use if you know what you are doing.",
+  usage: "runEffect[``{\"type\":\"firebot:chat\",\"message\":\"Hello world\"}``]",
+  description: "Runs a chat message effect. You can get an effects JSON data via the UI via the overflow menu in the top right of the Edit Effect modal. (Copy Effect Json > For $runEffect[])"
+
+=== D:/GitHubDesktop/firebot/src/backend/variables/builtin/utility/video-duration.ts ===
+  usage: "videoDuration[filePathOrUrl]",
+  description: "Attempts to retrieve video duration.",
+  usage: `videoDuration["path/to/video.mp4"]`,
+  description: "Returns the duration of the video file in seconds."
+  usage: `videoDuration["https://example.com/video.mp4"]`,
+  description: "Returns the duration of the video file from a URL in seconds."
+

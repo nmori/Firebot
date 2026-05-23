@@ -1,9 +1,11 @@
 "use strict";
 
-const { SettingsManager } = require("../../common/settings-manager");
-const webServer = require("../../../server/http-server-manager");
-const logger = require("../../logwrapper");
-const mediaProcessor = require("../../common/handlers/mediaProcessor");
+const escapeHTML = require("escape-html");
+const { ReplaceVariableManager } = require("../../../variables/replace-variable-manager");
+const { SettingsManager } = require("../../../common/settings-manager");
+const webServer = require("../../../../server/http-server-manager");
+const logger = require("../../../logwrapper");
+const mediaProcessor = require("../../../common/handlers/mediaProcessor");
 
 /**
  * The Show Text effect
@@ -14,11 +16,14 @@ const showText = {
    */
     definition: {
         id: "firebot:showtext",
-            name: "テキスト表示",
-            description: "指定したテキストをオーバーレイに表示します。",
+        name: "テキスト表示",
+        description: "指定したテキストをオーバーレイに表示します。",
         icon: "fad fa-text",
         categories: ["common", "overlay"],
-        dependencies: []
+        dependencies: [],
+        hidden: true,
+        deprecated: true,
+        keysExemptFromAutoVariableReplacement: ["text"]
     },
     /**
    * Global settings that will be available in the Settings tab
@@ -29,6 +34,13 @@ const showText = {
    * You can alternatively supply a url to a html file via optionTemplateUrl
    */
     optionsTemplate: `
+    <eos-container>
+        <div class="effect-info alert alert-warning">
+            警告: この旧版の <strong>テキスト表示</strong> エフェクトは非推奨で、将来の更新で削除されます。通常は新しい <strong>テキスト表示</strong> エフェクトを、より高度な HTML 表示が必要なら新しい <strong>HTML 表示</strong> エフェクトを使用してください。
+        </div>
+    </eos-container>
+
+    <eos-container header="Text">
     <eos-container header="テキスト">
         <div ng-class="editorClass" replace-variables on-variable-insert="onVariableInsert(text)" menu-position="bottom">
             <summernote on-editor-ready="editorReady(editor)" ng-model="effect.text" config="editorOptions" editor="editor" editable="editable"></summernote>
@@ -235,6 +247,15 @@ const showText = {
 
         // What should this do when triggered.
         const effect = event.effect;
+
+        effect.text = await ReplaceVariableManager.populateStringWithTriggerData(
+            effect.text,
+            {
+                ...event.trigger,
+                effectOutputs: event.outputs
+            },
+            token => escapeHTML(token)
+        );
 
         //data transfer object
         const dto = {

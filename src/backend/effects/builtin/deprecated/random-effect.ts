@@ -1,6 +1,6 @@
-import type { EffectList, EffectType } from "../../../types/effects";
+import type { EffectList, EffectType } from "../../../../types/effects";
 
-import effectRunner from "../../common/effect-runner";
+import effectRunner from "../../../common/effect-runner";
 
 const effect: EffectType<{
     effectList: EffectList;
@@ -14,10 +14,18 @@ const effect: EffectType<{
         name: "ランダムエフェクト実行",
         description: "エフェクトリストからランダムで1つ実行します",
         icon: "fad fa-random",
-        categories: ["advanced", "scripting"]
+        categories: ["advanced", "scripting"],
+        hidden: true,
+        deprecated: true
     },
     optionsTemplate: `
         <eos-container>
+            <div class="effect-info alert alert-warning">
+                警告: このエフェクトは非推奨です。今後は任意のエフェクトリストで <strong>ランダム</strong> 実行モードを使用してください。
+            </div>
+        </eos-container>
+
+        <eos-container pad-top="true">
             <p>下のリストからランダムにエフェクトを 1 つ実行します。</p>
 
             <div style="padding-top: 10px;">

@@ -49,7 +49,7 @@ export type OverlayExtension<OverlayData = unknown> = {
     dependencies?: {
         globalStyles?: string;
         css?: string[];
-        js?: string[];
+        js?: Array<string | { module: boolean, url: string }>;
     };
     event: {
         name: string;
@@ -72,6 +72,7 @@ export type OverlayPosition = {
         xMode?: "fixed" | "linear-random";
         yMode?: "fixed" | "linear-random";
     };
+    zIndex?: number;
 };
 
 export type OverlayRotation = {
@@ -103,6 +104,7 @@ export type EffectDefinition<EffectModel = unknown> = {
     icon: string;
     categories: EffectCategory[];
     hidden?: boolean | Func<boolean>;
+    deprecated?: boolean;
     triggers?: TriggerType[] | TriggersObject;
     dependencies?: EffectDependencies | Array<"chat">;
     showWhenDependenciesNotMet?: boolean;

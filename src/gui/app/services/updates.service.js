@@ -84,7 +84,14 @@
                         let foundMajorRelease = false;
                         for (const release of releases) {
                             // Now lets look to see if there is a newer version.
-                            const updateType = VersionCompare.compareVersions(release.tag_name, APP_VERSION);
+                            let updateType;
+
+                            try {
+                                updateType = VersionCompare.compareVersions(release.tag_name, APP_VERSION);
+                            } catch (error) {
+                                logger.error(`Skipping invalid release tag '${release.tag_name}'`, error);
+                                continue;
+                            }
 
                             if (!foundMajorRelease && (updateType === UpdateType.MAJOR || updateType === UpdateType.MAJOR_PRERELEASE)) {
                                 foundMajorRelease = true;
