@@ -125,7 +125,7 @@
         "yargs-parser": "^21.1.1"
     },
     "overrides": {
-        "appdmg": "github:SReject/node-appdmg#1f5eaeb054a74ec917db7c75a8619b6d009f0f73",
+        "appdmg": "git+https://github.com/SReject/node-appdmg.git#1f5eaeb054a74ec917db7c75a8619b6d009f0f73",
         "lodash": "^4.17.21",
         "qs": "6.15.2",
         "engine.io-client": "6.6.5",
