@@ -98,6 +98,10 @@ jobs:
       - name: Install Project Dependencies
         run: npm install --include=optional
 
+      - name: Ensure appdmg is installed (macOS)
+        if: runner.os == 'macOS'
+        run: npm install --no-save "git+https://github.com/SReject/node-appdmg.git#1f5eaeb054a74ec917db7c75a8619b6d009f0f73"
+
       - name: Decrypt Secrets.gpg
         env:
           PASSKEY_FOR_FIREBOT_SECRETS: ${{ secrets.PASSKEY_FOR_FIREBOT_SECRETS }}
