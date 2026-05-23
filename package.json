@@ -120,12 +120,14 @@
         "unzipper": "^0.12.3",
         "winston": "^3.18.3",
         "winston-daily-rotate-file": "^5.0.0",
-        "ws": "^8.2.2",
+        "ws": "^8.21.0",
         "yargs-parser": "^21.1.1"
     },
     "overrides": {
         "appdmg": "github:SReject/node-appdmg#1f5eaeb054a74ec917db7c75a8619b6d009f0f73",
         "lodash": "^4.17.21",
+        "qs": "6.15.2",
+        "engine.io-client": "6.6.5",
         "@aws-sdk/xml-builder": "3.972.22",
         "fast-xml-parser": "5.7.2",
         "@xmldom/xmldom": "0.8.13"
