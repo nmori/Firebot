@@ -93,7 +93,7 @@ jobs:
         run: brew install python-setuptools
 
       - name: Install Global Dependencies
-        run: npm install --global --production --omit=dev grunt-cli node-gyp
+        run: npm install --global grunt-cli node-gyp
 
       - name: Install Project Dependencies
         run: npm install --include=optional
