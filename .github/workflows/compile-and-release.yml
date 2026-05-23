@@ -113,7 +113,7 @@ jobs:
           set -euo pipefail
           for ARCH in x64 arm64; do
             DMG=$(ls ./dist/install/darwin/firebot-v*-macos-${ARCH}.dmg)
-            MOUNT=$(hdiutil attach -nobrowse -readonly "$DMG" | tail -1 | awk '{for(i=3;i<=NF;++i) printf "%s%s", $i, (i<NF?" ":""); print ""}')
+            MOUNT=$(hdiutil attach -nobrowse "$DMG" | tail -1 | awk '{for(i=3;i<=NF;++i) printf "%s%s", $i, (i<NF?" ":""); print ""}')
             FW="$MOUNT/Firebot.app/Contents/Frameworks/Electron Framework.framework"
             CUR=$(readlink "$FW/Versions/Current")
             EF=$(readlink "$FW/Electron Framework")
@@ -121,6 +121,7 @@ jobs:
             echo "[$ARCH] Electron Framework -> $EF"
             test "$CUR" = "A"
             test "$EF" = "Versions/Current/Electron Framework"
+            codesign --force --deep --sign - "$MOUNT/Firebot.app"
             codesign --verify --deep --strict --verbose=2 "$MOUNT/Firebot.app"
             hdiutil detach "$MOUNT"
           done
