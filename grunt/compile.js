@@ -5,8 +5,12 @@ grunt compile
 
 'use strict';
 const path = require('path');
+const fsp = require('fs/promises');
+const { execFile } = require('child_process');
+const { promisify } = require('util');
 const createWindowsInstaller = require('electron-winstaller').createWindowsInstaller;
 const signTools = require('electron-winstaller/lib/sign');
+const execFileAsync = promisify(execFile);
 
 /**
  *
@@ -82,26 +86,47 @@ module.exports = function (grunt) {
 
         const done = this.async();
 
-        const { createDMG } = require('electron-installer-dmg');
+        const createDmg = async () => {
+            await fsp.mkdir(config.out, { recursive: true });
 
-        createDMG({
-            ...config,
-            contents: function (opts) {
-                return [
-                    { x: 448, y: 344, type: 'link', path: '/Applications' },
-                    { x: 192, y: 344, type: 'file', path: opts.appPath },
-                    ...(config.installInstructionsPath
-                        ? [{
-                            x: 320, y: 240,
-                            type: 'file',
-                            path: config.installInstructionsPath,
-                            name: 'Install Instructions.txt'
-                        }]
-                        : [])
-                ];
-            },
-            overwrite: true
-        }).then(done, done);
+            const stagingDir = path.join(config.out, `${config.name}-staging`);
+            const dmgPath = path.join(config.out, `${config.name}.dmg`);
+
+            await fsp.rm(stagingDir, { recursive: true, force: true });
+            await fsp.rm(dmgPath, { force: true });
+            await fsp.mkdir(stagingDir, { recursive: true });
+
+            const appBundleName = path.basename(config.appPath);
+            await fsp.cp(config.appPath, path.join(stagingDir, appBundleName), { recursive: true });
+
+            const applicationsLinkPath = path.join(stagingDir, 'Applications');
+            try {
+                await fsp.symlink('/Applications', applicationsLinkPath);
+            } catch {
+                // Ignore when symlink already exists
+            }
+
+            if (config.installInstructionsPath) {
+                await fsp.copyFile(config.installInstructionsPath, path.join(stagingDir, 'Install Instructions.txt'));
+            }
+
+            const volumeName = config.title || 'Firebot Installer';
+            await execFileAsync('hdiutil', [
+                'create',
+                '-volname',
+                volumeName,
+                '-srcfolder',
+                stagingDir,
+                '-ov',
+                '-format',
+                'UDZO',
+                dmgPath
+            ]);
+
+            await fsp.rm(stagingDir, { recursive: true, force: true });
+        };
+
+        createDmg().then(done, done);
     });
 
     grunt.registerTask('create-redhat-installer', 'Create the Redhat .rpm installer', async function () {
