@@ -16,8 +16,6 @@
 *     - 1.0.0+1
 *     - 1.0.0-beta.3+local
 */
-const semverRegex = /^v?(\d+)(?:[.](\d+))?(?:[.](\d+))?(?:-([a-z]+([\d]*)?)[.]?((?:\d+[.]?)*))?(?:\+[0-9a-z.-]+)?$/i;
-
 enum UpdateType {
     NONE = "none",
     PREVIOUS_VERSION = "previousversion", // 1.0.0 -> 1.1.0-beta,
@@ -38,13 +36,71 @@ interface VersionInfo {
     nightlyVersion?: string;
 }
 
+function isDigitsOnly(value: string): boolean {
+    return value.length > 0 && value.split("").every((ch) => ch >= "0" && ch <= "9");
+}
+
+function isLettersOnly(value: string): boolean {
+    return value.length > 0 && value.split("").every((ch) => {
+        const lower = ch.toLowerCase();
+        return lower >= "a" && lower <= "z";
+    });
+}
+
+function isValidMetadata(value: string): boolean {
+    if (value.length < 1) {
+        return false;
+    }
+
+    return value.split("").every((ch) => {
+        const lower = ch.toLowerCase();
+        const isDigit = ch >= "0" && ch <= "9";
+        const isLetter = lower >= "a" && lower <= "z";
+        return isDigit || isLetter || ch === "." || ch === "-";
+    });
+}
+
+function parsePrerelease(prerelease: string): Pick<VersionInfo, "prereleaseTag" | "prereleaseVersion" | "nightlyVersion"> {
+    const dotIndex = prerelease.indexOf(".");
+    const tagWithVersion = dotIndex > -1 ? prerelease.slice(0, dotIndex) : prerelease;
+    const nightlyVersion = dotIndex > -1 ? prerelease.slice(dotIndex + 1) : "";
+
+    if (nightlyVersion !== "") {
+        const parts = nightlyVersion.split(".");
+        if (!parts.every(isDigitsOnly)) {
+            throw new Error("Invalid argument not valid semver");
+        }
+    }
+
+    let splitIndex = 0;
+    while (splitIndex < tagWithVersion.length && isLettersOnly(tagWithVersion[splitIndex])) {
+        splitIndex += 1;
+    }
+
+    const prereleaseTag = tagWithVersion.slice(0, splitIndex);
+    const prereleaseVersionText = tagWithVersion.slice(splitIndex);
+
+    if (!isLettersOnly(prereleaseTag)) {
+        throw new Error("Invalid argument not valid semver");
+    }
+
+    if (prereleaseVersionText !== "" && !isDigitsOnly(prereleaseVersionText)) {
+        throw new Error("Invalid argument not valid semver");
+    }
+
+    return {
+        prereleaseTag,
+        prereleaseVersion: prereleaseVersionText === "" ? 1 : Number.parseInt(prereleaseVersionText, 10),
+        nightlyVersion
+    };
+}
+
 function validate(version: string): void {
     if (typeof version !== "string") {
         throw new TypeError("Invalid argument expected string");
     }
-    if (!semverRegex.test(version)) {
-        throw new Error("Invalid argument not valid semver");
-    }
+
+    parseVersion(version);
 }
 
 function normalizeVersion(version: string): string {
@@ -52,14 +108,37 @@ function normalizeVersion(version: string): string {
 }
 
 function parseVersion(version: string): VersionInfo {
-    const elements = normalizeVersion(version).match(semverRegex);
+    const normalizedVersion = normalizeVersion(version).toLowerCase();
+    const trimmedVersion = normalizedVersion.startsWith("v") ? normalizedVersion.slice(1) : normalizedVersion;
+
+    const plusIndex = trimmedVersion.indexOf("+");
+    const coreAndPrerelease = plusIndex > -1 ? trimmedVersion.slice(0, plusIndex) : trimmedVersion;
+    const metadata = plusIndex > -1 ? trimmedVersion.slice(plusIndex + 1) : "";
+
+    if (metadata !== "" && !isValidMetadata(metadata)) {
+        throw new Error("Invalid argument not valid semver");
+    }
+
+    const dashIndex = coreAndPrerelease.indexOf("-");
+    const core = dashIndex > -1 ? coreAndPrerelease.slice(0, dashIndex) : coreAndPrerelease;
+    const prerelease = dashIndex > -1 ? coreAndPrerelease.slice(dashIndex + 1) : "";
+
+    const coreParts = core.split(".");
+    if (coreParts.length < 1 || coreParts.length > 3 || !coreParts.every(isDigitsOnly)) {
+        throw new Error("Invalid argument not valid semver");
+    }
+
+    const prereleaseInfo = prerelease === ""
+        ? { prereleaseTag: "", prereleaseVersion: 1, nightlyVersion: "" }
+        : parsePrerelease(prerelease);
+
     return {
-        major: +elements[1],
-        minor: elements[2] ? +elements[2] : 0,
-        patch: elements[3] ? +elements[3] : 0,
-        prereleaseTag: elements[4] ? elements[4] : "",
-        prereleaseVersion: elements[5] ? +elements[5] : 1,
-        nightlyVersion: elements[6] ? elements[6] : ""
+        major: Number.parseInt(coreParts[0], 10),
+        minor: coreParts[1] != null ? Number.parseInt(coreParts[1], 10) : 0,
+        patch: coreParts[2] != null ? Number.parseInt(coreParts[2], 10) : 0,
+        prereleaseTag: prereleaseInfo.prereleaseTag,
+        prereleaseVersion: prereleaseInfo.prereleaseVersion,
+        nightlyVersion: prereleaseInfo.nightlyVersion
     };
 }
 

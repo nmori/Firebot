@@ -24,7 +24,7 @@ async function removeLinesWithText(filepath: string, text: string): Promise<stri
     return `${contents
         .split('\n')
         .map((l) => {
-            return l.replace('\r', "");
+            return l.replace(/\r/g, "");
         })
         .filter(l => l != null && l.trim() !== "")
         .filter(l => l !== text)
@@ -56,7 +56,7 @@ async function replaceLinesWithText(
     return `${contents
         .split('\n')
         .map((l) => {
-            return l.replace('\r', "");
+            return l.replace(/\r/g, "");
         })
         .filter(l => l != null && l.trim() !== "")
         .map((l) => {

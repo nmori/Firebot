@@ -11,6 +11,15 @@ type ErrorWithResponseData = Error & {
     responseData: string;
 };
 
+function isStrictTwitchApiUrl(url: string): boolean {
+    try {
+        const parsed = new URL(url);
+        return parsed.protocol === "https:" && parsed.hostname === "api.twitch.tv";
+    } catch {
+        return false;
+    }
+}
+
 const effect: EffectType<{
     url: string;
     method: string;
@@ -245,7 +254,7 @@ const effect: EffectType<{
             }, {})
         };
 
-        if (effect.options.useTwitchAuth && effect.url.startsWith("https://api.twitch.tv")) {
+        if (effect.options.useTwitchAuth && isStrictTwitchApiUrl(effect.url)) {
             const accessToken = AccountAccess.getAccounts().streamer.auth.access_token;
             headers = {
                 ...headers,

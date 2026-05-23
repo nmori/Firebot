@@ -19,7 +19,7 @@ const formatIgnoreList = (ignoreList) => {
             throw new Error('invalid ignore path');
         }
 
-        const escapedPath = item.path.replace(/[()[\]{}.?+*\\/^$]/, char => (`\\${char}`));
+        const escapedPath = item.path.replace(/[()[\]{}.?+*\\/^$]/g, char => (`\\${char}`));
 
         return `--ignore="^[\\\\\\/]?${escapedPath}${item.isFile ? '$"' : '(?:$|[\\\\\\/])"'}`;
     });

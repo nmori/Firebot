@@ -39,7 +39,7 @@ const loadFile = async (filepath: string): Promise<{ name: string, data: unknown
 
 const splitQuotes = (quotes: string[][]): Quote[] => {
     return quotes.map((q) => {
-        const splittedQuote = q[1].split("[").map(sq => sq.replace("]", "").trim());
+        const splittedQuote = q[1].split("[").map(sq => sq.replace(/\]/g, "").trim());
 
         if (splittedQuote.length > 3) {
             splittedQuote[0] = splittedQuote.slice(0, splittedQuote.length - 2).join(" ");

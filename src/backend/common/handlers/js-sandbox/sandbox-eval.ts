@@ -1,4 +1,5 @@
 import { join } from 'node:path';
+import { randomBytes } from 'node:crypto';
 import { BrowserWindow, MessageChannelMain, session } from 'electron';
 
 import type { Trigger } from '../../../../types/triggers';
@@ -9,7 +10,6 @@ import logger from '../../../logwrapper';
 const preloadPath = join(__dirname, 'sandbox-preload.js');
 const htmlPath = join(__dirname, './sandbox.html');
 
-const charList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const handlers = new Map<string, (trigger: Trigger, ...args: unknown[]) => unknown>();
 
 handlers.set('getCustomVariable', (_trigger, name) => {
@@ -147,12 +147,7 @@ export const evalSandboxedJs = async (code: string, args: unknown[], trigger: Tr
         portToSandbox.start();
 
         // Generate a unique session id for the sandbox; this equates to each sandbox getting its own session data(LocalStorage, cache, etc)
-        let sandboxSessionId = '', index = 10;
-        while (index) {
-            sandboxSessionId += charList[Math.floor(62 * Math.random())];
-            index -= 1;
-        }
-        sandboxSessionId = `firebot-sandbox-${Date.now()}-${sandboxSessionId}`;
+        const sandboxSessionId = `firebot-sandbox-${Date.now()}-${randomBytes(16).toString("hex")}`;
 
         // Create a new, hidden, browser window
         sandbox.window = new BrowserWindow({

@@ -108,6 +108,8 @@ frontendCommunicator.onAsync("getAwsPollyLexicons", async () => {
 
 const POLLY_TMP_DIR = getPathInTmpDir('/awspollyfx');
 
+const escapeBareAmpersands = (text) => text.replace(/&(?!#?\w+;)/g, "&amp;");
+
 /**
  * The Play Sound effect
  */
@@ -512,8 +514,7 @@ const playSound = {
         });
 
         if (effect.isSsml) {
-            effect.text = `<speak>${effect.text}</speak>`;
-            effect.text = effect.text.replace("&", "&amp;");
+            effect.text = `<speak>${escapeBareAmpersands(effect.text)}</speak>`;
         }
 
         if (effect.lexicons == null) {

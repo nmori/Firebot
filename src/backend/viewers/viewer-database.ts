@@ -58,6 +58,10 @@ interface UserDetails {
     userFollowsStreamer: boolean;
 }
 
+function escapeRegExp(value: string): string {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 class ViewerDatabase extends TypedEmitter<{
     "viewer-database-loaded": () => void;
     "updated-viewer-avatar": (event: { userId: string, url: string }) => void;
@@ -287,7 +291,7 @@ class ViewerDatabase extends TypedEmitter<{
         }
 
         try {
-            const searchTerm = new RegExp(`^${username}$`, 'i');
+            const searchTerm = new RegExp(`^${escapeRegExp(username)}$`, 'i');
 
             return await this._db.findOneAsync({ username: { $regex: searchTerm }, twitch: true });
         } catch {

@@ -127,8 +127,11 @@ async function addResolveUrlRequest(clipId: string): Promise<string | null> {
 function isValidTwitchUrl(url: string): boolean {
     try {
         const urlObj = new URL(url);
-        return urlObj.hostname.endsWith('twitchcdn.net')
-            && urlObj.pathname.endsWith('.mp4');
+        return (
+            urlObj.protocol === "https:"
+            && (urlObj.hostname === "twitchcdn.net" || urlObj.hostname.endsWith(".twitchcdn.net"))
+            && urlObj.pathname.toLowerCase().endsWith(".mp4")
+        );
     } catch {
         return false;
     }

@@ -1,13 +1,21 @@
 import express from "express";
 import logger from "../../../backend/logwrapper";
+import { createRateLimitMiddleware } from "../../rate-limit-middleware";
 
 const router = express.Router(); //eslint-disable-line new-cap
+const v1RateLimiter = createRateLimitMiddleware({
+    name: "api-v1",
+    windowMs: 60_000,
+    max: 240
+});
 
 router.use(function log(req, res, next) {
     // here we could do stuff for every request if we wanted
     logger.debug(`API Request from: ${req.socket.remoteAddress}, for path: ${req.originalUrl}`);
     next();
 });
+
+router.use(v1RateLimiter);
 
 // Auth
 import * as auth from "./controllers/auth-api-controller";

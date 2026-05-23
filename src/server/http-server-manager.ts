@@ -13,6 +13,7 @@ import websocketServerManager from "./websocket-server-manager";
 import { CustomWebSocketHandler } from "../types/websocket";
 import overlayWidgetManager from "../backend/overlay-widgets/overlay-widgets-manager";
 import logger from "../backend/logwrapper";
+import { createRateLimitMiddleware } from "./rate-limit-middleware";
 
 import * as dataAccess from "../backend/common/data-access";
 import frontendCommunicator from "../backend/common/frontend-communicator";
@@ -84,6 +85,10 @@ class HttpServerManager extends EventEmitter {
 
     createDefaultServerInstance(): Express {
         const app = express();
+        const callbackLimiter = createRateLimitMiddleware({ name: "auth-callback", windowMs: 60_000, max: 60 });
+        const overlayLimiter = createRateLimitMiddleware({ name: "overlay", windowMs: 60_000, max: 180 });
+        const resourceLimiter = createRateLimitMiddleware({ name: "resource", windowMs: 60_000, max: 240 });
+        const integrationsLimiter = createRateLimitMiddleware({ name: "integrations", windowMs: 60_000, max: 120 });
 
         // Cache buster
         app.use((_, res, next) => {
@@ -102,7 +107,7 @@ class HttpServerManager extends EventEmitter {
         const v1Router = require("./api/v1/v1-router");
         app.use("/api/v1", v1Router);
 
-        app.get("/api/v1/auth/callback", (_, res) => {
+        app.get("/api/v1/auth/callback", callbackLimiter, (_, res) => {
             res.sendFile(path.join(`${__dirname}/authcallback.html`));
         });
 
@@ -112,8 +117,8 @@ class HttpServerManager extends EventEmitter {
 
 
         // Set up route to serve overlay
-        app.use("/overlay/", express.static(path.join(cwd, './resources/overlay/')));
-        app.get("/overlay/", (req, res) => {
+        app.use("/overlay/", overlayLimiter, express.static(path.join(cwd, './resources/overlay/')));
+        app.get("/overlay/", overlayLimiter, (req, res) => {
             const effectDefs = EffectManager.getEffectOverlayExtensions();
 
             const widgetExtensions = overlayWidgetManager.getOverlayExtensions();
@@ -180,7 +185,7 @@ class HttpServerManager extends EventEmitter {
         app.use("/overlay-resources", express.static(dataAccess.getPathInUserData("/overlay-resources")));
 
         // Set up resource endpoint
-        app.get("/resource/:token", (req, res) => {
+        app.get("/resource/:token", resourceLimiter, (req, res) => {
             const token = req.params.token || null;
             if (token !== null) {
                 let resourcePath = ResourceTokenManager.getResourcePath(token) || null;
@@ -197,7 +202,7 @@ class HttpServerManager extends EventEmitter {
         });
 
         // List custom routes
-        app.get("/integrations", (req, res) => {
+        app.get("/integrations", integrationsLimiter, (req, res) => {
             const registeredCustomRoutes = this.customRoutes.map((cr) => {
                 return {
                     path: this.getCustomRoutePathFromRoot(cr.fullRoute),
@@ -209,7 +214,7 @@ class HttpServerManager extends EventEmitter {
         });
 
         // Handle custom routes
-        app.use(this.customRouteRouter);
+        app.use(integrationsLimiter, this.customRouteRouter);
 
         // Catch all remaining paths and send the caller a 404
         app.use((req, res) => {
