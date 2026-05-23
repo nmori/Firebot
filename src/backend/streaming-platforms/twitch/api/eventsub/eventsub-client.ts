@@ -371,6 +371,7 @@ class TwitchEventSubClient {
                 );
             },
             this._eventSubListener,
+            TwitchApi.streamerClient,
             streamer.userId
         );
         this._subscriptions.push(customPowerUpRedemptionSubscription);

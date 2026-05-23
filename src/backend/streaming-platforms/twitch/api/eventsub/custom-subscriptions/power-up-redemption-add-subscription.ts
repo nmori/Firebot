@@ -1,4 +1,4 @@
-import type { HelixEventSubSubscription } from "@twurple/api";
+import type { ApiClient, HelixEventSubSubscription } from "@twurple/api";
 import { EventSubSubscription, EventSubBase } from "@twurple/eventsub-base";
 import { rtfm } from "@twurple/common";
 
@@ -28,6 +28,7 @@ export class EventSubPowerUpRedemptionAddSubscription extends EventSubSubscripti
     constructor(
         handler: (data: EventData) => void,
         client: EventSubBase,
+        private readonly _apiClient: ApiClient,
         private readonly _broadcasterId: string
     ) {
         // @ts-ignore
@@ -47,7 +48,7 @@ export class EventSubPowerUpRedemptionAddSubscription extends EventSubSubscripti
     }
 
     protected async _subscribe(): Promise<HelixEventSubSubscription> {
-        return await this._client._apiClient.asUser(
+        return await this._apiClient.asUser(
             this._broadcasterId,
             async ctx =>
                 await ctx.eventSub.createSubscription(
