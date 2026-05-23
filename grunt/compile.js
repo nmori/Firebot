@@ -97,7 +97,10 @@ module.exports = function (grunt) {
             await fsp.mkdir(stagingDir, { recursive: true });
 
             const appBundleName = path.basename(config.appPath);
-            await fsp.cp(config.appPath, path.join(stagingDir, appBundleName), { recursive: true });
+            // Use macOS `ditto` instead of fsp.cp to preserve relative symlinks inside the .app bundle.
+            // fs.cp resolves symlink targets to absolute paths, which broke `Versions/Current` and the
+            // framework symlinks at install time (dyld could not load Electron Framework).
+            await execFileAsync('ditto', [config.appPath, path.join(stagingDir, appBundleName)]);
 
             const applicationsLinkPath = path.join(stagingDir, 'Applications');
             try {
