@@ -74,9 +74,16 @@ jobs:
         run: python -m pip install --upgrade packaging pip setuptools
 
       - name: Setup Nodejs
+        if: runner.os != 'macOS'
         uses: actions/setup-node@v4
         with:
           node-version: "24.x"
+
+      - name: Setup Nodejs (macOS)
+        if: runner.os == 'macOS'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.19.0"
 
       - name: Install correct npm version
         run: npm install -g npm@10.8.1
@@ -97,10 +104,6 @@ jobs:
 
       - name: Install Project Dependencies
         run: npm install --include=optional
-
-      - name: Ensure appdmg is installed (macOS)
-        if: runner.os == 'macOS'
-        run: npm install --no-save "git+https://github.com/SReject/node-appdmg.git#1f5eaeb054a74ec917db7c75a8619b6d009f0f73"
 
       - name: Decrypt Secrets.gpg
         env:
