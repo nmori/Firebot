@@ -70,6 +70,12 @@ module.exports = function(grunt) {
     require('./grunt/fix-macos-symlinks.js')(grunt);
 
     grunt.registerTask('prep', ['cleanup:build', 'xcopy:src', 'scss', 'tsc', 'include-source']);
-    grunt.registerTask('fullpack', ['prep', 'pack', 'fix-macos']);
+
+    let fullpackTasks = ['prep', 'pack'];
+    if (platform === 'darwin') {
+        fullpackTasks.push('fix-macos');
+    }
+    grunt.registerTask('fullpack', fullpackTasks);
+
     grunt.registerTask('build', ['fullpack', 'compile']);
 };
