@@ -61,6 +61,16 @@ module.exports = function (grunt) {
 
                 if (fixedCount > 0) {
                     grunt.log.ok(`Fixed ${fixedCount} absolute symlink(s) in ${appPath}`);
+
+                    // Re-sign the app bundle after symlink modifications
+                    // Symlink changes invalidate the previous code signature
+                    try {
+                        grunt.log.writeln('Re-signing app bundle after symlink fix...');
+                        await execFileAsync('codesign', ['--force', '--deep', '--sign', '-', appPath]);
+                        grunt.log.ok('App bundle re-signed successfully');
+                    } catch (signError) {
+                        grunt.log.warn(`Failed to re-sign app bundle: ${signError.message}`);
+                    }
                 } else {
                     grunt.log.ok(`All symlinks are relative in ${appPath}`);
                 }
