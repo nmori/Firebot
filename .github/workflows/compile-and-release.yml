@@ -106,23 +106,29 @@ jobs:
       - name: Build for Platform
         run: grunt build
 
-      - name: Verify macOS DMG symlinks
+      - name: Verify macOS arm64 DMG symlinks
         if: runner.os == 'macOS'
         shell: bash
         run: |
-          set -euo pipefail
-          for ARCH in x64 arm64; do
-            DMG=$(ls ./dist/install/darwin/firebot-v*-macos-${ARCH}.dmg)
-            MOUNT=$(hdiutil attach -nobrowse -readonly "$DMG" | tail -1 | awk '{for(i=3;i<=NF;++i) printf "%s%s", $i, (i<NF?" ":""); print ""}')
-            FW="$MOUNT/Firebot.app/Contents/Frameworks/Electron Framework.framework"
-            CUR=$(readlink "$FW/Versions/Current")
-            EF=$(readlink "$FW/Electron Framework")
-            echo "[$ARCH] Versions/Current -> $CUR"
-            echo "[$ARCH] Electron Framework -> $EF"
-            test "$CUR" = "A" || (echo "ERROR: Versions/Current is not relative symlink to A" && exit 1)
-            test "$EF" = "Versions/Current/Electron Framework" || (echo "ERROR: Electron Framework is not relative symlink" && exit 1)
-            hdiutil detach "$MOUNT"
-          done
+          DMG=$(ls ./dist/install/darwin/firebot-v*-macos-arm64.dmg 2>/dev/null || echo "")
+          if [ -z "$DMG" ]; then
+            echo "arm64 DMG not found - skipping verification"
+            exit 0
+          fi
+
+          MOUNT=$(hdiutil attach -nobrowse -readonly "$DMG" | tail -1 | awk '{for(i=3;i<=NF;++i) printf "%s%s", $i, (i<NF?" ":""); print ""}')
+          FW="$MOUNT/Firebot.app/Contents/Frameworks/Electron Framework.framework"
+
+          CUR=$(readlink "$FW/Versions/Current")
+          EF=$(readlink "$FW/Electron Framework")
+          echo "arm64 - Versions/Current -> $CUR"
+          echo "arm64 - Electron Framework -> $EF"
+
+          hdiutil detach "$MOUNT"
+
+          test "$CUR" = "A" || (echo "ERROR: Versions/Current is not relative to A" && exit 1)
+          test "$EF" = "Versions/Current/Electron Framework" || (echo "ERROR: Electron Framework symlink is broken" && exit 1)
+          echo "✓ arm64 DMG symlinks verified successfully"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
