@@ -23,6 +23,14 @@ module.exports = function (grunt) {
             const frameworksPath = path.join(appPath, 'Contents/Frameworks');
 
             try {
+                // Check if frameworks path exists (only on darwin platform)
+                try {
+                    await fsp.access(frameworksPath);
+                } catch {
+                    grunt.log.ok(`Skipping symlink fix - app not found at ${appPath}`);
+                    return;
+                }
+
                 // Find all symlinks in Frameworks directory
                 const { stdout } = await execFileAsync('find', [frameworksPath, '-type', 'l']);
                 const symlinks = stdout.trim().split('\n').filter(Boolean);
@@ -57,11 +65,7 @@ module.exports = function (grunt) {
                     grunt.log.ok(`All symlinks are relative in ${appPath}`);
                 }
             } catch (error) {
-                if (error.code === 'ENOENT') {
-                    grunt.log.warn(`App bundle not found at ${config.appPath} - skipping symlink fix`);
-                } else {
-                    grunt.fail.warn(`Failed to fix symlinks: ${error.message}`);
-                }
+                grunt.fail.warn(`Failed to fix symlinks: ${error.message}`);
             }
         };
 
