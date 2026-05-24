@@ -12,13 +12,10 @@
                         name="視聴者データベース"
                         description="視聴者トラッキングデータベースを有効/無効にします。状況によってはパフォーマンス改善が見込めます。"
                     >
-                        <firebot-select
-                            options="{ true: 'オン', false: 'オフ' }"
-                            ng-init="viewerDb = settings.getSetting('ViewerDB')"
-                            selected="viewerDb"
-                            on-update="settings.saveSetting('ViewerDB', option === 'true')"
-                            right-justify="true"
-                            aria-label="視聴者データベースを有効または無効にする"
+                        <toggle-button
+                            toggle-model="settings.getSetting('ViewerDB')"
+                            on-toggle="settings.saveSetting('ViewerDB', !settings.getSetting('ViewerDB'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 
@@ -26,13 +23,10 @@
                         name="既知Botの自動判定"
                         description="既知のBotが統計を生成したり、アクティブ視聴者リストへ表示されたりするのを防ぎます。"
                     >
-                        <firebot-select
-                            options="{ true: 'オン', false: 'オフ' }"
-                            ng-init="autoFlagBots = settings.getSetting('AutoFlagBots')"
-                            selected="autoFlagBots"
-                            on-update="settings.saveSetting('AutoFlagBots', option === 'true')"
-                            right-justify="true"
-                            aria-label="既知Botの自動判定を有効または無効にする"
+                        <toggle-button
+                            toggle-model="settings.getSetting('AutoFlagBots')"
+                            on-toggle="settings.saveSetting('AutoFlagBots', !settings.getSetting('AutoFlagBots'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 

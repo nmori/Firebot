@@ -41,13 +41,10 @@
                         name="共有チャットでコマンド実行を許可"
                         description="Twitch 共有チャット（Shared Chat）中に他チャンネルで送信されたメッセージでもコマンドを実行できるようにします。"
                     >
-                        <firebot-select
-                            options="{ true: 'はい', false: 'いいえ' }"
-                            ng-init="allowSharedChatCommands = settings.getSetting('AllowCommandsInSharedChat')"
-                            selected="allowSharedChatCommands"
-                            on-update="settings.saveSetting('AllowCommandsInSharedChat', option === 'true')"
-                            right-justify="true"
-                            aria-label="共有チャットでコマンド実行を許可"
+                        <toggle-button
+                            toggle-model="settings.getSetting('AllowCommandsInSharedChat')"
+                            on-toggle="settings.saveSetting('AllowCommandsInSharedChat', !settings.getSetting('AllowCommandsInSharedChat'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 
@@ -59,13 +56,10 @@
                         name="関連するギフトサブイベントを無視"
                         description="有効時、コミュニティギフトサブに含まれる個別のギフトサブ（Gift Sub）イベントを無視します。コミュニティサブイベントのみが発火し、受取人ごとの追加ギフトサブイベントは発火しません。"
                     >
-                        <firebot-select
-                            options="{ true: 'はい', false: 'いいえ' }"
-                            ng-init="ignoreSubEvents = settings.getSetting('IgnoreSubsequentSubEventsAfterCommunitySub')"
-                            selected="ignoreSubEvents"
-                            on-update="settings.saveSetting('IgnoreSubsequentSubEventsAfterCommunitySub', option === 'true')"
-                            right-justify="true"
-                            aria-label="関連するギフトサブイベントを無視するか設定"
+                        <toggle-button
+                            toggle-model="settings.getSetting('IgnoreSubsequentSubEventsAfterCommunitySub')"
+                            on-toggle="settings.saveSetting('IgnoreSubsequentSubEventsAfterCommunitySub', !settings.getSetting('IgnoreSubsequentSubEventsAfterCommunitySub'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 

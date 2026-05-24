@@ -11,12 +11,10 @@
                         name="デフォルトのエフェクトラベル"
                         description="有効時、カスタムラベル未設定の（ほとんどの）エフェクトに対して Firebot が自動でラベルを生成します。"
                     >
-                        <firebot-select
-                            options="{ true: 'オン', false: 'オフ' }"
-                            ng-init="effectLabelsEnabled = settings.getSetting('DefaultEffectLabelsEnabled')"
-                            selected="effectLabelsEnabled"
-                            on-update="settings.saveSetting('DefaultEffectLabelsEnabled', option === 'true')"
-                            right-justify="true"
+                        <toggle-button
+                            toggle-model="settings.getSetting('DefaultEffectLabelsEnabled')"
+                            on-toggle="settings.saveSetting('DefaultEffectLabelsEnabled', !settings.getSetting('DefaultEffectLabelsEnabled'))"
+                            font-size="40"
                         />
                     </firebot-setting>
                 </div>

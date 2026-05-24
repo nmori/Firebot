@@ -12,9 +12,10 @@
                         <setting-description-addon>
                             <b>この設定変更を反映するには Firebot の再起動が必要です。</b>
                         </setting-description-addon>
-                        <firebot-button
-                            text="{{settings.getSetting('DebugMode') ? 'デバッグモードを無効化' : 'デバッグモードを有効化' }}"
-                            ng-click="settings.saveSetting('DebugMode', !settings.getSetting('DebugMode'))"
+                        <toggle-button
+                            toggle-model="settings.getSetting('DebugMode')"
+                            on-toggle="settings.saveSetting('DebugMode', !settings.getSetting('DebugMode'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 
@@ -25,9 +26,10 @@
                         <setting-description-addon>
                             <b>設定を誤ると無限ループにより Firebot がフリーズする可能性があります。</b>
                         </setting-description-addon>
-                        <firebot-button
-                            text="{{settings.getSetting('WhileLoopEnabled') ? 'While ループを無効化' : 'While ループを有効化' }}"
-                            ng-click="toggleWhileLoops()"
+                        <toggle-button
+                            toggle-model="settings.getSetting('WhileLoopEnabled')"
+                            on-toggle="toggleWhileLoops()"
+                            font-size="40"
                         />
                     </firebot-setting>
 
@@ -63,10 +65,11 @@
                         <setting-description-addon>
                             <b>デバッグモードが有効な場合のみ利用できます。</b>
                         </setting-description-addon>
-                        <firebot-button
-                            text="{{settings.getSetting('WebhookDebugLogs') && settings.getSetting('DebugMode') ? 'Webhookログを無効化' : 'Webhookログを有効化' }}"
+                        <toggle-button
+                            toggle-model="settings.getSetting('WebhookDebugLogs')"
                             disabled="!settings.getSetting('DebugMode')"
-                            ng-click="settings.saveSetting('WebhookDebugLogs', !settings.getSetting('WebhookDebugLogs'))"
+                            on-toggle="settings.saveSetting('WebhookDebugLogs', !settings.getSetting('WebhookDebugLogs'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 
@@ -87,14 +90,10 @@
                         name="引用のCSVエクスポートを許可"
                         description="プロフィールページで引用の「CSVとしてエクスポート」ボタンを表示するか設定します。"
                     >
-                        <firebot-select
-                            options="{ true: 'オン', false: 'オフ' }"
-                            ng-init="allowQuoteCsv = settings.getSetting('AllowQuoteCSVDownloads')"
-                            selected="allowQuoteCsv"
-                            on-update="settings.saveSetting('AllowQuoteCSVDownloads', option === 'true')"
-                            right-justify="true"
-                            aria-label="プロフィールページの引用にCSVエクスポートボタンを表示するか選択"
-
+                        <toggle-button
+                            toggle-model="settings.getSetting('AllowQuoteCSVDownloads')"
+                            on-toggle="settings.saveSetting('AllowQuoteCSVDownloads', !settings.getSetting('AllowQuoteCSVDownloads'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 
@@ -102,13 +101,10 @@
                         name="カスタム変数を永続化"
                         description="Firebot 終了時にすべてのカスタム変数をファイルへ保存するか設定します。"
                     >
-                        <firebot-select
-                            options="{ true: 'オン', false: 'オフ' }"
-                            ng-init="persistVariables = settings.getSetting('PersistCustomVariables')"
-                            selected="persistVariables"
-                            on-update="settings.saveSetting('PersistCustomVariables', option === 'true')"
-                            right-justify="true"
-                            aria-label="カスタム変数の永続化を有効または無効にする"
+                        <toggle-button
+                            toggle-model="settings.getSetting('PersistCustomVariables')"
+                            on-toggle="settings.saveSetting('PersistCustomVariables', !settings.getSetting('PersistCustomVariables'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 

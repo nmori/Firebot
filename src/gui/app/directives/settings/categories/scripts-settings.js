@@ -19,13 +19,10 @@
                             >こちら</a
                             > を参照してください。</div>
                         </setting-description-addon>
-                        <firebot-select
-                            options="{ true: '有効', false: '無効' }"
-                            ng-init="customScriptsEnabled = settings.getSetting('RunCustomScripts')"
-                            selected="customScriptsEnabled"
-                            on-update="settings.saveSetting('RunCustomScripts', option === 'true')"
-                            right-justify="true"
-                            aria-label="Enable or disable custom scripts"
+                        <toggle-button
+                            toggle-model="settings.getSetting('RunCustomScripts')"
+                            on-toggle="settings.saveSetting('RunCustomScripts', !settings.getSetting('RunCustomScripts'))"
+                            font-size="40"
                         />
                     </firebot-setting>
 
@@ -44,14 +41,11 @@
                         name="カスタムスクリプトキャッシュをクリア"
                         description="スクリプト実行前にメモリ上のスクリプトキャッシュをクリアするかを設定します。スクリプト開発中は有効化すると変更が反映されやすくなります。通常利用では無効のままを推奨します。"
                     >
-                        <firebot-select
-                            options="{ true: 'オン', false: 'オフ' }"
-                            ng-init="clearCache = settings.getSetting('ClearCustomScriptCache')"
-                            is-disabled="!settings.getSetting('RunCustomScripts')"
-                            selected="clearCache"
-                            on-update="settings.saveSetting('ClearCustomScriptCache', option === 'true')"
-                            right-justify="true"
-                            aria-label="Enable or disable the Clearing of Custom Script Cache"
+                        <toggle-button
+                            toggle-model="settings.getSetting('ClearCustomScriptCache')"
+                            on-toggle="settings.saveSetting('ClearCustomScriptCache', !settings.getSetting('ClearCustomScriptCache'))"
+                            disabled="!settings.getSetting('RunCustomScripts')"
+                            font-size="40"
                         />
                     </firebot-setting>
 
