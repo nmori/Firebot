@@ -77,22 +77,23 @@ module.exports = function (grunt) {
 
     grunt.config.merge({
         shell: {
-            packwin64: {
-                command: `npx --no-install @electron/packager . Firebot --platform=win32 ${flags} --app-version=${windowsAppVersion}`
-            },
+            // macOS stays on grunt-shell: its multi-arch + --extend-info / --extra-resource flags
+            // pack correctly on the macOS runner (the .app is then ad-hoc signed in fix-macos-symlinks).
             packdarwin: {
                 command: `npx --no-install @electron/packager . Firebot --platform=darwin ${flags.replace('--arch=x64', '')} --arch=x64 --arch=arm64 --extend-info="extra.plist" --extra-resource="./src/resources/firebot-setup-file-icon.icns"`
             }
         }
     });
 
-    // Linux is packaged via the @electron/packager Node API rather than a grunt-shell command.
-    // The Windows runner (cmd.exe) and the Linux CI runner (/bin/sh) tokenize the backslash-heavy
-    // --ignore / --executable-name flags differently, which left the Linux pack dir nearly empty on
-    // CI (no app, no binary) while exiting 0 — the "could not find the Electron app binary" error
-    // downstream. The API takes real values (RegExp ignores, plain strings) so there is no shell
-    // quoting to misparse, and any packaging error throws instead of being swallowed.
-    // electron-packager always tests ignores against POSIX, leading-slash paths (see copy-filter.js),
+    // Windows and Linux are packaged via the @electron/packager Node API instead of a grunt-shell
+    // command string. Handing a command string to a shell made packaging depend on how the CI
+    // runner's shell (cmd.exe on Windows, /bin/sh on Linux) tokenizes the backslash-heavy --ignore
+    // regexes and quoted flags. On the runners this silently produced an incomplete pack (no asar /
+    // no app / no binary) while exiting 0 — surfacing later as "could not find the Electron app
+    // binary" (Linux) or a missing resources/app/package.json (Windows). The API takes real values
+    // (RegExp ignores, plain strings) so there is no shell quoting to misparse, and any packaging
+    // error throws instead of being swallowed.
+    // electron-packager tests ignores against POSIX, leading-slash paths (see copy-filter.js),
     // so these regexes use forward slashes.
     const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const buildIgnoreRegexes = (list) => list.map((item) => {
@@ -109,34 +110,57 @@ module.exports = function (grunt) {
         return new RegExp(item.isFile ? `^/?${escaped}$` : `^/?${escaped}(?:$|/)`);
     });
 
-    grunt.registerTask('packlinux', 'Package the Linux app via the @electron/packager Node API', function () {
-        const done = this.async();
+    const basePackagerOpts = {
+        dir: '.',
+        name: 'Firebot',
+        out: './dist/pack',
+        electronVersion: version,
+        overwrite: true,
+        prune: true,
+        icon: './build/gui/images/icon_transparent.ico',
+        protocols: [{ schemes: ['firebot'], name: 'Firebot' }],
+        ignore: buildIgnoreRegexes(ignoreList)
+    };
+
+    const runPackager = (done, opts) => {
         const { packager } = require('@electron/packager');
+        packager(opts)
+            .then((appPaths) => {
+                grunt.log.ok(`Packaged app to: ${appPaths.join(', ')}`);
+                done();
+            })
+            .catch((err) => {
+                grunt.log.error(err.stack || String(err));
+                done(err);
+            });
+    };
+
+    grunt.registerTask('packwin64', 'Package the Windows app via the @electron/packager Node API', function () {
+        runPackager(this.async(), {
+            ...basePackagerOpts,
+            platform: 'win32',
+            arch: 'x64',
+            asar: true,
+            executableName: 'Firebot v5',
+            // Squirrel/electron-packager rejects prerelease tags containing dots on Windows.
+            appVersion: windowsAppVersion,
+            win32metadata: { ProductName: 'Firebot v5' }
+        });
+    });
+
+    grunt.registerTask('packlinux', 'Package the Linux app via the @electron/packager Node API', function () {
         // Linux executable names can't have spaces, so use "firebot" (electron-installer-debian
-        // looks for this exact name). No --asar: electron-installer-debian can't read asar archives.
-        packager({
-            dir: '.',
-            name: 'Firebot',
+        // looks for this exact name). No asar: electron-installer-debian can't read asar archives.
+        runPackager(this.async(), {
+            ...basePackagerOpts,
             platform: 'linux',
             arch: 'x64',
-            out: './dist/pack',
-            electronVersion: version,
-            overwrite: true,
-            prune: true,
-            executableName: 'firebot',
-            icon: './build/gui/images/icon_transparent.ico',
-            protocols: [{ schemes: ['firebot'], name: 'Firebot' }],
-            ignore: buildIgnoreRegexes(ignoreList)
-        }).then((appPaths) => {
-            grunt.log.ok(`Packaged Linux app to: ${appPaths.join(', ')}`);
-            done();
-        }).catch((err) => {
-            grunt.log.error(err.stack || String(err));
-            done(err);
+            executableName: 'firebot'
         });
     });
 
     const platform = grunt.config.get('platform');
-    const packTask = platform === 'linux' ? 'packlinux' : `shell:pack${platform}`;
+    const apiPackTasks = { win64: 'packwin64', linux: 'packlinux' };
+    const packTask = apiPackTasks[platform] || `shell:pack${platform}`;
     grunt.registerTask('pack', ['cleanup:pack', packTask, 'copy']);
 };
