@@ -61,29 +61,31 @@ module.exports = function (grunt) {
 
                 if (fixedCount > 0) {
                     grunt.log.ok(`Fixed ${fixedCount} absolute symlink(s) in ${appPath}`);
-
-                    // Remove quarantine xattr recursively - this is set during code signing
-                    // and can interfere with Gatekeeper verification if stale
-                    try {
-                        grunt.log.writeln('Removing quarantine attributes...');
-                        await execFileAsync('xattr', ['-cr', appPath]);
-                        grunt.log.ok('Quarantine attributes removed');
-                    } catch (xattrError) {
-                        grunt.log.warn(`Failed to remove quarantine: ${xattrError.message}`);
-                    }
-
-                    // Re-sign the app bundle after symlink modifications
-                    // Symlink changes invalidate the previous code signature
-                    // Use --options runtime to ensure runtime hardening is applied
-                    try {
-                        grunt.log.writeln('Re-signing app bundle after symlink fix...');
-                        await execFileAsync('codesign', ['--force', '--deep', '--options', 'runtime', '--sign', '-', appPath]);
-                        grunt.log.ok('App bundle re-signed successfully with runtime options');
-                    } catch (signError) {
-                        grunt.log.warn(`Failed to re-sign app bundle: ${signError.message}`);
-                    }
                 } else {
                     grunt.log.ok(`All symlinks are relative in ${appPath}`);
+                }
+
+                // Always clear stale xattrs and ad-hoc re-sign, regardless of whether symlinks
+                // needed fixing. electron-packager does not sign the app (no osx-sign option), and
+                // adding resources/app, the asar, and the xcopy'd resources after packaging
+                // invalidates Electron's bundled ad-hoc signature. Without a valid signature,
+                // `codesign --verify` fails with "code has no resources but signature indicates they
+                // must be present" and the app refuses to launch on Apple Silicon. Re-signing ad-hoc
+                // (`--sign -`) rebuilds a consistent _CodeSignature/CodeResources seal.
+                try {
+                    grunt.log.writeln('Removing quarantine attributes...');
+                    await execFileAsync('xattr', ['-cr', appPath]);
+                    grunt.log.ok('Quarantine attributes removed');
+                } catch (xattrError) {
+                    grunt.log.warn(`Failed to remove quarantine: ${xattrError.message}`);
+                }
+
+                try {
+                    grunt.log.writeln('Ad-hoc re-signing app bundle...');
+                    await execFileAsync('codesign', ['--force', '--deep', '--sign', '-', appPath]);
+                    grunt.log.ok('App bundle ad-hoc re-signed successfully');
+                } catch (signError) {
+                    grunt.log.warn(`Failed to re-sign app bundle: ${signError.message}`);
                 }
             } catch (error) {
                 grunt.fail.warn(`Failed to fix symlinks: ${error.message}`);
