@@ -174,12 +174,15 @@ jobs:
           name: Release v${{ needs.checkversion.outputs.version }}
           body: ${{ format(needs.checkversion.outputs.template, needs.checkversion.outputs.version, needs.checkversion.outputs.commits) }}
           generate_release_notes: false
+          # Use wildcards instead of exact version strings: Squirrel normalizes the .nupkg version
+          # (drops the "+9" build metadata, so firebot-5.66.5-full.nupkg, not firebot-5.66.5+9-...),
+          # and matching by extension is robust to any version-string differences between tools.
           files: |
-            ./bundles/Windows/firebot-v${{ needs.checkversion.outputs.version }}-setup.exe
-            ./bundles/Windows/firebot-${{ needs.checkversion.outputs.version }}-full.nupkg
+            ./bundles/Windows/*-setup.exe
+            ./bundles/Windows/*-full.nupkg
             ./bundles/Windows/RELEASES
-            ./bundles/Linux/firebot-v${{ needs.checkversion.outputs.version }}-linux-x64.tar.gz
-            ./bundles/Linux/firebot-v${{ needs.checkversion.outputs.version }}-linux-x64.deb
-            ./bundles/Linux/firebot-v${{ needs.checkversion.outputs.version }}-linux-x64.rpm
-            ./bundles/macOS/firebot-v${{ needs.checkversion.outputs.version }}-macos-x64.dmg
-            ./bundles/macOS/firebot-v${{ needs.checkversion.outputs.version }}-macos-arm64.dmg
+            ./bundles/Linux/*-linux-x64.tar.gz
+            ./bundles/Linux/*-linux-x64.deb
+            ./bundles/Linux/*-linux-x64.rpm
+            ./bundles/macOS/*-macos-x64.dmg
+            ./bundles/macOS/*-macos-arm64.dmg
