@@ -105,6 +105,12 @@ jobs:
 
       - name: Build for Platform
         run: grunt build
+        # Bound the step so a stalled @electron/packager fails fast instead of hanging for hours,
+        # and turn on packager/prune debug logging so the CI log shows exactly which step stalls
+        # (download, extract, copy, prune/galactus tree walk, asar, or move).
+        timeout-minutes: 25
+        env:
+          DEBUG: electron-packager,galactus,flora-colossus
 
       - name: List build output (debug)
         if: always()
