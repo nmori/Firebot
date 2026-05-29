@@ -110,7 +110,7 @@ jobs:
         # (download, extract, copy, prune/galactus tree walk, asar, or move).
         timeout-minutes: 25
         env:
-          DEBUG: electron-packager,galactus,flora-colossus
+          DEBUG: electron-packager,extract-zip,galactus,flora-colossus
 
       - name: List build output (debug)
         if: always()

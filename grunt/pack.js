@@ -66,10 +66,12 @@ module.exports = function (grunt) {
         ...ignoreFlags
     ].join(' ');
 
-    // Linux uses electron-installer-debian which doesn't handle --asar archives
-    // Also, Linux executable names can't have spaces, so use "firebot" instead of "Firebot v5"
+    // Keep --asar for Linux (matches upstream and the win/mac targets). electron-installer-debian
+    // DOES read metadata from resources/app.asar (electron-installer-common's readMetadata), so the
+    // earlier "doesn't handle asar" assumption was wrong. Packing into a single app.asar instead of
+    // copying ~18k unpacked files avoids the copy stalling on the CI runner. Linux executable names
+    // can't contain spaces, so use "firebot" instead of "Firebot v5".
     const linuxFlags = flags
-        .replace('--asar', '')
         .replace('--executable-name="Firebot v5"', '--executable-name="firebot"')
         .trim();
 
