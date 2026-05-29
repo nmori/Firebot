@@ -66,6 +66,10 @@ module.exports = function (grunt) {
         ...ignoreFlags
     ].join(' ');
 
+    // Linux uses electron-installer-debian which doesn't handle --asar archives
+    // Create flags without --asar for Linux
+    const linuxFlags = flags.replace('--asar', '').trim();
+
     const appPackageJson = grunt.file.readJSON('./package.json');
 
     // electron-packager doesn't like prerelease tags with dots in them for the Windows target
@@ -82,7 +86,7 @@ module.exports = function (grunt) {
                 command: `npx --no-install @electron/packager . Firebot --platform=darwin ${flags.replace('--arch=x64', '')} --arch=x64 --arch=arm64 --extend-info="extra.plist" --extra-resource="./src/resources/firebot-setup-file-icon.icns"`
             },
             packlinux: {
-                command: `npx --no-install @electron/packager . Firebot --platform=linux ${flags}`
+                command: `npx --no-install @electron/packager . Firebot --platform=linux ${linuxFlags}`
             }
         }
     });
