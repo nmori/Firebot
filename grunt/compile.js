@@ -153,31 +153,11 @@ module.exports = function (grunt) {
         const done = this.async();
         const installer = require('electron-installer-debian');
 
-        // Find the actual executable name in the pack directory
-        // electron-packager uses package.json's name field for Linux, not --executable-name
-        let executableName = 'firebotv5-jp';  // default from package.json name
-        try {
-            const packDir = linuxInstallerConfig.src;
-            const files = await fsp.readdir(packDir);
-            // Look for executable (any file that's not a directory and in common electron-packager output locations)
-            const possibleNames = ['firebotv5-jp', 'firebot', 'Firebot', 'Firebot v5'];
-            for (const name of possibleNames) {
-                if (files.includes(name)) {
-                    const stat = await fsp.stat(path.join(packDir, name));
-                    if (stat.isFile()) {
-                        executableName = name;
-                        grunt.log.ok(`Found executable: ${name}`);
-                        break;
-                    }
-                }
-            }
-        } catch (err) {
-            grunt.log.warn(`Could not detect executable name: ${err.message}, using default: ${executableName}`);
-        }
-
+        // `bin` must match the executable produced by electron-packager (grunt/pack.js sets
+        // `--executable-name="firebot"` for Linux). Without it, electron-installer-debian falls
+        // back to package.json's name ("firebotv5-jp"), which doesn't exist in the pack dir.
         installer({
             ...linuxInstallerConfig,
-            bin: executableName,
             options: {
                 ...linuxInstallerConfig.options,
                 scripts: linuxScriptsDebian
