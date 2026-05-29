@@ -62,12 +62,23 @@ module.exports = function (grunt) {
                 if (fixedCount > 0) {
                     grunt.log.ok(`Fixed ${fixedCount} absolute symlink(s) in ${appPath}`);
 
+                    // Remove quarantine xattr recursively - this is set during code signing
+                    // and can interfere with Gatekeeper verification if stale
+                    try {
+                        grunt.log.writeln('Removing quarantine attributes...');
+                        await execFileAsync('xattr', ['-cr', appPath]);
+                        grunt.log.ok('Quarantine attributes removed');
+                    } catch (xattrError) {
+                        grunt.log.warn(`Failed to remove quarantine: ${xattrError.message}`);
+                    }
+
                     // Re-sign the app bundle after symlink modifications
                     // Symlink changes invalidate the previous code signature
+                    // Use --options runtime to ensure runtime hardening is applied
                     try {
                         grunt.log.writeln('Re-signing app bundle after symlink fix...');
-                        await execFileAsync('codesign', ['--force', '--deep', '--sign', '-', appPath]);
-                        grunt.log.ok('App bundle re-signed successfully');
+                        await execFileAsync('codesign', ['--force', '--deep', '--options', 'runtime', '--sign', '-', appPath]);
+                        grunt.log.ok('App bundle re-signed successfully with runtime options');
                     } catch (signError) {
                         grunt.log.warn(`Failed to re-sign app bundle: ${signError.message}`);
                     }
