@@ -124,12 +124,23 @@ module.exports = function (grunt) {
 
     const runPackager = (done, opts) => {
         const { packager } = require('@electron/packager');
+        // Keep the Node event loop alive until packaging settles. On the Windows and Linux CI
+        // runners the grunt process was exiting 0 immediately after "Packaging app for platform
+        // ..." with the packager promise still pending — no "Packaged app to:", no error, and the
+        // pack dir left empty (so create-windows-installer found no app.asar and the Linux
+        // installers found no binary). That is the classic symptom of the event loop draining
+        // while only a Promise (not an active libuv handle) is outstanding: a pending Promise does
+        // not, by itself, keep Node running. An interval is an active handle that prevents the
+        // premature exit; it is cleared as soon as packaging resolves or rejects.
+        const keepAlive = setInterval(() => {}, 60000);
         packager(opts)
             .then((appPaths) => {
+                clearInterval(keepAlive);
                 grunt.log.ok(`Packaged app to: ${appPaths.join(', ')}`);
                 done();
             })
             .catch((err) => {
+                clearInterval(keepAlive);
                 grunt.log.error(err.stack || String(err));
                 done(err);
             });

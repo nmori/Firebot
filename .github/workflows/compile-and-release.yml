@@ -106,6 +106,16 @@ jobs:
       - name: Build for Platform
         run: grunt build
 
+      - name: List build output (debug)
+        if: always()
+        shell: bash
+        run: |
+          echo "=== workspace: $(pwd) ==="
+          echo "=== dist/install (recursive) ==="
+          ls -laR dist/install 2>/dev/null || echo "(no dist/install directory)"
+          echo "=== dist/pack subdirs (top level) ==="
+          for d in dist/pack/*/; do echo "-- $d"; ls -la "$d" 2>/dev/null | head -30; done 2>/dev/null || echo "(no dist/pack)"
+
       - name: Verify macOS arm64 DMG symlinks
         if: runner.os == 'macOS'
         shell: bash

@@ -38,5 +38,8 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "js/ts.tsdk.path": "node_modules/typescript/lib",
-    "js/ts.tsdk.promptToUseWorkspaceVersion": true
+    "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }
