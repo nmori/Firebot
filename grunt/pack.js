@@ -67,8 +67,11 @@ module.exports = function (grunt) {
     ].join(' ');
 
     // Linux uses electron-installer-debian which doesn't handle --asar archives
-    // Create flags without --asar for Linux
-    const linuxFlags = flags.replace('--asar', '').trim();
+    // Also, Linux executable names can't have spaces, so use "firebot" instead of "Firebot v5"
+    const linuxFlags = flags
+        .replace('--asar', '')
+        .replace('--executable-name="Firebot v5"', '--executable-name="firebot"')
+        .trim();
 
     const appPackageJson = grunt.file.readJSON('./package.json');
 
