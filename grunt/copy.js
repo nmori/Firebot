@@ -91,15 +91,24 @@ module.exports = function (grunt) {
     grunt.registerTask('copy', function () {
         const platform = grunt.config.get('platform');
         remFiles(platform);
-        grunt.task.run(`xcopy:${platform}`);
 
         // Create version file for Linux (required by electron-installer-debian)
         if (platform === 'linux') {
-            const pkg = require('../package.json');
             const electronPkg = require('../node_modules/electron/package.json');
-            const versionPath = path.join(__dirname, '../dist/pack/Firebot-linux-x64/version');
-            fs.writeFileSync(versionPath, electronPkg.version, 'utf8');
+            const packDir = path.join(__dirname, '../dist/pack/Firebot-linux-x64');
+            const versionPath = path.join(packDir, 'version');
+
+            // Ensure directory exists before writing
+            try {
+                fs.mkdirSync(packDir, { recursive: true });
+                fs.writeFileSync(versionPath, electronPkg.version, 'utf8');
+                grunt.log.ok(`Created version file: ${versionPath}`);
+            } catch (err) {
+                grunt.log.warn(`Failed to create version file: ${err.message}`);
+            }
         }
+
+        grunt.task.run(`xcopy:${platform}`);
     });
 
     grunt.registerTask('copysrc', function() {
