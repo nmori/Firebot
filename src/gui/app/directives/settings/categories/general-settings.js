@@ -26,8 +26,24 @@
                             toggle-model="settings.getSetting('MinimizeToTray')"
                             on-toggle="settings.saveSetting('MinimizeToTray', !settings.getSetting('MinimizeToTray'))"
                             font-size="40"
-                            aria-label="Minimize to Tray, When minimized, Firebot will minimize to tray instead of task bar"
+                            aria-label="Minimize to Tray, When minimized, Firebot will minimize to tray instead of taskbar"
                             accessibility-label="(settings.getSetting('MinimizeToTray') ? '有効' : '無効') + ' 最小化時にタスクバーではなくトレイへ格納します'"
+                        />
+                    </firebot-setting>
+
+                    <firebot-setting
+                        name="起動時に接続"
+                        description="Firebot起動時に Twitch やその他サービスへ自動接続します"
+                    >
+                        <setting-description-addon>
+                            <strong>注記:</strong> この設定を有効にすると、<strong>Firebot Started</strong> イベントに設定した <strong>Toggle Connection</strong> エフェクトと競合する可能性があります。有効化後はそれらのエフェクトを無効化または削除してください。
+                        </setting-description-addon>
+                        <toggle-button
+                            toggle-model="settings.getSetting('ConnectOnLaunch')"
+                            on-toggle="settings.saveSetting('ConnectOnLaunch', !settings.getSetting('ConnectOnLaunch'))"
+                            font-size="40"
+                            aria-label="Connect on Launch, Automatically connect to Twitch and other services when Firebot launches"
+                            accessibility-label="(settings.getSetting('ConnectOnLaunch') ? '有効' : '無効') + ' Firebot起動時に Twitch やその他サービスへ自動接続します'"
                         />
                     </firebot-setting>
 

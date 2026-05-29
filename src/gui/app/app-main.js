@@ -525,6 +525,10 @@
             modalFactory.showInfoModal("以前のバックアップ保存先が見つかりませんでした。保存先はデフォルトにリセットされました。設定 > バックアップ から変更できます。");
             settingsService.deleteSetting("BackupLocationReset");
         }
+
+        if (settingsService.getSetting("ConnectOnLaunch") === true) {
+            connectionService.connectSidebarControlledServices();
+        }
     });
 
     // This adds a filter that we can use for ng-repeat, useful when we want to paginate something
