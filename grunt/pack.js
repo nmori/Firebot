@@ -29,20 +29,20 @@ module.exports = function (grunt) {
     const { version } = grunt.file.readJSON('./node_modules/electron/package.json');
 
     const ignoreList = [
-        {dotfiles: true},
-        {dotdirs: true},
-        {path: 'build/resources'},
-        {path: 'dist'},
-        {path: 'doc'},
-        {path: 'docs'},
-        {path: 'grunt'},
-        {path: 'profiles'},
-        {path: 'src'},
-        {path: 'Gruntfile.js', isFile: true},
-        {path: 'package.lock', isFile: true},
-        {path: 'README.md', isFile: true},
-        {path: 'secrets.gpg', isFile: true},
-        {path: 'tsconfig.json', isFile: true}
+        { dotfiles: true },
+        { dotdirs: true },
+        { path: 'build/resources' },
+        { path: 'dist' },
+        { path: 'doc' },
+        { path: 'docs' },
+        { path: 'grunt' },
+        { path: 'profiles' },
+        { path: 'src' },
+        { path: 'Gruntfile.js', isFile: true },
+        { path: 'package.lock', isFile: true },
+        { path: 'README.md', isFile: true },
+        { path: 'secrets.gpg', isFile: true },
+        { path: 'tsconfig.json', isFile: true }
     ];
 
     let ignoreFlags;
@@ -95,8 +95,8 @@ module.exports = function (grunt) {
     // error throws instead of being swallowed.
     // electron-packager tests ignores against POSIX, leading-slash paths (see copy-filter.js),
     // so these regexes use forward slashes.
-    const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const buildIgnoreRegexes = (list) => list.map((item) => {
+    const escapeRegex = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const buildIgnoreRegexes = list => list.map((item) => {
         if (item.dotfiles) {
             return /^\/?\.[^/]+$/;
         }

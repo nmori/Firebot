@@ -146,13 +146,13 @@ module.exports = function (grunt) {
         try {
             const entries = await fsp.readdir(packDir, { withFileTypes: true });
             grunt.log.writeln(`Contents of ${packDir}:`);
-            entries.forEach((e) => grunt.log.writeln(`  ${e.isDirectory() ? '[dir] ' : '      '}${e.name}`));
+            entries.forEach(e => grunt.log.writeln(`  ${e.isDirectory() ? '[dir] ' : '      '}${e.name}`));
 
             // The main binary is the renamed `electron`: a top-level file with no extension
             // that isn't one of the known companion files.
             const candidates = entries
-                .filter((e) => e.isFile() && !e.name.includes('.') && !noise.has(e.name))
-                .map((e) => e.name);
+                .filter(e => e.isFile() && !e.name.includes('.') && !noise.has(e.name))
+                .map(e => e.name);
 
             if (candidates.length === 1) {
                 grunt.log.ok(`Detected Electron binary: ${candidates[0]}`);
