@@ -31,20 +31,20 @@ module.exports = function (grunt) {
     let ignoreFlags;
     try {
         ignoreFlags = formatIgnoreList([
-            { dotfiles: true },
-            { dotdirs: true },
-            { path: 'build/resources' },
-            { path: 'dist' },
-            { path: 'doc' },
-            { path: 'docs' },
-            { path: 'grunt' },
-            { path: 'profiles' },
-            { path: 'src' },
-            { path: 'Gruntfile.js', isFile: true },
-            { path: 'package.lock', isFile: true },
-            { path: 'README.md', isFile: true },
-            { path: 'secrets.gpg', isFile: true },
-            { path: 'tsconfig.json', isFile: true }
+            {dotfiles: true},
+            {dotdirs: true},
+            {path: 'build/resources'},
+            {path: 'dist'},
+            {path: 'doc'},
+            {path: 'docs'},
+            {path: 'grunt'},
+            {path: 'profiles'},
+            {path: 'src'},
+            {path: 'Gruntfile.js', isFile: true},
+            {path: 'package.lock', isFile: true},
+            {path: 'README.md', isFile: true},
+            {path: 'secrets.gpg', isFile: true},
+            {path: 'tsconfig.json', isFile: true}
         ]);
     } catch (err) {
         grunt.fail.fatal(err);
@@ -66,15 +66,6 @@ module.exports = function (grunt) {
         ...ignoreFlags
     ].join(' ');
 
-    // Keep --asar for Linux (matches upstream and the win/mac targets). electron-installer-debian
-    // DOES read metadata from resources/app.asar (electron-installer-common's readMetadata), so the
-    // earlier "doesn't handle asar" assumption was wrong. Packing into a single app.asar instead of
-    // copying ~18k unpacked files avoids the copy stalling on the CI runner. Linux executable names
-    // can't contain spaces, so use "firebot" instead of "Firebot v5".
-    const linuxFlags = flags
-        .replace('--executable-name="Firebot v5"', '--executable-name="firebot"')
-        .trim();
-
     const appPackageJson = grunt.file.readJSON('./package.json');
 
     // electron-packager doesn't like prerelease tags with dots in them for the Windows target
@@ -91,7 +82,7 @@ module.exports = function (grunt) {
                 command: `npx --no-install @electron/packager . Firebot --platform=darwin ${flags.replace('--arch=x64', '')} --arch=x64 --arch=arm64 --extend-info="extra.plist" --extra-resource="./src/resources/firebot-setup-file-icon.icns"`
             },
             packlinux: {
-                command: `npx --no-install @electron/packager . Firebot --platform=linux ${linuxFlags}`
+                command: `npx --no-install @electron/packager . Firebot --platform=linux ${flags}`
             }
         }
     });

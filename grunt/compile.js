@@ -28,7 +28,7 @@ module.exports = function (grunt) {
     const linuxInstallerConfig = {
         src: "dist/pack/Firebot-linux-x64",
         dest: "dist/install/Linux",
-        bin: "firebot",
+        bin: "Firebot v5",
         options: {
             productName: "Firebot v5",
             genericName: "Firebot v5",
@@ -132,46 +132,11 @@ module.exports = function (grunt) {
         createDmg().then(done, done);
     });
 
-    // electron-installer-debian/-redhat need `bin` to match the executable electron-packager
-    // actually produced in the pack dir. The name is *supposed* to be "firebot" (grunt/pack.js
-    // passes --executable-name="firebot"), but native-Linux CI runs have produced a differently
-    // named/laid-out binary than local cross-platform packs. Rather than hardcode a guess, detect
-    // the real Electron binary and log the directory so CI failures are diagnosable.
-    const findLinuxBinary = async (packDir, fallback) => {
-        // Non-app files electron-packager always drops at the top level.
-        const noise = new Set([
-            'chrome-sandbox', 'chrome_crashpad_handler', 'chrome_sandbox',
-            'LICENSE', 'LICENSES.chromium.html', 'version'
-        ]);
-        try {
-            const entries = await fsp.readdir(packDir, { withFileTypes: true });
-            grunt.log.writeln(`Contents of ${packDir}:`);
-            entries.forEach(e => grunt.log.writeln(`  ${e.isDirectory() ? '[dir] ' : '      '}${e.name}`));
-
-            // The main binary is the renamed `electron`: a top-level file with no extension
-            // that isn't one of the known companion files.
-            const candidates = entries
-                .filter(e => e.isFile() && !e.name.includes('.') && !noise.has(e.name))
-                .map(e => e.name);
-
-            if (candidates.length === 1) {
-                grunt.log.ok(`Detected Electron binary: ${candidates[0]}`);
-                return candidates[0];
-            }
-            grunt.log.warn(`Could not uniquely detect the Electron binary (candidates: ${candidates.join(', ') || 'none'}). Falling back to "${fallback}".`);
-        } catch (err) {
-            grunt.log.warn(`Could not read ${packDir}: ${err.message}. Falling back to "${fallback}".`);
-        }
-        return fallback;
-    };
-
     grunt.registerTask('create-redhat-installer', 'Create the Redhat .rpm installer', async function () {
         const done = this.async();
         const installer = require('@dennisrijsdijk/electron-installer-redhat');
-        const bin = await findLinuxBinary(linuxInstallerConfig.src, linuxInstallerConfig.bin);
         installer({
             ...linuxInstallerConfig,
-            bin,
             options: {
                 ...linuxInstallerConfig.options,
                 scripts: linuxScriptsRedhat
@@ -187,10 +152,8 @@ module.exports = function (grunt) {
     grunt.registerTask('create-debian-installer', 'Create the Debian .deb installer', async function () {
         const done = this.async();
         const installer = require('electron-installer-debian');
-        const bin = await findLinuxBinary(linuxInstallerConfig.src, linuxInstallerConfig.bin);
         installer({
             ...linuxInstallerConfig,
-            bin,
             options: {
                 ...linuxInstallerConfig.options,
                 scripts: linuxScriptsDebian
