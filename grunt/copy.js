@@ -92,6 +92,14 @@ module.exports = function (grunt) {
         const platform = grunt.config.get('platform');
         remFiles(platform);
         grunt.task.run(`xcopy:${platform}`);
+
+        // Create version file for Linux (required by electron-installer-debian)
+        if (platform === 'linux') {
+            const pkg = require('../package.json');
+            const electronPkg = require('../node_modules/electron/package.json');
+            const versionPath = path.join(__dirname, '../dist/pack/Firebot-linux-x64/version');
+            fs.writeFileSync(versionPath, electronPkg.version, 'utf8');
+        }
     });
 
     grunt.registerTask('copysrc', function() {
