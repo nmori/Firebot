@@ -28,7 +28,7 @@ module.exports = function (grunt) {
     const linuxInstallerConfig = {
         src: "dist/pack/Firebot-linux-x64",
         dest: "dist/install/Linux",
-        bin: "Firebot v5",
+        bin: "firebot",
         options: {
             productName: "Firebot v5",
             genericName: "Firebot v5",
