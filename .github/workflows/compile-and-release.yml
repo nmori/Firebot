@@ -76,7 +76,11 @@ jobs:
       - name: Setup Nodejs
         uses: actions/setup-node@v4
         with:
-          node-version: "24.x"
+          # Node was bumped 20.14.0 -> 22 -> 24 on 2026-05-23, which is when the Linux/Windows
+          # packaging started exiting 0 mid-extract (@electron/packager's extract-zip stops at the
+          # first electron-runtime zip entry on those runners, leaving an empty pack dir). macOS
+          # packs fine on 24, so keep it there; pin the affected runners back to the pre-bump LTS.
+          node-version: ${{ runner.os == 'macOS' && '24.x' || '20.x' }}
 
       - name: Install correct npm version
         run: npm install -g npm@10.8.1
