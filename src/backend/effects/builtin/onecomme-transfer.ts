@@ -83,8 +83,8 @@ const model: EffectType<{
                     id: String(effect.slotname.id),
                     name: effect.slotname.name,
                     write: true,
-                    speech: true,
-                    persist: true
+                    //speech: true,
+                    //persist: true
                 },
                 comment: {
                     id: randomUUID(),

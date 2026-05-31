@@ -8,22 +8,22 @@ const model: EffectType<{
     httpResponse: string;
 }> = {
     definition: {
-        id: "firebot:onecomme-wordparty",
+        id: "firebot:onecomme-wordparty-reaction",
         name: "わんコメ WordParty",
-        description: "わんコメのWordPartyアクションを起動ます",
+        description: "わんコメのWordPartyに起動トリガーを送ります",
         icon: "fad fa-paw",
         categories: [EffectCategory.JP_ORIGINAL],
         dependencies: [],
         outputs: []
     },
     optionsTemplate: `
-        <eos-container header="送信する起動ID">
-            <firebot-input model="effect.key" placeholder-text="起動IDの入力" menu-position="below"></firebot-input>
+        <eos-container header="送信するコメント">
+            <firebot-input model="effect.key" placeholder-text="コメントの入力" menu-position="below"></firebot-input>
         </eos-container>
 
         <eos-container pad-top="true">
             <div class="effect-info alert alert-warning">
-                注意: わんコメのWordParty設定が別途必要です。
+                注意: わんコメのWordPartyで発火する文字列の設定が別途必要です。
             </div>
         </eos-container>
     `,
@@ -31,7 +31,7 @@ const model: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.key == null || effect.key === "") {
-            errors.push("起動キーをいれてください");
+            errors.push("コメント文字列を入力してください");
         }
         return errors;
     },
@@ -39,11 +39,12 @@ const model: EffectType<{
         const { effect } = event;
 
         try {
-            const response = await fetch(`http://localhost:11180/api/wordparty/${effect.key}`, {
+            const response = await fetch("http://localhost:11180/api/reactions", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    id: effect.key
+                    reactions: [{ key: effect.key, value: 1 }],
+                    effect: true
                 })
             });
 

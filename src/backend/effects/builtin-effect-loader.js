@@ -47,6 +47,7 @@ exports.loadEffects = () => {
         'pause-resume-effect-queue',
         'onecomme-transfer',
         'onecomme-wordparty',
+        'onecomme-wordparty-reaction',
         'get-translation-deepl',
         'get-translation-free',
         'get-translation-ms',
