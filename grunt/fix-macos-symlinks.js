@@ -61,18 +61,32 @@ module.exports = function (grunt) {
 
                 if (fixedCount > 0) {
                     grunt.log.ok(`Fixed ${fixedCount} absolute symlink(s) in ${appPath}`);
-
-                    // Re-sign the app bundle after symlink modifications
-                    // Symlink changes invalidate the previous code signature
-                    try {
-                        grunt.log.writeln('Re-signing app bundle after symlink fix...');
-                        await execFileAsync('codesign', ['--force', '--deep', '--sign', '-', appPath]);
-                        grunt.log.ok('App bundle re-signed successfully');
-                    } catch (signError) {
-                        grunt.log.warn(`Failed to re-sign app bundle: ${signError.message}`);
-                    }
                 } else {
                     grunt.log.ok(`All symlinks are relative in ${appPath}`);
+                }
+
+                // Always ad-hoc re-sign the bundle, regardless of whether any symlink was
+                // rewritten. The `copy` task injects build/resources/** into
+                // Contents/Resources AFTER electron-packager assembled (and signed) the
+                // bundle, which invalidates the original signature. On Apple Silicon an
+                // invalid signature makes the app fail to launch ("Firebot is damaged"),
+                // so the .dmg looks like it has no working app inside even though the .app
+                // is present. Re-signing here keeps the shipped bundle launchable.
+                // (No Apple Developer ID is available, so an ad-hoc `-` signature is expected.)
+                try {
+                    grunt.log.writeln('Ad-hoc re-signing app bundle...');
+                    // Strip extended attributes first (quarantine flags, resource forks, Finder
+                    // info). Otherwise codesign aborts with "resource fork, Finder information, or
+                    // similar detritus not allowed". Best-effort: don't fail the build if it errors.
+                    try {
+                        await execFileAsync('xattr', ['-cr', appPath]);
+                    } catch (xattrError) {
+                        grunt.log.warn(`Failed to clear extended attributes: ${xattrError.message}`);
+                    }
+                    await execFileAsync('codesign', ['--force', '--deep', '--sign', '-', appPath]);
+                    grunt.log.ok('App bundle re-signed successfully');
+                } catch (signError) {
+                    grunt.log.warn(`Failed to re-sign app bundle: ${signError.message}`);
                 }
             } catch (error) {
                 grunt.fail.warn(`Failed to fix symlinks: ${error.message}`);

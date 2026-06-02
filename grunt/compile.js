@@ -87,6 +87,17 @@ module.exports = function (grunt) {
         const done = this.async();
 
         const createDmg = async () => {
+            // Fail loudly when the packaged .app is missing instead of silently producing a
+            // .dmg with no app inside (which would then be uploaded/released as a broken artifact).
+            try {
+                await fsp.access(path.join(config.appPath, 'Contents', 'MacOS'));
+            } catch {
+                throw new Error(
+                    `Cannot build DMG: app bundle not found at ${config.appPath}. ` +
+                    `Did 'grunt pack' for darwin succeed and produce ${path.basename(path.dirname(config.appPath))}?`
+                );
+            }
+
             await fsp.mkdir(config.out, { recursive: true });
 
             const stagingDir = path.join(config.out, `${config.name}-staging`);
@@ -97,10 +108,18 @@ module.exports = function (grunt) {
             await fsp.mkdir(stagingDir, { recursive: true });
 
             const appBundleName = path.basename(config.appPath);
+            const stagedAppPath = path.join(stagingDir, appBundleName);
             // Use macOS `ditto` instead of fsp.cp to preserve relative symlinks inside the .app bundle.
             // fs.cp resolves symlink targets to absolute paths, which broke `Versions/Current` and the
             // framework symlinks at install time (dyld could not load Electron Framework).
-            await execFileAsync('ditto', [config.appPath, path.join(stagingDir, appBundleName)]);
+            await execFileAsync('ditto', [config.appPath, stagedAppPath]);
+
+            // Confirm the staged copy actually landed before imaging it.
+            try {
+                await fsp.access(path.join(stagedAppPath, 'Contents', 'MacOS'));
+            } catch {
+                throw new Error(`Cannot build DMG: staging copy at ${stagedAppPath} is missing the app bundle after ditto.`);
+            }
 
             const applicationsLinkPath = path.join(stagingDir, 'Applications');
             try {
