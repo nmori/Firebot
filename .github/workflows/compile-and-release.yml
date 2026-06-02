@@ -76,11 +76,13 @@ jobs:
       - name: Setup Nodejs
         uses: actions/setup-node@v4
         with:
-          # Node was bumped 20.14.0 -> 22 -> 24 on 2026-05-23, which is when the Linux/Windows
-          # packaging started exiting 0 mid-extract (@electron/packager's extract-zip stops at the
-          # first electron-runtime zip entry on those runners, leaving an empty pack dir). macOS
-          # packs fine on 24, so keep it there; pin the affected runners back to the pre-bump LTS.
-          node-version: ${{ runner.os == 'macOS' && '24.x' || '20.x' }}
+          # Node was bumped 20.14.0 -> 22 -> 24 on 2026-05-23, which is when packaging started
+          # exiting 0 mid-extract (@electron/packager's extract-zip stops at the first
+          # electron-runtime zip entry, leaving an empty pack dir with no Firebot.app). macOS was
+          # initially thought immune and kept on 24, but it hit the same empty-pack-dir bug
+          # (electron-packager prints "Packaging app..." then produces no .app, so the .dmg ends up
+          # with no app inside). Pin ALL runners back to the pre-bump LTS.
+          node-version: 20.x
 
       - name: Install correct npm version
         run: npm install -g npm@10.8.1
