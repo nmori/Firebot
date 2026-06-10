@@ -20,7 +20,7 @@ const model : ReplaceVariable = {
         ]
     },
     evaluator: (_, format = 'h:mm a', locale = 'ja') => {
-        const now = moment().locale(locale);
+        const now = moment().locale(locale.toString());
         return now.format(format.toString());
     }
 };
