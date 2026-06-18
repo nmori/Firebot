@@ -1,6 +1,6 @@
 {
     "name": "firebotv5",
-    "version": "5.66.6",
+    "version": "5.66.7",
     "description": "Powerful all-in-one bot for Twitch streamers.",
     "main": "build/main.js",
     "scripts": {
@@ -35,7 +35,7 @@
         "@types/unzipper": "^0.10.11",
         "@types/yargs-parser": "^21.0.3",
         "@typescript-eslint/parser": "^8.46.0",
-        "electron": "^42.0.1",
+        "electron": "^39.8.10",
         "electron-installer-dmg": "^5.0.1",
         "electron-winstaller": "^5.4.0",
         "eslint": "^9.37.0",
