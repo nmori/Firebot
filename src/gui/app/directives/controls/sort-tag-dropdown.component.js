@@ -60,7 +60,7 @@
                         role="menuitem"
                         ng-click="sts.showEditSortTagsModal($ctrl.context)"
                     >
-                        <a href>Edit tags</a>
+                        <a href>タグを編集</a>
                     </li>
                 </ul>
             </div>

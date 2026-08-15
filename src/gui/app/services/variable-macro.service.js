@@ -114,7 +114,7 @@
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Successfully duplicated variable macro!'
+                            content: 'マクロ変数を複製しました。'
                         });
                     } else {
                         ngToast.create("変数マクロの複製に失敗しました。");

@@ -95,7 +95,7 @@
                                         </li>
                                     </ul>
                                 </span>
-                                <span class="clickable pl-2 text-3xl" ng-click="sounds.playChatNotification()" style="color: #1f849e;" aria-label="Play notification sound">
+                                <span class="clickable pl-2 text-3xl" ng-click="sounds.playChatNotification()" style="color: #1f849e;" aria-label="通知音を再生">
                                     <i class="fas fa-play-circle"></i>
                                 </span>
                             </div>
@@ -307,7 +307,7 @@
                             options="clearChatFeedOptions"
                             selected="clearChatFeedMode"
                             on-update="settings.saveSetting('ClearChatFeedMode', option)"
-                            aria-label="Determines how clearing Twitch chat also clears Firebot chat."
+                            aria-label="Twitch チャットの消去時に Firebot のチャットをどう扱うかを設定します"
                         />
                     </firebot-setting>
 

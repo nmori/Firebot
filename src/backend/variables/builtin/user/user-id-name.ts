@@ -14,7 +14,7 @@ triggers["quick_action"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "useridname",
-        description: "(Deprecated: Use $user or $username) The associated underlying user identifying name for the given trigger.",
+        description: "(非推奨: $user または $username を使用してください) このトリガーに関連付けられた、内部的なユーザー識別名です。",
         triggers: triggers,
         possibleDataOutput: ["text"],
         hidden: true

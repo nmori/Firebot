@@ -19,13 +19,13 @@
                     <span class="level-pill">LVL {{hts.currentLevel}}</span>
                     <span ng-if="hts.isGoldenKappaTrain"
                         class="level-pill golden"
-                        uib-tooltip="Congratulations, a Golden Kappa Train is a rare event! Anyone whom cheers 100 bits, subs, re-subs, or gifts a sub during it gains access to the Golden Kappa emote on Twitch for 24 hours."
+                        uib-tooltip="おめでとうございます。ゴールデン Kappa トレインは希少なイベントです。開催中に 100 ビッツのチアー、サブスク、再サブスク、サブギフトを行った人は、24 時間 Twitch のゴールデン Kappa エモートを使えるようになります。"
                         tooltip-append-to-body="true"
                         tooltip-placement="bottom"
                     >Golden Kappa</span>
                     <span ng-if="hts.isTreasureTrain"
                         class="level-pill golden"
-                        uib-tooltip="Congratulations, a Treasure Train is a rare event! Once the Treasure Train reaches a certain threshold, Twitch will discount tier 1 community gift subs for the remainder of the train."
+                        uib-tooltip="おめでとうございます。トレジャートレインは希少なイベントです。一定のしきい値に達すると、そのトレインの残り時間中は Twitch がティア 1 のコミュニティサブギフトを割引します。"
                         tooltip-append-to-body="true"
                         tooltip-placement="bottom"
                     >Treasure</span>

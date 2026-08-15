@@ -290,7 +290,7 @@
                 if (toastConfig?.show) {
                     ngToast.create({
                         className: 'info',
-                        content: toastConfig.message || `Copied '${text}' to clipboard`
+                        content: toastConfig.message || `'${text}' をクリップボードにコピーしました`
                     });
                 }
 

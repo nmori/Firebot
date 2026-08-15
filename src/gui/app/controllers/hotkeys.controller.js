@@ -12,14 +12,14 @@
 
             $scope.headers = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     dataField: "name",
                     sortable: true,
                     cellTemplate: `{{data.name}}`
                 },
                 {
-                    name: "HOTKEY",
+                    name: "ホットキー",
                     icon: "fa-keyboard",
                     dataField: "code",
                     cellTemplate: `

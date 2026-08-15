@@ -18,11 +18,11 @@ const model : ReplaceVariable = {
         return currencies.flatMap(c => ([
             {
                 usage: `currency[${c.name}, $user]`,
-                description: `Get the ${c.name} amount for the current user`
+                description: `現在のユーザーの ${c.name} 残高を取得します。`
             },
             {
                 usage: `currency[${c.name}, someUserName]`,
-                description: `Get the ${c.name} amount for a specific user`
+                description: `指定したユーザーの ${c.name} 残高を取得します。`
             }
         ]));
     },

@@ -17,7 +17,7 @@
                             options="[3,5,10,25,'All']"
                             selected="currentMaxBackups"
                             on-update="settings.saveSetting('MaxBackupCount', option)"
-                            aria-label="Choose your Max Number of backups"
+                            aria-label="バックアップ上限を選択"
 
                         ></dropdown-select>
                     </firebot-setting>
@@ -36,7 +36,7 @@
                                 type="checkbox"
                                 ng-click="settings.saveSetting('BackupIgnoreResources', !settings.getSetting('BackupIgnoreResources'))"
                                 ng-checked="settings.getSetting('BackupIgnoreResources')"
-                                aria-label="Don't include overlay resource folder in backups"
+                                aria-label="バックアップにオーバーレイリソースフォルダを含めない"
                             />
                             <div class="control__indicator"></div>
                         </label>
@@ -54,7 +54,7 @@
                                 type="checkbox"
                                 ng-click="settings.saveSetting('BackupOnExit', !settings.getSetting('BackupOnExit'))"
                                 ng-checked="settings.getSetting('BackupOnExit')"
-                                aria-label="Automatic update when Firebot closes"
+                                aria-label="Firebot 終了時に自動バックアップ"
                             />
                             <div class="control__indicator"></div>
                         </label>
@@ -64,7 +64,7 @@
                                 type="checkbox"
                                 ng-click="settings.saveSetting('BackupOnceADay', !settings.getSetting('BackupOnceADay'))"
                                 ng-checked="settings.getSetting('BackupOnceADay')"
-                                aria-label="Automatic update Once a day"
+                                aria-label="1日1回 自動バックアップ"
                             />
                             <div class="control__indicator"></div>
                         </label>
@@ -76,7 +76,7 @@
                             <input
                                 type="checkbox"
                                 ng-checked="true"
-                                aria-label="Automatic update Before viewer purges. Firebot will always backup before you do viewer purges"
+                                aria-label="視聴者データ削除前の自動バックアップ。削除前には必ずバックアップが作成されます"
                                 disabled
                             />
                             <div class="control__indicator" disabled></div>
@@ -89,7 +89,7 @@
                             <input
                                 type="checkbox"
                                 ng-checked="true"
-                                aria-label="Automatic update before updates. This cannot be turned off. It's for your own good <3"
+                                aria-label="アップデート前の自動バックアップ。この設定は無効化できません"
                                 disabled
                             />
                             <div class="control__indicator" disabled></div>

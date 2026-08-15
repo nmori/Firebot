@@ -12,7 +12,7 @@
 
             $scope.headers = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-tag",
                     dataField: "name",
                     sortable: true,
@@ -20,7 +20,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "TYPE",
+                    name: "種類",
                     icon: "fa-exclamation-square",
                     headerStyles: {
                         'min-width': '100px'
@@ -37,7 +37,7 @@
                     }
                 },
                 {
-                    name: "INFO",
+                    name: "情報",
                     icon: "fa-info-circle",
                     headerStyles: {
                         'min-width': '100px'

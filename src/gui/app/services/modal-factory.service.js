@@ -437,9 +437,9 @@
 
             backendCommunicator.on("requestIntegrationAccountId", (data) => {
                 service.openGetIdEntryModal({
-                    label: `Enter ${data.integrationName} ${data.label ? data.label : "ID"}`,
-                    saveText: "Save",
-                    inputPlaceholder: `Enter ${data.label ? data.label : "ID"}`,
+                    label: `${data.integrationName} の${data.label ? data.label : "ID"}を入力`,
+                    saveText: "保存",
+                    inputPlaceholder: `${data.label ? data.label : "ID"}を入力`,
                     idLabel: data.label,
                     steps: data.steps
                 }, (model) => {
@@ -498,55 +498,55 @@
                                     }
                                 },
                                 {
-                                    html: `<a href ><span class="iconify" data-icon="mdi:content-copy" style="margin-right: 10px;" aria-hidden="true"></span> Copy</a>`,
+                                    html: `<a href ><span class="iconify" data-icon="mdi:content-copy" style="margin-right: 10px;" aria-hidden="true"></span> コピー</a>`,
                                     click: function () {
                                         $scope.copy();
                                     }
                                 },
                                 {
-                                    html: `<a href ><span class="iconify" data-icon="mdi:content-paste" style="margin-right: 10px;" aria-hidden="true"></span> Paste</a>`,
+                                    html: `<a href ><span class="iconify" data-icon="mdi:content-paste" style="margin-right: 10px;" aria-hidden="true"></span> 貼り付け</a>`,
                                     enabled: $scope.hasCopiedEffect(),
                                     click: function () {
                                         $scope.paste();
                                     }
                                 },
                                 {
-                                    html: `<a href style="color: #fb7373;"><i class="fal fa-trash-alt" style="margin-right: 10px;" aria-hidden="true"></i> Delete</a>`,
+                                    html: `<a href style="color: #fb7373;"><i class="fal fa-trash-alt" style="margin-right: 10px;" aria-hidden="true"></i> 削除</a>`,
                                     click: function () {
                                         $scope.delete();
                                     }
                                 },
                                 {
                                     hasTopDivider: true,
-                                    text: "Advanced...",
+                                    text: "詳細設定...",
                                     children: [
                                         {
-                                            html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> Copy Effect ID</a>`,
+                                            html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> エフェクト ID をコピー</a>`,
                                             click: function () {
                                                 $rootScope.copyTextToClipboard($scope.effect.id);
                                                 ngToast.create({
                                                     className: "success",
-                                                    content: `Copied ${$scope.effect.id} to clipboard.`
+                                                    content: `${$scope.effect.id} をクリップボードにコピーしました。`
                                                 });
                                             }
                                         },
                                         {
-                                            text: "Copy Effect JSON",
-                                            html: `<a href role="menuitem"><i class="fal fa-brackets-curly mr-4"></i> Copy Effect JSON  ></a>`,
+                                            text: "エフェクト JSON をコピー",
+                                            html: `<a href role="menuitem"><i class="fal fa-brackets-curly mr-4"></i> エフェクト JSON をコピー  ></a>`,
                                             children: [
                                                 {
-                                                    text: "For Custom Scripts",
+                                                    text: "カスタムスクリプト用",
                                                     click: () => {
                                                         $rootScope.copyTextToClipboard(angular.toJson($scope.effect));
 
                                                         ngToast.create({
                                                             className: 'success',
-                                                            content: 'Copied effect json to clipboard.'
+                                                            content: 'エフェクトの JSON をクリップボードにコピーしました。'
                                                         });
                                                     }
                                                 },
                                                 {
-                                                    text: "For $runEffect[]",
+                                                    text: "$runEffect[] 用",
                                                     click: () => {
                                                         $rootScope.copyTextToClipboard(
                                                             `$runEffect[\`\`${angular.toJson($scope.effect)}\`\`]`
@@ -554,7 +554,7 @@
 
                                                         ngToast.create({
                                                             className: 'success',
-                                                            content: 'Copied $runEffect with effect json to clipboard.'
+                                                            content: 'エフェクトの JSON を含む $runEffect をクリップボードにコピーしました。'
                                                         });
                                                     }
                                                 }
@@ -574,6 +574,19 @@
                                 modalId
                             );
                         }
+
+                        // 非推奨エフェクトの変換など、エフェクトオプション側から
+                        // エフェクトそのものを差し替えるためのフック
+                        $scope.$on("effectOptions.replaceEffect", function(event, newEffect) {
+                            if (newEffect == null || newEffect.type == null) {
+                                return;
+                            }
+
+                            event.stopPropagation();
+
+                            $scope.effect = newEffect;
+                            effectTypeUpdated();
+                        });
 
                         $scope.effectTypeChanged = function(effectType) {
                             if ($scope.effect && $scope.effect.type === effectType.id) {
@@ -619,7 +632,7 @@
                         $scope.openNewEffectModal = function() {
                             utilityService.showModal({
                                 component: "addNewEffectModal",
-                                breadcrumbName: "Select New Effect",
+                                breadcrumbName: "新しいエフェクトを選択",
                                 backdrop: true,
                                 windowClass: "no-padding-modal",
                                 resolveObj: {
@@ -641,7 +654,7 @@
                         async function validateEffect() {
 
                             if ($scope.effect.type === "Nothing") {
-                                ngToast.create("Please select an effect type!");
+                                ngToast.create("エフェクトの種類を選択してください。");
                                 return false;
                             }
 
@@ -722,7 +735,7 @@
                                         });
                                     }
 
-                                    service.showErrorDetailModal("Replace Variable Error", errorDetails);
+                                    service.showErrorDetailModal("置換変数のエラー", errorDetails);
                                     return false;
                                 }
                             } catch (err) {
@@ -767,9 +780,9 @@
 
                         $scope.getLabelButtonTextForLabel = function(labelModel) {
                             if (labelModel == null || labelModel.length === 0) {
-                                return "Add Label";
+                                return "ラベルを追加";
                             }
-                            return "Edit Label";
+                            return "ラベルを編集";
                         };
 
                         $scope.editLabel = () => {
@@ -778,7 +791,7 @@
                                 {
                                     model: label,
                                     label: $scope.getLabelButtonTextForLabel(label),
-                                    saveText: "Save Label"
+                                    saveText: "ラベルを保存"
                                 },
                                 (newLabel) => {
                                     if (newLabel == null || newLabel.length === 0) {

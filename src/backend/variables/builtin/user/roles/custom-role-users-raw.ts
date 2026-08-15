@@ -6,7 +6,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "rawCustomRoleUsers",
         usage: "rawCustomRoleUsers[role]",
-        description: "(Deprecated: use $customRoleUsers) Returns an array of all the users in the specified custom role.",
+        description: "(非推奨: $customRoleUsers を使用してください) 指定したカスタムロールに属するすべてのユーザーの配列を返します。",
         categories: ["user based"],
         possibleDataOutput: ["array"],
         hidden: true

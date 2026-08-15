@@ -282,10 +282,10 @@
             ng-if="activity.event.canRetrigger !== false"
             class="clickable far fa-redo mr-4"
             ng-click="afs.retriggerEvent(activity.id)"
-            uib-tooltip="Retrigger event"
+            uib-tooltip="イベントを再実行"
             tooltip-placement="top-right"
             tooltip-append-to-body="true"
-            aria-label="Retrigger {{activity.event.name}}"
+            aria-label="{{activity.event.name}} を再実行"
           ></i>
 
           <i
@@ -295,7 +295,7 @@
             uib-tooltip="{{activity.acknowledged ? 'Acknowledged' : 'Acknowledge'}}"
             tooltip-placement="top-right"
             tooltip-append-to-body="true"
-            aria-label="Acknowledge {{activity.event.name}}"
+            aria-label="{{activity.event.name}} を確認済みにする"
           ></i>
         </div>
       </div>

@@ -16,7 +16,7 @@
                     <div class="modal-subheader" style="padding: 0 0 4px 0">
                         TXT ファイル
                     </div>
-                    <file-chooser model="$ctrl.filePath" options="{ filters: [ {name:'Text',extensions:['txt']} ]}"></file-chooser>
+                    <file-chooser model="$ctrl.filePath" options="{ filters: [ {name:'テキストファイル',extensions:['txt']} ]}"></file-chooser>
                 </div>
 
                 <div style="margin-top: 15px;">

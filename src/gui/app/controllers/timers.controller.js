@@ -24,7 +24,7 @@
 
             $scope.timerHeaders = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     headerStyles: {
                         'min-width': '175px'
@@ -35,7 +35,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "INTERVAL",
+                    name: "間隔",
                     icon: "fa-stopwatch",
                     headerStyles: {
                         'min-width': '100px'
@@ -46,7 +46,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "REQUIRED CHAT LINES",
+                    name: "必要チャット行数",
                     icon: "fa-align-center",
                     headerStyles: {
                         'min-width': '175px'
@@ -55,7 +55,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "EFFECTS",
+                    name: "エフェクト",
                     icon: "fa-magic",
                     headerStyles: {
                         'min-width': '100px'
@@ -110,7 +110,7 @@
 
             $scope.scheduledTaskHeaders = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     headerStyles: {
                         'min-width': '175px'
@@ -121,7 +121,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "SCHEDULE",
+                    name: "スケジュール",
                     icon: "fa-calendar-alt",
                     headerStyles: {
                         'min-width': '250px'
@@ -134,7 +134,7 @@
                     }
                 },
                 {
-                    name: "EFFECTS",
+                    name: "エフェクト",
                     icon: "fa-magic",
                     headerStyles: {
                         'min-width': '100px'

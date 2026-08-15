@@ -98,7 +98,7 @@
                     if (successful) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Successfully duplicated a channel reward!'
+                            content: 'チャンネル特典を複製しました。'
                         });
                     } else {
                         ngToast.create("チャンネル報酬の複製に失敗しました。");

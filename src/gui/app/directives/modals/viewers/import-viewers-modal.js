@@ -88,14 +88,14 @@
 
                 $ctrl.headers = [
                     {
-                        name: "USERNAME",
+                        name: "ユーザー名",
                         icon: "fa-user",
                         dataField: "name",
                         sortable: true,
                         cellTemplate: `{{data.name}}`
                     },
                     {
-                        name: "VIEW HOURS",
+                        name: "視聴時間（時間）",
                         icon: "fa-tv",
                         dataField: "viewHours",
                         sortable: true,

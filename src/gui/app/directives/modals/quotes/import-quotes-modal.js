@@ -30,7 +30,7 @@
                         <file-chooser
                             model="$ctrl.importFilePath"
                             on-update="$ctrl.onFileSelected(filepath)"
-                            options="{filters: [ {name: 'Microsoft Excel', extensions: '.xlsx'}, {name: 'Text File', extensions: '.txt'}, {name: 'CSV File', extensions: '.csv'} ]}"
+                            options="{filters: [ {name: 'Microsoft Excel', extensions: '.xlsx'}, {name: 'テキストファイル', extensions: '.txt'}, {name: 'CSV ファイル', extensions: '.csv'} ]}"
                             hide-manual-edit="true"
                         >
                         </file-chooser>

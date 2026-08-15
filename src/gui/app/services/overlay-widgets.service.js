@@ -168,7 +168,7 @@
                 if (successful) {
                     ngToast.create({
                         className: 'success',
-                        content: 'Successfully duplicated overlay widget!'
+                        content: 'オーバーレイウィジェットを複製しました。'
                     });
                 } else {
                     ngToast.create("オーバーレイウィジェットの複製に失敗しました。");

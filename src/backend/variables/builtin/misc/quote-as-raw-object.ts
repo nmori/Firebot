@@ -11,19 +11,19 @@ import logger from "../../../logwrapper";
 const model : ReplaceVariable = {
     definition: {
         handle: "rawQuoteAsObject",
-        description: "(Deprecated: use $quoteAsObject) Get a random quote in the form of a raw Object.",
+        description: "(非推奨: $quoteAsObject を使用してください) ランダムな引用文を生オブジェクトとして取得します。",
         examples: [
             {
                 usage: "rawQuoteAsObject[#]",
-                description: "Get a specific quote id."
+                description: "指定した ID の引用文を取得します。"
             },
             {
                 usage: "rawQuoteAsObject[#, property]",
-                description: "Get only a specific property for a specific quote. Valid properties are id, createdAt, creator, originator, text and game."
+                description: "指定した引用文の特定のプロパティのみを取得します。指定できるプロパティは id, createdAt, creator, originator, text, game です。"
             },
             {
                 usage: "rawQuoteAsObject[null, property]",
-                description: "Get only a specific property for a random quote. Valid properties are id, createdAt, creator, originator, text and game."
+                description: "ランダムな引用文の特定のプロパティのみを取得します。指定できるプロパティは id, createdAt, creator, originator, text, game です。"
             }
         ],
         categories: ["text"],

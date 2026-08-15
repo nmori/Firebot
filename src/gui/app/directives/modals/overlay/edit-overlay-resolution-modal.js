@@ -17,7 +17,7 @@
                     </div>
                     <form class="form-inline">
                         <div class="form-group">
-                            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                            <label class="sr-only" for="exampleInputAmount">解像度</label>
                             <div class="input-group">
                                 <input
                                     type="number"

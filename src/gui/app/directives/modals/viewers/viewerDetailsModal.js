@@ -312,35 +312,35 @@
                                 continue;
                             case "sub":
                                 roles.push({
-                                    name: "Subscriber",
+                                    name: "サブスクライバー",
                                     style: {color: '#C9CCDB'},
                                     rank: 5
                                 });
                                 continue;
                             case "broadcaster":
                                 roles.push({
-                                    name: "Channel Owner",
+                                    name: "チャンネル所有者",
                                     style: {color: 'white'},
                                     rank: 0
                                 });
                                 continue;
                             case "tier1":
                                 roles.push({
-                                    name: "Tier 1 Sub",
+                                    name: "ティア1 サブスク",
                                     style: {color: '#d6d7dc'},
                                     rank: 6
                                 });
                                 continue;
                             case "tier2":
                                 roles.push({
-                                    name: "Tier 2 Sub",
+                                    name: "ティア2 サブスク",
                                     style: {color: '#b1c5d4'},
                                     rank: 7
                                 });
                                 continue;
                             case "tier3":
                                 roles.push({
-                                    name: "Tier 3 Sub",
+                                    name: "ティア3 サブスク",
                                     style: {color: '#71879a'},
                                     rank: 8
                                 });
@@ -813,7 +813,7 @@
 
                     utilityService
                         .showConfirmationModal({
-                            title: `Remove Viewer Data`,
+                            title: `視聴者データを削除`,
                             question: `${displayName} の Firebot データを削除しますか？`,
                             confirmLabel: "削除",
                             confirmBtnType: "btn-danger"

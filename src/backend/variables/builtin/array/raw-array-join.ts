@@ -6,7 +6,7 @@ import arrayJoin from './array-join';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayJoin",
-        description: "(Deprecated: use $arrayJoin) Returns a string with each array item joined together with the given separator",
+        description: "(非推奨: $arrayJoin を使用してください) 配列の各要素を指定した区切り文字で連結した文字列を返します。",
         usage: "rawArrayJoin[array, separator]",
         categories: ["advanced"],
         possibleDataOutput: ["text"],

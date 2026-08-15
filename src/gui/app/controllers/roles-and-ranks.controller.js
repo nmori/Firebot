@@ -48,19 +48,19 @@
 
             $scope.rankLadderHeaders = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-tag",
                     dataField: "name",
                     sortable: true,
                     cellTemplate: `{{data.name}}`
                 },
                 {
-                    name: "MODE",
+                    name: "モード",
                     icon: "fa-bring-forward",
                     cellTemplate: `{{data.mode | capitalize}}`
                 },
                 {
-                    name: "RANKS",
+                    name: "ランク",
                     icon: "fa-medal",
                     cellTemplate: `{{data.ranks.length}}`
                 }

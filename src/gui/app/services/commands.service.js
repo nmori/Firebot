@@ -124,7 +124,7 @@
                 backendCommunicator.send("reset-all-per-stream-command-usages");
                 ngToast.create({
                     className: "success",
-                    content: "All per-stream command usages cleared successfully"
+                    content: "配信ごとのコマンド使用回数をすべてリセットしました。"
                 });
             };
 
@@ -143,7 +143,7 @@
             backendCommunicator.on("active-cooldowns-reset", () => {
                 ngToast.create({
                     className: "success",
-                    content: "All command cooldowns cleared successfully"
+                    content: "コマンドのクールダウンをすべて解除しました。"
                 });
             });
 

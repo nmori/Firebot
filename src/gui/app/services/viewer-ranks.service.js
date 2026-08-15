@@ -95,7 +95,7 @@
                         if (successful) {
                             ngToast.create({
                                 className: 'success',
-                                content: 'Successfully duplicated rank ladder!'
+                                content: 'ランクラダーを複製しました。'
                             });
                         } else {
                             ngToast.create("ランクラダーの複製に失敗しました。");
@@ -138,14 +138,14 @@
             service.ladderModes = [
                 {
                     id: "auto",
-                    name: "Automated",
-                    description: "Viewers are automatically added to ranks based on view time or currency.",
+                    name: "自動",
+                    description: "視聴時間や通貨/ポイントに応じて、視聴者が自動的にランクへ割り当てられます。",
                     iconClass: "fa-magic"
                 },
                 {
                     id: "manual",
-                    name: "Manual",
-                    description: "Viewers must be manually added to ranks in the UI or via the Set Rank effect.",
+                    name: "手動",
+                    description: "画面上の操作、または「ランクを設定」エフェクトで視聴者を手動でランクへ割り当てます。",
                     iconClass: "fa-users-cog"
                 }
             ];

@@ -50,7 +50,7 @@
                         if (response.success) {
                             ngToast.create({
                                 className: 'success',
-                                content: 'Viewers exported!'
+                                content: '視聴者一覧を書き出しました。'
                             });
                         } else {
                             ngToast.create({
@@ -107,7 +107,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "USERNAME",
+                    name: "ユーザー名",
                     icon: "fa-user",
                     dataField: "username",
                     headerStyles: {
@@ -118,7 +118,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "JOIN DATE",
+                    name: "参加日",
                     icon: "fa-sign-in",
                     dataField: "joinDate",
                     sortable: true,
@@ -126,7 +126,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "LAST SEEN",
+                    name: "最終確認",
                     icon: "fa-eye",
                     dataField: "lastSeen",
                     sortable: true,
@@ -134,7 +134,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "VIEW TIME (hours)",
+                    name: "視聴時間（時間）",
                     icon: "fa-tv",
                     dataField: "minutesInChannel",
                     sortable: true,
@@ -146,7 +146,7 @@
                     }
                 },
                 {
-                    name: "CHAT MESSAGES",
+                    name: "チャット数",
                     icon: "fa-comments",
                     dataField: "chatMessages",
                     sortable: true,

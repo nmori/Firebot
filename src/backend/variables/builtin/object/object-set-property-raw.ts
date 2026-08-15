@@ -5,7 +5,7 @@ import objectSetProperty from './object-set-property';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawSetObjectProperty",
-        description: "(Deprecated: use $setObjectProperty) Adds or updates a property's value in the raw object. For nested properties, you can use dot notation (e.g. some.property). Set value to null to remove property.",
+        description: "(非推奨: $setObjectProperty を使用してください) 生オブジェクトのプロパティを追加または更新します。入れ子のプロパティはドット記法で指定できます (例: some.property)。値を null にするとプロパティを削除します。",
         usage: "rawSetObjectProperty[object, propertyPath, value]",
         categories: ["advanced"],
         possibleDataOutput: ["text"],

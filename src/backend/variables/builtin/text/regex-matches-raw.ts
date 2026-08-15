@@ -6,12 +6,12 @@ const model : ReplaceVariable = {
     evaluator: regexMatches.evaluator,
     definition: {
         handle: "rawRegexMatches",
-        description: "(Deprecated: use $regexMatches) Filter a string with a regular expression and return a raw array of all matches",
+        description: "(非推奨: $regexMatches を使用してください) 正規表現で文字列を絞り込み、一致したすべての結果を生配列で返します。",
         usage: "rawRegexMatches[string, expression]",
         examples: [
             {
                 usage: "rawRegexMatches[string, expression, flags]",
-                description: "Add flags to the regex evaluation."
+                description: "正規表現の評価にフラグを追加します。"
             }
         ],
         categories: ["advanced"],

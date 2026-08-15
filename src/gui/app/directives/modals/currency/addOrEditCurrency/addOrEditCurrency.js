@@ -18,7 +18,7 @@
 
             $ctrl.currency = {
                 id: randomUUID(),
-                name: "Points",
+                name: "ポイント",
                 active: true,
                 payout: 5,
                 interval: 5,

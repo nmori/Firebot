@@ -5,16 +5,16 @@ import userMetadata from './user-metadata';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawUserMetadata",
-        description: "(Deprecated: use $userMetaData) Get the raw metadata associated with the user.",
+        description: "(非推奨: $userMetaData を使用してください) ユーザーに紐づく生のメタデータを取得します。",
         usage: "rawUserMetadata[username, metadataKey]",
         examples: [
             {
                 usage: "rawUserMetadata[username, metadataKey, defaultValue]",
-                description: "Provide a default value if one doesn't exist for the user."
+                description: "ユーザーに値が存在しない場合の既定値を指定します。"
             },
             {
                 usage: "rawUserMetadata[username, metadataKey, null, propertyPath]",
-                description: "Provide a property path (using dot notation) or array index as a second argument."
+                description: "第 2 引数にプロパティのパス (ドット記法) または配列のインデックスを指定します。"
             }
         ],
 

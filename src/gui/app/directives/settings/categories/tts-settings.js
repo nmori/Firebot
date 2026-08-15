@@ -18,7 +18,7 @@
                             selected="ttsVoice"
                             on-update="settings.saveSetting('DefaultTtsVoiceId', option)"
                             right-justify="true"
-                            aria-label="Choose your Text to Speech voice"
+                            aria-label="読み上げの音声を選択"
                         />
                     </firebot-setting>
 

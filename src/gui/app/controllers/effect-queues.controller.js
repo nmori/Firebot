@@ -21,7 +21,7 @@
 
             $scope.headers = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     dataField: "name",
                     sortable: true,
@@ -29,7 +29,7 @@
                     cellController: () => { }
                 },
                 {
-                    name: "MODE",
+                    name: "モード",
                     icon: "fa-bring-forward",
                     dataField: "mode",
                     sortable: true,
@@ -42,7 +42,7 @@
                     }
                 },
                 {
-                    name: "INTERVAL/DELAY",
+                    name: "間隔/遅延",
                     icon: "fa-clock",
                     dataField: "interval",
                     sortable: true,

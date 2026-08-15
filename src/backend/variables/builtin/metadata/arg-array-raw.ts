@@ -8,7 +8,7 @@ triggers["manual"] = true;
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArgArray",
-        description: "(Deprecated: use $argArray) Returns the raw array of command arguments",
+        description: "(非推奨: $argArray を使用してください) コマンド引数の生配列を返します。",
         triggers: triggers,
         categories: ["trigger based", "advanced"],
         possibleDataOutput: ["array"],

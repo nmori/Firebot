@@ -7,7 +7,7 @@
                 <scroll-sentinel element-class="edit-power-up-header"></scroll-sentinel>
                 <div class="modal-header sticky-header edit-power-up-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Edit Power-up</h4>
+                    <h4 class="modal-title">パワーアップを編集</h4>
                 </div>
                 <div class="modal-body" style="padding-top: 15px;">
                     <div style="display: flex; flex-direction: column; padding-left: 15px; padding-right: 15px;">
@@ -46,8 +46,8 @@
 
                 </div>
                 <div class="modal-footer sticky-footer edit-power-up-footer">
-                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.dismiss()">キャンセル</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
                 </div>
                 <scroll-sentinel element-class="edit-power-up-footer"></scroll-sentinel>
             `,
@@ -83,7 +83,7 @@
                         if (successful) {
                             $ctrl.dismiss();
                         } else {
-                            ngToast.create("Failed to save power-up. Please try again or view logs for details.");
+                            ngToast.create("パワーアップを保存できませんでした。再試行するか、ログで詳細を確認してください。");
                         }
                     });
                 };

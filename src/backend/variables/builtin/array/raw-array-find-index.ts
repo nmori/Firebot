@@ -6,17 +6,17 @@ import arrayFindIndex from './array-find-index';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayFindIndex",
-        description: "(Deprecated: use $arrayFindIndex) Finds a matching element in the array and returns its index, or null if the element is absent",
+        description: "(非推奨: $arrayFindIndex を使用してください) 配列内で一致する要素を探し、そのインデックスを返します。見つからない場合は null を返します。",
         usage: "rawArrayFindIndex[array, matcher, propertyPath]",
 
         examples: [
             {
                 usage: 'rawArrayFindIndex[array, b]',
-                description: 'Returns 1, the index of "b"'
+                description: '"b" のインデックスである 1 を返します。'
             },
             {
                 usage: 'rawArrayFindIndex[array, value, key]',
-                description: 'Searches the array for an item with a key with the value of "value"'
+                description: 'key プロパティが "value" である要素を配列から探します。'
             }
         ],
         categories: ["advanced"],

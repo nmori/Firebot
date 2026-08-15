@@ -139,7 +139,7 @@
                 if (successful) {
                     ngToast.create({
                         className: 'success',
-                        content: 'Successfully duplicated scheduled effect list!'
+                        content: 'スケジュール実行のエフェクトリストを複製しました。'
                     });
                 } else {
                     ngToast.create("スケジュール済みエフェクトリストの複製に失敗しました。");
@@ -161,7 +161,7 @@
                 return new Promise((resolve) => {
                     utilityService.showModal({
                         component: "addOrEditScheduledTaskModal",
-                        breadcrumbName: "Edit Scheduled Effect List",
+                        breadcrumbName: "スケジュール実行を編集",
                         size: "md",
                         resolveObj: {
                             scheduledTask: () => scheduledTask

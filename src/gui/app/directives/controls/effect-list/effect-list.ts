@@ -175,10 +175,10 @@ type ContextMenuItemScope = {
                                         </div>
                                         <div
                                             ng-if="$ctrl.isEffectDeprecated(effect.type)"
-                                            uib-tooltip="This effect has been deprecated and may be removed from a future version of Firebot."
+                                            uib-tooltip="このエフェクトは非推奨です。将来のバージョンの Firebot で削除される可能性があります。"
                                             tooltip-append-to-body="true"
                                             class="effect-deprecated-badge mr-5"
-                                            aria-label="Deprecated Effect"
+                                            aria-label="非推奨エフェクト"
                                         >
                                             <div>DEPRECATED</div>
                                         </div>

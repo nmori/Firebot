@@ -6,16 +6,16 @@ import arrayRemove from "./array-remove";
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayRemove",
-        description: "(Deprecated: use $arrayRemove) Returns a new array with the element at the given index removed",
+        description: "(非推奨: $arrayRemove を使用してください) 指定したインデックスの要素を取り除いた新しい配列を返します。",
         usage: "rawArrayRemove[array, index]",
         examples: [
             {
                 usage: 'rawArrayRemove[array, 0]',
-                description: "Removes the element at the 0 index"
+                description: "インデックス 0 の要素を取り除きます。"
             },
             {
                 usage: 'rawArrayRemove[array, last]',
-                description: 'Removes the element at the last index'
+                description: '最後のインデックスの要素を取り除きます。'
             }
         ],
         categories: ["advanced"],

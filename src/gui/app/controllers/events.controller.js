@@ -69,7 +69,7 @@
 
             $scope.tableConfig = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-tag",
                     headerStyles: {
                         'min-width': '150px'
@@ -80,7 +80,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "TYPE",
+                    name: "種類",
                     icon: "fa-exclamation-square",
                     headerStyles: {
                         'min-width': '100px'

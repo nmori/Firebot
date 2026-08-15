@@ -5,36 +5,36 @@ import userRoles from './user-roles';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawUserRoles",
-        description: "(Deprecated: use $userRoles) Returns all roles of the user as a raw array",
+        description: "(非推奨: $userRoles を使用してください) ユーザーのすべてのロールを生配列で返します。",
         usage: "rawUserRoles[username, all|twitch|team|firebot|custom]",
         examples: [
             {
                 usage: 'rawUserRoles',
-                description: "Returns all roles for the user"
+                description: "ユーザーのすべてのロールを返します。"
             },
             {
                 usage: 'rawUserRoles[$user]',
-                description: "Returns all roles of the specified user"
+                description: "指定したユーザーのすべてのロールを返します。"
             },
             {
                 usage: 'rawUserRoles[$user, all]',
-                description: "Returns all roles of the specified user as nested arrays in the order of: twitch, team, firebot and custom roles"
+                description: "指定したユーザーのすべてのロールを、Twitch・チーム・Firebot・カスタムロールの順で入れ子の配列として返します。"
             },
             {
                 usage: 'rawUserRoles[$user, firebot]',
-                description: "Returns all firebot roles of the specified user"
+                description: "指定したユーザーのすべての Firebot ロールを返します。"
             },
             {
                 usage: 'rawUserRoles[$user, custom]',
-                description: "Returns all custom roles of the specified user"
+                description: "指定したユーザーのすべてのカスタムロールを返します。"
             },
             {
                 usage: 'rawUserRoles[$user, twitch]',
-                description: "Returns all Twitch roles of the specified user"
+                description: "指定したユーザーのすべての Twitch ロールを返します。"
             },
             {
                 usage: 'rawUserRoles[$user, team]',
-                description: "Returns all Twitch team roles of the specified user"
+                description: "指定したユーザーのすべての Twitch チームロールを返します。"
             }
         ],
         categories: ["common", "user based"],

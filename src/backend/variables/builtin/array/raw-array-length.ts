@@ -6,7 +6,7 @@ import arrayLength from './array-length';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayLength",
-        description: "(Deprecated: use $arrayLength) Returns the length of the input array.",
+        description: "(非推奨: $arrayLength を使用してください) 配列の長さを返します。",
         usage: "rawArrayLength[array]",
         categories: ["advanced", "numbers"],
         possibleDataOutput: ["number"],

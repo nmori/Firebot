@@ -158,7 +158,7 @@
                         });
 
                         menuItems.push({
-                            text: `Effect Queues...`,
+                            text: `エフェクトキュー...`,
                             children: children,
                             hasTopDivider: true
                         });
@@ -166,7 +166,7 @@
 
                     if ($ctrl.orderable) {
                         menuItems.push({
-                            text: `Move to...`,
+                            text: `移動先...`,
                             children: [
                                 {
                                     html: `<a href><i class="fas fa-arrow-up" style="margin-right: 27px;"></i> Top</a>`,

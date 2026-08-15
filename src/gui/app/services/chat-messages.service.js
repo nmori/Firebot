@@ -349,7 +349,7 @@
                 if (result === true) {
                     markMessageAsDeleted(messageId);
                 } else {
-                    ngToast.create("Unable to delete chat message. Check log for more details.");
+                    ngToast.create("チャットメッセージを削除できませんでした。詳細はログを確認してください。");
                 }
             };
 

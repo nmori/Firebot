@@ -7,7 +7,7 @@ import { ReplaceVariableManager } from '../../replace-variable-manager';
 const model : ReplaceVariable = {
     definition: {
         handle: 'macro',
-        description: 'calls a user-defined macro',
+        description: 'ユーザー定義のマクロを呼び出します。',
         hidden: true,
         possibleDataOutput: ["text"]
     },

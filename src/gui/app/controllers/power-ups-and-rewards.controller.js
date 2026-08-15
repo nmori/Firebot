@@ -53,7 +53,7 @@
                     cellController: () => { }
                 },
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     headerStyles: {
                         'min-width': '125px'
@@ -64,7 +64,7 @@
                     cellController: () => { }
                 },
                 {
-                    name: "COST",
+                    name: "コスト",
                     icon: "fa-coin",
                     dataField: "twitchData.cost",
                     sortable: true,
@@ -90,7 +90,7 @@
                     cellController: () => { }
                 },
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     headerStyles: {
                         'min-width': '125px'
@@ -101,7 +101,7 @@
                     cellController: () => { }
                 },
                 {
-                    name: "BITS",
+                    name: "ビッツ",
                     icon: "fa-bolt",
                     dataField: "twitchData.bits",
                     sortable: true,

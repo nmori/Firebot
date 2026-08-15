@@ -5,20 +5,20 @@ import arrayFilter from './array-filter';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayFilter",
-        description: "(Deprecated: use $arrayFilter) Returns a new filtered raw array.",
+        description: "(非推奨: $arrayFilter を使用してください) 絞り込んだ新しい生配列を返します。",
         usage: "rawArrayFilter[rawArray, matcher, propertyPath, removeMatches]",
         examples: [
             {
                 usage: 'rawArrayFilter[rawArray, 1, null, false]',
-                description: "Filter out anything that doesn't equal 1"
+                description: "1 と等しくない要素を除外します。"
             },
             {
                 usage: 'rawArrayFilter[rawArray, 1, null, true]',
-                description: 'Filter out anything that equals 1'
+                description: '1 と等しい要素を除外します。'
             },
             {
                 usage: 'rawArrayFilter[rawArray, value, key, true]',
-                description: 'Filter out any item in the array that has a key property which equals "value"'
+                description: '配列内で key プロパティが "value" と等しい要素を除外します。'
             }
         ],
 

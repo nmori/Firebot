@@ -69,7 +69,7 @@
                     if (!isQuickAction) {
                         ngToast.create({
                             className: 'success',
-                            content: `Ran "${list.name}"!`
+                            content: `「${list.name}」を実行しました。`
                         });
                     }
                     return;
@@ -114,7 +114,7 @@
                 if (savedList != null) {
                     ngToast.create({
                         className: 'success',
-                        content: 'Successfully duplicated a preset effect list!'
+                        content: 'プリセットエフェクトリストを複製しました。'
                     });
                 } else {
                     ngToast.create("プリセットエフェクトリストの複製に失敗しました。");

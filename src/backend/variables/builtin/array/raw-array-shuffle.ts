@@ -6,7 +6,7 @@ import arrayShuffle from './array-shuffle';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayShuffle",
-        description: "(Deprecated: use $arrayShuffle) Returns a new shuffled array",
+        description: "(非推奨: $arrayShuffle を使用してください) シャッフルした新しい配列を返します。",
         usage: "rawArrayShuffle[array]",
         categories: ["advanced"],
         possibleDataOutput: ["text"],

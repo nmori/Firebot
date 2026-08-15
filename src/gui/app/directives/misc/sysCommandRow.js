@@ -48,10 +48,10 @@
                     <div style="display: inline-block; margin-right: 25px;">
                         <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> COOLDOWNS</span></div>
                         <div>
-                            <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
+                            <span style="min-width: 51px; display: inline-block;" uib-tooltip="全体クールダウン">
                                 <i class="fal fa-globe"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
                             </span>
-                            <span uib-tooltip="User cooldown">
+                            <span uib-tooltip="ユーザークールダウン">
                                 <i class="fal fa-user"></i> {{$ctrl.command.cooldown.user ? $ctrl.command.cooldown.user + "s" : "-" }}
                             </span>
                         </div>

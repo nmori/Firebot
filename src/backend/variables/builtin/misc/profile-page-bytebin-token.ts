@@ -4,7 +4,7 @@ import * as cloudSync from "../../../cloud-sync";
 const model : ReplaceVariable = {
     definition: {
         handle: "profilePageBytebinToken",
-        description: "Get bytebin id for streamer profile. Access the json by going to https://bytebin.lucko.me/ID-HERE.",
+        description: "配信者プロフィールの bytebin ID を取得します。https://bytebin.lucko.me/ID-HERE にアクセスすると JSON を参照できます。",
         possibleDataOutput: ["text"],
         hidden: true
     },

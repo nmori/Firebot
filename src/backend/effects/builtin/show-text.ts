@@ -62,8 +62,8 @@ type ShowTextEffectOverlayData = {
 const ShowTextEffect: EffectType<ShowTextEffectModel, ShowTextEffectOverlayData> = {
     definition: {
         id: "firebot:show-text",
-        name: "Show Text",
-        description: "Shows specified text in the overlay",
+        name: "テキスト表示",
+        description: "指定したテキストをオーバーレイに表示します",
         icon: "fad fa-text",
         categories: ["common", "overlay"],
         dependencies: []
@@ -72,45 +72,45 @@ const ShowTextEffect: EffectType<ShowTextEffectModel, ShowTextEffectOverlayData>
         return effect.text;
     },
     optionsTemplate: `
-        <eos-container header="Text">
+        <eos-container header="テキスト">
             <firebot-input
                 model="effect.text"
                 use-text-area="true"
             />
         </eos-container>
 
-        <eos-container header="Style" pad-top="true">
+        <eos-container header="スタイル" pad-top="true">
             <font-options
                 ng-model="effect.fontOptions"
                 allow-alpha="true"
             />
             <firebot-checkbox
                 model="effect.addDropShadow"
-                label="Drop Shadow"
+                label="ドロップシャドウ"
                 style="margin-top: 10px;"
             />
         </eos-container>
 
-        <eos-container header="Duration" pad-top="true">
+        <eos-container header="表示時間" pad-top="true">
             <firebot-input
                 model="effect.duration"
-                input-title="Seconds"
+                input-title="秒"
                 data-type="number"
             />
         </eos-container>
 
-        <eos-container header="Container Settings" pad-top="true">
-            <p>This defines the size of the (invisible) box that the above text will be placed in.</p>
+        <eos-container header="コンテナ設定" pad-top="true">
+            <p>上記のテキストを配置する（非表示の）ボックスの大きさを指定します。</p>
             <div class="form-group">
                 <firebot-input
                     model="effect.width"
-                    input-title="Width (in pixels)"
+                    input-title="幅（ピクセル）"
                     input-type="number"
                     disable-variables="true"
                 />
                 <firebot-input
                     model="effect.height"
-                    input-title="Height (in pixels)"
+                    input-title="高さ（ピクセル）"
                     input-type="number"
                     disable-variables="true"
                 />
@@ -118,25 +118,25 @@ const ShowTextEffect: EffectType<ShowTextEffectModel, ShowTextEffectOverlayData>
 
             <firebot-checkbox
                 model="effect.wrapText"
-                label="Wrap Text"
+                label="テキストを折り返す"
                 style="margin-top: 10px;"
             />
 
             <firebot-checkbox
                 model="effect.showDebugBorder"
-                label="Show Debug Border"
-                tooltip="Show a red border around the text box to make it easier to see its position"
+                label="デバッグ枠を表示"
+                tooltip="テキストボックスの周囲に赤い枠を表示し、位置を確認しやすくします"
                 style="margin-top: 10px;"
             />
 
-            <p style="margin-top: 5px;">Justification</p>
+            <p style="margin-top: 5px;">水平位置</p>
             <firebot-radio-cards
                 options="justifyOptions"
                 ng-model="effect.justify"
                 grid-columns="3"
             />
 
-            <p style="margin-top: 5px;">Alignment</p>
+            <p style="margin-top: 5px;">垂直位置</p>
             <firebot-radio-cards
                 options="alignOptions"
                 ng-model="effect.align"
@@ -154,21 +154,21 @@ const ShowTextEffect: EffectType<ShowTextEffectModel, ShowTextEffectOverlayData>
 
         <eos-container pad-top="true">
             <div class="effect-info alert alert-warning">
-                This effect requires the Firebot overlay to be loaded in your broadcasting software. <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">Learn more</a>
+                このエフェクトを使うには、配信ソフトウェアに Firebot のオーバーレイを読み込んでおく必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
             </div>
         </eos-container>
     `,
     optionsController: ($scope, utilityService) => {
         $scope.justifyOptions = [
-            { value: "flex-start", label: "Left", iconClass: "fa-align-left"},
-            { value: "center", label: "Center", iconClass: "fa-align-center" },
-            { value: "flex-end", label: "Right", iconClass: "fa-align-right" }
+            { value: "flex-start", label: "左", iconClass: "fa-align-left"},
+            { value: "center", label: "中央", iconClass: "fa-align-center" },
+            { value: "flex-end", label: "右", iconClass: "fa-align-right" }
         ];
 
         $scope.alignOptions = [
-            { value: "flex-start", label: "Top", iconClass: "fa-arrow-to-top"},
-            { value: "center", label: "Center", iconClass: "fa-border-center-h" },
-            { value: "flex-end", label: "Bottom", iconClass: "fa-arrow-to-bottom" }
+            { value: "flex-start", label: "上", iconClass: "fa-arrow-to-top"},
+            { value: "center", label: "中央", iconClass: "fa-border-center-h" },
+            { value: "flex-end", label: "下", iconClass: "fa-arrow-to-bottom" }
         ];
 
         if ($scope.effect.fontOptions == null) {
@@ -207,7 +207,7 @@ const ShowTextEffect: EffectType<ShowTextEffectModel, ShowTextEffectOverlayData>
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!effect.text?.length) {
-            errors.push("Please enter some text to show.");
+            errors.push("表示するテキストを入力してください。");
         }
         return errors;
     },

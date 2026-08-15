@@ -284,9 +284,9 @@
             }));
 
             $ctrl.trackByOptions = [
-                { value: "view_time", label: "View Time", iconClass: "fa-clock" },
-                { value: "currency", label: "Currency", iconClass: "fa-money-bill" },
-                { value: "metadata", label: "Metadata", iconClass: "fa-user-tag" }
+                { value: "view_time", label: "視聴時間", iconClass: "fa-clock" },
+                { value: "currency", label: "通貨/ポイント", iconClass: "fa-money-bill" },
+                { value: "metadata", label: "メタデータ", iconClass: "fa-user-tag" }
             ];
 
             $ctrl.nameIsTaken = (name) => {
@@ -397,9 +397,9 @@
                     .filter(r => !$ctrl.rankLadder.settings.viewerRestrictions.roleIds.includes(r.id));
                 utilityService.openSelectModal(
                     {
-                        label: "Add Role",
+                        label: "ロールを追加",
                         options: options,
-                        saveText: "Add",
+                        saveText: "追加",
                         validationText: "Please select a role."
 
                     },

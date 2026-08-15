@@ -22,7 +22,7 @@
                                 model="$ctrl.file.path"
                                 on-update="$ctrl.onPathUpdated(filepath)"
                                 aria-describedby="pathHelpBlock"
-                                options="{ filters: [ {name: 'Any File', extensions: ['*']} ]}"
+                                options="{ filters: [ {name: 'すべてのファイル', extensions: ['*']} ]}"
                             ></file-chooser>
                             <span id="pathHelpBlock" class="help-block" ng-show="$ctrl.pathError">ファイルを選択してください。</span>
                         </div>

@@ -16,11 +16,11 @@ const model : ReplaceVariable = {
         return currencies.flatMap(c => ([
             {
                 usage: `topCurrencyUser[${c.name}, 1, username]`,
-                description: `Get the top ${c.name} username`
+                description: `${c.name} が最上位のユーザー名を取得します。`
             },
             {
                 usage: `topCurrencyUser[${c.name}, 5, amount]`,
-                description: `Get the top ${c.name} amount at 5th position`
+                description: `${c.name} の上位 5 番目のユーザー名を取得します。`
             }
         ]));
     },

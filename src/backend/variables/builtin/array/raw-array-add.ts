@@ -6,16 +6,16 @@ import arrayAdd from './array-add';
 const model : ReplaceVariable = {
     definition: {
         handle: 'rawArrayAdd',
-        description: '(Deprecated: use $arrayAdd) Returns a new array with the added element',
+        description: '(非推奨: $arrayAdd を使用してください) 要素を追加した新しい配列を返します。',
         usage: 'rawArrayAdd[array, new-item, at-start]',
         examples: [
             {
                 usage: 'rawArrayAdd[array, 4]',
-                description: 'Returns a new array with 4 added to the end of the raw array'
+                description: '4 を生配列の末尾に追加した新しい配列を返します。'
             },
             {
                 usage: 'rawArrayAdd[array, 4, true]',
-                description: 'Returns a new array with 4 added to the start of the raw array'
+                description: '4 を生配列の先頭に追加した新しい配列を返します。'
             }
         ],
         categories: ["advanced"],

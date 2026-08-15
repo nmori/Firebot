@@ -6,7 +6,7 @@ import arrayReverse from './array-reverse';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayReverse",
-        description: "(Deprecated: use $arrayReverse) Returns a new shuffled array",
+        description: "(非推奨: $arrayReverse を使用してください) 順序を逆にした新しい配列を返します。",
         usage: "rawArrayReverse[array]",
         categories: ["advanced"],
         possibleDataOutput: ["text"],

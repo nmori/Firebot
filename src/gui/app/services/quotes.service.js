@@ -39,9 +39,9 @@
                 const dialogResponse = await backendCommunicator.fireEventAsync("show-save-dialog", {
                     options: {
                         buttonLabel: "Save",
-                        title: "Export Quotes",
+                        title: "引用文を書き出す",
                         filters: [
-                            { name: "CSV File", extensions: ['csv'] }
+                            { name: "CSV ファイル", extensions: ['csv'] }
                         ],
                         properties: ["showOverwriteConfirmation", "createDirectory"]
                     }
@@ -55,7 +55,7 @@
                     if (success) {
                         ngToast.create({
                             className: 'success',
-                            content: 'Quotes exported!'
+                            content: '引用文を書き出しました。'
                         });
                     } else {
                         ngToast.create({

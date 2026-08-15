@@ -16,8 +16,8 @@ const showText = {
    */
     definition: {
         id: "firebot:showtext",
-        name: "テキスト表示",
-        description: "指定したテキストをオーバーレイに表示します。",
+        name: "テキスト表示（旧版）",
+        description: "指定したテキストをオーバーレイに表示します。（非推奨）",
         icon: "fad fa-text",
         categories: ["common", "overlay"],
         dependencies: [],
@@ -40,7 +40,6 @@ const showText = {
         </div>
     </eos-container>
 
-    <eos-container header="Text">
     <eos-container header="テキスト">
         <div ng-class="editorClass" replace-variables on-variable-insert="onVariableInsert(text)" menu-position="bottom">
             <summernote on-editor-ready="editorReady(editor)" ng-model="effect.text" config="editorOptions" editor="editor" editable="editable"></summernote>

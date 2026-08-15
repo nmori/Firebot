@@ -12,28 +12,28 @@
 
             $scope.headers = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-user",
                     dataField: "name",
                     sortable: true,
                     cellTemplate: `{{data.name}}`
                 },
                 {
-                    name: "VALUE",
+                    name: "値",
                     icon: "fa-tally",
                     dataField: "value",
                     sortable: true,
                     cellTemplate: `{{data.value}}`
                 },
                 {
-                    name: "MINIMUM",
+                    name: "最小値",
                     icon: "fa-arrow-to-bottom",
                     dataField: "minimum",
                     sortable: true,
                     cellTemplate: `{{data.minimum ? data.minimum : '該当なし'}}`
                 },
                 {
-                    name: "MAXIMUM",
+                    name: "最大値",
                     icon: "fa-arrow-to-top",
                     dataField: "maximum",
                     sortable: true,

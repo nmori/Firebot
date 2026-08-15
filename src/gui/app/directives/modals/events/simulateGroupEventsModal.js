@@ -166,7 +166,7 @@
                     backendCommunicator.fireEventSync("events:simulate-event", $ctrl.eventData);
                     ngToast.create({
                         className: 'success',
-                        content: "Event simulated!"
+                        content: "イベントをシミュレートしました。"
                     });
                     $ctrl.close();
                 };

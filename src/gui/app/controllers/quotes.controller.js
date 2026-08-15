@@ -69,7 +69,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "QUOTE",
+                    name: "引用文",
                     icon: "fa-quote-right",
                     dataField: "text",
                     headerStyles: {
@@ -85,7 +85,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "AUTHOR",
+                    name: "投稿者",
                     icon: "fa-user",
                     dataField: "originator",
                     headerStyles: {
@@ -99,7 +99,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "DATE",
+                    name: "日付",
                     icon: "fa-calendar",
                     dataField: "createdAt",
                     sortable: true,
@@ -113,7 +113,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "CATEGORY/GAME",
+                    name: "カテゴリ/ゲーム",
                     icon: "fa-gamepad-alt",
                     dataField: "game",
                     sortable: true,

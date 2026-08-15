@@ -6,7 +6,7 @@ import arrayElement from './array-element';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayElement",
-        description: "(Deprecated: use $arrayElement) Returns the element at the given index of the input raw array.",
+        description: "(非推奨: $arrayElement を使用してください) 生配列の指定したインデックスにある要素を返します。",
         usage: "rawArrayElement[array, index]",
         categories: ["advanced"],
         possibleDataOutput: ["text", "number"],

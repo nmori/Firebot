@@ -3,7 +3,7 @@ import type { ReplaceVariable, Trigger } from "../../../../types/variables";
 const model : ReplaceVariable = {
     definition: {
         handle: 'macroArg',
-        description: 'gets the nth argument passed into the macro',
+        description: 'マクロに渡された n 番目の引数を取得します。',
         hidden: true,
         possibleDataOutput: ["ALL"]
     },

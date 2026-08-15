@@ -73,7 +73,7 @@
                 if (successful) {
                     ngToast.create({
                         className: 'success',
-                        content: 'Successfully duplicated a timer!'
+                        content: 'タイマーを複製しました。'
                     });
                 } else {
                     ngToast.create("タイマーの複製に失敗しました。");
@@ -95,7 +95,7 @@
                 return new Promise((resolve) => {
                     utilityService.showModal({
                         component: "addOrEditTimerModal",
-                        breadcrumbName: "Edit Timer",
+                        breadcrumbName: "タイマーを編集",
                         size: "md",
                         resolveObj: {
                             timer: () => timer

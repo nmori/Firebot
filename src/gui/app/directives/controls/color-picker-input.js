@@ -49,7 +49,7 @@
                         name: $ctrl.name,
                         clear: {
                             show: $ctrl.showClear !== false,
-                            label: 'Clear',
+                            label: 'クリア',
                             class: "btn btn-danger clear-btn-width"
                         }
                     };

@@ -4,7 +4,7 @@ const allowHtmlVariable: ReplaceVariable = {
     definition: {
         handle: "allowHtml",
         usage: "allowHtml[$otherVariable]",
-        description: "Allows HTML to be used in places where it's usually not allowed",
+        description: "通常は HTML が使用できない場所でも HTML を使えるようにします。",
         categories: ["advanced"],
         possibleDataOutput: ["text"],
         hidden: true

@@ -27,7 +27,7 @@
                     options: {
                         title: "Firebotバックアップを選択",
                         buttonLabel: "バックアップを選択",
-                        filters: [{ name: "Zip", extensions: ["zip"] }]
+                        filters: [{ name: "Zip ファイル", extensions: ["zip"] }]
                     },
                     currentPath: service.backupFolderPath
                 }))

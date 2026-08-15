@@ -27,7 +27,7 @@
                                 <div class="control__indicator"></div>
                             </label>
                             <div ng-if="effect.overwriteExisting" style="margin-left: 30px;">
-                                <file-chooser model="effect.file" options="{ filters: [ {name: 'Images', extensions: ['png']} ]}"></file-chooser>
+                                <file-chooser model="effect.file" options="{ filters: [ {name: '画像', extensions: ['png']} ]}"></file-chooser>
                             </div>
                         </div>
 

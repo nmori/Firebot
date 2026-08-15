@@ -204,13 +204,13 @@ const effect: EffectType<{
 
         $scope.headers = [
             {
-                name: "KEY",
+                name: "キー",
                 icon: "fa-key",
                 cellTemplate: `{{data.key}}`,
                 cellController: () => {}
             },
             {
-                name: "VALUE",
+                name: "値",
                 icon: "fa-tag",
                 cellTemplate: `{{data.value}}`,
                 cellController: () => {}

@@ -26,7 +26,7 @@
                             toggle-model="settings.getSetting('MinimizeToTray')"
                             on-toggle="settings.saveSetting('MinimizeToTray', !settings.getSetting('MinimizeToTray'))"
                             font-size="40"
-                            aria-label="Minimize to Tray, When minimized, Firebot will minimize to tray instead of taskbar"
+                            aria-label="トレイに最小化。最小化時にタスクバーではなくトレイへ格納します"
                             accessibility-label="(settings.getSetting('MinimizeToTray') ? '有効' : '無効') + ' 最小化時にタスクバーではなくトレイへ格納します'"
                         />
                     </firebot-setting>
@@ -42,7 +42,7 @@
                             toggle-model="settings.getSetting('ConnectOnLaunch')"
                             on-toggle="settings.saveSetting('ConnectOnLaunch', !settings.getSetting('ConnectOnLaunch'))"
                             font-size="40"
-                            aria-label="Connect on Launch, Automatically connect to Twitch and other services when Firebot launches"
+                            aria-label="起動時に接続。Firebot起動時に Twitch やその他サービスへ自動接続します"
                             accessibility-label="(settings.getSetting('ConnectOnLaunch') ? '有効' : '無効') + ' Firebot起動時に Twitch やその他サービスへ自動接続します'"
                         />
                     </firebot-setting>
@@ -55,7 +55,7 @@
                             toggle-model="settings.getSetting('SoundsEnabled') === 'On'"
                             on-toggle="settings.saveSetting('SoundsEnabled', settings.getSetting('SoundsEnabled') === 'On' ? 'Off' : 'On')"
                             font-size="40"
-                            aria-label="Connection Sounds: Get audible alerts when Firebot connects or disconnects"
+                            aria-label="接続サウンド。Firebotの接続/切断時にサウンド通知します"
                             accessibility-label="(settings.getSetting('SoundsEnabled') === 'On' ? '有効' : '無効') + ' Firebotの接続/切断時にサウンド通知します'"
                         />
                     </firebot-setting>
@@ -72,7 +72,7 @@
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="true"
-                                aria-label="Choose your audio output device {{settings.getSetting('AudioOutputDevice').label}}"
+                                aria-label="サウンド出力デバイスを選択 {{settings.getSetting('AudioOutputDevice').label}}"
                             >
                                 <span class="dropdown-text">{{settings.getSetting('AudioOutputDevice').label}}</span>
                                 <span class="caret"></span>
@@ -127,7 +127,7 @@
                             toggle-model="settings.getSetting('WebOnlineCheckin')"
                             on-toggle="settings.saveSetting('WebOnlineCheckin', !settings.getSetting('WebOnlineCheckin'))"
                             font-size="40"
-                            aria-label="Enable this setting to have your stream displayed on Firebot's website when you're live"
+                            aria-label="配信中に Firebot のサイトへ配信情報を掲載します"
                             accessibility-label="(settings.getSetting('WebOnlineCheckin') ? '有効' : '無効') + ' 配信中に Firebot のサイトへ配信情報を掲載します'"
                         />
                     </firebot-setting>
@@ -143,7 +143,7 @@
                                     type="checkbox"
                                     ng-click="settings.saveSetting('ShowUptimeStat', !settings.getSetting('ShowUptimeStat'))"
                                     ng-checked="settings.getSetting('ShowUptimeStat')"
-                                    aria-label="Uptime"
+                                    aria-label="配信時間"
                                 />
                                 <div class="control__indicator"></div>
                             </label>
@@ -153,7 +153,7 @@
                                     type="checkbox"
                                     ng-click="settings.saveSetting('ShowViewerCountStat', !settings.getSetting('ShowViewerCountStat'))"
                                     ng-checked="settings.getSetting('ShowViewerCountStat')"
-                                    aria-label="Viewer count"
+                                    aria-label="視聴者数"
                                 />
                                 <div class="control__indicator"></div>
                             </label>
@@ -163,7 +163,7 @@
                                     type="checkbox"
                                     ng-click="settings.saveSetting('ShowHypeTrainIndicator', !settings.getSetting('ShowHypeTrainIndicator'))"
                                     ng-checked="settings.getSetting('ShowHypeTrainIndicator')"
-                                    aria-label="Hype Trains"
+                                    aria-label="ハイプトレイン"
                                 />
                                 <div class="control__indicator"></div>
                             </label>
@@ -173,7 +173,7 @@
                                     type="checkbox"
                                     ng-click="settings.saveSetting('ShowAdBreakIndicator', !settings.getSetting('ShowAdBreakIndicator'))"
                                     ng-checked="settings.getSetting('ShowAdBreakIndicator')"
-                                    aria-label="Ad Breaks"
+                                    aria-label="広告ブレイク"
                                 />
                                 <div class="control__indicator"></div>
                             </label>
@@ -208,16 +208,16 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="Default Reward Tab"
-                        description="Sets the default tab when switching to the Power-Ups and Rewards page."
+                        name="既定の特典タブ"
+                        description="「パワーアップと特典」ページを開いたときに最初に表示するタブを設定します。"
                     >
                         <firebot-select
-                            options="{ powerups: 'Power-ups', rewards: 'Channel Rewards', queue: 'Request Queue' }"
+                            options="{ powerups: 'パワーアップ', rewards: 'チャンネル特典', queue: 'リクエストキュー' }"
                             ng-init="defaultRewardTab = settings.getSetting('DefaultRewardTab')"
                             selected="defaultRewardTab"
                             on-update="settings.saveSetting('DefaultRewardTab', option)"
                             right-justify="true"
-                            aria-label="Sets the default tab when switching to the Power-Ups and Rewards page."
+                            aria-label="「パワーアップと特典」ページを開いたときに最初に表示するタブを設定します"
                         />
                     </firebot-setting>
                 </div>

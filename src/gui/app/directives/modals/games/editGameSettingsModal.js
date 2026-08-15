@@ -102,32 +102,32 @@
                             if (setting.validation) {
                                 if (setting.validation.required) {
                                     if (setting.type === 'string' && setting.value === "") {
-                                        ngToast.create(`Please input a value for the ${setting.title} option`);
+                                        ngToast.create(`「${setting.title}」の値を入力してください。`);
                                         return false;
                                     } else if (setting.type === 'editable-list' && (setting.value == null || setting.value.length === 0)) {
-                                        ngToast.create(`Please input some text for the ${setting.title} option`);
+                                        ngToast.create(`「${setting.title}」のテキストを入力してください。`);
                                         return false;
                                     } else if (setting.type === 'multiselect' && (setting.value == null || setting.value.length === 0)) {
-                                        ngToast.create(`Please select values for the ${setting.title} option`);
+                                        ngToast.create(`「${setting.title}」の値を選択してください。`);
                                         return false;
                                     } else if (setting.value === null || setting.value === undefined) {
-                                        ngToast.create(`Please select/input a value for the ${setting.title} option`);
+                                        ngToast.create(`「${setting.title}」の値を選択または入力してください。`);
                                         return false;
                                     }
                                 }
                                 if (setting.type === "number") {
                                     if (setting.validation.required && setting.value == null) {
-                                        ngToast.create(`Please input a value for the ${setting.title} option`);
+                                        ngToast.create(`「${setting.title}」の値を入力してください。`);
                                         return false;
                                     }
 
                                     if (setting.value != null) {
                                         if (!isNaN(setting.validation.min) && setting.value < setting.validation.min) {
-                                            ngToast.create(`The value for the ${setting.title} option must be at least ${setting.validation.min}`);
+                                            ngToast.create(`「${setting.title}」の値は ${setting.validation.min} 以上にしてください。`);
                                             return false;
                                         }
                                         if (!isNaN(setting.validation.max) && setting.value > setting.validation.max) {
-                                            ngToast.create(`The value for the ${setting.title} option must be no more than ${setting.validation.max}`);
+                                            ngToast.create(`「${setting.title}」の値は ${setting.validation.max} 以下にしてください。`);
                                             return false;
                                         }
                                     }

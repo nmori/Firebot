@@ -5,7 +5,7 @@ import arrayFrom from './array-from';
 const model : ReplaceVariable = {
     definition: {
         handle: "rawArrayFrom",
-        description: "(Deprecated: use $arrayFrom) Returns a raw array containing the listed values",
+        description: "(非推奨: $arrayFrom を使用してください) 指定した値を含む生配列を返します。",
         usage: "rawArrayFrom[value, value, ...]",
         categories: ["advanced"],
         possibleDataOutput: ["text"],
