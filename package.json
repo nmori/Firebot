@@ -1,6 +1,6 @@
 {
     "name": "firebotv5-jp",
-    "version": "5.66.7+2",
+    "version": "5.66.7+3",
     "description": "Powerful all-in-one bot for Twitch streamers.",
     "main": "build/main.js",
     "scripts": {
@@ -85,7 +85,7 @@
         "cronstrue": "^3.3.0",
         "custom-electron-titlebar": "^4.1.0",
         "deepmerge": "^4.2.2",
-        "dompurify": "^3.4.11",
+        "dompurify": "^3.4.15",
         "ejs": "^3.1.10",
         "electron-regedit": "^2.0.0",
         "electron-window-state": "^5.0.3",
@@ -126,15 +126,18 @@
     },
     "overrides": {
         "lodash": "^4.17.21",
-        "qs": "6.15.2",
-        "engine.io-client": "6.6.5",
+        "qs": "6.16.0",
+        "engine.io-client": "6.6.6",
         "ng-toast": {
             "angular": "1.8.3",
             "angular-sanitize": "1.8.3"
         },
         "@aws-sdk/xml-builder": "3.972.22",
         "fast-xml-parser": "5.7.2",
-        "@xmldom/xmldom": "0.8.13"
+        "@xmldom/xmldom": "0.8.15",
+        "grunt": {
+            "js-yaml": "3.15.2"
+        }
     },
     "optionalDependencies": {
         "@dennisrijsdijk/electron-installer-redhat": "^3.5.0",
