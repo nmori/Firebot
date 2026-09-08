@@ -9,6 +9,7 @@ function normalizeViewerRoleComparisonType(comparisonType?: string) {
     const includeAliases = new Set([
         "含む",
         "を含む",
+        "役割を担当",
         "include",
         "including",
         "contains"
@@ -17,6 +18,7 @@ function normalizeViewerRoleComparisonType(comparisonType?: string) {
     const excludeAliases = new Set([
         "含まない",
         "を含まない",
+        "役割を担当していない",
         "doesn't include",
         "not including",
         "doesn't contain"
@@ -55,7 +57,7 @@ const filter: EventFilter = {
         { eventSourceId: "firebot", eventId: "viewer-rank-updated" },
         { eventSourceId: "firebot", eventId: "currency-update" }
     ],
-    comparisonTypes: ["含む", "含まない"],
+    comparisonTypes: ["include", "doesn't include"],
     valueType: "preset",
     presetValues: (viewerRolesService: any) => {
         return viewerRolesService

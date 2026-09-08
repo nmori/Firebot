@@ -3,32 +3,30 @@
 const { TwitchApi } = require("../../../../../streaming-platforms/twitch/api");
 const roleHelpers = require("../../../../../roles/role-helpers").default;
 
+// Older JP builds saved role comparisons using the generic "contains" wording, which
+// LegacyConditionComparisonTypeMap can only normalize to "contains"/"does not contain"
+// because those labels mean something else on every other condition. Map them the rest
+// of the way here, where the role semantics are unambiguous.
 function normalizeViewerRoleComparisonType(comparisonType) {
     const hasRoleAliases = new Set([
-        "役割を担当",
-        "を含む",
-        "含む",
         "has role",
+        "contains",
+        "is strictly",
         "include",
         "is in role",
         "including",
-        "contains",
-        "含んでいる",
-        "を配列に含む",
-        "厳格に一致"
+        "を含む"
     ]);
 
     const hasNotRoleAliases = new Set([
-        "役割を担当していない",
-        "を含まない",
         "doesn't have role",
+        "does not contain",
+        "doesn't contain",
+        "is not strictly",
         "doesn't include",
         "isn't in role",
         "not including",
-        "doesn't contain",
-        "含まない",
-        "を配列に含まない",
-        "厳格に不一致"
+        "を含まない"
     ]);
 
     if (hasRoleAliases.has(comparisonType)) {
@@ -46,7 +44,7 @@ module.exports = {
     id: "firebot:viewerroles",
     name: "視聴者の役割",
     description: "与えられた視聴者の役割に基づく条件",
-    comparisonTypes: ["役割を担当", "役割を担当していない"],
+    comparisonTypes: ["has role", "doesn't have role"],
     leftSideValueType: "text",
     leftSideTextPlaceholder: "ユーザ名を入力",
     rightSideValueType: "preset",

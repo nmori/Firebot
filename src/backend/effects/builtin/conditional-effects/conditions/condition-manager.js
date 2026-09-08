@@ -5,7 +5,7 @@ const { ReplaceVariableManager } = require("../../../../variables/replace-variab
 const frontendCommunicator = require("../../../../common/frontend-communicator");
 const logger = require("../../../../logwrapper");
 const { simpleClone } = require("../../../../utils");
-const { LegacyComparisonTypeMap } = require("../../../../../shared/filter-constants");
+const { LegacyConditionComparisonTypeMap } = require("../../../../../shared/filter-constants");
 
 class ConditionManager extends EventEmitter {
     constructor() {
@@ -52,7 +52,7 @@ class ConditionManager extends EventEmitter {
                     try {
                         condition.rawLeftSideValue = condition.leftSideValue;
                         condition.rawRightSideValue = condition.rightSideValue;
-                        condition.comparisonType = LegacyComparisonTypeMap[condition.comparisonType] ?? condition.comparisonType;
+                        condition.comparisonType = LegacyConditionComparisonTypeMap[condition.comparisonType] ?? condition.comparisonType;
 
                         if (conditionType.leftSideValueType === 'text') {
                             try {

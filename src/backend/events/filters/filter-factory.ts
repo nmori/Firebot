@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 import { EventFilter, FilterSettings, PresetValue } from "../../../types/events";
 import { Awaitable } from "../../../types/util-types";
-import { ComparisonType, LegacyComparisonTypeMap } from "../../../shared/filter-constants";
+import { ComparisonType, LegacyFilterComparisonTypeMap } from "../../../shared/filter-constants";
 import { extractPropertyWithPath } from "../../utils";
 
 type EventData = {
@@ -62,7 +62,7 @@ const NUMBER_TEXT_COMPARISON_TYPES = [
 ];
 
 function normalizeComparisonType(comparisonType: string): string {
-    return LegacyComparisonTypeMap[comparisonType] ?? comparisonType;
+    return LegacyFilterComparisonTypeMap[comparisonType] ?? comparisonType;
 }
 
 

@@ -6,6 +6,7 @@ function normalizeViewerRankComparisonType(comparisonType?: string) {
     const includeAliases = new Set([
         "含む",
         "を含む",
+        "役割を担当",
         "include",
         "including",
         "contains"
@@ -14,6 +15,7 @@ function normalizeViewerRankComparisonType(comparisonType?: string) {
     const excludeAliases = new Set([
         "含まない",
         "を含まない",
+        "役割を担当していない",
         "doesn't include",
         "not including",
         "doesn't contain"
@@ -50,7 +52,7 @@ const filter: EventFilter = {
         { eventSourceId: "streamloots", eventId: "redemption" },
         { eventSourceId: "firebot", eventId: "view-time-update" }
     ],
-    comparisonTypes: ["含む", "含まない"],
+    comparisonTypes: ["include", "doesn't include"],
     valueType: "preset",
     presetValues: (viewerRanksService: any) => {
         return viewerRanksService
