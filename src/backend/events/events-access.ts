@@ -287,7 +287,16 @@ class EventsAccess {
             }
         }
 
-        return activeEventsArray.filter(e => e.active);
+        // The same event setting id can end up in both the main events and an event
+        // group, which would otherwise run its effect list twice for a single event.
+        const seenIds = new Set<string>();
+        return activeEventsArray.filter((e) => {
+            if (!e.active || seenIds.has(e.id)) {
+                return false;
+            }
+            seenIds.add(e.id);
+            return true;
+        });
     }
 
     getEvent(eventId: string) {

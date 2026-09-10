@@ -17,6 +17,7 @@ import logger from "../logwrapper";
 class TwitchChat extends EventEmitter {
     private _streamerChatClient: ChatClient;
     private _botChatClient: ChatClient;
+    private _isConnecting = false;
 
     constructor() {
         super();
@@ -39,11 +40,22 @@ class TwitchChat extends EventEmitter {
      */
     disconnect(emitDisconnectEvent = true): void {
         if (this._streamerChatClient != null) {
-            this._streamerChatClient.quit();
+            try {
+                this._streamerChatClient.quit();
+            } catch (error) {
+                logger.debug("Error quitting streamer chat client", error);
+            }
             this._streamerChatClient = null;
         }
-        if (this._botChatClient != null && this._botChatClient?.irc?.isConnected === true) {
-            this._botChatClient.quit();
+        // Note we quit the bot client regardless of whether it finished connecting.
+        // Skipping the ones that are still connecting used to leave them alive with
+        // their listeners attached, so they'd handle messages alongside the new client.
+        if (this._botChatClient != null) {
+            try {
+                this._botChatClient.quit();
+            } catch (error) {
+                logger.debug("Error quitting bot chat client", error);
+            }
             this._botChatClient = null;
         }
         if (emitDisconnectEvent) {
@@ -68,24 +80,39 @@ class TwitchChat extends EventEmitter {
             return;
         }
 
+        if (this._isConnecting) {
+            logger.warn("Chat connect is already in progress; ignoring duplicate connect request");
+            return;
+        }
+
         this.emit("connecting");
         this.disconnect(false);
+
+        // Set only once the calls above can no longer throw, so a failure there can't
+        // leave the flag stuck and lock out every later connect attempt. Everything
+        // past this point runs inside the try blocks that clear it again.
+        this._isConnecting = true;
+
+        // Held locally so the awaits below can't leave us acting on a client that a
+        // later connect() already replaced.
+        let streamerChatClient: ChatClient;
 
         try {
 
             await this.connectBotClient();
 
-            this._streamerChatClient = new ChatClient({
+            streamerChatClient = new ChatClient({
                 authProvider: streamerAuthProvider,
                 requestMembershipEvents: true
             });
+            this._streamerChatClient = streamerChatClient;
 
-            this._streamerChatClient.irc.onRegister(() => {
-                void this._streamerChatClient.join(streamer.username);
+            streamerChatClient.irc.onRegister(() => {
+                void streamerChatClient.join(streamer.username);
                 frontendCommunicator.send("twitch:chat:autodisconnected", false);
             });
 
-            this._streamerChatClient.irc.onPasswordError((event) => {
+            streamerChatClient.irc.onPasswordError((event) => {
                 logger.error("Failed to connect to chat", event);
                 frontendCommunicator.send(
                     "error",
@@ -94,18 +121,18 @@ class TwitchChat extends EventEmitter {
                 this.disconnect(true);
             });
 
-            this._streamerChatClient.irc.onConnect(() => {
+            streamerChatClient.irc.onConnect(() => {
                 this.emit("connected");
             });
 
-            this._streamerChatClient.irc.onDisconnect((manual, reason) => {
+            streamerChatClient.irc.onDisconnect((manual, reason) => {
                 if (!manual) {
                     logger.error("Incoming Chat disconnected unexpectedly", reason);
                     frontendCommunicator.send("twitch:chat:autodisconnected", true);
                 }
             });
 
-            this._streamerChatClient.connect();
+            streamerChatClient.connect();
 
             /**
              * DO NOT AWAIT THIS
@@ -136,18 +163,26 @@ class TwitchChat extends EventEmitter {
         }
 
         try {
-            twitchChatListeners.setupChatListeners(this._streamerChatClient, this._botChatClient);
+            if (this._streamerChatClient == null || this._streamerChatClient !== streamerChatClient) {
+                logger.warn("Chat was disconnected or reconnected while connecting; skipping listener setup for the stale client");
+            } else {
+                twitchChatListeners.setupChatListeners(streamerChatClient, this._botChatClient);
+            }
         } catch (error) {
             logger.error("Error setting up chat listeners", error);
+        } finally {
+            this._isConnecting = false;
         }
     }
 
     private connectBotClient(): Promise<void> {
         return new Promise((resolve) => {
             let hasResolved = false;
+            let timeoutId: NodeJS.Timeout;
             const resolveIfNotResolved = () => {
                 if (!hasResolved) {
                     hasResolved = true;
+                    clearTimeout(timeoutId);
                     resolve();
                 }
             };
@@ -156,20 +191,32 @@ class TwitchChat extends EventEmitter {
 
                 if (bot.loggedIn) {
 
-                    this._botChatClient = new ChatClient({
+                    const botChatClient = new ChatClient({
                         authProvider: FirebotDeviceAuthProvider.botProvider,
                         requestMembershipEvents: true
                     });
+                    this._botChatClient = botChatClient;
 
-                    this._botChatClient.onConnect(() => {
+                    botChatClient.onConnect(() => {
                         resolveIfNotResolved();
                     });
 
-                    this._botChatClient.irc.onRegister(() => this._botChatClient.join(streamer.username));
+                    botChatClient.irc.onRegister(() => botChatClient.join(streamer.username));
 
-                    twitchChatListeners.setupBotChatListeners(this._botChatClient);
+                    botChatClient.irc.onPasswordError((event) => {
+                        logger.error("Failed to connect to chat with Bot account", event);
+                        resolveIfNotResolved();
+                    });
 
-                    this._botChatClient.connect();
+                    // Without this, a bot account that never finishes connecting would leave
+                    // the awaiting connect() hung forever, which in turn leaves the connection
+                    // manager stuck and pushes the user into reconnecting by hand.
+                    timeoutId = setTimeout(() => {
+                        logger.warn("Bot chat client did not connect in time; continuing without it");
+                        resolveIfNotResolved();
+                    }, 10000);
+
+                    botChatClient.connect();
 
                 } else {
                     this._botChatClient = null;

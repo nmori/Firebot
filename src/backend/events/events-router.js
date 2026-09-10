@@ -1,6 +1,7 @@
 "use strict";
 
 const NodeCache = require("node-cache");
+const logger = require("../logwrapper");
 const { EffectTrigger } = require("../../shared/effect-constants");
 const { FilterManager } = require("./filters/filter-manager");
 const { EventsAccess } = require("./events-access");
@@ -8,6 +9,37 @@ const { EventsAccess } = require("./events-access");
 // This cache holds all users who have fired events and what events they fired.
 // Deletes entries after 12 hours. Checks every 10 minutes.
 const userEventCache = new NodeCache({ stdTTL: 43200, checkperiod: 600 });
+
+// Throttles the "more than one event setting matched" message below. Without this
+// it would log on every single chat message.
+const duplicateEventWarnCache = new NodeCache({ stdTTL: 600, checkperiod: 120 });
+
+// Warns when a single event resolves to more than one event setting, which means
+// its effect lists run more than once. That is legitimate when the user set up
+// several different events, but a red flag when the same event setting id shows
+// up twice (it exists in both the main events and an active event group).
+function warnOnDuplicateEventSettings(sourceId, eventId, eventSettings) {
+    if (eventSettings.length < 2) {
+        return;
+    }
+
+    const ids = eventSettings.map(es => es.id);
+    const hasDuplicateIds = new Set(ids).size !== ids.length;
+    const key = `${sourceId}:${eventId}:${hasDuplicateIds ? "duplicate-id" : "multiple"}`;
+
+    if (duplicateEventWarnCache.get(key)) {
+        return;
+    }
+    duplicateEventWarnCache.set(key, true);
+
+    if (hasDuplicateIds) {
+        logger.warn(`イベント ${sourceId}:${eventId} に同じ id のイベント設定が重複して存在します`
+            + `（メインイベントとイベントグループの両方にある可能性があります）。`
+            + `同じエフェクトリストが ${eventSettings.length} 回実行されます: [${ids.join(", ")}]`);
+    } else {
+        logger.debug(`イベント ${sourceId}:${eventId} に ${eventSettings.length} 件のイベント設定がマッチしました: [${ids.join(", ")}]`);
+    }
+}
 
 // Cache Event
 // This will cache the event so we don't fire it multiple times per session.
@@ -80,6 +112,10 @@ async function onEventTriggered(event, source, meta, isManual = false, isRetrigg
     const eventSettings = EventsAccess.getAllActiveEvents().filter(
         es => es.sourceId === source.id && es.eventId === event.id
     );
+
+    if (!isManual && !isSimulation) {
+        warnOnDuplicateEventSettings(source.id, event.id, eventSettings);
+    }
 
     const effectPromises = [];
     for (const eventSetting of eventSettings) {

@@ -245,11 +245,22 @@ frontendCommunicator.on("disconnect-sidebar-controlled-services", () => {
     }
 });
 
+// These bypass updateConnectionForServices, so they need their own guard. Without it,
+// clicking connect again while a connection is still being set up re-enters the chat
+// connect and can leave two sets of listeners on the same chat client.
 frontendCommunicator.on("connect-service", (serviceId) => {
+    if (connectionUpdateInProgress) {
+        logger.debug(`Ignoring connect-service for '${serviceId}': a connection update is already in progress`);
+        return;
+    }
     manager.updateServiceConnection(serviceId, true);
 });
 
 frontendCommunicator.on("disconnect-service", (serviceId) => {
+    if (connectionUpdateInProgress) {
+        logger.debug(`Ignoring disconnect-service for '${serviceId}': a connection update is already in progress`);
+        return;
+    }
     manager.updateServiceConnection(serviceId, false);
 });
 

@@ -1,12 +1,67 @@
 import { createHash, randomUUID } from "node:crypto";
+import NodeCache from "node-cache";
 import type { EffectType } from "../../../types/effects";
+import type { Trigger } from "../../../types/triggers";
 import { EffectCategory } from "../../../shared/effect-constants";
 import logger from "../../logwrapper";
+import { getEventIdFromTriggerData } from "../../utils";
 
 type SlotName = {
     id: string;
     name: string;
 };
+
+// Holds the ids of comments we just sent so the same source event can't be
+// forwarded to OneComme twice. Only a few seconds are needed: every known
+// duplication path (multiple event settings running in parallel, chat-message
+// and viewer-arrived firing off the same chat line) happens within milliseconds.
+const recentCommentCache = new NodeCache({ stdTTL: 5, checkperiod: 2 });
+
+/**
+ * Finds an id that identifies the single real-world occurrence this effect run
+ * came from, so that two runs of the same occurrence produce the same comment id.
+ *
+ * Note we deliberately look at the metadata rather than switching on
+ * `trigger.type`: preset effect lists keep the original metadata and only swap
+ * the type out for `preset`, so switching on the type would lose the id.
+ *
+ * @returns An origin key, or `undefined` if this trigger has no stable id
+ */
+function getOriginKey(trigger: Trigger): string | undefined {
+    const meta = trigger?.metadata;
+    if (meta == null) {
+        return undefined;
+    }
+
+    const messageId = (meta.eventData?.messageId as string)
+        ?? meta.eventData?.chatMessage?.id
+        ?? meta.chatMessage?.id;
+    if (messageId) {
+        return `msg:${messageId}`;
+    }
+
+    const redemptionId = meta.redemptionId as string;
+    if (redemptionId) {
+        return `redemption:${redemptionId}`;
+    }
+
+    return undefined;
+}
+
+/**
+ * Formats a hash as a UUID-shaped string, so we keep sending OneComme the same
+ * shape of comment id that `randomUUID()` used to produce.
+ */
+function buildCommentId(originKey: string, contentKey: string): string {
+    const hex = createHash("sha1").update(`${originKey}|${contentKey}`).digest("hex");
+    return [
+        hex.slice(0, 8),
+        hex.slice(8, 12),
+        hex.slice(12, 16),
+        hex.slice(16, 20),
+        hex.slice(20, 32)
+    ].join("-");
+}
 
 const model: EffectType<{
     slotname: SlotName;
@@ -72,11 +127,38 @@ const model: EffectType<{
         return errors;
     },
     onTriggerEvent: async (event) => {
-        const { effect } = event;
+        const { effect, trigger } = event;
 
         try {
             const hash = createHash("sha1");
             hash.update(effect.writerName);
+
+            // When we can tell which real-world occurrence this run came from, derive
+            // the comment id from it instead of using a random one. Two runs of the
+            // same occurrence then produce the same id, which lets us drop the second
+            // one below and lets OneComme collapse anything that still gets through.
+            const originKey = getOriginKey(trigger);
+            const contentKey = `${effect.slotname?.id}|${effect.writerName}|${effect.message}`;
+            const commentId = originKey != null
+                ? buildCommentId(originKey, contentKey)
+                : randomUUID();
+
+            const logContext = `slot=${effect.slotname?.name}(${effect.slotname?.id}) writer=${effect.writerName} `
+                + `id=${commentId} origin=${originKey ?? "none"} trigger=${trigger?.type} `
+                + `event=${getEventIdFromTriggerData(trigger) ?? "none"} effectId=${effect.id}`;
+
+            // The check and the set must stay in the same synchronous block: events-router
+            // runs every matching event setting in parallel via Promise.all, so an await
+            // in between would let both runs get past the check.
+            if (originKey != null) {
+                if (recentCommentCache.get(commentId)) {
+                    logger.warn(`[onecomme-transfer] 重複送信を検出したためスキップしました ${logContext}`);
+                    return true;
+                }
+                recentCommentCache.set(commentId, true);
+            }
+
+            logger.debug(`[onecomme-transfer] わんコメに転送します ${logContext} message=${effect.message?.slice(0, 80)}`);
 
             const sendData = {
                 service: {
@@ -87,7 +169,7 @@ const model: EffectType<{
                     //persist: true
                 },
                 comment: {
-                    id: randomUUID(),
+                    id: commentId,
                     userId: hash.digest("hex"),
                     name: effect.writerName,
                     badges: [],
@@ -99,11 +181,15 @@ const model: EffectType<{
                 }
             };
 
-            await fetch("http://localhost:11180/api/comments", {
+            const response = await fetch("http://localhost:11180/api/comments", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(sendData)
             });
+
+            if (!response.ok) {
+                logger.warn(`[onecomme-transfer] わんコメへの送信に失敗しました status=${response.status} ${response.statusText} ${logContext}`);
+            }
         } catch (error) {
             logger.error("Error running http request", (error as Error).message);
         }

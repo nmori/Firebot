@@ -16,14 +16,6 @@ const events = require("events");
 
 exports.events = new events.EventEmitter();
 
-/** @arg {import('@twurple/chat').ChatClient} botChatClient */
-exports.setupBotChatListeners = (botChatClient) => {
-    botChatClient.onWhisper(async (_user, messageText, msg) => {
-        const firebotChatMessage = await chatHelpers.buildFirebotChatMessage(msg, messageText, true);
-        chatCommandHandler.handleChatMessage(firebotChatMessage);
-    });
-};
-
 const HIGHLIGHT_MESSAGE_REWARD_ID = "highlight-message";
 
 /**

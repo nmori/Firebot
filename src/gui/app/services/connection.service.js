@@ -256,7 +256,14 @@
                     return;
                 }
 
-                if (service.connections[serviceId] === 'connected') {
+                // Ignore clicks while a connection is still being established, otherwise
+                // the second click re-enters the backend connect and duplicates listeners.
+                if (service.connections[serviceId] === ConnectionState.Connecting ||
+                    service.connections[serviceId] === ConnectionState.Reconnecting) {
+                    return;
+                }
+
+                if (service.connections[serviceId] === ConnectionState.Connected) {
                     service.disconnectFromService(serviceId);
                 } else {
                     service.connectToService(serviceId);
