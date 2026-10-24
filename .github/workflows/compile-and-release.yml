@@ -82,7 +82,11 @@ jobs:
           # initially thought immune and kept on 24, but it hit the same empty-pack-dir bug
           # (electron-packager prints "Packaging app..." then produces no .app, so the .dmg ends up
           # with no app inside). Pin ALL runners back to the pre-bump LTS.
-          node-version: 20.x
+          # 2026-10: moved to 24.22.1 (Node 2026-10-21 security release; 20.x is EOL). The
+          # extract-zip used by @electron/packager 18 was the culprit; packager 20.0.1+ swapped it
+          # for @electron-internal/extract-zip, and packager 19+ requires Node >= 22.12 anyway.
+          # If the empty-pack-dir symptom comes back, check the packager version before the Node pin.
+          node-version: 24.22.1
 
       - name: Install correct npm version
         run: npm install -g npm@10.8.1
