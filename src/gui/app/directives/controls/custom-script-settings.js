@@ -14,12 +14,16 @@
                 modalId: "<",
                 trigger: "<",
                 triggerMeta: "<",
-                allowStartup: "<",
-                isNewStartup: "<?",
+                scriptType: "@",
+                isNewPlugin: "<?",
                 initFirst: "=?"
             },
             template: `
             <eos-container header="スクリプト">
+
+                <div class="muted" style="font-size: 12px; margin-bottom: 10px;">
+                    起動時に読み込まれるプラグインをお探しの場合は、<b>設定 &rarr; プラグインとスクリプト</b> を参照してください。
+                </div>
 
                 <div class="effect-info alert alert-info">
                     Firebotユーザー設定ディレクトリの <a id="scriptFolderBtn" ng-click="openScriptsFolder()" style="text-decoration:underline;color:#53afff;cursor:pointer;">scriptsフォルダー</a> にスクリプトを配置して、ドロップダウンを更新してください。
@@ -44,27 +48,23 @@
                     <div style="font-size: 13px;">作成者: <span class="script-author">{{scriptManifest.author ? scriptManifest.author : "不明"}}</span><span ng-if="scriptManifest.website" class="script-website"> (<a ng-click="openScriptsWebsite()" class="clickable">{{scriptManifest.website}}</a>)</span><span></span></div>
                     <div
                         class="script-description markdown-container"
-                        ng-bind-html="scriptManifest.description"
+                        ng-bind-html="scriptManifestDescriptionHtml"
                     ></div>
                 </div>
             </eos-container>
 
-            <eos-container ng-show="$ctrl.initFirst">
-                <i>このスクリプトを追加したあと、設定を構成できます。</i>
-            </eos-container>
-
-            <eos-container header="設定" ng-show="effect.scriptName != null && !$ctrl.initFirst">
+            <eos-container header="設定" ng-show="effect.scriptName != null">
                 <div ng-show="isLoadingParameters">
                     設定を読み込み中...
                 </div>
                 <div ng-hide="isLoadingParameters">
-                    <span ng-hide="scriptHasParameters()" class="muted">このスクリプトには設定がありません。</span>
-                    <div ng-show="scriptHasParameters()">
+                    <span ng-hide="hasParameters()" class="muted">このスクリプトには設定がありません。</span>
+                    <div ng-show="hasParameters()">
                         <dynamic-parameter
-                            ng-repeat="(settingName, settingSchema) in effect.parameters"
-                            name="{{settingName}}"
-                            schema="settingSchema"
-                            ng-model="effect.parameters[settingName].value"
+                            ng-repeat="param in parametersSchema"
+                            name="{{param.name}}"
+                            schema="param"
+                            ng-model="effect.parameters[param.name]"
                             trigger="{{trigger}}"
                             trigger-meta="triggerMeta"
                             modalId="{{modalId}}"
@@ -80,112 +80,80 @@
             </eos-container>
             `,
             controller: function($scope, utilityService, $rootScope, $q, logger,
-                $sce, backendCommunicator, profileManager) {
+                $sce, backendCommunicator, pluginsService, profileManager) {
 
                 const $ctrl = this;
 
-                function loadParameters(scriptName, initialLoad = true) {
-                    logger.info("Attempting to load custom script parameters...");
+                $scope.parametersSchema = [];
+                $scope.scriptManifest = null;
+                $scope.scriptManifestDescriptionHtml = null;
+                $scope.isLoadingParameters = false;
+
+                /**
+                 * Existing saved effect data may have parameters in legacy nested
+                 * shape: { [name]: { value, type, ... } }. Normalize to flat.
+                 */
+                function normalizeLegacyParams(rawParams) {
+                    if (rawParams == null || typeof rawParams !== "object") {
+                        return {};
+                    }
+                    const flat = {};
+                    for (const [k, v] of Object.entries(rawParams)) {
+                        if (v != null && typeof v === "object" && Object.prototype.hasOwnProperty.call(v, "value")) {
+                            flat[k] = v.value;
+                        } else {
+                            flat[k] = v;
+                        }
+                    }
+                    return flat;
+                }
+
+                function loadParameters(scriptName) {
                     $scope.isLoadingParameters = true;
 
-                    const scriptsFolder = profileManager.getPathInProfile("/scripts");
-                    const scriptFilePath = path.resolve(scriptsFolder, scriptName);
-                    // Attempt to load the script
-                    try {
-                        // Make sure we first remove the cached version, incase there was any changes
-                        delete require.cache[require.resolve(scriptFilePath)];
+                    $q.when(pluginsService.getScriptDetails(scriptName, $scope.scriptType)).then((result) => {
+                        $scope.isLoadingParameters = false;
 
-                        const customScript = require(scriptFilePath);
-
-                        //grab the manifest
-                        if (typeof customScript.getScriptManifest === "function") {
-                            $scope.scriptManifest = customScript.getScriptManifest();
-                            if ($scope.scriptManifest && $scope.scriptManifest.description) {
-                                $scope.scriptManifest.description = $sce.trustAsHtml(
-                                    sanitize(marked($scope.scriptManifest.description))
-                                );
-                            }
-                        } else {
+                        if (!result || result.success === false) {
+                            const msg = (result && result.error) || `スクリプト "${scriptName}" を読み込めませんでした。`;
+                            utilityService.showErrorModal(msg);
                             $scope.scriptManifest = null;
-                        }
-
-                        if ($scope.scriptManifest != null && $scope.scriptManifest.startupOnly && !$ctrl.allowStartup) {
-                            utilityService.showInfoModal(`'${$scope.effect.scriptName}' を読み込めません。このスクリプトは起動時スクリプト専用です（設定 > スクリプト > 起動時スクリプト）。`);
-                            $scope.effect.scriptName = undefined;
-                            $scope.effect.parameters = undefined;
-                            $scope.scriptManifest = undefined;
+                            $scope.parametersSchema = [];
                             return;
                         }
 
-                        if ($scope.scriptManifest &&
-                            $scope.scriptManifest.startupOnly &&
-                            $scope.scriptManifest.initBeforeShowingParams === true &&
-                            $ctrl.allowStartup &&
-                            $ctrl.isNewStartup) {
-                            $ctrl.initFirst = true;
-                        } else {
-                            $ctrl.initFirst = false;
+                        const details = result.details || {};
+                        const manifest = details.manifest || {};
+                        $scope.scriptManifest = manifest;
+                        $scope.scriptManifestDescriptionHtml = manifest.description
+                            ? $sce.trustAsHtml(sanitize(marked(manifest.description)))
+                            : null;
+
+                        $scope.parametersSchema = Array.isArray(details.parametersSchema)
+                            ? details.parametersSchema
+                            : [];
+
+                        // Normalize / seed effect.parameters
+                        const existing = normalizeLegacyParams($scope.effect.parameters);
+
+                        const next = {};
+                        for (const p of $scope.parametersSchema) {
+                            if (!p || !p.name) {
+                                continue;
+                            }
+                            if (Object.prototype.hasOwnProperty.call(existing, p.name)) {
+                                next[p.name] = existing[p.name];
+                            } else if (p.default !== undefined) {
+                                next[p.name] = p.default;
+                            }
                         }
-
-                        if ($scope.scriptManifest && $scope.scriptManifest.name && $ctrl.trigger === 'startup_script') {
-                            $scope.effect.name = $scope.scriptManifest.name;
-                        }
-
-
-                        if (!initialLoad && ($scope.scriptManifest == null || $scope.scriptManifest.firebotVersion !== "5")) {
-                            utilityService.showInfoModal("選択したスクリプトは Firebot V5 向けに作成されていない可能性があり、期待どおりに動作しない場合があります。サポートが必要な場合は Discord または Bluesky でお問い合わせください。");
-                        }
-
-                        const currentParameters = $scope.effect.parameters;
-                        if (typeof customScript.getDefaultParameters === "function") {
-                            const parameterRequest = {
-                                modules: { }
-                            };
-                            const parametersPromise = customScript.getDefaultParameters(
-                                parameterRequest
-                            );
-
-                            $q.when(parametersPromise).then((parameters) => {
-                                const defaultParameters = parameters;
-
-                                if (currentParameters != null) {
-                                    //get rid of old params that no longer exist
-                                    Object.keys(currentParameters).forEach(
-                                        (currentParameterName) => {
-                                            const currentParamInDefaults = defaultParameters[currentParameterName];
-                                            if (currentParamInDefaults == null) {
-                                                delete currentParameters[currentParameterName];
-                                            }
-                                        }
-                                    );
-
-                                    //handle any new params
-                                    Object.keys(defaultParameters).forEach(
-                                        (defaultParameterName) => {
-                                            const currentParam = currentParameters[defaultParameterName];
-                                            const defaultParam = defaultParameters[defaultParameterName];
-                                            if (currentParam != null) {
-                                                //Current param exists lets update the value.
-                                                defaultParam.value = currentParam.value;
-                                            }
-                                            currentParameters[defaultParameterName] = defaultParam;
-                                        }
-                                    );
-                                } else {
-                                    $scope.effect.parameters = defaultParameters;
-                                }
-                                $scope.isLoadingParameters = false;
-                            });
-                        } else {
-                            $scope.isLoadingParameters = false;
-                        }
-                    } catch (err) {
-                        utilityService.showErrorModal(`Error loading the script '${scriptName}'\n\n${err}`);
+                        $scope.effect.parameters = next;
+                    }).catch((err) => {
+                        $scope.isLoadingParameters = false;
                         logger.error(err);
-                    }
+                        utilityService.showErrorModal(`スクリプト '${scriptName}' の読み込み中にエラーが発生しました\n\n${err && err.message ? err.message : err}`);
+                    });
                 }
-
-                $scope.isLoadingParameters = true;
 
                 const scriptFolderPath = profileManager.getPathInProfile("/scripts");
 
@@ -195,11 +163,9 @@
                     try {
                         realDir = fs.realpathSync(dir);
                     } catch {
-                        // If realpath fails, skip this directory
                         return result;
                     }
                     if (visited.has(realDir)) {
-                        // Already visited this directory (circular symlink), skip
                         return result;
                     }
                     visited.add(realDir);
@@ -208,24 +174,20 @@
                     try {
                         scriptFileNames = fs.readdirSync(dir);
                     } catch {
-                        // If readdir fails, skip this directory
                         return result;
                     }
 
                     for (const entry of scriptFileNames) {
                         const fullPath = path.join(dir, entry);
-
                         let stat;
                         try {
                             stat = fs.statSync(fullPath);
                         } catch {
-                            // If stat fails for whatever reason, skip this entry
                             continue;
                         }
-
                         if (stat.isDirectory()) {
                             if (entry === "node_modules" || entry === ".git") {
-                                continue; // Skip node_modules and .git directories
+                                continue;
                             }
                             result.push(...recursiveReaddirSync(fullPath, path.join(prefix, entry), visited));
                         } else if (entry.endsWith(".js")) {
@@ -241,7 +203,6 @@
                 };
                 loadScriptFileNames();
 
-                // Grab files in folder on refresh click.
                 $scope.getNewScripts = function() {
                     loadScriptFileNames();
                     if ($scope.effect.scriptName != null) {
@@ -249,40 +210,36 @@
                     }
                 };
 
-                // Open script folder on click.
                 $scope.openScriptsFolder = function() {
-                    backendCommunicator.fireEvent("openScriptsFolder");
+                    backendCommunicator.send("openScriptsFolder");
                 };
 
                 $scope.openScriptsWebsite = function() {
                     if (!$scope.scriptManifest || !$scope.scriptManifest.website) {
                         return;
                     }
-
                     $rootScope.openLinkExternally($scope.scriptManifest.website);
                 };
 
                 $scope.selectScript = function(scriptItem) {
                     const scriptName = scriptItem.name;
                     $scope.effect.scriptName = scriptName;
-                    $scope.effect.parameters = null;
+                    $scope.effect.parameters = {};
                     $scope.scriptManifest = null;
-                    loadParameters(scriptName, false);
+                    loadParameters(scriptName);
                 };
 
-                $scope.scriptHasParameters = function() {
-                    return ($scope.effect.parameters != null &&
-                        Object.keys($scope.effect.parameters).length > 0);
+                $scope.hasParameters = function() {
+                    return Array.isArray($scope.parametersSchema) && $scope.parametersSchema.length > 0;
                 };
 
                 $ctrl.$onInit = () => {
-
                     $scope.effect = $ctrl.effect;
                     $scope.modalId = $ctrl.modalId;
                     $scope.trigger = $ctrl.trigger;
                     $scope.triggerMeta = $ctrl.triggerMeta;
 
-                    if ($scope.effect.scriptName != null) {
+                    if ($scope.effect && $scope.effect.scriptName != null) {
                         loadParameters($scope.effect.scriptName);
                     }
                 };

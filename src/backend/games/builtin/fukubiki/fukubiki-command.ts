@@ -9,7 +9,7 @@ import { TwitchApi } from "../../../streaming-platforms/twitch/api";
 import currencyManager from "../../../currency/currency-manager";
 import logger from "../../../logwrapper";
 import { humanizeTime } from "../../../utils";
-import webServer from "../../../../server/http-server-manager";
+import { HttpServerManager } from "../../../../server/http-server-manager";
 import { drawFukubiki, clearPrizeStocks, type FukubikiPrize } from "./fukubiki-machine";
 
 const cooldownCache = new NodeCache({ checkperiod: 5 });
@@ -229,7 +229,7 @@ async function handleFukubiki(
         const overlayInstance = (settings.settings.overlaySettings?.overlayInstance as string) ?? null;
         const overlayText = `${displayName} → ${winner.name}`;
 
-        webServer.sendToOverlay(
+        HttpServerManager.sendToOverlay(
             "overlayalert",
             {
                 mediaType: "none",

@@ -11,7 +11,7 @@ const { createTray } = require('./tray-creation.js');
 const fileOpenHelpers = require("../file-open-helpers");
 const screenHelpers = require("./screen-helpers");
 const frontendCommunicator = require("../../common/frontend-communicator");
-const logger = require("../../logwrapper");
+const logger = require("../../logger-cache").LoggerCache.getLogger("Window Management");
 
 const EventEmitter = require("events");
 
@@ -24,6 +24,13 @@ const { copyDebugInfoToClipboard } = require("../../common/debug-info");
  *@type {Electron.BrowserWindow}
  */
 let mainWindow = null;
+const MAIN_WINDOW_ROOT_URL = url.format({
+    pathname: path.join(__dirname, "../../../gui/app/index.html"),
+    protocol: "file:",
+    slashes: true
+});
+
+let initialLoadComplete = false;
 
 /**
  * @type {import("tiny-typed-emitter").TypedEmitter<{
@@ -418,6 +425,18 @@ async function createAppMenu() {
                     type: 'separator'
                 },
                 {
+                    label: "プラグインマネージャー",
+                    toolTip: "プラグインとスクリプトをインストール・管理します",
+                    sublabel: "プラグインとスクリプトをインストール・管理します",
+                    click: () => {
+                        frontendCommunicator.send("open-modal", {
+                            component: "pluginManagerModal",
+                            size: "lg"
+                        });
+                    },
+                    icon: await createIconImage("../../../gui/images/icons/mdi/puzzle-outline.png")
+                },
+                {
                     label: '開発者ツールを開く',
                     role: 'toggledevtools',
                     icon: await createIconImage("../../../gui/images/icons/mdi/tools.png")
@@ -607,13 +626,7 @@ async function createMainWindow() {
     mainWindowState.manage(mainWindow);
 
     // and load the index.html of the app.
-    mainWindow.loadURL(
-        url.format({
-            pathname: path.join(__dirname, "../../../gui/app/index.html"),
-            protocol: "file:",
-            slashes: true
-        })
-    );
+    mainWindow.loadURL(MAIN_WINDOW_ROOT_URL);
 
     // wait for the main window's content to load, then show it
     mainWindow.webContents.on("did-finish-load", async () => {
@@ -625,29 +638,13 @@ async function createMainWindow() {
             splashscreenWindow.destroy();
         }
 
-        const startupScriptsManager = require("../../common/handlers/custom-scripts/startup-scripts-manager");
-        await startupScriptsManager.runStartupScripts();
-
-        const { EventManager } = require("../../events/event-manager");
-        EventManager.triggerEvent("firebot", "firebot-started", {
-            username: "Firebot"
-        });
-
-        if (SettingsManager.getSetting("OpenStreamPreviewOnLaunch") === true) {
-            createStreamPreviewWindow();
-        }
-
-        if (SettingsManager.getSetting("OpenEffectQueueMonitorOnLaunch") === true) {
-            createEffectQueueMonitorWindow();
-        }
-
         fileOpenHelpers.setWindowReady(true);
     });
 
 
     mainWindow.on("close", (event) => {
-        const connectionManager = require("../../common/connection-manager");
-        if (!SettingsManager.getSetting("JustUpdated") && connectionManager.chatIsConnected() && connectionManager.streamerIsOnline()) {
+        const { ConnectionManager } = require("../../common/connection-manager");
+        if (!SettingsManager.getSetting("JustUpdated") && ConnectionManager.chatIsConnected && ConnectionManager.streamerIsOnline) {
             event.preventDefault();
             dialog.showMessageBox(mainWindow, {
                 message: "Are you sure you want to close Firebot while connected to Twitch?",
@@ -740,16 +737,43 @@ function updateSplashScreenStatus(newStatus) {
 
 SettingsManager.on("settings:setting-updated:OverlayInstances", createAppMenu);
 
-frontendCommunicator.on("getAllDisplays", () => {
+frontendCommunicator.onAsync("getAllDisplays", async () => {
     return screenHelpers.getAllDisplays();
 });
 
-frontendCommunicator.on("getPrimaryDisplay", () => {
+frontendCommunicator.onAsync("getPrimaryDisplay", async () => {
     return screenHelpers.getPrimaryDisplay();
 });
 
-frontendCommunicator.on("takeScreenshot", (displayId) => {
-    return screenHelpers.takeScreenshot(displayId);
+frontendCommunicator.onAsync("main-window-ready", async () => {
+    if (initialLoadComplete !== true) {
+        const { PluginManager } = require("../../plugins/plugin-manager");
+        await PluginManager.startPlugins();
+        PluginManager.startCommunityPluginUpdateCheck();
+
+        const { EventManager } = require("../../events/event-manager");
+        EventManager.triggerEvent("firebot", "firebot-started", {
+            username: "Firebot"
+        });
+
+        if (SettingsManager.getSetting("OpenStreamPreviewOnLaunch") === true) {
+            createStreamPreviewWindow();
+        }
+
+        if (SettingsManager.getSetting("OpenEffectQueueMonitorOnLaunch") === true) {
+            createEffectQueueMonitorWindow();
+        }
+
+        initialLoadComplete = true;
+    }
+
+    // Always run this so we re-send UI extenions to frontend
+    const { UIExtensionManager } = require("../../ui-extensions/ui-extension-manager");
+    UIExtensionManager.setUIReadyForExtensions();
+});
+
+frontendCommunicator.on("reload-main-window", () => {
+    mainWindow?.webContents.loadURL(MAIN_WINDOW_ROOT_URL);
 });
 
 exports.updateSplashScreenStatus = updateSplashScreenStatus;

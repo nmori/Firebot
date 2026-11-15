@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
-
-import type { RestrictionType } from "../../../types/restrictions";
+import type { RestrictionType } from "../../../types";
 
 import { AccountAccess } from "../../common/account-access";
 import { TwitchApi } from "../../streaming-platforms/twitch/api";
@@ -70,42 +68,44 @@ const model: RestrictionType<{
         }
         return "[カテゴリ/ゲーム未設定]";
     },
-    predicate: (_, restrictionData) => {
-        return new Promise(async (resolve, reject) => {
-            const expectedGameId = restrictionData.gameId;
-            if (expectedGameId == null) {
-                return resolve(true);
-            }
+    predicate: async (_, { gameId }) => {
+        if (gameId == null) {
+            return { success: true };
+        }
 
-            const streamerId = AccountAccess.getAccounts().streamer.userId;
-            const channel = await TwitchApi.channels.getChannelInformation(streamerId);
+        const streamerId = AccountAccess.getAccounts().streamer.userId;
+        const channel = await TwitchApi.channels.getChannelInformation(streamerId);
 
-            if (channel == null) {
-                return reject(`チャンネル情報を取得できません。`);
-            }
+        if (channel == null) {
+            return {
+                success: false,
+                failureReason: "チャンネル情報を取得できません。"
+            };
+        }
 
-            const currentGameId = channel.gameId;
-            if (currentGameId == null) {
-                return reject(`現在のカテゴリ/ゲームを判定できません。`);
-            }
+        const currentGameId = channel.gameId;
+        if (currentGameId == null) {
+            return {
+                success: false,
+                failureReason: "現在のカテゴリ/ゲームを判定できません。"
+            };
+        }
 
-            let passed = false;
-            if (expectedGameId === currentGameId) {
-                passed = true;
-            }
+        let passed = false;
+        if (gameId === currentGameId) {
+            passed = true;
+        }
 
-            if (passed) {
-                resolve(true);
-            } else {
-                const expectedGame = await TwitchApi.categories.getCategoryById(expectedGameId);
-                reject(
-                    `Channel category/game isn't set to ${expectedGame?.name ?? "the correct category/game"}.`
-                    .replace("Channel category/game isn't set to ", "チャンネルカテゴリ/ゲームは ")
-                    .replace("the correct category/game", "正しいカテゴリ/ゲーム")
-                    .concat(" に設定されている必要があります。")
-                );
-            }
-        });
+        if (passed) {
+            return { success: true };
+        }
+
+        const expectedGame = await TwitchApi.categories.getCategoryById(gameId);
+        return {
+            success: false,
+            failureReason: `チャンネルカテゴリ/ゲームは ${expectedGame?.name ?? "正しいカテゴリ/ゲーム"} に設定されている必要があります。`
+        };
+
     }
 };
 

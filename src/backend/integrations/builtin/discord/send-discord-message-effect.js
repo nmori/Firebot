@@ -4,7 +4,7 @@ const integrationManager = require("../../integration-manager");
 const discordEmbedBuilder = require('./discord-embed-builder');
 const discord = require("./discord-message-sender");
 const frontEndCommunicator = require("../../../common/frontend-communicator");
-const logger = require("../../../logwrapper");
+const logger = require("../../../logger-cache").LoggerCache.getLogger("Integration: Discord");
 const fs = require("fs");
 
 frontEndCommunicator.onAsync("getDiscordChannels", async () => {
@@ -95,13 +95,13 @@ module.exports = {
         const errors = [];
         const rgbRegexp = /^#?[0-9a-f]{6}$/ig;
         if (!effect.includeEmbed && !(Array.isArray(effect.files) && effect.files.length !== 0) && (effect.message == null || effect.message.trim().length < 1)) {
-            errors.push("Please provide a message, embed or file.");
+            errors.push("メッセージ、埋め込み、またはファイルのいずれかを指定してください。");
         }
         if (effect.includeEmbed && (effect.embedType == null || effect.embedType === "")) {
-            errors.push("Please select a rich embed type");
+            errors.push("リッチ埋め込みの種類を選択してください。");
         }
         if (effect.includeEmbed && !rgbRegexp.test(effect.embedColor)) {
-            errors.push("Discord Embed Color must be in RGB format (#0066FF)");
+            errors.push("Discord 埋め込みの色は RGB 形式（例: #0066FF）で指定してください。");
         }
         return errors;
     },

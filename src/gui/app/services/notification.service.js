@@ -34,9 +34,9 @@
                 backendCommunicator.send("notifications:delete-notification", id);
             };
 
-            service.loadAllNotifications = () => {
-                notificationCache = backendCommunicator.fireEventSync("notifications:get-all-notifications") ?? [];
-            };
+            backendCommunicator.onAsync("notifications:notifications-updated", async (notifications) => {
+                notificationCache = notifications ?? [];
+            });
 
             service.getIconClass = (type) => {
                 let iconClass = "";
@@ -107,14 +107,7 @@
                 notificationCache = notificationCache.filter(n => n.id !== id);
             });
 
-            backendCommunicator.on("notifications:notification-updated", (updatedNotification) => {
-                const index = notificationCache.findIndex(n => n.id === updatedNotification.id);
-                if (index >= 0) {
-                    notificationCache[index] = updatedNotification;
-                }
-            });
-
-            backendCommunicator.send("notifications:start-external-notification-check");
+            backendCommunicator.send("notifications:ui-service-ready");
 
             return service;
         });

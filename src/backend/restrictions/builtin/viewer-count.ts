@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
+import type { RestrictionType } from "../../../types";
 
-import type { RestrictionType } from "../../../types/restrictions";
 import { TwitchApi } from "../../streaming-platforms/twitch/api";
 import { AccountAccess } from "../../common/account-access";
-import logger from "../../logwrapper";
+import { LoggerCache } from "../../logger-cache";
+
+const logger = LoggerCache.getLogger("Restrictions");
 
 type ComparisonType = "less" | "greater" | "equal";
 
@@ -69,55 +70,52 @@ const model: RestrictionType<{
 
         return `視聴者数が ${amount} ${comparisionString}`;
     },
-    /*
-      function that resolves/rejects a promise based on if the restriction criteria is met
-    */
-    predicate: (triggerData, restrictionData) => {
-        return new Promise(async (resolve, reject) => {
-            const client = TwitchApi.streamerClient;
-            const streamer = AccountAccess.getAccounts().streamer;
+    predicate: async (_, { comparison, amount: numViewers }) => {
+        const client = TwitchApi.streamerClient;
+        const streamer = AccountAccess.getAccounts().streamer;
 
-            let currentViewers = null;
-            try {
-                const stream = await client.streams.getStreamByUserId(streamer.userId);
-                currentViewers = stream.viewers;
-            } catch (error) {
-                logger.warn("unable to get stream viewer count", error);
-            }
+        let currentViewers = null;
+        try {
+            const stream = await client.streams.getStreamByUserId(streamer.userId);
+            currentViewers = stream.viewers;
+        } catch (error) {
+            logger.warn("unable to get stream viewer count", error);
+        }
 
-            if (currentViewers) {
-                return reject(`現在の視聴者数を判定できません。`);
-            }
+        if (currentViewers == null) {
+            return {
+                success: false,
+                failureReason: `現在の視聴者数を判定できません。`
+            };
+        }
 
-            const comparison = restrictionData.comparison;
-            const numViewers = restrictionData.amount;
-            let comparisonText = "";
+        let comparisonText = "";
 
-            let passed = false;
-            if (comparison === "less" && currentViewers <= numViewers) {
-                passed = true;
-            }
+        let passed = false;
+        if (comparison === "less" && currentViewers <= numViewers) {
+            passed = true;
+        }
 
-            if (comparison === "greater" && currentViewers >= numViewers) {
-                passed = true;
-            }
+        if (comparison === "greater" && currentViewers >= numViewers) {
+            passed = true;
+        }
 
-            if (comparison === "equal" && currentViewers === numViewers) {
-                passed = true;
-            }
+        if (comparison === "equal" && currentViewers === numViewers) {
+            passed = true;
+        }
 
-            if (comparison === "greater" || comparison === "less") {
-                comparisonText = comparison === "greater" ? "以上" : "以下";
-            } else {
-                comparisonText = "等しい";
-            }
+        if (comparison === "greater" || comparison === "less") {
+            comparisonText = comparison === "greater" ? "以上" : "以下";
+        } else {
+            comparisonText = "等しい";
+        }
 
-            if (passed) {
-                resolve(true);
-            } else {
-                reject(`視聴者数は ${numViewers} ${comparisonText} である必要があります。`);
-            }
-        });
+        return {
+            success: passed,
+            failureReason: passed !== true
+                ? `視聴者数は ${numViewers} ${comparisonText} である必要があります。`
+                : undefined
+        };
     }
 };
 

@@ -12,9 +12,12 @@ import twitchRolesManager from "../roles/twitch-roles-manager";
 import chatterPoll from "../streaming-platforms/twitch/chatter-poll";
 import twitchChatListeners from "./chat-listeners/twitch-chat-listeners";
 import frontendCommunicator from "../common/frontend-communicator";
-import logger from "../logwrapper";
+import { LoggerCache } from "../logger-cache";
+import { logTwurpleMessage } from "../streaming-platforms/twitch/api/twurple-logger";
 
 class TwitchChat extends EventEmitter {
+    private logger = LoggerCache.getLogger("Chat");
+
     private _streamerChatClient: ChatClient;
     private _botChatClient: ChatClient;
     private _isConnecting = false;
@@ -43,7 +46,7 @@ class TwitchChat extends EventEmitter {
             try {
                 this._streamerChatClient.quit();
             } catch (error) {
-                logger.debug("Error quitting streamer chat client", error);
+                this.logger.debug("Error quitting streamer chat client", error);
             }
             this._streamerChatClient = null;
         }
@@ -54,7 +57,7 @@ class TwitchChat extends EventEmitter {
             try {
                 this._botChatClient.quit();
             } catch (error) {
-                logger.debug("Error quitting bot chat client", error);
+                this.logger.debug("Error quitting bot chat client", error);
             }
             this._botChatClient = null;
         }
@@ -81,7 +84,7 @@ class TwitchChat extends EventEmitter {
         }
 
         if (this._isConnecting) {
-            logger.warn("Chat connect is already in progress; ignoring duplicate connect request");
+            this.logger.warn("Chat connect is already in progress; ignoring duplicate connect request");
             return;
         }
 
@@ -103,7 +106,11 @@ class TwitchChat extends EventEmitter {
 
             streamerChatClient = new ChatClient({
                 authProvider: streamerAuthProvider,
-                requestMembershipEvents: true
+                requestMembershipEvents: true,
+                logger: {
+                    minLevel: 3,
+                    custom: (level, message) => logTwurpleMessage(level, message)
+                }
             });
             this._streamerChatClient = streamerChatClient;
 
@@ -113,7 +120,7 @@ class TwitchChat extends EventEmitter {
             });
 
             streamerChatClient.irc.onPasswordError((event) => {
-                logger.error("Failed to connect to chat", event);
+                this.logger.error("Failed to connect to chat", event);
                 frontendCommunicator.send(
                     "error",
                     `Unable to connect to chat. Reason: "${event.message}". Try signing out and back into your streamer/bot account(s).`
@@ -127,7 +134,7 @@ class TwitchChat extends EventEmitter {
 
             streamerChatClient.irc.onDisconnect((manual, reason) => {
                 if (!manual) {
-                    logger.error("Incoming Chat disconnected unexpectedly", reason);
+                    this.logger.error("Incoming Chat disconnected unexpectedly", reason);
                     frontendCommunicator.send("twitch:chat:autodisconnected", true);
                 }
             });
@@ -150,26 +157,23 @@ class TwitchChat extends EventEmitter {
             // While connected, we can just react to changes via chat messages/EventSub events
             await twitchRolesManager.loadVips();
             await twitchRolesManager.loadModerators();
-
-            if (!twitchRolesManager.getSubscribers().length) {
-                await twitchRolesManager.loadSubscribers();
-            }
+            await twitchRolesManager.loadSubscribers();
 
             // Load the current Shared Chat session
             await SharedChatCache.loadSessionFromTwitch();
         } catch (error) {
-            logger.error("Chat connect error", error);
+            this.logger.error("Chat connect error", error);
             this.disconnect();
         }
 
         try {
             if (this._streamerChatClient == null || this._streamerChatClient !== streamerChatClient) {
-                logger.warn("Chat was disconnected or reconnected while connecting; skipping listener setup for the stale client");
+                this.logger.warn("Chat was disconnected or reconnected while connecting; skipping listener setup for the stale client");
             } else {
                 twitchChatListeners.setupChatListeners(streamerChatClient, this._botChatClient);
             }
         } catch (error) {
-            logger.error("Error setting up chat listeners", error);
+            this.logger.error("Error setting up chat listeners", error);
         } finally {
             this._isConnecting = false;
         }
@@ -193,7 +197,11 @@ class TwitchChat extends EventEmitter {
 
                     const botChatClient = new ChatClient({
                         authProvider: FirebotDeviceAuthProvider.botProvider,
-                        requestMembershipEvents: true
+                        requestMembershipEvents: true,
+                        logger: {
+                            minLevel: 3,
+                            custom: (level, message) => logTwurpleMessage(level, message)
+                        }
                     });
                     this._botChatClient = botChatClient;
 
@@ -204,7 +212,7 @@ class TwitchChat extends EventEmitter {
                     botChatClient.irc.onRegister(() => botChatClient.join(streamer.username));
 
                     botChatClient.irc.onPasswordError((event) => {
-                        logger.error("Failed to connect to chat with Bot account", event);
+                        this.logger.error("Failed to connect to chat with Bot account", event);
                         resolveIfNotResolved();
                     });
 
@@ -212,7 +220,7 @@ class TwitchChat extends EventEmitter {
                     // the awaiting connect() hung forever, which in turn leaves the connection
                     // manager stuck and pushes the user into reconnecting by hand.
                     timeoutId = setTimeout(() => {
-                        logger.warn("Bot chat client did not connect in time; continuing without it");
+                        this.logger.warn("Bot chat client did not connect in time; continuing without it");
                         resolveIfNotResolved();
                     }, 10000);
 
@@ -223,7 +231,7 @@ class TwitchChat extends EventEmitter {
                     resolveIfNotResolved();
                 }
             } catch (error) {
-                logger.error("Error joining streamers chat channel with Bot account", error);
+                this.logger.error("Error joining streamers chat channel with Bot account", error);
                 resolveIfNotResolved();
             }
         });

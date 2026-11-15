@@ -1,0 +1,40 @@
+name: Publish Firebot Types to NPM
+
+permissions:
+  id-token: write
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released, prereleased]
+
+jobs:
+  publish-npm:
+    # JP フォークでは本家の型パッケージを公開しない
+    if: github.repository == 'crowbartools/Firebot'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Firebot source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+
+      - name: Update npm to 11.5.1
+        run: npm install -g npm@11.5.1
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Build types
+        run: npm run build:types
+
+      - name: Publish to NPM
+        run: npm publish --access public --tag latest
+        working-directory: ./dist/types

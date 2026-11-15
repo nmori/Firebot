@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
-
 import moment from "moment";
 
-import type { RestrictionType } from "../../../types/restrictions";
+import type { RestrictionType } from "../../../types";
 
 const DAY_ORDER = [
     "Sunday",
@@ -166,34 +164,37 @@ const model: RestrictionType<{
 
         return "";
     },
-    predicate: async (_, restrictionData) => {
-        return new Promise((resolve, reject) => {
+    predicate: (_, restrictionData) => {
+        if (restrictionData.mode === "days") {
+            const currentDayOfWeek = new Date().toLocaleString('en-us', { weekday: 'long' });
+            const restrictionDays = restrictionData.days.map(normalizeDayLabel);
 
-            if (restrictionData.mode === "days") {
-                const currentDayOfWeek = new Date().toLocaleString('en-us', { weekday: 'long' });
-                const restrictionDays = restrictionData.days.map(normalizeDayLabel);
-                if (restrictionDays.includes(currentDayOfWeek)) {
-                    resolve(true);
-                } else {
-                    reject(`曜日は ${restrictionDays.map(toJapaneseDayLabel).join(", ")} のいずれかである必要があります。`);
-                }
-
-            } else if (restrictionData.mode === "time") {
-                const time = moment(),
-                    startTime = moment(restrictionData.startTime);
-                let endTime = moment(restrictionData.endTime);
-
-                if (endTime.isSameOrBefore(startTime)) {
-                    endTime = endTime.add(1, 'days');
-                }
-
-                if (time.isBetween(startTime, endTime)) {
-                    resolve(true);
-                } else {
-                    reject(`${moment(restrictionData.startTime).format('hh:mm A')} から ${moment(restrictionData.endTime).format('hh:mm A')} の間である必要があります。`);
-                }
+            if (restrictionDays.includes(currentDayOfWeek)) {
+                return { success: true };
             }
-        });
+
+            return {
+                success: false,
+                failureReason: `曜日は ${restrictionDays.map(toJapaneseDayLabel).join(", ")} のいずれかである必要があります。`
+            };
+        } else if (restrictionData.mode === "time") {
+            const time = moment(),
+                startTime = moment(restrictionData.startTime);
+            let endTime = moment(restrictionData.endTime);
+
+            if (endTime.isSameOrBefore(startTime)) {
+                endTime = endTime.add(1, 'days');
+            }
+
+            if (time.isBetween(startTime, endTime)) {
+                return { success: true };
+            }
+
+            return {
+                success: false,
+                failureReason: `${moment(restrictionData.startTime).format('hh:mm A')} から ${moment(restrictionData.endTime).format('hh:mm A')} の間である必要があります。`
+            };
+        }
     }
 };
 

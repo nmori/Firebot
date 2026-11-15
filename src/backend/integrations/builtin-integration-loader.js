@@ -17,6 +17,8 @@ exports.loadIntegrations = () => {
         'jp-original/jp-original-api'
     ].forEach((filename) => {
         const definition = require(`./builtin/${filename}.js`);
-        integrationManager.registerIntegration(definition);
+        integrationManager.registerIntegration(definition, false);
     });
+
+    integrationManager.triggerUiRefresh();
 };

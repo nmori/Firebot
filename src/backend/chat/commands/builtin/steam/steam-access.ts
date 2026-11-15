@@ -1,4 +1,4 @@
-import logger from "../../../../logwrapper";
+import { LoggerCache } from "../../../../logger-cache";
 
 interface SteamAppDetails {
     name: string;
@@ -38,16 +38,18 @@ interface FirebotSteamGameDetails {
 }
 
 class SteamManager {
+    private logger = LoggerCache.getLogger("Commands");
+
     async getSteamGameDetails(requestedGame: string, countryCode?: string) {
         const appId = await this.getAppIdFromGameName(requestedGame);
         if (appId == null) {
-            logger.debug('Could not retrieve app id for Steam search.');
+            this.logger.debug('Could not retrieve app id for Steam search.');
             return null;
         }
 
         const foundGame = await this.getSteamAppDetails(appId, countryCode);
         if (foundGame == null) {
-            logger.error("Unable to get game from Steam API.");
+            this.logger.error("Unable to get game from Steam API.");
             return null;
         }
 
@@ -96,7 +98,7 @@ class SteamManager {
                 }
             }
         } catch (error) {
-            logger.error('Steam app ID fetch failed.', (error as Error).message);
+            this.logger.error('Steam app ID fetch failed.', (error as Error).message);
         }
 
         return null;
@@ -122,7 +124,7 @@ class SteamManager {
 
             return null;
         } catch (error) {
-            logger.error("Unable to get app details from Steam API.", error.message);
+            this.logger.error("Unable to get app details from Steam API.", error.message);
             return null;
         }
     }

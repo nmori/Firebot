@@ -67,11 +67,13 @@ module.exports = function(grunt) {
     require('./grunt/secrets.js')(grunt);
     require('./grunt/include-source')(grunt);
     require('./grunt/typescript.js')(grunt);
+    require('./grunt/build-types.js')(grunt);
+    require('./grunt/vite.js')(grunt);
     require('./grunt/fix-macos-symlinks.js')(grunt);
 
-    grunt.registerTask('prep', ['cleanup:build', 'xcopy:src', 'scss', 'tsc', 'include-source']);
+    grunt.registerTask('prep', ['cleanup:build', 'xcopy:src', 'scss', 'tsc', 'vite', 'include-source']);
 
-    let fullpackTasks = ['prep', 'pack'];
+    const fullpackTasks = ['prep', 'pack'];
     if (platform === 'darwin') {
         fullpackTasks.push('fix-macos');
     }

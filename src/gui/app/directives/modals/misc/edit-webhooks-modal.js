@@ -24,7 +24,7 @@
                                 <div class="firebot-list-item-info">
                                     <i class="fas fa-webhook" style="margin-right: 10px; opacity: 0.6;"></i>
                                     <span class="firebot-list-item-name">{{webhook.name}}</span>
-                                    <span ng-if="webhook.scriptId != null" class="firebot-list-item-badge" uib-tooltip="このWebhookは {{webhook.scriptId}} スクリプトで管理されています。" tooltip-append-to-body="true">
+                                    <span ng-if="webhook.scriptId != null" class="firebot-list-item-badge" uib-tooltip="このWebhookは {{$ctrl.getScriptName(webhook.scriptId)}} プラグインで管理されています。" tooltip-append-to-body="true">
                                         <i class="fas fa-plug" style="margin-right: 4px;"></i>プラグイン
                                     </span>
                                 </div>
@@ -57,10 +57,15 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function(webhooksService, settingsService, modalFactory, $rootScope, ngToast) {
+            controller: function(webhooksService, settingsService, pluginsService, modalFactory, $rootScope, ngToast) {
                 const $ctrl = this;
 
                 $ctrl.whs = webhooksService;
+
+                $ctrl.getScriptName = (scriptId) => {
+                    const plugin = pluginsService.getPluginById(scriptId);
+                    return plugin?.details?.manifest?.name ?? scriptId;
+                };
 
                 $ctrl.createNewWebhook = () => {
                     modalFactory.openGetInputModal(

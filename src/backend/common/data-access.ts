@@ -6,15 +6,21 @@ import { JsonDB } from "node-json-db";
 
 import argv from "./argv-parser";
 import frontendCommunicator from "./frontend-communicator";
-// logwrapper は循環依存を避けるため遅延ロード
+// logwrapper は循環依存を避けるため遅延ロード（logwrapper 自体が data-access を import しているため）
+// We have to create logger children manually here because hashtag reasons
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-let logger: any = null;
-function getLogger() {
-    if (logger == null) {
+let baseLogger: any = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getLogger(): any {
+    if (baseLogger == null || typeof baseLogger.child !== "function") {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
-        logger = require("../logwrapper").default;
+        const loggerModule = require("../logwrapper");
+        baseLogger = loggerModule?.default ?? loggerModule;
     }
-    return logger;
+    if (baseLogger == null || typeof baseLogger.child !== "function") {
+        return console;
+    }
+    return baseLogger.child({ module: "Data Access" });
 }
 
 const isDev = !app.isPackaged;
@@ -94,7 +100,7 @@ function pathExists(path: string): Promise<boolean> {
                     resolve(false);
                 } else {
                     // Some weird error happened other than the path missing.
-                    logger.error(err);
+                    getLogger().error(err);
                 }
             } else {
                 resolve(true);
@@ -105,7 +111,7 @@ function pathExists(path: string): Promise<boolean> {
 
 export async function createFirebotDataDir(): Promise<void> {
     if (!await pathExists(userDataPath)) {
-        logger.info("Creating firebot-data folder...");
+        getLogger().info("Creating firebot-data folder...");
         fs.mkdirSync(userDataPath);
     }
 };
@@ -126,7 +132,7 @@ export function makeDirInUserDataSync(filePath: string): boolean {
         fs.mkdirSync(joinedPath);
         return true;
     } catch (err) {
-        logger.error(`Error creating ${filePath}: ${err}`);
+        getLogger().error(`Error creating ${filePath}: ${err}`);
         return false;
     }
 };
@@ -179,7 +185,7 @@ export function copyResourceToUserData(
         );
         fs.copyFileSync(source, destination);
     } catch (error) {
-        logger.error(`Failed to copy resource ${resourceName}`, error);
+        getLogger().error(`Failed to copy resource ${resourceName}`, error);
     }
 };
 

@@ -23,6 +23,7 @@
                             <nav-link page="Timers" name="{{'SIDEBAR.OTHER.TIME_BASED' | translate }}" icon="fa-stopwatch"></nav-link>
                             <nav-link page="Power-ups And Rewards" name="{{'SIDEBAR.OTHER.POWERUPSANDREWARDS' | translate }}" icon="fa-gifts"></nav-link>
                             <nav-link page="Preset Effect Lists" name="{{ 'SIDEBAR.OTHER.PRESET_EFFECT_LISTS' | translate }}" icon="fa-magic"></nav-link>
+                            <nav-link page="Control Deck" name="コントロールデッキ" icon="fa-grip-horizontal"></nav-link>
                             <nav-link page="Hotkeys" name="{{'SIDEBAR.OTHER.HOTKEYS' | translate }}" icon="fa-keyboard"></nav-link>
                             <nav-link page="Counters" name="{{'SIDEBAR.OTHER.COUNTERS' | translate }}" icon="fa-tally"></nav-link>
                             <nav-link page="Overlay Widgets" name="オーバーレイウィジェット" icon="fa-layer-plus"></nav-link>
@@ -46,7 +47,7 @@
                     </nav>
 
                     <div>
-                        <patronage-tracker ng-show="$ctrl.cs.accounts.streamer.partnered"></patronage-tracker>
+                        <patronage-tracker ng-show="$ctrl.accountAccess.accounts.streamer.partnered"></patronage-tracker>
 
                         <div class="connection-status-wrapper">
                             <div class='interactive-status-wrapper'>
@@ -107,7 +108,7 @@
             `,
         controller: function(
             sidebarManager,
-            updatesService,
+            accountAccess,
             connectionService,
             integrationService,
             utilityService,
@@ -117,6 +118,8 @@
             const ctrl = this;
 
             ctrl.sbm = sidebarManager;
+
+            ctrl.accountAccess = accountAccess;
 
             ctrl.cs = connectionService;
 

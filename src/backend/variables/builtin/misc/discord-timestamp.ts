@@ -1,14 +1,8 @@
 import moment from "moment";
-import type { ReplaceVariable, TriggersObject } from "../../../../types/variables";
-import logger from "../../../logwrapper";
+import type { ReplaceVariable } from "../../../../types";
+import { LoggerCache } from "../../../logger-cache";
 
-const triggers: TriggersObject = {};
-triggers["command"] = true;
-triggers["event"] = true;
-triggers["manual"] = true;
-triggers["custom_script"] = true;
-triggers["preset"] = true;
-triggers["channel_reward"] = true;
+const logger = LoggerCache.getLogger("Variables");
 
 const model : ReplaceVariable = {
     definition: {
@@ -61,7 +55,6 @@ const model : ReplaceVariable = {
                 description: "指定形式で現在日時の Discord タイムスタンプを作成します。"
             }
         ],
-        triggers: triggers,
         categories: ["text"],
         possibleDataOutput: ["text"]
     },

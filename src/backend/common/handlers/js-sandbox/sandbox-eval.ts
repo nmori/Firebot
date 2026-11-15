@@ -1,11 +1,14 @@
-import { join } from 'node:path';
-import { randomBytes } from 'node:crypto';
-import { BrowserWindow, MessageChannelMain, session } from 'electron';
+import { join } from "node:path";
+import { randomBytes } from "node:crypto";
+import { BrowserWindow, MessageChannelMain, session } from "electron";
 
-import type { Trigger } from '../../../../types/triggers';
-import { CustomVariableManager } from '../../custom-variable-manager';
-import { ReplaceVariableManager } from '../../../variables/replace-variable-manager';
-import logger from '../../../logwrapper';
+import type { Trigger } from "../../../../types";
+
+import { CustomVariableManager } from "../../custom-variable-manager";
+import { ReplaceVariableManager } from "../../../variables/replace-variable-manager";
+import { LoggerCache } from "../../../logger-cache";
+
+const logger = LoggerCache.getLogger("Sandbox");
 
 const preloadPath = join(__dirname, 'sandbox-preload.js');
 const htmlPath = join(__dirname, './sandbox.html');

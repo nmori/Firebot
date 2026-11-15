@@ -5,7 +5,7 @@ import type { FirebotAudioDevice } from "../../../../types/settings";
 import { EffectCategory } from "../../../../shared/effect-constants";
 import { SettingsManager } from "../../../common/settings-manager";
 import { ResourceTokenManager } from "../../../resource-token-manager";
-import webServer from "../../../../server/http-server-manager";
+import { HttpServerManager } from "../../../../server/http-server-manager";
 import frontendCommunicator from "../../../common/frontend-communicator";
 import logger from "../../../logwrapper";
 import { wait } from "../../../utils";
@@ -299,14 +299,14 @@ export function createVoicevoxCompatibleEffect(options: {
             if (selectedOutputDevice.deviceId === "overlay") {
                 const resourceToken = ResourceTokenManager.storeResourcePath(data.filepath, 30);
                 data.resourceToken = resourceToken;
-                webServer.sendToOverlay("sound", data);
+                HttpServerManager.sendToOverlay("sound", data);
             } else {
                 frontendCommunicator.send("playsound", data);
             }
 
             if (effect.waitForSound) {
                 try {
-                    const duration = await frontendCommunicator.fireEventAsync<number>("getSoundDuration", {
+                    const duration = await frontendCommunicator.fireEventAsync<number, [unknown]>("getSoundDuration", {
                         path: data.filepath
                     });
                     const durationInMils = (Math.round(duration) || 0) * 1000;
@@ -317,7 +317,7 @@ export function createVoicevoxCompatibleEffect(options: {
                 }
             } else {
                 try {
-                    const duration = await frontendCommunicator.fireEventAsync<number>("getSoundDuration", {
+                    const duration = await frontendCommunicator.fireEventAsync<number, [unknown]>("getSoundDuration", {
                         path: data.filepath
                     });
                     const durationInMils = (Math.round(duration) || 0) * 1000;

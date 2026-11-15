@@ -1,0 +1,220 @@
+"use strict";
+(function() {
+
+    const { randomUUID } = require("crypto");
+
+    angular
+        .module('firebotApp')
+        .component("restrictionsList", {
+            bindings: {
+                trigger: "@",
+                triggerMeta: "<",
+                restrictionData: "=",
+                modalId: "@"
+            },
+            template: `
+                <div>
+                    <div style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand'; color: #8A8B8D;">
+                        <span>次の場合のみトリガー: </span>
+
+                        <div class="text-dropdown filter-mode-dropdown" uib-dropdown uib-dropdown-toggle>
+                            <div class="noselect pointer ddtext" style="font-size: 12px;">
+                                <a href aria-label="制限オプション">
+                                    {{$ctrl.getRestrictionModeDisplay()}}
+                                    <span class="fb-arrow down ddtext"></span>
+                                </a>
+                            </div>
+                            <ul class="dropdown-menu" style="z-index: 10000000;" uib-dropdown-menu>
+
+                                <li ng-click="$ctrl.restrictionData.mode = 'all'">
+                                    <a href style="padding-left: 10px;" aria-label="すべての制限を満たす">すべての制限を満たす</a>
+                                </li>
+
+                                <li ng-click="$ctrl.restrictionData.mode = 'any'">
+                                    <a href style="padding-left: 10px;" aria-label="いずれかの制限を満たす">いずれかの制限を満たす</a>
+                                </li>
+
+                                <li ng-click="$ctrl.restrictionData.mode = 'none'">
+                                    <a href style="padding-left: 10px;" aria-label="制限を満たさない">制限を満たさない</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span></span>
+                    </div>
+                    <div ng-class="{'mb-4': $ctrl.restrictionData.restrictions.length}">
+                        <restriction-item ng-repeat="restriction in $ctrl.restrictionData.restrictions"
+                            restriction="restriction"
+                            restriction-definition="$ctrl.getRestrictionDefinition(restriction.type)"
+                            restriction-mode="$ctrl.restrictionData.mode"
+                            on-delete="$ctrl.deleteRestriction(restriction.id)">
+                        </restriction-item>
+                    </div>
+                    <div class="mb-4">
+                        <div class="filter-bar clickable"
+                            ng-show="$ctrl.canAddMoreRestrictions"
+                            ng-click="$ctrl.showAddRestrictionModal()"
+                            uib-tooltip="制限を追加"
+                            aria-label="制限を追加"
+                            tooltip-append-to-body="true">
+                                <i class="far fa-plus"></i>
+                        </div>
+                    </div>
+
+                    <div class="ml-3.5" ng-show="$ctrl.restrictionData.restrictions.length > 0">
+                        <firebot-checkbox ng-show="$ctrl.trigger.name !== 'channel_reward'"
+                            label="返信として送信"
+                            tooltip="返信はコマンドまたはチャットメッセージイベント内でのみ有効です"
+                            model="$ctrl.restrictionData.sendAsReply"
+                            style="margin: 0px 15px 0px 0px"
+                        />
+                        <label class="control-fb control--checkbox"> 制限を満たさないときにチャットメッセージを送信
+                            <input type="checkbox" ng-model="$ctrl.restrictionData.sendFailMessage">
+                            <div class="control__indicator"></div>
+                        </label>
+
+                        <div ng-show="$ctrl.restrictionData.sendFailMessage">
+                            <label class="control-fb control--checkbox">
+                                カスタム制限メッセージを使用
+                                <input
+                                    type="checkbox"
+                                    ng-model="$ctrl.restrictionData.useCustomFailMessage"
+                                />
+                                <div class="control__indicator"></div>
+                            </label>
+
+                            <div ng-if="$ctrl.restrictionData.useCustomFailMessage">
+                                <firebot-input
+                                    model="$ctrl.restrictionData.failMessage"
+                                    disable-variables="true"
+                                    input-title="メッセージ"
+                                />
+                                <p class="muted">使用可能な変数: {user}, {reason}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            controller: function(utilityService, backendCommunicator) {
+                const $ctrl = this;
+
+                $ctrl.restrictionDefinitions = [];
+
+                $ctrl.getRestrictionModeDisplay = function() {
+                    if ($ctrl.restrictionData.mode === "any") {
+                        return "いずれかの制限を満たす";
+                    }
+                    if ($ctrl.restrictionData.mode === "none") {
+                        return "制限を満たさない";
+                    }
+                    return "すべての制限を満たす";
+                };
+
+                $ctrl.canAddMoreRestrictions = true;
+                function updateCanAddMoreRestrictions() {
+                    /*$ctrl.canAddMoreRestrictions = restrictionDefinitions
+                        .some(r => {
+                            return !$ctrl.restrictionData.restrictions.some(rs => rs.type === r.definition.id);
+                        });*/
+                }
+
+                $ctrl.$onInit = () => {
+                    $ctrl.restrictionDefinitions = (backendCommunicator.fireEventSync("restrictions:get-restrictions", {
+                        triggerType: $ctrl.trigger,
+                        triggerMeta: $ctrl.triggerMeta
+                    }))
+                        .map((r) => {
+                            return {
+                                definition: r.definition,
+                                optionsTemplate: r.optionsTemplate,
+                                optionsController: eval(r.optionsControllerRaw), // eslint-disable-line no-eval
+                                optionsValueDisplay: eval(r.optionsValueDisplayRaw) // eslint-disable-line no-eval
+                            };
+                        });
+
+                    const DEFAULT_FAIL_MESSAGE = `Sorry @{user}, you cannot use this ${$ctrl.trigger.trim().replace(/_/, " ") ?? ''} because: {reason}`;
+
+                    if ($ctrl.restrictionData == null) {
+                        $ctrl.restrictionData = {
+                            restrictions: [],
+                            mode: "all",
+                            sendFailMessage: true,
+                            useCustomFailMessage: false,
+                            failMessage: DEFAULT_FAIL_MESSAGE,
+                            sendAsReply: false
+                        };
+                    }
+
+                    if ($ctrl.restrictionData.mode == null) {
+                        $ctrl.restrictionData.mode = "all";
+                    }
+
+                    if ($ctrl.restrictionData.restrictions == null) {
+                        $ctrl.restrictionData.restrictions = [];
+                    }
+
+                    if ($ctrl.restrictionData.sendFailMessage == null) {
+                        $ctrl.restrictionData.sendFailMessage = true;
+                    }
+
+                    if ($ctrl.restrictionData.failMessage == null) {
+                        $ctrl.restrictionData.failMessage = DEFAULT_FAIL_MESSAGE;
+                    }
+
+                    if ($ctrl.restrictionData.sendAsReply == null) {
+                        $ctrl.restrictionData.sendAsReply = false;
+                    }
+
+                    updateCanAddMoreRestrictions();
+                };
+
+                $ctrl.deleteRestriction = function(restrictionId) {
+                    $ctrl.restrictionData.restrictions = $ctrl.restrictionData.restrictions
+                        .filter(r => r.id !== restrictionId);
+
+                    updateCanAddMoreRestrictions();
+                };
+
+                $ctrl.getRestrictionDefinition = function(restrictionType) {
+                    return $ctrl.restrictionDefinitions.find(r => r.definition.id === restrictionType);
+                };
+
+                $ctrl.showAddRestrictionModal = function() {
+
+                    const options = $ctrl.restrictionDefinitions
+                        .filter(r => !r.definition.hidden)
+                        .map((r) => {
+                            return {
+                                id: r.definition.id,
+                                name: r.definition.name,
+                                description: r.definition.description
+                            };
+                        }).sort((a, b) => {
+                            const textA = a.name.toUpperCase();
+                            const textB = b.name.toUpperCase();
+                            return textA < textB ? -1 : textA > textB ? 1 : 0;
+                        });
+
+                    utilityService.openSelectModal(
+                        {
+                            label: "制限を追加",
+                            options: options,
+                            saveText: "追加",
+                            validationText: "制限タイプを選択してください。"
+
+                        },
+                        (selectedId) => {
+                            // just in case, remove any other restrictions of the same type
+                            /*$ctrl.restrictionData.restrictions = $ctrl.restrictionData.restrictions
+                                .filter(r => r.type !== selectedId);*/
+
+                            $ctrl.restrictionData.restrictions.push({
+                                id: randomUUID(),
+                                type: selectedId
+                            });
+
+                            updateCanAddMoreRestrictions();
+                        });
+                };
+            }
+        });
+}());

@@ -321,6 +321,16 @@
                         category: "フェード"
                     },
                     {
+                        name: "フリップアウト（X軸）",
+                        class: "flipOutX",
+                        category: "フリップ"
+                    },
+                    {
+                        name: "フリップアウト（Y軸）",
+                        class: "flipOutY",
+                        category: "フリップ"
+                    },
+                    {
                         name: "回転アウト",
                         class: "rotateOut",
                         category: "回転"

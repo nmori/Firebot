@@ -149,7 +149,7 @@ export const TwitchEventSource: EventSource = {
                         showUserIdName ? ` (${eventData.username})` : ""
                     }** が **${eventData.raidTargetUserDisplayName}** に **${
                         eventData.viewerCount
-                    }** 人でレイド中`;
+                    }** 人でレイドしました`;
                 }
             }
         },
@@ -197,7 +197,9 @@ export const TwitchEventSource: EventSource = {
                 },
                 subMessage: "テストメッセージ",
                 totalMonths: 10,
-                streak: 8
+                streak: 8,
+                isGiftResub: false,
+                gifterUsername: "zunderscore"
             },
             activityFeed: {
                 icon: "fas fa-star",

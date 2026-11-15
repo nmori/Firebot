@@ -128,7 +128,7 @@
                     }
                 };
 
-                $ctrl.save = function() {
+                $ctrl.save = async () => {
                     if ($ctrl.quickAction.name == null || $ctrl.quickAction.name === "") {
                         ngToast.create("このクイックアクションの名前を入力してください");
                         return;
@@ -154,7 +154,7 @@
                         $ctrl.quickAction.icon = "far fa-magic";
                     }
 
-                    const successful = quickActionsService.saveCustomQuickAction($ctrl.quickAction);
+                    const successful = await quickActionsService.saveCustomQuickAction($ctrl.quickAction);
                     if (successful) {
                         $ctrl.close();
                     } else {

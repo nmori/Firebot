@@ -1,6 +1,7 @@
+import type { EventFilter } from "../../../../../types";
+
 import { TwitchApi } from "../../../../streaming-platforms/twitch/api";
 import viewerDatabase from "../../../../viewers/viewer-database";
-import { EventFilter } from "../../../../../types/events";
 
 function normalizeViewerRankComparisonType(comparisonType?: string) {
     const includeAliases = new Set([
@@ -60,7 +61,7 @@ const filter: EventFilter = {
             .flatMap(l => l.ranks.map(r => ({ value: `${l.id}:${r.id}`, display: `${r.name} (${l.name})` })));
     },
     valueIsStillValid: (filterSettings, viewerRanksService: any) => {
-        const [ladderId, rankId] = filterSettings.value?.split(":") ?? [];
+        const [ladderId, rankId] = (filterSettings.value as string)?.split(":") ?? [];
 
         const ladder = viewerRanksService.getRankLadder(ladderId);
 
@@ -69,7 +70,7 @@ const filter: EventFilter = {
         return hasRank;
     },
     getSelectedValueDisplay: (filterSettings, viewerRanksService: any) => {
-        const [ladderId, rankId] = filterSettings.value?.split(":") ?? [];
+        const [ladderId, rankId] = (filterSettings.value as string)?.split(":") ?? [];
 
         const ladder = viewerRanksService.getRankLadder(ladderId);
 
@@ -105,7 +106,7 @@ const filter: EventFilter = {
                 userId = user.id;
             }
 
-            const [ladderId, rankId] = value?.split(":") ?? [];
+            const [ladderId, rankId] = (value as string)?.split(":") ?? [];
 
             const hasRank = await viewerDatabase.viewerHasRankById(userId, ladderId, rankId);
 

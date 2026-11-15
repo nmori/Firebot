@@ -3,7 +3,8 @@
     angular.module("firebotApp").component("fontOptions", {
         bindings: {
             modelValue: "=ngModel",
-            allowAlpha: '<'
+            allowAlpha: '<',
+            hideSize: '<?'
         },
         require: {
             ngModelCtrl: '^ngModel'
@@ -21,7 +22,7 @@
                     label="色"
                 />
             </div>
-            <div class="input-group pt-2">
+            <div class="input-group pt-2" ng-if="$ctrl.hideSize !== true">
                 <span class="input-group-addon">サイズ (px)</span>
                 <input
                     class="form-control"

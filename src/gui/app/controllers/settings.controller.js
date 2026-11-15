@@ -44,6 +44,12 @@
                     template: "<overlay-settings />"
                 },
                 {
+                    name: "プラグインとスクリプト",
+                    description: "プラグインのインストールやスクリプト実行設定を管理します。",
+                    icon: "fa-puzzle-piece",
+                    template: "<plugin-settings />"
+                },
+                {
                     name: "連携",
                     description: "Firebotをさまざまなサードパーティ製ツールやアプリと連携します。",
                     icon: "fa-globe",
@@ -60,12 +66,6 @@
                     description: "バックアップとその設定を管理し、データ損失を防ぎます。",
                     icon: "fa-file-archive",
                     template: "<backups-settings />"
-                },
-                {
-                    name: "スクリプト",
-                    description: "スクリプト設定の構成、起動時スクリプト追加などを行います。",
-                    icon: "fa-code",
-                    template: "<scripts-settings />"
                 },
                 {
                     name: "詳細設定",

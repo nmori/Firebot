@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
-
-import type { RestrictionType } from "../../../types/restrictions";
+import type { RestrictionType } from "../../../types";
 import twitchStreamInfoManager from "../../streaming-platforms/twitch/stream-info-manager";
-
 
 const restriction: RestrictionType = {
     definition: {
@@ -15,14 +12,15 @@ const restriction: RestrictionType = {
             <p>配信中のときだけ使用できます。</p>
         </div>
     `,
-    predicate: async () => {
-        return new Promise((resolve, reject) => {
-            if (!twitchStreamInfoManager.streamInfo.isLive) {
-                return reject("現在配信中ではありません。");
-            }
+    predicate: () => {
+        if (!twitchStreamInfoManager.streamInfo.isLive) {
+            return {
+                success: false,
+                failureReason: "現在配信中ではありません。"
+            };
+        }
 
-            return resolve(true);
-        });
+        return { success: true };
     }
 };
 

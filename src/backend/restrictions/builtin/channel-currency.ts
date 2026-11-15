@@ -1,5 +1,4 @@
-import type { RestrictionType } from "../../../types/restrictions";
-import type { Currency } from "../../../types/currency";
+import type { RestrictionType, Currency } from "../../../types";
 import currencyAccess from "../../currency/currency-access";
 import currencyManager from "../../currency/currency-manager";
 
@@ -125,10 +124,14 @@ const model: RestrictionType<{
                 : comparison === "greater"
                     ? `${currencyAmount} 以上`
                     : `${currencyAmount} と等しい`;
-            throw new Error(`${currencyName} が ${amountText} である必要があります`);
+
+            return {
+                success: false,
+                failureReason: `${currencyName} が ${amountText} である必要があります`
+            };
         }
 
-        return passed;
+        return { success: true };
     },
     onSuccessful: async ({ metadata }, {
         selectedCurrency: currencyId,

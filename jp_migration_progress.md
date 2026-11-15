@@ -5,6 +5,49 @@
 - Record what was changed, what remains, and exact restart steps.
 - Keep all work inside firebot folder. No git operations.
 
+## 2026-11-16 Session — upstream v5.67.0 マージ
+
+### Phase
+- upstream v5.67.0 を v5.66.7+5 にマージ（コンフリクト 70 ファイル）→ 5.67.0+0
+
+### マージ判断（本家ベース＋JP固有を維持）
+- Electron: JP の 43 ではなく本家の 39.8.10 を採用（本家 #3536: v42 系で GC ロックアップのため差し戻し）
+- CI: Node 24.22.1 と `npm install --include=optional` は JP 側を維持（@electron/packager 20 が Node >= 22.12 を要求）
+- macOS: 本家は Intel(x64) を廃止したが JP は x64 + arm64 を継続（pack.js / compile.js / workflow / macos-x64-install-instructions.txt）
+- publish-types.yml: `github.repository == 'crowbartools/Firebot'` ガードを追加（JP では型パッケージを公開しない）
+- 更新確認: 本家がバックエンド `src/backend/core/update-manager.ts` に移設 → nmori/Firebot を参照、不正タグのスキップ処理を移植
+- トークン送信系は引き続き無効化
+  - CrowbarRelay スタブ維持、外部通知(api.crowbar.tools)無効化維持
+  - 新規: plugin-manager.ts の `trackCommunityPluginDownload`（配信者トークンを送信）を無効化。検索/更新確認はトークン不要のため有効
+  - steam-access.ts は JP の Steam storesearch 直接検索を維持
+- connection-manager.js → .ts 化に伴い connect/disconnect-service の再入ガードを移植
+- account-access.service.js の validateAccounts を fireEventSync に（JP 修正の移植）
+- twitch-chat: JP の再入ガード/bot タイムアウト/whisper 二重処理対策を維持（setupBotChatListeners は呼ばない）
+- when-ready.ts: JP の並列ロード(施策2)を維持し、本家の新モジュール(control-decks, plugins)を組み込み。
+  プラグイン移行は webhooks 読み込み後に逐次実行（競合回避）
+- webhook-config-manager: JP のローカル受信方式を維持し、本家のプラグイン webhook 配送を追加
+- チャット: 本家がチャット処理をバックエンドへ移設したため、JP の GUI 側高速化(施策3/施策8)は本家実装に置換
+- 制限(restrictions): 本家の `{ success, failureReason }` 形式に移行し日本語メッセージを再適用
+  - viewer-count の判定反転バグ（`if (currentViewers)`）を `== null` に修正（本家の既存バグ）
+- JP 独自エフェクト(play-coeiroink-v2, voicevox-compatible, fukubiki)を新 API（`{ HttpServerManager }`）に追従
+- 本家で削除: startup-scripts 系 GUI（プラグインマネージャーへ統合）、power-up カスタムサブスクリプション（Twurple 8.2 ネイティブ化）
+
+### 検証
+- `npx tsc --noEmit` OK / `npx eslint src` エラー 0 / `npx grunt prep` OK / `npx jest` OK
+- 実機起動での動作確認は未実施
+
+### 残作業（未翻訳の本家新機能）
+- プラグインマネージャー: src/gui/app/directives/modals/plugins/*（コミュニティプラグインブラウザ等）
+- コントロールデッキ: src/gui/app/directives/modals/control-deck/*, src/resources/control-deck/**(Vue), src/backend/control-deck/**
+- 新規 controls / services、オーバーレイウィジェット(twitch-poll / twitch-prediction / rotating-text)
+- サイドバーの翻訳キーを本家の新キー(SIDEBAR.TRIGGERS.* / SIDEBAR.MANAGEMENT.*)へ揃える場合は locale-ja.json にキー追加が必要
+- http-server-manager の新 pluginRootRouter にはレート制限なし（本家同様）。JP で制限するか要検討
+
+### Next Restart Steps
+1. `npm start` で起動し、チャット接続/切断、ダッシュボードのチャット表示、更新確認（nmori のリリース取得）を確認
+2. JP 独自エフェクト（VOICEVOX 系 / COEIROINK v2 / わんコメ転送）と福引きゲームの音声再生を確認
+3. 設定 → プラグインとスクリプト、ツール → プラグインマネージャーの表示確認後、残作業の翻訳に着手
+
 ## 2026-08-15 Session
 
 ### Phase
