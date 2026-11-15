@@ -24,7 +24,7 @@ const effect: EffectType<{
     },
     optionsTemplate: `
     <eos-container header="説明" pad-top="true">
-        <p class="muted">このエフェクトは Firebot ダッシュボードのチャットフィード内のメッセージを非表示にします。</p>
+        <p class="muted">この演出は Firebot ダッシュボードのチャットフィード内のメッセージを非表示にします。</p>
         <p class="muted">Twitch チャット、ブラウザオーバーレイ、その他のチャットクライアント側のメッセージは<b>非表示にも削除にもなりません</b>。</p>
     </eos-container>
     `,

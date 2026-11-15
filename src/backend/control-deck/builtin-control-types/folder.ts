@@ -8,8 +8,8 @@ type FolderParams = {
 
 export const folderControlType: ControlDeckControlType<FolderParams> = {
     id: CONTROL_DECK_FOLDER_TYPE_ID,
-    name: "Folder",
-    description: "A folder that can contain other controls",
+    name: "フォルダー",
+    description: "他のコントロールを入れられるフォルダー",
     icon: "fa-folder",
     enableIcon: true,
     defaultIcon: { type: "glyph", name: "folder" },
@@ -18,8 +18,8 @@ export const folderControlType: ControlDeckControlType<FolderParams> = {
     settingsSchema: [
         {
             name: "autoReturn",
-            title: "Auto Return",
-            description: "If enabled, the folder will automatically return to the parent after a control within it is pressed.",
+            title: "自動で戻る",
+            description: "有効にすると、フォルダー内のコントロールが押された後に自動で親の階層へ戻ります。",
             type: "boolean",
             useSwitch: true,
             default: false

@@ -9,7 +9,7 @@
         },
         template: `
       <ui-select ng-model="$ctrl.selectedEffect" on-select="$ctrl.selectOption($item, $model)" theme="bootstrap">
-                <ui-select-match placeholder="エフェクトを選択または検索... ">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="演出を選択または検索... ">{{$select.selected.name}}</ui-select-match>
         <ui-select-choices repeat="option in $ctrl.options | filter: { name: $select.search }" style="position:relative;">
           <div ng-bind-html="option.name | highlight: $select.search"></div>
           <small class="muted">{{option.description}}</small>

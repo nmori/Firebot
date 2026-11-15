@@ -9,8 +9,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:sequentialeffect",
-        name: "順次エフェクト実行",
-        description: "エフェクトリストから1つずつ順番に実行します",
+        name: "順次演出実行",
+        description: "演出リストから1つずつ順番に実行します",
         icon: "fad fa-list-ol",
         categories: ["advanced", "scripting"],
         dependencies: [],
@@ -21,7 +21,7 @@ const effect: EffectType<{
     <eos-container>
             <div class="effect-info alert alert-warning">
                 <div>
-                    警告: このエフェクトは非推奨です。今後は任意のエフェクトリストで <strong>順番実行（単体）</strong> 実行モードを使用してください。
+                    警告: この演出は非推奨です。今後は任意の演出リストで <strong>順番実行（単体）</strong> 実行モードを使用してください。
                 </div>
                 <div class="mt-3">
                     <button
@@ -29,19 +29,19 @@ const effect: EffectType<{
                         class="btn btn-default btn-sm"
                         ng-click="convertToRunEffectList()"
                         ng-disabled="isConverting"
-                        aria-label="このエフェクトを「エフェクトリスト実行」に変換"
-                        uib-tooltip="設定とエフェクトの中身を引き継いだまま「エフェクトリスト実行」エフェクトに置き換えます。保存するまで確定しません。"
+                        aria-label="この演出を「演出リスト実行」に変換"
+                        uib-tooltip="設定と演出の中身を引き継いだまま「演出リスト実行」演出に置き換えます。保存するまで確定しません。"
                         tooltip-append-to-body="true"
                     >
                         <i class="fas fa-exchange-alt" aria-hidden="true"></i>
-                        <span class="ml-2">「エフェクトリスト実行」に変換</span>
+                        <span class="ml-2">「演出リスト実行」に変換</span>
                     </button>
                 </div>
             </div>
         </eos-container>
 
     <eos-container pad-top="true">
-        <p>下のリストからエフェクトを 1 つずつ順番に実行します。特にタイマーで便利です。</p>
+        <p>下のリストから演出を 1 つずつ順番に実行します。特にタイマーで便利です。</p>
     </eos-container>
 
     <eos-container pad-top="true">
@@ -49,7 +49,7 @@ const effect: EffectType<{
             trigger="{{trigger}}"
             trigger-meta="triggerMeta"
             update="effectListUpdated(effects)"
-            header="エフェクト"
+            header="演出"
             mode="sequential"
             modalId="{{modalId}}"></effect-list>
     </eos-container>
@@ -72,8 +72,8 @@ const effect: EffectType<{
             $scope.isConverting = true;
 
             utilityService.showConfirmationModal({
-                title: "「エフェクトリスト実行」に変換",
-                question: "このエフェクトを「エフェクトリスト実行」（順番実行（単体））に置き換えます。エフェクトの中身と設定はそのまま引き継がれます。よろしいですか？",
+                title: "「演出リスト実行」に変換",
+                question: "この演出を「演出リスト実行」（順番実行（単体））に置き換えます。演出の中身と設定はそのまま引き継がれます。よろしいですか？",
                 tip: "変換してもすぐには保存されません。取り消したい場合は、この画面を保存せずにキャンセルしてください。",
                 confirmLabel: "変換する",
                 confirmBtnType: "btn-primary",
@@ -98,12 +98,12 @@ const effect: EffectType<{
                         return;
                     }
 
-                    // 検証を全て通過した場合のみ、ここで元のエフェクトが置き換わる
+                    // 検証を全て通過した場合のみ、ここで元の演出が置き換わる
                     $scope.$emit("effectOptions.replaceEffect", result.effect);
 
                     ngToast.create({
                         className: "success",
-                        content: "「エフェクトリスト実行」に変換しました。保存すると確定します。"
+                        content: "「演出リスト実行」に変換しました。保存すると確定します。"
                     });
                 });
             });

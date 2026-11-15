@@ -102,12 +102,12 @@ InternalBus.on("channel-prediction-end", (prediction) => {
 function generateSamplePrediction(): PredictionState {
     return {
         prediction: {
-            title: "Will we clear the raid this attempt?",
+            title: "今回のトライでレイドをクリアできる？",
             startDate: new Date(),
             lockDate: new Date(Date.now() + 2 * 60 * 1000),
             outcomes: [
-                { id: "1", title: "Yes, GG", channelPoints: 18400, users: 142, color: "blue" },
-                { id: "2", title: "No, wipe", channelPoints: 9600, users: 88, color: "pink" }
+                { id: "1", title: "できる、GG", channelPoints: 18400, users: 142, color: "blue" },
+                { id: "2", title: "無理、全滅", channelPoints: 9600, users: 88, color: "pink" }
             ],
             winningOutcomeId: null,
             status: "active"
@@ -117,13 +117,13 @@ function generateSamplePrediction(): PredictionState {
 
 export const twitchPrediction: OverlayWidgetType<PredictionSettings, PredictionState> = {
     id: TWITCH_PREDICTION_TYPE_ID,
-    name: "Twitch Prediction",
-    description: "Displays the currently running Twitch prediction, with live channel point totals. Shows nothing when no prediction is active.",
+    name: "Twitch 予想",
+    description: "実行中の Twitch 予想を、リアルタイムのチャンネルポイント合計とともに表示します。予想が行われていないときは何も表示しません。",
     icon: "fa-question-circle",
     settingsSchema: [
         {
             name: "fontOptions",
-            title: "Font",
+            title: "フォント設定",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -136,30 +136,30 @@ export const twitchPrediction: OverlayWidgetType<PredictionSettings, PredictionS
         },
         {
             name: "backgroundColor",
-            title: "Background Color",
+            title: "背景色",
             type: "hexcolor",
             default: "#18181B",
             allowAlpha: true
         },
         {
             name: "timeBarColor",
-            title: "Time Remaining Bar Color",
-            description: "Color of the countdown bar shown at the bottom while predictions are open.",
+            title: "残り時間バーの色",
+            description: "予想の受付中に下部に表示されるカウントダウンバーの色です。",
             type: "hexcolor",
             default: "#9147FF",
             showBottomHr: true
         },
         {
             name: "showUsers",
-            title: "Show Predictor Counts",
-            description: "Show how many users predicted each outcome.",
+            title: "予想した人数を表示",
+            description: "各選択肢を予想したユーザー数を表示します。",
             type: "boolean",
             default: true
         },
         {
             name: "lingerSeconds",
-            title: "Results Linger (seconds)",
-            description: "How long to keep the final result on screen after the prediction ends.",
+            title: "結果の表示時間（秒）",
+            description: "予想終了後に最終結果を画面に表示し続ける時間です。",
             type: "number",
             default: 10
         }

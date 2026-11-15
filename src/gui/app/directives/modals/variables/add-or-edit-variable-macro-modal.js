@@ -209,7 +209,7 @@
                     utilityService
                         .showConfirmationModal({
                             title: "警告",
-                            question: "マクロ名を変更すると、エフェクト内の参照を手動更新する必要があります。名前を変更しますか？",
+                            question: "マクロ名を変更すると、演出内の参照を手動更新する必要があります。名前を変更しますか？",
                             confirmLabel: "変更する",
                             confirmBtnType: "btn-default"
                         })

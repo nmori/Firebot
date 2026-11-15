@@ -45,7 +45,7 @@ const effect = {
                     }
                     if (result.success === false) {
                         if (result.error) {
-                            frontendCommunicator.send('error', `Oops! There was an error processing the custom script. Error: ${result.error}`);
+                            frontendCommunicator.send('error', `カスタムスクリプトの処理中にエラーが発生しました。エラー: ${result.error}`);
                         }
                         return resolve(false);
                     }
@@ -56,7 +56,7 @@ const effect = {
                     resolve(true);
                 })
                 .catch((err) => {
-                    frontendCommunicator.send('error', `Oops! There was an error processing the custom script. Error: ${err.message}`);
+                    frontendCommunicator.send('error', `カスタムスクリプトの処理中にエラーが発生しました。エラー: ${err.message}`);
                     logger.error(err);
                     resolve(false);
                 });

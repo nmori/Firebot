@@ -42,28 +42,28 @@
                                 >
                                     <span
                                         class="cd-action"
-                                        uib-tooltip="Options"
+                                        uib-tooltip="オプション"
                                         tooltip-append-to-body="true"
                                         uib-dropdown-toggle
                                     >
                                         <i class="fas fa-ellipsis-v"></i>
                                     </span>
                                     <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                                        <li role="menuitem" ng-class="{'disabled': !$ctrl.hasCopiedControl()}"><a href ng-disabled="!$ctrl.hasCopiedControl()" ng-click="$ctrl.paste(cell)"><i class="far fa-paste mr-2 text-center" style="width: 20px;"></i> Paste control</a></li>
+                                        <li role="menuitem" ng-class="{'disabled': !$ctrl.hasCopiedControl()}"><a href ng-disabled="!$ctrl.hasCopiedControl()" ng-click="$ctrl.paste(cell)"><i class="far fa-paste mr-2 text-center" style="width: 20px;"></i> コントロールを貼り付け</a></li>
                                     </ul>
                                 </span>
                             </div>
                         </div>
                         <div ng-if="cell.control" class="cd-cell-content">
-                            <i ng-if="cell.control._typeInfo.missing" class="fas fa-exclamation-triangle cd-cell-missing-glyph" uib-tooltip="This control's type ('{{cell.control.type}}') is not registered. It may belong to an uninstalled plugin." tooltip-append-to-body="true"></i>
+                            <i ng-if="cell.control._typeInfo.missing" class="fas fa-exclamation-triangle cd-cell-missing-glyph" uib-tooltip="このコントロールのタイプ（'{{cell.control.type}}'）は登録されていません。アンインストールされたプラグインのものである可能性があります。" tooltip-append-to-body="true"></i>
                             <img ng-if="cell.control._previewIcon.kind === 'image'" class="cd-cell-icon" ng-src="{{cell.control._previewIcon.url}}" ng-style="cell.control._previewIcon.style" />
                             <lucide-icon ng-if="cell.control._typeInfo.def.id === 'firebot:switch'" class="cd-cell-glyph" name="toggle-left" color="white" size="45"></lucide-icon>
                             <lucide-icon ng-if="cell.control._previewIcon.kind === 'glyph'" class="cd-cell-glyph" name="{{cell.control._previewIcon.name}}" color="{{cell.control._previewIcon.color}}" size="cell.control._previewIcon.size"></lucide-icon>
                             <span ng-if="cell.control._previewIcon.kind === 'emoji'" class="cd-cell-emoji" ng-style="cell.control._previewIcon.style">{{cell.control._previewIcon.emoji}}</span>
                             <div class="cd-cell-name" ng-style="cell.control._labelStyle">{{cell.control.label || cell.control.name}}</div>
                             <div class="cd-cell-actions">
-                                <span ng-if="!cell.pinned && cell.control._typeInfo.isFolder" class="cd-action" uib-tooltip="Open" tooltip-append-to-body="true" ng-click="$ctrl.openFolder($event, cell.control)"><i class="fas fa-folder-open"></i></span>
-                                <span ng-if="!cell.pinned" class="cd-action" uib-tooltip="Edit" tooltip-append-to-body="true" ng-click="$ctrl.edit($event, cell.control)"><i class="fas fa-pen"></i></span>
+                                <span ng-if="!cell.pinned && cell.control._typeInfo.isFolder" class="cd-action" uib-tooltip="開く" tooltip-append-to-body="true" ng-click="$ctrl.openFolder($event, cell.control)"><i class="fas fa-folder-open"></i></span>
+                                <span ng-if="!cell.pinned" class="cd-action" uib-tooltip="編集" tooltip-append-to-body="true" ng-click="$ctrl.edit($event, cell.control)"><i class="fas fa-pen"></i></span>
                                 <span
                                     ng-if="!cell.pinned"
                                     uib-dropdown
@@ -72,15 +72,15 @@
                                 >
                                     <span
                                         class="cd-action"
-                                        uib-tooltip="Options"
+                                        uib-tooltip="オプション"
                                         tooltip-append-to-body="true"
                                         uib-dropdown-toggle
                                     >
                                         <i class="fas fa-ellipsis-v"></i>
                                     </span>
                                     <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                                        <li role="menuitem"><a href ng-click="$ctrl.copy(cell.control)"><i class="far fa-copy mr-2 text-center" style="width: 20px;"></i> Copy</a></li>
-                                        <li role="menuitem"><a href ng-click="$ctrl.delete(cell.control)" style="color: #fb7373;"><i class="far fa-trash-alt mr-2 text-center" style="width: 20px;"></i> Delete</a></li>
+                                        <li role="menuitem"><a href ng-click="$ctrl.copy(cell.control)"><i class="far fa-copy mr-2 text-center" style="width: 20px;"></i> コピー</a></li>
+                                        <li role="menuitem"><a href ng-click="$ctrl.delete(cell.control)" style="color: #fb7373;"><i class="far fa-trash-alt mr-2 text-center" style="width: 20px;"></i> 削除</a></li>
                                     </ul>
                                 </span>
                                 <span
@@ -91,19 +91,19 @@
                                 >
                                     <span
                                         class="cd-action"
-                                        uib-tooltip="Options"
+                                        uib-tooltip="オプション"
                                         tooltip-append-to-body="true"
                                         uib-dropdown-toggle
                                     >
                                         <i class="fas fa-ellipsis-v"></i>
                                     </span>
                                     <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                                        <li role="menuitem" ng-class="{'disabled': !$ctrl.hasCopiedControl()}"><a href ng-disabled="!$ctrl.hasCopiedControl()" ng-click="$ctrl.paste(cell)"><i class="far fa-paste mr-2 text-center" style="width: 20px;"></i> Paste control</a></li>
+                                        <li role="menuitem" ng-class="{'disabled': !$ctrl.hasCopiedControl()}"><a href ng-disabled="!$ctrl.hasCopiedControl()" ng-click="$ctrl.paste(cell)"><i class="far fa-paste mr-2 text-center" style="width: 20px;"></i> コントロールを貼り付け</a></li>
                                     </ul>
                                 </span>
                             </div>
-                            <span ng-if="!cell.pinned && cell.control._typeInfo.resizable" class="cd-resize-handle" uib-tooltip="Drag to resize" tooltip-append-to-body="true"></span>
-                            <div ng-if="cell.pinned" class="cd-pinned-badge" uib-tooltip="Pinned control - click to override on this page" tooltip-append-to-body="true"><i class="fas fa-thumbtack"></i></div>
+                            <span ng-if="!cell.pinned && cell.control._typeInfo.resizable" class="cd-resize-handle" uib-tooltip="ドラッグしてサイズを変更" tooltip-append-to-body="true"></span>
+                            <div ng-if="cell.pinned" class="cd-pinned-badge" uib-tooltip="固定されたコントロール - クリックするとこのページで上書きします" tooltip-append-to-body="true"><i class="fas fa-thumbtack"></i></div>
                             <div ng-if="cell.pinned" class="cd-pinned-add"><i class="fas fa-plus"></i></div>
                         </div>
                     </div>
@@ -352,7 +352,7 @@
 
                 $ctrl.copy = (control) => {
                     controlDeckCopyHelper.copyControl(control, ($ctrl.deck?.controls || []));
-                    ngToast.success("Control copied to clipboard");
+                    ngToast.success("コントロールをクリップボードにコピーしました");
                 };
 
                 $ctrl.hasCopiedControl = () => {

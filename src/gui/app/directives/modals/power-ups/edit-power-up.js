@@ -21,7 +21,7 @@
                         </div>
 
                         <div style="text-align: center; margin-bottom: 5px;">
-                            <span class="muted" style="font-size: 14px;">Cost:</span>
+                            <span class="muted" style="font-size: 14px;">コスト:</span>
                             <strong style="font-size: 18px; margin-left: 5px;">{{$ctrl.powerUp.twitchData.bits}} Bits</strong>
                         </div>
 
@@ -31,7 +31,7 @@
 
                         <div class="alert alert-info" style="margin-top: 10px;">
                             <i class="fas fa-info-circle" style="margin-right: 6px;"></i>
-                            Power-ups are created on Twitch and cannot be edited from Firebot. You can however set up effects to run when this Power-up is redeemed.
+                            パワーアップは Twitch 上で作成されるため、Firebot からは編集できません。ただし、このパワーアップが使用されたときに実行する演出は設定できます。
                         </div>
                     </div>
 

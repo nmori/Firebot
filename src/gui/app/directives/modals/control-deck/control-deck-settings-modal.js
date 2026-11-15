@@ -5,24 +5,24 @@
         template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Control Deck Settings</h4>
+                <h4 class="modal-title">コントロールデッキの設定</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group flex-row jspacebetween mb-0">
                     <div>
-                        <label class="control-label" style="margin:0;font-size: 18px;">Enable Control Deck</label>
-                        <p class="help-block pr-8">When enabled, the Control Deck page can be opened from a phone or tablet on your local network.</p>
+                        <label class="control-label" style="margin:0;font-size: 18px;">コントロールデッキを有効にする</label>
+                        <p class="help-block pr-8">有効にすると、ローカルネットワーク上のスマートフォンやタブレットからコントロールデッキのページを開けるようになります。</p>
                     </div>
                     <div>
                         <toggle-button toggle-model="$ctrl.settings.enabled" auto-update-value="true" font-size="40"></toggle-button>
                     </div>
                 </div>
 
-                <h4 style="margin-top: 20px;">PIN <span class="muted" style="font-weight: 400;">(optional)</span></h4>
-                <p class="muted">Require this PIN to open the page and press buttons. Leave blank for no PIN.</p>
-                <input type="text" class="form-control" style="max-width: 220px;" ng-model="$ctrl.settings.pin" placeholder="No PIN">
+                <h4 style="margin-top: 20px;">PIN <span class="muted" style="font-weight: 400;">（任意）</span></h4>
+                <p class="muted">ページを開いたりボタンを押したりする際にこの PIN を要求します。PIN を使わない場合は空欄にしてください。</p>
+                <input type="text" class="form-control" style="max-width: 220px;" ng-model="$ctrl.settings.pin" placeholder="PINなし">
 
-                <h4 style="margin-top: 20px;">Orientation</h4>
+                <h4 style="margin-top: 20px;">画面の向き</h4>
                 <firebot-radio-cards
                     options="$ctrl.orientationOptions"
                     ng-model="$ctrl.settings.orientationMode"
@@ -30,8 +30,8 @@
                 ></firebot-radio-cards>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
         `,
         bindings: {
@@ -51,14 +51,14 @@
             $ctrl.orientationOptions = [
                 {
                     value: "dynamic",
-                    label: "Dynamic",
-                    description: "The grid rotates to best fill the screen",
+                    label: "自動",
+                    description: "画面に最適に収まるようにグリッドが回転します",
                     iconClass: "fa-sync"
                 },
                 {
                     value: "fixed",
-                    label: "Fixed",
-                    description: "The grid maintains its designed layout regardless of device orientation",
+                    label: "固定",
+                    description: "デバイスの向きに関係なく、設計したレイアウトを維持します",
                     iconClass: "fa-lock"
                 }
             ];

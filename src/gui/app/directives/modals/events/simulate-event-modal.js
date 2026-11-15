@@ -9,7 +9,7 @@
                     <h4 class="modal-title">イベントをシミュレート</h4>
                 </div>
                 <div class="modal-body">
-                    <p class="muted">保存済みエフェクトをテストするため、シミュレートするイベントを選択してください。</p>
+                    <p class="muted">保存済み演出をテストするため、シミュレートするイベントを選択してください。</p>
                     <div class="form-group" ng-class="{'has-error': $ctrl.eventError}">
                         <label class="control-label">イベント</label>
                         <searchable-event-dropdown

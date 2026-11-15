@@ -5,44 +5,44 @@
         template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNew ? 'Add Control' : 'Edit Control'}}</h4>
+                <h4 class="modal-title">{{$ctrl.isNew ? 'コントロールを追加' : 'コントロールを編集'}}</h4>
             </div>
             <div class="modal-body">
-                <firebot-form-group name="control-name" label="Name">
+                <firebot-form-group name="control-name" label="名前">
                     <firebot-input
                         model="$ctrl.control.name"
-                        placeholder-text="Enter name"
+                        placeholder-text="名前を入力"
                         disable-variables="true"
                     />
                 </firebot-form-group>
 
-                <firebot-form-group name="control-type" label="Type">
+                <firebot-form-group name="control-type" label="タイプ">
                     <firebot-searchable-select
                         name="type"
                         ng-model="$ctrl.control.type"
-                        placeholder="Select type"
+                        placeholder="タイプを選択"
                         items="$ctrl.controlTypeOptions"
                     />
                     <div ng-if="!$ctrl.selectedType" class="alert alert-warning" style="margin-top:10px;margin-bottom:0;">
                         <i class="fas fa-exclamation-triangle mr-2"></i>
-                        The control type "{{$ctrl.control.type}}" is not registered. It may belong to a plugin that is uninstalled or disabled.
+                        コントロールタイプ「{{$ctrl.control.type}}」は登録されていません。アンインストールまたは無効化されたプラグインのものである可能性があります。
                     </div>
                 </firebot-form-group>
 
                 <hr />
 
-                <firebot-form-group ng-if="$ctrl.selectedType.enableLabel" name="control-label" label="Label">
-                    <p class="help-block">Optional text shown on the control itself.</p>
+                <firebot-form-group ng-if="$ctrl.selectedType.enableLabel" name="control-label" label="ラベル">
+                    <p class="help-block">コントロール上に表示されるテキストです（任意）。</p>
                     <firebot-input
                         model="$ctrl.control.label"
-                        placeholder-text="Enter text"
+                        placeholder-text="テキストを入力"
                         disable-variables="true"
                     />
                     <div ng-if="$ctrl.control.label" style="margin-top:10px;">
-                        <label class="control-label" style="font-size: 13px;">Label Font</label>
+                        <label class="control-label" style="font-size: 13px;">ラベルのフォント</label>
                         <font-options ng-model="$ctrl.control.labelFont" hide-size="true"></font-options>
                         <div style="margin-top:10px;">
-                            <label class="control-label" style="font-size: 13px;">Label Size ({{$ctrl.control.labelSize || 100}}%)</label>
+                            <label class="control-label" style="font-size: 13px;">ラベルのサイズ（{{$ctrl.control.labelSize || 100}}%）</label>
                             <div class="volume-slider-wrapper">
                                 <rzslider rz-slider-model="$ctrl.control.labelSize" rz-slider-options="$ctrl.sizeSliderOptions"></rzslider>
                             </div>
@@ -50,7 +50,7 @@
                     </div>
                 </firebot-form-group>
 
-                <firebot-form-group ng-if="$ctrl.selectedType.enableIcon" name="control-icon" label="Icon">
+                <firebot-form-group ng-if="$ctrl.selectedType.enableIcon" name="control-icon" label="アイコン">
                    <div>
                         <firebot-radio-cards
                             options="$ctrl.iconOptions"
@@ -69,7 +69,7 @@
                         <div ng-if="$ctrl.iconKind === 'image' && $ctrl.control.icon.source === 'local'" style="margin-top:10px;">
                             <file-chooser
                                 model="$ctrl.control.icon.path"
-                                options="{ filters: [ {name: 'Images', extensions: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg']} ] }"
+                                options="{ filters: [ {name: '画像', extensions: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg']} ] }"
                             ></file-chooser>
                         </div>
 
@@ -84,7 +84,7 @@
                         <div ng-if="$ctrl.iconKind === 'glyph'" style="margin-top:10px;">
                             <lucide-icon-picker model="$ctrl.control.icon.name"></lucide-icon-picker>
                             <div style="margin-top:10px;">
-                                <color-picker-input label="Glyph Color" model="$ctrl.control.icon.color" show-clear="true"></color-picker-input>
+                                <color-picker-input label="グリフの色" model="$ctrl.control.icon.color" show-clear="true"></color-picker-input>
                             </div>
                         </div>
 
@@ -93,7 +93,7 @@
                         </div>
 
                         <div ng-if="$ctrl.iconKind !== 'none'" style="margin-top:10px;">
-                            <label class="control-label" style="font-size: 13px;">Icon Size ({{$ctrl.control.iconSize || 100}}%)</label>
+                            <label class="control-label" style="font-size: 13px;">アイコンのサイズ（{{$ctrl.control.iconSize || 100}}%）</label>
                             <div class="volume-slider-wrapper">
                                 <rzslider rz-slider-model="$ctrl.control.iconSize" rz-slider-options="$ctrl.sizeSliderOptions"></rzslider>
                             </div>
@@ -101,7 +101,7 @@
                    </div>
                 </firebot-form-group>
 
-                <firebot-form-group ng-if="$ctrl.selectedType.enableBackground" name="control-background" label="Background">
+                <firebot-form-group ng-if="$ctrl.selectedType.enableBackground" name="control-background" label="背景">
                     <div>
                         <firebot-radio-cards
                             options="$ctrl.backgroundOptions"
@@ -122,7 +122,7 @@
                             <div ng-if="$ctrl.control.background.source === 'local'" style="margin-top:10px;">
                                 <file-chooser
                                     model="$ctrl.control.background.path"
-                                    options="{ filters: [ {name: 'Images', extensions: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg']} ] }"
+                                    options="{ filters: [ {name: '画像', extensions: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg']} ] }"
                                 ></file-chooser>
                             </div>
                             <div ng-if="$ctrl.control.background.source === 'url'" style="margin-top:10px;">
@@ -136,15 +136,15 @@
                     </div>
                 </firebot-form-group>
 
-                <firebot-form-group ng-if="$ctrl.selectedType.enableInputs" name="control-inputs" label="Inputs">
-                    <p class="help-block">Inputs are shown when this control is pressed on a device. Effects can access the values via $controlDeckInput[name].</p>
+                <firebot-form-group ng-if="$ctrl.selectedType.enableInputs" name="control-inputs" label="入力">
+                    <p class="help-block">入力は、デバイスでこのコントロールが押されたときに表示されます。演出では $controlDeckInput[name] で値を参照できます。</p>
                     <div ng-repeat="input in $ctrl.control.inputs track by $index" style="margin-bottom:3px;">
                         <div class="expandable-item"
                             style="justify-content: space-between;"
                             ng-click="input._expanded = !input._expanded"
                             ng-class="{'expanded': input._expanded}">
 
-                            <div style="padding-left: 15px;font-family: 'Quicksand';font-size: 16px;">{{input.name || 'New Input'}}</div>
+                            <div style="padding-left: 15px;font-family: 'Quicksand';font-size: 16px;">{{input.name || '新しい入力'}}</div>
 
                             <div style="display: flex; align-items: center;">
                                 <div ng-show="!input._expanded" style="opacity: 0.6; margin-right: 20px; max-width: 200px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
@@ -159,23 +159,23 @@
                         <div uib-collapse="!input._expanded" class="expandable-item-expanded">
                             <div style="padding: 15px 20px 10px 20px;">
                                 <div class="form-group" style="margin-bottom:10px;">
-                                    <label class="control-label">Name</label>
+                                    <label class="control-label">名前</label>
                                     <firebot-input
                                         model="input.name"
-                                        placeholder-text="Enter unique name"
+                                        placeholder-text="一意の名前を入力"
                                         disable-variables="true"
                                     />
                                 </div>
                                 <div class="form-group" style="margin-bottom:10px;">
-                                    <label class="control-label">Description <span class="muted">(optional)</span></label>
+                                    <label class="control-label">説明 <span class="muted">（任意）</span></label>
                                     <firebot-input
                                         model="input.description"
-                                        placeholder-text="Shown to the user in the prompt"
+                                        placeholder-text="入力プロンプトでユーザーに表示されます"
                                         disable-variables="true"
                                     />
                                 </div>
                                 <div class="form-group" style="margin-bottom:10px;">
-                                    <label class="control-label">Type</label>
+                                    <label class="control-label">タイプ</label>
                                     <div>
                                         <dropdown-select
                                             options="$ctrl.inputTypeOptions"
@@ -185,20 +185,20 @@
                                     </div>
                                 </div>
                                 <div ng-if="input.type === 'preset'" class="form-group" style="margin-bottom:10px;">
-                                    <label class="control-label">Options</label>
+                                    <label class="control-label">選択肢</label>
                                     <editable-list
                                         model="input.options"
-                                        settings="{ addLabel: 'Add Option', editLabel: 'Edit Option', noneAddedText: 'No options added', sortable: true }"
+                                        settings="{ addLabel: '選択肢を追加', editLabel: '選択肢を編集', noneAddedText: '選択肢が追加されていません', sortable: true }"
                                     ></editable-list>
                                 </div>
                                 <div style="padding-top: 10px">
-                                    <button class="btn btn-danger" ng-click="$ctrl.removeInput($index)" aria-label="Delete input"><i class="far fa-trash"></i></button>
+                                    <button class="btn btn-danger" ng-click="$ctrl.removeInput($index)" aria-label="入力を削除"><i class="far fa-trash"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-default btn-sm" ng-click="$ctrl.addInput()">
-                        <i class="far fa-plus mr-1"></i> Add Input
+                        <i class="far fa-plus mr-1"></i> 入力を追加
                     </button>
                 </firebot-form-group>
 
@@ -214,8 +214,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
         `,
         bindings: {
@@ -249,28 +249,28 @@
             }));
 
             $ctrl.iconOptions = [
-                { value: "none", label: "None", iconClass: "fa-ban" },
-                { value: "glyph", label: "Glyph", iconClass: "fa-icons" },
-                { value: "emoji", label: "Emoji", iconClass: "fa-smile" },
-                { value: "image", label: "Image", iconClass: "fa-image" }
+                { value: "none", label: "なし", iconClass: "fa-ban" },
+                { value: "glyph", label: "グリフ", iconClass: "fa-icons" },
+                { value: "emoji", label: "絵文字", iconClass: "fa-smile" },
+                { value: "image", label: "画像", iconClass: "fa-image" }
             ];
 
             $ctrl.backgroundOptions = [
-                { value: "none", label: "None", iconClass: "fa-ban" },
-                { value: "color", label: "Color", iconClass: "fa-palette" },
-                { value: "image", label: "Image", iconClass: "fa-image" }
+                { value: "none", label: "なし", iconClass: "fa-ban" },
+                { value: "color", label: "色", iconClass: "fa-palette" },
+                { value: "image", label: "画像", iconClass: "fa-image" }
             ];
 
             $ctrl.imageSourceOptions = {
                 url: { text: "URL" },
-                local: { text: "Local" }
+                local: { text: "ローカル" }
             };
 
             $ctrl.inputTypeOptions = {
-                "text": "Text",
-                "number": "Number",
-                "toggle": "Toggle Switch",
-                "preset": "Preset Values"
+                "text": "テキスト",
+                "number": "数値",
+                "toggle": "トグルスイッチ",
+                "preset": "プリセット値"
             };
 
             $ctrl.addInput = () => {
@@ -433,12 +433,12 @@
 
             $ctrl.save = () => {
                 if ($ctrl.control.name == null || $ctrl.control.name.trim() === "") {
-                    ngToast.create("Please provide a name for the control.");
+                    ngToast.create("コントロールの名前を入力してください。");
                     return;
                 }
 
                 if ($ctrl.selectedType == null) {
-                    ngToast.create("This control's type is not registered, so it can't be saved.");
+                    ngToast.create("このコントロールのタイプは登録されていないため、保存できません。");
                     return;
                 }
 
@@ -464,18 +464,18 @@
                     for (const input of $ctrl.control.inputs) {
                         const name = (input.name || "").trim();
                         if (name === "") {
-                            ngToast.create("Every input must have a name.");
+                            ngToast.create("すべての入力に名前が必要です。");
                             return;
                         }
                         const nameKey = name.toLowerCase();
                         if (seenNames[nameKey]) {
-                            ngToast.create(`Input names must be unique ("${name}" is used more than once).`);
+                            ngToast.create(`入力の名前は一意である必要があります（「${name}」が複数回使われています）。`);
                             return;
                         }
                         seenNames[nameKey] = true;
                         input.name = name;
                         if (input.type === "preset" && !(input.options?.length)) {
-                            ngToast.create(`Preset input "${name}" must have at least one option.`);
+                            ngToast.create(`プリセット入力「${name}」には少なくとも1つの選択肢が必要です。`);
                             return;
                         }
                     }

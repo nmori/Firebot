@@ -116,7 +116,7 @@
                 />
             </div>
             <h1 class="firebot-wordmark">Firebot</h1>
-            <div class="bg-loading-text">Loading</div>
+            <div class="bg-loading-text">読み込み中</div>
         </div>
 
         <toast ng-cloak></toast>
@@ -130,7 +130,7 @@
 
             <div class="fb-tab-content">
                 <div class="tab-header">
-                    <span class="noselect" style="flex: 1" role="heading" aria-level="1">{{sbm.currentTabName}}</span>
+                    <span class="noselect" style="flex: 1 0 auto; white-space: nowrap; margin-right: 15px;" role="heading" aria-level="1">{{sbm.currentTabName}}</span>
                 <div style="flex: 1">
                     <stream-info />
                 </div>
@@ -406,23 +406,23 @@
             <scroll-sentinel element-class="edit-effect-header"></scroll-sentinel>
                 <div class="modal-header sticky-header flex flex-col items-start no-before no-after">
                     <div class="flex items-center justify-between" style="width: 100%;">
-                        <h4 class="modal-title">{{isAddMode ? "新しいエフェクトを追加" : "エフェクトを編集"}}</h4>
+                        <h4 class="modal-title">{{isAddMode ? "新しい演出を追加" : "演出を編集"}}</h4>
                         <div class="flex item-center justify-between">
                             <div
                                 class="test-effects-btn clickable"
-                                uib-tooltip="エフェクトをテスト" 
+                                uib-tooltip="演出をテスト" 
                                 ng-hide="effect == null || effect.type === 'Nothing'" 
                                 ng-click="runEffect()" 
-                                aria-label="エフェクトをテスト" 
+                                aria-label="演出をテスト" 
                                 role="button"
                             >
                                 <i class="far fa-play-circle"></i>
                             </div> 
                             <div>
                                 <a href role="button"
-                                    aria-label="エフェクトメニューを開く"
+                                    aria-label="演出メニューを開く"
                                     class="effects-actions-btn"
-                                    uib-tooltip="エフェクトメニューを開く"
+                                    uib-tooltip="演出メニューを開く"
                                     uib-dropdown-menu
                                     context-menu="getOverflowMenu()"
                                     context-menu-on="click"
@@ -444,7 +444,7 @@
 
                 <div class="modal-body">
                     <div style="padding-left: 15px;margin-bottom: 20px;">
-                        <div class="muted" style="font-size:12.5px;">現在のエフェクト:</div>
+                        <div class="muted" style="font-size:12.5px;">現在の演出:</div>
                         <div style="display:flex;align-items: center;">
                             <div style="font-size: 20px;font-weight: 100;">{{effectDefinition.definition.name}}</div>
                             <button type="button" ng-click="openNewEffectModal()" class="btn btn-sm btn-default ml-4" style="font-size: 10px;">変更</button>
@@ -456,7 +456,7 @@
                                     class="clickable inline-flex items-center gap-2 pr-5"
                                     ng-click="editLabel()"
                                     role="button"
-                                    aria-label="エフェクトのラベルを編集"
+                                    aria-label="演出のラベルを編集"
                                 >
                                     <span>{{getEffectLabel() || '[未設定]'}}</span>
                                     <span ng-if="isUsingDefaultLabel()" class="label label-default" uib-tooltip="自動生成されたラベル" tooltip-append-to-body="true">自動</span>
@@ -467,7 +467,7 @@
                     </div>
                 
                     <div class="effect-settings-panel">
-                        <div ng-show="effect.type == 'Nothing'" class="effect-specific-title"><h4>エフェクトを選択してください。</h4></div>
+                        <div ng-show="effect.type == 'Nothing'" class="effect-specific-title"><h4>演出を選択してください。</h4></div>
                         <effect-options effect="effect" type="effect.type" trigger="{{triggerType}}" ng-show="effect.type != null" trigger-meta="triggerMeta"><effect-options>
                     </div>
                 </div>

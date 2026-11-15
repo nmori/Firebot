@@ -429,7 +429,7 @@ export const TwitchEventSource: EventSource = {
         },
         {
             id: "bits-powerup-message-effect",
-            name: "パワーアップ: メッセージエフェクト",
+            name: "パワーアップ: メッセージ演出",
             description: "視聴者があなたのチャンネルで「Message Effects」パワーアップを使用したとき。",
             cached: false,
             manualMetadata: {

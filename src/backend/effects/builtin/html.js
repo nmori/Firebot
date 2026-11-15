@@ -59,9 +59,9 @@ const html = {
 
     <eos-container>
         <div class="effect-info alert alert-warning">
-            このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">詳細を見る</a>
+            この演出を使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">詳細を見る</a>
             <br /><br />
-            このエフェクトは自由度が高い反面、<i>非常に</i>エラーが起きやすい点にご注意ください。
+            この演出は自由度が高い反面、<i>非常に</i>エラーが起きやすい点にご注意ください。
             <br /><br />
             視聴者などから取得した内容を変数として埋め込む場合は、<code>$encodeForHtml[$variable]</code> を使ってエスケープすることを推奨します。
         </div>

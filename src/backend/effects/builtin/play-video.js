@@ -203,7 +203,7 @@ const playVideo = {
                 <input type="checkbox" ng-model="effect.loop" ng-disabled="effect.wait">
                 <div class="control__indicator"></div>
             </label>
-            <label class="control-fb control--checkbox" style="margin-top:15px;"> 動画の終了を待つ <tooltip text="'動画の再生が終わるまで、次のエフェクトの再生を待ちます。'"></tooltip>
+            <label class="control-fb control--checkbox" style="margin-top:15px;"> 動画の終了を待つ <tooltip text="'動画の再生が終わるまで、次の演出の再生を待ちます。'"></tooltip>
                 <input type="checkbox" ng-model="effect.wait" ng-change="waitChange()">
                 <div class="control__indicator"></div>
             </label>
@@ -247,7 +247,7 @@ const playVideo = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
+                この演出を使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
                 <br>
                 <strong>注意</strong>: Streamlabs Desktop（旧 SLOBS）はブラウザソースで mp4 動画をサポートしていません。Streamlabs Desktop で動画を表示したい場合は、<strong>.webm</strong> 形式に変換する必要があります。
             </div>

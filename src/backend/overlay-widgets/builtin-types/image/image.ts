@@ -43,8 +43,8 @@ export const image: OverlayWidgetType<Settings, State> = {
                 buttonLabel: "画像を選択",
                 directoryOnly: false,
                 filters: [
-                    { name: 'Image', extensions: ['bmp', 'gif', 'jpg', 'jpeg', 'png', 'apng', 'svg', 'webp'] },
-                    { name: 'All Files', extensions: ['*'] }
+                    { name: '画像', extensions: ['bmp', 'gif', 'jpg', 'jpeg', 'png', 'apng', 'svg', 'webp'] },
+                    { name: 'すべてのファイル', extensions: ['*'] }
                 ]
             },
             validation: {

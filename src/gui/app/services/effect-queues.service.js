@@ -43,25 +43,25 @@
                 {
                     value: "auto",
                     label: "順番",
-                    description: "エフェクトリストは順番に1つずつ実行されます。優先設定の項目はキュー先頭に配置されます。",
+                    description: "演出リストは順番に1つずつ実行されます。優先設定の項目はキュー先頭に配置されます。",
                     iconClass: "fa-sort-numeric-down"
                 },
                 {
                     value: "custom",
                     label: "カスタム遅延",
-                    description: "各エフェクトリストごとに、次のリストを実行するまでの待機時間を設定します。",
+                    description: "各演出リストごとに、次のリストを実行するまでの待機時間を設定します。",
                     iconClass: "fa-clock"
                 },
                 {
                     value: "interval",
                     label: "間隔",
-                    description: "エフェクトリストを一定間隔で実行します。",
+                    description: "演出リストを一定間隔で実行します。",
                     iconClass: "fa-stopwatch"
                 },
                 {
                     value: "manual",
                     label: "手動",
-                    description: "エフェクトリストは「手動キュー実行」エフェクトでのみ実行されます。",
+                    description: "演出リストは「手動キュー実行」演出でのみ実行されます。",
                     iconClass: "fa-step-forward"
                 }
             ];
@@ -121,10 +121,10 @@
                 if (successful) {
                     ngToast.create({
                         className: 'success',
-                        content: 'エフェクトキューを複製しました。'
+                        content: '演出キューを複製しました。'
                     });
                 } else {
-                    ngToast.create("エフェクトキューの複製に失敗しました。");
+                    ngToast.create("演出キューの複製に失敗しました。");
                 }
             };
 
@@ -167,8 +167,8 @@
 
                     return utilityService
                         .showConfirmationModal({
-                            title: "エフェクトキューを削除",
-                            question: `エフェクトキュー「${queue.name}」を削除してもよろしいですか？`,
+                            title: "演出キューを削除",
+                            question: `演出キュー「${queue.name}」を削除してもよろしいですか？`,
                             confirmLabel: "削除",
                             confirmBtnType: "btn-danger"
                         })

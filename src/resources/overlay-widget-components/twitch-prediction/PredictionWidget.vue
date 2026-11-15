@@ -55,10 +55,10 @@ const totalPoints = computed(() => prediction.value?.outcomes.reduce((sum, o) =>
 
 const statusLabel = computed(() => {
     switch (prediction.value?.status) {
-        case "locked": return "Locked";
-        case "resolved": return "Ended";
-        case "canceled": return "Canceled";
-        default: return "Open";
+        case "locked": return "締め切り";
+        case "resolved": return "終了";
+        case "canceled": return "中止";
+        default: return "受付中";
     }
 });
 

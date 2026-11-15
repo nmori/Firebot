@@ -16,7 +16,7 @@ const effect: EffectType<{
     },
     optionsTemplate: `
     <eos-container>
-        <p>このエフェクトを使うと、実際のチャットメッセージを送らずに、Firebot のチャットフィードへ自分宛のアラートを表示できます。アラートはあなたにしか見えません。</p>
+        <p>この演出を使うと、実際のチャットメッセージを送らずに、Firebot のチャットフィードへ自分宛のアラートを表示できます。アラートはあなたにしか見えません。</p>
     </eos-container>
     <eos-container header="アラートのメッセージ" pad-top="true">
         <firebot-input

@@ -36,11 +36,33 @@
 - `npx tsc --noEmit` OK / `npx eslint src` エラー 0 / `npx grunt prep` OK / `npx jest` OK
 - 実機起動での動作確認は未実施
 
-### 残作業（未翻訳の本家新機能）
-- プラグインマネージャー: src/gui/app/directives/modals/plugins/*（コミュニティプラグインブラウザ等）
-- コントロールデッキ: src/gui/app/directives/modals/control-deck/*, src/resources/control-deck/**(Vue), src/backend/control-deck/**
-- 新規 controls / services、オーバーレイウィジェット(twitch-poll / twitch-prediction / rotating-text)
-- サイドバーの翻訳キーを本家の新キー(SIDEBAR.TRIGGERS.* / SIDEBAR.MANAGEMENT.*)へ揃える場合は locale-ja.json にキー追加が必要
+### 本家新機能の日本語化（同日 完了）
+- プラグインマネージャー一式（modals/plugins/*, plugin-settings, インジケーター, plugins.service, plugin-manager.ts の GUI 向けエラー/トースト）
+  - src/shared/plugin-constants.js のカテゴリ/機能ラベル（表示専用。キーは別 enum 値）
+  - 本家バグ修正: マニフェスト生成の validationFailureReason → validationFailureMessage（理由が表示されなかった）
+- コントロールデッキ一式（GUI 画面/モーダル、組み込みコントロール、関連エフェクト/変数、Vue デッキ画面。index.html の lang="ja"）
+- 新規エフェクト/変数/フィルター/ウィジェット（ピン留め系、ピン留めメッセージ変数、ギフト再サブ、チャンネル目標、投票/予想/ローテーションテキスト、絵文字/アイコン選択）
+- 既存ファイルの本家追加分（chat.ts のピン留め、restriction-manager、sortable-table、replaceVariableMenu、スプラッシュ等）
+  - locale-ja.json に SIDEBAR.TRIGGERS.* / SIDEBAR.MANAGEMENT.EFFECT_QUEUES / VARIABLE_MACROS を追加（タブ名が英語に戻っていた）
+  - サイドバー「管理」見出しのキーを SIDEBAR.MANAGEMENT.MANAGEMENT に修正（本家既存バグ: オブジェクトを指していた）
+- 検証: tsc OK / eslint エラー0 / grunt prep OK / jest OK
+
+### 表記統一・追加修正（同日）
+- 訳語統一: エフェクト → 演出（123 ファイル / 462 箇所）。例外: サウンドエフェクト / 視覚エフェクト
+  - スケジュール済みエフェクトリスト → 演出予定リスト、サイドバー「演出設定」→「プリセット演出リスト」
+- オーバーレイ Chat / Chat（上級者向け）ウィジェットを全面翻訳（本家既存だが JP 未翻訳だった）
+- 残存英語の演出関連 UI: toggle-scheduled-task / toggle-timer / Polly TTS / ad-break / 報酬承認 ほか 25 ファイル
+- context-menu-modal-header: 見出しを「{種類}の新規追加/編集」に。triggerType はタグ保存キーのため表示マップで変換
+- sort-tags.service: コンテキスト表示名マップ、「すべての〇〇」表示
+- バグ修正: _timers.html の sort-tag-context が "演出予定リスト"（JP 訳で保存キーを変えていた）で、
+  モーダル側 "scheduled effect lists" と食い違い → 本家キーに戻し、旧キーのタグを自動移行（新キーが空のときのみ）
+- ヘッダーのタイトルが日本語で 1 文字単位に折り返す問題: nowrap + 必要幅を確保（index.html tab-header）
+
+### 残作業
+- OBS 演出 19 種の optionsTemplate は従来から英語（名前/説明のみ日本語）。全面翻訳は別作業
+- その他 options UI が英語のまま: Twitch stream-game / set-chat-mode / announcement / raid ほか、Elgato、Hue（control-light の "effect animation" は Hue 固有用語）
+- 従来から英語の既定チャット失敗メッセージ（"Sorry ... because: {reason}"）等は据え置き
+- 意図的に英語: "Main Profile"(プロファイルID), name:"None"(比較値), OBS 変数の 'Unknown'(返り値), 内部マネージャー名, logger
 - http-server-manager の新 pluginRootRouter にはレート制限なし（本家同様）。JP で制限するか要検討
 
 ### Next Restart Steps

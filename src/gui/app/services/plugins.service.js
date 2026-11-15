@@ -106,12 +106,12 @@
                     // Only show the reload prompt once. There's an indicator.
                     if (service.pendingFrontendReload !== true) {
                         modalFactory.showConfirmationModal({
-                            title: "Reload Required",
-                            question: `In order to fully update, disable, or uninstall the ${data.pluginName} plugin, you must reload the main Firebot window. Would you like to do that now?`,
-                            tip: "NOTE: Firebot will continue running, but you will lose any unsaved changes in any currently open modals.",
-                            cancelLabel: "No, Don't Reload",
+                            title: "再読み込みが必要です",
+                            question: `${data.pluginName} プラグインの更新・無効化・アンインストールを完全に反映するには、Firebot のメインウィンドウを再読み込みする必要があります。今すぐ再読み込みしますか？`,
+                            tip: "注意: Firebot は引き続き動作しますが、現在開いているウィンドウ内の未保存の変更は失われます。",
+                            cancelLabel: "いいえ、再読み込みしない",
                             cancelBtnType: "btn-default",
-                            confirmLabel: "Yes, Reload Now"
+                            confirmLabel: "はい、今すぐ再読み込み"
                         }).then((confirmed) => {
                             if (confirmed) {
                                 backendCommunicator.send("reload-main-window");

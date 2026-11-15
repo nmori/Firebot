@@ -4,7 +4,7 @@ import { TwitchApi } from "../../../api";
 const model : ReplaceVariable = {
     definition: {
         handle: "pinnedChatMessageUserId",
-        description: "The ID of the user who sent the currenly pinned chat message text.",
+        description: "現在のピン留めメッセージを送信したユーザーの ID です。",
         categories: ["common"],
         possibleDataOutput: ["text"]
     },

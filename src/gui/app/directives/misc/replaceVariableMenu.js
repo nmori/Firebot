@@ -338,7 +338,7 @@
                                         <div style="position: absolute; right: 0;">
                                             <a
                                                 class="magic-tooltip"
-                                                uib-tooltip="これは、このエフェクトに関連しそうだと Firebot が判断したカスタム変数・エフェクト出力・プリセットリスト引数変数・コントロール入力変数です。網羅一覧ではなく、実行時に利用可能とは限りません。保証ではなく参考情報として扱ってください。"
+                                                uib-tooltip="これは、この演出に関連しそうだと Firebot が判断したカスタム変数・演出出力・プリセットリスト引数変数・コントロール入力変数です。網羅一覧ではなく、実行時に利用可能とは限りません。保証ではなく参考情報として扱ってください。"
                                                 tooltip-append-to-body="true"
                                                 tooltip-placement="auto top"
                                             >これは何ですか？</a>
@@ -359,11 +359,11 @@
                                         </div>
 
                                         <div ng-if="magicVariables.effectOutputs.length > 0">
-                                            <div class="variable-category-header" style="padding-left: 0;">エフェクト出力</div>
+                                            <div class="variable-category-header" style="padding-left: 0;">演出出力</div>
                                             <div ng-repeat="variable in magicVariables.effectOutputs | variableSearch:variableSearchText track by variable.name" style="margin-bottom: 8px;">
                                                 <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
                                                 <div ng-show="variable.description" class="muted">{{variable.description}}</div>
-                                                <div ng-show="variable.effectLabel" style="font-size: 12px; opacity: 0.75;">エフェクト: {{variable.effectLabel}}</div>
+                                                <div ng-show="variable.effectLabel" style="font-size: 12px; opacity: 0.75;">演出: {{variable.effectLabel}}</div>
                                                 <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
                                                     <collapsable-section show-text="他の例" hide-text="他の例" text-color="#0b8dc6">
                                                         <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
@@ -383,14 +383,14 @@
                                         </div>
 
                                         <div ng-if="magicVariables.controlInputs.length > 0">
-                                            <div class="variable-category-header" style="padding-top: 0; padding-left: 0;">Control Inputs</div>
+                                            <div class="variable-category-header" style="padding-top: 0; padding-left: 0;">コントロール入力</div>
                                             <div ng-repeat="variable in magicVariables.controlInputs | variableSearch:variableSearchText track by variable.name" style="margin-bottom: 8px;">
-                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
+                                                <div style="font-weight: 900;">{{variable.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(variable.handle)"></i></div>
                                                 <div ng-show="variable.description" class="muted">{{variable.description}}</div>
                                                 <div ng-show="variable.examples && variable.examples.length > 0" style="font-size: 13px;padding-left: 5px; margin-top:3px;">
-                                                    <collapsable-section show-text="Other examples" hide-text="Other examples" text-color="#0b8dc6">
+                                                    <collapsable-section show-text="他の例" hide-text="他の例" text-color="#0b8dc6">
                                                         <div ng-repeat="example in variable.examples" style="margin-bottom: 6px;">
-                                                            <div style="font-weight: 900;">{{example.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="Add to textfield" style="color: #0b8dc6" ng-click="insertText(example.handle)"></i></div>
+                                                            <div style="font-weight: 900;">{{example.handle}} <i class="fal fa-plus-circle clickable" uib-tooltip="テキスト欄に追加" style="color: #0b8dc6" ng-click="insertText(example.handle)"></i></div>
                                                             <div class="muted" ng-bind-html="example.description"></div>
                                                         </div>
                                                     </collapsable-section>

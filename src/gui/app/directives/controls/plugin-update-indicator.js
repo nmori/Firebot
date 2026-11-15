@@ -8,7 +8,7 @@
                 <div class="plugin-update-indicator-wrapper" ng-if="$ctrl.pendingPluginUpdates() > 0">
                     <button
                         class="app-bar-icon-btn"
-                        aria-label="Plugins ready to update"
+                        aria-label="更新可能なプラグインがあります"
                         ng-click="$ctrl.showPluginManager()"
                         uib-tooltip="{{$ctrl.getTooltipText()}}"
                         tooltip-append-to-body="true"
@@ -28,7 +28,7 @@
 
                 ctrl.getTooltipText = () => {
                     const updatesPending = Object.keys(pluginsService.pendingPluginUpdates).length;
-                    return `${updatesPending} plugin${updatesPending > 1 ? "s" : ""} ready to update`;
+                    return `${updatesPending} 件のプラグインが更新可能です`;
                 };
 
                 ctrl.showPluginManager = () => {

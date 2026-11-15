@@ -16,9 +16,9 @@ const select = (deckId: string): void => emit("select", deckId);
 
 <template>
     <div class="deck-picker">
-        <h1 class="deck-picker-title">Control Decks</h1>
+        <h1 class="deck-picker-title">コントロールデッキ</h1>
         <div v-if="decks.length === 0" class="centered-message">
-            <p>No control decks have been created yet.</p>
+            <p>コントロールデッキはまだ作成されていません。</p>
         </div>
         <div v-else class="deck-picker-list">
             <button

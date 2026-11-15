@@ -13,7 +13,7 @@ type State = {};
 export const text: OverlayWidgetType<Settings, State> = {
     id: "firebot:text",
     name: "テキスト",
-    description: "オーバーレイに表示するテキストウィジェットです。「オーバーレイウィジェット設定を更新」エフェクトで動的に変更できます。",
+    description: "オーバーレイに表示するテキストウィジェットです。「オーバーレイウィジェット設定を更新」演出で動的に変更できます。",
     icon: "fa-font",
     settingsSchema: [
         {

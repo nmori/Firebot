@@ -8,7 +8,7 @@ triggers["manual"] = true;
 const model: ReplaceVariable = {
     definition: {
         handle: "effectQueueStatus",
-        description: "エフェクトキューの状態（有効/無効）を返します。",
+        description: "演出キューの状態（有効/無効）を返します。",
         triggers: triggers,
         categories: ["trigger based"],
         possibleDataOutput: ["bool", "null"]

@@ -8,8 +8,8 @@
             template: `
                 <div>
                     <firebot-setting
-                        name="デフォルトのエフェクトラベル"
-                        description="有効時、カスタムラベル未設定の（ほとんどの）エフェクトに対して Firebot が自動でラベルを生成します。"
+                        name="デフォルトの演出ラベル"
+                        description="有効時、カスタムラベル未設定の（ほとんどの）演出に対して Firebot が自動でラベルを生成します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('DefaultEffectLabelsEnabled')"

@@ -15,36 +15,36 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Ad Duration" pad-top="true">
+        <eos-container header="広告の長さ" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="ad-effect-type">{{effect.adLength ? effect.adLength : 'Pick one'}}</span> <span class="caret"></span>
+                    <span class="ad-effect-type">{{effect.adLength ? effect.adLength : '選択してください'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu ad-effect-dropdown">
                     <li ng-click="effect.adLength = 30">
-                        <a href>30 sec</a>
+                        <a href>30 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 60">
-                        <a href>60 sec</a>
+                        <a href>60 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 90">
-                        <a href>90 sec</a>
+                        <a href>90 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 120">
-                        <a href>120 sec</a>
+                        <a href>120 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 150">
-                        <a href>150 sec</a>
+                        <a href>150 秒</a>
                     </li>
                     <li ng-click="effect.adLength = 180">
-                        <a href>180 sec</a>
+                        <a href>180 秒</a>
                     </li>
                 </ul>
             </div>
         </eos-container>
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You must be an affiliate or partner to use this effect.
+                注意: この演出を使うには、アフィリエイトまたはパートナーである必要があります。
             </div>
         </eos-container>
     `,

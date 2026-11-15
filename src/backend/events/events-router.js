@@ -35,7 +35,7 @@ function warnOnDuplicateEventSettings(sourceId, eventId, eventSettings) {
     if (hasDuplicateIds) {
         logger.warn(`イベント ${sourceId}:${eventId} に同じ id のイベント設定が重複して存在します`
             + `（メインイベントとイベントグループの両方にある可能性があります）。`
-            + `同じエフェクトリストが ${eventSettings.length} 回実行されます: [${ids.join(", ")}]`);
+            + `同じ演出リストが ${eventSettings.length} 回実行されます: [${ids.join(", ")}]`);
     } else {
         logger.debug(`イベント ${sourceId}:${eventId} に ${eventSettings.length} 件のイベント設定がマッチしました: [${ids.join(", ")}]`);
     }

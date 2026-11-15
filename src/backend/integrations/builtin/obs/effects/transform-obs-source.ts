@@ -29,7 +29,7 @@ export const TransformSourceEffectType: EffectType<{
         <eos-container ng-if="isUsingInvalidItemId" pad-top="true">
             <div class="alert alert-danger">
                 <p style="margin: 0">
-                    <b>Error:</b> Due to a previous bug with duplicating Preset Effect Lists, you will need to set the Scene Item again, this shouldn't be necessary again in the future.
+                    <b>エラー:</b> 以前のプリセット演出リスト複製時の不具合により、シーンアイテムを再設定する必要があります。今後は再設定の必要はありません。
                 </p>
             </div>
         </eos-container>

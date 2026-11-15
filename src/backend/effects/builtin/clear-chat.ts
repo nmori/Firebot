@@ -16,7 +16,7 @@ const effect: EffectType = {
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect will clear all chat messages from chat, exactly like the Twitch /clear command.</p>
+            <p>この演出は、Twitch の /clear コマンドと同様に、チャットのメッセージをすべて消去します。</p>
         </eos-container>
     `,
     optionsController: () => {},

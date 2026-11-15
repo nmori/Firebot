@@ -351,6 +351,7 @@
                         "Mention": "メンション",
                         "Reply To Message": "メッセージに返信",
                         "Quote Message": "メッセージを引用",
+                        "Pin Message": "メッセージをピン留め",
                         "Whisper": "ささやき",
                         "Spotlight Message": "メッセージをスポットライト",
                         "Shoutout": "シャウトアウト",

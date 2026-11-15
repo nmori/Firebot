@@ -41,7 +41,7 @@
 
                     <h3>オプション</h3>
                     <div>
-                        <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity.0.9;"> インポート前にユーザーへ通貨選択を必須化 <tooltip text="'インポート前に、ユーザー自身の通貨から1つを選択してもらいます。含まれるコンポーネント内の通貨エフェクト・変数・制限は選択された通貨を使うよう更新されます。チャットゲームに便利です。'"></tooltip>
+                        <label class="control-fb control--checkbox" style="margin-bottom: 0px; font-size: 13px;opacity.0.9;"> インポート前にユーザーへ通貨選択を必須化 <tooltip text="'インポート前に、ユーザー自身の通貨から1つを選択してもらいます。含まれるコンポーネント内の通貨演出・変数・制限は選択された通貨を使うよう更新されます。チャットゲームに便利です。'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.setup.requireCurrency">
                             <div class="control__indicator"></div>
                         </label>
@@ -67,7 +67,7 @@
                     </div>
 
                     <div style="margin-top: 20px;">
-                        <div class="alert alert-warning" role="alert" style="opacity: 0.8;margin-bottom: 0;"><b>警告!</b> エフェクト内で参照されるメディアファイル（画像、動画、音声、カスタムスクリプトなど）は、このセットアップに<b>含まれません</b>。</div>
+                        <div class="alert alert-warning" role="alert" style="opacity: 0.8;margin-bottom: 0;"><b>警告!</b> 演出内で参照されるメディアファイル（画像、動画、音声、カスタムスクリプトなど）は、このセットアップに<b>含まれません</b>。</div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -108,7 +108,7 @@
                         key: "currencies"
                     },
                     {
-                        label: "エフェクトキュー",
+                        label: "演出キュー",
                         all: effectQueuesService.getEffectQueues(),
                         nameField: "name",
                         key: "effectQueues"
@@ -138,7 +138,7 @@
                         key: "overlayWidgetConfigs"
                     },
                     {
-                        label: "プリセットエフェクトリスト",
+                        label: "プリセット演出リスト",
                         all: presetEffectListsService.getPresetEffectLists(),
                         nameField: "name",
                         key: "presetEffectLists"
@@ -150,7 +150,7 @@
                         key: "timers"
                     },
                     {
-                        label: "スケジュール済みエフェクトリスト",
+                        label: "演出予定リスト",
                         all: scheduledTaskService.getScheduledTasks(),
                         nameField: "name",
                         key: "scheduledTasks"

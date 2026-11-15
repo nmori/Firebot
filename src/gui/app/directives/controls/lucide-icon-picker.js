@@ -15,7 +15,7 @@
                     theme="bootstrap"
                     class="control-type-list"
                 >
-                    <ui-select-match placeholder="Select a glyph...">
+                    <ui-select-match placeholder="アイコンを選択...">
                         <span class="flex-row-center" style="gap: 8px;">
                             <lucide-icon name="{{$ctrl.model}}" size="18"></lucide-icon>
                             <span>{{$ctrl.getIconName($ctrl.model)}}</span>
@@ -28,7 +28,7 @@
                         </div>
                     </ui-select-choices>
                     <ui-select-no-choice>
-                        <b>No icons found</b>
+                        <b>アイコンが見つかりません</b>
                     </ui-select-no-choice>
                 </ui-select>
             `,

@@ -8,7 +8,7 @@
                     <h4 class="modal-title">{{$ctrl.effectDefinition.name}} の出力</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="well-dark well-sm">一部のエフェクトは、後続エフェクトから $variable で参照できるデータを出力します。</div>
+                    <div class="well-dark well-sm">一部の演出は、後続演出から $variable で参照できるデータを出力します。</div>
                     <div style="margin-top: 25px;">
                         <div
                             ng-repeat="output in $ctrl.effectDefinition.outputs"
@@ -65,7 +65,7 @@
                         model: $ctrl.effect.outputNames[output.defaultName],
                         label: "出力名を変更",
                         saveText: "保存",
-                        descriptionText: "出力名はエフェクトリスト内で一意にしてください。同じ名前に複数エフェクトが出力すると予期しない動作になる可能性があります。",
+                        descriptionText: "出力名は演出リスト内で一意にしてください。同じ名前に複数演出が出力すると予期しない動作になる可能性があります。",
                         validationFn: (value) => {
                             return new Promise((resolve) => {
                                 if (value?.trim().length < 1) {

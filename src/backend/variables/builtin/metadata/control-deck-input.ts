@@ -8,7 +8,7 @@ const model: ReplaceVariable = {
     definition: {
         handle: "controlDeckInput",
         usage: "controlDeckInput[name]",
-        description: "The value of the given input supplied when the Control Deck control was pressed.",
+        description: "コントロールデッキのコントロールが押されたときに入力された、指定した入力の値です。",
         triggers: triggers,
         categories: ["common", "trigger based"],
         possibleDataOutput: ["number", "text", "bool"]

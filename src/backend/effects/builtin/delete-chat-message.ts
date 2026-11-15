@@ -17,7 +17,7 @@ const effect: EffectType = {
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect deletes the associated chat message (for a Command or Chat Message Event)</p>
+            <p>この演出は、関連付けられたチャットメッセージを削除します（コマンドまたはチャットメッセージイベント用）。</p>
         </eos-container>
     `,
     onTriggerEvent: async ({ trigger }) => {

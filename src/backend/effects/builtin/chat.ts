@@ -69,17 +69,17 @@ const effect: EffectType<{
         </div>
     </eos-container>
 
-    <eos-container header="Pin Message" pad-top="true" ng-hide="effect.whisper">
+    <eos-container header="メッセージのピン留め" pad-top="true" ng-hide="effect.whisper">
         <div style="display: flex; flex-direction: row; width: 100%; margin: 0 0 10px 0; align-items: center;">
             <firebot-checkbox
-                label="Pin message"
-                tooltip="Pin message to the top of chat"
+                label="メッセージをピン留め"
+                tooltip="メッセージをチャットの上部にピン留めします"
                 model="effect.pin"
                 style="margin: 0px 15px 0px 0px"
             />
             <firebot-checkbox
                 ng-show="effect.pin === true"
-                label="Pin until end of stream"
+                label="配信終了までピン留めする"
                 model="effect.pinUntilEndOfStream"
                 style="margin: 0px 15px 0px 0px"
             />
@@ -87,8 +87,8 @@ const effect: EffectType<{
         <firebot-input
             ng-show="effect.pin === true && effect.pinUntilEndOfStream !== true"
             model="effect.pinDuration"
-            input-title="Duration (in secs)"
-            placeholder-text="Enter duration"
+            input-title="期間（秒）"
+            placeholder-text="期間を入力"
         />
     </eos-container>
 
@@ -105,7 +105,7 @@ const effect: EffectType<{
             && effect.pinUntilEndOfStream !== true
             && !effect.pinDuration?.length
         ) {
-            errors.push("Must choose pin duration");
+            errors.push("ピン留めの期間を指定してください");
         }
         return errors;
     },

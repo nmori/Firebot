@@ -213,15 +213,15 @@ export const progressbar: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "onUpdateEffects",
-            title: "更新時エフェクト",
-            description: "プログレスバーの値が更新されたときに実行するエフェクトです。",
+            title: "更新時演出",
+            description: "プログレスバーの値が更新されたときに実行する演出です。",
             type: "effectlist",
             showBottomHr: true
         },
         {
             name: "onCompleteEffects",
-            title: "完了時エフェクト",
-            description: "プログレスバーが最大値に達したときに実行するエフェクトです。",
+            title: "完了時演出",
+            description: "プログレスバーが最大値に達したときに実行する演出です。",
             type: "effectlist"
         }
     ],

@@ -6,7 +6,7 @@ const effect: EffectType<{
     definition: {
         id: "firebot:comment",
         name: "コメント",
-        description: "エフェクトリストにコメントを追加します（実行時の動作はありません）",
+        description: "演出リストにコメントを追加します（実行時の動作はありません）",
         icon: "fad fa-comment-alt-lines",
         categories: ["common"],
         dependencies: [],
@@ -14,17 +14,17 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect does nothing when triggered. Use it to add comments to your effect list.</p>
+            <p>この演出は実行されても何もしません。演出リストにコメントを追加するために使います。</p>
         </eos-container>
 
         <eos-container pad-top="true">
             <div class="form-group">
-                <label class="control-label">Comment</label>
+                <label class="control-label">コメント</label>
                 <textarea
                     class="form-control"
                     rows="4"
                     ng-model="effect.effectComment"
-                    placeholder="Enter your comment here..."
+                    placeholder="ここにコメントを入力..."
                     style="resize: vertical;"
                 ></textarea>
             </div>
@@ -39,7 +39,7 @@ const effect: EffectType<{
         const errors: string[] = [];
 
         if (effect.effectComment == null || effect.effectComment.trim() === "") {
-            errors.push("Comment cannot be empty.");
+            errors.push("コメントを入力してください。");
         }
 
         return errors;

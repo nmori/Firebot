@@ -34,7 +34,7 @@ const model: EffectType<EffectModel> = {
     definition: {
         id: "firebot:switch-statement",
         name: "スイッチ分岐",
-        description: "1つの入力値で分岐処理を行うシンプルな条件分岐エフェクト",
+        description: "1つの入力値で分岐処理を行うシンプルな条件分岐演出",
         icon: "far fa-code-branch",
         categories: ["advanced", "scripting"]
     },
@@ -95,8 +95,8 @@ const model: EffectType<EffectModel> = {
         </setting-container>
 
         <setting-container header="オプション" pad-top="true">
-            <firebot-checkbox model="effect.bubbleOutputs" label="エフェクト出力を親リストに適用"
-                tooltip="このエフェクトの出力を親エフェクトリストで利用可能にするかどうか。" />
+            <firebot-checkbox model="effect.bubbleOutputs" label="演出出力を親リストに適用"
+                tooltip="この演出の出力を親演出リストで利用可能にするかどうか。" />
         </setting-container>
     `,
     optionsController: ($scope: Scope, utilityService, objectCopyHelper) => {

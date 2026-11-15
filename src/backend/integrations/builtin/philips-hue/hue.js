@@ -15,7 +15,7 @@ const frontendCommunicator = require("../../../common/frontend-communicator");
 const integrationDefinition = {
     id: "hue",
     name: "Philips Hue",
-    description: "Philips Hue専用エフェクトを実行できます。Hueブリッジのリンクボタンを押した後、Firebot側でリンクを実行してください。",
+    description: "Philips Hue専用演出を実行できます。Hueブリッジのリンクボタンを押した後、Firebot側でリンクを実行してください。",
     linkType: "other",
     connectionToggle: false
 };

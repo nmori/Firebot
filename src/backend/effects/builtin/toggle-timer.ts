@@ -18,37 +18,37 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect lets you automatically toggle the active status of Timers.</p>
+            <p>この演出を使うと、タイマーの有効状態を自動的に切り替えられます。</p>
         </eos-container>
 
         <eos-container ng-hide="!hasTags">
-            <label class="control-fb control--checkbox"> Use Sort Tags</tooltip>
+            <label class="control-fb control--checkbox"> ソートタグを使用</tooltip>
                 <input type="checkbox" ng-model="effect.useTag">
                 <div class="control__indicator"></div>
             </label>
         </eos-container>
 
         <eos-container ng-hide="hasTimers || effect.useTag" pad-top="true">
-            <span class="muted">No Timers created yet! You can create them in the <b>Time-Based</b> tab.</span>
+            <span class="muted">タイマーがまだ作成されていません。<b>タイマー</b>タブで作成できます。</span>
         </eos-container>
 
         <eos-container ng-hide="hasTags || !effect.useTag" pad-top="true">
-            <span class="muted">No Timer Tags created yet! You can create them in the <b>Time-Based</b> tab.</span>
+            <span class="muted">タイマーのタグがまだ作成されていません。<b>タイマー</b>タブで作成できます。</span>
         </eos-container>
 
-        <eos-container ng-show="hasTimers && !effect.useTag" header="Timer" pad-top="true">
+        <eos-container ng-show="hasTimers && !effect.useTag" header="タイマー" pad-top="true">
             <dropdown-select options="timerOptions" selected="effect.selectedTimerId"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="hasTags && effect.useTag" header="Tag" pad-top="true">
+        <eos-container ng-show="hasTags && effect.useTag" header="タグ" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.sortTagId"
-                placeholder="Select or search for a tag..."
+                placeholder="タグを選択または検索..."
                 items="sortTags"
             />
         </eos-container>
 
-        <eos-container ng-show="hasTimers || (hasTags && effect.useTag)" header="Toggle Action" pad-top="true">
+        <eos-container ng-show="hasTimers || (hasTags && effect.useTag)" header="切り替えアクション" pad-top="true">
             <dropdown-select options="toggleOptions" selected="effect.toggleType"></dropdown-select>
         </eos-container>
     `,
@@ -72,9 +72,9 @@ const effect: EffectType<{
         }
 
         $scope.toggleOptions = {
-            disable: "Deactivate",
-            enable: "Activate",
-            toggle: "Toggle"
+            disable: "無効化",
+            enable: "有効化",
+            toggle: "切り替え"
         };
 
         if ($scope.effect.toggleType == null) {
@@ -84,24 +84,24 @@ const effect: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!effect.useTag && effect.selectedTimerId == null) {
-            errors.push("Please select a timer.");
+            errors.push("タイマーを選択してください。");
         }
         if (effect.useTag && effect.sortTagId == null) {
-            errors.push("Please select a timer sort tag.");
+            errors.push("タイマーのソートタグを選択してください。");
         }
         return errors;
     },
     getDefaultLabel: (effect, timerService, sortTagsService) => {
-        const action = effect.toggleType === "toggle" ? "Toggle"
-            : effect.toggleType === "enable" ? "Activate" : "Deactivate";
+        const action = effect.toggleType === "toggle" ? "切り替え"
+            : effect.toggleType === "enable" ? "有効化" : "無効化";
         if (effect.useTag) {
             const sortTag = sortTagsService.getSortTags('timers')
                 .find(tag => tag.id === effect.sortTagId);
-            return `${action} tag: ${sortTag?.name ?? "Unknown"}`;
+            return `${action} タグ: ${sortTag?.name ?? "不明"}`;
         }
 
         const timer = timerService.getTimers().find(timer => timer.id === effect.selectedTimerId);
-        return `${action} ${timer?.name ?? "Unknown Timer"}`;
+        return `${action} ${timer?.name ?? "不明なタイマー"}`;
     },
     onTriggerEvent: (event) => {
         const { effect } = event;

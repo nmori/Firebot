@@ -25,7 +25,7 @@ const model: EffectType<{
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                注意: このエフェクトを使用するには配信中である必要があります。Twitchの制限により、シャウトアウトの送信は2分に1回まで、同一ユーザーに対しては1時間に1回までとなります。
+                注意: この演出を使用するには配信中である必要があります。Twitchの制限により、シャウトアウトの送信は2分に1回まで、同一ユーザーに対しては1時間に1回までとなります。
             </div>
         </eos-container>
     `,

@@ -7,18 +7,18 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:clear-chat-widget",
-        name: "Clear Chat Widget",
-        description: "Clears all messages from a chat widget.",
+        name: "チャットウィジェットのクリア",
+        description: "チャットウィジェットのメッセージをすべて消去します。",
         icon: "fad fa-eraser",
         categories: ["overlay", "advanced"],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container ng-hide="hasChatWidgets">
-            <p>You need to create a Chat or Chat (Advanced) Overlay Widget to use this effect! Go to the <b>Overlay Widgets</b> tab to create one.</p>
+            <p>この演出を使うには Chat または Chat（Advanced）のオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </eos-container>
 
-        <eos-container header="Chat Widget" ng-show="hasChatWidgets">
+        <eos-container header="チャットウィジェット" ng-show="hasChatWidgets">
             <firebot-overlay-widget-select
                 overlay-widget-types="['firebot:chat','firebot:chat-advanced']"
                 ng-model="effect.chatWidgetId"
@@ -32,13 +32,13 @@ const model: EffectType<{
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.chatWidgetId == null) {
-            errors.push("Please select a chat widget.");
+            errors.push("チャットウィジェットを選択してください。");
         }
 
         return errors;
     },
     getDefaultLabel: (effect, overlayWidgetsService) => {
-        const chatWidgetName = overlayWidgetsService.getOverlayWidgetConfig(effect.chatWidgetId)?.name as string ?? "Unknown Chat Widget";
+        const chatWidgetName = overlayWidgetsService.getOverlayWidgetConfig(effect.chatWidgetId)?.name as string ?? "不明なチャットウィジェット";
         return chatWidgetName;
     },
     onTriggerEvent: ({ effect }) => {

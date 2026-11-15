@@ -22,7 +22,7 @@
 
                 <div>
                     <h3>引数</h3>
-                    <p>このプリセットエフェクトリストにデータを渡せます。</p>
+                    <p>このプリセット演出リストにデータを渡せます。</p>
 
                     <div class="role-bar" ng-repeat="arg in $ctrl.presetList.args track by $index">
                         <span uib-tooltip="$presetListArg[{{arg.name}}] で参照できます" tooltip-append-to-body="true">{{arg.name}}</span>
@@ -48,7 +48,7 @@
                     <collapsable-panel header="Stream Deck からの実行方法">
                         <p>手順:</p>
                         <ol>
-                            <li ng-if="$ctrl.isNewPresetList === true">新しいプリセットエフェクトリストを設定して<strong>保存</strong>をクリック</li>
+                            <li ng-if="$ctrl.isNewPresetList === true">新しいプリセット演出リストを設定して<strong>保存</strong>をクリック</li>
                             <li>Stream Deck ボタンに「Website」アクションを追加</li>
                             <li>URL を <strong>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</strong<></li>
                             <li>「GET request in background」をオンにする</li>
@@ -144,7 +144,7 @@
                         }
                     });
                 } else {
-                    ngToast.create("プリセットエフェクトリストの保存に失敗しました。再試行するか、ログを確認してください。");
+                    ngToast.create("プリセット演出リストの保存に失敗しました。再試行するか、ログを確認してください。");
                 }
             };
         }

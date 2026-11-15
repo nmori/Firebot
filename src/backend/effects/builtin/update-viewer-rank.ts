@@ -27,7 +27,7 @@ const effect: EffectType<{
         </firebot-searchable-select>
 
         <div class="effect-info alert alert-info">
-            注意: このエフェクトでは「手動」モードに設定されたランクラダーのみが利用できます。
+            注意: この演出では「手動」モードに設定されたランクラダーのみが利用できます。
         </div>
     </eos-container>
 

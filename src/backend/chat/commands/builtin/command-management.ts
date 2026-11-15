@@ -174,12 +174,12 @@ export const CommandManagementSystemCommand: SystemCommand = {
             {
                 arg: "import",
                 usage: "import [!trigger or \"phrase\"] [shareCode]",
-                description: "「Share effects」機能で生成した共有コードからコマンドを読み込みます。"
+                description: "「演出を共有」機能で生成した共有コードからコマンドを読み込みます。"
             },
             {
                 arg: "response",
                 usage: "response [!trigger or \"phrase\"] [message]",
-                description: "コマンドの応答メッセージを更新します。チャットエフェクトが 1 個以下のコマンドでのみ動作します。"
+                description: "コマンドの応答メッセージを更新します。チャット演出が 1 個以下のコマンドでのみ動作します。"
             },
             {
                 arg: "setcount",
@@ -294,7 +294,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (!canUseEffectVars && (remainingData.includes("$runEffect") || remainingData.includes("$evalVars"))) {
                     await TwitchApi.chat.sendChatMessage(
-                        "コマンドを追加できませんでした。含まれている変数を使うには「Allow Chat-Created Commands to Run Effects」設定が必要です。",
+                        "コマンドを追加できませんでした。含まれている変数を使うには「チャット作成コマンドで演出実行を許可」設定が必要です。",
                         null,
                         true
                     );
@@ -357,7 +357,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (!canImport) {
                     await TwitchApi.chat.sendChatMessage(
-                        "コマンドを読み込めません。「Allow Chat-Created Commands to Run Effects」が設定で無効になっています。",
+                        "コマンドを読み込めません。「チャット作成コマンドで演出実行を許可」が設定で無効になっています。",
                         null,
                         true
                     );
@@ -368,7 +368,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (!effectsData || !effectsData.effects) {
                     await TwitchApi.chat.sendChatMessage(
-                        "エフェクトデータを解析できませんでした。もう一度お試しください。",
+                        "演出データを解析できませんでした。もう一度お試しください。",
                         null,
                         true
                     );
@@ -426,7 +426,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (!canUseEffectVars && (remainingData.includes("$runEffect") || remainingData.includes("$evalVars"))) {
                     await TwitchApi.chat.sendChatMessage(
-                        "応答を更新できませんでした。含まれている変数を使うには「Allow Chat-Created Commands to Run Effects」設定が必要です。",
+                        "応答を更新できませんでした。含まれている変数を使うには「チャット作成コマンドで演出実行を許可」設定が必要です。",
                         null,
                         true
                     );
@@ -437,7 +437,7 @@ export const CommandManagementSystemCommand: SystemCommand = {
 
                 if (chatEffectsCount > 1) {
                     await TwitchApi.chat.sendChatMessage(
-                        `コマンド「${trigger}」にはチャットエフェクトが複数あるため、チャットから応答を編集できません。`,
+                        `コマンド「${trigger}」にはチャット演出が複数あるため、チャットから応答を編集できません。`,
                         null,
                         true
                     );

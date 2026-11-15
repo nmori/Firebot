@@ -4,7 +4,7 @@ import { TwitchApi } from "../../../api";
 const model : ReplaceVariable = {
     definition: {
         handle: "pinnedChatMessageTextOnly",
-        description: "Outputs the pinned chat message text with any emotes, URLs, or cheermotes removed.",
+        description: "ピン留めメッセージの本文から、エモート・URL・Cheermoteを除いたテキストを出力します。",
         categories: ["common"],
         possibleDataOutput: ["text"]
     },

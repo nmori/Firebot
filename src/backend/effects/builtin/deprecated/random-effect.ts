@@ -11,8 +11,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:randomeffect",
-        name: "ランダムエフェクト実行",
-        description: "エフェクトリストからランダムで1つ実行します",
+        name: "ランダム演出実行",
+        description: "演出リストからランダムで1つ実行します",
         icon: "fad fa-random",
         categories: ["advanced", "scripting"],
         hidden: true,
@@ -22,7 +22,7 @@ const effect: EffectType<{
         <eos-container>
             <div class="effect-info alert alert-warning">
                 <div>
-                    警告: このエフェクトは非推奨です。今後は任意のエフェクトリストで <strong>ランダム</strong> 実行モードを使用してください。
+                    警告: この演出は非推奨です。今後は任意の演出リストで <strong>ランダム</strong> 実行モードを使用してください。
                 </div>
                 <div class="mt-3">
                     <button
@@ -30,25 +30,25 @@ const effect: EffectType<{
                         class="btn btn-default btn-sm"
                         ng-click="convertToRunEffectList()"
                         ng-disabled="isConverting"
-                        aria-label="このエフェクトを「エフェクトリスト実行」に変換"
-                        uib-tooltip="設定とエフェクトの中身を引き継いだまま「エフェクトリスト実行」エフェクトに置き換えます。保存するまで確定しません。"
+                        aria-label="この演出を「演出リスト実行」に変換"
+                        uib-tooltip="設定と演出の中身を引き継いだまま「演出リスト実行」演出に置き換えます。保存するまで確定しません。"
                         tooltip-append-to-body="true"
                     >
                         <i class="fas fa-exchange-alt" aria-hidden="true"></i>
-                        <span class="ml-2">「エフェクトリスト実行」に変換</span>
+                        <span class="ml-2">「演出リスト実行」に変換</span>
                     </button>
                 </div>
             </div>
         </eos-container>
 
         <eos-container pad-top="true">
-            <p>下のリストからランダムにエフェクトを 1 つ実行します。</p>
+            <p>下のリストからランダムに演出を 1 つ実行します。</p>
 
             <div style="padding-top: 10px;">
                 <firebot-checkbox
                     model="effect.weighted"
                     label="重み付き確率"
-                    tooltip="チェックを入れると、各エフェクトの確率はその重み値によって決まります。チェックを外すと、各エフェクトが等確率で選択されます。"
+                    tooltip="チェックを入れると、各演出の確率はその重み値によって決まります。チェックを外すと、各演出が等確率で選択されます。"
                     style="margin-bottom: 0"
                 />
             </div>
@@ -59,7 +59,7 @@ const effect: EffectType<{
                 trigger="{{trigger}}"
                 trigger-meta="triggerMeta"
                 update="effectListUpdated(effects)"
-                header="エフェクト"
+                header="演出"
                 modalId="{{modalId}}"
                 mode="random"
                 weighted="effect.weighted"
@@ -72,12 +72,12 @@ const effect: EffectType<{
                 ng-hide="effect.weighted"
                 model="effect.dontRepeat"
                 label="繰り返しを防ぐ"
-                tooltip="チェックを入れると、リストが再シャッフルされる前に各エフェクトが一度ずつ再生され、同じエフェクトが連続して繰り返されるのを防ぎます。"
+                tooltip="チェックを入れると、リストが再シャッフルされる前に各演出が一度ずつ再生され、同じ演出が連続して繰り返されるのを防ぎます。"
             />
             <firebot-checkbox
                 model="effect.bubbleOutputs"
-                label="エフェクトの出力を親リストに適用"
-                tooltip="エフェクトの出力を親エフェクトリストで利用可能にするかどうかを設定します。"
+                label="演出の出力を親リストに適用"
+                tooltip="演出の出力を親演出リストで利用可能にするかどうかを設定します。"
             />
         </eos-container>
     `,
@@ -99,8 +99,8 @@ const effect: EffectType<{
             $scope.isConverting = true;
 
             utilityService.showConfirmationModal({
-                title: "「エフェクトリスト実行」に変換",
-                question: "このエフェクトを「エフェクトリスト実行」（ランダム実行）に置き換えます。エフェクトの中身と設定はそのまま引き継がれます。よろしいですか？",
+                title: "「演出リスト実行」に変換",
+                question: "この演出を「演出リスト実行」（ランダム実行）に置き換えます。演出の中身と設定はそのまま引き継がれます。よろしいですか？",
                 tip: "変換してもすぐには保存されません。取り消したい場合は、この画面を保存せずにキャンセルしてください。",
                 confirmLabel: "変換する",
                 confirmBtnType: "btn-primary",
@@ -125,12 +125,12 @@ const effect: EffectType<{
                         return;
                     }
 
-                    // 検証を全て通過した場合のみ、ここで元のエフェクトが置き換わる
+                    // 検証を全て通過した場合のみ、ここで元の演出が置き換わる
                     $scope.$emit("effectOptions.replaceEffect", result.effect);
 
                     ngToast.create({
                         className: "success",
-                        content: "「エフェクトリスト実行」に変換しました。保存すると確定します。"
+                        content: "「演出リスト実行」に変換しました。保存すると確定します。"
                     });
                 });
             });

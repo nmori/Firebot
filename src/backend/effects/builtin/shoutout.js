@@ -208,7 +208,7 @@ const effect = {
                 <b>備考:</b> 実際の総時間は表示時間 + 4秒となります（入場アニメーション2秒、退場アニメーション2秒）。
             </p>
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> シャウトアウトの完了を待つ <tooltip text="'シャウトアウトが終わるまで次のエフェクトを再生しません。'"></tooltip>
+                <label class="control-fb control--checkbox"> シャウトアウトの完了を待つ <tooltip text="'シャウトアウトが終わるまで次の演出を再生しません。'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForShoutout">
                     <div class="control__indicator"></div>
                 </label>
@@ -218,7 +218,7 @@ const effect = {
         <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
         <eos-container>
             <div class="effect-info alert alert-warning">
-                このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">詳細を見る</a>
+                この演出を使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">詳細を見る</a>
             </div>
         </eos-container>
     `,

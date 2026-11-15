@@ -44,7 +44,7 @@
 
                         <div ng-show="$ctrl.setup.requireCurrency" style="margin-top: 25px;">
                             <h4 class="muted">使用する通貨:</h4>
-                            <h5>このセットアップには通貨の選択が必要です。含まれるエフェクト、変数、制限で選択した通貨が使用されます。</h5>
+                            <h5>このセットアップには通貨の選択が必要です。含まれる演出、変数、制限で選択した通貨が使用されます。</h5>
                             <select
                                 class="form-control fb-select"
                                 ng-model="$ctrl.selectedCurrency"
@@ -117,22 +117,22 @@
                 });
 
                 $ctrl.componentTypes = {
-                    commands: "Command",
-                    counters: "Counter",
-                    currencies: "Currency",
-                    effectQueues: "Effect Queue",
-                    events: "Event",
-                    eventGroups: "Event Sets",
-                    hotkeys: "Hotkey",
-                    presetEffectLists: "Preset Effect List",
-                    timers: "Timer",
-                    scheduledTasks: "Scheduled Effect List",
-                    variableMacros: "Variable Macro",
-                    viewerRoles: "Viewer Role",
-                    viewerRankLadders: "Viewer Rank Ladder",
-                    quickActions: "Quick Action",
-                    overlayWidgetConfigs: "Overlay Widget",
-                    globalValues: "Global Value"
+                    commands: "コマンド",
+                    counters: "カウンター",
+                    currencies: "通貨",
+                    effectQueues: "演出キュー",
+                    events: "イベント",
+                    eventGroups: "イベントセット",
+                    hotkeys: "ホットキー",
+                    presetEffectLists: "プリセット演出リスト",
+                    timers: "タイマー",
+                    scheduledTasks: "演出予定リスト",
+                    variableMacros: "変数マクロ",
+                    viewerRoles: "視聴者ロール",
+                    viewerRankLadders: "視聴者ランクラダー",
+                    quickActions: "クイックアクション",
+                    overlayWidgetConfigs: "オーバーレイウィジェット",
+                    globalValues: "グローバル値"
                 };
 
                 $ctrl.setup = null;
@@ -150,11 +150,11 @@
                     const modal = window.open('', 'modal');
 
                     modal.document.write(`
-                        <div style="font-size: 30px;font-weight: 100;">Firebot Setup - ${$ctrl.setup.name}</div>
+                        <div style="font-size: 30px;font-weight: 100;">Firebot セットアップ - ${$ctrl.setup.name}</div>
                         <div>${$ctrl.setup.description}</div>
                     `);
 
-                    modal.document.title = `Firebot Setup - ${$ctrl.setup.name}`;
+                    modal.document.title = `Firebot セットアップ - ${$ctrl.setup.name}`;
                     modal.document.body.style.fontFamily = "sans-serif";
                 };
 

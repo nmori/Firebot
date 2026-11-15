@@ -411,7 +411,7 @@ const effect: EffectType<OverlayAlertEffect> = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
+                この演出を使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
             </div>
         </eos-container>
     `,

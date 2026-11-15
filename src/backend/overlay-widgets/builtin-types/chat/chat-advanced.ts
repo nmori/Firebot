@@ -47,8 +47,8 @@ export type AdvancedChatWidgetSettings = {
 
 export const chatAdvanced: OverlayWidgetType<AdvancedChatWidgetSettings, ChatWidgetState> = {
     id: "firebot:chat-advanced",
-    name: "Chat (Advanced)",
-    description: "An advanced chat feed for the overlay where you provide the HTML and CSS used to generate the widget content.",
+    name: "チャット（上級者向け）",
+    description: "ウィジェットの内容を生成する HTML と CSS を自分で指定する、オーバーレイ用の上級者向けチャットフィードです。",
     icon: "fa fa-comments-alt-dollar",
     userCanConfigure: {
         entryAnimation: false,
@@ -57,12 +57,12 @@ export const chatAdvanced: OverlayWidgetType<AdvancedChatWidgetSettings, ChatWid
     settingsSchema: [
         {
             name: "cssTemplate",
-            title: "CSS Template",
-            description: `Any CSS styles, along with custom CSS classes, that you want to use in your widget. This value will automatically be put inside of a \`<style>\` tag.
+            title: "CSS テンプレート",
+            description: `ウィジェットで使用する CSS スタイルやカスタム CSS クラスです。この値は自動的に \`<style>\` タグの中に挿入されます。
 
-The following fields will automatically get replaced with their corresponding CSS class names:
-- \`{{messageContainerClass}}\`: The \`<div>\` element automatically created by the widget that contains all the chat messages in this widget. Any new messages will be added as a child of this element.
-- \`{{messageClass}}\`: A \`<div>\` element automatically created by the widget that contains a single message.`,
+以下のフィールドは、対応する CSS クラス名に自動的に置き換えられます:
+- \`{{messageContainerClass}}\`: ウィジェットが自動生成する、このウィジェットのすべてのチャットメッセージを含む \`<div>\` 要素です。新しいメッセージはこの要素の子として追加されます。
+- \`{{messageClass}}\`: ウィジェットが自動生成する、1 件のメッセージを含む \`<div>\` 要素です。`,
             type: "codemirror",
             default: "",
             settings: {
@@ -72,18 +72,18 @@ The following fields will automatically get replaced with their corresponding CS
         },
         {
             name: "defaultMessageHtmlTemplate",
-            title: "Default Message HTML Template",
-            description: `The default message HTML template to use when generating the widget.
+            title: "デフォルトのメッセージ HTML テンプレート",
+            description: `ウィジェットの生成時に使用するデフォルトのメッセージ HTML テンプレートです。
 
-The following fields are available in messages:
-- \`{{avatarUrl}}\`: URL for the chatter's avatar
-- \`{{badges}}\`: HTML snippet for badges (i.e. each badge is converted to an \`<img>\` tag)
-- \`{{chatMessage}}\`: Chat message with formatted emotes and cheermotes (e.g. emotes are converted to \`<img>\` tags)
-- \`{{chatMessageRawText}}\`: Raw text of the chat message with no formatting for emotes, cheermotes, etc.
-- \`{{pronouns}}\`: Chatter's pronouns, if set
-- \`{{timestamp}}\`: Timestamp of when the message
-- \`{{username}}\`: Chatter's display name
-- \`{{usernameColor}}\`: Hex format of chatter's username color (e.g. \`#0066FF\`)`,
+メッセージでは以下のフィールドを使用できます:
+- \`{{avatarUrl}}\`: チャット参加者のアバターの URL
+- \`{{badges}}\`: バッジの HTML スニペット（各バッジが \`<img>\` タグに変換されます）
+- \`{{chatMessage}}\`: エモートや Cheermote を整形したチャットメッセージ（例: エモートは \`<img>\` タグに変換されます）
+- \`{{chatMessageRawText}}\`: エモートや Cheermote などを整形していない、チャットメッセージの生テキスト
+- \`{{pronouns}}\`: チャット参加者の代名詞（設定されている場合）
+- \`{{timestamp}}\`: メッセージのタイムスタンプ
+- \`{{username}}\`: チャット参加者の表示名
+- \`{{usernameColor}}\`: チャット参加者のユーザー名の色（16進形式、例: \`#0066FF\`）`,
             type: "codemirror",
             default: "",
             settings: {
@@ -94,15 +94,15 @@ The following fields are available in messages:
         },
         {
             name: "useSeparateTemplateForActions",
-            title: "Use Separate Template for Actions",
-            description: "Whether or not to use a different HTML template for `/me` actions",
+            title: "アクション用に別のテンプレートを使用",
+            description: "`/me` アクションに別の HTML テンプレートを使用するかどうかです",
             type: "boolean",
             default: true
         },
         {
             name: "actionHtmlTemplate",
-            title: "Action HTML Template",
-            description: "HTML template to use for `/me` actions. The same fields in the default message template are available here.",
+            title: "アクションの HTML テンプレート",
+            description: "`/me` アクションに使用する HTML テンプレートです。デフォルトのメッセージテンプレートと同じフィールドを使用できます。",
             type: "codemirror",
             default: "",
             settings: {
@@ -116,15 +116,15 @@ The following fields are available in messages:
         },
         {
             name: "useSeparateTemplateForHighlightedMessages",
-            title: "Use Separate Template for Highlighted Messages",
-            description: "Whether or not to use a different HTML template for messages sent using the \"Highlight My Message\" channel point reward.",
+            title: "ハイライトされたメッセージ用に別のテンプレートを使用",
+            description: "チャンネルポイント報酬「メッセージをハイライト」で送信されたメッセージに別の HTML テンプレートを使用するかどうかです。",
             type: "boolean",
             default: true
         },
         {
             name: "highlightedMessageHtmlTemplate",
-            title: "Highlighted Message HTML Template",
-            description: "HTML template to use for messages sent using the \"Highlight My Message\" channel point reward. The same fields in the default message template are available here.",
+            title: "ハイライトされたメッセージの HTML テンプレート",
+            description: "チャンネルポイント報酬「メッセージをハイライト」で送信されたメッセージに使用する HTML テンプレートです。デフォルトのメッセージテンプレートと同じフィールドを使用できます。",
             type: "codemirror",
             default: "",
             settings: {
@@ -138,15 +138,15 @@ The following fields are available in messages:
         },
         {
             name: "showSharedChatMessages",
-            title: "Show Shared Chat Messages",
-            description: "Display chat messages sent from other channels during a shared chat session",
+            title: "共有チャットのメッセージを表示",
+            description: "共有チャットセッション中に他のチャンネルから送信されたチャットメッセージを表示します",
             type: "boolean",
             default: false
         },
         {
             name: "useSeparateTemplateForSharedMessages",
-            title: "Use Separate Template for Shared Chat Messages",
-            description: "Whether or not to use a different HTML template for messages sent from other channels during a shared chat session.",
+            title: "共有チャットのメッセージ用に別のテンプレートを使用",
+            description: "共有チャットセッション中に他のチャンネルから送信されたメッセージに別の HTML テンプレートを使用するかどうかです。",
             type: "boolean",
             default: true,
             showIf: {
@@ -155,12 +155,12 @@ The following fields are available in messages:
         },
         {
             name: "sharedChatMessageHtmlTemplate",
-            title: "Shared Chat Message HTML Template",
-            description: `HTML template to use for messages sent from other channels during a shared chat session.
+            title: "共有チャットのメッセージ HTML テンプレート",
+            description: `共有チャットセッション中に他のチャンネルから送信されたメッセージに使用する HTML テンプレートです。
 
- The same fields in the default message template are available here, plus these additional fields:
- - \`{{sharedChatRoomChannel}}\`: The display name of the external channel where the message was sent.
- - \`{{sharedChatRoomAvatarUrl}}\`: The avatar URL of the external channel where the message was sent.`,
+ デフォルトのメッセージテンプレートと同じフィールドに加えて、以下のフィールドを使用できます:
+ - \`{{sharedChatRoomChannel}}\`: メッセージが送信された外部チャンネルの表示名
+ - \`{{sharedChatRoomAvatarUrl}}\`: メッセージが送信された外部チャンネルのアバター URL`,
             type: "codemirror",
             default: "",
             settings: {
@@ -175,15 +175,15 @@ The following fields are available in messages:
         },
         {
             name: "showAnnouncements",
-            title: "Show Announcements",
-            description: "Display chat announcements sent from the streamer or moderators",
+            title: "アナウンスを表示",
+            description: "配信者またはモデレーターが送信したチャットのアナウンスを表示します",
             type: "boolean",
             default: false
         },
         {
             name: "useSeparateTemplateForAnnouncements",
-            title: "Use Separate Template for Announcements",
-            description: "Whether or not to use a different HTML template for announcements.",
+            title: "アナウンス用に別のテンプレートを使用",
+            description: "アナウンスに別の HTML テンプレートを使用するかどうかです。",
             type: "boolean",
             default: true,
             showIf: {
@@ -192,11 +192,11 @@ The following fields are available in messages:
         },
         {
             name: "announcementHtmlTemplate",
-            title: "Announcement HTML Template",
-            description: `HTML template to use for announcements.
+            title: "アナウンスの HTML テンプレート",
+            description: `アナウンスに使用する HTML テンプレートです。
 
-The same fields in the default message template are available here, plus these additional fields:
-- \`{{announcementColor}}\`: The name of the announcement color. It will be one of the following values: \`PRIMARY\`, \`BLUE\`, \`GREEN\`, \`ORANGE\`, or \`PURPLE\`.`,
+デフォルトのメッセージテンプレートと同じフィールドに加えて、以下のフィールドを使用できます:
+- \`{{announcementColor}}\`: アナウンスの色の名前です。\`PRIMARY\`、\`BLUE\`、\`GREEN\`、\`ORANGE\`、\`PURPLE\` のいずれかになります。`,
             type: "codemirror",
             default: "",
             settings: {
@@ -211,15 +211,15 @@ The same fields in the default message template are available here, plus these a
         },
         {
             name: "delayMessages",
-            title: "Add Message Delay",
-            description: "Adds a delay between when a message arrives and when it is sent to the widget. Useful for moderation.",
+            title: "メッセージに遅延を追加",
+            description: "メッセージを受信してからウィジェットへ送信するまでに遅延を入れます。モデレーションに便利です。",
             type: "boolean",
             default: false
         },
         {
             name: "messageDelay",
-            title: "Message Delay",
-            description: "How long (in seconds) to wait before sending a chat message to the widget",
+            title: "メッセージの遅延（秒）",
+            description: "チャットメッセージをウィジェットへ送信するまでの待ち時間（秒）です",
             type: "number",
             default: 0,
             showIf: {
@@ -228,22 +228,22 @@ The same fields in the default message template are available here, plus these a
         },
         {
             name: "newMessageEntryAnimation",
-            title: "New Message Entry Animation",
-            description: "Animation to use when new messages arrive",
+            title: "新着メッセージの登場アニメーション",
+            description: "新しいメッセージが届いたときに使用するアニメーションです",
             type: "animation-select",
             animationType: "enter"
         },
         {
             name: "autoRemoveMessages",
-            title: "Automatically Remove Messages",
-            description: "Removes messages from the chat widget after a specified amount of time",
+            title: "メッセージを自動的に削除",
+            description: "指定した時間が経過したメッセージをチャットウィジェットから削除します",
             type: "boolean",
             default: false
         },
         {
             name: "messageTimeout",
-            title: "Message Timeout",
-            description: "Amount of time (in seconds) to automatically remove chat messages from the widget",
+            title: "メッセージの表示時間（秒）",
+            description: "チャットメッセージをウィジェットから自動的に削除するまでの時間（秒）です",
             type: "number",
             default: 10,
             showIf: {
@@ -252,8 +252,8 @@ The same fields in the default message template are available here, plus these a
         },
         {
             name: "messageExitAnimation",
-            title: "Message Exit Animation",
-            description: "Animation to use when messages are automatically removed from the widget",
+            title: "メッセージの退場アニメーション",
+            description: "メッセージがウィジェットから自動的に削除されるときに使用するアニメーションです",
             type: "animation-select",
             animationType: "exit",
             showIf: {
@@ -262,8 +262,8 @@ The same fields in the default message template are available here, plus these a
         },
         {
             name: "thirdPartyEmotes",
-            title: "Enabled Third-Party Emote Providers",
-            description: "NOTE: Any third-party emote services enabled here must also be enabled in Dashboard settings in order to show emotes from those services.",
+            title: "有効にするサードパーティ製エモートサービス",
+            description: "注意: ここで有効にしたサードパーティ製エモートサービスのエモートを表示するには、ダッシュボード設定でも同じサービスを有効にする必要があります。",
             type: "multiselect",
             default: [],
             settings: {
@@ -285,16 +285,16 @@ The same fields in the default message template are available here, plus these a
         },
         {
             name: "hiddenUsers",
-            title: "Hidden Users",
-            description: "List of usernames whose messages will not be displayed in the chat widget",
+            title: "非表示ユーザー",
+            description: "チャットウィジェットにメッセージを表示しないユーザー名の一覧です",
             type: "editable-list",
             default: [],
             settings: {
                 useTextArea: false,
                 sortable: true,
-                addLabel: "Add Username",
-                editLabel: "Edit Username",
-                noneAddedText: "No users hidden in chat widget"
+                addLabel: "ユーザー名を追加",
+                editLabel: "ユーザー名を編集",
+                noneAddedText: "チャットウィジェットで非表示にしているユーザーはいません"
             }
         }
     ],
@@ -308,7 +308,7 @@ The same fields in the default message template are available here, plus these a
     uiActions: [
         {
             id: "clear",
-            label: "Clear Chat Widget",
+            label: "チャットウィジェットをクリア",
             icon: "fa-minus-circle",
             click: () => {
                 return {

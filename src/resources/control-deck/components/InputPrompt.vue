@@ -45,7 +45,7 @@ const error = ref("");
 
 function submit(): void {
     if (!canSubmit.value) {
-        error.value = "Please fill in all inputs";
+        error.value = "すべての項目を入力してください";
         return;
     }
     const result: ControlInputValues = {};
@@ -86,7 +86,7 @@ function toggle(input: ControlDeckControlInput): void {
                     type="text"
                     v-model="values[input.name]"
                     autocomplete="off"
-                    placeholder="Enter text"
+                    placeholder="テキストを入力"
                 />
 
                 <input
@@ -96,7 +96,7 @@ function toggle(input: ControlDeckControlInput): void {
                     inputmode="decimal"
                     v-model="values[input.name]"
                     autocomplete="off"
-                    placeholder="Enter number"
+                    placeholder="数値を入力"
                 />
 
                 <button
@@ -121,8 +121,8 @@ function toggle(input: ControlDeckControlInput): void {
             <div v-if="error" class="input-prompt-error">{{ error }}</div>
 
             <div class="input-prompt-actions">
-                <button type="button" class="input-prompt-btn cancel" @click="cancel">Cancel</button>
-                <button type="button" class="input-prompt-btn confirm" :disabled="!canSubmit" @click="submit">Submit</button>
+                <button type="button" class="input-prompt-btn cancel" @click="cancel">キャンセル</button>
+                <button type="button" class="input-prompt-btn confirm" :disabled="!canSubmit" @click="submit">送信</button>
             </div>
         </div>
     </div>

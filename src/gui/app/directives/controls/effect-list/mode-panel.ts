@@ -29,7 +29,7 @@ type Controller = {
             <effect-config-panel
                 icon="fa-running"
                 label="実行モード"
-                tooltip="このリスト内のエフェクトを、トリガー時にどのように実行するかを決定します。"
+                tooltip="このリスト内の演出を、トリガー時にどのように実行するかを決定します。"
                 main-value="$ctrl.mainValue"
                 preview-items="$ctrl.previewItems"
                 disabled="$ctrl.disabled"
@@ -50,7 +50,7 @@ type Controller = {
                     <div class="config-control-label">
                         <i class="far fa-weight-hanging"></i>
                         <span>重み付き確率</span>
-                        <tooltip text="'有効時は各エフェクトの重みに基づいて選択されます。無効時は同確率でランダムに選択されます。'"></tooltip>
+                        <tooltip text="'有効時は各演出の重みに基づいて選択されます。無効時は同確率でランダムに選択されます。'"></tooltip>
                     </div>
                     <div>
                         <toggle-button
@@ -66,7 +66,7 @@ type Controller = {
                     <div class="config-control-label">
                         <i class="far fa-ban"></i>
                         <span>重複しない</span>
-                        <tooltip text="'有効時は、すべてのエフェクトが1回ずつ使われるまで重複しません。'"></tooltip>
+                        <tooltip text="'有効時は、すべての演出が1回ずつ使われるまで重複しません。'"></tooltip>
                     </div>
                     <div>
                         <toggle-button
@@ -89,7 +89,7 @@ type Controller = {
                     name: "順番実行（すべて）",
                     value: "all",
                     icon: "fa-sort-numeric-down",
-                    tooltip: "トリガー時に上から順にすべてのエフェクトを実行します。"
+                    tooltip: "トリガー時に上から順にすべての演出を実行します。"
                 },
                 {
                     name: "順番実行（単体）",

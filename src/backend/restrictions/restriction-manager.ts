@@ -160,7 +160,7 @@ class RestrictionsManager extends TypedEmitter<Events> {
     ): Promise<RestrictionResult> {
         let result: RestrictionResult = {
             success: false,
-            failureReason: "You don't meet the requirements."
+            failureReason: "条件を満たしていません。"
         };
 
         try {
@@ -177,14 +177,14 @@ class RestrictionsManager extends TypedEmitter<Events> {
             }
         } catch (reason) {
             result.failureReason = (reason instanceof Error ? reason.message : (reason as string))?.toLowerCase()
-                ?? "You don't meet the requirements.";
+                ?? "条件を満たしていません。";
         }
 
         if (restriction.invertCondition) {
             result.success = !result.success;
             if (result.success === false) {
                 result.failureReason = restrictionDef.failedReasonWhenInverted
-                    ?? "You don't meet the requirements.";
+                    ?? "条件を満たしていません。";
             }
         }
 
@@ -228,7 +228,7 @@ class RestrictionsManager extends TypedEmitter<Events> {
                 if (restrictionPassed) {
                     return {
                         success: false,
-                        failureReason: "You don't meet the requirements."
+                        failureReason: "条件を満たしていません。"
                     };
                 }
 
@@ -240,7 +240,7 @@ class RestrictionsManager extends TypedEmitter<Events> {
             if (!restrictionPassed) {
                 return {
                     success: false,
-                    failureReason: reasons.join(", or ")
+                    failureReason: reasons.join("、または ")
                 };
             }
             return {
@@ -274,14 +274,14 @@ class RestrictionsManager extends TypedEmitter<Events> {
                 success: false,
                 failureReason: promiseResult.map(p => p.failureReason)
                     .filter(r => !!r?.length)
-                    .join(", or ")
+                    .join("、または ")
             };
         }
 
         return {
             success: false,
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            failureReason: `Invalid restriction mode '${restrictionData.mode}'`
+            failureReason: `無効な制限モードです: '${restrictionData.mode}'`
         };
     }
 

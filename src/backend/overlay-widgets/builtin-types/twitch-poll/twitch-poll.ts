@@ -105,7 +105,7 @@ InternalBus.on("channel-poll-end", (poll) => {
 function generateSamplePollState(): PollState {
     return {
         poll: {
-            title: "Which game next?",
+            title: "次はどのゲームをプレイする？",
             choices: [
                 { id: "1", title: "Elden Ring", totalVotes: 142, channelPointsVotes: 0 },
                 { id: "2", title: "Hollow Knight", totalVotes: 98, channelPointsVotes: 0 },
@@ -123,13 +123,13 @@ function generateSamplePollState(): PollState {
 
 export const twitchPoll: OverlayWidgetType<PollSettings, PollState> = {
     id: TWITCH_POLL_TYPE_ID,
-    name: "Twitch Poll",
-    description: "Displays the currently running Twitch poll, with live vote totals. Shows nothing when no poll is active.",
+    name: "Twitch 投票",
+    description: "実行中の Twitch 投票を、リアルタイムの得票数とともに表示します。投票が行われていないときは何も表示しません。",
     icon: "fa-poll-h",
     settingsSchema: [
         {
             name: "fontOptions",
-            title: "Font",
+            title: "フォント設定",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -142,37 +142,37 @@ export const twitchPoll: OverlayWidgetType<PollSettings, PollState> = {
         },
         {
             name: "accentColor",
-            title: "Accent Color",
-            description: "Color of the vote bars and the winning choice highlight.",
+            title: "アクセントカラー",
+            description: "得票バーと、勝利した選択肢のハイライトの色です。",
             type: "hexcolor",
             default: "#9147FF"
         },
         {
             name: "backgroundColor",
-            title: "Background Color",
+            title: "背景色",
             type: "hexcolor",
             default: "#18181B",
             allowAlpha: true
         },
         {
             name: "timeBarColor",
-            title: "Time Remaining Bar Color",
-            description: "Color of the countdown bar shown at the bottom while the poll is open.",
+            title: "残り時間バーの色",
+            description: "投票の受付中に下部に表示されるカウントダウンバーの色です。",
             type: "hexcolor",
             default: "#9147FF",
             showBottomHr: true
         },
         {
             name: "showPercentages",
-            title: "Show Percentages",
-            description: "Show each choice's share of the vote.",
+            title: "割合を表示",
+            description: "各選択肢の得票率を表示します。",
             type: "boolean",
             default: true
         },
         {
             name: "lingerSeconds",
-            title: "Results Linger (seconds)",
-            description: "How long to keep the final results on screen after the poll ends.",
+            title: "結果の表示時間（秒）",
+            description: "投票終了後に最終結果を画面に表示し続ける時間です。",
             type: "number",
             default: 8
         }

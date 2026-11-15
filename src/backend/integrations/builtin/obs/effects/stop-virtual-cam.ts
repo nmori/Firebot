@@ -12,7 +12,7 @@ export const StopVirtualCamEffectType: EffectType = {
     optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>警告！</b> このエフェクトを実行すると、Firebot は OBS に仮想カメラ停止を要求します。
+        <b>警告！</b> この演出を実行すると、Firebot は OBS に仮想カメラ停止を要求します。
       </div>
     </eos-container>
   `,

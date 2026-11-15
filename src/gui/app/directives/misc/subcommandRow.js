@@ -84,7 +84,7 @@
                             <div class="settings-title">
                                 <h4 class="font-semibold">
                                     追加の必須引数数
-                                    <tooltip class="text-2xl ml-1" text="'サブコマンド引数の後に必要な追加引数の数です。満たさない場合、エフェクトは実行されません。'" />
+                                    <tooltip class="text-2xl ml-1" text="'サブコマンド引数の後に必要な追加引数の数です。満たさない場合、演出は実行されません。'" />
                                 </h4>
                             </div>
                             <input

@@ -521,7 +521,7 @@
                                     text: "詳細設定...",
                                     children: [
                                         {
-                                            html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> エフェクト ID をコピー</a>`,
+                                            html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> 演出 ID をコピー</a>`,
                                             click: function () {
                                                 $rootScope.copyTextToClipboard($scope.effect.id);
                                                 ngToast.create({
@@ -531,8 +531,8 @@
                                             }
                                         },
                                         {
-                                            text: "エフェクト JSON をコピー",
-                                            html: `<a href role="menuitem"><i class="fal fa-brackets-curly mr-4"></i> エフェクト JSON をコピー  ></a>`,
+                                            text: "演出 JSON をコピー",
+                                            html: `<a href role="menuitem"><i class="fal fa-brackets-curly mr-4"></i> 演出 JSON をコピー  ></a>`,
                                             children: [
                                                 {
                                                     text: "カスタムスクリプト用",
@@ -541,7 +541,7 @@
 
                                                         ngToast.create({
                                                             className: 'success',
-                                                            content: 'エフェクトの JSON をクリップボードにコピーしました。'
+                                                            content: '演出の JSON をクリップボードにコピーしました。'
                                                         });
                                                     }
                                                 },
@@ -554,7 +554,7 @@
 
                                                         ngToast.create({
                                                             className: 'success',
-                                                            content: 'エフェクトの JSON を含む $runEffect をクリップボードにコピーしました。'
+                                                            content: '演出の JSON を含む $runEffect をクリップボードにコピーしました。'
                                                         });
                                                     }
                                                 }
@@ -575,8 +575,8 @@
                             );
                         }
 
-                        // 非推奨エフェクトの変換など、エフェクトオプション側から
-                        // エフェクトそのものを差し替えるためのフック
+                        // 非推奨演出の変換など、演出オプション側から
+                        // 演出そのものを差し替えるためのフック
                         $scope.$on("effectOptions.replaceEffect", async function(event, newEffect) {
                             if (newEffect == null || newEffect.type == null) {
                                 return;
@@ -632,7 +632,7 @@
                         $scope.openNewEffectModal = function() {
                             utilityService.showModal({
                                 component: "addNewEffectModal",
-                                breadcrumbName: "新しいエフェクトを選択",
+                                breadcrumbName: "新しい演出を選択",
                                 backdrop: true,
                                 windowClass: "no-padding-modal",
                                 resolveObj: {
@@ -654,7 +654,7 @@
                         async function validateEffect() {
 
                             if ($scope.effect.type === "Nothing") {
-                                ngToast.create("エフェクトの種類を選択してください。");
+                                ngToast.create("演出の種類を選択してください。");
                                 return false;
                             }
 

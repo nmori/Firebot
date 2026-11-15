@@ -130,13 +130,13 @@ const effect: EffectType<{
             model="effect.options.storeOutputAsBinary"
         />
         <firebot-checkbox
-            label="エラー時にエフェクトを実行"
-            tooltip="リクエストが失敗した場合にエフェクトリストを実行します。クリーンアップやエフェクト実行の停止に便利です。"
+            label="エラー時に演出を実行"
+            tooltip="リクエストが失敗した場合に演出リストを実行します。クリーンアップや演出実行の停止に便利です。"
             model="effect.options.runEffectsOnError"
         />
     </eos-container>
 
-    <eos-container header="エラーエフェクト" pad-top="true" ng-if="effect.options.runEffectsOnError">
+    <eos-container header="エラー演出" pad-top="true" ng-if="effect.options.runEffectsOnError">
         <effect-list effects="effect.errorEffects"
             trigger="{{trigger}}"
             trigger-meta="triggerMeta"

@@ -17,19 +17,19 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:clear-effects",
-        name: "エフェクトクリア",
-        description: "オーバーレイエフェクトの削除、サウンド停止、エフェクトキューのクリアを行います",
+        name: "演出クリア",
+        description: "オーバーレイ演出の削除、サウンド停止、演出キューのクリアを行います",
         icon: "fad fa-minus-circle",
         categories: ["common", "overlay", "firebot control"],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container>
-            <p>このエフェクトは現在実行中のエフェクトをクリアします。たとえばカットシーンに入る際などに便利です。エフェクトキューのパージにも使えます。</p>
+            <p>この演出は現在実行中の演出をクリアします。たとえばカットシーンに入る際などに便利です。演出キューのパージにも使えます。</p>
         </eos-container>
         <eos-container header="クリア対象">
             <firebot-checkbox
-                label="オーバーレイエフェクト"
+                label="オーバーレイ演出"
                 model="effect.overlay"
             />
             <div class="mt-0 mr-0 mb-6 ml-6" uib-collapse="!effect.overlay || !settings.getSetting('UseOverlayInstances')">
@@ -50,7 +50,7 @@ const effect: EffectType<{
                 model="effect.sounds"
             />
             <firebot-checkbox
-                label="エフェクトキュー"
+                label="演出キュー"
                 model="effect.queues"
             />
             <div uib-collapse="!effect.queues" style="margin: 0 0 15px 15px;" class="mb-6">
@@ -65,14 +65,14 @@ const effect: EffectType<{
                     </ul>
                 </div>
                 <firebot-checkbox
-                    label="キューで実行中のエフェクトリストを中止"
-                    tooltip="キューで現在実行中のエフェクトリストを中止します。"
+                    label="キューで実行中の演出リストを中止"
+                    tooltip="キューで現在実行中の演出リストを中止します。"
                     model="effect.abortActiveQueueEffectLists"
                 />
             </div>
             <firebot-checkbox
-                label="実行中のすべてのエフェクトリスト"
-                tooltip="現在実行中のすべてのエフェクトリストを中止します。"
+                label="実行中のすべての演出リスト"
+                tooltip="現在実行中のすべての演出リストを中止します。"
                 model="effect.activeEffectLists"
             />
         </eos-container>

@@ -56,8 +56,8 @@ export type DeleteUserMessagesMessageData = {
 
 export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
     id: "firebot:chat",
-    name: "Chat",
-    description: "A basic chat feed for the overlay",
+    name: "チャット",
+    description: "オーバーレイ用の基本的なチャットフィードです",
     icon: "fa fa-comments-alt",
     userCanConfigure: {
         entryAnimation: false,
@@ -66,60 +66,60 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
     settingsSchema: [
         {
             name: "showTimestamps",
-            title: "Show Timestamps",
+            title: "タイムスタンプを表示",
             type: "boolean",
             default: false
         },
         {
             name: "showAvatars",
-            title: "Show Viewer Avatars",
+            title: "視聴者のアバターを表示",
             type: "boolean",
             default: true
         },
         {
             name: "showBadges",
-            title: "Show Chat Badges",
-            description: "Show chat badges (sub, bits tiers, etc.) next to usernames",
+            title: "チャットバッジを表示",
+            description: "ユーザー名の横にチャットバッジ（サブスク、Bits のティアなど）を表示します",
             type: "boolean",
             default: true
         },
         {
             name: "showPronouns",
-            title: "Show Pronouns",
-            description: "Show chatter pronouns (provided by [https://pr.alejo.io/](https://pr.alejo.io/))",
+            title: "代名詞を表示",
+            description: "チャット参加者の代名詞を表示します（[https://pr.alejo.io/](https://pr.alejo.io/) により提供）",
             type: "boolean",
             default: false
         },
         {
             name: "showSharedChatMessages",
-            title: "Show Shared Chat Messages",
-            description: "Display chat messages sent from other channels during a shared chat session",
+            title: "共有チャットのメッセージを表示",
+            description: "共有チャットセッション中に他のチャンネルから送信されたチャットメッセージを表示します",
             type: "boolean",
             default: false
         },
         {
             name: "sharedChatInfoStyle",
-            title: "Shared Chat Info Style",
-            description: "Optionally display info about the channel a chat message was sent in during a shared chat session",
+            title: "共有チャット情報の表示スタイル",
+            description: "共有チャットセッション中、チャットメッセージが送信されたチャンネルの情報を必要に応じて表示します",
             type: "radio-cards",
             default: "none",
             options: [
                 {
                     value: "none",
-                    label: "None",
-                    description: "Don't show any info about the shared chat source channel",
+                    label: "なし",
+                    description: "共有チャットの送信元チャンネルに関する情報を表示しません",
                     iconClass: "fa-times"
                 },
                 {
                     value: "avatar",
-                    label: "Avatar",
-                    description: "Show the avatar for the source channel next to the message",
+                    label: "アバター",
+                    description: "メッセージの横に送信元チャンネルのアバターを表示します",
                     iconClass: "fa-user-circle"
                 },
                 {
                     value: "banner",
-                    label: "Banner",
-                    description: `Show a banner above the message (e.g. "Sent from Firebot's chat")`,
+                    label: "バナー",
+                    description: `メッセージの上にバナーを表示します（例: 「Firebot のチャットから送信」）`,
                     iconClass: "fa-grip-lines"
                 }
             ],
@@ -132,22 +132,22 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "showAnnouncements",
-            title: "Show Announcements",
-            description: "Display chat announcements sent from the streamer or moderators",
+            title: "アナウンスを表示",
+            description: "配信者またはモデレーターが送信したチャットのアナウンスを表示します",
             type: "boolean",
             default: false
         },
         {
             name: "delayMessages",
-            title: "Add Message Delay",
-            description: "Adds a delay between when a message arrives and when it is sent to the widget. Useful for moderation.",
+            title: "メッセージに遅延を追加",
+            description: "メッセージを受信してからウィジェットへ送信するまでに遅延を入れます。モデレーションに便利です。",
             type: "boolean",
             default: false
         },
         {
             name: "messageDelay",
-            title: "Message Delay",
-            description: "How long (in seconds) to wait before sending a chat message to the widget",
+            title: "メッセージの遅延（秒）",
+            description: "チャットメッセージをウィジェットへ送信するまでの待ち時間（秒）です",
             type: "number",
             default: 0,
             showIf: {
@@ -156,22 +156,22 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "newMessageEntryAnimation",
-            title: "New Message Entry Animation",
-            description: "Animation to use when new messages arrive",
+            title: "新着メッセージの登場アニメーション",
+            description: "新しいメッセージが届いたときに使用するアニメーションです",
             type: "animation-select",
             animationType: "enter"
         },
         {
             name: "autoRemoveMessages",
-            title: "Automatically Remove Messages",
-            description: "Removes messages from the chat widget after a specified amount of time",
+            title: "メッセージを自動的に削除",
+            description: "指定した時間が経過したメッセージをチャットウィジェットから削除します",
             type: "boolean",
             default: false
         },
         {
             name: "messageTimeout",
-            title: "Message Timeout",
-            description: "Amount of time (in seconds) to automatically remove chat messages from the widget",
+            title: "メッセージの表示時間（秒）",
+            description: "チャットメッセージをウィジェットから自動的に削除するまでの時間（秒）です",
             type: "number",
             default: 10,
             showIf: {
@@ -180,8 +180,8 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "messageExitAnimation",
-            title: "Message Exit Animation",
-            description: "Animation to use when messages are automatically removed from the widget",
+            title: "メッセージの退場アニメーション",
+            description: "メッセージがウィジェットから自動的に削除されるときに使用するアニメーションです",
             type: "animation-select",
             animationType: "exit",
             showIf: {
@@ -190,88 +190,88 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "messageStyle",
-            title: "Message Style",
+            title: "メッセージのスタイル",
             type: "radio-cards",
             default: "compact",
             options: [
                 {
                     value: "compact",
-                    label: "Compact",
-                    description: "Username and chat message are displayed on the same line",
+                    label: "コンパクト",
+                    description: "ユーザー名とチャットメッセージを同じ行に表示します",
                     iconClass: "fa-horizontal-rule"
                 },
                 {
                     value: "modern",
-                    label: "Modern (Expanded)",
-                    description: "Username and chat message are displayed on separate lines",
+                    label: "モダン（展開）",
+                    description: "ユーザー名とチャットメッセージを別の行に表示します",
                     iconClass: "fa-line-height"
                 }
             ]
         },
         {
             name: "chatOrder",
-            title: "Chat Order",
+            title: "チャットの並び順",
             type: "radio-cards",
             default: "normal",
             options: [
                 {
                     value: "normal",
-                    label: "Normal",
-                    description: "New messages will appear at the bottom of the chat feed",
+                    label: "通常",
+                    description: "新しいメッセージがチャットフィードの下に表示されます",
                     iconClass: "fa-sort-amount-down-alt"
                 },
                 {
                     value: "reversed",
-                    label: "Reversed",
-                    description: "New messages will appear at the top of the chat feed",
+                    label: "逆順",
+                    description: "新しいメッセージがチャットフィードの上に表示されます",
                     iconClass: "fa-sort-amount-up"
                 }
             ]
         },
         {
             name: "actionDisplayFormat",
-            title: "Action Display Format",
-            description: "The style used to display `/me` actions",
+            title: "アクションの表示形式",
+            description: "`/me` アクションの表示に使用するスタイルです",
             type: "radio-cards",
             default: "modern",
             options: [
                 {
                     value: "modern",
-                    label: "Modern",
-                    description: "Action text is the same color as normal chat messages but italicized, like Twitch does today",
+                    label: "モダン",
+                    description: "現在の Twitch と同様に、アクションのテキストを通常のチャットメッセージと同じ色の斜体で表示します",
                     iconClass: "fa-italic"
                 },
                 {
                     value: "classic",
-                    label: "Classic",
-                    description: "Action text is the same color as the username but not italicized, like Twitch used to do",
+                    label: "クラシック",
+                    description: "以前の Twitch と同様に、アクションのテキストをユーザー名と同じ色で、斜体にせず表示します",
                     iconClass: "fa-palette"
                 }
             ]
         },
         {
             name: "highlightStyle",
-            title: "Highlighted Message Style",
+            title: "ハイライトされたメッセージのスタイル",
             type: "radio-cards",
             default: "normal",
             options: [
                 {
                     value: "normal",
-                    label: "Normal",
-                    description: "Highlighted messages will look just like regular messages",
+                    label: "通常",
+                    description: "ハイライトされたメッセージを通常のメッセージと同じ見た目で表示します",
                     iconClass: "fa-tint-slash"
                 },
                 {
                     value: "highlighted",
-                    label: "Highlighted",
-                    description: "Highlighted messages will have a different background color, similar to how Twitch displays them",
+                    label: "ハイライト",
+                    description: "Twitch の表示と同様に、ハイライトされたメッセージの背景色を変えて表示します",
                     iconClass: "fa-tint"
                 }
             ]
         },
         {
             name: "highlightColor",
-            title: "Highlighted Message Background Color",
+            title: "ハイライトされたメッセージの背景色",
             type: "hexcolor",
             default: "#755ebc",
             allowAlpha: true,
@@ -285,8 +285,8 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "thirdPartyEmotes",
-            title: "Enabled Third-Party Emote Providers",
-            description: "NOTE: Any third-party emote services enabled here must also be enabled in Dashboard settings in order to show emotes from those services.",
+            title: "有効にするサードパーティ製エモートサービス",
+            description: "注意: ここで有効にしたサードパーティ製エモートサービスのエモートを表示するには、ダッシュボード設定でも同じサービスを有効にする必要があります。",
             type: "multiselect",
             default: [],
             settings: {
@@ -308,28 +308,28 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "hiddenUsers",
-            title: "Hidden Users",
-            description: "List of usernames whose messages will not be displayed in the chat widget",
+            title: "非表示ユーザー",
+            description: "チャットウィジェットにメッセージを表示しないユーザー名の一覧です",
             type: "editable-list",
             default: [],
             settings: {
                 useTextArea: false,
                 sortable: true,
-                addLabel: "Add Username",
-                editLabel: "Edit Username",
-                noneAddedText: "No users hidden in chat widget"
+                addLabel: "ユーザー名を追加",
+                editLabel: "ユーザー名を編集",
+                noneAddedText: "チャットウィジェットで非表示にしているユーザーはいません"
             }
         },
         {
             name: "horizontalAlignment",
-            title: "Horizontal Alignment",
-            description: "Horizontal alignment of the chat messages within the widget area.",
+            title: "水平揃え",
+            description: "ウィジェット内のチャットメッセージの水平方向の揃えを指定します。",
             type: "radio-cards",
             default: "left",
             options: [{
-                value: "left", label: "Left", iconClass: "fa-align-left"
+                value: "left", label: "左", iconClass: "fa-align-left"
             }, {
-                value: "right", label: "Right", iconClass: "fa-align-right"
+                value: "right", label: "右", iconClass: "fa-align-right"
             }],
             settings: {
                 gridColumns: 2
@@ -337,14 +337,14 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "verticalAlignment",
-            title: "Vertical Alignment",
-            description: "Vertical alignment of the chat messages within the widget area.",
+            title: "垂直揃え",
+            description: "ウィジェット内のチャットメッセージの垂直方向の揃えを指定します。",
             type: "radio-cards",
             default: "top",
             options: [{
-                value: "top", label: "Top", iconClass: "fa-arrow-to-top"
+                value: "top", label: "上", iconClass: "fa-arrow-to-top"
             }, {
-                value: "bottom", label: "Bottom", iconClass: "fa-arrow-to-bottom"
+                value: "bottom", label: "下", iconClass: "fa-arrow-to-bottom"
             }],
             settings: {
                 gridColumns: 2
@@ -352,14 +352,14 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "spaceBetweenMessages",
-            title: "Space Between Messages",
-            description: "How much space (in pixels) to put between messages in the feed",
+            title: "メッセージの間隔",
+            description: "フィード内のメッセージ同士の間隔（ピクセル）です",
             type: "number",
             default: 5
         },
         {
             name: "usernameFontOptions",
-            title: "Username Font Options",
+            title: "ユーザー名のフォント設定",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -372,7 +372,7 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
         },
         {
             name: "messageFontOptions",
-            title: "Chat Message Font Options",
+            title: "チャットメッセージのフォント設定",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -394,7 +394,7 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
     uiActions: [
         {
             id: "clear",
-            label: "Clear Chat Widget",
+            label: "チャットウィジェットをクリア",
             icon: "fa-minus-circle",
             click: () => {
                 return {
@@ -491,10 +491,10 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
                 }
 
                 if (chatMessage.isAnnouncement === true) {
-                    messageHeaderText = "Announcement";
+                    messageHeaderText = "アナウンス";
 
                     if (chatMessage.isSharedChatMessage && config.settings.sharedChatInfoStyle === "banner") {
-                        messageHeaderText += `, sent from ${chatMessage.sharedChatRoomDisplayName}'s chat`;
+                        messageHeaderText += `（${chatMessage.sharedChatRoomDisplayName} のチャットから送信）`;
                     }
 
                     const individualAnnouncementBarStyles = generateAnnouncementBarStyle(
@@ -508,7 +508,7 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
                     rootMessageElem.appendChild(announcementBarElem);
                 } else {
                     if (chatMessage.isSharedChatMessage && config.settings.sharedChatInfoStyle === "banner") {
-                        messageHeaderText = `Sent from ${chatMessage.sharedChatRoomDisplayName}'s chat`;
+                        messageHeaderText = `${chatMessage.sharedChatRoomDisplayName} のチャットから送信`;
                     }
                 }
 
@@ -551,7 +551,7 @@ export const chat: OverlayWidgetType<ChatWidgetSettings, ChatWidgetState> = {
                     const avatarElem = document.createElement("img");
                     avatarElem.classList.add(`chat-avatar-${config.id}`);
                     avatarElem.src = chatMessage.profilePicUrl!;
-                    avatarElem.alt = "avatar";
+                    avatarElem.alt = "アバター";
 
                     messageInfoElem.appendChild(avatarElem);
                 }

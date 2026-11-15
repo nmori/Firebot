@@ -13,7 +13,7 @@
             template: `
                 <div class="plugin-browser-header modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Community Plugins</h4>
+                    <h4 class="modal-title">コミュニティプラグイン</h4>
                 </div>
                 <div class="modal-body" style="padding: 0;">
                     <div class="plugin-browser-toolbar">
@@ -21,7 +21,7 @@
                             <searchbar
                                 search-id="pluginBrowserSearch"
                                 query="$ctrl.searchQuery"
-                                placeholder-text="Search community plugins..."
+                                placeholder-text="コミュニティプラグインを検索..."
                                 debounce="500"
                             />
                         </div>
@@ -35,7 +35,7 @@
                             popover-class="plugin-filters-popover"
                         >
                             <firebot-button
-                                text="Sort & Filter"
+                                text="並べ替えと絞り込み"
                                 icon="fa-sliders-h"
                                 type="default"
                             />
@@ -46,7 +46,7 @@
                         </div>
                         <script type="text/ng-template" id="pluginFiltersPopover.html">
                             <div class="plugin-filters-panel">
-                                <div class="plugin-filters-section-header muted">Sort By</div>
+                                <div class="plugin-filters-section-header muted">並べ替え</div>
                                 <div
                                     class="plugin-filters-sort-option"
                                     ng-repeat="option in $ctrl.sortOptions"
@@ -59,13 +59,13 @@
                                 </div>
                                 <hr class="divider" style="margin: 8px 0;" />
                                 <div class="plugin-filters-section-header muted" style="display: flex; align-items: center; justify-content: space-between;">
-                                    <span>Features</span>
+                                    <span>機能</span>
                                     <a
                                         class="clickable"
                                         style="text-transform: none; font-weight: 400;"
                                         ng-if="$ctrl.selectedFeatureCount() > 0"
                                         ng-click="$ctrl.clearFeatures()"
-                                    >Clear</a>
+                                    >クリア</a>
                                 </div>
                                 <firebot-checkbox
                                     ng-repeat="feature in $ctrl.features"
@@ -79,17 +79,17 @@
                     </div>
                     <div style="display: flex; flex-direction: row; height: 450px;">
                         <div class="plugin-browser-categories">
-                            <div class="plugin-browser-category-header muted">Categories</div>
+                            <div class="plugin-browser-category-header muted">カテゴリー</div>
                             <div
                                 class="plugin-browser-category"
                                 ng-class="{'selected': $ctrl.activeCategory == null}"
                                 ng-click="$ctrl.selectCategory(null)"
-                            >All</div>
+                            >すべて</div>
                             <div
                                 class="plugin-browser-category"
                                 ng-class="{'selected': $ctrl.activeCategory === 'official'}"
                                 ng-click="$ctrl.selectCategory('official')"
-                            >Official</div>
+                            >公式</div>
                             <div
                                 class="plugin-browser-category"
                                 ng-repeat="category in $ctrl.categories"
@@ -109,9 +109,9 @@
                                 class="flex flex-column items-center justify-center gap-4 p-4 my-20"
                             >
                                 <i class="fal fa-exclamation text-7xl"></i>
-                                <h2 class="text-5xl m-0 font-black">No Plugins Found</h2>
-                                <p class="text-center px-32">Well this is embarrassing. It doesn't look like we can find any plugins that match.</p>
-                                <p class="text-center px-32">But don't worry! There are still plenty of great Firebot plugins out there. Check out our <a href="https://discord.gg/crowbartools-372817064034959370">Discord</a> to see all the cool stuff our community has made.</p>
+                                <h2 class="text-5xl m-0 font-black">プラグインが見つかりません</h2>
+                                <p class="text-center px-32">お恥ずかしいことに、条件に一致するプラグインが見つかりませんでした。</p>
+                                <p class="text-center px-32">でもご安心ください！Firebot の素晴らしいプラグインはまだまだたくさんあります。コミュニティが作った素敵なものを見るには、<a href="https://discord.gg/crowbartools-372817064034959370">Discord</a> をチェックしてください。</p>
                             </div>
                             <div ng-if="!$ctrl.isLoading && $ctrl.plugins.length > 0" class="flex flex-column gap-4">
                                 <div
@@ -132,7 +132,7 @@
                                             <span
                                                 class="muted"
                                                 style="font-size: 12px;"
-                                            >by {{plugin.manifest.author}}</span>
+                                            >作者: {{plugin.manifest.author}}</span>
                                         </div>
                                         <div
                                             class="muted"
@@ -144,7 +144,7 @@
                                             class="muted"
                                             style="font-size: 13px; margin-top: 4px; line-height: 1.4; overflow-wrap: anywhere;"
                                         >
-                                            Last updated: {{$ctrl.getPluginReleaseDate(plugin)}}
+                                            最終更新日: {{$ctrl.getPluginReleaseDate(plugin)}}
                                         </div>
                                         <div
                                             ng-if="$ctrl.hasPluginLinks(plugin)"
@@ -157,7 +157,7 @@
                                                 uib-tooltip="{{plugin.manifest.repo}}"
                                                 tooltip-append-to-body="true"
                                             >
-                                                <i class="fab fa-github"></i> Source
+                                                <i class="fab fa-github"></i> ソース
                                             </a>
                                             <a
                                                 ng-if="plugin.manifest.website"
@@ -166,7 +166,7 @@
                                                 uib-tooltip="{{plugin.manifest.website}}"
                                                 tooltip-append-to-body="true"
                                             >
-                                                <i class="fas fa-globe"></i> Website
+                                                <i class="fas fa-globe"></i> Webサイト
                                             </a>
                                             <a
                                                 ng-if="plugin.manifest.support"
@@ -175,7 +175,7 @@
                                                 uib-tooltip="{{plugin.manifest.support}}"
                                                 tooltip-append-to-body="true"
                                             >
-                                                <i class="fas fa-life-ring"></i> Support
+                                                <i class="fas fa-life-ring"></i> サポート
                                             </a>
                                         </div>
                                     </div>
@@ -183,7 +183,7 @@
                                     <div style="display:flex; align-items:center; flex-shrink: 0;">
                                         <firebot-button
                                             ng-if="plugin.installed !== true && plugin.installing !== true"
-                                            text="Install"
+                                            text="インストール"
                                             type="primary"
                                             icon="fa-download"
                                             disabled="$ctrl.isInstallingPlugin"
@@ -191,14 +191,14 @@
                                         />
                                         <firebot-button
                                             ng-if="plugin.installed !== true && plugin.installing === true"
-                                            text="Installing"
+                                            text="インストール中"
                                             type="default"
                                             loading="true"
                                             disabled="true"
                                         />
                                         <firebot-button
                                             ng-if="plugin.installed === true"
-                                            text="v{{plugin.installedVersion}} Installed"
+                                            text="v{{plugin.installedVersion}} インストール済み"
                                             type="default"
                                             icon="fa-check"
                                             disabled="true"
@@ -209,7 +209,7 @@
                                     <div class="loader"></div>
                                 </div>
                                 <div ng-if="!$ctrl.hasMore()" class="text-center px-16 py-8">
-                                    For even more plugins and lots of other cool stuff our community has made, check out our <a href="https://discord.gg/crowbartools-372817064034959370">Discord</a>!
+                                    さらに多くのプラグインや、コミュニティが作ったその他の素敵なものは、<a href="https://discord.gg/crowbartools-372817064034959370">Discord</a> をチェックしてください！
                                 </div>
                             </div>
                         </div>
@@ -240,9 +240,9 @@
                 $ctrl.searchQuery = "";
                 $ctrl.sortBy = "name";
                 $ctrl.sortOptions = [
-                    { name: "Name (A-Z)", value: "name", icon: "fa-sort-alpha-down" },
-                    { name: "Popular", value: "popular", icon: "fa-fire" },
-                    { name: "Recently Updated", value: "recently-updated", icon: "fa-clock" }
+                    { name: "名前 (A-Z)", value: "name", icon: "fa-sort-alpha-down" },
+                    { name: "人気順", value: "popular", icon: "fa-fire" },
+                    { name: "最近更新", value: "recently-updated", icon: "fa-clock" }
                 ];
 
                 $ctrl.features = Object.values(PluginFeature);
@@ -375,10 +375,10 @@
                 $ctrl.getPluginReleaseDate = (plugin) => {
                     if (plugin?.manifest?.releaseDate) {
                         const releaseDate = DateTime.fromISO(plugin.manifest.releaseDate);
-                        return releaseDate.toFormat("MMMM d, yyyy");
+                        return releaseDate.toFormat("yyyy年M月d日");
                     }
 
-                    return "Unknown";
+                    return "不明";
                 };
 
                 $ctrl.hasPluginLinks = function(plugin) {
@@ -398,7 +398,7 @@
 
                         ngToast.create({
                             className: "success",
-                            content: `${result.installedPlugin.details.manifest.name} plugin installed!`
+                            content: `${result.installedPlugin.details.manifest.name} プラグインをインストールしました！`
                         });
 
                         if (!!result.installedPlugin.details.parametersSchema?.length) {

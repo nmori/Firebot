@@ -8,7 +8,7 @@ const model: RestrictionType<{
     definition: {
         id: "firebot:customvariable",
         name: "カスタム変数",
-        description: "カスタム変数エフェクトで設定したカスタム変数に基づいて制限します。",
+        description: "カスタム変数演出で設定したカスタム変数に基づいて制限します。",
         triggers: []
     },
     optionsTemplate: `

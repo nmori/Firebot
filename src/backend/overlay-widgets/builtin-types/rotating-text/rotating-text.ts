@@ -23,31 +23,31 @@ export type RotatingTextWidgetConfig = OverlayWidgetConfig<RotatingTextSettings,
 
 export const rotatingText: OverlayWidgetType<RotatingTextSettings, RotatingTextState> = {
     id: ROTATING_TEXT_TYPE_ID,
-    name: "Rotating Text",
-    description: "Cycles through a list of texts on an interval, with entry/exit animations for each text as it rotates in and out.",
+    name: "ローテーションテキスト",
+    description: "テキストの一覧を一定間隔で切り替えて表示するウィジェットです。切り替えのたびに登場・退場アニメーションを再生します。",
     icon: "fa-text",
     // The texts list is managed via the "Update Rotating Text" effect (add/remove/set)
     nonEditableSettings: ["texts"],
     settingsSchema: [
         {
             name: "texts",
-            title: "Texts",
-            description: "The list of texts to rotate through.",
+            title: "テキスト",
+            description: "切り替えて表示するテキストの一覧です。",
             type: "editable-list",
-            default: ["First message", "Second message", "Third message"],
+            default: ["1 つ目のメッセージ", "2 つ目のメッセージ", "3 つ目のメッセージ"],
             settings: {
                 useTextArea: true,
                 sortable: true,
-                addLabel: "Add Text",
-                editLabel: "Edit Text",
-                noneAddedText: "No texts added yet"
+                addLabel: "テキストを追加",
+                editLabel: "テキストを編集",
+                noneAddedText: "テキストはまだ追加されていません"
             },
             allowReplaceVariables: true
         },
         {
             name: "intervalSeconds",
-            title: "Rotation Interval (seconds)",
-            description: "How long each text is shown before rotating to the next.",
+            title: "切り替え間隔（秒）",
+            description: "次のテキストに切り替えるまで各テキストを表示する時間です。",
             type: "number",
             default: 5,
             validation: {
@@ -56,15 +56,15 @@ export const rotatingText: OverlayWidgetType<RotatingTextSettings, RotatingTextS
         },
         {
             name: "randomizeOrder",
-            title: "Randomize Order",
-            description: "Pick a random text each interval instead of cycling through them in order.",
+            title: "ランダムな順番で表示",
+            description: "順番どおりに切り替える代わりに、毎回ランダムなテキストを選びます。",
             type: "boolean",
             default: false,
             showBottomHr: true
         },
         {
             name: "fontOptions",
-            title: "Font Options",
+            title: "フォント設定",
             type: "font-options",
             default: {
                 family: "Inter",
@@ -77,15 +77,15 @@ export const rotatingText: OverlayWidgetType<RotatingTextSettings, RotatingTextS
         },
         {
             name: "horizontalAlignment",
-            title: "Horizontal Alignment",
-            description: "Horizontal alignment of the text within the widget area.",
+            title: "水平揃え",
+            description: "ウィジェット内のテキストの水平方向の揃えを指定します。",
             type: "radio-cards",
             options: [{
-                value: "left", label: "Left", iconClass: "fa-align-left"
+                value: "left", label: "左", iconClass: "fa-align-left"
             }, {
-                value: "center", label: "Center", iconClass: "fa-align-center"
+                value: "center", label: "中央", iconClass: "fa-align-center"
             }, {
-                value: "right", label: "Right", iconClass: "fa-align-right"
+                value: "right", label: "右", iconClass: "fa-align-right"
             }],
             settings: {
                 gridColumns: 3
@@ -94,15 +94,15 @@ export const rotatingText: OverlayWidgetType<RotatingTextSettings, RotatingTextS
         },
         {
             name: "verticalAlignment",
-            title: "Vertical Alignment",
-            description: "Vertical alignment of the text within the widget area.",
+            title: "垂直揃え",
+            description: "ウィジェット内のテキストの垂直方向の揃えを指定します。",
             type: "radio-cards",
             options: [{
-                value: "top", label: "Top", iconClass: "fa-arrow-to-top"
+                value: "top", label: "上", iconClass: "fa-arrow-to-top"
             }, {
-                value: "center", label: "Center", iconClass: "fa-border-center-h"
+                value: "center", label: "中央", iconClass: "fa-border-center-h"
             }, {
-                value: "bottom", label: "Bottom", iconClass: "fa-arrow-to-bottom"
+                value: "bottom", label: "下", iconClass: "fa-arrow-to-bottom"
             }],
             settings: {
                 gridColumns: 3
@@ -111,16 +111,16 @@ export const rotatingText: OverlayWidgetType<RotatingTextSettings, RotatingTextS
         },
         {
             name: "backgroundColor",
-            title: "Background Color",
-            description: "Optional background panel color behind the text.",
+            title: "背景色",
+            description: "テキストの背後に表示する背景パネルの色です（任意）。",
             type: "hexcolor",
             default: "#00000000",
             allowAlpha: true
         },
         {
             name: "backgroundBorderRadius",
-            title: "Background Border Radius",
-            description: "Optional border radius (in pixels) for the background panel.",
+            title: "背景の角丸",
+            description: "背景パネルの角丸の半径（ピクセル）です（任意）。",
             type: "number",
             default: 0,
             validation: {
@@ -129,23 +129,23 @@ export const rotatingText: OverlayWidgetType<RotatingTextSettings, RotatingTextS
         },
         {
             name: "addDropShadow",
-            title: "Add Drop Shadow",
+            title: "ドロップシャドウを付ける",
             type: "boolean",
             default: false,
             showBottomHr: true
         },
         {
             name: "textEnterAnimation",
-            title: "Text Entry Animation",
-            description: "Animation used when a text rotates in.",
+            title: "テキストの登場アニメーション",
+            description: "テキストが切り替わって表示されるときのアニメーションです。",
             type: "animation-select",
             animationType: "enter",
             default: { class: "fadeIn" }
         },
         {
             name: "textExitAnimation",
-            title: "Text Exit Animation",
-            description: "Animation used when a text rotates out.",
+            title: "テキストの退場アニメーション",
+            description: "テキストが切り替わって消えるときのアニメーションです。",
             type: "animation-select",
             animationType: "exit",
             default: { class: "fadeOut" }

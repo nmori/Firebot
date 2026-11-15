@@ -2,8 +2,8 @@ import { createPresetFilter } from "../../filter-factory";
 
 const filter = createPresetFilter({
     id: "twitch:is-gift-resub",
-    name: "Gift Resub",
-    description: "Filter by whether the resub was the result of a gift",
+    name: "ギフトによる再サブ",
+    description: "再サブがギフトによるものかどうかでフィルタ",
     events: [
         { eventSourceId: "twitch", eventId: "sub" }
     ],
@@ -11,11 +11,11 @@ const filter = createPresetFilter({
     presetValues: () => [
         {
             value: "true",
-            display: "True"
+            display: "はい"
         },
         {
             value: "false",
-            display: "False"
+            display: "いいえ"
         }
     ]
 });

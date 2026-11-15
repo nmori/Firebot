@@ -26,8 +26,8 @@ export const ToggleSourceMutedEffectType: EffectType<EffectProperties> =
         optionsTemplate: `
     <eos-container ng-show="missingSources.length > 0">
         <div class="effect-info alert alert-warning">
-            <p><b>Warning!</b>
-                Cannot find {{missingSources.length}} sources in this effect. Ensure the correct profile or scene collection is loaded in OBS, and OBS is running.
+            <p><b>警告:</b>
+                この演出内の {{missingSources.length}} 個のソースが見つかりません。OBS が起動していて、正しいプロファイルまたはシーンコレクションが読み込まれているか確認してください。
             </p>
         </div>
     </eos-container>

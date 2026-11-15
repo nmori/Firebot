@@ -4,7 +4,7 @@ const model : ReplaceVariable = {
     definition: {
         handle: "loopItem",
         usage: "loopItem",
-        description: "配列ループモードのループエフェクト内で現在のループ反復のアイテムを返します。",
+        description: "配列ループモードのループ演出内で現在のループ反復のアイテムを返します。",
         categories: ["advanced"],
         possibleDataOutput: ["number", "text"]
     },

@@ -15,14 +15,14 @@ const model : ReplaceVariable = {
             },
             {
                 usage: "effectOutput[name, null, exampleString]",
-                description: "エフェクト出力がまだ存在しない場合のデフォルト値を設定します。"
+                description: "演出出力がまだ存在しない場合のデフォルト値を設定します。"
             },
             {
                 usage: "effectOutput[name, property, exampleString]",
                 description: "指定したプロパティパスにデータがない場合のデフォルト値を設定します。"
             }
         ],
-        description: "前のエフェクトが出力したデータを取得します。",
+        description: "前の演出が出力したデータを取得します。",
         categories: ["advanced"],
         possibleDataOutput: ["number", "text"]
     },

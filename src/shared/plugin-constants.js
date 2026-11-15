@@ -19,12 +19,12 @@ const PluginCategory = Object.freeze({
  * @readonly
  */
 const PluginCategoryLabels = Object.freeze({
-    [PluginCategory.STREAM_SERVICES]: "Stream Services",
-    [PluginCategory.SOCIAL]: "Social",
-    [PluginCategory.MUSIC_AND_MEDIA]: "Music & Media",
-    [PluginCategory.GAMES]: "Games/Gaming",
-    [PluginCategory.OVERLAYS]: "Overlays",
-    [PluginCategory.TOOLS_AND_UTILITIES]: "Tools & Utilities"
+    [PluginCategory.STREAM_SERVICES]: "配信サービス",
+    [PluginCategory.SOCIAL]: "ソーシャル",
+    [PluginCategory.MUSIC_AND_MEDIA]: "音楽とメディア",
+    [PluginCategory.GAMES]: "ゲーム",
+    [PluginCategory.OVERLAYS]: "オーバーレイ",
+    [PluginCategory.TOOLS_AND_UTILITIES]: "ツールとユーティリティ"
 });
 
 /**
@@ -48,14 +48,14 @@ const PluginFeature = Object.freeze({
  * @readonly
  */
 const PluginFeatureLabels = Object.freeze({
-    [PluginFeature.EFFECTS]: "Effects",
-    [PluginFeature.EVENTS]: "Events",
-    [PluginFeature.VARIABLES]: "Variables",
-    [PluginFeature.INTEGRATIONS]: "Integrations",
-    [PluginFeature.OVERLAY_WIDGETS]: "Overlay Widgets",
-    [PluginFeature.GAMES]: "Games",
-    [PluginFeature.COMMANDS]: "Commands",
-    [PluginFeature.UI_EXTENSIONS]: "UI Extensions"
+    [PluginFeature.EFFECTS]: "演出",
+    [PluginFeature.EVENTS]: "イベント",
+    [PluginFeature.VARIABLES]: "変数",
+    [PluginFeature.INTEGRATIONS]: "連携",
+    [PluginFeature.OVERLAY_WIDGETS]: "オーバーレイウィジェット",
+    [PluginFeature.GAMES]: "ゲーム",
+    [PluginFeature.COMMANDS]: "コマンド",
+    [PluginFeature.UI_EXTENSIONS]: "UI 拡張"
 });
 
 exports.PluginCategory = PluginCategory;

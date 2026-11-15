@@ -21,11 +21,11 @@
                         </div>
 
                         <p class="help-block" style="text-align: center;">
-                            この報酬は Firebot 外部で作成されたか、古い Firebot で作成されたため、ここでは設定を変更できません。エフェクトの作成は可能です。設定を更新する場合は Twitch 側で行ってください。
+                            この報酬は Firebot 外部で作成されたか、古い Firebot で作成されたため、ここでは設定を変更できません。演出の作成は可能です。設定を更新する場合は Twitch 側で行ってください。
                         </p>
                         <collapsable-panel header="編集を有効にする / チャンネル報酬を更新する方法">
-                            <p>Firebot でこのチャンネル報酬を編集したい、または <strong>チャンネル報酬を更新</strong> エフェクトを使いたい場合は、<strong>チャンネル報酬</strong> 画面でこの報酬を <strong>複製</strong> してください。これにより、現在の設定（画像を除く）とエフェクトを維持できます。</p>
-                            <p>その後、Twitch ダッシュボードから古い報酬を削除できます。既存の <strong>チャンネル報酬を更新</strong> エフェクトは、新しく作成した報酬を参照するよう更新してください。</p>
+                            <p>Firebot でこのチャンネル報酬を編集したい、または <strong>チャンネル報酬を更新</strong> 演出を使いたい場合は、<strong>チャンネル報酬</strong> 画面でこの報酬を <strong>複製</strong> してください。これにより、現在の設定（画像を除く）と演出を維持できます。</p>
+                            <p>その後、Twitch ダッシュボードから古い報酬を削除できます。既存の <strong>チャンネル報酬を更新</strong> 演出は、新しく作成した報酬を参照するよう更新してください。</p>
                         </collapsable-panel>
                     </div>
                     <form ng-show="$ctrl.reward.manageable" name="rewardSettings" style="padding-left: 15px; padding-right: 15px;">

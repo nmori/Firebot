@@ -9,22 +9,22 @@
             template: `
                 <div class="modal-header sticky-header" style="border-bottom: 2px solid rgb(128 128 128 / 0.33);">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                    <h4 class="modal-title">Generate Community Manifest</h4>
+                    <h4 class="modal-title">コミュニティマニフェストの生成</h4>
                 </div>
 
                 <div class="modal-body mx-4 my-8">
                     <h2>{{$ctrl.plugin.details.manifest.name}}</h2>
 
-                    <p>This tool will help you generate a community plugin manifest that can be submitted to the <a href="https://github.com/crowbartools/firebot-plugins">Firebot community plugin repository</a>.</p>
+                    <p>このツールは、<a href="https://github.com/crowbartools/firebot-plugins">Firebot コミュニティプラグインリポジトリ</a>に投稿できるコミュニティプラグインマニフェストの生成を支援します。</p>
 
                     <div class="effect-info alert alert-warning">
-                        NOTE: This tool is only intended for the developer of a plugin planning to submit a manifest to the community plugin repository.
-                        If you are not the author of this plugin, or you do not plan on publishing it, this tool is not for you.
+                        注意: このツールは、コミュニティプラグインリポジトリにマニフェストを投稿する予定のプラグイン開発者のみを対象としています。
+                        このプラグインの作者でない場合や、公開する予定がない場合は、このツールを使用する必要はありません。
                     </div>
 
                     <div ng-if="$ctrl.isValidPlugin === true">
                         <div class="form-group">
-                            <h4 class="control-label">Plugin Category</h4>
+                            <h4 class="control-label">プラグインのカテゴリー</h4>
 
                             <firebot-select
                                 options="$ctrl.availableCategories"
@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="form-group">
-                            <h4 class="control-label">Features</h4>
+                            <h4 class="control-label">機能</h4>
 
                             <multiselect-list
                                 model="$ctrl.features"
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="form-group">
-                            <h4 class="control-label">Tags</h4>
+                            <h4 class="control-label">タグ</h4>
 
                             <editable-tags
                                 model="$ctrl.tags"
@@ -56,10 +56,10 @@
                         </div>
 
                         <div class="form-group">
-                            <h4 class="control-label">Direct Download URL</h4>
+                            <h4 class="control-label">直接ダウンロード URL</h4>
 
                             <firebot-input
-                                placeholder-text="Enter URL"
+                                placeholder-text="URL を入力"
                                 disable-variables="true"
                                 model="$ctrl.downloadUrl"
                                 on-input-update="$ctrl.generateManifest()"
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="form-group">
-                            <h4 class="control-label">Release Date</h4>
+                            <h4 class="control-label">リリース日</h4>
 
                             <div class="input-group">
                                 <input
@@ -87,24 +87,24 @@
                             </div>
                         </div>
 
-                        <h3 class="mt-8">Suggested Manifest Path</h3>
+                        <h3 class="mt-8">推奨マニフェストパス</h3>
                         <p>
-                            This is a suggested file path for your community plugin manifest.
-                            You do not need to use this exact path name when creating and submitting your community plugin manifest, but whatever file path you use must conform to the naming standards outlined in the <a href="https://github.com/crowbartools/firebot-plugins/blob/main/CONTRIBUTING.md">community plugin contribution guidelines</a>.
+                            これはコミュニティプラグインマニフェストの推奨ファイルパスです。
+                            コミュニティプラグインマニフェストを作成・投稿する際にこのパス名をそのまま使う必要はありませんが、使用するファイルパスは<a href="https://github.com/crowbartools/firebot-plugins/blob/main/CONTRIBUTING.md">コミュニティプラグインの投稿ガイドライン</a>に記載された命名規則に従う必要があります。
                         </p>
                         <div class="px-8 py-4" style="font-family: monospace; background-color: #0003">
                             {{$ctrl.suggestedManifestPath}}
                         </div>
 
-                        <h3 class="mt-8">Community Plugin Manifest</h3>
+                        <h3 class="mt-8">コミュニティプラグインマニフェスト</h3>
                         <p>
-                            Please review this manifest throughly <strong>BEFORE</strong> submitting.
-                            It must fully conform to the <a href="https://github.com/crowbartools/firebot-plugins/blob/main/CONTRIBUTING.md">community plugin contribution guidelines</a>.
-                            Also, once it has been approved and merged, <strong>it cannot be edited</strong>.
+                            投稿する<strong>前に</strong>、このマニフェストを十分に確認してください。
+                            マニフェストは<a href="https://github.com/crowbartools/firebot-plugins/blob/main/CONTRIBUTING.md">コミュニティプラグインの投稿ガイドライン</a>に完全に従っている必要があります。
+                            また、承認されてマージされた後は<strong>編集できません</strong>。
                         </p>
 
                         <firebot-button
-                            text="Copy Manifest to Clipboard"
+                            text="マニフェストをクリップボードにコピー"
                             icon="far fa-copy"
                             type="primary"
                             ng-click="$ctrl.copyManifest()"
@@ -119,9 +119,9 @@
                     </div>
 
                     <div ng-if="$ctrl.isValidPlugin !== true" class="text-center mx-12">
-                        This tool cannot automatically generate a community plugin manifest for the selected plugin.
-                        {{$ctrl.validationFailureReason}}
-                        Please review the <a href="https://github.com/crowbartools/firebot-plugins/blob/main/CONTRIBUTING.md">community plugin contribution guidelines</a> for more information on valid plugin manifest data.
+                        このツールでは、選択したプラグインのコミュニティプラグインマニフェストを自動生成できません。
+                        {{$ctrl.validationFailureMessage}}
+                        有効なプラグインマニフェストデータの詳細については、<a href="https://github.com/crowbartools/firebot-plugins/blob/main/CONTRIBUTING.md">コミュニティプラグインの投稿ガイドライン</a>を確認してください。
                     </div>
                 </div>
             `,
@@ -134,30 +134,30 @@
                 const $ctrl = this;
 
                 $ctrl.availableCategories = {
-                    "stream-services": "Stream Services",
-                    "social": "Social",
-                    "music-media": "Music & Media",
-                    "games": "Games/Gaming",
-                    "overlays": "Overlays",
-                    "tools-utilities": "Tools & Utilities"
+                    "stream-services": "配信サービス",
+                    "social": "ソーシャル",
+                    "music-media": "音楽とメディア",
+                    "games": "ゲーム",
+                    "overlays": "オーバーレイ",
+                    "tools-utilities": "ツールとユーティリティ"
                 };
 
                 $ctrl.availableFeatures = [
-                    { id: "effects", name: "Effects" },
-                    { id: "events", name: "Events" },
-                    { id: "variables", name: "Variables" },
-                    { id: "integrations", name: "Integrations" },
-                    { id: "overlay-widgets", name: "Overlay Widgets" },
-                    { id: "games", name: "Games" },
-                    { id: "commands", name: "Commands" },
-                    { id: "ui-extensions", name: "UI Extensions" }
+                    { id: "effects", name: "演出" },
+                    { id: "events", name: "イベント" },
+                    { id: "variables", name: "変数" },
+                    { id: "integrations", name: "連携" },
+                    { id: "overlay-widgets", name: "オーバーレイウィジェット" },
+                    { id: "games", name: "ゲーム" },
+                    { id: "commands", name: "コマンド" },
+                    { id: "ui-extensions", name: "UI 拡張" }
                 ];
 
                 $ctrl.tagOptions = {
                     useTextArea: false,
-                    addLabel: "Add Tag",
-                    editLabel: "Edit Tag",
-                    validationText: "Tag cannot be empty",
+                    addLabel: "タグを追加",
+                    editLabel: "タグを編集",
+                    validationText: "タグは空にできません",
                     noDuplicates: true
                 };
 
@@ -219,13 +219,13 @@
                         safeVersion = regexResult[1];
                     } else {
                         $ctrl.isValidPlugin = false;
-                        $ctrl.validationFailureMessage = "Your plugin has an invalid version string.";
+                        $ctrl.validationFailureMessage = "プラグインのバージョン文字列が無効です。";
                         return;
                     }
 
                     if (safeVersion !== $ctrl.plugin.details.manifest.version) {
                         $ctrl.isValidPlugin = false;
-                        $ctrl.validationFailureMessage = "Preview plugin versions are not supported.";
+                        $ctrl.validationFailureMessage = "プレビュー版のプラグインはサポートされていません。";
                         return;
                     }
 
@@ -256,7 +256,7 @@
                 };
 
                 $ctrl.copyManifest = () => {
-                    $rootScope.copyTextToClipboard($ctrl.generatedManifest, { show: true, message: "Copied community manifest to clipboard" });
+                    $rootScope.copyTextToClipboard($ctrl.generatedManifest, { show: true, message: "コミュニティマニフェストをクリップボードにコピーしました" });
                 };
 
                 $ctrl.$onInit = () => {

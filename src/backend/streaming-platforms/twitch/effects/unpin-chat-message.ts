@@ -7,15 +7,15 @@ const logger = LoggerCache.getLogger("Effects");
 const effect: EffectType = {
     definition: {
         id: "firebot:unpin-chat-message",
-        name: "Unpin Chat Message",
-        description: "Unpin the currently pinned chat message",
+        name: "チャットメッセージのピン留め解除",
+        description: "現在ピン留めされているチャットメッセージのピン留めを解除します",
         icon: "fas fa-comment-slash",
         categories: ["chat based", "advanced", "twitch"],
         dependencies: ["chat"]
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect unpins the currently pinned chat message from the top of chat</p>
+            <p>この演出は、チャットの上部に現在ピン留めされているチャットメッセージのピン留めを解除します</p>
         </eos-container>
     `,
     onTriggerEvent: async () => {

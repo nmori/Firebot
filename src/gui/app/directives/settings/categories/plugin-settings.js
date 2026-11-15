@@ -27,28 +27,28 @@
                             </div>
                             <div style="flex-grow: 1; min-width: 0;">
                                 <div style="font-weight: 600; font-size: 15px;" ng-if="isScriptingEnabled()">
-                                    Plugins &amp; Scripts are enabled
+                                    プラグインとスクリプトは有効です
                                 </div>
                                 <div style="font-weight: 600; font-size: 15px;" ng-if="!isScriptingEnabled()">
-                                    Plugins &amp; Scripts are disabled
+                                    プラグインとスクリプトは無効です
                                 </div>
                                 <div class="muted" style="font-size: 13px; margin-top: 2px;" ng-if="isScriptingEnabled()">
-                                    Firebot will load installed plugins on startup and allow the Run Custom Script effect to execute.
+                                    Firebot は起動時にインストール済みのプラグインを読み込み、「カスタムスクリプトの実行」演出の実行を許可します。
                                 </div>
                                 <div class="muted" style="font-size: 13px; margin-top: 2px;" ng-if="!isScriptingEnabled()">
-                                    Installed plugins won't load and the Run Custom Script effect will be skipped. Only enable this if you trust the scripts you install.
+                                    インストール済みのプラグインは読み込まれず、「カスタムスクリプトの実行」演出はスキップされます。インストールするスクリプトを信頼できる場合のみ有効にしてください。
                                 </div>
                             </div>
                             <div style="flex-shrink: 0;">
                                 <firebot-button
                                     ng-if="isScriptingEnabled()"
-                                    text="Disable"
+                                    text="無効化"
                                     type="default"
                                     ng-click="setScriptingEnabled(false)"
                                 />
                                 <firebot-button
                                     ng-if="!isScriptingEnabled()"
-                                    text="Enable"
+                                    text="有効化"
                                     type="default"
                                     ng-click="setScriptingEnabled(true)"
                                 />
@@ -56,16 +56,16 @@
                         </div>
                     </div>
                     <div class="muted" style="font-size: 12px; padding: 0 4px 20px;">
-                        <p>Plugins are scripts loaded at startup that can register new effects, variables, events, and more.</p>
-                        <p>Want to write your own plugins? Learn how <a
+                        <p>プラグインは起動時に読み込まれるスクリプトで、新しい演出、変数、イベントなどを登録できます。</p>
+                        <p>独自のプラグインを作成したい場合は、<a
                             class="clickable"
                             ng-click="openLink('https://docs.firebot.app/v5/dev/scripts')"
-                        >here</a>.</p>
+                        >こちら</a>で方法を確認できます。</p>
                     </div>
 
                     <div ng-if="getPluginsWithPendingUpdates().length > 0" class="mb-12">
                         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 10px;">
-                            <h3 style="margin: 0;">Plugins Ready to Update</h3>
+                            <h3 style="margin: 0;">更新可能なプラグイン</h3>
                         </div>
 
                         <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -86,20 +86,20 @@
                                         style="font-size: 13px; margin-top: 4px; line-height: 1.4; overflow-wrap: anywhere;"
                                         ng-if="plugin.details.manifest.description"
                                     >
-                                        Installed version: v{{plugin.details.manifest.version}}
+                                        インストール済みバージョン: v{{plugin.details.manifest.version}}
                                     </div>
                                     <div
                                         class="muted"
                                         style="font-size: 13px; margin-top: 4px; line-height: 1.4; overflow-wrap: anywhere;"
                                         ng-if="plugin.details.manifest.description"
                                     >
-                                        Available version: v{{pendingUpdateDetails(plugin).version}}
+                                        利用可能なバージョン: v{{pendingUpdateDetails(plugin).version}}
                                     </div>
                                 </div>
 
                                 <div style="display:flex; align-items:center; gap: 6px; flex-shrink: 0;">
                                     <firebot-button
-                                        text="Download Update"
+                                        text="更新をダウンロード"
                                         type="default"
                                         size="small"
                                         disabled="$scope.installingUpdate === true"
@@ -107,7 +107,7 @@
                                         ng-click="updateCommunityPlugin(plugin)"
                                     />
                                     <firebot-button
-                                        text="Updating..."
+                                        text="更新中..."
                                         type="default"
                                         size="small"
                                         disabled="true"
@@ -120,17 +120,17 @@
 
                     <div>
                         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 10px;">
-                            <h3 style="margin: 0;">Installed Plugins</h3>
+                            <h3 style="margin: 0;">インストール済みのプラグイン</h3>
                             <div style="display: flex; gap: 8px;">
                                 <firebot-button
-                                    text="Install From File"
+                                    text="ファイルからインストール"
                                     type="default"
                                     icon="fa-plus"
                                     ng-click="installPluginFromFile()"
                                     disabled="!settings.getSetting('RunCustomScripts')"
                                 />
                                 <firebot-button
-                                    text="Browse Plugins"
+                                    text="プラグインを探す"
                                     type="primary"
                                     icon="fa-search"
                                     ng-click="showCommunityPluginModal()"
@@ -140,7 +140,7 @@
                         </div>
 
                         <div ng-if="getPlugins().length === 0" class="muted" style="padding: 30px 20px; border: 1px dashed rgba(255,255,255,0.1); border-radius: 8px; text-align:center;">
-                            No plugins installed. Click <b>Install Plugin</b> to add one.
+                            インストールされているプラグインはありません。<b>プラグインを探す</b> または <b>ファイルからインストール</b> をクリックして追加してください。
                         </div>
 
                         <div ng-if="getPlugins().length > 0" style="display: flex; flex-direction: column; gap: 10px;">
@@ -164,15 +164,15 @@
                                             class="muted"
                                             style="font-size: 12px;"
                                             ng-if="plugin.details.manifest.author"
-                                        >by {{plugin.details.manifest.author}}</span>
+                                        >作者: {{plugin.details.manifest.author}}</span>
                                         <span
                                             ng-if="plugin.config.communityPluginDetails != null"
                                             style="font-size: 11px; padding: 1px 8px; border-radius: 10px; background: rgba(0,208,255,0.18); color: #00d0ff;"
-                                        >Community</span>
+                                        >コミュニティ</span>
                                         <span
                                             ng-if="plugin.config.enabled === false"
                                             style="font-size: 11px; padding: 1px 8px; border-radius: 10px; background: rgba(217,146,17,0.18); color: #d99211;"
-                                        >Disabled</span>
+                                        >無効</span>
                                     </div>
                                     <div
                                         class="muted"
@@ -192,7 +192,7 @@
                                             uib-tooltip="{{plugin.details.manifest.repo}}"
                                             tooltip-append-to-body="true"
                                         >
-                                            <i class="fab fa-github"></i> Source
+                                            <i class="fab fa-github"></i> ソース
                                         </a>
                                         <a
                                             ng-if="plugin.details.manifest.website"
@@ -201,7 +201,7 @@
                                             uib-tooltip="{{plugin.details.manifest.website}}"
                                             tooltip-append-to-body="true"
                                         >
-                                            <i class="fas fa-globe"></i> Website
+                                            <i class="fas fa-globe"></i> Webサイト
                                         </a>
                                         <a
                                             ng-if="plugin.details.manifest.support"
@@ -210,26 +210,26 @@
                                             uib-tooltip="{{plugin.details.manifest.support}}"
                                             tooltip-append-to-body="true"
                                         >
-                                            <i class="fas fa-life-ring"></i> Support
+                                            <i class="fas fa-life-ring"></i> サポート
                                         </a>
                                     </div>
                                 </div>
 
                                 <div style="display:flex; align-items:center; gap: 6px; flex-shrink: 0;">
                                     <firebot-button
-                                        text="Configure"
+                                        text="設定"
                                         type="default"
                                         size="small"
                                         ng-click="configurePlugin(plugin)"
                                     />
                                     <button
-                                        aria-label="Open Plugin Menu"
+                                        aria-label="プラグインメニューを開く"
                                         class="noselect clickable plugin-card-menu-btn"
                                         context-menu="pluginMenuOptions(plugin)"
                                         context-menu-on="click"
                                         context-menu-class="angular-context-menu"
                                         context-menu-orientation="left"
-                                        uib-tooltip="More options"
+                                        uib-tooltip="その他のオプション"
                                         tooltip-append-to-body="true"
                                         style="background: transparent; border: none; padding: 4px 10px; font-size: 18px; line-height: 1;"
                                     >
@@ -336,7 +336,7 @@
 
                     const options = [
                         {
-                            html: `<a href><i class="far ${isEnabled ? 'fa-toggle-off' : 'fa-toggle-on'}" style="margin-right: 10px;"></i> ${isEnabled ? 'Disable' : 'Enable'}</a>`,
+                            html: `<a href><i class="far ${isEnabled ? 'fa-toggle-off' : 'fa-toggle-on'}" style="margin-right: 10px;"></i> ${isEnabled ? '無効化' : '有効化'}</a>`,
                             click: () => {
                                 $scope.togglePluginEnabled(plugin);
                             }
@@ -345,7 +345,7 @@
 
                     if (isCommunityPlugin !== true) {
                         options.push({
-                            html: `<a href><i class="far fa-sync" style="margin-right: 10px;"></i> Update</a>`,
+                            html: `<a href><i class="far fa-sync" style="margin-right: 10px;"></i> 更新</a>`,
                             click: () => {
                                 $scope.updatePlugin(plugin);
                             }
@@ -353,7 +353,7 @@
                     }
 
                     options.push({
-                        html: `<a href style="color: #d9534f;"><i class="far fa-trash" style="margin-right: 10px;"></i> Remove</a>`,
+                        html: `<a href style="color: #d9534f;"><i class="far fa-trash" style="margin-right: 10px;"></i> 削除</a>`,
                         click: () => {
                             $scope.removePlugin(plugin);
                         }
@@ -361,11 +361,11 @@
 
                     if (isCommunityPlugin !== true) {
                         options.push({
-                            text: `Developer Tools`,
+                            text: `開発者ツール`,
                             hasTopDivider: true,
                             children: [
                                 {
-                                    html: `<a href><i class="far fa-brackets-curly" style="margin-right: 10px;"></i>  Generate Community Manifest</a>`,
+                                    html: `<a href><i class="far fa-brackets-curly" style="margin-right: 10px;"></i>  コミュニティマニフェストを生成</a>`,
                                     click: () => {
                                         $scope.openGenerateCommunityManifestModal(plugin);
                                     }
@@ -381,14 +381,14 @@
                     return $q.when(pluginsService.installPluginFromFile(filePath, overwrite))
                         .then((result) => {
                             if (!result) {
-                                ngToast.create("Plugin install failed.");
+                                ngToast.create("プラグインのインストールに失敗しました。");
                                 return;
                             }
                             if (result.conflict) {
                                 modalFactory.showConfirmationModal({
-                                    title: "Plugin File Already Exists",
-                                    question: `${result.error} Overwrite it?`,
-                                    confirmLabel: "Overwrite",
+                                    title: "プラグインファイルは既に存在します",
+                                    question: `${result.error} 上書きしますか？`,
+                                    confirmLabel: "上書き",
                                     confirmBtnType: "btn-warning"
                                 }).then((confirmed) => {
                                     if (confirmed) {
@@ -398,14 +398,14 @@
                                 return;
                             }
                             if (result.success === false) {
-                                modalFactory.showErrorModal(result.error || "Failed to install plugin.");
+                                modalFactory.showErrorModal(result.error || "プラグインのインストールに失敗しました。");
                                 return;
                             }
 
                             const pluginName = $scope.getPluginName(result.installedPlugin);
                             ngToast.create({
                                 className: "success",
-                                content: `${pluginName} plugin installed!`
+                                content: `${pluginName} プラグインをインストールしました！`
                             });
 
                             if (!!result.installedPlugin.details.parametersSchema?.length) {
@@ -418,8 +418,8 @@
                     $q.when(backendCommunicator.fireEventAsync("open-file-browser", {
                         currentPath: profileManager.getPathInProfile("/scripts"),
                         options: {
-                            title: "Select Plugin",
-                            buttonLabel: "Select",
+                            title: "プラグインを選択",
+                            buttonLabel: "選択",
                             filters: [{ name: "JavaScript", extensions: ["js"] }]
                         }
                     })).then((response) => {
@@ -441,14 +441,14 @@
                     return $q.when(pluginsService.updatePluginFromFile(plugin.config.id, filePath, overwrite))
                         .then((result) => {
                             if (!result) {
-                                ngToast.create("Plugin update failed.");
+                                ngToast.create("プラグインの更新に失敗しました。");
                                 return;
                             }
                             if (result.conflict) {
                                 modalFactory.showConfirmationModal({
-                                    title: "Plugin File Already Exists",
-                                    question: `${result.error} Overwrite it?`,
-                                    confirmLabel: "Overwrite",
+                                    title: "プラグインファイルは既に存在します",
+                                    question: `${result.error} 上書きしますか？`,
+                                    confirmLabel: "上書き",
                                     confirmBtnType: "btn-warning"
                                 }).then((confirmed) => {
                                     if (confirmed) {
@@ -458,13 +458,13 @@
                                 return;
                             }
                             if (result.success === false) {
-                                modalFactory.showErrorModal(result.error || "Failed to update plugin.");
+                                modalFactory.showErrorModal(result.error || "プラグインの更新に失敗しました。");
                                 return;
                             }
                             pluginsService.loadPlugins();
                             ngToast.create({
                                 className: "success",
-                                content: `Plugin '${plugin.details && plugin.details.name ? plugin.details.name : plugin.config.fileName}' updated.`
+                                content: `プラグイン「${plugin.details && plugin.details.name ? plugin.details.name : plugin.config.fileName}」を更新しました。`
                             });
                         });
                 }
@@ -476,8 +476,8 @@
                     $q.when(backendCommunicator.fireEventAsync("open-file-browser", {
                         currentPath: profileManager.getPathInProfile("/scripts"),
                         options: {
-                            title: "Select New Plugin",
-                            buttonLabel: "Select",
+                            title: "新しいプラグインを選択",
+                            buttonLabel: "選択",
                             filters: [{ name: "JavaScript", extensions: ["js"] }]
                         }
                     })).then((response) => {
@@ -509,14 +509,14 @@
                     if (result.success !== true) {
                         ngToast.create({
                             className: "warn",
-                            content: `Plugin update failed (${result.error}). Check log for more info.`
+                            content: `プラグインの更新に失敗しました (${result.error})。詳細はログを確認してください。`
                         });
                         return;
                     }
 
                     ngToast.create({
                         className: "success",
-                        content: `${plugin.details.manifest.name} plugin updated to v${pluginUpdate.version}`
+                        content: `${plugin.details.manifest.name} プラグインを v${pluginUpdate.version} に更新しました`
                     });
                 };
             }

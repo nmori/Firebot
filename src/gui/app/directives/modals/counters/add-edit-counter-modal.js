@@ -39,7 +39,7 @@
 
                 <collapsable-panel header="使い方">
                     <h3 class="use-title">使い方:</h3>
-                    <p>- コマンドやボタン等の <b>Update Counter</b> エフェクトでこのカウンタを自動更新できます。</p>
+                    <p>- コマンドやボタン等の <b>Update Counter</b> 演出でこのカウンタを自動更新できます。</p>
                     <p>- <b>$counter[{{$ctrl.counter.name}}]</b> でこのカウンタの値を参照できます。</p>
                     <p>- カウンタごとに値を保存する txt ファイルが作成されます。配信ソフトに読み込むことで配信画面に表示できます。</p>
                     <div><b>このカウンタの txt ファイルパス:</b></div>
@@ -54,8 +54,8 @@
                 </collapsable-panel>
 
                 <div class="mt-12">
-                    <h3>更新時のエフェクト</h3>
-                    <p>これらのエフェクトは <b>Update Counter</b> によりカウンタ値が更新されるたびに実行されます{{$ctrl.counter.minimum != null || $ctrl.counter.maximum != null ? '（ただし最小値または最大値に達した場合を除く）' : ''}}。</p>
+                    <h3>更新時の演出</h3>
+                    <p>これらの演出は <b>Update Counter</b> によりカウンタ値が更新されるたびに実行されます{{$ctrl.counter.minimum != null || $ctrl.counter.maximum != null ? '（ただし最小値または最大値に達した場合を除く）' : ''}}。</p>
                     <effect-list
                         header="カウンタ更新時に実行する内容"
                         effects="$ctrl.counter.updateEffects"
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="mt-12" ng-show="$ctrl.counter.minimum !== undefined && $ctrl.counter.minimum !== null">
-                    <h3>最小値到達時のエフェクト</h3>
+                    <h3>最小値到達時の演出</h3>
                     <p>最小値に達したときに実行されます。</p>
                     <effect-list
                         header="最小値到達時に実行する内容"
@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="mt-12" ng-show="$ctrl.counter.maximum !== undefined && $ctrl.counter.maximum !== null">
-                    <h3>最大値到達時のエフェクト</h3>
+                    <h3>最大値到達時の演出</h3>
                     <p>最大値に達したときに実行されます。</p>
                     <effect-list
                         header="最大値到達時に実行する内容"

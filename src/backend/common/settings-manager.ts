@@ -46,7 +46,7 @@ const FirebotSettingsDefaults: FirebotSettingsTypes = {
         "streamelements:donation",
         "twitch:channel-reward-redemption"
     ],
-    AudioOutputDevice: { label: "System Default", deviceId: "default" },
+    AudioOutputDevice: { label: "システム既定", deviceId: "default" },
     AutoFlagBots: true,
     AutoUpdateLevel: 2,
     BackupBeforeUpdates: true,

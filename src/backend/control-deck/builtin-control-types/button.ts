@@ -8,8 +8,8 @@ type ButtonParams = {
 
 export const buttonControlType: ControlDeckControlType<ButtonParams> = {
     id: CONTROL_DECK_BUTTON_TYPE_ID,
-    name: "Button",
-    description: "A button that runs effects when pressed",
+    name: "ボタン",
+    description: "押すと演出を実行するボタン",
     icon: "fa-square",
     enableIcon: true,
     enableBackground: true,
@@ -18,7 +18,7 @@ export const buttonControlType: ControlDeckControlType<ButtonParams> = {
     settingsSchema: [
         {
             name: "effects",
-            title: "On Press",
+            title: "押したとき",
             type: "effectlist",
             default: undefined
         }

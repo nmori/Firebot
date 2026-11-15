@@ -49,7 +49,7 @@
 
             service.showAddEditDeckModal = (deck) => {
                 modalService.showModal({
-                    breadcrumbName: deck ? "Edit Deck" : "Add Deck",
+                    breadcrumbName: deck ? "デッキを編集" : "デッキを追加",
                     component: "addOrEditControlDeckModal",
                     size: "lg",
                     resolveObj: {
@@ -77,9 +77,9 @@
             service.confirmDeleteDeck = (deck) => {
                 modalFactory
                     .showConfirmationModal({
-                        title: "Delete Control Deck",
-                        question: `Are you sure you want to delete the Control Deck "${deck.name}"?`,
-                        confirmLabel: "Delete",
+                        title: "コントロールデッキを削除",
+                        question: `コントロールデッキ「${deck.name}」を削除してもよろしいですか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {

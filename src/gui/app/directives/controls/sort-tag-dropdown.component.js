@@ -36,7 +36,7 @@
                         role="menuitem"
                         ng-click="sts.setSelectedSortTag($ctrl.context, null)"
                     >
-                        <a href>All {{$ctrl.context}}</a>
+                        <a href>すべての{{sts.getContextDisplayName($ctrl.context)}}</a>
                     </li>
                     <li
                         class="divider"

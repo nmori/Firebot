@@ -67,7 +67,7 @@ const model: EffectType<{
             </div>
 
             <div style="padding-top:20px">
-                <label class="control-fb control--checkbox"> サウンドの終了を待つ <tooltip text="'サウンドの再生が終わるまで、次のエフェクトの再生を待ちます。'"></tooltip>
+                <label class="control-fb control--checkbox"> サウンドの終了を待つ <tooltip text="'サウンドの再生が終わるまで、次の演出の再生を待ちます。'"></tooltip>
                     <input type="checkbox" ng-model="effect.waitForSound">
                     <div class="control__indicator"></div>
                 </label>

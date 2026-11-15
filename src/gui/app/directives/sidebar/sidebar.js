@@ -33,7 +33,7 @@
                                 <nav-link ng-repeat="page in $ctrl.extensionPages()" extension-id="page.extensionId" extension-page-id="page.id" custom-href="{{page.href}}" page="{{page.href}}" name="{{ page.name }}" icon="{{page.icon}}"></nav-link>
                             </div>
 
-                            <nav-category name="{{'SIDEBAR.MANAGEMENT' | translate }}" pad-top="true"></nav-category>
+                            <nav-category name="{{'SIDEBAR.MANAGEMENT.MANAGEMENT' | translate }}" pad-top="true"></nav-category>
                             <nav-link page="Effect Queues" name="{{ 'SIDEBAR.OTHER.EFFECT_QUEUES' | translate }}" icon="fa-stream"></nav-link>
                             <nav-link page="Variable Macros" name="変数マクロ" icon="fa-brackets"></nav-link>
                             <nav-link page="Quotes" name="{{'SIDEBAR.MANAGEMENT.QUOTES' | translate }}" icon="fa-quote-right"></nav-link>

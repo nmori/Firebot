@@ -27,7 +27,7 @@ const effect: EffectType<{
     definition: {
         id: "firebot:runcommand",
         name: "コマンド実行",
-        description: "選択したカスタムコマンドに保存されたエフェクトを実行します。",
+        description: "選択したカスタムコマンドに保存された演出を実行します。",
         icon: "fad fa-exclamation-square",
         categories: ["advanced", "firebot control"],
         dependencies: []
@@ -77,7 +77,7 @@ const effect: EffectType<{
 
         <eos-container>
             <div class="effect-info alert alert-info" pad-top="true">
-                注意: 制限を強制した場合や、選択したコマンド内のエフェクトが $arg などのコマンド固有の値に依存している場合は、チャットイベント以外のコンテキストで実行すると意図しない結果になることがあります。
+                注意: 制限を強制した場合や、選択したコマンド内の演出が $arg などのコマンド固有の値に依存している場合は、チャットイベント以外のコンテキストで実行すると意図しない結果になることがあります。
             </div>
         </eos-container>
     `,

@@ -29,7 +29,7 @@ type Controller = {
                 <img
                     ng-if="$ctrl.pluginIcon.type === 'custom'"
                     ng-src="{{$ctrl.pluginIcon.url}}"
-                    alt="Plugin Icon"
+                    alt="プラグインアイコン"
                     style="max-width: 24px; max-height: 24px; width: auto; height: auto; object-fit: contain;"
                 />
             </div>

@@ -23,7 +23,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "エフェクト",
+                    name: "演出",
                     icon: "fa-magic",
                     cellTemplate: `{{data.effects ? data.effects.list.length : 0}}`,
                     cellController: () => {}
@@ -49,8 +49,8 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "プリセットエフェクトリストを削除",
-                                    question: `プリセットエフェクトリスト "${item.name}" を削除してもよろしいですか？`,
+                                    title: "プリセット演出リストを削除",
+                                    question: `プリセット演出リスト "${item.name}" を削除してもよろしいですか？`,
                                     confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })

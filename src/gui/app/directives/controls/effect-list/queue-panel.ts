@@ -43,7 +43,7 @@ type Controller = {
             <effect-config-panel
                 icon="fa-stream"
                 label="キュー"
-                tooltip="エフェクトキューを使うと、エフェクト同士が重ならないように順番に実行できます。特にイベントで便利です。"
+                tooltip="演出キューを使うと、演出同士が重ならないように順番に実行できます。特にイベントで便利です。"
                 main-value="$ctrl.mainValue"
                 preview-items="$ctrl.previewItems"
                 no-bottom-margin="true"
@@ -64,7 +64,7 @@ type Controller = {
                     <div class="config-control-label">
                         <i class="far fa-arrow-up"></i>
                         <span>優先度</span>
-                        <tooltip role="tooltip" aria-label="エフェクトリストを優先にすると、優先設定されていない他のリストより前にキューへ追加されます。" text="'エフェクトリストを優先にすると、優先設定されていない他のリストより前にキューへ追加されます。'"></tooltip>
+                        <tooltip role="tooltip" aria-label="演出リストを優先にすると、優先設定されていない他のリストより前にキューへ追加されます。" text="'演出リストを優先にすると、優先設定されていない他のリストより前にキューへ追加されます。'"></tooltip>
                     </div>
                     <div>
                         <toggle-button
@@ -78,14 +78,14 @@ type Controller = {
                 <div class="config-panel-control" ng-if="$ctrl.getSelectedQueueModeIsCustom()">
                     <div class="config-control-label">
                         <i class="far fa-clock"></i>
-                        <span>エフェクト実行時間</span>
-                        <tooltip role="tooltip" aria-label="このエフェクトリスト実行後に次を実行するまで、キューが待機する秒数です。" text="'このエフェクトリスト実行後に次を実行するまで、キューが待機する秒数です。'"></tooltip>
+                        <span>演出実行時間</span>
+                        <tooltip role="tooltip" aria-label="この演出リスト実行後に次を実行するまで、キューが待機する秒数です。" text="'この演出リスト実行後に次を実行するまで、キューが待機する秒数です。'"></tooltip>
                     </div>
                     <div class="config-control-input">
                         <button
                             class="config-duration-btn"
                             ng-click="$ctrl.openEditQueueDurationModal()"
-                            aria-label="エフェクト実行時間: {{$ctrl.effectsData.queueDuration || 0}} 秒"
+                            aria-label="演出実行時間: {{$ctrl.effectsData.queueDuration || 0}} 秒"
                             role="button"
                         >
                             <span class="config-duration-value">{{$ctrl.effectsData.queueDuration || 0}}s</span>
@@ -135,7 +135,7 @@ type Controller = {
                 $ctrl.mainValue = {
                     icon: queue ? modeInfo?.iconClass ?? "fa-stream" : 'fa-ban',
                     label: $ctrl.getSelectedEffectQueueName(),
-                    tooltip: (modeInfo?.description ? `${modeInfo.label} キュー: ${modeInfo.description}` : null) ?? "このエフェクトリストはトリガー時に即時実行されます。"
+                    tooltip: (modeInfo?.description ? `${modeInfo.label} キュー: ${modeInfo.description}` : null) ?? "この演出リストはトリガー時に即時実行されます。"
                 };
 
                 const items: PreviewItem[] = [];
@@ -154,7 +154,7 @@ type Controller = {
                     items.push({
                         icon: "fa-clock",
                         label: `${$ctrl.effectsData.queueDuration || 0}s`,
-                        tooltip: "エフェクト実行時間"
+                        tooltip: "演出実行時間"
                     });
                 }
 
@@ -282,7 +282,7 @@ type Controller = {
                 modalFactory.openGetInputModal(
                     {
                         model: $ctrl.effectsData.queueDuration || 0,
-                        label: "エフェクト実行時間を編集",
+                        label: "演出実行時間を編集",
                         saveText: "保存",
                         inputPlaceholder: "秒数を入力",
                         validationFn: (value) => {

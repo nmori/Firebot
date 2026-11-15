@@ -52,7 +52,7 @@
                     ></effect-list>
                 </div>
                 <p class="muted" style="font-size:11px;margin-top:6px;">
-                    <b>ヒント:</b> このタイマーでチャットメッセージを1つずつ表示したい場合は、エフェクトリストの実行モードを <strong>順番</strong> または <strong>ランダム</strong> に設定してください。
+                    <b>ヒント:</b> このタイマーでチャットメッセージを1つずつ表示したい場合は、演出リストの実行モードを <strong>順番</strong> または <strong>ランダム</strong> に設定してください。
                 </p>
             </div>
 

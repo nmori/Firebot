@@ -8,19 +8,19 @@
             template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.cancel()"><span>&times;</span></button>
-                <h4 class="modal-title">Remove Plugin</h4>
+                <h4 class="modal-title">プラグインの削除</h4>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to remove the <strong>{{$ctrl.pluginName}}</strong> plugin?</p>
+                <p>プラグイン <strong>{{$ctrl.pluginName}}</strong> を削除してもよろしいですか？</p>
                 <firebot-checkbox
-                    label="Also delete the plugin file from the scripts folder"
+                    label="scripts フォルダーからプラグインファイルも削除する"
                     model="$ctrl.deletePluginFile"
                     ng-if="$ctrl.isCommunityPlugin !== true"
                 ></firebot-checkbox>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.cancel()">Cancel</button>
-                <button type="button" class="btn btn-danger" ng-click="$ctrl.confirm()">Remove</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.cancel()">キャンセル</button>
+                <button type="button" class="btn btn-danger" ng-click="$ctrl.confirm()">削除</button>
             </div>
             `,
             bindings: {

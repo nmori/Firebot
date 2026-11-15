@@ -109,7 +109,7 @@ const clip = {
 
         <div ng-if="effect.showInOverlay">
             <eos-container header="動画の終了を待つ" class="setting-padtop">
-                <firebot-checkbox label="動画の終了を待つ" tooltip="動画の再生が終わるまで、次のエフェクトの実行を待ちます。" model="effect.wait" />
+                <firebot-checkbox label="動画の終了を待つ" tooltip="動画の再生が終わるまで、次の演出の実行を待ちます。" model="effect.wait" />
             </eos-container>
             <eos-overlay-position effect="effect"></eos-overlay-position>
             <eos-container header="サイズ">
@@ -142,7 +142,7 @@ const clip = {
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                注意: このエフェクトを使用するには配信中である必要があります。
+                注意: この演出を使用するには配信中である必要があります。
             </div>
         </eos-container>
     `,

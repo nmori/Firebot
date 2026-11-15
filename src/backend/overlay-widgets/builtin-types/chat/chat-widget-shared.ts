@@ -9,7 +9,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         userDisplayName: "Firebot",
         profilePicUrl: "https://firebot.app/_next/image?url=%2Ffirebot-logo.png&w=96&q=75",
         color: "#FFCA03",
-        rawText: "thinks chat widgets are neat",
+        rawText: "はチャットウィジェットがいい感じだと思っている",
         badges: [
             {
                 title: "moderator",
@@ -19,7 +19,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         parts: [
             {
                 type: "text",
-                text: "thinks chat widgets are neat"
+                text: "はチャットウィジェットがいい感じだと思っている"
             }
         ],
         action: true,
@@ -38,7 +38,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         profilePicUrl: "https://static-cdn.jtvnw.net/jtv_user_pictures/4fe04c1f-8390-4ded-bcb0-cae9b1d7cb9c-profile_image-70x70.png",
         pronouns: "He/Him",
         color: "#0066FF",
-        rawText: "Wow, this IS really neat! zunder2Wow Cheer100",
+        rawText: "わあ、これは本当にいいね！ zunder2Wow Cheer100",
         badges: [
             {
                 title: "broadcaster",
@@ -48,7 +48,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         parts: [
             {
                 type: "text",
-                text: "Wow, this IS really neat! "
+                text: "わあ、これは本当にいいね！ "
             },
             {
                 type: "emote",
@@ -84,7 +84,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         profilePicUrl: "https://static-cdn.jtvnw.net/jtv_user_pictures/5545fe76-a341-4ffb-bc79-7ca8075588a1-profile_image-70x70.png",
         pronouns: "He/Him",
         color: "#00d1ff",
-        rawText: "Yo, what's going on over there?",
+        rawText: "おーい、そっちは何してるの？",
         badges: [
             {
                 title: "glhf",
@@ -94,7 +94,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         parts: [
             {
                 type: "text",
-                text: "Yo, what's going on over there?"
+                text: "おーい、そっちは何してるの？"
             }
         ],
         action: false,
@@ -114,7 +114,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         profilePicUrl: "https://static-cdn.jtvnw.net/jtv_user_pictures/4fe04c1f-8390-4ded-bcb0-cae9b1d7cb9c-profile_image-70x70.png",
         pronouns: "He/Him",
         color: "#0066FF",
-        rawText: "Super cool stuff over at firebot.app!",
+        rawText: "すごいものが firebot.app にあるよ！",
         badges: [
             {
                 title: "broadcaster",
@@ -124,7 +124,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         parts: [
             {
                 type: "text",
-                text: "Super cool stuff over at "
+                text: "すごいものが "
             },
             {
                 type: "link",
@@ -133,7 +133,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
             },
             {
                 type: "text",
-                text: "!"
+                text: " にあるよ！"
             }
         ],
         action: false,
@@ -152,7 +152,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         userDisplayName: "Firebot",
         profilePicUrl: "https://firebot.app/_next/image?url=%2Ffirebot-logo.png&w=96&q=75",
         color: "#FFCA03",
-        rawText: "Don't forget to show love to your fellow Firebot users! <3",
+        rawText: "Firebot ユーザー仲間への応援もお忘れなく！ <3",
         badges: [
             {
                 title: "moderator",
@@ -162,7 +162,7 @@ export const livePreviewChatMessages: FirebotChatMessage[] = [
         parts: [
             {
                 type: "text",
-                text: "Don't forget to show love to your fellow Firebot users! "
+                text: "Firebot ユーザー仲間への応援もお忘れなく！ "
             },
             {
                 type: "emote",

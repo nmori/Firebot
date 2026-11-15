@@ -11,8 +11,8 @@ type SwitchParams = {
 
 export const switchControlType: ControlDeckControlType<SwitchParams, boolean> = {
     id: "firebot:switch",
-    name: "Switch",
-    description: "A toggle switch that runs effects when turned on or off",
+    name: "スイッチ",
+    description: "オン/オフを切り替えたときに演出を実行するトグルスイッチ",
     icon: "fa-toggle-on",
     enableLabel: true,
     resizable: false,
@@ -21,12 +21,12 @@ export const switchControlType: ControlDeckControlType<SwitchParams, boolean> = 
     settingsSchema: [
         {
             name: "orientation",
-            title: "Orientation",
+            title: "向き",
             type: "radio-cards",
             default: "horizontal",
             options: [
-                { value: "horizontal", label: "Horizontal", iconClass: "fa-arrows-h" },
-                { value: "vertical", label: "Vertical", iconClass: "fa-arrows-v" }
+                { value: "horizontal", label: "横", iconClass: "fa-arrows-h" },
+                { value: "vertical", label: "縦", iconClass: "fa-arrows-v" }
             ],
             settings: {
                 gridColumns: 2
@@ -34,19 +34,19 @@ export const switchControlType: ControlDeckControlType<SwitchParams, boolean> = 
         },
         {
             name: "color",
-            title: "On Color",
+            title: "オンのときの色",
             type: "hexcolor",
             default: "#41c98a"
         },
         {
             name: "initialState",
-            title: "On Firebot Startup",
+            title: "Firebot 起動時",
             type: "radio-cards",
             default: "restore",
             options: [
-                { value: "restore", label: "Restore", description: "Restore the last state" },
-                { value: "off", label: "Off", description: "Always start Off" },
-                { value: "on", label: "On", description: "Always start On" }
+                { value: "restore", label: "復元", description: "前回の状態を復元します" },
+                { value: "off", label: "オフ", description: "常にオフで開始します" },
+                { value: "on", label: "オン", description: "常にオンで開始します" }
             ],
             settings: {
                 gridColumns: 3
@@ -54,20 +54,20 @@ export const switchControlType: ControlDeckControlType<SwitchParams, boolean> = 
         },
         {
             name: "runEffectsOnInit",
-            title: "Run Effects On Startup",
-            description: "When enabled, the matching effects run when the switch initializes its state on startup.",
+            title: "起動時に演出を実行",
+            description: "有効にすると、起動時にスイッチの状態が初期化される際に、対応する演出が実行されます。",
             type: "boolean",
             useSwitch: true,
             default: false
         },
         {
             name: "onEffects",
-            title: "On Effects",
+            title: "オンのときの演出",
             type: "effectlist"
         },
         {
             name: "offEffects",
-            title: "Off Effects",
+            title: "オフのときの演出",
             type: "effectlist"
         }
     ],

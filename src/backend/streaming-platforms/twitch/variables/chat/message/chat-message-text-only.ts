@@ -14,20 +14,20 @@ triggers["event"] = [
 const model: ReplaceVariable = {
     definition: {
         handle: "chatMessageTextOnly",
-        description: "関連するコマンドまたはチャットイベントの本文から、エモート・URL・チアモートを除去して出力します。",
+        description: "関連するコマンドまたはチャットイベントの本文から、エモート・URL・Cheermoteを除去して出力します。",
         usage: "chatMessageTextOnly[trimCommandTriggerDefaultTrue]",
         examples: [
             {
                 usage: "chatMessageTextOnly",
-                description: "コマンドトリガーを除去し、エモート・URL・チアモートを除いた本文を取得します。"
+                description: "コマンドトリガーを除去し、エモート・URL・Cheermoteを除いた本文を取得します。"
             },
             {
                 usage: "chatMessageTextOnly[true]",
-                description: "コマンドトリガーを除去し、エモート・URL・チアモートを除いた本文を取得します。"
+                description: "コマンドトリガーを除去し、エモート・URL・Cheermoteを除いた本文を取得します。"
             },
             {
                 usage: "chatMessageTextOnly[false]",
-                description: "コマンドトリガーを含めたまま、エモート・URL・チアモートを除いた本文を取得します。"
+                description: "コマンドトリガーを含めたまま、エモート・URL・Cheermoteを除いた本文を取得します。"
             }
         ],
         triggers: triggers,

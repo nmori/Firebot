@@ -19,31 +19,31 @@ const model: EffectType<{
         }
     },
     optionsTemplate: `
-        <eos-container header="Reward Info">
+        <eos-container header="報酬情報">
             <firebot-radio-container>
-                <firebot-radio label="Use current reward" model="effect.rewardMode" value="'current'" tooltip="Uses the reward that triggered this effect" />
-                <firebot-radio label="Custom" model="effect.rewardMode" value="'custom'" />
-                <firebot-input ng-if="effect.rewardMode === 'custom'" input-title="Reward ID" model="effect.rewardId" placeholder-text="Enter reward ID" menu-position="below" />
+                <firebot-radio label="現在の報酬を使用" model="effect.rewardMode" value="'current'" tooltip="この演出をトリガーした報酬を使用します" />
+                <firebot-radio label="カスタム" model="effect.rewardMode" value="'custom'" />
+                <firebot-input ng-if="effect.rewardMode === 'custom'" input-title="報酬 ID" model="effect.rewardId" placeholder-text="報酬 ID を入力" menu-position="below" />
             </firebot-radio-container>
         </eos-container>
 
-        <eos-container header="Redemption Info" pad-top="true">
-            <firebot-radio label="Use current redemption" model="effect.redemptionMode" value="'current'" tooltip="Uses the reward that triggered this effect" />
-            <firebot-radio label="Custom" model="effect.redemptionMode" value="'custom'" />
-            <firebot-input ng-if="effect.redemptionMode === 'custom'" input-title="Redemption ID" model="effect.redemptionId" placeholder-text="Enter redemption ID" />
+        <eos-container header="交換情報" pad-top="true">
+            <firebot-radio label="現在の交換を使用" model="effect.redemptionMode" value="'current'" tooltip="この演出をトリガーした交換を使用します" />
+            <firebot-radio label="カスタム" model="effect.redemptionMode" value="'custom'" />
+            <firebot-input ng-if="effect.redemptionMode === 'custom'" input-title="交換 ID" model="effect.redemptionId" placeholder-text="交換 ID を入力" />
         </eos-container>
 
-        <eos-container header="Action" pad-top="true">
+        <eos-container header="アクション" pad-top="true">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="list-effect-type">{{effect.approve != null ? (effect.approve === true ? 'Approve' : 'Reject') : 'Pick One'}}</span> <span class="caret"></span>
+                    <span class="list-effect-type">{{effect.approve != null ? (effect.approve === true ? '承認' : '拒否') : '選択してください'}}</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-click="effect.approve = true">
-                        <a href>Approve</a>
+                        <a href>承認</a>
                     </li>
                     <li ng-click="effect.approve = false">
-                        <a href>Reject</a>
+                        <a href>拒否</a>
                     </li>
                 </ul>
             </div>
@@ -51,7 +51,7 @@ const model: EffectType<{
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You may only approve/reject channel reward redemptions created in Firebot.
+                注意: 承認/拒否できるのは、Firebot で作成したチャンネル報酬の交換のみです。
             </div>
         </eos-container>
     `,
@@ -62,11 +62,11 @@ const model: EffectType<{
         const redemptionMode = effect.redemptionMode ?? "custom";
 
         if (rewardMode === "custom" && !effect.rewardId?.length) {
-            errors.push("You must enter a reward ID");
+            errors.push("報酬 ID を入力してください");
         } else if (redemptionMode === "custom" && !effect.redemptionId?.length) {
-            errors.push("You must enter a redemption ID");
+            errors.push("交換 ID を入力してください");
         } else if (effect.approve == null) {
-            errors.push("You must select an action");
+            errors.push("アクションを選択してください");
         }
 
         return errors;

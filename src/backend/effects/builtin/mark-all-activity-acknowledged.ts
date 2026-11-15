@@ -13,7 +13,7 @@ const effect: EffectType = {
     },
     optionsTemplate: `
         <eos-container pad-top="true">
-            <p>When this effect is ran, all activity in the Activity Feed on the Chat page will be marked as acknowledged. Useful on a hotkey or hooked up to a Stream Deck to quickly acknowledge all current activity.</p>
+            <p>この演出を実行すると、チャットページのアクティビティフィードにあるすべてのアクティビティが確認済みになります。ホットキーや Stream Deck に割り当てて、現在のアクティビティをまとめて確認済みにするのに便利です。</p>
         </eos-container>
     `,
     onTriggerEvent: () => {

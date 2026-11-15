@@ -21,7 +21,7 @@
 
                     <firebot-setting
                         name="While ループ"
-                        description="「Loop Effects」エフェクト内の条件付き「While Loop」オプションを有効/無効にします。"
+                        description="「演出ループ」演出内の「条件付き」ループオプションを有効/無効にします。"
                     >
                         <setting-description-addon>
                             <b>設定を誤ると無限ループにより Firebot がフリーズする可能性があります。</b>
@@ -35,7 +35,7 @@
 
                     <firebot-setting
                         name="グローバル値"
-                        description="グローバル値はエフェクト内で $variable として使える固定値です。ここで作成・管理できます。"
+                        description="グローバル値は演出内で $variable として使える固定値です。ここで作成・管理できます。"
                     >
                         <firebot-button
                             text="グローバル値を編集"
@@ -46,7 +46,7 @@
                     <firebot-setting
                         name="プロキシWebhook"
                         tag="Experimental"
-                        description="ローカルネットワークを公開せずに Webhook を受信できる機能です。受信時に「Webhook Received」イベントが発火し、ペイロードは $webhookPayload で利用できます。"
+                        description="ローカルネットワークを公開せずに Webhook を受信できる機能です。受信時に「ウェブフック受信」イベントが発火し、ペイロードは $webhookPayload で利用できます。"
                         bottom-border="false"
                     >
                         <setting-description-addon>
@@ -120,26 +120,26 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="起動時にエフェクトキューモニターを開く"
-                        description="Firebot 起動時にエフェクトキューモニターを自動で開きます。"
+                        name="起動時に演出キューモニターを開く"
+                        description="Firebot 起動時に演出キューモニターを自動で開きます。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('OpenEffectQueueMonitorOnLaunch')"
                             on-toggle="settings.saveSetting('OpenEffectQueueMonitorOnLaunch', !settings.getSetting('OpenEffectQueueMonitorOnLaunch'))"
                             font-size="40"
-                            accessibility-label="(settings.getSetting('OpenEffectQueueMonitorOnLaunch') ? '有効' : '無効') + ' 起動時にエフェクトキューモニターを開く'"
+                            accessibility-label="(settings.getSetting('OpenEffectQueueMonitorOnLaunch') ? '有効' : '無効') + ' 起動時に演出キューモニターを開く'"
                         />
                     </firebot-setting>
 
                     <firebot-setting
-                        name="チャット作成コマンドでエフェクト実行を許可"
-                        description="!command システムコマンドで共有エフェクトを取り込み、コマンド応答内の変数経由でエフェクト実行を可能にします。高度機能のため、モデレーターを信頼できる場合のみ推奨します。"
+                        name="チャット作成コマンドで演出実行を許可"
+                        description="!command システムコマンドで共有演出を取り込み、コマンド応答内の変数経由で演出実行を可能にします。高度機能のため、モデレーターを信頼できる場合のみ推奨します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('AllowChatCreatedCommandsToRunEffects')"
                             on-toggle="settings.saveSetting('AllowChatCreatedCommandsToRunEffects', !settings.getSetting('AllowChatCreatedCommandsToRunEffects'))"
                             font-size="40"
-                            accessibility-label="(settings.getSetting('AllowChatCreatedCommandsToRunEffects') ? '有効' : '無効') + ' チャット作成コマンドでエフェクト実行を許可'"
+                            accessibility-label="(settings.getSetting('AllowChatCreatedCommandsToRunEffects') ? '有効' : '無効') + ' チャット作成コマンドで演出実行を許可'"
                         />
                     </firebot-setting>
 
@@ -162,14 +162,14 @@
                     </firebot-setting>
 
                     <firebot-setting
-                        name="プリセットエフェクトリスト再帰上限"
-                        description="Firebot のハングを防ぐため、プリセットエフェクトリストが自分自身を再帰呼び出しできる回数を制限します。有効時は100回で停止します。"
+                        name="プリセット演出リスト再帰上限"
+                        description="Firebot のハングを防ぐため、プリセット演出リストが自分自身を再帰呼び出しできる回数を制限します。有効時は100回で停止します。"
                     >
                         <toggle-button
                             toggle-model="settings.getSetting('PresetRecursionLimit')"
                             on-toggle="settings.saveSetting('PresetRecursionLimit', !settings.getSetting('PresetRecursionLimit'))"
                             font-size="40"
-                            accessibility-label="(settings.getSetting('PresetRecursionLimit') ? '有効' : '無効') + ' プリセットエフェクトリスト再帰上限'"
+                            accessibility-label="(settings.getSetting('PresetRecursionLimit') ? '有効' : '無効') + ' プリセット演出リスト再帰上限'"
                         />
                     </firebot-setting>
 

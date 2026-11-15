@@ -60,7 +60,7 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "エフェクトキューを無効化" : "エフェクトキューを有効化"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.active ? "演出キューを無効化" : "演出キューを有効化"}</a>`,
                         click: function () {
                             effectQueuesService.toggleEffectQueue(item);
                         }
@@ -82,8 +82,8 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "エフェクトキューを削除",
-                                    question: `エフェクトキュー "${item.name}" を削除してもよろしいですか？`,
+                                    title: "演出キューを削除",
+                                    question: `演出キュー "${item.name}" を削除してもよろしいですか？`,
                                     confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })

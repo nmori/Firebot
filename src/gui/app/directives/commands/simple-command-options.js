@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label class="form-label"><i class="fad fa-reply"></i> 応答テキスト <tooltip styles="opacity:0.7;font-size:11px;" text="'このコマンドが発火したときに Firebot が返すメッセージです。'" /></label>
                 <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="メッセージを入力" rows="4" cols="40" replace-variables></textarea>
-                <p class="help-block">メッセージ応答以上のことをしたい場合は、<b>詳細モード</b>に切り替えて Firebot のエフェクト機能を活用してください。</p>
+                <p class="help-block">メッセージ応答以上のことをしたい場合は、<b>詳細モード</b>に切り替えて Firebot の演出機能を活用してください。</p>
             </div>
         </div>
        `,

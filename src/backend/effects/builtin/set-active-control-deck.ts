@@ -9,24 +9,24 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:set-active-control-deck",
-        name: "Set Active Control Deck",
-        description: "Set the active control deck and page on connected devices",
+        name: "アクティブなコントロールデッキを設定",
+        description: "接続中のデバイスで表示するコントロールデッキとページを設定します",
         icon: "fad fa-grip-horizontal",
         categories: ["common", "firebot control"]
     },
     optionsTemplate: `
-        <eos-container header="Deck">
+        <eos-container header="デッキ">
             <firebot-searchable-select
                 ng-model="effect.deckId"
-                placeholder="Select or search for a deck..."
+                placeholder="デッキを選択または検索..."
                 items="controlDecks"
             />
         </eos-container>
 
-        <eos-container header="Page" pad-top="true">
+        <eos-container header="ページ" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.pageId"
-                placeholder="Select or search for a page..."
+                placeholder="ページを選択または検索..."
                 items="deckPages"
             />
         </eos-container>
@@ -41,7 +41,7 @@ const effect: EffectType<{
             $scope.deckPages = [
                 {
                     id: undefined,
-                    name: "Default (First) Page"
+                    name: "既定（最初）のページ"
                 },
                 ...(selectedDeck?.pages || [])
             ];
@@ -50,14 +50,14 @@ const effect: EffectType<{
     },
     getDefaultLabel: (effect, controlDeckService) => {
         const deck = controlDeckService.decks.find(deck => deck.id === effect.deckId);
-        const deckName = deck?.name ?? "Unknown Deck";
-        const pageName = deck?.pages?.find(page => page.id === effect.pageId)?.name ?? "Default Page";
+        const deckName = deck?.name ?? "不明なデッキ";
+        const pageName = deck?.pages?.find(page => page.id === effect.pageId)?.name ?? "既定のページ";
         return `${deckName} - ${pageName}`;
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!effect.deckId) {
-            errors.push("A control deck must be selected.");
+            errors.push("コントロールデッキを選択してください。");
         }
         return errors;
     },

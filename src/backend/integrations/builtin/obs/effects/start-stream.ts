@@ -12,7 +12,7 @@ export const StartStreamEffectType: EffectType = {
     optionsTemplate: `
     <eos-container>
       <div class="effect-info alert alert-warning">
-        <b>Warning!</b> When this effect is activated, Firebot will tell OBS to start streaming.
+        <b>警告:</b> この演出が実行されると、Firebot は OBS に配信の開始を指示します。
       </div>
     </eos-container>
   `,

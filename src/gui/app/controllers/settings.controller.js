@@ -26,8 +26,8 @@
                     template: "<trigger-settings />"
                 },
                 {
-                    name: "エフェクト",
-                    description: "エフェクトに関する各種オプションです",
+                    name: "演出",
+                    description: "演出に関する各種オプションです",
                     icon: "fa-magic",
                     template: "<effect-settings />"
                 },

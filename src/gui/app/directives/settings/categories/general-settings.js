@@ -36,7 +36,7 @@
                         description="Firebot起動時に Twitch やその他サービスへ自動接続します"
                     >
                         <setting-description-addon>
-                            <strong>注記:</strong> この設定を有効にすると、<strong>Firebot Started</strong> イベントに設定した <strong>Toggle Connection</strong> エフェクトと競合する可能性があります。有効化後はそれらのエフェクトを無効化または削除してください。
+                            <strong>注記:</strong> この設定を有効にすると、<strong>Firebot Started</strong> イベントに設定した <strong>Toggle Connection</strong> 演出と競合する可能性があります。有効化後はそれらの演出を無効化または削除してください。
                         </setting-description-addon>
                         <toggle-button
                             toggle-model="settings.getSetting('ConnectOnLaunch')"

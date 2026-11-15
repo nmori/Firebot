@@ -119,7 +119,7 @@ const playSound = {
    */
     definition: {
         id: "aws:polly",
-        name: "Text-To-Speech (Amazon Polly)",
+        name: "テキスト読み上げ (Amazon Polly)",
         description: "Amazon Polly を使用して Firebot にテキストを読み上げさせます。",
         icon: "fad fa-microphone-alt",
         categories: ["integrations"],
@@ -135,39 +135,39 @@ const playSound = {
    */
     optionsTemplate: `
     <div ng-hide="fetchError">
-        <eos-container header="Engine">
+        <eos-container header="エンジン">
             <div class="controls-fb-inline" style="padding-bottom: 5px;">
                 <label class="control-fb control--radio">Neural
                     <input type="radio" ng-model="effect.engine" ng-change="ensureSelectedVoiceValid()" value="neural"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control-fb control--radio">Standard
+                <label class="control-fb control--radio">標準
                     <input type="radio" ng-model="effect.engine" ng-change="ensureSelectedVoiceValid()" value="standard"/>
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="Text">
-            <textarea ng-model="effect.text" class="form-control" name="text" placeholder="Enter text" rows="4" cols="40" replace-variables menu-position="under"></textarea>
+        <eos-container header="テキスト">
+            <textarea ng-model="effect.text" class="form-control" name="text" placeholder="テキストを入力" rows="4" cols="40" replace-variables menu-position="under"></textarea>
 
             <div style="padding-top:10px">
-                <label class="control-fb control--checkbox"> Enable
+                <label class="control-fb control--checkbox">
                     <a
                     ng-click="openLink('https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html')"
                     class="clickable"
-                    uib-tooltip="View SSML Documentation"
-                    aria-label="View SSML Documentation"
+                    uib-tooltip="SSML ドキュメントを表示"
+                    aria-label="SSML ドキュメントを表示"
                     tooltip-append-to-body="true">
                         SSML
-                    </a>
+                    </a> を有効化
                     <input type="checkbox" ng-model="effect.isSsml">
                     <div class="control__indicator"></div>
                 </label>
             </div>
         </eos-container>
 
-        <eos-container header="Voice" pad-top="true" ng-hide="isFetchingVoices">
+        <eos-container header="音声" pad-top="true" ng-hide="isFetchingVoices">
             <div style="display: flex;">
                 <div class="dropdown" style="margin-right: 1em">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -194,30 +194,30 @@ const playSound = {
             </div>
         </eos-container>
 
-        <eos-container header="Lexicon" pad-top="true" ng-hide="isFetchingLexicons || lexiconFetchError !== false || lexicons.length === 0">
+        <eos-container header="レキシコン" pad-top="true" ng-hide="isFetchingLexicons || lexiconFetchError !== false || lexicons.length === 0">
             <ui-select multiple limit="5" ng-model="effect.lexicons">
-                <ui-select-match placeholder="Select up to 5 lexicons.">{{$item}}</ui-select-match>
+                <ui-select-match placeholder="レキシコンを最大 5 つまで選択">{{$item}}</ui-select-match>
                 <ui-select-choices repeat="lexicon in lexicons | filter: $select.search">
                     <div ng-bind-html="lexicon | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
         </eos-container>
 
-        <eos-container header="Maximum Duration" pad-top="true">
+        <eos-container header="最大再生時間" pad-top="true">
             <div class="input-group">
-                <span class="input-group-addon" id="delay-length-effect-type">Seconds</span>
+                <span class="input-group-addon" id="delay-length-effect-type">秒</span>
                 <input ng-model="effect.maxSoundLength" type="text" class="form-control" aria-describedby="delay-length-effect-type" type="text" replace-variables="number">
             </div>
         </eos-container>
 
-        <eos-container header="Sound" pad-top="true">
-            <label class="control-fb control--checkbox"> Wait for sound to finish <tooltip text="'Wait for the sound to finish before letting the next effect play.'"></tooltip>
+        <eos-container header="サウンド" pad-top="true">
+            <label class="control-fb control--checkbox"> サウンドの終了を待つ <tooltip text="'サウンドの再生が終わるまで、次の演出の再生を待ちます。'"></tooltip>
                 <input type="checkbox" ng-model="effect.waitForSound">
                 <div class="control__indicator"></div>
             </label>
         </eos-container>
 
-        <eos-container header="Volume" pad-top="true">
+        <eos-container header="音量" pad-top="true">
             <div class="volume-slider-wrapper">
                 <i class="fal fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 1, ceil: 10, hideLimitLabels: true, showSelectionBar: true}"></rzslider>
@@ -232,25 +232,25 @@ const playSound = {
 
     <div ng-hide="fetchError.$metadata.httpStatusCode !== 403">
         <eos-container>
-            <span class="muted">Failed to authenticate to AWS. Make sure your AWS Credentials are properly configured. You can configure them in <b>Settings</b> > <b>Integrations</b> > <b>AWS</b>.</span>
+            <span class="muted">AWS の認証に失敗しました。AWS の認証情報が正しく設定されているか確認してください。<b>設定</b> > <b>連携</b> > <b>AWS</b> で設定できます。</span>
         </eos-container>
     </div>
 
     <div ng-hide="fetchError === false || fetchError === 'NotConfigured' || fetchError.$metadata.httpStatusCode === 403">
         <eos-container>
-            <span class="muted">An error as occurred while trying to read the available voices from AWS. The error was: <b>{{ fetchError }}</b>. Please try again later.</span>
+            <span class="muted">AWS から利用可能な音声を読み込む際にエラーが発生しました。エラー: <b>{{ fetchError }}</b>。しばらくしてから再度お試しください。</span>
         </eos-container>
     </div>
 
     <div ng-hide="lexiconFetchError === false">
         <eos-container>
-            <span class="muted">An error has occurred while trying to read available lexicons from AWS. The error was: <b>{{ lexiconFetchError }}</b>.</span>
+            <span class="muted">AWS から利用可能なレキシコンを読み込む際にエラーが発生しました。エラー: <b>{{ lexiconFetchError }}</b>。</span>
         </eos-container>
     </div>
 
     <div ng-hide="fetchError !== 'NotConfigured'">
         <eos-container>
-            <span class="muted">Your AWS Credentials are not configured yet! You can configure them in <b>Settings</b> > <b>Integrations</b> > <b>AWS</b></span>
+            <span class="muted">AWS の認証情報がまだ設定されていません。<b>設定</b> > <b>連携</b> > <b>AWS</b> で設定できます。</span>
         </eos-container>
     </div>
     `,
@@ -298,7 +298,7 @@ const playSound = {
                 return $scope.validVoices[voiceId].LanguageFormattedName;
             }
 
-            return "Invalid Locale";
+            return "無効な言語";
         };
 
         $scope.getSelectedVoiceName = () => {
@@ -308,12 +308,12 @@ const playSound = {
                 return $scope.getVoiceDisplayName($scope.validVoices[voiceId]);
             }
 
-            return "Invalid Voice";
+            return "無効な音声";
         };
 
         $scope.getVoiceDisplayName = (voice) => {
             if (!voice) {
-                return "Invalid Voice";
+                return "無効な音声";
             }
 
             return `${voice.Id}, ${voice.Gender}`;
@@ -477,15 +477,15 @@ const playSound = {
         const errors = [];
 
         if (effect.engine !== "standard" && effect.engine !== "neural") {
-            errors.push("Please select a valid Polly engine.");
+            errors.push("有効な Polly エンジンを選択してください。");
         }
 
         if (!effect.voiceId) {
-            errors.push("Please select a valid Polly voice.");
+            errors.push("有効な Polly 音声を選択してください。");
         }
 
         if (effect.text == null || effect.text.length < 1) {
-            errors.push("Please input some text.");
+            errors.push("テキストを入力してください。");
         }
 
         return errors;

@@ -27,7 +27,7 @@ export type DynamicCountdownWidgetConfig = OverlayWidgetConfig<Settings, State> 
 export const dynamicCountdown: OverlayWidgetType<Settings, State> = {
     id: "firebot:countdown-dynamic",
     name: "カウントダウンタイマー（動的）",
-    description: "エフェクトで動的に制御・更新できるカウントダウンタイマーです（例: サバソン向け）。",
+    description: "演出で動的に制御・更新できるカウントダウンタイマーです（例: サバソン向け）。",
     icon: "fa-hourglass-half",
     settingsSchema: [
         {
@@ -71,8 +71,8 @@ export const dynamicCountdown: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "onCompleteEffects",
-            title: "完了時エフェクト",
-            description: "カウントダウンがゼロに達したときに実行するエフェクトです。",
+            title: "完了時演出",
+            description: "カウントダウンがゼロに達したときに実行する演出です。",
             type: "effectlist"
         }
     ],

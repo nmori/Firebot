@@ -133,7 +133,7 @@ class PluginManager {
                     return details;
                 } catch (error) {
                     this._logger.debug("Error getting plugin details", error);
-                    return { success: false, error: "Failed to get plugin details" };
+                    return { success: false, error: "プラグインの詳細を取得できませんでした" };
                 }
             }
         );
@@ -538,19 +538,19 @@ class PluginManager {
     private async doGetPluginDetailsByFileName(fileName: string, expectedPluginType?: PluginType): Promise<GetPluginDetailsResult> {
         const pluginFilePath = this.getPluginFilePath(fileName);
         if (!existsSync(pluginFilePath)) {
-            return { success: false, error: "Plugin file does not exist" };
+            return { success: false, error: "プラグインファイルが存在しません" };
         }
 
         const plugin = this.loadPluginIsolated(pluginFilePath);
         if (!plugin) {
-            return { success: false, error: "Could not load plugin" };
+            return { success: false, error: "プラグインを読み込めませんでした" };
         }
 
         // Try plugin executors first (covers new-spec plugins + legacy startup scripts)
         for (const executor of this.pluginExecutors) {
             if (await executor.canHandle(plugin)) {
                 if (expectedPluginType && expectedPluginType !== "plugin") {
-                    return { success: false, error: `Only ${expectedPluginType}s are allowed.` };
+                    return { success: false, error: "スクリプトのみ許可されています。" };
                 }
                 const details = await executor.getPluginDetails(plugin);
                 if (details) {
@@ -562,7 +562,7 @@ class PluginManager {
         // Check if plugin is legacy effect script
         if (await this.legacyEffectScriptExecutor.canHandle(plugin)) {
             if (expectedPluginType && expectedPluginType !== "script") {
-                return { success: false, error: `Only ${expectedPluginType}s are allowed.` };
+                return { success: false, error: "プラグインのみ許可されています。" };
             }
             const details = await this.legacyEffectScriptExecutor.getScriptDetails(plugin);
             if (details) {
@@ -570,7 +570,7 @@ class PluginManager {
             }
         }
 
-        return { success: false, error: "Plugin does not match any known plugin format" };
+        return { success: false, error: "既知のどのプラグイン形式にも一致しません" };
     }
 
     /**
@@ -609,15 +609,15 @@ class PluginManager {
         overwrite = false
     ): Promise<PluginInstallResult | { success: false, error: string, conflict?: boolean }> {
         if (!sourcePath || typeof sourcePath !== "string") {
-            return { success: false, error: "Invalid file path." };
+            return { success: false, error: "ファイルパスが無効です。" };
         }
 
         if (path.extname(sourcePath).toLowerCase() !== ".js") {
-            return { success: false, error: "Only .js plugin files are supported." };
+            return { success: false, error: ".js 形式のプラグインファイルのみサポートしています。" };
         }
 
         if (!existsSync(sourcePath)) {
-            return { success: false, error: "Selected file does not exist." };
+            return { success: false, error: "選択したファイルが存在しません。" };
         }
 
         const fileName = path.basename(sourcePath);
@@ -633,7 +633,7 @@ class PluginManager {
             details = await this.getPluginDetailsByFileName(fileName);
         } else {
             if (existsSync(destPath) && !overwrite) {
-                return { success: false, error: `A plugin named '${fileName}' already exists in the scripts folder.`, conflict: true };
+                return { success: false, error: `scripts フォルダーに「${fileName}」という名前のプラグインが既に存在します。`, conflict: true };
             }
 
             // copy then load, and if it doesn't validate, remove the copy.
@@ -641,7 +641,7 @@ class PluginManager {
                 await fsp.mkdir(destFolder, { recursive: true });
                 await fsp.copyFile(sourcePath, destPath);
             } catch (error) {
-                return { success: false, error: `Failed to copy plugin: ${(error as Error).message}` };
+                return { success: false, error: `プラグインをコピーできませんでした: ${(error as Error).message}` };
             }
 
             details = await this.getPluginDetailsByFileName(fileName);
@@ -684,7 +684,7 @@ class PluginManager {
 
         return {
             success: false,
-            error: "Failed to install plugin. Check the log for more details."
+            error: "プラグインのインストールに失敗しました。詳細はログを確認してください。"
         };
     }
 
@@ -747,19 +747,19 @@ class PluginManager {
     ): Promise<GetPluginDetailsResult | { success: false, error: string, conflict?: boolean }> {
         const config = PluginConfigManager.getItem(pluginId);
         if (!config) {
-            return { success: false, error: "Plugin not found." };
+            return { success: false, error: "プラグインが見つかりません。" };
         }
 
         if (!sourcePath || typeof sourcePath !== "string") {
-            return { success: false, error: "Invalid file path." };
+            return { success: false, error: "ファイルパスが無効です。" };
         }
 
         if (path.extname(sourcePath).toLowerCase() !== ".js") {
-            return { success: false, error: "Only .js plugin files are supported." };
+            return { success: false, error: ".js 形式のプラグインファイルのみサポートしています。" };
         }
 
         if (!existsSync(sourcePath)) {
-            return { success: false, error: "Selected file does not exist." };
+            return { success: false, error: "選択したファイルが存在しません。" };
         }
 
         const oldFileName = config.fileName;
@@ -770,14 +770,14 @@ class PluginManager {
         const destFolder = ProfileManager.getPathInProfile("/scripts");
 
         if (oldFilePath === newFilePath) {
-            return { success: false, error: "Selected file is the same as the current plugin." };
+            return { success: false, error: "選択したファイルは現在のプラグインと同じです。" };
         }
 
         // If renaming and the target name already belongs to another plugin / collides, ask the user.
         if (fileNameChanged && existsSync(newFilePath) && !overwrite) {
             return {
                 success: false,
-                error: `A plugin file named '${newFileName}' already exists in the scripts folder.`,
+                error: `scripts フォルダーに「${newFileName}」という名前のプラグインファイルが既に存在します。`,
                 conflict: true
             };
         }
@@ -812,7 +812,7 @@ class PluginManager {
                 }
             }
             await this.startPlugin(config, false).catch(() => undefined);
-            return { success: false, error: `Failed to copy plugin: ${(error as Error).message}` };
+            return { success: false, error: `プラグインをコピーできませんでした: ${(error as Error).message}` };
         }
 
         // 4. Validate the new file is a recognizable plugin.
@@ -834,7 +834,7 @@ class PluginManager {
             await this.startPlugin(config, false).catch(() => undefined);
             return details.success === false
                 ? details
-                : { success: false, error: "Selected file is not a plugin." };
+                : { success: false, error: "選択したファイルはプラグインではありません。" };
         }
 
         // 5. New file looks valid. Drop the old file (if renamed and nothing else uses it).
@@ -882,31 +882,31 @@ class PluginManager {
         if (!SettingsManager.getSetting("RunCustomScripts")) {
             frontendCommunicator.send(
                 "error",
-                "Something attempted to run a custom script but this feature is disabled!"
+                "カスタムスクリプトの実行が試みられましたが、この機能は無効になっています！"
             );
             return undefined;
         }
 
         const { scriptName } = effectData;
         if (!scriptName) {
-            return { success: false, error: "No script selected." };
+            return { success: false, error: "スクリプトが選択されていません。" };
         }
 
         const scriptFilePath = this.getPluginFilePath(scriptName);
         if (!existsSync(scriptFilePath)) {
-            frontendCommunicator.send("error", `Custom script '${scriptName}' was not found.`);
-            return { success: false, error: "Script file not found" };
+            frontendCommunicator.send("error", `カスタムスクリプト「${scriptName}」が見つかりませんでした。`);
+            return { success: false, error: "スクリプトファイルが見つかりません" };
         }
 
         const detailsResult = await this.getPluginDetailsByFileName(scriptName, "script");
         if (detailsResult.success === false) {
             this._logger.warn(`Could not get details for effect script ${scriptName}: ${detailsResult.error}`);
-            return { success: false, error: "Could not load script details" };
+            return { success: false, error: "スクリプトの詳細を読み込めませんでした" };
         }
 
         const script = this.loadPlugin(scriptFilePath);
         if (!script) {
-            return { success: false, error: "Could not load script" };
+            return { success: false, error: "スクリプトを読み込めませんでした" };
         }
 
         const canHandle = await this.legacyEffectScriptExecutor.canHandle(script);
@@ -914,9 +914,9 @@ class PluginManager {
         if (!canHandle) {
             frontendCommunicator.send(
                 "error",
-                `Error running '${scriptName}', script does not contain an exported 'run' function or valid manifest.`
+                `「${scriptName}」の実行中にエラーが発生しました。スクリプトにエクスポートされた 'run' 関数または有効なマニフェストが含まれていません。`
             );
-            return { success: false, error: "No effect executor matched" };
+            return { success: false, error: "一致する演出実行処理がありません" };
         }
 
         // For legacy run-script the manifest may declare startupOnly; honor that.
@@ -926,9 +926,9 @@ class PluginManager {
                 if (manifest?.startupOnly) {
                     frontendCommunicator.send(
                         "error",
-                        `Could not run startup-only script "${manifest.name}" outside of Firebot startup.`
+                        `起動時専用スクリプト「${manifest.name}」は Firebot の起動時以外には実行できません。`
                     );
-                    return { success: false, error: "Startup-only script invoked at runtime" };
+                    return { success: false, error: "起動時専用スクリプトが実行中に呼び出されました" };
                 }
             } catch {
                 // ignore
@@ -944,7 +944,7 @@ class PluginManager {
             return await this.legacyEffectScriptExecutor.executeScript(script, context);
         } catch (error) {
             this._logger.error(`Error running script '${scriptName}'`, error);
-            return { success: false, error: (error as Error)?.message ?? "Error running script" };
+            return { success: false, error: (error as Error)?.message ?? "スクリプトの実行中にエラーが発生しました" };
         }
     }
 
@@ -1050,7 +1050,7 @@ class PluginManager {
 
             return (loadedPlugin?.default ?? loadedPlugin) as LoadedPlugin;
         } catch (error) {
-            frontendCommunicator.send("error", `Error loading the plugin '${pluginFilePath}' \n\n ${error}`);
+            frontendCommunicator.send("error", `プラグイン「${pluginFilePath}」の読み込み中にエラーが発生しました \n\n ${error}`);
             this._logger.error(error);
             return null;
         }
@@ -1076,7 +1076,7 @@ class PluginManager {
             isolatedModule._compile(src, pluginFilePath);
             return (isolatedModule.exports?.default ?? isolatedModule.exports) as LoadedPlugin;
         } catch (error) {
-            frontendCommunicator.send("error", `Error loading the plugin '${pluginFilePath}' \n\n ${error}`);
+            frontendCommunicator.send("error", `プラグイン「${pluginFilePath}」の読み込み中にエラーが発生しました \n\n ${error}`);
             this._logger.error(error);
             return null;
         }
@@ -1136,14 +1136,14 @@ class PluginManager {
 
                 this._logger.error(`Failed to search community plugins. Response: ${responseBody}`);
                 frontendCommunicator.send("showToast", {
-                    content: "Failed to search for community plugins. Check the log for more details.",
+                    content: "コミュニティプラグインの検索に失敗しました。詳細はログを確認してください。",
                     className: "warning"
                 });
             }
         } catch (error) {
             this._logger.error("Failed to search community plugins", error);
             frontendCommunicator.send("showToast", {
-                content: "Failed to search for community plugins. Check the log for more details.",
+                content: "コミュニティプラグインの検索に失敗しました。詳細はログを確認してください。",
                 className: "warning"
             });
         }
@@ -1256,14 +1256,14 @@ class PluginManager {
         if (plugin == null) {
             const errorMessage = "No community plugin details provided for install";
             this._logger.error(errorMessage);
-            return { success: false, error: errorMessage };
+            return { success: false, error: "インストールするコミュニティプラグインの情報が指定されていません" };
         }
 
         // Make sure it's not already installed
         if (plugin.installed === true) {
             const errorMessage = `Plugin ${plugin.manifest.name} is already installed (currently v${plugin.installedVersion})`;
             this._logger.warn(errorMessage);
-            return { success: false, error: errorMessage };
+            return { success: false, error: `プラグイン ${plugin.manifest.name} は既にインストールされています (現在 v${plugin.installedVersion})` };
         }
 
         try {
@@ -1278,14 +1278,14 @@ class PluginManager {
             if (versionPassed !== true) {
                 const errorMessage = "Plugin is not designed to work with this version of Firebot";
                 this._logger.error(errorMessage);
-                return { success: false, error: errorMessage };
+                return { success: false, error: "このプラグインはこのバージョンの Firebot には対応していません" };
             }
 
             // Download and save the file
             const saveResult = await this.downloadAndSaveCommunityPlugin(plugin);
 
             if (saveResult.success !== true) {
-                return { success: false, error: "Failed to download or save plugin" };
+                return { success: false, error: "プラグインのダウンロードまたは保存に失敗しました" };
             }
 
             // Grab the plugin details
@@ -1298,7 +1298,7 @@ class PluginManager {
                     await fsp.rm(this.getPluginFilePath(saveResult.path), { force: true });
                 } catch { }
 
-                return { success: false, error: errorMessage };
+                return { success: false, error: "プラグインの詳細を読み込めませんでした" };
             }
 
             const defaultParams: Record<string, unknown> = {};
@@ -1335,7 +1335,7 @@ class PluginManager {
             };
         } catch (error) {
             this._logger.error(`Failed to install community plugin "${plugin.author}:${plugin.name}"`, error);
-            return { success: false, error: "Installation failed. Check the log for more info." };
+            return { success: false, error: "インストールに失敗しました。詳細はログを確認してください。" };
         }
     }
 
@@ -1348,7 +1348,7 @@ class PluginManager {
         if (installedPluginConfig == null) {
             const errorMessage = `Plugin ${pluginId} not found`;
             this._logger.warn(errorMessage);
-            return { success: false, error: errorMessage };
+            return { success: false, error: `プラグイン ${pluginId} が見つかりません` };
         }
 
         if (installedPluginConfig.communityPluginDetails == null
@@ -1358,7 +1358,7 @@ class PluginManager {
         ) {
             const errorMessage = `Plugin ${pluginId} is not a community plugin`;
             this._logger.warn(errorMessage);
-            return { success: false, error: errorMessage };
+            return { success: false, error: `プラグイン ${pluginId} はコミュニティプラグインではありません` };
         }
 
         // Ensure we have data
@@ -1366,7 +1366,7 @@ class PluginManager {
         if (pluginUpdate == null) {
             const errorMessage = "No update available for community plugin";
             this._logger.error(errorMessage);
-            return { success: false, error: errorMessage };
+            return { success: false, error: "コミュニティプラグインに利用可能な更新はありません" };
         }
 
         // Ensure it's the same plugin
@@ -1375,7 +1375,7 @@ class PluginManager {
         ) {
             const errorMessage = "Update does not match installed plugin";
             this._logger.error(errorMessage);
-            return { success: false, error: errorMessage };
+            return { success: false, error: "更新内容がインストール済みのプラグインと一致しません" };
         }
 
         // Ensure it's actually an upgrade
@@ -1383,7 +1383,7 @@ class PluginManager {
         if (updateType === UpdateType.NONE || updateType === UpdateType.PREVIOUS_VERSION) {
             const errorMessage = "Installed plugin version is already up-to-date";
             this._logger.error(errorMessage);
-            return { success: false, error: errorMessage };
+            return { success: false, error: "インストール済みのプラグインは既に最新バージョンです" };
         }
 
         try {
@@ -1391,7 +1391,7 @@ class PluginManager {
             const saveResult = await this.downloadAndSaveCommunityPlugin(pluginUpdate);
 
             if (saveResult.success !== true) {
-                return { success: false, error: "Failed to download or save plugin update" };
+                return { success: false, error: "プラグインの更新のダウンロードまたは保存に失敗しました" };
             }
 
             // Grab the update details
@@ -1404,7 +1404,7 @@ class PluginManager {
                     await fsp.rm(this.getPluginFilePath(saveResult.path), { force: true });
                 } catch { }
 
-                return { success: false, error: errorMessage };
+                return { success: false, error: "プラグインの詳細を読み込めませんでした" };
             }
 
             // Stop the plugin, update the config with the new details, and restart it
@@ -1431,7 +1431,7 @@ class PluginManager {
             };
         } catch (error) {
             this._logger.error(`Failed to update community plugin "${pluginUpdate.author}:${pluginUpdate.name}"`, error);
-            return { success: false, error: "Update failed. Check the log for more info." };
+            return { success: false, error: "更新に失敗しました。詳細はログを確認してください。" };
         }
     }
 

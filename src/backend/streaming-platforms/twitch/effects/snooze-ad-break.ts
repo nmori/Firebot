@@ -19,9 +19,9 @@ const model: EffectType = {
     optionsTemplate: `
         <eos-container>
             <div class="effect-info alert alert-warning">
-                Note: You must be an affiliate or partner to use this effect.
-                Also, Twitch limits the number of times you may snooze mid-roll ads.
-                If you have snoozed ads too many times in a short period, Twitch will deny this.
+                注意: この演出を使うには、アフィリエイトまたはパートナーである必要があります。
+                また、Twitch ではミッドロール広告をスヌーズできる回数に制限があります。
+                短時間に何度もスヌーズした場合、Twitch によって拒否されます。
             </div>
         </eos-container>
     `,

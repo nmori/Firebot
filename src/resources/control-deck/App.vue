@@ -294,10 +294,10 @@ async function submitPin(pin: string): Promise<void> {
         await restoreInitialDeck();
     } catch (err) {
         if (err instanceof ApiError && err.code === 401) {
-            pinError.value = "Incorrect PIN";
+            pinError.value = "PINが正しくありません";
             setStoredPin("");
         } else {
-            pinError.value = "Unable to connect";
+            pinError.value = "接続できません";
         }
     }
 }
@@ -464,7 +464,7 @@ onMounted(async () => {
 
 <template>
     <div v-if="initializing" class="centered-message">
-        <h2>Loading Control Deck...</h2>
+        <h2>コントロールデッキを読み込み中...</h2>
     </div>
 
     <!-- PIN prompt -->
@@ -476,8 +476,8 @@ onMounted(async () => {
 
     <!-- Disabled notice -->
     <div v-else-if="disabled" class="centered-message">
-        <h2>Control Deck is disabled</h2>
-        <p>Enable it in Firebot</p>
+        <h2>コントロールデッキは無効です</h2>
+        <p>Firebot で有効にしてください</p>
     </div>
 
     <!-- Deck picker -->
@@ -499,7 +499,7 @@ onMounted(async () => {
                     class="page-select"
                     :value="currentPageId"
                     @change="selectPage(($event.target as HTMLSelectElement).value)"
-                    aria-label="Select page"
+                    aria-label="ページを選択"
                 >
                     <option v-for="page in pages" :key="page.id" :value="page.id">{{ page.name }}</option>
                 </select>
@@ -509,13 +509,13 @@ onMounted(async () => {
                 class="wake-indicator"
                 :class="{ active: wakeLockActive }"
                 @click="toggleWakeLockState"
-                :title="wakeLockActive ? 'Screen will stay awake (tap to disable)' : 'Screen may sleep (tap to keep awake)'"
-                aria-label="Toggle keep screen awake"
+                :title="wakeLockActive ? '画面はスリープしません（タップで解除）' : '画面がスリープする場合があります（タップでスリープを防止）'"
+                aria-label="画面のスリープ防止を切り替え"
             >
                 <lucide-icon name="bed-double" :size="18"></lucide-icon>
                 <lucide-icon :name="wakeLockActive ? 'lock' : 'lock-open'" :size="14"></lucide-icon>
             </button> -->
-            <div class="conn-indicator" :class="{ connected: connected }" :title="connected ? 'Connected' : 'Disconnected'"></div>
+            <div class="conn-indicator" :class="{ connected: connected }" :title="connected ? '接続中' : '切断'"></div>
         </header>
 
         <div class="grid-viewport">

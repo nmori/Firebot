@@ -389,9 +389,9 @@ async function createAppMenu() {
                     icon: await createIconImage("../../../gui/images/icons/mdi/text-search.png")
                 },
                 {
-                    label: 'エフェクトキューモニター',
-                    toolTip: "エフェクトキューモニターを開きます",
-                    sublabel: "エフェクトキューモニターを開きます",
+                    label: '演出キューモニター',
+                    toolTip: "演出キューモニターを開きます",
+                    sublabel: "演出キューモニターを開きます",
                     click: createEffectQueueMonitorWindow,
                     icon: await createIconImage("../../../gui/images/icons/mdi/queue-first-in-last-out.png")
                 },

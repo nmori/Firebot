@@ -29,7 +29,7 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <div ng-hide="hasWidgets">
-            <p>このエフェクトを使うにはオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
+            <p>この演出を使うにはオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </div>
         <div ng-show="hasWidgets">
             <eos-container header="更新するオーバーレイウィジェット">

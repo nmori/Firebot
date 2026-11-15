@@ -103,8 +103,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "effect-queue-cleared",
-            name: "エフェクトキュー消去",
-            description: "エフェクトキューの実行が完了してクリアされたとき。",
+            name: "演出キュー消去",
+            description: "演出キューの実行が完了してクリアされたとき。",
             cached: false,
             manualMetadata: {
                 queueName: "雑談"
@@ -112,8 +112,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "effect-queue-added",
-            name: "エフェクトキュー追加",
-            description: "エフェクトキューに新しいエントリが追加されたとき。",
+            name: "演出キュー追加",
+            description: "演出キューに新しいエントリが追加されたとき。",
             cached: false,
             manualMetadata: {
                 queueName: "雑談"
@@ -121,8 +121,8 @@ export const FirebotEventSource: EventSource = {
         },
         {
             id: "effect-queue-status",
-            name: "エフェクトキュー状態変更",
-            description: "エフェクトキューの状態が変更されたとき。",
+            name: "演出キュー状態変更",
+            description: "演出キューの状態が変更されたとき。",
             cached: false,
             manualMetadata: {
                 queueName: "雑談",

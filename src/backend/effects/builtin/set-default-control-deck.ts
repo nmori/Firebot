@@ -8,16 +8,16 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:set-default-control-deck",
-        name: "Set Default Control Deck",
-        description: "Set the default control deck when new devices connect",
+        name: "既定のコントロールデッキを設定",
+        description: "新しいデバイスが接続したときに表示する既定のコントロールデッキを設定します",
         icon: "fad fa-star",
         categories: ["common", "firebot control"]
     },
     optionsTemplate: `
-        <eos-container header="Deck">
+        <eos-container header="デッキ">
             <firebot-searchable-select
                 ng-model="effect.deckId"
-                placeholder="Select or search for a deck..."
+                placeholder="デッキを選択または検索..."
                 items="controlDecks"
             />
         </eos-container>
@@ -27,13 +27,13 @@ const effect: EffectType<{
     },
     getDefaultLabel: (effect, controlDeckService) => {
         const deck = controlDeckService.decks.find(deck => deck.id === effect.deckId);
-        const deckName = deck?.name ?? "Unknown Deck";
+        const deckName = deck?.name ?? "不明なデッキ";
         return deckName;
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (!effect.deckId) {
-            errors.push("A control deck must be selected.");
+            errors.push("コントロールデッキを選択してください。");
         }
         return errors;
     },

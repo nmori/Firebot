@@ -7,8 +7,8 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:pin-chat-message",
-        name: "Pin Chat Message",
-        description: "Pin the associated chat message to the top of chat",
+        name: "チャットメッセージをピン留め",
+        description: "関連するチャットメッセージをチャットの上部にピン留めします",
         icon: "fas fa-thumbtack",
         categories: ["chat based", "advanced", "twitch"],
         dependencies: ["chat"],
@@ -19,20 +19,20 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect pins the associated chat message to the top of chat (for a Command or Chat Message Event)</p>
+            <p>この演出は、関連するチャットメッセージ（コマンドまたはチャットメッセージイベントのもの）をチャットの上部にピン留めします</p>
         </eos-container>
 
-        <eos-container header="Settings" pad-top="true">
+        <eos-container header="設定" pad-top="true">
             <firebot-checkbox
-                label="Pin until end of stream"
+                label="配信終了までピン留めする"
                 model="effect.pinUntilEndOfStream"
                 style="margin: 0px 15px 0px 0px"
             />
             <firebot-input
                 ng-show="effect.pinUntilEndOfStream !== true"
                 model="effect.pinDuration"
-                input-title="Duration (in secs)"
-                placeholder-text="Enter duration"
+                input-title="期間（秒）"
+                placeholder-text="期間を入力"
             />
         </eos-container>
     `,
@@ -41,7 +41,7 @@ const effect: EffectType<{
         if (effect.pinUntilEndOfStream !== true
             && !effect.pinDuration?.length
         ) {
-            errors.push("Must choose pin duration");
+            errors.push("ピン留めの期間を指定してください");
         }
         return errors;
     },

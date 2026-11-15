@@ -50,7 +50,7 @@ const celebration = {
 
     <eos-container>
         <div class="effect-info alert alert-warning">
-        このエフェクトを使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。<a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">これについて学ぶ</a>
+        この演出を使用するには、Firebotオーバーレイが配信ソフトに読み込まれている必要があります。<a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">これについて学ぶ</a>
         </div>
     </eos-container>
     `,

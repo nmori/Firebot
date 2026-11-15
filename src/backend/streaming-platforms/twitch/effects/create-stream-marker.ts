@@ -33,7 +33,7 @@ const model: EffectType<{
 
         <eos-container>
             <div class="effect-info alert alert-warning">
-                注意: このエフェクトを使うには配信中で、かつ VOD が有効になっている必要があります。
+                注意: この演出を使うには配信中で、かつ VOD が有効になっている必要があります。
             </div>
         </eos-container>
     `,

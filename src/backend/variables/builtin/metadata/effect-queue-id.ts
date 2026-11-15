@@ -7,7 +7,7 @@ triggers["manual"] = true;
 const model: ReplaceVariable = {
     definition: {
         handle: "effectQueueId",
-        description: "エフェクトキューの ID を返します。",
+        description: "演出キューの ID を返します。",
         triggers: triggers,
         categories: ["trigger based"],
         possibleDataOutput: ["text"]

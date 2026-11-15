@@ -60,7 +60,7 @@
                     const willBeRemoved = [];
                     if ($ctrl.command.effects.list.length > 1 ||
                         $ctrl.command.effects.list.some(e => e.type !== "firebot:chat")) {
-                        willBeRemoved.push("チャットエフェクトを1つ残し、それ以外のエフェクト");
+                        willBeRemoved.push("チャット演出を1つ残し、それ以外の演出");
                     }
                     if ($ctrl.command.restrictionData.restrictions.length > 1 ||
                         $ctrl.command.restrictionData.restrictions.some(r => r.type !== "firebot:permissions")) {

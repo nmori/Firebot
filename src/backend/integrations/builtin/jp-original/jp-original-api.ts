@@ -40,7 +40,7 @@ const integrationConfig: Integration<JpOriginalSettings> = {
     definition: {
         id: "jp-original-api",
         name: "JP Original 外部API設定",
-        description: "DeepL翻訳・Microsoft翻訳・OpenWeatherMap など JP Original エフェクトで使う外部APIキーを管理します",
+        description: "DeepL翻訳・Microsoft翻訳・OpenWeatherMap など JP Original 演出で使う外部APIキーを管理します",
         linkType: "none",
         configurable: true,
         connectionToggle: false,

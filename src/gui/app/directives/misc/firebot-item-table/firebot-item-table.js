@@ -158,7 +158,7 @@
                         });
 
                         menuItems.push({
-                            text: `エフェクトキュー...`,
+                            text: `演出キュー...`,
                             children: children,
                             hasTopDivider: true
                         });

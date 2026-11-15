@@ -79,10 +79,10 @@ const panelStyle = computed(() => ({
 
 const statusLabel = computed(() => {
     switch (poll.value?.status) {
-        case "archived": return "Archived";
-        case "terminated": return "Canceled";
-        case "completed": return "Done";
-        default: return "Open";
+        case "archived": return "アーカイブ済み";
+        case "terminated": return "中止";
+        case "completed": return "終了";
+        default: return "受付中";
     }
 });
 </script>

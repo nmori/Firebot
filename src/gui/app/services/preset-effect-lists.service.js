@@ -110,10 +110,10 @@
                 if (savedList != null) {
                     ngToast.create({
                         className: 'success',
-                        content: 'プリセットエフェクトリストを複製しました。'
+                        content: 'プリセット演出リストを複製しました。'
                     });
                 } else {
-                    ngToast.create("プリセットエフェクトリストの複製に失敗しました。");
+                    ngToast.create("プリセット演出リストの複製に失敗しました。");
                 }
             };
 

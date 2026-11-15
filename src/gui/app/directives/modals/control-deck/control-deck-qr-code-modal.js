@@ -7,41 +7,41 @@
         template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">Control Deck QR Code</h4>
+                <h4 class="modal-title">コントロールデッキのQRコード</h4>
             </div>
             <div class="modal-body">
-                <p class="muted text-center">Scan this QR code with your phone or tablet, or visit the URL in a browser.</p>
+                <p class="muted text-center">スマートフォンやタブレットでこのQRコードを読み取るか、ブラウザーでURLにアクセスしてください。</p>
                 <div class="flex flex-column items-center justify-center gap-4">
                     <dropdown-select
                         options="$ctrl.urlModeOptions"
                         selected="$ctrl.urlMode"
                         on-update="$ctrl.onUrlModeChange()"
                     ></dropdown-select>
-                    <img ng-if="$ctrl.qrDataUrl" ng-src="{{$ctrl.qrDataUrl}}" alt="Control Deck QR code" class="my-6" style="width: 180px; height: 180px; background: #fff; border-radius: 8px; padding: 8px;" />
+                    <img ng-if="$ctrl.qrDataUrl" ng-src="{{$ctrl.qrDataUrl}}" alt="コントロールデッキのQRコード" class="my-6" style="width: 180px; height: 180px; background: #fff; border-radius: 8px; padding: 8px;" />
                     <div style="flex: 1;" class="w-full">
-                        <copy-text-display text="$ctrl.url" tooltip-text="Copy Control Deck URL"></copy-text-display>
+                        <copy-text-display text="$ctrl.url" tooltip-text="コントロールデッキのURLをコピー"></copy-text-display>
                     </div>
                     <div class="w-full mt-5">
-                        <collapsable-panel header="iOS Troubleshooting Tips">
-                            <p>If you encounter a "cannot open in https-only mode" error on iOS, follow these steps:</p>
+                        <collapsable-panel header="iOS のトラブルシューティング">
+                            <p>iOS で「cannot open in https-only mode」（HTTPS専用モードでは開けません）というエラーが出る場合は、次の手順に従ってください:</p>
                             <ol>
-                                <li>Open the Settings app</li>
-                                <li>Navigate to Safari app settings</li>
-                                <li>Under the "Privacy & Security" section, disable "Not Secure Connection Warning"</li>
+                                <li>「設定」アプリを開きます</li>
+                                <li>Safari の設定に移動します</li>
+                                <li>「プライバシーとセキュリティ」セクションで「安全でない接続の警告」（Not Secure Connection Warning）をオフにします</li>
                             </ol>
-                            <p>If you want more screen real estate:</p>
+                            <p>画面をより広く使いたい場合:</p>
                             <ol>
-                                <li>Open the Control Deck page in Safari</li>
-                                <li>Press the Share button and select "Add to Home Screen"</li>
-                                <li>Make sure "Open as Web App" is enabled</li>
+                                <li>Safari でコントロールデッキのページを開きます</li>
+                                <li>共有ボタンを押して「ホーム画面に追加」を選択します</li>
+                                <li>「Webアプリとして開く」がオンになっていることを確認します</li>
                             </ol>
                         </collapsable-panel>
                     </div>
                    <div class="w-full mt-5">
-                        <collapsable-panel header="Android Troubleshooting Tips">
-                            <p>If you have issues loading the page, try the following:</p>
+                        <collapsable-panel header="Android のトラブルシューティング">
+                            <p>ページの読み込みに問題がある場合は、次の方法を試してください:</p>
                             <ol>
-                                <li>Switch to the "Direct IP" url above and scan the QR code again</li>
+                                <li>上で「直接IP」のURLに切り替えて、QRコードをもう一度読み取ります</li>
                             </ol>
                         </collapsable-panel>
                     </div>
@@ -63,8 +63,8 @@
 
             $ctrl.urlMode = "local";
             $ctrl.urlModeOptions = {
-                local: "Local URL",
-                direct: "Direct IP"
+                local: "ローカルURL",
+                direct: "直接IP"
             };
 
             let directHost = null;

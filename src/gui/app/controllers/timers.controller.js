@@ -55,7 +55,7 @@
                     cellController: () => {}
                 },
                 {
-                    name: "エフェクト",
+                    name: "演出",
                     icon: "fa-magic",
                     headerStyles: {
                         'min-width': '100px'
@@ -134,7 +134,7 @@
                     }
                 },
                 {
-                    name: "エフェクト",
+                    name: "演出",
                     icon: "fa-magic",
                     headerStyles: {
                         'min-width': '100px'
@@ -153,7 +153,7 @@
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.enabled ? "スケジュール済みエフェクトリストを無効化" : "スケジュール済みエフェクトリストを有効化"}</a>`,
+                        html: `<a href ><i class="far fa-toggle-off" style="margin-right: 10px;"></i> ${item.enabled ? "演出予定リストを無効化" : "演出予定リストを有効化"}</a>`,
                         click: function () {
                             scheduledTaskService.toggleScheduledTaskEnabledState(item);
                         }
@@ -169,8 +169,8 @@
                         click: function () {
                             utilityService
                                 .showConfirmationModal({
-                                    title: "スケジュール済みエフェクトリストを削除",
-                                    question: `スケジュール済みエフェクトリスト "${item.name}" を削除してもよろしいですか？`,
+                                    title: "演出予定リストを削除",
+                                    question: `演出予定リスト "${item.name}" を削除してもよろしいですか？`,
                                     confirmLabel: "削除",
                                     confirmBtnType: "btn-danger"
                                 })

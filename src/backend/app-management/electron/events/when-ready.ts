@@ -68,7 +68,7 @@ export async function whenReady() {
 
     // load effects
     logger.debug("Loading effects...");
-    windowManagement.updateSplashScreenStatus("エフェクトを読み込み中...");
+    windowManagement.updateSplashScreenStatus("演出を読み込み中...");
     const { loadEffects } = await import("../../../effects/builtin-effect-loader");
     loadEffects();
 

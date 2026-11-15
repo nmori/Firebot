@@ -44,10 +44,10 @@
               </tbody>
             </table>
             <div ng-show="$ctrl.loading" class="fb-table-row">
-                <span class="muted">Loading...</span>
+                <span class="muted">読み込み中...</span>
             </div>
             <div ng-show="!$ctrl.loading && $ctrl.totalCount < 1" class="fb-table-row">
-                <span class="muted">{{$ctrl.noDataMessage ? $ctrl.noDataMessage : "No data available yet"}}</span>
+                <span class="muted">{{$ctrl.noDataMessage ? $ctrl.noDataMessage : "まだデータがありません"}}</span>
             </div>
             <div style="display: grid;grid-template-columns: 1fr max-content 1fr;">
               <div></div>
@@ -58,7 +58,7 @@
               </div>
               <div>
                   <div ng-hide="$ctrl.totalCount < 1" class="muted" style="margin-top: 10px;font-size: 11px;text-align: right;">
-                      <span>Showing <strong>{{$ctrl.getRangeMin()}}</strong> - <strong>{{$ctrl.getRangeMax($ctrl.filteredCount)}}</strong> of <strong>{{$ctrl.totalCount}}</strong> total</span>
+                      <span>全 <strong>{{$ctrl.totalCount}}</strong> 件中 <strong>{{$ctrl.getRangeMin()}}</strong> - <strong>{{$ctrl.getRangeMax($ctrl.filteredCount)}}</strong> 件を表示</span>
                   </div>
               </div>
             </div>

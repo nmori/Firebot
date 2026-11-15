@@ -93,13 +93,13 @@ const model: EffectType<{
 
         <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
         <div class="effect-info alert alert-warning">
-            このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">詳細を見る</a>
+            この演出を使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal()" style="text-decoration:underline">詳細を見る</a>
         </div>
     </div>
 
     <eos-container pad-top="true">
         <div class="effect-info alert alert-danger">
-        警告: このエフェクトは subreddit からランダムな画像を取得します。モデレーションがしっかり行われている subreddit であれば概ね安全ですが、不適切な画像が表示される可能性が常にあります。利用は自己責任でお願いします。
+        警告: この演出は subreddit からランダムな画像を取得します。モデレーションがしっかり行われている subreddit であれば概ね安全ですが、不適切な画像が表示される可能性が常にあります。利用は自己責任でお願いします。
         </div>
     </eos-container>
 

@@ -11,21 +11,21 @@ const effect: EffectType<{
 }> = {
     definition: {
         id: "firebot:trigger-manual-effect-queue",
-        name: "手動エフェクトキュー実行",
-        description: "手動エフェクトキュー内の次のエフェクトリストを実行します。",
+        name: "手動演出キュー実行",
+        description: "手動演出キュー内の次の演出リストを実行します。",
         icon: "fad fa-step-forward",
         categories: ["scripting", "firebot control"]
     },
     optionsTemplate: `
-        <eos-container header="手動エフェクトキュー">
+        <eos-container header="手動演出キュー">
             <firebot-searchable-select
                 ng-if="manualEffectQueues.length"
                 ng-model="effect.effectQueueId"
-                placeholder="手動エフェクトキューを選択または検索..."
+                placeholder="手動演出キューを選択または検索..."
                 items="manualEffectQueues"
             />
             <div ng-if="!manualEffectQueues.length">
-                手動エフェクトキューが保存されていません。
+                手動演出キューが保存されていません。
             </div>
         </eos-container>
     `,
@@ -44,7 +44,7 @@ const effect: EffectType<{
         const errors: string[] = [];
 
         if (effect.effectQueueId == null) {
-            errors.push("手動エフェクトキューを選択してください。");
+            errors.push("手動演出キューを選択してください。");
         }
 
         return errors;

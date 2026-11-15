@@ -135,10 +135,10 @@
                 if (successful) {
                     ngToast.create({
                         className: 'success',
-                        content: 'スケジュール実行のエフェクトリストを複製しました。'
+                        content: 'スケジュール実行の演出リストを複製しました。'
                     });
                 } else {
-                    ngToast.create("スケジュール済みエフェクトリストの複製に失敗しました。");
+                    ngToast.create("演出予定リストの複製に失敗しました。");
                 }
             };
 

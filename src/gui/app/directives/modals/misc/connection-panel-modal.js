@@ -14,7 +14,7 @@
                     </div>
                     <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
                         <div class="connection-tile">
-                            <span class="connection-title">チャットとイベント <tooltip text="'コマンド、チャットエフェクト、チャットフィード、イベントなどに使用されます。'"></tooltip></span>
+                            <span class="connection-title">チャットとイベント <tooltip text="'コマンド、チャット演出、チャットフィード、イベントなどに使用されます。'"></tooltip></span>
                             <connection-button
                                 connected="$ctrl.conn.connections['chat'] === 'connected'"
                                 connecting="$ctrl.conn.connections['chat'] === 'connecting'"

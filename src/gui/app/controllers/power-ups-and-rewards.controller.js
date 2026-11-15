@@ -114,7 +114,7 @@
             $scope.rewardMenuOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ${item.manageable ? "編集" : "エフェクトを編集"}</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ${item.manageable ? "編集" : "演出を編集"}</a>`,
                         click: function () {
                             channelRewardsService.showAddOrEditRewardModal(item);
                         }
@@ -172,7 +172,7 @@
             $scope.powerUpMenuOptions = (item) => {
                 return [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit Effects</a>`,
+                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> 演出を編集</a>`,
                         click: function () {
                             powerUpsService.showEditPowerUpModal(item);
                         }

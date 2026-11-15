@@ -24,7 +24,7 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container ng-hide="hasCountdownWidgets">
-            <p>このエフェクトを使うには Countdown（Dynamic）のオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
+            <p>この演出を使うには Countdown（Dynamic）のオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </eos-container>
         <div ng-show="hasCountdownWidgets">
             <eos-container header="カウントダウン">

@@ -97,8 +97,8 @@ export const countdownToDate: OverlayWidgetType<Settings, State> = {
         },
         {
             name: "onCompleteEffects",
-            title: "完了時エフェクト",
-            description: "カウントダウンがゼロに達したときに実行するエフェクトです。",
+            title: "完了時演出",
+            description: "カウントダウンがゼロに達したときに実行する演出です。",
             type: "effectlist"
         }
     ],

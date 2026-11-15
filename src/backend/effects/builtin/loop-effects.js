@@ -10,8 +10,8 @@ const { wait } = require("../../utils");
 const model = {
     definition: {
         id: "firebot:loopeffects",
-        name: "エフェクトループ",
-        description: "エフェクトリストをループ実行します",
+        name: "演出ループ",
+        description: "演出リストをループ実行します",
         icon: "fad fa-repeat-alt",
         categories: [EffectCategory.SCRIPTING],
         dependencies: []
@@ -19,7 +19,7 @@ const model = {
     globalSettings: {},
     optionsTemplate: `
         <eos-container>
-            <p>このエフェクトは、設定に応じて下のエフェクトリストをループ実行します。</p>
+            <p>この演出は、設定に応じて下の演出リストをループ実行します。</p>
         </eos-container>
 
         <eos-container header="ループモード" pad-top="true">
@@ -40,7 +40,7 @@ const model = {
         </eos-container>
 
         <eos-container header="{{effect.loopMode === 'count' ? 'ループ回数' : '最大ループ回数' }}" ng-hide="effect.loopMode === 'array'">
-            <p ng-show="effect.loopMode === 'count'" class="muted">下のエフェクトリストをループする回数。</p>
+            <p ng-show="effect.loopMode === 'count'" class="muted">下の演出リストをループする回数。</p>
             <p ng-show="effect.loopMode === 'conditional'" class="muted">条件が満たされていてもこの回数を超えるとループを強制終了します。無限ループ防止に便利です。最大回数を設けない場合は空欄にしてください。</p>
             <input type="text" ng-model="effect.loopCount" class="form-control" replace-variables="number" aria-label="ループ回数" placeholder="数値を入力">
         </eos-container>
@@ -50,10 +50,10 @@ const model = {
             <input type="text" ng-model="effect.arrayToIterate" class="form-control" replace-variables="text" aria-label="ループ配列" placeholder="JSON配列を入力">
         </eos-container>
 
-        <eos-container header="ループ対象のエフェクト" pad-top="true">
+        <eos-container header="ループ対象の演出" pad-top="true">
             <div ng-show="effect.loopMode === 'conditional'">
                 <condition-list condition-data="effect.conditionData" prefix="ながら" trigger="trigger" trigger-meta="triggerMeta"></condition-list>
-                <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">以下のエフェクトを実行する:</div>
+                <div style="font-size: 15px;font-family: 'Quicksand'; color: #c0c1c2;margin-bottom:3px;">以下の演出を実行する:</div>
             </div>
 
             <effect-list effects="effect.effectList"

@@ -16,20 +16,20 @@
 
             $scope.headers = [
                 {
-                    name: "NAME",
+                    name: "名前",
                     icon: "fa-grid",
                     dataField: "name",
                     sortable: true,
                     cellTemplate: `{{data.name}}`
                 },
                 {
-                    name: "CONTROLS",
+                    name: "コントロール",
                     icon: "fa-hashtag",
                     dataField: "controls",
-                    cellTemplate: `{{data.controls.length}} control{{data.controls.length === 1 ? '' : 's'}}`
+                    cellTemplate: `{{data.controls.length}} 個のコントロール`
                 },
                 {
-                    cellTemplate: `<span ng-if="isDefault" uib-tooltip="This will be the initial deck shown when opening the Control Deck on a device" append-tooltip-to-body="true"><span class="paused-dot unpaused" style="margin-right: 5px"></span> Default</span>`,
+                    cellTemplate: `<span ng-if="isDefault" uib-tooltip="デバイスでコントロールデッキを開いたときに最初に表示されるデッキです" append-tooltip-to-body="true"><span class="paused-dot unpaused" style="margin-right: 5px"></span> 既定</span>`,
                     cellController: ($scope, settingsService) => {
                         $scope.isDefault = false;
 
@@ -47,20 +47,20 @@
             $scope.deckOptions = (item) => {
                 return [
                     {
-                        html: `<a href><i class="far fa-pen mr-2 text-center" style="width: 20px;"></i> Edit</a>`,
+                        html: `<a href><i class="far fa-pen mr-2 text-center" style="width: 20px;"></i> 編集</a>`,
                         click: () => {
                             controlDeckService.showAddEditDeckModal(item);
                         }
                     },
                     {
-                        html: `<a href><i class="far fa-star mr-2 text-center" style="width: 20px;"></i> Set as Default</a>`,
+                        html: `<a href><i class="far fa-star mr-2 text-center" style="width: 20px;"></i> 既定に設定</a>`,
                         click: () => {
                             settingsService.saveSetting("ControlDeckDefaultDeckId", item.id);
                         },
                         enabled: item.id !== settingsService.getSetting("ControlDeckDefaultDeckId")
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt text-center mr-2" style="width: 20px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt text-center mr-2" style="width: 20px;"></i> 削除</a>`,
                         click: () => {
                             controlDeckService.confirmDeleteDeck(item);
                         }

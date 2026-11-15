@@ -20,14 +20,14 @@
                         <input maxlength="2" type="text" class="form-control" ng-model="$ctrl.quickAction.icon" icon-picker required>
                     </div>
                     <div>
-                        <h3>エフェクトリスト</h3>
-                        <p class="muted">クイックアクション実行時に実行されるエフェクトリストです。</p>
+                        <h3>演出リスト</h3>
+                        <p class="muted">クイックアクション実行時に実行される演出リストです。</p>
                         <dropdown-select options="{ custom: 'カスタム', preset: 'プリセット'}" selected="$ctrl.listType"></dropdown-select>
                         <div ng-if="$ctrl.listType === 'preset'" class="mt-8">
                             <firebot-searchable-select
                                 ng-model="$ctrl.quickAction.presetListId"
                                 items="$ctrl.presetEffectLists"
-                                placeholder="プリセットのエフェクトリストを選択または検索..."
+                                placeholder="プリセットの演出リストを選択または検索..."
                                 on-select="$ctrl.presetListSelected(item)"
                             />
                         </div>
@@ -138,7 +138,7 @@
                         ($ctrl.quickAction.presetListId == null || $ctrl.quickAction.presetListId === "") &&
                         ($ctrl.quickAction.effectList == null || !$ctrl.quickAction.effectList.list.length)
                     ) {
-                        ngToast.create("このクイックアクションにカスタムまたはプリセットのエフェクトリストを選択してください");
+                        ngToast.create("このクイックアクションにカスタムまたはプリセットの演出リストを選択してください");
                         return;
                     }
 

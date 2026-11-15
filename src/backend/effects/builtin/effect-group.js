@@ -10,22 +10,22 @@ const { SettingsManager } = require("../../common/settings-manager");
 const effectGroup = {
     definition: {
         id: "firebot:run-effect-list",
-        name: "エフェクトリスト実行",
+        name: "演出リスト実行",
         description:
-            "プリセットまたはカスタムのエフェクトリストを実行します",
+            "プリセットまたはカスタムの演出リストを実行します",
         icon: "fad fa-list",
         categories: ["advanced", "scripting", "firebot control"],
         dependencies: []
     },
     optionsTemplate: `
         <eos-container header="リスト種別">
-            <dropdown-select options="{ custom: 'カスタムエフェクトリスト', preset: 'プリセットエフェクトリスト'}" selected="effect.listType"></dropdown-select>
+            <dropdown-select options="{ custom: 'カスタム演出リスト', preset: 'プリセット演出リスト'}" selected="effect.listType"></dropdown-select>
         </eos-container>
 
-        <eos-container ng-show="effect.listType === 'preset'" header="プリセットエフェクトリスト" pad-top="true">
+        <eos-container ng-show="effect.listType === 'preset'" header="プリセット演出リスト" pad-top="true">
             <firebot-searchable-select
                 ng-model="effect.presetListId"
-                placeholder="プリセットエフェクトリストを選択または検索..."
+                placeholder="プリセット演出リストを選択または検索..."
                 items="presetEffectLists"
                 on-select="selectPresetList(item)"
             />
@@ -51,7 +51,7 @@ const effectGroup = {
             </div>
         </eos-container>
 
-        <eos-container ng-show="effect.listType === 'custom'" header="カスタムエフェクトリスト" pad-top="true">
+        <eos-container ng-show="effect.listType === 'custom'" header="カスタム演出リスト" pad-top="true">
             <effect-list effects="effect.effectList"
                     trigger="{{trigger}}"
                     trigger-meta="triggerMeta"
@@ -62,16 +62,16 @@ const effectGroup = {
         <eos-container header="オプション" pad-top="true">
             <firebot-checkbox
                 model="effect.dontWait"
-                label="エフェクトの完了を待たない"
-                tooltip="このエフェクトをトリガーした親のエフェクトリストが、ここで指定したエフェクトの完了を待たずに先に進む場合にチェックします。"
+                label="演出の完了を待たない"
+                tooltip="この演出をトリガーした親の演出リストが、ここで指定した演出の完了を待たずに先に進む場合にチェックします。"
             />
 
             <firebot-checkbox
                 ng-if="!effect.dontWait"
                 style="margin-top: 10px"
                 model="effect.bubbleOutputs"
-                label="親リストにエフェクト出力を適用"
-                tooltip="ここで実行されたエフェクトの出力を、親エフェクトリストでも利用できるようにするかどうか。"
+                label="親リストに演出出力を適用"
+                tooltip="ここで実行された演出の出力を、親演出リストでも利用できるようにするかどうか。"
             />
         </eos-container>
 
@@ -147,10 +147,10 @@ const effectGroup = {
     getDefaultLabel: (effect, presetEffectListsService) => {
         if (effect.listType === 'preset') {
             const presetList = presetEffectListsService.getPresetEffectList(effect.presetListId);
-            return effect.presetListId ? presetList?.name : "不明なプリセットエフェクトリスト";
+            return effect.presetListId ? presetList?.name : "不明なプリセット演出リスト";
         }
         const length = effect.effectList?.list?.length ?? 0;
-        return `${length}件のカスタムエフェクト`;
+        return `${length}件のカスタム演出`;
     },
     onTriggerEvent: (event) => {
         return new Promise((resolve) => {

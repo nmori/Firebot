@@ -43,7 +43,7 @@
                             <input type="checkbox" ng-model="$ctrl.scheduledTask.enabled" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
-                        <label class="control-fb control--checkbox">配信中のみ実行 <tooltip text="'配信外でもこのスケジュール済みエフェクトリストを実行したい場合はチェックを外してください。'"></tooltip>
+                        <label class="control-fb control--checkbox">配信中のみ実行 <tooltip text="'配信外でもこの演出予定リストを実行したい場合はチェックを外してください。'"></tooltip>
                             <input type="checkbox" ng-model="$ctrl.scheduledTask.onlyWhenLive" aria-label="...">
                             <div class="control__indicator"></div>
                         </label>
@@ -52,7 +52,7 @@
 
                 <div class="function-button-settings" style="margin-top: 15px;">
                     <effect-list
-                        header="このスケジュール済みエフェクトリストで実行する内容"
+                        header="この演出予定リストで実行する内容"
                         effects="$ctrl.scheduledTask.effects"
                         trigger="scheduledTask"
                         trigger-meta="{ rootEffects: $ctrl.scheduledTask.effects }"
@@ -61,7 +61,7 @@
                     ></effect-list>
                 </div>
                 <p class="muted" style="font-size:11px;margin-top:6px;">
-                    <strong>ヒント:</strong> このスケジュール済みエフェクトリストでチャットメッセージを1つずつ表示したい場合は、エフェクトリストの実行モードを <strong>順番</strong> または <strong>ランダム</strong> に設定してください。
+                    <strong>ヒント:</strong> この演出予定リストでチャットメッセージを1つずつ表示したい場合は、演出リストの実行モードを <strong>順番</strong> または <strong>ランダム</strong> に設定してください。
                 </p>
             </div>
 
@@ -130,10 +130,10 @@
 
             function scheduledTaskValid() {
                 if ($ctrl.scheduledTask.name === "") {
-                    ngToast.create("スケジュール済みエフェクトリストの名前を入力してください。");
+                    ngToast.create("演出予定リストの名前を入力してください。");
                     return false;
                 } else if ($ctrl.scheduledTask.schedule.length < 1 || isScheduleValid($ctrl.scheduledTask.schedule) !== true) {
-                    ngToast.create("スケジュール済みエフェクトリストに有効な cron スケジュールを入力してください。");
+                    ngToast.create("演出予定リストに有効な cron スケジュールを入力してください。");
                     return false;
                 }
                 return true;
@@ -170,7 +170,7 @@
                         }
                     });
                 } else {
-                    ngToast.create("スケジュール済みエフェクトリストの保存に失敗しました。再試行するかログを確認してください。");
+                    ngToast.create("演出予定リストの保存に失敗しました。再試行するかログを確認してください。");
                 }
             };
         }

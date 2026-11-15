@@ -15,7 +15,7 @@
                     theme="bootstrap"
                     class="control-type-list"
                 >
-                    <ui-select-match placeholder="Select an emoji...">
+                    <ui-select-match placeholder="絵文字を選択...">
                         <span class="flex-row-center" style="gap: 8px;">
                             <span class="emoji-glyph">{{$ctrl.model}}</span>
                             <span>{{$ctrl.getName($ctrl.model)}}</span>
@@ -28,7 +28,7 @@
                         </div>
                     </ui-select-choices>
                     <ui-select-no-choice>
-                        <b>No emojis found</b>
+                        <b>絵文字が見つかりません</b>
                     </ui-select-no-choice>
                 </ui-select>
             `,

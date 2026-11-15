@@ -35,7 +35,7 @@ export async function createEffectQueueMonitorWindow() {
     effectQueueMonitorWindow = new BrowserWindow({
         frame: true,
         backgroundColor: "#2F3137",
-        title: "Effect Queue Monitor",
+        title: "演出キューモニター",
         width: effectQueueMonitorWindowState.width,
         height: effectQueueMonitorWindowState.height,
         x: effectQueueMonitorWindowState.x,

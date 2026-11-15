@@ -15,7 +15,7 @@
             <div class="modal-body">
                 <div>
                     <div class="modal-subheader pb-2 pt-0 px-0">
-                        名前 <tooltip text="'このエフェクトキューを識別しやすくするための名前です'">
+                        名前 <tooltip text="'この演出キューを識別しやすくするための名前です'">
                     </div>
                     <div style="width: 100%; position: relative;">
                         <div class="form-group">
@@ -43,8 +43,8 @@
                 </div>
 
                 <firebot-checkbox
-                    label="一時停止中はエフェクトをすぐ実行する"
-                    tooltip="キューが一時停止中にエフェクトが追加された場合、キューの再開を待たずにすぐ実行します。キュー機能を一時的に止めつつ、このキューに設定されたエフェクトを通常どおり実行したいときに便利です。"
+                    label="一時停止中は演出をすぐ実行する"
+                    tooltip="キューが一時停止中に演出が追加された場合、キューの再開を待たずにすぐ実行します。キュー機能を一時的に止めつつ、このキューに設定された演出を通常どおり実行したいときに便利です。"
                     model="$ctrl.effectQueue.runEffectsImmediatelyWhenPaused"
                     style="margin-top: 15px; margin-bottom: 0px;"
                 />
@@ -89,12 +89,12 @@
 
             $ctrl.save = async () => {
                 if ($ctrl.effectQueue.name == null || $ctrl.effectQueue.name === "") {
-                    ngToast.create("このエフェクトキューの名前を入力してください");
+                    ngToast.create("この演出キューの名前を入力してください");
                     return;
                 }
 
                 if ($ctrl.effectQueue.mode === "interval" && $ctrl.effectQueue.interval == null) {
-                    ngToast.create("このエフェクトキューの間隔を設定してください");
+                    ngToast.create("この演出キューの間隔を設定してください");
                     return;
                 }
 
@@ -106,7 +106,7 @@
                         }
                     });
                 } else {
-                    ngToast.create("エフェクトキューの保存に失敗しました。再試行するか、ログを確認してください。");
+                    ngToast.create("演出キューの保存に失敗しました。再試行するか、ログを確認してください。");
                 }
             };
         }

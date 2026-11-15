@@ -10,18 +10,18 @@
         template: `
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span>&times;</span></button>
-                <h4 class="modal-title">{{$ctrl.isNew ? 'Add Control Deck' : 'Edit Control Deck'}}</h4>
+                <h4 class="modal-title">{{$ctrl.isNew ? 'コントロールデッキを追加' : 'コントロールデッキを編集'}}</h4>
             </div>
             <div class="modal-body">
-                <firebot-form-group name="deck-name" label="Name">
+                <firebot-form-group name="deck-name" label="名前">
                     <firebot-input
                         model="$ctrl.deck.name"
-                        placeholder-text="Enter deck name"
+                        placeholder-text="デッキ名を入力"
                         disable-variables="true"
                     />
                 </firebot-form-group>
 
-                <firebot-form-group name="deck-dimensions" label="Dimensions">
+                <firebot-form-group name="deck-dimensions" label="サイズ（列 × 行）">
                     <div class="input-group" style="width: 25%;">
                         <input type="number" min="1" max="12" class="form-control" ng-model="$ctrl.deck.grid.cols" ng-change="$ctrl.refreshGrid()">
                         <div class="input-group-addon">&times;</div>
@@ -29,16 +29,16 @@
                     </div>
                 </firebot-form-group>
 
-                <label class="control-label">Grid</label>
+                <label class="control-label">グリッド</label>
                 <div class="cd-page-bar">
                     <div
                         class="cd-page-tab cd-page-tab-pinned"
                         ng-class="{ active: $ctrl.activePageId === $ctrl.pinnedPageId }"
                         ng-click="$ctrl.setActivePage($ctrl.pinnedPageId)"
-                        uib-tooltip="Controls here appear on every page unless overridden"
+                        uib-tooltip="ここに置いたコントロールは、上書きしない限りすべてのページに表示されます"
                     >
                         <i class="fas fa-thumbtack"></i>
-                        <span class="cd-page-name">Pinned</span>
+                        <span class="cd-page-name">固定</span>
                     </div>
                     <div class="cd-page-divider"></div>
                     <ul class="cd-page-tabs" ui-sortable="$ctrl.pageSortableOptions" ng-model="$ctrl.deck.pages">
@@ -53,7 +53,7 @@
                             <span class="cd-page-name">{{page.name}}</span>
                             <a
                                 href role="button"
-                                aria-label="Open page menu"
+                                aria-label="ページメニューを開く"
                                 class="noselect clickable"
                                 style="color: white;padding: 0 12px 0 6px;"
                                 context-menu="$ctrl.pageMenuOptions(page)"
@@ -69,16 +69,16 @@
                             class="btn btn-default-outlined btn-sm"
                             style="padding: 4px 10px !important;"
                             uib-dropdown-toggle
-                        ><i class="fas fa-plus mr-1"></i> Add Page <span class="caret"></span></button>
+                        ><i class="fas fa-plus mr-1"></i> ページを追加 <span class="caret"></span></button>
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                            <li role="menuitem"><a href ng-click="$ctrl.addPage()"><i class="far fa-plus mr-2 text-center" style="width: 20px;"></i> New Page</a></li>
-                            <li role="menuitem" ng-class="{'disabled': !$ctrl.hasCopiedPage()}"><a href ng-disabled="!$ctrl.hasCopiedPage()" ng-click="$ctrl.pastePage()"><i class="far fa-paste mr-2 text-center" style="width: 20px;"></i> Paste Page</a></li>
+                            <li role="menuitem"><a href ng-click="$ctrl.addPage()"><i class="far fa-plus mr-2 text-center" style="width: 20px;"></i> 新しいページ</a></li>
+                            <li role="menuitem" ng-class="{'disabled': !$ctrl.hasCopiedPage()}"><a href ng-disabled="!$ctrl.hasCopiedPage()" ng-click="$ctrl.pastePage()"><i class="far fa-paste mr-2 text-center" style="width: 20px;"></i> ページを貼り付け</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="cd-breadcrumb" style="margin-top: 15px;">
-                    <span class="cd-crumb clickable" ng-click="$ctrl.goToRoot()">Home</span>
+                    <span class="cd-crumb clickable" ng-click="$ctrl.goToRoot()">ホーム</span>
                     <span ng-repeat="folder in $ctrl.folderTrail">
                         <span class="cd-crumb-sep"> / </span>
                         <span class="cd-crumb clickable" ng-click="$ctrl.goToFolder($index)">{{folder.name}}</span>
@@ -100,8 +100,8 @@
                 ></control-deck-grid>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">キャンセル</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">保存</button>
             </div>
         `,
         bindings: {
@@ -135,19 +135,19 @@
             $ctrl.pageMenuOptions = (page) => {
                 return [
                     {
-                        html: `<a href class="menu-option"><i class="far fa-pen mr-2 text-center" style="width: 20px;"></i> Rename</a>`,
+                        html: `<a href class="menu-option"><i class="far fa-pen mr-2 text-center" style="width: 20px;"></i> 名前を変更</a>`,
                         click: () => {
                             $ctrl.renamePage(page);
                         }
                     },
                     {
-                        html: `<a href class="menu-option"><i class="far fa-copy mr-2 text-center" style="width: 20px;"></i> Copy</a>`,
+                        html: `<a href class="menu-option"><i class="far fa-copy mr-2 text-center" style="width: 20px;"></i> コピー</a>`,
                         click: () => {
                             $ctrl.copyPage(page);
                         }
                     },
                     {
-                        html: `<a href class="menu-option" style="color: #fb7373;"><i class="far fa-trash-alt text-center mr-2" style="width: 20px;"></i> Delete</a>`,
+                        html: `<a href class="menu-option" style="color: #fb7373;"><i class="far fa-trash-alt text-center mr-2" style="width: 20px;"></i> 削除</a>`,
                         click: () => {
                             $ctrl.deletePage(page);
                         },
@@ -159,7 +159,7 @@
             const ensurePages = () => {
                 if (!Array.isArray($ctrl.deck.pages) || $ctrl.deck.pages.length === 0) {
                     const pageId = randomUUID();
-                    $ctrl.deck.pages = [{ id: pageId, name: "Page 1" }];
+                    $ctrl.deck.pages = [{ id: pageId, name: "ページ 1" }];
                     // Assign any page-less controls to the first page
                     $ctrl.deck.controls.forEach((c) => {
                         if (c.pageId == null) {
@@ -207,7 +207,7 @@
 
             $ctrl.addPage = () => {
                 const pageId = randomUUID();
-                $ctrl.deck.pages.push({ id: pageId, name: `Page ${$ctrl.deck.pages.length + 1}` });
+                $ctrl.deck.pages.push({ id: pageId, name: `ページ ${$ctrl.deck.pages.length + 1}` });
                 $ctrl.setActivePage(pageId);
             };
 
@@ -219,10 +219,10 @@
                 utilityService.openGetInputModal(
                     {
                         model: target.name,
-                        label: "Rename Page",
-                        saveText: "Save",
+                        label: "ページ名を変更",
+                        saveText: "保存",
                         validationFn: value => value != null && value.trim().length > 0,
-                        validationText: "Page name cannot be empty."
+                        validationText: "ページ名を空にすることはできません。"
                     },
                     (newName) => {
                         target.name = newName.trim();
@@ -233,7 +233,7 @@
 
             $ctrl.copyPage = (page) => {
                 controlDeckCopyHelper.copyPage(page, $ctrl.deck.controls);
-                ngToast.success("Page copied to clipboard.");
+                ngToast.success("ページをクリップボードにコピーしました。");
             };
 
             $ctrl.hasCopiedPage = () => {
@@ -259,9 +259,9 @@
             $ctrl.deletePage = (page) => {
                 utilityService
                     .showConfirmationModal({
-                        title: "Delete Page",
-                        question: `Delete the page "${page.name}" and all of its controls?`,
-                        confirmLabel: "Delete",
+                        title: "ページを削除",
+                        question: `ページ「${page.name}」とそのすべてのコントロールを削除しますか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {
@@ -316,7 +316,7 @@
             $ctrl.addControl = (col, row) => {
                 modalService.showModal({
                     component: "addOrEditControlDeckControlModal",
-                    breadcrumbName: "Add Control",
+                    breadcrumbName: "コントロールを追加",
                     size: "md",
                     closeCallback: (response) => {
                         if (response && response.control) {
@@ -397,7 +397,7 @@
             $ctrl.editControl = (control) => {
                 modalService.showModal({
                     component: "addOrEditControlDeckControlModal",
-                    breadcrumbName: "Edit Control",
+                    breadcrumbName: "コントロールを編集",
                     size: "md",
                     resolveObj: {
                         control: () => control
@@ -436,11 +436,11 @@
                 const isFolder = control.type === "firebot:folder";
                 utilityService
                     .showConfirmationModal({
-                        title: "Delete Control",
+                        title: "コントロールを削除",
                         question: isFolder
-                            ? `Delete the folder "${control.name}" and everything inside it?`
-                            : `Delete the control "${control.name}"?`,
-                        confirmLabel: "Delete",
+                            ? `フォルダー「${control.name}」とその中のすべてを削除しますか？`
+                            : `コントロール「${control.name}」を削除しますか？`,
+                        confirmLabel: "削除",
                         confirmBtnType: "btn-danger"
                     })
                     .then((confirmed) => {
@@ -517,7 +517,7 @@
 
             $ctrl.save = async () => {
                 if ($ctrl.deck.name == null || $ctrl.deck.name.trim() === "") {
-                    ngToast.create("Please provide a name for the deck.");
+                    ngToast.create("デッキの名前を入力してください。");
                     return;
                 }
 
@@ -528,7 +528,7 @@
                 if (saved) {
                     $ctrl.close();
                 } else {
-                    ngToast.create("Failed to save control deck. Check logs for details.");
+                    ngToast.create("コントロールデッキの保存に失敗しました。詳細はログを確認してください。");
                 }
             };
         }

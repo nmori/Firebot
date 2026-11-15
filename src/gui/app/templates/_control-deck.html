@@ -2,17 +2,17 @@
     ng-if="controlDeckEnabled()"
     items="controlDeckService.decks"
     headers="headers"
-    add-new-button-text="New Deck"
+    add-new-button-text="新規デッキ"
     on-add-new-clicked="controlDeckService.showAddEditDeckModal()"
     context-menu-options="deckOptions(item)"
-    no-data-message="No control decks yet. Create one to get started!"
-    none-found-message="No control decks found."
-    search-placeholder="Search control decks"
+    no-data-message="コントロールデッキはまだありません。作成してみましょう！"
+    none-found-message="コントロールデッキが見つかりません。"
+    search-placeholder="コントロールデッキを検索"
 >
     <fb-item-table-toolbar>
         <div class="flex">
             <firebot-button
-                text="Settings"
+                text="設定"
                 ng-click="controlDeckService.showSettingsModal()"
                 icon="far fa-cog"
             />
@@ -21,7 +21,7 @@
                     type="default-outlined"
                     ng-click="controlDeckService.showQRCodeModal()"
                     icon="far fa-qrcode"
-                    tooltip="Show QR code to connect mobile devices"
+                    tooltip="モバイルデバイスを接続するためのQRコードを表示"
                 />
             </div>
         </div>
@@ -32,10 +32,10 @@
     class="flex flex-column items-center justify-center gap-4 p-4 h-full"
 >
     <i class="fal fa-grip-horizontal text-7xl"></i>
-    <h2 class="text-5xl m-0 font-black">Control Deck</h2>
-    <p class="text-center px-96">Turn any phone, tablet, or browser into a wireless control deck for Firebot. Trigger effects and control your stream from a grid of customizable buttons. Enable it to get started.</p>
+    <h2 class="text-5xl m-0 font-black">コントロールデッキ</h2>
+    <p class="text-center px-96">スマートフォン、タブレット、ブラウザーを Firebot のワイヤレスなコントロールデッキにできます。カスタマイズ可能なボタンのグリッドから、演出を実行して配信を操作できます。有効にして始めましょう。</p>
     <firebot-button
-        text="Enable"
+        text="有効にする"
         type="primary"
         ng-click="enableControlDeck()"
     />

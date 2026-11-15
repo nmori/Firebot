@@ -32,7 +32,7 @@
                     </span>
                 </div>
                 <h4 class="modal-title">
-                    <div class="action text-4xl">{{$ctrl.triggerName ? '編集' : '新規追加'}} {{$ctrl.triggerType}}<span ng-if="$ctrl.triggerName">:</span></div>
+                    <div class="action text-4xl">{{$ctrl.getTriggerTypeDisplayName()}}{{$ctrl.triggerName ? 'の編集' : 'の新規追加'}}<span ng-if="$ctrl.triggerName">:</span></div>
                     <div class="text-4xl font-semibold" ng-if="$ctrl.triggerName && $ctrl.showTriggerName">{{$ctrl.triggerName}}</div>
                 </h4>
             </div>
@@ -45,6 +45,18 @@
                     $ctrl.sortTagContext = `${$ctrl.triggerType}s`;
                     $ctrl.allSortTags = sortTagsService.getSortTags($ctrl.sortTagContext);
                 };
+
+                // triggerType はタグの保存キー（`${triggerType}s`）にも使われるため値は英語のまま、表示だけ日本語化する
+                const triggerTypeDisplayNames = {
+                    "command": "コマンド",
+                    "counter": "カウンター",
+                    "effect queue": "演出キュー",
+                    "event": "イベント",
+                    "preset effect list": "プリセット演出リスト",
+                    "scheduled effect list": "演出予定リスト",
+                    "timer": "タイマー"
+                };
+                $ctrl.getTriggerTypeDisplayName = () => triggerTypeDisplayNames[$ctrl.triggerType] ?? $ctrl.triggerType;
 
                 $ctrl.getContextMenu = () => {
                     const menuItems = [];

@@ -36,7 +36,7 @@ export const SendRawOBSWebSocketRequestEffectType: EffectType<{
 
     <eos-container pad-top="true">
       <div class="effect-info alert alert-warning">
-                <b>警告！</b> OBS で意図しない動作を引き起こす可能性があります。このエフェクトの使用には注意してください。
+                <b>警告！</b> OBS で意図しない動作を引き起こす可能性があります。この演出の使用には注意してください。
       </div>
     </eos-container>
   `,

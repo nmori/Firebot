@@ -3,7 +3,7 @@ import type { ReplaceVariable } from "../../../../../types/variables";
 const model: ReplaceVariable = {
     definition: {
         handle: "isGiftResub",
-        description: "Whether or not the resub was the result of a gift.",
+        description: "再サブがギフトによるものかどうかです。",
         categories: ["trigger based", "user based"],
         possibleDataOutput: ["bool"],
         triggers: {

@@ -72,7 +72,7 @@ const effect: EffectType<{
     definition: {
         id: "firebot:set-output",
         name: "出力設定",
-        description: "データをエフェクト出力変数に保存し、このエフェクトリスト内の他の場所で利用できます。",
+        description: "データを演出出力変数に保存し、この演出リスト内の他の場所で利用できます。",
         icon: "fad fa-sign-out",
         categories: ["scripting"],
         dependencies: [],
@@ -80,7 +80,7 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <eos-container header="出力名">
-            <p class="muted">この名前を使って、このエフェクトリスト内の他の場所から <b>$effectOutput[{{effect.outputNames.customOutput || 'name'}}]</b> として参照できます。</p>
+            <p class="muted">この名前を使って、この演出リスト内の他の場所から <b>$effectOutput[{{effect.outputNames.customOutput || 'name'}}]</b> として参照できます。</p>
             <input ng-model="effect.outputNames.customOutput" type="text" class="form-control" id="chat-text-setting" placeholder="名前を入力" replace-variables menu-position="below">
         </eos-container>
 
@@ -111,9 +111,9 @@ const effect: EffectType<{
 
         <eos-container pad-top="true">
             <div class="effect-info alert alert-info">
-                エフェクト出力は現在のエフェクトリスト内のみで有効で、実行が完了するとクリアされます。カスタム変数と異なり、グローバルには共有されません。
+                演出出力は現在の演出リスト内のみで有効で、実行が完了するとクリアされます。カスタム変数と異なり、グローバルには共有されません。
                 <br><br>
-                「エフェクトリスト実行」エフェクトを使う場合、「親リストにエフェクト出力を適用」を有効にすると、グローバル変数を介さずにプリセットエフェクトリストから親リストへデータを返せます。
+                「演出リスト実行」演出を使う場合、「親リストに演出出力を適用」を有効にすると、グローバル変数を介さずにプリセット演出リストから親リストへデータを返せます。
             </div>
         </eos-container>
     `,

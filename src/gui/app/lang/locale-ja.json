@@ -13,7 +13,7 @@
     "OTHER": {
       "OTHER": "その他",
       "EVENTS": "イベント",
-      "PRESET_EFFECT_LISTS": "演出設定",
+      "PRESET_EFFECT_LISTS": "プリセット演出リスト",
       "EFFECT_QUEUES": "演出キュー",
       "VARIABLE_MACROS": "マクロ変数",
       "MODERATION": "モデレート",
@@ -24,8 +24,22 @@
       "CHANNELREWARDS": "チャンネル特典",
       "COUNTERS": "カウンタ"
     },
+    "TRIGGERS": {
+      "TRIGGERS": "トリガー",
+      "COMMANDS": "コマンド",
+      "EVENTS": "イベント",
+      "TIME_BASED": "タイマー",
+      "POWERUPS_AND_REWARDS": "パワーアップと特典",
+      "PRESET_EFFECT_LISTS": "プリセット演出リスト",
+      "HOTKEYS": "ホットキー",
+      "CONTROL_DECK": "コントロールデッキ",
+      "COUNTERS": "カウンタ",
+      "OVERLAY_WIDGETS": "オーバーレイウィジェット"
+    },
     "MANAGEMENT": {
       "MANAGEMENT": "管理",
+      "EFFECT_QUEUES": "演出キュー",
+      "VARIABLE_MACROS": "変数マクロ",
       "VIEWER_GROUPS": "視聴者グループ",
       "GAMES": "ゲーム",
       "VIEWER_ROLES": "視聴者の役割",

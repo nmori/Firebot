@@ -17,7 +17,7 @@ const effect: EffectType<{
     },
     optionsTemplate: `
         <eos-container>
-            <p>このエフェクトを使うと、イベント（イベントタブで作成できます）の有効／無効を自動で切り替えられます。</p>
+            <p>この演出を使うと、イベント（イベントタブで作成できます）の有効／無効を自動で切り替えられます。</p>
         </eos-container>
 
         <eos-container header="イベントグループ" pad-top="true">

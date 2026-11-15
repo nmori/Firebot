@@ -13,8 +13,8 @@ const effect: EffectType = {
     },
     optionsTemplate: `
         <eos-container>
-            <p>This effect will retrigger the most recent event in the Dashboard Activity Feed. Useful for hooking up to a Hotkey or a Stream Deck.</p>
-            <p><strong>Note:</strong> This effect will <em>only</em> retrigger events that are configured to appear in the Activity Feed.</p>
+            <p>この演出は、ダッシュボードのアクティビティフィードにある最新のイベントを再実行します。ホットキーや Stream Deck への割り当てに便利です。</p>
+            <p><strong>注意:</strong> この演出で再実行されるのは、アクティビティフィードに表示するよう設定されたイベント<em>のみ</em>です。</p>
         </eos-container>
     `,
     onTriggerEvent: () => {

@@ -20,7 +20,7 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container ng-hide="hasProgressBarWidgets">
-            <p>このエフェクトを使うにはプログレスバーのオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
+            <p>この演出を使うにはプログレスバーのオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </eos-container>
         <div ng-show="hasProgressBarWidgets">
             <eos-container header="プログレスバー">

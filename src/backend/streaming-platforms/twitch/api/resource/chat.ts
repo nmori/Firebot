@@ -268,7 +268,7 @@ export class TwitchChatApi extends ApiResourceBase {
         } catch (error) {
             this.logger.error("Error deleting chat message", (error as Error).message);
             frontendCommunicator.send("showToast", {
-                content: "Unable to delete chat message. Check log for more details.",
+                content: "チャットメッセージを削除できませんでした。詳細はログを確認してください。",
                 className: "warning"
             });
         }

@@ -70,8 +70,8 @@ const model: EffectType<{
 }> = {
     definition: {
         id: "firebot:update-rotating-text",
-        name: "Update Rotating Text",
-        description: "Add, remove, or replace the texts shown by a Rotating Text overlay widget.",
+        name: "ローテーションテキスト更新",
+        description: "ローテーションテキストのオーバーレイウィジェットに表示するテキストを追加・削除・置き換えします。",
         icon: "fad fa-text",
         categories: ["overlay", "advanced"],
         dependencies: [],
@@ -79,10 +79,10 @@ const model: EffectType<{
     },
     optionsTemplate: `
         <eos-container ng-hide="hasRotatingTextWidgets">
-            <p>You need to create a Rotating Text Overlay Widget to use this effect! Go to the <b>Overlay Widgets</b> tab to create one.</p>
+            <p>この演出を使うにはローテーションテキストのオーバーレイウィジェットを作成する必要があります。<b>オーバーレイウィジェット</b>タブから作成してください。</p>
         </eos-container>
         <div ng-show="hasRotatingTextWidgets">
-            <eos-container header="Rotating Text Widget">
+            <eos-container header="ローテーションテキストウィジェット">
                 <firebot-overlay-widget-select
                     overlay-widget-types="['firebot:rotating-text']"
                     ng-model="effect.rotatingTextWidgetId"
@@ -90,7 +90,7 @@ const model: EffectType<{
             </eos-container>
 
             <div ng-show="effect.rotatingTextWidgetId">
-                <eos-container header="Action" pad-top="true">
+                <eos-container header="操作" pad-top="true">
                     <firebot-radio-cards
                         options="actions"
                         ng-model="effect.action"
@@ -101,10 +101,10 @@ const model: EffectType<{
                 <div ng-show="effect.action === 'add' || effect.action === 'set'">
                     <eos-container header="{{ valueHeader() }}" pad-top="true">
                         <editable-list settings="textListSettings" model="effect.texts" />
-                        <p class="muted" style="margin-top: 5px">Each entry is one rotating text. Supports variables.</p>
+                        <p class="muted" style="margin-top: 5px">各項目が 1 つのローテーションテキストになります。変数が使えます。</p>
                     </eos-container>
 
-                    <eos-container header="Variable Evaluation" pad-top="true">
+                    <eos-container header="変数の評価" pad-top="true">
                         <firebot-radios
                             options="variableEvaluationOptions"
                             model="effect.variableEvaluation"
@@ -113,7 +113,7 @@ const model: EffectType<{
                 </div>
 
                 <div ng-show="effect.action === 'remove'">
-                    <eos-container header="What to Remove" pad-top="true">
+                    <eos-container header="削除対象" pad-top="true">
                         <firebot-radio-cards
                             options="removeModes"
                             ng-model="effect.removeMode"
@@ -121,25 +121,25 @@ const model: EffectType<{
                         ></firebot-radio-cards>
                     </eos-container>
 
-                    <eos-container header="Position" pad-top="true" ng-show="effect.removeMode === 'position'">
+                    <eos-container header="位置" pad-top="true" ng-show="effect.removeMode === 'position'">
                         <firebot-input
                             model="effect.removePosition"
                             input-type="number"
-                            placeholder-text="Enter a position"
+                            placeholder-text="位置を入力"
                         />
-                        <p class="muted" style="margin-top: 5px">1 removes the first text, 2 the second, and so on. Nothing happens if the position is past the end of the list.</p>
+                        <p class="muted" style="margin-top: 5px">1 なら最初のテキスト、2 なら 2 番目のテキストが削除されます。位置がリストの末尾を超えている場合は何もしません。</p>
                     </eos-container>
 
-                    <eos-container header="Text to Match" pad-top="true" ng-show="effect.removeMode === 'matching'">
+                    <eos-container header="一致させるテキスト" pad-top="true" ng-show="effect.removeMode === 'matching'">
                         <firebot-input
                             model="effect.removeValue"
                             use-text-area="true"
-                            placeholder-text="Enter text to match"
+                            placeholder-text="一致させるテキストを入力"
                         />
-                        <p class="muted" style="margin-top: 5px">By default, any rotating text that <b>contains</b> this value (case-insensitive) is removed.</p>
+                        <p class="muted" style="margin-top: 5px">既定では、この値を<b>含む</b>ローテーションテキストがすべて削除されます（大文字・小文字は区別しません）。</p>
                         <firebot-checkbox
                             model="effect.removeExactMatch"
-                            label="Only remove exact matches"
+                            label="完全一致のみ削除する"
                             style="margin-top: 10px"
                         />
                     </eos-container>
@@ -153,17 +153,17 @@ const model: EffectType<{
         $scope.actions = [
             {
                 value: "add",
-                label: "Add",
+                label: "追加",
                 iconClass: "fa-plus"
             },
             {
                 value: "remove",
-                label: "Remove",
+                label: "削除",
                 iconClass: "fa-minus"
             },
             {
                 value: "set",
-                label: "Set (Override)",
+                label: "設定（上書き）",
                 iconClass: "fa-equals"
             }
         ];
@@ -171,22 +171,22 @@ const model: EffectType<{
         $scope.removeModes = [
             {
                 value: "first",
-                label: "First Text",
+                label: "最初のテキスト",
                 iconClass: "fa-arrow-to-top"
             },
             {
                 value: "last",
-                label: "Last Text",
+                label: "最後のテキスト",
                 iconClass: "fa-arrow-to-bottom"
             },
             {
                 value: "position",
-                label: "At a Position",
+                label: "指定位置",
                 iconClass: "fa-list-ol"
             },
             {
                 value: "matching",
-                label: "Matching Text",
+                label: "一致するテキスト",
                 iconClass: "fa-search"
             }
         ];
@@ -194,77 +194,77 @@ const model: EffectType<{
         $scope.textListSettings = {
             sortable: true,
             useTextArea: true,
-            addLabel: "Add Text",
-            editLabel: "Edit Text",
-            noneAddedText: "No texts added yet",
+            addLabel: "テキストを追加",
+            editLabel: "テキストを編集",
+            noneAddedText: "テキストはまだ追加されていません",
             trigger: $scope.trigger,
             triggerMeta: $scope.triggerMeta
         };
 
         $scope.variableEvaluationOptions = {
             dynamic: {
-                text: "Evaluate live in the overlay",
-                description: "Store each text as-is with any $variables left intact. The overlay widget re-evaluates them every time the text rotates into view, so values like $randomNumber stay fresh on each rotation."
+                text: "オーバーレイ上でその都度評価する",
+                description: "各テキストを $変数 を含んだまま保存します。テキストが表示に切り替わるたびにオーバーレイウィジェットが変数を再評価するため、$randomNumber などの値はローテーションごとに更新されます。"
             },
             onRun: {
-                text: "Evaluate now, when this effect runs",
-                description: "Replace any $variables with their current values the moment this effect runs, then store the resulting plain text. The overlay shows that same fixed text every time it rotates in."
+                text: "この演出の実行時に評価する",
+                description: "この演出の実行時点で $変数 を現在の値に置き換え、その結果のテキストを保存します。オーバーレイでは毎回同じ固定テキストが表示されます。"
             }
         };
 
         $scope.effect.variableEvaluation = $scope.effect.variableEvaluation ?? "dynamic";
 
         $scope.valueHeader = () => {
-            return $scope.effect.action === "set" ? "New Text List" : "Texts to Add";
+            return $scope.effect.action === "set" ? "新しいテキスト一覧" : "追加するテキスト";
         };
     },
     optionsValidator: (effect) => {
         const errors: string[] = [];
         if (effect.rotatingTextWidgetId == null) {
-            errors.push("Please select a rotating text widget.");
+            errors.push("ローテーションテキストウィジェットを選択してください。");
             return errors;
         }
         if (effect.action == null) {
-            errors.push("Please select an action to take.");
+            errors.push("実行する操作を選択してください。");
             return errors;
         }
 
         if (effect.action === "add" || effect.action === "set") {
             if (effect.texts == null || effect.texts.length === 0) {
-                errors.push("Please add at least one text.");
+                errors.push("テキストを 1 つ以上追加してください。");
             }
         } else if (effect.action === "remove") {
             if (effect.removeMode == null) {
-                errors.push("Please choose what to remove.");
+                errors.push("削除対象を選択してください。");
             } else if (effect.removeMode === "position" && (effect.removePosition == null || effect.removePosition < 1)) {
-                errors.push("Please enter a position of 1 or greater.");
+                errors.push("1 以上の位置を入力してください。");
             } else if (effect.removeMode === "matching" && (effect.removeValue == null || effect.removeValue.trim().length === 0)) {
-                errors.push("Please enter text to match.");
+                errors.push("一致させるテキストを入力してください。");
             }
         }
 
         return errors;
     },
     getDefaultLabel: (effect, overlayWidgetsService) => {
-        const widgetName = overlayWidgetsService.getOverlayWidgetConfig(effect.rotatingTextWidgetId)?.name ?? "Unknown Widget";
+        const widgetName = overlayWidgetsService.getOverlayWidgetConfig(effect.rotatingTextWidgetId)?.name ?? "不明なウィジェット";
         switch (effect.action) {
             case "remove":
                 switch (effect.removeMode) {
                     case "first":
-                        return `Remove first text from ${widgetName}`;
+                        return `${widgetName} の最初のテキストを削除`;
                     case "last":
-                        return `Remove last text from ${widgetName}`;
+                        return `${widgetName} の最後のテキストを削除`;
                     case "position":
-                        return `Remove text #${effect.removePosition ?? "?"} from ${widgetName}`;
+                        return `${widgetName} の ${effect.removePosition ?? "?"} 番目のテキストを削除`;
                     case "matching":
-                        return `Remove matching text from ${widgetName}`;
+                        return `${widgetName} の一致するテキストを削除`;
                     default:
-                        return `Remove text from ${widgetName}`;
+                        return `${widgetName} のテキストを削除`;
                 }
             case "set":
-                return `Set texts for ${widgetName}`;
+                return `${widgetName} のテキストを設定`;
             default:
-                return `Add text to ${widgetName}`;
+                return `${widgetName} にテキストを追加`;
         }
     },
     onTriggerEvent: async (event) => {

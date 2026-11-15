@@ -8,9 +8,9 @@
                 <div class="reload-indicator-wrapper" ng-if="$ctrl.pendingFrontendReload()">
                     <button
                         class="app-bar-icon-btn"
-                        aria-label="Firebot Needs to Reload"
+                        aria-label="Firebot の再読み込みが必要です"
                         ng-click="$ctrl.reloadWindow()"
-                        uib-tooltip="The Firebot main window needs to be reloaded. Click to reload."
+                        uib-tooltip="Firebot のメインウィンドウを再読み込みする必要があります。クリックして再読み込みします。"
                         tooltip-append-to-body="true"
                         tooltip-placement="bottom-right"
                     >
@@ -28,12 +28,12 @@
 
                 ctrl.reloadWindow = () => {
                     modalFactory.showConfirmationModal({
-                        title: "Reload Required",
-                        question: "The main Firebot window needs to be reloaded because of changes to one or more of your plugins. Would you like to do that now?",
-                        tip: "NOTE: Firebot will continue running, but you will lose any unsaved changes in any currently open modals.",
-                        cancelLabel: "No, Don't Reload",
+                        title: "再読み込みが必要です",
+                        question: "プラグインに変更があったため、Firebot のメインウィンドウを再読み込みする必要があります。今すぐ再読み込みしますか？",
+                        tip: "注意: Firebot は引き続き動作しますが、現在開いているウィンドウ内の未保存の変更は失われます。",
+                        cancelLabel: "いいえ、再読み込みしない",
                         cancelBtnType: "btn-default",
-                        confirmLabel: "Yes, Reload Now"
+                        confirmLabel: "はい、今すぐ再読み込み"
                     }).then((confirmed) => {
                         if (confirmed) {
                             backendCommunicator.send("reload-main-window");

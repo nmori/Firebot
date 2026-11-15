@@ -92,13 +92,13 @@
             const DEPRECATED_LIST_EFFECT_TYPES = ["firebot:randomeffect", "firebot:sequentialeffect"];
 
             /**
-             * 非推奨の「ランダムエフェクト実行 / 順次エフェクト実行」を
-             * 「エフェクトリスト実行」(firebot:run-effect-list) 形式へ変換します。
+             * 非推奨の「ランダム演出実行 / 順次演出実行」を
+             * 「演出リスト実行」(firebot:run-effect-list) 形式へ変換します。
              *
-             * 渡されたエフェクトは一切変更しません。全ての検証を通過した場合のみ
-             * success: true と変換後のエフェクトを返します。
+             * 渡された演出は一切変更しません。全ての検証を通過した場合のみ
+             * success: true と変換後の演出を返します。
              *
-             * @param {object} effect 変換元のエフェクト（非推奨エフェクト）
+             * @param {object} effect 変換元の演出（非推奨演出）
              * @param {"random"|"sequential"} runMode 変換後の実行モード
              * @returns {{ success: boolean, errors: string[], effect?: object }}
              */
@@ -106,7 +106,7 @@
                 const errors = [];
 
                 if (effect == null) {
-                    errors.push("エフェクトデータが見つかりませんでした。");
+                    errors.push("演出データが見つかりませんでした。");
                     return { success: false, errors };
                 }
 
@@ -116,12 +116,12 @@
                 }
 
                 if (!DEPRECATED_LIST_EFFECT_TYPES.includes(effect.type)) {
-                    errors.push("このエフェクトは変換対象ではありません。");
+                    errors.push("この演出は変換対象ではありません。");
                     return { success: false, errors };
                 }
 
                 if (effect.id == null) {
-                    errors.push("エフェクト ID を引き継げませんでした。");
+                    errors.push("演出 ID を引き継げませんでした。");
                     return { success: false, errors };
                 }
 
@@ -129,12 +129,12 @@
 
                 // 配列やスカラーで保存されている壊れた古いデータは黙って変換しない
                 if (sourceList != null && (typeof sourceList !== "object" || Array.isArray(sourceList))) {
-                    errors.push("エフェクトリストの形式が不正なため変換できません。");
+                    errors.push("演出リストの形式が不正なため変換できません。");
                     return { success: false, errors };
                 }
 
                 if (sourceList != null && sourceList.list != null && !Array.isArray(sourceList.list)) {
-                    errors.push("エフェクトリストの形式が不正なため変換できません。");
+                    errors.push("演出リストの形式が不正なため変換できません。");
                     return { success: false, errors };
                 }
 
@@ -148,7 +148,7 @@
                 try {
                     source = JSON.parse(angular.toJson(effect));
                 } catch {
-                    errors.push("エフェクトデータを複製できませんでした。");
+                    errors.push("演出データを複製できませんでした。");
                     return { success: false, errors };
                 }
 
@@ -171,7 +171,7 @@
                 }
 
                 const converted = {
-                    // --- エフェクト共通プロパティ（親リストでの扱いを壊さないため必ず引き継ぐ） ---
+                    // --- 演出共通プロパティ（親リストでの扱いを壊さないため必ず引き継ぐ） ---
                     id: source.id,
                     type: "firebot:run-effect-list",
                     active: source.active !== false,
@@ -181,14 +181,14 @@
                     percentWeight: source.percentWeight ?? null,
                     async: source.async === true,
 
-                    // --- 「エフェクトリスト実行」固有 ---
+                    // --- 「演出リスト実行」固有 ---
                     listType: "custom",
                     effectList: newEffectList,
                     presetListId: null,
                     presetListArgs: {},
-                    // 非推奨エフェクトは常に完了を待っていた
+                    // 非推奨演出は常に完了を待っていた
                     dontWait: false,
-                    // 旧「順次エフェクト実行」は outputs を親に渡さないため false になる
+                    // 旧「順次演出実行」は outputs を親に渡さないため false になる
                     bubbleOutputs: source.bubbleOutputs === true
                 };
 
@@ -198,15 +198,15 @@
 
                 // --- 差し替え前の最終検証 ---
                 if (converted.effectList.id == null) {
-                    errors.push("エフェクトリスト ID を引き継げませんでした。");
+                    errors.push("演出リスト ID を引き継げませんでした。");
                 }
 
                 if (originalListId != null && converted.effectList.id !== originalListId) {
-                    errors.push("エフェクトリスト ID が一致しません。");
+                    errors.push("演出リスト ID が一致しません。");
                 }
 
                 if (converted.effectList.list.length !== originalCount) {
-                    errors.push(`エフェクトの件数が一致しません (${originalCount} → ${converted.effectList.list.length})。`);
+                    errors.push(`演出の件数が一致しません (${originalCount} → ${converted.effectList.list.length})。`);
                 }
 
                 if (converted.effectList.runMode !== runMode) {

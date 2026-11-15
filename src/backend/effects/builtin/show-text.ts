@@ -157,7 +157,7 @@ const ShowTextEffect: EffectType<ShowTextEffectModel, ShowTextEffectOverlayData>
 
         <eos-container pad-top="true">
             <div class="effect-info alert alert-warning">
-                このエフェクトを使うには、配信ソフトウェアに Firebot のオーバーレイを読み込んでおく必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
+                この演出を使うには、配信ソフトウェアに Firebot のオーバーレイを読み込んでおく必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
             </div>
         </eos-container>
     `,

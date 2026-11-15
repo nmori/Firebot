@@ -37,7 +37,7 @@ const showText = {
     optionsTemplate: `
     <eos-container>
         <div class="effect-info alert alert-warning">
-            警告: この旧版の <strong>テキスト表示</strong> エフェクトは非推奨で、将来の更新で削除されます。通常は新しい <strong>テキスト表示</strong> エフェクトを、より高度な HTML 表示が必要なら新しい <strong>HTML 表示</strong> エフェクトを使用してください。
+            警告: この旧版の <strong>テキスト表示</strong> 演出は非推奨で、将来の更新で削除されます。通常は新しい <strong>テキスト表示</strong> 演出を、より高度な HTML 表示が必要なら新しい <strong>HTML 表示</strong> 演出を使用してください。
         </div>
     </eos-container>
 
@@ -140,7 +140,7 @@ const showText = {
 
     <eos-overlay-instance effect="effect" class="setting-padtop"></eos-overlay-instance>
     <div class="effect-info alert alert-warning">
-        このエフェクトを使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
+        この演出を使用するには、配信ソフトに Firebot オーバーレイを読み込む必要があります。 <a href ng-click="showOverlayInfoModal(effect.overlayInstance)" style="text-decoration:underline">詳細を見る</a>
     </div>
     `,
     /**

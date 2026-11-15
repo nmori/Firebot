@@ -109,24 +109,24 @@ type ContextMenuItemScope = {
             <div class="effect-list">
                 <div class="flex-row-center jspacebetween effect-list-header">
                     <div class="flex items-center">
-                        <h3 class="m-0" style="display:inline;font-weight: 600;font-size: 20px;">エフェクト管理</h3>
+                        <h3 class="m-0" style="display:inline;font-weight: 600;font-size: 20px;">演出管理</h3>
                         <span class="ml-1" style="font-size: 11px;"><tooltip text="$ctrl.header" ng-if="$ctrl.header"></tooltip></span>
                     </div>
 
                     <div class="flex items-center">
-                        <div class="test-effects-btn clickable" uib-tooltip="エフェクトをテスト" aria-label="エフェクトをテスト" ng-click="$ctrl.testEffects()" role="button">
+                        <div class="test-effects-btn clickable" uib-tooltip="演出をテスト" aria-label="演出をテスト" ng-click="$ctrl.testEffects()" role="button">
                             <i class="far fa-play-circle"></i>
                         </div>
 
                         <div>
                             <a
                                 href role="button"
-                                aria-label="エフェクトメニューを開く"
+                                aria-label="演出メニューを開く"
                                 class="effects-actions-btn"
                                 style="justify-content: flex-start;"
                                 context-menu="$ctrl.allEffectsMenuOptions"
                                 context-menu-on="click"
-                                uib-tooltip="エフェクトメニューを開く"
+                                uib-tooltip="演出メニューを開く"
                                 tooltip-append-to-body="true"
                             >
                                 <i class="fal fa-ellipsis-v"></i>
@@ -175,19 +175,19 @@ type ContextMenuItemScope = {
                                     <span class="flex-row-center" style="flex-shrink: 0;">
                                         <div
                                             ng-if="effect.async"
-                                            uib-tooltip="このエフェクトは非同期で実行されます。次のエフェクトは完了を待たずに開始されます。"
+                                            uib-tooltip="この演出は非同期で実行されます。次の演出は完了を待たずに開始されます。"
                                             tooltip-append-to-body="true"
                                             class="effect-async-badge mr-5"
-                                            aria-label="非同期エフェクト"
+                                            aria-label="非同期演出"
                                         >
                                             <div>ASYNC</div>
                                         </div>
                                         <div
                                             ng-if="$ctrl.isEffectDeprecated(effect.type)"
-                                            uib-tooltip="このエフェクトは非推奨です。将来のバージョンの Firebot で削除される可能性があります。"
+                                            uib-tooltip="この演出は非推奨です。将来のバージョンの Firebot で削除される可能性があります。"
                                             tooltip-append-to-body="true"
                                             class="effect-deprecated-badge mr-5"
-                                            aria-label="非推奨エフェクト"
+                                            aria-label="非推奨演出"
                                         >
                                             <div>DEPRECATED</div>
                                         </div>
@@ -196,7 +196,7 @@ type ContextMenuItemScope = {
                                             uib-tooltip="中断タイムアウト"
                                             tooltip-append-to-body="true"
                                             class="effect-timeout-btn mr-5"
-                                            aria-label="エフェクト中断タイムアウト: {{effect.abortTimeout}} 秒"
+                                            aria-label="演出中断タイムアウト: {{effect.abortTimeout}} 秒"
                                             role="button"
                                             ng-click="$ctrl.editTimeoutForEffectAtIndex($index)"
                                         >
@@ -206,8 +206,8 @@ type ContextMenuItemScope = {
                                         <button
                                             class="effect-edit-btn"
                                             ng-click="$ctrl.openEditEffectModal(effect, $index, $ctrl.trigger, false)"
-                                            aria-label="エフェクトを編集"
-                                            uib-tooltip="エフェクトを編集"
+                                            aria-label="演出を編集"
+                                            uib-tooltip="演出を編集"
                                             tooltip-append-to-body="true"
                                         >
                                             <i class="fas fa-pen"></i>
@@ -219,8 +219,8 @@ type ContextMenuItemScope = {
                                             <a
                                                 href
                                                 class="effects-actions-btn"
-                                                aria-label="エフェクトメニューを開く"
-                                                uib-tooltip="エフェクトメニューを開く"
+                                                aria-label="演出メニューを開く"
+                                                uib-tooltip="演出メニューを開く"
                                                 tooltip-append-to-body="true"
                                                 role="button"
                                                 context-menu="$ctrl.effectContextMenuOptions"
@@ -271,13 +271,13 @@ type ContextMenuItemScope = {
                             type="button"
                             class="effect-list-add-btn"
                             ng-click="$ctrl.openNewEffectModal($ctrl.effectsData.list.length)"
-                            aria-label="新しいエフェクトを追加"
+                            aria-label="新しい演出を追加"
                         >
                             <span class="effect-list-add-btn__icon-wrapper">
                                 <i class="far fa-plus"></i>
                             </span>
                             <span class="effect-list-add-btn__label">
-                                エフェクトを追加
+                                演出を追加
                             </span>
                         </button>
                     </div>
@@ -412,7 +412,7 @@ type ContextMenuItemScope = {
                     return "";
                 }
 
-                return effectTypes.find(e => e.definition.id === id)?.definition?.name ?? `不明なエフェクト: ${id}`;
+                return effectTypes.find(e => e.definition.id === id)?.definition?.name ?? `不明な演出: ${id}`;
             };
 
             $ctrl.isEffectDeprecated = (id: string) => {
@@ -477,7 +477,7 @@ type ContextMenuItemScope = {
                     {
                         model: parseFloat($ctrl.getPercentChanceForEffect(effect) || "0.5"),
                         label: "目標割合を設定",
-                        descriptionText: "このエフェクトの目標確率(%)を入力してください。目標値に合わせて他のエフェクトの重みも調整されます。",
+                        descriptionText: "この演出の目標確率(%)を入力してください。目標値に合わせて他の演出の重みも調整されます。",
                         inputType: "number",
                         saveText: "保存",
                         inputPlaceholder: "割合を入力",
@@ -721,7 +721,7 @@ type ContextMenuItemScope = {
                                     ? [
                                         {
                                             handle: `$presetListArg[${a.name}]`,
-                                            description: "Long hand version of the preset list argument"
+                                            description: "プリセットリスト引数の省略しない書き方"
                                         }
                                     ]
                                     : undefined
@@ -738,7 +738,7 @@ type ContextMenuItemScope = {
                                     ? [
                                         {
                                             handle: `$controlDeckInput[${input.name}]`,
-                                            description: "Long hand version of the control input"
+                                            description: "コントロール入力の省略しない書き方"
                                         }
                                     ]
                                     : undefined
@@ -1002,9 +1002,9 @@ type ContextMenuItemScope = {
                 modalFactory.openGetInputModal(
                     {
                         model: timeout,
-                        label: "エフェクトタイムアウトを設定",
+                        label: "演出タイムアウトを設定",
                         descriptionText:
-                            "Firebotがこのエフェクトを自動中断するまでの待機秒数を入力してください。",
+                            "Firebotがこの演出を自動中断するまでの待機秒数を入力してください。",
                         saveText: "タイムアウトを保存",
                         inputType: "number",
                         inputPlaceholder: "秒数を入力",
@@ -1031,7 +1031,7 @@ type ContextMenuItemScope = {
             function getSharedEffects(_code: string): angular.IPromise<{ effects: EffectInstance[] } | null> {
                 ngToast.create({
                     className: 'warning',
-                    content: 'エフェクト共有コードからのインポートはこのフォーク版では利用できません。'
+                    content: '演出共有コードからのインポートはこのフォーク版では利用できません。'
                 });
                 return $q.resolve(null);
             }
@@ -1039,7 +1039,7 @@ type ContextMenuItemScope = {
             //#region Context Menus
             $ctrl.effectContextMenuOptions = [
                 {
-                    html: `<a href ><i class="far fa-edit mr-4"></i> エフェクトを編集</a>`,
+                    html: `<a href ><i class="far fa-edit mr-4"></i> 演出を編集</a>`,
                     click: function ($itemScope: ContextMenuItemScope) {
                         const $index = $itemScope.$index;
                         const effect = $itemScope.effect;
@@ -1058,7 +1058,7 @@ type ContextMenuItemScope = {
                     }
                 },
                 {
-                    html: `<a href ><i class="far fa-toggle-off mr-4"></i>  {{effect.active ? "エフェクトを無効化" : "エフェクトを有効化"}}</a>`,
+                    html: `<a href ><i class="far fa-toggle-off mr-4"></i>  {{effect.active ? "演出を無効化" : "演出を有効化"}}</a>`,
                     compile: true,
                     click: function ($itemScope: ContextMenuItemScope) {
                         const effect = $itemScope.effect;
@@ -1091,7 +1091,7 @@ type ContextMenuItemScope = {
                     hasTopDivider: true,
                     children: [
                         {
-                            html: `<a href role="menuitem"><i class="far mr-4 fa-code-branch"></i> 非同期を切り替え <tooltip text="'このエフェクトを同期/非同期で実行するか切り替えます。非同期の場合、次のエフェクトは完了を待たずに開始されます。'" placement="top-right" /></a>`,
+                            html: `<a href role="menuitem"><i class="far mr-4 fa-code-branch"></i> 非同期を切り替え <tooltip text="'この演出を同期/非同期で実行するか切り替えます。非同期の場合、次の演出は完了を待たずに開始されます。'" placement="top-right" /></a>`,
                             compile: true,
                             enabled: function ($itemScope: ContextMenuItemScope) {
                                 const effect = $itemScope.effect;
@@ -1116,7 +1116,7 @@ type ContextMenuItemScope = {
                             }
                         },
                         {
-                            html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> エフェクトIDをコピー</a>`,
+                            html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> 演出IDをコピー</a>`,
                             click: function ($itemScope: ContextMenuItemScope) {
                                 const effect = $itemScope.effect;
                                 $rootScope.copyTextToClipboard(effect.id);
@@ -1178,7 +1178,7 @@ type ContextMenuItemScope = {
 
             $ctrl.allEffectsMenuOptions = [
                 {
-                    html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-copy"></span> すべてのエフェクトをコピー</a>`,
+                    html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-copy"></span> すべての演出をコピー</a>`,
                     click: () => {
                         $ctrl.copyEffects();
                     },
@@ -1187,7 +1187,7 @@ type ContextMenuItemScope = {
                     }
                 },
                 {
-                    html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-paste"></span> エフェクトを貼り付け</a>`,
+                    html: `<a href role="menuitem"><span class="iconify mr-4" data-icon="mdi:content-paste"></span> 演出を貼り付け</a>`,
                     click: function () {
                         $ctrl.pasteEffects(true);
                     },
@@ -1196,7 +1196,7 @@ type ContextMenuItemScope = {
                     }
                 },
                 {
-                    html: `<a href role="menuitem" style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i>  すべてのエフェクトを削除</a>`,
+                    html: `<a href role="menuitem" style="color: #fb7373;"><i class="far fa-trash-alt mr-4"></i>  すべての演出を削除</a>`,
                     click: function () {
                         $ctrl.removeAllEffects();
                     },
@@ -1209,7 +1209,7 @@ type ContextMenuItemScope = {
                     hasTopDivider: true,
                     children: [
                         {
-                            html: `<a href role="menuitem"><i class="fal fa-magic mr-4"></i> プリセットエフェクトリストに変換</a>`,
+                            html: `<a href role="menuitem"><i class="fal fa-magic mr-4"></i> プリセット演出リストに変換</a>`,
                             click: function () {
                                 $q.when(presetEffectListsService.showAddEditPresetEffectListModal({
                                     effects: {
@@ -1236,7 +1236,7 @@ type ContextMenuItemScope = {
                             }
                         },
                         {
-                            html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> エフェクトリストIDをコピー</a>`,
+                            html: `<a href role="menuitem"><i class="fal fa-fingerprint mr-4"></i> 演出リストIDをコピー</a>`,
                             click: function () {
                                 $rootScope.copyTextToClipboard($ctrl.effectsData.id);
                                 ngToast.create({
@@ -1248,19 +1248,19 @@ type ContextMenuItemScope = {
                     ]
                 },
                 {
-                    html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> エフェクトを共有</a>`,
+                    html: `<a href role="menuitem"><i class="far fa-share-alt mr-4"></i> 演出を共有</a>`,
                     click: async function () {
                         const shareCode = await backendCommunicator.fireEventAsync<string>("getEffectsShareCode", $ctrl.effectsData.list);
                         if (shareCode == null) {
-                            ngToast.create("エフェクトを共有できませんでした。");
+                            ngToast.create("演出を共有できませんでした。");
                         } else {
                             modalService.showModal({
                                 component: "copyShareCodeModal",
                                 size: 'sm',
                                 resolveObj: {
                                     shareCode: () => shareCode,
-                                    title: () => "エフェクト共有コード",
-                                    message: () => "以下のコードを共有すると、他の人がこのエフェクトをインポートできます。"
+                                    title: () => "演出共有コード",
+                                    message: () => "以下のコードを共有すると、他の人がこの演出をインポートできます。"
                                 }
                             });
                         }
@@ -1271,12 +1271,12 @@ type ContextMenuItemScope = {
                     hasTopDivider: true
                 },
                 {
-                    html: `<a href ><i class="far fa-cloud-download-alt mr-4"></i> 共有エフェクトをインポート</a>`,
+                    html: `<a href ><i class="far fa-cloud-download-alt mr-4"></i> 共有演出をインポート</a>`,
                     click: function () {
                         modalFactory.openGetInputModal(
                             {
                                 model: "",
-                                label: "エフェクト共有コードを入力",
+                                label: "演出共有コードを入力",
                                 saveText: "追加",
                                 inputPlaceholder: "コードを入力",
                                 validationFn: (shareCode) => {
@@ -1294,7 +1294,7 @@ type ContextMenuItemScope = {
                                         }
                                     });
                                 },
-                                validationText: "有効なエフェクト共有コードではありません。"
+                                validationText: "有効な演出共有コードではありません。"
 
                             },
                             async (shareCode) => {
